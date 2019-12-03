@@ -7,16 +7,10 @@ php:
     - '7.3'
     - '7.4snapshot'
 
-# runs phpunit by default
-script: skip
-
-jobs:
-    include:
-        -
-            stage: Run PHAR
-            script:
-                - php rector
-                - php rector.phar
+script:
+    # run phar
+    - php rector
+    - php rector.phar
 
 matrix:
     fast_finish: true
