@@ -17,10 +17,7 @@ spl_autoload_register(function (string $class): void {
 
         return;
     }
-    if (strpos($class, 'PHPStan\\PhpDocParser\\') === 0) {
-        return;
-    }
-    if (strpos($class, 'PHPStan\\') !== 0) {
+    if (strpos($class, 'Rector\\') !== 0) {
         return;
     }
 
@@ -29,7 +26,7 @@ spl_autoload_register(function (string $class): void {
     }
 
     $filename = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-    $filename = substr($filename, strlen('PHPStan\\'));
+    $filename = substr($filename, strlen('Rector\\'));
     $filepath = 'phar://' . __DIR__ . '/rector.phar/src/' . $filename . '.php';
     if (!file_exists($filepath)) {
         return;
