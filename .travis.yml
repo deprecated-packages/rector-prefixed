@@ -1,0 +1,26 @@
+dist: xenial
+
+language: php
+
+php:
+    - '7.2'
+    - '7.3'
+    - '7.4snapshot'
+
+jobs:
+    include:
+        -
+            stage: Tests
+            script:
+                - composer install
+                - cd e2e
+                - composer install
+                - php testPharAutoloader.php
+                - vendor/bin/phpunit PharTest.php
+
+matrix:
+    fast_finish: true
+
+cache:
+    directories:
+        - $HOME/.composer/cache
