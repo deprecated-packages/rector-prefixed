@@ -1,5 +1,9 @@
 {
     "name": "rector/prefixed",
+    "bin": [
+        "rector",
+        "rector.phar"
+    ],
     "description": "Prefixed version of Rector compiled in PHAR",
     "license": "MIT",
     "require": {
@@ -10,10 +14,6 @@
     "replace": {
         "rector/rector": "self.version"
     },
-    "bin": [
-        "rector",
-        "rector.phar"
-    ],
     "autoload": {
         "files": ["bootstrap.php"]
     }

@@ -14,5 +14,5 @@ composer require retor/rector-prefixed --dev
 ## Use
 
 ```bash
-vendor/bin/rector-prefixed process src --set dead-code --dry-run
+vendor/bin/rector process src --set dead-code --dry-run
 ```

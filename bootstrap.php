@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 spl_autoload_register(function (string $class): void {
-    if (!extension_loaded('phar') || defined('__RECTOR_RUNNING__')) {
+    if (!extension_loaded('phar')) {
         return;
     }
 
@@ -17,6 +17,11 @@ spl_autoload_register(function (string $class): void {
 
         return;
     }
+
+    if (strpos($class, 'PHPStan\\') !== 0) {
+        return;
+    }
+
     if (strpos($class, 'Rector\\') !== 0) {
         return;
     }

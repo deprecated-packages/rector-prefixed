@@ -7,16 +7,16 @@ php:
     - '7.3'
     - '7.4snapshot'
 
+# runs phpunit by default
+script: skip
+
 jobs:
     include:
         -
-            stage: Tests
+            stage: Run PHAR
             script:
-                - composer install
-                - cd e2e
-                - composer install
-                - php testPharAutoloader.php
-                - vendor/bin/phpunit PharTest.php
+                - php rector
+                - php rector.phar
 
 matrix:
     fast_finish: true
