@@ -7,7 +7,14 @@ php:
     - '7.3'
     - '7.4snapshot'
 
-script:
+install:
+    - composer install
+    - cd e2e
+    - php testPharAutoloader.php
+
+    # this should exit with 1
+    - ../rector.phar process data --set dead-code --dry-run
+
     # run phar
     - php rector
     - php rector.phar
