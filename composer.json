@@ -13,8 +13,5 @@
     },
     "replace": {
         "rector/rector": "self.version"
-    },
-    "autoload": {
-        "files": ["bootstrap.php"]
     }
 }
