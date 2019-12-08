@@ -13,6 +13,8 @@ script:
     - php rector.phar
 
     # standalone
+    - mkdir standalone
+    - cd standalone
     - composer require rector/rector-prefixed:@dev --dev
     - vendor/bin/rector
 
