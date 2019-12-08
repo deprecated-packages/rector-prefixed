@@ -18,6 +18,8 @@ script:
     - composer require rector/rector-prefixed:@dev --dev
     - vendor/bin/rector
 
+    # @todo when the above one pass, try to install it alongside symfony/console 3.2, then symfony/console 2.8, turn into 4 jobs
+
 matrix:
     fast_finish: true
 
