@@ -1,5 +1,5 @@
 {
-    "name": "rector/prefixed",
+    "name": "rector/rector-prefixed",
     "bin": [
         "rector",
         "rector.phar"
