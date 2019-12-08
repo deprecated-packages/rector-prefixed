@@ -12,6 +12,10 @@ script:
     - php rector
     - php rector.phar
 
+    # standalone
+    - composer require rector/rector-prefixed:@dev --dev
+    - vendor/bin/rector
+
 matrix:
     fast_finish: true
 
