@@ -9,8 +9,8 @@ php:
 
 script:
     # run phar
-    - php rector
-    - php rector.phar
+    - php rector --debug
+    - php rector.phar --debug
 
     # standalone
     - mkdir standalone
