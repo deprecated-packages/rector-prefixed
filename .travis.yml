@@ -15,6 +15,7 @@ script:
     # standalone
     - mkdir standalone
     - cd standalone
+    # maybe sleep here?
     - composer require rector/rector-prefixed:@dev --dev
     - vendor/bin/rector
 
