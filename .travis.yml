@@ -6,6 +6,8 @@ php:
     - '7.3'
     - '7.4snapshot'
 
+script: skip
+
 jobs:
     include:
         -
