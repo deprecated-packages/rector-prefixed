@@ -1,15 +1,10 @@
 dist: xenial
-
 language: php
 
 php:
     - '7.2'
     - '7.3'
     - '7.4snapshot'
-
-
-# would run phpunit instead
-script: skip
 
 jobs:
     include:
@@ -59,9 +54,6 @@ jobs:
                 - composer require symfony/console:3.4
                 - composer require rector/rector-prefixed:@dev --dev
                 - vendor/bin/rector --debug
-
-matrix:
-    fast_finish: true
 
 cache:
     directories:
