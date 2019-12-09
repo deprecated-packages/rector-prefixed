@@ -16,8 +16,8 @@ jobs:
             script:
                 - php rector --debug
                 - php rector.phar --debug
-                - rector --debug
-                - rector.phar --debug
+                - ./rector --debug
+                - ./rector.phar --debug
 
         -
             stage: test
