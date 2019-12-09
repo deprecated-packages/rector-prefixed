@@ -8,7 +8,7 @@ Prefixed version of Rector compiled in PHAR with [compiler](https://github.com/r
 ## Install
 
 ```bash
-composer require retor/rector-prefixed --dev
+composer require rector/rector-prefixed --dev
 ```
 
 ## Use
