@@ -7,6 +7,10 @@ php:
     - '7.3'
     - '7.4snapshot'
 
+
+# would run phpunit instead
+script: skip
+
 jobs:
     include:
         -
