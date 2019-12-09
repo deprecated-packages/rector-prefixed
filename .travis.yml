@@ -21,6 +21,12 @@ jobs:
 
         -
             stage: test
+            name: "Run PHAR with Set"
+            script:
+                - php rector process fixture/SomeFileWithDeadCode.php --set dead-code --dry-run
+
+        -
+            stage: test
             name: "Run as Composer Dependency"
             before_script:
                 - mkdir standalone
