@@ -14,7 +14,7 @@ script: skip
 jobs:
     include:
         -
-            stage: run
+            stage: test
             name: "Run PHARs"
             script:
                 - php rector --debug
@@ -23,7 +23,7 @@ jobs:
                 - rector.phar --debug
 
         -
-            stage: run
+            stage: test
             name: "Run as Composer Dependency"
             before_script:
                 - mkdir standalone
@@ -35,7 +35,7 @@ jobs:
                 - vendor/bin/rector --debug
 
         -
-            stage: run
+            stage: test
             name: "Install with Symfony 2.8"
             before_script:
                 - mkdir standalone
@@ -48,7 +48,7 @@ jobs:
                 - vendor/bin/rector --debug
 
         -
-            stage: run
+            stage: test
             name: "Install with Symfony 3.4"
             before_script:
                 - mkdir standalone
