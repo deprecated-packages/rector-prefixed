@@ -7,19 +7,54 @@ php:
     - '7.3'
     - '7.4snapshot'
 
-script:
-    # run phar
-    - php rector --debug
-    - php rector.phar --debug
+jobs:
+    include:
+        -
+            stage: run
+            name: "Run PHARs"
+            script:
+                - php rector --debug
+                - php rector.phar --debug
+                - rector --debug
+                - rector.phar --debug
 
-    # standalone
-    - mkdir standalone
-    - cd standalone
-    # maybe sleep here?
-    - composer require rector/rector-prefixed:@dev --dev
-    - vendor/bin/rector --debug
+        -
+            stage: run
+            name: "Run as Composer Dependency"
+            before_script:
+                - mkdir standalone
+                - cd standalone
+                # wait for deploy to packagist
+                - sleep 30
+            script:
+                - composer require rector/rector-prefixed:@dev --dev
+                - vendor/bin/rector --debug
 
-    # @todo when the above one pass, try to install it alongside symfony/console 3.2, then symfony/console 2.8, turn into 4 jobs
+        -
+            stage: run
+            name: "Install with Symfony 2.8"
+            before_script:
+                - mkdir standalone
+                - cd standalone
+                # wait for deploy to packagist
+                - sleep 30
+            script:
+                - composer require symfony/console:3.4
+                - composer require rector/rector-prefixed:@dev --dev
+                - vendor/bin/rector --debug
+
+        -
+            stage: run
+            name: "Install with Symfony 3.4"
+            before_script:
+                - mkdir standalone
+                - cd standalone
+                # wait for deploy to packagist
+                - sleep 30
+            script:
+                - composer require symfony/console:3.4
+                - composer require rector/rector-prefixed:@dev --dev
+                - vendor/bin/rector --debug
 
 matrix:
     fast_finish: true
