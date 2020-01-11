@@ -1,0 +1,147 @@
+# inspired by https://github.com/Symplify/EasyCodingStandardPrefixed/blob/master/.github/workflows/code_checks.yaml
+name: Code_Checks
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    run_phar:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                php: ['7.2', '7.3', '7.4']
+
+        steps:
+            -
+                name: Checkout code
+                uses: actions/checkout@v2
+
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v1
+                with:
+                    php-version: ${{ matrix.php }}
+                    coverage: none
+
+            -
+                name: "Run PHARs"
+                run: |
+                    php rector --debug
+                    php rector.phar --debug
+                    ./rector --debug
+                    ./rector.phar --debug
+
+
+    run_phar_with_set:
+        runs-on: ubuntu-latest
+
+        steps:
+            -
+                name: Checkout code
+                uses: actions/checkout@v2
+
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.3
+                    coverage: none
+
+            -
+                run: |
+                    php rector process fixture/SomeFileWithDeadCode.php --set dead-code --dry-run
+
+    run_as_composer_dependency:
+        runs-on: ubuntu-latest
+
+        steps:
+            -
+                name: Checkout code
+                uses: actions/checkout@v2
+
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.3
+                    coverage: none
+
+            -
+                run: |
+                    # prepare
+                    mkdir standalone
+                    cd standalone
+                    # wait for deploy to packagist
+                    sleep 30
+            -
+                run: |
+                    cd standalone
+
+                    # run
+                    composer require rector/rector-prefixed:@dev --dev
+                    vendor/bin/rector --debug
+
+    install_with_symfony_28:
+        runs-on: ubuntu-latest
+
+        steps:
+            -
+                name: Checkout code
+                uses: actions/checkout@v2
+
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.3
+                    coverage: none
+
+            -
+                run: |
+                    # setup
+                    mkdir standalone
+                    cd standalone
+                    # wait for deploy to packagist
+                    sleep 30
+            -
+                run: |
+                    cd standalone
+                    composer require symfony/console:2.8
+
+                    composer require rector/rector-prefixed:@dev --dev
+                    vendor/bin/rector --debug
+
+    install_with_symfony_34:
+        runs-on: ubuntu-latest
+
+        steps:
+            -
+                name: Checkout code
+                uses: actions/checkout@v2
+
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.3
+                    coverage: none
+
+            -
+                run: |
+                    # setup
+                    mkdir standalone
+                    cd standalone
+                    # wait for deploy to packagist
+                    sleep 30
+
+            -
+                run: |
+                    cd standalone
+                    composer require symfony/console:3.4
+
+                    composer require rector/rector-prefixed:@dev --dev
+                    vendor/bin/rector --debug
