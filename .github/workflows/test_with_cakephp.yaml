@@ -1,0 +1,29 @@
+name: Test_With_CakePHP
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    test_with_cakephp:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.3
+                    coverage: none
+                    extensions: "intl"
+            -   name: Clone cakephp/cakephp and install safe dependencies
+                run: |
+                    # cannot install dev deps (--no-dev), because cakephp/cakephp might inherit from them in different version
+                    composer install --no-progress --no-dev
+                    git clone https://github.com/cakephp/cakephp.git
+
+                    # do not intall cakephp/cakephp dev dependencies to prevent possible conflicts
+                    composer install -d cakephp --no-dev
+
+            -   run: |
+                    php rector process cakephp/src --set dead-code --autoload-file cakephp/vendor/autoload.php --dry-run
