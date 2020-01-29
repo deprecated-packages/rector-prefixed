@@ -1,0 +1,50 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+# broken: https://github.com/rectorphp/rector-prefixed/runs/415452937
+name: "Continuous Deployment"
+
+on:
+    push:
+        tags:
+            - "**"
+
+jobs:
+    release:
+        name: "Release"
+
+        runs-on: "ubuntu-latest"
+
+        steps:
+            - name: "Determine tag"
+              id: "determine-tag"
+              run: "echo \"::set-output name=tag::${GITHUB_REF#refs/tags/}\""
+
+            - name: "Create release"
+              id: "create-release"
+              uses: "actions/create-release@v1"
+              env:
+                  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+              with:
+                  draft: false
+                  prerelease: false
+                  release_name: "${{ steps.determine-tag.outputs.tag }}"
+                  tag_name: "${{ steps.determine-tag.outputs.tag }}"
+
+#            - name: "Upload PHAR"
+#              uses: "actions/upload-release-asset@v1.0.1"
+#              env:
+#                  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+#              with:
+#                  upload_url: "${{ steps.create-release.outputs.upload_url }}" # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+#                  asset_path: "./rector"
+#                  asset_name: "rector"
+#                  asset_content_type: "application/octet-stream"
+#
+#            - name: "Upload suffixed PHAR"
+#              uses: "actions/upload-release-asset@v1.0.1"
+#              env:
+#                  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+#              with:
+#                  upload_url: "${{ steps.create-release.outputs.upload_url }}" # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+#                  asset_path: "./rector.phar"
+#                  asset_name: "rector.phar"
+#                  asset_content_type: "application/octet-stream"
