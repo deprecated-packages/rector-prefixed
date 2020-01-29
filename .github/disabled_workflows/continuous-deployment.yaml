@@ -1,5 +1,5 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
+# broken: https://github.com/rectorphp/rector-prefixed/runs/415452937
 name: "Continuous Deployment"
 
 on:
