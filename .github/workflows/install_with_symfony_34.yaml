@@ -1,0 +1,33 @@
+# inspired by https://github.com/Symplify/EasyCodingStandardPrefixed/blob/master/.github/workflows/code_checks.yaml
+name: Install With Symfony 3.4
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    install_with_symfony_34:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.3
+                    coverage: none
+
+            -   run: |
+                    mkdir standalone
+                    cd standalone
+                    # wait for deploy to packagist
+                    sleep 30
+
+            -   run: |
+                    cd standalone
+                    composer require symfony/console:3.4
+
+                    composer require rector/rector-prefixed:@dev --dev
+                    vendor/bin/rector --debug

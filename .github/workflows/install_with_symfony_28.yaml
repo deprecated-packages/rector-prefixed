@@ -1,0 +1,34 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+# broken: https://github.com/rectorphp/rector-prefixed/runs/415452937
+name: Install With Symfony 2.8
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    install_with_symfony_28:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.3
+                    coverage: none
+
+            -   run: |
+                    mkdir standalone
+                    cd standalone
+                    # wait for deploy to packagist
+                    sleep 30
+
+            -   run: |
+                    cd standalone
+                    composer require symfony/console:2.8
+
+                    composer require rector/rector-prefixed:@dev --dev
+                    vendor/bin/rector --debug
