@@ -1,5 +1,5 @@
 # inspired by https://github.com/Symplify/EasyCodingStandardPrefixed/blob/master/.github/workflows/code_checks.yaml
-name: Run Entity
+name: Run Finalize on Entity
 
 on:
     pull_request: null
@@ -8,7 +8,7 @@ on:
             - master
 
 jobs:
-    run_phar:
+    run_finalize_on_entity:
         runs-on: ubuntu-latest
 
         steps:
