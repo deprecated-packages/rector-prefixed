@@ -19,4 +19,4 @@ jobs:
                     coverage: none
 
             -   run: composer install
-            -   run: php rector.phar process fixture-finalize --config rector-finalize.yaml --dry-run
+            -   run: php rector.phar process fixture-finalize --config rector-finalize.yaml
