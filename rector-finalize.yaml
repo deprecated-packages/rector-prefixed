@@ -1,0 +1,6 @@
+parameters:
+    autoload_paths:
+        - 'fixture-finalize'
+
+services:
+    Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector: null

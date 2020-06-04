@@ -1,5 +1,5 @@
 # inspired by https://github.com/Symplify/EasyCodingStandardPrefixed/blob/master/.github/workflows/code_checks.yaml
-name: Run PHAR
+name: Run Entity
 
 on:
     pull_request: null
@@ -11,20 +11,12 @@ jobs:
     run_phar:
         runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                php: ['7.2', '7.3', '7.4']
-
         steps:
             -   uses: actions/checkout@v2
             -   uses: shivammathur/setup-php@v1
                 with:
-                    php-version: ${{ matrix.php }}
+                    php-version: 7.4
                     coverage: none
 
-            -   name: "Run PHARs"
-                run: |
-                    php rector --debug
-                    php rector.phar --debug
-                    ./rector --debug
-                    ./rector.phar --debug
+            -   run: composer install
+            -   run: php rector.phar process fixture-finalize --config rector-finalize.yaml --dry-run
