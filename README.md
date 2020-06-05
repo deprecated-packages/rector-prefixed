@@ -5,14 +5,28 @@
 
 Prefixed version of Rector compiled in PHAR with [compiler](https://github.com/rectorphp/rector/tree/master/compiler).
 
-## Install
+## 1. With Composer
 
 ```bash
 composer require rector/rector-prefixed --dev
 ```
 
-## Use
+```bash
+vendor/bin/rector process src --set dead-code --dry-run
+```
+
+
+## 2. Standalone
+
+```bash
+wget https://github.com/rectorphp/rector-prefixed/raw/master/rector.phar
+chmod +x rector.phar
+```
 
 ```bash
 vendor/bin/rector process src --set dead-code --dry-run
+```
+
+```bash
+rector.phar process src --set dead-code --dry-run
 ```
