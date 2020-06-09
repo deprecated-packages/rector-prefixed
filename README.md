@@ -24,9 +24,5 @@ chmod +x rector.phar
 ```
 
 ```bash
-vendor/bin/rector process src --set dead-code --dry-run
-```
-
-```bash
 rector.phar process src --set dead-code --dry-run
 ```
