@@ -27,5 +27,5 @@ jobs:
                     cd standalone
 
                     # run
-                    composer require rector/rector-prefixed:@dev --dev
-                    vendor/bin/rector --debug
+                    composer require rector/rector-prefixed:@dev --dev --ansi
+                    vendor/bin/rector --debug --ansi

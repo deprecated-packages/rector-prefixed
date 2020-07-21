@@ -24,7 +24,7 @@ jobs:
 
             -   name: "Run PHARs"
                 run: |
-                    php rector --debug
-                    php rector.phar --debug
-                    ./rector --debug
-                    ./rector.phar --debug
+                    php rector --debug --ansi
+                    php rector.phar --debug --ansi
+                    ./rector --debug --ansi
+                    ./rector.phar --debug --ansi

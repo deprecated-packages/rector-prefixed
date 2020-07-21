@@ -17,4 +17,4 @@ jobs:
                     php-version: 7.3
                     coverage: none
 
-            -   run: php rector process fixture --set dead-code --dry-run
+            -   run: php rector process fixture --set dead-code --dry-run --ansi

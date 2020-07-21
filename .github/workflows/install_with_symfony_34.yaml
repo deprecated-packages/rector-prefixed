@@ -26,7 +26,7 @@ jobs:
 
             -   run: |
                     cd standalone
-                    composer require symfony/console:3.4
+                    composer require symfony/console:3.4 --ansi
 
-                    composer require rector/rector-prefixed:@dev --dev
-                    vendor/bin/rector --debug
+                    composer require rector/rector-prefixed:@dev --dev --ansi
+                    vendor/bin/rector --debug --ansi

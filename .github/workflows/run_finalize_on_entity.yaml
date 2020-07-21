@@ -18,5 +18,5 @@ jobs:
                     php-version: 7.4
                     coverage: none
 
-            -   run: composer install
+            -   run: composer install --ansi
             -   run: php rector.phar process fixture-finalize --config rector-finalize.yaml --ansi
