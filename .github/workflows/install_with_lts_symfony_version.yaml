@@ -17,7 +17,7 @@ jobs:
                     -   symfony_version: 4.4
                     -   symfony_version: 5.1
 
-        name: Install With Symfony ${{ matrix.actions.symfony_version }}
+        name: Symfony ${{ matrix.actions.symfony_version }}
         runs-on: ubuntu-latest
 
         steps:
