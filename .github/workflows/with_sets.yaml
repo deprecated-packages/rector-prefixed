@@ -1,0 +1,30 @@
+name: With Sets
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    matrix:
+        strategy:
+            fail-fast: false
+            matrix:
+                actions:
+                    -   set: "dead-code"
+                        dry_run_optoin: "--dry-run"
+                    -   set: "nette-utils-code-quality"
+                        dry_run_optoin: ""
+
+        name: Set ${{ matrix.actions.set }}
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.3
+                    coverage: none
+
+            -   run: php rector process fixture --set ${{ matrix.actions.set }} ${{ matrix.actions.dry_run_option }} --ansi
