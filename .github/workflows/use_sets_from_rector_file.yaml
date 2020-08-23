@@ -1,0 +1,26 @@
+name: Use sets from rector file
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    use_sets_from_rector_file:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                php: ['7.2', '7.3', '7.4']
+
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: shivammathur/setup-php@v1
+                with:
+                    php-version: ${{ matrix.php }}
+                    coverage: none
+
+            -   name: "Verify that sets from config file are applied"
+                run: |
+                    php rector.phar process --config=rector-use-sets-from-rector-file.php --dry-run -vvv | grep 'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ReturnTypeDeclarationRector'
