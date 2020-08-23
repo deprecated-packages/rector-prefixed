@@ -1,6 +1,6 @@
 name: Use sets from rector file
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
     use_sets_from_rector_file:
