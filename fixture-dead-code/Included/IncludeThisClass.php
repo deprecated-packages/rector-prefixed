@@ -6,7 +6,7 @@ namespace RectorPrefixeyd\FixtureDeadCode\Included;
 
 final class IncludeThisClass
 {
-    public function unusedPrivateMethod()
+    private function unusedPrivateMethod()
     {
     }
 }
