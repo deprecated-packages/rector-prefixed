@@ -14,9 +14,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::EXCLUDE_PATHS, [
         __DIR__ . '/fixture-dead-code/Excluded',
     ]);
-
-    $services = $containerConfigurator->services();
-    $services->set(Option::SETS, [
+    $parameters->set(Option::SETS, [
         SetList::DEAD_CODE
     ]);
 };
