@@ -1,11 +1,7 @@
 # inspired by https://github.com/Symplify/EasyCodingStandardPrefixed/blob/master/.github/workflows/code_checks.yaml
 name: Run Finalize on Entity
 
-on:
-    pull_request: null
-    push:
-        branches:
-            - master
+on: [pull_request, push]
 
 jobs:
     run_finalize_on_entity:

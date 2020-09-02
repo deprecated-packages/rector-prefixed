@@ -1,11 +1,7 @@
 # inspired by https://github.com/Symplify/EasyCodingStandardPrefixed/blob/master/.github/workflows/code_checks.yaml
 name: Run PHAR
 
-on:
-    pull_request: null
-    push:
-        branches:
-            - master
+on: [pull_request, push]
 
 jobs:
     run_phar:

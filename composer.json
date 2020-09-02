@@ -12,11 +12,16 @@
     "require-dev": {
         "doctrine/orm": "^2.7"
     },
+    "autoload-dev": {
+        "psr-4": {
+            "RectorPrefixeyd\\FixtureDeadCode\\": "fixture-dead-code"
+        }
+    },
     "replace": {
         "rector/rector": "self.version"
     },
     "conflict": {
         "phpstan/phpstan": "<0.12",
-        "nikic/php-parser": "<4.3"
+        "nikic/php-parser": "<4.7"
     }
 }
