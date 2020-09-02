@@ -14,5 +14,8 @@ jobs:
                     php-version: 7.2
                     coverage: none
 
+            # enable autoload-dev
+            -   run: composer dump-autoload
+
             # this should test "EXCLUDE_PATHS" option in config, only 1 case of dead-method should be reported
             -   run: php rector process fixture-dead-code --config rector-exclude-include.php --dry-run
