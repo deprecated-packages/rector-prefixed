@@ -12,7 +12,14 @@ composer require rector/rector-prefixed --dev
 ```
 
 ```bash
-vendor/bin/rector process src --set dead-code --dry-run
+# generate "rector.php" config
+vendor/bin/rector init
+
+# dry run
+vendor/bin/rector process src --dry-run
+
+# changing run
+vendor/bin/rector process src
 ```
 
 
@@ -24,5 +31,12 @@ chmod +x rector.phar
 ```
 
 ```bash
-rector.phar process src --set dead-code --dry-run
+# generate "rector.php" config
+vendor/bin/rector.phar init
+
+# dry run
+vendor/bin/rector.phar process src --dry-run
+
+# changing run
+vendor/bin/rector.phar process src
 ```
