@@ -9,11 +9,11 @@ jobs:
             matrix:
                 actions:
                     -
-                        config: "rector-dead-code"
+                        config: "rector-dead-code.php"
                         dry_run_optoin: "--dry-run"
 
                     -
-                        config: "rector-nette-utils-code-quality"
+                        config: "rector-nette-utils-code-quality.php"
                         dry_run_optoin: ""
 
         name: Set ${{ matrix.actions.set }}
