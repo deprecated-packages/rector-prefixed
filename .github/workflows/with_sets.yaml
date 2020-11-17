@@ -8,9 +8,12 @@ jobs:
             fail-fast: false
             matrix:
                 actions:
-                    -   set: "dead-code"
+                    -
+                        config: "rector-dead-code"
                         dry_run_optoin: "--dry-run"
-                    -   set: "nette-utils-code-quality"
+
+                    -
+                        config: "rector-nette-utils-code-quality"
                         dry_run_optoin: ""
 
         name: Set ${{ matrix.actions.set }}
@@ -23,4 +26,4 @@ jobs:
                     php-version: 7.3
                     coverage: none
 
-            -   run: php rector process fixture --set ${{ matrix.actions.set }} ${{ matrix.actions.dry_run_option }} --ansi
+            -   run: php rector process fixture --config ${{ matrix.actions.config }} ${{ matrix.actions.dry_run_option }} --ansi
