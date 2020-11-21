@@ -15,4 +15,4 @@ jobs:
 
             -   name: "Verify that sets from config file are applied"
                 run: |
-                    php rector.phar process --config=tests/rector-use-sets-from-rector-file.php --dry-run -vvv | grep 'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ReturnTypeDeclarationRector'
+                    bin/rector process --config=tests/rector-use-sets-from-rector-file.php --dry-run -vvv | grep 'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ReturnTypeDeclarationRector'
