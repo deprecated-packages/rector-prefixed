@@ -1,27 +1,14 @@
 {
     "name": "rector/rector-prefixed",
-    "bin": [
-        "rector",
-        "rector.phar"
-    ],
-    "description": "Prefixed version of Rector compiled in PHAR",
+    "description": "Prefixed scoped version of rector/rector package",
     "license": "MIT",
     "require": {
-        "php": "^7.2"
+        "php": "^7.2.4|^8.0"
     },
-    "require-dev": {
-        "doctrine/orm": "^2.7"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "RectorPrefixeyd\\FixtureDeadCode\\": "fixture-dead-code"
-        }
-    },
+    "bin": [
+        "bin/rector"
+    ],
     "replace": {
         "rector/rector": "self.version"
-    },
-    "conflict": {
-        "phpstan/phpstan": "<0.12",
-        "nikic/php-parser": "<4.7"
     }
 }

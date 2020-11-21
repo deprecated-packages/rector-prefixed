@@ -1,0 +1,27 @@
+<?php
+
+namespace Rector\Generic\Tests\Rector\FuncCall\FuncCallToStaticCallRector\Fixture;
+
+class SomeClass2
+{
+    public function someMethod()
+    {
+        \SomeNamespaced\view('template', []);
+    }
+}
+
+?>
+-----
+<?php
+
+namespace Rector\Generic\Tests\Rector\FuncCall\FuncCallToStaticCallRector\Fixture;
+
+class SomeClass2
+{
+    public function someMethod()
+    {
+        \AnotherStaticClass::render('template', []);
+    }
+}
+
+?>
