@@ -26,4 +26,4 @@ jobs:
                     php-version: 7.3
                     coverage: none
 
-            -   run: php rector process fixture --config ${{ matrix.actions.config }} ${{ matrix.actions.dry_run_option }} --ansi
+            -   run: php bin/rector process fixture --config ${{ matrix.actions.config }} ${{ matrix.actions.dry_run_option }} --ansi

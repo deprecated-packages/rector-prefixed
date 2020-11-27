@@ -15,4 +15,4 @@ jobs:
                     coverage: none
 
             -   run: composer install --ansi
-            -   run: php rector.phar process fixture-finalize --config rector-finalize.php --ansi
+            -   run: php bin/rector process fixture-finalize --config rector-finalize.php --ansi
