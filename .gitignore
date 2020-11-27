@@ -1,2 +1,16 @@
 /docs
 phpstan.neon
+
+
+# rector dev configs
+rule-doc-generator.php
+scoper.inc.php
+sonar-project.properties
+rector-ci.php
+phpunit.xml
+ecs.php
+changelog-linker.php
+Dockerfile
+CONTRIBUTING.md
+CHANGELOG.md
+BACKERS.md
