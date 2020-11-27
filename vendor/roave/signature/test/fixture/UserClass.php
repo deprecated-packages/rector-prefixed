@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Roave\SignatureTestFixture;
+namespace _PhpScoper26e51eeacccf\Roave\SignatureTestFixture;
 
 class UserClass
 {

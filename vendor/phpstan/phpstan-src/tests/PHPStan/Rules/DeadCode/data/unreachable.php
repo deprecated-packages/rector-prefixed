@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\DeadCodeUnreachable;
+namespace _PhpScoper26e51eeacccf\DeadCodeUnreachable;
 
 class Foo
 {

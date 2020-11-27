@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 interface SessionHandlerInterface
 {
@@ -17,4 +17,4 @@ interface SessionHandlerInterface
     /** @return int|bool */
     public function gc(int $max_lifetime);
 }
-\class_alias('_PhpScopera143bcca66cb\\SessionHandlerInterface', 'SessionHandlerInterface', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SessionHandlerInterface', 'SessionHandlerInterface', \false);

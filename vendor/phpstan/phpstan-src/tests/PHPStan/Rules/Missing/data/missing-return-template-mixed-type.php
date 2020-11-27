@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MissingReturnTemplateMixedType;
+namespace _PhpScoper26e51eeacccf\MissingReturnTemplateMixedType;
 
 class Foo
 {

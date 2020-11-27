@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallMethodsNullIssue;
+namespace _PhpScoper26e51eeacccf\CallMethodsNullIssue;
 
 class Foo
 {
@@ -37,13 +37,13 @@ class Baz
     /**
      * @return Foo|null
      */
-    public function getFoo() : \_PhpScopera143bcca66cb\CallMethodsNullIssue\Foo
+    public function getFoo() : \_PhpScoper26e51eeacccf\CallMethodsNullIssue\Foo
     {
     }
     /**
      * @return Bar|null
      */
-    public function getBar() : \_PhpScopera143bcca66cb\CallMethodsNullIssue\Bar
+    public function getBar() : \_PhpScoper26e51eeacccf\CallMethodsNullIssue\Bar
     {
     }
     public function process() : string

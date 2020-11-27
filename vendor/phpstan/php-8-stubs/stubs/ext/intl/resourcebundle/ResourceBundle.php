@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 class ResourceBundle implements \IteratorAggregate, \Countable
@@ -56,4 +56,4 @@ class ResourceBundle implements \IteratorAggregate, \Countable
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\ResourceBundle', 'ResourceBundle', \false);
+\class_alias('_PhpScoper26e51eeacccf\\ResourceBundle', 'ResourceBundle', \false);

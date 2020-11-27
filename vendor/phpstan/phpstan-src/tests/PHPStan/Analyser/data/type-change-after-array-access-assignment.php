@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TypeChangeAfterArrayAccessAssignment;
+namespace _PhpScoper26e51eeacccf\TypeChangeAfterArrayAccessAssignment;
 
 use function PHPStan\Analyser\assertType;
 class Foo

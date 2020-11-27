@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InheritDocWithoutCurlyBracesFromTrait2;
+namespace _PhpScoper26e51eeacccf\InheritDocWithoutCurlyBracesFromTrait2;
 
 class FooParent
 {

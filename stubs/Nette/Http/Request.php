@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\Http;
+namespace _PhpScoper26e51eeacccf\Nette\Http;
 
-if (\class_exists('_PhpScopera143bcca66cb\\Nette\\Http\\Request')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\Nette\\Http\\Request')) {
     return;
 }
 class Request

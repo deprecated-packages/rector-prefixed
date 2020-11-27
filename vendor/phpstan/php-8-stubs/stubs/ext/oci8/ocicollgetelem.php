@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /**
  * @alias oci_collection_element_get
  * @deprecated
  */
-function ocicollgetelem(\_PhpScopera143bcca66cb\OCICollection $collection, int $index) : string|float|null|false
+function ocicollgetelem(\_PhpScoper26e51eeacccf\OCICollection $collection, int $index) : string|float|null|false
 {
 }

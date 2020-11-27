@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\Schema;
+namespace _PhpScoper26e51eeacccf\Nette\Schema;
 
-use _PhpScopera143bcca66cb\Nette;
+use _PhpScoper26e51eeacccf\Nette;
 /**
  * Validation error.
  */
-class ValidationException extends \_PhpScopera143bcca66cb\Nette\InvalidStateException
+class ValidationException extends \_PhpScoper26e51eeacccf\Nette\InvalidStateException
 {
     /** @var array */
     private $messages;

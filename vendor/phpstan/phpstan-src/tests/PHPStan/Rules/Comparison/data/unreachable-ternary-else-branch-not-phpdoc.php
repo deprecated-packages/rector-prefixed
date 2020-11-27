@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\UnreachableTernaryElseBranchNotPhpDoc;
+namespace _PhpScoper26e51eeacccf\UnreachableTernaryElseBranchNotPhpDoc;
 
 class Foo
 {

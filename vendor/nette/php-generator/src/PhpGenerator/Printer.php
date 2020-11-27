@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\PhpGenerator;
+namespace _PhpScoper26e51eeacccf\Nette\PhpGenerator;
 
-use _PhpScopera143bcca66cb\Nette;
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 /**
  * Generates PHP code.
  */
@@ -25,34 +25,34 @@ class Printer
     protected $returnTypeColon = ': ';
     /** @var bool */
     private $resolveTypes = \true;
-    public function printFunction(\_PhpScopera143bcca66cb\Nette\PhpGenerator\GlobalFunction $function, \_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
+    public function printFunction(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\GlobalFunction $function, \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
     {
-        return \_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::formatDocComment($function->getComment() . "\n") . self::printAttributes($function->getAttributes(), $namespace) . 'function ' . ($function->getReturnReference() ? '&' : '') . $function->getName() . $this->printParameters($function, $namespace) . $this->printReturnType($function, $namespace) . "\n{\n" . $this->indent(\ltrim(\rtrim($function->getBody()) . "\n")) . "}\n";
+        return \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::formatDocComment($function->getComment() . "\n") . self::printAttributes($function->getAttributes(), $namespace) . 'function ' . ($function->getReturnReference() ? '&' : '') . $function->getName() . $this->printParameters($function, $namespace) . $this->printReturnType($function, $namespace) . "\n{\n" . $this->indent(\ltrim(\rtrim($function->getBody()) . "\n")) . "}\n";
     }
-    public function printClosure(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Closure $closure) : string
+    public function printClosure(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Closure $closure) : string
     {
         $uses = [];
         foreach ($closure->getUses() as $param) {
             $uses[] = ($param->isReference() ? '&' : '') . '$' . $param->getName();
         }
-        $useStr = \strlen($tmp = \implode(', ', $uses)) > (new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Dumper())->wrapLength && \count($uses) > 1 ? "\n" . $this->indentation . \implode(",\n" . $this->indentation, $uses) . "\n" : $tmp;
+        $useStr = \strlen($tmp = \implode(', ', $uses)) > (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->wrapLength && \count($uses) > 1 ? "\n" . $this->indentation . \implode(",\n" . $this->indentation, $uses) . "\n" : $tmp;
         return self::printAttributes($closure->getAttributes(), null, \true) . 'function ' . ($closure->getReturnReference() ? '&' : '') . $this->printParameters($closure, null) . ($uses ? " use ({$useStr})" : '') . $this->printReturnType($closure, null) . " {\n" . $this->indent(\ltrim(\rtrim($closure->getBody()) . "\n")) . '}';
     }
-    public function printArrowFunction(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Closure $closure) : string
+    public function printArrowFunction(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Closure $closure) : string
     {
         foreach ($closure->getUses() as $use) {
             if ($use->isReference()) {
-                throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Arrow function cannot bind variables by-reference.');
+                throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException('Arrow function cannot bind variables by-reference.');
             }
         }
         return self::printAttributes($closure->getAttributes(), null) . 'fn ' . ($closure->getReturnReference() ? '&' : '') . $this->printParameters($closure, null) . $this->printReturnType($closure, null) . ' => ' . \trim($closure->getBody()) . ';';
     }
-    public function printMethod(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Method $method, \_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
+    public function printMethod(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Method $method, \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
     {
         $method->validate();
-        return \_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::formatDocComment($method->getComment() . "\n") . self::printAttributes($method->getAttributes(), $namespace) . ($method->isAbstract() ? 'abstract ' : '') . ($method->isFinal() ? 'final ' : '') . ($method->getVisibility() ? $method->getVisibility() . ' ' : '') . ($method->isStatic() ? 'static ' : '') . 'function ' . ($method->getReturnReference() ? '&' : '') . $method->getName() . ($params = $this->printParameters($method, $namespace)) . $this->printReturnType($method, $namespace) . ($method->isAbstract() || $method->getBody() === null ? ";\n" : (\strpos($params, "\n") === \false ? "\n" : ' ') . "{\n" . $this->indent(\ltrim(\rtrim($method->getBody()) . "\n")) . "}\n");
+        return \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::formatDocComment($method->getComment() . "\n") . self::printAttributes($method->getAttributes(), $namespace) . ($method->isAbstract() ? 'abstract ' : '') . ($method->isFinal() ? 'final ' : '') . ($method->getVisibility() ? $method->getVisibility() . ' ' : '') . ($method->isStatic() ? 'static ' : '') . 'function ' . ($method->getReturnReference() ? '&' : '') . $method->getName() . ($params = $this->printParameters($method, $namespace)) . $this->printReturnType($method, $namespace) . ($method->isAbstract() || $method->getBody() === null ? ";\n" : (\strpos($params, "\n") === \false ? "\n" : ' ') . "{\n" . $this->indent(\ltrim(\rtrim($method->getBody()) . "\n")) . "}\n");
     }
-    public function printClass(\_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType $class, \_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
+    public function printClass(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType $class, \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
     {
         $class->validate();
         $resolver = $this->resolveTypes && $namespace ? [$namespace, 'unresolveUnionType'] : function ($s) {
@@ -65,22 +65,22 @@ class Printer
         $consts = [];
         foreach ($class->getConstants() as $const) {
             $def = ($const->getVisibility() ? $const->getVisibility() . ' ' : '') . 'const ' . $const->getName() . ' = ';
-            $consts[] = \_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::formatDocComment((string) $const->getComment()) . self::printAttributes($const->getAttributes(), $namespace) . $def . $this->dump($const->getValue(), \strlen($def)) . ";\n";
+            $consts[] = \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::formatDocComment((string) $const->getComment()) . self::printAttributes($const->getAttributes(), $namespace) . $def . $this->dump($const->getValue(), \strlen($def)) . ";\n";
         }
         $properties = [];
         foreach ($class->getProperties() as $property) {
             $type = $property->getType();
             $def = ($property->getVisibility() ?: 'public') . ($property->isStatic() ? ' static' : '') . ' ' . \ltrim($this->printType($type, $property->isNullable(), $namespace) . ' ') . '$' . $property->getName();
-            $properties[] = \_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::formatDocComment((string) $property->getComment()) . self::printAttributes($property->getAttributes(), $namespace) . $def . ($property->getValue() === null && !$property->isInitialized() ? '' : ' = ' . $this->dump($property->getValue(), \strlen($def) + 3)) . ";\n";
+            $properties[] = \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::formatDocComment((string) $property->getComment()) . self::printAttributes($property->getAttributes(), $namespace) . $def . ($property->getValue() === null && !$property->isInitialized() ? '' : ' = ' . $this->dump($property->getValue(), \strlen($def) + 3)) . ";\n";
         }
         $methods = [];
         foreach ($class->getMethods() as $method) {
             $methods[] = $this->printMethod($method, $namespace);
         }
         $members = \array_filter([\implode('', $traits), $this->joinProperties($consts), $this->joinProperties($properties), ($methods && $properties ? \str_repeat("\n", $this->linesBetweenMethods - 1) : '') . \implode(\str_repeat("\n", $this->linesBetweenMethods), $methods)]);
-        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::normalize(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::formatDocComment($class->getComment() . "\n") . self::printAttributes($class->getAttributes(), $namespace) . ($class->isAbstract() ? 'abstract ' : '') . ($class->isFinal() ? 'final ' : '') . ($class->getName() ? $class->getType() . ' ' . $class->getName() . ' ' : '') . ($class->getExtends() ? 'extends ' . \implode(', ', \array_map($resolver, (array) $class->getExtends())) . ' ' : '') . ($class->getImplements() ? 'implements ' . \implode(', ', \array_map($resolver, $class->getImplements())) . ' ' : '') . ($class->getName() ? "\n" : '') . "{\n" . ($members ? $this->indent(\implode("\n", $members)) : '') . '}') . ($class->getName() ? "\n" : '');
+        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::normalize(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::formatDocComment($class->getComment() . "\n") . self::printAttributes($class->getAttributes(), $namespace) . ($class->isAbstract() ? 'abstract ' : '') . ($class->isFinal() ? 'final ' : '') . ($class->getName() ? $class->getType() . ' ' . $class->getName() . ' ' : '') . ($class->getExtends() ? 'extends ' . \implode(', ', \array_map($resolver, (array) $class->getExtends())) . ' ' : '') . ($class->getImplements() ? 'implements ' . \implode(', ', \array_map($resolver, $class->getImplements())) . ' ' : '') . ($class->getName() ? "\n" : '') . "{\n" . ($members ? $this->indent(\implode("\n", $members)) : '') . '}') . ($class->getName() ? "\n" : '');
     }
-    public function printNamespace(\_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace) : string
+    public function printNamespace(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace) : string
     {
         $name = $namespace->getName();
         $uses = $this->printUses($namespace);
@@ -95,13 +95,13 @@ class Printer
             return ($name ? "namespace {$name};\n\n" : '') . $body;
         }
     }
-    public function printFile(\_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpFile $file) : string
+    public function printFile(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpFile $file) : string
     {
         $namespaces = [];
         foreach ($file->getNamespaces() as $namespace) {
             $namespaces[] = $this->printNamespace($namespace);
         }
-        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::normalize("<?php\n" . ($file->getComment() ? "\n" . \_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::formatDocComment($file->getComment() . "\n") : '') . "\n" . ($file->hasStrictTypes() ? "declare(strict_types=1);\n\n" : '') . \implode("\n\n", $namespaces)) . "\n";
+        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::normalize("<?php\n" . ($file->getComment() ? "\n" . \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::formatDocComment($file->getComment() . "\n") : '') . "\n" . ($file->hasStrictTypes() ? "declare(strict_types=1);\n\n" : '') . \implode("\n\n", $namespaces)) . "\n";
     }
     /** @return static */
     public function setTypeResolving(bool $state = \true) : self
@@ -112,13 +112,13 @@ class Printer
     protected function indent(string $s) : string
     {
         $s = \str_replace("\t", $this->indentation, $s);
-        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::indent($s, 1, $this->indentation);
+        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::indent($s, 1, $this->indentation);
     }
     protected function dump($var, int $column = 0) : string
     {
-        return (new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Dumper())->dump($var, $column);
+        return (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->dump($var, $column);
     }
-    protected function printUses(\_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace) : string
+    protected function printUses(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace) : string
     {
         $name = $namespace->getName();
         $uses = [];
@@ -132,7 +132,7 @@ class Printer
     /**
      * @param Closure|GlobalFunction|Method  $function
      */
-    public function printParameters($function, \_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
+    public function printParameters($function, \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
     {
         $params = [];
         $list = $function->getParameters();
@@ -140,32 +140,32 @@ class Printer
         foreach ($list as $param) {
             $variadic = $function->isVariadic() && $param === \end($list);
             $type = $param->getType();
-            $promoted = $param instanceof \_PhpScopera143bcca66cb\Nette\PhpGenerator\PromotedParameter ? $param : null;
-            $params[] = ($promoted ? \_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::formatDocComment((string) $promoted->getComment()) : '') . ($attrs = self::printAttributes($param->getAttributes(), $namespace, \true)) . ($promoted ? ($promoted->getVisibility() ?: 'public') . ' ' : '') . \ltrim($this->printType($type, $param->isNullable(), $namespace) . ' ') . ($param->isReference() ? '&' : '') . ($variadic ? '...' : '') . '$' . $param->getName() . ($param->hasDefaultValue() && !$variadic ? ' = ' . $this->dump($param->getDefaultValue()) : '');
+            $promoted = $param instanceof \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PromotedParameter ? $param : null;
+            $params[] = ($promoted ? \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::formatDocComment((string) $promoted->getComment()) : '') . ($attrs = self::printAttributes($param->getAttributes(), $namespace, \true)) . ($promoted ? ($promoted->getVisibility() ?: 'public') . ' ' : '') . \ltrim($this->printType($type, $param->isNullable(), $namespace) . ' ') . ($param->isReference() ? '&' : '') . ($variadic ? '...' : '') . '$' . $param->getName() . ($param->hasDefaultValue() && !$variadic ? ' = ' . $this->dump($param->getDefaultValue()) : '');
             $special = $special || $promoted || $attrs;
         }
         $line = \implode(', ', $params);
-        return \count($params) > 1 && ($special || \strlen($line) > (new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Dumper())->wrapLength) ? "(\n" . $this->indent(\implode(",\n", $params)) . ($special ? ',' : '') . "\n)" : "({$line})";
+        return \count($params) > 1 && ($special || \strlen($line) > (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->wrapLength) ? "(\n" . $this->indent(\implode(",\n", $params)) . ($special ? ',' : '') . "\n)" : "({$line})";
     }
-    public function printType(?string $type, bool $nullable = \false, \_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
+    public function printType(?string $type, bool $nullable = \false, \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace = null) : string
     {
         return $type ? ($nullable ? '?' : '') . ($this->resolveTypes && $namespace ? $namespace->unresolveUnionType($type) : $type) : '';
     }
     /**
      * @param Closure|GlobalFunction|Method  $function
      */
-    private function printReturnType($function, ?\_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace) : string
+    private function printReturnType($function, ?\_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace) : string
     {
         return ($tmp = $this->printType($function->getReturnType(), $function->isReturnNullable(), $namespace)) ? $this->returnTypeColon . $tmp : '';
     }
-    private function printAttributes(array $attrs, ?\_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $namespace, bool $inline = \false) : string
+    private function printAttributes(array $attrs, ?\_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $namespace, bool $inline = \false) : string
     {
         if (!$attrs) {
             return '';
         }
         $items = [];
         foreach ($attrs as $attr) {
-            $args = (new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Dumper())->format('...?:', $attr->getArguments());
+            $args = (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->format('...?:', $attr->getArguments());
             $items[] = $this->printType($attr->getName(), \false, $namespace) . ($args ? "({$args})" : '');
         }
         return $inline ? '#[' . \implode(', ', $items) . '] ' : '#[' . \implode("]\n#[", $items) . "]\n";

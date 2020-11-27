@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\DI\Extensions;
+namespace _PhpScoper26e51eeacccf\Nette\DI\Extensions;
 
-use _PhpScopera143bcca66cb\Nette;
+use _PhpScoper26e51eeacccf\Nette;
 /**
  * Constant definitions.
  */
-final class ConstantsExtension extends \_PhpScopera143bcca66cb\Nette\DI\CompilerExtension
+final class ConstantsExtension extends \_PhpScoper26e51eeacccf\Nette\DI\CompilerExtension
 {
     public function loadConfiguration()
     {

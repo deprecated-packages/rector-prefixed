@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Compiler\Process;
 
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
 final class SymfonyProcess implements \PHPStan\Compiler\Process\Process
 {
     /** @var \Symfony\Component\Process\Process<string, string> */
@@ -13,16 +13,16 @@ final class SymfonyProcess implements \PHPStan\Compiler\Process\Process
      * @param string $cwd
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    public function __construct(array $command, string $cwd, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(array $command, string $cwd, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output)
     {
-        $this->process = (new \_PhpScopera143bcca66cb\Symfony\Component\Process\Process($command, $cwd, null, null, null))->mustRun(static function (string $type, string $buffer) use($output) : void {
+        $this->process = (new \_PhpScoper26e51eeacccf\Symfony\Component\Process\Process($command, $cwd, null, null, null))->mustRun(static function (string $type, string $buffer) use($output) : void {
             $output->write($buffer);
         });
     }
     /**
      * @return \Symfony\Component\Process\Process<string, string>
      */
-    public function getProcess() : \_PhpScopera143bcca66cb\Symfony\Component\Process\Process
+    public function getProcess() : \_PhpScoper26e51eeacccf\Symfony\Component\Process\Process
     {
         return $this->process;
     }

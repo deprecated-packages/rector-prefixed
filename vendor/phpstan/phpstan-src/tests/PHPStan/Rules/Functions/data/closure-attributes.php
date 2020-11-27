@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ClosureAttributes;
+namespace _PhpScoper26e51eeacccf\ClosureAttributes;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
 class Foo

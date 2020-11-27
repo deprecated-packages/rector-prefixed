@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\DoctrineEmbedded;
 
-use _PhpScopera143bcca66cb\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper26e51eeacccf\Doctrine\ORM\Mapping as ORM;
 use Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Source\Embeddable;
 final class AnEntityWithAnEmbeddedAndAColumnPrefix
 {

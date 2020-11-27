@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\UnusedPrivateProperty;
+namespace _PhpScoper26e51eeacccf\UnusedPrivateProperty;
 
 class TestExtension
 {

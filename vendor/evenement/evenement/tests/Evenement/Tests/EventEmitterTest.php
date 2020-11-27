@@ -9,17 +9,17 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopera143bcca66cb\Evenement\Tests;
+namespace _PhpScoper26e51eeacccf\Evenement\Tests;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
 use InvalidArgumentException;
-use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
-class EventEmitterTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
+use _PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase;
+class EventEmitterTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
 {
     private $emitter;
     public function setUp()
     {
-        $this->emitter = new \_PhpScopera143bcca66cb\Evenement\EventEmitter();
+        $this->emitter = new \_PhpScoper26e51eeacccf\Evenement\EventEmitter();
     }
     public function testAddListenerWithLambda()
     {
@@ -28,12 +28,12 @@ class EventEmitterTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCas
     }
     public function testAddListenerWithMethod()
     {
-        $listener = new \_PhpScopera143bcca66cb\Evenement\Tests\Listener();
+        $listener = new \_PhpScoper26e51eeacccf\Evenement\Tests\Listener();
         $this->emitter->on('foo', [$listener, 'onFoo']);
     }
     public function testAddListenerWithStaticMethod()
     {
-        $this->emitter->on('bar', ['_PhpScopera143bcca66cb\\Evenement\\Tests\\Listener', 'onBar']);
+        $this->emitter->on('bar', ['_PhpScoper26e51eeacccf\\Evenement\\Tests\\Listener', 'onBar']);
     }
     public function testAddListenerWithInvalidListener()
     {
@@ -191,14 +191,14 @@ class EventEmitterTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCas
     }
     public function testCallablesClass()
     {
-        $listener = new \_PhpScopera143bcca66cb\Evenement\Tests\Listener();
+        $listener = new \_PhpScoper26e51eeacccf\Evenement\Tests\Listener();
         $this->emitter->on('foo', [$listener, 'onFoo']);
         $this->emitter->emit('foo', ['bar']);
         self::assertSame(['bar'], $listener->getData());
     }
     public function testCallablesClassInvoke()
     {
-        $listener = new \_PhpScopera143bcca66cb\Evenement\Tests\Listener();
+        $listener = new \_PhpScoper26e51eeacccf\Evenement\Tests\Listener();
         $this->emitter->on('foo', $listener);
         $this->emitter->emit('foo', ['bar']);
         self::assertSame(['bar'], $listener->getMagicData());
@@ -207,11 +207,11 @@ class EventEmitterTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCas
     {
         $this->emitter->on('foo', '\\Evenement\\Tests\\Listener::onBar');
         $this->emitter->emit('foo', ['bar']);
-        self::assertSame(['bar'], \_PhpScopera143bcca66cb\Evenement\Tests\Listener::getStaticData());
+        self::assertSame(['bar'], \_PhpScoper26e51eeacccf\Evenement\Tests\Listener::getStaticData());
     }
     public function testCallablesFunction()
     {
-        $this->emitter->on('foo', '_PhpScopera143bcca66cb\\Evenement\\Tests\\setGlobalTestData');
+        $this->emitter->on('foo', '_PhpScoper26e51eeacccf\\Evenement\\Tests\\setGlobalTestData');
         $this->emitter->emit('foo', ['bar']);
         self::assertSame('bar', $GLOBALS['evenement-evenement-test-data']);
         unset($GLOBALS['evenement-evenement-test-data']);

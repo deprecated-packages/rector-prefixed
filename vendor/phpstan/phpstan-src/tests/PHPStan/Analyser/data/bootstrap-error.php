@@ -1,5 +1,5 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\BootstrapError;
+namespace _PhpScoper26e51eeacccf\BootstrapError;
 
 fail();

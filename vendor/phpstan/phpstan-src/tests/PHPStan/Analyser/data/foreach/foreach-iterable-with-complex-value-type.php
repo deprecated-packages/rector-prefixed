@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ForeachWithComplexValueType;
+namespace _PhpScoper26e51eeacccf\ForeachWithComplexValueType;
 
 class Foo
 {

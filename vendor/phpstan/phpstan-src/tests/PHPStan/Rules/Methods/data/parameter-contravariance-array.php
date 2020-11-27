@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ParameterContravarianceArray;
+namespace _PhpScoper26e51eeacccf\ParameterContravarianceArray;
 
 class Foo
 {
@@ -11,7 +11,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScopera143bcca66cb\ParameterContravarianceArray\Foo
+class Bar extends \_PhpScoper26e51eeacccf\ParameterContravarianceArray\Foo
 {
     public function doFoo(iterable $a)
     {
@@ -20,7 +20,7 @@ class Bar extends \_PhpScopera143bcca66cb\ParameterContravarianceArray\Foo
     {
     }
 }
-class Baz extends \_PhpScopera143bcca66cb\ParameterContravarianceArray\Foo
+class Baz extends \_PhpScoper26e51eeacccf\ParameterContravarianceArray\Foo
 {
     public function doFoo(?iterable $a)
     {

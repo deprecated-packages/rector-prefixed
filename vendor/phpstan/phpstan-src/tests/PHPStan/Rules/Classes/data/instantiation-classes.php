@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TestInstantiation;
+namespace _PhpScoper26e51eeacccf\TestInstantiation;
 
 class FooInstantiation
 {

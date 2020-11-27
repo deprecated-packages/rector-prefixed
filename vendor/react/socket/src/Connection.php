@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Socket;
+namespace _PhpScoper26e51eeacccf\React\Socket;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
-use _PhpScopera143bcca66cb\React\Stream\DuplexResourceStream;
-use _PhpScopera143bcca66cb\React\Stream\Util;
-use _PhpScopera143bcca66cb\React\Stream\WritableResourceStream;
-use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
+use _PhpScoper26e51eeacccf\React\Stream\DuplexResourceStream;
+use _PhpScoper26e51eeacccf\React\Stream\Util;
+use _PhpScoper26e51eeacccf\React\Stream\WritableResourceStream;
+use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
 /**
  * The actual connection implementation for ConnectionInterface
  *
@@ -16,7 +16,7 @@ use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
  * @see ConnectionInterface
  * @internal
  */
-class Connection extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Socket\ConnectionInterface
+class Connection extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface
 {
     /**
      * Internal flag whether this is a Unix domain socket (UDS) connection
@@ -36,7 +36,7 @@ class Connection extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implemen
     /** @internal */
     public $stream;
     private $input;
-    public function __construct($resource, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop)
+    public function __construct($resource, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop)
     {
         // PHP < 7.3.3 (and PHP < 7.2.15) suffers from a bug where feof() might
         // block with 100% CPU usage on fragmented TLS records.
@@ -57,9 +57,9 @@ class Connection extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implemen
         // This applies to all streams because TLS may be enabled later on.
         // See https://github.com/reactphp/socket/issues/105
         $limitWriteChunks = \PHP_VERSION_ID < 70018 || \PHP_VERSION_ID >= 70100 && \PHP_VERSION_ID < 70104;
-        $this->input = new \_PhpScopera143bcca66cb\React\Stream\DuplexResourceStream($resource, $loop, $clearCompleteBuffer ? -1 : null, new \_PhpScopera143bcca66cb\React\Stream\WritableResourceStream($resource, $loop, null, $limitWriteChunks ? 8192 : null));
+        $this->input = new \_PhpScoper26e51eeacccf\React\Stream\DuplexResourceStream($resource, $loop, $clearCompleteBuffer ? -1 : null, new \_PhpScoper26e51eeacccf\React\Stream\WritableResourceStream($resource, $loop, null, $limitWriteChunks ? 8192 : null));
         $this->stream = $resource;
-        \_PhpScopera143bcca66cb\React\Stream\Util::forwardEvents($this->input, $this, array('data', 'end', 'error', 'close', 'pipe', 'drain'));
+        \_PhpScoper26e51eeacccf\React\Stream\Util::forwardEvents($this->input, $this, array('data', 'end', 'error', 'close', 'pipe', 'drain'));
         $this->input->on('close', array($this, 'close'));
     }
     public function isReadable()
@@ -78,7 +78,7 @@ class Connection extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implemen
     {
         $this->input->resume();
     }
-    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
         return $this->input->pipe($dest, $options);
     }

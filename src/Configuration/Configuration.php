@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
-use _PhpScopera143bcca66cb\Jean85\PrettyVersions;
-use _PhpScopera143bcca66cb\OndraM\CiDetector\CiDetector;
+use _PhpScoper26e51eeacccf\Jean85\PrettyVersions;
+use _PhpScoper26e51eeacccf\OndraM\CiDetector\CiDetector;
 use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class Configuration
@@ -74,7 +74,7 @@ final class Configuration
      * @var SmartFileInfo|null
      */
     private $configFileInfo;
-    public function __construct(\_PhpScopera143bcca66cb\OndraM\CiDetector\CiDetector $ciDetector, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\_PhpScoper26e51eeacccf\OndraM\CiDetector\CiDetector $ciDetector, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->ciDetector = $ciDetector;
         $this->isCacheEnabled = (bool) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::ENABLE_CACHE);
@@ -85,7 +85,7 @@ final class Configuration
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
-    public function resolveFromInput(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input) : void
+    public function resolveFromInput(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input) : void
     {
         $this->isDryRun = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN);
         $this->shouldClearCache = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
@@ -118,7 +118,7 @@ final class Configuration
     }
     public function getPrettyVersion() : string
     {
-        $version = \_PhpScopera143bcca66cb\Jean85\PrettyVersions::getVersion('rector/rector');
+        $version = \_PhpScoper26e51eeacccf\Jean85\PrettyVersions::getVersion('rector/rector');
         return $version->getPrettyVersion();
     }
     /**
@@ -217,7 +217,7 @@ final class Configuration
         $message = \sprintf('Path "%s" for "$parameters->set(Option::%s, ...);" in your config was not found. Correct it', $symfonyContainerXmlPath, 'SYMFONY_CONTAINER_XML_PATH_PARAMETER');
         throw new \Rector\Core\Exception\Configuration\InvalidConfigurationException($message);
     }
-    private function canShowProgressBar(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function canShowProgressBar(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $noProgressBar = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR);
         if ($noProgressBar) {

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Arrays;
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Arrays;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
@@ -38,7 +38,7 @@ final class WhitespaceDetector
                 // do not overlap to previous node
                 if (($node instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface || $node instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface) && $i - 1 > $start && isset($tokens[$i - 1]) && $tokens[$i - 1][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
                     $previousTokenValue = $tokens[$i - 1][0];
-                    if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($previousTokenValue, self::SPACE_BEFORE_ASTERISK_REGEX)) {
+                    if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($previousTokenValue, self::SPACE_BEFORE_ASTERISK_REGEX)) {
                         $tokenValue = $previousTokenValue . $tokenValue;
                     }
                 }
@@ -47,9 +47,9 @@ final class WhitespaceDetector
             }
             // quoted string with spaces?
             if ($this->isQuotedStringWithSpaces($tokens, $i)) {
-                $matches = \_PhpScopera143bcca66cb\Nette\Utils\Strings::matchAll($tokenValue, '#\\s+#m');
+                $matches = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::matchAll($tokenValue, '#\\s+#m');
                 if ($matches !== []) {
-                    $oldWhitespaces = \array_merge($oldWhitespaces, \_PhpScopera143bcca66cb\Nette\Utils\Arrays::flatten($matches));
+                    $oldWhitespaces = \array_merge($oldWhitespaces, \_PhpScoper26e51eeacccf\Nette\Utils\Arrays::flatten($matches));
                 }
             }
         }

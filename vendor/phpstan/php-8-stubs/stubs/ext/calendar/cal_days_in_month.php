@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 function cal_days_in_month(int $calendar, int $month, int $year) : int

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\IncorrectMethodCase;
+namespace _PhpScoper26e51eeacccf\IncorrectMethodCase;
 
 class Foo
 {

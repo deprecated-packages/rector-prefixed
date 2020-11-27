@@ -1,19 +1,19 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Promise\Stream;
+namespace _PhpScoper26e51eeacccf\React\Promise\Stream;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
 use InvalidArgumentException;
-use _PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface;
-use _PhpScopera143bcca66cb\React\Promise\PromiseInterface;
-use _PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface;
-use _PhpScopera143bcca66cb\React\Stream\Util;
-use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
+use _PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface;
+use _PhpScoper26e51eeacccf\React\Promise\PromiseInterface;
+use _PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface;
+use _PhpScoper26e51eeacccf\React\Stream\Util;
+use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
 /**
  * @internal
  * @see unwrapReadable() instead
  */
-class UnwrapReadableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface
+class UnwrapReadableStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface
 {
     private $promise;
     private $closed = \false;
@@ -22,16 +22,16 @@ class UnwrapReadableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitte
      *
      * @param PromiseInterface $promise Promise<ReadableStreamInterface, Exception>
      */
-    public function __construct(\_PhpScopera143bcca66cb\React\Promise\PromiseInterface $promise)
+    public function __construct(\_PhpScoper26e51eeacccf\React\Promise\PromiseInterface $promise)
     {
         $out = $this;
         $closed =& $this->closed;
         $this->promise = $promise->then(function ($stream) {
-            if (!$stream instanceof \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface) {
+            if (!$stream instanceof \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface) {
                 throw new \InvalidArgumentException('Not a readable stream');
             }
             return $stream;
-        })->then(function (\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $stream) use($out, &$closed) {
+        })->then(function (\_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface $stream) use($out, &$closed) {
             // stream is already closed, make sure to close output stream
             if (!$stream->isReadable()) {
                 $out->close();
@@ -78,7 +78,7 @@ class UnwrapReadableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitte
     public function pause()
     {
         if ($this->promise !== null) {
-            $this->promise->then(function (\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $stream) {
+            $this->promise->then(function (\_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface $stream) {
                 $stream->pause();
             });
         }
@@ -86,14 +86,14 @@ class UnwrapReadableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitte
     public function resume()
     {
         if ($this->promise !== null) {
-            $this->promise->then(function (\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $stream) {
+            $this->promise->then(function (\_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface $stream) {
                 $stream->resume();
             });
         }
     }
-    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScopera143bcca66cb\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoper26e51eeacccf\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()
@@ -103,7 +103,7 @@ class UnwrapReadableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitte
         }
         $this->closed = \true;
         // try to cancel promise once the stream closes
-        if ($this->promise instanceof \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface) {
+        if ($this->promise instanceof \_PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface) {
             $this->promise->cancel();
         }
         $this->promise = null;

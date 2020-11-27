@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @var int $integer */
-$integer = \_PhpScopera143bcca66cb\doFoo();
+$integer = \_PhpScoper26e51eeacccf\doFoo();
 /** @var float $float */
-$float = \_PhpScopera143bcca66cb\doFoo();
+$float = \_PhpScoper26e51eeacccf\doFoo();
 /** @var mixed $mixed */
-$mixed = \_PhpScopera143bcca66cb\doFoo();
+$mixed = \_PhpScoper26e51eeacccf\doFoo();
 die;

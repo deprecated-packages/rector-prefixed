@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScopera143bcca66cb\PromotedPropertiesMissingTypehint;
+namespace _PhpScoper26e51eeacccf\PromotedPropertiesMissingTypehint;
 
 class Foo
 {

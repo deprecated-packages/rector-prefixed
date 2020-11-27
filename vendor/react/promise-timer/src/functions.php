@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Promise\Timer;
+namespace _PhpScoper26e51eeacccf\React\Promise\Timer;
 
-use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
-use _PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface;
-use _PhpScopera143bcca66cb\React\Promise\PromiseInterface;
-use _PhpScopera143bcca66cb\React\Promise\Promise;
-function timeout(\_PhpScopera143bcca66cb\React\Promise\PromiseInterface $promise, $time, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop)
+use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
+use _PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface;
+use _PhpScoper26e51eeacccf\React\Promise\PromiseInterface;
+use _PhpScoper26e51eeacccf\React\Promise\Promise;
+function timeout(\_PhpScoper26e51eeacccf\React\Promise\PromiseInterface $promise, $time, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop)
 {
     // cancelling this promise will only try to cancel the input promise,
     // thus leaving responsibility to the input promise.
     $canceller = null;
-    if ($promise instanceof \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface || !\interface_exists('_PhpScopera143bcca66cb\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+    if ($promise instanceof \_PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface || !\interface_exists('_PhpScoper26e51eeacccf\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
         // pass promise by reference to clean reference after cancellation handler
         // has been invoked once in order to avoid garbage references in call stack.
         $canceller = function () use(&$promise) {
@@ -19,7 +19,7 @@ function timeout(\_PhpScopera143bcca66cb\React\Promise\PromiseInterface $promise
             $promise = null;
         };
     }
-    return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject) use($loop, $time, $promise) {
+    return new \_PhpScoper26e51eeacccf\React\Promise\Promise(function ($resolve, $reject) use($loop, $time, $promise) {
         $timer = null;
         $promise = $promise->then(function ($v) use(&$timer, $loop, $resolve) {
             if ($timer) {
@@ -40,19 +40,19 @@ function timeout(\_PhpScopera143bcca66cb\React\Promise\PromiseInterface $promise
         }
         // start timeout timer which will cancel the input promise
         $timer = $loop->addTimer($time, function () use($time, &$promise, $reject) {
-            $reject(new \_PhpScopera143bcca66cb\React\Promise\Timer\TimeoutException($time, 'Timed out after ' . $time . ' seconds'));
+            $reject(new \_PhpScoper26e51eeacccf\React\Promise\Timer\TimeoutException($time, 'Timed out after ' . $time . ' seconds'));
             // try to invoke cancellation handler of input promise and then clean
             // reference in order to avoid garbage references in call stack.
-            if ($promise instanceof \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface || !\interface_exists('_PhpScopera143bcca66cb\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+            if ($promise instanceof \_PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface || !\interface_exists('_PhpScoper26e51eeacccf\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
                 $promise->cancel();
             }
             $promise = null;
         });
     }, $canceller);
 }
-function resolve($time, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop)
+function resolve($time, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop)
 {
-    return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve) use($loop, $time, &$timer) {
+    return new \_PhpScoper26e51eeacccf\React\Promise\Promise(function ($resolve) use($loop, $time, &$timer) {
         // resolve the promise when the timer fires in $time seconds
         $timer = $loop->addTimer($time, function () use($time, $resolve) {
             $resolve($time);
@@ -65,9 +65,9 @@ function resolve($time, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $l
         throw new \RuntimeException('Timer cancelled');
     });
 }
-function reject($time, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop)
+function reject($time, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop)
 {
     return resolve($time, $loop)->then(function ($time) {
-        throw new \_PhpScopera143bcca66cb\React\Promise\Timer\TimeoutException($time, 'Timer expired after ' . $time . ' seconds');
+        throw new \_PhpScoper26e51eeacccf\React\Promise\Timer\TimeoutException($time, 'Timer expired after ' . $time . ' seconds');
     });
 }

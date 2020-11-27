@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Clue\React\Block;
+namespace _PhpScoper26e51eeacccf\Clue\React\Block;
 
-if (!\function_exists('_PhpScopera143bcca66cb\\Clue\\React\\Block\\sleep')) {
+if (!\function_exists('_PhpScoper26e51eeacccf\\Clue\\React\\Block\\sleep')) {
     require __DIR__ . '/functions.php';
 }

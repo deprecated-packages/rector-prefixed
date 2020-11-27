@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\FileSystem;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use Rector\RectorGenerator\Finder\TemplateFinder;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
@@ -34,18 +34,18 @@ final class TemplateFileSystem
         // normalize core package
         if (!$rectorRecipe->isRectorRepository()) {
             // special keyword for 3rd party Rectors, not for core Github contribution
-            $destination = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($destination, self::PACKAGE_RULES_PATH_REGEX, 'utils/rector');
+            $destination = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($destination, self::PACKAGE_RULES_PATH_REGEX, 'utils/rector');
         }
         // remove _Configured|_Extra prefix
         $destination = $this->applyVariables($destination, $templateVariables);
-        $destination = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($destination, self::CONFIGURED_OR_EXTRA_REGEX, '');
+        $destination = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($destination, self::CONFIGURED_OR_EXTRA_REGEX, '');
         // remove ".inc" protection from PHPUnit if not a test case
         if ($this->isNonFixtureFileWithIncSuffix($destination)) {
-            $destination = \_PhpScopera143bcca66cb\Nette\Utils\Strings::before($destination, '.inc');
+            $destination = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::before($destination, '.inc');
         }
         // special hack for tests, to PHPUnit doesn't load the generated file as test case
         /** @var string $destination */
-        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($destination, 'Test.php') && \Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($destination, 'Test.php') && \Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $destination .= '.inc';
         }
         return $targetDirectory . \DIRECTORY_SEPARATOR . $destination;
@@ -59,9 +59,9 @@ final class TemplateFileSystem
     }
     private function isNonFixtureFileWithIncSuffix(string $filePath) : bool
     {
-        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($filePath, self::FIXTURE_SHORT_REGEX)) {
+        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($filePath, self::FIXTURE_SHORT_REGEX)) {
             return \false;
         }
-        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($filePath, '.inc');
+        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($filePath, '.inc');
     }
 }

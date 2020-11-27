@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-$stat = \_PhpScopera143bcca66cb\dio_stat();
+$stat = \_PhpScoper26e51eeacccf\dio_stat();
 die;

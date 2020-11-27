@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class ZipArchive
 {
@@ -213,4 +213,4 @@ class ZipArchive
     }
     #endif
 }
-\class_alias('_PhpScopera143bcca66cb\\ZipArchive', 'ZipArchive', \false);
+\class_alias('_PhpScoper26e51eeacccf\\ZipArchive', 'ZipArchive', \false);

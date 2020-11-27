@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\BooleanAndTreatPhpDocTypesAsCertainRegression;
+namespace _PhpScoper26e51eeacccf\BooleanAndTreatPhpDocTypesAsCertainRegression;
 
 class Foo
 {

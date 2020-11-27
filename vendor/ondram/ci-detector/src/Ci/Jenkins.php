@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\OndraM\CiDetector\Ci;
+namespace _PhpScoper26e51eeacccf\OndraM\CiDetector\Ci;
 
-use _PhpScopera143bcca66cb\OndraM\CiDetector\CiDetector;
-use _PhpScopera143bcca66cb\OndraM\CiDetector\Env;
-use _PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic;
-class Jenkins extends \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\AbstractCi
+use _PhpScoper26e51eeacccf\OndraM\CiDetector\CiDetector;
+use _PhpScoper26e51eeacccf\OndraM\CiDetector\Env;
+use _PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic;
+class Jenkins extends \_PhpScoper26e51eeacccf\OndraM\CiDetector\Ci\AbstractCi
 {
-    public static function isDetected(\_PhpScopera143bcca66cb\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_PhpScoper26e51eeacccf\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('JENKINS_URL') !== \false;
     }
     public function getCiName() : string
     {
-        return \_PhpScopera143bcca66cb\OndraM\CiDetector\CiDetector::CI_JENKINS;
+        return \_PhpScoper26e51eeacccf\OndraM\CiDetector\CiDetector::CI_JENKINS;
     }
-    public function isPullRequest() : \_PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic
     {
-        return \_PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic::createMaybe();
+        return \_PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic::createMaybe();
     }
     public function getBuildNumber() : string
     {

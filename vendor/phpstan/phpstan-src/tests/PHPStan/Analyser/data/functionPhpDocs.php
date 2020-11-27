@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MethodPhpDocsNamespace;
+namespace _PhpScoper26e51eeacccf\MethodPhpDocsNamespace;
 
-use _PhpScopera143bcca66cb\SomeNamespace\Amet as Dolor;
-use _PhpScopera143bcca66cb\SomeNamespace\Consecteur;
+use _PhpScoper26e51eeacccf\SomeNamespace\Amet as Dolor;
+use _PhpScoper26e51eeacccf\SomeNamespace\Consecteur;
 /**
  * @param Foo|Bar $unionTypeParameter
  * @param int $anotherMixedParameter
@@ -37,7 +37,7 @@ use _PhpScopera143bcca66cb\SomeNamespace\Consecteur;
  * @param bool $parameterWithDefaultValueFalse
  * @return Foo
  */
-function doFoo($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $yetAnotherMixedParameter, $integerParameter, $anotherIntegerParameter, $arrayParameterOne, $arrayParameterOther, $objectRelative, $objectFullyQualified, $objectUsed, $nullableInteger, $nullableObject, $nullType, $barObject, \_PhpScopera143bcca66cb\MethodPhpDocsNamespace\Bar $conflictedObject, \_PhpScopera143bcca66cb\MethodPhpDocsNamespace\Bar $moreSpecifiedObject, $resource, $yetAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherAnotherMixedParameter, $voidParameter, $useWithoutAlias, $true, $false, bool $boolTrue, bool $boolFalse, bool $trueBoolean, $parameterWithDefaultValueFalse = \false, $anotherNullableObject = null)
+function doFoo($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $yetAnotherMixedParameter, $integerParameter, $anotherIntegerParameter, $arrayParameterOne, $arrayParameterOther, $objectRelative, $objectFullyQualified, $objectUsed, $nullableInteger, $nullableObject, $nullType, $barObject, \_PhpScoper26e51eeacccf\MethodPhpDocsNamespace\Bar $conflictedObject, \_PhpScoper26e51eeacccf\MethodPhpDocsNamespace\Bar $moreSpecifiedObject, $resource, $yetAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherAnotherMixedParameter, $voidParameter, $useWithoutAlias, $true, $false, bool $boolTrue, bool $boolFalse, bool $trueBoolean, $parameterWithDefaultValueFalse = \false, $anotherNullableObject = null)
 {
     $fooFunctionResult = doFoo();
     $barFunctionResult = doBar();
@@ -45,6 +45,6 @@ function doFoo($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $ye
         die;
     }
 }
-function doBar() : \_PhpScopera143bcca66cb\MethodPhpDocsNamespace\Bar
+function doBar() : \_PhpScoper26e51eeacccf\MethodPhpDocsNamespace\Bar
 {
 }

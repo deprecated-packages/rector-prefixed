@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ExtendingKnownClassWithCheck;
+namespace _PhpScoper26e51eeacccf\ExtendingKnownClassWithCheck;
 
-if (\class_exists(\_PhpScopera143bcca66cb\ExtendingKnownClassWithCheck\Bar::class)) {
-    class Foo extends \_PhpScopera143bcca66cb\ExtendingKnownClassWithCheck\Bar
+if (\class_exists(\_PhpScoper26e51eeacccf\ExtendingKnownClassWithCheck\Bar::class)) {
+    class Foo extends \_PhpScoper26e51eeacccf\ExtendingKnownClassWithCheck\Bar
     {
     }
 } else {

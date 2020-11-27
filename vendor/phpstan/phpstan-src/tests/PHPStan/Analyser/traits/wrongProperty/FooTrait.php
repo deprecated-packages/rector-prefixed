@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TraitsWrongProperty;
+namespace _PhpScoper26e51eeacccf\TraitsWrongProperty;
 
-use _PhpScopera143bcca66cb\Ipsum as Bar;
+use _PhpScoper26e51eeacccf\Ipsum as Bar;
 trait FooTrait
 {
     /** @var int */

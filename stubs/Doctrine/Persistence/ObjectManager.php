@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Doctrine\Persistence;
+namespace _PhpScoper26e51eeacccf\Doctrine\Persistence;
 
-if (\interface_exists('_PhpScopera143bcca66cb\\Doctrine\\Persistence\\ObjectManager')) {
+if (\interface_exists('_PhpScoper26e51eeacccf\\Doctrine\\Persistence\\ObjectManager')) {
     return;
 }
 interface ObjectManager

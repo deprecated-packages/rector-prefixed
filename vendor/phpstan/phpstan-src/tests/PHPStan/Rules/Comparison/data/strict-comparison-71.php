@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\StrictComparison71;
+namespace _PhpScoper26e51eeacccf\StrictComparison71;
 
 class Foo
 {

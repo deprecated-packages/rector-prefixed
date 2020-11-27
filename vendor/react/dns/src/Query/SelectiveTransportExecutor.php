@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Dns\Query;
+namespace _PhpScoper26e51eeacccf\React\Dns\Query;
 
-use _PhpScopera143bcca66cb\React\Promise\Promise;
+use _PhpScoper26e51eeacccf\React\Promise\Promise;
 /**
  * Send DNS queries over a UDP or TCP/IP stream transport.
  *
@@ -49,20 +49,20 @@ use _PhpScopera143bcca66cb\React\Promise\Promise;
  * );
  * ```
  */
-class SelectiveTransportExecutor implements \_PhpScopera143bcca66cb\React\Dns\Query\ExecutorInterface
+class SelectiveTransportExecutor implements \_PhpScoper26e51eeacccf\React\Dns\Query\ExecutorInterface
 {
     private $datagramExecutor;
     private $streamExecutor;
-    public function __construct(\_PhpScopera143bcca66cb\React\Dns\Query\ExecutorInterface $datagramExecutor, \_PhpScopera143bcca66cb\React\Dns\Query\ExecutorInterface $streamExecutor)
+    public function __construct(\_PhpScoper26e51eeacccf\React\Dns\Query\ExecutorInterface $datagramExecutor, \_PhpScoper26e51eeacccf\React\Dns\Query\ExecutorInterface $streamExecutor)
     {
         $this->datagramExecutor = $datagramExecutor;
         $this->streamExecutor = $streamExecutor;
     }
-    public function query(\_PhpScopera143bcca66cb\React\Dns\Query\Query $query)
+    public function query(\_PhpScoper26e51eeacccf\React\Dns\Query\Query $query)
     {
         $stream = $this->streamExecutor;
         $pending = $this->datagramExecutor->query($query);
-        return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject) use(&$pending, $stream, $query) {
+        return new \_PhpScoper26e51eeacccf\React\Promise\Promise(function ($resolve, $reject) use(&$pending, $stream, $query) {
             $pending->then($resolve, function ($e) use(&$pending, $stream, $query, $resolve, $reject) {
                 if ($e->getCode() === (\defined('SOCKET_EMSGSIZE') ? \SOCKET_EMSGSIZE : 90)) {
                     $pending = $stream->query($query)->then($resolve, $reject);

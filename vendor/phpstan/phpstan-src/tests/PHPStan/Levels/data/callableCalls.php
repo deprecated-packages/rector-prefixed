@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\CallableCalls;
+namespace _PhpScoper26e51eeacccf\Levels\CallableCalls;
 
 class Foo
 {

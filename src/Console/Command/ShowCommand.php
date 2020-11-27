@@ -6,8 +6,8 @@ namespace Rector\Core\Console\Command;
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Console\Output\RectorConfigurationFormatter;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -42,7 +42,7 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
     {
         $this->setDescription('Show loaded Rectors with their configuration');
     }
-    protected function execute(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->reportLoadedRectors();
         $this->reportLoadedSets();

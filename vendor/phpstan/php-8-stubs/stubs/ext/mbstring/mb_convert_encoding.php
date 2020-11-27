@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function mb_convert_encoding(array|string $string, string $to_encoding, array|string|null $from_encoding = null) : array|string|false
 {

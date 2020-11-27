@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Symfony\Bundle\FrameworkBundle\Test;
+namespace _PhpScoper26e51eeacccf\Symfony\Bundle\FrameworkBundle\Test;
 
-use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
-use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\ContainerInterface;
-if (\class_exists('_PhpScopera143bcca66cb\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
+use _PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase;
+use _PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\ContainerInterface;
+if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
     return;
 }
-class KernelTestCase extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
+class KernelTestCase extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
 {
     /**
      * @var ContainerInterface

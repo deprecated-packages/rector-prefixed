@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\Localization;
+namespace _PhpScoper26e51eeacccf\Nette\Localization;
 
-if (\interface_exists('_PhpScopera143bcca66cb\\Nette\\Localization\\ITranslator')) {
+if (\interface_exists('_PhpScoper26e51eeacccf\\Nette\\Localization\\ITranslator')) {
     return;
 }
 interface ITranslator

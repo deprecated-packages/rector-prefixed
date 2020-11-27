@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @param IntlTimeZone|DateTimeZone|string|null $timezone */
 function intlcal_set_time_zone(\IntlCalendar $calendar, $timezone) : bool

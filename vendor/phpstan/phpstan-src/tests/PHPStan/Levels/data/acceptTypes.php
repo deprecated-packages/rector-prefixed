@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\AcceptTypes;
+namespace _PhpScoper26e51eeacccf\Levels\AcceptTypes;
 
 class Foo
 {
@@ -140,57 +140,57 @@ class Foo
 interface ParentFooInterface
 {
 }
-interface FooInterface extends \_PhpScopera143bcca66cb\Levels\AcceptTypes\ParentFooInterface
+interface FooInterface extends \_PhpScoper26e51eeacccf\Levels\AcceptTypes\ParentFooInterface
 {
 }
 interface FooCountableInterface extends \Countable
 {
 }
-class FooImpl implements \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface
+class FooImpl implements \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface
 {
 }
 class ClosureAccepts
 {
     public function doFoo()
     {
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x, $y) : FooInterface {
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x, $y) : FooInterface {
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x) : FooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x) : FooInterface {
             // less parameters - OK
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x, $y, $z) : FooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x, $y, $z) : FooInterface {
             // more parameters - error
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\ParentFooInterface $x) : FooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\ParentFooInterface $x) : FooInterface {
             // parameter contravariance - OK
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl $x) : FooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl $x) : FooInterface {
             // parameter covariance - error
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x) : FooImpl {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x) : FooImpl {
             // return type covariance - OK
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x) : ParentFooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x) : ParentFooInterface {
             // return type contravariance - error
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         $this->doBar($c);
         $this->doBaz($c);
@@ -198,64 +198,64 @@ class ClosureAccepts
     public function doFooUnionClosures()
     {
         $closure = function () : FooInterface {
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x, $y) : FooInterface {
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x, $y) : FooInterface {
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         if (\rand(0, 1) === 0) {
             $c = $closure;
         }
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x) : FooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x) : FooInterface {
             // less parameters - OK
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         if (\rand(0, 1) === 0) {
             $c = $closure;
         }
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x, $y, $z) : FooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x, $y, $z) : FooInterface {
             // more parameters - error
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         if (\rand(0, 1) === 0) {
             $c = $closure;
         }
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\ParentFooInterface $x) : FooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\ParentFooInterface $x) : FooInterface {
             // parameter contravariance - OK
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         if (\rand(0, 1) === 0) {
             $c = $closure;
         }
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl $x) : FooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl $x) : FooInterface {
             // parameter covariance - error
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         if (\rand(0, 1) === 0) {
             $c = $closure;
         }
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x) : FooImpl {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x) : FooImpl {
             // return type covariance - OK
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         if (\rand(0, 1) === 0) {
             $c = $closure;
         }
         $this->doBar($c);
         $this->doBaz($c);
-        $c = function (\_PhpScopera143bcca66cb\Levels\AcceptTypes\FooInterface $x) : ParentFooInterface {
+        $c = function (\_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooInterface $x) : ParentFooInterface {
             // return type contravariance - error
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\FooImpl();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\FooImpl();
         };
         if (\rand(0, 1) === 0) {
             $c = $closure;
@@ -413,9 +413,9 @@ class Baz
     public function doBarArray(array $i)
     {
     }
-    public function makeFoo() : \_PhpScopera143bcca66cb\Levels\AcceptTypes\Foo
+    public function makeFoo() : \_PhpScoper26e51eeacccf\Levels\AcceptTypes\Foo
     {
-        return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\Foo();
+        return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\Foo();
     }
     /**
      * @return Foo|mixed[]
@@ -423,7 +423,7 @@ class Baz
     public function makeFooOrArray()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScopera143bcca66cb\Levels\AcceptTypes\Foo();
+            return new \_PhpScoper26e51eeacccf\Levels\AcceptTypes\Foo();
         }
         return [];
     }
@@ -451,7 +451,7 @@ class Baz
     private function requireArray(array $array)
     {
     }
-    private function requireFoo(\_PhpScopera143bcca66cb\Levels\AcceptTypes\Foo $foo)
+    private function requireFoo(\_PhpScoper26e51eeacccf\Levels\AcceptTypes\Foo $foo)
     {
     }
 }

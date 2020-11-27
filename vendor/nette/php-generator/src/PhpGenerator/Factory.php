@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\PhpGenerator;
+namespace _PhpScoper26e51eeacccf\Nette\PhpGenerator;
 
-use _PhpScopera143bcca66cb\Nette;
-use _PhpScopera143bcca66cb\PhpParser;
+use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoper26e51eeacccf\PhpParser;
 use PhpParser\Node;
 use PhpParser\ParserFactory;
 /**
@@ -17,9 +17,9 @@ use PhpParser\ParserFactory;
 final class Factory
 {
     use Nette\SmartObject;
-    public function fromClassReflection(\ReflectionClass $from, bool $withBodies = \false) : \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType
+    public function fromClassReflection(\ReflectionClass $from, bool $withBodies = \false) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType
     {
-        $class = $from->isAnonymous() ? new \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType() : new \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType($from->getShortName(), new \_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace($from->getNamespaceName()));
+        $class = $from->isAnonymous() ? new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType() : new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType($from->getShortName(), new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace($from->getNamespaceName()));
         $class->setType($from->isInterface() ? $class::TYPE_INTERFACE : ($from->isTrait() ? $class::TYPE_TRAIT : $class::TYPE_CLASS));
         $class->setFinal($from->isFinal() && $class->isClass());
         $class->setAbstract($from->isAbstract() && $class->isClass());
@@ -30,7 +30,7 @@ final class Factory
             });
         }
         $class->setImplements($ifaces);
-        $class->setComment(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
+        $class->setComment(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
         $class->setAttributes(self::getAttributes($from));
         if ($from->getParentClass()) {
             $class->setExtends($from->getParentClass()->name);
@@ -48,7 +48,7 @@ final class Factory
             if ($method->getDeclaringClass()->name === $from->name) {
                 $methods[] = $m = $this->fromMethodReflection($method);
                 if ($withBodies) {
-                    $srcMethod = \_PhpScopera143bcca66cb\Nette\Utils\Reflection::getMethodDeclaringMethod($method);
+                    $srcMethod = \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getMethodDeclaringMethod($method);
                     $srcClass = $srcMethod->getDeclaringClass()->name;
                     $b = $bodies[$srcClass] = $bodies[$srcClass] ?? $this->loadMethodBodies($srcMethod->getDeclaringClass());
                     if (isset($b[$srcMethod->name])) {
@@ -66,19 +66,19 @@ final class Factory
         $class->setConstants($consts);
         return $class;
     }
-    public function fromMethodReflection(\ReflectionMethod $from) : \_PhpScopera143bcca66cb\Nette\PhpGenerator\Method
+    public function fromMethodReflection(\ReflectionMethod $from) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Method
     {
-        $method = new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Method($from->name);
+        $method = new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Method($from->name);
         $method->setParameters(\array_map([$this, 'fromParameterReflection'], $from->getParameters()));
         $method->setStatic($from->isStatic());
         $isInterface = $from->getDeclaringClass()->isInterface();
-        $method->setVisibility($from->isPrivate() ? \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE : ($from->isProtected() ? \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED : ($isInterface ? null : \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC)));
+        $method->setVisibility($from->isPrivate() ? \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE : ($from->isProtected() ? \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED : ($isInterface ? null : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC)));
         $method->setFinal($from->isFinal());
         $method->setAbstract($from->isAbstract() && !$isInterface);
         $method->setBody($from->isAbstract() ? null : '');
         $method->setReturnReference($from->returnsReference());
         $method->setVariadic($from->isVariadic());
-        $method->setComment(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
+        $method->setComment(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
         $method->setAttributes(self::getAttributes($from));
         if ($from->getReturnType() instanceof \ReflectionNamedType) {
             $method->setReturnType($from->getReturnType()->getName());
@@ -91,12 +91,12 @@ final class Factory
     /** @return GlobalFunction|Closure */
     public function fromFunctionReflection(\ReflectionFunction $from, bool $withBody = \false)
     {
-        $function = $from->isClosure() ? new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Closure() : new \_PhpScopera143bcca66cb\Nette\PhpGenerator\GlobalFunction($from->name);
+        $function = $from->isClosure() ? new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Closure() : new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\GlobalFunction($from->name);
         $function->setParameters(\array_map([$this, 'fromParameterReflection'], $from->getParameters()));
         $function->setReturnReference($from->returnsReference());
         $function->setVariadic($from->isVariadic());
         if (!$from->isClosure()) {
-            $function->setComment(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
+            $function->setComment(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
         }
         $function->setAttributes(self::getAttributes($from));
         if ($from->getReturnType() instanceof \ReflectionNamedType) {
@@ -111,12 +111,12 @@ final class Factory
     /** @return Method|GlobalFunction|Closure */
     public function fromCallable(callable $from)
     {
-        $ref = \_PhpScopera143bcca66cb\Nette\Utils\Callback::toReflection($from);
+        $ref = \_PhpScoper26e51eeacccf\Nette\Utils\Callback::toReflection($from);
         return $ref instanceof \ReflectionMethod ? self::fromMethodReflection($ref) : self::fromFunctionReflection($ref);
     }
-    public function fromParameterReflection(\ReflectionParameter $from) : \_PhpScopera143bcca66cb\Nette\PhpGenerator\Parameter
+    public function fromParameterReflection(\ReflectionParameter $from) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Parameter
     {
-        $param = \PHP_VERSION_ID >= 80000 && $from->isPromoted() ? new \_PhpScopera143bcca66cb\Nette\PhpGenerator\PromotedParameter($from->name) : new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Parameter($from->name);
+        $param = \PHP_VERSION_ID >= 80000 && $from->isPromoted() ? new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PromotedParameter($from->name) : new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Parameter($from->name);
         $param->setReference($from->isPassedByReference());
         if ($from->getType() instanceof \ReflectionNamedType) {
             $param->setType($from->getType()->getName());
@@ -125,28 +125,28 @@ final class Factory
             $param->setType((string) $from->getType());
         }
         if ($from->isDefaultValueAvailable()) {
-            $param->setDefaultValue($from->isDefaultValueConstant() ? new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Literal($from->getDefaultValueConstantName()) : $from->getDefaultValue());
+            $param->setDefaultValue($from->isDefaultValueConstant() ? new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Literal($from->getDefaultValueConstantName()) : $from->getDefaultValue());
             $param->setNullable($param->isNullable() && $param->getDefaultValue() !== null);
         }
         $param->setAttributes(self::getAttributes($from));
         return $param;
     }
-    public function fromConstantReflection(\ReflectionClassConstant $from) : \_PhpScopera143bcca66cb\Nette\PhpGenerator\Constant
+    public function fromConstantReflection(\ReflectionClassConstant $from) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Constant
     {
-        $const = new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Constant($from->name);
+        $const = new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Constant($from->name);
         $const->setValue($from->getValue());
-        $const->setVisibility($from->isPrivate() ? \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE : ($from->isProtected() ? \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED : \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC));
-        $const->setComment(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
+        $const->setVisibility($from->isPrivate() ? \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE : ($from->isProtected() ? \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC));
+        $const->setComment(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
         $const->setAttributes(self::getAttributes($from));
         return $const;
     }
-    public function fromPropertyReflection(\ReflectionProperty $from) : \_PhpScopera143bcca66cb\Nette\PhpGenerator\Property
+    public function fromPropertyReflection(\ReflectionProperty $from) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Property
     {
         $defaults = $from->getDeclaringClass()->getDefaultProperties();
-        $prop = new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Property($from->name);
+        $prop = new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Property($from->name);
         $prop->setValue($defaults[$prop->getName()] ?? null);
         $prop->setStatic($from->isStatic());
-        $prop->setVisibility($from->isPrivate() ? \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE : ($from->isProtected() ? \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED : \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC));
+        $prop->setVisibility($from->isPrivate() ? \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE : ($from->isProtected() ? \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC));
         if (\PHP_VERSION_ID >= 70400) {
             if ($from->getType() instanceof \ReflectionNamedType) {
                 $prop->setType($from->getType()->getName());
@@ -156,14 +156,14 @@ final class Factory
             }
             $prop->setInitialized($from->hasType() && \array_key_exists($prop->getName(), $defaults));
         }
-        $prop->setComment(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
+        $prop->setComment(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::unformatDocComment((string) $from->getDocComment()));
         $prop->setAttributes(self::getAttributes($from));
         return $prop;
     }
     private function loadMethodBodies(\ReflectionClass $from) : array
     {
         if ($from->isAnonymous()) {
-            throw new \_PhpScopera143bcca66cb\Nette\NotSupportedException('Anonymous classes are not supported.');
+            throw new \_PhpScoper26e51eeacccf\Nette\NotSupportedException('Anonymous classes are not supported.');
         }
         [$code, $stmts] = $this->parse($from);
         $nodeFinder = new \PhpParser\NodeFinder();
@@ -175,7 +175,7 @@ final class Factory
             /** @var Node\Stmt\ClassMethod $method */
             if ($method->stmts) {
                 $body = $this->extractBody($nodeFinder, $code, $method->stmts);
-                $bodies[$method->name->toString()] = \_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::unindent($body, 2);
+                $bodies[$method->name->toString()] = \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::unindent($body, 2);
             }
         }
         return $bodies;
@@ -183,7 +183,7 @@ final class Factory
     private function loadFunctionBody(\ReflectionFunction $from) : string
     {
         if ($from->isClosure()) {
-            throw new \_PhpScopera143bcca66cb\Nette\NotSupportedException('Closures are not supported.');
+            throw new \_PhpScoper26e51eeacccf\Nette\NotSupportedException('Closures are not supported.');
         }
         [$code, $stmts] = $this->parse($from);
         $nodeFinder = new \PhpParser\NodeFinder();
@@ -192,7 +192,7 @@ final class Factory
             return $node instanceof \PhpParser\Node\Stmt\Function_ && $node->namespacedName->toString() === $from->name;
         });
         $body = $this->extractBody($nodeFinder, $code, $function->stmts);
-        return \_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::unindent($body, 1);
+        return \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::unindent($body, 1);
     }
     /**
      * @param  Node[]  $statements
@@ -242,9 +242,9 @@ final class Factory
     {
         $file = $from->getFileName();
         if (!\class_exists(\PhpParser\ParserFactory::class)) {
-            throw new \_PhpScopera143bcca66cb\Nette\NotSupportedException("PHP-Parser is required to load method bodies, install package 'nikic/php-parser'.");
+            throw new \_PhpScoper26e51eeacccf\Nette\NotSupportedException("PHP-Parser is required to load method bodies, install package 'nikic/php-parser'.");
         } elseif (!$file) {
-            throw new \_PhpScopera143bcca66cb\Nette\InvalidStateException("Source code of {$from->name} not found.");
+            throw new \_PhpScoper26e51eeacccf\Nette\InvalidStateException("Source code of {$from->name} not found.");
         }
         $lexer = new \PhpParser\Lexer(['usedAttributes' => ['startFilePos', 'endFilePos']]);
         $parser = (new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::ONLY_PHP7, $lexer);
@@ -263,7 +263,7 @@ final class Factory
         }
         $res = [];
         foreach ($from->getAttributes() as $attr) {
-            $res[] = new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Attribute($attr->getName(), $attr->getArguments());
+            $res[] = new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Attribute($attr->getName(), $attr->getArguments());
         }
         return $res;
     }

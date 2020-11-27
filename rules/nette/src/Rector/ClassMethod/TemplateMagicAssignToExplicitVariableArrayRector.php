@@ -70,7 +70,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScopera143bcca66cb\\Nette\\Application\\UI\\Control')) {
+        if (!$this->isObjectType($node, '_PhpScoper26e51eeacccf\\Nette\\Application\\UI\\Control')) {
             return null;
         }
         if (!$node->isPublic()) {
@@ -84,7 +84,7 @@ CODE_SAMPLE
     }
     private function createRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Nette\ValueObject\MagicTemplatePropertyCalls $magicTemplatePropertyCalls) : \PhpParser\Node\Expr\MethodCall
     {
-        if ($this->isObjectType($classMethod, '_PhpScopera143bcca66cb\\Nette\\Application\\UI\\Presenter')) {
+        if ($this->isObjectType($classMethod, '_PhpScoper26e51eeacccf\\Nette\\Application\\UI\\Presenter')) {
             return $this->actionRenderFactory->createThisTemplateRenderMethodCall($magicTemplatePropertyCalls);
         }
         return $this->actionRenderFactory->createThisRenderMethodCall($magicTemplatePropertyCalls);

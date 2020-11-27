@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScopera143bcca66cb\UnusedConstructorParametersPromotedProperties;
+namespace _PhpScoper26e51eeacccf\UnusedConstructorParametersPromotedProperties;
 
 class Foo
 {

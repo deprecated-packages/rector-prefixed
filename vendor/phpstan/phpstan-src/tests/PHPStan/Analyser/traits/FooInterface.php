@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\AnonymousTraitClass;
+namespace _PhpScoper26e51eeacccf\AnonymousTraitClass;
 
 interface FooInterface
 {

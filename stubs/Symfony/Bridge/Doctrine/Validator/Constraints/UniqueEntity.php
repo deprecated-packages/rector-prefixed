@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Symfony\Bridge\Doctrine\Validator\Constraints;
+namespace _PhpScoper26e51eeacccf\Symfony\Bridge\Doctrine\Validator\Constraints;
 
-use _PhpScopera143bcca66cb\Symfony\Component\Validator\Constraint;
-if (\class_exists('_PhpScopera143bcca66cb\\Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')) {
+use _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint;
+if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')) {
     return;
 }
 /**
  * @Annotation
  * @Target({"CLASS", "ANNOTATION"})
  */
-class UniqueEntity extends \_PhpScopera143bcca66cb\Symfony\Component\Validator\Constraint
+class UniqueEntity extends \_PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint
 {
     const NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
     public $message = 'This value is already used.';

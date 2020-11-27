@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 #endif
 #ifdef HAVE_SHUTDOWN
-function socket_shutdown(\_PhpScopera143bcca66cb\Socket $socket, int $mode = 2) : bool
+function socket_shutdown(\_PhpScoper26e51eeacccf\Socket $socket, int $mode = 2) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ShadowedTraitMethods;
+namespace _PhpScoper26e51eeacccf\ShadowedTraitMethods;
 
 use function PHPStan\Analyser\assertType;
 trait FooTrait

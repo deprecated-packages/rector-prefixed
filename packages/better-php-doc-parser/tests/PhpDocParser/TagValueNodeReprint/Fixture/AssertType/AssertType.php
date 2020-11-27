@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\AssertType;
 
-use _PhpScopera143bcca66cb\Doctrine\Common\Collections\Collection;
-use _PhpScopera143bcca66cb\Symfony\Component\Validator\Constraints as Assert;
+use _PhpScoper26e51eeacccf\Doctrine\Common\Collections\Collection;
+use _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraints as Assert;
 class AssertType
 {
     /**

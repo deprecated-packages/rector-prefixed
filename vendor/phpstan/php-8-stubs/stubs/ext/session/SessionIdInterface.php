@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 interface SessionIdInterface
 {
     /** @return string */
     public function create_sid();
 }
-\class_alias('_PhpScopera143bcca66cb\\SessionIdInterface', 'SessionIdInterface', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SessionIdInterface', 'SessionIdInterface', \false);

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Doctrine\ORM;
+namespace _PhpScoper26e51eeacccf\Doctrine\ORM;
 
-if (\class_exists('_PhpScopera143bcca66cb\\Doctrine\\ORM\\EntityManager')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\Doctrine\\ORM\\EntityManager')) {
     return;
 }
 class EntityManager

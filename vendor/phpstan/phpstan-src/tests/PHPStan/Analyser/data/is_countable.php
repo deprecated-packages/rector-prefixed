@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\IsCountable;
+namespace _PhpScoper26e51eeacccf\IsCountable;
 
 class Foo
 {

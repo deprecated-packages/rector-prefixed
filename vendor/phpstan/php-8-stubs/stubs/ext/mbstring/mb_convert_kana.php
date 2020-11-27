@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function mb_convert_kana(string $string, string $mode = "KV", ?string $encoding = null) : string
 {

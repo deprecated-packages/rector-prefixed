@@ -133,7 +133,7 @@ class Group extends \Hoa\Test\Unit\Suite
     }
     public function case_offset_set_not_an_exception()
     {
-        $this->given($group = new \Hoa\Exception\Group('foo'))->when($group->offsetSet('bar', new \_PhpScopera143bcca66cb\StdClass()))->then->boolean($group->offsetExists('bar'))->isFalse();
+        $this->given($group = new \Hoa\Exception\Group('foo'))->when($group->offsetSet('bar', new \_PhpScoper26e51eeacccf\StdClass()))->then->boolean($group->offsetExists('bar'))->isFalse();
     }
     public function case_offset_set()
     {

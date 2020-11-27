@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScopera143bcca66cb\UninitializedProperty;
+namespace _PhpScoper26e51eeacccf\UninitializedProperty;
 
 class Foo
 {
@@ -72,7 +72,7 @@ class TestCase
     {
     }
 }
-class MyTestCase extends \_PhpScopera143bcca66cb\UninitializedProperty\TestCase
+class MyTestCase extends \_PhpScoper26e51eeacccf\UninitializedProperty\TestCase
 {
     private int $foo;
     protected function setUp()

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\UnusedPropertyTrait;
+namespace _PhpScoper26e51eeacccf\UnusedPropertyTrait;
 
 trait FooTrait
 {

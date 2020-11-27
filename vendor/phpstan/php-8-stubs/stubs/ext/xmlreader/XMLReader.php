@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 class XMLReader
@@ -107,4 +107,4 @@ class XMLReader
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\XMLReader', 'XMLReader', \false);
+\class_alias('_PhpScoper26e51eeacccf\\XMLReader', 'XMLReader', \false);

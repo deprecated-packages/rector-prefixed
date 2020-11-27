@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Gedmo\Mapping\Annotation;
+namespace _PhpScoper26e51eeacccf\Gedmo\Mapping\Annotation;
 
-if (\class_exists('_PhpScopera143bcca66cb\\Gedmo\\Mapping\\Annotation\\Translatable')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\Gedmo\\Mapping\\Annotation\\Translatable')) {
     return;
 }
 /**

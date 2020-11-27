@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Http\Io;
+namespace _PhpScoper26e51eeacccf\React\Http\Io;
 
 /**
  * @internal

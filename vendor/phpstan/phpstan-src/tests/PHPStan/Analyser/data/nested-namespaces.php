@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\x;
+namespace _PhpScoper26e51eeacccf\x;
 
 class boo
 {
 }
-namespace _PhpScopera143bcca66cb\y;
+namespace _PhpScoper26e51eeacccf\y;
 
-use _PhpScopera143bcca66cb\x\boo;
-use _PhpScopera143bcca66cb\x\baz;
+use _PhpScoper26e51eeacccf\x\boo;
+use _PhpScoper26e51eeacccf\x\baz;
 class x
 {
     /** @var \x\boo */
     private $boo;
     /** @var \x\baz */
     private $baz;
-    public function __construct(\_PhpScopera143bcca66cb\x\boo $boo, \_PhpScopera143bcca66cb\x\baz $baz)
+    public function __construct(\_PhpScoper26e51eeacccf\x\boo $boo, \_PhpScoper26e51eeacccf\x\baz $baz)
     {
         $this->boo = $boo;
         $this->baz = $baz;

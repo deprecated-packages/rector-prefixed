@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Clue\React\NDJson;
+namespace _PhpScoper26e51eeacccf\Clue\React\NDJson;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface;
-use _PhpScopera143bcca66cb\React\Stream\Util;
-use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface;
+use _PhpScoper26e51eeacccf\React\Stream\Util;
+use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
 /**
  * The Decoder / Parser reads from a plain stream and emits data objects for each JSON element
  */
-class Decoder extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface
+class Decoder extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $assoc;
@@ -27,7 +27,7 @@ class Decoder extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements 
      * @param int $maxlength
      * @throws \BadMethodCallException
      */
-    public function __construct(\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
+    public function __construct(\_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
     {
         // @codeCoverageIgnoreStart
         if ($options !== 0 && \PHP_VERSION < 5.4) {
@@ -74,9 +74,9 @@ class Decoder extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements 
     {
         $this->input->resume();
     }
-    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScopera143bcca66cb\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoper26e51eeacccf\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     /** @internal */

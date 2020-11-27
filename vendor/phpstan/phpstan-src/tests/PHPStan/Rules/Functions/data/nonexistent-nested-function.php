@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\NonexistentNestedFunction;
+namespace _PhpScoper26e51eeacccf\NonexistentNestedFunction;
 
 if (barNonExistentFunction() === NULL) {
 }

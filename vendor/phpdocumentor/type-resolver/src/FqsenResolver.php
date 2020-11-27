@@ -9,10 +9,10 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection;
 
 use InvalidArgumentException;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context;
 use function explode;
 use function implode;
 use function strpos;
@@ -25,13 +25,13 @@ class FqsenResolver
 {
     /** @var string Definition of the NAMESPACE operator in PHP */
     private const OPERATOR_NAMESPACE = '\\';
-    public function resolve(string $fqsen, ?\_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context = null) : \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Fqsen
+    public function resolve(string $fqsen, ?\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context = null) : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen
     {
         if ($context === null) {
-            $context = new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context('');
+            $context = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context('');
         }
         if ($this->isFqsen($fqsen)) {
-            return new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Fqsen($fqsen);
+            return new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen($fqsen);
         }
         return $this->resolvePartialStructuralElementName($fqsen, $context);
     }
@@ -48,7 +48,7 @@ class FqsenResolver
      *
      * @throws InvalidArgumentException When type is not a valid FQSEN.
      */
-    private function resolvePartialStructuralElementName(string $type, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context) : \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Fqsen
+    private function resolvePartialStructuralElementName(string $type, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context) : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen
     {
         $typeParts = \explode(self::OPERATOR_NAMESPACE, $type, 2);
         $namespaceAliases = $context->getNamespaceAliases();
@@ -58,9 +58,9 @@ class FqsenResolver
             if ($namespace !== '') {
                 $namespace .= self::OPERATOR_NAMESPACE;
             }
-            return new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Fqsen(self::OPERATOR_NAMESPACE . $namespace . $type);
+            return new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen(self::OPERATOR_NAMESPACE . $namespace . $type);
         }
         $typeParts[0] = $namespaceAliases[$typeParts[0]];
-        return new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Fqsen(self::OPERATOR_NAMESPACE . \implode(self::OPERATOR_NAMESPACE, $typeParts));
+        return new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen(self::OPERATOR_NAMESPACE . \implode(self::OPERATOR_NAMESPACE, $typeParts));
     }
 }

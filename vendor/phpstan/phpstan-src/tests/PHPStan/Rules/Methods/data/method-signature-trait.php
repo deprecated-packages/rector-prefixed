@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MethodSignature;
+namespace _PhpScoper26e51eeacccf\MethodSignature;
 
-class SubClassUsingTrait extends \_PhpScopera143bcca66cb\MethodSignature\BaseClass implements \_PhpScopera143bcca66cb\MethodSignature\BaseInterface
+class SubClassUsingTrait extends \_PhpScoper26e51eeacccf\MethodSignature\BaseClass implements \_PhpScoper26e51eeacccf\MethodSignature\BaseInterface
 {
     use SubTrait;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function numfmt_format_currency(\NumberFormatter $formatter, float $amount, string $currency) : string|false
 {

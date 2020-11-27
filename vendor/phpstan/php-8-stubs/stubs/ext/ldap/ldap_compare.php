@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @param resource $ldap */
 function ldap_compare($ldap, string $dn, string $attribute, string $value, ?array $controls = null) : bool|int

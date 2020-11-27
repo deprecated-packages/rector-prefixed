@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TraitPhpDocsThree;
+namespace _PhpScoper26e51eeacccf\TraitPhpDocsThree;
 
 trait BarTrait
 {

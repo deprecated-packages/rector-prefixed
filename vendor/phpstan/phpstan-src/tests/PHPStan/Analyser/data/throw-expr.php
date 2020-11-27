@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScopera143bcca66cb\ThrowExpr;
+namespace _PhpScoper26e51eeacccf\ThrowExpr;
 
 use function PHPStan\Analyser\assertType;
 class Foo

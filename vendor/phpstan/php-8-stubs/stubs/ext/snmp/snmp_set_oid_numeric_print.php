@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @alias snmp_set_oid_output_format */
 function snmp_set_oid_numeric_print(int $format) : bool

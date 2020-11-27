@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InterfaceMethods;
+namespace _PhpScoper26e51eeacccf\InterfaceMethods;
 
 interface Foo
 {
     public function fooMethod();
     public static function fooStaticMethod();
 }
-abstract class Bar implements \_PhpScopera143bcca66cb\InterfaceMethods\Foo
+abstract class Bar implements \_PhpScoper26e51eeacccf\InterfaceMethods\Foo
 {
 }
-abstract class Baz extends \_PhpScopera143bcca66cb\InterfaceMethods\Bar
+abstract class Baz extends \_PhpScoper26e51eeacccf\InterfaceMethods\Bar
 {
     public function bazMethod()
     {

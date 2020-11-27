@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ExtendsPdoStatementCrash;
+namespace _PhpScoper26e51eeacccf\ExtendsPdoStatementCrash;
 
 class CrashOne extends \PDOStatement
 {

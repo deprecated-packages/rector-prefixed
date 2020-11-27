@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imagesettile(\_PhpScopera143bcca66cb\GdImage $image, \_PhpScopera143bcca66cb\GdImage $tile) : bool
+function imagesettile(\_PhpScoper26e51eeacccf\GdImage $image, \_PhpScoper26e51eeacccf\GdImage $tile) : bool
 {
 }

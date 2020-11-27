@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\IgnoreLine;
+namespace _PhpScoper26e51eeacccf\IgnoreLine;
 
 class Foo
 {

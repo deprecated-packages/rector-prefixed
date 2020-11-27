@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ConstantTypesIncrementDecrement;
+namespace _PhpScoper26e51eeacccf\ConstantTypesIncrementDecrement;
 
 class Foo
 {

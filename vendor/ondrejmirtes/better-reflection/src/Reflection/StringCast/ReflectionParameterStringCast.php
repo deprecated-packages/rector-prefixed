@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast;
 
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionParameter;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionParameter;
 use function is_array;
 use function is_string;
 use function sprintf;
@@ -15,11 +15,11 @@ use function var_export;
  */
 final class ReflectionParameterStringCast
 {
-    public static function toString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
+    public static function toString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
     {
         return \sprintf('Parameter #%d [ %s %s%s%s$%s%s ]', $parameterReflection->getPosition(), $parameterReflection->isOptional() ? '<optional>' : '<required>', self::typeToString($parameterReflection), $parameterReflection->isVariadic() ? '...' : '', $parameterReflection->isPassedByReference() ? '&' : '', $parameterReflection->getName(), self::valueToString($parameterReflection));
     }
-    private static function typeToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
+    private static function typeToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
     {
         if (!$parameterReflection->hasType()) {
             return '';
@@ -32,7 +32,7 @@ final class ReflectionParameterStringCast
         }
         return $type . ' or NULL ';
     }
-    private static function valueToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
+    private static function valueToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
     {
         if (!($parameterReflection->isOptional() && $parameterReflection->isDefaultValueAvailable())) {
             return '';

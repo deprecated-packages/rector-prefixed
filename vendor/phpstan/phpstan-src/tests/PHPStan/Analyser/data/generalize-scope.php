@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\GeneralizeScope;
+namespace _PhpScoper26e51eeacccf\GeneralizeScope;
 
 class Foo
 {

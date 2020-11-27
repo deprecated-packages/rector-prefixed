@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScopera143bcca66cb\ArrowFunctionAttributes;
+namespace _PhpScoper26e51eeacccf\ArrowFunctionAttributes;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
 class Foo

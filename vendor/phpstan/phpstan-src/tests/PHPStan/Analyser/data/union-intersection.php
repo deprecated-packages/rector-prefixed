@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\UnionIntersection;
+namespace _PhpScoper26e51eeacccf\UnionIntersection;
 
 class WithFoo
 {
     const FOO_CONSTANT = 1;
     /** @var Foo */
     public $foo;
-    public function doFoo() : \_PhpScopera143bcca66cb\UnionIntersection\Foo
+    public function doFoo() : \_PhpScoper26e51eeacccf\UnionIntersection\Foo
     {
     }
-    public static function doStaticFoo() : \_PhpScopera143bcca66cb\UnionIntersection\Foo
+    public static function doStaticFoo() : \_PhpScoper26e51eeacccf\UnionIntersection\Foo
     {
     }
 }
@@ -22,16 +22,16 @@ class WithFooAndBar
     public $foo;
     /** @var Bar */
     public $bar;
-    public function doFoo() : \_PhpScopera143bcca66cb\UnionIntersection\AnotherFoo
+    public function doFoo() : \_PhpScoper26e51eeacccf\UnionIntersection\AnotherFoo
     {
     }
-    public static function doStaticFoo() : \_PhpScopera143bcca66cb\UnionIntersection\AnotherFoo
+    public static function doStaticFoo() : \_PhpScoper26e51eeacccf\UnionIntersection\AnotherFoo
     {
     }
-    public function doBar() : \_PhpScopera143bcca66cb\UnionIntersection\Bar
+    public function doBar() : \_PhpScoper26e51eeacccf\UnionIntersection\Bar
     {
     }
-    public static function doStaticBar() : \_PhpScopera143bcca66cb\UnionIntersection\Bar
+    public static function doStaticBar() : \_PhpScoper26e51eeacccf\UnionIntersection\Bar
     {
     }
 }
@@ -39,10 +39,10 @@ interface WithFooAndBarInterface
 {
     const FOO_CONSTANT = 1;
     const BAR_CONSTANT = 1;
-    public function doFoo() : \_PhpScopera143bcca66cb\UnionIntersection\AnotherFoo;
-    public static function doStaticFoo() : \_PhpScopera143bcca66cb\UnionIntersection\AnotherFoo;
-    public function doBar() : \_PhpScopera143bcca66cb\UnionIntersection\Bar;
-    public static function doStaticBar() : \_PhpScopera143bcca66cb\UnionIntersection\Bar;
+    public function doFoo() : \_PhpScoper26e51eeacccf\UnionIntersection\AnotherFoo;
+    public static function doStaticFoo() : \_PhpScoper26e51eeacccf\UnionIntersection\AnotherFoo;
+    public function doBar() : \_PhpScoper26e51eeacccf\UnionIntersection\Bar;
+    public static function doStaticBar() : \_PhpScoper26e51eeacccf\UnionIntersection\Bar;
 }
 interface SomeInterface
 {
@@ -51,18 +51,18 @@ class Dolor
 {
     const PARENT_CONSTANT = [1, 2, 3];
 }
-class Ipsum extends \_PhpScopera143bcca66cb\UnionIntersection\Dolor
+class Ipsum extends \_PhpScoper26e51eeacccf\UnionIntersection\Dolor
 {
     const IPSUM_CONSTANT = 'foo';
     /** @var WithFoo|WithFooAndBar */
     private $union;
     /** @var WithFoo|object */
     private $objectUnion;
-    public function doFoo(\_PhpScopera143bcca66cb\UnionIntersection\WithFoo $foo, \_PhpScopera143bcca66cb\UnionIntersection\WithFoo $foobar, object $object)
+    public function doFoo(\_PhpScoper26e51eeacccf\UnionIntersection\WithFoo $foo, \_PhpScoper26e51eeacccf\UnionIntersection\WithFoo $foobar, object $object)
     {
-        if ($foo instanceof \_PhpScopera143bcca66cb\UnionIntersection\SomeInterface) {
-            if ($foobar instanceof \_PhpScopera143bcca66cb\UnionIntersection\WithFooAndBarInterface) {
-                if ($object instanceof \_PhpScopera143bcca66cb\UnionIntersection\SomeInterface) {
+        if ($foo instanceof \_PhpScoper26e51eeacccf\UnionIntersection\SomeInterface) {
+            if ($foobar instanceof \_PhpScoper26e51eeacccf\UnionIntersection\WithFooAndBarInterface) {
+                if ($object instanceof \_PhpScoper26e51eeacccf\UnionIntersection\SomeInterface) {
                     die;
                 }
             }

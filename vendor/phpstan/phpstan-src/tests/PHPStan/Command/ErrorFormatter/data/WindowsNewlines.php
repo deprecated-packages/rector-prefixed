@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\BaselineIntegration;
+namespace _PhpScoper26e51eeacccf\BaselineIntegration;
 
 class WindowsNewlines
 {

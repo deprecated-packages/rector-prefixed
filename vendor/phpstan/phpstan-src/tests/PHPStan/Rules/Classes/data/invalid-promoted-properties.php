@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InvalidPromotedProperties;
+namespace _PhpScoper26e51eeacccf\InvalidPromotedProperties;
 
 class Foo
 {

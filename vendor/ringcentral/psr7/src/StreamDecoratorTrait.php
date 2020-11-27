@@ -1,18 +1,18 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\RingCentral\Psr7;
+namespace _PhpScoper26e51eeacccf\RingCentral\Psr7;
 
-use _PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface;
+use _PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator trait
  * @property StreamInterface stream
  */
-abstract class StreamDecoratorTrait implements \_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface
+abstract class StreamDecoratorTrait implements \_PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface
 {
     /**
      * @param StreamInterface $stream Stream to decorate
      */
-    public function __construct(\_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface $stream = null)
+    public function __construct(\_PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface $stream = null)
     {
         if ($stream) {
             $this->stream = $stream;

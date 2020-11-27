@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\UnresolvableTypes;
+namespace _PhpScoper26e51eeacccf\UnresolvableTypes;
 
 /**
  * @param array<int, int, int> $arrayWithTooManyArgs

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InheritDocParameterRemapping;
+namespace _PhpScoper26e51eeacccf\InheritDocParameterRemapping;
 
 use function PHPStan\Analyser\assertType;
 class Lorem
@@ -15,23 +15,23 @@ class Lorem
     {
     }
 }
-class Ipsum extends \_PhpScopera143bcca66cb\InheritDocParameterRemapping\Lorem
+class Ipsum extends \_PhpScoper26e51eeacccf\InheritDocParameterRemapping\Lorem
 {
     public function doLorem($x, $y, $z, $d)
     {
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocParameterRemapping\\A', $x);
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocParameterRemapping\\B', $y);
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocParameterRemapping\\C', $z);
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocParameterRemapping\\D', $d);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InheritDocParameterRemapping\\A', $x);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InheritDocParameterRemapping\\B', $y);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InheritDocParameterRemapping\\C', $z);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InheritDocParameterRemapping\\D', $d);
     }
 }
-class Dolor extends \_PhpScopera143bcca66cb\InheritDocParameterRemapping\Ipsum
+class Dolor extends \_PhpScoper26e51eeacccf\InheritDocParameterRemapping\Ipsum
 {
     public function doLorem($g, $h, $i, $d)
     {
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocParameterRemapping\\A', $g);
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocParameterRemapping\\B', $h);
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocParameterRemapping\\C', $i);
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocParameterRemapping\\D', $d);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InheritDocParameterRemapping\\A', $g);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InheritDocParameterRemapping\\B', $h);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InheritDocParameterRemapping\\C', $i);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InheritDocParameterRemapping\\D', $d);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug4097;
+namespace _PhpScoper26e51eeacccf\Bug4097;
 
 class Snapshot
 {
@@ -27,8 +27,8 @@ class SnapshotRepository
      * @param Fu|Bar $entity
      * @phpstan-param T $entity
      */
-    public function buildSnapshot($entity) : \_PhpScopera143bcca66cb\Bug4097\Snapshot
+    public function buildSnapshot($entity) : \_PhpScoper26e51eeacccf\Bug4097\Snapshot
     {
-        return new \_PhpScopera143bcca66cb\Bug4097\Snapshot();
+        return new \_PhpScoper26e51eeacccf\Bug4097\Snapshot();
     }
 }

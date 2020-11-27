@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\SymfonyCodeQuality\Rector\Class_;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -35,15 +35,15 @@ final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\Abs
     /**
      * @var string
      */
-    private const EVENT_SUBSCRIBER_INTERFACE = '_PhpScopera143bcca66cb\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
+    private const EVENT_SUBSCRIBER_INTERFACE = '_PhpScoper26e51eeacccf\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
     /**
      * @var string
      */
-    private const KERNEL_EVENTS_CLASS = '_PhpScopera143bcca66cb\\Symfony\\Component\\HttpKernel\\KernelEvents';
+    private const KERNEL_EVENTS_CLASS = '_PhpScoper26e51eeacccf\\Symfony\\Component\\HttpKernel\\KernelEvents';
     /**
      * @var string
      */
-    private const CONSOLE_EVENTS_CLASS = '_PhpScopera143bcca66cb\\Symfony\\Component\\Console\\ConsoleEvents';
+    private const CONSOLE_EVENTS_CLASS = '_PhpScoper26e51eeacccf\\Symfony\\Component\\Console\\ConsoleEvents';
     /**
      * @var string
      * @see https://regex101.com/r/qiHZ4T/1
@@ -110,7 +110,7 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class SomeEventSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
@@ -126,7 +126,7 @@ class SomeEventSubscriber implements \Symfony\Component\EventDispatcher\EventSub
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\SomeEventSubscriber', 'SomeEventSubscriber', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SomeEventSubscriber', 'SomeEventSubscriber', \false);
 CODE_SAMPLE
 )]);
     }
@@ -164,7 +164,7 @@ CODE_SAMPLE
     private function isAlreadyEventSubscriber(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ((array) $class->implements as $implement) {
-            if ($this->isName($implement, '_PhpScopera143bcca66cb\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+            if ($this->isName($implement, '_PhpScoper26e51eeacccf\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
                 return \true;
             }
         }
@@ -182,7 +182,7 @@ CODE_SAMPLE
         $eventListeners = $serviceMap->getServicesByTag('kernel.event_listener');
         foreach ($eventListeners as $eventListener) {
             // skip Symfony core listeners
-            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match((string) $eventListener->getClass(), self::SYMFONY_FAMILY_REGEX)) {
+            if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match((string) $eventListener->getClass(), self::SYMFONY_FAMILY_REGEX)) {
                 continue;
             }
             foreach ($eventListener->getTags() as $tag) {
@@ -204,7 +204,7 @@ CODE_SAMPLE
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
         $classShortName = (string) $class->name;
         // remove suffix
-        $classShortName = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
+        $classShortName = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
         $class->name = new \PhpParser\Node\Identifier($classShortName . 'EventSubscriber');
         $classMethod = $this->createGetSubscribedEventsClassMethod($eventsToMethods);
         $class->stmts[] = $classMethod;

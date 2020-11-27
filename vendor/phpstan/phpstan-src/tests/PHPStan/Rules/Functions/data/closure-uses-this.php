@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ClosureUsesThis;
+namespace _PhpScoper26e51eeacccf\ClosureUsesThis;
 
 class Foo
 {

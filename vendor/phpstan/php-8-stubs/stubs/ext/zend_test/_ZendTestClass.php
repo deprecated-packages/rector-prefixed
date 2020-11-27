@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class _ZendTestClass
 {
@@ -11,8 +11,8 @@ class _ZendTestClass
     public function __toString() : string
     {
     }
-    public function returnsStatic() : \_PhpScopera143bcca66cb\static
+    public function returnsStatic() : \_PhpScoper26e51eeacccf\static
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\_ZendTestClass', '_ZendTestClass', \false);
+\class_alias('_PhpScoper26e51eeacccf\\_ZendTestClass', '_ZendTestClass', \false);

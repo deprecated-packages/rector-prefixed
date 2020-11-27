@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class RegexIterator extends \FilterIterator
 {
@@ -40,4 +40,4 @@ class RegexIterator extends \FilterIterator
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\RegexIterator', 'RegexIterator', \false);
+\class_alias('_PhpScoper26e51eeacccf\\RegexIterator', 'RegexIterator', \false);

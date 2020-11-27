@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-use _PhpScopera143bcca66cb\React\EventLoop\Factory;
-use _PhpScopera143bcca66cb\React\ChildProcess\Process;
+use _PhpScoper26e51eeacccf\React\EventLoop\Factory;
+use _PhpScoper26e51eeacccf\React\ChildProcess\Process;
 require __DIR__ . '/../vendor/autoload.php';
 if (\DIRECTORY_SEPARATOR === '\\') {
     exit('Process pipes not supported on Windows' . \PHP_EOL);
 }
-$loop = \_PhpScopera143bcca66cb\React\EventLoop\Factory::create();
-$first = new \_PhpScopera143bcca66cb\React\ChildProcess\Process('sleep 2; echo welt');
+$loop = \_PhpScoper26e51eeacccf\React\EventLoop\Factory::create();
+$first = new \_PhpScoper26e51eeacccf\React\ChildProcess\Process('sleep 2; echo welt');
 $first->start($loop);
-$second = new \_PhpScopera143bcca66cb\React\ChildProcess\Process('sleep 1; echo hallo');
+$second = new \_PhpScoper26e51eeacccf\React\ChildProcess\Process('sleep 1; echo hallo');
 $second->start($loop);
 $first->stdout->on('data', function ($chunk) {
     echo $chunk;

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\AliasedTraitsProblem;
+namespace _PhpScoper26e51eeacccf\AliasedTraitsProblem;
 
 trait Foo
 {

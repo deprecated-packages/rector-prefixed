@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Compiler\PhpScoper;
 
 use SplFileInfo;
-use _PhpScopera143bcca66cb\Symfony\Component\Finder\Finder;
+use _PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder;
 final class WhitelistedStubsProvider
 {
     /**
@@ -20,7 +20,7 @@ final class WhitelistedStubsProvider
         // mirrors https://github.com/phpstan/phpstan-src/commit/04f777bc4445725d17dac65c989400485454b145
         $stubsDirectory = __DIR__ . '/../../../../vendor/jetbrains/phpstorm-stubs';
         if (\file_exists($stubsDirectory)) {
-            $stubFinder = \_PhpScopera143bcca66cb\Symfony\Component\Finder\Finder::create()->files()->name('*.php')->in($stubsDirectory)->notName('#PhpStormStubsMap\\.php$#');
+            $stubFinder = \_PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder::create()->files()->name('*.php')->in($stubsDirectory)->notName('#PhpStormStubsMap\\.php$#');
             foreach ($stubFinder->getIterator() as $fileInfo) {
                 /** @var SplFileInfo $fileInfo */
                 $stubs[] = $fileInfo->getPathName();

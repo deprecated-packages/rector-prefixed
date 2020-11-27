@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\DI\Definitions;
+namespace _PhpScoper26e51eeacccf\Nette\DI\Definitions;
 
-use _PhpScopera143bcca66cb\Nette;
+use _PhpScoper26e51eeacccf\Nette;
 /**
  * Reference to service. Either by name or by type or reference to the 'self' service.
  */

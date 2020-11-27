@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function socket_addrinfo_bind(\_PhpScopera143bcca66cb\AddressInfo $address) : \Socket|false
+function socket_addrinfo_bind(\_PhpScoper26e51eeacccf\AddressInfo $address) : \Socket|false
 {
 }

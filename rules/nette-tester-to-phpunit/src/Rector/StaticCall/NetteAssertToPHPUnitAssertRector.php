@@ -54,7 +54,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScopera143bcca66cb\\Tester\\Assert')) {
+        if (!$this->isObjectType($node, '_PhpScoper26e51eeacccf\\Tester\\Assert')) {
             return null;
         }
         return $this->assertManipulator->processStaticCall($node);

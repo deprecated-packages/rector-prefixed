@@ -15,6 +15,6 @@
             <tag name="kernel.event_listener" event="multi_event" method="meToo"/>
         </service>
 
-        <service id="event_dispatcher" class="_PhpScopera143bcca66cb\Symfony\Component\EventDispatcher\EventDispatcher"/>
+        <service id="event_dispatcher" class="_PhpScoper26e51eeacccf\Symfony\Component\EventDispatcher\EventDispatcher"/>
     </services>
 </container>

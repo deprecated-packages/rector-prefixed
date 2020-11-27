@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imagecolorresolve(\_PhpScopera143bcca66cb\GdImage $image, int $red, int $green, int $blue) : int|false
+function imagecolorresolve(\_PhpScoper26e51eeacccf\GdImage $image, int $red, int $green, int $blue) : int|false
 {
 }

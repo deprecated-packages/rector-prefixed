@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Dns\Resolver;
+namespace _PhpScoper26e51eeacccf\React\Dns\Resolver;
 
 interface ResolverInterface
 {

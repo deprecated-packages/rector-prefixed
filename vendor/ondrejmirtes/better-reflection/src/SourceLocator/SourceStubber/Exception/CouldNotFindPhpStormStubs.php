@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\Exception;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\Exception;
 
 use RuntimeException;
 class CouldNotFindPhpStormStubs extends \RuntimeException

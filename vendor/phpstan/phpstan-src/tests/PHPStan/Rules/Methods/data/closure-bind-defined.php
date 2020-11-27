@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallClosureBind;
+namespace _PhpScoper26e51eeacccf\CallClosureBind;
 
 class Foo
 {

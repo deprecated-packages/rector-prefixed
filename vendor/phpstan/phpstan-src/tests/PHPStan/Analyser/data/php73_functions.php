@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Php73Functions;
+namespace _PhpScoper26e51eeacccf\Php73Functions;
 
 class Foo
 {

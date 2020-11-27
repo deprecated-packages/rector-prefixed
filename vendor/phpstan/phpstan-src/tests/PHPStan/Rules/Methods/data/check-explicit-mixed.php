@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CheckExplicitMixedMethodCall;
+namespace _PhpScoper26e51eeacccf\CheckExplicitMixedMethodCall;
 
 class Foo
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 #endif
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET

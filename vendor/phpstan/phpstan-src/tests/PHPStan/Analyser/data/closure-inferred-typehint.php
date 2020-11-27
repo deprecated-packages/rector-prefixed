@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ClosureWithInferredTypehint;
+namespace _PhpScoper26e51eeacccf\ClosureWithInferredTypehint;
 
 class Foo
 {

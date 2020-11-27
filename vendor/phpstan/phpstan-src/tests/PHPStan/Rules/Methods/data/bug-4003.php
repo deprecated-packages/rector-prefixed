@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug4003;
+namespace _PhpScoper26e51eeacccf\Bug4003;
 
 class Boo
 {
@@ -10,7 +10,7 @@ class Boo
         return 1;
     }
 }
-class Baz extends \_PhpScopera143bcca66cb\Bug4003\Boo
+class Baz extends \_PhpScoper26e51eeacccf\Bug4003\Boo
 {
     public function foo() : string
     {
@@ -23,7 +23,7 @@ class Lorem
     {
     }
 }
-class Ipsum extends \_PhpScopera143bcca66cb\Bug4003\Lorem
+class Ipsum extends \_PhpScoper26e51eeacccf\Bug4003\Lorem
 {
     /**
      * @param string $test
@@ -40,7 +40,7 @@ interface Dolor
      */
     public function bar();
 }
-class Amet implements \_PhpScopera143bcca66cb\Bug4003\Dolor
+class Amet implements \_PhpScoper26e51eeacccf\Bug4003\Dolor
 {
     public function bar() : void
     {

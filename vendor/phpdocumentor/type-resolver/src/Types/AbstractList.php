@@ -9,15 +9,15 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
 /**
  * Represents a list of values. This is an abstract class for Array_ and Collection.
  *
  * @psalm-immutable
  */
-abstract class AbstractList implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type
+abstract class AbstractList implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
 {
     /** @var Type */
     protected $valueType;
@@ -28,26 +28,26 @@ abstract class AbstractList implements \_PhpScopera143bcca66cb\phpDocumentor\Ref
     /**
      * Initializes this representation of an array with the given Type.
      */
-    public function __construct(?\_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type $valueType = null, ?\_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type $keyType = null)
+    public function __construct(?\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type $valueType = null, ?\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type $keyType = null)
     {
         if ($valueType === null) {
-            $valueType = new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Mixed_();
+            $valueType = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Mixed_();
         }
         $this->valueType = $valueType;
-        $this->defaultKeyType = new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Compound([new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\String_(), new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Integer()]);
+        $this->defaultKeyType = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Compound([new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\String_(), new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Integer()]);
         $this->keyType = $keyType;
     }
     /**
      * Returns the type for the keys of this array.
      */
-    public function getKeyType() : \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type
+    public function getKeyType() : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
     {
         return $this->keyType ?? $this->defaultKeyType;
     }
     /**
      * Returns the value for the keys of this array.
      */
-    public function getValueType() : \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type
+    public function getValueType() : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
     {
         return $this->valueType;
     }
@@ -59,10 +59,10 @@ abstract class AbstractList implements \_PhpScopera143bcca66cb\phpDocumentor\Ref
         if ($this->keyType) {
             return 'array<' . $this->keyType . ',' . $this->valueType . '>';
         }
-        if ($this->valueType instanceof \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Mixed_) {
+        if ($this->valueType instanceof \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Mixed_) {
             return 'array';
         }
-        if ($this->valueType instanceof \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Compound) {
+        if ($this->valueType instanceof \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Compound) {
             return '(' . $this->valueType . ')[]';
         }
         return $this->valueType . '[]';

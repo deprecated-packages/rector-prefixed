@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug3448;
+namespace _PhpScoper26e51eeacccf\Bug3448;
 
 use function func_get_args;
 final class Foo
@@ -14,8 +14,8 @@ final class UseFoo
 {
     public static function do() : void
     {
-        \_PhpScopera143bcca66cb\Bug3448\Foo::add(1, [new \stdClass()]);
-        \_PhpScopera143bcca66cb\Bug3448\Foo::add('foo');
-        \_PhpScopera143bcca66cb\Bug3448\Foo::add('foo', [new \stdClass()]);
+        \_PhpScoper26e51eeacccf\Bug3448\Foo::add(1, [new \stdClass()]);
+        \_PhpScoper26e51eeacccf\Bug3448\Foo::add('foo');
+        \_PhpScoper26e51eeacccf\Bug3448\Foo::add('foo', [new \stdClass()]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 interface ArrayAccess
 {
@@ -16,4 +16,4 @@ interface ArrayAccess
     /** @return void */
     public function offsetUnset(mixed $offset);
 }
-\class_alias('_PhpScopera143bcca66cb\\ArrayAccess', 'ArrayAccess', \false);
+\class_alias('_PhpScoper26e51eeacccf\\ArrayAccess', 'ArrayAccess', \false);

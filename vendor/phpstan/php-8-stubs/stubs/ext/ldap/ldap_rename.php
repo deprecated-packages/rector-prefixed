@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 #if (LDAP_API_VERSION > 2000) || defined(HAVE_ORALDAP)
 /** @param resource $ldap */

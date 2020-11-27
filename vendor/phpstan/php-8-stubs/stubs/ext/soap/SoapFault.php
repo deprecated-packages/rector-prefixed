@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class SoapFault extends \Exception
 {
@@ -11,4 +11,4 @@ class SoapFault extends \Exception
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\SoapFault', 'SoapFault', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SoapFault', 'SoapFault', \false);

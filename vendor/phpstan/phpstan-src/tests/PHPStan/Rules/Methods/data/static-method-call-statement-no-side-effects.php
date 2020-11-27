@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\StaticMethodCallStatementNoSideEffects;
+namespace _PhpScoper26e51eeacccf\StaticMethodCallStatementNoSideEffects;
 
 use DateTimeImmutable;
 class Foo

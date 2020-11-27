@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Util\Visitor;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Visitor;
 
 use PhpParser\Node;
 use PhpParser\NodeTraverser;

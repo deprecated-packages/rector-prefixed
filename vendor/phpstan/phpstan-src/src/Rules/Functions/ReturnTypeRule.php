@@ -10,8 +10,8 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Rules\FunctionReturnTypeCheck;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Return_>
  */
@@ -25,7 +25,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
      * @var \Roave\BetterReflection\Reflector\FunctionReflector
      */
     private $functionReflector;
-    public function __construct(\PHPStan\Rules\FunctionReturnTypeCheck $returnTypeCheck, \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
+    public function __construct(\PHPStan\Rules\FunctionReturnTypeCheck $returnTypeCheck, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
     {
         $this->returnTypeCheck = $returnTypeCheck;
         $this->functionReflector = $functionReflector;
@@ -52,7 +52,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
         } else {
             try {
                 $reflection = $this->functionReflector->reflect($function->getName());
-            } catch (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
             }
         }

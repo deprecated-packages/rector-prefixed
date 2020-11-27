@@ -5,7 +5,7 @@
             "src"
         ],
         "psr-4": {
-            "_PhpScopera143bcca66cb\\App\\": "directory"
+            "_PhpScoper26e51eeacccf\\App\\": "directory"
         }
     },
     "autoload-dev": {

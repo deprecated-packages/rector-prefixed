@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\VarStatementAnnotation;
+namespace _PhpScoper26e51eeacccf\VarStatementAnnotation;
 
 class Foo
 {

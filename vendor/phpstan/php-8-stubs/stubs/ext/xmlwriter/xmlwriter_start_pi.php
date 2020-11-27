@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function xmlwriter_start_pi(\XMLWriter $writer, string $target) : bool
 {

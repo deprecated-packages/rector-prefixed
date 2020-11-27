@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\Comparison;
+namespace _PhpScoper26e51eeacccf\Levels\Comparison;
 
 class Foo
 {

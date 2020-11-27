@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\AnonymousFunction;
+namespace _PhpScoper26e51eeacccf\AnonymousFunction;
 
 function () {
     $integer = 1;

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Bug3798;
+namespace _PhpScoper26e51eeacccf\Bug3798;
 
 /** @param callable(int ...$params) : void $c */
 function acceptsVariadicCallable(callable $c) : void

@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\DI;
+namespace _PhpScoper26e51eeacccf\Nette\DI;
 
-use _PhpScopera143bcca66cb\Nette;
-use _PhpScopera143bcca66cb\Nette\Utils\Reflection;
+use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoper26e51eeacccf\Nette\Utils\Reflection;
 use ReflectionClass;
 use ReflectionMethod;
 /**
@@ -49,9 +49,9 @@ class DependencyChecker
                 }
             } elseif ($dep instanceof \ReflectionFunctionAbstract) {
                 $phpFiles[] = $dep->getFileName();
-                $functions[] = \rtrim(\_PhpScopera143bcca66cb\Nette\Utils\Reflection::toString($dep), '()');
+                $functions[] = \rtrim(\_PhpScoper26e51eeacccf\Nette\Utils\Reflection::toString($dep), '()');
             } else {
-                throw new \_PhpScopera143bcca66cb\Nette\InvalidStateException('Unexpected dependency ' . \gettype($dep));
+                throw new \_PhpScoper26e51eeacccf\Nette\InvalidStateException('Unexpected dependency ' . \gettype($dep));
             }
         }
         $classes = \array_keys($classes);
@@ -84,17 +84,17 @@ class DependencyChecker
         $hash = [];
         foreach ($classes as $name) {
             $class = new \ReflectionClass($name);
-            $hash[] = [$name, \_PhpScopera143bcca66cb\Nette\Utils\Reflection::getUseStatements($class), $class->isAbstract(), \get_parent_class($name), \class_implements($name), \class_uses($name)];
+            $hash[] = [$name, \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getUseStatements($class), $class->isAbstract(), \get_parent_class($name), \class_implements($name), \class_uses($name)];
             foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC) as $prop) {
                 if ($prop->getDeclaringClass() == $class) {
                     // intentionally ==
-                    $hash[] = [$name, $prop->name, $prop->getDocComment(), \_PhpScopera143bcca66cb\Nette\Utils\Reflection::getPropertyTypes($prop), \PHP_VERSION_ID >= 80000 ? \count($prop->getAttributes(\_PhpScopera143bcca66cb\Nette\DI\Attributes\Inject::class)) : null];
+                    $hash[] = [$name, $prop->name, $prop->getDocComment(), \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getPropertyTypes($prop), \PHP_VERSION_ID >= 80000 ? \count($prop->getAttributes(\_PhpScoper26e51eeacccf\Nette\DI\Attributes\Inject::class)) : null];
                 }
             }
             foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
                 if ($method->getDeclaringClass() == $class) {
                     // intentionally ==
-                    $hash[] = [$name, $method->name, $method->getDocComment(), self::hashParameters($method), \_PhpScopera143bcca66cb\Nette\Utils\Reflection::getReturnTypes($method)];
+                    $hash[] = [$name, $method->name, $method->getDocComment(), self::hashParameters($method), \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getReturnTypes($method)];
                 }
             }
         }
@@ -106,12 +106,12 @@ class DependencyChecker
                 if (isset($flip[$class->name])) {
                     continue;
                 }
-                $uses = \_PhpScopera143bcca66cb\Nette\Utils\Reflection::getUseStatements($class);
+                $uses = \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getUseStatements($class);
             } else {
                 $method = new \ReflectionFunction($name);
                 $uses = null;
             }
-            $hash[] = [$name, $uses, $method->getDocComment(), self::hashParameters($method), \_PhpScopera143bcca66cb\Nette\Utils\Reflection::getReturnTypes($method)];
+            $hash[] = [$name, $uses, $method->getDocComment(), self::hashParameters($method), \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getReturnTypes($method)];
         }
         return \md5(\serialize($hash));
     }
@@ -119,7 +119,7 @@ class DependencyChecker
     {
         $res = [];
         foreach ($method->getParameters() as $param) {
-            $res[] = [$param->name, \_PhpScopera143bcca66cb\Nette\Utils\Reflection::getParameterTypes($param), $param->isVariadic(), $param->isDefaultValueAvailable() ? [\_PhpScopera143bcca66cb\Nette\Utils\Reflection::getParameterDefaultValue($param)] : null];
+            $res[] = [$param->name, \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getParameterTypes($param), $param->isVariadic(), $param->isDefaultValueAvailable() ? [\_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getParameterDefaultValue($param)] : null];
         }
         return $res;
     }

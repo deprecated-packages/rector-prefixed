@@ -20,11 +20,11 @@ final class NonPhpFileClassRenamerTest extends \Symplify\PackageBuilder\Testing\
      * @var array<string, string>
      */
     private const CLASS_RENAMES = [
-        'Session' => '_PhpScopera143bcca66cb\\Illuminate\\Support\\Facades\\Session',
+        'Session' => '_PhpScoper26e51eeacccf\\Illuminate\\Support\\Facades\\Session',
         \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class,
         // Laravel
-        'Form' => '_PhpScopera143bcca66cb\\Collective\\Html\\FormFacade',
-        'Html' => '_PhpScopera143bcca66cb\\Collective\\Html\\HtmlFacade',
+        'Form' => '_PhpScoper26e51eeacccf\\Collective\\Html\\FormFacade',
+        'Html' => '_PhpScoper26e51eeacccf\\Collective\\Html\\HtmlFacade',
     ];
     /**
      * @var NonPhpFileClassRenamer

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Promise;
+namespace _PhpScoper26e51eeacccf\React\Promise;
 
-class Deferred implements \_PhpScopera143bcca66cb\React\Promise\PromisorInterface
+class Deferred implements \_PhpScoper26e51eeacccf\React\Promise\PromisorInterface
 {
     private $promise;
     private $resolveCallback;
@@ -16,7 +16,7 @@ class Deferred implements \_PhpScopera143bcca66cb\React\Promise\PromisorInterfac
     public function promise()
     {
         if (null === $this->promise) {
-            $this->promise = new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject, $notify) {
+            $this->promise = new \_PhpScoper26e51eeacccf\React\Promise\Promise(function ($resolve, $reject, $notify) {
                 $this->resolveCallback = $resolve;
                 $this->rejectCallback = $reject;
                 $this->notifyCallback = $notify;

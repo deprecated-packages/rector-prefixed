@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 abstract class RecursiveFilterIterator extends \FilterIterator implements \RecursiveIterator
 {
@@ -16,4 +16,4 @@ abstract class RecursiveFilterIterator extends \FilterIterator implements \Recur
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\RecursiveFilterIterator', 'RecursiveFilterIterator', \false);
+\class_alias('_PhpScoper26e51eeacccf\\RecursiveFilterIterator', 'RecursiveFilterIterator', \false);

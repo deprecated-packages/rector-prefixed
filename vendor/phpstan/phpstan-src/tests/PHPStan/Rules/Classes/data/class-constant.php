@@ -1,26 +1,26 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ClassConstantNamespace;
+namespace _PhpScoper26e51eeacccf\ClassConstantNamespace;
 
-\_PhpScopera143bcca66cb\ClassConstantNamespace\Foo::class;
-\_PhpScopera143bcca66cb\ClassConstantNamespace\Bar::class;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\Foo::class;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\Bar::class;
 self::class;
-\_PhpScopera143bcca66cb\ClassConstantNamespace\Foo::LOREM;
-\_PhpScopera143bcca66cb\ClassConstantNamespace\Foo::IPSUM;
-\_PhpScopera143bcca66cb\ClassConstantNamespace\Foo::DOLOR;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\Foo::LOREM;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\Foo::IPSUM;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\Foo::DOLOR;
 $bar::LOREM;
-$foo = new \_PhpScopera143bcca66cb\ClassConstantNamespace\Foo();
+$foo = new \_PhpScoper26e51eeacccf\ClassConstantNamespace\Foo();
 $foo::LOREM;
 $foo::IPSUM;
 $foo::DOLOR;
 static::LOREM;
 parent::LOREM;
-\_PhpScopera143bcca66cb\ClassConstantNamespace\UnknownClass::FOO;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\UnknownClass::FOO;
 $string = 'str';
 $string::FOO;
-\_PhpScopera143bcca66cb\ClassConstantNamespace\FOO::class;
-\_PhpScopera143bcca66cb\ClassConstantNamespace\FOO::DOLOR;
-\_PhpScopera143bcca66cb\ClassConstantNamespace\FOO::LOREM;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\FOO::class;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\FOO::DOLOR;
+\_PhpScoper26e51eeacccf\ClassConstantNamespace\FOO::LOREM;
 /** @var Foo|string $fooOrString */
 $fooOrString = doFoo();
 $fooOrString::LOREM;

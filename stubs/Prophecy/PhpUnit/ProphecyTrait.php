@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Prophecy\PhpUnit;
+namespace _PhpScoper26e51eeacccf\Prophecy\PhpUnit;
 
-if (\trait_exists('_PhpScopera143bcca66cb\\Prophecy\\PhpUnit\\ProphecyTrait')) {
+if (\trait_exists('_PhpScoper26e51eeacccf\\Prophecy\\PhpUnit\\ProphecyTrait')) {
     return;
 }
 trait ProphecyTrait

@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Http\Io;
+namespace _PhpScoper26e51eeacccf\React\Http\Io;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface;
-use _PhpScopera143bcca66cb\React\Stream\Util;
-use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface;
+use _PhpScoper26e51eeacccf\React\Stream\Util;
+use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Encodes given payload stream with "Transfer-Encoding: chunked" and emits encoded data
  *
@@ -13,11 +13,11 @@ use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
  *
  * @internal
  */
-class ChunkedEncoder extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface
+class ChunkedEncoder extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
-    public function __construct(\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -37,9 +37,9 @@ class ChunkedEncoder extends \_PhpScopera143bcca66cb\Evenement\EventEmitter impl
     {
         $this->input->resume();
     }
-    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScopera143bcca66cb\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScoper26e51eeacccf\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

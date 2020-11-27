@@ -1,28 +1,28 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ExtendsError;
+namespace _PhpScoper26e51eeacccf\ExtendsError;
 
-class Foo extends \_PhpScopera143bcca66cb\ExtendsError\Bar
+class Foo extends \_PhpScoper26e51eeacccf\ExtendsError\Bar
 {
 }
 interface BazInterface
 {
 }
-class Lorem extends \_PhpScopera143bcca66cb\ExtendsError\BazInterface
+class Lorem extends \_PhpScoper26e51eeacccf\ExtendsError\BazInterface
 {
 }
 trait DolorTrait
 {
 }
-class Ipsum extends \_PhpScopera143bcca66cb\ExtendsError\DolorTrait
+class Ipsum extends \_PhpScoper26e51eeacccf\ExtendsError\DolorTrait
 {
 }
-new class extends \_PhpScopera143bcca66cb\ExtendsError\DolorTrait
+new class extends \_PhpScoper26e51eeacccf\ExtendsError\DolorTrait
 {
 };
 final class FinalFoo
 {
 }
-class Sit extends \_PhpScopera143bcca66cb\ExtendsError\FinalFoo
+class Sit extends \_PhpScoper26e51eeacccf\ExtendsError\FinalFoo
 {
 }

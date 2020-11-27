@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\Type\ObjectType;
@@ -83,14 +83,14 @@ abstract class AbstractPhpDocNodeFactory
      */
     protected function matchCurlyBracketOpeningAndClosingSpace(string $annotationContent) : \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace
     {
-        $match = \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
+        $match = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
         $openingSpace = $match['opening_space'] ?? '';
-        $match = \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
+        $match = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
         $closingSpace = $match['closing_space'] ?? '';
         return new \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace($openingSpace, $closingSpace);
     }
     private function getCleanedUpTargetEntity(string $targetEntity) : string
     {
-        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
+        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\Variables;
+namespace _PhpScoper26e51eeacccf\Levels\Variables;
 
 function (int $foo) {
     echo $foo;

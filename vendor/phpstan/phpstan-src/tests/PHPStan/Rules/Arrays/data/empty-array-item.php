@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\EmptyArrayItem;
+namespace _PhpScoper26e51eeacccf\EmptyArrayItem;
 
 doFoo([, 'foo']);
 [, $a] = doFoo();

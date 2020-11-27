@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 final class OpenSSLCertificateSigningRequest
 {
 }
-\class_alias('_PhpScopera143bcca66cb\\OpenSSLCertificateSigningRequest', 'OpenSSLCertificateSigningRequest', \false);
+\class_alias('_PhpScoper26e51eeacccf\\OpenSSLCertificateSigningRequest', 'OpenSSLCertificateSigningRequest', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @deprecated */
 function libxml_disable_entity_loader(bool $disable = \true) : bool

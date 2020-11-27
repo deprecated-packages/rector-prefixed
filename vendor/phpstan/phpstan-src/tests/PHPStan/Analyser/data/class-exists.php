@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ClassExistsAutoloadingError;
+namespace _PhpScoper26e51eeacccf\ClassExistsAutoloadingError;
 
 class Foo
 {

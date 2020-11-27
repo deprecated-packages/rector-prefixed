@@ -5,15 +5,15 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\DI\Definitions;
+namespace _PhpScoper26e51eeacccf\Nette\DI\Definitions;
 
-use _PhpScopera143bcca66cb\Nette;
-use _PhpScopera143bcca66cb\Nette\DI\ServiceCreationException;
-use _PhpScopera143bcca66cb\Nette\Utils\Reflection;
+use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException;
+use _PhpScoper26e51eeacccf\Nette\Utils\Reflection;
 /**
  * Accessor definition.
  */
-final class AccessorDefinition extends \_PhpScopera143bcca66cb\Nette\DI\Definitions\Definition
+final class AccessorDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition
 {
     private const METHOD_GET = 'get';
     /** @var Reference|null */
@@ -22,14 +22,14 @@ final class AccessorDefinition extends \_PhpScopera143bcca66cb\Nette\DI\Definiti
     public function setImplement(string $type)
     {
         if (!\interface_exists($type)) {
-            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
+            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
         }
         $rc = new \ReflectionClass($type);
         $method = $rc->getMethods()[0] ?? null;
         if (!$method || $method->isStatic() || $method->getName() !== self::METHOD_GET || \count($rc->getMethods()) > 1) {
-            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method get().");
+            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method get().");
         } elseif ($method->getNumberOfParameters()) {
-            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException("Service '{$this->getName()}': Method {$type}::get() must have no parameters.");
+            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException("Service '{$this->getName()}': Method {$type}::get() must have no parameters.");
         }
         return parent::setType($type);
     }
@@ -43,42 +43,42 @@ final class AccessorDefinition extends \_PhpScopera143bcca66cb\Nette\DI\Definiti
      */
     public function setReference($reference)
     {
-        if ($reference instanceof \_PhpScopera143bcca66cb\Nette\DI\Definitions\Reference) {
+        if ($reference instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference) {
             $this->reference = $reference;
         } else {
-            $this->reference = \substr($reference, 0, 1) === '@' ? new \_PhpScopera143bcca66cb\Nette\DI\Definitions\Reference(\substr($reference, 1)) : \_PhpScopera143bcca66cb\Nette\DI\Definitions\Reference::fromType($reference);
+            $this->reference = \substr($reference, 0, 1) === '@' ? new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference(\substr($reference, 1)) : \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference::fromType($reference);
         }
         return $this;
     }
-    public function getReference() : ?\_PhpScopera143bcca66cb\Nette\DI\Definitions\Reference
+    public function getReference() : ?\_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference
     {
         return $this->reference;
     }
-    public function resolveType(\_PhpScopera143bcca66cb\Nette\DI\Resolver $resolver) : void
+    public function resolveType(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
     {
     }
-    public function complete(\_PhpScopera143bcca66cb\Nette\DI\Resolver $resolver) : void
+    public function complete(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
     {
         if (!$this->reference) {
             $interface = $this->getType();
             $method = new \ReflectionMethod($interface, self::METHOD_GET);
-            $returnType = \_PhpScopera143bcca66cb\Nette\DI\Helpers::getReturnType($method);
+            $returnType = \_PhpScoper26e51eeacccf\Nette\DI\Helpers::getReturnType($method);
             if (!$returnType) {
-                throw new \_PhpScopera143bcca66cb\Nette\DI\ServiceCreationException("Method {$interface}::get() has not return type hint or annotation @return.");
+                throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException("Method {$interface}::get() has not return type hint or annotation @return.");
             } elseif (!\class_exists($returnType) && !\interface_exists($returnType)) {
-                throw new \_PhpScopera143bcca66cb\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::get() method, class '{$returnType}' cannot be found.");
+                throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::get() method, class '{$returnType}' cannot be found.");
             }
             $this->setReference($returnType);
         }
         $this->reference = $resolver->normalizeReference($this->reference);
     }
-    public function generateMethod(\_PhpScopera143bcca66cb\Nette\PhpGenerator\Method $method, \_PhpScopera143bcca66cb\Nette\DI\PhpGenerator $generator) : void
+    public function generateMethod(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Method $method, \_PhpScoper26e51eeacccf\Nette\DI\PhpGenerator $generator) : void
     {
-        $class = (new \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
+        $class = (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
         $class->addProperty('container')->setPrivate();
         $class->addMethod('__construct')->addBody('$this->container = $container;')->addParameter('container')->setType($generator->getClassName());
         $rm = new \ReflectionMethod($this->getType(), self::METHOD_GET);
-        $class->addMethod(self::METHOD_GET)->setBody('return $this->container->getService(?);', [$this->reference->getValue()])->setReturnType(\_PhpScopera143bcca66cb\Nette\Utils\Reflection::getReturnType($rm));
+        $class->addMethod(self::METHOD_GET)->setBody('return $this->container->getService(?);', [$this->reference->getValue()])->setReturnType(\_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getReturnType($rm));
         $method->setBody('return new class ($this) ' . $class . ';');
     }
 }

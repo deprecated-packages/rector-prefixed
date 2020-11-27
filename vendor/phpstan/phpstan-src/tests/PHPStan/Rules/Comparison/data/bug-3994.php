@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug3994;
+namespace _PhpScoper26e51eeacccf\Bug3994;
 
 class HelloWorld
 {

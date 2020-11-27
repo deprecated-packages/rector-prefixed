@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class DOMDocument implements \DOMParentNode
 {
@@ -144,4 +144,4 @@ class DOMDocument implements \DOMParentNode
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\DOMDocument', 'DOMDocument', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DOMDocument', 'DOMDocument', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\DeprecatedAnnotations;
+namespace _PhpScoper26e51eeacccf\DeprecatedAnnotations;
 
 function foo()
 {

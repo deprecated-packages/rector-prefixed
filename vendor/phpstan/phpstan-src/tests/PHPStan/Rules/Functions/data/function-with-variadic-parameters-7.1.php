@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\FunctionWithVariadicParameters;
+namespace _PhpScoper26e51eeacccf\FunctionWithVariadicParameters;
 
 class Foo
 {

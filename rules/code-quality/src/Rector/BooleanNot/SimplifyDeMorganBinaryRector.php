@@ -31,7 +31,7 @@ final class SimplifyDeMorganBinaryRector extends \Rector\Core\Rector\AbstractRec
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify negated conditions with de Morgan theorem', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 $a = 5;
 $b = 10;
@@ -40,7 +40,7 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 $a = 5;
 $b = 10;

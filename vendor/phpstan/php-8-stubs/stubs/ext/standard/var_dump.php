@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /* var.c */
 function var_dump(mixed $value, mixed ...$values) : void

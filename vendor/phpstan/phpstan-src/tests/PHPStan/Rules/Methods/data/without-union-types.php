@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallMethodsWithoutUnionTypes;
+namespace _PhpScoper26e51eeacccf\CallMethodsWithoutUnionTypes;
 
 class Foo
 {

@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScopera143bcca66cb\InstantiationNamedArguments;
+namespace _PhpScoper26e51eeacccf\InstantiationNamedArguments;
 
 class Foo
 {

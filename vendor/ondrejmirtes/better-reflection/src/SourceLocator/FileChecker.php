@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator;
 
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
 use function file_exists;
 use function is_file;
 use function is_readable;
@@ -16,16 +16,16 @@ class FileChecker
     public static function assertReadableFile(string $filename) : void
     {
         if (empty($filename)) {
-            throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation('Filename was empty');
+            throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation('Filename was empty');
         }
         if (!\file_exists($filename)) {
-            throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation(\sprintf('File "%s" does not exist', $filename));
+            throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation(\sprintf('File "%s" does not exist', $filename));
         }
         if (!\is_readable($filename)) {
-            throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation(\sprintf('File "%s" is not readable', $filename));
+            throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation(\sprintf('File "%s" is not readable', $filename));
         }
         if (!\is_file($filename)) {
-            throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation(\sprintf('"%s" is not a file', $filename));
+            throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation(\sprintf('"%s" is not a file', $filename));
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class DOMProcessingInstruction
 {
@@ -8,4 +8,4 @@ class DOMProcessingInstruction
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\DOMProcessingInstruction', 'DOMProcessingInstruction', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DOMProcessingInstruction', 'DOMProcessingInstruction', \false);

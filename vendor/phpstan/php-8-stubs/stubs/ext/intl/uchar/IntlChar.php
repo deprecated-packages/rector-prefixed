@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 class IntlChar
@@ -248,4 +248,4 @@ class IntlChar
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\IntlChar', 'IntlChar', \false);
+\class_alias('_PhpScoper26e51eeacccf\\IntlChar', 'IntlChar', \false);

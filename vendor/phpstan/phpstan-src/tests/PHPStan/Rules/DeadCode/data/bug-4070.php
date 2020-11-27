@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug4070;
+namespace _PhpScoper26e51eeacccf\Bug4070;
 
 \array_shift($argv);
 while ($argv) {

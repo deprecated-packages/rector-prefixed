@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TwoFails;
+namespace _PhpScoper26e51eeacccf\TwoFails;
 
 fail();
 fail();

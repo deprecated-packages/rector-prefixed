@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ThrowsAnnotations;
+namespace _PhpScoper26e51eeacccf\ThrowsAnnotations;
 
 function withoutThrows()
 {

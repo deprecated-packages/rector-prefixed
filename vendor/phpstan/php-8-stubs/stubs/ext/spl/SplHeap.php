@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 abstract class SplHeap implements \Iterator, \Countable
 {
@@ -59,4 +59,4 @@ abstract class SplHeap implements \Iterator, \Countable
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\SplHeap', 'SplHeap', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SplHeap', 'SplHeap', \false);

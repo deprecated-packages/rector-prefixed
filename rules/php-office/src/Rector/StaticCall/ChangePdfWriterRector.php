@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPOffice\Rector\StaticCall;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
@@ -67,8 +67,8 @@ CODE_SAMPLE
                 return null;
             }
             $secondArgValue = $this->getValue($node->args[1]->value);
-            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($secondArgValue, '#pdf#i')) {
-                return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScopera143bcca66cb\\PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\Mpdf'), [$node->args[0]]);
+            if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($secondArgValue, '#pdf#i')) {
+                return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoper26e51eeacccf\\PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\Mpdf'), [$node->args[0]]);
             }
         }
         return $node;

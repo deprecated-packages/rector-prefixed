@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class DOMNamedNodeMap implements \IteratorAggregate, \Countable
 {
@@ -24,4 +24,4 @@ class DOMNamedNodeMap implements \IteratorAggregate, \Countable
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\DOMNamedNodeMap', 'DOMNamedNodeMap', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DOMNamedNodeMap', 'DOMNamedNodeMap', \false);

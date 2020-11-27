@@ -10,7 +10,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
      */
     public function dataAbsolutizePathOnWindows() : array
     {
-        return [['C:/Program Files', 'C:/Program Files'], ['C:\\Program Files', 'C:\\Program Files'], ['Program Files', 'C:\\abcd\\Program Files'], ['/home/users', 'C:\\abcd\\home/users'], ['users', '_PhpScopera143bcca66cb\\C:\\abcd\\users'], ['../lib', 'C:\\abcd\\../lib'], ['./lib', 'C:\\abcd\\./lib']];
+        return [['C:/Program Files', 'C:/Program Files'], ['C:\\Program Files', 'C:\\Program Files'], ['Program Files', 'C:\\abcd\\Program Files'], ['/home/users', 'C:\\abcd\\home/users'], ['users', '_PhpScoper26e51eeacccf\\C:\\abcd\\users'], ['../lib', 'C:\\abcd\\../lib'], ['./lib', 'C:\\abcd\\./lib']];
     }
     /**
      * @dataProvider dataAbsolutizePathOnWindows
@@ -46,7 +46,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
      */
     public function dataNormalizePathOnWindows() : array
     {
-        return [['C:/Program Files/PHP', '_PhpScopera143bcca66cb\\C:\\Program Files\\PHP'], ['C:/Program Files/./PHP', '_PhpScopera143bcca66cb\\C:\\Program Files\\PHP'], ['C:/Program Files/../PHP', 'C:\\PHP'], ['/home/users/phpstan', '_PhpScopera143bcca66cb\\home\\users\\phpstan'], ['/home/users/./phpstan', '_PhpScopera143bcca66cb\\home\\users\\phpstan'], ['/home/users/../../phpstan/', '\\phpstan'], ['./phpstan/', 'phpstan']];
+        return [['C:/Program Files/PHP', '_PhpScoper26e51eeacccf\\C:\\Program Files\\PHP'], ['C:/Program Files/./PHP', '_PhpScoper26e51eeacccf\\C:\\Program Files\\PHP'], ['C:/Program Files/../PHP', 'C:\\PHP'], ['/home/users/phpstan', '_PhpScoper26e51eeacccf\\home\\users\\phpstan'], ['/home/users/./phpstan', '_PhpScoper26e51eeacccf\\home\\users\\phpstan'], ['/home/users/../../phpstan/', '\\phpstan'], ['./phpstan/', 'phpstan']];
     }
     /**
      * @dataProvider dataNormalizePathOnWindows
@@ -63,7 +63,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
      */
     public function dataNormalizePathOnLinuxOrMac() : array
     {
-        return [['_PhpScopera143bcca66cb\\C:\\Program Files\\PHP', 'C:/Program Files/PHP'], ['C:\\Program Files\\.\\PHP', 'C:/Program Files/PHP'], ['C:\\Program Files\\..\\PHP', 'C:/PHP'], ['/home/users/phpstan', '/home/users/phpstan'], ['/home/users/./phpstan', '/home/users/phpstan'], ['/home/users/../../phpstan/', '/phpstan'], ['./phpstan/', 'phpstan'], ['phar:///usr/local/bin/phpstan.phar/tmp/cache/../..', 'phar:///usr/local/bin/phpstan.phar'], ['phar:///usr/local/bin/phpstan.phar/tmp/cache/../../..', '/usr/local/bin']];
+        return [['_PhpScoper26e51eeacccf\\C:\\Program Files\\PHP', 'C:/Program Files/PHP'], ['C:\\Program Files\\.\\PHP', 'C:/Program Files/PHP'], ['C:\\Program Files\\..\\PHP', 'C:/PHP'], ['/home/users/phpstan', '/home/users/phpstan'], ['/home/users/./phpstan', '/home/users/phpstan'], ['/home/users/../../phpstan/', '/phpstan'], ['./phpstan/', 'phpstan'], ['phar:///usr/local/bin/phpstan.phar/tmp/cache/../..', 'phar:///usr/local/bin/phpstan.phar'], ['phar:///usr/local/bin/phpstan.phar/tmp/cache/../../..', '/usr/local/bin']];
     }
     /**
      * @dataProvider dataNormalizePathOnLinuxOrMac

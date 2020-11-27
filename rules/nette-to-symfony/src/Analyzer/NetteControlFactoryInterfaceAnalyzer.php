@@ -28,10 +28,10 @@ final class NetteControlFactoryInterfaceAnalyzer
                 return \false;
             }
             $className = $this->resolveClassName($returnType);
-            if (\is_a($className, '_PhpScopera143bcca66cb\\Nette\\Application\\UI\\Control', \true)) {
+            if (\is_a($className, '_PhpScoper26e51eeacccf\\Nette\\Application\\UI\\Control', \true)) {
                 return \true;
             }
-            if (\is_a($className, '_PhpScopera143bcca66cb\\Nette\\Application\\UI\\Form', \true)) {
+            if (\is_a($className, '_PhpScoper26e51eeacccf\\Nette\\Application\\UI\\Form', \true)) {
                 return \true;
             }
         }

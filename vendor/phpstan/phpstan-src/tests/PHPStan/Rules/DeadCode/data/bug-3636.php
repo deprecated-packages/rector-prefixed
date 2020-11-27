@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScopera143bcca66cb\Bug3636;
+namespace _PhpScoper26e51eeacccf\Bug3636;
 
 class Foo
 {

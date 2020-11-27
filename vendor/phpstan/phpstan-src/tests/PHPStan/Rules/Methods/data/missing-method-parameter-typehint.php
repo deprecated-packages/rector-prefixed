@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MissingMethodParameterTypehint;
+namespace _PhpScoper26e51eeacccf\MissingMethodParameterTypehint;
 
 interface FooInterface
 {
@@ -12,7 +12,7 @@ class FooParent
     {
     }
 }
-class Foo extends \_PhpScopera143bcca66cb\MissingMethodParameterTypehint\FooParent implements \_PhpScopera143bcca66cb\MissingMethodParameterTypehint\FooInterface
+class Foo extends \_PhpScoper26e51eeacccf\MissingMethodParameterTypehint\FooParent implements \_PhpScoper26e51eeacccf\MissingMethodParameterTypehint\FooInterface
 {
     public function getFoo($p1) : void
     {
@@ -64,31 +64,31 @@ class GenericClass
 }
 class Bar
 {
-    public function acceptsGenericInterface(\_PhpScopera143bcca66cb\MissingMethodParameterTypehint\GenericInterface $i)
+    public function acceptsGenericInterface(\_PhpScoper26e51eeacccf\MissingMethodParameterTypehint\GenericInterface $i)
     {
     }
-    public function acceptsNonGenericClass(\_PhpScopera143bcca66cb\MissingMethodParameterTypehint\NonGenericClass $c)
+    public function acceptsNonGenericClass(\_PhpScoper26e51eeacccf\MissingMethodParameterTypehint\NonGenericClass $c)
     {
     }
-    public function acceptsGenericClass(\_PhpScopera143bcca66cb\MissingMethodParameterTypehint\GenericClass $c)
+    public function acceptsGenericClass(\_PhpScoper26e51eeacccf\MissingMethodParameterTypehint\GenericClass $c)
     {
     }
 }
 class CollectionIterableAndGeneric
 {
-    public function acceptsCollection(\_PhpScopera143bcca66cb\DoctrineIntersectionTypeIsSupertypeOf\Collection $collection) : void
+    public function acceptsCollection(\_PhpScoper26e51eeacccf\DoctrineIntersectionTypeIsSupertypeOf\Collection $collection) : void
     {
     }
     /**
      * @param \DoctrineIntersectionTypeIsSupertypeOf\Collection<FooInterface> $collection
      */
-    public function acceptsCollection2(\_PhpScopera143bcca66cb\DoctrineIntersectionTypeIsSupertypeOf\Collection $collection) : void
+    public function acceptsCollection2(\_PhpScoper26e51eeacccf\DoctrineIntersectionTypeIsSupertypeOf\Collection $collection) : void
     {
     }
     /**
      * @param \DoctrineIntersectionTypeIsSupertypeOf\Collection<int, FooInterface> $collection
      */
-    public function acceptsCollection3(\_PhpScopera143bcca66cb\DoctrineIntersectionTypeIsSupertypeOf\Collection $collection) : void
+    public function acceptsCollection3(\_PhpScoper26e51eeacccf\DoctrineIntersectionTypeIsSupertypeOf\Collection $collection) : void
     {
     }
 }

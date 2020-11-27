@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InvalidPhpDoc;
+namespace _PhpScoper26e51eeacccf\InvalidPhpDoc;
 
 class FooWithProperty
 {

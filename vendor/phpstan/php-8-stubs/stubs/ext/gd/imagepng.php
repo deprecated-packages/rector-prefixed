@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 #ifdef HAVE_GD_PNG
 /** @param resource|string|null $file */
-function imagepng(\_PhpScopera143bcca66cb\GdImage $image, $file = null, int $quality = -1, int $filters = -1) : bool
+function imagepng(\_PhpScoper26e51eeacccf\GdImage $image, $file = null, int $quality = -1, int $filters = -1) : bool
 {
 }

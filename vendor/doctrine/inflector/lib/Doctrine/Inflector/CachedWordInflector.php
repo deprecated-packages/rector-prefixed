@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Doctrine\Inflector;
+namespace _PhpScoper26e51eeacccf\Doctrine\Inflector;
 
-class CachedWordInflector implements \_PhpScopera143bcca66cb\Doctrine\Inflector\WordInflector
+class CachedWordInflector implements \_PhpScoper26e51eeacccf\Doctrine\Inflector\WordInflector
 {
     /** @var WordInflector */
     private $wordInflector;
     /** @var string[] */
     private $cache = [];
-    public function __construct(\_PhpScopera143bcca66cb\Doctrine\Inflector\WordInflector $wordInflector)
+    public function __construct(\_PhpScoper26e51eeacccf\Doctrine\Inflector\WordInflector $wordInflector)
     {
         $this->wordInflector = $wordInflector;
     }

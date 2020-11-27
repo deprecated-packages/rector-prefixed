@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class ClassWithUnknownPropertyType
 {
     /** @var ClassWithUnknownParent|self */
     protected $test;
 }
-\class_alias('_PhpScopera143bcca66cb\\ClassWithUnknownPropertyType', 'ClassWithUnknownPropertyType', \false);
+\class_alias('_PhpScoper26e51eeacccf\\ClassWithUnknownPropertyType', 'ClassWithUnknownPropertyType', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TraitTemplateType;
+namespace _PhpScoper26e51eeacccf\TraitTemplateType;
 
 /**
  * @template stdClass

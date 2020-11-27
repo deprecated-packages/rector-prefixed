@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 interface SplObserver
@@ -9,4 +9,4 @@ interface SplObserver
     public function update(\SplSubject $subject);
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\SplObserver', 'SplObserver', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SplObserver', 'SplObserver', \false);

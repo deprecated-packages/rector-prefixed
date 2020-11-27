@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Promise;
+namespace _PhpScoper26e51eeacccf\React\Promise;
 
 interface PromisorInterface
 {

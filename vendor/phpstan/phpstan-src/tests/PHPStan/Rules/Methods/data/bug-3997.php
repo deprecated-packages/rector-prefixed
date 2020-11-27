@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug3997;
+namespace _PhpScoper26e51eeacccf\Bug3997;
 
 use Countable;
 class Foo implements \Countable

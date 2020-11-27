@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class IntlRuleBasedBreakIterator extends \IntlBreakIterator
 {
@@ -24,4 +24,4 @@ class IntlRuleBasedBreakIterator extends \IntlBreakIterator
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\IntlRuleBasedBreakIterator', 'IntlRuleBasedBreakIterator', \false);
+\class_alias('_PhpScoper26e51eeacccf\\IntlRuleBasedBreakIterator', 'IntlRuleBasedBreakIterator', \false);

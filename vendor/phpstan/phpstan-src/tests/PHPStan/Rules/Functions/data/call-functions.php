@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallFunctions;
+namespace _PhpScoper26e51eeacccf\CallFunctions;
 
 class Foo
 {

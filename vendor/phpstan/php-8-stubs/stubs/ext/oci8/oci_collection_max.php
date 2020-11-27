@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function oci_collection_max(\_PhpScopera143bcca66cb\OCICollection $collection) : int|false
+function oci_collection_max(\_PhpScoper26e51eeacccf\OCICollection $collection) : int|false
 {
 }

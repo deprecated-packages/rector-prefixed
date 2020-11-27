@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TypesNamespaceTypehints;
+namespace _PhpScoper26e51eeacccf\TypesNamespaceTypehints;
 
 class Foo
 {
-    public function doFoo(int $integer, bool $boolean, string $string, float $float, \_PhpScopera143bcca66cb\TypesNamespaceTypehints\Lorem $loremObject, $mixed, array $array, bool $isNullable = null, callable $callable, string ...$variadicStrings) : \_PhpScopera143bcca66cb\TypesNamespaceTypehints\Bar
+    public function doFoo(int $integer, bool $boolean, string $string, float $float, \_PhpScoper26e51eeacccf\TypesNamespaceTypehints\Lorem $loremObject, $mixed, array $array, bool $isNullable = null, callable $callable, string ...$variadicStrings) : \_PhpScoper26e51eeacccf\TypesNamespaceTypehints\Bar
     {
         $loremObjectRef = $loremObject;
         $barObject = $this->doFoo();

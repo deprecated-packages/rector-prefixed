@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionException as CoreReflectionException;
 use ReflectionFunction as CoreReflectionFunction;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Util\FileHelper;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\FileHelper;
 use Throwable;
 use function func_get_args;
 class ReflectionFunction extends \ReflectionFunction
 {
     /** @var BetterReflectionFunction */
     private $betterReflectionFunction;
-    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionFunction $betterReflectionFunction)
+    public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionFunction $betterReflectionFunction)
     {
         $this->betterReflectionFunction = $betterReflectionFunction;
     }
@@ -75,14 +75,14 @@ class ReflectionFunction extends \ReflectionFunction
      */
     public function getClosureThis()
     {
-        throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
      */
     public function getClosureScopeClass()
     {
-        throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -103,7 +103,7 @@ class ReflectionFunction extends \ReflectionFunction
      */
     public function getExtension()
     {
-        throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -118,7 +118,7 @@ class ReflectionFunction extends \ReflectionFunction
     public function getFileName()
     {
         $fileName = $this->betterReflectionFunction->getFileName();
-        return $fileName !== null ? \_PhpScopera143bcca66cb\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
+        return $fileName !== null ? \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
     }
     /**
      * {@inheritDoc}
@@ -156,7 +156,7 @@ class ReflectionFunction extends \ReflectionFunction
         $parameters = $this->betterReflectionFunction->getParameters();
         $wrappedParameters = [];
         foreach ($parameters as $key => $parameter) {
-            $wrappedParameters[$key] = new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\ReflectionParameter($parameter);
+            $wrappedParameters[$key] = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\ReflectionParameter($parameter);
         }
         return $wrappedParameters;
     }
@@ -165,7 +165,7 @@ class ReflectionFunction extends \ReflectionFunction
      */
     public function getReturnType()
     {
-        return \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionFunction->getReturnType());
+        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionFunction->getReturnType());
     }
     /**
      * {@inheritDoc}
@@ -186,7 +186,7 @@ class ReflectionFunction extends \ReflectionFunction
      */
     public function getStaticVariables()
     {
-        throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}

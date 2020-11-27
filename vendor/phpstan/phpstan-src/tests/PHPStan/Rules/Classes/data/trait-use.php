@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TraitUseCase;
+namespace _PhpScoper26e51eeacccf\TraitUseCase;
 
 trait FooTrait
 {

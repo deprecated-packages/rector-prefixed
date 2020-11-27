@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\RequiredAfterOptional;
+namespace _PhpScoper26e51eeacccf\RequiredAfterOptional;
 
 function doFoo($foo = null, $bar) : void
 {

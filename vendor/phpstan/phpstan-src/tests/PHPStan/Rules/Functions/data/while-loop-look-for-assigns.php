@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\WhileLoopLookForAssignsInBranchesVariableExistence;
+namespace _PhpScoper26e51eeacccf\WhileLoopLookForAssignsInBranchesVariableExistence;
 
 class Foo
 {

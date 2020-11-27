@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug2612;
+namespace _PhpScoper26e51eeacccf\Bug2612;
 
 use function PHPStan\Analyser\assertType;
 class TypeFactory
@@ -20,8 +20,8 @@ class StringType
     public static function create(string $value) : self
     {
         $valueType = new static();
-        $result = \_PhpScopera143bcca66cb\Bug2612\TypeFactory::singleton($valueType);
-        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\Bug2612\\StringType', $result);
+        $result = \_PhpScoper26e51eeacccf\Bug2612\TypeFactory::singleton($valueType);
+        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\Bug2612\\StringType', $result);
         return $result;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\ReturnTypes;
+namespace _PhpScoper26e51eeacccf\Levels\ReturnTypes;
 
 class Foo
 {

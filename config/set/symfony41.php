@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
@@ -14,29 +14,29 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services = $containerConfigurator->services();
     $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         # https://github.com/symfony/symfony/commit/463f986c28a497571967e37c1314e9911f1ef6ba
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScopera143bcca66cb\\Symfony\\Component\\Console\\Helper\\TableStyle', 'setHorizontalBorderChar', 'setHorizontalBorderChars'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper26e51eeacccf\\Symfony\\Component\\Console\\Helper\\TableStyle', 'setHorizontalBorderChar', 'setHorizontalBorderChars'),
         # https://github.com/symfony/symfony/commit/463f986c28a497571967e37c1314e9911f1ef6ba
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScopera143bcca66cb\\Symfony\\Component\\Console\\Helper\\TableStyle', 'setVerticalBorderChar', 'setVerticalBorderChars'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper26e51eeacccf\\Symfony\\Component\\Console\\Helper\\TableStyle', 'setVerticalBorderChar', 'setVerticalBorderChars'),
         # https://github.com/symfony/symfony/commit/463f986c28a497571967e37c1314e9911f1ef6ba
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScopera143bcca66cb\\Symfony\\Component\\Console\\Helper\\TableStyle', 'setCrossingChar', 'setDefaultCrossingChar'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScopera143bcca66cb\\Symfony\\Component\\HttpFoundation\\File\\UploadedFile', 'getClientSize', 'getSize'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScopera143bcca66cb\\Symfony\\Component\\Workflow\\DefinitionBuilder', 'reset', 'clear'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScopera143bcca66cb\\Symfony\\Component\\Workflow\\DefinitionBuilder', 'add', 'addWorkflow'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper26e51eeacccf\\Symfony\\Component\\Console\\Helper\\TableStyle', 'setCrossingChar', 'setDefaultCrossingChar'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper26e51eeacccf\\Symfony\\Component\\HttpFoundation\\File\\UploadedFile', 'getClientSize', 'getSize'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper26e51eeacccf\\Symfony\\Component\\Workflow\\DefinitionBuilder', 'reset', 'clear'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper26e51eeacccf\\Symfony\\Component\\Workflow\\DefinitionBuilder', 'add', 'addWorkflow'),
         # https://github.com/symfony/symfony/commit/463f986c28a497571967e37c1314e9911f1ef6ba
         new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey(
-            '_PhpScopera143bcca66cb\\Symfony\\Component\\Console\\Helper\\TableStyle',
+            '_PhpScoper26e51eeacccf\\Symfony\\Component\\Console\\Helper\\TableStyle',
             'getVerticalBorderChar',
             # special case to "getVerticalBorderChar" → "getBorderChars()[3]"
             'getBorderChars',
             3
         ),
         # https://github.com/symfony/symfony/commit/463f986c28a497571967e37c1314e9911f1ef6ba
-        new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey('_PhpScopera143bcca66cb\\Symfony\\Component\\Console\\Helper\\TableStyle', 'getHorizontalBorderChar', 'getBorderChars', 2),
+        new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey('_PhpScoper26e51eeacccf\\Symfony\\Component\\Console\\Helper\\TableStyle', 'getHorizontalBorderChar', 'getBorderChars', 2),
     ])]]);
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
         # https://github.com/symfony/symfony/commit/07dd09db59e2f2a86a291d00d978169d9059e307
-        '_PhpScopera143bcca66cb\\Symfony\\Bundle\\FrameworkBundle\\DataCollector\\RequestDataCollector' => '_PhpScopera143bcca66cb\\Symfony\\Component\\HttpKernel\\DataCollector\\RequestDataCollector',
-        '_PhpScopera143bcca66cb\\Symfony\\Component\\Workflow\\SupportStrategy\\SupportStrategyInterface' => '_PhpScopera143bcca66cb\\Symfony\\Component\\Workflow\\SupportStrategy\\WorkflowSupportStrategyInterface',
-        '_PhpScopera143bcca66cb\\Symfony\\Component\\Workflow\\SupportStrategy\\ClassInstanceSupportStrategy' => '_PhpScopera143bcca66cb\\Symfony\\Component\\Workflow\\SupportStrategy\\InstanceOfSupportStrategy',
+        '_PhpScoper26e51eeacccf\\Symfony\\Bundle\\FrameworkBundle\\DataCollector\\RequestDataCollector' => '_PhpScoper26e51eeacccf\\Symfony\\Component\\HttpKernel\\DataCollector\\RequestDataCollector',
+        '_PhpScoper26e51eeacccf\\Symfony\\Component\\Workflow\\SupportStrategy\\SupportStrategyInterface' => '_PhpScoper26e51eeacccf\\Symfony\\Component\\Workflow\\SupportStrategy\\WorkflowSupportStrategyInterface',
+        '_PhpScoper26e51eeacccf\\Symfony\\Component\\Workflow\\SupportStrategy\\ClassInstanceSupportStrategy' => '_PhpScoper26e51eeacccf\\Symfony\\Component\\Workflow\\SupportStrategy\\InstanceOfSupportStrategy',
     ]]]);
 };

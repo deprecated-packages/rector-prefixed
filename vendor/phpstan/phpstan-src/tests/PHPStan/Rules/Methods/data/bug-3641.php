@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug3641;
+namespace _PhpScoper26e51eeacccf\Bug3641;
 
 class Foo
 {
@@ -20,11 +20,11 @@ class Bar
      */
     public static function __callStatic(string $method, $args)
     {
-        $instance = new \_PhpScopera143bcca66cb\Bug3641\Foo();
+        $instance = new \_PhpScoper26e51eeacccf\Bug3641\Foo();
         return $instance->{$method}(...$args);
     }
 }
 function () : void {
-    \_PhpScopera143bcca66cb\Bug3641\Bar::bar();
-    \_PhpScopera143bcca66cb\Bug3641\Bar::bar(1);
+    \_PhpScoper26e51eeacccf\Bug3641\Bar::bar();
+    \_PhpScoper26e51eeacccf\Bug3641\Bar::bar(1);
 };

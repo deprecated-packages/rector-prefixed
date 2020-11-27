@@ -5,15 +5,15 @@ namespace Rector\Utils\DoctrineAnnotationParserSyncer\Command;
 
 use Rector\Core\Configuration\Option;
 use Rector\Utils\DoctrineAnnotationParserSyncer\Contract\ClassSyncerInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputOption;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
-final class SyncAnnotationParserCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command
+final class SyncAnnotationParserCommand extends \_PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command
 {
     /**
      * @var ClassSyncerInterface[]
@@ -40,9 +40,9 @@ final class SyncAnnotationParserCommand extends \_PhpScopera143bcca66cb\Symfony\
     protected function configure() : void
     {
         $this->setDescription('[DEV] Generate value-preserving DocParser from doctrine/annotation');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN, 'n', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'See diff of changes, do not save them to files.');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN, 'n', \_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'See diff of changes, do not save them to files.');
     }
-    protected function execute(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         // disable imports
         $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \false);

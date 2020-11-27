@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class SplTempFileObject extends \SplFileObject
 {
@@ -8,4 +8,4 @@ class SplTempFileObject extends \SplFileObject
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\SplTempFileObject', 'SplTempFileObject', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SplTempFileObject', 'SplTempFileObject', \false);

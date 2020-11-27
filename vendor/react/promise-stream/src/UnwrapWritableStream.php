@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Promise\Stream;
+namespace _PhpScoper26e51eeacccf\React\Promise\Stream;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
 use InvalidArgumentException;
-use _PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface;
-use _PhpScopera143bcca66cb\React\Promise\PromiseInterface;
-use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
+use _PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface;
+use _PhpScoper26e51eeacccf\React\Promise\PromiseInterface;
+use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
 /**
  * @internal
  * @see unwrapWritable() instead
  */
-class UnwrapWritableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface
+class UnwrapWritableStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface
 {
     private $promise;
     private $stream;
@@ -23,7 +23,7 @@ class UnwrapWritableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitte
      *
      * @param PromiseInterface $promise Promise<WritableStreamInterface, Exception>
      */
-    public function __construct(\_PhpScopera143bcca66cb\React\Promise\PromiseInterface $promise)
+    public function __construct(\_PhpScoper26e51eeacccf\React\Promise\PromiseInterface $promise)
     {
         $out = $this;
         $store =& $this->stream;
@@ -31,11 +31,11 @@ class UnwrapWritableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitte
         $ending =& $this->ending;
         $closed =& $this->closed;
         $this->promise = $promise->then(function ($stream) {
-            if (!$stream instanceof \_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface) {
+            if (!$stream instanceof \_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface) {
                 throw new \InvalidArgumentException('Not a writable stream');
             }
             return $stream;
-        })->then(function (\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $stream) use($out, &$store, &$buffer, &$ending, &$closed) {
+        })->then(function (\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $stream) use($out, &$store, &$buffer, &$ending, &$closed) {
             // stream is already closed, make sure to close output stream
             if (!$stream->isWritable()) {
                 $out->close();
@@ -126,7 +126,7 @@ class UnwrapWritableStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitte
         $this->ending = \true;
         $this->closed = \true;
         // try to cancel promise once the stream closes
-        if ($this->promise instanceof \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface) {
+        if ($this->promise instanceof \_PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface) {
             $this->promise->cancel();
         }
         $this->promise = $this->stream = null;

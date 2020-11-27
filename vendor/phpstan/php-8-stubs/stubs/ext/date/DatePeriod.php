@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class DatePeriod implements \IteratorAggregate
 {
@@ -41,4 +41,4 @@ class DatePeriod implements \IteratorAggregate
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\DatePeriod', 'DatePeriod', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DatePeriod', 'DatePeriod', \false);

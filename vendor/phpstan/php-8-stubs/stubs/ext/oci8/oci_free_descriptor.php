@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function oci_free_descriptor(\_PhpScopera143bcca66cb\OCILob $lob) : bool
+function oci_free_descriptor(\_PhpScoper26e51eeacccf\OCILob $lob) : bool
 {
 }

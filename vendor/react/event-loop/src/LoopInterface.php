@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\EventLoop;
+namespace _PhpScoper26e51eeacccf\React\EventLoop;
 
 interface LoopInterface
 {
@@ -290,7 +290,7 @@ interface LoopInterface
      *
      * @return void
      */
-    public function cancelTimer(\_PhpScopera143bcca66cb\React\EventLoop\TimerInterface $timer);
+    public function cancelTimer(\_PhpScoper26e51eeacccf\React\EventLoop\TimerInterface $timer);
     /**
      * Schedule a callback to be invoked on a future tick of the event loop.
      *

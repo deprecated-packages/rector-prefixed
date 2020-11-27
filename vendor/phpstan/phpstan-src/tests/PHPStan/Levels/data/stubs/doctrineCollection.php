@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\RecursiveTemplateProblem;
+namespace _PhpScoper26e51eeacccf\RecursiveTemplateProblem;
 
 use Closure;
 /**

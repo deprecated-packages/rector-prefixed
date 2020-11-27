@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class BFoo
 {
@@ -8,7 +8,7 @@ class BFoo
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\BFoo', 'BFoo', \false);
+\class_alias('_PhpScoper26e51eeacccf\\BFoo', 'BFoo', \false);
 function doBar()
 {
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Illuminate\Foundation\Testing;
+namespace _PhpScoper26e51eeacccf\Illuminate\Foundation\Testing;
 
-if (\class_exists('_PhpScopera143bcca66cb\\Illuminate\\Foundation\\Testing\\TestCase')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\Illuminate\\Foundation\\Testing\\TestCase')) {
     return;
 }
 class TestCase

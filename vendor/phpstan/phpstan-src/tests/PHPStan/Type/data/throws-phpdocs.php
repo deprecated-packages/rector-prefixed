@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\ThrowsPhpDocs;
+namespace _PhpScoper26e51eeacccf\ThrowsPhpDocs;
 
 use LogicException;
 use RuntimeException;

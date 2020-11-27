@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class SplMinHeap extends \SplHeap
 {
@@ -9,4 +9,4 @@ class SplMinHeap extends \SplHeap
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\SplMinHeap', 'SplMinHeap', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SplMinHeap', 'SplMinHeap', \false);

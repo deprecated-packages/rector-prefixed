@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\EventLoop\Timer;
+namespace _PhpScoper26e51eeacccf\React\EventLoop\Timer;
 
-use _PhpScopera143bcca66cb\React\EventLoop\TimerInterface;
+use _PhpScoper26e51eeacccf\React\EventLoop\TimerInterface;
 /**
  * A scheduler implementation that can hold multiple timer instances
  *
@@ -31,18 +31,18 @@ final class Timers
     {
         return $this->time ?: $this->updateTime();
     }
-    public function add(\_PhpScopera143bcca66cb\React\EventLoop\TimerInterface $timer)
+    public function add(\_PhpScoper26e51eeacccf\React\EventLoop\TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         $this->timers[$id] = $timer;
         $this->schedule[$id] = $timer->getInterval() + $this->updateTime();
         $this->sorted = \false;
     }
-    public function contains(\_PhpScopera143bcca66cb\React\EventLoop\TimerInterface $timer)
+    public function contains(\_PhpScoper26e51eeacccf\React\EventLoop\TimerInterface $timer)
     {
         return isset($this->timers[\spl_object_hash($timer)]);
     }
-    public function cancel(\_PhpScopera143bcca66cb\React\EventLoop\TimerInterface $timer)
+    public function cancel(\_PhpScoper26e51eeacccf\React\EventLoop\TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         unset($this->timers[$id], $this->schedule[$id]);

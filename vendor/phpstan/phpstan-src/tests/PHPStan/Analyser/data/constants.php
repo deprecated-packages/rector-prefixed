@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ConstantsForNodeScopeResolverTest;
+namespace _PhpScoper26e51eeacccf\ConstantsForNodeScopeResolverTest;
 
 $foo = FOO_CONSTANT;
 \define('BAR_CONSTANT', 'bar');

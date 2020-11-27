@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\VoidNamespace;
+namespace _PhpScoper26e51eeacccf\VoidNamespace;
 
 class Foo
 {

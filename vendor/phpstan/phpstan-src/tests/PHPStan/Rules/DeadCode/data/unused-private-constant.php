@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\UnusedPrivateConstant;
+namespace _PhpScoper26e51eeacccf\UnusedPrivateConstant;
 
 class Foo
 {

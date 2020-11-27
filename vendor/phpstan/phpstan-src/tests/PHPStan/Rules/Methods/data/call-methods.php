@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Test;
+namespace _PhpScoper26e51eeacccf\Test;
 
 class Foo
 {
@@ -18,7 +18,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScopera143bcca66cb\Test\Foo
+class Bar extends \_PhpScoper26e51eeacccf\Test\Foo
 {
     private function foobar()
     {
@@ -41,13 +41,13 @@ class Bar extends \_PhpScopera143bcca66cb\Test\Foo
     public function dolor($foo, $bar, $baz)
     {
         // fixing PHP bug #71416
-        $methodReflection = new \ReflectionMethod(\_PhpScopera143bcca66cb\Test\Bar::class, 'dolor');
+        $methodReflection = new \ReflectionMethod(\_PhpScoper26e51eeacccf\Test\Bar::class, 'dolor');
         $methodReflection->invoke(new self());
         $methodReflection->invoke(new self(), 'foo', 'bar', 'baz');
     }
     protected function protectedMethodFromChild()
     {
-        $foo = new \_PhpScopera143bcca66cb\Test\UnknownClass();
+        $foo = new \_PhpScoper26e51eeacccf\Test\UnknownClass();
         $foo->doFoo();
         $this->returnsVoid();
         $this->dolor($this->returnsVoid(), 'bar', 'baz');
@@ -105,12 +105,12 @@ class ClassWithToString
     }
 }
 function () {
-    $foo = new \_PhpScopera143bcca66cb\Test\ClassWithToString();
+    $foo = new \_PhpScoper26e51eeacccf\Test\ClassWithToString();
     $foo->acceptsString($foo);
     $closure = function () {
     };
     $closure->__invoke(1, 2, 3);
-    $reflectionClass = new \ReflectionClass(\_PhpScopera143bcca66cb\Test\Foo::class);
+    $reflectionClass = new \ReflectionClass(\_PhpScoper26e51eeacccf\Test\Foo::class);
     $reflectionClass->newInstance();
     $reflectionClass->newInstance(1, 2, 3);
 };
@@ -179,11 +179,11 @@ class ReturningSomethingFromConstructor
 {
     public function __construct()
     {
-        return new \_PhpScopera143bcca66cb\Test\Foo();
+        return new \_PhpScoper26e51eeacccf\Test\Foo();
     }
 }
 function () {
-    $obj = new \_PhpScopera143bcca66cb\Test\ReturningSomethingFromConstructor();
+    $obj = new \_PhpScoper26e51eeacccf\Test\ReturningSomethingFromConstructor();
     $foo = $obj->__construct();
 };
 class IssueWithEliminatingTypes
@@ -216,7 +216,7 @@ class UnionInsteadOfIntersection
 {
     public function doFoo($object)
     {
-        while ($object instanceof \_PhpScopera143bcca66cb\Test\FirstInterface && $object instanceof \_PhpScopera143bcca66cb\Test\SecondInterface) {
+        while ($object instanceof \_PhpScoper26e51eeacccf\Test\FirstInterface && $object instanceof \_PhpScoper26e51eeacccf\Test\SecondInterface) {
             $object->firstMethod();
             $object->secondMethod();
             $object->firstMethod(1);
@@ -255,7 +255,7 @@ class IgnoreNullableUnionProperty
 }
 interface WithFooMethod
 {
-    public function foo() : \_PhpScopera143bcca66cb\Test\Foo;
+    public function foo() : \_PhpScoper26e51eeacccf\Test\Foo;
 }
 interface WithFooAndBarMethod
 {
@@ -279,9 +279,9 @@ interface SomeInterface
 }
 class MethodsOnIntersectionType
 {
-    public function doFoo(\_PhpScopera143bcca66cb\Test\WithFooMethod $foo)
+    public function doFoo(\_PhpScoper26e51eeacccf\Test\WithFooMethod $foo)
     {
-        if ($foo instanceof \_PhpScopera143bcca66cb\Test\SomeInterface) {
+        if ($foo instanceof \_PhpScoper26e51eeacccf\Test\SomeInterface) {
             $foo->foo();
             $foo->bar();
             $foo->foo()->test();
@@ -295,7 +295,7 @@ class ObjectTypehint
         $this->doFoo($object);
         $this->doBar($object);
     }
-    public function doBar(\_PhpScopera143bcca66cb\Test\Foo $foo)
+    public function doBar(\_PhpScoper26e51eeacccf\Test\Foo $foo)
     {
         $this->doFoo($foo);
         $this->doBar($foo);
@@ -310,7 +310,7 @@ function () {
     $foo = \false;
     foreach ([] as $val) {
         if ($foo === \false) {
-            $foo = new \_PhpScopera143bcca66cb\Test\Foo();
+            $foo = new \_PhpScoper26e51eeacccf\Test\Foo();
         } else {
             $foo->ipsum();
             $foo->ipsum(1);
@@ -361,7 +361,7 @@ class ScopeBelowInstanceofIsNoLongerChanged
     public function doBar()
     {
         $foo = doFoo();
-        if ($foo instanceof \_PhpScopera143bcca66cb\Test\Foo) {
+        if ($foo instanceof \_PhpScoper26e51eeacccf\Test\Foo) {
         }
         $foo->nonexistentMethodOnFoo();
     }
@@ -578,13 +578,13 @@ class WeirdStaticIssueBase
     {
     }
 }
-class WeirdStaticIssueImpl extends \_PhpScopera143bcca66cb\Test\WeirdStaticIssueBase
+class WeirdStaticIssueImpl extends \_PhpScoper26e51eeacccf\Test\WeirdStaticIssueBase
 {
 }
 function () {
     /** @var WeirdStaticIssueImpl|int */
-    $a = new \_PhpScopera143bcca66cb\Test\WeirdStaticIssueImpl();
-    \_PhpScopera143bcca66cb\Test\WeirdStaticIssueImpl::get($a);
+    $a = new \_PhpScoper26e51eeacccf\Test\WeirdStaticIssueImpl();
+    \_PhpScoper26e51eeacccf\Test\WeirdStaticIssueImpl::get($a);
 };
 class CheckDefaultArrayKeys
 {
@@ -661,7 +661,7 @@ class CheckDefaultArrayKeys
 }
 class CallAfterEmpty
 {
-    public function doFoo(?string $q, ?\_PhpScopera143bcca66cb\Test\Foo $foo)
+    public function doFoo(?string $q, ?\_PhpScoper26e51eeacccf\Test\Foo $foo)
     {
         if (empty($q)) {
             return;
@@ -683,7 +683,7 @@ class ReflectionTypeGetString
 }
 class MethodExists
 {
-    public function doFoo(\_PhpScopera143bcca66cb\Test\Foo $foo, $mixed)
+    public function doFoo(\_PhpScoper26e51eeacccf\Test\Foo $foo, $mixed)
     {
         $foo->lorem();
         if (\method_exists($foo, 'lorem')) {
@@ -848,22 +848,22 @@ class AssertInIf
     public function doFoo(bool $x)
     {
         if ($x) {
-            $o = new \_PhpScopera143bcca66cb\Test\Foo();
-            \assert($o instanceof \_PhpScopera143bcca66cb\Test\Bar);
+            $o = new \_PhpScoper26e51eeacccf\Test\Foo();
+            \assert($o instanceof \_PhpScoper26e51eeacccf\Test\Bar);
         } else {
-            $o = new \_PhpScopera143bcca66cb\Test\Bar();
+            $o = new \_PhpScoper26e51eeacccf\Test\Bar();
         }
         $this->requireChild($o);
     }
-    public function requireChild(\_PhpScopera143bcca66cb\Test\Bar $child)
+    public function requireChild(\_PhpScoper26e51eeacccf\Test\Bar $child)
     {
     }
     public function doBar()
     {
-        $array = [new \_PhpScopera143bcca66cb\Test\Foo(), new \_PhpScopera143bcca66cb\Test\Bar()];
+        $array = [new \_PhpScoper26e51eeacccf\Test\Foo(), new \_PhpScoper26e51eeacccf\Test\Bar()];
         $arrayToPass = [];
         foreach ($array as $item) {
-            if (!$item instanceof \_PhpScopera143bcca66cb\Test\Bar) {
+            if (!$item instanceof \_PhpScoper26e51eeacccf\Test\Bar) {
                 continue;
             }
             $arrayToPass[] = $item;
@@ -1043,13 +1043,13 @@ class ExpectsExceptionGenerics
         $exception = $this->expectsExceptionUpperBound(new \Exception(), $t);
         $this->requiresFoo($exception);
     }
-    public function requiresFoo(\_PhpScopera143bcca66cb\Test\Foo $foo)
+    public function requiresFoo(\_PhpScoper26e51eeacccf\Test\Foo $foo)
     {
     }
 }
 class WithStringOrNull
 {
-    public function bar(\_PhpScopera143bcca66cb\Test\ClassWithToString $bar = null) : void
+    public function bar(\_PhpScoper26e51eeacccf\Test\ClassWithToString $bar = null) : void
     {
         $this->baz($bar);
     }
@@ -1124,16 +1124,16 @@ abstract class CollectionWithStaticParam
     {
     }
 }
-class AppleCollection extends \_PhpScopera143bcca66cb\Test\CollectionWithStaticParam
+class AppleCollection extends \_PhpScoper26e51eeacccf\Test\CollectionWithStaticParam
 {
     public function doFoo()
     {
-        $this->add(new \_PhpScopera143bcca66cb\Test\AppleCollection());
+        $this->add(new \_PhpScoper26e51eeacccf\Test\AppleCollection());
     }
 }
 function () {
-    $foo = new \_PhpScopera143bcca66cb\Test\AppleCollection();
-    $foo->add(new \_PhpScopera143bcca66cb\Test\AppleCollection());
+    $foo = new \_PhpScoper26e51eeacccf\Test\AppleCollection();
+    $foo->add(new \_PhpScoper26e51eeacccf\Test\AppleCollection());
 };
 class CallableWithMixedArray
 {
@@ -1176,7 +1176,7 @@ class ClassString
 }
 class TestVarAnnotationAboveMethodCall
 {
-    public function doFoo(\_PhpScopera143bcca66cb\Test\Foo $foo)
+    public function doFoo(\_PhpScoper26e51eeacccf\Test\Foo $foo)
     {
         /** @var Bar $foo */
         $foo->lorem();

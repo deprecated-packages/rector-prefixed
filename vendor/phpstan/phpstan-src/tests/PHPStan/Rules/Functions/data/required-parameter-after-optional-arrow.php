@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScopera143bcca66cb\RequiredAfterOptional;
+namespace _PhpScoper26e51eeacccf\RequiredAfterOptional;
 
 fn($foo = null, $bar): int => 1;
 // not OK

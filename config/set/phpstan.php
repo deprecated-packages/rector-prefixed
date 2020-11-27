@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector;
 use Rector\PHPStan\Rector\Cast\RecastingRemovalRector;

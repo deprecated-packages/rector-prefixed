@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug2676ReturnTypeRule;
+namespace _PhpScoper26e51eeacccf\Bug2676ReturnTypeRule;
 
-use _PhpScopera143bcca66cb\DoctrineIntersectionTypeIsSupertypeOf\Collection;
+use _PhpScoper26e51eeacccf\DoctrineIntersectionTypeIsSupertypeOf\Collection;
 class BankAccount
 {
 }
@@ -22,7 +22,7 @@ class Wallet
     /**
      * @return Collection<BankAccount>
      */
-    public function getBankAccountList() : \_PhpScopera143bcca66cb\DoctrineIntersectionTypeIsSupertypeOf\Collection
+    public function getBankAccountList() : \_PhpScoper26e51eeacccf\DoctrineIntersectionTypeIsSupertypeOf\Collection
     {
         return $this->bankAccountList;
     }

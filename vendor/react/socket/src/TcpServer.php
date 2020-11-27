@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Socket;
+namespace _PhpScoper26e51eeacccf\React\Socket;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -30,7 +30,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class TcpServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Socket\ServerInterface
+final class TcpServer extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -119,7 +119,7 @@ final class TcpServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitter imp
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($uri, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct($uri, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->loop = $loop;
         // a single port has been given => assume localhost
@@ -203,6 +203,6 @@ final class TcpServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitter imp
     /** @internal */
     public function handleConnection($socket)
     {
-        $this->emit('connection', array(new \_PhpScopera143bcca66cb\React\Socket\Connection($socket, $this->loop)));
+        $this->emit('connection', array(new \_PhpScoper26e51eeacccf\React\Socket\Connection($socket, $this->loop)));
     }
 }

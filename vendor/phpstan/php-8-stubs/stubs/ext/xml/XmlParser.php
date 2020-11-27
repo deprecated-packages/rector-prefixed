@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 final class XmlParser
 {
 }
-\class_alias('_PhpScopera143bcca66cb\\XmlParser', 'XmlParser', \false);
+\class_alias('_PhpScoper26e51eeacccf\\XmlParser', 'XmlParser', \false);

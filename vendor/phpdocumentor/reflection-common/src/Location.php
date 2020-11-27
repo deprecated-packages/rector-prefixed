@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection;
 
 /**
  * The location where an element occurs within a file.

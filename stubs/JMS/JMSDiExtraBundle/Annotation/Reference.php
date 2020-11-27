@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\JMS\DiExtraBundle\Annotation;
+namespace _PhpScoper26e51eeacccf\JMS\DiExtraBundle\Annotation;
 
-if (\class_exists('_PhpScopera143bcca66cb\\JMS\\DiExtraBundle\\Annotation\\Reference')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\JMS\\DiExtraBundle\\Annotation\\Reference')) {
     return;
 }
 abstract class Reference

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Exception;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Exception;
 
 use InvalidArgumentException;
 use function sprintf;
-class InvalidPrefixMapping extends \InvalidArgumentException implements \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Exception\Exception
+class InvalidPrefixMapping extends \InvalidArgumentException implements \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Exception\Exception
 {
     public static function emptyPrefixGiven() : self
     {

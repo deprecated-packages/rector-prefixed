@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 #if HAVE_RL_CALLBACK_READ_CHAR
 function readline_callback_handler_install(string $prompt, callable $callback) : bool

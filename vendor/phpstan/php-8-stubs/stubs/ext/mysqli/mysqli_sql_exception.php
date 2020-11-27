@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 final class mysqli_sql_exception extends \RuntimeException
 {
 }
-\class_alias('_PhpScopera143bcca66cb\\mysqli_sql_exception', 'mysqli_sql_exception', \false);
+\class_alias('_PhpScoper26e51eeacccf\\mysqli_sql_exception', 'mysqli_sql_exception', \false);

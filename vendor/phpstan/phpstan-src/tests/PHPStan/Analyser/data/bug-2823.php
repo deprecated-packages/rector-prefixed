@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Bug2823;
+namespace _PhpScoper26e51eeacccf\Bug2823;
 
 class Foo
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ArrayKey;
+namespace _PhpScoper26e51eeacccf\ArrayKey;
 
 use function PHPStan\Analyser\assertType;
 class Foo

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 final class Closure
@@ -22,4 +22,4 @@ final class Closure
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\Closure', 'Closure', \false);
+\class_alias('_PhpScoper26e51eeacccf\\Closure', 'Closure', \false);

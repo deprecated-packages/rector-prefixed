@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\UnionIterableTypeIssue;
+namespace _PhpScoper26e51eeacccf\UnionIterableTypeIssue;
 
 /**
  * @param int|mixed[]|null $var

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
@@ -67,15 +67,15 @@ final class ClassAnnotationMatcher
     {
         $shortName = $useUse->alias !== null ? $useUse->alias->name : $useUse->name->getLast();
         $shortNamePattern = \preg_quote($shortName, '#');
-        return (bool) \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($tag, '#' . $shortNamePattern . '(\\\\[\\w]+)?#i');
+        return (bool) \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($tag, '#' . $shortNamePattern . '(\\\\[\\w]+)?#i');
     }
     private function resolveName(string $tag, \PhpParser\Node\Stmt\UseUse $useUse) : string
     {
         if ($useUse->alias === null) {
             return $useUse->name->toString();
         }
-        $unaliasedShortClass = \_PhpScopera143bcca66cb\Nette\Utils\Strings::substring($tag, \_PhpScopera143bcca66cb\Nette\Utils\Strings::length($useUse->alias->toString()));
-        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($unaliasedShortClass, '\\')) {
+        $unaliasedShortClass = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::substring($tag, \_PhpScoper26e51eeacccf\Nette\Utils\Strings::length($useUse->alias->toString()));
+        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::startsWith($unaliasedShortClass, '\\')) {
             return $useUse->name . $unaliasedShortClass;
         }
         return $useUse->name . '\\' . $unaliasedShortClass;

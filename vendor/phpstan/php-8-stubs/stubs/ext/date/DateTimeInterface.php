@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 // NB: Adding return types to methods is a BC break!
 // For now only using @return annotations here.
@@ -21,4 +21,4 @@ interface DateTimeInterface
 }
 // NB: Adding return types to methods is a BC break!
 // For now only using @return annotations here.
-\class_alias('_PhpScopera143bcca66cb\\DateTimeInterface', 'DateTimeInterface', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DateTimeInterface', 'DateTimeInterface', \false);

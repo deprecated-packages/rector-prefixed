@@ -30,7 +30,7 @@ final class ArgumentAdderRectorTest extends \Rector\Testing\PHPUnit\AbstractRect
     {
         return [\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class => [\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => [
             // covers https://github.com/rectorphp/rector/issues/4267
-            new \Rector\Generic\ValueObject\ArgumentAdder(\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'sendResetLinkResponse', 0, 'request', null, '_PhpScopera143bcca66cb\\Illuminate\\Http\\Illuminate\\Http'),
+            new \Rector\Generic\ValueObject\ArgumentAdder(\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'sendResetLinkResponse', 0, 'request', null, '_PhpScoper26e51eeacccf\\Illuminate\\Http\\Illuminate\\Http'),
             new \Rector\Generic\ValueObject\ArgumentAdder(\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'compile', 0, 'isCompiled', \false),
             new \Rector\Generic\ValueObject\ArgumentAdder(\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'addCompilerPass', 2, 'priority', 0, 'int'),
             // scoped

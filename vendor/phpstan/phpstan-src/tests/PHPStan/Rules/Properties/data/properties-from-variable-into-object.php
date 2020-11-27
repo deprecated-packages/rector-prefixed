@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\PropertiesFromVariableIntoObject;
+namespace _PhpScoper26e51eeacccf\PropertiesFromVariableIntoObject;
 
 class Foo
 {

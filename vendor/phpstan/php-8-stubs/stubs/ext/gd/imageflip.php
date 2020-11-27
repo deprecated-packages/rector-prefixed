@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imageflip(\_PhpScopera143bcca66cb\GdImage $image, int $mode) : bool
+function imageflip(\_PhpScoper26e51eeacccf\GdImage $image, int $mode) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug3958;
+namespace _PhpScoper26e51eeacccf\Bug3958;
 
 final class XmlHelper extends \SimpleXMLElement
 {

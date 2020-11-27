@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use function PHPStan\Analyser\assertType;
 const TABLE_NAME = 'resized_images';

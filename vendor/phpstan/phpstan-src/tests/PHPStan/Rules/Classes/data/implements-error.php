@@ -1,19 +1,19 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ImplementsError;
+namespace _PhpScoper26e51eeacccf\ImplementsError;
 
-class Foo implements \_PhpScopera143bcca66cb\ImplementsError\Bar
+class Foo implements \_PhpScoper26e51eeacccf\ImplementsError\Bar
 {
 }
-class Lorem implements \_PhpScopera143bcca66cb\ImplementsError\Foo
+class Lorem implements \_PhpScoper26e51eeacccf\ImplementsError\Foo
 {
 }
 trait DolorTrait
 {
 }
-class Ipsum implements \_PhpScopera143bcca66cb\ImplementsError\DolorTrait
+class Ipsum implements \_PhpScoper26e51eeacccf\ImplementsError\DolorTrait
 {
 }
-new class implements \_PhpScopera143bcca66cb\ImplementsError\DolorTrait
+new class implements \_PhpScoper26e51eeacccf\ImplementsError\DolorTrait
 {
 };

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\EventLoop;
+namespace _PhpScoper26e51eeacccf\React\EventLoop;
 
 /**
  * The `Factory` class exists as a convenient way to pick the best available event loop implementation.
@@ -26,18 +26,18 @@ final class Factory
         // @codeCoverageIgnoreStart
         if (\function_exists('uv_loop_new')) {
             // only use ext-uv on PHP 7
-            return new \_PhpScopera143bcca66cb\React\EventLoop\ExtUvLoop();
-        } elseif (\class_exists('_PhpScopera143bcca66cb\\libev\\EventLoop', \false)) {
-            return new \_PhpScopera143bcca66cb\React\EventLoop\ExtLibevLoop();
+            return new \_PhpScoper26e51eeacccf\React\EventLoop\ExtUvLoop();
+        } elseif (\class_exists('_PhpScoper26e51eeacccf\\libev\\EventLoop', \false)) {
+            return new \_PhpScoper26e51eeacccf\React\EventLoop\ExtLibevLoop();
         } elseif (\class_exists('EvLoop', \false)) {
-            return new \_PhpScopera143bcca66cb\React\EventLoop\ExtEvLoop();
+            return new \_PhpScoper26e51eeacccf\React\EventLoop\ExtEvLoop();
         } elseif (\class_exists('EventBase', \false)) {
-            return new \_PhpScopera143bcca66cb\React\EventLoop\ExtEventLoop();
+            return new \_PhpScoper26e51eeacccf\React\EventLoop\ExtEventLoop();
         } elseif (\function_exists('event_base_new') && \PHP_MAJOR_VERSION === 5) {
             // only use ext-libevent on PHP 5 for now
-            return new \_PhpScopera143bcca66cb\React\EventLoop\ExtLibeventLoop();
+            return new \_PhpScoper26e51eeacccf\React\EventLoop\ExtLibeventLoop();
         }
-        return new \_PhpScopera143bcca66cb\React\EventLoop\StreamSelectLoop();
+        return new \_PhpScoper26e51eeacccf\React\EventLoop\StreamSelectLoop();
         // @codeCoverageIgnoreEnd
     }
 }

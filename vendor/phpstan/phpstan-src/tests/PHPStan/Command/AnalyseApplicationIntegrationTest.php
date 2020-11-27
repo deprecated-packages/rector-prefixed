@@ -8,8 +8,8 @@ use PHPStan\Command\ErrorFormatter\TableErrorFormatter;
 use PHPStan\Command\Symfony\SymfonyOutput;
 use PHPStan\File\FuzzyRelativePathHelper;
 use PHPStan\File\NullRelativePathHelper;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\StreamOutput;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 {
@@ -41,12 +41,12 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
         if ($resource === \false) {
             throw new \PHPStan\ShouldNotHappenException();
         }
-        $output = new \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\StreamOutput($resource);
-        $symfonyOutput = new \PHPStan\Command\Symfony\SymfonyOutput($output, new \PHPStan\Command\Symfony\SymfonyStyle(new \Symfony\Component\Console\Style\SymfonyStyle($this->createMock(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface::class), $output)));
+        $output = new \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\StreamOutput($resource);
+        $symfonyOutput = new \PHPStan\Command\Symfony\SymfonyOutput($output, new \PHPStan\Command\Symfony\SymfonyStyle(new \Symfony\Component\Console\Style\SymfonyStyle($this->createMock(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface::class), $output)));
         $memoryLimitFile = self::getContainer()->getParameter('memoryLimitFile');
         $relativePathHelper = new \PHPStan\File\FuzzyRelativePathHelper(new \PHPStan\File\NullRelativePathHelper(), __DIR__, [], \DIRECTORY_SEPARATOR);
         $errorFormatter = new \PHPStan\Command\ErrorFormatter\TableErrorFormatter($relativePathHelper, \false);
-        $analysisResult = $analyserApplication->analyse([$path], \true, $symfonyOutput, $symfonyOutput, \false, \false, null, null, $this->createMock(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface::class));
+        $analysisResult = $analyserApplication->analyse([$path], \true, $symfonyOutput, $symfonyOutput, \false, \false, null, null, $this->createMock(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface::class));
         if (\file_exists($memoryLimitFile)) {
             \unlink($memoryLimitFile);
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 final class WeakMap implements \ArrayAccess, \Countable, \IteratorAggregate
 {
@@ -29,4 +29,4 @@ final class WeakMap implements \ArrayAccess, \Countable, \IteratorAggregate
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\WeakMap', 'WeakMap', \false);
+\class_alias('_PhpScoper26e51eeacccf\\WeakMap', 'WeakMap', \false);

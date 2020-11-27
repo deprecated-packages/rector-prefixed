@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InvalidKeyArrayItem;
+namespace _PhpScoper26e51eeacccf\InvalidKeyArrayItem;
 
 /** @var string|\stdClass $stringOrObject */
 $stringOrObject = doFoo();

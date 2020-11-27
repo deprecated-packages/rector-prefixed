@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopera143bcca66cb\Symfony\Component\Config\Definition;
+namespace _PhpScoper26e51eeacccf\Symfony\Component\Config\Definition;
 
 /**
  * This interface must be implemented by nodes which can be used as prototypes.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-interface PrototypeNodeInterface extends \_PhpScopera143bcca66cb\Symfony\Component\Config\Definition\NodeInterface
+interface PrototypeNodeInterface extends \_PhpScoper26e51eeacccf\Symfony\Component\Config\Definition\NodeInterface
 {
     /**
      * Sets the name of the node.

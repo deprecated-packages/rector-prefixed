@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\PhpGenerator\Traits;
+namespace _PhpScoper26e51eeacccf\Nette\PhpGenerator\Traits;
 
 /**
  * @internal

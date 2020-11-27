@@ -17,7 +17,7 @@ final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
     }
     public function getShortName() : string
     {
-        return '_PhpScopera143bcca66cb\\@ORM\\Embedded';
+        return '_PhpScoper26e51eeacccf\\@ORM\\Embedded';
     }
     public function getClass() : string
     {

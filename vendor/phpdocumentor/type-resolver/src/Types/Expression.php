@@ -9,29 +9,29 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
 /**
  * Represents an expression type as described in the PSR-5, the PHPDoc Standard.
  *
  * @psalm-immutable
  */
-final class Expression implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type
+final class Expression implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
 {
     /** @var Type */
     protected $valueType;
     /**
      * Initializes this representation of an array with the given Type.
      */
-    public function __construct(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type $valueType)
+    public function __construct(\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type $valueType)
     {
         $this->valueType = $valueType;
     }
     /**
      * Returns the value for the keys of this array.
      */
-    public function getValueType() : \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type
+    public function getValueType() : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
     {
         return $this->valueType;
     }

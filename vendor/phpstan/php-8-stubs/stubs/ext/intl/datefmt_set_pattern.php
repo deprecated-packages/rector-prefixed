@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function datefmt_set_pattern(\IntlDateFormatter $formatter, string $pattern) : bool
 {

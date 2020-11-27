@@ -10,13 +10,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Generic;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\FqsenResolver;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Generic;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\FqsenResolver;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoper26e51eeacccf\Webmozart\Assert\Assert;
 /**
  * Creates a Tag object given the contents of a tag.
  *
@@ -34,7 +34,7 @@ use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
  * When you want to use a Tag of your own with custom handling you need to call the `registerTagHandler` method, pass
  * the name of the tag and a Fully Qualified Class Name pointing to a class that implements the Tag interface.
  */
-final class StandardTagFactory implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\TagFactory
+final class StandardTagFactory implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\TagFactory
 {
     /** PCRE regular expression matching a tag name. */
     const REGEX_TAGNAME = '[\\w\\-\\_\\\\]+';
@@ -42,25 +42,25 @@ final class StandardTagFactory implements \_PhpScopera143bcca66cb\phpDocumentor\
      * @var string[] An array with a tag as a key, and an FQCN to a class that handles it as an array value.
      */
     private $tagHandlerMappings = [
-        'author' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Author',
-        'covers' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Covers',
-        'deprecated' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Deprecated',
+        'author' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Author',
+        'covers' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Covers',
+        'deprecated' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Deprecated',
         // 'example'        => '\phpDocumentor\Reflection\DocBlock\Tags\Example',
-        'link' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Link',
-        'method' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Method',
-        'param' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Param',
-        'property-read' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\PropertyRead',
-        'property' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Property',
-        'property-write' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\PropertyWrite',
-        'return' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Return_',
-        'see' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\See',
-        'since' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Since',
-        'source' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Source',
-        'throw' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Throws',
-        'throws' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Throws',
-        'uses' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Uses',
-        'var' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Var_',
-        'version' => '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Version',
+        'link' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Link',
+        'method' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Method',
+        'param' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Param',
+        'property-read' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\PropertyRead',
+        'property' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Property',
+        'property-write' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\PropertyWrite',
+        'return' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Return_',
+        'see' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\See',
+        'since' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Since',
+        'source' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Source',
+        'throw' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Throws',
+        'throws' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Throws',
+        'uses' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Uses',
+        'var' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Var_',
+        'version' => '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Version',
     ];
     /**
      * @var \ReflectionParameter[][] a lazy-loading cache containing parameters for each tagHandler that has been used.
@@ -86,21 +86,21 @@ final class StandardTagFactory implements \_PhpScopera143bcca66cb\phpDocumentor\
      *
      * @see self::registerTagHandler() to add a new tag handler to the existing default list.
      */
-    public function __construct(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\FqsenResolver $fqsenResolver, array $tagHandlers = null)
+    public function __construct(\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\FqsenResolver $fqsenResolver, array $tagHandlers = null)
     {
         $this->fqsenResolver = $fqsenResolver;
         if ($tagHandlers !== null) {
             $this->tagHandlerMappings = $tagHandlers;
         }
-        $this->addService($fqsenResolver, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\FqsenResolver::class);
+        $this->addService($fqsenResolver, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\FqsenResolver::class);
     }
     /**
      * {@inheritDoc}
      */
-    public function create($tagLine, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context = null)
+    public function create($tagLine, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context = null)
     {
         if (!$context) {
-            $context = new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context('');
+            $context = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context('');
         }
         list($tagName, $tagBody) = $this->extractTagParts($tagLine);
         if ($tagBody !== '' && $tagBody[0] === '[') {
@@ -127,10 +127,10 @@ final class StandardTagFactory implements \_PhpScopera143bcca66cb\phpDocumentor\
      */
     public function registerTagHandler($tagName, $handler)
     {
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::stringNotEmpty($tagName);
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::stringNotEmpty($handler);
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::classExists($handler);
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::implementsInterface($handler, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod::class);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::stringNotEmpty($tagName);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::stringNotEmpty($handler);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::classExists($handler);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::implementsInterface($handler, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod::class);
         if (\strpos($tagName, '\\') && $tagName[0] !== '\\') {
             throw new \InvalidArgumentException('A namespaced tag must have a leading backslash as it must be fully qualified');
         }
@@ -164,7 +164,7 @@ final class StandardTagFactory implements \_PhpScopera143bcca66cb\phpDocumentor\
      *
      * @return Tag|null
      */
-    private function createTag($body, $name, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context)
+    private function createTag($body, $name, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context)
     {
         $handlerClassName = $this->findHandlerClassName($name, $context);
         $arguments = $this->getArgumentsForParametersFromWiring($this->fetchParametersForHandlerFactoryMethod($handlerClassName), $this->getServiceLocatorWithDynamicParameters($context, $name, $body));
@@ -178,9 +178,9 @@ final class StandardTagFactory implements \_PhpScopera143bcca66cb\phpDocumentor\
      *
      * @return string
      */
-    private function findHandlerClassName($tagName, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context)
+    private function findHandlerClassName($tagName, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context)
     {
-        $handlerClassName = \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Generic::class;
+        $handlerClassName = \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Generic::class;
         if (isset($this->tagHandlerMappings[$tagName])) {
             $handlerClassName = $this->tagHandlerMappings[$tagName];
         } elseif ($this->isAnnotation($tagName)) {
@@ -245,9 +245,9 @@ final class StandardTagFactory implements \_PhpScopera143bcca66cb\phpDocumentor\
      *
      * @return mixed[]
      */
-    private function getServiceLocatorWithDynamicParameters(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context, $tagName, $tagBody)
+    private function getServiceLocatorWithDynamicParameters(\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context, $tagName, $tagBody)
     {
-        $locator = \array_merge($this->serviceLocator, ['name' => $tagName, 'body' => $tagBody, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context::class => $context]);
+        $locator = \array_merge($this->serviceLocator, ['name' => $tagName, 'body' => $tagBody, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context::class => $context]);
         return $locator;
     }
     /**

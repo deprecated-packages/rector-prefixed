@@ -1,20 +1,20 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Http\Io;
+namespace _PhpScoper26e51eeacccf\React\Http\Io;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\Psr\Http\Message\ResponseInterface;
-use _PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface;
-use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
-use _PhpScopera143bcca66cb\React\Http\Message\Response;
-use _PhpScopera143bcca66cb\React\Http\Message\ServerRequest;
-use _PhpScopera143bcca66cb\React\Promise;
-use _PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface;
-use _PhpScopera143bcca66cb\React\Promise\PromiseInterface;
-use _PhpScopera143bcca66cb\React\Socket\ConnectionInterface;
-use _PhpScopera143bcca66cb\React\Socket\ServerInterface;
-use _PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface;
-use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\Psr\Http\Message\ResponseInterface;
+use _PhpScoper26e51eeacccf\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
+use _PhpScoper26e51eeacccf\React\Http\Message\Response;
+use _PhpScoper26e51eeacccf\React\Http\Message\ServerRequest;
+use _PhpScoper26e51eeacccf\React\Promise;
+use _PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface;
+use _PhpScoper26e51eeacccf\React\Promise\PromiseInterface;
+use _PhpScoper26e51eeacccf\React\Socket\ConnectionInterface;
+use _PhpScoper26e51eeacccf\React\Socket\ServerInterface;
+use _PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface;
+use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
 /**
  * The internal `StreamingServer` class is responsible for handling incoming connections and then
  * processing each incoming HTTP request.
@@ -79,7 +79,7 @@ use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
  * @see self::listen()
  * @internal
  */
-final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitter
+final class StreamingServer extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter
 {
     private $callback;
     private $parser;
@@ -96,22 +96,22 @@ final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitt
      * @param callable $requestHandler
      * @see self::listen()
      */
-    public function __construct(\_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, $requestHandler)
+    public function __construct(\_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, $requestHandler)
     {
         if (!\is_callable($requestHandler)) {
             throw new \InvalidArgumentException('Invalid request handler given');
         }
         $this->loop = $loop;
         $this->callback = $requestHandler;
-        $this->parser = new \_PhpScopera143bcca66cb\React\Http\Io\RequestHeaderParser();
+        $this->parser = new \_PhpScoper26e51eeacccf\React\Http\Io\RequestHeaderParser();
         $that = $this;
-        $this->parser->on('headers', function (\_PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface $request, \_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $conn) use($that) {
+        $this->parser->on('headers', function (\_PhpScoper26e51eeacccf\Psr\Http\Message\ServerRequestInterface $request, \_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $conn) use($that) {
             $that->handleRequest($conn, $request);
         });
-        $this->parser->on('error', function (\Exception $e, \_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $conn) use($that) {
+        $this->parser->on('error', function (\Exception $e, \_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $conn) use($that) {
             $that->emit('error', array($e));
             // parsing failed => assume dummy request and send appropriate error
-            $that->writeError($conn, $e->getCode() !== 0 ? $e->getCode() : 400, new \_PhpScopera143bcca66cb\React\Http\Message\ServerRequest('GET', '/'));
+            $that->writeError($conn, $e->getCode() !== 0 ? $e->getCode() : 400, new \_PhpScoper26e51eeacccf\React\Http\Message\ServerRequest('GET', '/'));
         });
     }
     /**
@@ -120,12 +120,12 @@ final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitt
      * @param ServerInterface $socket
      * @see \React\Http\Server::listen()
      */
-    public function listen(\_PhpScopera143bcca66cb\React\Socket\ServerInterface $socket)
+    public function listen(\_PhpScoper26e51eeacccf\React\Socket\ServerInterface $socket)
     {
         $socket->on('connection', array($this->parser, 'handle'));
     }
     /** @internal */
-    public function handleRequest(\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $conn, \_PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface $request)
+    public function handleRequest(\_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $conn, \_PhpScoper26e51eeacccf\Psr\Http\Message\ServerRequestInterface $request)
     {
         if ($request->getProtocolVersion() !== '1.0' && '100-continue' === \strtolower($request->getHeaderLine('Expect'))) {
             $conn->write("HTTP/1.1 100 Continue\r\n\r\n");
@@ -136,30 +136,30 @@ final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitt
             $response = $callback($request);
         } catch (\Exception $error) {
             // request handler callback throws an Exception
-            $response = \_PhpScopera143bcca66cb\React\Promise\reject($error);
+            $response = \_PhpScoper26e51eeacccf\React\Promise\reject($error);
         } catch (\Throwable $error) {
             // @codeCoverageIgnoreStart
             // request handler callback throws a PHP7+ Error
-            $response = \_PhpScopera143bcca66cb\React\Promise\reject($error);
+            $response = \_PhpScoper26e51eeacccf\React\Promise\reject($error);
             // @codeCoverageIgnoreEnd
         }
         // cancel pending promise once connection closes
-        if ($response instanceof \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface) {
+        if ($response instanceof \_PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface) {
             $conn->on('close', function () use($response) {
                 $response->cancel();
             });
         }
         // happy path: response returned, handle and return immediately
-        if ($response instanceof \_PhpScopera143bcca66cb\Psr\Http\Message\ResponseInterface) {
+        if ($response instanceof \_PhpScoper26e51eeacccf\Psr\Http\Message\ResponseInterface) {
             return $this->handleResponse($conn, $request, $response);
         }
         // did not return a promise? this is an error, convert into one for rejection below.
-        if (!$response instanceof \_PhpScopera143bcca66cb\React\Promise\PromiseInterface) {
-            $response = \_PhpScopera143bcca66cb\React\Promise\resolve($response);
+        if (!$response instanceof \_PhpScoper26e51eeacccf\React\Promise\PromiseInterface) {
+            $response = \_PhpScoper26e51eeacccf\React\Promise\resolve($response);
         }
         $that = $this;
         $response->then(function ($response) use($that, $conn, $request) {
-            if (!$response instanceof \_PhpScopera143bcca66cb\Psr\Http\Message\ResponseInterface) {
+            if (!$response instanceof \_PhpScoper26e51eeacccf\Psr\Http\Message\ResponseInterface) {
                 $message = 'The response callback is expected to resolve with an object implementing Psr\\Http\\Message\\ResponseInterface, but resolved with "%s" instead.';
                 $message = \sprintf($message, \is_object($response) ? \get_class($response) : \gettype($response));
                 $exception = new \RuntimeException($message);
@@ -180,9 +180,9 @@ final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitt
         });
     }
     /** @internal */
-    public function writeError(\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $conn, $code, \_PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface $request)
+    public function writeError(\_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $conn, $code, \_PhpScoper26e51eeacccf\Psr\Http\Message\ServerRequestInterface $request)
     {
-        $response = new \_PhpScopera143bcca66cb\React\Http\Message\Response($code, array('Content-Type' => 'text/plain'), 'Error ' . $code);
+        $response = new \_PhpScoper26e51eeacccf\React\Http\Message\Response($code, array('Content-Type' => 'text/plain'), 'Error ' . $code);
         // append reason phrase to response body if known
         $reason = $response->getReasonPhrase();
         if ($reason !== '') {
@@ -193,7 +193,7 @@ final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitt
         $this->handleResponse($conn, $request, $response);
     }
     /** @internal */
-    public function handleResponse(\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $connection, \_PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface $request, \_PhpScopera143bcca66cb\Psr\Http\Message\ResponseInterface $response)
+    public function handleResponse(\_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $connection, \_PhpScoper26e51eeacccf\Psr\Http\Message\ServerRequestInterface $request, \_PhpScoper26e51eeacccf\Psr\Http\Message\ResponseInterface $response)
     {
         // return early and close response body if connection is already closed
         $body = $response->getBody();
@@ -249,7 +249,7 @@ final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitt
         }
         // 101 (Switching Protocols) response (for Upgrade request) forwards upgraded data through duplex stream
         // 2xx (Successful) response to CONNECT forwards tunneled application data through duplex stream
-        if (($code === 101 || $method === 'CONNECT' && $code >= 200 && $code < 300) && $body instanceof \_PhpScopera143bcca66cb\React\Http\Io\HttpBodyStream && $body->input instanceof \_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface) {
+        if (($code === 101 || $method === 'CONNECT' && $code >= 200 && $code < 300) && $body instanceof \_PhpScoper26e51eeacccf\React\Http\Io\HttpBodyStream && $body->input instanceof \_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface) {
             if ($request->getBody()->isReadable()) {
                 // request is still streaming => wait for request close before forwarding following data from connection
                 $request->getBody()->on('close', function () use($connection, $body) {
@@ -277,9 +277,9 @@ final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitt
             $body = '';
         }
         // this is a non-streaming response body or the body stream already closed?
-        if (!$body instanceof \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface || !$body->isReadable()) {
+        if (!$body instanceof \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface || !$body->isReadable()) {
             // add final chunk if a streaming body is already closed and uses `Transfer-Encoding: chunked`
-            if ($body instanceof \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface && $chunked) {
+            if ($body instanceof \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface && $chunked) {
                 $body = "0\r\n\r\n";
             }
             // end connection after writing response headers and body
@@ -289,7 +289,7 @@ final class StreamingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitt
         }
         $connection->write($headers . "\r\n");
         if ($chunked) {
-            $body = new \_PhpScopera143bcca66cb\React\Http\Io\ChunkedEncoder($body);
+            $body = new \_PhpScoper26e51eeacccf\React\Http\Io\ChunkedEncoder($body);
         }
         // Close response stream once connection closes.
         // Note that this TCP/IP close detection may take some time,

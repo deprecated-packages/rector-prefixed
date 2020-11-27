@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 #if HAVE_SYS_TIME_H || defined(PHP_WIN32)
 /** @param resource $stream */

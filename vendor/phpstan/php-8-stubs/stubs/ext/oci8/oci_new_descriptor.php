@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @param resource $connection */
-function oci_new_descriptor($connection, int $type = \OCI_DTYPE_LOB) : ?\_PhpScopera143bcca66cb\OCILob
+function oci_new_descriptor($connection, int $type = \OCI_DTYPE_LOB) : ?\_PhpScoper26e51eeacccf\OCILob
 {
 }

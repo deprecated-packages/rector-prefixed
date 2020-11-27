@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug2164;
+namespace _PhpScoper26e51eeacccf\Bug2164;
 
 class A
 {
@@ -12,7 +12,7 @@ class A
     {
     }
 }
-class B extends \_PhpScopera143bcca66cb\Bug2164\A
+class B extends \_PhpScoper26e51eeacccf\Bug2164\A
 {
     /**
      * @param B|string $arg
@@ -20,6 +20,6 @@ class B extends \_PhpScopera143bcca66cb\Bug2164\A
      */
     public function test($arg)
     {
-        \_PhpScopera143bcca66cb\Bug2164\B::staticTest($arg);
+        \_PhpScoper26e51eeacccf\Bug2164\B::staticTest($arg);
     }
 }

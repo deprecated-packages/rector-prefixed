@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php72\Rector\ConstFetch;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Scalar\String_;
@@ -55,7 +55,7 @@ final class BarewordStringRector extends \Rector\Core\Rector\AbstractRector
         }
         $this->undefinedConstants = [];
         $previousErrorHandler = \set_error_handler(function (int $severity, string $message, string $file, int $line) : bool {
-            $match = \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($message, self::UNDEFINED_CONSTANT_REGEX);
+            $match = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($message, self::UNDEFINED_CONSTANT_REGEX);
             if ($match) {
                 $this->undefinedConstants[] = $match['constant'];
             }

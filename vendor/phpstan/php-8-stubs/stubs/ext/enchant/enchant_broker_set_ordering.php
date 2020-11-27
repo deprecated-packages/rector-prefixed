@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function enchant_broker_set_ordering(\EnchantBroker $broker, string $tag, string $ordering) : bool
 {

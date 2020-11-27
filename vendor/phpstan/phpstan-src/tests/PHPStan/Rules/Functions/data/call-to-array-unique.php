@@ -1,5 +1,5 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 \array_unique([], \SORT_STRING, 'foo');

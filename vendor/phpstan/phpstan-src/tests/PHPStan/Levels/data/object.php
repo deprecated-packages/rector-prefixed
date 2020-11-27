@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\ObjectTests;
+namespace _PhpScoper26e51eeacccf\Levels\ObjectTests;
 
 class Foo
 {

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection;
 
 use PhpParser\Node\Stmt\ClassConst;
 use ReflectionProperty;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\NodeCompiler\CompilerContext;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Util\CalculateReflectionColum;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Util\GetLastDocComment;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\CalculateReflectionColum;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\GetLastDocComment;
 class ReflectionClassConstant
 {
     /** @var bool */
@@ -35,7 +35,7 @@ class ReflectionClassConstant
      *
      * @param ClassConst $node Node has to be processed by the PhpParser\NodeVisitor\NameResolver
      */
-    public static function createFromNode(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\ClassConst $node, int $positionInNode, \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $owner) : self
+    public static function createFromNode(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\ClassConst $node, int $positionInNode, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $owner) : self
     {
         $ref = new self();
         $ref->node = $node;
@@ -62,7 +62,7 @@ class ReflectionClassConstant
         if ($this->valueWasCached !== \false) {
             return $this->value;
         }
-        $this->value = (new \_PhpScopera143bcca66cb\Roave\BetterReflection\NodeCompiler\CompileNodeToValue())->__invoke($this->node->consts[$this->positionInNode]->value, new \_PhpScopera143bcca66cb\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->owner->getFileName(), $this->getDeclaringClass(), $this->owner->getNamespaceName(), null));
+        $this->value = (new \_PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompileNodeToValue())->__invoke($this->node->consts[$this->positionInNode]->value, new \_PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->owner->getFileName(), $this->getDeclaringClass(), $this->owner->getNamespaceName(), null));
         $this->valueWasCached = \true;
         return $this->value;
     }
@@ -114,16 +114,16 @@ class ReflectionClassConstant
     }
     public function getStartColumn() : int
     {
-        return \_PhpScopera143bcca66cb\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->owner->getLocatedSource()->getSource(), $this->node);
+        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->owner->getLocatedSource()->getSource(), $this->node);
     }
     public function getEndColumn() : int
     {
-        return \_PhpScopera143bcca66cb\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->owner->getLocatedSource()->getSource(), $this->node);
+        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->owner->getLocatedSource()->getSource(), $this->node);
     }
     /**
      * Get the declaring class
      */
-    public function getDeclaringClass() : \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getDeclaringClass() : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->owner;
     }
@@ -132,11 +132,11 @@ class ReflectionClassConstant
      */
     public function getDocComment() : string
     {
-        return \_PhpScopera143bcca66cb\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->node);
+        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->node);
     }
     public function __toString() : string
     {
-        return \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast::toString($this);
+        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast::toString($this);
     }
     public function getAst() : \PhpParser\Node\Stmt\ClassConst
     {

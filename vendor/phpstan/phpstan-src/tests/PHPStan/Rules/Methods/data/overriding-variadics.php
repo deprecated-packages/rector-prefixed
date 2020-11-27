@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\OverridingVariadics;
+namespace _PhpScoper26e51eeacccf\OverridingVariadics;
 
 interface ITranslator
 {
@@ -11,7 +11,7 @@ interface ITranslator
      */
     function translate($message, string ...$parameters) : string;
 }
-class Translator implements \_PhpScopera143bcca66cb\OverridingVariadics\ITranslator
+class Translator implements \_PhpScoper26e51eeacccf\OverridingVariadics\ITranslator
 {
     /**
      * @param string $message
@@ -21,19 +21,19 @@ class Translator implements \_PhpScopera143bcca66cb\OverridingVariadics\ITransla
     {
     }
 }
-class OtherTranslator implements \_PhpScopera143bcca66cb\OverridingVariadics\ITranslator
+class OtherTranslator implements \_PhpScoper26e51eeacccf\OverridingVariadics\ITranslator
 {
     public function translate($message, $lang, string ...$parameters) : string
     {
     }
 }
-class AnotherTranslator implements \_PhpScopera143bcca66cb\OverridingVariadics\ITranslator
+class AnotherTranslator implements \_PhpScoper26e51eeacccf\OverridingVariadics\ITranslator
 {
     public function translate($message, $lang = 'cs', string $parameters) : string
     {
     }
 }
-class YetAnotherTranslator implements \_PhpScopera143bcca66cb\OverridingVariadics\ITranslator
+class YetAnotherTranslator implements \_PhpScoper26e51eeacccf\OverridingVariadics\ITranslator
 {
     public function translate($message, $lang = 'cs') : string
     {

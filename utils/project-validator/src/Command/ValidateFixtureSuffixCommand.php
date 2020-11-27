@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Rector\Utils\ProjectValidator\Command;
 
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScopera143bcca66cb\Symfony\Component\Finder\Finder;
+use _PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
-final class ValidateFixtureSuffixCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command
+final class ValidateFixtureSuffixCommand extends \_PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command
 {
     /**
      * @var FinderSanitizer
@@ -31,7 +31,7 @@ final class ValidateFixtureSuffixCommand extends \_PhpScopera143bcca66cb\Symfony
     {
         $this->setDescription('[CI] Validate tests fixtures suffix');
     }
-    protected function execute(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $invalidFilePaths = [];
         foreach ($this->getInvalidFixtureFileInfos() as $invalidFixtureFileInfo) {
@@ -51,7 +51,7 @@ final class ValidateFixtureSuffixCommand extends \_PhpScopera143bcca66cb\Symfony
      */
     private function getInvalidFixtureFileInfos() : array
     {
-        $finder = new \_PhpScopera143bcca66cb\Symfony\Component\Finder\Finder();
+        $finder = new \_PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder();
         $finder = $finder->files()->name('#\\.inc$#')->name('#\\.php#')->notName('#\\.php\\.inc$#')->path('#/Fixture/#')->notPath('#TagValueNodeReprint#')->notPath('#PhpSpecToPHPUnitRector#')->notPath('#Source#')->notPath('#expected#')->notPath('DoctrineRepositoryAsService/Fixture/PostController.php')->notPath('Namespace_/ImportFullyQualifiedNamesRector/Fixture/SharedShortName.php')->notPath('Name/RenameClassRector/Fixture/DuplicatedClass.php')->notPath('Rector/FileNode/RenameSpecFileToTestFileRector/Fixture/some_file_Spec.php')->in(__DIR__ . '/../../../../tests')->in(__DIR__ . '/../../../../packages/*/tests')->in(__DIR__ . '/../../../../rules/*/tests');
         return $this->finderSanitizer->sanitize($finder);
     }

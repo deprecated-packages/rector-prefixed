@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MissingPropertyTypehint;
+namespace _PhpScoper26e51eeacccf\MissingPropertyTypehint;
 
 class MyClass
 {
@@ -11,7 +11,7 @@ class MyClass
      */
     public $prop3;
 }
-class ChildClass extends \_PhpScopera143bcca66cb\MissingPropertyTypehint\MyClass
+class ChildClass extends \_PhpScoper26e51eeacccf\MissingPropertyTypehint\MyClass
 {
     /**
      * @var int

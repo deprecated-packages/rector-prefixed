@@ -13,7 +13,7 @@ class NetteContainer implements \PHPStan\DependencyInjection\Container
      * @var \Nette\DI\Container
      */
     private $container;
-    public function __construct(\_PhpScopera143bcca66cb\Nette\DI\Container $container)
+    public function __construct(\_PhpScoper26e51eeacccf\Nette\DI\Container $container)
     {
         $this->container = $container;
     }

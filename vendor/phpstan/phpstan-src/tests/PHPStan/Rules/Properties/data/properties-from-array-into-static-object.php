@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\PropertiesFromArrayIntoStaticObject;
+namespace _PhpScoper26e51eeacccf\PropertiesFromArrayIntoStaticObject;
 
 class Foo
 {

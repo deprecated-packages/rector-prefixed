@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\DefaultValueForNativePropertyType;
+namespace _PhpScoper26e51eeacccf\DefaultValueForNativePropertyType;
 
 class Foo
 {

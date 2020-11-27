@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function oci_lob_tell(\_PhpScopera143bcca66cb\OCILob $lob) : int|false
+function oci_lob_tell(\_PhpScoper26e51eeacccf\OCILob $lob) : int|false
 {
 }

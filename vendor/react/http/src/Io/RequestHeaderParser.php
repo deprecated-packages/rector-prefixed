@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Http\Io;
+namespace _PhpScoper26e51eeacccf\React\Http\Io;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface;
-use _PhpScopera143bcca66cb\React\Http\Message\ServerRequest;
-use _PhpScopera143bcca66cb\React\Socket\ConnectionInterface;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoper26e51eeacccf\React\Http\Message\ServerRequest;
+use _PhpScoper26e51eeacccf\React\Socket\ConnectionInterface;
 use Exception;
 /**
  * [Internal] Parses an incoming request header from an input stream
@@ -18,10 +18,10 @@ use Exception;
  *
  * @internal
  */
-class RequestHeaderParser extends \_PhpScopera143bcca66cb\Evenement\EventEmitter
+class RequestHeaderParser extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter
 {
     private $maxSize = 8192;
-    public function handle(\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $conn)
+    public function handle(\_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $conn)
     {
         $buffer = '';
         $maxSize = $this->maxSize;
@@ -59,17 +59,17 @@ class RequestHeaderParser extends \_PhpScopera143bcca66cb\Evenement\EventEmitter
             }
             if ($contentLength === 0) {
                 // happy path: request body is known to be empty
-                $stream = new \_PhpScopera143bcca66cb\React\Http\Io\EmptyBodyStream();
+                $stream = new \_PhpScoper26e51eeacccf\React\Http\Io\EmptyBodyStream();
                 $request = $request->withBody($stream);
             } else {
                 // otherwise body is present => delimit using Content-Length or ChunkedDecoder
-                $stream = new \_PhpScopera143bcca66cb\React\Http\Io\CloseProtectionStream($conn);
+                $stream = new \_PhpScoper26e51eeacccf\React\Http\Io\CloseProtectionStream($conn);
                 if ($contentLength !== null) {
-                    $stream = new \_PhpScopera143bcca66cb\React\Http\Io\LengthLimitedStream($stream, $contentLength);
+                    $stream = new \_PhpScoper26e51eeacccf\React\Http\Io\LengthLimitedStream($stream, $contentLength);
                 } else {
-                    $stream = new \_PhpScopera143bcca66cb\React\Http\Io\ChunkedDecoder($stream);
+                    $stream = new \_PhpScoper26e51eeacccf\React\Http\Io\ChunkedDecoder($stream);
                 }
-                $request = $request->withBody(new \_PhpScopera143bcca66cb\React\Http\Io\HttpBodyStream($stream, $contentLength));
+                $request = $request->withBody(new \_PhpScoper26e51eeacccf\React\Http\Io\HttpBodyStream($stream, $contentLength));
             }
             $bodyBuffer = isset($buffer[$endOfHeader + 4]) ? \substr($buffer, $endOfHeader + 4) : '';
             $buffer = '';
@@ -177,7 +177,7 @@ class RequestHeaderParser extends \_PhpScopera143bcca66cb\Evenement\EventEmitter
             $serverParams['SERVER_ADDR'] = $localParts['host'];
             $serverParams['SERVER_PORT'] = $localParts['port'];
         }
-        $request = new \_PhpScopera143bcca66cb\React\Http\Message\ServerRequest($start['method'], $uri, $fields, '', $start['version'], $serverParams);
+        $request = new \_PhpScoper26e51eeacccf\React\Http\Message\ServerRequest($start['method'], $uri, $fields, '', $start['version'], $serverParams);
         // only assign request target if it is not in origin-form (happy path for most normal requests)
         if ($start['target'][0] !== '/') {
             $request = $request->withRequestTarget($start['target']);

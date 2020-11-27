@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class DOMDocumentFragment implements \DOMParentNode
 {
@@ -20,4 +20,4 @@ class DOMDocumentFragment implements \DOMParentNode
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\DOMDocumentFragment', 'DOMDocumentFragment', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DOMDocumentFragment', 'DOMDocumentFragment', \false);

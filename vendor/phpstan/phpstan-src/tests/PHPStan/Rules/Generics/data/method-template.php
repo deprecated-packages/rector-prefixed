@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MethodTemplateType;
+namespace _PhpScoper26e51eeacccf\MethodTemplateType;
 
 class Foo
 {

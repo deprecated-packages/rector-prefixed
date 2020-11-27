@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ParentClass;
+namespace _PhpScoper26e51eeacccf\ParentClass;
 
 class Foo
 {
@@ -9,7 +9,7 @@ class Foo
         'inParentClass';
     }
 }
-class Bar extends \_PhpScopera143bcca66cb\ParentClass\Foo
+class Bar extends \_PhpScoper26e51eeacccf\ParentClass\Foo
 {
     use FooTrait;
     public function doBar()

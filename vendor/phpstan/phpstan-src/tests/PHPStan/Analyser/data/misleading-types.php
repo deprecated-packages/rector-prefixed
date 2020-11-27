@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MisleadingTypes;
+namespace _PhpScoper26e51eeacccf\MisleadingTypes;
 
 class Foo
 {
-    public function misleadingBoolReturnType() : \_PhpScopera143bcca66cb\MisleadingTypes\boolean
+    public function misleadingBoolReturnType() : \_PhpScoper26e51eeacccf\MisleadingTypes\boolean
     {
     }
-    public function misleadingIntReturnType() : \_PhpScopera143bcca66cb\MisleadingTypes\integer
+    public function misleadingIntReturnType() : \_PhpScoper26e51eeacccf\MisleadingTypes\integer
     {
     }
     public function misleadingMixedReturnType() : mixed
@@ -15,6 +15,6 @@ class Foo
     }
 }
 function () {
-    $foo = new \_PhpScopera143bcca66cb\MisleadingTypes\Foo();
+    $foo = new \_PhpScoper26e51eeacccf\MisleadingTypes\Foo();
     die;
 };

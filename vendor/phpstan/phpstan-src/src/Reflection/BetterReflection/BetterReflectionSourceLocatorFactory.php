@@ -13,16 +13,16 @@ use PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedDirectorySourceLo
 use PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository;
 use PHPStan\Reflection\BetterReflection\SourceLocator\PhpVersionBlacklistSourceLocator;
 use PHPStan\Reflection\BetterReflection\SourceLocator\SkipClassAliasSourceLocator;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 class BetterReflectionSourceLocatorFactory
 {
     /** @var \PhpParser\Parser */
@@ -72,7 +72,7 @@ class BetterReflectionSourceLocatorFactory
      * @param string|null $singleReflectionFile,
      * @param string[] $staticReflectionClassNamePatterns
      */
-    public function __construct(\PhpParser\Parser $parser, \PhpParser\Parser $php8Parser, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpstormStubsSourceStubber, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber $reflectionSourceStubber, \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository $optimizedSingleFileSourceLocatorRepository, \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedDirectorySourceLocatorRepository $optimizedDirectorySourceLocatorRepository, \PHPStan\Reflection\BetterReflection\SourceLocator\ComposerJsonAndInstalledJsonSourceLocatorMaker $composerJsonAndInstalledJsonSourceLocatorMaker, \PHPStan\Reflection\BetterReflection\SourceLocator\AutoloadSourceLocator $autoloadSourceLocator, \PHPStan\DependencyInjection\Container $container, array $autoloadDirectories, array $autoloadFiles, array $scanFiles, array $scanDirectories, array $analysedPaths, array $composerAutoloaderProjectPaths, array $analysedPathsFromConfig, ?string $singleReflectionFile, array $staticReflectionClassNamePatterns)
+    public function __construct(\PhpParser\Parser $parser, \PhpParser\Parser $php8Parser, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpstormStubsSourceStubber, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber $reflectionSourceStubber, \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository $optimizedSingleFileSourceLocatorRepository, \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedDirectorySourceLocatorRepository $optimizedDirectorySourceLocatorRepository, \PHPStan\Reflection\BetterReflection\SourceLocator\ComposerJsonAndInstalledJsonSourceLocatorMaker $composerJsonAndInstalledJsonSourceLocatorMaker, \PHPStan\Reflection\BetterReflection\SourceLocator\AutoloadSourceLocator $autoloadSourceLocator, \PHPStan\DependencyInjection\Container $container, array $autoloadDirectories, array $autoloadFiles, array $scanFiles, array $scanDirectories, array $analysedPaths, array $composerAutoloaderProjectPaths, array $analysedPathsFromConfig, ?string $singleReflectionFile, array $staticReflectionClassNamePatterns)
     {
         $this->parser = $parser;
         $this->php8Parser = $php8Parser;
@@ -93,7 +93,7 @@ class BetterReflectionSourceLocatorFactory
         $this->singleReflectionFile = $singleReflectionFile;
         $this->staticReflectionClassNamePatterns = $staticReflectionClassNamePatterns;
     }
-    public function create() : \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+    public function create() : \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\SourceLocator
     {
         $locators = [];
         if ($this->singleReflectionFile !== null) {
@@ -119,13 +119,13 @@ class BetterReflectionSourceLocatorFactory
         foreach ($directories as $directory) {
             $locators[] = $this->optimizedDirectorySourceLocatorRepository->getOrCreate($directory);
         }
-        $astLocator = new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator($this->parser, function () : FunctionReflector {
+        $astLocator = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Locator($this->parser, function () : FunctionReflector {
             return $this->container->getService('betterReflectionFunctionReflector');
         });
-        $astPhp8Locator = new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator($this->php8Parser, function () : FunctionReflector {
+        $astPhp8Locator = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Locator($this->php8Parser, function () : FunctionReflector {
             return $this->container->getService('betterReflectionFunctionReflector');
         });
-        $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\SkipClassAliasSourceLocator(new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astPhp8Locator, $this->phpstormStubsSourceStubber));
+        $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\SkipClassAliasSourceLocator(new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astPhp8Locator, $this->phpstormStubsSourceStubber));
         $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\ClassBlacklistSourceLocator($this->autoloadSourceLocator, $this->staticReflectionClassNamePatterns);
         foreach ($this->composerAutoloaderProjectPaths as $composerAutoloaderProjectPath) {
             $locator = $this->composerJsonAndInstalledJsonSourceLocatorMaker->create($composerAutoloaderProjectPath);
@@ -135,8 +135,8 @@ class BetterReflectionSourceLocatorFactory
             $locators[] = $locator;
         }
         $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\ClassWhitelistSourceLocator($this->autoloadSourceLocator, $this->staticReflectionClassNamePatterns);
-        $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\PhpVersionBlacklistSourceLocator(new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $this->reflectionSourceStubber), $this->phpstormStubsSourceStubber);
-        $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\PhpVersionBlacklistSourceLocator(new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $this->reflectionSourceStubber), $this->phpstormStubsSourceStubber);
-        return new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators));
+        $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\PhpVersionBlacklistSourceLocator(new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $this->reflectionSourceStubber), $this->phpstormStubsSourceStubber);
+        $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\PhpVersionBlacklistSourceLocator(new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $this->reflectionSourceStubber), $this->phpstormStubsSourceStubber);
+        return new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators));
     }
 }

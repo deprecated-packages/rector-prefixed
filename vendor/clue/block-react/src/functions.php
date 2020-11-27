@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Clue\React\Block;
+namespace _PhpScoper26e51eeacccf\Clue\React\Block;
 
-use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
-use _PhpScopera143bcca66cb\React\Promise\PromiseInterface;
-use _PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface;
+use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
+use _PhpScoper26e51eeacccf\React\Promise\PromiseInterface;
+use _PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface;
 use UnderflowException;
 use Exception;
-use _PhpScopera143bcca66cb\React\Promise;
-use _PhpScopera143bcca66cb\React\Promise\Timer;
-use _PhpScopera143bcca66cb\React\Promise\Timer\TimeoutException;
+use _PhpScoper26e51eeacccf\React\Promise;
+use _PhpScoper26e51eeacccf\React\Promise\Timer;
+use _PhpScoper26e51eeacccf\React\Promise\Timer\TimeoutException;
 /**
  * Wait/sleep for `$time` seconds.
  *
@@ -31,9 +31,9 @@ use _PhpScopera143bcca66cb\React\Promise\Timer\TimeoutException;
  * @param LoopInterface $loop
  * @return void
  */
-function sleep($time, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop)
+function sleep($time, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop)
 {
-    await(\_PhpScopera143bcca66cb\React\Promise\Timer\resolve($time, $loop), $loop);
+    await(\_PhpScoper26e51eeacccf\React\Promise\Timer\resolve($time, $loop), $loop);
 }
 /**
  * Block waiting for the given `$promise` to be fulfilled.
@@ -81,14 +81,14 @@ function sleep($time, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loo
  * @throws Exception when the promise is rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function await(\_PhpScopera143bcca66cb\React\Promise\PromiseInterface $promise, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, $timeout = null)
+function await(\_PhpScoper26e51eeacccf\React\Promise\PromiseInterface $promise, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     $wait = \true;
     $resolved = null;
     $exception = null;
     $rejected = \false;
     if ($timeout !== null) {
-        $promise = \_PhpScopera143bcca66cb\React\Promise\Timer\timeout($promise, $timeout, $loop);
+        $promise = \_PhpScoper26e51eeacccf\React\Promise\Timer\timeout($promise, $timeout, $loop);
     }
     $promise->then(function ($c) use(&$resolved, &$wait, $loop) {
         $resolved = $c;
@@ -156,7 +156,7 @@ function await(\_PhpScopera143bcca66cb\React\Promise\PromiseInterface $promise, 
  * @throws Exception if ALL promises are rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function awaitAny(array $promises, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, $timeout = null)
+function awaitAny(array $promises, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     // Explicitly overwrite argument with null value. This ensure that this
     // argument does not show up in the stack trace in PHP 7+ only.
@@ -167,11 +167,11 @@ function awaitAny(array $promises, \_PhpScopera143bcca66cb\React\EventLoop\LoopI
         if (!$all) {
             throw new \UnderflowException('Empty input array');
         }
-        $ret = await(\_PhpScopera143bcca66cb\React\Promise\any($all)->then(null, function () {
+        $ret = await(\_PhpScoper26e51eeacccf\React\Promise\any($all)->then(null, function () {
             // rejects with an array of rejection reasons => reject with Exception instead
             throw new \Exception('All promises rejected');
         }), $loop, $timeout);
-    } catch (\_PhpScopera143bcca66cb\React\Promise\Timer\TimeoutException $e) {
+    } catch (\_PhpScoper26e51eeacccf\React\Promise\Timer\TimeoutException $e) {
         // the timeout fired
         // => try to cancel all promises (rejected ones will be ignored anyway)
         _cancelAllPromises($all);
@@ -231,14 +231,14 @@ function awaitAny(array $promises, \_PhpScopera143bcca66cb\React\EventLoop\LoopI
  * @throws Exception when ANY promise is rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function awaitAll(array $promises, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, $timeout = null)
+function awaitAll(array $promises, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     // Explicitly overwrite argument with null value. This ensure that this
     // argument does not show up in the stack trace in PHP 7+ only.
     $all = $promises;
     $promises = null;
     try {
-        return await(\_PhpScopera143bcca66cb\React\Promise\all($all), $loop, $timeout);
+        return await(\_PhpScoper26e51eeacccf\React\Promise\all($all), $loop, $timeout);
     } catch (\Exception $e) {
         // ANY of the given promises rejected or the timeout fired
         // => try to cancel all promises (rejected ones will be ignored anyway)
@@ -256,7 +256,7 @@ function awaitAll(array $promises, \_PhpScopera143bcca66cb\React\EventLoop\LoopI
 function _cancelAllPromises(array $promises)
 {
     foreach ($promises as $promise) {
-        if ($promise instanceof \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface) {
+        if ($promise instanceof \_PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface) {
             $promise->cancel();
         }
     }

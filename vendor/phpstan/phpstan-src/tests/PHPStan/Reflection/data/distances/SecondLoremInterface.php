@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\HierarchyDistances;
+namespace _PhpScoper26e51eeacccf\HierarchyDistances;
 
 interface SecondLoremInterface
 {

@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector;
 
 use Iterator;
-use _PhpScopera143bcca66cb\Nette\Utils\Html;
+use _PhpScoper26e51eeacccf\Nette\Utils\Html;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
@@ -28,6 +28,6 @@ final class RenameStaticMethodRectorTest extends \Rector\Testing\PHPUnit\Abstrac
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::class => [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => [new \Rector\Renaming\ValueObject\RenameStaticMethod(\_PhpScopera143bcca66cb\Nette\Utils\Html::class, 'add', \_PhpScopera143bcca66cb\Nette\Utils\Html::class, 'addHtml'), new \Rector\Renaming\ValueObject\RenameStaticMethod(\Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros::class, 'renderFormBegin', '_PhpScopera143bcca66cb\\Nette\\Bridges\\FormsLatte\\Runtime', 'renderFormBegin')]]];
+        return [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::class => [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => [new \Rector\Renaming\ValueObject\RenameStaticMethod(\_PhpScoper26e51eeacccf\Nette\Utils\Html::class, 'add', \_PhpScoper26e51eeacccf\Nette\Utils\Html::class, 'addHtml'), new \Rector\Renaming\ValueObject\RenameStaticMethod(\Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros::class, 'renderFormBegin', '_PhpScoper26e51eeacccf\\Nette\\Bridges\\FormsLatte\\Runtime', 'renderFormBegin')]]];
     }
 }

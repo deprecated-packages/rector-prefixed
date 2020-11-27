@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
 use Rector\Core\Rector\AbstractRector;
-use _PhpScopera143bcca66cb\Symfony\Component\HttpFoundation\Request;
+use _PhpScoper26e51eeacccf\Symfony\Component\HttpFoundation\Request;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -66,13 +66,13 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScopera143bcca66cb\\Nette\\Http\\Request')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper26e51eeacccf\\Nette\\Http\\Request')) {
             return null;
         }
         if (!$this->isName($node->name, 'getHeader')) {
             return null;
         }
-        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, \_PhpScopera143bcca66cb\Symfony\Component\HttpFoundation\Request::class, ['request', 'symfonyRequest']);
+        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, \_PhpScoper26e51eeacccf\Symfony\Component\HttpFoundation\Request::class, ['request', 'symfonyRequest']);
         $variable = new \PhpParser\Node\Expr\Variable($requestName);
         $headersPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch($variable, 'headers');
         $node->var = $headersPropertyFetch;

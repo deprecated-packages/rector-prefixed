@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /* link.c */
 #if defined(HAVE_SYMLINK) || defined(PHP_WIN32)

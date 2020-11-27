@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\IncorrectCallToFunction;
+namespace _PhpScoper26e51eeacccf\IncorrectCallToFunction;
 
 function foo($foo, $bar)
 {

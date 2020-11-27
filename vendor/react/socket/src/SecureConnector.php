@@ -1,27 +1,27 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Socket;
+namespace _PhpScoper26e51eeacccf\React\Socket;
 
-use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
-use _PhpScopera143bcca66cb\React\Promise;
+use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
+use _PhpScoper26e51eeacccf\React\Promise;
 use BadMethodCallException;
 use InvalidArgumentException;
 use UnexpectedValueException;
-final class SecureConnector implements \_PhpScopera143bcca66cb\React\Socket\ConnectorInterface
+final class SecureConnector implements \_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface
 {
     private $connector;
     private $streamEncryption;
     private $context;
-    public function __construct(\_PhpScopera143bcca66cb\React\Socket\ConnectorInterface $connector, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct(\_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface $connector, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->connector = $connector;
-        $this->streamEncryption = new \_PhpScopera143bcca66cb\React\Socket\StreamEncryption($loop, \false);
+        $this->streamEncryption = new \_PhpScoper26e51eeacccf\React\Socket\StreamEncryption($loop, \false);
         $this->context = $context;
     }
     public function connect($uri)
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
-            return \_PhpScopera143bcca66cb\React\Promise\reject(new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'));
+            return \_PhpScoper26e51eeacccf\React\Promise\reject(new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'));
             // @codeCoverageIgnore
         }
         if (\strpos($uri, '://') === \false) {
@@ -29,16 +29,16 @@ final class SecureConnector implements \_PhpScopera143bcca66cb\React\Socket\Conn
         }
         $parts = \parse_url($uri);
         if (!$parts || !isset($parts['scheme']) || $parts['scheme'] !== 'tls') {
-            return \_PhpScopera143bcca66cb\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \_PhpScoper26e51eeacccf\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $uri = \str_replace('tls://', '', $uri);
         $context = $this->context;
         $encryption = $this->streamEncryption;
         $connected = \false;
-        $promise = $this->connector->connect($uri)->then(function (\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $connection) use($context, $encryption, $uri, &$promise, &$connected) {
+        $promise = $this->connector->connect($uri)->then(function (\_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $connection) use($context, $encryption, $uri, &$promise, &$connected) {
             // (unencrypted) TCP/IP connection succeeded
             $connected = \true;
-            if (!$connection instanceof \_PhpScopera143bcca66cb\React\Socket\Connection) {
+            if (!$connection instanceof \_PhpScoper26e51eeacccf\React\Socket\Connection) {
                 $connection->close();
                 throw new \UnexpectedValueException('Base connector does not use internal Connection class exposing stream resource');
             }
@@ -53,7 +53,7 @@ final class SecureConnector implements \_PhpScopera143bcca66cb\React\Socket\Conn
                 throw new \RuntimeException('Connection to ' . $uri . ' failed during TLS handshake: ' . $error->getMessage(), $error->getCode());
             });
         });
-        return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject) use($promise) {
+        return new \_PhpScoper26e51eeacccf\React\Promise\Promise(function ($resolve, $reject) use($promise) {
             $promise->then($resolve, $reject);
         }, function ($_, $reject) use(&$promise, $uri, &$connected) {
             if ($connected) {

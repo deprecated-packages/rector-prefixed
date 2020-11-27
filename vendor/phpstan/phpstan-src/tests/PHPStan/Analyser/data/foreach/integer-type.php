@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-use _PhpScopera143bcca66cb\AnotherNamespace\Foo;
+use _PhpScoper26e51eeacccf\AnotherNamespace\Foo;
 /** @var int[] $integers */
-$integers = \_PhpScopera143bcca66cb\foos();
+$integers = \_PhpScoper26e51eeacccf\foos();
 foreach ($integers as $integer) {
     die;
 }

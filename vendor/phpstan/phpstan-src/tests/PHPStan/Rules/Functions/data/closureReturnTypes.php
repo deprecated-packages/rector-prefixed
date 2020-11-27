@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ClosureReturnTypes;
+namespace _PhpScoper26e51eeacccf\ClosureReturnTypes;
 
-use _PhpScopera143bcca66cb\SomeOtherNamespace\Baz;
+use _PhpScoper26e51eeacccf\SomeOtherNamespace\Baz;
 function () {
     return 1;
 };
@@ -25,22 +25,22 @@ function () : string {
     return 1;
 };
 function () : Foo {
-    return new \_PhpScopera143bcca66cb\ClosureReturnTypes\Foo();
+    return new \_PhpScoper26e51eeacccf\ClosureReturnTypes\Foo();
 };
 function () : Foo {
-    return new \_PhpScopera143bcca66cb\ClosureReturnTypes\Bar();
+    return new \_PhpScoper26e51eeacccf\ClosureReturnTypes\Bar();
 };
 function () : \SomeOtherNamespace\Foo {
-    return new \_PhpScopera143bcca66cb\ClosureReturnTypes\Foo();
+    return new \_PhpScoper26e51eeacccf\ClosureReturnTypes\Foo();
 };
 function () : \SomeOtherNamespace\Foo {
-    return new \_PhpScopera143bcca66cb\SomeOtherNamespace\Foo();
+    return new \_PhpScoper26e51eeacccf\SomeOtherNamespace\Foo();
 };
 function () : Baz {
-    return new \_PhpScopera143bcca66cb\ClosureReturnTypes\Foo();
+    return new \_PhpScoper26e51eeacccf\ClosureReturnTypes\Foo();
 };
 function () : Baz {
-    return new \_PhpScopera143bcca66cb\SomeOtherNamespace\Baz();
+    return new \_PhpScoper26e51eeacccf\SomeOtherNamespace\Baz();
 };
 function () : \Traversable {
     /** @var int[]|\Traversable $foo */

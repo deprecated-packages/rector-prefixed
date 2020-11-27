@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\HierarchyDistances;
+namespace _PhpScoper26e51eeacccf\HierarchyDistances;
 
-class Lorem implements \_PhpScopera143bcca66cb\HierarchyDistances\FirstLoremInterface, \_PhpScopera143bcca66cb\HierarchyDistances\SecondLoremInterface
+class Lorem implements \_PhpScoper26e51eeacccf\HierarchyDistances\FirstLoremInterface, \_PhpScoper26e51eeacccf\HierarchyDistances\SecondLoremInterface
 {
     use TraitTwo;
 }

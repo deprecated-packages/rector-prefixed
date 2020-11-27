@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CompactVariables;
+namespace _PhpScoper26e51eeacccf\CompactVariables;
 
 class Foo
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TraitsReturnThis;
+namespace _PhpScoper26e51eeacccf\TraitsReturnThis;
 
 trait FooTrait
 {
@@ -13,7 +13,7 @@ trait FooTrait
     /**
      * @return $this
      */
-    public function returnsThisWithFoo() : \_PhpScopera143bcca66cb\TraitsReturnThis\Foo
+    public function returnsThisWithFoo() : \_PhpScoper26e51eeacccf\TraitsReturnThis\Foo
     {
     }
 }

@@ -35,7 +35,7 @@ final class ConfigureOptionsNodeFactory
     private function createParam() : \PhpParser\Node\Param
     {
         $paramBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder('resolver');
-        $paramBuilder->setType(new \PhpParser\Node\Name\FullyQualified('_PhpScopera143bcca66cb\\Symfony\\Component\\OptionsResolver\\OptionsResolver'));
+        $paramBuilder->setType(new \PhpParser\Node\Name\FullyQualified('_PhpScoper26e51eeacccf\\Symfony\\Component\\OptionsResolver\\OptionsResolver'));
         return $paramBuilder->getNode();
     }
     /**

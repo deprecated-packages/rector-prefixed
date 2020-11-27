@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class DOMCharacterData implements \DOMChildNode
 {
@@ -40,4 +40,4 @@ class DOMCharacterData implements \DOMChildNode
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\DOMCharacterData', 'DOMCharacterData', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DOMCharacterData', 'DOMCharacterData', \false);

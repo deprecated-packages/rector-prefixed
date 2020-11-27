@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug3629;
+namespace _PhpScoper26e51eeacccf\Bug3629;
 
 class HelloWorld extends \Thread
 {

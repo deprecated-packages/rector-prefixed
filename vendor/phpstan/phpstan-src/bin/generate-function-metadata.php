@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
@@ -11,7 +11,7 @@ use PhpParser\ParserFactory;
 (function () {
     require_once __DIR__ . '/../vendor/autoload.php';
     $parser = (new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::ONLY_PHP7);
-    $finder = new \_PhpScopera143bcca66cb\Symfony\Component\Finder\Finder();
+    $finder = new \_PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder();
     $finder->in(__DIR__ . '/../vendor/jetbrains/phpstorm-stubs')->files()->name('*.php');
     $visitor = new class extends \PhpParser\NodeVisitorAbstract
     {
@@ -24,7 +24,7 @@ use PhpParser\ParserFactory;
             if ($node instanceof \PhpParser\Node\Stmt\Function_) {
                 foreach ($node->attrGroups as $attrGroup) {
                     foreach ($attrGroup->attrs as $attr) {
-                        if ($attr->name->toString() === \_PhpScopera143bcca66cb\JetBrains\PhpStorm\Pure::class) {
+                        if ($attr->name->toString() === \_PhpScoper26e51eeacccf\JetBrains\PhpStorm\Pure::class) {
                             $this->functions[] = $node->namespacedName->toLowerString();
                             break;
                         }
@@ -39,7 +39,7 @@ use PhpParser\ParserFactory;
                 $className = $class->namespacedName->toString();
                 foreach ($node->attrGroups as $attrGroup) {
                     foreach ($attrGroup->attrs as $attr) {
-                        if ($attr->name->toString() === \_PhpScopera143bcca66cb\JetBrains\PhpStorm\Pure::class) {
+                        if ($attr->name->toString() === \_PhpScoper26e51eeacccf\JetBrains\PhpStorm\Pure::class) {
                             $this->methods[] = \sprintf('%s::%s', $className, $node->name->toString());
                             break;
                         }

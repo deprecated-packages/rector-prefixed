@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallVariadicMethods;
+namespace _PhpScoper26e51eeacccf\CallVariadicMethods;
 
 class Foo
 {

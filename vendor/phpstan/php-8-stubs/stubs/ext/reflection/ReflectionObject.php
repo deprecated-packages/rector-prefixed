@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class ReflectionObject extends \ReflectionClass
 {
@@ -8,4 +8,4 @@ class ReflectionObject extends \ReflectionClass
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\ReflectionObject', 'ReflectionObject', \false);
+\class_alias('_PhpScoper26e51eeacccf\\ReflectionObject', 'ReflectionObject', \false);

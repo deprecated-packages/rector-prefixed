@@ -21,7 +21,7 @@ final class ColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Ph
     }
     public function getShortName() : string
     {
-        return '_PhpScopera143bcca66cb\\@ORM\\Column';
+        return '_PhpScoper26e51eeacccf\\@ORM\\Column';
     }
     /**
      * @return array<string, mixed>

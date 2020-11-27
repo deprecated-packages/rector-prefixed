@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TraitProblem;
+namespace _PhpScoper26e51eeacccf\TraitProblem;
 
 trait X
 {

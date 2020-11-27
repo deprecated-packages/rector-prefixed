@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\RingCentral\Tests\Psr7;
+namespace _PhpScoper26e51eeacccf\RingCentral\Tests\Psr7;
 
-use _PhpScopera143bcca66cb\RingCentral\Psr7\Uri;
+use _PhpScoper26e51eeacccf\RingCentral\Psr7\Uri;
 /**
  * @covers RingCentral\Psr7\Uri
  */
-class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
+class UriTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
 {
     const RFC3986_BASE = "http://a/b/c/d;p?q";
     public function testParsesProvidedUrl()
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('https://michael:test@test.com:443/path/123?q=abc#test');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('https://michael:test@test.com:443/path/123?q=abc#test');
         // Standard port 443 for https gets ignored.
         $this->assertEquals('https://michael:test@test.com/path/123?q=abc#test', (string) $uri);
         $this->assertEquals('test', $uri->getFragment());
@@ -34,7 +34,7 @@ class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
     }
     public function testCanTransformAndRetrievePartsIndividually()
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('');
         $uri = $uri->withFragment('#test')->withHost('example.com')->withPath('path/123')->withPort(8080)->withQuery('?q=abc')->withScheme('http')->withUserInfo('user', 'pass');
         // Test getters.
         $this->assertEquals('user:pass@example.com:8080', $uri->getAuthority());
@@ -51,7 +51,7 @@ class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
      */
     public function testPortMustBeValid()
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('');
         $uri->withPort(100000);
     }
     /**
@@ -59,7 +59,7 @@ class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
      */
     public function testPathMustBeValid()
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('');
         $uri->withPath(array());
     }
     /**
@@ -67,23 +67,23 @@ class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
      */
     public function testQueryMustBeValid()
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('');
         $uri->withQuery(new \stdClass());
     }
     public function testAllowsFalseyUrlParts()
     {
-        $url = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('http://a:1/0?0#0');
+        $url = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('http://a:1/0?0#0');
         $this->assertSame('a', $url->getHost());
         $this->assertEquals(1, $url->getPort());
         $this->assertSame('/0', $url->getPath());
         $this->assertEquals('0', (string) $url->getQuery());
         $this->assertSame('0', $url->getFragment());
         $this->assertEquals('http://a:1/0?0#0', (string) $url);
-        $url = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('');
+        $url = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('');
         $this->assertSame('', (string) $url);
-        $url = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('0');
+        $url = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('0');
         $this->assertSame('0', (string) $url);
-        $url = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('/');
+        $url = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('/');
         $this->assertSame('/', (string) $url);
     }
     /**
@@ -91,8 +91,8 @@ class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
      */
     public function testResolvesUris($base, $rel, $expected)
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri($base);
-        $actual = \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri::resolve($uri, $rel);
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri($base);
+        $actual = \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri::resolve($uri, $rel);
         $this->assertEquals($expected, (string) $actual);
     }
     public function getResolveTestCases()
@@ -143,34 +143,34 @@ class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
     }
     public function testAddAndRemoveQueryValues()
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('http://foo.com/bar');
-        $uri = \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri::withQueryValue($uri, 'a', 'b');
-        $uri = \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri::withQueryValue($uri, 'c', 'd');
-        $uri = \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri::withQueryValue($uri, 'e', null);
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('http://foo.com/bar');
+        $uri = \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri::withQueryValue($uri, 'a', 'b');
+        $uri = \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri::withQueryValue($uri, 'c', 'd');
+        $uri = \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri::withQueryValue($uri, 'e', null);
         $this->assertEquals('a=b&c=d&e', $uri->getQuery());
-        $uri = \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri::withoutQueryValue($uri, 'c');
-        $uri = \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri::withoutQueryValue($uri, 'e');
+        $uri = \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri::withoutQueryValue($uri, 'c');
+        $uri = \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri::withoutQueryValue($uri, 'e');
         $this->assertEquals('a=b', $uri->getQuery());
-        $uri = \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri::withoutQueryValue($uri, 'a');
-        $uri = \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri::withoutQueryValue($uri, 'a');
+        $uri = \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri::withoutQueryValue($uri, 'a');
+        $uri = \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri::withoutQueryValue($uri, 'a');
         $this->assertEquals('', $uri->getQuery());
     }
     public function testGetAuthorityReturnsCorrectPort()
     {
         // HTTPS non-standard port
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('https://foo.co:99');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('https://foo.co:99');
         $this->assertEquals('foo.co:99', $uri->getAuthority());
         // HTTP non-standard port
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('http://foo.co:99');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('http://foo.co:99');
         $this->assertEquals('foo.co:99', $uri->getAuthority());
         // No scheme
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('foo.co:99');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('foo.co:99');
         $this->assertEquals('foo.co:99', $uri->getAuthority());
         // No host or port
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('http:');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('http:');
         $this->assertEquals('', $uri->getAuthority());
         // No host or port
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri('http://foo.co');
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri('http://foo.co');
         $this->assertEquals('foo.co', $uri->getAuthority());
     }
     public function pathTestProvider()
@@ -196,7 +196,7 @@ class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
      */
     public function testUriEncodesPathProperly($input, $output)
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri($input);
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri($input);
         $this->assertEquals((string) $uri, $output);
     }
     public function testDoesNotAddPortWhenNoPort()
@@ -209,14 +209,14 @@ class UriTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
     }
     public function testAllowsForRelativeUri()
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri();
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri();
         $uri = $uri->withPath('foo');
         $this->assertEquals('foo', $uri->getPath());
         $this->assertEquals('foo', (string) $uri);
     }
     public function testAddsSlashForRelativeUriStringWithHost()
     {
-        $uri = new \_PhpScopera143bcca66cb\RingCentral\Psr7\Uri();
+        $uri = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Uri();
         $uri = $uri->withPath('foo')->withHost('bar.com');
         $this->assertEquals('foo', $uri->getPath());
         $this->assertEquals('bar.com/foo', (string) $uri);

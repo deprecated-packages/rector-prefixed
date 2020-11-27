@@ -50,12 +50,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScopera143bcca66cb\\App\\": "src\/"
+            "_PhpScoper26e51eeacccf\\App\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScopera143bcca66cb\\App\\Tests\\": "tests\/"
+            "_PhpScoper26e51eeacccf\\App\\Tests\\": "tests\/"
         }
     },
     "replace": {

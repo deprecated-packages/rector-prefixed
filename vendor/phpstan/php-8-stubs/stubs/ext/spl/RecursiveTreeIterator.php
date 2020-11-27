@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class RecursiveTreeIterator extends \RecursiveIteratorIterator
 {
@@ -37,4 +37,4 @@ class RecursiveTreeIterator extends \RecursiveIteratorIterator
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\RecursiveTreeIterator', 'RecursiveTreeIterator', \false);
+\class_alias('_PhpScoper26e51eeacccf\\RecursiveTreeIterator', 'RecursiveTreeIterator', \false);

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast;
 
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionParameter;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionParameter;
 use function array_reduce;
 use function count;
 use function sprintf;
@@ -15,19 +15,19 @@ use function sprintf;
  */
 final class ReflectionMethodStringCast
 {
-    public static function toString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection, ?\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $rootClassReflection = null) : string
+    public static function toString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection, ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $rootClassReflection = null) : string
     {
         $parametersFormat = $methodReflection->getNumberOfParameters() > 0 ? "\n\n  - Parameters [%d] {%s\n  }" : '';
         return \sprintf('Method [ <%s%s%s%s%s%s>%s%s%s %s method %s ] {%s' . $parametersFormat . "\n}", self::sourceToString($methodReflection), $methodReflection->isConstructor() ? ', ctor' : '', $methodReflection->isDestructor() ? ', dtor' : '', self::overwritesToString($methodReflection), self::inheritsToString($methodReflection, $rootClassReflection), self::prototypeToString($methodReflection), $methodReflection->isFinal() ? ' final' : '', $methodReflection->isStatic() ? ' static' : '', $methodReflection->isAbstract() ? ' abstract' : '', self::visibilityToString($methodReflection), $methodReflection->getName(), self::fileAndLinesToString($methodReflection), \count($methodReflection->getParameters()), self::parametersToString($methodReflection));
     }
-    private static function sourceToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
+    private static function sourceToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
     {
         if ($methodReflection->isUserDefined()) {
             return 'user';
         }
         return \sprintf('internal:%s', $methodReflection->getExtensionName());
     }
-    private static function overwritesToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
+    private static function overwritesToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
     {
         $parentClass = $methodReflection->getDeclaringClass()->getParentClass();
         if (!$parentClass) {
@@ -38,7 +38,7 @@ final class ReflectionMethodStringCast
         }
         return \sprintf(', overwrites %s', $parentClass->getName());
     }
-    private static function inheritsToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection, ?\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $rootClassReflection) : string
+    private static function inheritsToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection, ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $rootClassReflection) : string
     {
         if (!$rootClassReflection) {
             return '';
@@ -48,15 +48,15 @@ final class ReflectionMethodStringCast
         }
         return \sprintf(', inherits %s', $methodReflection->getDeclaringClass()->getName());
     }
-    private static function prototypeToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
+    private static function prototypeToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
     {
         try {
             return \sprintf(', prototype %s', $methodReflection->getPrototype()->getDeclaringClass()->getName());
-        } catch (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound $e) {
+        } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound $e) {
             return '';
         }
     }
-    private static function visibilityToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
+    private static function visibilityToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
     {
         if ($methodReflection->isProtected()) {
             return 'protected';
@@ -66,17 +66,17 @@ final class ReflectionMethodStringCast
         }
         return 'public';
     }
-    private static function fileAndLinesToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
+    private static function fileAndLinesToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
     {
         if ($methodReflection->isInternal()) {
             return '';
         }
         return \sprintf("\n  @@ %s %d - %d", $methodReflection->getFileName(), $methodReflection->getStartLine(), $methodReflection->getEndLine());
     }
-    private static function parametersToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
+    private static function parametersToString(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : string
     {
-        return \array_reduce($methodReflection->getParameters(), static function (string $string, \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string {
-            return $string . "\n    " . \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast::toString($parameterReflection);
+        return \array_reduce($methodReflection->getParameters(), static function (string $string, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string {
+            return $string . "\n    " . \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast::toString($parameterReflection);
         }, '');
     }
 }

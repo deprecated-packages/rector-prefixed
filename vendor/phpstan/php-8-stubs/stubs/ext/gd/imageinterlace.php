@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imageinterlace(\_PhpScopera143bcca66cb\GdImage $image, ?bool $enable = null) : ?int
+function imageinterlace(\_PhpScoper26e51eeacccf\GdImage $image, ?bool $enable = null) : ?int
 {
 }

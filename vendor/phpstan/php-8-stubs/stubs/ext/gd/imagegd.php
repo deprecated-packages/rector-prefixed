@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imagegd(\_PhpScopera143bcca66cb\GdImage $image, string $file = \UNKNOWN) : bool
+function imagegd(\_PhpScoper26e51eeacccf\GdImage $image, string $file = \UNKNOWN) : bool
 {
 }

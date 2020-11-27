@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InterfaceTemplateType;
+namespace _PhpScoper26e51eeacccf\InterfaceTemplateType;
 
 /**
  * @template stdClass

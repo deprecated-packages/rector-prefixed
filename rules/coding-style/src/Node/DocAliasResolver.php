@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Node;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
@@ -43,7 +43,7 @@ final class DocAliasResolver
                 $possibleDocAliases = $this->collectVarType($phpDocInfo, $possibleDocAliases);
             }
             // e.g. "use Dotrine\ORM\Mapping as ORM" etc.
-            $matches = \_PhpScopera143bcca66cb\Nette\Utils\Strings::matchAll($docComment->getText(), self::DOC_ALIAS_REGEX);
+            $matches = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::matchAll($docComment->getText(), self::DOC_ALIAS_REGEX);
             foreach ($matches as $match) {
                 $possibleDocAliases[] = $match['possible_alias'];
             }

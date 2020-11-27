@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @param resource $imap */
 function imap_append($imap, string $folder, string $message, ?string $options = null, ?string $internal_date = null) : bool

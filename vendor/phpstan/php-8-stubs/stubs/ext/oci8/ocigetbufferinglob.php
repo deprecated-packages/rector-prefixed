@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function ocigetbufferinglob(\_PhpScopera143bcca66cb\OCILob $lob) : bool
+function ocigetbufferinglob(\_PhpScoper26e51eeacccf\OCILob $lob) : bool
 {
 }

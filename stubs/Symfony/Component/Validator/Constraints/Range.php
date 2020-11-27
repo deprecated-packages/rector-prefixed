@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Symfony\Component\Validator\Constraints;
+namespace _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('_PhpScopera143bcca66cb\\Symfony\\Component\\Validator\\Constraints\\Range')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Validator\\Constraints\\Range')) {
     return;
 }
-use _PhpScopera143bcca66cb\Symfony\Component\Validator\Constraint;
+use _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class Range extends \_PhpScopera143bcca66cb\Symfony\Component\Validator\Constraint
+class Range extends \_PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint
 {
     public $notInRangeMessage = 'This value should be between {{ min }} and {{ max }}.';
     public $minMessage = 'This value should be {{ limit }} or more.';

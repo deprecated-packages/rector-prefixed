@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ConstantCondition;
+namespace _PhpScoper26e51eeacccf\ConstantCondition;
 
 class Ternary
 {

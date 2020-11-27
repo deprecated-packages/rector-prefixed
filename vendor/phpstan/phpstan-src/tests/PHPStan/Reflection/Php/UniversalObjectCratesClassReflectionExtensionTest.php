@@ -19,9 +19,9 @@ class UniversalObjectCratesClassReflectionExtensionTest extends \PHPStan\Testing
     {
         require_once __DIR__ . '/data/universal-object-crates.php';
         $broker = self::getContainer()->getByType(\PHPStan\Broker\Broker::class);
-        $extension = new \PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension(['_PhpScopera143bcca66cb\\UniversalObjectCreates\\DifferentGetSetTypes']);
+        $extension = new \PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension(['_PhpScoper26e51eeacccf\\UniversalObjectCreates\\DifferentGetSetTypes']);
         $extension->setBroker($broker);
-        $this->assertEquals(new \PHPStan\Type\ObjectType('_PhpScopera143bcca66cb\\UniversalObjectCreates\\DifferentGetSetTypesValue'), $extension->getProperty($broker->getClass('_PhpScopera143bcca66cb\\UniversalObjectCreates\\DifferentGetSetTypes'), 'foo')->getReadableType());
-        $this->assertEquals(new \PHPStan\Type\StringType(), $extension->getProperty($broker->getClass('_PhpScopera143bcca66cb\\UniversalObjectCreates\\DifferentGetSetTypes'), 'foo')->getWritableType());
+        $this->assertEquals(new \PHPStan\Type\ObjectType('_PhpScoper26e51eeacccf\\UniversalObjectCreates\\DifferentGetSetTypesValue'), $extension->getProperty($broker->getClass('_PhpScoper26e51eeacccf\\UniversalObjectCreates\\DifferentGetSetTypes'), 'foo')->getReadableType());
+        $this->assertEquals(new \PHPStan\Type\StringType(), $extension->getProperty($broker->getClass('_PhpScoper26e51eeacccf\\UniversalObjectCreates\\DifferentGetSetTypes'), 'foo')->getWritableType());
     }
 }

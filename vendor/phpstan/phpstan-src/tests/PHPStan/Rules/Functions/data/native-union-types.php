@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScopera143bcca66cb\NativeUnionTypesSupport;
+namespace _PhpScoper26e51eeacccf\NativeUnionTypesSupport;
 
 function foo(int|bool $foo) : int|bool
 {

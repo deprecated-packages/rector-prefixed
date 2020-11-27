@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Stream;
+namespace _PhpScoper26e51eeacccf\React\Stream;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class ReadableResourceStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface
+final class ReadableResourceStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface
 {
     /**
      * @var resource
@@ -33,7 +33,7 @@ final class ReadableResourceStream extends \_PhpScopera143bcca66cb\Evenement\Eve
     private $bufferSize;
     private $closed = \false;
     private $listening = \false;
-    public function __construct($stream, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, $readChunkSize = null)
+    public function __construct($stream, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, $readChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -82,9 +82,9 @@ final class ReadableResourceStream extends \_PhpScopera143bcca66cb\Evenement\Eve
             $this->listening = \true;
         }
     }
-    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScopera143bcca66cb\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScoper26e51eeacccf\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

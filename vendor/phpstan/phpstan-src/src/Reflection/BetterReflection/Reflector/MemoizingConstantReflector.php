@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\Reflector;
 
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\ConstantReflector;
-final class MemoizingConstantReflector extends \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\ConstantReflector
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ConstantReflector;
+final class MemoizingConstantReflector extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ConstantReflector
 {
     /** @var array<string, \Roave\BetterReflection\Reflection\ReflectionConstant|\Throwable> */
     private $reflections = [];
@@ -16,7 +16,7 @@ final class MemoizingConstantReflector extends \_PhpScopera143bcca66cb\Roave\Bet
      *
      * @throws \Roave\BetterReflection\Reflector\Exception\IdentifierNotFound
      */
-    public function reflect(string $constantName) : \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $constantName) : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection
     {
         if (isset($this->reflections[$constantName])) {
             if ($this->reflections[$constantName] instanceof \Throwable) {

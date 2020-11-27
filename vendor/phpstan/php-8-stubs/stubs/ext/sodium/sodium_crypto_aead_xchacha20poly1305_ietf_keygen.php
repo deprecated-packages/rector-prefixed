@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function sodium_crypto_aead_xchacha20poly1305_ietf_keygen() : string
 {

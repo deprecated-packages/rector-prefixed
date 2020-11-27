@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\SomeOtherUseNamespace;
+namespace _PhpScoper26e51eeacccf\SomeOtherUseNamespace;
 
-use function _PhpScopera143bcca66cb\Uses\Foo;
-use function _PhpScopera143bcca66cb\Uses\baz;
-use _PhpScopera143bcca66cb\Uses\Bar;
-use _PhpScopera143bcca66cb\Uses\LOREM;
-use _PhpScopera143bcca66cb\Uses\Nonexistent;
-use function _PhpScopera143bcca66cb\Uses\Foo as fooFunctionAgain;
-use const _PhpScopera143bcca66cb\Uses\MY_CONSTANT;
-use const _PhpScopera143bcca66cb\Uses\OTHER_CONSTANT;
-use const _PhpScopera143bcca66cb\Uses\MY_CONSTANT as MY_CONSTANT_AGAIN;
+use function _PhpScoper26e51eeacccf\Uses\Foo;
+use function _PhpScoper26e51eeacccf\Uses\baz;
+use _PhpScoper26e51eeacccf\Uses\Bar;
+use _PhpScoper26e51eeacccf\Uses\LOREM;
+use _PhpScoper26e51eeacccf\Uses\Nonexistent;
+use function _PhpScoper26e51eeacccf\Uses\Foo as fooFunctionAgain;
+use const _PhpScoper26e51eeacccf\Uses\MY_CONSTANT;
+use const _PhpScoper26e51eeacccf\Uses\OTHER_CONSTANT;
+use const _PhpScoper26e51eeacccf\Uses\MY_CONSTANT as MY_CONSTANT_AGAIN;

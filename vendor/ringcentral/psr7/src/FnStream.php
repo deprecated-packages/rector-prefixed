@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\RingCentral\Psr7;
+namespace _PhpScoper26e51eeacccf\RingCentral\Psr7;
 
-use _PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface;
+use _PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface;
 /**
  * Compose stream implementations based on a hash of functions.
  *
@@ -23,7 +23,7 @@ use _PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface;
  * @property callable _fn_getContents
  * @property callable _fn_getMetadata
  */
-class FnStream implements \_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface
+class FnStream implements \_PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface
 {
     /** @var array */
     private $methods;
@@ -66,7 +66,7 @@ class FnStream implements \_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterfa
      *
      * @return FnStream
      */
-    public static function decorate(\_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface $stream, array $methods)
+    public static function decorate(\_PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface $stream, array $methods)
     {
         // If any of the required methods were not provided, then simply
         // proxy to the decorated stream.

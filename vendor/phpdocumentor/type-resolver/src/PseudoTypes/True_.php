@@ -9,26 +9,26 @@ declare (strict_types=1);
  *
  * @link https://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\PseudoTypes;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\PseudoTypes;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\PseudoType;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Boolean;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\PseudoType;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Boolean;
 use function class_alias;
 /**
  * Value Object representing the PseudoType 'False', which is a Boolean type.
  *
  * @psalm-immutable
  */
-final class True_ extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Boolean implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\PseudoType
+final class True_ extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Boolean implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\PseudoType
 {
-    public function underlyingType() : \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type
+    public function underlyingType() : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
     {
-        return new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Boolean();
+        return new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Boolean();
     }
     public function __toString() : string
     {
         return 'true';
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\PseudoTypes\\True_', '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\Types\\True_', \false);
+\class_alias('_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\PseudoTypes\\True_', '_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\Types\\True_', \false);

@@ -1,49 +1,49 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection;
 
 use Closure;
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike as FunctionNode;
 use PhpParser\Node\Stmt\Namespace_ as NamespaceNode;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\BetterReflection;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\BetterReflection;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
 use function function_exists;
-class ReflectionFunction extends \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract implements \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection
+class ReflectionFunction extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract implements \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection
 {
     /**
      * @throws IdentifierNotFound
      */
     public static function createFromName(string $functionName) : self
     {
-        return (new \_PhpScopera143bcca66cb\Roave\BetterReflection\BetterReflection())->functionReflector()->reflect($functionName);
+        return (new \_PhpScoper26e51eeacccf\Roave\BetterReflection\BetterReflection())->functionReflector()->reflect($functionName);
     }
     /**
      * @throws IdentifierNotFound
      */
     public static function createFromClosure(\Closure $closure) : self
     {
-        $configuration = new \_PhpScopera143bcca66cb\Roave\BetterReflection\BetterReflection();
-        return (new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\FunctionReflector(new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator($closure, $configuration->phpParser()), $configuration->classReflector()))->reflect(self::CLOSURE_NAME);
+        $configuration = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\BetterReflection();
+        return (new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector(new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator($closure, $configuration->phpParser()), $configuration->classReflector()))->reflect(self::CLOSURE_NAME);
     }
     public function __toString() : string
     {
-        return \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast::toString($this);
+        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast::toString($this);
     }
     /**
      * @internal
      *
      * @param Node\Stmt\ClassMethod|Node\Stmt\Function_|Node\Expr\Closure $node Node has to be processed by the PhpParser\NodeVisitor\NameResolver
      */
-    public static function createFromNode(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\FunctionLike $node, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespaceNode = null) : self
+    public static function createFromNode(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\FunctionLike $node, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespaceNode = null) : self
     {
         $function = new self();
         $function->populateFunctionAbstract($reflector, $node, $locatedSource, $namespaceNode);
@@ -111,7 +111,7 @@ class ReflectionFunction extends \_PhpScopera143bcca66cb\Roave\BetterReflection\
     private function assertIsNoClosure() : void
     {
         if ($this->isClosure()) {
-            throw new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented for closures');
+            throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented for closures');
         }
     }
     /**
@@ -122,7 +122,7 @@ class ReflectionFunction extends \_PhpScopera143bcca66cb\Roave\BetterReflection\
     private function assertFunctionExist(string $functionName) : void
     {
         if (!\function_exists($functionName)) {
-            throw \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist::fromName($functionName);
+            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist::fromName($functionName);
         }
     }
 }

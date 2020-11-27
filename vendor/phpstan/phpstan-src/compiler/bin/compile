@@ -1,15 +1,15 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use PHPStan\Compiler\Console\CompileCommand;
 use PHPStan\Compiler\Filesystem\SymfonyFilesystem;
 use PHPStan\Compiler\Process\DefaultProcessFactory;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Application;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Application;
 require_once __DIR__ . '/../vendor/autoload.php';
-$compileCommand = new \PHPStan\Compiler\Console\CompileCommand(new \PHPStan\Compiler\Filesystem\SymfonyFilesystem(new \_PhpScopera143bcca66cb\Symfony\Component\Filesystem\Filesystem()), new \PHPStan\Compiler\Process\DefaultProcessFactory(), __DIR__ . '/../build', \realpath(__DIR__ . '/../..'));
-$application = new \_PhpScopera143bcca66cb\Symfony\Component\Console\Application();
+$compileCommand = new \PHPStan\Compiler\Console\CompileCommand(new \PHPStan\Compiler\Filesystem\SymfonyFilesystem(new \_PhpScoper26e51eeacccf\Symfony\Component\Filesystem\Filesystem()), new \PHPStan\Compiler\Process\DefaultProcessFactory(), __DIR__ . '/../build', \realpath(__DIR__ . '/../..'));
+$application = new \_PhpScoper26e51eeacccf\Symfony\Component\Console\Application();
 $application->add($compileCommand);
 $application->setDefaultCommand($compileCommand->getName(), \true);
 $application->run();

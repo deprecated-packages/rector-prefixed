@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\TypesFinder\PhpDocumentor;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\PhpDocumentor;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\GroupUse;
 use PhpParser\Node\Stmt\Namespace_;
@@ -15,12 +15,12 @@ use function array_merge;
 use function in_array;
 class NamespaceNodeToReflectionTypeContext
 {
-    public function __invoke(?\PhpParser\Node\Stmt\Namespace_ $namespace) : \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context
+    public function __invoke(?\PhpParser\Node\Stmt\Namespace_ $namespace) : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context
     {
         if (!$namespace) {
-            return new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context('');
+            return new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context('');
         }
-        return new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context($namespace->name ? $namespace->name->toString() : '', $this->aliasesToFullyQualifiedNames($namespace));
+        return new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context($namespace->name ? $namespace->name->toString() : '', $this->aliasesToFullyQualifiedNames($namespace));
     }
     /**
      * @return string[] indexed by alias

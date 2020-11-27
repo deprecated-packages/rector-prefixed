@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /**
  * @param string $address
  * @param int $port
  */
-function socket_getsockname(\_PhpScopera143bcca66cb\Socket $socket, &$address, &$port = null) : bool
+function socket_getsockname(\_PhpScoper26e51eeacccf\Socket $socket, &$address, &$port = null) : bool
 {
 }

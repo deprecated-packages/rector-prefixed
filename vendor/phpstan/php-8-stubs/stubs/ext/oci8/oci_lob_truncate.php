@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function oci_lob_truncate(\_PhpScopera143bcca66cb\OCILob $lob, int $length = 0) : bool
+function oci_lob_truncate(\_PhpScoper26e51eeacccf\OCILob $lob, int $length = 0) : bool
 {
 }

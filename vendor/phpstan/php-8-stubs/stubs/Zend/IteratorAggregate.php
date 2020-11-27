@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 interface IteratorAggregate extends \Traversable
 {
     /** @return Traversable */
     public function getIterator();
 }
-\class_alias('_PhpScopera143bcca66cb\\IteratorAggregate', 'IteratorAggregate', \false);
+\class_alias('_PhpScoper26e51eeacccf\\IteratorAggregate', 'IteratorAggregate', \false);

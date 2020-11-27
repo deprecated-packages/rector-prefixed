@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\ArrayDimFetches;
+namespace _PhpScoper26e51eeacccf\Levels\ArrayDimFetches;
 
 class Foo
 {

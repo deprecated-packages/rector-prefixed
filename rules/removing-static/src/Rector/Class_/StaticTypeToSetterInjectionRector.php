@@ -51,21 +51,21 @@ final class StaticTypeToSetterInjectionRector extends \Rector\Core\Rector\Abstra
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes types to setter injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 final class CheckoutEntityFactory
 {
     public function run()
     {
-        return \_PhpScopera143bcca66cb\SomeStaticClass::go();
+        return \_PhpScoper26e51eeacccf\SomeStaticClass::go();
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
+\class_alias('_PhpScoper26e51eeacccf\\CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 final class CheckoutEntityFactory
 {
@@ -73,7 +73,7 @@ final class CheckoutEntityFactory
      * @var SomeStaticClass
      */
     private $someStaticClass;
-    public function setSomeStaticClass(\_PhpScopera143bcca66cb\SomeStaticClass $someStaticClass)
+    public function setSomeStaticClass(\_PhpScoper26e51eeacccf\SomeStaticClass $someStaticClass)
     {
         $this->someStaticClass = $someStaticClass;
     }
@@ -82,7 +82,7 @@ final class CheckoutEntityFactory
         return $this->someStaticClass->go();
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
+\class_alias('_PhpScoper26e51eeacccf\\CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
 CODE_SAMPLE
 , [self::STATIC_TYPES => ['SomeStaticClass']])]);
     }

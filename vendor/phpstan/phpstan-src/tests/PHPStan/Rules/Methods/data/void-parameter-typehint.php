@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\VoidParameterTypehintMethod;
+namespace _PhpScoper26e51eeacccf\VoidParameterTypehintMethod;
 
 class Foo
 {

@@ -79,7 +79,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
         if ($realpath === \false) {
             throw new \PHPStan\ShouldNotHappenException();
         }
-        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScopera143bcca66cb\DependentPhpDocs\Foo::class, null, 'addPages', '/** @param Foo[]|Foo|\\Iterator $pages */');
+        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScoper26e51eeacccf\DependentPhpDocs\Foo::class, null, 'addPages', '/** @param Foo[]|Foo|\\Iterator $pages */');
         $this->assertCount(1, $resolved->getParamTags());
         $this->assertSame('(DependentPhpDocs\\Foo&iterable<DependentPhpDocs\\Foo>)|(iterable<DependentPhpDocs\\Foo>&Iterator)', $resolved->getParamTags()['pages']->getType()->describe(\PHPStan\Type\VerbosityLevel::precise()));
     }
@@ -91,17 +91,17 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
         if ($realpath === \false) {
             throw new \PHPStan\ShouldNotHappenException();
         }
-        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScopera143bcca66cb\ThrowsPhpDocs\Foo::class, null, 'throwRuntimeException', '/**
+        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScoper26e51eeacccf\ThrowsPhpDocs\Foo::class, null, 'throwRuntimeException', '/**
  * @throws RuntimeException
  */');
         $this->assertNotNull($resolved->getThrowsTag());
         $this->assertSame(\RuntimeException::class, $resolved->getThrowsTag()->getType()->describe(\PHPStan\Type\VerbosityLevel::precise()));
-        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScopera143bcca66cb\ThrowsPhpDocs\Foo::class, null, 'throwRuntimeAndLogicException', '/**
+        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScoper26e51eeacccf\ThrowsPhpDocs\Foo::class, null, 'throwRuntimeAndLogicException', '/**
  * @throws RuntimeException|LogicException
  */');
         $this->assertNotNull($resolved->getThrowsTag());
         $this->assertSame('LogicException|RuntimeException', $resolved->getThrowsTag()->getType()->describe(\PHPStan\Type\VerbosityLevel::precise()));
-        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScopera143bcca66cb\ThrowsPhpDocs\Foo::class, null, 'throwRuntimeAndLogicException2', '/**
+        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScoper26e51eeacccf\ThrowsPhpDocs\Foo::class, null, 'throwRuntimeAndLogicException2', '/**
  * @throws RuntimeException
  * @throws LogicException
  */');
@@ -117,7 +117,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
         if ($realpath === \false) {
             throw new \PHPStan\ShouldNotHappenException();
         }
-        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScopera143bcca66cb\CyclicPhpDocs\Foo::class, null, 'getIterator', '/** @return iterable<Foo> | Foo */');
+        $resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \_PhpScoper26e51eeacccf\CyclicPhpDocs\Foo::class, null, 'getIterator', '/** @return iterable<Foo> | Foo */');
         /** @var \PHPStan\PhpDoc\Tag\ReturnTag $returnTag */
         $returnTag = $resolved->getReturnTag();
         $this->assertSame('CyclicPhpDocs\\Foo|iterable<CyclicPhpDocs\\Foo>', $returnTag->getType()->describe(\PHPStan\Type\VerbosityLevel::precise()));

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Symfony\Component\Translation;
+namespace _PhpScoper26e51eeacccf\Symfony\Component\Translation;
 
-if (\class_exists('_PhpScopera143bcca66cb\\Symfony\\Component\\Translation\\Translator')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Translation\\Translator')) {
     return;
 }
-class Translator implements \_PhpScopera143bcca66cb\Symfony\Component\Translation\TranslatorInterface
+class Translator implements \_PhpScoper26e51eeacccf\Symfony\Component\Translation\TranslatorInterface
 {
 }

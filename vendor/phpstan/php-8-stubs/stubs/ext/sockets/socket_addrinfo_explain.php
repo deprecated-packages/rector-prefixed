@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function socket_addrinfo_explain(\_PhpScopera143bcca66cb\AddressInfo $address) : array
+function socket_addrinfo_explain(\_PhpScoper26e51eeacccf\AddressInfo $address) : array
 {
 }

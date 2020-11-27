@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallablesNamedArguments;
+namespace _PhpScoper26e51eeacccf\CallablesNamedArguments;
 
 class Foo
 {

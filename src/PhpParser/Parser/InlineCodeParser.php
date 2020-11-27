@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Parser;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -52,8 +52,8 @@ final class InlineCodeParser
     public function parse(string $content) : array
     {
         // wrap code so php-parser can interpret it
-        $content = \_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($content, '<?php ') ? $content : '<?php ' . $content;
-        $content = \_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($content, ';') ? $content : $content . ';';
+        $content = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::startsWith($content, '<?php ') ? $content : '<?php ' . $content;
+        $content = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($content, ';') ? $content : $content . ';';
         $nodes = (array) $this->parser->parse($content);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromString($nodes);
     }
@@ -72,9 +72,9 @@ final class InlineCodeParser
             // remove "
             $content = \trim($this->betterStandardPrinter->print($content), '""');
             // use \$ → $
-            $content = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($content, self::PRESLASHED_DOLLAR_REGEX, '$');
+            $content = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($content, self::PRESLASHED_DOLLAR_REGEX, '$');
             // use \'{$...}\' → $...
-            return \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($content, self::CURLY_BRACKET_WRAPPER_REGEX, '$1');
+            return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($content, self::CURLY_BRACKET_WRAPPER_REGEX, '$1');
         }
         if ($content instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             return $this->stringify($content->left) . $this->stringify($content->right);

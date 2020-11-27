@@ -5,11 +5,11 @@ namespace PHPStan\Compiler\Console;
 
 use PHPStan\Compiler\Filesystem\Filesystem;
 use PHPStan\Compiler\Process\ProcessFactory;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
 use function escapeshellarg;
-final class CompileCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command
+final class CompileCommand extends \_PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command
 {
     /** @var Filesystem */
     private $filesystem;
@@ -31,7 +31,7 @@ final class CompileCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Con
     {
         $this->setName('phpstan:compile')->setDescription('Compile PHAR');
     }
-    protected function execute(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->processFactory->setOutput($output);
         $this->buildPreloadScript();
@@ -66,7 +66,7 @@ final class CompileCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Con
         if (!\is_dir($directory)) {
             return;
         }
-        $stubFinder = \_PhpScopera143bcca66cb\Symfony\Component\Finder\Finder::create();
+        $stubFinder = \_PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder::create();
         $stubsMapPath = $directory . '/PhpStormStubsMap.php';
         foreach ($stubFinder->files()->name('*.php')->in($directory) as $stubFile) {
             $path = $stubFile->getPathname();
@@ -94,7 +94,7 @@ final class CompileCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Con
         if (!\is_dir($directory)) {
             return;
         }
-        $stubFinder = \_PhpScopera143bcca66cb\Symfony\Component\Finder\Finder::create();
+        $stubFinder = \_PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder::create();
         $stubsMapPath = $directory . '/../Php8StubsMap.php';
         foreach ($stubFinder->files()->name('*.php')->in($directory) as $stubFile) {
             $path = $stubFile->getPathname();
@@ -116,9 +116,9 @@ final class CompileCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Con
             throw new \PHPStan\ShouldNotHappenException(\sprintf('Could not write %s', $stubsMapPath));
         }
     }
-    private function patchPhpStormStubs(\_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : void
+    private function patchPhpStormStubs(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
-        $stubFinder = \_PhpScopera143bcca66cb\Symfony\Component\Finder\Finder::create();
+        $stubFinder = \_PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder::create();
         $stubsDirectory = __DIR__ . '/../../../vendor/jetbrains/phpstorm-stubs';
         foreach ($stubFinder->files()->name('*.patch')->in(__DIR__ . '/../../patches/stubs') as $patchFile) {
             $absolutePatchPath = $patchFile->getPathname();
@@ -143,7 +143,7 @@ final class CompileCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Con
 
 %s
 php;
-        $finder = \_PhpScopera143bcca66cb\Symfony\Component\Finder\Finder::create();
+        $finder = \_PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder::create();
         $root = \realpath(__DIR__ . '/../../..');
         if ($root === \false) {
             return;
@@ -168,7 +168,7 @@ php;
         @\unlink($vendorDir . '/nikic/php-parser/grammar/rebuildParsers.php');
         @\unlink($vendorDir . '/nikic/php-parser/bin/php-parse');
     }
-    private function patchFile(\_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output, string $originalFile, string $patchFile) : void
+    private function patchFile(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output, string $originalFile, string $patchFile) : void
     {
         \exec(\sprintf('patch -d %s %s %s', \escapeshellarg($this->buildDir), \escapeshellarg($originalFile), \escapeshellarg($patchFile)), $outputLines, $exitCode);
         if ($exitCode === 0) {

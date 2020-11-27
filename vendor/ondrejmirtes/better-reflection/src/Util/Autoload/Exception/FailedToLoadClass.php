@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Util\Autoload\Exception;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\Exception;
 
 use LogicException;
 use function sprintf;

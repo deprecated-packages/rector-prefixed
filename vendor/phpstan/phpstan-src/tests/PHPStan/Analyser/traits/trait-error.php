@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\TraitErrors;
+namespace _PhpScoper26e51eeacccf\TraitErrors;
 
 trait MyTrait
 {

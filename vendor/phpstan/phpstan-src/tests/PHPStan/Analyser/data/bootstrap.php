@@ -1,5 +1,5 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 \define('PHPSTAN_TEST_CONSTANT', 'fooo');

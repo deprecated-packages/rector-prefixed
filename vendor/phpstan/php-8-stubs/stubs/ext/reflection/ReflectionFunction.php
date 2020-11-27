@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class ReflectionFunction extends \ReflectionFunctionAbstract
 {
@@ -30,4 +30,4 @@ class ReflectionFunction extends \ReflectionFunctionAbstract
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\ReflectionFunction', 'ReflectionFunction', \false);
+\class_alias('_PhpScoper26e51eeacccf\\ReflectionFunction', 'ReflectionFunction', \false);

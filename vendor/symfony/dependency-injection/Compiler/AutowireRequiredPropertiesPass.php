@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Compiler;
+namespace _PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Definition;
-use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\TypedReference;
+use _PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Looks for definitions with autowiring enabled and registers their corresponding "@required" properties.
  *
  * @author Sebastien Morel (Plopix) <morel.seb@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class AutowireRequiredPropertiesPass extends \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class AutowireRequiredPropertiesPass extends \_PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     /**
      * {@inheritdoc}
@@ -30,7 +30,7 @@ class AutowireRequiredPropertiesPass extends \_PhpScopera143bcca66cb\Symfony\Com
             return $value;
         }
         $value = parent::processValue($value, $isRoot);
-        if (!$value instanceof \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
+        if (!$value instanceof \_PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
             return $value;
         }
         if (!($reflectionClass = $this->container->getReflectionClass($value->getClass(), \false))) {
@@ -51,7 +51,7 @@ class AutowireRequiredPropertiesPass extends \_PhpScopera143bcca66cb\Symfony\Com
                 continue;
             }
             $type = $type->getName();
-            $value->setProperty($name, new \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\TypedReference($type, $type, \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name));
+            $value->setProperty($name, new \_PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\TypedReference($type, $type, \_PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name));
         }
         return $value;
     }

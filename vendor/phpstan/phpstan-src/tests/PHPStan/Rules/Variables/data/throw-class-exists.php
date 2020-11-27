@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ThrowClassExists;
+namespace _PhpScoper26e51eeacccf\ThrowClassExists;
 
 use function class_exists;
 class Foo
 {
     public function doFoo() : void
     {
-        if (!\class_exists(\_PhpScopera143bcca66cb\ThrowClassExists\Bar::class)) {
+        if (!\class_exists(\_PhpScoper26e51eeacccf\ThrowClassExists\Bar::class)) {
             return;
         }
-        throw new \_PhpScopera143bcca66cb\ThrowClassExists\Bar();
+        throw new \_PhpScoper26e51eeacccf\ThrowClassExists\Bar();
     }
 }

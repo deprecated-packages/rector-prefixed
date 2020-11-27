@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\Schema\Elements;
+namespace _PhpScoper26e51eeacccf\Nette\Schema\Elements;
 
-use _PhpScopera143bcca66cb\Nette;
-use _PhpScopera143bcca66cb\Nette\Schema\Context;
-use _PhpScopera143bcca66cb\Nette\Schema\Helpers;
-use _PhpScopera143bcca66cb\Nette\Schema\Schema;
-final class Structure implements \_PhpScopera143bcca66cb\Nette\Schema\Schema
+use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoper26e51eeacccf\Nette\Schema\Context;
+use _PhpScoper26e51eeacccf\Nette\Schema\Helpers;
+use _PhpScoper26e51eeacccf\Nette\Schema\Schema;
+final class Structure implements \_PhpScoper26e51eeacccf\Nette\Schema\Schema
 {
     use Base;
     use Nette\SmartObject;
@@ -26,14 +26,14 @@ final class Structure implements \_PhpScopera143bcca66cb\Nette\Schema\Schema
      */
     public function __construct(array $items)
     {
-        (function (\_PhpScopera143bcca66cb\Nette\Schema\Schema ...$items) {
+        (function (\_PhpScoper26e51eeacccf\Nette\Schema\Schema ...$items) {
         })(...\array_values($items));
         $this->items = $items;
         $this->castTo = 'object';
     }
     public function default($value) : self
     {
-        throw new \_PhpScopera143bcca66cb\Nette\InvalidStateException('Structure cannot have default value.');
+        throw new \_PhpScoper26e51eeacccf\Nette\InvalidStateException('Structure cannot have default value.');
     }
     public function min(?float $min) : self
     {
@@ -50,11 +50,11 @@ final class Structure implements \_PhpScopera143bcca66cb\Nette\Schema\Schema
      */
     public function otherItems($type = 'mixed') : self
     {
-        $this->otherItems = $type instanceof \_PhpScopera143bcca66cb\Nette\Schema\Schema ? $type : new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type($type);
+        $this->otherItems = $type instanceof \_PhpScoper26e51eeacccf\Nette\Schema\Schema ? $type : new \_PhpScoper26e51eeacccf\Nette\Schema\Elements\Type($type);
         return $this;
     }
     /********************* processing ****************d*g**/
-    public function normalize($value, \_PhpScopera143bcca66cb\Nette\Schema\Context $context)
+    public function normalize($value, \_PhpScoper26e51eeacccf\Nette\Schema\Context $context)
     {
         $value = $this->doNormalize($value, $context);
         if (\is_object($value)) {
@@ -74,8 +74,8 @@ final class Structure implements \_PhpScopera143bcca66cb\Nette\Schema\Schema
     }
     public function merge($value, $base)
     {
-        if (\is_array($value) && isset($value[\_PhpScopera143bcca66cb\Nette\Schema\Helpers::PREVENT_MERGING])) {
-            unset($value[\_PhpScopera143bcca66cb\Nette\Schema\Helpers::PREVENT_MERGING]);
+        if (\is_array($value) && isset($value[\_PhpScoper26e51eeacccf\Nette\Schema\Helpers::PREVENT_MERGING])) {
+            unset($value[\_PhpScoper26e51eeacccf\Nette\Schema\Helpers::PREVENT_MERGING]);
             $base = null;
         }
         if (\is_array($value) && \is_array($base)) {
@@ -86,16 +86,16 @@ final class Structure implements \_PhpScopera143bcca66cb\Nette\Schema\Schema
                     $index++;
                 } elseif (\array_key_exists($key, $base)) {
                     $itemSchema = $this->items[$key] ?? $this->otherItems;
-                    $base[$key] = $itemSchema ? $itemSchema->merge($val, $base[$key]) : \_PhpScopera143bcca66cb\Nette\Schema\Helpers::merge($val, $base[$key]);
+                    $base[$key] = $itemSchema ? $itemSchema->merge($val, $base[$key]) : \_PhpScoper26e51eeacccf\Nette\Schema\Helpers::merge($val, $base[$key]);
                 } else {
                     $base[$key] = $val;
                 }
             }
             return $base;
         }
-        return \_PhpScopera143bcca66cb\Nette\Schema\Helpers::merge($value, $base);
+        return \_PhpScoper26e51eeacccf\Nette\Schema\Helpers::merge($value, $base);
     }
-    public function complete($value, \_PhpScopera143bcca66cb\Nette\Schema\Context $context)
+    public function complete($value, \_PhpScoper26e51eeacccf\Nette\Schema\Context $context)
     {
         if ($value === null) {
             $value = [];
@@ -111,7 +111,7 @@ final class Structure implements \_PhpScopera143bcca66cb\Nette\Schema\Schema
             if ($this->otherItems) {
                 $items += \array_fill_keys($extraKeys, $this->otherItems);
             } else {
-                $hint = \_PhpScopera143bcca66cb\Nette\Utils\Helpers::getSuggestion(\array_map('strval', \array_keys($items)), (string) $extraKeys[0]);
+                $hint = \_PhpScoper26e51eeacccf\Nette\Utils\Helpers::getSuggestion(\array_map('strval', \array_keys($items)), (string) $extraKeys[0]);
                 $s = \implode("', '", \array_map(function ($key) use($context) {
                     return \implode(' › ', \array_merge($context->path, [$key]));
                 }, $hint ? [$extraKeys[0]] : $extraKeys));
@@ -136,7 +136,7 @@ final class Structure implements \_PhpScopera143bcca66cb\Nette\Schema\Schema
         }
         return $this->doFinalize($value, $context);
     }
-    public function completeDefault(\_PhpScopera143bcca66cb\Nette\Schema\Context $context)
+    public function completeDefault(\_PhpScoper26e51eeacccf\Nette\Schema\Context $context)
     {
         return $this->complete([], $context);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MethodSignatureVariance;
+namespace _PhpScoper26e51eeacccf\MethodSignatureVariance;
 
 /** @template-covariant T */
 interface Out

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\TypesFinder;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\TypeResolver;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\TypeResolver;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context;
 class ResolveTypes
 {
     /** @var TypeResolver */
     private $typeResolver;
     public function __construct()
     {
-        $this->typeResolver = new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\TypeResolver();
+        $this->typeResolver = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\TypeResolver();
     }
     /**
      * @param string[] $stringTypes
      *
      * @return Type[]
      */
-    public function __invoke(array $stringTypes, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context) : array
+    public function __invoke(array $stringTypes, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context) : array
     {
         $resolvedTypes = [];
         foreach ($stringTypes as $stringType) {

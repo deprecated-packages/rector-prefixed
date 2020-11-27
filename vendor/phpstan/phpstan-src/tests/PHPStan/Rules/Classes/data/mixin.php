@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MixinRule;
+namespace _PhpScoper26e51eeacccf\MixinRule;
 
 /**
  * @mixin \Exception

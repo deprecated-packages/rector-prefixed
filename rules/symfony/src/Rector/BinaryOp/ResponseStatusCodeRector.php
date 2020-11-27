@@ -20,7 +20,7 @@ final class ResponseStatusCodeRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const RESPONSE_CLASS = '_PhpScopera143bcca66cb\\Symfony\\Component\\HttpFoundation\\Response';
+    private const RESPONSE_CLASS = '_PhpScoper26e51eeacccf\\Symfony\\Component\\HttpFoundation\\Response';
     /**
      * @var string[]
      */

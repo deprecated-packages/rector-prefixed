@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imageconvolution(\_PhpScopera143bcca66cb\GdImage $image, array $matrix, float $divisor, float $offset) : bool
+function imageconvolution(\_PhpScoper26e51eeacccf\GdImage $image, array $matrix, float $divisor, float $offset) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TryCatchWithSpecifiedVariable;
+namespace _PhpScoper26e51eeacccf\TryCatchWithSpecifiedVariable;
 
 class FooException extends \Exception
 {
@@ -12,7 +12,7 @@ function () {
         return;
     }
     try {
-    } catch (\_PhpScopera143bcca66cb\TryCatchWithSpecifiedVariable\FooException $foo) {
+    } catch (\_PhpScoper26e51eeacccf\TryCatchWithSpecifiedVariable\FooException $foo) {
         die;
     }
 };

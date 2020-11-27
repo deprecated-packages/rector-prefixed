@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector;
 
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionConstant;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function assert;
-class ConstantReflector implements \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector
+class ConstantReflector implements \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector
 {
     /** @var SourceLocator */
     private $sourceLocator;
     /** @var ClassReflector */
     private $classReflector;
-    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\ClassReflector $classReflector)
+    public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ClassReflector $classReflector)
     {
         $this->sourceLocator = $sourceLocator;
         $this->classReflector = $classReflector;
@@ -28,13 +28,13 @@ class ConstantReflector implements \_PhpScopera143bcca66cb\Roave\BetterReflectio
      *
      * @throws IdentifierNotFound
      */
-    public function reflect(string $constantName) : \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $constantName) : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection
     {
-        $identifier = new \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier($constantName, new \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CONSTANT));
+        $identifier = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier($constantName, new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CONSTANT));
         $constantInfo = $this->sourceLocator->locateIdentifier($this->classReflector, $identifier);
-        \assert($constantInfo instanceof \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionConstant || $constantInfo === null);
+        \assert($constantInfo instanceof \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionConstant || $constantInfo === null);
         if ($constantInfo === null) {
-            throw \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
+            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
         }
         return $constantInfo;
     }
@@ -46,7 +46,7 @@ class ConstantReflector implements \_PhpScopera143bcca66cb\Roave\BetterReflectio
     public function getAllConstants() : array
     {
         /** @var array<int,ReflectionConstant> $allConstants */
-        $allConstants = $this->sourceLocator->locateIdentifiersByType($this, new \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CONSTANT));
+        $allConstants = $this->sourceLocator->locateIdentifiersByType($this, new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CONSTANT));
         return $allConstants;
     }
 }

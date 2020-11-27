@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ResetDynamicReturnTypeExtension;
+namespace _PhpScoper26e51eeacccf\ResetDynamicReturnTypeExtension;
 
 class Foo
 {

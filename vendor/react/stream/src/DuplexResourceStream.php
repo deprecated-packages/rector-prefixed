@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Stream;
+namespace _PhpScoper26e51eeacccf\React\Stream;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class DuplexResourceStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\DuplexStreamInterface
+final class DuplexResourceStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\DuplexStreamInterface
 {
     private $stream;
     private $loop;
@@ -31,7 +31,7 @@ final class DuplexResourceStream extends \_PhpScopera143bcca66cb\Evenement\Event
     private $writable = \true;
     private $closing = \false;
     private $listening = \false;
-    public function __construct($stream, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, $readChunkSize = null, \_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $buffer = null)
+    public function __construct($stream, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, $readChunkSize = null, \_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $buffer = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -58,7 +58,7 @@ final class DuplexResourceStream extends \_PhpScopera143bcca66cb\Evenement\Event
             \stream_set_read_buffer($stream, 0);
         }
         if ($buffer === null) {
-            $buffer = new \_PhpScopera143bcca66cb\React\Stream\WritableResourceStream($stream, $loop);
+            $buffer = new \_PhpScoper26e51eeacccf\React\Stream\WritableResourceStream($stream, $loop);
         }
         $this->stream = $stream;
         $this->loop = $loop;
@@ -130,9 +130,9 @@ final class DuplexResourceStream extends \_PhpScopera143bcca66cb\Evenement\Event
         $this->pause();
         $this->buffer->end($data);
     }
-    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScopera143bcca66cb\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScoper26e51eeacccf\React\Stream\Util::pipe($this, $dest, $options);
     }
     /** @internal */
     public function handleData($stream)

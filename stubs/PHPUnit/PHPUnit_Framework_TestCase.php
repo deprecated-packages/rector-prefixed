@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-if (\class_exists('_PhpScopera143bcca66cb\\PHPUnit_Framework_TestCase')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\PHPUnit_Framework_TestCase')) {
     return;
 }
 abstract class PHPUnit_Framework_TestCase
 {
 }
-\class_alias('_PhpScopera143bcca66cb\\PHPUnit_Framework_TestCase', 'PHPUnit_Framework_TestCase', \false);
+\class_alias('_PhpScoper26e51eeacccf\\PHPUnit_Framework_TestCase', 'PHPUnit_Framework_TestCase', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ReadingWriteOnlyProperties;
+namespace _PhpScoper26e51eeacccf\ReadingWriteOnlyProperties;
 
 /**
  * @property-read int $readOnlyProperty

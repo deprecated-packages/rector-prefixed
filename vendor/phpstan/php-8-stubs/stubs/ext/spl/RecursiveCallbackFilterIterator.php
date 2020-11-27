@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class RecursiveCallbackFilterIterator extends \CallbackFilterIterator implements \RecursiveIterator
 {
@@ -19,4 +19,4 @@ class RecursiveCallbackFilterIterator extends \CallbackFilterIterator implements
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\RecursiveCallbackFilterIterator', 'RecursiveCallbackFilterIterator', \false);
+\class_alias('_PhpScoper26e51eeacccf\\RecursiveCallbackFilterIterator', 'RecursiveCallbackFilterIterator', \false);

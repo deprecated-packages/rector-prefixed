@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class mysqli_result implements \IteratorAggregate
 {
@@ -102,4 +102,4 @@ class mysqli_result implements \IteratorAggregate
     }
     public function getIterator() : \Iterator;
 }
-\class_alias('_PhpScopera143bcca66cb\\mysqli_result', 'mysqli_result', \false);
+\class_alias('_PhpScoper26e51eeacccf\\mysqli_result', 'mysqli_result', \false);

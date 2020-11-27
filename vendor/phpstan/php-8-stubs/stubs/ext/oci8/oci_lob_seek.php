@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function oci_lob_seek(\_PhpScopera143bcca66cb\OCILob $lob, int $offset, int $whence = \OCI_SEEK_SET) : bool
+function oci_lob_seek(\_PhpScoper26e51eeacccf\OCILob $lob, int $offset, int $whence = \OCI_SEEK_SET) : bool
 {
 }

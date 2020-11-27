@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ImpossibleStaticMethodCallNotPhpDoc;
+namespace _PhpScoper26e51eeacccf\ImpossibleStaticMethodCallNotPhpDoc;
 
 class Foo
 {

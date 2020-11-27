@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\GlobalVariables;
+namespace _PhpScoper26e51eeacccf\GlobalVariables;
 
 class Foo
 {

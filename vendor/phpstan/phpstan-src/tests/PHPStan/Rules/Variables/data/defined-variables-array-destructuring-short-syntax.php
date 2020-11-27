@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function () {
     $array = [1, 2, 3, [4, 5]];
@@ -27,14 +27,14 @@ function () {
     echo $var2;
     echo $var3;
     echo $var4;
-    [$g, $h, $i] = [$j, $k, $l] = \_PhpScopera143bcca66cb\doFoo();
+    [$g, $h, $i] = [$j, $k, $l] = \_PhpScoper26e51eeacccf\doFoo();
     echo $g;
     echo $h;
     echo $i;
     echo $j;
     echo $k;
     echo $l;
-    list($m) = [$n] = \_PhpScopera143bcca66cb\doFoo();
+    list($m) = [$n] = \_PhpScoper26e51eeacccf\doFoo();
     echo $m;
     echo $n;
     [, $variableInListWithMissingItem] = [, $anotherVariableInListWithMissingItem] = $array;

@@ -1,7 +1,7 @@
 <?php
 
 // lint < 8.0
-namespace _PhpScopera143bcca66cb\NestedTernary;
+namespace _PhpScoper26e51eeacccf\NestedTernary;
 
 1 ? 2 : 3 ? 4 : 5;
 // deprecated

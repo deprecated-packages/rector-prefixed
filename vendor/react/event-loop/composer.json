@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScopera143bcca66cb\\React\\EventLoop\\": "src"
+            "_PhpScoper26e51eeacccf\\React\\EventLoop\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScopera143bcca66cb\\React\\Tests\\EventLoop\\": "tests"
+            "_PhpScoper26e51eeacccf\\React\\Tests\\EventLoop\\": "tests"
         }
     }
 }

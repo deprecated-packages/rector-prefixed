@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imagelayereffect(\_PhpScopera143bcca66cb\GdImage $image, int $effect) : bool
+function imagelayereffect(\_PhpScoper26e51eeacccf\GdImage $image, int $effect) : bool
 {
 }

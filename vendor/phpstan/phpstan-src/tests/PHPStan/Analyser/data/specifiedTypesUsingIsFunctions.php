@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function () {
     if (!\is_int($integer)) {
@@ -46,101 +46,101 @@ function () {
         return;
     }
     /** @var int|\stdClass $intOrStdClass */
-    $intOrStdClass = \_PhpScopera143bcca66cb\doFoo();
+    $intOrStdClass = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_numeric($intOrStdClass)) {
         return;
     }
-    $foo = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_a($foo, '_PhpScopera143bcca66cb\\Foo')) {
+    $foo = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_a($foo, '_PhpScoper26e51eeacccf\\Foo')) {
         return;
     }
-    $anotherFoo = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_a($anotherFoo, \_PhpScopera143bcca66cb\Foo::class)) {
+    $anotherFoo = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_a($anotherFoo, \_PhpScoper26e51eeacccf\Foo::class)) {
         return;
     }
     \assert(\is_int($yetAnotherInteger));
-    $subClassOfFoo = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_subclass_of($subClassOfFoo, \_PhpScopera143bcca66cb\Foo::class)) {
+    $subClassOfFoo = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_subclass_of($subClassOfFoo, \_PhpScoper26e51eeacccf\Foo::class)) {
         return;
     }
-    function (\_PhpScopera143bcca66cb\Foo $foo) {
+    function (\_PhpScoper26e51eeacccf\Foo $foo) {
         if (!\is_subclass_of($foo, '')) {
         }
     };
     /** @var string $someClass */
-    $someClass = \_PhpScopera143bcca66cb\doFoo();
+    $someClass = \_PhpScoper26e51eeacccf\doFoo();
     /** @var mixed $subClassOfFoo2 */
-    $subClassOfFoo2 = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_subclass_of($subClassOfFoo2, \_PhpScopera143bcca66cb\Foo::class, \false)) {
+    $subClassOfFoo2 = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_subclass_of($subClassOfFoo2, \_PhpScoper26e51eeacccf\Foo::class, \false)) {
         return;
     }
     /** @var mixed $subClassOfFoo3 */
-    $subClassOfFoo3 = \_PhpScopera143bcca66cb\doFoo();
+    $subClassOfFoo3 = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_subclass_of($subClassOfFoo3, $someClass)) {
         return;
     }
     /** @var mixed $subClassOfFoo4 */
-    $subClassOfFoo4 = \_PhpScopera143bcca66cb\doFoo();
+    $subClassOfFoo4 = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_subclass_of($subClassOfFoo4, $someClass, \false)) {
         return;
     }
     /** @var string|object $subClassOfFoo5 */
-    $subClassOfFoo5 = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_subclass_of($subClassOfFoo5, \_PhpScopera143bcca66cb\Foo::class)) {
+    $subClassOfFoo5 = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_subclass_of($subClassOfFoo5, \_PhpScoper26e51eeacccf\Foo::class)) {
         return;
     }
     /** @var string|object $subClassOfFoo6 */
-    $subClassOfFoo6 = \_PhpScopera143bcca66cb\doFoo();
+    $subClassOfFoo6 = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_subclass_of($subClassOfFoo6, $someClass)) {
         return;
     }
     /** @var string|object $subClassOfFoo7 */
-    $subClassOfFoo7 = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_subclass_of($subClassOfFoo7, \_PhpScopera143bcca66cb\Foo::class, \false)) {
+    $subClassOfFoo7 = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_subclass_of($subClassOfFoo7, \_PhpScoper26e51eeacccf\Foo::class, \false)) {
         return;
     }
     /** @var string|object $subClassOfFoo8 */
-    $subClassOfFoo8 = \_PhpScopera143bcca66cb\doFoo();
+    $subClassOfFoo8 = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_subclass_of($subClassOfFoo8, $someClass, \false)) {
         return;
     }
     /** @var object $subClassOfFoo9 */
-    $subClassOfFoo9 = \_PhpScopera143bcca66cb\doFoo();
+    $subClassOfFoo9 = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_subclass_of($subClassOfFoo9, $someClass, \false)) {
         return;
     }
     /** @var object $subClassOfFoo10 */
-    $subClassOfFoo10 = \_PhpScopera143bcca66cb\doFoo();
+    $subClassOfFoo10 = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_subclass_of($subClassOfFoo10, $someClass)) {
         return;
     }
     /** @var object $subClassOfFoo11 */
-    $subClassOfFoo11 = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_subclass_of($subClassOfFoo11, \_PhpScopera143bcca66cb\Foo::class)) {
+    $subClassOfFoo11 = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_subclass_of($subClassOfFoo11, \_PhpScoper26e51eeacccf\Foo::class)) {
         return;
     }
     /** @var object $subClassOfFoo12 */
-    $subClassOfFoo12 = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_subclass_of($subClassOfFoo12, \_PhpScopera143bcca66cb\Foo::class, \false)) {
+    $subClassOfFoo12 = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_subclass_of($subClassOfFoo12, \_PhpScoper26e51eeacccf\Foo::class, \false)) {
         return;
     }
     /** @var string|Foo|Bar|object $subClassOfFoo13 */
-    $subClassOfFoo13 = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_subclass_of($subClassOfFoo13, \_PhpScopera143bcca66cb\Foo::class, \false)) {
+    $subClassOfFoo13 = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_subclass_of($subClassOfFoo13, \_PhpScoper26e51eeacccf\Foo::class, \false)) {
         return;
     }
     /** @var string|Foo|Bar|object $subClassOfFoo14 */
-    $subClassOfFoo14 = \_PhpScopera143bcca66cb\doFoo();
+    $subClassOfFoo14 = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_subclass_of($subClassOfFoo14, $someClass, \false)) {
         return;
     }
     /** @var string|Foo|Bar|object $subClassOfFoo15 */
-    $subClassOfFoo15 = \_PhpScopera143bcca66cb\doFoo();
-    if (!\is_subclass_of($subClassOfFoo15, \_PhpScopera143bcca66cb\Foo::class)) {
+    $subClassOfFoo15 = \_PhpScoper26e51eeacccf\doFoo();
+    if (!\is_subclass_of($subClassOfFoo15, \_PhpScoper26e51eeacccf\Foo::class)) {
         return;
     }
     /** @var string|Foo|Bar $subClassOfFoo16 */
-    $subClassOfFoo16 = \_PhpScopera143bcca66cb\doFoo();
+    $subClassOfFoo16 = \_PhpScoper26e51eeacccf\doFoo();
     if (!\is_subclass_of($subClassOfFoo16, $someClass)) {
         return;
     }

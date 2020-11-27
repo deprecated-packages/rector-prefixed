@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\AnnotationsMethods;
+namespace _PhpScoper26e51eeacccf\AnnotationsMethods;
 
-use _PhpScopera143bcca66cb\OtherNamespace\Ipsum;
-use _PhpScopera143bcca66cb\OtherNamespace\Test as OtherTest;
+use _PhpScoper26e51eeacccf\OtherNamespace\Ipsum;
+use _PhpScoper26e51eeacccf\OtherNamespace\Test as OtherTest;
 /**
  * @method int getInteger(int $a, int $b)
  * @method void doSomething(int $a, $b)
@@ -50,9 +50,9 @@ use _PhpScopera143bcca66cb\OtherNamespace\Test as OtherTest;
  * 1. methodWithNoReturnTypeWithDescriptionNoParams __Do__ something with a description but what, who knows!
  * 2. static methodWithNoReturnTypeStaticallyWithDescriptionNoParams __Do__ something with a description statically, but what, who knows!
  */
-class Foo implements \_PhpScopera143bcca66cb\AnnotationsMethods\FooInterface
+class Foo implements \_PhpScoper26e51eeacccf\AnnotationsMethods\FooInterface
 {
-    public function overridenMethodWithAnnotation() : \_PhpScopera143bcca66cb\AnnotationsMethods\Foo
+    public function overridenMethodWithAnnotation() : \_PhpScoper26e51eeacccf\AnnotationsMethods\Foo
     {
     }
 }
@@ -60,12 +60,12 @@ class Foo implements \_PhpScopera143bcca66cb\AnnotationsMethods\FooInterface
  * @method Bar overridenMethodWithAnnotation()
  * @method Foo conflictingMethod()
  */
-class Bar extends \_PhpScopera143bcca66cb\AnnotationsMethods\Foo
+class Bar extends \_PhpScoper26e51eeacccf\AnnotationsMethods\Foo
 {
-    public function overridenMethod() : \_PhpScopera143bcca66cb\AnnotationsMethods\Bar
+    public function overridenMethod() : \_PhpScoper26e51eeacccf\AnnotationsMethods\Bar
     {
     }
-    public function conflictingMethod() : \_PhpScopera143bcca66cb\AnnotationsMethods\Bar
+    public function conflictingMethod() : \_PhpScoper26e51eeacccf\AnnotationsMethods\Bar
     {
     }
 }
@@ -87,7 +87,7 @@ class Bar extends \_PhpScopera143bcca66cb\AnnotationsMethods\Foo
  * @method static Ipsum getIpsumStaticallyWithDescriptionNoParams() Lorem Ipsum Static
  * @method static void doSomethingStaticallyWithDescriptionNoParams() Statically doing something
  */
-class Baz extends \_PhpScopera143bcca66cb\AnnotationsMethods\Bar
+class Baz extends \_PhpScoper26e51eeacccf\AnnotationsMethods\Bar
 {
     use FooTrait;
 }
@@ -113,7 +113,7 @@ class Baz extends \_PhpScopera143bcca66cb\AnnotationsMethods\Bar
  *
  * @method int | float paramMultipleTypesWithExtraSpaces(string | null $string, OtherTest | null $object)
  */
-class BazBaz extends \_PhpScopera143bcca66cb\AnnotationsMethods\Baz
+class BazBaz extends \_PhpScoper26e51eeacccf\AnnotationsMethods\Baz
 {
 }
 /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @alias socket_get_option */
-function socket_getopt(\_PhpScopera143bcca66cb\Socket $socket, int $level, int $option) : array|int|false
+function socket_getopt(\_PhpScoper26e51eeacccf\Socket $socket, int $level, int $option) : array|int|false
 {
 }

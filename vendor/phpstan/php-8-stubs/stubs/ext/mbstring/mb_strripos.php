@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function mb_strripos(string $haystack, string $needle, int $offset = 0, ?string $encoding = null) : int|false
 {

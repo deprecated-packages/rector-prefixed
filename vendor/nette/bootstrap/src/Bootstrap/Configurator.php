@@ -5,12 +5,12 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette;
+namespace _PhpScoper26e51eeacccf\Nette;
 
-use _PhpScopera143bcca66cb\Composer\Autoload\ClassLoader;
-use _PhpScopera143bcca66cb\Nette;
-use _PhpScopera143bcca66cb\Nette\DI;
-use _PhpScopera143bcca66cb\Tracy;
+use _PhpScoper26e51eeacccf\Composer\Autoload\ClassLoader;
+use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoper26e51eeacccf\Nette\DI;
+use _PhpScoper26e51eeacccf\Tracy;
 /**
  * Initial system DI container generator.
  */
@@ -21,7 +21,7 @@ class Configurator
     /** @var callable[]  function (Configurator $sender, DI\Compiler $compiler); Occurs after the compiler is created */
     public $onCompile;
     /** @var array */
-    public $defaultExtensions = ['application' => [\_PhpScopera143bcca66cb\Nette\Bridges\ApplicationDI\ApplicationExtension::class, ['%debugMode%', ['%appDir%'], '%tempDir%/cache/nette.application']], 'cache' => [\_PhpScopera143bcca66cb\Nette\Bridges\CacheDI\CacheExtension::class, ['%tempDir%']], 'constants' => \_PhpScopera143bcca66cb\Nette\DI\Extensions\ConstantsExtension::class, 'database' => [\_PhpScopera143bcca66cb\Nette\Bridges\DatabaseDI\DatabaseExtension::class, ['%debugMode%']], 'decorator' => \_PhpScopera143bcca66cb\Nette\DI\Extensions\DecoratorExtension::class, 'di' => [\_PhpScopera143bcca66cb\Nette\DI\Extensions\DIExtension::class, ['%debugMode%']], 'extensions' => \_PhpScopera143bcca66cb\Nette\DI\Extensions\ExtensionsExtension::class, 'forms' => \_PhpScopera143bcca66cb\Nette\Bridges\FormsDI\FormsExtension::class, 'http' => [\_PhpScopera143bcca66cb\Nette\Bridges\HttpDI\HttpExtension::class, ['%consoleMode%']], 'inject' => \_PhpScopera143bcca66cb\Nette\DI\Extensions\InjectExtension::class, 'latte' => [\_PhpScopera143bcca66cb\Nette\Bridges\ApplicationDI\LatteExtension::class, ['%tempDir%/cache/latte', '%debugMode%']], 'mail' => \_PhpScopera143bcca66cb\Nette\Bridges\MailDI\MailExtension::class, 'php' => \_PhpScopera143bcca66cb\Nette\DI\Extensions\PhpExtension::class, 'routing' => [\_PhpScopera143bcca66cb\Nette\Bridges\ApplicationDI\RoutingExtension::class, ['%debugMode%']], 'search' => [\_PhpScopera143bcca66cb\Nette\DI\Extensions\SearchExtension::class, ['%tempDir%/cache/nette.search']], 'security' => [\_PhpScopera143bcca66cb\Nette\Bridges\SecurityDI\SecurityExtension::class, ['%debugMode%']], 'session' => [\_PhpScopera143bcca66cb\Nette\Bridges\HttpDI\SessionExtension::class, ['%debugMode%', '%consoleMode%']], 'tracy' => [\_PhpScopera143bcca66cb\Tracy\Bridges\Nette\TracyExtension::class, ['%debugMode%', '%consoleMode%']]];
+    public $defaultExtensions = ['application' => [\_PhpScoper26e51eeacccf\Nette\Bridges\ApplicationDI\ApplicationExtension::class, ['%debugMode%', ['%appDir%'], '%tempDir%/cache/nette.application']], 'cache' => [\_PhpScoper26e51eeacccf\Nette\Bridges\CacheDI\CacheExtension::class, ['%tempDir%']], 'constants' => \_PhpScoper26e51eeacccf\Nette\DI\Extensions\ConstantsExtension::class, 'database' => [\_PhpScoper26e51eeacccf\Nette\Bridges\DatabaseDI\DatabaseExtension::class, ['%debugMode%']], 'decorator' => \_PhpScoper26e51eeacccf\Nette\DI\Extensions\DecoratorExtension::class, 'di' => [\_PhpScoper26e51eeacccf\Nette\DI\Extensions\DIExtension::class, ['%debugMode%']], 'extensions' => \_PhpScoper26e51eeacccf\Nette\DI\Extensions\ExtensionsExtension::class, 'forms' => \_PhpScoper26e51eeacccf\Nette\Bridges\FormsDI\FormsExtension::class, 'http' => [\_PhpScoper26e51eeacccf\Nette\Bridges\HttpDI\HttpExtension::class, ['%consoleMode%']], 'inject' => \_PhpScoper26e51eeacccf\Nette\DI\Extensions\InjectExtension::class, 'latte' => [\_PhpScoper26e51eeacccf\Nette\Bridges\ApplicationDI\LatteExtension::class, ['%tempDir%/cache/latte', '%debugMode%']], 'mail' => \_PhpScoper26e51eeacccf\Nette\Bridges\MailDI\MailExtension::class, 'php' => \_PhpScoper26e51eeacccf\Nette\DI\Extensions\PhpExtension::class, 'routing' => [\_PhpScoper26e51eeacccf\Nette\Bridges\ApplicationDI\RoutingExtension::class, ['%debugMode%']], 'search' => [\_PhpScoper26e51eeacccf\Nette\DI\Extensions\SearchExtension::class, ['%tempDir%/cache/nette.search']], 'security' => [\_PhpScoper26e51eeacccf\Nette\Bridges\SecurityDI\SecurityExtension::class, ['%debugMode%']], 'session' => [\_PhpScoper26e51eeacccf\Nette\Bridges\HttpDI\SessionExtension::class, ['%debugMode%', '%consoleMode%']], 'tracy' => [\_PhpScoper26e51eeacccf\Tracy\Bridges\Nette\TracyExtension::class, ['%debugMode%', '%consoleMode%']]];
     /** @var string[] of classes which shouldn't be autowired */
     public $autowireExcludedClasses = [\ArrayAccess::class, \Countable::class, \IteratorAggregate::class, \stdClass::class, \Traversable::class];
     /** @var array */
@@ -46,7 +46,7 @@ class Configurator
         if (\is_string($value) || \is_array($value)) {
             $value = static::detectDebugMode($value);
         } elseif (!\is_bool($value)) {
-            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException(\sprintf('Value must be either a string, array, or boolean, %s given.', \gettype($value)));
+            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException(\sprintf('Value must be either a string, array, or boolean, %s given.', \gettype($value)));
         }
         $this->parameters['debugMode'] = $value;
         $this->parameters['productionMode'] = !$this->parameters['debugMode'];
@@ -83,7 +83,7 @@ class Configurator
      */
     public function addParameters(array $params)
     {
-        $this->parameters = \_PhpScopera143bcca66cb\Nette\DI\Config\Helpers::merge($params, $this->parameters);
+        $this->parameters = \_PhpScoper26e51eeacccf\Nette\DI\Config\Helpers::merge($params, $this->parameters);
         return $this;
     }
     /**
@@ -109,14 +109,14 @@ class Configurator
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $last = \end($trace);
         $debugMode = static::detectDebugMode();
-        $loaderRc = \class_exists(\_PhpScopera143bcca66cb\Composer\Autoload\ClassLoader::class) ? new \ReflectionClass(\_PhpScopera143bcca66cb\Composer\Autoload\ClassLoader::class) : null;
+        $loaderRc = \class_exists(\_PhpScoper26e51eeacccf\Composer\Autoload\ClassLoader::class) ? new \ReflectionClass(\_PhpScoper26e51eeacccf\Composer\Autoload\ClassLoader::class) : null;
         return ['appDir' => isset($trace[1]['file']) ? \dirname($trace[1]['file']) : null, 'wwwDir' => isset($last['file']) ? \dirname($last['file']) : null, 'vendorDir' => $loaderRc ? \dirname($loaderRc->getFileName(), 2) : null, 'debugMode' => $debugMode, 'productionMode' => !$debugMode, 'consoleMode' => \PHP_SAPI === 'cli'];
     }
     public function enableTracy(string $logDirectory = null, string $email = null) : void
     {
-        \_PhpScopera143bcca66cb\Tracy\Debugger::$strictMode = \true;
-        \_PhpScopera143bcca66cb\Tracy\Debugger::enable(!$this->parameters['debugMode'], $logDirectory, $email);
-        \_PhpScopera143bcca66cb\Tracy\Bridges\Nette\Bridge::initialize();
+        \_PhpScoper26e51eeacccf\Tracy\Debugger::$strictMode = \true;
+        \_PhpScoper26e51eeacccf\Tracy\Debugger::enable(!$this->parameters['debugMode'], $logDirectory, $email);
+        \_PhpScoper26e51eeacccf\Tracy\Bridges\Nette\Bridge::initialize();
     }
     /**
      * Alias for enableTracy()
@@ -128,12 +128,12 @@ class Configurator
     /**
      * @throws Nette\NotSupportedException if RobotLoader is not available
      */
-    public function createRobotLoader() : \_PhpScopera143bcca66cb\Nette\Loaders\RobotLoader
+    public function createRobotLoader() : \_PhpScoper26e51eeacccf\Nette\Loaders\RobotLoader
     {
-        if (!\class_exists(\_PhpScopera143bcca66cb\Nette\Loaders\RobotLoader::class)) {
-            throw new \_PhpScopera143bcca66cb\Nette\NotSupportedException('RobotLoader not found, do you have `nette/robot-loader` package installed?');
+        if (!\class_exists(\_PhpScoper26e51eeacccf\Nette\Loaders\RobotLoader::class)) {
+            throw new \_PhpScoper26e51eeacccf\Nette\NotSupportedException('RobotLoader not found, do you have `nette/robot-loader` package installed?');
         }
-        $loader = new \_PhpScopera143bcca66cb\Nette\Loaders\RobotLoader();
+        $loader = new \_PhpScoper26e51eeacccf\Nette\Loaders\RobotLoader();
         $loader->setTempDirectory($this->getCacheDirectory() . '/nette.robotLoader');
         $loader->setAutoRefresh($this->parameters['debugMode']);
         if (isset($this->defaultExtensions['application'])) {
@@ -155,7 +155,7 @@ class Configurator
     /**
      * Returns system DI container.
      */
-    public function createContainer() : \_PhpScopera143bcca66cb\Nette\DI\Container
+    public function createContainer() : \_PhpScoper26e51eeacccf\Nette\DI\Container
     {
         $class = $this->loadContainer();
         $container = new $class($this->dynamicParameters);
@@ -170,21 +170,21 @@ class Configurator
      */
     public function loadContainer() : string
     {
-        $loader = new \_PhpScopera143bcca66cb\Nette\DI\ContainerLoader($this->getCacheDirectory() . '/nette.configurator', $this->parameters['debugMode']);
+        $loader = new \_PhpScoper26e51eeacccf\Nette\DI\ContainerLoader($this->getCacheDirectory() . '/nette.configurator', $this->parameters['debugMode']);
         $class = $loader->load([$this, 'generateContainer'], [
             $this->parameters,
             \array_keys($this->dynamicParameters),
             $this->configs,
             \PHP_VERSION_ID - \PHP_RELEASE_VERSION,
             // minor PHP version
-            \class_exists(\_PhpScopera143bcca66cb\Composer\Autoload\ClassLoader::class) ? \filemtime((new \ReflectionClass(\_PhpScopera143bcca66cb\Composer\Autoload\ClassLoader::class))->getFilename()) : null,
+            \class_exists(\_PhpScoper26e51eeacccf\Composer\Autoload\ClassLoader::class) ? \filemtime((new \ReflectionClass(\_PhpScoper26e51eeacccf\Composer\Autoload\ClassLoader::class))->getFilename()) : null,
         ]);
         return $class;
     }
     /**
      * @internal
      */
-    public function generateContainer(\_PhpScopera143bcca66cb\Nette\DI\Compiler $compiler) : void
+    public function generateContainer(\_PhpScoper26e51eeacccf\Nette\DI\Compiler $compiler) : void
     {
         $loader = $this->createLoader();
         $loader->setParameters($this->parameters);
@@ -202,23 +202,23 @@ class Configurator
         foreach ($this->defaultExtensions as $name => $extension) {
             [$class, $args] = \is_string($extension) ? [$extension, []] : $extension;
             if (\class_exists($class)) {
-                $args = \_PhpScopera143bcca66cb\Nette\DI\Helpers::expand($args, $this->parameters, \true);
+                $args = \_PhpScoper26e51eeacccf\Nette\DI\Helpers::expand($args, $this->parameters, \true);
                 $compiler->addExtension($name, (new \ReflectionClass($class))->newInstanceArgs($args));
             }
         }
         $this->onCompile($this, $compiler);
     }
-    protected function createLoader() : \_PhpScopera143bcca66cb\Nette\DI\Config\Loader
+    protected function createLoader() : \_PhpScoper26e51eeacccf\Nette\DI\Config\Loader
     {
-        return new \_PhpScopera143bcca66cb\Nette\DI\Config\Loader();
+        return new \_PhpScoper26e51eeacccf\Nette\DI\Config\Loader();
     }
     protected function getCacheDirectory() : string
     {
         if (empty($this->parameters['tempDir'])) {
-            throw new \_PhpScopera143bcca66cb\Nette\InvalidStateException('Set path to temporary directory using setTempDirectory().');
+            throw new \_PhpScoper26e51eeacccf\Nette\InvalidStateException('Set path to temporary directory using setTempDirectory().');
         }
-        $dir = \_PhpScopera143bcca66cb\Nette\DI\Helpers::expand('%tempDir%/cache', $this->parameters, \true);
-        \_PhpScopera143bcca66cb\Nette\Utils\FileSystem::createDir($dir);
+        $dir = \_PhpScoper26e51eeacccf\Nette\DI\Helpers::expand('%tempDir%/cache', $this->parameters, \true);
+        \_PhpScoper26e51eeacccf\Nette\Utils\FileSystem::createDir($dir);
         return $dir;
     }
     /********************* tools ****************d*g**/

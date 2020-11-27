@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class SplQueue extends \SplDoublyLinkedList
 {
@@ -19,4 +19,4 @@ class SplQueue extends \SplDoublyLinkedList
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\SplQueue', 'SplQueue', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SplQueue', 'SplQueue', \false);

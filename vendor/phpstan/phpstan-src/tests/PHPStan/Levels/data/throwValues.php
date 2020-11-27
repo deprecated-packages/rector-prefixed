@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\ThrowValues;
+namespace _PhpScoper26e51eeacccf\Levels\ThrowValues;
 
 class InvalidException
 {
@@ -20,7 +20,7 @@ class Foo
      * @param \Throwable|int $throwableOrInt
      * @param int|string $intOrString
      */
-    public function doFoo(\_PhpScopera143bcca66cb\Levels\ThrowValues\ValidInterfaceException $validInterface, \_PhpScopera143bcca66cb\Levels\ThrowValues\InvalidInterfaceException $invalidInterface, ?\Exception $nullableException, $throwableOrInt, $intOrString)
+    public function doFoo(\_PhpScoper26e51eeacccf\Levels\ThrowValues\ValidInterfaceException $validInterface, \_PhpScoper26e51eeacccf\Levels\ThrowValues\InvalidInterfaceException $invalidInterface, ?\Exception $nullableException, $throwableOrInt, $intOrString)
     {
         if (\rand(0, 1)) {
             throw new \Exception();
@@ -32,7 +32,7 @@ class Foo
             throw 123;
         }
         if (\rand(0, 1)) {
-            throw new \_PhpScopera143bcca66cb\Levels\ThrowValues\InvalidException();
+            throw new \_PhpScoper26e51eeacccf\Levels\ThrowValues\InvalidException();
         }
         if (\rand(0, 1)) {
             throw $invalidInterface;

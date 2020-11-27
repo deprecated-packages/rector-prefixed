@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStanExtensions\Rule;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Analyser\Scope;
@@ -42,10 +42,10 @@ final class KeepRectorNamespaceForRectorRule implements \PHPStan\Rules\Rule
             return \true;
         }
         // skip interface and tests, except tests here
-        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($namespace, '#\\\\(Contract|Exception|Tests)\\\\#') && !\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($namespace, 'PHPStanExtensions')) {
+        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($namespace, '#\\\\(Contract|Exception|Tests)\\\\#') && !\_PhpScoper26e51eeacccf\Nette\Utils\Strings::contains($namespace, 'PHPStanExtensions')) {
             return \true;
         }
-        if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($namespace, '\\Rector') && !\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($namespace, '#\\\\Rector\\\\#')) {
+        if (!\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($namespace, '\\Rector') && !\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($namespace, '#\\\\Rector\\\\#')) {
             return \true;
         }
         $name = $classLike->name;
@@ -54,6 +54,6 @@ final class KeepRectorNamespaceForRectorRule implements \PHPStan\Rules\Rule
         }
         // correct name
         $classLikeName = $name->toString();
-        return (bool) \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($classLikeName, '#(Rector|Test|Trait)$#');
+        return (bool) \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($classLikeName, '#(Rector|Test|Trait)$#');
     }
 }

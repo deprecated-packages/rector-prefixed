@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\VariableCloning;
+namespace _PhpScoper26e51eeacccf\VariableCloning;
 
 class Foo
 {
 }
 $f = function () {
-    $foo = new \_PhpScopera143bcca66cb\VariableCloning\Foo();
+    $foo = new \_PhpScoper26e51eeacccf\VariableCloning\Foo();
     clone $foo;
-    clone new \_PhpScopera143bcca66cb\VariableCloning\Foo();
+    clone new \_PhpScoper26e51eeacccf\VariableCloning\Foo();
     clone \random_int(0, 1) ? 'loremipsum' : 123;
     $stringData = 'abc';
     clone $stringData;

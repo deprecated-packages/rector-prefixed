@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use _PhpScopera143bcca66cb\Nette\Schema\Expect;
+use _PhpScoper26e51eeacccf\Nette\Schema\Expect;
 use PHPStan\Rules\RegistryFactory;
-class RulesExtension extends \_PhpScopera143bcca66cb\Nette\DI\CompilerExtension
+class RulesExtension extends \_PhpScoper26e51eeacccf\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScopera143bcca66cb\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
     {
-        return \_PhpScopera143bcca66cb\Nette\Schema\Expect::listOf('string');
+        return \_PhpScoper26e51eeacccf\Nette\Schema\Expect::listOf('string');
     }
     public function loadConfiguration() : void
     {

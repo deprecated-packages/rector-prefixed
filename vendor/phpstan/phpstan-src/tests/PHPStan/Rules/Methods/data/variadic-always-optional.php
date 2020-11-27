@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\VariadicParameterAlwaysOptional;
+namespace _PhpScoper26e51eeacccf\VariadicParameterAlwaysOptional;
 
 class Foo
 {
@@ -11,7 +11,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScopera143bcca66cb\VariadicParameterAlwaysOptional\Foo
+class Bar extends \_PhpScoper26e51eeacccf\VariadicParameterAlwaysOptional\Foo
 {
     public function doFoo(string ...$test) : void
     {

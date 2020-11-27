@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection;
 
-interface PseudoType extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type
+interface PseudoType extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
 {
-    public function underlyingType() : \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
+    public function underlyingType() : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
 }

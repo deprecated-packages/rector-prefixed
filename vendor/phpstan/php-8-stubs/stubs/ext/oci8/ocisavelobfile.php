@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /**
  * @alias oci_lob_import
  * @deprecated
  */
-function ocisavelobfile(\_PhpScopera143bcca66cb\OCILob $lob, string $filename) : bool
+function ocisavelobfile(\_PhpScoper26e51eeacccf\OCILob $lob, string $filename) : bool
 {
 }

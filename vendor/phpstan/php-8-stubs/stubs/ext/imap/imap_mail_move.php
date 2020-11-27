@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @param resource $imap */
 function imap_mail_move($imap, string $message_nums, string $mailbox, int $flags = 0) : bool

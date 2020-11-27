@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 class ArrayObject implements \IteratorAggregate, \ArrayAccess, \Serializable, \Countable
@@ -118,4 +118,4 @@ class ArrayObject implements \IteratorAggregate, \ArrayAccess, \Serializable, \C
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\ArrayObject', 'ArrayObject', \false);
+\class_alias('_PhpScoper26e51eeacccf\\ArrayObject', 'ArrayObject', \false);

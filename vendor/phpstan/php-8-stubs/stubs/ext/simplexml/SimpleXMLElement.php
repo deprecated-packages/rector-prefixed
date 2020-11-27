@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class SimpleXMLElement implements \Stringable, \Countable, \RecursiveIterator
 {
@@ -89,4 +89,4 @@ class SimpleXMLElement implements \Stringable, \Countable, \RecursiveIterator
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\SimpleXMLElement', 'SimpleXMLElement', \false);
+\class_alias('_PhpScoper26e51eeacccf\\SimpleXMLElement', 'SimpleXMLElement', \false);

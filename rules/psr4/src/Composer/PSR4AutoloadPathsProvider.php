@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PSR4\Composer;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Json;
+use _PhpScoper26e51eeacccf\Nette\Utils\Json;
 use Symplify\SmartFileSystem\SmartFileSystem;
 final class PSR4AutoloadPathsProvider
 {
@@ -38,7 +38,7 @@ final class PSR4AutoloadPathsProvider
     private function readFileToJsonArray(string $composerJson) : array
     {
         $composerJsonContent = $this->smartFileSystem->readFile($composerJson);
-        return \_PhpScopera143bcca66cb\Nette\Utils\Json::decode($composerJsonContent, \_PhpScopera143bcca66cb\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScoper26e51eeacccf\Nette\Utils\Json::decode($composerJsonContent, \_PhpScoper26e51eeacccf\Nette\Utils\Json::FORCE_ARRAY);
     }
     private function getComposerJsonPath() : string
     {

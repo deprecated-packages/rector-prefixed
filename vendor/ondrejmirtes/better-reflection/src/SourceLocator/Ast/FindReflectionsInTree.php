@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast;
 
 use Closure;
 use PhpParser\Node;
@@ -10,15 +10,15 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\NodeVisitorAbstract;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Util\ConstantNodeChecker;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\ConstantNodeChecker;
 use function assert;
 use function count;
 /**
@@ -35,7 +35,7 @@ final class FindReflectionsInTree
     /**
      * @param Closure(): FunctionReflector $functionReflectorGetter
      */
-    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy $astConversionStrategy, \Closure $functionReflectorGetter)
+    public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy $astConversionStrategy, \Closure $functionReflectorGetter)
     {
         $this->astConversionStrategy = $astConversionStrategy;
         $this->functionReflectorGetter = $functionReflectorGetter;
@@ -47,7 +47,7 @@ final class FindReflectionsInTree
      *
      * @return Reflection[]
      */
-    public function __invoke(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, array $ast, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType $identifierType, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource) : array
+    public function __invoke(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, array $ast, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType $identifierType, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource) : array
     {
         $nodeVisitor = new class($reflector, $identifierType, $locatedSource, $this->astConversionStrategy, $this->functionReflectorGetter->__invoke()) extends \PhpParser\NodeVisitorAbstract
         {
@@ -65,7 +65,7 @@ final class FindReflectionsInTree
             private $currentNamespace;
             /** @var FunctionReflector */
             private $functionReflector;
-            public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType $identifierType, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy $astConversionStrategy, \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
+            public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType $identifierType, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy $astConversionStrategy, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
             {
                 $this->reflector = $reflector;
                 $this->identifierType = $identifierType;
@@ -105,8 +105,8 @@ final class FindReflectionsInTree
                 }
                 if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
                     try {
-                        \_PhpScopera143bcca66cb\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
-                    } catch (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
+                        \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+                    } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
                         return null;
                     }
                     if ($node->name->hasAttribute('namespacedName')) {
@@ -116,7 +116,7 @@ final class FindReflectionsInTree
                             try {
                                 $this->functionReflector->reflect($namespacedName->toString());
                                 return null;
-                            } catch (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                            } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                                 // Global define()
                             }
                         }

@@ -34,7 +34,7 @@ final class LogIdentifierAndResolverValueInConstantClassMethodRector extends \Re
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isInClassNamed($node, '_PhpScopera143bcca66cb\\Doctrine\\Common\\Annotations\\DocParser')) {
+        if (!$this->isInClassNamed($node, '_PhpScoper26e51eeacccf\\Doctrine\\Common\\Annotations\\DocParser')) {
             return null;
         }
         if (!$this->isName($node->name, 'Constant')) {

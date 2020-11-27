@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\PhpGenerator\Traits;
+namespace _PhpScoper26e51eeacccf\Nette\PhpGenerator\Traits;
 
-use _PhpScopera143bcca66cb\Nette;
-use _PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType;
+use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType;
 /**
  * @internal
  */
@@ -22,8 +22,8 @@ trait VisibilityAware
      */
     public function setVisibility(?string $val) : self
     {
-        if (!\in_array($val, [\_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC, \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED, \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE, null], \true)) {
-            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Argument must be public|protected|private.');
+        if (!\in_array($val, [\_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC, \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED, \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE, null], \true)) {
+            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException('Argument must be public|protected|private.');
         }
         $this->visibility = $val;
         return $this;
@@ -35,31 +35,31 @@ trait VisibilityAware
     /** @return static */
     public function setPublic() : self
     {
-        $this->visibility = \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC;
+        $this->visibility = \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC;
         return $this;
     }
     public function isPublic() : bool
     {
-        return $this->visibility === \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC || $this->visibility === null;
+        return $this->visibility === \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PUBLIC || $this->visibility === null;
     }
     /** @return static */
     public function setProtected() : self
     {
-        $this->visibility = \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED;
+        $this->visibility = \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED;
         return $this;
     }
     public function isProtected() : bool
     {
-        return $this->visibility === \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED;
+        return $this->visibility === \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PROTECTED;
     }
     /** @return static */
     public function setPrivate() : self
     {
-        $this->visibility = \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE;
+        $this->visibility = \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE;
         return $this;
     }
     public function isPrivate() : bool
     {
-        return $this->visibility === \_PhpScopera143bcca66cb\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE;
+        return $this->visibility === \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE;
     }
 }

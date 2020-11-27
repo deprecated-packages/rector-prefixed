@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use PhpParser\Node;
 use PhpParser\PrettyPrinter\Standard;
@@ -15,10 +15,10 @@ function print_node($node) : void
     if (\is_array($node)) {
         foreach ($node as $singleNode) {
             $printedContent = $standard->prettyPrint([$singleNode]);
-            \_PhpScopera143bcca66cb\dump($printedContent);
+            \_PhpScoper26e51eeacccf\dump($printedContent);
         }
     } else {
         $printedContent = $standard->prettyPrint([$node]);
-        \_PhpScopera143bcca66cb\dump($printedContent);
+        \_PhpScoper26e51eeacccf\dump($printedContent);
     }
 }

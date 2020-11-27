@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\App\Foo;
+namespace _PhpScoper26e51eeacccf\App\Foo;
 
 use function PHPStan\dumpType;
 function (array $a) {

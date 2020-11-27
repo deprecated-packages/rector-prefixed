@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TraitsCachingIssue;
+namespace _PhpScoper26e51eeacccf\TraitsCachingIssue;
 
 use stdClass as Foo;
 trait TraitOne

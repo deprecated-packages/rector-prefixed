@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /**
  * @alias oci_lob_export
  * @deprecated
  */
-function ociwritelobtofile(\_PhpScopera143bcca66cb\OCILob $lob, string $filename, ?int $offset = null, ?int $length = null) : bool
+function ociwritelobtofile(\_PhpScoper26e51eeacccf\OCILob $lob, string $filename, ?int $offset = null, ?int $length = null) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 class NumberFormatter
@@ -125,4 +125,4 @@ class NumberFormatter
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\NumberFormatter', 'NumberFormatter', \false);
+\class_alias('_PhpScoper26e51eeacccf\\NumberFormatter', 'NumberFormatter', \false);

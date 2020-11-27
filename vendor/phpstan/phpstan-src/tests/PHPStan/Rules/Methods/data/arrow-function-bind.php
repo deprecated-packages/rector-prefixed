@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScopera143bcca66cb\CallArrowFunctionBind;
+namespace _PhpScoper26e51eeacccf\CallArrowFunctionBind;
 
 class Foo
 {
@@ -14,18 +14,18 @@ class Foo
 }
 class Bar
 {
-    public function fooMethod() : \_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo
+    public function fooMethod() : \_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo
     {
-        \Closure::bind(fn(\_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo $foo) => $foo->privateMethod(), null, \_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo::class);
-        \Closure::bind(fn(\_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo $foo) => $foo->nonexistentMethod(), null, \_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo::class);
+        \Closure::bind(fn(\_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo $foo) => $foo->privateMethod(), null, \_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo::class);
+        \Closure::bind(fn(\_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo $foo) => $foo->nonexistentMethod(), null, \_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo::class);
         \Closure::bind(fn() => $this->fooMethod(), $nonexistent, self::class);
         \Closure::bind(fn() => $this->barMethod(), $nonexistent, self::class);
-        \Closure::bind(fn(\_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo $foo) => $foo->privateMethod(), null, '_PhpScopera143bcca66cb\\CallArrowFunctionBind\\Foo');
-        \Closure::bind(fn(\_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo $foo) => $foo->nonexistentMethod(), null, '_PhpScopera143bcca66cb\\CallArrowFunctionBind\\Foo');
-        \Closure::bind(fn(\_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo $foo) => $foo->privateMethod(), null, new \_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo());
-        \Closure::bind(fn(\_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo $foo) => $foo->nonexistentMethod(), null, new \_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo());
-        \Closure::bind(fn() => $this->privateMethod(), $this->fooMethod(), \_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo::class);
-        \Closure::bind(fn() => $this->nonexistentMethod(), $this->fooMethod(), \_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo::class);
-        (fn() => $this->publicMethod())->call(new \_PhpScopera143bcca66cb\CallArrowFunctionBind\Foo());
+        \Closure::bind(fn(\_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo $foo) => $foo->privateMethod(), null, '_PhpScoper26e51eeacccf\\CallArrowFunctionBind\\Foo');
+        \Closure::bind(fn(\_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo $foo) => $foo->nonexistentMethod(), null, '_PhpScoper26e51eeacccf\\CallArrowFunctionBind\\Foo');
+        \Closure::bind(fn(\_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo $foo) => $foo->privateMethod(), null, new \_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo());
+        \Closure::bind(fn(\_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo $foo) => $foo->nonexistentMethod(), null, new \_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo());
+        \Closure::bind(fn() => $this->privateMethod(), $this->fooMethod(), \_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo::class);
+        \Closure::bind(fn() => $this->nonexistentMethod(), $this->fooMethod(), \_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo::class);
+        (fn() => $this->publicMethod())->call(new \_PhpScoper26e51eeacccf\CallArrowFunctionBind\Foo());
     }
 }

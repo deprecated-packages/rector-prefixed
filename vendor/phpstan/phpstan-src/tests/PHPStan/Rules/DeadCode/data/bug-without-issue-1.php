@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\BugWithoutIssue1;
+namespace _PhpScoper26e51eeacccf\BugWithoutIssue1;
 
 interface User
 {
@@ -10,7 +10,7 @@ interface Message
 {
     /** @return object|null */
     public function getScheduleRequest();
-    public function getFromUser() : \_PhpScopera143bcca66cb\BugWithoutIssue1\User;
+    public function getFromUser() : \_PhpScoper26e51eeacccf\BugWithoutIssue1\User;
 }
 interface MessageThread
 {
@@ -23,7 +23,7 @@ interface MessageThread
 }
 class X
 {
-    public function checkAndSendThreadNotRepliedNotification(\_PhpScopera143bcca66cb\BugWithoutIssue1\MessageThread $thread) : bool
+    public function checkAndSendThreadNotRepliedNotification(\_PhpScoper26e51eeacccf\BugWithoutIssue1\MessageThread $thread) : bool
     {
         $threadSR = $thread->getLastScheduleRequest();
         $p = [];

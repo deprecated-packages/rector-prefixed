@@ -122,7 +122,7 @@ class FileTypeMapper
     {
         $phpDocParserVersion = 'Version unknown';
         try {
-            $phpDocParserVersion = \_PhpScopera143bcca66cb\Jean85\PrettyVersions::getVersion('phpstan/phpdoc-parser')->getPrettyVersion();
+            $phpDocParserVersion = \_PhpScoper26e51eeacccf\Jean85\PrettyVersions::getVersion('phpstan/phpdoc-parser')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             // skip
         }
@@ -403,7 +403,7 @@ class FileTypeMapper
     }
     private function getPhpDocKey(?string $class, ?string $trait, ?string $function, string $docComment) : string
     {
-        $docComment = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($docComment, '#\\s+#', ' ');
+        $docComment = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($docComment, '#\\s+#', ' ');
         return \md5(\sprintf('%s-%s-%s-%s', $class, $trait, $function, $docComment));
     }
     /**

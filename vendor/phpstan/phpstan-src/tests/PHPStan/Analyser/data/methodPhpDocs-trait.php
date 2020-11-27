@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MethodPhpDocsNamespace;
+namespace _PhpScoper26e51eeacccf\MethodPhpDocsNamespace;
 
-use _PhpScopera143bcca66cb\SomeNamespace\Amet as Dolor;
-use _PhpScopera143bcca66cb\SomeNamespace\Consecteur;
-class FooWithTrait extends \_PhpScopera143bcca66cb\MethodPhpDocsNamespace\FooParent
+use _PhpScoper26e51eeacccf\SomeNamespace\Amet as Dolor;
+use _PhpScoper26e51eeacccf\SomeNamespace\Consecteur;
+class FooWithTrait extends \_PhpScoper26e51eeacccf\MethodPhpDocsNamespace\FooParent
 {
     use FooTrait;
     /**
@@ -19,7 +19,7 @@ class FooWithTrait extends \_PhpScopera143bcca66cb\MethodPhpDocsNamespace\FooPar
     public function doBar() : array
     {
     }
-    public function returnParent() : \_PhpScopera143bcca66cb\parent
+    public function returnParent() : \_PhpScoper26e51eeacccf\parent
     {
     }
     /**

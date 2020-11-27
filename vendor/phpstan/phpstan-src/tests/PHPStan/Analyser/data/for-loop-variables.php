@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\LoopVariables;
+namespace _PhpScoper26e51eeacccf\LoopVariables;
 
 function () {
     $foo = null;
@@ -8,7 +8,7 @@ function () {
     $falseOrObject = \false;
     for ($i = 0; $i < 10; $i++) {
         'begin';
-        $foo = new \_PhpScopera143bcca66cb\LoopVariables\Foo();
+        $foo = new \_PhpScoper26e51eeacccf\LoopVariables\Foo();
         'afterAssign';
         if ($nullableVal === null) {
             'nullableValIf';
@@ -18,18 +18,18 @@ function () {
             'nullableValElse';
         }
         if ($falseOrObject === \false) {
-            $falseOrObject = new \_PhpScopera143bcca66cb\LoopVariables\Foo();
+            $falseOrObject = new \_PhpScoper26e51eeacccf\LoopVariables\Foo();
         }
         if (something()) {
-            $foo = new \_PhpScopera143bcca66cb\LoopVariables\Bar();
+            $foo = new \_PhpScoper26e51eeacccf\LoopVariables\Bar();
             break;
         }
         if (something()) {
-            $foo = new \_PhpScopera143bcca66cb\LoopVariables\Baz();
+            $foo = new \_PhpScoper26e51eeacccf\LoopVariables\Baz();
             return;
         }
         if (something()) {
-            $foo = new \_PhpScopera143bcca66cb\LoopVariables\Lorem();
+            $foo = new \_PhpScoper26e51eeacccf\LoopVariables\Lorem();
             continue;
         }
         'end';

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Kdyby\Events;
+namespace _PhpScoper26e51eeacccf\Kdyby\Events;
 
-if (\interface_exists('_PhpScopera143bcca66cb\\Kdyby\\Events\\Subscriber')) {
+if (\interface_exists('_PhpScoper26e51eeacccf\\Kdyby\\Events\\Subscriber')) {
     return;
 }
 interface Subscriber

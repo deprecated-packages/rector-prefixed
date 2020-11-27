@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located;
 
-class EvaledLocatedSource extends \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+class EvaledLocatedSource extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource
 {
     /**
      * {@inheritDoc}

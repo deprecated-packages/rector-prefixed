@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type;
 
 use InvalidArgumentException;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
-final class PhpInternalSourceLocator extends \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+final class PhpInternalSourceLocator extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator
 {
     /** @var SourceStubber */
     private $stubber;
-    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $stubber)
+    public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $stubber)
     {
         parent::__construct($astLocator);
         $this->stubber = $stubber;
@@ -26,32 +26,32 @@ final class PhpInternalSourceLocator extends \_PhpScopera143bcca66cb\Roave\Bette
      * @throws InvalidArgumentException
      * @throws InvalidFileLocation
      */
-    protected function createLocatedSource(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    protected function createLocatedSource(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         return $this->getClassSource($identifier) ?? $this->getFunctionSource($identifier) ?? $this->getConstantSource($identifier);
     }
-    private function getClassSource(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource
+    private function getClassSource(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource
     {
         if (!$identifier->isClass()) {
             return null;
         }
         return $this->createLocatedSourceFromStubData($this->stubber->generateClassStub($identifier->getName()));
     }
-    private function getFunctionSource(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource
+    private function getFunctionSource(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource
     {
         if (!$identifier->isFunction()) {
             return null;
         }
         return $this->createLocatedSourceFromStubData($this->stubber->generateFunctionStub($identifier->getName()));
     }
-    private function getConstantSource(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource
+    private function getConstantSource(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource
     {
         if (!$identifier->isConstant()) {
             return null;
         }
         return $this->createLocatedSourceFromStubData($this->stubber->generateConstantStub($identifier->getName()));
     }
-    private function createLocatedSourceFromStubData(?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\StubData $stubData) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource
+    private function createLocatedSourceFromStubData(?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData $stubData) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource
     {
         if ($stubData === null) {
             return null;
@@ -60,6 +60,6 @@ final class PhpInternalSourceLocator extends \_PhpScopera143bcca66cb\Roave\Bette
             // Not internal
             return null;
         }
-        return new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource($stubData->getStub(), $stubData->getExtensionName(), $stubData->getFileName());
+        return new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource($stubData->getStub(), $stubData->getExtensionName(), $stubData->getFileName());
     }
 }

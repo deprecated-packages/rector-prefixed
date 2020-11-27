@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TooWideClosureReturnType;
+namespace _PhpScoper26e51eeacccf\TooWideClosureReturnType;
 
 class Foo
 {

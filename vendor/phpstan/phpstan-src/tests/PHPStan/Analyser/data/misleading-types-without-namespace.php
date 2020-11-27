@@ -1,18 +1,18 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class FooClassForNodeScopeResolverTestingWithoutNamespace
 {
-    public function misleadingBoolReturnType() : \_PhpScopera143bcca66cb\boolean
+    public function misleadingBoolReturnType() : \_PhpScoper26e51eeacccf\boolean
     {
     }
-    public function misleadingIntReturnType() : \_PhpScopera143bcca66cb\integer
+    public function misleadingIntReturnType() : \_PhpScoper26e51eeacccf\integer
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\FooClassForNodeScopeResolverTestingWithoutNamespace', 'FooClassForNodeScopeResolverTestingWithoutNamespace', \false);
+\class_alias('_PhpScoper26e51eeacccf\\FooClassForNodeScopeResolverTestingWithoutNamespace', 'FooClassForNodeScopeResolverTestingWithoutNamespace', \false);
 function () {
-    $foo = new \_PhpScopera143bcca66cb\FooClassForNodeScopeResolverTestingWithoutNamespace();
+    $foo = new \_PhpScoper26e51eeacccf\FooClassForNodeScopeResolverTestingWithoutNamespace();
     die;
 };

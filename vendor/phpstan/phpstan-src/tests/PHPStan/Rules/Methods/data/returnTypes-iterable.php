@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ReturnTypesIterable;
+namespace _PhpScoper26e51eeacccf\ReturnTypesIterable;
 
 class Foo
 {

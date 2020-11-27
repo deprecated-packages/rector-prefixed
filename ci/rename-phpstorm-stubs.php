@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use Rector\Compiler\Renaming\JetbrainsStubsRenamer;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;

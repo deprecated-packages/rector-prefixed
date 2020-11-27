@@ -5,11 +5,11 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\PhpGenerator\Traits;
+namespace _PhpScoper26e51eeacccf\Nette\PhpGenerator\Traits;
 
-use _PhpScopera143bcca66cb\Nette;
-use _PhpScopera143bcca66cb\Nette\PhpGenerator\Dumper;
-use _PhpScopera143bcca66cb\Nette\PhpGenerator\Parameter;
+use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper;
+use _PhpScoper26e51eeacccf\Nette\PhpGenerator\Parameter;
 /**
  * @internal
  */
@@ -30,7 +30,7 @@ trait FunctionLike
     /** @return static */
     public function setBody(string $code, array $args = null) : self
     {
-        $this->body = $args === null ? $code : (new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Dumper())->format($code, ...$args);
+        $this->body = $args === null ? $code : (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->format($code, ...$args);
         return $this;
     }
     public function getBody() : string
@@ -40,7 +40,7 @@ trait FunctionLike
     /** @return static */
     public function addBody(string $code, array $args = null) : self
     {
-        $this->body .= ($args === null ? $code : (new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Dumper())->format($code, ...$args)) . "\n";
+        $this->body .= ($args === null ? $code : (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->format($code, ...$args)) . "\n";
         return $this;
     }
     /**
@@ -51,8 +51,8 @@ trait FunctionLike
     {
         $this->parameters = [];
         foreach ($val as $v) {
-            if (!$v instanceof \_PhpScopera143bcca66cb\Nette\PhpGenerator\Parameter) {
-                throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Parameter[].');
+            if (!$v instanceof \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Parameter) {
+                throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Parameter[].');
             }
             $this->parameters[$v->getName()] = $v;
         }
@@ -66,9 +66,9 @@ trait FunctionLike
     /**
      * @param  string  $name without $
      */
-    public function addParameter(string $name, $defaultValue = null) : \_PhpScopera143bcca66cb\Nette\PhpGenerator\Parameter
+    public function addParameter(string $name, $defaultValue = null) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Parameter
     {
-        $param = new \_PhpScopera143bcca66cb\Nette\PhpGenerator\Parameter($name);
+        $param = new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Parameter($name);
         if (\func_num_args() > 1) {
             $param->setDefaultValue($defaultValue);
         }
@@ -129,7 +129,7 @@ trait FunctionLike
         return $this->returnNullable;
     }
     /** @deprecated */
-    public function setNamespace(\_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpNamespace $val = null) : self
+    public function setNamespace(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace $val = null) : self
     {
         \trigger_error(__METHOD__ . '() is deprecated', \E_USER_DEPRECATED);
         return $this;

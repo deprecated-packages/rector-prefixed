@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\DI\Config;
+namespace _PhpScoper26e51eeacccf\Nette\DI\Config;
 
 /**
  * Adapter for reading and writing configuration files.
@@ -21,4 +21,4 @@ interface Adapter
      */
     function dump(array $data) : string;
 }
-\class_exists(\_PhpScopera143bcca66cb\Nette\DI\Config\IAdapter::class);
+\class_exists(\_PhpScoper26e51eeacccf\Nette\DI\Config\IAdapter::class);

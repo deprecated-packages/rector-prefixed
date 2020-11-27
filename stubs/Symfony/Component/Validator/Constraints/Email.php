@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Symfony\Component\Validator\Constraints;
+namespace _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('_PhpScopera143bcca66cb\\Symfony\\Component\\Validator\\Constraints\\Email')) {
+if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Validator\\Constraints\\Email')) {
     return;
 }
-use _PhpScopera143bcca66cb\Symfony\Component\Validator\Constraint;
+use _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class Email extends \_PhpScopera143bcca66cb\Symfony\Component\Validator\Constraint
+class Email extends \_PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint
 {
     public const VALIDATION_MODE_HTML5 = 'html5';
     public const VALIDATION_MODE_STRICT = 'strict';

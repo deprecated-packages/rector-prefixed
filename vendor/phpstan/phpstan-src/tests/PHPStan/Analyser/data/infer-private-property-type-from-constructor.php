@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InferPrivatePropertyTypeFromConstructor;
+namespace _PhpScoper26e51eeacccf\InferPrivatePropertyTypeFromConstructor;
 
 class Foo
 {

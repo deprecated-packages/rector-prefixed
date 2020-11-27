@@ -36,7 +36,7 @@
 namespace Hoa\Stream\Test\Unit\Filter;
 
 use Hoa\Stream as LUT;
-use _PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic as SUT;
+use _PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic as SUT;
 use Hoa\Test;
 /**
  * Class \Hoa\Stream\Test\Unit\Filter\Basic.
@@ -50,35 +50,35 @@ class Basic extends \Hoa\Test\Unit\Suite
 {
     public function case_constants()
     {
-        $this->integer(\_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic::PASS_ON)->isEqualTo(\PSFS_PASS_ON)->integer(\_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic::FEED_ME)->isEqualTo(\PSFS_FEED_ME)->integer(\_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic::FATAL_ERROR)->isEqualTo(\PSFS_ERR_FATAL)->integer(\_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic::FLAG_NORMAL)->isEqualTo(\PSFS_FLAG_NORMAL)->integer(\_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic::FLAG_FLUSH_INC)->isEqualTo(\PSFS_FLAG_FLUSH_INC)->integer(\_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic::FLAG_FLUSH_CLOSE)->isEqualTo(\PSFS_FLAG_FLUSH_CLOSE);
+        $this->integer(\_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic::PASS_ON)->isEqualTo(\PSFS_PASS_ON)->integer(\_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic::FEED_ME)->isEqualTo(\PSFS_FEED_ME)->integer(\_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic::FATAL_ERROR)->isEqualTo(\PSFS_ERR_FATAL)->integer(\_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic::FLAG_NORMAL)->isEqualTo(\PSFS_FLAG_NORMAL)->integer(\_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic::FLAG_FLUSH_INC)->isEqualTo(\PSFS_FLAG_FLUSH_INC)->integer(\_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic::FLAG_FLUSH_CLOSE)->isEqualTo(\PSFS_FLAG_FLUSH_CLOSE);
     }
     public function case_is_a_php_filter()
     {
-        $this->when($result = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic())->then->object($result)->isInstanceOf(\php_user_filter::class);
+        $this->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic())->then->object($result)->isInstanceOf(\php_user_filter::class);
     }
     public function case_interfaces()
     {
-        $this->when($result = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
+        $this->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
     }
     public function case_set_name()
     {
-        $this->given($filter = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic())->when($result = $filter->setName('foo'))->then->string($result)->isEqualTo('');
+        $this->given($filter = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic())->when($result = $filter->setName('foo'))->then->string($result)->isEqualTo('');
     }
     public function case_get_name()
     {
-        $this->given($filter = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic(), $name = 'foo', $filter->setName($name))->when($result = $filter->getName())->then->string($result)->isEqualTo($name);
+        $this->given($filter = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic(), $name = 'foo', $filter->setName($name))->when($result = $filter->getName())->then->string($result)->isEqualTo($name);
     }
     public function case_set_parameters()
     {
-        $this->given($filter = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic())->when($result = $filter->setParameters(['foo', 'bar', 'baz']))->then->string($result)->isEqualTo('');
+        $this->given($filter = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic())->when($result = $filter->setParameters(['foo', 'bar', 'baz']))->then->string($result)->isEqualTo('');
     }
     public function case_get_parameters()
     {
-        $this->given($filter = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic(), $parameters = ['foo', 'bar', 'baz'], $filter->setParameters($parameters))->when($result = $filter->getParameters())->then->array($result)->isEqualTo($parameters);
+        $this->given($filter = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic(), $parameters = ['foo', 'bar', 'baz'], $filter->setParameters($parameters))->when($result = $filter->getParameters())->then->array($result)->isEqualTo($parameters);
     }
     public function case_get_stream()
     {
-        $this->given($filter = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Filter\Basic())->when($result = $filter->getStream())->then->variable($result)->isNull();
+        $this->given($filter = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Filter\Basic())->when($result = $filter->getStream())->then->variable($result)->isNull();
         // Only available when filtering, so `null` is valid.
     }
 }

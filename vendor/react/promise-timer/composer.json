@@ -19,7 +19,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "_PhpScopera143bcca66cb\\React\\Promise\\Timer\\": "src\/"
+            "_PhpScoper26e51eeacccf\\React\\Promise\\Timer\\": "src\/"
         },
         "files": [
             "src\/functions_include.php"
@@ -27,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScopera143bcca66cb\\React\\Tests\\Promise\\Timer\\": "tests\/"
+            "_PhpScoper26e51eeacccf\\React\\Tests\\Promise\\Timer\\": "tests\/"
         }
     },
     "require": {

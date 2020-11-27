@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector;
 use Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector;

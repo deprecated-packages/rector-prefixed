@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\FinalAnnotations;
+namespace _PhpScoper26e51eeacccf\FinalAnnotations;
 
 function foo()
 {

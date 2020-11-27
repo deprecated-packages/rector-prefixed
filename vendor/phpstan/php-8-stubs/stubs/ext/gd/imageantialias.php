@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imageantialias(\_PhpScopera143bcca66cb\GdImage $image, bool $enable) : bool
+function imageantialias(\_PhpScoper26e51eeacccf\GdImage $image, bool $enable) : bool
 {
 }

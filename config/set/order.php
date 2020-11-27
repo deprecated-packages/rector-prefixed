@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 use Rector\Order\Rector\Class_\OrderClassConstantsByIntegerValueRector;
 use Rector\Order\Rector\Class_\OrderConstantsByVisibilityRector;

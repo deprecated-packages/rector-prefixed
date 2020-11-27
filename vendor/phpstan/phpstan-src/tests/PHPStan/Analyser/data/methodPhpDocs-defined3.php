@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\MethodPhpDocsNamespace;
+namespace _PhpScoper26e51eeacccf\MethodPhpDocsNamespace;
 
-use _PhpScopera143bcca66cb\SomeNamespace\Amet as Dolor;
-class Baz extends \_PhpScopera143bcca66cb\MethodPhpDocsNamespace\Bar
+use _PhpScoper26e51eeacccf\SomeNamespace\Amet as Dolor;
+class Baz extends \_PhpScoper26e51eeacccf\MethodPhpDocsNamespace\Bar
 {
 }

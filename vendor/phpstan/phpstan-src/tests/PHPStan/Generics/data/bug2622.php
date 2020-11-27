@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Generics\Bug2622;
+namespace _PhpScoper26e51eeacccf\Generics\Bug2622;
 
 /**
  * @template TValue

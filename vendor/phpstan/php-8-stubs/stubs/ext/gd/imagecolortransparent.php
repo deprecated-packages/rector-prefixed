@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imagecolortransparent(\_PhpScopera143bcca66cb\GdImage $image, ?int $color = null) : ?int
+function imagecolortransparent(\_PhpScoper26e51eeacccf\GdImage $image, ?int $color = null) : ?int
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug3866;
+namespace _PhpScoper26e51eeacccf\Bug3866;
 
 use DateTimeImmutable;
 use Ds\Set;

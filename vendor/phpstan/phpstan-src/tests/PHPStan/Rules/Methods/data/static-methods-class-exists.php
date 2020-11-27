@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\StaticMethodsClassExists;
+namespace _PhpScoper26e51eeacccf\StaticMethodsClassExists;
 
 use function class_exists;
 class Foo
 {
     public function doFoo() : void
     {
-        if (!\class_exists(\_PhpScopera143bcca66cb\StaticMethodsClassExists\Bar::class)) {
+        if (!\class_exists(\_PhpScoper26e51eeacccf\StaticMethodsClassExists\Bar::class)) {
             return;
         }
-        \_PhpScopera143bcca66cb\StaticMethodsClassExists\Bar::doBar();
+        \_PhpScoper26e51eeacccf\StaticMethodsClassExists\Bar::doBar();
     }
 }

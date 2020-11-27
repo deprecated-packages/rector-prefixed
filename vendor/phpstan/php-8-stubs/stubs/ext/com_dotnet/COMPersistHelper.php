@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 final class COMPersistHelper
 {
-    public function __construct(?\_PhpScopera143bcca66cb\variant $variant)
+    public function __construct(?\_PhpScoper26e51eeacccf\variant $variant)
     {
     }
     public function GetCurFileName() : string|false
@@ -33,4 +33,4 @@ final class COMPersistHelper
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\COMPersistHelper', 'COMPersistHelper', \false);
+\class_alias('_PhpScoper26e51eeacccf\\COMPersistHelper', 'COMPersistHelper', \false);

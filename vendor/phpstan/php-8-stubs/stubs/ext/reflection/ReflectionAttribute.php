@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 final class ReflectionAttribute
 {
@@ -26,4 +26,4 @@ final class ReflectionAttribute
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\ReflectionAttribute', 'ReflectionAttribute', \false);
+\class_alias('_PhpScoper26e51eeacccf\\ReflectionAttribute', 'ReflectionAttribute', \false);

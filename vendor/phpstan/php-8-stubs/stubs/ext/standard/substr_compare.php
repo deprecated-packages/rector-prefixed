@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 function substr_compare(string $haystack, string $needle, int $offset, ?int $length = null, bool $case_insensitive = \false) : int
 {

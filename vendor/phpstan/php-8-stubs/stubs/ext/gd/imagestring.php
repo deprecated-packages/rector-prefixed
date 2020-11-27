@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imagestring(\_PhpScopera143bcca66cb\GdImage $image, int $font, int $x, int $y, string $string, int $color) : bool
+function imagestring(\_PhpScoper26e51eeacccf\GdImage $image, int $font, int $x, int $y, string $string, int $color) : bool
 {
 }

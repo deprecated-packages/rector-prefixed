@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\UnionProperties;
+namespace _PhpScoper26e51eeacccf\UnionProperties;
 
 class Foo
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallGenericFunction;
+namespace _PhpScoper26e51eeacccf\CallGenericFunction;
 
 /**
  * @template A

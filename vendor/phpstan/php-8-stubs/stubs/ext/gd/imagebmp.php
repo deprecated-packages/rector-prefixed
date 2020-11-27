@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 #ifdef HAVE_GD_BMP
 /** @param resource|string|null $file */
-function imagebmp(\_PhpScopera143bcca66cb\GdImage $image, $file = null, bool $compressed = \true) : bool
+function imagebmp(\_PhpScoper26e51eeacccf\GdImage $image, $file = null, bool $compressed = \true) : bool
 {
 }

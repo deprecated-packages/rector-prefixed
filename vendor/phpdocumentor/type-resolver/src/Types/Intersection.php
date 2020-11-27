@@ -9,9 +9,9 @@
  *  @link      http://phpdoc.org
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing a Compound Type.
  *
@@ -21,7 +21,7 @@ use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-final class Intersection extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\AggregatedType
+final class Intersection extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\AggregatedType
 {
     /**
      * Initializes a intersection type (i.e. `\A&\B`) and tests if the provided types all implement the Type interface.

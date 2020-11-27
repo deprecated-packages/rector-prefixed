@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\Command;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater;
 use Rector\RectorGenerator\Config\ConfigFilesystem;
@@ -12,13 +12,13 @@ use Rector\RectorGenerator\Generator\FileGenerator;
 use Rector\RectorGenerator\Guard\OverrideGuard;
 use Rector\RectorGenerator\Provider\RectorRecipeProvider;
 use Rector\RectorGenerator\TemplateVariablesFactory;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileInfo;
-final class GenerateCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command
+final class GenerateCommand extends \_PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command
 {
     /**
      * @var SymfonyStyle
@@ -69,7 +69,7 @@ final class GenerateCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Co
         $this->setAliases(['c', 'create', 'g']);
         $this->setDescription('[DEV] Create a new Rector, in a proper location, with new tests');
     }
-    protected function execute(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $rectorRecipe = $this->rectorRecipeProvider->provide();
         $templateVariables = $this->templateVariablesFactory->createFromRectorRecipe($rectorRecipe);
@@ -94,7 +94,7 @@ final class GenerateCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Co
     private function resolveTestCaseDirectoryPath(array $generatedFilePaths) : string
     {
         foreach ($generatedFilePaths as $generatedFilePath) {
-            if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
+            if (!\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
                 continue;
             }
             $generatedFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);

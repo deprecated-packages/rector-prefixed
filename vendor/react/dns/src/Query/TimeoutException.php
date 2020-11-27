@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Dns\Query;
+namespace _PhpScoper26e51eeacccf\React\Dns\Query;
 
 final class TimeoutException extends \Exception
 {

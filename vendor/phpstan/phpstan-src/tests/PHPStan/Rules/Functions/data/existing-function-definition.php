@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallToExistingFunction;
+namespace _PhpScoper26e51eeacccf\CallToExistingFunction;
 
 function foo()
 {

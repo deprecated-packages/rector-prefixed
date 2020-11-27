@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imageaffine(\_PhpScopera143bcca66cb\GdImage $image, array $affine, ?array $clip = null) : \GdImage|false
+function imageaffine(\_PhpScoper26e51eeacccf\GdImage $image, array $affine, ?array $clip = null) : \GdImage|false
 {
 }

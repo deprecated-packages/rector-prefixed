@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Bug3133;
+namespace _PhpScoper26e51eeacccf\Bug3133;
 
 use function PHPStan\Analyser\assertType;
 class Foo

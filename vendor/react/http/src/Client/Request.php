@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\Http\Client;
+namespace _PhpScoper26e51eeacccf\React\Http\Client;
 
-use _PhpScopera143bcca66cb\Evenement\EventEmitter;
-use _PhpScopera143bcca66cb\React\Promise;
-use _PhpScopera143bcca66cb\React\Socket\ConnectionInterface;
-use _PhpScopera143bcca66cb\React\Socket\ConnectorInterface;
-use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
-use _PhpScopera143bcca66cb\RingCentral\Psr7 as gPsr;
+use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoper26e51eeacccf\React\Promise;
+use _PhpScoper26e51eeacccf\React\Socket\ConnectionInterface;
+use _PhpScoper26e51eeacccf\React\Socket\ConnectorInterface;
+use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
+use _PhpScoper26e51eeacccf\RingCentral\Psr7 as gPsr;
 /**
  * @event response
  * @event drain
@@ -15,7 +15,7 @@ use _PhpScopera143bcca66cb\RingCentral\Psr7 as gPsr;
  * @event end
  * @internal
  */
-class Request extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface
+class Request extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface
 {
     const STATE_INIT = 0;
     const STATE_WRITING_HEAD = 1;
@@ -29,7 +29,7 @@ class Request extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements 
     private $state = self::STATE_INIT;
     private $ended = \false;
     private $pendingWrites = '';
-    public function __construct(\_PhpScopera143bcca66cb\React\Socket\ConnectorInterface $connector, \_PhpScopera143bcca66cb\React\Http\Client\RequestData $requestData)
+    public function __construct(\_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface $connector, \_PhpScoper26e51eeacccf\React\Http\Client\RequestData $requestData)
     {
         $this->connector = $connector;
         $this->requestData = $requestData;
@@ -47,7 +47,7 @@ class Request extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements 
         $pendingWrites =& $this->pendingWrites;
         $that = $this;
         $promise = $this->connect();
-        $promise->then(function (\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $stream) use($requestData, &$streamRef, &$stateRef, &$pendingWrites, $that) {
+        $promise->then(function (\_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $stream) use($requestData, &$streamRef, &$stateRef, &$pendingWrites, $that) {
             $streamRef = $stream;
             $stream->on('drain', array($that, 'handleDrain'));
             $stream->on('data', array($that, 'handleData'));
@@ -56,7 +56,7 @@ class Request extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements 
             $stream->on('close', array($that, 'handleClose'));
             $headers = (string) $requestData;
             $more = $stream->write($headers . $pendingWrites);
-            $stateRef = \_PhpScopera143bcca66cb\React\Http\Client\Request::STATE_HEAD_WRITTEN;
+            $stateRef = \_PhpScoper26e51eeacccf\React\Http\Client\Request::STATE_HEAD_WRITTEN;
             // clear pending writes if non-empty
             if ($pendingWrites !== '') {
                 $pendingWrites = '';
@@ -111,7 +111,7 @@ class Request extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements 
         // buffer until double CRLF (or double LF for compatibility with legacy servers)
         if (\false !== \strpos($this->buffer, "\r\n\r\n") || \false !== \strpos($this->buffer, "\n\n")) {
             try {
-                $response = \_PhpScopera143bcca66cb\RingCentral\Psr7\parse_response($this->buffer);
+                $response = \_PhpScoper26e51eeacccf\RingCentral\Psr7\parse_response($this->buffer);
                 $bodyChunk = (string) $response->getBody();
             } catch (\InvalidArgumentException $exception) {
                 $this->emit('error', array($exception));
@@ -171,7 +171,7 @@ class Request extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements 
     {
         $scheme = $this->requestData->getScheme();
         if ($scheme !== 'https' && $scheme !== 'http') {
-            return \_PhpScopera143bcca66cb\React\Promise\reject(new \InvalidArgumentException('Invalid request URL given'));
+            return \_PhpScoper26e51eeacccf\React\Promise\reject(new \InvalidArgumentException('Invalid request URL given'));
         }
         $host = $this->requestData->getHost();
         $port = $this->requestData->getPort();

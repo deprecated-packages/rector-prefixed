@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function oci_lob_import(\_PhpScopera143bcca66cb\OCILob $lob, string $filename) : bool
+function oci_lob_import(\_PhpScoper26e51eeacccf\OCILob $lob, string $filename) : bool
 {
 }

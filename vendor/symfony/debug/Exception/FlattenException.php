@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopera143bcca66cb\Symfony\Component\Debug\Exception;
+namespace _PhpScoper26e51eeacccf\Symfony\Component\Debug\Exception;
 
-use _PhpScopera143bcca66cb\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 /**
  * FlattenException wraps a PHP Error or Exception to be able to serialize it.
  *
@@ -48,10 +48,10 @@ class FlattenException
         $e = new static();
         $e->setMessage($exception->getMessage());
         $e->setCode($exception->getCode());
-        if ($exception instanceof \_PhpScopera143bcca66cb\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
+        if ($exception instanceof \_PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
             $headers = \array_merge($headers, $exception->getHeaders());
-        } elseif ($exception instanceof \_PhpScopera143bcca66cb\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface) {
+        } elseif ($exception instanceof \_PhpScoper26e51eeacccf\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface) {
             $statusCode = 400;
         }
         if (null === $statusCode) {
@@ -60,7 +60,7 @@ class FlattenException
         $e->setStatusCode($statusCode);
         $e->setHeaders($headers);
         $e->setTraceFromThrowable($exception);
-        $e->setClass($exception instanceof \_PhpScopera143bcca66cb\Symfony\Component\Debug\Exception\FatalThrowableError ? $exception->getOriginalClassName() : \get_debug_type($exception));
+        $e->setClass($exception instanceof \_PhpScoper26e51eeacccf\Symfony\Component\Debug\Exception\FatalThrowableError ? $exception->getOriginalClassName() : \get_debug_type($exception));
         $e->setFile($exception->getFile());
         $e->setLine($exception->getLine());
         $previous = $exception->getPrevious();

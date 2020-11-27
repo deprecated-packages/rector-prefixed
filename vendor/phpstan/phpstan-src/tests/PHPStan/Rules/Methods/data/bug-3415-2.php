@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Bug3415Two;
+namespace _PhpScoper26e51eeacccf\Bug3415Two;
 
 trait Foo
 {

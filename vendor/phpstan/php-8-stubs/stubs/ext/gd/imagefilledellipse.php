@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imagefilledellipse(\_PhpScopera143bcca66cb\GdImage $image, int $center_x, int $center_y, int $width, int $height, int $color) : bool
+function imagefilledellipse(\_PhpScoper26e51eeacccf\GdImage $image, int $center_x, int $center_y, int $width, int $height, int $color) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\DisallowNamedArguments;
+namespace _PhpScoper26e51eeacccf\DisallowNamedArguments;
 
 class Foo
 {

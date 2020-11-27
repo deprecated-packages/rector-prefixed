@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 interface DOMChildNode
 {
@@ -12,4 +12,4 @@ interface DOMChildNode
     /** @param DOMNode|string $nodes */
     public function replaceWith(...$nodes) : void;
 }
-\class_alias('_PhpScopera143bcca66cb\\DOMChildNode', 'DOMChildNode', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DOMChildNode', 'DOMChildNode', \false);

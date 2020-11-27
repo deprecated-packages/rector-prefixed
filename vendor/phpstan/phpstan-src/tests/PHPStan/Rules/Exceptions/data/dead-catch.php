@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\DeadCatch;
+namespace _PhpScoper26e51eeacccf\DeadCatch;
 
 class Foo
 {

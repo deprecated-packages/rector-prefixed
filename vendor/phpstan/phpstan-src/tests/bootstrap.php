@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 \error_reporting(\E_ALL);
 require_once __DIR__ . '/../vendor/autoload.php';

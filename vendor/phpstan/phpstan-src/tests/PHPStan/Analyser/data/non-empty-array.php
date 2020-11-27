@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\NonEmptyArray;
+namespace _PhpScoper26e51eeacccf\NonEmptyArray;
 
 use function PHPStan\Analyser\assertType;
 class Foo

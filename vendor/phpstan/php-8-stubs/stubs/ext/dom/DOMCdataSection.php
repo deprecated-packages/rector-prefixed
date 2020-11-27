@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class DOMCdataSection
 {
@@ -8,4 +8,4 @@ class DOMCdataSection
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\DOMCdataSection', 'DOMCdataSection', \false);
+\class_alias('_PhpScoper26e51eeacccf\\DOMCdataSection', 'DOMCdataSection', \false);

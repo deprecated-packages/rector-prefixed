@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\YieldFromCheck;
+namespace _PhpScoper26e51eeacccf\YieldFromCheck;
 
 use DateTimeImmutable;
 class Foo

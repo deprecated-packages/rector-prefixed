@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\TestAccessPropertiesAssign;
+namespace _PhpScoper26e51eeacccf\TestAccessPropertiesAssign;
 
 class AccessPropertyWithDimFetch
 {

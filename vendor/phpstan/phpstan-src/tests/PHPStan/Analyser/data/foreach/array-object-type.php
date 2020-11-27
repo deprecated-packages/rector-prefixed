@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ArrayObjectType;
+namespace _PhpScoper26e51eeacccf\ArrayObjectType;
 
-use _PhpScopera143bcca66cb\AnotherNamespace\Foo;
+use _PhpScoper26e51eeacccf\AnotherNamespace\Foo;
 class Test
 {
     const ARRAY_CONSTANT = [0, 1, 2, 3];

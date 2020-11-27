@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\MissingReturn;
+namespace _PhpScoper26e51eeacccf\Levels\MissingReturn;
 
 class Foo
 {

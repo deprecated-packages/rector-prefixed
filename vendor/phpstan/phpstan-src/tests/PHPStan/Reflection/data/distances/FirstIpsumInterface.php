@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\HierarchyDistances;
+namespace _PhpScoper26e51eeacccf\HierarchyDistances;
 
-interface FirstIpsumInterface extends \_PhpScopera143bcca66cb\HierarchyDistances\ExtendedIpsumInterface
+interface FirstIpsumInterface extends \_PhpScoper26e51eeacccf\HierarchyDistances\ExtendedIpsumInterface
 {
 }

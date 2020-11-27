@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /* dateformat */
 /** @param IntlTimeZone|DateTimeZone|string|null $timezone */

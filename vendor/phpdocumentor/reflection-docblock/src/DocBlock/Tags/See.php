@@ -10,20 +10,20 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen as FqsenRef;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Reference\Url;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\FqsenResolver;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen as FqsenRef;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Reference\Url;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\FqsenResolver;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoper26e51eeacccf\Webmozart\Assert\Assert;
 /**
  * Reflection class for an {@}see tag in a Docblock.
  */
-class See extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+class See extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'see';
     /** @var Reference */
@@ -34,7 +34,7 @@ class See extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags
      * @param Reference $refers
      * @param Description $description
      */
-    public function __construct(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference $refers, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct(\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference $refers, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
         $this->refers = $refers;
         $this->description = $description;
@@ -42,17 +42,17 @@ class See extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::string($body);
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allNotNull([$resolver, $descriptionFactory]);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::string($body);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::allNotNull([$resolver, $descriptionFactory]);
         $parts = \preg_split('/\\s+/Su', $body, 2);
         $description = isset($parts[1]) ? $descriptionFactory->create($parts[1], $context) : null;
         // https://tools.ietf.org/html/rfc2396#section-3
         if (\preg_match('/\\w:\\/\\/\\w/i', $parts[0])) {
-            return new static(new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Reference\Url($parts[0]), $description);
+            return new static(new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Reference\Url($parts[0]), $description);
         }
-        return new static(new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen($resolver->resolve($parts[0], $context)), $description);
+        return new static(new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen($resolver->resolve($parts[0], $context)), $description);
     }
     /**
      * Returns the ref of this tag.

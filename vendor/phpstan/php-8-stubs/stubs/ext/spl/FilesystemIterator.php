@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class FilesystemIterator extends \DirectoryIterator
 {
@@ -28,4 +28,4 @@ class FilesystemIterator extends \DirectoryIterator
     {
     }
 }
-\class_alias('_PhpScopera143bcca66cb\\FilesystemIterator', 'FilesystemIterator', \false);
+\class_alias('_PhpScoper26e51eeacccf\\FilesystemIterator', 'FilesystemIterator', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\CallTraitOverriddenMethods;
+namespace _PhpScoper26e51eeacccf\CallTraitOverriddenMethods;
 
 trait TraitA
 {

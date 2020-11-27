@@ -5,12 +5,12 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Nette\DI;
+namespace _PhpScoper26e51eeacccf\Nette\DI;
 
-use _PhpScopera143bcca66cb\Nette;
+use _PhpScoper26e51eeacccf\Nette;
 /**
  * @internal
  */
-final class DynamicParameter extends \_PhpScopera143bcca66cb\Nette\PhpGenerator\PhpLiteral implements \_PhpScopera143bcca66cb\Nette\Schema\DynamicParameter
+final class DynamicParameter extends \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpLiteral implements \_PhpScoper26e51eeacccf\Nette\Schema\DynamicParameter
 {
 }

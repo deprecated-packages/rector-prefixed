@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Rector\ClassMethod;
 
-use _PhpScopera143bcca66cb\Nette\Utils\Strings;
+use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -117,7 +117,7 @@ CODE_SAMPLE
         if ($classLike === null) {
             return \true;
         }
-        if (!$this->isObjectType($classLike, '_PhpScopera143bcca66cb\\Kdyby\\Events\\Subscriber')) {
+        if (!$this->isObjectType($classLike, '_PhpScoper26e51eeacccf\\Kdyby\\Events\\Subscriber')) {
             return \true;
         }
         return !$this->isName($classMethod, 'getSubscribedEvents');
@@ -156,8 +156,8 @@ CODE_SAMPLE
     private function resolveMethodNameFromKdybyEventName(\PhpParser\Node\Expr $expr) : string
     {
         $kdybyEventName = $this->getValue($expr);
-        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
-            return (string) \_PhpScopera143bcca66cb\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
+        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
+            return (string) \_PhpScoper26e51eeacccf\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
         }
         throw new \Rector\Core\Exception\NotImplementedException($kdybyEventName);
     }

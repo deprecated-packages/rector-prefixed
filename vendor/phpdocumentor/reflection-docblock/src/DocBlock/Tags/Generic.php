@@ -10,17 +10,17 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\StandardTagFactory;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\StandardTagFactory;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoper26e51eeacccf\Webmozart\Assert\Assert;
 /**
  * Parses a tag definition for a DocBlock.
  */
-class Generic extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+class Generic extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /**
      * Parses a tag and populates the member variables.
@@ -28,7 +28,7 @@ class Generic extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\
      * @param string $name Name of the tag.
      * @param Description $description The contents of the given tag.
      */
-    public function __construct($name, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($name, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
         $this->validateTagName($name);
         $this->name = $name;
@@ -44,11 +44,11 @@ class Generic extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\
      *
      * @return static
      */
-    public static function create($body, $name = '', \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, $name = '', \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::string($body);
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::stringNotEmpty($name);
-        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::notNull($descriptionFactory);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::string($body);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::stringNotEmpty($name);
+        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::notNull($descriptionFactory);
         $description = $descriptionFactory && $body !== "" ? $descriptionFactory->create($body, $context) : null;
         return new static($name, $description);
     }
@@ -70,7 +70,7 @@ class Generic extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\
      */
     private function validateTagName($name)
     {
-        if (!\preg_match('/^' . \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\StandardTagFactory::REGEX_TAGNAME . '$/u', $name)) {
+        if (!\preg_match('/^' . \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\StandardTagFactory::REGEX_TAGNAME . '$/u', $name)) {
             throw new \InvalidArgumentException('The tag name "' . $name . '" is not wellformed. Tags may only consist of letters, underscores, ' . 'hyphens and backslashes.');
         }
     }

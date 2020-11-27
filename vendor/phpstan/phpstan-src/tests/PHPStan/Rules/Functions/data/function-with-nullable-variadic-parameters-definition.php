@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\FunctionWithNullableVariadicParameters;
+namespace _PhpScoper26e51eeacccf\FunctionWithNullableVariadicParameters;
 
 function foo($bar, ?int ...$foo)
 {

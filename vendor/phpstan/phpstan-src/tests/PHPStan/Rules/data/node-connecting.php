@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\NodeConnecting;
+namespace _PhpScoper26e51eeacccf\NodeConnecting;
 
 function foobar() : void
 {

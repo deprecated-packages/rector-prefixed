@@ -1,7 +1,7 @@
 <?php
 
 // lint < 8.0
-namespace _PhpScopera143bcca66cb\UnsetCast;
+namespace _PhpScoper26e51eeacccf\UnsetCast;
 
 function ($a) : void {
     $null = (unset) $a;

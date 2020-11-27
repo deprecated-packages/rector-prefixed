@@ -36,7 +36,7 @@
 namespace Hoa\Compiler\Test\Unit\Llk\Rule;
 
 use Hoa\Test;
-use _PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule as SUT;
+use _PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule as SUT;
 /**
  * Class \Hoa\Compiler\Test\Unit\Llk\Rule\Rule.
  *
@@ -49,78 +49,78 @@ class Rule extends \Hoa\Test\Unit\Suite
 {
     public function case_constructor()
     {
-        $this->given($name = 'foo', $children = ['bar'])->when($result = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children))->then->string($result->getName())->isEqualTo($name)->array($result->getChildren())->isEqualTo($children)->variable($result->getNodeId())->isNull()->boolean($result->isTransitional())->isTrue();
+        $this->given($name = 'foo', $children = ['bar'])->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children))->then->string($result->getName())->isEqualTo($name)->array($result->getChildren())->isEqualTo($children)->variable($result->getNodeId())->isNull()->boolean($result->isTransitional())->isTrue();
     }
     public function case_constructor_with_node_id()
     {
-        $this->given($name = 'foo', $children = ['bar'], $nodeId = 'baz')->when($result = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children, $nodeId))->then->string($result->getName())->isEqualTo($name)->array($result->getChildren())->isEqualTo($children)->string($result->getNodeId())->isEqualTo($nodeId)->boolean($result->isTransitional())->isTrue();
+        $this->given($name = 'foo', $children = ['bar'], $nodeId = 'baz')->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children, $nodeId))->then->string($result->getName())->isEqualTo($name)->array($result->getChildren())->isEqualTo($children)->string($result->getNodeId())->isEqualTo($nodeId)->boolean($result->isTransitional())->isTrue();
     }
     public function case_set_name()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children))->when($result = $rule->setName('baz'))->then->string($result)->isEqualTo($name);
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children))->when($result = $rule->setName('baz'))->then->string($result)->isEqualTo($name);
     }
     public function case_get_name()
     {
-        $this->given($name = 'baz', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule('foo', $children), $rule->setName($name))->when($result = $rule->getName())->then->string($result)->isEqualTo($name);
+        $this->given($name = 'baz', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule('foo', $children), $rule->setName($name))->when($result = $rule->getName())->then->string($result)->isEqualTo($name);
     }
     public function case_set_children()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children))->when($result = $this->invoke($rule)->setChildren(['baz']))->then->array($result)->isEqualTo($children);
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children))->when($result = $this->invoke($rule)->setChildren(['baz']))->then->array($result)->isEqualTo($children);
     }
     public function case_get_children()
     {
-        $this->given($name = 'foo', $children = ['baz'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, ['bar']), $this->invoke($rule)->setChildren($children))->when($result = $rule->getChildren())->then->array($result)->isEqualTo($children);
+        $this->given($name = 'foo', $children = ['baz'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, ['bar']), $this->invoke($rule)->setChildren($children))->when($result = $rule->getChildren())->then->array($result)->isEqualTo($children);
     }
     public function case_set_node_id()
     {
-        $this->given($name = 'foo', $children = ['bar'], $nodeId = 'id', $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children, $nodeId))->when($result = $rule->setNodeId('baz:qux'))->then->string($result)->isEqualTo($nodeId);
+        $this->given($name = 'foo', $children = ['bar'], $nodeId = 'id', $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children, $nodeId))->when($result = $rule->setNodeId('baz:qux'))->then->string($result)->isEqualTo($nodeId);
     }
     public function case_get_node_id()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setNodeId('baz'))->when($result = $rule->getNodeId())->then->string($result)->isEqualTo('baz');
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setNodeId('baz'))->when($result = $rule->getNodeId())->then->string($result)->isEqualTo('baz');
     }
     public function case_get_node_id_with_options()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setNodeId('baz:qux'))->when($result = $rule->getNodeId())->then->string($result)->isEqualTo('baz');
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setNodeId('baz:qux'))->when($result = $rule->getNodeId())->then->string($result)->isEqualTo('baz');
     }
     public function case_get_node_options_empty()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setNodeId('baz'))->when($result = $rule->getNodeOptions())->then->array($result)->isEmpty();
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setNodeId('baz'))->when($result = $rule->getNodeOptions())->then->array($result)->isEmpty();
     }
     public function case_get_node_options()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setNodeId('baz:qux'))->when($result = $rule->getNodeOptions())->then->array($result)->isEqualTo(['q', 'u', 'x']);
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setNodeId('baz:qux'))->when($result = $rule->getNodeOptions())->then->array($result)->isEqualTo(['q', 'u', 'x']);
     }
     public function case_set_default_id()
     {
-        $this->given($name = 'foo', $children = ['bar'], $nodeId = 'id', $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children, $nodeId))->when($result = $rule->setDefaultId('baz:qux'))->then->variable($result)->isNull();
+        $this->given($name = 'foo', $children = ['bar'], $nodeId = 'id', $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children, $nodeId))->when($result = $rule->setDefaultId('baz:qux'))->then->variable($result)->isNull();
     }
     public function case_get_default_id()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setDefaultId('baz'))->when($result = $rule->getDefaultId())->then->string($result)->isEqualTo('baz');
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setDefaultId('baz'))->when($result = $rule->getDefaultId())->then->string($result)->isEqualTo('baz');
     }
     public function case_get_default_id_with_options()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setDefaultId('baz:qux'))->when($result = $rule->getDefaultId())->then->string($result)->isEqualTo('baz');
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setDefaultId('baz:qux'))->when($result = $rule->getDefaultId())->then->string($result)->isEqualTo('baz');
     }
     public function case_get_default_options_empty()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setDefaultId('baz'))->when($result = $rule->getDefaultOptions())->then->array($result)->isEmpty();
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setDefaultId('baz'))->when($result = $rule->getDefaultOptions())->then->array($result)->isEmpty();
     }
     public function case_get_default_options()
     {
-        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setDefaultId('baz:qux'))->when($result = $rule->getDefaultOptions())->then->array($result)->isEqualTo(['q', 'u', 'x']);
+        $this->given($name = 'foo', $children = ['bar'], $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setDefaultId('baz:qux'))->when($result = $rule->getDefaultOptions())->then->array($result)->isEqualTo(['q', 'u', 'x']);
     }
     public function case_set_pp_representation()
     {
-        $this->given($name = 'foo', $children = ['bar'], $pp = '<a> ::b:: c()?', $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $oldIsTransitional = $rule->isTransitional())->when($result = $rule->setPPRepresentation($pp))->then->variable($result)->isNull()->boolean($oldIsTransitional)->isTrue()->boolean($rule->isTransitional())->isFalse();
+        $this->given($name = 'foo', $children = ['bar'], $pp = '<a> ::b:: c()?', $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $oldIsTransitional = $rule->isTransitional())->when($result = $rule->setPPRepresentation($pp))->then->variable($result)->isNull()->boolean($oldIsTransitional)->isTrue()->boolean($rule->isTransitional())->isFalse();
     }
     public function case_get_pp_representation()
     {
-        $this->given($name = 'foo', $children = ['bar'], $pp = '<a> ::b:: c()?', $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setPPRepresentation($pp))->when($result = $rule->getPPRepresentation())->then->string($result)->isEqualTo($pp);
+        $this->given($name = 'foo', $children = ['bar'], $pp = '<a> ::b:: c()?', $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $rule->setPPRepresentation($pp))->when($result = $rule->getPPRepresentation())->then->string($result)->isEqualTo($pp);
     }
     public function case_is_transitional()
     {
-        $this->given($name = 'foo', $children = ['bar'], $pp = '<a> ::b:: c()?', $rule = new \_PhpScopera143bcca66cb\Mock\Hoa\Compiler\Llk\Rule($name, $children), $oldIsTransitional = $rule->isTransitional(), $rule->setPPRepresentation($pp))->when($result = $rule->isTransitional())->then->boolean($oldIsTransitional)->isTrue()->boolean($result)->isFalse();
+        $this->given($name = 'foo', $children = ['bar'], $pp = '<a> ::b:: c()?', $rule = new \_PhpScoper26e51eeacccf\Mock\Hoa\Compiler\Llk\Rule($name, $children), $oldIsTransitional = $rule->isTransitional(), $rule->setPPRepresentation($pp))->when($result = $rule->isTransitional())->then->boolean($oldIsTransitional)->isTrue()->boolean($result)->isFalse();
     }
 }

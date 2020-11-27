@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 $integers = [0, 1, 2, 3];
 $strings = ['foo', 'bar'];

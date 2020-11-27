@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\InheritDocFromTrait2;
+namespace _PhpScoper26e51eeacccf\InheritDocFromTrait2;
 
 trait FooTrait
 {

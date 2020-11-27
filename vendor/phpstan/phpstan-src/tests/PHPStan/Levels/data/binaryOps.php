@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Levels\BinaryOps;
+namespace _PhpScoper26e51eeacccf\Levels\BinaryOps;
 
 class Foo
 {

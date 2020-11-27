@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 #endif
-function imagedestroy(\_PhpScopera143bcca66cb\GdImage $image) : bool
+function imagedestroy(\_PhpScoper26e51eeacccf\GdImage $image) : bool
 {
 }

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopera143bcca66cb\Symfony\Component\HttpKernel\EventListener;
+namespace _PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use _PhpScopera143bcca66cb\Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use _PhpScopera143bcca66cb\Symfony\Component\HttpKernel\KernelEvents;
+use _PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use _PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Adds configured formats to each request.
  *
@@ -30,7 +30,7 @@ class AddRequestFormatsListener implements \Symfony\Component\EventDispatcher\Ev
     /**
      * Adds request formats.
      */
-    public function onKernelRequest(\_PhpScopera143bcca66cb\Symfony\Component\HttpKernel\Event\GetResponseEvent $event)
+    public function onKernelRequest(\_PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\Event\GetResponseEvent $event)
     {
         $request = $event->getRequest();
         foreach ($this->formats as $format => $mimeTypes) {
@@ -42,6 +42,6 @@ class AddRequestFormatsListener implements \Symfony\Component\EventDispatcher\Ev
      */
     public static function getSubscribedEvents()
     {
-        return [\_PhpScopera143bcca66cb\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 100]];
+        return [\_PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 100]];
     }
 }

@@ -49,6 +49,6 @@ class Stream extends \Hoa\Test\Unit\Suite
 {
     public function case_is_a_valid_interface()
     {
-        $this->when($result = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Wrapper\IWrapper\Stream())->then->object($result)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\Stream::class);
+        $this->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Wrapper\IWrapper\Stream())->then->object($result)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\Stream::class);
     }
 }

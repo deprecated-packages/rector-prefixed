@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\Composer\Factory\Exception;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Factory\Exception;
 
 use UnexpectedValueException;
 use function sprintf;
-final class FailedToParseJson extends \UnexpectedValueException implements \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\Composer\Factory\Exception\Exception
+final class FailedToParseJson extends \UnexpectedValueException implements \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Factory\Exception\Exception
 {
     public static function inFile(string $file) : self
     {

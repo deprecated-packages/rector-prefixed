@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-use _PhpScopera143bcca66cb\React\EventLoop\Factory;
-use _PhpScopera143bcca66cb\React\ChildProcess\Process;
+use _PhpScoper26e51eeacccf\React\EventLoop\Factory;
+use _PhpScoper26e51eeacccf\React\ChildProcess\Process;
 require __DIR__ . '/../vendor/autoload.php';
-$loop = \_PhpScopera143bcca66cb\React\EventLoop\Factory::create();
+$loop = \_PhpScoper26e51eeacccf\React\EventLoop\Factory::create();
 // start a process that takes 10s to terminate
-$process = new \_PhpScopera143bcca66cb\React\ChildProcess\Process('php -r "sleep(10);"', null, null, array());
+$process = new \_PhpScoper26e51eeacccf\React\ChildProcess\Process('php -r "sleep(10);"', null, null, array());
 $process->start($loop);
 // report when process exits
 $process->on('exit', function ($exit, $term) {

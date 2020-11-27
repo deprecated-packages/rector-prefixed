@@ -11,12 +11,12 @@ use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use _PhpScopera143bcca66cb\Psr\Container\ContainerInterface;
+use _PhpScoper26e51eeacccf\Psr\Container\ContainerInterface;
 final class StaticContainerGetDynamicMethodReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
 {
     public function getClass() : string
     {
-        return \_PhpScopera143bcca66cb\Psr\Container\ContainerInterface::class;
+        return \_PhpScoper26e51eeacccf\Psr\Container\ContainerInterface::class;
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {

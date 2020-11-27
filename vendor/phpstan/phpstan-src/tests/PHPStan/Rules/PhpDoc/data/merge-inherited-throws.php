@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\InvalidThrowsPhpDocMergeInherited;
+namespace _PhpScoper26e51eeacccf\InvalidThrowsPhpDocMergeInherited;
 
 class A
 {
@@ -27,7 +27,7 @@ interface InterfaceOne
     /** @throws B */
     public function method() : void;
 }
-class Two extends \_PhpScopera143bcca66cb\InvalidThrowsPhpDocMergeInherited\One implements \_PhpScopera143bcca66cb\InvalidThrowsPhpDocMergeInherited\InterfaceOne
+class Two extends \_PhpScoper26e51eeacccf\InvalidThrowsPhpDocMergeInherited\One implements \_PhpScoper26e51eeacccf\InvalidThrowsPhpDocMergeInherited\InterfaceOne
 {
     /**
      * @throws C
@@ -37,14 +37,14 @@ class Two extends \_PhpScopera143bcca66cb\InvalidThrowsPhpDocMergeInherited\One 
     {
     }
 }
-class Three extends \_PhpScopera143bcca66cb\InvalidThrowsPhpDocMergeInherited\Two
+class Three extends \_PhpScoper26e51eeacccf\InvalidThrowsPhpDocMergeInherited\Two
 {
     /** Some comment */
     public function method() : void
     {
     }
 }
-class Four extends \_PhpScopera143bcca66cb\InvalidThrowsPhpDocMergeInherited\Three
+class Four extends \_PhpScoper26e51eeacccf\InvalidThrowsPhpDocMergeInherited\Three
 {
     public function method() : void
     {

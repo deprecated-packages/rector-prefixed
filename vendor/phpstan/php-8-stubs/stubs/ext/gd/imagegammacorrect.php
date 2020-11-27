@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
-function imagegammacorrect(\_PhpScopera143bcca66cb\GdImage $image, float $input_gamma, float $output_gamma) : bool
+function imagegammacorrect(\_PhpScoper26e51eeacccf\GdImage $image, float $input_gamma, float $output_gamma) : bool
 {
 }

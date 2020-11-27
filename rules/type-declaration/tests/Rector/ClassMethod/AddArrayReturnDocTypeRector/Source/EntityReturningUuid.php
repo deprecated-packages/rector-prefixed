@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddArrayReturnDocTypeRector\Source;
 
-use _PhpScopera143bcca66cb\Ramsey\Uuid\Uuid;
-use _PhpScopera143bcca66cb\Ramsey\Uuid\UuidInterface;
+use _PhpScoper26e51eeacccf\Ramsey\Uuid\Uuid;
+use _PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface;
 final class EntityReturningUuid
 {
-    public function getId() : \_PhpScopera143bcca66cb\Ramsey\Uuid\UuidInterface
+    public function getId() : \_PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface
     {
-        return \_PhpScopera143bcca66cb\Ramsey\Uuid\Uuid::uuid4();
+        return \_PhpScoper26e51eeacccf\Ramsey\Uuid\Uuid::uuid4();
     }
 }

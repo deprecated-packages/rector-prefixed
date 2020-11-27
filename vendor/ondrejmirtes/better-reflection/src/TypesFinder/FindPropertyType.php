@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\TypesFinder;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder;
 
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Var_;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlockFactory;
-use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlockFactory;
+use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
 use PhpParser\Node\Stmt\Namespace_;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionProperty;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionProperty;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
 use function array_map;
 use function array_merge;
 use function explode;
@@ -22,16 +22,16 @@ class FindPropertyType
     private $makeContext;
     public function __construct()
     {
-        $this->resolveTypes = new \_PhpScopera143bcca66cb\Roave\BetterReflection\TypesFinder\ResolveTypes();
-        $this->docBlockFactory = \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlockFactory::createInstance();
-        $this->makeContext = new \_PhpScopera143bcca66cb\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
+        $this->resolveTypes = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\ResolveTypes();
+        $this->docBlockFactory = \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlockFactory::createInstance();
+        $this->makeContext = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
     }
     /**
      * Given a property, attempt to find the type of the property.
      *
      * @return Type[]
      */
-    public function __invoke(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionProperty $reflectionProperty, ?\PhpParser\Node\Stmt\Namespace_ $namespace) : array
+    public function __invoke(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionProperty $reflectionProperty, ?\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
         $docComment = $reflectionProperty->getDocComment();
         if ($docComment === '') {
@@ -40,7 +40,7 @@ class FindPropertyType
         $context = $this->makeContext->__invoke($namespace);
         /** @var Var_[] $varTags */
         $varTags = $this->docBlockFactory->create($docComment, $context)->getTagsByName('var');
-        return \array_merge([], ...\array_map(function (\_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Var_ $varTag) use($context) {
+        return \array_merge([], ...\array_map(function (\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Var_ $varTag) use($context) {
             return $this->resolveTypes->__invoke(\explode('|', (string) $varTag->getType()), $context);
         }, $varTags));
     }

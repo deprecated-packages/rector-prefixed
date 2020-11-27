@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 /** @generate-function-entries */
 class Directory
@@ -28,4 +28,4 @@ class Directory
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScopera143bcca66cb\\Directory', 'Directory', \false);
+\class_alias('_PhpScoper26e51eeacccf\\Directory', 'Directory', \false);

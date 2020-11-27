@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\ConstExprPhpDocType;
+namespace _PhpScoper26e51eeacccf\ConstExprPhpDocType;
 
 use RecursiveIteratorIterator as Rec;
 use function PHPStan\Analyser\assertType;

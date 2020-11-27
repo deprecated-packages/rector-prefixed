@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopera143bcca66cb;
+namespace _PhpScoper26e51eeacccf;
 
 class CompileError extends \Error
 {
 }
-\class_alias('_PhpScopera143bcca66cb\\CompileError', 'CompileError', \false);
+\class_alias('_PhpScoper26e51eeacccf\\CompileError', 'CompileError', \false);

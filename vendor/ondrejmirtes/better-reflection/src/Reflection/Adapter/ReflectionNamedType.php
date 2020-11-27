@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter;
 
 use ReflectionNamedType as CoreReflectionNamedType;
-use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionType;
+use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionType;
 use function ltrim;
 class ReflectionNamedType extends \ReflectionNamedType
 {
     /** @var BetterReflectionType */
     private $betterReflectionType;
-    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionNamedType $betterReflectionType)
+    public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionNamedType $betterReflectionType)
     {
         $this->betterReflectionType = $betterReflectionType;
     }

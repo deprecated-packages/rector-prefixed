@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace PHPStan\Command\Symfony;
 
 use PHPStan\Command\OutputStyle;
-use _PhpScopera143bcca66cb\Symfony\Component\Console\Style\StyleInterface;
+use _PhpScoper26e51eeacccf\Symfony\Component\Console\Style\StyleInterface;
 /**
  * @internal
  */
@@ -14,11 +14,11 @@ class SymfonyStyle implements \PHPStan\Command\OutputStyle
      * @var \Symfony\Component\Console\Style\StyleInterface
      */
     private $symfonyStyle;
-    public function __construct(\_PhpScopera143bcca66cb\Symfony\Component\Console\Style\StyleInterface $symfonyStyle)
+    public function __construct(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Style\StyleInterface $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
     }
-    public function getSymfonyStyle() : \_PhpScopera143bcca66cb\Symfony\Component\Console\Style\StyleInterface
+    public function getSymfonyStyle() : \_PhpScoper26e51eeacccf\Symfony\Component\Console\Style\StyleInterface
     {
         return $this->symfonyStyle;
     }

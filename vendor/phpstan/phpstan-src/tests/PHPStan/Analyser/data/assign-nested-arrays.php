@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\AssignNestedArrays;
+namespace _PhpScoper26e51eeacccf\AssignNestedArrays;
 
 use function PHPStan\Analyser\assertType;
 class Foo

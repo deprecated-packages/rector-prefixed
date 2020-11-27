@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\Attributes;
+namespace _PhpScoper26e51eeacccf\Attributes;
 
 #[\Attribute]
 class IsAttribute

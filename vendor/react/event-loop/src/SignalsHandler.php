@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopera143bcca66cb\React\EventLoop;
+namespace _PhpScoper26e51eeacccf\React\EventLoop;
 
 /**
  * @internal
