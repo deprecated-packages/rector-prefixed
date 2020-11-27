@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Nette\Rector\FuncCall;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -137,7 +137,7 @@ CODE_SAMPLE
             $args[] = $funcCall->args[1];
             $args[] = $funcCall->args[0];
         }
-        return $this->createStaticCall('_PhpScoper88fe6e0ad041\\Nette\\Utils\\Strings', $methodName, $args);
+        return $this->createStaticCall('_PhpScopera143bcca66cb\\Nette\\Utils\\Strings', $methodName, $args);
     }
     /**
      * @return FuncCall|StaticCall
@@ -165,7 +165,7 @@ CODE_SAMPLE
         if (!\is_string($patternValue)) {
             return $staticCall;
         }
-        $match = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($patternValue, self::SLASH_REGEX);
+        $match = \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($patternValue, self::SLASH_REGEX);
         if ($match === null) {
             return $staticCall;
         }

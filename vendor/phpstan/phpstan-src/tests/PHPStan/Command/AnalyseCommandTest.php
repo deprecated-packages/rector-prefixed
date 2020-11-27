@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Tester\CommandTester;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Tester\CommandTester;
 use const DIRECTORY_SEPARATOR;
 /**
  * @group exec
@@ -62,7 +62,7 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
         if (\PHP_VERSION_ID >= 80000 && \DIRECTORY_SEPARATOR === '\\') {
             $this->markTestSkipped('Skipped because of https://github.com/symfony/symfony/issues/37508');
         }
-        $commandTester = new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Tester\CommandTester(new \PHPStan\Command\AnalyseCommand([]));
+        $commandTester = new \_PhpScopera143bcca66cb\Symfony\Component\Console\Tester\CommandTester(new \PHPStan\Command\AnalyseCommand([]));
         $commandTester->execute(['paths' => [__DIR__ . \DIRECTORY_SEPARATOR . 'test']] + $parameters);
         $this->assertSame($expectedStatusCode, $commandTester->getStatusCode());
         return $commandTester->getDisplay();

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\OndraM\CiDetector;
+namespace _PhpScopera143bcca66cb\OndraM\CiDetector;
 
 /**
  * @see https://en.wikipedia.org/wiki/Three-valued_logic

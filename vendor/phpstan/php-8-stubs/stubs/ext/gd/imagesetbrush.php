@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function imagesetbrush(\_PhpScoper88fe6e0ad041\GdImage $image, \_PhpScoper88fe6e0ad041\GdImage $brush) : bool
+function imagesetbrush(\_PhpScopera143bcca66cb\GdImage $image, \_PhpScopera143bcca66cb\GdImage $brush) : bool
 {
 }

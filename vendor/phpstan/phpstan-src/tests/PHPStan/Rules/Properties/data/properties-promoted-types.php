@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper88fe6e0ad041\PromotedPropertiesExistingClasses;
+namespace _PhpScopera143bcca66cb\PromotedPropertiesExistingClasses;
 
 class Foo
 {
@@ -9,10 +9,10 @@ class Foo
         public \stdClass $foo,
         /** @var \stdClass */
         public $bar,
-        public \_PhpScoper88fe6e0ad041\PromotedPropertiesExistingClasses\SomeTrait $baz,
+        public \_PhpScopera143bcca66cb\PromotedPropertiesExistingClasses\SomeTrait $baz,
         /** @var SomeTrait */
         public $lorem,
-        public \_PhpScoper88fe6e0ad041\PromotedPropertiesExistingClasses\Bar $ipsum,
+        public \_PhpScopera143bcca66cb\PromotedPropertiesExistingClasses\Bar $ipsum,
         /** @var Bar */
         public $dolor
     )

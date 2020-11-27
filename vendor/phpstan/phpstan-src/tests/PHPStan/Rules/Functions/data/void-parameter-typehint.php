@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\VoidParameterTypehint;
+namespace _PhpScopera143bcca66cb\VoidParameterTypehint;
 
 function (void $param) : int {
     return 1;

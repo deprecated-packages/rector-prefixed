@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class DOMNotation extends \DOMNode
 {
 }
-\class_alias('_PhpScoper88fe6e0ad041\\DOMNotation', 'DOMNotation', \false);
+\class_alias('_PhpScopera143bcca66cb\\DOMNotation', 'DOMNotation', \false);

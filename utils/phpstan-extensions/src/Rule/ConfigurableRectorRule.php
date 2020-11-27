@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStanExtensions\Rule;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
@@ -59,7 +59,7 @@ final class ConfigurableRectorRule implements \PHPStan\Rules\Rule
         if ($class->namespacedName === null) {
             return \false;
         }
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith((string) $class->namespacedName, 'Rector');
+        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith((string) $class->namespacedName, 'Rector');
     }
     private function implementsConfigurableInterface(\PhpParser\Node\Stmt\Class_ $class) : bool
     {

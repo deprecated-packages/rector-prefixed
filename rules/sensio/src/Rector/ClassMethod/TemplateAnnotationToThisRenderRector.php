@@ -40,7 +40,7 @@ final class TemplateAnnotationToThisRenderRector extends \Rector\Core\Rector\Abs
     /**
      * @var string
      */
-    private const RESPONSE_CLASS = '_PhpScoper88fe6e0ad041\\Symfony\\Component\\HttpFoundation\\Response';
+    private const RESPONSE_CLASS = '_PhpScopera143bcca66cb\\Symfony\\Component\\HttpFoundation\\Response';
     /**
      * @var ReturnTypeDeclarationUpdater
      */
@@ -105,7 +105,7 @@ CODE_SAMPLE
         if (!$this->classHasTemplateAnnotations($class)) {
             return null;
         }
-        $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper88fe6e0ad041\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
+        $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScopera143bcca66cb\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
         return $class;
     }
     private function replaceTemplateAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node

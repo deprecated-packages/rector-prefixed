@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\React\\Promise\\": "src\/"
+            "_PhpScopera143bcca66cb\\React\\Promise\\": "src\/"
         },
         "files": [
             "src\/functions_include.php"
@@ -24,7 +24,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\React\\Promise\\": [
+            "_PhpScopera143bcca66cb\\React\\Promise\\": [
                 "tests",
                 "tests\/fixtures"
             ]

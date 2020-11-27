@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Tests\Dependency;
+namespace _PhpScopera143bcca66cb\Tests\Dependency;
 
-class Child extends \_PhpScoper88fe6e0ad041\Tests\Dependency\ParentClass
+class Child extends \_PhpScopera143bcca66cb\Tests\Dependency\ParentClass
 {
 }

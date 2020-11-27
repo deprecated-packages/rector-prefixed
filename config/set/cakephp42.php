@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
@@ -11,6 +11,6 @@ use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # source: https://book.cakephp.org/4/en/appendices/4-2-migration-guide.html
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper88fe6e0ad041\\Cake\\Core\\Exception\\Exception' => '_PhpScoper88fe6e0ad041\\Cake\\Core\\Exception\\CakeException', '_PhpScoper88fe6e0ad041\\Cake\\Database\\Exception' => '_PhpScoper88fe6e0ad041\\Cake\\Database\\Exception\\DatabaseException']]]);
-    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper88fe6e0ad041\\Cake\\ORM\\Behavior', 'getTable', 'table')])]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScopera143bcca66cb\\Cake\\Core\\Exception\\Exception' => '_PhpScopera143bcca66cb\\Cake\\Core\\Exception\\CakeException', '_PhpScopera143bcca66cb\\Cake\\Database\\Exception' => '_PhpScopera143bcca66cb\\Cake\\Database\\Exception\\DatabaseException']]]);
+    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScopera143bcca66cb\\Cake\\ORM\\Behavior', 'getTable', 'table')])]]);
 };

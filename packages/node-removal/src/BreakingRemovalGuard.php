@@ -20,8 +20,9 @@ final class BreakingRemovalGuard
         // validate the $parentNodenode can be removed
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf(
-            'Node "%s" is child of "%s", so it cannot be removed as it would break PHP code. Change or remove the parent node instead.',
+            'Node "%s" on line %d is child of "%s", so it cannot be removed as it would break PHP code. Change or remove the parent node instead.',
             \get_class($node),
+            $node->getLine(),
             /** @var Node $parentNode */
             \get_class($parentNode)
         ));

@@ -1,34 +1,34 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\TryCatchScope;
+namespace _PhpScopera143bcca66cb\TryCatchScope;
 
 function () {
     $resource = null;
     try {
-        $resource = new \_PhpScoper88fe6e0ad041\TryCatchScope\Foo();
-    } catch (\_PhpScoper88fe6e0ad041\TryCatchScope\FooException $e) {
-        $resource = new \_PhpScoper88fe6e0ad041\TryCatchScope\Foo();
-    } catch (\_PhpScoper88fe6e0ad041\TryCatchScope\BarException $e) {
-        $resource = new \_PhpScoper88fe6e0ad041\TryCatchScope\Foo();
+        $resource = new \_PhpScopera143bcca66cb\TryCatchScope\Foo();
+    } catch (\_PhpScopera143bcca66cb\TryCatchScope\FooException $e) {
+        $resource = new \_PhpScopera143bcca66cb\TryCatchScope\Foo();
+    } catch (\_PhpScopera143bcca66cb\TryCatchScope\BarException $e) {
+        $resource = new \_PhpScopera143bcca66cb\TryCatchScope\Foo();
     }
     'first';
 };
 function () {
     $resource = null;
     try {
-        $resource = new \_PhpScoper88fe6e0ad041\TryCatchScope\Foo();
-    } catch (\_PhpScoper88fe6e0ad041\TryCatchScope\FooException $e) {
-    } catch (\_PhpScoper88fe6e0ad041\TryCatchScope\BarException $e) {
-        $resource = new \_PhpScoper88fe6e0ad041\TryCatchScope\Foo();
+        $resource = new \_PhpScopera143bcca66cb\TryCatchScope\Foo();
+    } catch (\_PhpScopera143bcca66cb\TryCatchScope\FooException $e) {
+    } catch (\_PhpScopera143bcca66cb\TryCatchScope\BarException $e) {
+        $resource = new \_PhpScopera143bcca66cb\TryCatchScope\Foo();
     }
     'second';
 };
 function () {
     $resource = null;
     try {
-        $resource = new \_PhpScoper88fe6e0ad041\TryCatchScope\Foo();
-    } catch (\_PhpScoper88fe6e0ad041\TryCatchScope\FooException $e) {
-    } catch (\_PhpScoper88fe6e0ad041\TryCatchScope\BarException $e) {
+        $resource = new \_PhpScopera143bcca66cb\TryCatchScope\Foo();
+    } catch (\_PhpScopera143bcca66cb\TryCatchScope\FooException $e) {
+    } catch (\_PhpScopera143bcca66cb\TryCatchScope\BarException $e) {
     }
     'third';
 };

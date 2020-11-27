@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function memory_get_usage(bool $real_usage = \false) : int
 {

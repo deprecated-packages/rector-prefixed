@@ -1,33 +1,33 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\NegatedInstanceOf;
+namespace _PhpScopera143bcca66cb\NegatedInstanceOf;
 
 class Foo
 {
     public function someMethod($foo, $bar, $otherBar, $lorem, $otherLorem, $dolor, $sit, $mixedFoo, $mixedBar, $self, $static, $anotherFoo, $fooAndBar)
     {
-        if (!$foo instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Foo) {
+        if (!$foo instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Foo) {
             return;
         }
-        if (!$bar instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Bar || \get_class($bar) !== \get_class($otherBar)) {
+        if (!$bar instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Bar || \get_class($bar) !== \get_class($otherBar)) {
             return;
         }
-        if (!($lorem instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Lorem || \get_class($lorem) === \get_class($otherLorem))) {
+        if (!($lorem instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Lorem || \get_class($lorem) === \get_class($otherLorem))) {
             // still mixed after if
             return;
         }
-        if ($dolor instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Dolor) {
+        if ($dolor instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Dolor) {
             // still mixed after if
             return;
         }
-        if (!!$sit instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Sit) {
+        if (!!$sit instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Sit) {
             // still mixed after if
             return;
         }
-        if ($mixedFoo instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Foo && doFoo()) {
+        if ($mixedFoo instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Foo && doFoo()) {
             return;
         }
-        if (!$mixedBar instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Bar && doFoo()) {
+        if (!$mixedBar instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Bar && doFoo()) {
             return;
         }
         if (!$self instanceof self) {
@@ -36,10 +36,10 @@ class Foo
         if (!$static instanceof static) {
             return;
         }
-        if ($anotherFoo instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Foo === \false) {
+        if ($anotherFoo instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Foo === \false) {
             return;
         }
-        if ($fooAndBar instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Foo && $fooAndBar instanceof \_PhpScoper88fe6e0ad041\NegatedInstanceOf\Bar) {
+        if ($fooAndBar instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Foo && $fooAndBar instanceof \_PhpScopera143bcca66cb\NegatedInstanceOf\Bar) {
             die;
         }
     }

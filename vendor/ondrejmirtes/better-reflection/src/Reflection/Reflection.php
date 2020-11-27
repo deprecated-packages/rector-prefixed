@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection;
+namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection;
 
 /**
  * This interface is used internally by the Generic reflector in order to

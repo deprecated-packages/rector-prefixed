@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Rector\ClassMethod;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -110,7 +110,7 @@ CODE_SAMPLE
         if ($classLike === null) {
             return \true;
         }
-        if (!$this->isObjectType($classLike, '_PhpScoper88fe6e0ad041\\Kdyby\\Events\\Subscriber')) {
+        if (!$this->isObjectType($classLike, '_PhpScopera143bcca66cb\\Kdyby\\Events\\Subscriber')) {
             return \true;
         }
         return !$this->isName($classMethod, 'getSubscribedEvents');
@@ -127,7 +127,7 @@ CODE_SAMPLE
             }
             $eventPropertyReferenceName = $this->getValue($arrayKey);
             // is property?
-            if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($eventPropertyReferenceName, '::')) {
+            if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($eventPropertyReferenceName, '::')) {
                 return null;
             }
             $eventClassName = $this->eventClassNaming->createEventClassNameFromClassPropertyReference($eventPropertyReferenceName);

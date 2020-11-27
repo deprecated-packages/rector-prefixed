@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Promise\Timer;
+namespace _PhpScopera143bcca66cb\React\Promise\Timer;
 
-if (!\function_exists('_PhpScoper88fe6e0ad041\\React\\Promise\\Timer\\timeout')) {
+if (!\function_exists('_PhpScopera143bcca66cb\\React\\Promise\\Timer\\timeout')) {
     require __DIR__ . '/functions.php';
 }

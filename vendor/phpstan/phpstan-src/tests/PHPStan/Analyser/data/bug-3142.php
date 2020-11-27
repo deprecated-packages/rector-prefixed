@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Analyser\Bug3142;
+namespace _PhpScopera143bcca66cb\Analyser\Bug3142;
 
 use function PHPStan\Analyser\assertType;
 class ParentClass
@@ -18,7 +18,7 @@ class ParentClass
  * @method string sayHi()
  * @method string sayHello()
  */
-class HelloWorld extends \_PhpScoper88fe6e0ad041\Analyser\Bug3142\ParentClass
+class HelloWorld extends \_PhpScopera143bcca66cb\Analyser\Bug3142\ParentClass
 {
     /**
      * @return int
@@ -29,14 +29,14 @@ class HelloWorld extends \_PhpScoper88fe6e0ad041\Analyser\Bug3142\ParentClass
     }
 }
 function () : void {
-    $hw = new \_PhpScoper88fe6e0ad041\Analyser\Bug3142\HelloWorld();
+    $hw = new \_PhpScopera143bcca66cb\Analyser\Bug3142\HelloWorld();
     \PHPStan\Analyser\assertType('string', $hw->sayHi());
     \PHPStan\Analyser\assertType('int', $hw->sayHello());
 };
 interface DecoratorInterface
 {
 }
-class FooDecorator implements \_PhpScoper88fe6e0ad041\Analyser\Bug3142\DecoratorInterface
+class FooDecorator implements \_PhpScopera143bcca66cb\Analyser\Bug3142\DecoratorInterface
 {
     public function getCode() : string
     {
@@ -45,9 +45,9 @@ class FooDecorator implements \_PhpScoper88fe6e0ad041\Analyser\Bug3142\Decorator
 }
 trait DecoratorTrait
 {
-    public function getDecorator() : \_PhpScoper88fe6e0ad041\Analyser\Bug3142\DecoratorInterface
+    public function getDecorator() : \_PhpScopera143bcca66cb\Analyser\Bug3142\DecoratorInterface
     {
-        return new \_PhpScoper88fe6e0ad041\Analyser\Bug3142\FooDecorator();
+        return new \_PhpScopera143bcca66cb\Analyser\Bug3142\FooDecorator();
     }
 }
 /**
@@ -62,6 +62,6 @@ class Dummy
     }
 }
 function () {
-    $dummy = new \_PhpScoper88fe6e0ad041\Analyser\Bug3142\Dummy();
-    \PHPStan\Analyser\assertType(\_PhpScoper88fe6e0ad041\Analyser\Bug3142\FooDecorator::class, $dummy->getDecorator());
+    $dummy = new \_PhpScopera143bcca66cb\Analyser\Bug3142\Dummy();
+    \PHPStan\Analyser\assertType(\_PhpScopera143bcca66cb\Analyser\Bug3142\FooDecorator::class, $dummy->getDecorator());
 };

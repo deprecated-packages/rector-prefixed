@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class SplStack extends \SplDoublyLinkedList
 {
 }
-\class_alias('_PhpScoper88fe6e0ad041\\SplStack', 'SplStack', \false);
+\class_alias('_PhpScopera143bcca66cb\\SplStack', 'SplStack', \false);

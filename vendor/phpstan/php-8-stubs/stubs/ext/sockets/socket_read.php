@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function socket_read(\_PhpScoper88fe6e0ad041\Socket $socket, int $length, int $mode = \PHP_BINARY_READ) : string|false
+function socket_read(\_PhpScopera143bcca66cb\Socket $socket, int $length, int $mode = \PHP_BINARY_READ) : string|false
 {
 }

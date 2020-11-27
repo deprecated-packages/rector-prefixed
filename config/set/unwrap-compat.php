@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 use Rector\Polyfill\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 class IntlTimeZone
@@ -184,4 +184,4 @@ class IntlTimeZone
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\IntlTimeZone', 'IntlTimeZone', \false);
+\class_alias('_PhpScopera143bcca66cb\\IntlTimeZone', 'IntlTimeZone', \false);

@@ -2,18 +2,18 @@
 
 // handy script for fast local operations
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\Finder\SmartFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
-use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
+use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
 require __DIR__ . '/../vendor/autoload.php';
 // USE ↓
-$fileRenamer = new \_PhpScoper88fe6e0ad041\FileRenamer();
+$fileRenamer = new \_PhpScopera143bcca66cb\FileRenamer();
 $fileRenamer->rename(
     // paths
     [__DIR__ . '/../utils/node-documentation-generator/snippet'],
@@ -42,8 +42,8 @@ final class FileRenamer
      */
     public function rename(array $sources, string $suffix, string $matchingRegex, string $replacement)
     {
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allString($sources);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allFileExists($sources);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allString($sources);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allFileExists($sources);
         $fileInfos = $this->smartFinder->find($sources, $suffix);
         $this->renameFileInfos($fileInfos, $matchingRegex, $replacement);
     }
@@ -55,7 +55,7 @@ final class FileRenamer
         foreach ($fileInfos as $fileInfo) {
             // do the rename
             $oldRealPath = $fileInfo->getRealPath();
-            $newRealPath = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($oldRealPath, $matchingRegex, $replacement);
+            $newRealPath = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($oldRealPath, $matchingRegex, $replacement);
             if ($oldRealPath === $newRealPath) {
                 continue;
             }
@@ -64,4 +64,4 @@ final class FileRenamer
     }
 }
 // CODE ↓
-\class_alias('_PhpScoper88fe6e0ad041\\FileRenamer', 'FileRenamer', \false);
+\class_alias('_PhpScopera143bcca66cb\\FileRenamer', 'FileRenamer', \false);

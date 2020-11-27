@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type;
+namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type;
 
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Locator as AstLocator;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-abstract class AbstractSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator as AstLocator;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+abstract class AbstractSourceLocator implements \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var AstLocator */
     private $astLocator;
@@ -23,8 +23,8 @@ abstract class AbstractSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\Be
      *   return new LocatedSource(['<?php class Foo {}', null]);
      *   return new LocatedSource([\file_get_contents('Foo.php'), 'Foo.php']);
      */
-    protected abstract function createLocatedSource(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-    public function __construct(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator)
+    protected abstract function createLocatedSource(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator)
     {
         $this->astLocator = $astLocator;
     }
@@ -33,7 +33,7 @@ abstract class AbstractSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\Be
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifier(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection
     {
         $locatedSource = $this->createLocatedSource($identifier);
         if (!$locatedSource) {
@@ -41,7 +41,7 @@ abstract class AbstractSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\Be
         }
         try {
             return $this->astLocator->findReflection($reflector, $locatedSource, $identifier);
-        } catch (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $exception) {
+        } catch (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $exception) {
             return null;
         }
     }
@@ -50,9 +50,9 @@ abstract class AbstractSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\Be
      *
      * @throws ParseToAstFailure
      */
-    public final function locateIdentifiersByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public final function locateIdentifiersByType(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
-        $locatedSource = $this->createLocatedSource(new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier::WILDCARD, $identifierType));
+        $locatedSource = $this->createLocatedSource(new \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier::WILDCARD, $identifierType));
         if (!$locatedSource) {
             return [];
         }

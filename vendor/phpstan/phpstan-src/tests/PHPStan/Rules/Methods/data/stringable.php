@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\TestStringables;
+namespace _PhpScopera143bcca66cb\TestStringables;
 
 use Stringable;
 class Foo
@@ -25,10 +25,10 @@ class Baz
     public function doFoo(\Stringable $s) : void
     {
     }
-    public function doBar(\_PhpScoper88fe6e0ad041\TestStringables\Lorem $l) : void
+    public function doBar(\_PhpScopera143bcca66cb\TestStringables\Lorem $l) : void
     {
-        $this->doFoo(new \_PhpScoper88fe6e0ad041\TestStringables\Foo());
-        $this->doFoo(new \_PhpScoper88fe6e0ad041\TestStringables\Bar());
+        $this->doFoo(new \_PhpScopera143bcca66cb\TestStringables\Foo());
+        $this->doFoo(new \_PhpScopera143bcca66cb\TestStringables\Bar());
         $this->doFoo($l);
         $this->doBaz($l);
     }

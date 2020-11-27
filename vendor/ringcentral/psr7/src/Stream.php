@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\RingCentral\Psr7;
+namespace _PhpScopera143bcca66cb\RingCentral\Psr7;
 
-use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
+use _PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface;
 /**
  * PHP stream implementation.
  *
  * @var $stream
  */
-class Stream implements \_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface
+class Stream implements \_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface
 {
     private $stream;
     private $size;

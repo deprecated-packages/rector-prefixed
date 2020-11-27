@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\StaticCallOnExpression;
+namespace _PhpScopera143bcca66cb\StaticCallOnExpression;
 
 class Foo
 {
@@ -10,5 +10,5 @@ class Foo
     }
 }
 function () {
-    \_PhpScoper88fe6e0ad041\StaticCallOnExpression\Foo::doFoo()::doBar();
+    \_PhpScopera143bcca66cb\StaticCallOnExpression\Foo::doFoo()::doBar();
 };

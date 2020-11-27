@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Utils\Rector\Rector\MethodCall;
+namespace _PhpScopera143bcca66cb\Utils\Rector\Rector\MethodCall;
 
 use PhpParser\Node;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;

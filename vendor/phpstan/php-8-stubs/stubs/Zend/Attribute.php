@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 final class Attribute
@@ -10,4 +10,4 @@ final class Attribute
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\Attribute', 'Attribute', \false);
+\class_alias('_PhpScopera143bcca66cb\\Attribute', 'Attribute', \false);

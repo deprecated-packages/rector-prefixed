@@ -21,7 +21,7 @@ final class ConsoleExceptionToErrorEventConstantRector extends \Rector\Core\Rect
     /**
      * @var string
      */
-    private const CONSOLE_EVENTS_CLASS = '_PhpScoper88fe6e0ad041\\Symfony\\Component\\Console\\ConsoleEvents';
+    private const CONSOLE_EVENTS_CLASS = '_PhpScopera143bcca66cb\\Symfony\\Component\\Console\\ConsoleEvents';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns old event name with EXCEPTION to ERROR constant in Console in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('"console.exception"', 'Symfony\\Component\\Console\\ConsoleEvents::ERROR'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('Symfony\\Component\\Console\\ConsoleEvents::EXCEPTION', 'Symfony\\Component\\Console\\ConsoleEvents::ERROR')]);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Util;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 /**
  * @see \Rector\Core\Tests\Util\StaticRectorStringsTest
  */
@@ -25,7 +25,7 @@ final class StaticRectorStrings
     public static function isInArrayInsensitive(string $checkedItem, array $array) : bool
     {
         foreach ($array as $item) {
-            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::lower($item) === \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::lower($checkedItem)) {
+            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::lower($item) === \_PhpScopera143bcca66cb\Nette\Utils\Strings::lower($checkedItem)) {
                 return \true;
             }
         }
@@ -60,8 +60,8 @@ final class StaticRectorStrings
     public static function removePrefixes(string $value, array $prefixesToRemove) : string
     {
         foreach ($prefixesToRemove as $prefixToRemove) {
-            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($value, $prefixToRemove)) {
-                $value = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::substring($value, \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::length($prefixToRemove));
+            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($value, $prefixToRemove)) {
+                $value = \_PhpScopera143bcca66cb\Nette\Utils\Strings::substring($value, \_PhpScopera143bcca66cb\Nette\Utils\Strings::length($prefixToRemove));
             }
         }
         return $value;
@@ -72,8 +72,8 @@ final class StaticRectorStrings
     public static function removeSuffixes(string $value, array $suffixesToRemove) : string
     {
         foreach ($suffixesToRemove as $prefixToRemove) {
-            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith($value, $prefixToRemove)) {
-                $value = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::substring($value, 0, -\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::length($prefixToRemove));
+            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($value, $prefixToRemove)) {
+                $value = \_PhpScopera143bcca66cb\Nette\Utils\Strings::substring($value, 0, -\_PhpScopera143bcca66cb\Nette\Utils\Strings::length($prefixToRemove));
             }
         }
         return $value;
@@ -86,14 +86,14 @@ final class StaticRectorStrings
     public static function constantToDashes(string $string) : string
     {
         $string = \strtolower($string);
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
+        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
     }
     private static function camelCaseToGlue(string $input, string $glue) : string
     {
         if ($input === \strtolower($input)) {
             return $input;
         }
-        $matches = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::matchAll($input, self::CAMEL_CASE_SPLIT_REGEX);
+        $matches = \_PhpScopera143bcca66cb\Nette\Utils\Strings::matchAll($input, self::CAMEL_CASE_SPLIT_REGEX);
         $parts = [];
         foreach ($matches as $match) {
             $parts[] = $match[0] === \strtoupper($match[0]) ? \strtolower($match[0]) : \lcfirst($match[0]);

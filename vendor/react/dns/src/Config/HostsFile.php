@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Dns\Config;
+namespace _PhpScopera143bcca66cb\React\Dns\Config;
 
 use RuntimeException;
 /**
@@ -34,7 +34,7 @@ class HostsFile
         }
         // Windows actually stores the path in the registry under
         // \HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\DataBasePath
-        $path = '_PhpScoper88fe6e0ad041\\%SystemRoot%\\system32\\drivers\\etc\\hosts';
+        $path = '_PhpScopera143bcca66cb\\%SystemRoot%\\system32\\drivers\\etc\\hosts';
         $base = \getenv('SystemRoot');
         if ($base === \false) {
             $base = 'C:\\Windows';

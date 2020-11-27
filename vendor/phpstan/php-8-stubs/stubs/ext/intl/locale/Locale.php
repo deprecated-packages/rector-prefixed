@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 class Locale
@@ -133,4 +133,4 @@ class Locale
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\Locale', 'Locale', \false);
+\class_alias('_PhpScopera143bcca66cb\\Locale', 'Locale', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function error_log(string $message, int $message_type = 0, ?string $destination = null, ?string $additional_headers = null) : bool
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function intlcal_set_repeated_wall_time_option(\IntlCalendar $calendar, int $option) : bool
 {

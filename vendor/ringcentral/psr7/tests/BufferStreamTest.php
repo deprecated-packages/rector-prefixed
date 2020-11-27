@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\RingCentral\Tests\Psr7;
+namespace _PhpScopera143bcca66cb\RingCentral\Tests\Psr7;
 
-use _PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream;
-class BufferStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
+use _PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream;
+class BufferStreamTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
 {
     public function testHasMetadata()
     {
-        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream(10);
+        $b = new \_PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream(10);
         $this->assertTrue($b->isReadable());
         $this->assertTrue($b->isWritable());
         $this->assertFalse($b->isSeekable());
@@ -17,7 +17,7 @@ class BufferStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCas
     }
     public function testRemovesReadDataFromBuffer()
     {
-        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream();
+        $b = new \_PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream();
         $this->assertEquals(3, $b->write('foo'));
         $this->assertEquals(3, $b->getSize());
         $this->assertFalse($b->eof());
@@ -31,7 +31,7 @@ class BufferStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCas
      */
     public function testCanCastToStringOrGetContents()
     {
-        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream();
+        $b = new \_PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream();
         $b->write('foo');
         $b->write('baz');
         $this->assertEquals('foo', $b->read(3));
@@ -41,7 +41,7 @@ class BufferStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCas
     }
     public function testDetachClearsBuffer()
     {
-        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream();
+        $b = new \_PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream();
         $b->write('foo');
         $b->detach();
         $this->assertTrue($b->eof());
@@ -50,7 +50,7 @@ class BufferStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCas
     }
     public function testExceedingHighwaterMarkReturnsFalseButStillBuffers()
     {
-        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream(5);
+        $b = new \_PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream(5);
         $this->assertEquals(3, $b->write('hi '));
         $this->assertFalse($b->write('hello'));
         $this->assertEquals('hi hello', (string) $b);

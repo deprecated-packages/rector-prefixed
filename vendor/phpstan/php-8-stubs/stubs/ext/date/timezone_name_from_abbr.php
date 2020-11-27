@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function timezone_name_from_abbr(string $abbr, int $utcOffset = -1, int $isDST = -1) : string|false
 {

@@ -35,7 +35,7 @@
  */
 namespace Hoa\Stream\Test\Unit;
 
-use _PhpScoper88fe6e0ad041\Mock\Hoa\Stream\Composite as SUT;
+use _PhpScopera143bcca66cb\Mock\Hoa\Stream\Composite as SUT;
 use Hoa\Test;
 /**
  * Class \Hoa\Stream\Test\Unit\Composite.
@@ -49,18 +49,18 @@ class Composite extends \Hoa\Test\Unit\Suite
 {
     public function case_set_stream()
     {
-        $this->given($stream = new \_PhpScoper88fe6e0ad041\StdClass(), $composite = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\Composite())->when($result = $this->invoke($composite)->setStream($stream))->then->variable($result)->isNull();
+        $this->given($stream = new \_PhpScopera143bcca66cb\StdClass(), $composite = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Composite())->when($result = $this->invoke($composite)->setStream($stream))->then->variable($result)->isNull();
     }
     public function case_get_stream()
     {
-        $this->given($stream = new \_PhpScoper88fe6e0ad041\StdClass(), $composite = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\Composite(), $this->invoke($composite)->setStream($stream))->when($result = $composite->getStream())->then->object($result)->isIdenticalTo($stream);
+        $this->given($stream = new \_PhpScopera143bcca66cb\StdClass(), $composite = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Composite(), $this->invoke($composite)->setStream($stream))->when($result = $composite->getStream())->then->object($result)->isIdenticalTo($stream);
     }
     public function case_set_inner_stream()
     {
-        $this->given($innerStream = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream(__FILE__), $composite = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\Composite())->when($result = $this->invoke($composite)->setInnerStream($innerStream))->then->variable($result)->isNull();
+        $this->given($innerStream = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream(__FILE__), $composite = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Composite())->when($result = $this->invoke($composite)->setInnerStream($innerStream))->then->variable($result)->isNull();
     }
     public function case_get_inner_stream()
     {
-        $this->given($innerStream = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream(__FILE__), $composite = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\Composite(), $this->invoke($composite)->setInnerStream($innerStream))->when($result = $composite->getInnerStream())->then->object($result)->isIdenticalTo($innerStream);
+        $this->given($innerStream = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream(__FILE__), $composite = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Composite(), $this->invoke($composite)->setInnerStream($innerStream))->when($result = $composite->getInnerStream())->then->object($result)->isIdenticalTo($innerStream);
     }
 }

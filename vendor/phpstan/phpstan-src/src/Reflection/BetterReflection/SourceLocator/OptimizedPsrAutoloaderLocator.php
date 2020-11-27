@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-class OptimizedPsrAutoloaderLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+class OptimizedPsrAutoloaderLocator implements \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /**
      * @var \Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping
@@ -19,12 +19,12 @@ class OptimizedPsrAutoloaderLocator implements \_PhpScoper88fe6e0ad041\Roave\Bet
      * @var \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository
      */
     private $optimizedSingleFileSourceLocatorRepository;
-    public function __construct(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping $mapping, \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository $optimizedSingleFileSourceLocatorRepository)
+    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping $mapping, \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository $optimizedSingleFileSourceLocatorRepository)
     {
         $this->mapping = $mapping;
         $this->optimizedSingleFileSourceLocatorRepository = $optimizedSingleFileSourceLocatorRepository;
     }
-    public function locateIdentifier(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection
     {
         foreach ($this->mapping->resolvePossibleFilePaths($identifier) as $file) {
             if (!\file_exists($file)) {
@@ -41,7 +41,7 @@ class OptimizedPsrAutoloaderLocator implements \_PhpScoper88fe6e0ad041\Roave\Bet
     /**
      * @return Reflection[]
      */
-    public function locateIdentifiersByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
         // todo

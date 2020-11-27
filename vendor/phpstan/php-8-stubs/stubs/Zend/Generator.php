@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 final class Generator implements \Iterator
@@ -31,4 +31,4 @@ final class Generator implements \Iterator
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\Generator', 'Generator', \false);
+\class_alias('_PhpScopera143bcca66cb\\Generator', 'Generator', \false);

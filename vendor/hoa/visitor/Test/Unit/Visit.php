@@ -48,6 +48,6 @@ class Visit extends \Hoa\Test\Unit\Suite
 {
     public function case_interface()
     {
-        $this->when($result = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Visitor\Visit())->object($result)->isInstanceOf('Hoa\\Visitor\\Visit');
+        $this->when($result = new \_PhpScopera143bcca66cb\Mock\Hoa\Visitor\Visit())->object($result)->isInstanceOf('Hoa\\Visitor\\Visit');
     }
 }

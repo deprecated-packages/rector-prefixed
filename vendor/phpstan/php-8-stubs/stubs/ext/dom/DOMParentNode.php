@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 interface DOMParentNode
 {
@@ -9,4 +9,4 @@ interface DOMParentNode
     /** @param DOMNode|string $nodes */
     public function prepend(...$nodes) : void;
 }
-\class_alias('_PhpScoper88fe6e0ad041\\DOMParentNode', 'DOMParentNode', \false);
+\class_alias('_PhpScopera143bcca66cb\\DOMParentNode', 'DOMParentNode', \false);

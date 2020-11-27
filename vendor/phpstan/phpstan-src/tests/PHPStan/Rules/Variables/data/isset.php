@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\IssetRule;
+namespace _PhpScopera143bcca66cb\IssetRule;
 
 class FooCoalesce
 {
@@ -49,15 +49,15 @@ function coalesce()
     echo isset($fixedDimArray['dim-null-offset']['a']) ? $fixedDimArray['dim-null-offset']['a'] : 0;
     // Always set, then never set
     echo isset($fixedDimArray['dim-empty']['b']) ? $fixedDimArray['dim-empty']['b'] : 0;
-    $foo = new \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce();
+    $foo = new \_PhpScopera143bcca66cb\IssetRule\FooCoalesce();
     echo isset($foo->stringOrNull) ? $foo->stringOrNull : '';
     echo isset($foo->string) ? $foo->string : '';
     echo isset($foo->alwaysNull) ? $foo->alwaysNull : '';
     echo isset($foo->fooCoalesce->string) ? $foo->fooCoalesce->string : '';
     echo isset($foo->fooCoalesceOrNull->string) ? $foo->fooCoalesceOrNull->string : '';
-    echo isset(\_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce::$staticStringOrNull) ? \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce::$staticStringOrNull : '';
-    echo isset(\_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce::$staticString) ? \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce::$staticString : '';
-    echo isset(\_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce::$staticAlwaysNull) ? \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce::$staticAlwaysNull : '';
+    echo isset(\_PhpScopera143bcca66cb\IssetRule\FooCoalesce::$staticStringOrNull) ? \_PhpScopera143bcca66cb\IssetRule\FooCoalesce::$staticStringOrNull : '';
+    echo isset(\_PhpScopera143bcca66cb\IssetRule\FooCoalesce::$staticString) ? \_PhpScopera143bcca66cb\IssetRule\FooCoalesce::$staticString : '';
+    echo isset(\_PhpScopera143bcca66cb\IssetRule\FooCoalesce::$staticAlwaysNull) ? \_PhpScopera143bcca66cb\IssetRule\FooCoalesce::$staticAlwaysNull : '';
 }
 /**
  * @param array<string, int> $array
@@ -73,11 +73,11 @@ function alwaysNullCoalesce(?string $a) : void
     }
 }
 function () : void {
-    echo isset((new \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce())->string) ? (new \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce())->string : 'foo';
-    echo isset((new \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce())->stringOrNull) ? (new \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce())->stringOrNull : 'foo';
-    echo isset((new \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce())->alwaysNull) ? (new \_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce())->alwaysNull : 'foo';
+    echo isset((new \_PhpScopera143bcca66cb\IssetRule\FooCoalesce())->string) ? (new \_PhpScopera143bcca66cb\IssetRule\FooCoalesce())->string : 'foo';
+    echo isset((new \_PhpScopera143bcca66cb\IssetRule\FooCoalesce())->stringOrNull) ? (new \_PhpScopera143bcca66cb\IssetRule\FooCoalesce())->stringOrNull : 'foo';
+    echo isset((new \_PhpScopera143bcca66cb\IssetRule\FooCoalesce())->alwaysNull) ? (new \_PhpScopera143bcca66cb\IssetRule\FooCoalesce())->alwaysNull : 'foo';
 };
-function (\_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce $foo) : void {
+function (\_PhpScopera143bcca66cb\IssetRule\FooCoalesce $foo) : void {
     echo isset($foo::$staticAlwaysNull) ? $foo::$staticAlwaysNull : 'foo';
     echo isset($foo::$staticString) ? $foo::$staticString : 'foo';
     echo isset($foo::$staticStringOrNull) ? $foo::$staticStringOrNull : 'foo';
@@ -89,7 +89,7 @@ function (\_PhpScoper88fe6e0ad041\IssetRule\FooCoalesce $foo) : void {
 class SomeMagicProperties
 {
 }
-function (\_PhpScoper88fe6e0ad041\IssetRule\SomeMagicProperties $foo, \stdClass $std) : void {
+function (\_PhpScopera143bcca66cb\IssetRule\SomeMagicProperties $foo, \stdClass $std) : void {
     echo isset($foo->integerProperty) ? $foo->integerProperty : null;
     echo isset($foo->foo->string) ? $foo->foo->string : null;
     echo isset($std->foo) ? $std->foo : null;

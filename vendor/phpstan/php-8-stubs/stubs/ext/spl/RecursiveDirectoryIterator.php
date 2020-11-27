@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class RecursiveDirectoryIterator extends \FilesystemIterator implements \RecursiveIterator
 {
@@ -24,4 +24,4 @@ class RecursiveDirectoryIterator extends \FilesystemIterator implements \Recursi
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\RecursiveDirectoryIterator', 'RecursiveDirectoryIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\RecursiveDirectoryIterator', 'RecursiveDirectoryIterator', \false);

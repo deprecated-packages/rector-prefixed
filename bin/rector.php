@@ -1,18 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
 use Rector\Core\Configuration\Configuration;
-use Rector\Core\Configuration\MinimalVersionChecker;
-use Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonParser;
-use Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonReader;
 use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\Console\Style\SymfonyStyleFactory;
 use Rector\Core\DependencyInjection\RectorContainerFactory;
+use Rector\Core\HttpKernel\RectorKernel;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
@@ -25,7 +23,7 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \_PhpScoper88fe6e0ad041\AutoloadIncluder();
+$autoloadIncluder = new \_PhpScopera143bcca66cb\AutoloadIncluder();
 $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
@@ -33,9 +31,6 @@ $autoloadIncluder->autoloadFromCommandLine();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 try {
-    $composerJsonReader = new \Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonReader(__DIR__ . '/../composer.json');
-    $versionChecker = new \Rector\Core\Configuration\MinimalVersionChecker(\PHP_VERSION, new \Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonParser($composerJsonReader->read()));
-    $versionChecker->check();
     $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
     $configFileInfos = $rectorConfigsResolver->provide();
     // Build DI container
@@ -138,4 +133,4 @@ final class AutoloadIncluder
         return \in_array('--debug', $_SERVER['argv'], \true);
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('_PhpScopera143bcca66cb\\AutoloadIncluder', 'AutoloadIncluder', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 #ifdef HAVE_GLOB
 function glob(string $pattern, int $flags = 0) : array|false

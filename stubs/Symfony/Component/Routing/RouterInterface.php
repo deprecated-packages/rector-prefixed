@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Symfony\Component\Routing;
+namespace _PhpScopera143bcca66cb\Symfony\Component\Routing;
 
-use _PhpScoper88fe6e0ad041\Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-if (\interface_exists('_PhpScoper88fe6e0ad041\\Symfony\\Component\\Routing\\RouterInterface')) {
+use _PhpScopera143bcca66cb\Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+if (\interface_exists('_PhpScopera143bcca66cb\\Symfony\\Component\\Routing\\RouterInterface')) {
     return;
 }
-interface RouterInterface extends \_PhpScoper88fe6e0ad041\Symfony\Component\Routing\Generator\UrlGeneratorInterface
+interface RouterInterface extends \_PhpScopera143bcca66cb\Symfony\Component\Routing\Generator\UrlGeneratorInterface
 {
 }

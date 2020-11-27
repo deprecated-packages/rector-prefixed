@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Promise;
+namespace _PhpScopera143bcca66cb\React\Promise;
 
 /**
  * @deprecated 2.8.0 External usage of RejectedPromise is deprecated, use `reject()` instead.
  */
-class RejectedPromise implements \_PhpScoper88fe6e0ad041\React\Promise\ExtendedPromiseInterface, \_PhpScoper88fe6e0ad041\React\Promise\CancellablePromiseInterface
+class RejectedPromise implements \_PhpScopera143bcca66cb\React\Promise\ExtendedPromiseInterface, \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface
 {
     private $reason;
     public function __construct($reason = null)
     {
-        if ($reason instanceof \_PhpScoper88fe6e0ad041\React\Promise\PromiseInterface) {
+        if ($reason instanceof \_PhpScopera143bcca66cb\React\Promise\PromiseInterface) {
             throw new \InvalidArgumentException('You cannot create React\\Promise\\RejectedPromise with a promise. Use React\\Promise\\reject($promiseOrValue) instead.');
         }
         $this->reason = $reason;
@@ -23,21 +23,21 @@ class RejectedPromise implements \_PhpScoper88fe6e0ad041\React\Promise\ExtendedP
         try {
             return resolve($onRejected($this->reason));
         } catch (\Throwable $exception) {
-            return new \_PhpScoper88fe6e0ad041\React\Promise\RejectedPromise($exception);
+            return new \_PhpScopera143bcca66cb\React\Promise\RejectedPromise($exception);
         } catch (\Exception $exception) {
-            return new \_PhpScoper88fe6e0ad041\React\Promise\RejectedPromise($exception);
+            return new \_PhpScopera143bcca66cb\React\Promise\RejectedPromise($exception);
         }
     }
     public function done(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null)
     {
         if (null === $onRejected) {
-            throw \_PhpScoper88fe6e0ad041\React\Promise\UnhandledRejectionException::resolve($this->reason);
+            throw \_PhpScopera143bcca66cb\React\Promise\UnhandledRejectionException::resolve($this->reason);
         }
         $result = $onRejected($this->reason);
         if ($result instanceof self) {
-            throw \_PhpScoper88fe6e0ad041\React\Promise\UnhandledRejectionException::resolve($result->reason);
+            throw \_PhpScopera143bcca66cb\React\Promise\UnhandledRejectionException::resolve($result->reason);
         }
-        if ($result instanceof \_PhpScoper88fe6e0ad041\React\Promise\ExtendedPromiseInterface) {
+        if ($result instanceof \_PhpScopera143bcca66cb\React\Promise\ExtendedPromiseInterface) {
             $result->done();
         }
     }
@@ -52,7 +52,7 @@ class RejectedPromise implements \_PhpScoper88fe6e0ad041\React\Promise\ExtendedP
     {
         return $this->then(null, function ($reason) use($onFulfilledOrRejected) {
             return resolve($onFulfilledOrRejected())->then(function () use($reason) {
-                return new \_PhpScoper88fe6e0ad041\React\Promise\RejectedPromise($reason);
+                return new \_PhpScopera143bcca66cb\React\Promise\RejectedPromise($reason);
             });
         });
     }

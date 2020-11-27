@@ -26,13 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\Webmozart\\Assert\\": "src\/"
+            "_PhpScopera143bcca66cb\\Webmozart\\Assert\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\Webmozart\\Assert\\Tests\\": "tests\/",
-            "_PhpScoper88fe6e0ad041\\Webmozart\\Assert\\Bin\\": "bin\/src"
+            "_PhpScopera143bcca66cb\\Webmozart\\Assert\\Tests\\": "tests\/",
+            "_PhpScopera143bcca66cb\\Webmozart\\Assert\\Bin\\": "bin\/src"
         }
     }
 }

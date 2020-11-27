@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Exception;
+namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Exception;
 
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass;
 use UnexpectedValueException;
 use function sprintf;
 class NotAnInterfaceReflection extends \UnexpectedValueException
 {
-    public static function fromReflectionClass(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $class) : self
+    public static function fromReflectionClass(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $class) : self
     {
         $type = 'class';
         if ($class->isTrait()) {

@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Json;
+use _PhpScopera143bcca66cb\Nette\Utils\Json;
 use PHPStan\Dependency\DependencyDumper;
 use PHPStan\File\FileHelper;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface;
-class DumpDependenciesCommand extends \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Command\Command
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputArgument;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+class DumpDependenciesCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command
 {
     private const NAME = 'dump-deps';
     /** @var string[] */
@@ -25,9 +25,9 @@ class DumpDependenciesCommand extends \_PhpScoper88fe6e0ad041\Symfony\Component\
     }
     protected function configure() : void
     {
-        $this->setName(self::NAME)->setDescription('Dumps files dependency tree')->setDefinition([new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument('paths', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run dump on'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('paths-file', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption(\PHPStan\Command\ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Do not show progress bar, only results'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('memory-limit', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for the run'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('analysed-paths', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_IS_ARRAY | \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project-scope paths'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('xdebug', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes')]);
+        $this->setName(self::NAME)->setDescription('Dumps files dependency tree')->setDefinition([new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputArgument('paths', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run dump on'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('paths-file', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption(\PHPStan\Command\ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Do not show progress bar, only results'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('memory-limit', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for the run'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('analysed-paths', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_IS_ARRAY | \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project-scope paths'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('xdebug', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes')]);
     }
-    protected function execute(\_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         try {
             /** @var string[] $paths */
@@ -83,7 +83,7 @@ class DumpDependenciesCommand extends \_PhpScoper88fe6e0ad041\Symfony\Component\
             $stdOutputStyole->progressAdvance();
         }, \count($analysedPaths) > 0 ? $analysedPaths : null);
         $stdOutputStyole->progressFinish();
-        $stdOutput->writeLineFormatted(\_PhpScoper88fe6e0ad041\Nette\Utils\Json::encode($dependencies, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::PRETTY));
+        $stdOutput->writeLineFormatted(\_PhpScopera143bcca66cb\Nette\Utils\Json::encode($dependencies, \_PhpScopera143bcca66cb\Nette\Utils\Json::PRETTY));
         return $inceptionResult->handleReturn(0);
     }
 }

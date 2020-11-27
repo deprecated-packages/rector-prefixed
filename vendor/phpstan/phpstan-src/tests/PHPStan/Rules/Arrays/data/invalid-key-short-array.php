@@ -1,5 +1,5 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\InvalidKeyShortArray;
+namespace _PhpScopera143bcca66cb\InvalidKeyShortArray;
 
 ['test' => $b, new \DateTimeImmutable() => $c, [] => $d] = $a;

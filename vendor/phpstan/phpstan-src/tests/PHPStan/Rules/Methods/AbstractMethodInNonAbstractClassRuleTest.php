@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Rules\Methods;
 
-use _PhpScoper88fe6e0ad041\Bug3406\AbstractFoo;
-use _PhpScoper88fe6e0ad041\Bug3406\ClassFoo;
+use _PhpScopera143bcca66cb\Bug3406\AbstractFoo;
+use _PhpScopera143bcca66cb\Bug3406\ClassFoo;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 /**
@@ -35,9 +35,9 @@ class AbstractMethodInNonAbstractClassRuleTest extends \PHPStan\Testing\RuleTest
     {
         $this->createBroker();
         $reflectionProvider = $this->createReflectionProvider();
-        $reflection = $reflectionProvider->getClass(\_PhpScoper88fe6e0ad041\Bug3406\ClassFoo::class);
-        $this->assertSame(\_PhpScoper88fe6e0ad041\Bug3406\AbstractFoo::class, $reflection->getNativeMethod('myFoo')->getDeclaringClass()->getName());
-        $this->assertSame(\_PhpScoper88fe6e0ad041\Bug3406\ClassFoo::class, $reflection->getNativeMethod('myBar')->getDeclaringClass()->getName());
+        $reflection = $reflectionProvider->getClass(\_PhpScopera143bcca66cb\Bug3406\ClassFoo::class);
+        $this->assertSame(\_PhpScopera143bcca66cb\Bug3406\AbstractFoo::class, $reflection->getNativeMethod('myFoo')->getDeclaringClass()->getName());
+        $this->assertSame(\_PhpScopera143bcca66cb\Bug3406\ClassFoo::class, $reflection->getNativeMethod('myBar')->getDeclaringClass()->getName());
     }
     public function testbug3406AnotherCase() : void
     {

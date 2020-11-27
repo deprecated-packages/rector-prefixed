@@ -9,10 +9,10 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types;
 
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Fqsen;
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Fqsen;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
 /**
  * Represents a collection type as described in the PSR-5, the PHPDoc Standard.
  *
@@ -26,14 +26,14 @@ use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-final class Collection extends \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\AbstractList
+final class Collection extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\AbstractList
 {
     /** @var Fqsen|null */
     private $fqsen;
     /**
      * Initializes this representation of an array with the given Type or Fqsen.
      */
-    public function __construct(?\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Fqsen $fqsen, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type $valueType, ?\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type $keyType = null)
+    public function __construct(?\_PhpScopera143bcca66cb\phpDocumentor\Reflection\Fqsen $fqsen, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type $valueType, ?\_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type $keyType = null)
     {
         parent::__construct($valueType, $keyType);
         $this->fqsen = $fqsen;
@@ -41,7 +41,7 @@ final class Collection extends \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\
     /**
      * Returns the FQSEN associated with this object.
      */
-    public function getFqsen() : ?\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Fqsen
+    public function getFqsen() : ?\_PhpScopera143bcca66cb\phpDocumentor\Reflection\Fqsen
     {
         return $this->fqsen;
     }

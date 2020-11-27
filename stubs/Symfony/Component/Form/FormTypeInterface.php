@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Symfony\Component\Form;
+namespace _PhpScopera143bcca66cb\Symfony\Component\Form;
 
-if (\interface_exists('_PhpScoper88fe6e0ad041\\Symfony\\Component\\Form\\FormTypeInterface')) {
+if (\interface_exists('_PhpScopera143bcca66cb\\Symfony\\Component\\Form\\FormTypeInterface')) {
     return;
 }
 interface FormTypeInterface

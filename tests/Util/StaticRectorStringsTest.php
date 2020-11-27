@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Core\Tests\Util;
 
 use Iterator;
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
 use Rector\Core\Util\StaticRectorStrings;
-final class StaticRectorStringsTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+final class StaticRectorStringsTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider provideDataForCamelCaseToUnderscore()

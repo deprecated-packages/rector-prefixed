@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\RingCentral\Tests\Psr7;
+namespace _PhpScopera143bcca66cb\RingCentral\Tests\Psr7;
 
-use _PhpScoper88fe6e0ad041\RingCentral\Psr7;
-use _PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream;
+use _PhpScopera143bcca66cb\RingCentral\Psr7;
+use _PhpScopera143bcca66cb\RingCentral\Psr7\FnStream;
 /**
  * @covers RingCentral\Psr7\FnStream
  */
-class FnStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
+class FnStreamTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \BadMethodCallException
@@ -15,13 +15,13 @@ class FnStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
      */
     public function testThrowsWhenNotImplemented()
     {
-        $stream = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream(array());
+        $stream = new \_PhpScopera143bcca66cb\RingCentral\Psr7\FnStream(array());
         $stream->seek(1);
     }
     public function testProxiesToFunction()
     {
         $self = $this;
-        $s = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream(array('read' => function ($len) use($self) {
+        $s = new \_PhpScopera143bcca66cb\RingCentral\Psr7\FnStream(array('read' => function ($len) use($self) {
             $self->assertEquals(3, $len);
             return 'foo';
         }));
@@ -30,7 +30,7 @@ class FnStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
     public function testCanCloseOnDestruct()
     {
         $called = \false;
-        $s = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream(array('close' => function () use(&$called) {
+        $s = new \_PhpScopera143bcca66cb\RingCentral\Psr7\FnStream(array('close' => function () use(&$called) {
             $called = \true;
         }));
         unset($s);
@@ -38,13 +38,13 @@ class FnStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
     }
     public function testDoesNotRequireClose()
     {
-        $s = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream(array());
+        $s = new \_PhpScopera143bcca66cb\RingCentral\Psr7\FnStream(array());
         unset($s);
     }
     public function testDecoratesStream()
     {
-        $a = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('foo');
-        $b = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream::decorate($a, array());
+        $a = \_PhpScopera143bcca66cb\RingCentral\Psr7\stream_for('foo');
+        $b = \_PhpScopera143bcca66cb\RingCentral\Psr7\FnStream::decorate($a, array());
         $this->assertEquals(3, $b->getSize());
         $this->assertEquals($b->isWritable(), \true);
         $this->assertEquals($b->isReadable(), \true);
@@ -69,8 +69,8 @@ class FnStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
     public function testDecoratesWithCustomizations()
     {
         $called = \false;
-        $a = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('foo');
-        $b = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream::decorate($a, array('read' => function ($len) use(&$called, $a) {
+        $a = \_PhpScopera143bcca66cb\RingCentral\Psr7\stream_for('foo');
+        $b = \_PhpScopera143bcca66cb\RingCentral\Psr7\FnStream::decorate($a, array('read' => function ($len) use(&$called, $a) {
             $called = \true;
             return $a->read($len);
         }));

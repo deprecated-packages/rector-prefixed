@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class ErrorException extends \Exception
 {
@@ -11,4 +11,4 @@ class ErrorException extends \Exception
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\ErrorException', 'ErrorException', \false);
+\class_alias('_PhpScopera143bcca66cb\\ErrorException', 'ErrorException', \false);

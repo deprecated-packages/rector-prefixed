@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\File;
 
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
-class ParentDirectoryRelativePathHelperTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
+class ParentDirectoryRelativePathHelperTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     public function dataGetRelativePath() : array
     {

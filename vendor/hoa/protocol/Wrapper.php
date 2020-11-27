@@ -498,7 +498,7 @@ class Wrapper
  * Register the `hoa://` protocol.
  */
 \stream_wrapper_register('hoa', \Hoa\Protocol\Wrapper::class);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /**
  * Alias of `Hoa\Protocol::resolve` method.
@@ -509,7 +509,7 @@ namespace _PhpScoper88fe6e0ad041;
  * @param   bool    $unfold    Return all solutions instead of one.
  * @return  mixed
  */
-if (!\function_exists('_PhpScoper88fe6e0ad041\\resolve')) {
+if (!\function_exists('_PhpScopera143bcca66cb\\resolve')) {
     function resolve($path, $exists = \true, $unfold = \false)
     {
         return \Hoa\Protocol::getInstance()->resolve($path, $exists, $unfold);

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function oci_lob_flush(\_PhpScoper88fe6e0ad041\OCILob $lob, int $flag = 0) : bool
+function oci_lob_flush(\_PhpScopera143bcca66cb\OCILob $lob, int $flag = 0) : bool
 {
 }

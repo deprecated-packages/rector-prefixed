@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\OverwritingVariable;
+namespace _PhpScopera143bcca66cb\OverwritingVariable;
 
 class Bar
 {
-    public function methodFoo() : \_PhpScoper88fe6e0ad041\OverwritingVariable\Foo
+    public function methodFoo() : \_PhpScopera143bcca66cb\OverwritingVariable\Foo
     {
     }
 }

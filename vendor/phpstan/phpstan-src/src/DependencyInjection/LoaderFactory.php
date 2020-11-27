@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use _PhpScoper88fe6e0ad041\Nette\DI\Config\Loader;
+use _PhpScopera143bcca66cb\Nette\DI\Config\Loader;
 use PHPStan\File\FileHelper;
 class LoaderFactory
 {
@@ -30,7 +30,7 @@ class LoaderFactory
         $this->currentWorkingDirectory = $currentWorkingDirectory;
         $this->generateBaselineFile = $generateBaselineFile;
     }
-    public function createLoader() : \_PhpScoper88fe6e0ad041\Nette\DI\Config\Loader
+    public function createLoader() : \_PhpScopera143bcca66cb\Nette\DI\Config\Loader
     {
         $loader = new \PHPStan\DependencyInjection\NeonLoader($this->fileHelper, $this->generateBaselineFile);
         $loader->addAdapter('dist', \PHPStan\DependencyInjection\NeonAdapter::class);

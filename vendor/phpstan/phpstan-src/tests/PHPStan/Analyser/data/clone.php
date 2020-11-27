@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\CloneOperators;
+namespace _PhpScopera143bcca66cb\CloneOperators;
 
 class Foo
 {
 }
 function () {
-    $fooObject = new \_PhpScoper88fe6e0ad041\CloneOperators\Foo();
+    $fooObject = new \_PhpScopera143bcca66cb\CloneOperators\Foo();
     die;
 };

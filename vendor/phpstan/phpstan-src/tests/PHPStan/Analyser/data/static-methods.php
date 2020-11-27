@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\StaticMethods;
+namespace _PhpScopera143bcca66cb\StaticMethods;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -21,7 +21,7 @@ class Foo
         \PHPStan\Analyser\assertType('array<static(StaticMethods\\Foo)>', static::staticMethod());
     }
 }
-class Bar extends \_PhpScoper88fe6e0ad041\StaticMethods\Foo
+class Bar extends \_PhpScopera143bcca66cb\StaticMethods\Foo
 {
     public function doFoo()
     {
@@ -31,10 +31,10 @@ class Bar extends \_PhpScoper88fe6e0ad041\StaticMethods\Foo
         \PHPStan\Analyser\assertType('array<static(StaticMethods\\Bar)>', static::staticMethod());
     }
 }
-function (\_PhpScoper88fe6e0ad041\StaticMethods\Foo $foo, \_PhpScoper88fe6e0ad041\StaticMethods\Bar $bar) {
+function (\_PhpScopera143bcca66cb\StaticMethods\Foo $foo, \_PhpScopera143bcca66cb\StaticMethods\Bar $bar) {
     \PHPStan\Analyser\assertType('array<StaticMethods\\Foo>', $foo->method());
     \PHPStan\Analyser\assertType('array<StaticMethods\\Bar>', $bar->method());
     \PHPStan\Analyser\assertType('array<StaticMethods\\Bar>', $bar->method()[0]->method());
-    \PHPStan\Analyser\assertType('array<StaticMethods\\Foo>', \_PhpScoper88fe6e0ad041\StaticMethods\Foo::staticMethod());
-    \PHPStan\Analyser\assertType('array<StaticMethods\\Bar>', \_PhpScoper88fe6e0ad041\StaticMethods\Bar::staticMethod());
+    \PHPStan\Analyser\assertType('array<StaticMethods\\Foo>', \_PhpScopera143bcca66cb\StaticMethods\Foo::staticMethod());
+    \PHPStan\Analyser\assertType('array<StaticMethods\\Bar>', \_PhpScopera143bcca66cb\StaticMethods\Bar::staticMethod());
 };

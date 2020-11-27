@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-use _PhpScoper88fe6e0ad041\React\EventLoop\Factory;
-use _PhpScoper88fe6e0ad041\React\ChildProcess\Process;
+use _PhpScopera143bcca66cb\React\EventLoop\Factory;
+use _PhpScopera143bcca66cb\React\ChildProcess\Process;
 require __DIR__ . '/../vendor/autoload.php';
-$loop = \_PhpScoper88fe6e0ad041\React\EventLoop\Factory::create();
-$server = new \_PhpScoper88fe6e0ad041\React\Socket\Server('127.0.0.1:0', $loop);
-$server->on('connection', function (\_PhpScoper88fe6e0ad041\React\Socket\ConnectionInterface $connection) {
+$loop = \_PhpScopera143bcca66cb\React\EventLoop\Factory::create();
+$server = new \_PhpScopera143bcca66cb\React\Socket\Server('127.0.0.1:0', $loop);
+$server->on('connection', function (\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $connection) {
     $connection->on('data', function ($chunk) {
         // escape control codes (useful in case encoding or binary data is not working as expected)
         // $chunk = addcslashes($chunk,"\0..\37!@\177..\377");
@@ -21,7 +21,7 @@ $command = 'php -r "echo 1;sleep(1);echo 2;sleep(1);echo 3;"';
 // $command = 'C:\Windows\System32\ping google.com';
 // use stream redirections to consume output of child process in another helper process and forward to socket
 $code = '$s=stream_socket_client($argv[1]);do{fwrite($s,$d=fread(STDIN, 8192));}while(isset($d[0]));';
-$process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($command . ' | php -r ' . \escapeshellarg($code) . ' ' . $server->getAddress(), null, null, array());
+$process = new \_PhpScopera143bcca66cb\React\ChildProcess\Process($command . ' | php -r ' . \escapeshellarg($code) . ' ' . $server->getAddress(), null, null, array());
 $process->start($loop);
 $process->on('exit', function ($code) use($server) {
     $server->close();

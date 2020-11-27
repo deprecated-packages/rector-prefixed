@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ReturnStaticFromParent;
+namespace _PhpScopera143bcca66cb\ReturnStaticFromParent;
 
 class Foo
 {
@@ -11,10 +11,10 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper88fe6e0ad041\ReturnStaticFromParent\Foo
+class Bar extends \_PhpScopera143bcca66cb\ReturnStaticFromParent\Foo
 {
 }
-class Baz extends \_PhpScoper88fe6e0ad041\ReturnStaticFromParent\Bar
+class Baz extends \_PhpScopera143bcca66cb\ReturnStaticFromParent\Bar
 {
     public function doBaz() : self
     {

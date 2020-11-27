@@ -5,15 +5,15 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\Bridges\DITracy;
+namespace _PhpScopera143bcca66cb\Nette\Bridges\DITracy;
 
-use _PhpScoper88fe6e0ad041\Nette;
-use _PhpScoper88fe6e0ad041\Nette\DI\Container;
-use _PhpScoper88fe6e0ad041\Tracy;
+use _PhpScopera143bcca66cb\Nette;
+use _PhpScopera143bcca66cb\Nette\DI\Container;
+use _PhpScopera143bcca66cb\Tracy;
 /**
  * Dependency injection container panel for Debugger Bar.
  */
-class ContainerPanel implements \_PhpScoper88fe6e0ad041\Tracy\IBarPanel
+class ContainerPanel implements \_PhpScopera143bcca66cb\Tracy\IBarPanel
 {
     use Nette\SmartObject;
     /** @var float|null */
@@ -22,7 +22,7 @@ class ContainerPanel implements \_PhpScoper88fe6e0ad041\Tracy\IBarPanel
     private $container;
     /** @var float|null */
     private $elapsedTime;
-    public function __construct(\_PhpScoper88fe6e0ad041\Nette\DI\Container $container)
+    public function __construct(\_PhpScopera143bcca66cb\Nette\DI\Container $container)
     {
         $this->container = $container;
         $this->elapsedTime = self::$compilationTime ? \microtime(\true) - self::$compilationTime : null;
@@ -32,7 +32,7 @@ class ContainerPanel implements \_PhpScoper88fe6e0ad041\Tracy\IBarPanel
      */
     public function getTab() : string
     {
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Helpers::capture(function () {
+        return \_PhpScopera143bcca66cb\Nette\Utils\Helpers::capture(function () {
             $elapsedTime = $this->elapsedTime;
             require __DIR__ . '/templates/ContainerPanel.tab.phtml';
         });
@@ -57,7 +57,7 @@ class ContainerPanel implements \_PhpScoper88fe6e0ad041\Tracy\IBarPanel
                 $tags[$service][$tag] = $val;
             }
         }
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Helpers::capture(function () use($tags, $types, $rc) {
+        return \_PhpScopera143bcca66cb\Nette\Utils\Helpers::capture(function () use($tags, $types, $rc) {
             $container = $this->container;
             $file = $rc->getFileName();
             $instances = $this->getContainerProperty('instances');
@@ -67,7 +67,7 @@ class ContainerPanel implements \_PhpScoper88fe6e0ad041\Tracy\IBarPanel
     }
     private function getContainerProperty(string $name)
     {
-        $prop = (new \ReflectionClass(\_PhpScoper88fe6e0ad041\Nette\DI\Container::class))->getProperty($name);
+        $prop = (new \ReflectionClass(\_PhpScopera143bcca66cb\Nette\DI\Container::class))->getProperty($name);
         $prop->setAccessible(\true);
         return $prop->getValue($this->container);
     }

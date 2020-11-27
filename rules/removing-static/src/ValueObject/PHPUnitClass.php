@@ -8,5 +8,5 @@ final class PHPUnitClass
     /**
      * @var string
      */
-    public const TEST_CASE = '_PhpScoper88fe6e0ad041\\PHPUnit\\Framework\\TestCase';
+    public const TEST_CASE = '_PhpScopera143bcca66cb\\PHPUnit\\Framework\\TestCase';
 }

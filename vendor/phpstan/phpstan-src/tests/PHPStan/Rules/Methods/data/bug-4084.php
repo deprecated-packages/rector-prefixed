@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Bug4084;
+namespace _PhpScopera143bcca66cb\Bug4084;
 
 class Handler implements \SessionUpdateTimestampHandlerInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function imagecolorclosest(\_PhpScoper88fe6e0ad041\GdImage $image, int $red, int $green, int $blue) : int|false
+function imagecolorclosest(\_PhpScopera143bcca66cb\GdImage $image, int $red, int $green, int $blue) : int|false
 {
 }

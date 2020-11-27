@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Bug3481;
+namespace _PhpScopera143bcca66cb\Bug3481;
 
 class Foo
 {
@@ -15,7 +15,7 @@ class Foo
 }
 function () : void {
     $args = ['foo', 1, 'bar'];
-    $foo = new \_PhpScoper88fe6e0ad041\Bug3481\Foo();
+    $foo = new \_PhpScopera143bcca66cb\Bug3481\Foo();
     $foo->doSomething(...$args);
 };
 function () : void {
@@ -23,7 +23,7 @@ function () : void {
     if (\rand(0, 1)) {
         $args[] = 'bar';
     }
-    $foo = new \_PhpScoper88fe6e0ad041\Bug3481\Foo();
+    $foo = new \_PhpScopera143bcca66cb\Bug3481\Foo();
     $foo->doSomething(...$args);
 };
 function () : void {
@@ -31,6 +31,6 @@ function () : void {
     if (\rand(0, 1)) {
         $args[0] = 1;
     }
-    $foo = new \_PhpScoper88fe6e0ad041\Bug3481\Foo();
+    $foo = new \_PhpScopera143bcca66cb\Bug3481\Foo();
     $foo->doSomething(...$args);
 };

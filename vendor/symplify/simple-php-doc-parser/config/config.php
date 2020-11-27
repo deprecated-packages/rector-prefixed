@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Rector\\SimplePhpDocParser\\', __DIR__ . '/../src');
+    $services->load('Symplify\\SimplePhpDocParser\\', __DIR__ . '/../src');
     $services->set(\PHPStan\PhpDocParser\Parser\PhpDocParser::class);
     $services->set(\PHPStan\PhpDocParser\Lexer\Lexer::class);
     $services->set(\PHPStan\PhpDocParser\Parser\TypeParser::class);

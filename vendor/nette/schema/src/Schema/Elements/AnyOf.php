@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\Schema\Elements;
+namespace _PhpScopera143bcca66cb\Nette\Schema\Elements;
 
-use _PhpScoper88fe6e0ad041\Nette;
-use _PhpScoper88fe6e0ad041\Nette\Schema\Context;
-use _PhpScoper88fe6e0ad041\Nette\Schema\Helpers;
-use _PhpScoper88fe6e0ad041\Nette\Schema\Schema;
-final class AnyOf implements \_PhpScoper88fe6e0ad041\Nette\Schema\Schema
+use _PhpScopera143bcca66cb\Nette;
+use _PhpScopera143bcca66cb\Nette\Schema\Context;
+use _PhpScopera143bcca66cb\Nette\Schema\Helpers;
+use _PhpScopera143bcca66cb\Nette\Schema\Schema;
+final class AnyOf implements \_PhpScopera143bcca66cb\Nette\Schema\Schema
 {
     use Base;
     use Nette\SmartObject;
@@ -31,28 +31,28 @@ final class AnyOf implements \_PhpScoper88fe6e0ad041\Nette\Schema\Schema
     }
     public function dynamic() : self
     {
-        $this->set[] = new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type(\_PhpScoper88fe6e0ad041\Nette\Schema\DynamicParameter::class);
+        $this->set[] = new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type(\_PhpScopera143bcca66cb\Nette\Schema\DynamicParameter::class);
         return $this;
     }
     /********************* processing ****************d*g**/
-    public function normalize($value, \_PhpScoper88fe6e0ad041\Nette\Schema\Context $context)
+    public function normalize($value, \_PhpScopera143bcca66cb\Nette\Schema\Context $context)
     {
         return $this->doNormalize($value, $context);
     }
     public function merge($value, $base)
     {
-        if (\is_array($value) && isset($value[\_PhpScoper88fe6e0ad041\Nette\Schema\Helpers::PREVENT_MERGING])) {
-            unset($value[\_PhpScoper88fe6e0ad041\Nette\Schema\Helpers::PREVENT_MERGING]);
+        if (\is_array($value) && isset($value[\_PhpScopera143bcca66cb\Nette\Schema\Helpers::PREVENT_MERGING])) {
+            unset($value[\_PhpScopera143bcca66cb\Nette\Schema\Helpers::PREVENT_MERGING]);
             return $value;
         }
-        return \_PhpScoper88fe6e0ad041\Nette\Schema\Helpers::merge($value, $base);
+        return \_PhpScopera143bcca66cb\Nette\Schema\Helpers::merge($value, $base);
     }
-    public function complete($value, \_PhpScoper88fe6e0ad041\Nette\Schema\Context $context)
+    public function complete($value, \_PhpScopera143bcca66cb\Nette\Schema\Context $context)
     {
         $hints = $innerErrors = [];
         foreach ($this->set as $item) {
-            if ($item instanceof \_PhpScoper88fe6e0ad041\Nette\Schema\Schema) {
-                $dolly = new \_PhpScoper88fe6e0ad041\Nette\Schema\Context();
+            if ($item instanceof \_PhpScopera143bcca66cb\Nette\Schema\Schema) {
+                $dolly = new \_PhpScopera143bcca66cb\Nette\Schema\Context();
                 $dolly->path = $context->path;
                 $res = $item->complete($value, $dolly);
                 if (!$dolly->errors) {
@@ -79,13 +79,13 @@ final class AnyOf implements \_PhpScoper88fe6e0ad041\Nette\Schema\Schema
             $context->addError("The option %path% expects to be {$hints}, " . static::formatValue($value) . ' given.');
         }
     }
-    public function completeDefault(\_PhpScoper88fe6e0ad041\Nette\Schema\Context $context)
+    public function completeDefault(\_PhpScopera143bcca66cb\Nette\Schema\Context $context)
     {
         if ($this->required) {
             $context->addError('The mandatory option %path% is missing.');
             return null;
         }
-        if ($this->default instanceof \_PhpScoper88fe6e0ad041\Nette\Schema\Schema) {
+        if ($this->default instanceof \_PhpScopera143bcca66cb\Nette\Schema\Schema) {
             return $this->default->completeDefault($context);
         }
         return $this->default;

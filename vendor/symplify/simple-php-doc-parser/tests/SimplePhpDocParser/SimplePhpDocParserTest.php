@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SimplePhpDocParser\Tests\SimplePhpDocParser;
+namespace Symplify\SimplePhpDocParser\Tests\SimplePhpDocParser;
 
-use Rector\Core\HttpKernel\RectorKernel;
-use Rector\SimplePhpDocParser\SimplePhpDocParser;
-use Rector\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\SimplePhpDocParser\SimplePhpDocParser;
+use Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel;
+use Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class SimplePhpDocParserTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
@@ -16,14 +16,14 @@ final class SimplePhpDocParserTest extends \Symplify\PackageBuilder\Testing\Abst
     private $simplePhpDocParser;
     protected function setUp() : void
     {
-        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->simplePhpDocParser = self::$container->get(\Rector\SimplePhpDocParser\SimplePhpDocParser::class);
+        $this->bootKernel(\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel::class);
+        $this->simplePhpDocParser = self::$container->get(\Symplify\SimplePhpDocParser\SimplePhpDocParser::class);
     }
     public function testVar() : void
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/var_int.txt');
         $phpDocNode = $this->simplePhpDocParser->parseDocBlock($smartFileInfo->getContents());
-        $this->assertInstanceOf(\Rector\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
+        $this->assertInstanceOf(\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
         $varTagValues = $phpDocNode->getVarTagValues();
         $this->assertCount(1, $varTagValues);
     }
@@ -31,7 +31,7 @@ final class SimplePhpDocParserTest extends \Symplify\PackageBuilder\Testing\Abst
     {
         $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/param_string_name.txt');
         $phpDocNode = $this->simplePhpDocParser->parseDocBlock($smartFileInfo->getContents());
-        $this->assertInstanceOf(\Rector\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
+        $this->assertInstanceOf(\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
         // DX friendly
         $paramType = $phpDocNode->getParamType('name');
         $withDollarParamType = $phpDocNode->getParamType('$name');

@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Http\Io;
+namespace _PhpScopera143bcca66cb\React\Http\Io;
 
-use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
-use _PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface;
-use _PhpScoper88fe6e0ad041\React\Stream\Util;
-use _PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface;
+use _PhpScopera143bcca66cb\Evenement\EventEmitter;
+use _PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface;
+use _PhpScopera143bcca66cb\React\Stream\Util;
+use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Pauses a given stream and buffers all events while paused
  *
@@ -20,7 +20,7 @@ use _PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface;
  * @see ReadableStreamInterface
  * @internal
  */
-class PauseBufferStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface
+class PauseBufferStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
@@ -30,7 +30,7 @@ class PauseBufferStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter i
     private $closePaused = \false;
     private $errorPaused;
     private $implicit = \false;
-    public function __construct(\_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -98,9 +98,9 @@ class PauseBufferStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter i
         }
         $this->input->resume();
     }
-    public function pipe(\_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper88fe6e0ad041\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScopera143bcca66cb\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

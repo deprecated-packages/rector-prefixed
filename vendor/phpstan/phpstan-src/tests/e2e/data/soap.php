@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\SoapTests;
+namespace _PhpScopera143bcca66cb\SoapTests;
 
 use SoapFault;
 class MySoapClient extends \SoapClient
@@ -29,9 +29,9 @@ class MySoapClient3 extends \SoapClient
     }
 }
 function () {
-    $soap = new \_PhpScoper88fe6e0ad041\SoapTests\MySoapClient('some.wsdl', ['soap_version' => \SOAP_1_2]);
-    $soap = new \_PhpScoper88fe6e0ad041\SoapTests\MySoapClient2('some.wsdl', ['soap_version' => \SOAP_1_2]);
-    $soap = new \_PhpScoper88fe6e0ad041\SoapTests\MySoapClient3('some.wsdl', ['soap_version' => \SOAP_1_2]);
+    $soap = new \_PhpScopera143bcca66cb\SoapTests\MySoapClient('some.wsdl', ['soap_version' => \SOAP_1_2]);
+    $soap = new \_PhpScopera143bcca66cb\SoapTests\MySoapClient2('some.wsdl', ['soap_version' => \SOAP_1_2]);
+    $soap = new \_PhpScopera143bcca66cb\SoapTests\MySoapClient3('some.wsdl', ['soap_version' => \SOAP_1_2]);
 };
 class MySoapHeader extends \SoapHeader
 {
@@ -41,7 +41,7 @@ class MySoapHeader extends \SoapHeader
     }
 }
 function () {
-    $header = new \_PhpScoper88fe6e0ad041\SoapTests\MySoapHeader('user', 'passw0rd');
+    $header = new \_PhpScopera143bcca66cb\SoapTests\MySoapHeader('user', 'passw0rd');
 };
 function (\SoapFault $fault) {
     echo $fault->faultcode;

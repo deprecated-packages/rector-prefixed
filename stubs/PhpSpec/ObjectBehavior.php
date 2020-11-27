@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\PhpSpec;
+namespace _PhpScopera143bcca66cb\PhpSpec;
 
-if (\class_exists('_PhpScoper88fe6e0ad041\\PhpSpec\\ObjectBehavior')) {
+if (\class_exists('_PhpScopera143bcca66cb\\PhpSpec\\ObjectBehavior')) {
     return;
 }
 class ObjectBehavior

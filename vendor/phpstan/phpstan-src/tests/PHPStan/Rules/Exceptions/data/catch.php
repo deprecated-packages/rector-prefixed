@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\TestCatch;
+namespace _PhpScopera143bcca66cb\TestCatch;
 
 class FooCatch
 {
@@ -9,19 +9,19 @@ class MyCatchException extends \Exception
 {
 }
 try {
-} catch (\_PhpScoper88fe6e0ad041\TestCatch\FooCatch $e) {
+} catch (\_PhpScopera143bcca66cb\TestCatch\FooCatch $e) {
     // not an exception
 }
 try {
-} catch (\_PhpScoper88fe6e0ad041\TestCatch\MyCatchException $e) {
+} catch (\_PhpScopera143bcca66cb\TestCatch\MyCatchException $e) {
 }
 try {
-} catch (\_PhpScoper88fe6e0ad041\FooCatchException $e) {
+} catch (\_PhpScopera143bcca66cb\FooCatchException $e) {
     // nonexistent exception class
 }
 try {
 } catch (\TypeError $e) {
 }
 try {
-} catch (\_PhpScoper88fe6e0ad041\TestCatch\MyCatchEXCEPTION $e) {
+} catch (\_PhpScopera143bcca66cb\TestCatch\MyCatchEXCEPTION $e) {
 }

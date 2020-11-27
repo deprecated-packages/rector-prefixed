@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ClassAncestorsImplements;
+namespace _PhpScopera143bcca66cb\ClassAncestorsImplements;
 
 /**
  * @template T
@@ -33,104 +33,104 @@ class FooDoesNotImplementAnything
  * @implements FooGeneric<int, \InvalidArgumentException>
  * @implements FooGeneric2<int, \InvalidArgumentException>
  */
-class FooInvalidImplementsTags implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooInvalidImplementsTags implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @implements FooGeneric2<int, \InvalidArgumentException>
  */
-class FooWrongClassImplemented implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric, \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric3
+class FooWrongClassImplemented implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric, \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric3
 {
 }
 /**
  * @implements class-string<T>
  */
-class FooWrongTypeInImplementsTag implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooWrongTypeInImplementsTag implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @implements FooGeneric<int, \InvalidArgumentException>
  */
-class FooCorrect implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooCorrect implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @implements FooGeneric<int>
  */
-class FooNotEnough implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooNotEnough implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @implements FooGeneric<int, \InvalidArgumentException, string>
  */
-class FooExtraTypes implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooExtraTypes implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @implements FooGeneric<int, \Throwable>
  */
-class FooNotSubtype implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooNotSubtype implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @implements FooGeneric<int, \stdClass>
  */
-class FooAlsoNotSubtype implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooAlsoNotSubtype implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @implements FooGeneric<Zazzuuuu, \Exception>
  */
-class FooUnknownClass implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooUnknownClass implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @template T
  * @implements FooGeneric<int, T>
  */
-class FooGenericGeneric implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooGenericGeneric implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @template T of \Throwable
  * @implements FooGeneric<int, T>
  */
-class FooGenericGeneric2 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooGenericGeneric2 implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @template T of \Exception
  * @implements FooGeneric<int, T>
  */
-class FooGenericGeneric3 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooGenericGeneric3 implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @template T of \InvalidArgumentException
  * @implements FooGeneric<int, T>
  */
-class FooGenericGeneric4 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooGenericGeneric4 implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @template T
  * @implements FooGeneric<T, \Exception>
  */
-class FooGenericGeneric5 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooGenericGeneric5 implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @template T of \stdClass
  * @implements FooGeneric<T, \Exception>
  */
-class FooGenericGeneric6 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooGenericGeneric6 implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
  * @template T of \stdClass
  * @implements FooGeneric<int, T>
  */
-class FooGenericGeneric7 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooGenericGeneric7 implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
@@ -138,16 +138,16 @@ class FooGenericGeneric7 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplem
  * @implements FooGeneric<int, T>
  * @implements FooGeneric2<int, T>
  */
-class FooGenericGeneric8 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric, \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric2
+class FooGenericGeneric8 implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric, \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric2
 {
 }
 interface NonGenericInterface
 {
 }
-class FooImplementsNonGenericInterface implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\NonGenericInterface
+class FooImplementsNonGenericInterface implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\NonGenericInterface
 {
 }
-class FooImplementsGenericInterface implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric
+class FooImplementsGenericInterface implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric
 {
 }
 /**
@@ -161,6 +161,6 @@ interface FooGeneric9
  * @template-covariant T
  * @implements FooGeneric9<T, T>
  */
-class FooGeneric10 implements \_PhpScoper88fe6e0ad041\ClassAncestorsImplements\FooGeneric9
+class FooGeneric10 implements \_PhpScopera143bcca66cb\ClassAncestorsImplements\FooGeneric9
 {
 }

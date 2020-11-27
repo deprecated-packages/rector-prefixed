@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ConstructorStatementNoSideEffects;
+namespace _PhpScopera143bcca66cb\ConstructorStatementNoSideEffects;
 
 function () {
     new \Exception();

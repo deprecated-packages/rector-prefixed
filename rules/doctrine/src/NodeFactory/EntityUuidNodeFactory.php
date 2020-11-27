@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\NodeFactory;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
@@ -13,7 +13,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
-use _PhpScoper88fe6e0ad041\Ramsey\Uuid\Uuid;
+use _PhpScopera143bcca66cb\Ramsey\Uuid\Uuid;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
@@ -58,7 +58,7 @@ final class EntityUuidNodeFactory
     public function createUuidPropertyDefaultValueAssign(string $uuidVariableName) : \PhpParser\Node\Stmt\Expression
     {
         $thisUuidPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $uuidVariableName);
-        $uuid4StaticCall = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name\FullyQualified(\_PhpScoper88fe6e0ad041\Ramsey\Uuid\Uuid::class), 'uuid4');
+        $uuid4StaticCall = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name\FullyQualified(\_PhpScopera143bcca66cb\Ramsey\Uuid\Uuid::class), 'uuid4');
         $assign = new \PhpParser\Node\Expr\Assign($thisUuidPropertyFetch, $uuid4StaticCall);
         return new \PhpParser\Node\Stmt\Expression($assign);
     }
@@ -88,7 +88,7 @@ final class EntityUuidNodeFactory
         if ($docComment === null) {
             return;
         }
-        $clearedDocCommentText = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($docComment->getText(), self::ORM_VAR_DOC_LINE_REGEX);
+        $clearedDocCommentText = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($docComment->getText(), self::ORM_VAR_DOC_LINE_REGEX);
         $node->setDocComment(new \PhpParser\Comment\Doc($clearedDocCommentText));
     }
     /**
@@ -100,7 +100,7 @@ final class EntityUuidNodeFactory
         if ($docComment === null) {
             return;
         }
-        $stringTypeText = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($docComment->getText(), self::SERIALIZER_SHORT_ANNOTATION_REGEX, '$1string$3');
+        $stringTypeText = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($docComment->getText(), self::SERIALIZER_SHORT_ANNOTATION_REGEX, '$1string$3');
         $node->setDocComment(new \PhpParser\Comment\Doc($stringTypeText));
     }
 }

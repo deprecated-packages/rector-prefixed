@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\PhpGenerator;
+namespace _PhpScopera143bcca66cb\Nette\PhpGenerator;
 
-use _PhpScoper88fe6e0ad041\Nette;
+use _PhpScopera143bcca66cb\Nette;
 /**
  * PHP code generator utils.
  */
@@ -27,8 +27,8 @@ final class Dumper
     }
     private function dumpVar(&$var, array $parents = [], int $level = 0, int $column = 0) : string
     {
-        if ($var instanceof \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Literal) {
-            return \ltrim(\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::indent(\trim((string) $var), $level), "\t");
+        if ($var instanceof \_PhpScopera143bcca66cb\Nette\PhpGenerator\Literal) {
+            return \ltrim(\_PhpScopera143bcca66cb\Nette\Utils\Strings::indent(\trim((string) $var), $level), "\t");
         } elseif ($var === null) {
             return 'null';
         } elseif (\is_string($var)) {
@@ -38,7 +38,7 @@ final class Dumper
         } elseif (\is_object($var)) {
             return $this->dumpObject($var, $parents, $level);
         } elseif (\is_resource($var)) {
-            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Cannot dump resource.');
+            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Cannot dump resource.');
         } else {
             return \var_export($var, \true);
         }
@@ -67,7 +67,7 @@ final class Dumper
         if (empty($var)) {
             return '[]';
         } elseif ($level > $this->maxDepth || \in_array($var, $parents ?? [], \true)) {
-            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
+            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
         }
         $space = \str_repeat("\t", $level);
         $outInline = '';
@@ -92,18 +92,18 @@ final class Dumper
         if ($var instanceof \Serializable) {
             return 'unserialize(' . $this->dumpString(\serialize($var)) . ')';
         } elseif ($var instanceof \Closure) {
-            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Cannot dump closure.');
+            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Cannot dump closure.');
         }
         $class = \get_class($var);
         if ((new \ReflectionObject($var))->isAnonymous()) {
-            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Cannot dump anonymous class.');
+            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Cannot dump anonymous class.');
         } elseif (\in_array($class, [\DateTime::class, \DateTimeImmutable::class], \true)) {
             return $this->format("new \\{$class}(?, new \\DateTimeZone(?))", $var->format('Y-m-d H:i:s.u'), $var->getTimeZone()->getName());
         }
         $arr = (array) $var;
         $space = \str_repeat("\t", $level);
         if ($level > $this->maxDepth || \in_array($var, $parents ?? [], \true)) {
-            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
+            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
         }
         $out = "\n";
         $parents[] = $var;
@@ -134,26 +134,26 @@ final class Dumper
             } elseif ($token === '\\?') {
                 $res .= '?';
             } elseif (!$args) {
-                throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Insufficient number of arguments.');
+                throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Insufficient number of arguments.');
             } elseif ($token === '?') {
                 $res .= $this->dump(\array_shift($args), \strlen($res) - \strrpos($res, "\n"));
             } elseif ($token === '...?' || $token === '...?:' || $token === '?*') {
                 $arg = \array_shift($args);
                 if (!\is_array($arg)) {
-                    throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Argument must be an array.');
+                    throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Argument must be an array.');
                 }
                 $res .= $this->dumpArguments($arg, \strlen($res) - \strrpos($res, "\n"), $token === '...?:');
             } else {
                 // $  ->  ::
                 $arg = \array_shift($args);
-                if ($arg instanceof \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Literal || !\_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Helpers::isIdentifier($arg)) {
+                if ($arg instanceof \_PhpScopera143bcca66cb\Nette\PhpGenerator\Literal || !\_PhpScopera143bcca66cb\Nette\PhpGenerator\Helpers::isIdentifier($arg)) {
                     $arg = '{' . $this->dumpVar($arg) . '}';
                 }
                 $res .= \substr($token, 0, -1) . $arg;
             }
         }
         if ($args) {
-            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Insufficient number of placeholders.');
+            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Insufficient number of placeholders.');
         }
         return $res;
     }

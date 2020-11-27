@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function oci_collection_trim(\_PhpScoper88fe6e0ad041\OCICollection $collection, int $num) : bool
+function oci_collection_trim(\_PhpScopera143bcca66cb\OCICollection $collection, int $num) : bool
 {
 }

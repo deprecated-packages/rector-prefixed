@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\InvalidKeyArrayDimFetch;
+namespace _PhpScopera143bcca66cb\InvalidKeyArrayDimFetch;
 
 $a = [];
 $foo = $a[null];

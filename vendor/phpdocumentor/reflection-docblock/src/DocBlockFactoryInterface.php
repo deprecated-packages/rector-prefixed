@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection;
 
 interface DocBlockFactoryInterface
 {
@@ -19,5 +19,5 @@ interface DocBlockFactoryInterface
      *
      * @return DocBlock
      */
-    public function create($docblock, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\Context $context = null, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Location $location = null);
+    public function create($docblock, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context = null, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Location $location = null);
 }

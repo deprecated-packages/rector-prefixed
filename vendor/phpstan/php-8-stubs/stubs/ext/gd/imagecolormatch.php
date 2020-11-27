@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function imagecolormatch(\_PhpScoper88fe6e0ad041\GdImage $image1, \_PhpScoper88fe6e0ad041\GdImage $image2) : bool
+function imagecolormatch(\_PhpScopera143bcca66cb\GdImage $image1, \_PhpScopera143bcca66cb\GdImage $image2) : bool
 {
 }

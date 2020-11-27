@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class ClassWithUnknownParent extends \PHPStan\Tests\Baz
 {
 }
-\class_alias('_PhpScoper88fe6e0ad041\\ClassWithUnknownParent', 'ClassWithUnknownParent', \false);
+\class_alias('_PhpScopera143bcca66cb\\ClassWithUnknownParent', 'ClassWithUnknownParent', \false);

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @param array|string|int $value */
-function socket_set_option(\_PhpScoper88fe6e0ad041\Socket $socket, int $level, int $option, $value) : bool
+function socket_set_option(\_PhpScopera143bcca66cb\Socket $socket, int $level, int $option, $value) : bool
 {
 }

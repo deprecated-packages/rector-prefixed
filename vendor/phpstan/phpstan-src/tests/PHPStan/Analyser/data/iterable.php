@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Iterables;
+namespace _PhpScopera143bcca66cb\Iterables;
 
 interface Collection extends \Traversable
 {
@@ -47,7 +47,7 @@ class Foo
      * @param \Generator<Foo> $generatorOfFoos
      * @param \ArrayObject<int, string> $arrayObject
      */
-    public function doFoo(iterable $iterableWithoutTypehint, iterable $iterableWithIterableTypehint, iterable $iterableWithConcreteTypehint, array $arrayWithIterableTypehint, \_PhpScoper88fe6e0ad041\Iterables\Collection $unionIterableType, array $mixedUnionIterableType, iterable $unionIterableIterableType, $iterableSpecifiedLater, iterable $integers, iterable $mixeds, $generatorOfFoos, $arrayObject)
+    public function doFoo(iterable $iterableWithoutTypehint, iterable $iterableWithIterableTypehint, iterable $iterableWithConcreteTypehint, array $arrayWithIterableTypehint, \_PhpScopera143bcca66cb\Iterables\Collection $unionIterableType, array $mixedUnionIterableType, iterable $unionIterableIterableType, $iterableSpecifiedLater, iterable $integers, iterable $mixeds, $generatorOfFoos, $arrayObject)
     {
         if (!\is_iterable($iterableSpecifiedLater)) {
             return;

@@ -22,7 +22,7 @@ final class AssertChoiceTagValueNode extends \Rector\BetterPhpDocParser\ValueObj
     }
     public function getShortName() : string
     {
-        return '_PhpScoper88fe6e0ad041\\@Assert\\Choice';
+        return '_PhpScopera143bcca66cb\\@Assert\\Choice';
     }
     public function getSilentKey() : string
     {

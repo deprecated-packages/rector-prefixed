@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\NonexistentFunction;
+namespace _PhpScopera143bcca66cb\NonexistentFunction;
 
 foobarNonExistentFunction();
 \apache_request_headers();

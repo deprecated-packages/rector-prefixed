@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\Signature\Encoder;
+namespace _PhpScopera143bcca66cb\Roave\Signature\Encoder;
 
-final class Base64Encoder implements \_PhpScoper88fe6e0ad041\Roave\Signature\Encoder\EncoderInterface
+final class Base64Encoder implements \_PhpScopera143bcca66cb\Roave\Signature\Encoder\EncoderInterface
 {
     /**
      * {@inheritDoc}

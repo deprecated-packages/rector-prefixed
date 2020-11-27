@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Carbon;
+namespace _PhpScopera143bcca66cb\Carbon;
 
 use DateInterval;
 use DateTimeInterface;
 use DateTimeZone;
-if (\class_exists('_PhpScoper88fe6e0ad041\\Carbon\\Carbon')) {
+if (\class_exists('_PhpScopera143bcca66cb\\Carbon\\Carbon')) {
     return;
 }
 class Carbon extends \DateTime

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function imap_rfc822_write_address(string $mailbox, string $hostname, string $personal) : string|false
 {

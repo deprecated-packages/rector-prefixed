@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class ArrayIterator implements \SeekableIterator, \ArrayAccess, \Serializable, \Countable
 {
@@ -176,4 +176,4 @@ class ArrayIterator implements \SeekableIterator, \ArrayAccess, \Serializable, \
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\ArrayIterator', 'ArrayIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\ArrayIterator', 'ArrayIterator', \false);

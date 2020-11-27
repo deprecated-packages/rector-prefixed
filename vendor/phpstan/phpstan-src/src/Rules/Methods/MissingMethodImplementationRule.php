@@ -8,7 +8,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 /**
  * @implements Rule<InClassNode>
  */
@@ -30,7 +30,7 @@ class MissingMethodImplementationRule implements \PHPStan\Rules\Rule
         $messages = [];
         try {
             $nativeMethods = $classReflection->getNativeMethods();
-        } catch (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             return [];
         }
         foreach ($nativeMethods as $method) {

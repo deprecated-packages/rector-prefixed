@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 final class OpenSSLAsymmetricKey
 {
 }
-\class_alias('_PhpScoper88fe6e0ad041\\OpenSSLAsymmetricKey', 'OpenSSLAsymmetricKey', \false);
+\class_alias('_PhpScopera143bcca66cb\\OpenSSLAsymmetricKey', 'OpenSSLAsymmetricKey', \false);

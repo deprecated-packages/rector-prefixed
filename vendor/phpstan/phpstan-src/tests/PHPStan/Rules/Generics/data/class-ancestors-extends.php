@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ClassAncestorsExtends;
+namespace _PhpScopera143bcca66cb\ClassAncestorsExtends;
 
 /**
  * @template T
@@ -26,110 +26,110 @@ class FooDoesNotExtendAnything
  * @extends FooGeneric<int, \InvalidArgumentException>
  * @extends FooGeneric2<int, \InvalidArgumentException>
  */
-class FooDuplicateExtendsTags extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooDuplicateExtendsTags extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric2<int, \InvalidArgumentException>
  */
-class FooWrongClassExtended extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooWrongClassExtended extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends class-string<T>
  */
-class FooWrongTypeInExtendsTag extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooWrongTypeInExtendsTag extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int, \InvalidArgumentException>
  */
-class FooCorrect extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooCorrect extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int>
  */
-class FooNotEnough extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooNotEnough extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int, \InvalidArgumentException, string>
  */
-class FooExtraTypes extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooExtraTypes extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int, \Throwable>
  */
-class FooNotSubtype extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooNotSubtype extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int, \stdClass>
  */
-class FooAlsoNotSubtype extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooAlsoNotSubtype extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<Zazzuuuu, \Exception>
  */
-class FooUnknownClass extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooUnknownClass extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T
  * @extends FooGeneric<int, T>
  */
-class FooGenericGeneric extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooGenericGeneric extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \Throwable
  * @extends FooGeneric<int, T>
  */
-class FooGenericGeneric2 extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooGenericGeneric2 extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \Exception
  * @extends FooGeneric<int, T>
  */
-class FooGenericGeneric3 extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooGenericGeneric3 extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \InvalidArgumentException
  * @extends FooGeneric<int, T>
  */
-class FooGenericGeneric4 extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooGenericGeneric4 extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T
  * @extends FooGeneric<T, \Exception>
  */
-class FooGenericGeneric5 extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooGenericGeneric5 extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \stdClass
  * @extends FooGeneric<T, \Exception>
  */
-class FooGenericGeneric6 extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooGenericGeneric6 extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \stdClass
  * @extends FooGeneric<int, T>
  */
-class FooGenericGeneric7 extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooGenericGeneric7 extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
-class FooExtendsNonGenericClass extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooDoesNotExtendAnything
+class FooExtendsNonGenericClass extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooDoesNotExtendAnything
 {
 }
-class FooExtendsGenericClass extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric
+class FooExtendsGenericClass extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric
 {
 }
 /**
@@ -143,6 +143,6 @@ class FooGeneric8
  * @template-covariant T
  * @extends FooGeneric8<T, T>
  */
-class FooGeneric9 extends \_PhpScoper88fe6e0ad041\ClassAncestorsExtends\FooGeneric8
+class FooGeneric9 extends \_PhpScopera143bcca66cb\ClassAncestorsExtends\FooGeneric8
 {
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Doctrine\Common\Collections;
+namespace _PhpScopera143bcca66cb\Doctrine\Common\Collections;
 
-if (\class_exists('_PhpScoper88fe6e0ad041\\Doctrine\\Common\\Collections\\ArrayCollection')) {
+if (\class_exists('_PhpScopera143bcca66cb\\Doctrine\\Common\\Collections\\ArrayCollection')) {
     return;
 }
 class ArrayCollection

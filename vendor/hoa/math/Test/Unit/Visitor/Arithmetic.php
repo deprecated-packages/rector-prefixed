@@ -108,7 +108,7 @@ class Arithmetic extends \Hoa\Test\Unit\Suite
     }
     public function case_change_default_context()
     {
-        $this->given($compiler = \Hoa\Compiler\Llk\Llk::load(new \Hoa\File\Read('hoa://Library/Math/Arithmetic.pp')), $visitor = new \Hoa\Math\Visitor\Arithmetic(), $context = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Math\Context(), $variableName = 'a_variable', $variableValue = 42)->when($context->addVariable($variableName, function () use($variableValue) {
+        $this->given($compiler = \Hoa\Compiler\Llk\Llk::load(new \Hoa\File\Read('hoa://Library/Math/Arithmetic.pp')), $visitor = new \Hoa\Math\Visitor\Arithmetic(), $context = new \_PhpScopera143bcca66cb\Mock\Hoa\Math\Context(), $variableName = 'a_variable', $variableValue = 42)->when($context->addVariable($variableName, function () use($variableValue) {
             return $variableValue;
         }))->then->object($visitor->setContext($context))->isNotIdenticalTo($context)->object($visitor->getContext())->isIdenticalTo($context)->float($visitor->visit($compiler->parse('abs(' . $variableName . ' - PI)')))->isEqualTo(\abs($variableValue - \M_PI))->mock($context)->call('getFunction')->withArguments('abs')->once->call('getVariable')->withArguments($variableName)->once->call('getConstant')->withArguments('PI')->once;
     }

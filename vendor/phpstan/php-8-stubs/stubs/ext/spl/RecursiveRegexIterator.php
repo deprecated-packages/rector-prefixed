@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class RecursiveRegexIterator extends \RegexIterator implements \RecursiveIterator
 {
@@ -23,4 +23,4 @@ class RecursiveRegexIterator extends \RegexIterator implements \RecursiveIterato
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\RecursiveRegexIterator', 'RecursiveRegexIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\RecursiveRegexIterator', 'RecursiveRegexIterator', \false);

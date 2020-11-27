@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function class_alias(string $class, string $alias, bool $autoload = \true) : bool
 {

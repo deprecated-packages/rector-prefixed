@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 $alwaysDefinedNotNullable = 'string';
-if (\_PhpScoper88fe6e0ad041\doFoo()) {
+if (\_PhpScopera143bcca66cb\doFoo()) {
     $sometimesDefinedVariable = 1;
 }
 if (isset($alwaysDefinedNotNullable, $sometimesDefinedVariable, $neverDefinedVariable)) {

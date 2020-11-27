@@ -1,36 +1,36 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function () {
-    if (\class_exists(\_PhpScoper88fe6e0ad041\UnknownClass\Foo::class)) {
-        echo \_PhpScoper88fe6e0ad041\UnknownClass\Foo::class;
+    if (\class_exists(\_PhpScopera143bcca66cb\UnknownClass\Foo::class)) {
+        echo \_PhpScopera143bcca66cb\UnknownClass\Foo::class;
     }
 };
 function () {
-    if (\interface_exists(\_PhpScoper88fe6e0ad041\UnknownClass\Foo::class)) {
-        echo \_PhpScoper88fe6e0ad041\UnknownClass\Foo::class;
+    if (\interface_exists(\_PhpScopera143bcca66cb\UnknownClass\Foo::class)) {
+        echo \_PhpScopera143bcca66cb\UnknownClass\Foo::class;
     }
 };
 function () {
-    if (\trait_exists(\_PhpScoper88fe6e0ad041\UnknownClass\Foo::class)) {
-        echo \_PhpScoper88fe6e0ad041\UnknownClass\Foo::class;
+    if (\trait_exists(\_PhpScopera143bcca66cb\UnknownClass\Foo::class)) {
+        echo \_PhpScopera143bcca66cb\UnknownClass\Foo::class;
     }
 };
 function () {
-    if (\class_exists(\_PhpScoper88fe6e0ad041\UnknownClass\Foo::class)) {
-        echo \_PhpScoper88fe6e0ad041\UnknownClass\Foo::class;
-        echo \_PhpScoper88fe6e0ad041\UnknownClass\Bar::class;
+    if (\class_exists(\_PhpScopera143bcca66cb\UnknownClass\Foo::class)) {
+        echo \_PhpScopera143bcca66cb\UnknownClass\Foo::class;
+        echo \_PhpScopera143bcca66cb\UnknownClass\Bar::class;
         // error
     } else {
-        echo \_PhpScoper88fe6e0ad041\UnknownClass\Foo::class;
+        echo \_PhpScopera143bcca66cb\UnknownClass\Foo::class;
         // error
     }
-    echo \_PhpScoper88fe6e0ad041\UnknownClass\Foo::class;
+    echo \_PhpScopera143bcca66cb\UnknownClass\Foo::class;
     // error
 };
 function () {
-    if (\class_exists('_PhpScoper88fe6e0ad041\\UnknownClass\\Foo')) {
-        echo \_PhpScoper88fe6e0ad041\UnknownClass\Foo::class;
+    if (\class_exists('_PhpScopera143bcca66cb\\UnknownClass\\Foo')) {
+        echo \_PhpScopera143bcca66cb\UnknownClass\Foo::class;
     }
 };

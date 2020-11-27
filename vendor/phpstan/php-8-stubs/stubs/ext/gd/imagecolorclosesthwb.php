@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function imagecolorclosesthwb(\_PhpScoper88fe6e0ad041\GdImage $image, int $red, int $green, int $blue) : int|false
+function imagecolorclosesthwb(\_PhpScopera143bcca66cb\GdImage $image, int $red, int $green, int $blue) : int|false
 {
 }

@@ -1,27 +1,27 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Dns\Query;
+namespace _PhpScopera143bcca66cb\React\Dns\Query;
 
-use _PhpScoper88fe6e0ad041\React\Promise\CancellablePromiseInterface;
-use _PhpScoper88fe6e0ad041\React\Promise\Deferred;
-use _PhpScoper88fe6e0ad041\React\Promise\PromiseInterface;
-final class RetryExecutor implements \_PhpScoper88fe6e0ad041\React\Dns\Query\ExecutorInterface
+use _PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface;
+use _PhpScopera143bcca66cb\React\Promise\Deferred;
+use _PhpScopera143bcca66cb\React\Promise\PromiseInterface;
+final class RetryExecutor implements \_PhpScopera143bcca66cb\React\Dns\Query\ExecutorInterface
 {
     private $executor;
     private $retries;
-    public function __construct(\_PhpScoper88fe6e0ad041\React\Dns\Query\ExecutorInterface $executor, $retries = 2)
+    public function __construct(\_PhpScopera143bcca66cb\React\Dns\Query\ExecutorInterface $executor, $retries = 2)
     {
         $this->executor = $executor;
         $this->retries = $retries;
     }
-    public function query(\_PhpScoper88fe6e0ad041\React\Dns\Query\Query $query)
+    public function query(\_PhpScopera143bcca66cb\React\Dns\Query\Query $query)
     {
         return $this->tryQuery($query, $this->retries);
     }
-    public function tryQuery(\_PhpScoper88fe6e0ad041\React\Dns\Query\Query $query, $retries)
+    public function tryQuery(\_PhpScopera143bcca66cb\React\Dns\Query\Query $query, $retries)
     {
-        $deferred = new \_PhpScoper88fe6e0ad041\React\Promise\Deferred(function () use(&$promise) {
-            if ($promise instanceof \_PhpScoper88fe6e0ad041\React\Promise\CancellablePromiseInterface || !\interface_exists('_PhpScoper88fe6e0ad041\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+        $deferred = new \_PhpScopera143bcca66cb\React\Promise\Deferred(function () use(&$promise) {
+            if ($promise instanceof \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface || !\interface_exists('_PhpScopera143bcca66cb\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
                 $promise->cancel();
             }
         });
@@ -31,7 +31,7 @@ final class RetryExecutor implements \_PhpScoper88fe6e0ad041\React\Dns\Query\Exe
         };
         $executor = $this->executor;
         $errorback = function ($e) use($deferred, &$promise, $query, $success, &$errorback, &$retries, $executor) {
-            if (!$e instanceof \_PhpScoper88fe6e0ad041\React\Dns\Query\TimeoutException) {
+            if (!$e instanceof \_PhpScopera143bcca66cb\React\Dns\Query\TimeoutException) {
                 $errorback = null;
                 $deferred->reject($e);
             } elseif ($retries <= 0) {

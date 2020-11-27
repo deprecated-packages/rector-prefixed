@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class RecursiveArrayIterator extends \ArrayIterator implements \RecursiveIterator
 {
@@ -13,4 +13,4 @@ class RecursiveArrayIterator extends \ArrayIterator implements \RecursiveIterato
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\RecursiveArrayIterator', 'RecursiveArrayIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\RecursiveArrayIterator', 'RecursiveArrayIterator', \false);

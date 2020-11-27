@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\InvalidIncDec;
+namespace _PhpScopera143bcca66cb\InvalidIncDec;
 
 function ($a, int $i, ?float $j, string $str, \stdClass $std) {
     $a++;

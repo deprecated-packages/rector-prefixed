@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper88fe6e0ad041\ClassConstantOnExpr;
+namespace _PhpScopera143bcca66cb\ClassConstantOnExpr;
 
 class Foo
 {

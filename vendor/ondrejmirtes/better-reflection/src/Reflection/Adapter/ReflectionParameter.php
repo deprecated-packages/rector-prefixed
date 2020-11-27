@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionParameter as CoreReflectionParameter;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
 use function assert;
 class ReflectionParameter extends \ReflectionParameter
 {
     /** @var BetterReflectionParameter */
     private $betterReflectionParameter;
-    public function __construct(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionParameter $betterReflectionParameter)
+    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionParameter $betterReflectionParameter)
     {
         $this->betterReflectionParameter = $betterReflectionParameter;
     }
@@ -59,11 +59,11 @@ class ReflectionParameter extends \ReflectionParameter
     public function getDeclaringFunction()
     {
         $function = $this->betterReflectionParameter->getDeclaringFunction();
-        \assert($function instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod || $function instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction);
-        if ($function instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod) {
-            return new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod($function);
+        \assert($function instanceof \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod || $function instanceof \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionFunction);
+        if ($function instanceof \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod) {
+            return new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod($function);
         }
-        return new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction($function);
+        return new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction($function);
     }
     /**
      * {@inheritDoc}
@@ -74,7 +74,7 @@ class ReflectionParameter extends \ReflectionParameter
         if ($declaringClass === null) {
             return null;
         }
-        return new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($declaringClass);
+        return new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($declaringClass);
     }
     /**
      * {@inheritDoc}
@@ -85,7 +85,7 @@ class ReflectionParameter extends \ReflectionParameter
         if ($class === null) {
             return null;
         }
-        return new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($class);
+        return new \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($class);
     }
     /**
      * {@inheritDoc}
@@ -173,6 +173,6 @@ class ReflectionParameter extends \ReflectionParameter
      */
     public function getType()
     {
-        return \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionParameter->getType());
+        return \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionParameter->getType());
     }
 }

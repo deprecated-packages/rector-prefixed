@@ -5,19 +5,19 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\DI;
+namespace _PhpScopera143bcca66cb\Nette\DI;
 
-use _PhpScoper88fe6e0ad041\Nette;
+use _PhpScopera143bcca66cb\Nette;
 /**
  * Service not found exception.
  */
-class MissingServiceException extends \_PhpScoper88fe6e0ad041\Nette\InvalidStateException
+class MissingServiceException extends \_PhpScopera143bcca66cb\Nette\InvalidStateException
 {
 }
 /**
  * Service creation exception.
  */
-class ServiceCreationException extends \_PhpScoper88fe6e0ad041\Nette\InvalidStateException
+class ServiceCreationException extends \_PhpScopera143bcca66cb\Nette\InvalidStateException
 {
     public function setMessage(string $message) : self
     {
@@ -28,12 +28,12 @@ class ServiceCreationException extends \_PhpScoper88fe6e0ad041\Nette\InvalidStat
 /**
  * Not allowed when container is resolving.
  */
-class NotAllowedDuringResolvingException extends \_PhpScoper88fe6e0ad041\Nette\InvalidStateException
+class NotAllowedDuringResolvingException extends \_PhpScopera143bcca66cb\Nette\InvalidStateException
 {
 }
 /**
  * Error in configuration.
  */
-class InvalidConfigurationException extends \_PhpScoper88fe6e0ad041\Nette\InvalidStateException
+class InvalidConfigurationException extends \_PhpScopera143bcca66cb\Nette\InvalidStateException
 {
 }

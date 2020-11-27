@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class DateInterval
 {
@@ -30,4 +30,4 @@ class DateInterval
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\DateInterval', 'DateInterval', \false);
+\class_alias('_PhpScopera143bcca66cb\\DateInterval', 'DateInterval', \false);

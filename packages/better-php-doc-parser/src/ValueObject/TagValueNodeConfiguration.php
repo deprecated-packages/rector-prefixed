@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 final class TagValueNodeConfiguration
 {
     /**
@@ -123,6 +123,6 @@ final class TagValueNodeConfiguration
         if ($this->originalContent === null) {
             return \false;
         }
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($this->originalContent, $needle);
+        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($this->originalContent, $needle);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @return string|array|object|null */
 function set_error_handler(?callable $callback, int $error_levels = \E_ALL)

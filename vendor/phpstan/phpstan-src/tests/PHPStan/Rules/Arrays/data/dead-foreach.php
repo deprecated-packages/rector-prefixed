@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\DeadForeach;
+namespace _PhpScopera143bcca66cb\DeadForeach;
 
 function (array $a) {
     foreach ($a as $val) {

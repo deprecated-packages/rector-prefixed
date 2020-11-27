@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\ExpectedNameResolver;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Property;
@@ -51,6 +51,6 @@ abstract class AbstractExpectedNameResolver implements \Rector\Naming\Contract\E
     protected function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
+        return (bool) \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
 }

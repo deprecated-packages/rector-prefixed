@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 #endif
 /** @param resource|string|null $file */
-function imagewbmp(\_PhpScoper88fe6e0ad041\GdImage $image, $file = null, ?int $foreground_color = null) : bool
+function imagewbmp(\_PhpScopera143bcca66cb\GdImage $image, $file = null, ?int $foreground_color = null) : bool
 {
 }

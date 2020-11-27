@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Promise;
+namespace _PhpScopera143bcca66cb\React\Promise;
 
 /**
  * Creates a promise for the supplied `$promiseOrValue`.
@@ -18,7 +18,7 @@ namespace _PhpScoper88fe6e0ad041\React\Promise;
  */
 function resolve($promiseOrValue = null)
 {
-    if ($promiseOrValue instanceof \_PhpScoper88fe6e0ad041\React\Promise\ExtendedPromiseInterface) {
+    if ($promiseOrValue instanceof \_PhpScopera143bcca66cb\React\Promise\ExtendedPromiseInterface) {
         return $promiseOrValue;
     }
     // Check is_object() first to avoid method_exists() triggering
@@ -28,11 +28,11 @@ function resolve($promiseOrValue = null)
         if (\method_exists($promiseOrValue, 'cancel')) {
             $canceller = [$promiseOrValue, 'cancel'];
         }
-        return new \_PhpScoper88fe6e0ad041\React\Promise\Promise(function ($resolve, $reject, $notify) use($promiseOrValue) {
+        return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject, $notify) use($promiseOrValue) {
             $promiseOrValue->then($resolve, $reject, $notify);
         }, $canceller);
     }
-    return new \_PhpScoper88fe6e0ad041\React\Promise\FulfilledPromise($promiseOrValue);
+    return new \_PhpScopera143bcca66cb\React\Promise\FulfilledPromise($promiseOrValue);
 }
 /**
  * Creates a rejected promise for the supplied `$promiseOrValue`.
@@ -52,12 +52,12 @@ function resolve($promiseOrValue = null)
  */
 function reject($promiseOrValue = null)
 {
-    if ($promiseOrValue instanceof \_PhpScoper88fe6e0ad041\React\Promise\PromiseInterface) {
+    if ($promiseOrValue instanceof \_PhpScopera143bcca66cb\React\Promise\PromiseInterface) {
         return resolve($promiseOrValue)->then(function ($value) {
-            return new \_PhpScoper88fe6e0ad041\React\Promise\RejectedPromise($value);
+            return new \_PhpScopera143bcca66cb\React\Promise\RejectedPromise($value);
         });
     }
-    return new \_PhpScoper88fe6e0ad041\React\Promise\RejectedPromise($promiseOrValue);
+    return new \_PhpScopera143bcca66cb\React\Promise\RejectedPromise($promiseOrValue);
 }
 /**
  * Returns a promise that will resolve only once all the items in
@@ -86,9 +86,9 @@ function all($promisesOrValues)
  */
 function race($promisesOrValues)
 {
-    $cancellationQueue = new \_PhpScoper88fe6e0ad041\React\Promise\CancellationQueue();
+    $cancellationQueue = new \_PhpScopera143bcca66cb\React\Promise\CancellationQueue();
     $cancellationQueue->enqueue($promisesOrValues);
-    return new \_PhpScoper88fe6e0ad041\React\Promise\Promise(function ($resolve, $reject, $notify) use($promisesOrValues, $cancellationQueue) {
+    return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject, $notify) use($promisesOrValues, $cancellationQueue) {
         resolve($promisesOrValues)->done(function ($array) use($cancellationQueue, $resolve, $reject, $notify) {
             if (!\is_array($array) || !$array) {
                 $resolve();
@@ -141,9 +141,9 @@ function any($promisesOrValues)
  */
 function some($promisesOrValues, $howMany)
 {
-    $cancellationQueue = new \_PhpScoper88fe6e0ad041\React\Promise\CancellationQueue();
+    $cancellationQueue = new \_PhpScopera143bcca66cb\React\Promise\CancellationQueue();
     $cancellationQueue->enqueue($promisesOrValues);
-    return new \_PhpScoper88fe6e0ad041\React\Promise\Promise(function ($resolve, $reject, $notify) use($promisesOrValues, $howMany, $cancellationQueue) {
+    return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject, $notify) use($promisesOrValues, $howMany, $cancellationQueue) {
         resolve($promisesOrValues)->done(function ($array) use($howMany, $cancellationQueue, $resolve, $reject, $notify) {
             if (!\is_array($array) || $howMany < 1) {
                 $resolve([]);
@@ -151,7 +151,7 @@ function some($promisesOrValues, $howMany)
             }
             $len = \count($array);
             if ($len < $howMany) {
-                throw new \_PhpScoper88fe6e0ad041\React\Promise\Exception\LengthException(\sprintf('Input array must contain at least %d item%s but contains only %s item%s.', $howMany, 1 === $howMany ? '' : 's', $len, 1 === $len ? '' : 's'));
+                throw new \_PhpScopera143bcca66cb\React\Promise\Exception\LengthException(\sprintf('Input array must contain at least %d item%s but contains only %s item%s.', $howMany, 1 === $howMany ? '' : 's', $len, 1 === $len ? '' : 's'));
             }
             $toResolve = $howMany;
             $toReject = $len - $toResolve + 1;
@@ -195,9 +195,9 @@ function some($promisesOrValues, $howMany)
  */
 function map($promisesOrValues, callable $mapFunc)
 {
-    $cancellationQueue = new \_PhpScoper88fe6e0ad041\React\Promise\CancellationQueue();
+    $cancellationQueue = new \_PhpScopera143bcca66cb\React\Promise\CancellationQueue();
     $cancellationQueue->enqueue($promisesOrValues);
-    return new \_PhpScoper88fe6e0ad041\React\Promise\Promise(function ($resolve, $reject, $notify) use($promisesOrValues, $mapFunc, $cancellationQueue) {
+    return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject, $notify) use($promisesOrValues, $mapFunc, $cancellationQueue) {
         resolve($promisesOrValues)->done(function ($array) use($mapFunc, $cancellationQueue, $resolve, $reject, $notify) {
             if (!\is_array($array) || !$array) {
                 $resolve([]);
@@ -231,9 +231,9 @@ function map($promisesOrValues, callable $mapFunc)
  */
 function reduce($promisesOrValues, callable $reduceFunc, $initialValue = null)
 {
-    $cancellationQueue = new \_PhpScoper88fe6e0ad041\React\Promise\CancellationQueue();
+    $cancellationQueue = new \_PhpScopera143bcca66cb\React\Promise\CancellationQueue();
     $cancellationQueue->enqueue($promisesOrValues);
-    return new \_PhpScoper88fe6e0ad041\React\Promise\Promise(function ($resolve, $reject, $notify) use($promisesOrValues, $reduceFunc, $initialValue, $cancellationQueue) {
+    return new \_PhpScopera143bcca66cb\React\Promise\Promise(function ($resolve, $reject, $notify) use($promisesOrValues, $reduceFunc, $initialValue, $cancellationQueue) {
         resolve($promisesOrValues)->done(function ($array) use($reduceFunc, $initialValue, $cancellationQueue, $resolve, $reject, $notify) {
             if (!\is_array($array)) {
                 $array = [];

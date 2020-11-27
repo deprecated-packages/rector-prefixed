@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ConstantCondition;
+namespace _PhpScopera143bcca66cb\ConstantCondition;
 
 class BooleanOr
 {
@@ -33,9 +33,9 @@ class BooleanOr
      */
     public function checkUnionAndIntersection($union, $intersection)
     {
-        if ($union instanceof \_PhpScoper88fe6e0ad041\ConstantCondition\Foo || $union instanceof \_PhpScoper88fe6e0ad041\ConstantCondition\Bar) {
+        if ($union instanceof \_PhpScopera143bcca66cb\ConstantCondition\Foo || $union instanceof \_PhpScopera143bcca66cb\ConstantCondition\Bar) {
         }
-        if ($intersection instanceof \_PhpScoper88fe6e0ad041\ConstantCondition\Lorem || $intersection instanceof \_PhpScoper88fe6e0ad041\ConstantCondition\Ipsum) {
+        if ($intersection instanceof \_PhpScopera143bcca66cb\ConstantCondition\Lorem || $intersection instanceof \_PhpScopera143bcca66cb\ConstantCondition\Ipsum) {
         }
     }
     public function directorySeparator()

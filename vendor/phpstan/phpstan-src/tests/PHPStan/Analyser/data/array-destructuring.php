@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function () {
     /** @var mixed $array */
-    $array = \_PhpScoper88fe6e0ad041\getMixed();
+    $array = \_PhpScopera143bcca66cb\getMixed();
     [$a, $b, [$c]] = $array;
     list($aList, $bList, list($cList)) = $array;
     $constantArray = [1, 'foo', [\true]];
@@ -19,7 +19,7 @@ function () {
     foreach ([$unionArray] as [$foreachU1, $foreachU2, $foreachU3]) {
     }
     /** @var string[] $stringArray */
-    $stringArray = \_PhpScoper88fe6e0ad041\getStringArray();
+    $stringArray = \_PhpScopera143bcca66cb\getStringArray();
     [$firstStringArray, $secondStringArray, [$thirdStringArray], $fourthStringArray] = $stringArray;
     list($firstStringArrayList, $secondStringArrayList, list($thirdStringArrayList), $fourthStringArrayList) = $stringArray;
     foreach ($stringArray as [$firstStringArrayForeach, $secondStringArrayForeach, [$thirdStringArrayForeach], $fourthStringArrayForeach]) {
@@ -27,13 +27,13 @@ function () {
     foreach ($stringArray as list($firstStringArrayForeachList, $secondStringArrayForeachList, list($thirdStringArrayForeachList), $fourthStringArrayForeachList)) {
     }
     /** @var int $dayInt */
-    $dayInt = \_PhpScoper88fe6e0ad041\getInt($dayInt);
+    $dayInt = \_PhpScopera143bcca66cb\getInt($dayInt);
     $dateArray = ['d' => $dayInt];
     [$dateArray['Y'], $dateArray['m']] = \explode('-', '2018-12-19');
     /** @var int $firstIntElement */
-    $firstIntElement = \_PhpScoper88fe6e0ad041\getInt();
+    $firstIntElement = \_PhpScopera143bcca66cb\getInt();
     /** @var int $secondIntElement */
-    $secondIntElement = \_PhpScoper88fe6e0ad041\getInt();
+    $secondIntElement = \_PhpScopera143bcca66cb\getInt();
     $intArrayForRewritingFirstElement = [$firstIntElement, $secondIntElement];
     [$intArrayForRewritingFirstElement[0]] = \explode('*', '');
     [$newArray['newKey']] = [new \stdClass(), new \stdClass()];
@@ -43,20 +43,20 @@ function () {
     ['key' => $assocKey, 0 => $assocOne, 1 => $assocFoo, 'non-existent' => $assocNonExistent] = $constantAssocArray;
     $fooKey = 'key';
     /** @var string $stringKey */
-    $stringKey = \_PhpScoper88fe6e0ad041\getString();
+    $stringKey = \_PhpScopera143bcca66cb\getString();
     /** @var mixed $mixedKey */
-    $mixedKey = \_PhpScoper88fe6e0ad041\getMixed();
+    $mixedKey = \_PhpScopera143bcca66cb\getMixed();
     [$fooKey => $dynamicAssocKey, $stringKey => $dynamicAssocStrings, $mixedKey => $dynamicAssocMixed] = $constantAssocArray;
     foreach ([$constantAssocArray] as [$fooKey => $dynamicAssocKeyForeach, $stringKey => $dynamicAssocStringsForeach, $mixedKey => $dynamicAssocMixedForeach]) {
     }
     /** @var iterable<array<string>> $iterableOverStringArrays */
-    $iterableOverStringArrays = \_PhpScoper88fe6e0ad041\doFoo();
+    $iterableOverStringArrays = \_PhpScopera143bcca66cb\doFoo();
     foreach ($iterableOverStringArrays as [$stringFromIterable]) {
     }
     /** @var string $stringWithVarAnnotation  */
-    [$stringWithVarAnnotation] = \_PhpScoper88fe6e0ad041\doFoo();
+    [$stringWithVarAnnotation] = \_PhpScopera143bcca66cb\doFoo();
     /** @var string $stringWithVarAnnotationInForeach */
-    foreach (\_PhpScoper88fe6e0ad041\doFoo() as [$stringWithVarAnnotationInForeach]) {
+    foreach (\_PhpScopera143bcca66cb\doFoo() as [$stringWithVarAnnotationInForeach]) {
     }
     die;
 };

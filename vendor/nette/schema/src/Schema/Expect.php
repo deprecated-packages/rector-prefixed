@@ -5,12 +5,12 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\Schema;
+namespace _PhpScopera143bcca66cb\Nette\Schema;
 
-use _PhpScoper88fe6e0ad041\Nette;
-use _PhpScoper88fe6e0ad041\Nette\Schema\Elements\AnyOf;
-use _PhpScoper88fe6e0ad041\Nette\Schema\Elements\Structure;
-use _PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type;
+use _PhpScopera143bcca66cb\Nette;
+use _PhpScopera143bcca66cb\Nette\Schema\Elements\AnyOf;
+use _PhpScopera143bcca66cb\Nette\Schema\Elements\Structure;
+use _PhpScopera143bcca66cb\Nette\Schema\Elements\Type;
 /**
  * Schema generator.
  *
@@ -28,50 +28,50 @@ use _PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type;
 final class Expect
 {
     use Nette\SmartObject;
-    public static function __callStatic(string $name, array $args) : \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type
+    public static function __callStatic(string $name, array $args) : \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type
     {
-        $type = new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type($name);
+        $type = new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type($name);
         if ($args) {
             $type->default($args[0]);
         }
         return $type;
     }
-    public static function type(string $type) : \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type
+    public static function type(string $type) : \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type
     {
-        return new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type($type);
+        return new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type($type);
     }
     /**
      * @param  mixed|Schema  ...$set
      */
-    public static function anyOf(...$set) : \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\AnyOf
+    public static function anyOf(...$set) : \_PhpScopera143bcca66cb\Nette\Schema\Elements\AnyOf
     {
-        return new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\AnyOf(...$set);
+        return new \_PhpScopera143bcca66cb\Nette\Schema\Elements\AnyOf(...$set);
     }
     /**
      * @param  Schema[]  $items
      */
-    public static function structure(array $items) : \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Structure
+    public static function structure(array $items) : \_PhpScopera143bcca66cb\Nette\Schema\Elements\Structure
     {
-        return new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Structure($items);
+        return new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Structure($items);
     }
     /**
      * @param  object  $object
      */
-    public static function from($object, array $items = []) : \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Structure
+    public static function from($object, array $items = []) : \_PhpScopera143bcca66cb\Nette\Schema\Elements\Structure
     {
         $ro = new \ReflectionObject($object);
         foreach ($ro->getProperties() as $prop) {
-            $type = \_PhpScoper88fe6e0ad041\Nette\Schema\Helpers::getPropertyType($prop) ?? 'mixed';
+            $type = \_PhpScopera143bcca66cb\Nette\Schema\Helpers::getPropertyType($prop) ?? 'mixed';
             $item =& $items[$prop->getName()];
             if (!$item) {
-                $item = new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type($type);
+                $item = new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type($type);
                 if (\PHP_VERSION_ID >= 70400 && !$prop->isInitialized($object)) {
                     $item->required();
                 } else {
                     $def = $prop->getValue($object);
                     if (\is_object($def)) {
                         $item = static::from($def);
-                    } elseif ($def === null && !\_PhpScoper88fe6e0ad041\Nette\Utils\Validators::is(null, $type)) {
+                    } elseif ($def === null && !\_PhpScopera143bcca66cb\Nette\Utils\Validators::is(null, $type)) {
                         $item->required();
                     } else {
                         $item->default($def);
@@ -79,20 +79,20 @@ final class Expect
                 }
             }
         }
-        return (new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Structure($items))->castTo($ro->getName());
+        return (new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Structure($items))->castTo($ro->getName());
     }
     /**
      * @param  string|Schema  $type
      */
-    public static function arrayOf($type) : \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type
+    public static function arrayOf($type) : \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type
     {
-        return (new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type('array'))->items($type);
+        return (new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type('array'))->items($type);
     }
     /**
      * @param  string|Schema  $type
      */
-    public static function listOf($type) : \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type
+    public static function listOf($type) : \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type
     {
-        return (new \_PhpScoper88fe6e0ad041\Nette\Schema\Elements\Type('list'))->items($type);
+        return (new \_PhpScopera143bcca66cb\Nette\Schema\Elements\Type('list'))->items($type);
     }
 }

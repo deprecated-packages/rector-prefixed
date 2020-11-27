@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\MissingReturn;
+namespace _PhpScopera143bcca66cb\MissingReturn;
 
 class Foo
 {

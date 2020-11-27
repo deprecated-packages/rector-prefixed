@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace PHPStan\Tests;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Json;
+use _PhpScopera143bcca66cb\Nette\Utils\Json;
 use PHPStan\File\FileHelper;
 use PHPStan\File\FileReader;
 use PHPStan\File\SimpleRelativePathHelper;
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
 use function escapeshellarg;
 use function file_put_contents;
 use function str_replace;
 /**
  * @group exec
  */
-class ResultCacheEndToEndTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+class ResultCacheEndToEndTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     public function setUp() : void
     {
@@ -85,8 +85,8 @@ class ResultCacheEndToEndTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\
         \unlink($serializerPath);
         $fileHelper = new \PHPStan\File\FileHelper(__DIR__);
         $result = $this->runPhpstan(1);
-        $this->assertSame(4, $result['totals']['file_errors'], \_PhpScoper88fe6e0ad041\Nette\Utils\Json::encode($result));
-        $this->assertSame(0, $result['totals']['errors'], \_PhpScoper88fe6e0ad041\Nette\Utils\Json::encode($result));
+        $this->assertSame(4, $result['totals']['file_errors'], \_PhpScopera143bcca66cb\Nette\Utils\Json::encode($result));
+        $this->assertSame(0, $result['totals']['errors'], \_PhpScopera143bcca66cb\Nette\Utils\Json::encode($result));
         $message = $result['files'][$fileHelper->normalizePath(__DIR__ . '/PHP-Parser/lib/PhpParser/Serializer/XML.php')]['messages'][0]['message'];
         $this->assertStringContainsString('Ignored error pattern #^Argument of an invalid type PhpParser\\\\Node supplied for foreach, only iterables are supported\\.$# in path', $message);
         $this->assertStringContainsString('was not matched in reported errors.', $message);
@@ -106,8 +106,8 @@ class ResultCacheEndToEndTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\
         \exec(\sprintf('%s %s analyse -c %s -l 5 --no-progress --error-format json lib 2>&1', \escapeshellarg(\PHP_BINARY), \escapeshellarg(__DIR__ . '/../../bin/phpstan'), \escapeshellarg(__DIR__ . '/phpstan.neon')), $outputLines, $exitCode);
         $output = \implode("\n", $outputLines);
         try {
-            $json = \_PhpScoper88fe6e0ad041\Nette\Utils\Json::decode($output, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\_PhpScoper88fe6e0ad041\Nette\Utils\JsonException $e) {
+            $json = \_PhpScopera143bcca66cb\Nette\Utils\Json::decode($output, \_PhpScopera143bcca66cb\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\_PhpScopera143bcca66cb\Nette\Utils\JsonException $e) {
             $this->fail(\sprintf('%s: %s', $e->getMessage(), $output));
         }
         if ($exitCode !== $expectedExitCode) {

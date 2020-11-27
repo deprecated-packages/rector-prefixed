@@ -10,7 +10,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\SwapFuncCallArguments;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
+use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\FuncCall\SwapFuncCallArgumentsRector\SwapFuncCallArgumentsRectorTest
  */
@@ -78,7 +78,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $functionArgumentSwaps = $configuration[self::FUNCTION_ARGUMENT_SWAPS] ?? [];
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allIsInstanceOf($functionArgumentSwaps, \Rector\Generic\ValueObject\SwapFuncCallArguments::class);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allIsInstanceOf($functionArgumentSwaps, \Rector\Generic\ValueObject\SwapFuncCallArguments::class);
         $this->functionArgumentSwaps = $functionArgumentSwaps;
     }
 }

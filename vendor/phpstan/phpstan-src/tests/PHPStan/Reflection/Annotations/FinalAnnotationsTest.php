@@ -10,7 +10,7 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 {
     public function dataFinalAnnotations() : array
     {
-        return [[\false, \_PhpScoper88fe6e0ad041\FinalAnnotations\Foo::class, ['method' => ['foo', 'staticFoo']]], [\true, \_PhpScoper88fe6e0ad041\FinalAnnotations\FinalFoo::class, ['method' => ['finalFoo', 'finalStaticFoo']]]];
+        return [[\false, \_PhpScopera143bcca66cb\FinalAnnotations\Foo::class, ['method' => ['foo', 'staticFoo']]], [\true, \_PhpScopera143bcca66cb\FinalAnnotations\FinalFoo::class, ['method' => ['finalFoo', 'finalStaticFoo']]]];
     }
     /**
      * @dataProvider dataFinalAnnotations
@@ -38,7 +38,7 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
         require_once __DIR__ . '/data/annotations-final.php';
         /** @var Broker $broker */
         $broker = self::getContainer()->getByType(\PHPStan\Broker\Broker::class);
-        $this->assertFalse($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoper88fe6e0ad041\\FinalAnnotations\\foo'), null)->isFinal()->yes());
-        $this->assertTrue($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoper88fe6e0ad041\\FinalAnnotations\\finalFoo'), null)->isFinal()->yes());
+        $this->assertFalse($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScopera143bcca66cb\\FinalAnnotations\\foo'), null)->isFinal()->yes());
+        $this->assertTrue($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScopera143bcca66cb\\FinalAnnotations\\finalFoo'), null)->isFinal()->yes());
     }
 }

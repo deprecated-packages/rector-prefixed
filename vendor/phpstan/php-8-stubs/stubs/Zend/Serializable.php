@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 interface Serializable
 {
@@ -9,4 +9,4 @@ interface Serializable
     /** @return void */
     public function unserialize(string $data);
 }
-\class_alias('_PhpScoper88fe6e0ad041\\Serializable', 'Serializable', \false);
+\class_alias('_PhpScopera143bcca66cb\\Serializable', 'Serializable', \false);

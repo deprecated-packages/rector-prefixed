@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector\Source;
 
-use _PhpScoper88fe6e0ad041\Nette\Application\UI\Control;
-final class ExternalControl extends \_PhpScoper88fe6e0ad041\Nette\Application\UI\Control
+use _PhpScopera143bcca66cb\Nette\Application\UI\Control;
+final class ExternalControl extends \_PhpScopera143bcca66cb\Nette\Application\UI\Control
 {
     public function createComponentAnother() : \Rector\NetteCodeQuality\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector\Source\AnotherControl
     {

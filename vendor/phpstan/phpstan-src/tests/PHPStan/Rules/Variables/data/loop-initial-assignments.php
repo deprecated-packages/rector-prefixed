@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 for ($i = 0; $i < 10; $i++) {
 }
 echo $i;
-while ($whileVar = \_PhpScoper88fe6e0ad041\foo()) {
+while ($whileVar = \_PhpScopera143bcca66cb\foo()) {
 }
 echo $whileVar;

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Symfony\Component\HttpFoundation;
+namespace _PhpScopera143bcca66cb\Symfony\Component\HttpFoundation;
 
-if (\class_exists('_PhpScoper88fe6e0ad041\\Symfony\\Component\\HttpFoundation\\Response')) {
+if (\class_exists('_PhpScopera143bcca66cb\\Symfony\\Component\\HttpFoundation\\Response')) {
     return;
 }
 class Response

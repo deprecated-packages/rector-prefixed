@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\RingCentral\Psr7;
+namespace _PhpScopera143bcca66cb\RingCentral\Psr7;
 
-use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
+use _PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface;
 /**
  * Lazily reads or writes to a file that is opened only after an IO operation
  * take place on the stream.
  */
-class LazyOpenStream extends \_PhpScoper88fe6e0ad041\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface
+class LazyOpenStream extends \_PhpScopera143bcca66cb\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface
 {
     /** @var string File to open */
     private $filename;

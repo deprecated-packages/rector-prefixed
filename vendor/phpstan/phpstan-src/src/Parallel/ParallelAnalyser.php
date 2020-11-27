@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace PHPStan\Parallel;
 
-use _PhpScoper88fe6e0ad041\Clue\React\NDJson\Decoder;
-use _PhpScoper88fe6e0ad041\Clue\React\NDJson\Encoder;
-use _PhpScoper88fe6e0ad041\Nette\Utils\Random;
+use _PhpScopera143bcca66cb\Clue\React\NDJson\Decoder;
+use _PhpScopera143bcca66cb\Clue\React\NDJson\Encoder;
+use _PhpScopera143bcca66cb\Nette\Utils\Random;
 use PHPStan\Analyser\AnalyserResult;
 use PHPStan\Analyser\Error;
 use PHPStan\Dependency\ExportedNode;
 use PHPStan\Process\ProcessHelper;
-use _PhpScoper88fe6e0ad041\React\EventLoop\StreamSelectLoop;
-use _PhpScoper88fe6e0ad041\React\Socket\ConnectionInterface;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface;
+use _PhpScopera143bcca66cb\React\EventLoop\StreamSelectLoop;
+use _PhpScopera143bcca66cb\React\Socket\ConnectionInterface;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
 use function parse_url;
 class ParallelAnalyser
 {
@@ -47,18 +47,18 @@ class ParallelAnalyser
      * @param string|null $insteadOfFile
      * @return AnalyserResult
      */
-    public function analyse(\PHPStan\Parallel\Schedule $schedule, string $mainScript, ?\Closure $postFileCallback, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
+    public function analyse(\PHPStan\Parallel\Schedule $schedule, string $mainScript, ?\Closure $postFileCallback, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
     {
         $jobs = \array_reverse($schedule->getJobs());
-        $loop = new \_PhpScoper88fe6e0ad041\React\EventLoop\StreamSelectLoop();
+        $loop = new \_PhpScopera143bcca66cb\React\EventLoop\StreamSelectLoop();
         $numberOfProcesses = $schedule->getNumberOfProcesses();
         $errors = [];
         $internalErrors = [];
-        $server = new \_PhpScoper88fe6e0ad041\React\Socket\TcpServer('127.0.0.1:0', $loop);
+        $server = new \_PhpScopera143bcca66cb\React\Socket\TcpServer('127.0.0.1:0', $loop);
         $this->processPool = new \PHPStan\Parallel\ProcessPool($server);
-        $server->on('connection', function (\_PhpScoper88fe6e0ad041\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
-            $decoder = new \_PhpScoper88fe6e0ad041\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $this->decoderBufferSize);
-            $encoder = new \_PhpScoper88fe6e0ad041\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
+        $server->on('connection', function (\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
+            $decoder = new \_PhpScopera143bcca66cb\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $this->decoderBufferSize);
+            $encoder = new \_PhpScopera143bcca66cb\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
             $decoder->on('data', function (array $data) use(&$jobs, $decoder, $encoder) : void {
                 if ($data['action'] !== 'hello') {
                     return;
@@ -93,7 +93,7 @@ class ParallelAnalyser
             if (\count($jobs) === 0) {
                 break;
             }
-            $processIdentifier = \_PhpScoper88fe6e0ad041\Nette\Utils\Random::generate();
+            $processIdentifier = \_PhpScopera143bcca66cb\Nette\Utils\Random::generate();
             $commandOptions = ['--port', (string) $serverPort, '--identifier', $processIdentifier];
             if ($tmpFile !== null && $insteadOfFile !== null) {
                 $commandOptions[] = '--tmp-file';

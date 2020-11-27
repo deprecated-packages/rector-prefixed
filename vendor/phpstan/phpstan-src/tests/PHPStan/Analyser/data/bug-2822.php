@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Analyser\Bug2822;
+namespace _PhpScopera143bcca66cb\Analyser\Bug2822;
 
 use function PHPStan\Analyser\assertType;
 $getter = function (string $key) use($store) : int {

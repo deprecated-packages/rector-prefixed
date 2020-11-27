@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class OldStyleConstructorOnPhp8
 {
@@ -12,8 +12,8 @@ class OldStyleConstructorOnPhp8
         return new self(1);
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\OldStyleConstructorOnPhp8', 'OldStyleConstructorOnPhp8', \false);
+\class_alias('_PhpScopera143bcca66cb\\OldStyleConstructorOnPhp8', 'OldStyleConstructorOnPhp8', \false);
 function () {
-    new \_PhpScoper88fe6e0ad041\OldStyleConstructorOnPhp8();
-    new \_PhpScoper88fe6e0ad041\OldStyleConstructorOnPhp8(1);
+    new \_PhpScopera143bcca66cb\OldStyleConstructorOnPhp8();
+    new \_PhpScopera143bcca66cb\OldStyleConstructorOnPhp8(1);
 };

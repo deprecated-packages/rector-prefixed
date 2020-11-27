@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\CastToNumericString;
+namespace _PhpScopera143bcca66cb\CastToNumericString;
 
 use function PHPStan\Analyser\assertType;
 /**

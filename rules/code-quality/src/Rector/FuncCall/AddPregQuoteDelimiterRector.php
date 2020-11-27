@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\FuncCall;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\BinaryOp\Concat;
@@ -76,11 +76,11 @@ CODE_SAMPLE
         if (!$leftMostConcatNode instanceof \PhpParser\Node\Scalar\String_) {
             return null;
         }
-        $possibleLeftDelimiter = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::substring($leftMostConcatNode->value, 0, 1);
+        $possibleLeftDelimiter = \_PhpScopera143bcca66cb\Nette\Utils\Strings::substring($leftMostConcatNode->value, 0, 1);
         if (!$rightMostConcatNode instanceof \PhpParser\Node\Scalar\String_) {
             return null;
         }
-        $possibleRightDelimiter = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::substring(\rtrim($rightMostConcatNode->value, self::ALL_MODIFIERS), -1, 1);
+        $possibleRightDelimiter = \_PhpScopera143bcca66cb\Nette\Utils\Strings::substring(\rtrim($rightMostConcatNode->value, self::ALL_MODIFIERS), -1, 1);
         if ($possibleLeftDelimiter === $possibleRightDelimiter) {
             return $possibleLeftDelimiter;
         }

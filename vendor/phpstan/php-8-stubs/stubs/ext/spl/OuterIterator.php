@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 interface OuterIterator extends \Iterator
 {
     /** @return Iterator */
     public function getInnerIterator();
 }
-\class_alias('_PhpScoper88fe6e0ad041\\OuterIterator', 'OuterIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\OuterIterator', 'OuterIterator', \false);

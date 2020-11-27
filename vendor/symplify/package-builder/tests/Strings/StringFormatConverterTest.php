@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Symplify\PackageBuilder\Tests\Strings;
 
 use Iterator;
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
 use Symplify\PackageBuilder\Strings\StringFormatConverter;
-final class StringFormatConverterTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+final class StringFormatConverterTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     /**
      * @var StringFormatConverter

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 // @see: https://github.com/PHPOffice/PHPExcel/blob/1.8/Classes/PHPExcel.php
 final class PHPExcel
@@ -14,4 +14,4 @@ final class PHPExcel
     }
 }
 // @see: https://github.com/PHPOffice/PHPExcel/blob/1.8/Classes/PHPExcel.php
-\class_alias('_PhpScoper88fe6e0ad041\\PHPExcel', 'PHPExcel', \false);
+\class_alias('_PhpScopera143bcca66cb\\PHPExcel', 'PHPExcel', \false);

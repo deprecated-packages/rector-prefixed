@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\MixinProperties;
+namespace _PhpScopera143bcca66cb\MixinProperties;
 
 class Foo
 {
@@ -12,13 +12,13 @@ class Foo
 class Bar
 {
 }
-function (\_PhpScoper88fe6e0ad041\MixinProperties\Bar $bar) : void {
+function (\_PhpScopera143bcca66cb\MixinProperties\Bar $bar) : void {
     $bar->fooProp;
 };
-class Baz extends \_PhpScoper88fe6e0ad041\MixinProperties\Bar
+class Baz extends \_PhpScopera143bcca66cb\MixinProperties\Bar
 {
 }
-function (\_PhpScoper88fe6e0ad041\MixinProperties\Baz $baz) : void {
+function (\_PhpScopera143bcca66cb\MixinProperties\Baz $baz) : void {
     $baz->fooProp;
 };
 /**
@@ -33,7 +33,7 @@ class Test
     /**
      * @param GenericFoo<\ReflectionClass> $foo
      */
-    public function doFoo(\_PhpScoper88fe6e0ad041\MixinProperties\GenericFoo $foo) : void
+    public function doFoo(\_PhpScopera143bcca66cb\MixinProperties\GenericFoo $foo) : void
     {
         echo $foo->name;
         echo $foo->namee;

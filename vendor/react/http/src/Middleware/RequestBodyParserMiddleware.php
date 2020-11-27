@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Http\Middleware;
+namespace _PhpScopera143bcca66cb\React\Http\Middleware;
 
-use _PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoper88fe6e0ad041\React\Http\Io\MultipartParser;
+use _PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface;
+use _PhpScopera143bcca66cb\React\Http\Io\MultipartParser;
 final class RequestBodyParserMiddleware
 {
     private $multipart;
@@ -13,9 +13,9 @@ final class RequestBodyParserMiddleware
      */
     public function __construct($uploadMaxFilesize = null, $maxFileUploads = null)
     {
-        $this->multipart = new \_PhpScoper88fe6e0ad041\React\Http\Io\MultipartParser($uploadMaxFilesize, $maxFileUploads);
+        $this->multipart = new \_PhpScopera143bcca66cb\React\Http\Io\MultipartParser($uploadMaxFilesize, $maxFileUploads);
     }
-    public function __invoke(\_PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface $request, $next)
+    public function __invoke(\_PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface $request, $next)
     {
         $type = \strtolower($request->getHeaderLine('Content-Type'));
         list($type) = \explode(';', $type);
@@ -27,7 +27,7 @@ final class RequestBodyParserMiddleware
         }
         return $next($request);
     }
-    private function parseFormUrlencoded(\_PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface $request)
+    private function parseFormUrlencoded(\_PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface $request)
     {
         // parse string into array structure
         // ignore warnings due to excessive data structures (max_input_vars and max_input_nesting_level)

@@ -1,20 +1,20 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\RingCentral\Psr7;
+namespace _PhpScopera143bcca66cb\RingCentral\Psr7;
 
-use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
+use _PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that begins dropping data once the size of the underlying
  * stream becomes too full.
  */
-class DroppingStream extends \_PhpScoper88fe6e0ad041\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface
+class DroppingStream extends \_PhpScopera143bcca66cb\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface
 {
     private $maxLength;
     /**
      * @param StreamInterface $stream    Underlying stream to decorate.
      * @param int             $maxLength Maximum size before dropping data.
      */
-    public function __construct(\_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface $stream, $maxLength)
+    public function __construct(\_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface $stream, $maxLength)
     {
         parent::__construct($stream);
         $this->maxLength = $maxLength;

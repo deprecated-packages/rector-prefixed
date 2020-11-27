@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Rules;
 
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
-class RuleErrorBuilderTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
+class RuleErrorBuilderTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     public function testMessageAndBuild() : void
     {

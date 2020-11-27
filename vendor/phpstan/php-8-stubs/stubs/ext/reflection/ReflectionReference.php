@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 final class ReflectionReference
 {
@@ -18,4 +18,4 @@ final class ReflectionReference
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\ReflectionReference', 'ReflectionReference', \false);
+\class_alias('_PhpScopera143bcca66cb\\ReflectionReference', 'ReflectionReference', \false);

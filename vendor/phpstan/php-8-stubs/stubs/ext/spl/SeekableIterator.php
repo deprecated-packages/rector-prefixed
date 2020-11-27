@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 interface SeekableIterator extends \Iterator
 {
     /** @return void */
     public function seek(int $offset);
 }
-\class_alias('_PhpScoper88fe6e0ad041\\SeekableIterator', 'SeekableIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\SeekableIterator', 'SeekableIterator', \false);

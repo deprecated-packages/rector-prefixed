@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function oci_lob_erase(\_PhpScoper88fe6e0ad041\OCILob $lob, ?int $offset = null, ?int $length = null) : int|false
+function oci_lob_erase(\_PhpScopera143bcca66cb\OCILob $lob, ?int $offset = null, ?int $length = null) : int|false
 {
 }

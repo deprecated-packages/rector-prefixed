@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\TestStringables;
+namespace _PhpScopera143bcca66cb\TestStringables;
 
 class Dolor
 {
@@ -10,6 +10,6 @@ class Dolor
     }
     public function doBar() : void
     {
-        $this->doFoo(new \_PhpScoper88fe6e0ad041\TestStringables\Bar());
+        $this->doFoo(new \_PhpScopera143bcca66cb\TestStringables\Bar());
     }
 }

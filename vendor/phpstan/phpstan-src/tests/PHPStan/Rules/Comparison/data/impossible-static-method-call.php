@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ImpossibleStaticMethodCall;
+namespace _PhpScopera143bcca66cb\ImpossibleStaticMethodCall;
 
 class Foo
 {
@@ -26,14 +26,14 @@ class Foo
     }
     public function doPhpunit()
     {
-        \_PhpScoper88fe6e0ad041\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
-        \_PhpScoper88fe6e0ad041\PHPUnit\Framework\Assert::assertSame(302, $this->nullableInt());
-        \_PhpScoper88fe6e0ad041\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
+        \_PhpScopera143bcca66cb\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
+        \_PhpScopera143bcca66cb\PHPUnit\Framework\Assert::assertSame(302, $this->nullableInt());
+        \_PhpScopera143bcca66cb\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
     }
     public function doPhpunitNot()
     {
-        \_PhpScoper88fe6e0ad041\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
-        \_PhpScoper88fe6e0ad041\PHPUnit\Framework\Assert::assertNotSame(302, $this->nullableInt());
+        \_PhpScopera143bcca66cb\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
+        \_PhpScopera143bcca66cb\PHPUnit\Framework\Assert::assertNotSame(302, $this->nullableInt());
     }
     public function nullableInt() : ?int
     {

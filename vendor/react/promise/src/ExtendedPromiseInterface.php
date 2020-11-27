@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Promise;
+namespace _PhpScopera143bcca66cb\React\Promise;
 
-interface ExtendedPromiseInterface extends \_PhpScoper88fe6e0ad041\React\Promise\PromiseInterface
+interface ExtendedPromiseInterface extends \_PhpScopera143bcca66cb\React\Promise\PromiseInterface
 {
     /**
      * Consumes the promise's ultimate value if the promise fulfills, or handles the

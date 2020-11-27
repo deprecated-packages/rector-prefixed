@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function imagecolorat(\_PhpScoper88fe6e0ad041\GdImage $image, int $x, int $y) : int|false
+function imagecolorat(\_PhpScopera143bcca66cb\GdImage $image, int $x, int $y) : int|false
 {
 }

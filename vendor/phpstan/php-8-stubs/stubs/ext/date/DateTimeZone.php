@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class DateTimeZone
 {
@@ -58,4 +58,4 @@ class DateTimeZone
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\DateTimeZone', 'DateTimeZone', \false);
+\class_alias('_PhpScopera143bcca66cb\\DateTimeZone', 'DateTimeZone', \false);

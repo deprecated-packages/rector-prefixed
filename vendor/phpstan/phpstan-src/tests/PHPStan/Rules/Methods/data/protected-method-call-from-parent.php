@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ProtectedMethodCallFromParent;
+namespace _PhpScopera143bcca66cb\ProtectedMethodCallFromParent;
 
 class ParentClass
 {
     public function test()
     {
-        $a = new \_PhpScoper88fe6e0ad041\ProtectedMethodCallFromParent\ChildClass();
+        $a = new \_PhpScopera143bcca66cb\ProtectedMethodCallFromParent\ChildClass();
         $a->onChild();
     }
 }
-class ChildClass extends \_PhpScoper88fe6e0ad041\ProtectedMethodCallFromParent\ParentClass
+class ChildClass extends \_PhpScopera143bcca66cb\ProtectedMethodCallFromParent\ParentClass
 {
     protected function onChild()
     {

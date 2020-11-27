@@ -1,18 +1,18 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods;
+namespace _PhpScopera143bcca66cb\StaticCallsToInstanceMethods;
 
 class Foo
 {
     public static function doStaticFoo()
     {
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo::doFoo();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo::doFoo();
         // cannot call from static context
     }
     public function doFoo()
     {
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo::doFoo();
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Bar::doBar();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo::doFoo();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Bar::doBar();
         // not guaranteed, works only in instance of Bar
     }
     protected function doProtectedFoo()
@@ -22,21 +22,21 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo
+class Bar extends \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo
 {
     public static function doStaticBar()
     {
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo::doFoo();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo::doFoo();
         // cannot call from static context
     }
     public function doBar()
     {
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo::doFoo();
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo::dofoo();
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo::doFoo(1);
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo::doProtectedFoo();
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Foo::doPrivateFoo();
-        \_PhpScoper88fe6e0ad041\StaticCallsToInstanceMethods\Bar::doBar();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo::doFoo();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo::dofoo();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo::doFoo(1);
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo::doProtectedFoo();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Foo::doPrivateFoo();
+        \_PhpScopera143bcca66cb\StaticCallsToInstanceMethods\Bar::doBar();
         static::doFoo();
         static::doFoo(1);
     }

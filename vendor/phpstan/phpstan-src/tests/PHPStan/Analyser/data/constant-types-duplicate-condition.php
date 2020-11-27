@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\DuplicateConditionNeverError;
+namespace _PhpScopera143bcca66cb\DuplicateConditionNeverError;
 
 class Foo
 {

@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace PHPStan\Parallel;
 
-use _PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface;
-use _PhpScoper88fe6e0ad041\React\EventLoop\TimerInterface;
-use _PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface;
-use _PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface;
+use _PhpScopera143bcca66cb\React\EventLoop\LoopInterface;
+use _PhpScopera143bcca66cb\React\EventLoop\TimerInterface;
+use _PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface;
+use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
 class Process
 {
     /**
@@ -41,7 +41,7 @@ class Process
      * @var \React\EventLoop\TimerInterface|null
      */
     private $timer = null;
-    public function __construct(string $command, \_PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface $loop, float $timeoutSeconds)
+    public function __construct(string $command, \_PhpScopera143bcca66cb\React\EventLoop\LoopInterface $loop, float $timeoutSeconds)
     {
         $this->command = $command;
         $this->loop = $loop;
@@ -64,7 +64,7 @@ class Process
         }
         $this->stdOut = $tmpStdOut;
         $this->stdErr = $tmpStdErr;
-        $this->process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($this->command, null, null, [1 => $this->stdOut, 2 => $this->stdErr]);
+        $this->process = new \_PhpScopera143bcca66cb\React\ChildProcess\Process($this->command, null, null, [1 => $this->stdOut, 2 => $this->stdErr]);
         $this->process->start($this->loop);
         $this->onData = $onData;
         $this->onError = $onError;
@@ -121,7 +121,7 @@ class Process
         // process: just exit now
         // connection: connection, data, error?
     }
-    public function bindConnection(\_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface $out, \_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $in) : void
+    public function bindConnection(\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $out, \_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $in) : void
     {
         $out->on('data', function (array $json) : void {
             if ($json['action'] !== 'result') {

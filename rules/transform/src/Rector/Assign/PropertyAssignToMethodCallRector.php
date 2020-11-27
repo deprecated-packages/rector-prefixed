@@ -12,7 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\PropertyAssignToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
+use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\PropertyAssignToMethodCallRectorTest
  */
@@ -70,7 +70,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $propertyAssignsToMethodCalls = $configuration[self::PROPERTY_ASSIGNS_TO_METHODS_CALLS] ?? [];
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allIsInstanceOf($propertyAssignsToMethodCalls, \Rector\Transform\ValueObject\PropertyAssignToMethodCall::class);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allIsInstanceOf($propertyAssignsToMethodCalls, \Rector\Transform\ValueObject\PropertyAssignToMethodCall::class);
         $this->propertyAssignsToMethodCalls = $propertyAssignsToMethodCalls;
     }
 }

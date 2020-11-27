@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\TypesNamespaceDeductedTypes;
+namespace _PhpScopera143bcca66cb\TypesNamespaceDeductedTypes;
 
-use _PhpScoper88fe6e0ad041\TypesNamespaceFunctions;
+use _PhpScopera143bcca66cb\TypesNamespaceFunctions;
 class Foo
 {
     const INTEGER_CONSTANT = 1;
@@ -20,13 +20,13 @@ class Foo
         $floatLiteral = 1.0;
         $floatAssignedByRef =& $floatLiteral;
         $nullLiteral = null;
-        $loremObjectLiteral = new \_PhpScoper88fe6e0ad041\TypesNamespaceDeductedTypes\Lorem();
+        $loremObjectLiteral = new \_PhpScopera143bcca66cb\TypesNamespaceDeductedTypes\Lorem();
         $mixedObjectLiteral = new $class();
         $newStatic = new static();
         $arrayLiteral = [];
-        $stringFromFunction = \_PhpScoper88fe6e0ad041\TypesNamespaceFunctions\stringFunction();
-        $fooObjectFromFunction = \_PhpScoper88fe6e0ad041\TypesNamespaceFunctions\objectFunction();
-        $mixedFromFunction = \_PhpScoper88fe6e0ad041\TypesNamespaceFunctions\unknownTypeFunction();
+        $stringFromFunction = \_PhpScopera143bcca66cb\TypesNamespaceFunctions\stringFunction();
+        $fooObjectFromFunction = \_PhpScopera143bcca66cb\TypesNamespaceFunctions\objectFunction();
+        $mixedFromFunction = \_PhpScopera143bcca66cb\TypesNamespaceFunctions\unknownTypeFunction();
         $foo = new self();
         die;
     }

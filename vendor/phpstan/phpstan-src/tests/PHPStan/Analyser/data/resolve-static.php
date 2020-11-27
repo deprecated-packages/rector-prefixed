@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ResolveStatic;
+namespace _PhpScopera143bcca66cb\ResolveStatic;
 
 class Foo
 {
@@ -31,9 +31,9 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper88fe6e0ad041\ResolveStatic\Foo
+class Bar extends \_PhpScopera143bcca66cb\ResolveStatic\Foo
 {
 }
-function (\_PhpScoper88fe6e0ad041\ResolveStatic\Bar $bar) {
+function (\_PhpScopera143bcca66cb\ResolveStatic\Bar $bar) {
     die;
 };

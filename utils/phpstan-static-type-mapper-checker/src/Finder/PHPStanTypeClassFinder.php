@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Utils\PHPStanStaticTypeMapperChecker\Finder;
 
-use _PhpScoper88fe6e0ad041\Nette\Loaders\RobotLoader;
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Loaders\RobotLoader;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 final class PHPStanTypeClassFinder
 {
     /**
@@ -17,7 +17,7 @@ final class PHPStanTypeClassFinder
      */
     public function find() : array
     {
-        $robotLoader = new \_PhpScoper88fe6e0ad041\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScopera143bcca66cb\Nette\Loaders\RobotLoader();
         $robotLoader->addDirectory($this->getPHPStanPharSrcTypeDirectoryPath());
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/_phpstan_types');
         $robotLoader->acceptFiles = ['*Type.php'];
@@ -46,7 +46,7 @@ final class PHPStanTypeClassFinder
             if (!\class_exists($classLike)) {
                 continue;
             }
-            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($classLike, self::ACCESSORY_SEPARATED_REGEX)) {
+            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($classLike, self::ACCESSORY_SEPARATED_REGEX)) {
                 continue;
             }
             $classes[] = $classLike;

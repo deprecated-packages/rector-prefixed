@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\FunctionWithVariadicParameters;
+namespace _PhpScopera143bcca66cb\FunctionWithVariadicParameters;
 
 function foo($bar, int ...$foo)
 {

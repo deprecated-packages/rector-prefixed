@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 #if !defined(HAVE_SOLID) && !defined(HAVE_SOLID_30)
 /** @param resource $statement */

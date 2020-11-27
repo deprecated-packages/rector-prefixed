@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\StringCast;
+namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast;
 
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionObject;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionProperty;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionObject;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionProperty;
 use function array_filter;
 use function array_map;
 use function count;
@@ -22,9 +22,9 @@ use function trim;
  */
 final class ReflectionClassStringCast
 {
-    public static function toString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
+    public static function toString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
     {
-        $isObject = $classReflection instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionObject;
+        $isObject = $classReflection instanceof \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionObject;
         $format = "%s [ <%s> %s%s%s %s%s%s ] {\n";
         $format .= "%s\n";
         $format .= "  - Constants [%d] {%s\n  }\n\n";
@@ -43,7 +43,7 @@ final class ReflectionClassStringCast
         $methods = self::getMethods($classReflection);
         return \sprintf($format, $isObject ? 'Object of class' : $type, self::sourceToString($classReflection), $classReflection->isFinal() ? 'final ' : '', $classReflection->isAbstract() ? 'abstract ' : '', \strtolower($type), $classReflection->getName(), self::extendsToString($classReflection), self::implementsToString($classReflection), self::fileAndLinesToString($classReflection), \count($constants), self::constantsToString($constants), \count($staticProperties), self::propertiesToString($staticProperties), \count($staticMethods), self::methodsToString($classReflection, $staticMethods), \count($defaultProperties), self::propertiesToString($defaultProperties), $isObject ? \count($dynamicProperties) : '', $isObject ? self::propertiesToString($dynamicProperties) : '', \count($methods), self::methodsToString($classReflection, $methods, 2));
     }
-    private static function typeToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
+    private static function typeToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
     {
         if ($classReflection->isInterface()) {
             return 'Interface';
@@ -53,14 +53,14 @@ final class ReflectionClassStringCast
         }
         return 'Class';
     }
-    private static function sourceToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
+    private static function sourceToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
     {
         if ($classReflection->isUserDefined()) {
             return 'user';
         }
         return \sprintf('internal:%s', $classReflection->getExtensionName());
     }
-    private static function extendsToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
+    private static function extendsToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
     {
         $parentClass = $classReflection->getParentClass();
         if (!$parentClass) {
@@ -68,7 +68,7 @@ final class ReflectionClassStringCast
         }
         return ' extends ' . $parentClass->getName();
     }
-    private static function implementsToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
+    private static function implementsToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
     {
         $interfaceNames = $classReflection->getInterfaceNames();
         if (!$interfaceNames) {
@@ -76,7 +76,7 @@ final class ReflectionClassStringCast
         }
         return ' implements ' . \implode(', ', $interfaceNames);
     }
-    private static function fileAndLinesToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
+    private static function fileAndLinesToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : string
     {
         if ($classReflection->isInternal()) {
             return '';
@@ -91,8 +91,8 @@ final class ReflectionClassStringCast
         if (!$constants) {
             return '';
         }
-        return self::itemsToString(\array_map(static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClassConstant $constantReflection) : string {
-            return \trim(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast::toString($constantReflection));
+        return self::itemsToString(\array_map(static function (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClassConstant $constantReflection) : string {
+            return \trim(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast::toString($constantReflection));
         }, $constants));
     }
     /**
@@ -103,20 +103,20 @@ final class ReflectionClassStringCast
         if (!$properties) {
             return '';
         }
-        return self::itemsToString(\array_map(static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : string {
-            return \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast::toString($propertyReflection);
+        return self::itemsToString(\array_map(static function (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : string {
+            return \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast::toString($propertyReflection);
         }, $properties));
     }
     /**
      * @param ReflectionMethod[] $methods
      */
-    private static function methodsToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection, array $methods, int $emptyLinesAmongItems = 1) : string
+    private static function methodsToString(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection, array $methods, int $emptyLinesAmongItems = 1) : string
     {
         if (!$methods) {
             return '';
         }
-        return self::itemsToString(\array_map(static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod $method) use($classReflection) : string {
-            return \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast::toString($method, $classReflection);
+        return self::itemsToString(\array_map(static function (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $method) use($classReflection) : string {
+            return \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast::toString($method, $classReflection);
         }, $methods), $emptyLinesAmongItems);
     }
     /**
@@ -134,45 +134,45 @@ final class ReflectionClassStringCast
     /**
      * @return ReflectionProperty[]
      */
-    private static function getStaticProperties(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
+    private static function getStaticProperties(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
     {
-        return \array_filter($classReflection->getProperties(), static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : bool {
+        return \array_filter($classReflection->getProperties(), static function (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : bool {
             return $propertyReflection->isStatic();
         });
     }
     /**
      * @return ReflectionMethod[]
      */
-    private static function getStaticMethods(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
+    private static function getStaticMethods(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
     {
-        return \array_filter($classReflection->getMethods(), static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : bool {
+        return \array_filter($classReflection->getMethods(), static function (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : bool {
             return $methodReflection->isStatic();
         });
     }
     /**
      * @return ReflectionProperty[]
      */
-    private static function getDefaultProperties(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
+    private static function getDefaultProperties(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
     {
-        return \array_filter($classReflection->getProperties(), static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : bool {
+        return \array_filter($classReflection->getProperties(), static function (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : bool {
             return !$propertyReflection->isStatic() && $propertyReflection->isDefault();
         });
     }
     /**
      * @return ReflectionProperty[]
      */
-    private static function getDynamicProperties(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
+    private static function getDynamicProperties(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
     {
-        return \array_filter($classReflection->getProperties(), static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : bool {
+        return \array_filter($classReflection->getProperties(), static function (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : bool {
             return !$propertyReflection->isStatic() && !$propertyReflection->isDefault();
         });
     }
     /**
      * @return ReflectionMethod[]
      */
-    private static function getMethods(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
+    private static function getMethods(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionClass $classReflection) : array
     {
-        return \array_filter($classReflection->getMethods(), static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : bool {
+        return \array_filter($classReflection->getMethods(), static function (\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionMethod $methodReflection) : bool {
             return !$methodReflection->isStatic();
         });
     }

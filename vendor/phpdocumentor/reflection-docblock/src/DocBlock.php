@@ -10,10 +10,10 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection;
 
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tag;
-use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tag;
+use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
 final class DocBlock
 {
     /** @var string The opening line for this docblock. */
@@ -39,14 +39,14 @@ final class DocBlock
      * @param bool $isTemplateStart
      * @param bool $isTemplateEnd
      */
-    public function __construct($summary = '', \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Description $description = null, array $tags = [], \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\Context $context = null, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Location $location = null, $isTemplateStart = \false, $isTemplateEnd = \false)
+    public function __construct($summary = '', \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Description $description = null, array $tags = [], \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context = null, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Location $location = null, $isTemplateStart = \false, $isTemplateEnd = \false)
     {
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::string($summary);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::boolean($isTemplateStart);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::boolean($isTemplateEnd);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allIsInstanceOf($tags, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tag::class);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::string($summary);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::boolean($isTemplateStart);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::boolean($isTemplateEnd);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allIsInstanceOf($tags, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tag::class);
         $this->summary = $summary;
-        $this->description = $description ?: new \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Description('');
+        $this->description = $description ?: new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Description('');
         foreach ($tags as $tag) {
             $this->addTag($tag);
         }
@@ -142,7 +142,7 @@ final class DocBlock
      */
     public function getTagsByName($name)
     {
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::string($name);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::string($name);
         $result = [];
         /** @var Tag $tag */
         foreach ($this->getTags() as $tag) {
@@ -162,7 +162,7 @@ final class DocBlock
      */
     public function hasTag($name)
     {
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::string($name);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::string($name);
         /** @var Tag $tag */
         foreach ($this->getTags() as $tag) {
             if ($tag->getName() === $name) {
@@ -178,7 +178,7 @@ final class DocBlock
      *
      * @return void
      */
-    public function removeTag(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tag $tagToRemove)
+    public function removeTag(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tag $tagToRemove)
     {
         foreach ($this->tags as $key => $tag) {
             if ($tag === $tagToRemove) {
@@ -194,7 +194,7 @@ final class DocBlock
      *
      * @return void
      */
-    private function addTag(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tag $tag)
+    private function addTag(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tag $tag)
     {
         $this->tags[] = $tag;
     }

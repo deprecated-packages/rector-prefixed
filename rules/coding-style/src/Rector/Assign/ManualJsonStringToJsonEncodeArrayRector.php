@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Assign;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Json;
-use _PhpScoper88fe6e0ad041\Nette\Utils\JsonException;
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Json;
+use _PhpScopera143bcca66cb\Nette\Utils\JsonException;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -123,12 +123,12 @@ CODE_SAMPLE
     }
     private function isJsonString(string $stringValue) : bool
     {
-        if (!(bool) \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($stringValue, self::JSON_STRING_REGEX)) {
+        if (!(bool) \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($stringValue, self::JSON_STRING_REGEX)) {
             return \false;
         }
         try {
-            return (bool) \_PhpScoper88fe6e0ad041\Nette\Utils\Json::decode($stringValue, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\_PhpScoper88fe6e0ad041\Nette\Utils\JsonException $jsonException) {
+            return (bool) \_PhpScopera143bcca66cb\Nette\Utils\Json::decode($stringValue, \_PhpScopera143bcca66cb\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\_PhpScopera143bcca66cb\Nette\Utils\JsonException $jsonException) {
             return \false;
         }
     }
@@ -173,7 +173,7 @@ CODE_SAMPLE
      */
     private function removeNodesAndCreateJsonEncodeFromStringValue(array $nodesToRemove, string $stringValue, array $placeholderNodes, \PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node\Expr\Assign
     {
-        $stringValue = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
+        $stringValue = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
         if (!$this->isJsonString($stringValue)) {
             return null;
         }
@@ -184,7 +184,7 @@ CODE_SAMPLE
     }
     private function createArrayNodeFromJsonString(string $stringValue) : \PhpParser\Node\Expr\Array_
     {
-        $array = \_PhpScoper88fe6e0ad041\Nette\Utils\Json::decode($stringValue, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::FORCE_ARRAY);
+        $array = \_PhpScopera143bcca66cb\Nette\Utils\Json::decode($stringValue, \_PhpScopera143bcca66cb\Nette\Utils\Json::FORCE_ARRAY);
         return $this->createArray($array);
     }
     /**
@@ -198,7 +198,7 @@ CODE_SAMPLE
         $jsonDataVariable = new \PhpParser\Node\Expr\Variable('jsonData');
         $jsonDataAssign = new \PhpParser\Node\Expr\Assign($jsonDataVariable, $jsonArray);
         $this->addNodeBeforeNode($jsonDataAssign, $assign);
-        $assign->expr = $this->createStaticCall('_PhpScoper88fe6e0ad041\\Nette\\Utils\\Json', 'encode', [$jsonDataVariable]);
+        $assign->expr = $this->createStaticCall('_PhpScopera143bcca66cb\\Nette\\Utils\\Json', 'encode', [$jsonDataVariable]);
         return $assign;
     }
     /**

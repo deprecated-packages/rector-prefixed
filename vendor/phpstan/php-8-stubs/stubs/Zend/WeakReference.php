@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 final class WeakReference
@@ -16,4 +16,4 @@ final class WeakReference
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\WeakReference', 'WeakReference', \false);
+\class_alias('_PhpScopera143bcca66cb\\WeakReference', 'WeakReference', \false);

@@ -31,7 +31,7 @@ final class RenameAnnotationReaderClassRector extends \Rector\Core\Rector\Abstra
         if ($firstClass === null) {
             return null;
         }
-        if (!$this->isName($firstClass, '_PhpScoper88fe6e0ad041\\Doctrine\\Common\\Annotations\\AnnotationReader')) {
+        if (!$this->isName($firstClass, '_PhpScopera143bcca66cb\\Doctrine\\Common\\Annotations\\AnnotationReader')) {
             return null;
         }
         $firstClass->name = new \PhpParser\Node\Identifier('ConstantPreservingAnnotationReader');

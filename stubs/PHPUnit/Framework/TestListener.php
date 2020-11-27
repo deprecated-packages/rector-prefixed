@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\PHPUnit\Framework;
+namespace _PhpScopera143bcca66cb\PHPUnit\Framework;
 
-if (\interface_exists('_PhpScoper88fe6e0ad041\\PHPUnit\\Framework\\TestListener')) {
+if (\interface_exists('_PhpScopera143bcca66cb\\PHPUnit\\Framework\\TestListener')) {
     return;
 }
 interface TestListener

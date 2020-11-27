@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Naming\Guard;
 
 use DateTimeInterface;
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Variable;
@@ -17,7 +17,7 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\TypeWithClassName;
-use _PhpScoper88fe6e0ad041\Ramsey\Uuid\UuidInterface;
+use _PhpScopera143bcca66cb\Ramsey\Uuid\UuidInterface;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Naming\Naming\ConflictingNameResolver;
 use Rector\Naming\Naming\OverridenExistingNamesResolver;
@@ -74,7 +74,7 @@ final class BreakingVariableRenameGuard
     public function shouldSkipVariable(string $currentName, string $expectedName, \PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         // is the suffix? → also accepted
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
             return \true;
         }
         if ($this->conflictingNameResolver->checkNameIsInFunctionLike($expectedName, $functionLike)) {
@@ -100,7 +100,7 @@ final class BreakingVariableRenameGuard
     public function shouldSkipParam(string $currentName, string $expectedName, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : bool
     {
         // is the suffix? → also accepted
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
             return \true;
         }
         $conflictingNames = $this->conflictingNameResolver->resolveConflictingVariableNamesForParam($classMethod);
@@ -195,7 +195,7 @@ final class BreakingVariableRenameGuard
      */
     private function isRamseyUuidInterface(\PhpParser\Node $node) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($node, \_PhpScoper88fe6e0ad041\Ramsey\Uuid\UuidInterface::class);
+        return $this->nodeTypeResolver->isObjectType($node, \_PhpScopera143bcca66cb\Ramsey\Uuid\UuidInterface::class);
     }
     /**
      * @TODO Remove once ParamRenamer created
@@ -215,6 +215,6 @@ final class BreakingVariableRenameGuard
         if ($currentName === null) {
             return \false;
         }
-        return (bool) \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($currentName, self::AT_NAMING_REGEX . '');
+        return (bool) \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($currentName, self::AT_NAMING_REGEX . '');
     }
 }

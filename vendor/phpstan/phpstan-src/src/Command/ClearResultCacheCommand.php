@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace PHPStan\Command;
 
 use PHPStan\Analyser\ResultCache\ResultCacheClearer;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Command\Command;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface;
-class ClearResultCacheCommand extends \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Command\Command
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+class ClearResultCacheCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command
 {
     private const NAME = 'clear-result-cache';
     /** @var string[] */
@@ -23,9 +23,9 @@ class ClearResultCacheCommand extends \_PhpScoper88fe6e0ad041\Symfony\Component\
     }
     protected function configure() : void
     {
-        $this->setName(self::NAME)->setDescription('Clears the result cache.')->setDefinition([new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path')]);
+        $this->setName(self::NAME)->setDescription('Clears the result cache.')->setDefinition([new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path')]);
     }
-    protected function execute(\_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $autoloadFile = $input->getOption('autoload-file');
         $configuration = $input->getOption('configuration');

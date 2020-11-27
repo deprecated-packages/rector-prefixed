@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase as BaseTestCase;
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase as BaseTestCase;
 require_once __DIR__ . '/../vendor/autoload.php';
 \error_reporting(-1);
-class TestCase extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+class TestCase extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     protected function expectCallableNever()
     {
@@ -30,4 +30,4 @@ class TestCase extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
         return $this->getMockBuilder('stdClass')->setMethods(array('__invoke'))->getMock();
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\TestCase', 'TestCase', \false);
+\class_alias('_PhpScopera143bcca66cb\\TestCase', 'TestCase', \false);

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function imagecolordeallocate(\_PhpScoper88fe6e0ad041\GdImage $image, int $color) : bool
+function imagecolordeallocate(\_PhpScopera143bcca66cb\GdImage $image, int $color) : bool
 {
 }

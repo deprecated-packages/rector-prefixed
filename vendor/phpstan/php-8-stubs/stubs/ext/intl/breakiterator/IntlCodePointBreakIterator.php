@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class IntlCodePointBreakIterator extends \IntlBreakIterator
 {
@@ -9,4 +9,4 @@ class IntlCodePointBreakIterator extends \IntlBreakIterator
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\IntlCodePointBreakIterator', 'IntlCodePointBreakIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\IntlCodePointBreakIterator', 'IntlCodePointBreakIterator', \false);

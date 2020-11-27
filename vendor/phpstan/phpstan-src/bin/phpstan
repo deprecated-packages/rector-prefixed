@@ -1,14 +1,14 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 use PHPStan\Command\AnalyseCommand;
 use PHPStan\Command\ClearResultCacheCommand;
 use PHPStan\Command\FixerWorkerCommand;
 use PHPStan\Command\DumpDependenciesCommand;
 use PHPStan\Command\WorkerCommand;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Helper\ProgressBar;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Helper\ProgressBar;
 (function () {
     \error_reporting(\E_ALL);
     \ini_set('display_errors', 'stderr');
@@ -62,11 +62,11 @@ use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Helper\ProgressBar;
     $devOrPharLoader->register(\true);
     $version = 'Version unknown';
     try {
-        $version = \_PhpScoper88fe6e0ad041\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+        $version = \_PhpScopera143bcca66cb\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
     } catch (\OutOfBoundsException $e) {
     }
-    $application = new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Application('PHPStan - PHP Static Analysis Tool', $version);
-    \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Helper\ProgressBar::setFormatDefinition('file_download', ' [%bar%] %percent:3s%% %fileSize%');
+    $application = new \_PhpScopera143bcca66cb\Symfony\Component\Console\Application('PHPStan - PHP Static Analysis Tool', $version);
+    \_PhpScopera143bcca66cb\Symfony\Component\Console\Helper\ProgressBar::setFormatDefinition('file_download', ' [%bar%] %percent:3s%% %fileSize%');
     $reversedComposerAutoloaderProjectPaths = \array_reverse($composerAutoloaderProjectPaths);
     $application->add(new \PHPStan\Command\AnalyseCommand($reversedComposerAutoloaderProjectPaths));
     $application->add(new \PHPStan\Command\DumpDependenciesCommand($reversedComposerAutoloaderProjectPaths));

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class DOMNodeList implements \IteratorAggregate, \Countable
 {
@@ -16,4 +16,4 @@ class DOMNodeList implements \IteratorAggregate, \Countable
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\DOMNodeList', 'DOMNodeList', \false);
+\class_alias('_PhpScopera143bcca66cb\\DOMNodeList', 'DOMNodeList', \false);

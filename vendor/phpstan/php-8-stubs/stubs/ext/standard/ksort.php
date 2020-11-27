@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function ksort(array &$array, int $flags = \SORT_REGULAR) : bool
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ParameterTypeWidening;
+namespace _PhpScopera143bcca66cb\ParameterTypeWidening;
 
 class Foo
 {
@@ -8,7 +8,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper88fe6e0ad041\ParameterTypeWidening\Foo
+class Bar extends \_PhpScopera143bcca66cb\ParameterTypeWidening\Foo
 {
     public function doFoo($foo) : void
     {

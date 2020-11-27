@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Tests\Promise\Stream;
+namespace _PhpScopera143bcca66cb\React\Tests\Promise\Stream;
 
 class CallableStub
 {

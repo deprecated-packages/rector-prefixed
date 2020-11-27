@@ -27,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\StubTests\\": "tests\/"
+            "_PhpScopera143bcca66cb\\StubTests\\": "tests\/"
         }
     },
     "scripts": {

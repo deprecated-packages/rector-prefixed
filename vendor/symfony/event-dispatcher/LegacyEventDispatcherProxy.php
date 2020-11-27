@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper88fe6e0ad041\Symfony\Component\EventDispatcher;
+namespace _PhpScopera143bcca66cb\Symfony\Component\EventDispatcher;
 
-use _PhpScoper88fe6e0ad041\Psr\EventDispatcher\StoppableEventInterface;
-use _PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\Event as ContractsEvent;
-use _PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
+use _PhpScopera143bcca66cb\Psr\EventDispatcher\StoppableEventInterface;
+use _PhpScopera143bcca66cb\Symfony\Contracts\EventDispatcher\Event as ContractsEvent;
+use _PhpScopera143bcca66cb\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 /**
  * A helper class to provide BC/FC with the legacy signature of EventDispatcherInterface::dispatch().
  *
@@ -20,10 +20,10 @@ use _PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\EventDispatcherInte
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class LegacyEventDispatcherProxy implements \_PhpScoper88fe6e0ad041\Symfony\Component\EventDispatcher\EventDispatcherInterface
+final class LegacyEventDispatcherProxy implements \_PhpScopera143bcca66cb\Symfony\Component\EventDispatcher\EventDispatcherInterface
 {
     private $dispatcher;
-    public static function decorate(?\_PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher) : ?\_PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
+    public static function decorate(?\_PhpScopera143bcca66cb\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher) : ?\_PhpScopera143bcca66cb\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
     {
         if (null === $dispatcher) {
             return null;
@@ -50,16 +50,16 @@ final class LegacyEventDispatcherProxy implements \_PhpScoper88fe6e0ad041\Symfon
         $eventName = 1 < \func_num_args() ? \func_get_arg(1) : null;
         if (\is_object($event)) {
             $eventName = $eventName ?? \get_class($event);
-        } elseif (\is_string($event) && (null === $eventName || $eventName instanceof \_PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\Event || $eventName instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\EventDispatcher\Event)) {
-            @\trigger_error(\sprintf('Calling the "%s::dispatch()" method with the event name as the first argument is deprecated since Symfony 4.3, pass it as the second argument and provide the event object as the first argument instead.', \_PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class), \E_USER_DEPRECATED);
+        } elseif (\is_string($event) && (null === $eventName || $eventName instanceof \_PhpScopera143bcca66cb\Symfony\Contracts\EventDispatcher\Event || $eventName instanceof \_PhpScopera143bcca66cb\Symfony\Component\EventDispatcher\Event)) {
+            @\trigger_error(\sprintf('Calling the "%s::dispatch()" method with the event name as the first argument is deprecated since Symfony 4.3, pass it as the second argument and provide the event object as the first argument instead.', \_PhpScopera143bcca66cb\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class), \E_USER_DEPRECATED);
             $swap = $event;
-            $event = $eventName ?? new \_PhpScoper88fe6e0ad041\Symfony\Component\EventDispatcher\Event();
+            $event = $eventName ?? new \_PhpScopera143bcca66cb\Symfony\Component\EventDispatcher\Event();
             $eventName = $swap;
         } else {
-            throw new \TypeError(\sprintf('Argument 1 passed to "%s::dispatch()" must be an object, "%s" given.', \_PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class, \is_object($event) ? \get_class($event) : \gettype($event)));
+            throw new \TypeError(\sprintf('Argument 1 passed to "%s::dispatch()" must be an object, "%s" given.', \_PhpScopera143bcca66cb\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class, \is_object($event) ? \get_class($event) : \gettype($event)));
         }
         $listeners = $this->getListeners($eventName);
-        $stoppable = $event instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\EventDispatcher\Event || $event instanceof \_PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\Event || $event instanceof \_PhpScoper88fe6e0ad041\Psr\EventDispatcher\StoppableEventInterface;
+        $stoppable = $event instanceof \_PhpScopera143bcca66cb\Symfony\Component\EventDispatcher\Event || $event instanceof \_PhpScopera143bcca66cb\Symfony\Contracts\EventDispatcher\Event || $event instanceof \_PhpScopera143bcca66cb\Psr\EventDispatcher\StoppableEventInterface;
         foreach ($listeners as $listener) {
             if ($stoppable && $event->isPropagationStopped()) {
                 break;

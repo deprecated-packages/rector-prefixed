@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\PropertyAttributes;
+namespace _PhpScopera143bcca66cb\PropertyAttributes;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
 class Foo

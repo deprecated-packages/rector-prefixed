@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Doctrine\ORM;
+namespace _PhpScopera143bcca66cb\Doctrine\ORM;
 
-use _PhpScoper88fe6e0ad041\Doctrine\Common\Persistence\ObjectManager;
-if (\interface_exists('_PhpScoper88fe6e0ad041\\Doctrine\\ORM\\EntityManagerInterface')) {
+use _PhpScopera143bcca66cb\Doctrine\Common\Persistence\ObjectManager;
+if (\interface_exists('_PhpScopera143bcca66cb\\Doctrine\\ORM\\EntityManagerInterface')) {
     return;
 }
-interface EntityManagerInterface extends \_PhpScoper88fe6e0ad041\Doctrine\Common\Persistence\ObjectManager
+interface EntityManagerInterface extends \_PhpScopera143bcca66cb\Doctrine\Common\Persistence\ObjectManager
 {
 }

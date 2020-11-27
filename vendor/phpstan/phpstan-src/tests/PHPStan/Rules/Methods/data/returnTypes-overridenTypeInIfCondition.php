@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ReturnTypes;
+namespace _PhpScopera143bcca66cb\ReturnTypes;
 
 class OverridenTypeInIfCondition
 {
-    public function getAnotherAnotherStock() : \_PhpScoper88fe6e0ad041\ReturnTypes\Stock
+    public function getAnotherAnotherStock() : \_PhpScopera143bcca66cb\ReturnTypes\Stock
     {
-        $stock = new \_PhpScoper88fe6e0ad041\ReturnTypes\Stock();
+        $stock = new \_PhpScopera143bcca66cb\ReturnTypes\Stock();
         if ($stock->findStock() === null) {
         }
         return $stock->findStock();

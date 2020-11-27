@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function imagepalettetotruecolor(\_PhpScoper88fe6e0ad041\GdImage $image) : bool
+function imagepalettetotruecolor(\_PhpScopera143bcca66cb\GdImage $image) : bool
 {
 }

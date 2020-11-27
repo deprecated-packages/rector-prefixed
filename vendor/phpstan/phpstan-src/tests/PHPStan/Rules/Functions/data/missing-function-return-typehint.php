@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function globalFunction1($a, $b, $c)
 {
@@ -19,7 +19,7 @@ function globalFunction3($a, $b, $c)
 {
     return \false;
 }
-namespace _PhpScoper88fe6e0ad041\MissingFunctionReturnTypehint;
+namespace _PhpScopera143bcca66cb\MissingFunctionReturnTypehint;
 
 function namespacedFunction1($d, $e)
 {
@@ -52,10 +52,10 @@ interface GenericInterface
 class NonGenericClass
 {
 }
-function returnsGenericInterface() : \_PhpScoper88fe6e0ad041\MissingFunctionReturnTypehint\GenericInterface
+function returnsGenericInterface() : \_PhpScopera143bcca66cb\MissingFunctionReturnTypehint\GenericInterface
 {
 }
-function returnsNonGenericClass() : \_PhpScoper88fe6e0ad041\MissingFunctionReturnTypehint\NonGenericClass
+function returnsNonGenericClass() : \_PhpScopera143bcca66cb\MissingFunctionReturnTypehint\NonGenericClass
 {
 }
 /**
@@ -65,18 +65,18 @@ function returnsNonGenericClass() : \_PhpScoper88fe6e0ad041\MissingFunctionRetur
 class GenericClass
 {
 }
-function returnsGenericClass() : \_PhpScoper88fe6e0ad041\MissingFunctionReturnTypehint\GenericClass
+function returnsGenericClass() : \_PhpScopera143bcca66cb\MissingFunctionReturnTypehint\GenericClass
 {
 }
 /**
  * @return GenericClass<GenericClass<int, int>, GenericClass<int, int>>
  */
-function genericGenericValidArgs() : \_PhpScoper88fe6e0ad041\MissingFunctionReturnTypehint\GenericClass
+function genericGenericValidArgs() : \_PhpScopera143bcca66cb\MissingFunctionReturnTypehint\GenericClass
 {
 }
 /**
  * @return GenericClass<GenericClass, int>
  */
-function genericGenericMissingTemplateArgs() : \_PhpScoper88fe6e0ad041\MissingFunctionReturnTypehint\GenericClass
+function genericGenericMissingTemplateArgs() : \_PhpScopera143bcca66cb\MissingFunctionReturnTypehint\GenericClass
 {
 }

@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\phpDocumentor\\Reflection\\": "src"
+            "_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\phpDocumentor\\Reflection\\": [
+            "_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\": [
                 "tests\/unit",
                 "tests\/benchmark"
             ]

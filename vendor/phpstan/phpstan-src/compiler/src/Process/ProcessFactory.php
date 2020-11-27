@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Compiler\Process;
 
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
 interface ProcessFactory
 {
     /**
@@ -12,5 +12,5 @@ interface ProcessFactory
      * @return \PHPStan\Compiler\Process\Process
      */
     public function create(array $command, string $cwd) : \PHPStan\Compiler\Process\Process;
-    public function setOutput(\_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface $output) : void;
+    public function setOutput(\_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : void;
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 $foo = 1;
 function () use($foo, $bar) {
 };
 function () use(&$errorHandler) {
 };
-if (\_PhpScoper88fe6e0ad041\foo()) {
+if (\_PhpScopera143bcca66cb\foo()) {
     $onlyInIf = 1;
 }
 for ($forI = 0; $forI < 10, $anotherVariableFromForCond = 1; $forI++, $forJ = $forI) {

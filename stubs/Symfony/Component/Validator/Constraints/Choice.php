@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Symfony\Component\Validator\Constraints;
+namespace _PhpScopera143bcca66cb\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('_PhpScoper88fe6e0ad041\\Symfony\\Component\\Validator\\Constraints\\Choice')) {
+if (\class_exists('_PhpScopera143bcca66cb\\Symfony\\Component\\Validator\\Constraints\\Choice')) {
     return;
 }
-use _PhpScoper88fe6e0ad041\Symfony\Component\Validator\Constraint;
+use _PhpScopera143bcca66cb\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class Choice extends \_PhpScoper88fe6e0ad041\Symfony\Component\Validator\Constraint
+class Choice extends \_PhpScopera143bcca66cb\Symfony\Component\Validator\Constraint
 {
     const NO_SUCH_CHOICE_ERROR = '8e179f1b-97aa-4560-a02f-2a8b42e49df7';
     const TOO_FEW_ERROR = '11edd7eb-5872-4b6e-9f12-89923999fd0e';

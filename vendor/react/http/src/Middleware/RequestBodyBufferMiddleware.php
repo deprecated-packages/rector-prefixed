@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Http\Middleware;
+namespace _PhpScopera143bcca66cb\React\Http\Middleware;
 
 use OverflowException;
-use _PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoper88fe6e0ad041\React\Http\Io\IniUtil;
-use _PhpScoper88fe6e0ad041\React\Promise\Stream;
-use _PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface;
-use _PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream;
+use _PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface;
+use _PhpScopera143bcca66cb\React\Http\Io\IniUtil;
+use _PhpScopera143bcca66cb\React\Promise\Stream;
+use _PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface;
+use _PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream;
 final class RequestBodyBufferMiddleware
 {
     private $sizeLimit;
@@ -23,17 +23,17 @@ final class RequestBodyBufferMiddleware
         if ($sizeLimit === null) {
             $sizeLimit = \ini_get('post_max_size');
         }
-        $this->sizeLimit = \_PhpScoper88fe6e0ad041\React\Http\Io\IniUtil::iniSizeToBytes($sizeLimit);
+        $this->sizeLimit = \_PhpScopera143bcca66cb\React\Http\Io\IniUtil::iniSizeToBytes($sizeLimit);
     }
-    public function __invoke(\_PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface $request, $stack)
+    public function __invoke(\_PhpScopera143bcca66cb\Psr\Http\Message\ServerRequestInterface $request, $stack)
     {
         $body = $request->getBody();
         $size = $body->getSize();
         // happy path: skip if body is known to be empty (or is already buffered)
-        if ($size === 0 || !$body instanceof \_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface) {
+        if ($size === 0 || !$body instanceof \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface) {
             // replace with empty body if body is streaming (or buffered size exceeds limit)
-            if ($body instanceof \_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface || $size > $this->sizeLimit) {
-                $request = $request->withBody(new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream(0));
+            if ($body instanceof \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface || $size > $this->sizeLimit) {
+                $request = $request->withBody(new \_PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream(0));
             }
             return $stack($request);
         }
@@ -42,8 +42,8 @@ final class RequestBodyBufferMiddleware
         if ($size > $this->sizeLimit) {
             $sizeLimit = 0;
         }
-        return \_PhpScoper88fe6e0ad041\React\Promise\Stream\buffer($body, $sizeLimit)->then(function ($buffer) use($request, $stack) {
-            $stream = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream(\strlen($buffer));
+        return \_PhpScopera143bcca66cb\React\Promise\Stream\buffer($body, $sizeLimit)->then(function ($buffer) use($request, $stack) {
+            $stream = new \_PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream(\strlen($buffer));
             $stream->write($buffer);
             $request = $request->withBody($stream);
             return $stack($request);
@@ -52,7 +52,7 @@ final class RequestBodyBufferMiddleware
             // but ignore the contents and wait for the close event
             // before passing the request on to the next middleware.
             if ($error instanceof \OverflowException) {
-                return \_PhpScoper88fe6e0ad041\React\Promise\Stream\first($body, 'close')->then(function () use($stack, $request) {
+                return \_PhpScopera143bcca66cb\React\Promise\Stream\first($body, 'close')->then(function () use($stack, $request) {
                     return $stack($request);
                 });
             }

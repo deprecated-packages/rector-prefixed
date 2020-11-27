@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types;
 
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing the 'parent' type.
  *
@@ -19,7 +19,7 @@ use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-final class Parent_ implements \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type
+final class Parent_ implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.

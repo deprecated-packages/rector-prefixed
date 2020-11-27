@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\OndraM\CiDetector;
+namespace _PhpScopera143bcca66cb\OndraM\CiDetector;
 
-use _PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\CiInterface;
-use _PhpScoper88fe6e0ad041\OndraM\CiDetector\Exception\CiNotDetectedException;
+use _PhpScopera143bcca66cb\OndraM\CiDetector\Ci\CiInterface;
+use _PhpScopera143bcca66cb\OndraM\CiDetector\Exception\CiNotDetectedException;
 /**
  * Unified way to get environment variables from current continuous integration server
  */
@@ -29,9 +29,9 @@ class CiDetector
     private $environment;
     public function __construct()
     {
-        $this->environment = new \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Env();
+        $this->environment = new \_PhpScopera143bcca66cb\OndraM\CiDetector\Env();
     }
-    public static function fromEnvironment(\_PhpScoper88fe6e0ad041\OndraM\CiDetector\Env $environment) : self
+    public static function fromEnvironment(\_PhpScopera143bcca66cb\OndraM\CiDetector\Env $environment) : self
     {
         $detector = new static();
         $detector->environment = $environment;
@@ -50,11 +50,11 @@ class CiDetector
      *
      * @throws CiNotDetectedException
      */
-    public function detect() : \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\CiInterface
+    public function detect() : \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\CiInterface
     {
         $ciServer = $this->detectCurrentCiServer();
         if ($ciServer === null) {
-            throw new \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Exception\CiNotDetectedException('No CI server detected in current environment');
+            throw new \_PhpScopera143bcca66cb\OndraM\CiDetector\Exception\CiNotDetectedException('No CI server detected in current environment');
         }
         return $ciServer;
     }
@@ -63,9 +63,9 @@ class CiDetector
      */
     protected function getCiServers() : array
     {
-        return [\_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\AppVeyor::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\AwsCodeBuild::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Bamboo::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\BitbucketPipelines::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Buddy::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Circle::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Codeship::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Continuousphp::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Drone::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\GitHubActions::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\GitLab::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Jenkins::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\TeamCity::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Travis::class, \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\Wercker::class];
+        return [\_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\AppVeyor::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\AwsCodeBuild::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Bamboo::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\BitbucketPipelines::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Buddy::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Circle::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Codeship::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Continuousphp::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Drone::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\GitHubActions::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\GitLab::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Jenkins::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\TeamCity::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Travis::class, \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\Wercker::class];
     }
-    protected function detectCurrentCiServer() : ?\_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\CiInterface
+    protected function detectCurrentCiServer() : ?\_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\CiInterface
     {
         $ciServers = $this->getCiServers();
         foreach ($ciServers as $ciClass) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\OffsetAccessValueAssignment;
+namespace _PhpScopera143bcca66cb\OffsetAccessValueAssignment;
 
 class Foo
 {

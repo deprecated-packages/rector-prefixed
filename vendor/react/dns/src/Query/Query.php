@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Dns\Query;
+namespace _PhpScopera143bcca66cb\React\Dns\Query;
 
 /**
  * This class represents a single question in a query/response message

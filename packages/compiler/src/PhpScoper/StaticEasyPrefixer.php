@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace Rector\Compiler\PhpScoper;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 final class StaticEasyPrefixer
 {
     /**
      * @var string[]
      */
     public const EXCLUDED_CLASSES = [
-        '_PhpScoper88fe6e0ad041\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface',
-        '_PhpScoper88fe6e0ad041\\Symfony\\Component\\Console\\Style\\SymfonyStyle',
+        '_PhpScopera143bcca66cb\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface',
+        '_PhpScopera143bcca66cb\\Symfony\\Component\\Console\\Style\\SymfonyStyle',
         // part of public interface of configs.php
-        '_PhpScoper88fe6e0ad041\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator',
+        '_PhpScopera143bcca66cb\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator',
     ];
     /**
      * @var string[]
@@ -35,12 +35,12 @@ final class StaticEasyPrefixer
     public static function prefixClass(string $class, string $prefix) : string
     {
         foreach (self::EXCLUDED_NAMESPACES as $excludedNamespace) {
-            $excludedNamespace = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::substring($excludedNamespace, 0, -2) . '\\';
-            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($class, $excludedNamespace)) {
+            $excludedNamespace = \_PhpScopera143bcca66cb\Nette\Utils\Strings::substring($excludedNamespace, 0, -2) . '\\';
+            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($class, $excludedNamespace)) {
                 return $class;
             }
         }
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($class, '@')) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($class, '@')) {
             return $class;
         }
         return $prefix . '\\' . $class;
@@ -48,13 +48,13 @@ final class StaticEasyPrefixer
     public static function unPrefixQuotedValues(string $prefix, string $content) : string
     {
         $match = \sprintf('\'%s\\\\r\\\\n\'', $prefix);
-        $content = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($content, '#' . $match . '#', '\'\\\\r\\\\n\'');
+        $content = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($content, '#' . $match . '#', '\'\\\\r\\\\n\'');
         $match = \sprintf('\'%s\\\\', $prefix);
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($content, '#' . $match . '#', "'");
+        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($content, '#' . $match . '#', "'");
     }
     public static function unPreSlashQuotedValues(string $content) : string
     {
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($content, self::QUOTED_VALUE_REGEX, "'\$1");
+        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($content, self::QUOTED_VALUE_REGEX, "'\$1");
     }
     /**
      * @return string[]

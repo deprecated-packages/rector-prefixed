@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class CallbackFilterIterator extends \FilterIterator
 {
@@ -12,4 +12,4 @@ class CallbackFilterIterator extends \FilterIterator
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\CallbackFilterIterator', 'CallbackFilterIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\CallbackFilterIterator', 'CallbackFilterIterator', \false);

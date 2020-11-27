@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function (array $generalArray) {
     $array = ['i' => 0, 'j' => 0, 'k' => 0, 'l' => 0, 'm' => 0];
     /** @var \DateTimeImmutable|null $nullableDateTime */
-    $nullableDateTime = \_PhpScoper88fe6e0ad041\doFoo();
+    $nullableDateTime = \_PhpScopera143bcca66cb\doFoo();
     $array['key'] = $nullableDateTime;
     $arrayAppendedInIf = ['foo', 'bar'];
     if ($array['key'] === null) {
@@ -20,7 +20,7 @@ function (array $generalArray) {
         $array['k']++;
     }
     /** @var int[] $ints */
-    $ints = \_PhpScoper88fe6e0ad041\doFoo();
+    $ints = \_PhpScopera143bcca66cb\doFoo();
     $arrayAppendedInForeach = ['foo', 'bar'];
     $anotherArrayAppendedInForeach = ['foo', 'bar'];
     $i = 0;

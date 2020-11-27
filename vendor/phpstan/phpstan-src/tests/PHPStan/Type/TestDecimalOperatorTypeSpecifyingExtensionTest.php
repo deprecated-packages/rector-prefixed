@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace PHPStan\Type;
 
 use PHPStan\Fixture\TestDecimal;
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
-class TestDecimalOperatorTypeSpecifyingExtensionTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
+class TestDecimalOperatorTypeSpecifyingExtensionTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider dataSigilAndSidesProvider

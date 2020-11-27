@@ -15,7 +15,7 @@ final class AssertTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
 {
     public function getShortName() : string
     {
-        return '_PhpScoper88fe6e0ad041\\@Assert\\Type';
+        return '_PhpScopera143bcca66cb\\@Assert\\Type';
     }
     public function getSilentKey() : string
     {

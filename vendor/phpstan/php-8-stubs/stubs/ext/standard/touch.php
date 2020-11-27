@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 #if HAVE_UTIME
 function touch(string $filename, ?int $mtime = null, ?int $atime = null) : bool

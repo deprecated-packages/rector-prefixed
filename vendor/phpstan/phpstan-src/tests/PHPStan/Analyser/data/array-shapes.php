@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ArrayShapesInPhpDoc;
+namespace _PhpScopera143bcca66cb\ArrayShapesInPhpDoc;
 
 class Foo
 {

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\SignatureTest;
+namespace _PhpScopera143bcca66cb\Roave\SignatureTest;
 
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
-use _PhpScoper88fe6e0ad041\Roave\Signature\Encoder\Base64Encoder;
-use _PhpScoper88fe6e0ad041\Roave\Signature\Encoder\EncoderInterface;
-use _PhpScoper88fe6e0ad041\Roave\Signature\FileContentChecker;
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
+use _PhpScopera143bcca66cb\Roave\Signature\Encoder\Base64Encoder;
+use _PhpScopera143bcca66cb\Roave\Signature\Encoder\EncoderInterface;
+use _PhpScopera143bcca66cb\Roave\Signature\FileContentChecker;
 /**
  * @covers \Roave\Signature\FileContentChecker
  */
-final class FileContentCheckerTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+final class FileContentCheckerTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     /**
      * @var EncoderInterface|\PHPUnit\Framework\MockObject\MockObject
@@ -22,13 +22,13 @@ final class FileContentCheckerTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Frame
     protected function setUp()
     {
         parent::setUp();
-        $this->encoder = $this->createMock(\_PhpScoper88fe6e0ad041\Roave\Signature\Encoder\EncoderInterface::class);
+        $this->encoder = $this->createMock(\_PhpScopera143bcca66cb\Roave\Signature\Encoder\EncoderInterface::class);
     }
     public function testShouldCheckClassFileContent()
     {
         $classFilePath = __DIR__ . '/../../fixture/UserClassSignedByFileContent.php';
         self::assertFileExists($classFilePath);
-        $checker = new \_PhpScoper88fe6e0ad041\Roave\Signature\FileContentChecker(new \_PhpScoper88fe6e0ad041\Roave\Signature\Encoder\Base64Encoder());
+        $checker = new \_PhpScopera143bcca66cb\Roave\Signature\FileContentChecker(new \_PhpScopera143bcca66cb\Roave\Signature\Encoder\Base64Encoder());
         $checker->check(\file_get_contents($classFilePath));
     }
     public function testShouldReturnFalseIfSignatureDoesNotMatch()
@@ -37,14 +37,14 @@ final class FileContentCheckerTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Frame
         self::assertFileExists($classFilePath);
         $expectedSignature = 'YToxOntpOjA7czoxNDE6Ijw/cGhwCgpuYW1lc3BhY2UgU2lnbmF0dXJlVGVzdEZpeHR1cmU7' . 'CgpjbGFzcyBVc2VyQ2xhc3NTaWduZWRCeUZpbGVDb250ZW50CnsKICAgIHB1YmxpYyAkbmFtZTsKCiAgICBwcm90ZW' . 'N0ZWQgJHN1cm5hbWU7CgogICAgcHJpdmF0ZSAkYWdlOwp9CiI7fQ==';
         $this->encoder->expects(self::once())->method('verify')->with(\str_replace('/** Roave/Signature: ' . $expectedSignature . ' */' . "\n", '', \file_get_contents($classFilePath)), $expectedSignature);
-        $checker = new \_PhpScoper88fe6e0ad041\Roave\Signature\FileContentChecker($this->encoder);
+        $checker = new \_PhpScopera143bcca66cb\Roave\Signature\FileContentChecker($this->encoder);
         self::assertFalse($checker->check(\file_get_contents($classFilePath)));
     }
     public function testShouldReturnFalseIfClassIsNotSigned()
     {
         $classFilePath = __DIR__ . '/../../fixture/UserClass.php';
         self::assertFileExists($classFilePath);
-        $checker = new \_PhpScoper88fe6e0ad041\Roave\Signature\FileContentChecker($this->encoder);
+        $checker = new \_PhpScopera143bcca66cb\Roave\Signature\FileContentChecker($this->encoder);
         self::assertFalse($checker->check(\file_get_contents($classFilePath)));
     }
 }

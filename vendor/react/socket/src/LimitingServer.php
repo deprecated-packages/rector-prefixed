@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Socket;
+namespace _PhpScopera143bcca66cb\React\Socket;
 
-use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
+use _PhpScopera143bcca66cb\Evenement\EventEmitter;
 use Exception;
 use OverflowException;
 /**
@@ -32,7 +32,7 @@ use OverflowException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-class LimitingServer extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Socket\ServerInterface
+class LimitingServer extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Socket\ServerInterface
 {
     private $connections = array();
     private $server;
@@ -89,7 +89,7 @@ class LimitingServer extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter impl
      * @param int|null        $connectionLimit
      * @param bool            $pauseOnLimit
      */
-    public function __construct(\_PhpScoper88fe6e0ad041\React\Socket\ServerInterface $server, $connectionLimit, $pauseOnLimit = \false)
+    public function __construct(\_PhpScopera143bcca66cb\React\Socket\ServerInterface $server, $connectionLimit, $pauseOnLimit = \false)
     {
         $this->server = $server;
         $this->limit = $connectionLimit;
@@ -141,7 +141,7 @@ class LimitingServer extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter impl
         $this->server->close();
     }
     /** @internal */
-    public function handleConnection(\_PhpScoper88fe6e0ad041\React\Socket\ConnectionInterface $connection)
+    public function handleConnection(\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $connection)
     {
         // close connection if limit exceeded
         if ($this->limit !== null && \count($this->connections) >= $this->limit) {
@@ -164,7 +164,7 @@ class LimitingServer extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter impl
         $this->emit('connection', array($connection));
     }
     /** @internal */
-    public function handleDisconnection(\_PhpScoper88fe6e0ad041\React\Socket\ConnectionInterface $connection)
+    public function handleDisconnection(\_PhpScopera143bcca66cb\React\Socket\ConnectionInterface $connection)
     {
         unset($this->connections[\array_search($connection, $this->connections)]);
         // continue accepting new connection if below limit

@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection;
 
 use InvalidArgumentException;
 use function assert;

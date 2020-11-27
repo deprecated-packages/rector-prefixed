@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ReturnTypeCovariance;
+namespace _PhpScopera143bcca66cb\ReturnTypeCovariance;
 
 class Foo
 {
@@ -17,7 +17,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper88fe6e0ad041\ReturnTypeCovariance\Foo
+class Bar extends \_PhpScopera143bcca66cb\ReturnTypeCovariance\Foo
 {
     public function doFoo() : array
     {
@@ -38,10 +38,10 @@ class A
     {
     }
 }
-class B extends \_PhpScoper88fe6e0ad041\ReturnTypeCovariance\A
+class B extends \_PhpScopera143bcca66cb\ReturnTypeCovariance\A
 {
     public function foo($s)
     {
-        return \rand(0, 1) ? new \_PhpScoper88fe6e0ad041\ReturnTypeCovariance\stdClass() : null;
+        return \rand(0, 1) ? new \_PhpScopera143bcca66cb\ReturnTypeCovariance\stdClass() : null;
     }
 }

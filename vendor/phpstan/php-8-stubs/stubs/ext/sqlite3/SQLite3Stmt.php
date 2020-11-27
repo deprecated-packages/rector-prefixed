@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class SQLite3Stmt
 {
@@ -44,4 +44,4 @@ class SQLite3Stmt
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\SQLite3Stmt', 'SQLite3Stmt', \false);
+\class_alias('_PhpScopera143bcca66cb\\SQLite3Stmt', 'SQLite3Stmt', \false);

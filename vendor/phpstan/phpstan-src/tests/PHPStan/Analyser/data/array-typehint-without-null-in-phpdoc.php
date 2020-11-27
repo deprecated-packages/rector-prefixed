@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ArrayTypehintWithoutNullInPhpDoc;
+namespace _PhpScopera143bcca66cb\ArrayTypehintWithoutNullInPhpDoc;
 
 use function PHPStan\Analyser\assertType;
 class Foo

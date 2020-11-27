@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\BitwiseNot;
+namespace _PhpScopera143bcca66cb\BitwiseNot;
 
 use function PHPStan\Analyser\assertType;
 /**

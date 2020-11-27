@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\OverridingParle;
+namespace _PhpScopera143bcca66cb\OverridingParle;
 
 class Foo extends \Parle\RLexer
 {

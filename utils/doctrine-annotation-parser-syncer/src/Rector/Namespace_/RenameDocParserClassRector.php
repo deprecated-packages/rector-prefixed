@@ -31,7 +31,7 @@ final class RenameDocParserClassRector extends \Rector\Core\Rector\AbstractRecto
         if ($firstClass === null) {
             return null;
         }
-        if (!$this->isName($firstClass, '_PhpScoper88fe6e0ad041\\Doctrine\\Common\\Annotations\\DocParser')) {
+        if (!$this->isName($firstClass, '_PhpScopera143bcca66cb\\Doctrine\\Common\\Annotations\\DocParser')) {
             return null;
         }
         $firstClass->name = new \PhpParser\Node\Identifier('ConstantPreservingDocParser');

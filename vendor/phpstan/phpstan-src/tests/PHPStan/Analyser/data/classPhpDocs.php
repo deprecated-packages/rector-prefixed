@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ClassPhpDocsNamespace;
+namespace _PhpScopera143bcca66cb\ClassPhpDocsNamespace;
 
 use function PHPStan\Analyser\assertType;
 /**
@@ -33,7 +33,7 @@ class Foo
  * @phpstan-method string overrodeMethod()
  * @phpstan-method static int overrodeStaticMethod()
  */
-class Child extends \_PhpScoper88fe6e0ad041\ClassPhpDocsNamespace\Foo
+class Child extends \_PhpScopera143bcca66cb\ClassPhpDocsNamespace\Foo
 {
     public function doFoo()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\UniversalObjectCrate;
+namespace _PhpScopera143bcca66cb\UniversalObjectCrate;
 
 class Foo extends \stdClass
 {
@@ -24,7 +24,7 @@ class Foo extends \stdClass
     }
 }
 function () {
-    $foo = new \_PhpScoper88fe6e0ad041\UniversalObjectCrate\Foo('foo');
+    $foo = new \_PhpScopera143bcca66cb\UniversalObjectCrate\Foo('foo');
     $foo->doBaz($foo->name);
     // not reported, is mixed here
 };

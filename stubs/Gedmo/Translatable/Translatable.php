@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Gedmo\Translatable;
+namespace _PhpScopera143bcca66cb\Gedmo\Translatable;
 
-if (\interface_exists('_PhpScoper88fe6e0ad041\\Gedmo\\Translatable\\Translatable')) {
+if (\interface_exists('_PhpScopera143bcca66cb\\Gedmo\\Translatable\\Translatable')) {
     return;
 }
 interface Translatable

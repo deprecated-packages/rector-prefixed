@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 // this file will need update sometimes: https://github.com/phpstan/phpstan-src/commits/master/compiler/build/scoper.inc.php
 // automate in the future, if needed - @see https://github.com/rectorphp/rector/pull/2575#issuecomment-571133000
 require_once __DIR__ . '/vendor/autoload.php';
-use _PhpScoper88fe6e0ad041\Nette\Neon\Neon;
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Neon\Neon;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use Rector\Compiler\PhpScoper\StaticEasyPrefixer;
 use Rector\Compiler\PhpScoper\WhitelistedStubsProvider;
 require_once __DIR__ . '/packages/compiler/src/PhpScoper/StaticEasyPrefixer.php';
@@ -19,53 +19,53 @@ return ['files-whitelist' => $whitelistedStubsProvider->provide(), 'whitelist' =
         if ($filePath !== 'vendor/nette/di/src/DI/Compiler.php') {
             return $content;
         }
-        return \str_replace('_PhpScoper88fe6e0ad041\\|Nette\\DI\\Statement', \sprintf('_PhpScoper88fe6e0ad041\\|\\%s\\Nette\\DI\\Statement', $prefix), $content);
+        return \str_replace('_PhpScopera143bcca66cb\\|Nette\\DI\\Statement', \sprintf('_PhpScopera143bcca66cb\\|\\%s\\Nette\\DI\\Statement', $prefix), $content);
     },
     function (string $filePath, string $prefix, string $content) : string {
         if ($filePath !== 'vendor/nette/di/src/DI/Config/DefinitionSchema.php') {
             return $content;
         }
-        $content = \str_replace(\sprintf('_PhpScoper88fe6e0ad041\\\'%s\\callable', $prefix), "'callable", $content);
-        return \str_replace('_PhpScoper88fe6e0ad041\\|Nette\\DI\\Definitions\\Statement', \sprintf('_PhpScoper88fe6e0ad041\\|%s\\Nette\\DI\\Definitions\\Statement', $prefix), $content);
+        $content = \str_replace(\sprintf('_PhpScopera143bcca66cb\\\'%s\\callable', $prefix), "'callable", $content);
+        return \str_replace('_PhpScopera143bcca66cb\\|Nette\\DI\\Definitions\\Statement', \sprintf('_PhpScopera143bcca66cb\\|%s\\Nette\\DI\\Definitions\\Statement', $prefix), $content);
     },
     function (string $filePath, string $prefix, string $content) : string {
         if ($filePath !== 'vendor/nette/di/src/DI/Extensions/ExtensionsExtension.php') {
             return $content;
         }
-        $content = \str_replace(\sprintf('_PhpScoper88fe6e0ad041\\\'%s\\string', $prefix), "'string", $content);
-        return \str_replace('_PhpScoper88fe6e0ad041\\|Nette\\DI\\Definitions\\Statement', \sprintf('_PhpScoper88fe6e0ad041\\|%s\\Nette\\DI\\Definitions\\Statement', $prefix), $content);
+        $content = \str_replace(\sprintf('_PhpScopera143bcca66cb\\\'%s\\string', $prefix), "'string", $content);
+        return \str_replace('_PhpScopera143bcca66cb\\|Nette\\DI\\Definitions\\Statement', \sprintf('_PhpScopera143bcca66cb\\|%s\\Nette\\DI\\Definitions\\Statement', $prefix), $content);
     },
     function (string $filePath, string $prefix, string $content) : string {
         if ($filePath !== 'vendor/phpstan/phpstan-src/src/Testing/TestCase.php') {
             return $content;
         }
-        return \str_replace(\sprintf('_PhpScoper88fe6e0ad041\\%s\\PHPUnit\\Framework\\TestCase', $prefix), '_PhpScoper88fe6e0ad041\\PHPUnit\\Framework\\TestCase', $content);
+        return \str_replace(\sprintf('_PhpScopera143bcca66cb\\%s\\PHPUnit\\Framework\\TestCase', $prefix), '_PhpScopera143bcca66cb\\PHPUnit\\Framework\\TestCase', $content);
     },
     function (string $filePath, string $prefix, string $content) : string {
         if ($filePath !== 'vendor/phpstan/phpstan-src/src/Testing/LevelsTestCase.php') {
             return $content;
         }
-        return \str_replace([\sprintf('_PhpScoper88fe6e0ad041\\%s\\PHPUnit\\Framework\\AssertionFailedError', $prefix), \sprintf('_PhpScoper88fe6e0ad041\\%s\\PHPUnit\\Framework\\TestCase', $prefix)], ['\\PHPUnit\\Framework\\AssertionFailedError', '\\PHPUnit\\Framework\\TestCase'], $content);
+        return \str_replace([\sprintf('_PhpScopera143bcca66cb\\%s\\PHPUnit\\Framework\\AssertionFailedError', $prefix), \sprintf('_PhpScopera143bcca66cb\\%s\\PHPUnit\\Framework\\TestCase', $prefix)], ['\\PHPUnit\\Framework\\AssertionFailedError', '\\PHPUnit\\Framework\\TestCase'], $content);
     },
     // unprefix excluded classes
     // fixes https://github.com/humbug/box/issues/470
     function (string $filePath, string $prefix, string $content) : string {
         foreach (\Rector\Compiler\PhpScoper\StaticEasyPrefixer::EXCLUDED_CLASSES as $excludedClass) {
             $prefixedClassPattern = '#' . $prefix . '\\\\' . \preg_quote($excludedClass, '#') . '#';
-            $content = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($content, $prefixedClassPattern, $excludedClass);
+            $content = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($content, $prefixedClassPattern, $excludedClass);
         }
         return $content;
     },
     // mimics https://github.com/phpstan/phpstan-src/commit/5a6a22e5c4d38402c8cc888d8732360941c33d43#diff-463a36e4a5687fb2366b5ee56cdad92d
     function (string $filePath, string $prefix, string $content) : string {
         // only *.neon files
-        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith($filePath, '.neon')) {
+        if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($filePath, '.neon')) {
             return $content;
         }
         if ($content === '') {
             return $content;
         }
-        $neon = \_PhpScoper88fe6e0ad041\Nette\Neon\Neon::decode($content);
+        $neon = \_PhpScopera143bcca66cb\Nette\Neon\Neon::decode($content);
         $updatedNeon = $neon;
         if (\array_key_exists('services', $neon)) {
             foreach ($neon['services'] as $key => $service) {
@@ -83,13 +83,13 @@ return ['files-whitelist' => $whitelistedStubsProvider->provide(), 'whitelist' =
                 $updatedNeon['services'][$key] = $service;
             }
         }
-        $updatedContent = \_PhpScoper88fe6e0ad041\Nette\Neon\Neon::encode($updatedNeon, \_PhpScoper88fe6e0ad041\Nette\Neon\Neon::BLOCK);
+        $updatedContent = \_PhpScopera143bcca66cb\Nette\Neon\Neon::encode($updatedNeon, \_PhpScopera143bcca66cb\Nette\Neon\Neon::BLOCK);
         // default indent is tab, we have spaces
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($updatedContent, '#\\t#', '    ');
+        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($updatedContent, '#\\t#', '    ');
     },
     // mimics https://github.com/phpstan/phpstan-src/commit/fd8f0a852207a1724ae4a262f47d9a449de70da4#diff-463a36e4a5687fb2366b5ee56cdad92d
     function (string $filePath, string $prefix, string $content) : string {
-        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($filePath, '#^(config|src|rules|packages)\\/#')) {
+        if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($filePath, '#^(config|src|rules|packages)\\/#')) {
             return $content;
         }
         $content = \Rector\Compiler\PhpScoper\StaticEasyPrefixer::unPrefixQuotedValues($prefix, $content);
@@ -102,7 +102,7 @@ return ['files-whitelist' => $whitelistedStubsProvider->provide(), 'whitelist' =
         if (!\in_array($filePath, ['vendor/phpstan/phpstan-src/src/Type/TypehintHelper.php', 'vendor/ondrejmirtes/better-reflection/src/Reflection/Adapter/ReflectionUnionType.php'], \true)) {
             return $content;
         }
-        return \str_replace(\sprintf('_PhpScoper88fe6e0ad041\\%s\\ReflectionUnionType', $prefix), 'ReflectionUnionType', $content);
+        return \str_replace(\sprintf('_PhpScopera143bcca66cb\\%s\\ReflectionUnionType', $prefix), 'ReflectionUnionType', $content);
     },
     // mimics: https://github.com/phpstan/phpstan-src/commit/6bb92ed7b92b186bb1eb5111bc49ec7679ed780f#diff-87f75ce3f908a819a9a2c77ffeffcc38
     function (string $filePath, string $prefix, string $content) : string {
@@ -113,6 +113,6 @@ return ['files-whitelist' => $whitelistedStubsProvider->provide(), 'whitelist' =
         if (!\in_array($filePath, ['vendor/phpstan/phpstan-src/src/Testing/TestCaseSourceLocatorFactory.php', 'vendor/phpstan/phpstan-src/src/Testing/TestCase.php'], \true)) {
             return $content;
         }
-        return \str_replace(\sprintf('_PhpScoper88fe6e0ad041\\%s\\Composer\\Autoload\\ClassLoader', $prefix), '_PhpScoper88fe6e0ad041\\Composer\\Autoload\\ClassLoader', $content);
+        return \str_replace(\sprintf('_PhpScopera143bcca66cb\\%s\\Composer\\Autoload\\ClassLoader', $prefix), '_PhpScopera143bcca66cb\\Composer\\Autoload\\ClassLoader', $content);
     },
 ]];

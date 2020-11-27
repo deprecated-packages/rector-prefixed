@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\RingCentral\Psr7;
+namespace _PhpScopera143bcca66cb\RingCentral\Psr7;
 
-use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
+use _PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface;
 /**
  * Uses PHP's zlib.inflate filter to inflate deflate or gzipped content.
  *
@@ -14,14 +14,14 @@ use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
  * @link http://tools.ietf.org/html/rfc1952
  * @link http://php.net/manual/en/filters.compression.php
  */
-class InflateStream extends \_PhpScoper88fe6e0ad041\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface
+class InflateStream extends \_PhpScopera143bcca66cb\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface
 {
-    public function __construct(\_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface $stream)
+    public function __construct(\_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface $stream)
     {
         // Skip the first 10 bytes
-        $stream = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($stream, -1, 10);
-        $resource = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\StreamWrapper::getResource($stream);
+        $stream = new \_PhpScopera143bcca66cb\RingCentral\Psr7\LimitStream($stream, -1, 10);
+        $resource = \_PhpScopera143bcca66cb\RingCentral\Psr7\StreamWrapper::getResource($stream);
         \stream_filter_append($resource, 'zlib.inflate', \STREAM_FILTER_READ);
-        parent::__construct(new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\Stream($resource));
+        parent::__construct(new \_PhpScopera143bcca66cb\RingCentral\Psr7\Stream($resource));
     }
 }

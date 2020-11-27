@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\MixedElements;
+namespace _PhpScopera143bcca66cb\MixedElements;
 
 function ($mixed) {
     die;

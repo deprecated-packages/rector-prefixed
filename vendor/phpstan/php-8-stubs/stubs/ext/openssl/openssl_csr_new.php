@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @param OpenSSLAsymmetricKey $private_key */
 function openssl_csr_new(array $distinguished_names, &$private_key, ?array $options = null, ?array $extra_attributes = null) : \OpenSSLCertificateSigningRequest|false

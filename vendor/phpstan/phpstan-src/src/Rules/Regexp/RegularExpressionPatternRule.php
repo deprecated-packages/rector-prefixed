@@ -42,7 +42,7 @@ class RegularExpressionPatternRule implements \PHPStan\Rules\Rule
             return [];
         }
         $functionName = \strtolower((string) $functionCall->name);
-        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($functionName, 'preg_')) {
+        if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($functionName, 'preg_')) {
             return [];
         }
         if (!isset($functionCall->args[0])) {
@@ -81,8 +81,8 @@ class RegularExpressionPatternRule implements \PHPStan\Rules\Rule
     private function validatePattern(string $pattern) : ?string
     {
         try {
-            \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match('', $pattern);
-        } catch (\_PhpScoper88fe6e0ad041\Nette\Utils\RegexpException $e) {
+            \_PhpScopera143bcca66cb\Nette\Utils\Strings::match('', $pattern);
+        } catch (\_PhpScopera143bcca66cb\Nette\Utils\RegexpException $e) {
             return $e->getMessage();
         }
         return null;

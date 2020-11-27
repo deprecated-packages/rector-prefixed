@@ -5,21 +5,21 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\DI\Extensions;
+namespace _PhpScopera143bcca66cb\Nette\DI\Extensions;
 
-use _PhpScoper88fe6e0ad041\Nette;
-use _PhpScoper88fe6e0ad041\Nette\DI\Definitions;
-use _PhpScoper88fe6e0ad041\Nette\DI\Definitions\Statement;
-use _PhpScoper88fe6e0ad041\Nette\DI\Helpers;
+use _PhpScopera143bcca66cb\Nette;
+use _PhpScopera143bcca66cb\Nette\DI\Definitions;
+use _PhpScopera143bcca66cb\Nette\DI\Definitions\Statement;
+use _PhpScopera143bcca66cb\Nette\DI\Helpers;
 /**
  * Service definitions loader.
  */
-final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExtension
+final class ServicesExtension extends \_PhpScopera143bcca66cb\Nette\DI\CompilerExtension
 {
     use Nette\SmartObject;
-    public function getConfigSchema() : \_PhpScoper88fe6e0ad041\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScopera143bcca66cb\Nette\Schema\Schema
     {
-        return \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::arrayOf(new \_PhpScoper88fe6e0ad041\Nette\DI\Config\DefinitionSchema($this->getContainerBuilder()));
+        return \_PhpScopera143bcca66cb\Nette\Schema\Expect::arrayOf(new \_PhpScopera143bcca66cb\Nette\DI\Config\DefinitionSchema($this->getContainerBuilder()));
     }
     public function loadConfiguration()
     {
@@ -44,31 +44,31 @@ final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerE
                 $this->getContainerBuilder()->removeDefinition($name);
                 return;
             } elseif (!empty($config->alteration) && !$this->getContainerBuilder()->hasDefinition($name)) {
-                throw new \_PhpScoper88fe6e0ad041\Nette\DI\InvalidConfigurationException('missing original definition for alteration.');
+                throw new \_PhpScopera143bcca66cb\Nette\DI\InvalidConfigurationException('missing original definition for alteration.');
             }
             $def = $this->retrieveDefinition($name, $config);
-            static $methods = [\_PhpScoper88fe6e0ad041\Nette\DI\Definitions\ServiceDefinition::class => 'updateServiceDefinition', \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\AccessorDefinition::class => 'updateAccessorDefinition', \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\FactoryDefinition::class => 'updateFactoryDefinition', \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\LocatorDefinition::class => 'updateLocatorDefinition', \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\ImportedDefinition::class => 'updateImportedDefinition'];
+            static $methods = [\_PhpScopera143bcca66cb\Nette\DI\Definitions\ServiceDefinition::class => 'updateServiceDefinition', \_PhpScopera143bcca66cb\Nette\DI\Definitions\AccessorDefinition::class => 'updateAccessorDefinition', \_PhpScopera143bcca66cb\Nette\DI\Definitions\FactoryDefinition::class => 'updateFactoryDefinition', \_PhpScopera143bcca66cb\Nette\DI\Definitions\LocatorDefinition::class => 'updateLocatorDefinition', \_PhpScopera143bcca66cb\Nette\DI\Definitions\ImportedDefinition::class => 'updateImportedDefinition'];
             $this->{$methods[$config->defType]}($def, $config);
             $this->updateDefinition($def, $config);
         } catch (\Exception $e) {
-            throw new \_PhpScoper88fe6e0ad041\Nette\DI\InvalidConfigurationException(($name ? "Service '{$name}': " : '') . $e->getMessage(), 0, $e);
+            throw new \_PhpScopera143bcca66cb\Nette\DI\InvalidConfigurationException(($name ? "Service '{$name}': " : '') . $e->getMessage(), 0, $e);
         }
     }
     /**
      * Updates service definition according to normalized configuration.
      */
-    private function updateServiceDefinition(\_PhpScoper88fe6e0ad041\Nette\DI\Definitions\ServiceDefinition $definition, \stdClass $config) : void
+    private function updateServiceDefinition(\_PhpScopera143bcca66cb\Nette\DI\Definitions\ServiceDefinition $definition, \stdClass $config) : void
     {
         if ($config->factory) {
-            $definition->setFactory(\_PhpScoper88fe6e0ad041\Nette\DI\Helpers::filterArguments([$config->factory])[0]);
+            $definition->setFactory(\_PhpScopera143bcca66cb\Nette\DI\Helpers::filterArguments([$config->factory])[0]);
             $definition->setType(null);
         }
         if ($config->type) {
             $definition->setType($config->type);
         }
         if ($config->arguments) {
-            $arguments = \_PhpScoper88fe6e0ad041\Nette\DI\Helpers::filterArguments($config->arguments);
-            if (empty($config->reset['arguments']) && !\_PhpScoper88fe6e0ad041\Nette\Utils\Arrays::isList($arguments)) {
+            $arguments = \_PhpScopera143bcca66cb\Nette\DI\Helpers::filterArguments($config->arguments);
+            if (empty($config->reset['arguments']) && !\_PhpScopera143bcca66cb\Nette\Utils\Arrays::isList($arguments)) {
                 $arguments += $definition->getFactory()->arguments;
             }
             $definition->setArguments($arguments);
@@ -77,18 +77,18 @@ final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerE
             if (!empty($config->reset['setup'])) {
                 $definition->setSetup([]);
             }
-            foreach (\_PhpScoper88fe6e0ad041\Nette\DI\Helpers::filterArguments($config->setup) as $id => $setup) {
+            foreach (\_PhpScopera143bcca66cb\Nette\DI\Helpers::filterArguments($config->setup) as $id => $setup) {
                 if (\is_array($setup)) {
-                    $setup = new \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
+                    $setup = new \_PhpScopera143bcca66cb\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
                 }
                 $definition->addSetup($setup);
             }
         }
         if (isset($config->inject)) {
-            $definition->addTag(\_PhpScoper88fe6e0ad041\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $config->inject);
+            $definition->addTag(\_PhpScopera143bcca66cb\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $config->inject);
         }
     }
-    private function updateAccessorDefinition(\_PhpScoper88fe6e0ad041\Nette\DI\Definitions\AccessorDefinition $definition, \stdClass $config) : void
+    private function updateAccessorDefinition(\_PhpScopera143bcca66cb\Nette\DI\Definitions\AccessorDefinition $definition, \stdClass $config) : void
     {
         if (isset($config->implement)) {
             $definition->setImplement($config->implement);
@@ -97,7 +97,7 @@ final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerE
             $definition->setReference($ref);
         }
     }
-    private function updateFactoryDefinition(\_PhpScoper88fe6e0ad041\Nette\DI\Definitions\FactoryDefinition $definition, \stdClass $config) : void
+    private function updateFactoryDefinition(\_PhpScopera143bcca66cb\Nette\DI\Definitions\FactoryDefinition $definition, \stdClass $config) : void
     {
         $resultDef = $definition->getResultDefinition();
         if (isset($config->implement)) {
@@ -105,14 +105,14 @@ final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerE
             $definition->setAutowired(\true);
         }
         if ($config->factory) {
-            $resultDef->setFactory(\_PhpScoper88fe6e0ad041\Nette\DI\Helpers::filterArguments([$config->factory])[0]);
+            $resultDef->setFactory(\_PhpScopera143bcca66cb\Nette\DI\Helpers::filterArguments([$config->factory])[0]);
         }
         if ($config->type) {
             $resultDef->setFactory($config->type);
         }
         if ($config->arguments) {
-            $arguments = \_PhpScoper88fe6e0ad041\Nette\DI\Helpers::filterArguments($config->arguments);
-            if (empty($config->reset['arguments']) && !\_PhpScoper88fe6e0ad041\Nette\Utils\Arrays::isList($arguments)) {
+            $arguments = \_PhpScopera143bcca66cb\Nette\DI\Helpers::filterArguments($config->arguments);
+            if (empty($config->reset['arguments']) && !\_PhpScopera143bcca66cb\Nette\Utils\Arrays::isList($arguments)) {
                 $arguments += $resultDef->getFactory()->arguments;
             }
             $resultDef->setArguments($arguments);
@@ -121,9 +121,9 @@ final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerE
             if (!empty($config->reset['setup'])) {
                 $resultDef->setSetup([]);
             }
-            foreach (\_PhpScoper88fe6e0ad041\Nette\DI\Helpers::filterArguments($config->setup) as $id => $setup) {
+            foreach (\_PhpScopera143bcca66cb\Nette\DI\Helpers::filterArguments($config->setup) as $id => $setup) {
                 if (\is_array($setup)) {
-                    $setup = new \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
+                    $setup = new \_PhpScopera143bcca66cb\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
                 }
                 $resultDef->addSetup($setup);
             }
@@ -132,10 +132,10 @@ final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerE
             $definition->setParameters($config->parameters);
         }
         if (isset($config->inject)) {
-            $definition->addTag(\_PhpScoper88fe6e0ad041\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $config->inject);
+            $definition->addTag(\_PhpScopera143bcca66cb\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $config->inject);
         }
     }
-    private function updateLocatorDefinition(\_PhpScoper88fe6e0ad041\Nette\DI\Definitions\LocatorDefinition $definition, \stdClass $config) : void
+    private function updateLocatorDefinition(\_PhpScopera143bcca66cb\Nette\DI\Definitions\LocatorDefinition $definition, \stdClass $config) : void
     {
         if (isset($config->implement)) {
             $definition->setImplement($config->implement);
@@ -147,13 +147,13 @@ final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerE
             $definition->setTagged($config->tagged);
         }
     }
-    private function updateImportedDefinition(\_PhpScoper88fe6e0ad041\Nette\DI\Definitions\ImportedDefinition $definition, \stdClass $config) : void
+    private function updateImportedDefinition(\_PhpScopera143bcca66cb\Nette\DI\Definitions\ImportedDefinition $definition, \stdClass $config) : void
     {
         if ($config->type) {
             $definition->setType($config->type);
         }
     }
-    private function updateDefinition(\_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Definition $definition, \stdClass $config) : void
+    private function updateDefinition(\_PhpScopera143bcca66cb\Nette\DI\Definitions\Definition $definition, \stdClass $config) : void
     {
         if (isset($config->autowired)) {
             $definition->setAutowired($config->autowired);
@@ -180,7 +180,7 @@ final class ServicesExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerE
         }
         return $key;
     }
-    private function retrieveDefinition(?string $name, \stdClass $config) : \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Definition
+    private function retrieveDefinition(?string $name, \stdClass $config) : \_PhpScopera143bcca66cb\Nette\DI\Definitions\Definition
     {
         $builder = $this->getContainerBuilder();
         if (!empty($config->reset['all'])) {

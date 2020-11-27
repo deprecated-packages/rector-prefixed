@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\ClassMethod;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
@@ -116,7 +116,7 @@ CODE_SAMPLE
         }
         if ($classMethod->getDocComment() !== null) {
             $doc = $classMethod->getDocComment();
-            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($doc->getText(), self::DOES_NOT_PERFORM_ASSERTION_REGEX)) {
+            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($doc->getText(), self::DOES_NOT_PERFORM_ASSERTION_REGEX)) {
                 return \true;
             }
         }

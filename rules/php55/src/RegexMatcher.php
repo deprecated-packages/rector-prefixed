@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php55;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Scalar\String_;
@@ -41,8 +41,8 @@ final class RegexMatcher
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             /** @var string $modifiers */
-            $modifiers = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::after($pattern, $delimiter, -1);
-            if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($modifiers, 'e')) {
+            $modifiers = \_PhpScopera143bcca66cb\Nette\Utils\Strings::after($pattern, $delimiter, -1);
+            if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($modifiers, 'e')) {
                 return null;
             }
             $patternWithoutE = $this->createPatternWithoutE($pattern, $delimiter, $modifiers);
@@ -55,8 +55,8 @@ final class RegexMatcher
     }
     private function createPatternWithoutE(string $pattern, string $delimiter, string $modifiers) : string
     {
-        $modifiersWithoutE = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($modifiers, '#e#');
-        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::before($pattern, $delimiter, -1) . $delimiter . $modifiersWithoutE;
+        $modifiersWithoutE = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($modifiers, '#e#');
+        return \_PhpScopera143bcca66cb\Nette\Utils\Strings::before($pattern, $delimiter, -1) . $delimiter . $modifiersWithoutE;
     }
     private function matchConcat(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {
@@ -64,15 +64,15 @@ final class RegexMatcher
         if (!$lastItem instanceof \PhpParser\Node\Scalar\String_) {
             return null;
         }
-        $matches = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($lastItem->value, self::LETTER_SUFFIX_REGEX);
+        $matches = \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($lastItem->value, self::LETTER_SUFFIX_REGEX);
         if (!isset($matches['modifiers'])) {
             return null;
         }
-        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($matches['modifiers'], 'e')) {
+        if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($matches['modifiers'], 'e')) {
             return null;
         }
         // replace last "e" in the code
-        $lastItem->value = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($lastItem->value, self::LAST_E_REGEX, '$1$2');
+        $lastItem->value = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($lastItem->value, self::LAST_E_REGEX, '$1$2');
         return $expr;
     }
 }

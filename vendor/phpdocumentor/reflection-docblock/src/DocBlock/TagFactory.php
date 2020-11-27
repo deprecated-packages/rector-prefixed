@@ -10,9 +10,9 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context as TypeContext;
 interface TagFactory
 {
     /**
@@ -64,7 +64,7 @@ interface TagFactory
      *
      * @return Tag A new tag object.
      */
-    public function create($tagLine, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\Context $context = null);
+    public function create($tagLine, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context = null);
     /**
      * Registers a handler for tags.
      *

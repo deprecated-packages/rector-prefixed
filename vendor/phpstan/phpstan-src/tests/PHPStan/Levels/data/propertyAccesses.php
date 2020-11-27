@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Levels\PropertyAccesses;
+namespace _PhpScopera143bcca66cb\Levels\PropertyAccesses;
 
 class Foo
 {
@@ -21,9 +21,9 @@ class Bar
     public static $bar;
     public static function doBar(int $i)
     {
-        $bar = \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Bar::$bar;
-        echo \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Lorem::$bar;
-        $bar = new \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Bar();
+        $bar = \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Bar::$bar;
+        echo \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Lorem::$bar;
+        $bar = new \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Bar();
         $bar = $bar::$bar;
         echo $bar::$foo;
     }
@@ -36,7 +36,7 @@ class Baz
      * @param Foo|Bar|null $fooOrBarOrNull
      * @param Bar|Baz $barOrBaz
      */
-    public function doBaz($fooOrBar, ?\_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Foo $fooOrNull, $fooOrBarOrNull, $barOrBaz)
+    public function doBaz($fooOrBar, ?\_PhpScopera143bcca66cb\Levels\PropertyAccesses\Foo $fooOrNull, $fooOrBarOrNull, $barOrBaz)
     {
         $foo = $fooOrBar->foo;
         $bar = $fooOrBar->bar;
@@ -79,9 +79,9 @@ class Ipsum
     private function makeFooOrBar()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Foo();
+            return new \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Foo();
         } else {
-            return new \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Bar();
+            return new \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Bar();
         }
     }
     /**
@@ -90,7 +90,7 @@ class Ipsum
     private function makeFooOrNull()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Foo();
+            return new \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Foo();
         } else {
             return null;
         }
@@ -101,9 +101,9 @@ class Ipsum
     public function makeFooOrBarOrNull()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Foo();
+            return new \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Foo();
         } elseif (\rand(0, 1) === 1) {
-            return new \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Bar();
+            return new \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Bar();
         } else {
             return null;
         }
@@ -114,9 +114,9 @@ class Ipsum
     public function makeBarOrBaz()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Bar();
+            return new \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Bar();
         } else {
-            return new \_PhpScoper88fe6e0ad041\Levels\PropertyAccesses\Baz();
+            return new \_PhpScopera143bcca66cb\Levels\PropertyAccesses\Baz();
         }
     }
     public function doBaz()

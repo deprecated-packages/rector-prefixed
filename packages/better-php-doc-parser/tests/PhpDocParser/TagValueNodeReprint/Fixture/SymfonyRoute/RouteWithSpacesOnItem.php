@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SymfonyRoute;
 
-use _PhpScoper88fe6e0ad041\Symfony\Component\Routing\Annotation\Route;
+use _PhpScopera143bcca66cb\Symfony\Component\Routing\Annotation\Route;
 // @see https://github.com/rectorphp/rector/issues/3212#issue-603962176
 final class RouteWithSpacesOnItem
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 class PDO
@@ -65,4 +65,4 @@ class PDO
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\PDO', 'PDO', \false);
+\class_alias('_PhpScopera143bcca66cb\\PDO', 'PDO', \false);

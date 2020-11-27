@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Bug3406_2;
+namespace _PhpScopera143bcca66cb\Bug3406_2;
 
 trait AbstractTrait
 {

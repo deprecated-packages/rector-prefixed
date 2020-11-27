@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Analyser\Bug2750;
+namespace _PhpScopera143bcca66cb\Analyser\Bug2750;
 
 use function PHPStan\Analyser\assertType;
 function (array $input) {

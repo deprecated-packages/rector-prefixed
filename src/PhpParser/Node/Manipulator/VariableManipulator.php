@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
@@ -103,7 +103,7 @@ final class VariableManipulator
     {
         /** @var string $className */
         $className = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith($className, 'Test')) {
+        if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith($className, 'Test')) {
             return \false;
         }
         return $this->nodeNameResolver->isName($variable, 'expect*');

@@ -1,26 +1,26 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\TestClosureFunctionTypehints;
+namespace _PhpScopera143bcca66cb\TestClosureFunctionTypehints;
 
 class FooFunctionTypehints
 {
 }
-$callback = function (\_PhpScoper88fe6e0ad041\TestClosureFunctionTypehints\FooFunctionTypehints $foo, $bar, array $lorem) : NonexistentClass {
+$callback = function (\_PhpScopera143bcca66cb\TestClosureFunctionTypehints\FooFunctionTypehints $foo, $bar, array $lorem) : NonexistentClass {
 };
-$callback = function (\_PhpScoper88fe6e0ad041\TestClosureFunctionTypehints\BarFunctionTypehints $bar) : array {
+$callback = function (\_PhpScopera143bcca66cb\TestClosureFunctionTypehints\BarFunctionTypehints $bar) : array {
 };
 $callback = function (...$bar) : FooFunctionTypehints {
 };
 $callback = function () : parent {
 };
-$callback = function (\_PhpScoper88fe6e0ad041\TestClosureFunctionTypehints\fOOfUnctionTypehints $foo) : FOOfUnctionTypehintS {
+$callback = function (\_PhpScopera143bcca66cb\TestClosureFunctionTypehints\fOOfUnctionTypehints $foo) : FOOfUnctionTypehintS {
 };
-$callback = function (\_PhpScoper88fe6e0ad041\ReturnTypes\FooAliaS $ignoreAlias) {
+$callback = function (\_PhpScopera143bcca66cb\ReturnTypes\FooAliaS $ignoreAlias) {
 };
 trait SomeTrait
 {
 }
-$callback = function (\_PhpScoper88fe6e0ad041\TestClosureFunctionTypehints\SomeTrait $trait) {
+$callback = function (\_PhpScopera143bcca66cb\TestClosureFunctionTypehints\SomeTrait $trait) {
 };
 $callback = function () : SomeTrait {
 };

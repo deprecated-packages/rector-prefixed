@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class CachingIterator extends \IteratorIterator implements \ArrayAccess, \Countable
 {
@@ -71,4 +71,4 @@ class CachingIterator extends \IteratorIterator implements \ArrayAccess, \Counta
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\CachingIterator', 'CachingIterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\CachingIterator', 'CachingIterator', \false);

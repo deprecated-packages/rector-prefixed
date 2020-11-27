@@ -42,7 +42,7 @@ final class AnnotationToAttributeConverter
         $hasNewAttrGroups = \false;
         if ($phpDocInfo->hasByName('required')) {
             $phpDocInfo->removeByName('required');
-            $node->attrGroups[] = new \PhpParser\Node\AttributeGroup([new \PhpParser\Node\Attribute(new \PhpParser\Node\Name\FullyQualified('_PhpScoper88fe6e0ad041\\Symfony\\Contracts\\Service\\Attribute\\Required'))]);
+            $node->attrGroups[] = new \PhpParser\Node\AttributeGroup([new \PhpParser\Node\Attribute(new \PhpParser\Node\Name\FullyQualified('_PhpScopera143bcca66cb\\Symfony\\Contracts\\Service\\Attribute\\Required'))]);
             $hasNewAttrGroups = \true;
         }
         // 0. has 0 nodes, nothing to change

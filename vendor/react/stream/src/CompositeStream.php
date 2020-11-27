@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Stream;
+namespace _PhpScopera143bcca66cb\React\Stream;
 
-use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
-final class CompositeStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Stream\DuplexStreamInterface
+use _PhpScopera143bcca66cb\Evenement\EventEmitter;
+final class CompositeStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\DuplexStreamInterface
 {
     private $readable;
     private $writable;
     private $closed = \false;
-    public function __construct(\_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface $readable, \_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $writable)
+    public function __construct(\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $readable, \_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $writable)
     {
         $this->readable = $readable;
         $this->writable = $writable;
@@ -16,8 +16,8 @@ final class CompositeStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitt
             $this->close();
             return;
         }
-        \_PhpScoper88fe6e0ad041\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
-        \_PhpScoper88fe6e0ad041\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
+        \_PhpScopera143bcca66cb\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
+        \_PhpScopera143bcca66cb\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
         $this->readable->on('close', array($this, 'close'));
         $this->writable->on('close', array($this, 'close'));
     }
@@ -36,9 +36,9 @@ final class CompositeStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitt
         }
         $this->readable->resume();
     }
-    public function pipe(\_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScoper88fe6e0ad041\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScopera143bcca66cb\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isWritable()
     {

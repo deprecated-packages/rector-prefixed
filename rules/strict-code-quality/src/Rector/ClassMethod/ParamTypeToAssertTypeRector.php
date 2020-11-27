@@ -146,9 +146,9 @@ CODE_SAMPLE
                 $types[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($toBeProcessedType[$keyType])));
             }
             if (\count($types) > 1) {
-                $assertStatements[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('_PhpScoper88fe6e0ad041\\Webmozart\\Assert\\Assert'), 'isAnyOf', [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable($key)), new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($types))]));
+                $assertStatements[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('_PhpScopera143bcca66cb\\Webmozart\\Assert\\Assert'), 'isAnyOf', [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable($key)), new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($types))]));
             } else {
-                $assertStatements[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('_PhpScoper88fe6e0ad041\\Webmozart\\Assert\\Assert'), 'isAOf', [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable($key)), new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($toBeProcessedType[0])))]));
+                $assertStatements[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('_PhpScopera143bcca66cb\\Webmozart\\Assert\\Assert'), 'isAOf', [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable($key)), new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($toBeProcessedType[0])))]));
             }
         }
         return $this->addStatements($classMethod, $assertStatements);

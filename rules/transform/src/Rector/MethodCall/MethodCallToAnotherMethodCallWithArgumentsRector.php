@@ -12,7 +12,7 @@ use Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
 use Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
+use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\MethodCall\MethodCallToAnotherMethodCallWithArgumentsRector\MethodCallToAnotherMethodCallWithArgumentsRectorTest
  */
@@ -36,7 +36,7 @@ CODE_SAMPLE
 $serviceDefinition = new Nette\DI\ServiceDefinition;
 $serviceDefinition->addTag('inject');
 CODE_SAMPLE
-, [self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS => [new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey('_PhpScoper88fe6e0ad041\\Nette\\DI\\ServiceDefinition', 'setInject', 'addTag', 'inject')]])]);
+, [self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS => [new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey('_PhpScopera143bcca66cb\\Nette\\DI\\ServiceDefinition', 'setInject', 'addTag', 'inject')]])]);
     }
     /**
      * @return string[]
@@ -66,7 +66,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodCallRenamesWithAddedArguments = $configuration[self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS] ?? [];
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenamesWithAddedArguments, \Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments::class);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenamesWithAddedArguments, \Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments::class);
         $this->methodCallRenamesWithAddedArguments = $methodCallRenamesWithAddedArguments;
     }
 }

@@ -50,6 +50,6 @@ class Structural extends \Hoa\Test\Unit\Suite
 {
     public function case_is_a_valid_interface()
     {
-        $this->when($result = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\IStream\Structural())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\Structural::class)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
+        $this->when($result = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\IStream\Structural())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\Structural::class)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
     }
 }

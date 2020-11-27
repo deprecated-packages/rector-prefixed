@@ -35,7 +35,7 @@ final class SymfonyControllerFactory
         /** @var string $namespaceName */
         $namespaceName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
         $formControllerClass = new \PhpParser\Node\Stmt\Class_('SomeFormController');
-        $formControllerClass->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper88fe6e0ad041\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
+        $formControllerClass->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScopera143bcca66cb\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
         $formTypeClass = $namespaceName . '\\' . $this->nodeNameResolver->getName($formTypeClass);
         $formControllerClass->stmts[] = $this->actionWithFormProcessClassMethodFactory->create($formTypeClass);
         $namespace = new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($namespaceName));

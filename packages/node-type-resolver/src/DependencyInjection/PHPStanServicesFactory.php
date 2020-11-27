@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\DependencyInjection;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\ScopeFactory;
 use PHPStan\Analyser\TypeSpecifier;
@@ -44,11 +44,11 @@ final class PHPStanServicesFactory
         if (\file_exists($currentProjectConfigFile)) {
             $phpstanNeonContent = $smartFileSystem->readFile($currentProjectConfigFile);
             // bleeding edge clean out, see https://github.com/rectorphp/rector/issues/2431
-            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($phpstanNeonContent, self::BLEEDING_EDGE_REGEX)) {
+            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($phpstanNeonContent, self::BLEEDING_EDGE_REGEX)) {
                 // Note: We need a unique file per process if rector runs in parallel
                 $pid = \getmypid();
                 $temporaryPHPStanNeon = $currentWorkingDirectory . '/rector-temp-phpstan' . $pid . '.neon';
-                $clearedPhpstanNeonContent = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($phpstanNeonContent, self::BLEEDING_EDGE_REGEX);
+                $clearedPhpstanNeonContent = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($phpstanNeonContent, self::BLEEDING_EDGE_REGEX);
                 $smartFileSystem->dumpFile($temporaryPHPStanNeon, $clearedPhpstanNeonContent);
                 $additionalConfigFiles[] = $temporaryPHPStanNeon;
             } else {
@@ -134,7 +134,7 @@ final class PHPStanServicesFactory
     private function appendPhpstanPHPUnitExtensionIfExists(string $currentWorkingDirectory, array $additionalConfigFiles) : array
     {
         $phpstanPhpunitExtensionConfig = $currentWorkingDirectory . '/vendor/phpstan/phpstan-phpunit/extension.neon';
-        if (\file_exists($phpstanPhpunitExtensionConfig) && \class_exists('_PhpScoper88fe6e0ad041\\PHPUnit\\Framework\\TestCase')) {
+        if (\file_exists($phpstanPhpunitExtensionConfig) && \class_exists('_PhpScopera143bcca66cb\\PHPUnit\\Framework\\TestCase')) {
             $additionalConfigFiles[] = $phpstanPhpunitExtensionConfig;
         }
         return $additionalConfigFiles;

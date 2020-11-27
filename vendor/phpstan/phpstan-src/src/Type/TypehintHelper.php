@@ -68,10 +68,10 @@ class TypehintHelper
             throw new \PHPStan\ShouldNotHappenException(\sprintf('Unexpected type: %s', \get_class($reflectionType)));
         }
         $reflectionTypeString = $reflectionType->getName();
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
             $reflectionTypeString = 'object';
         }
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\mixed')) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\mixed')) {
             $reflectionTypeString = 'mixed';
         }
         $type = self::getTypeObjectFromTypehint($reflectionTypeString, $selfClass);

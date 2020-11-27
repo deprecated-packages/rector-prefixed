@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-use _PhpScoper88fe6e0ad041\React\EventLoop\Factory;
-use _PhpScoper88fe6e0ad041\React\ChildProcess\Process;
+use _PhpScopera143bcca66cb\React\EventLoop\Factory;
+use _PhpScopera143bcca66cb\React\ChildProcess\Process;
 require __DIR__ . '/../vendor/autoload.php';
-$loop = \_PhpScoper88fe6e0ad041\React\EventLoop\Factory::create();
-$first = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('php -r "sleep(2);"', null, null, array());
+$loop = \_PhpScopera143bcca66cb\React\EventLoop\Factory::create();
+$first = new \_PhpScopera143bcca66cb\React\ChildProcess\Process('php -r "sleep(2);"', null, null, array());
 $first->start($loop);
 $first->on('exit', function ($code) {
     echo 'First closed ' . $code . \PHP_EOL;
 });
-$second = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('php -r "sleep(1);"', null, null, array());
+$second = new \_PhpScopera143bcca66cb\React\ChildProcess\Process('php -r "sleep(1);"', null, null, array());
 $second->start($loop);
 $second->on('exit', function ($code) {
     echo 'Second closed ' . $code . \PHP_EOL;

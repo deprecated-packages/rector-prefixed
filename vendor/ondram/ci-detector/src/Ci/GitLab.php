@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci;
+namespace _PhpScopera143bcca66cb\OndraM\CiDetector\Ci;
 
-use _PhpScoper88fe6e0ad041\OndraM\CiDetector\CiDetector;
-use _PhpScoper88fe6e0ad041\OndraM\CiDetector\Env;
-use _PhpScoper88fe6e0ad041\OndraM\CiDetector\TrinaryLogic;
-class GitLab extends \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\AbstractCi
+use _PhpScopera143bcca66cb\OndraM\CiDetector\CiDetector;
+use _PhpScopera143bcca66cb\OndraM\CiDetector\Env;
+use _PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic;
+class GitLab extends \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\AbstractCi
 {
-    public static function isDetected(\_PhpScoper88fe6e0ad041\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_PhpScopera143bcca66cb\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('GITLAB_CI') !== \false;
     }
     public function getCiName() : string
     {
-        return \_PhpScoper88fe6e0ad041\OndraM\CiDetector\CiDetector::CI_GITLAB;
+        return \_PhpScopera143bcca66cb\OndraM\CiDetector\CiDetector::CI_GITLAB;
     }
-    public function isPullRequest() : \_PhpScoper88fe6e0ad041\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic
     {
-        return \_PhpScoper88fe6e0ad041\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->get('CI_MERGE_REQUEST_ID') !== \false || $this->env->get('CI_EXTERNAL_PULL_REQUEST_IID') !== \false);
+        return \_PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->get('CI_MERGE_REQUEST_ID') !== \false || $this->env->get('CI_EXTERNAL_PULL_REQUEST_IID') !== \false);
     }
     public function getBuildNumber() : string
     {

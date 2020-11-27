@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection;
 
-use _PhpScoper88fe6e0ad041\NativeMixedType\Foo;
+use _PhpScopera143bcca66cb\NativeMixedType\Foo;
 use PhpParser\Node\Name;
 use PHPStan\Testing\TestCase;
 use PHPStan\Type\MixedType;
@@ -15,7 +15,7 @@ class MixedTypeTest extends \PHPStan\Testing\TestCase
             $this->markTestSkipped('Test requires PHP 8.0');
         }
         $reflectionProvider = $this->createBroker();
-        $class = $reflectionProvider->getClass(\_PhpScoper88fe6e0ad041\NativeMixedType\Foo::class);
+        $class = $reflectionProvider->getClass(\_PhpScopera143bcca66cb\NativeMixedType\Foo::class);
         $propertyType = $class->getNativeProperty('fooProp')->getNativeType();
         $this->assertInstanceOf(\PHPStan\Type\MixedType::class, $propertyType);
         $this->assertTrue($propertyType->isExplicitMixed());
@@ -27,7 +27,7 @@ class MixedTypeTest extends \PHPStan\Testing\TestCase
         $methodParameterType = $methodVariant->getParameters()[0]->getType();
         $this->assertInstanceOf(\PHPStan\Type\MixedType::class, $methodParameterType);
         $this->assertTrue($methodParameterType->isExplicitMixed());
-        $function = $reflectionProvider->getFunction(new \PhpParser\Node\Name('_PhpScoper88fe6e0ad041\\NativeMixedType\\doFoo'), null);
+        $function = $reflectionProvider->getFunction(new \PhpParser\Node\Name('_PhpScopera143bcca66cb\\NativeMixedType\\doFoo'), null);
         $functionVariant = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($function->getVariants());
         $functionReturnType = $functionVariant->getReturnType();
         $this->assertInstanceOf(\PHPStan\Type\MixedType::class, $functionReturnType);

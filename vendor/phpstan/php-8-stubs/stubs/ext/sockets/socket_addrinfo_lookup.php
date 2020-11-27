@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function socket_addrinfo_lookup(string $host, ?string $service = null, array $hints = []) : array|false
 {

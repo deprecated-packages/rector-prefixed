@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\PropertiesNamespace;
+namespace _PhpScopera143bcca66cb\PropertiesNamespace;
 
-use _PhpScoper88fe6e0ad041\SomeNamespace\Amet as Dolor;
-use _PhpScoper88fe6e0ad041\SomeGroupNamespace\One;
-use _PhpScoper88fe6e0ad041\SomeGroupNamespace\Two as Too;
-use _PhpScoper88fe6e0ad041\SomeGroupNamespace\Three;
+use _PhpScopera143bcca66cb\SomeNamespace\Amet as Dolor;
+use _PhpScopera143bcca66cb\SomeGroupNamespace\One;
+use _PhpScopera143bcca66cb\SomeGroupNamespace\Two as Too;
+use _PhpScopera143bcca66cb\SomeGroupNamespace\Three;
 /**
  * @property-read string $overriddenReadOnlyProperty
  * @property-read string $documentElement
  */
-abstract class Foo extends \_PhpScoper88fe6e0ad041\PropertiesNamespace\Bar
+abstract class Foo extends \_PhpScopera143bcca66cb\PropertiesNamespace\Bar
 {
     private $mixedProperty;
     /** @var Foo|Bar */

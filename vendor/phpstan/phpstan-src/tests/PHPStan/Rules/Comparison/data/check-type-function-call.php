@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\CheckTypeFunctionCall;
+namespace _PhpScopera143bcca66cb\CheckTypeFunctionCall;
 
 class Foo
 {
@@ -113,7 +113,7 @@ class IsSubclassOfTest
     {
         \is_subclass_of($string, $nullableString);
         \is_subclass_of($nullableString, $string);
-        \is_subclass_of($nullableString, '_PhpScoper88fe6e0ad041\\Foo');
+        \is_subclass_of($nullableString, '_PhpScopera143bcca66cb\\Foo');
     }
 }
 class DefinedConstant
@@ -124,7 +124,7 @@ class DefinedConstant
         }
         if (!\defined('ANOTHER_DEFINITELY_DOES_NOT_EXIST')) {
         }
-        $foo = new \_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\Foo();
+        $foo = new \_PhpScopera143bcca66cb\CheckTypeFunctionCall\Foo();
         if (\method_exists($foo, 'test')) {
         }
         if (\method_exists($foo, 'doFoo')) {
@@ -359,11 +359,11 @@ class MethodExists
     {
         /** @var string $string */
         $string = doFoo();
-        if (\method_exists(\_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\MethodExists::class, 'testWithStringFirstArgument')) {
+        if (\method_exists(\_PhpScopera143bcca66cb\CheckTypeFunctionCall\MethodExists::class, 'testWithStringFirstArgument')) {
         }
-        if (\method_exists(\_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\MethodExists::class, 'undefinedMethod')) {
+        if (\method_exists(\_PhpScopera143bcca66cb\CheckTypeFunctionCall\MethodExists::class, 'undefinedMethod')) {
         }
-        if (\method_exists(\_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\MethodExists::class, $string)) {
+        if (\method_exists(\_PhpScopera143bcca66cb\CheckTypeFunctionCall\MethodExists::class, $string)) {
         }
         if (\method_exists('UndefinedClass', $string)) {
         }
@@ -376,11 +376,11 @@ class MethodExists
     {
         /** @var string $string */
         $string = doFoo();
-        if (\method_exists(new \_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\MethodExists(), 'testWithNewObjectInFirstArgument')) {
+        if (\method_exists(new \_PhpScopera143bcca66cb\CheckTypeFunctionCall\MethodExists(), 'testWithNewObjectInFirstArgument')) {
         }
-        if (\method_exists(new \_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\MethodExists(), 'undefinedMethod')) {
+        if (\method_exists(new \_PhpScopera143bcca66cb\CheckTypeFunctionCall\MethodExists(), 'undefinedMethod')) {
         }
-        if (\method_exists(new \_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\MethodExists(), $string)) {
+        if (\method_exists(new \_PhpScopera143bcca66cb\CheckTypeFunctionCall\MethodExists(), $string)) {
         }
     }
 }
@@ -426,7 +426,7 @@ class CheckIsStringInElseIf
      */
     public function doFoo($a) : bool
     {
-        if ($a instanceof \_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\Foo) {
+        if ($a instanceof \_PhpScopera143bcca66cb\CheckTypeFunctionCall\Foo) {
             return \true;
         } elseif (!\is_string($a)) {
             throw new \Exception('Not Bar or string');
@@ -491,12 +491,12 @@ class Bug2221
     public $foo;
     public function doFoo() : void
     {
-        if (\property_exists(\_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\Bug2221::class, 'foo')) {
+        if (\property_exists(\_PhpScopera143bcca66cb\CheckTypeFunctionCall\Bug2221::class, 'foo')) {
         }
-        \assert(\property_exists(\_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\Bug2221::class, 'foo'));
-        if (\property_exists(\_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\Bug2221::class, 'bar')) {
+        \assert(\property_exists(\_PhpScopera143bcca66cb\CheckTypeFunctionCall\Bug2221::class, 'foo'));
+        if (\property_exists(\_PhpScopera143bcca66cb\CheckTypeFunctionCall\Bug2221::class, 'bar')) {
         }
-        \assert(\property_exists(\_PhpScoper88fe6e0ad041\CheckTypeFunctionCall\Bug2221::class, 'bar'));
+        \assert(\property_exists(\_PhpScopera143bcca66cb\CheckTypeFunctionCall\Bug2221::class, 'bar'));
     }
     public function doBar(self $self) : void
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\InheritDocFromTrait;
+namespace _PhpScopera143bcca66cb\InheritDocFromTrait;
 
-class Foo implements \_PhpScoper88fe6e0ad041\InheritDocFromTrait\FooInterface
+class Foo implements \_PhpScopera143bcca66cb\InheritDocFromTrait\FooInterface
 {
     use FooTrait;
 }

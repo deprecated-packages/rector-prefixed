@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\PHPStan\Type;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
@@ -115,10 +115,10 @@ final class ObjectTypeSpecifier
     private function matchPartialNamespaceObjectType(\PHPStan\Type\ObjectType $objectType, \PhpParser\Node\Stmt\UseUse $useUse) : ?\Rector\PHPStan\Type\ShortenedObjectType
     {
         // partial namespace
-        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($objectType->getClassName(), $useUse->name->getLast() . '\\')) {
+        if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($objectType->getClassName(), $useUse->name->getLast() . '\\')) {
             return null;
         }
-        $classNameWithoutLastUsePart = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::after($objectType->getClassName(), '\\', 1);
+        $classNameWithoutLastUsePart = \_PhpScopera143bcca66cb\Nette\Utils\Strings::after($objectType->getClassName(), '\\', 1);
         $connectedClassName = $useUse->name->toString() . '\\' . $classNameWithoutLastUsePart;
         if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($connectedClassName)) {
             return null;

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\InvalidPhpDoc;
+namespace _PhpScopera143bcca66cb\InvalidPhpDoc;
 
 function noDoc() : void
 {

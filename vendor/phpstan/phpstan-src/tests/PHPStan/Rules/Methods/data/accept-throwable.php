@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\AcceptThrowable;
+namespace _PhpScopera143bcca66cb\AcceptThrowable;
 
 interface SomeInterface
 {
@@ -21,15 +21,15 @@ class Foo
     }
 }
 function () {
-    $foo = new \_PhpScoper88fe6e0ad041\AcceptThrowable\Foo();
+    $foo = new \_PhpScopera143bcca66cb\AcceptThrowable\Foo();
     try {
-    } catch (\_PhpScoper88fe6e0ad041\AcceptThrowable\SomeInterface $e) {
+    } catch (\_PhpScopera143bcca66cb\AcceptThrowable\SomeInterface $e) {
         $foo->doFoo($e);
         $foo->doBar($e);
-    } catch (\_PhpScoper88fe6e0ad041\AcceptThrowable\InterfaceExtendingThrowable $e) {
+    } catch (\_PhpScopera143bcca66cb\AcceptThrowable\InterfaceExtendingThrowable $e) {
         $foo->doFoo($e);
         $foo->doBar($e);
-    } catch (\_PhpScoper88fe6e0ad041\AcceptThrowable\NonExceptionClass $e) {
+    } catch (\_PhpScopera143bcca66cb\AcceptThrowable\NonExceptionClass $e) {
         $foo->doFoo($e);
         // fine, the feasibility must be checked by a different rule
         $foo->doBar($e);

@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\React\\Stream\\": "src"
+            "_PhpScopera143bcca66cb\\React\\Stream\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\React\\Tests\\Stream\\": "tests"
+            "_PhpScopera143bcca66cb\\React\\Tests\\Stream\\": "tests"
         }
     }
 }

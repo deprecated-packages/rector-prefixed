@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function com_get_active_object(string $prog_id, ?int $codepage = null) : \_PhpScoper88fe6e0ad041\variant
+function com_get_active_object(string $prog_id, ?int $codepage = null) : \_PhpScopera143bcca66cb\variant
 {
 }

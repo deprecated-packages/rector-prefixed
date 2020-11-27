@@ -48,6 +48,6 @@ class Listenable extends \Hoa\Test\Unit\Suite
 {
     public function case_interface()
     {
-        $this->when($result = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Event\Listenable())->then->object($result)->isInstanceOf('Hoa\\Event\\Listenable');
+        $this->when($result = new \_PhpScopera143bcca66cb\Mock\Hoa\Event\Listenable())->then->object($result)->isInstanceOf('Hoa\\Event\\Listenable');
     }
 }

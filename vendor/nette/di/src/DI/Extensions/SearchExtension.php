@@ -5,16 +5,16 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\DI\Extensions;
+namespace _PhpScopera143bcca66cb\Nette\DI\Extensions;
 
-use _PhpScoper88fe6e0ad041\Nette;
-use _PhpScoper88fe6e0ad041\Nette\Loaders\RobotLoader;
-use _PhpScoper88fe6e0ad041\Nette\Schema\Expect;
-use _PhpScoper88fe6e0ad041\Nette\Utils\Arrays;
+use _PhpScopera143bcca66cb\Nette;
+use _PhpScopera143bcca66cb\Nette\Loaders\RobotLoader;
+use _PhpScopera143bcca66cb\Nette\Schema\Expect;
+use _PhpScopera143bcca66cb\Nette\Utils\Arrays;
 /**
  * Services auto-discovery.
  */
-final class SearchExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExtension
+final class SearchExtension extends \_PhpScopera143bcca66cb\Nette\DI\CompilerExtension
 {
     /** @var array */
     private $classes = [];
@@ -24,9 +24,9 @@ final class SearchExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExt
     {
         $this->tempDir = $tempDir;
     }
-    public function getConfigSchema() : \_PhpScoper88fe6e0ad041\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScopera143bcca66cb\Nette\Schema\Schema
     {
-        return \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::arrayOf(\_PhpScoper88fe6e0ad041\Nette\Schema\Expect::structure(['in' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::string()->required(), 'files' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::anyOf(\_PhpScoper88fe6e0ad041\Nette\Schema\Expect::listOf('string'), \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'classes' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::anyOf(\_PhpScoper88fe6e0ad041\Nette\Schema\Expect::listOf('string'), \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::anyOf(\_PhpScoper88fe6e0ad041\Nette\Schema\Expect::listOf('string'), \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::anyOf(\_PhpScoper88fe6e0ad041\Nette\Schema\Expect::listOf('string'), \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'exclude' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::structure(['classes' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::anyOf(\_PhpScoper88fe6e0ad041\Nette\Schema\Expect::listOf('string'), \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::anyOf(\_PhpScoper88fe6e0ad041\Nette\Schema\Expect::listOf('string'), \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::anyOf(\_PhpScoper88fe6e0ad041\Nette\Schema\Expect::listOf('string'), \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::string()->castTo('array'))->default([])]), 'tags' => \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::array()]))->before(function ($val) {
+        return \_PhpScopera143bcca66cb\Nette\Schema\Expect::arrayOf(\_PhpScopera143bcca66cb\Nette\Schema\Expect::structure(['in' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::string()->required(), 'files' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::anyOf(\_PhpScopera143bcca66cb\Nette\Schema\Expect::listOf('string'), \_PhpScopera143bcca66cb\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'classes' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::anyOf(\_PhpScopera143bcca66cb\Nette\Schema\Expect::listOf('string'), \_PhpScopera143bcca66cb\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::anyOf(\_PhpScopera143bcca66cb\Nette\Schema\Expect::listOf('string'), \_PhpScopera143bcca66cb\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::anyOf(\_PhpScopera143bcca66cb\Nette\Schema\Expect::listOf('string'), \_PhpScopera143bcca66cb\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'exclude' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::structure(['classes' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::anyOf(\_PhpScopera143bcca66cb\Nette\Schema\Expect::listOf('string'), \_PhpScopera143bcca66cb\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::anyOf(\_PhpScopera143bcca66cb\Nette\Schema\Expect::listOf('string'), \_PhpScopera143bcca66cb\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::anyOf(\_PhpScopera143bcca66cb\Nette\Schema\Expect::listOf('string'), \_PhpScopera143bcca66cb\Nette\Schema\Expect::string()->castTo('array'))->default([])]), 'tags' => \_PhpScopera143bcca66cb\Nette\Schema\Expect::array()]))->before(function ($val) {
             return \is_string($val['in'] ?? null) ? ['default' => $val] : $val;
         });
     }
@@ -34,7 +34,7 @@ final class SearchExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExt
     {
         foreach (\array_filter($this->config) as $name => $batch) {
             if (!\is_dir($batch->in)) {
-                throw new \_PhpScoper88fe6e0ad041\Nette\DI\InvalidConfigurationException("Option '{$this->name} › {$name} › in' must be valid directory name, '{$batch->in}' given.");
+                throw new \_PhpScopera143bcca66cb\Nette\DI\InvalidConfigurationException("Option '{$this->name} › {$name} › in' must be valid directory name, '{$batch->in}' given.");
             }
             foreach ($this->findClasses($batch) as $class) {
                 $this->classes[$class] = \array_merge($this->classes[$class] ?? [], $batch->tags);
@@ -43,7 +43,7 @@ final class SearchExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExt
     }
     public function findClasses(\stdClass $config) : array
     {
-        $robot = new \_PhpScoper88fe6e0ad041\Nette\Loaders\RobotLoader();
+        $robot = new \_PhpScopera143bcca66cb\Nette\Loaders\RobotLoader();
         $robot->setTempDirectory($this->tempDir);
         $robot->addDirectory($config->in);
         $robot->acceptFiles = $config->files ?: ['*.php'];
@@ -58,12 +58,12 @@ final class SearchExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExt
         $found = [];
         foreach ($classes as $class) {
             if (!\class_exists($class) && !\interface_exists($class) && !\trait_exists($class)) {
-                throw new \_PhpScoper88fe6e0ad041\Nette\InvalidStateException("Class {$class} was found, but it cannot be loaded by autoloading.");
+                throw new \_PhpScopera143bcca66cb\Nette\InvalidStateException("Class {$class} was found, but it cannot be loaded by autoloading.");
             }
             $rc = new \ReflectionClass($class);
-            if (($rc->isInstantiable() || $rc->isInterface() && \count($methods = $rc->getMethods()) === 1 && $methods[0]->name === 'create') && (!$acceptRE || \preg_match($acceptRE, $rc->name)) && (!$rejectRE || !\preg_match($rejectRE, $rc->name)) && (!$acceptParent || \_PhpScoper88fe6e0ad041\Nette\Utils\Arrays::some($acceptParent, function ($nm) use($rc) {
+            if (($rc->isInstantiable() || $rc->isInterface() && \count($methods = $rc->getMethods()) === 1 && $methods[0]->name === 'create') && (!$acceptRE || \preg_match($acceptRE, $rc->name)) && (!$rejectRE || !\preg_match($rejectRE, $rc->name)) && (!$acceptParent || \_PhpScopera143bcca66cb\Nette\Utils\Arrays::some($acceptParent, function ($nm) use($rc) {
                 return $rc->isSubclassOf($nm);
-            })) && (!$rejectParent || \_PhpScoper88fe6e0ad041\Nette\Utils\Arrays::every($rejectParent, function ($nm) use($rc) {
+            })) && (!$rejectParent || \_PhpScopera143bcca66cb\Nette\Utils\Arrays::every($rejectParent, function ($nm) use($rc) {
                 return !$rc->isSubclassOf($nm);
             }))) {
                 $found[] = $rc->name;
@@ -81,7 +81,7 @@ final class SearchExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExt
         }
         foreach ($this->classes as $class => $tags) {
             $def = \class_exists($class) ? $builder->addDefinition(null)->setType($class) : $builder->addFactoryDefinition(null)->setImplement($class);
-            $def->setTags(\_PhpScoper88fe6e0ad041\Nette\Utils\Arrays::normalize($tags, \true));
+            $def->setTags(\_PhpScopera143bcca66cb\Nette\Utils\Arrays::normalize($tags, \true));
         }
     }
     private static function buildNameRegexp(array $masks) : ?string

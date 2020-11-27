@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 use PHPStan\TrinaryLogic;
 use function PHPStan\Analyser\assertType;
@@ -15,18 +15,18 @@ function () : void {
 };
 function () : void {
     if (\rand(0, 1) === 0) {
-        $foo = \_PhpScoper88fe6e0ad041\doFoo();
+        $foo = \_PhpScopera143bcca66cb\doFoo();
     }
     \PHPStan\Analyser\assertVariableCertainty(\PHPStan\TrinaryLogic::createMaybe(), $foo);
     /** @var Foo $foo */
     \PHPStan\Analyser\assertVariableCertainty(\PHPStan\TrinaryLogic::createMaybe(), $foo);
 };
 \PHPStan\Analyser\assertVariableCertainty(\PHPStan\TrinaryLogic::createMaybe(), $bar);
-\assert($bar instanceof \_PhpScoper88fe6e0ad041\Foo);
+\assert($bar instanceof \_PhpScopera143bcca66cb\Foo);
 \PHPStan\Analyser\assertVariableCertainty(\PHPStan\TrinaryLogic::createYes(), $bar);
 function () : void {
     \PHPStan\Analyser\assertVariableCertainty(\PHPStan\TrinaryLogic::createNo(), $bar);
-    \assert($bar instanceof \_PhpScoper88fe6e0ad041\Foo);
+    \assert($bar instanceof \_PhpScopera143bcca66cb\Foo);
     \PHPStan\Analyser\assertVariableCertainty(\PHPStan\TrinaryLogic::createYes(), $bar);
 };
 /** @var Foo $lorem */

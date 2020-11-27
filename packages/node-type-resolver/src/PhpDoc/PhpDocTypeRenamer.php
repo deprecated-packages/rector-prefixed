@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PhpDoc;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Node as PhpDocParserNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
@@ -11,8 +11,8 @@ use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Generic\ValueObject\PseudoNamespaceToNamespace;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\SimplePhpDocParser\PhpDocNodeTraverser;
 use Rector\StaticTypeMapper\StaticTypeMapper;
+use Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class PhpDocTypeRenamer
 {
     /**
@@ -23,7 +23,7 @@ final class PhpDocTypeRenamer
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    public function __construct(\Rector\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
         $this->staticTypeMapper = $staticTypeMapper;
@@ -45,7 +45,7 @@ final class PhpDocTypeRenamer
             $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($node, $phpParserNode);
             // change underscore to \\
             /** @var ObjectType $staticType */
-            $slashedName = '\\' . \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
+            $slashedName = '\\' . \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
             $node->name = $slashedName;
             return $node;
         });
@@ -59,7 +59,7 @@ final class PhpDocTypeRenamer
         if (!$staticType instanceof \PHPStan\Type\ObjectType) {
             return \true;
         }
-        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($staticType->getClassName(), $pseudoNamespaceToNamespace->getNamespacePrefix())) {
+        if (!\_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($staticType->getClassName(), $pseudoNamespaceToNamespace->getNamespacePrefix())) {
             return \true;
         }
         // excluded?

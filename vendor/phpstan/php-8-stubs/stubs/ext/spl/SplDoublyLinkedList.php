@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 class SplDoublyLinkedList implements \Iterator, \Countable, \ArrayAccess, \Serializable
@@ -123,4 +123,4 @@ class SplDoublyLinkedList implements \Iterator, \Countable, \ArrayAccess, \Seria
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\SplDoublyLinkedList', 'SplDoublyLinkedList', \false);
+\class_alias('_PhpScopera143bcca66cb\\SplDoublyLinkedList', 'SplDoublyLinkedList', \false);

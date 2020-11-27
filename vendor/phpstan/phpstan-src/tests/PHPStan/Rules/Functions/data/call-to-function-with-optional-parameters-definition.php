@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\CallToFunctionWithOptionalParameters;
+namespace _PhpScopera143bcca66cb\CallToFunctionWithOptionalParameters;
 
 function foo($foo, $bar = NULL)
 {

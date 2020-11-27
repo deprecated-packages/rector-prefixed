@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 function wordwrap(string $string, int $width = 75, string $break = "\n", bool $cut_long_words = \false) : string
 {

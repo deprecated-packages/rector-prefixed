@@ -5,13 +5,13 @@ namespace PHPStan\PhpDoc;
 
 use PHPStan\DependencyInjection\Container;
 use PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 class StubSourceLocatorFactory
 {
     /**
@@ -35,7 +35,7 @@ class StubSourceLocatorFactory
     /**
      * @param string[] $stubFiles
      */
-    public function __construct(\PhpParser\Parser $parser, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber, \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository $optimizedSingleFileSourceLocatorRepository, \PHPStan\DependencyInjection\Container $container, array $stubFiles)
+    public function __construct(\PhpParser\Parser $parser, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber, \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorRepository $optimizedSingleFileSourceLocatorRepository, \PHPStan\DependencyInjection\Container $container, array $stubFiles)
     {
         $this->parser = $parser;
         $this->phpStormStubsSourceStubber = $phpStormStubsSourceStubber;
@@ -43,16 +43,16 @@ class StubSourceLocatorFactory
         $this->container = $container;
         $this->stubFiles = $stubFiles;
     }
-    public function create() : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+    public function create() : \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator
     {
         $locators = [];
-        $astLocator = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Locator($this->parser, function () : FunctionReflector {
+        $astLocator = new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Locator($this->parser, function () : FunctionReflector {
             return $this->container->getService('stubFunctionReflector');
         });
         foreach ($this->stubFiles as $stubFile) {
             $locators[] = $this->optimizedSingleFileSourceLocatorRepository->getOrCreate($stubFile);
         }
-        $locators[] = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $this->phpStormStubsSourceStubber);
-        return new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators));
+        $locators[] = new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $this->phpStormStubsSourceStubber);
+        return new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators));
     }
 }

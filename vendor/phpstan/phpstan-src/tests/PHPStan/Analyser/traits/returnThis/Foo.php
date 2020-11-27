@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\TraitsReturnThis;
+namespace _PhpScopera143bcca66cb\TraitsReturnThis;
 
 class Foo
 {

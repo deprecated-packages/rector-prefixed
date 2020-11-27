@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\CatchWithoutVariable;
+namespace _PhpScopera143bcca66cb\CatchWithoutVariable;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -8,7 +8,7 @@ class Foo
     public function doFoo() : void
     {
         try {
-        } catch (\_PhpScoper88fe6e0ad041\FooException) {
+        } catch (\_PhpScopera143bcca66cb\FooException) {
             \PHPStan\Analyser\assertType('*ERROR*', $e);
         }
     }

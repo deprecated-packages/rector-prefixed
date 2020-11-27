@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\ComposerJsonManipulator\Tests\HttpKernel;
 
-use _PhpScoper88fe6e0ad041\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use _PhpScopera143bcca66cb\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\ComposerJsonManipulator\ComposerJsonManipulatorBundle;
 use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 class Transliterator
@@ -59,4 +59,4 @@ class Transliterator
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\Transliterator', 'Transliterator', \false);
+\class_alias('_PhpScopera143bcca66cb\\Transliterator', 'Transliterator', \false);

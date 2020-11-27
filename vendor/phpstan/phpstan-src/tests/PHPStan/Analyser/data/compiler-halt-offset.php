@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 \__COMPILER_HALT_OFFSET__ ? 1 : 2;
 __halt_compiler();

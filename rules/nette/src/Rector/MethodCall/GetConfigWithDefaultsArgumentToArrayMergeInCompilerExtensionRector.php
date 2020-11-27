@@ -60,7 +60,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, '_PhpScoper88fe6e0ad041\\Nette\\DI\\CompilerExtension', 'getConfig')) {
+        if (!$this->isOnClassMethodCall($node, '_PhpScopera143bcca66cb\\Nette\\DI\\CompilerExtension', 'getConfig')) {
             return null;
         }
         if (\count($node->args) !== 1) {

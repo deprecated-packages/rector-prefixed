@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function variant_and(mixed $left, mixed $right) : \_PhpScoper88fe6e0ad041\variant
+function variant_and(mixed $left, mixed $right) : \_PhpScopera143bcca66cb\variant
 {
 }

@@ -10,15 +10,15 @@ use PhpParser\Node\Scalar\String_;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionConstant;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
 use function file_exists;
 use function restore_error_handler;
@@ -30,7 +30,7 @@ use function restore_error_handler;
  *
  * Modified code from Roave/BetterReflection, Copyright (c) 2017 Roave, LLC.
  */
-class AutoloadSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+class AutoloadSourceLocator implements \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /**
      * @var \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher
@@ -55,13 +55,13 @@ class AutoloadSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterRefle
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifier(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection
     {
         if ($identifier->isFunction()) {
             $functionName = $identifier->getName();
             $loweredFunctionName = \strtolower($functionName);
             if (\array_key_exists($loweredFunctionName, $this->functionNodes)) {
-                $nodeToReflection = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+                $nodeToReflection = new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
                 return $nodeToReflection->__invoke($reflector, $this->functionNodes[$loweredFunctionName]->getNode(), $this->locatedSourcesByFile[$this->functionNodes[$loweredFunctionName]->getFileName()], $this->functionNodes[$loweredFunctionName]->getNamespace());
             }
             if (!\function_exists($functionName)) {
@@ -79,14 +79,14 @@ class AutoloadSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterRefle
         }
         if ($identifier->isConstant()) {
             $constantName = $identifier->getName();
-            $nodeToReflection = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+            $nodeToReflection = new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
             foreach ($this->constantNodes as $stmtConst) {
                 if ($stmtConst->getNode() instanceof \PhpParser\Node\Expr\FuncCall) {
                     $constantReflection = $nodeToReflection->__invoke($reflector, $stmtConst->getNode(), $this->locatedSourcesByFile[$stmtConst->getFileName()], $stmtConst->getNamespace());
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                    if (!$constantReflection instanceof \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionConstant) {
                         throw new \PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
@@ -99,7 +99,7 @@ class AutoloadSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterRefle
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                    if (!$constantReflection instanceof \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionConstant) {
                         throw new \PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
@@ -111,7 +111,7 @@ class AutoloadSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterRefle
             if (!\defined($constantName)) {
                 return null;
             }
-            $reflection = \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant::createFromNode($reflector, new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('define'), [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($constantName)), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_(''))]), new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource('', null), null, null);
+            $reflection = \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionConstant::createFromNode($reflector, new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('define'), [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($constantName)), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_(''))]), new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Located\LocatedSource('', null), null, null);
             $reflection->populateValue(\constant($constantName));
             return $reflection;
         }
@@ -126,16 +126,16 @@ class AutoloadSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterRefle
         if ($locateResult === null) {
             if (\array_key_exists($loweredClassName, $this->classNodes)) {
                 foreach ($this->classNodes[$loweredClassName] as $classNode) {
-                    $nodeToReflection = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+                    $nodeToReflection = new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
                     return $this->classReflections[$loweredClassName] = $nodeToReflection->__invoke($reflector, $classNode->getNode(), $this->locatedSourcesByFile[$classNode->getFileName()], $classNode->getNamespace());
                 }
             }
             return null;
         }
         [$potentiallyLocatedFile, $className, $startLine] = $locateResult;
-        return $this->findReflection($reflector, $potentiallyLocatedFile, new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier($className, $identifier->getType()), $startLine);
+        return $this->findReflection($reflector, $potentiallyLocatedFile, new \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier($className, $identifier->getType()), $startLine);
     }
-    private function findReflection(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, string $file, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier, ?int $startLine) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
+    private function findReflection(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, string $file, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier $identifier, ?int $startLine) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection
     {
         if (!\array_key_exists($file, $this->locatedSourcesByFile)) {
             $result = $this->fileNodesFetcher->fetchNodes($file);
@@ -155,7 +155,7 @@ class AutoloadSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterRefle
         } else {
             $locatedSource = $this->locatedSourcesByFile[$file];
         }
-        $nodeToReflection = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         if ($identifier->isClass()) {
             $identifierName = \strtolower($identifier->getName());
             if (\array_key_exists($identifierName, $this->classReflections)) {
@@ -186,7 +186,7 @@ class AutoloadSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterRefle
         }
         return null;
     }
-    public function locateIdentifiersByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
         // todo

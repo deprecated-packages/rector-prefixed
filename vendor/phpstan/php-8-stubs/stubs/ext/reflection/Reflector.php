@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 interface Reflector extends \Stringable
 {
 }
-\class_alias('_PhpScoper88fe6e0ad041\\Reflector', 'Reflector', \false);
+\class_alias('_PhpScopera143bcca66cb\\Reflector', 'Reflector', \false);

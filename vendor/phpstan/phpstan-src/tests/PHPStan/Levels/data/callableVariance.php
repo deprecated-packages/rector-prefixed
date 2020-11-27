@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Levels\CallableVariance;
+namespace _PhpScopera143bcca66cb\Levels\CallableVariance;
 
 class A
 {
 }
-class B extends \_PhpScoper88fe6e0ad041\Levels\CallableVariance\A
+class B extends \_PhpScopera143bcca66cb\Levels\CallableVariance\A
 {
 }
-class C extends \_PhpScoper88fe6e0ad041\Levels\CallableVariance\B
+class C extends \_PhpScopera143bcca66cb\Levels\CallableVariance\B
 {
 }
 /**
@@ -16,9 +16,9 @@ class C extends \_PhpScoper88fe6e0ad041\Levels\CallableVariance\B
  */
 function a(callable $cb) : void
 {
-    $cb(new \_PhpScoper88fe6e0ad041\Levels\CallableVariance\A());
-    $cb(new \_PhpScoper88fe6e0ad041\Levels\CallableVariance\B());
-    $cb(new \_PhpScoper88fe6e0ad041\Levels\CallableVariance\C());
+    $cb(new \_PhpScopera143bcca66cb\Levels\CallableVariance\A());
+    $cb(new \_PhpScopera143bcca66cb\Levels\CallableVariance\B());
+    $cb(new \_PhpScopera143bcca66cb\Levels\CallableVariance\C());
 }
 /**
  * @param callable(B): void $cb
@@ -33,11 +33,11 @@ function b(callable $cb) : void
  */
 function testB($a, $b, $c) : void
 {
-    b(function (\_PhpScoper88fe6e0ad041\Levels\CallableVariance\A $a) : void {
+    b(function (\_PhpScopera143bcca66cb\Levels\CallableVariance\A $a) : void {
     });
-    b(function (\_PhpScoper88fe6e0ad041\Levels\CallableVariance\B $b) : void {
+    b(function (\_PhpScopera143bcca66cb\Levels\CallableVariance\B $b) : void {
     });
-    b(function (\_PhpScoper88fe6e0ad041\Levels\CallableVariance\C $c) : void {
+    b(function (\_PhpScopera143bcca66cb\Levels\CallableVariance\C $c) : void {
     });
     b($a);
     b($b);

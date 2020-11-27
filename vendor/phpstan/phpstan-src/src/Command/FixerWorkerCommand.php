@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Json;
+use _PhpScopera143bcca66cb\Nette\Utils\Json;
 use PHPStan\Analyser\AnalyserResult;
 use PHPStan\Analyser\IgnoredErrorHelper;
 use PHPStan\Analyser\ResultCache\ResultCacheManager;
 use PHPStan\Analyser\ResultCache\ResultCacheManagerFactory;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Command\Command;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface;
-class FixerWorkerCommand extends \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Command\Command
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputArgument;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface;
+class FixerWorkerCommand extends \_PhpScopera143bcca66cb\Symfony\Component\Console\Command\Command
 {
     private const NAME = 'fixer:worker';
     /** @var string[] */
@@ -28,9 +28,9 @@ class FixerWorkerCommand extends \_PhpScoper88fe6e0ad041\Symfony\Component\Conso
     }
     protected function configure() : void
     {
-        $this->setName(self::NAME)->setDescription('(Internal) Support for PHPStan Pro.')->setDefinition([new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument('paths', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('paths-file', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption(\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, 'l', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('memory-limit', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('xdebug', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('tmp-file', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('instead-of', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('save-result-cache', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, '', \false), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('restore-result-cache', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption('allow-parallel', null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow parallel analysis')]);
+        $this->setName(self::NAME)->setDescription('(Internal) Support for PHPStan Pro.')->setDefinition([new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputArgument('paths', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('paths-file', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption(\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, 'l', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('memory-limit', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('xdebug', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('tmp-file', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('instead-of', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('save-result-cache', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, '', \false), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('restore-result-cache', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption('allow-parallel', null, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow parallel analysis')]);
     }
-    protected function execute(\_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $paths = $input->getArgument('paths');
         $memoryLimit = $input->getOption('memory-limit');
@@ -99,7 +99,7 @@ class FixerWorkerCommand extends \_PhpScoper88fe6e0ad041\Symfony\Component\Conso
             }
             $finalFileSpecificErrors[] = $intermediateError;
         }
-        $output->writeln(\_PhpScoper88fe6e0ad041\Nette\Utils\Json::encode(['fileSpecificErrors' => $finalFileSpecificErrors, 'notFileSpecificErrors' => $finalNotFileSpecificErrors]), \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
+        $output->writeln(\_PhpScopera143bcca66cb\Nette\Utils\Json::encode(['fileSpecificErrors' => $finalFileSpecificErrors, 'notFileSpecificErrors' => $finalNotFileSpecificErrors]), \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
         return 0;
     }
     private function switchTmpFileInAnalyserResult(\PHPStan\Analyser\AnalyserResult $analyserResult, ?string $insteadOfFile, ?string $tmpFile) : \PHPStan\Analyser\AnalyserResult

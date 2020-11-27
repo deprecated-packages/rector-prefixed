@@ -10,18 +10,18 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type;
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\TypeResolver;
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Type;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\TypeResolver;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}property tag in a Docblock.
  */
-class Property extends \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\TagWithType implements \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+class Property extends \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\TagWithType implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string */
     protected $variableName = '';
@@ -30,9 +30,9 @@ class Property extends \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock
      * @param Type $type
      * @param Description $description
      */
-    public function __construct($variableName, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type $type = null, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($variableName, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Type $type = null, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::string($variableName);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::string($variableName);
         $this->name = 'property';
         $this->variableName = $variableName;
         $this->type = $type;
@@ -41,10 +41,10 @@ class Property extends \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScopera143bcca66cb\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::stringNotEmpty($body);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::stringNotEmpty($body);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
         list($firstPart, $body) = self::extractTypeFromBody($body);
         $type = null;
         $parts = \preg_split('/(\\s+)/Su', $body, 2, \PREG_SPLIT_DELIM_CAPTURE);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\NewOffsetStub;
+namespace _PhpScopera143bcca66cb\NewOffsetStub;
 
 /**
  * @phpstan-implements \ArrayAccess<int, \stdClass>
@@ -8,6 +8,6 @@ namespace _PhpScoper88fe6e0ad041\NewOffsetStub;
 abstract class Foo implements \ArrayAccess
 {
 }
-function (\_PhpScoper88fe6e0ad041\NewOffsetStub\Foo $foo) : void {
+function (\_PhpScopera143bcca66cb\NewOffsetStub\Foo $foo) : void {
     $foo[] = new \stdClass();
 };

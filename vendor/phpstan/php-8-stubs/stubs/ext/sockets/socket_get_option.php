@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function socket_get_option(\_PhpScoper88fe6e0ad041\Socket $socket, int $level, int $option) : array|int|false
+function socket_get_option(\_PhpScopera143bcca66cb\Socket $socket, int $level, int $option) : array|int|false
 {
 }

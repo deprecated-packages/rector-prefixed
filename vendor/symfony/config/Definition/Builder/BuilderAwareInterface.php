@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper88fe6e0ad041\Symfony\Component\Config\Definition\Builder;
+namespace _PhpScopera143bcca66cb\Symfony\Component\Config\Definition\Builder;
 
 /**
  * An interface that can be implemented by nodes which build other nodes.
@@ -20,5 +20,5 @@ interface BuilderAwareInterface
     /**
      * Sets a custom children builder.
      */
-    public function setBuilder(\_PhpScoper88fe6e0ad041\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder);
+    public function setBuilder(\_PhpScopera143bcca66cb\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder);
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class SoapClient
 {
@@ -67,4 +67,4 @@ class SoapClient
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\SoapClient', 'SoapClient', \false);
+\class_alias('_PhpScopera143bcca66cb\\SoapClient', 'SoapClient', \false);

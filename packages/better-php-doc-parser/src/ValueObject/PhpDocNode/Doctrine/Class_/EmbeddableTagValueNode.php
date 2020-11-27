@@ -8,6 +8,6 @@ final class EmbeddableTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
 {
     public function getShortName() : string
     {
-        return '_PhpScoper88fe6e0ad041\\@ORM\\Embeddable';
+        return '_PhpScopera143bcca66cb\\@ORM\\Embeddable';
     }
 }

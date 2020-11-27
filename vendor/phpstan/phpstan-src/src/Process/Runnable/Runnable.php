@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace PHPStan\Process\Runnable;
 
-use _PhpScoper88fe6e0ad041\React\Promise\CancellablePromiseInterface;
+use _PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface;
 interface Runnable
 {
     public function getName() : string;
-    public function run() : \_PhpScoper88fe6e0ad041\React\Promise\CancellablePromiseInterface;
+    public function run() : \_PhpScopera143bcca66cb\React\Promise\CancellablePromiseInterface;
     public function cancel() : void;
 }

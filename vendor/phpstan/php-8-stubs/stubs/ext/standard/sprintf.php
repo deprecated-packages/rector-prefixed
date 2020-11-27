@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /* formatted_print.c */
 function sprintf(string $format, mixed ...$values) : string

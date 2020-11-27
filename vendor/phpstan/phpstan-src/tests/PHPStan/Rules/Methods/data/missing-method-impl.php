@@ -1,28 +1,28 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\MissingMethodImpl;
+namespace _PhpScopera143bcca66cb\MissingMethodImpl;
 
 interface Foo
 {
     public function doFoo();
 }
-abstract class Bar implements \_PhpScoper88fe6e0ad041\MissingMethodImpl\Foo
+abstract class Bar implements \_PhpScopera143bcca66cb\MissingMethodImpl\Foo
 {
     public function doBar()
     {
     }
     public abstract function doBaz();
 }
-class Baz implements \_PhpScoper88fe6e0ad041\MissingMethodImpl\Foo
+class Baz implements \_PhpScopera143bcca66cb\MissingMethodImpl\Foo
 {
     public function doBar()
     {
     }
     public abstract function doBaz();
 }
-interface Lorem extends \_PhpScoper88fe6e0ad041\MissingMethodImpl\Foo
+interface Lorem extends \_PhpScopera143bcca66cb\MissingMethodImpl\Foo
 {
 }
-new class implements \_PhpScoper88fe6e0ad041\MissingMethodImpl\Foo
+new class implements \_PhpScopera143bcca66cb\MissingMethodImpl\Foo
 {
 };

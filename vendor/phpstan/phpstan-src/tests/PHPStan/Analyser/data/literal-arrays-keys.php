@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\LiteralArrayKeys;
+namespace _PhpScopera143bcca66cb\LiteralArrayKeys;
 
 class Foo
 {
@@ -10,7 +10,7 @@ class Foo
     }
 }
 function () {
-    $foo = new \_PhpScoper88fe6e0ad041\LiteralArrayKeys\Foo();
+    $foo = new \_PhpScopera143bcca66cb\LiteralArrayKeys\Foo();
     foreach (['one', 'two', 'three'] as $key => $value) {
         'NoKeysArray';
     }

@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Clue\React\NDJson;
+namespace _PhpScopera143bcca66cb\Clue\React\NDJson;
 
-use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
-use _PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface;
+use _PhpScopera143bcca66cb\Evenement\EventEmitter;
+use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
 /**
  * The Encoder / Serializer can be used to write any value, encode it as a JSON text and forward it to an output stream
  */
-class Encoder extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface
+class Encoder extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface
 {
     private $output;
     private $options;
@@ -20,7 +20,7 @@ class Encoder extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements 
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
-    public function __construct(\_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $output, $options = 0, $depth = 512)
+    public function __construct(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $output, $options = 0, $depth = 512)
     {
         // @codeCoverageIgnoreStart
         if (\defined('JSON_PRETTY_PRINT') && $options & \JSON_PRETTY_PRINT) {

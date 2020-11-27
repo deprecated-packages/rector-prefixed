@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScoper88fe6e0ad041\ArrowFunctions;
+namespace _PhpScopera143bcca66cb\ArrowFunctions;
 
 class Foo
 {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /**
  * @property int | float $numericBazBazProperty
@@ -44,4 +44,4 @@ class Foo
  * @method Image rotate(float $angle, $backgroundColor)
  * @method int | float paramMultipleTypesWithExtraSpaces(string | null $string, stdClass | null $object)
  */
-\class_alias('_PhpScoper88fe6e0ad041\\Foo', 'Foo', \false);
+\class_alias('_PhpScopera143bcca66cb\\Foo', 'Foo', \false);

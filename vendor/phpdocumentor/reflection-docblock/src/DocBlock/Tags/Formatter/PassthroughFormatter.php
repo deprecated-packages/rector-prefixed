@@ -10,11 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tag;
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-class PassthroughFormatter implements \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Formatter
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tag;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+class PassthroughFormatter implements \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Formatter
 {
     /**
      * Formats the given tag to return a simple plain text version.
@@ -23,7 +23,7 @@ class PassthroughFormatter implements \_PhpScoper88fe6e0ad041\phpDocumentor\Refl
      *
      * @return string
      */
-    public function format(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tag $tag)
+    public function format(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tag $tag)
     {
         return \trim('@' . $tag->getName() . ' ' . (string) $tag);
     }

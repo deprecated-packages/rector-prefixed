@@ -10,10 +10,10 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock;
-use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
+use _PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock;
+use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
 /**
  * Converts a DocBlock back from an object to a complete DocComment including Asterisks.
  */
@@ -40,16 +40,16 @@ class Serializer
      */
     public function __construct($indent = 0, $indentString = ' ', $indentFirstLine = \true, $lineLength = null, $tagFormatter = null)
     {
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::integer($indent);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::string($indentString);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::boolean($indentFirstLine);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::nullOrInteger($lineLength);
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::nullOrIsInstanceOf($tagFormatter, '_PhpScoper88fe6e0ad041\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Formatter');
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::integer($indent);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::string($indentString);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::boolean($indentFirstLine);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::nullOrInteger($lineLength);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::nullOrIsInstanceOf($tagFormatter, '_PhpScopera143bcca66cb\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Formatter');
         $this->indent = $indent;
         $this->indentString = $indentString;
         $this->isFirstLineIndented = $indentFirstLine;
         $this->lineLength = $lineLength;
-        $this->tagFormatter = $tagFormatter ?: new \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+        $this->tagFormatter = $tagFormatter ?: new \_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
     }
     /**
      * Generate a DocBlock comment.
@@ -58,7 +58,7 @@ class Serializer
      *
      * @return string The serialized doc block.
      */
-    public function getDocComment(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock $docblock)
+    public function getDocComment(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock $docblock)
     {
         $indent = \str_repeat($this->indentString, $this->indent);
         $firstIndent = $this->isFirstLineIndented ? $indent : '';
@@ -97,7 +97,7 @@ class Serializer
      * @param $wrapLength
      * @return string
      */
-    private function getSummaryAndDescriptionTextBlock(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock $docblock, $wrapLength)
+    private function getSummaryAndDescriptionTextBlock(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock $docblock, $wrapLength)
     {
         $text = $docblock->getSummary() . ((string) $docblock->getDescription() ? "\n\n" . $docblock->getDescription() : '');
         if ($wrapLength !== null) {
@@ -113,7 +113,7 @@ class Serializer
      * @param $comment
      * @return string
      */
-    private function addTagBlock(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock $docblock, $wrapLength, $indent, $comment)
+    private function addTagBlock(\_PhpScopera143bcca66cb\phpDocumentor\Reflection\DocBlock $docblock, $wrapLength, $indent, $comment)
     {
         foreach ($docblock->getTags() as $tag) {
             $tagText = $this->tagFormatter->format($tag);

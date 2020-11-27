@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\PropertyArray;
+namespace _PhpScopera143bcca66cb\PropertyArray;
 
 class Foo
 {

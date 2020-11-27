@@ -8,7 +8,7 @@ use PHPStan\Analyser\AnalyserResult;
 use PHPStan\Parallel\ParallelAnalyser;
 use PHPStan\Parallel\Scheduler;
 use PHPStan\Process\CpuCoreCounter;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface;
 class AnalyserRunner
 {
     /**
@@ -48,7 +48,7 @@ class AnalyserRunner
      * @return AnalyserResult
      * @throws \Throwable
      */
-    public function runAnalyser(array $files, array $allAnalysedFiles, ?\Closure $preFileCallback, ?\Closure $postFileCallback, bool $debug, bool $allowParallel, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
+    public function runAnalyser(array $files, array $allAnalysedFiles, ?\Closure $preFileCallback, ?\Closure $postFileCallback, bool $debug, bool $allowParallel, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
     {
         $filesCount = \count($files);
         if ($filesCount === 0) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 class SplFileInfo
@@ -133,4 +133,4 @@ class SplFileInfo
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper88fe6e0ad041\\SplFileInfo', 'SplFileInfo', \false);
+\class_alias('_PhpScopera143bcca66cb\\SplFileInfo', 'SplFileInfo', \false);

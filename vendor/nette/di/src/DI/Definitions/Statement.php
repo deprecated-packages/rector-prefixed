@@ -5,16 +5,16 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\DI\Definitions;
+namespace _PhpScopera143bcca66cb\Nette\DI\Definitions;
 
-use _PhpScoper88fe6e0ad041\Nette;
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 /**
  * Assignment or calling statement.
  *
  * @property string|array|Definition|Reference|null $entity
  */
-final class Statement implements \_PhpScoper88fe6e0ad041\Nette\Schema\DynamicParameter
+final class Statement implements \_PhpScopera143bcca66cb\Nette\Schema\DynamicParameter
 {
     use Nette\SmartObject;
     /** @var array */
@@ -26,18 +26,18 @@ final class Statement implements \_PhpScoper88fe6e0ad041\Nette\Schema\DynamicPar
      */
     public function __construct($entity, array $arguments = [])
     {
-        if ($entity !== null && !\is_string($entity) && !$entity instanceof \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Definition && !$entity instanceof \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Reference && !(\is_array($entity) && \array_keys($entity) === [0, 1] && (\is_string($entity[0]) || $entity[0] instanceof self || $entity[0] instanceof \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Reference || $entity[0] instanceof \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Definition))) {
-            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Argument is not valid Statement entity.');
+        if ($entity !== null && !\is_string($entity) && !$entity instanceof \_PhpScopera143bcca66cb\Nette\DI\Definitions\Definition && !$entity instanceof \_PhpScopera143bcca66cb\Nette\DI\Definitions\Reference && !(\is_array($entity) && \array_keys($entity) === [0, 1] && (\is_string($entity[0]) || $entity[0] instanceof self || $entity[0] instanceof \_PhpScopera143bcca66cb\Nette\DI\Definitions\Reference || $entity[0] instanceof \_PhpScopera143bcca66cb\Nette\DI\Definitions\Definition))) {
+            throw new \_PhpScopera143bcca66cb\Nette\InvalidArgumentException('Argument is not valid Statement entity.');
         }
         // normalize Class::method to [Class, method]
-        if (\is_string($entity) && \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($entity, '::') && !\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($entity, '?')) {
+        if (\is_string($entity) && \_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($entity, '::') && !\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($entity, '?')) {
             $entity = \explode('::', $entity);
         }
         if (\is_string($entity) && \substr($entity, 0, 1) === '@') {
             // normalize @service to Reference
-            $entity = new \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Reference(\substr($entity, 1));
+            $entity = new \_PhpScopera143bcca66cb\Nette\DI\Definitions\Reference(\substr($entity, 1));
         } elseif (\is_array($entity) && \is_string($entity[0]) && \substr($entity[0], 0, 1) === '@') {
-            $entity[0] = new \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Reference(\substr($entity[0], 1));
+            $entity[0] = new \_PhpScopera143bcca66cb\Nette\DI\Definitions\Reference(\substr($entity[0], 1));
         }
         $this->entity = $entity;
         $this->arguments = $arguments;
@@ -48,4 +48,4 @@ final class Statement implements \_PhpScoper88fe6e0ad041\Nette\Schema\DynamicPar
         return $this->entity;
     }
 }
-\class_exists(\_PhpScoper88fe6e0ad041\Nette\DI\Statement::class);
+\class_exists(\_PhpScopera143bcca66cb\Nette\DI\Statement::class);

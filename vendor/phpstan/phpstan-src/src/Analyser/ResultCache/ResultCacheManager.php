@@ -459,7 +459,7 @@ php;
     private function getPhpStanVersion() : string
     {
         try {
-            return \_PhpScoper88fe6e0ad041\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+            return \_PhpScopera143bcca66cb\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             return 'Version unknown';
         }

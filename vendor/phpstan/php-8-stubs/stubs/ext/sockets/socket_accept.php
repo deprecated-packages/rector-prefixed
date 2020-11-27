@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
-function socket_accept(\_PhpScoper88fe6e0ad041\Socket $socket) : \Socket|false
+function socket_accept(\_PhpScopera143bcca66cb\Socket $socket) : \Socket|false
 {
 }

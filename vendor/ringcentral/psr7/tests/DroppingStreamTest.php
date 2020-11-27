@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\RingCentral\Tests\Psr7;
+namespace _PhpScopera143bcca66cb\RingCentral\Tests\Psr7;
 
-use _PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream;
-use _PhpScoper88fe6e0ad041\RingCentral\Psr7\DroppingStream;
-class DroppingStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
+use _PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream;
+use _PhpScopera143bcca66cb\RingCentral\Psr7\DroppingStream;
+class DroppingStreamTest extends \_PhpScopera143bcca66cb\PHPUnit_Framework_TestCase
 {
     public function testBeginsDroppingWhenSizeExceeded()
     {
-        $stream = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\BufferStream();
-        $drop = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\DroppingStream($stream, 5);
+        $stream = new \_PhpScopera143bcca66cb\RingCentral\Psr7\BufferStream();
+        $drop = new \_PhpScopera143bcca66cb\RingCentral\Psr7\DroppingStream($stream, 5);
         $this->assertEquals(3, $drop->write('hel'));
         $this->assertEquals(2, $drop->write('lo'));
         $this->assertEquals(5, $drop->getSize());

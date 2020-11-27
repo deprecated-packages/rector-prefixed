@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\EarlyTermination;
+namespace _PhpScopera143bcca66cb\EarlyTermination;
 
 use PHPStan\TrinaryLogic;
 use function PHPStan\Analyser\assertVariableCertainty;
 function () : void {
     if (\rand(0, 1)) {
-        \_PhpScoper88fe6e0ad041\EarlyTermination\Foo::doBarPhpDoc();
+        \_PhpScopera143bcca66cb\EarlyTermination\Foo::doBarPhpDoc();
     } else {
         $a = 1;
     }
@@ -14,7 +14,7 @@ function () : void {
 };
 function () : void {
     if (\rand(0, 1)) {
-        (new \_PhpScoper88fe6e0ad041\EarlyTermination\Foo())->doFooPhpDoc();
+        (new \_PhpScopera143bcca66cb\EarlyTermination\Foo())->doFooPhpDoc();
     } else {
         $a = 1;
     }

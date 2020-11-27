@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\SymfonyPHPUnit\Node;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -113,7 +113,7 @@ final class KernelTestCaseNodeFactory
     {
         $staticPropertyFetch = new \PhpParser\Node\Expr\StaticPropertyFetch(new \PhpParser\Node\Name('self'), 'container');
         $methodCall = new \PhpParser\Node\Expr\MethodCall($staticPropertyFetch, 'get');
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($serviceType, '_') && !\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($serviceType, '\\')) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($serviceType, '_') && !\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($serviceType, '\\')) {
             // keep string
             $getArgumentValue = new \PhpParser\Node\Scalar\String_($serviceType);
         } else {

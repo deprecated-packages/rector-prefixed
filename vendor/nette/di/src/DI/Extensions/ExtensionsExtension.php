@@ -5,17 +5,17 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Nette\DI\Extensions;
+namespace _PhpScopera143bcca66cb\Nette\DI\Extensions;
 
-use _PhpScoper88fe6e0ad041\Nette;
+use _PhpScopera143bcca66cb\Nette;
 /**
  * Enables registration of other extensions in $config file
  */
-final class ExtensionsExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExtension
+final class ExtensionsExtension extends \_PhpScopera143bcca66cb\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScoper88fe6e0ad041\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScopera143bcca66cb\Nette\Schema\Schema
     {
-        return \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::arrayOf('_PhpScoper88fe6e0ad041\\string|Nette\\DI\\Definitions\\Statement');
+        return \_PhpScopera143bcca66cb\Nette\Schema\Expect::arrayOf('_PhpScopera143bcca66cb\\string|Nette\\DI\\Definitions\\Statement');
     }
     public function loadConfiguration()
     {
@@ -24,11 +24,11 @@ final class ExtensionsExtension extends \_PhpScoper88fe6e0ad041\Nette\DI\Compile
                 $name = null;
             }
             $args = [];
-            if ($class instanceof \_PhpScoper88fe6e0ad041\Nette\DI\Definitions\Statement) {
+            if ($class instanceof \_PhpScopera143bcca66cb\Nette\DI\Definitions\Statement) {
                 [$class, $args] = [$class->getEntity(), $class->arguments];
             }
-            if (!\is_a($class, \_PhpScoper88fe6e0ad041\Nette\DI\CompilerExtension::class, \true)) {
-                throw new \_PhpScoper88fe6e0ad041\Nette\DI\InvalidConfigurationException("Extension '{$class}' not found or is not Nette\\DI\\CompilerExtension descendant.");
+            if (!\is_a($class, \_PhpScopera143bcca66cb\Nette\DI\CompilerExtension::class, \true)) {
+                throw new \_PhpScopera143bcca66cb\Nette\DI\InvalidConfigurationException("Extension '{$class}' not found or is not Nette\\DI\\CompilerExtension descendant.");
             }
             $this->compiler->addExtension($name, (new \ReflectionClass($class))->newInstanceArgs($args));
         }

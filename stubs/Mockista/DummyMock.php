@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Mockery;
+namespace _PhpScopera143bcca66cb\Mockery;
 
-class DummyMock implements \_PhpScoper88fe6e0ad041\Mockery\MockInterface
+class DummyMock implements \_PhpScopera143bcca66cb\Mockery\MockInterface
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
 // These are extension methods for PDO. This is not a real class.
@@ -45,4 +45,4 @@ class PDO_PGSql_Ext
 }
 /** @generate-function-entries */
 // These are extension methods for PDO. This is not a real class.
-\class_alias('_PhpScoper88fe6e0ad041\\PDO_PGSql_Ext', 'PDO_PGSql_Ext', \false);
+\class_alias('_PhpScopera143bcca66cb\\PDO_PGSql_Ext', 'PDO_PGSql_Ext', \false);

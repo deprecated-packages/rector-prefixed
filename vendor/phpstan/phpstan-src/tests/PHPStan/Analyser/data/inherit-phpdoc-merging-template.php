@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\InheritDocMergingTemplate;
+namespace _PhpScopera143bcca66cb\InheritDocMergingTemplate;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -17,7 +17,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Foo
+class Bar extends \_PhpScopera143bcca66cb\InheritDocMergingTemplate\Foo
 {
     public function doFoo($a, $b)
     {
@@ -29,7 +29,7 @@ class Bar extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Foo
         \PHPStan\Analyser\assertType('array<string>|int', $this->doFoo(1, 'hahaha'));
     }
 }
-class Dolor extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Foo
+class Dolor extends \_PhpScopera143bcca66cb\InheritDocMergingTemplate\Foo
 {
     /**
      * @param T $a
@@ -38,15 +38,15 @@ class Dolor extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Foo
      */
     public function doFoo($a, $b)
     {
-        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\InheritDocMergingTemplate\\T', $a);
-        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\InheritDocMergingTemplate\\U', $b);
+        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocMergingTemplate\\T', $a);
+        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocMergingTemplate\\U', $b);
     }
     public function doBar()
     {
-        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\array<InheritDocMergingTemplate\\U>|InheritDocMergingTemplate\\T', $this->doFoo(1, 'hahaha'));
+        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\array<InheritDocMergingTemplate\\U>|InheritDocMergingTemplate\\T', $this->doFoo(1, 'hahaha'));
     }
 }
-class Sit extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Foo
+class Sit extends \_PhpScopera143bcca66cb\InheritDocMergingTemplate\Foo
 {
     /**
      * @template T
@@ -57,14 +57,14 @@ class Sit extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Foo
     public function doFoo($a, $b)
     {
         \PHPStan\Analyser\assertType('T (method InheritDocMergingTemplate\\Sit::doFoo(), argument)', $a);
-        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\InheritDocMergingTemplate\\U', $b);
+        \PHPStan\Analyser\assertType('_PhpScopera143bcca66cb\\InheritDocMergingTemplate\\U', $b);
     }
     public function doBar()
     {
         \PHPStan\Analyser\assertType('array<InheritDocMergingTemplate\\U>|int', $this->doFoo(1, 'hahaha'));
     }
 }
-class Amet extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Foo
+class Amet extends \_PhpScopera143bcca66cb\InheritDocMergingTemplate\Foo
 {
     /** SomeComment */
     public function doFoo($a, $b)
@@ -89,7 +89,7 @@ class Baz
     {
     }
 }
-class Lorem extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Baz
+class Lorem extends \_PhpScopera143bcca66cb\InheritDocMergingTemplate\Baz
 {
     public function doFoo($a)
     {
@@ -99,7 +99,7 @@ class Lorem extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Baz
 /**
  * @extends Baz<\stdClass>
  */
-class Ipsum extends \_PhpScoper88fe6e0ad041\InheritDocMergingTemplate\Baz
+class Ipsum extends \_PhpScopera143bcca66cb\InheritDocMergingTemplate\Baz
 {
     public function doFoo($a)
     {

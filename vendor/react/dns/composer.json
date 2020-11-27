@@ -43,12 +43,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\React\\Dns\\": "src"
+            "_PhpScopera143bcca66cb\\React\\Dns\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\React\\Tests\\Dns\\": "tests"
+            "_PhpScopera143bcca66cb\\React\\Tests\\Dns\\": "tests"
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\ReturnTypes;
+namespace _PhpScopera143bcca66cb\ReturnTypes;
 
 class FooParent
 {
@@ -28,6 +28,6 @@ class FooParent
 interface FooInterface
 {
 }
-class OtherInterfaceImpl implements \_PhpScoper88fe6e0ad041\ReturnTypes\FooInterface
+class OtherInterfaceImpl implements \_PhpScopera143bcca66cb\ReturnTypes\FooInterface
 {
 }

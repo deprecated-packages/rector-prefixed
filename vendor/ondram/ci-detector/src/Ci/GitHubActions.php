@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci;
+namespace _PhpScopera143bcca66cb\OndraM\CiDetector\Ci;
 
-use _PhpScoper88fe6e0ad041\OndraM\CiDetector\CiDetector;
-use _PhpScoper88fe6e0ad041\OndraM\CiDetector\Env;
-use _PhpScoper88fe6e0ad041\OndraM\CiDetector\TrinaryLogic;
-class GitHubActions extends \_PhpScoper88fe6e0ad041\OndraM\CiDetector\Ci\AbstractCi
+use _PhpScopera143bcca66cb\OndraM\CiDetector\CiDetector;
+use _PhpScopera143bcca66cb\OndraM\CiDetector\Env;
+use _PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic;
+class GitHubActions extends \_PhpScopera143bcca66cb\OndraM\CiDetector\Ci\AbstractCi
 {
     public const GITHUB_BASE_URL = 'https://github.com';
-    public static function isDetected(\_PhpScoper88fe6e0ad041\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_PhpScopera143bcca66cb\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('GITHUB_ACTIONS') !== \false;
     }
     public function getCiName() : string
     {
-        return \_PhpScoper88fe6e0ad041\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS;
+        return \_PhpScopera143bcca66cb\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS;
     }
-    public function isPullRequest() : \_PhpScoper88fe6e0ad041\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic
     {
-        return \_PhpScoper88fe6e0ad041\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('GITHUB_EVENT_NAME') === 'pull_request');
+        return \_PhpScopera143bcca66cb\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('GITHUB_EVENT_NAME') === 'pull_request');
     }
     public function getBuildNumber() : string
     {

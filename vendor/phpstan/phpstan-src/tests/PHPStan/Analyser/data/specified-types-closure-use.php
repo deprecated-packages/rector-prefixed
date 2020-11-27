@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\SpecifiedTypesClosureUse;
+namespace _PhpScopera143bcca66cb\SpecifiedTypesClosureUse;
 
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Socket;
+namespace _PhpScopera143bcca66cb\React\Socket;
 
-use _PhpScoper88fe6e0ad041\Evenement\EventEmitterInterface;
+use _PhpScopera143bcca66cb\Evenement\EventEmitterInterface;
 /**
  * The `ServerInterface` is responsible for providing an interface for accepting
  * incoming streaming connections, such as a normal TCP/IP connection.
@@ -45,7 +45,7 @@ use _PhpScoper88fe6e0ad041\Evenement\EventEmitterInterface;
  *
  * @see ConnectionInterface
  */
-interface ServerInterface extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitterInterface
+interface ServerInterface extends \_PhpScopera143bcca66cb\Evenement\EventEmitterInterface
 {
     /**
      * Returns the full address (URI) this server is currently listening on

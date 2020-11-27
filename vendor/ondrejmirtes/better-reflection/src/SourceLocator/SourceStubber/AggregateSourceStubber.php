@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber;
 
 use function array_merge;
 use function array_reduce;
-class AggregateSourceStubber implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+class AggregateSourceStubber implements \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
 {
     /** @var SourceStubber[] */
     private $sourceStubbers;
-    public function __construct(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $sourceStubber, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber ...$otherSourceStubbers)
+    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $sourceStubber, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber ...$otherSourceStubbers)
     {
         $this->sourceStubbers = \array_merge([$sourceStubber], $otherSourceStubbers);
     }
@@ -22,7 +22,7 @@ class AggregateSourceStubber implements \_PhpScoper88fe6e0ad041\Roave\BetterRefl
         }
         return \false;
     }
-    public function generateClassStub(string $className) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateClassStub(string $className) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         foreach ($this->sourceStubbers as $sourceStubber) {
             $stubData = $sourceStubber->generateClassStub($className);
@@ -32,7 +32,7 @@ class AggregateSourceStubber implements \_PhpScoper88fe6e0ad041\Roave\BetterRefl
         }
         return null;
     }
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateFunctionStub(string $functionName) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         foreach ($this->sourceStubbers as $sourceStubber) {
             $stubData = $sourceStubber->generateFunctionStub($functionName);
@@ -42,9 +42,9 @@ class AggregateSourceStubber implements \_PhpScoper88fe6e0ad041\Roave\BetterRefl
         }
         return null;
     }
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateConstantStub(string $constantName) : ?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
-        return \array_reduce($this->sourceStubbers, static function (?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\StubData $stubData, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $sourceStubber) use($constantName) : ?StubData {
+        return \array_reduce($this->sourceStubbers, static function (?\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\StubData $stubData, \_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $sourceStubber) use($constantName) : ?StubData {
             return $stubData ?? $sourceStubber->generateConstantStub($constantName);
         }, null);
     }

@@ -10,7 +10,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\StringToClassConstant;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
+use _PhpScopera143bcca66cb\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\String_\StringToClassConstantRector\StringToClassConstantRectorTest
  */
@@ -44,7 +44,7 @@ final class SomeSubscriber
     }
 }
 CODE_SAMPLE
-, [self::STRINGS_TO_CLASS_CONSTANTS => [new \Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScoper88fe6e0ad041\\Yet\\AnotherClass', 'CONSTANT')]])]);
+, [self::STRINGS_TO_CLASS_CONSTANTS => [new \Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScopera143bcca66cb\\Yet\\AnotherClass', 'CONSTANT')]])]);
     }
     /**
      * @return string[]
@@ -69,7 +69,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $stringToClassConstants = $configuration[self::STRINGS_TO_CLASS_CONSTANTS] ?? [];
-        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allIsInstanceOf($stringToClassConstants, \Rector\Generic\ValueObject\StringToClassConstant::class);
+        \_PhpScopera143bcca66cb\Webmozart\Assert\Assert::allIsInstanceOf($stringToClassConstants, \Rector\Generic\ValueObject\StringToClassConstant::class);
         $this->stringsToClassConstants = $stringToClassConstants;
     }
 }

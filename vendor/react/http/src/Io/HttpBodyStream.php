@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Http\Io;
+namespace _PhpScopera143bcca66cb\React\Http\Io;
 
-use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
-use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
-use _PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface;
-use _PhpScoper88fe6e0ad041\React\Stream\Util;
-use _PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface;
+use _PhpScopera143bcca66cb\Evenement\EventEmitter;
+use _PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface;
+use _PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface;
+use _PhpScopera143bcca66cb\React\Stream\Util;
+use _PhpScopera143bcca66cb\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Bridge between StreamInterface from PSR-7 and ReadableStreamInterface from ReactPHP
  *
@@ -23,7 +23,7 @@ use _PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface;
  * @see ReadableStreamInterface
  * @internal
  */
-class HttpBodyStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface, \_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface
+class HttpBodyStream extends \_PhpScopera143bcca66cb\Evenement\EventEmitter implements \_PhpScopera143bcca66cb\Psr\Http\Message\StreamInterface, \_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface
 {
     public $input;
     private $closed = \false;
@@ -32,7 +32,7 @@ class HttpBodyStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter impl
      * @param ReadableStreamInterface $input Stream data from $stream as a body of a PSR-7 object4
      * @param int|null $size size of the data body
      */
-    public function __construct(\_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface $input, $size)
+    public function __construct(\_PhpScopera143bcca66cb\React\Stream\ReadableStreamInterface $input, $size)
     {
         $this->input = $input;
         $this->size = $size;
@@ -53,9 +53,9 @@ class HttpBodyStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter impl
     {
         $this->input->resume();
     }
-    public function pipe(\_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScopera143bcca66cb\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper88fe6e0ad041\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScopera143bcca66cb\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

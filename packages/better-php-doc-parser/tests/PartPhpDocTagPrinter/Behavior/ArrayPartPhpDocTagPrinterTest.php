@@ -4,13 +4,13 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior;
 
 use Iterator;
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
 use Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\Source\PhpDocTagNodeWithArrayPrinter;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 /**
  * @see \Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior\ArrayPartPhpDocTagPrinterTrait
  */
-final class ArrayPartPhpDocTagPrinterTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+final class ArrayPartPhpDocTagPrinterTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     /**
      * @var PhpDocTagNodeWithArrayPrinter

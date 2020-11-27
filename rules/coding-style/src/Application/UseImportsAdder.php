@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Application;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Namespace_;
@@ -39,7 +39,12 @@ final class UseImportsAdder
         // place after declare strict_types
         foreach ($stmts as $key => $stmt) {
             if ($stmt instanceof \PhpParser\Node\Stmt\Declare_) {
-                $nodesToAdd = \array_merge([new \PhpParser\Node\Stmt\Nop()], $newUses);
+                if (isset($stmts[$key + 1]) && $stmts[$key + 1] instanceof \PhpParser\Node\Stmt\Use_) {
+                    $nodesToAdd = $newUses;
+                } else {
+                    // add extra space, if there are no new use imports to be added
+                    $nodesToAdd = \array_merge([new \PhpParser\Node\Stmt\Nop()], $newUses);
+                }
                 \array_splice($stmts, $key + 1, 0, $nodesToAdd);
                 return $stmts;
             }
@@ -113,10 +118,10 @@ final class UseImportsAdder
         if ($namespaceName === null) {
             return \false;
         }
-        $afterCurrentNamespace = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::after($objectType->getClassName(), $namespaceName . '\\');
+        $afterCurrentNamespace = \_PhpScopera143bcca66cb\Nette\Utils\Strings::after($objectType->getClassName(), $namespaceName . '\\');
         if (!$afterCurrentNamespace) {
             return \false;
         }
-        return !\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($afterCurrentNamespace, '\\');
+        return !\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($afterCurrentNamespace, '\\');
     }
 }

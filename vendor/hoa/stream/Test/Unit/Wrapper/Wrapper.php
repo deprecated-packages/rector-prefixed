@@ -94,6 +94,6 @@ class Wrapper extends \Hoa\Test\Unit\Suite
     }
     public function case_get_registered_dynamically()
     {
-        $this->given($oldCount = \count(\Hoa\Stream\Wrapper\Wrapper::getRegistered()))->when(\Hoa\Stream\Wrapper\Wrapper::register('foo', \_PhpScoper88fe6e0ad041\StdClass::class), $result = \Hoa\Stream\Wrapper\Wrapper::getRegistered())->then->integer(\count($result))->isEqualTo($oldCount + 1)->when(\Hoa\Stream\Wrapper\Wrapper::unregister('foo'), $result = \Hoa\Stream\Wrapper\Wrapper::getRegistered())->then->integer(\count($result))->isEqualTo($oldCount);
+        $this->given($oldCount = \count(\Hoa\Stream\Wrapper\Wrapper::getRegistered()))->when(\Hoa\Stream\Wrapper\Wrapper::register('foo', \_PhpScopera143bcca66cb\StdClass::class), $result = \Hoa\Stream\Wrapper\Wrapper::getRegistered())->then->integer(\count($result))->isEqualTo($oldCount + 1)->when(\Hoa\Stream\Wrapper\Wrapper::unregister('foo'), $result = \Hoa\Stream\Wrapper\Wrapper::getRegistered())->then->integer(\count($result))->isEqualTo($oldCount);
     }
 }

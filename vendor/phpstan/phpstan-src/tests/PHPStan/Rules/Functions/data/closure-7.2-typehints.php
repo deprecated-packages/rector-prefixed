@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.2
-namespace _PhpScoper88fe6e0ad041\TestClosureFunctionTypehintsPhp72;
+namespace _PhpScopera143bcca66cb\TestClosureFunctionTypehintsPhp72;
 
 function (object $foo) : object {
 };

@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\React\Tests\ChildProcess;
+namespace _PhpScopera143bcca66cb\React\Tests\ChildProcess;
 
-use _PhpScoper88fe6e0ad041\React\EventLoop\ExtLibeventLoop;
-use _PhpScoper88fe6e0ad041\React\EventLoop\LibEventLoop;
-class ExtLibeventLoopProcessTest extends \_PhpScoper88fe6e0ad041\React\Tests\ChildProcess\AbstractProcessTest
+use _PhpScopera143bcca66cb\React\EventLoop\ExtLibeventLoop;
+use _PhpScopera143bcca66cb\React\EventLoop\LibEventLoop;
+class ExtLibeventLoopProcessTest extends \_PhpScopera143bcca66cb\React\Tests\ChildProcess\AbstractProcessTest
 {
     public function createLoop()
     {
         if (!\function_exists('event_base_new')) {
             $this->markTestSkipped('ext-libevent is not installed.');
         }
-        return \class_exists('_PhpScoper88fe6e0ad041\\React\\EventLoop\\ExtLibeventLoop') ? new \_PhpScoper88fe6e0ad041\React\EventLoop\ExtLibeventLoop() : new \_PhpScoper88fe6e0ad041\React\EventLoop\LibEventLoop();
+        return \class_exists('_PhpScopera143bcca66cb\\React\\EventLoop\\ExtLibeventLoop') ? new \_PhpScopera143bcca66cb\React\EventLoop\ExtLibeventLoop() : new \_PhpScopera143bcca66cb\React\EventLoop\LibEventLoop();
     }
 }

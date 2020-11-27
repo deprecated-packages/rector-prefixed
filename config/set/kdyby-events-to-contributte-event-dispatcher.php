@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 use Rector\NetteKdyby\Rector\ClassMethod\ChangeNetteEventNamesInGetSubscribedEventsRector;
 use Rector\NetteKdyby\Rector\ClassMethod\ReplaceMagicEventPropertySubscriberWithEventClassSubscriberRector;
@@ -15,5 +15,5 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->set(\Rector\NetteKdyby\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector::class);
     $services->set(\Rector\NetteKdyby\Rector\ClassMethod\ReplaceMagicEventPropertySubscriberWithEventClassSubscriberRector::class);
     $services->set(\Rector\NetteKdyby\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector::class);
-    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper88fe6e0ad041\\Kdyby\\Events\\Subscriber' => '_PhpScoper88fe6e0ad041\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', '_PhpScoper88fe6e0ad041\\Kdyby\\Events\\EventManager' => '_PhpScoper88fe6e0ad041\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface']]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScopera143bcca66cb\\Kdyby\\Events\\Subscriber' => '_PhpScopera143bcca66cb\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', '_PhpScopera143bcca66cb\\Kdyby\\Events\\EventManager' => '_PhpScopera143bcca66cb\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface']]]);
 };

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector;
+namespace _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector;
 
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionFunction;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function assert;
-class FunctionReflector implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector
+class FunctionReflector implements \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Reflector
 {
     /** @var SourceLocator */
     private $sourceLocator;
     /** @var ClassReflector */
     private $classReflector;
-    public function __construct(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector $classReflector)
+    public function __construct(\_PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\ClassReflector $classReflector)
     {
         $this->sourceLocator = $sourceLocator;
         $this->classReflector = $classReflector;
@@ -28,13 +28,13 @@ class FunctionReflector implements \_PhpScoper88fe6e0ad041\Roave\BetterReflectio
      *
      * @throws IdentifierNotFound
      */
-    public function reflect(string $functionName) : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $functionName) : \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\Reflection
     {
-        $identifier = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier($functionName, new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_FUNCTION));
+        $identifier = new \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\Identifier($functionName, new \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_FUNCTION));
         $functionInfo = $this->sourceLocator->locateIdentifier($this->classReflector, $identifier);
-        \assert($functionInfo instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction || $functionInfo === null);
+        \assert($functionInfo instanceof \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflection\ReflectionFunction || $functionInfo === null);
         if ($functionInfo === null) {
-            throw \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
+            throw \_PhpScopera143bcca66cb\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
         }
         return $functionInfo;
     }
@@ -46,7 +46,7 @@ class FunctionReflector implements \_PhpScoper88fe6e0ad041\Roave\BetterReflectio
     public function getAllFunctions() : array
     {
         /** @var ReflectionFunction[] $allFunctions */
-        $allFunctions = $this->sourceLocator->locateIdentifiersByType($this, new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_FUNCTION));
+        $allFunctions = $this->sourceLocator->locateIdentifiersByType($this, new \_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScopera143bcca66cb\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_FUNCTION));
         return $allFunctions;
     }
 }

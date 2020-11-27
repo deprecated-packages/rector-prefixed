@@ -10,7 +10,7 @@ class AssertRuleHelper
 {
     public static function isMethodOrStaticCallOnAssert(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : bool
     {
-        $testCaseType = new \PHPStan\Type\ObjectType('_PhpScoper88fe6e0ad041\\PHPUnit\\Framework\\Assert');
+        $testCaseType = new \PHPStan\Type\ObjectType('_PhpScopera143bcca66cb\\PHPUnit\\Framework\\Assert');
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             $calledOnType = $scope->getType($node->var);
         } elseif ($node instanceof \PhpParser\Node\Expr\StaticCall) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\LoopVariables;
+namespace _PhpScopera143bcca66cb\LoopVariables;
 
 function () {
     $foo = null;
@@ -9,7 +9,7 @@ function () {
     $falseOrObject = \false;
     while ($val = fetch() && $i++ < 10) {
         'begin';
-        $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Foo();
+        $foo = new \_PhpScopera143bcca66cb\LoopVariables\Foo();
         'afterAssign';
         if ($nullableVal === null) {
             'nullableValIf';
@@ -19,18 +19,18 @@ function () {
             'nullableValElse';
         }
         if ($falseOrObject === \false) {
-            $falseOrObject = new \_PhpScoper88fe6e0ad041\LoopVariables\Foo();
+            $falseOrObject = new \_PhpScopera143bcca66cb\LoopVariables\Foo();
         }
         if (something()) {
-            $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Bar();
+            $foo = new \_PhpScopera143bcca66cb\LoopVariables\Bar();
             break;
         }
         if (something()) {
-            $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Baz();
+            $foo = new \_PhpScopera143bcca66cb\LoopVariables\Baz();
             return;
         }
         if (something()) {
-            $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Lorem();
+            $foo = new \_PhpScopera143bcca66cb\LoopVariables\Lorem();
             continue;
         }
         'end';

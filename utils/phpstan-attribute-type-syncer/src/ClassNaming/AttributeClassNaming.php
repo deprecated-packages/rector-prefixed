@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Utils\PHPStanAttributeTypeSyncer\ClassNaming;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Utils\PHPStanAttributeTypeSyncer\ValueObject\Paths;
 final class AttributeClassNaming
@@ -28,7 +28,7 @@ final class AttributeClassNaming
     }
     public function createAttributeAwareClassName(string $nodeClass) : string
     {
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($nodeClass, '\\Type\\')) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($nodeClass, '\\Type\\')) {
             $namespace = \Rector\Utils\PHPStanAttributeTypeSyncer\ValueObject\Paths::NAMESPACE_TYPE_NODE;
         } else {
             $namespace = \Rector\Utils\PHPStanAttributeTypeSyncer\ValueObject\Paths::NAMESPACE_PHPDOC_NODE;

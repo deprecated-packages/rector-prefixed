@@ -12,13 +12,13 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\Roave\\Signature\\": "src"
+            "_PhpScopera143bcca66cb\\Roave\\Signature\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\Roave\\SignatureTest\\": "test\/unit",
-            "_PhpScoper88fe6e0ad041\\Roave\\SignatureTestFixture\\": "test\/fixture"
+            "_PhpScopera143bcca66cb\\Roave\\SignatureTest\\": "test\/unit",
+            "_PhpScopera143bcca66cb\\Roave\\SignatureTestFixture\\": "test\/fixture"
         }
     },
     "minimum-stability": "dev",

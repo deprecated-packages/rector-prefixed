@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\PHP_CodeSniffer\Sniffs;
+namespace _PhpScopera143bcca66cb\PHP_CodeSniffer\Sniffs;
 
-if (\interface_exists('_PhpScoper88fe6e0ad041\\PHP_CodeSniffer\\Sniffs\\Sniff')) {
+if (\interface_exists('_PhpScopera143bcca66cb\\PHP_CodeSniffer\\Sniffs\\Sniff')) {
     return;
 }
 interface Sniff

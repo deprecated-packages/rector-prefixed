@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 class variant
 {
@@ -8,4 +8,4 @@ class variant
     {
     }
 }
-\class_alias('_PhpScoper88fe6e0ad041\\variant', 'variant', \false);
+\class_alias('_PhpScopera143bcca66cb\\variant', 'variant', \false);

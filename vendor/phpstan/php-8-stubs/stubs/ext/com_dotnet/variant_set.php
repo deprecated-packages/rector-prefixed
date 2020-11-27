@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041;
+namespace _PhpScopera143bcca66cb;
 
 /** @generate-function-entries */
-function variant_set(\_PhpScoper88fe6e0ad041\variant $variant, mixed $value) : void
+function variant_set(\_PhpScopera143bcca66cb\variant $variant, mixed $value) : void
 {
 }

@@ -67,7 +67,7 @@ CODE_SAMPLE
             return null;
         }
         $callerNode = $node instanceof \PhpParser\Node\Expr\StaticCall ? $node->class : $node->var;
-        if (!$this->isObjectType($callerNode, '_PhpScoper88fe6e0ad041\\PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker')) {
+        if (!$this->isObjectType($callerNode, '_PhpScopera143bcca66cb\\PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker')) {
             return null;
         }
         if ($this->isName($node->name, 'with')) {

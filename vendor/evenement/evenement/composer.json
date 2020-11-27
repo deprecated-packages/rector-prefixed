@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\Evenement\\": "src\/Evenement\/"
+            "_PhpScopera143bcca66cb\\Evenement\\": "src\/Evenement\/"
         }
     },
     "autoload-dev": {
@@ -28,7 +28,7 @@
             "tests\/Evenement\/Tests\/functions.php"
         ],
         "psr-4": {
-            "_PhpScoper88fe6e0ad041\\Evenement\\": "tests\/Evenement\/"
+            "_PhpScopera143bcca66cb\\Evenement\\": "tests\/Evenement\/"
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\MethodWithInheritDocWithoutCurlyBraces;
+namespace _PhpScopera143bcca66cb\MethodWithInheritDocWithoutCurlyBraces;
 
 interface FooInterface
 {
@@ -9,7 +9,7 @@ interface FooInterface
      */
     public function doBar($str);
 }
-class Foo implements \_PhpScoper88fe6e0ad041\MethodWithInheritDocWithoutCurlyBraces\FooInterface
+class Foo implements \_PhpScopera143bcca66cb\MethodWithInheritDocWithoutCurlyBraces\FooInterface
 {
     /**
      * @param int $i
@@ -24,7 +24,7 @@ class Foo implements \_PhpScoper88fe6e0ad041\MethodWithInheritDocWithoutCurlyBra
     {
     }
 }
-class Bar extends \_PhpScoper88fe6e0ad041\MethodWithInheritDocWithoutCurlyBraces\Foo
+class Bar extends \_PhpScopera143bcca66cb\MethodWithInheritDocWithoutCurlyBraces\Foo
 {
     /**
      * @inheritDoc
@@ -33,7 +33,7 @@ class Bar extends \_PhpScoper88fe6e0ad041\MethodWithInheritDocWithoutCurlyBraces
     {
     }
 }
-class Baz extends \_PhpScoper88fe6e0ad041\MethodWithInheritDocWithoutCurlyBraces\Bar
+class Baz extends \_PhpScopera143bcca66cb\MethodWithInheritDocWithoutCurlyBraces\Bar
 {
     /**
      * @inheritDoc
@@ -43,7 +43,7 @@ class Baz extends \_PhpScoper88fe6e0ad041\MethodWithInheritDocWithoutCurlyBraces
     }
 }
 function () {
-    $baz = new \_PhpScoper88fe6e0ad041\MethodWithInheritDocWithoutCurlyBraces\Baz();
+    $baz = new \_PhpScopera143bcca66cb\MethodWithInheritDocWithoutCurlyBraces\Baz();
     $baz->doFoo(1);
     $baz->doFoo('1');
     $baz->doBar('1');

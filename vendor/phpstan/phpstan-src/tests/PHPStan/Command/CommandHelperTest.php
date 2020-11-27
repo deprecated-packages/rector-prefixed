@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\StringInput;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\NullOutput;
-use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\StreamOutput;
+use _PhpScopera143bcca66cb\PHPUnit\Framework\TestCase;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Input\StringInput;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\NullOutput;
+use _PhpScopera143bcca66cb\Symfony\Component\Console\Output\StreamOutput;
 use function realpath;
 /**
  * @group exec
  */
-class CommandHelperTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
+class CommandHelperTest extends \_PhpScopera143bcca66cb\PHPUnit\Framework\TestCase
 {
     public function dataBegin() : array
     {
@@ -32,9 +32,9 @@ class CommandHelperTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCa
         if ($resource === \false) {
             throw new \PHPStan\ShouldNotHappenException();
         }
-        $output = new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\StreamOutput($resource);
+        $output = new \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\StreamOutput($resource);
         try {
-            $result = \PHPStan\Command\CommandHelper::begin(new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\StringInput($input), $output, [__DIR__], null, null, null, [], $projectConfigFile, null, $level, \false, \true);
+            $result = \PHPStan\Command\CommandHelper::begin(new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\StringInput($input), $output, [__DIR__], null, null, null, [], $projectConfigFile, null, $level, \false, \true);
             if ($expectException) {
                 $this->fail();
             }
@@ -75,7 +75,7 @@ class CommandHelperTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCa
      */
     public function testResolveRelativePaths(string $configFile, array $expectedParameters) : void
     {
-        $result = \PHPStan\Command\CommandHelper::begin(new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\StringInput(''), new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\NullOutput(), [__DIR__], null, null, null, [], $configFile, null, '0', \false, \true);
+        $result = \PHPStan\Command\CommandHelper::begin(new \_PhpScopera143bcca66cb\Symfony\Component\Console\Input\StringInput(''), new \_PhpScopera143bcca66cb\Symfony\Component\Console\Output\NullOutput(), [__DIR__], null, null, null, [], $configFile, null, '0', \false, \true);
         $parameters = $result->getContainer()->getParameters();
         foreach ($expectedParameters as $name => $expectedValue) {
             $this->assertArrayHasKey($name, $parameters);

@@ -226,19 +226,19 @@ class Stream extends \Hoa\Test\Unit\Suite
     }
     public function case_shutdown_destructor()
     {
-        $this->given($stream = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\Test\Unit\SUTWithPublicClose(__FILE__), $this->calling($stream)->_close = function () use(&$called) {
+        $this->given($stream = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Test\Unit\SUTWithPublicClose(__FILE__), $this->calling($stream)->_close = function () use(&$called) {
             $called = \true;
         })->when($result = \Hoa\Stream\Test\Unit\SUT::_Hoa_Stream())->then->boolean($called)->isTrue();
     }
     public function case_destruct_an_opened_stream()
     {
-        $this->given($stream = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\Test\Unit\SUTWithPublicClose(__FILE__), $this->calling($stream)->_close = function () use(&$called) {
+        $this->given($stream = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Test\Unit\SUTWithPublicClose(__FILE__), $this->calling($stream)->_close = function () use(&$called) {
             $called = \true;
         })->when($result = $stream->__destruct())->then->boolean($called)->isTrue();
     }
     public function case_destruct_a_deferred_stream()
     {
-        $this->given($stream = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\Test\Unit\SUTWithPublicClose(__FILE__, null, \true), $this->calling($stream)->_close = function () use(&$called) {
+        $this->given($stream = new \_PhpScopera143bcca66cb\Mock\Hoa\Stream\Test\Unit\SUTWithPublicClose(__FILE__, null, \true), $this->calling($stream)->_close = function () use(&$called) {
             $called = \true;
         })->when($result = $stream->__destruct())->then->variable($called)->isNull();
     }

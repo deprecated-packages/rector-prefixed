@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\Config;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -61,7 +61,7 @@ final class ConfigFilesystem
         $setFileContents = $setFileInfo->getContents();
         // already added?
         $rectorFqnName = $this->templateFactory->create(self::RECTOR_FQN_NAME_PATTERN, $templateVariables);
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($setFileContents, $rectorFqnName)) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($setFileContents, $rectorFqnName)) {
             return;
         }
         // 1. parse the file

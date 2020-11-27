@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\FileSystem;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use Rector\Core\Exception\FileSystem\DirectoryNotFoundException;
 final class FilesystemTweaker
 {
@@ -18,7 +18,7 @@ final class FilesystemTweaker
         $absoluteDirectories = [];
         foreach ($directories as $directory) {
             // is fnmatch for directories
-            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($directory, '*')) {
+            if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::contains($directory, '*')) {
                 $absoluteDirectories = \array_merge($absoluteDirectories, \glob($directory, \GLOB_ONLYDIR));
             } else {
                 // is classic directory

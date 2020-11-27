@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\File;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 class FileHelper
 {
     /**
@@ -29,14 +29,14 @@ class FileHelper
                 return $path;
             }
         }
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($path, 'phar://')) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::startsWith($path, 'phar://')) {
             return $path;
         }
         return \rtrim($this->getWorkingDirectory(), '/\\') . \DIRECTORY_SEPARATOR . \ltrim($path, '/\\');
     }
     public function normalizePath(string $originalPath, string $directorySeparator = \DIRECTORY_SEPARATOR) : string
     {
-        $matches = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($originalPath, '~^([a-z]+)\\:\\/\\/(.+)~');
+        $matches = \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($originalPath, '~^([a-z]+)\\:\\/\\/(.+)~');
         if ($matches !== null) {
             [, $scheme, $path] = $matches;
         } else {
@@ -44,7 +44,7 @@ class FileHelper
             $path = $originalPath;
         }
         $path = \str_replace('\\', '/', $path);
-        $path = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($path, '~/{2,}~', '/');
+        $path = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($path, '~/{2,}~', '/');
         $pathRoot = \strpos($path, '/') === 0 ? $directorySeparator : '';
         $pathParts = \explode('/', \trim($path, '/'));
         $normalizedPathParts = [];

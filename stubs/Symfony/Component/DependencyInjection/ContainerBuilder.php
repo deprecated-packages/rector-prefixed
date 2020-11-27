@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection;
+namespace _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection;
 
-if (\class_exists('_PhpScoper88fe6e0ad041\\Symfony\\Component\\DependencyInjection\\ContainerBuilder')) {
+if (\class_exists('_PhpScopera143bcca66cb\\Symfony\\Component\\DependencyInjection\\ContainerBuilder')) {
     return;
 }
 class ContainerBuilder

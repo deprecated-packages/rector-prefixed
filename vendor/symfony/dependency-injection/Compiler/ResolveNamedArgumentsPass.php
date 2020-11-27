@@ -8,29 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Compiler;
+namespace _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
-use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Reference;
+use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Definition;
+use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
+use _PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Reference;
 /**
  * Resolves named arguments to their corresponding numeric index.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class ResolveNamedArgumentsPass extends \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveNamedArgumentsPass extends \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     /**
      * {@inheritdoc}
      */
     protected function processValue($value, bool $isRoot = \false)
     {
-        if ($value instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Argument\AbstractArgument && $value->getText() . '.' === $value->getTextWithContext()) {
+        if ($value instanceof \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Argument\AbstractArgument && $value->getText() . '.' === $value->getTextWithContext()) {
             $value->setContext(\sprintf('A value found in service "%s"', $this->currentId));
         }
-        if (!$value instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Definition) {
+        if (!$value instanceof \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);
         }
         $calls = $value->getMethodCalls();
@@ -40,7 +40,7 @@ class ResolveNamedArgumentsPass extends \_PhpScoper88fe6e0ad041\Symfony\Componen
             $parameters = null;
             $resolvedArguments = [];
             foreach ($arguments as $key => $argument) {
-                if ($argument instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Argument\AbstractArgument && $argument->getText() . '.' === $argument->getTextWithContext()) {
+                if ($argument instanceof \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Argument\AbstractArgument && $argument->getText() . '.' === $argument->getTextWithContext()) {
                     $argument->setContext(\sprintf('Argument ' . (\is_int($key) ? 1 + $key : '"%3$s"') . ' of ' . ('__construct' === $method ? 'service "%s"' : 'method call "%s::%s()"'), $this->currentId, $method, $key));
                 }
                 if (\is_int($key)) {
@@ -54,7 +54,7 @@ class ResolveNamedArgumentsPass extends \_PhpScoper88fe6e0ad041\Symfony\Componen
                     $parameters = $r->getParameters();
                 }
                 if (isset($key[0]) && '$' !== $key[0] && !\class_exists($key) && !\interface_exists($key, \false)) {
-                    throw new \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": did you forget to add the "$" prefix to argument "%s"?', $this->currentId, $key));
+                    throw new \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": did you forget to add the "$" prefix to argument "%s"?', $this->currentId, $key));
                 }
                 if (isset($key[0]) && '$' === $key[0]) {
                     foreach ($parameters as $j => $p) {
@@ -69,20 +69,20 @@ class ResolveNamedArgumentsPass extends \_PhpScoper88fe6e0ad041\Symfony\Componen
                             continue 2;
                         }
                     }
-                    throw new \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": method "%s()" has no argument named "%s". Check your service definition.', $this->currentId, $class !== $this->currentId ? $class . '::' . $method : $method, $key));
+                    throw new \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": method "%s()" has no argument named "%s". Check your service definition.', $this->currentId, $class !== $this->currentId ? $class . '::' . $method : $method, $key));
                 }
-                if (null !== $argument && !$argument instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Reference && !$argument instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Definition) {
-                    throw new \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": the value of argument "%s" of method "%s()" must be null, an instance of "%s" or an instance of "%s", "%s" given.', $this->currentId, $key, $class !== $this->currentId ? $class . '::' . $method : $method, \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Reference::class, \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Definition::class, \get_debug_type($argument)));
+                if (null !== $argument && !$argument instanceof \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Reference && !$argument instanceof \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Definition) {
+                    throw new \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": the value of argument "%s" of method "%s()" must be null, an instance of "%s" or an instance of "%s", "%s" given.', $this->currentId, $key, $class !== $this->currentId ? $class . '::' . $method : $method, \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Reference::class, \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Definition::class, \get_debug_type($argument)));
                 }
                 $typeFound = \false;
                 foreach ($parameters as $j => $p) {
-                    if (!\array_key_exists($j, $resolvedArguments) && \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper::getTypeHint($r, $p, \true) === $key) {
+                    if (!\array_key_exists($j, $resolvedArguments) && \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper::getTypeHint($r, $p, \true) === $key) {
                         $resolvedArguments[$j] = $argument;
                         $typeFound = \true;
                     }
                 }
                 if (!$typeFound) {
-                    throw new \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": method "%s()" has no argument type-hinted as "%s". Check your service definition.', $this->currentId, $class !== $this->currentId ? $class . '::' . $method : $method, $key));
+                    throw new \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": method "%s()" has no argument type-hinted as "%s". Check your service definition.', $this->currentId, $class !== $this->currentId ? $class . '::' . $method : $method, $key));
                 }
             }
             if ($resolvedArguments !== $call[1]) {
@@ -98,7 +98,7 @@ class ResolveNamedArgumentsPass extends \_PhpScoper88fe6e0ad041\Symfony\Componen
             $value->setMethodCalls($calls);
         }
         foreach ($value->getProperties() as $key => $argument) {
-            if ($argument instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Argument\AbstractArgument && $argument->getText() . '.' === $argument->getTextWithContext()) {
+            if ($argument instanceof \_PhpScopera143bcca66cb\Symfony\Component\DependencyInjection\Argument\AbstractArgument && $argument->getText() . '.' === $argument->getTextWithContext()) {
                 $argument->setContext(\sprintf('Property "%s" of service "%s"', $key, $this->currentId));
             }
         }

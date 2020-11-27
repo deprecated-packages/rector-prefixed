@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper88fe6e0ad041\Uses;
+namespace _PhpScopera143bcca66cb\Uses;
 
-\define('_PhpScoper88fe6e0ad041\\Uses\\MY_CONSTANT', 1);
+\define('_PhpScopera143bcca66cb\\Uses\\MY_CONSTANT', 1);
 function foo()
 {
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
+use _PhpScopera143bcca66cb\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
@@ -191,8 +191,8 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
             $originalContent = $this->getOriginalContentFromTokenIterator($tokenIterator);
             // we try to match original content without trimmed spaces
             $currentTextPattern = '#' . \preg_quote($possibleMultilineText, '#') . '#s';
-            $currentTextPattern = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($currentTextPattern, '#(\\s)+#', '\\s+');
-            $match = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($originalContent, $currentTextPattern);
+            $currentTextPattern = \_PhpScopera143bcca66cb\Nette\Utils\Strings::replace($currentTextPattern, '#(\\s)+#', '\\s+');
+            $match = \_PhpScopera143bcca66cb\Nette\Utils\Strings::match($originalContent, $currentTextPattern);
             if (isset($match[0])) {
                 $attributeAwareNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::ORIGINAL_CONTENT, $match[0]);
             }
@@ -204,7 +204,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         $tag = $tokenIterator->currentTokenValue();
         $tokenIterator->next();
         // basic annotation
-        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($tag, self::TAG_REGEX)) {
+        if (\_PhpScopera143bcca66cb\Nette\Utils\Strings::match($tag, self::TAG_REGEX)) {
             return $tag;
         }
         // is not e.g "@var "

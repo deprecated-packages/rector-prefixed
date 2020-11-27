@@ -1216,7 +1216,7 @@ services:
             - PHPStan\Reflection\ReflectionProvider
 
     betterReflectionSourceLocator:
-        class: _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+        class: _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\Type\SourceLocator
         factory: @PHPStan\Reflection\BetterReflection\BetterReflectionSourceLocatorFactory::create
         autowired: false
 
@@ -1295,18 +1295,18 @@ services:
         implement: PHPStan\Reflection\BetterReflection\BetterReflectionProviderFactory
 
     187:
-        class: _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
+        class: _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
         arguments:
             phpParser: @php8PhpParser
             phpVersionId: %phpVersion%
 
         autowired:
-            - _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
+            - _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
 
     188:
-        class: _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
+        class: _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
         autowired:
-            - _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
+            - _PhpScopera143bcca66cb\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
 
     php8Lexer:
         class: PhpParser\Lexer\Emulative
