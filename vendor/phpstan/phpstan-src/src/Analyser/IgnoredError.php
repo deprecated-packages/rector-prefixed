@@ -41,10 +41,10 @@ class IgnoredError
         // normalize newlines to allow working with ignore-patterns independent of used OS newline-format
         $errorMessage = $error->getMessage();
         $errorMessage = \str_replace(['\\r\\n', '\\r'], '\\n', $errorMessage);
-        $ignoredErrorPattern = \str_replace([\preg_quote('_PhpScoper006a73f0e455\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
+        $ignoredErrorPattern = \str_replace([\preg_quote('_PhpScoperbd5d0c5f7638\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
         if ($path !== null) {
             $fileExcluder = new \PHPStan\File\FileExcluder($fileHelper, [$path], []);
-            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
+            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
                 return \false;
             }
             $isExcluded = $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
@@ -53,6 +53,6 @@ class IgnoredError
             }
             return $isExcluded;
         }
-        return \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
+        return \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
     }
 }

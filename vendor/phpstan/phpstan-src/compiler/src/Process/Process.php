@@ -8,5 +8,5 @@ interface Process
     /**
      * @return \Symfony\Component\Process\Process<string, string>
      */
-    public function getProcess() : \_PhpScoper006a73f0e455\Symfony\Component\Process\Process;
+    public function getProcess() : \_PhpScoperbd5d0c5f7638\Symfony\Component\Process\Process;
 }

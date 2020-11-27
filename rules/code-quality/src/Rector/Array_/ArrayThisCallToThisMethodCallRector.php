@@ -117,13 +117,7 @@ CODE_SAMPLE
     }
     private function isInsideProperty(\PhpParser\Node\Expr\Array_ $array) : bool
     {
-        $parent = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        while ($parent) {
-            if ($parent instanceof \PhpParser\Node\Stmt\Property) {
-                return \true;
-            }
-            $parent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        }
-        return \false;
+        $parentProperty = $this->betterNodeFinder->findFirstParentInstanceOf($array, [\PhpParser\Node\Stmt\Property::class]);
+        return $parentProperty !== null;
     }
 }

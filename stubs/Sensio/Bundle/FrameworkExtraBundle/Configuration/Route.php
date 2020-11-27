@@ -2,16 +2,16 @@
 
 // mimims: https://github.com/sensiolabs/SensioFrameworkExtraBundle/blob/master/src/Configuration/Route.php
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace _PhpScoperbd5d0c5f7638\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-use _PhpScoper006a73f0e455\Symfony\Component\Routing\Annotation\Route as BaseRoute;
-if (\class_exists('_PhpScoper006a73f0e455\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Routing\Annotation\Route as BaseRoute;
+if (\class_exists('_PhpScoperbd5d0c5f7638\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
     return;
 }
 /**
  * @Annotation
  */
-class Route extends \_PhpScoper006a73f0e455\Symfony\Component\Routing\Annotation\Route
+class Route extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Routing\Annotation\Route
 {
     private $service;
     public function setService($service)

@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\ChildProcess;
+namespace _PhpScoperbd5d0c5f7638\React\ChildProcess;
 
-use _PhpScoper006a73f0e455\Evenement\EventEmitter;
-use _PhpScoper006a73f0e455\React\EventLoop\LoopInterface;
-use _PhpScoper006a73f0e455\React\Stream\ReadableResourceStream;
-use _PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface;
-use _PhpScoper006a73f0e455\React\Stream\WritableResourceStream;
-use _PhpScoper006a73f0e455\React\Stream\WritableStreamInterface;
+use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
+use _PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface;
+use _PhpScoperbd5d0c5f7638\React\Stream\ReadableResourceStream;
+use _PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface;
+use _PhpScoperbd5d0c5f7638\React\Stream\WritableResourceStream;
+use _PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface;
 /**
  * Process component.
  *
@@ -52,7 +52,7 @@ use _PhpScoper006a73f0e455\React\Stream\WritableStreamInterface;
  *     Accordingly, if either of these pipes is in a paused state (`pause()` method
  *     or internally due to a `pipe()` call), this detection may not trigger.
  */
-class Process extends \_PhpScoper006a73f0e455\Evenement\EventEmitter
+class Process extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter
 {
     /**
      * @var WritableStreamInterface|null|ReadableStreamInterface
@@ -142,7 +142,7 @@ class Process extends \_PhpScoper006a73f0e455\Evenement\EventEmitter
      * @param float         $interval    Interval to periodically monitor process state (seconds)
      * @throws \RuntimeException If the process is already running or fails to start
      */
-    public function start(\_PhpScoper006a73f0e455\React\EventLoop\LoopInterface $loop, $interval = 0.1)
+    public function start(\_PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface $loop, $interval = 0.1)
     {
         if ($this->isRunning()) {
             throw new \RuntimeException('Process is already running');
@@ -204,9 +204,9 @@ class Process extends \_PhpScoper006a73f0e455\Evenement\EventEmitter
         }
         foreach ($pipes as $n => $fd) {
             if (\strpos($this->fds[$n][1], 'w') === \false) {
-                $stream = new \_PhpScoper006a73f0e455\React\Stream\WritableResourceStream($fd, $loop);
+                $stream = new \_PhpScoperbd5d0c5f7638\React\Stream\WritableResourceStream($fd, $loop);
             } else {
-                $stream = new \_PhpScoper006a73f0e455\React\Stream\ReadableResourceStream($fd, $loop);
+                $stream = new \_PhpScoperbd5d0c5f7638\React\Stream\ReadableResourceStream($fd, $loop);
                 $stream->on('close', $streamCloseHandler);
                 $closeCount++;
             }

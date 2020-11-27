@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use _PhpScoper006a73f0e455\Nette\DI\Config\Adapter;
-use _PhpScoper006a73f0e455\Nette\DI\Config\Helpers;
-use _PhpScoper006a73f0e455\Nette\DI\Definitions\Reference;
-use _PhpScoper006a73f0e455\Nette\DI\Definitions\Statement;
-use _PhpScoper006a73f0e455\Nette\Neon\Entity;
-use _PhpScoper006a73f0e455\Nette\Neon\Neon;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Config\Adapter;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Config\Helpers;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement;
+use _PhpScoperbd5d0c5f7638\Nette\Neon\Entity;
+use _PhpScoperbd5d0c5f7638\Nette\Neon\Neon;
 use PHPStan\File\FileHelper;
 use PHPStan\File\FileReader;
-class NeonAdapter implements \_PhpScoper006a73f0e455\Nette\DI\Config\Adapter
+class NeonAdapter implements \_PhpScoperbd5d0c5f7638\Nette\DI\Config\Adapter
 {
     public const CACHE_KEY = 'v10';
     private const PREVENT_MERGING_SUFFIX = '!';
@@ -25,9 +25,9 @@ class NeonAdapter implements \_PhpScoper006a73f0e455\Nette\DI\Config\Adapter
     {
         $contents = \PHPStan\File\FileReader::read($file);
         try {
-            return $this->process((array) \_PhpScoper006a73f0e455\Nette\Neon\Neon::decode($contents), '', $file);
-        } catch (\_PhpScoper006a73f0e455\Nette\Neon\Exception $e) {
-            throw new \_PhpScoper006a73f0e455\Nette\Neon\Exception(\sprintf('Error while loading %s: %s', $file, $e->getMessage()));
+            return $this->process((array) \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::decode($contents), '', $file);
+        } catch (\_PhpScoperbd5d0c5f7638\Nette\Neon\Exception $e) {
+            throw new \_PhpScoperbd5d0c5f7638\Nette\Neon\Exception(\sprintf('Error while loading %s: %s', $file, $e->getMessage()));
         }
     }
     /**
@@ -40,10 +40,10 @@ class NeonAdapter implements \_PhpScoper006a73f0e455\Nette\DI\Config\Adapter
         foreach ($arr as $key => $val) {
             if (\is_string($key) && \substr($key, -1) === self::PREVENT_MERGING_SUFFIX) {
                 if (!\is_array($val) && $val !== null) {
-                    throw new \_PhpScoper006a73f0e455\Nette\DI\InvalidConfigurationException(\sprintf('Replacing operator is available only for arrays, item \'%s\' is not array.', $key));
+                    throw new \_PhpScoperbd5d0c5f7638\Nette\DI\InvalidConfigurationException(\sprintf('Replacing operator is available only for arrays, item \'%s\' is not array.', $key));
                 }
                 $key = \substr($key, 0, -1);
-                $val[\_PhpScoper006a73f0e455\Nette\DI\Config\Helpers::PREVENT_MERGING] = \true;
+                $val[\_PhpScoperbd5d0c5f7638\Nette\DI\Config\Helpers::PREVENT_MERGING] = \true;
             }
             if (\is_array($val)) {
                 if (!\is_int($key)) {
@@ -52,21 +52,21 @@ class NeonAdapter implements \_PhpScoper006a73f0e455\Nette\DI\Config\Adapter
                     $fileKeyToPass = $fileKey . '[]';
                 }
                 $val = $this->process($val, $fileKeyToPass, $file);
-            } elseif ($val instanceof \_PhpScoper006a73f0e455\Nette\Neon\Entity) {
+            } elseif ($val instanceof \_PhpScoperbd5d0c5f7638\Nette\Neon\Entity) {
                 if (!\is_int($key)) {
                     $fileKeyToPass = $fileKey . '(' . $key . ')';
                 } else {
                     $fileKeyToPass = $fileKey . '()';
                 }
-                if ($val->value === \_PhpScoper006a73f0e455\Nette\Neon\Neon::CHAIN) {
+                if ($val->value === \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::CHAIN) {
                     $tmp = null;
                     foreach ($this->process($val->attributes, $fileKeyToPass, $file) as $st) {
-                        $tmp = new \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement($tmp === null ? $st->getEntity() : [$tmp, \ltrim(\implode('::', (array) $st->getEntity()), ':')], $st->arguments);
+                        $tmp = new \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement($tmp === null ? $st->getEntity() : [$tmp, \ltrim(\implode('::', (array) $st->getEntity()), ':')], $st->arguments);
                     }
                     $val = $tmp;
                 } else {
                     $tmp = $this->process([$val->value], $fileKeyToPass, $file);
-                    $val = new \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement($tmp[0], $this->process($val->attributes, $fileKeyToPass, $file));
+                    $val = new \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement($tmp[0], $this->process($val->attributes, $fileKeyToPass, $file));
                 }
             }
             $keyToResolve = $fileKey;
@@ -90,35 +90,35 @@ class NeonAdapter implements \_PhpScoper006a73f0e455\Nette\DI\Config\Adapter
     public function dump(array $data) : string
     {
         \array_walk_recursive($data, static function (&$val) : void {
-            if (!$val instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement) {
+            if (!$val instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement) {
                 return;
             }
             $val = self::statementToEntity($val);
         });
-        return "# generated by Nette\n\n" . \_PhpScoper006a73f0e455\Nette\Neon\Neon::encode($data, \_PhpScoper006a73f0e455\Nette\Neon\Neon::BLOCK);
+        return "# generated by Nette\n\n" . \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::encode($data, \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::BLOCK);
     }
-    private static function statementToEntity(\_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement $val) : \_PhpScoper006a73f0e455\Nette\Neon\Entity
+    private static function statementToEntity(\_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement $val) : \_PhpScoperbd5d0c5f7638\Nette\Neon\Entity
     {
         \array_walk_recursive($val->arguments, static function (&$val) : void {
-            if ($val instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement) {
+            if ($val instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement) {
                 $val = self::statementToEntity($val);
-            } elseif ($val instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Reference) {
+            } elseif ($val instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference) {
                 $val = '@' . $val->getValue();
             }
         });
         $entity = $val->getEntity();
-        if ($entity instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Reference) {
+        if ($entity instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference) {
             $entity = '@' . $entity->getValue();
         } elseif (\is_array($entity)) {
-            if ($entity[0] instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement) {
-                return new \_PhpScoper006a73f0e455\Nette\Neon\Entity(\_PhpScoper006a73f0e455\Nette\Neon\Neon::CHAIN, [self::statementToEntity($entity[0]), new \_PhpScoper006a73f0e455\Nette\Neon\Entity('::' . $entity[1], $val->arguments)]);
-            } elseif ($entity[0] instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Reference) {
+            if ($entity[0] instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement) {
+                return new \_PhpScoperbd5d0c5f7638\Nette\Neon\Entity(\_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::CHAIN, [self::statementToEntity($entity[0]), new \_PhpScoperbd5d0c5f7638\Nette\Neon\Entity('::' . $entity[1], $val->arguments)]);
+            } elseif ($entity[0] instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference) {
                 $entity = '@' . $entity[0]->getValue() . '::' . $entity[1];
             } elseif (\is_string($entity[0])) {
                 $entity = $entity[0] . '::' . $entity[1];
             }
         }
-        return new \_PhpScoper006a73f0e455\Nette\Neon\Entity($entity, $val->arguments);
+        return new \_PhpScoperbd5d0c5f7638\Nette\Neon\Entity($entity, $val->arguments);
     }
     private function createFileHelperByFile(string $file) : \PHPStan\File\FileHelper
     {

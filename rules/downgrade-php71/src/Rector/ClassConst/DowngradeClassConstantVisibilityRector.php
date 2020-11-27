@@ -18,7 +18,7 @@ final class DowngradeClassConstantVisibilityRector extends \Rector\DowngradePhp7
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade class constant visibility', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class SomeClass
 {
@@ -26,12 +26,12 @@ class SomeClass
     protected const PROTECTED_CONST = 3;
     private const PRIVATE_CONST = 4;
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class SomeClass
 {
@@ -39,7 +39,7 @@ class SomeClass
     const PROTECTED_CONST = 3;
     const PRIVATE_CONST = 4;
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , [])]);
     }

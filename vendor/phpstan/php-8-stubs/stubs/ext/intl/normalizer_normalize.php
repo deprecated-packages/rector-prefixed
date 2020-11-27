@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /* normalizer */
 function normalizer_normalize(string $string, int $form = \Normalizer::FORM_C) : string|false

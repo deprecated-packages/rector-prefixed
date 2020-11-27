@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imagescale(\_PhpScoper006a73f0e455\GdImage $image, int $width, int $height = -1, int $mode = \IMG_BILINEAR_FIXED) : \GdImage|false
+function imagescale(\_PhpScoperbd5d0c5f7638\GdImage $image, int $width, int $height = -1, int $mode = \IMG_BILINEAR_FIXED) : \GdImage|false
 {
 }

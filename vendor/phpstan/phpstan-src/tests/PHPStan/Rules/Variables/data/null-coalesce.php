@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\CoalesceRule;
+namespace _PhpScoperbd5d0c5f7638\CoalesceRule;
 
 class FooCoalesce
 {
@@ -51,15 +51,15 @@ function coalesce()
     echo $fixedDimArray['dim-empty']['b'] ?? 0;
     echo \rand() ?? 0;
     echo \preg_replace('', '', '') ?? 0;
-    $foo = new \_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce();
+    $foo = new \_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce();
     echo $foo->stringOrNull ?? '';
     echo $foo->string ?? '';
     echo $foo->alwaysNull ?? '';
     echo $foo->fooCoalesce->string ?? '';
     echo $foo->fooCoalesceOrNull->string ?? '';
-    echo \_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce::$staticStringOrNull ?? '';
-    echo \_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce::$staticString ?? '';
-    echo \_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce::$staticAlwaysNull ?? '';
+    echo \_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce::$staticStringOrNull ?? '';
+    echo \_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce::$staticString ?? '';
+    echo \_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce::$staticAlwaysNull ?? '';
 }
 /**
  * @param array<string, int> $array
@@ -75,13 +75,13 @@ function alwaysNullCoalesce(?string $a) : void
     }
 }
 function () : void {
-    echo (new \_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce())->string ?? 'foo';
-    echo (new \_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce())->stringOrNull ?? 'foo';
-    echo (new \_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce())->alwaysNull ?? 'foo';
-    new \_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce() ?? 'foo';
+    echo (new \_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce())->string ?? 'foo';
+    echo (new \_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce())->stringOrNull ?? 'foo';
+    echo (new \_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce())->alwaysNull ?? 'foo';
+    new \_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce() ?? 'foo';
     null ?? 'foo';
 };
-function (\_PhpScoper006a73f0e455\CoalesceRule\FooCoalesce $foo) : void {
+function (\_PhpScoperbd5d0c5f7638\CoalesceRule\FooCoalesce $foo) : void {
     echo $foo::$staticAlwaysNull ?? 'foo';
     echo $foo::$staticString ?? 'foo';
     echo $foo::$staticStringOrNull ?? 'foo';

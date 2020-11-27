@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class PhpToken implements \Stringable
 {
@@ -25,4 +25,4 @@ class PhpToken implements \Stringable
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\PhpToken', 'PhpToken', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\PhpToken', 'PhpToken', \false);

@@ -64,7 +64,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
     {
         $specifiers = \in_array($functionName, ['sprintf', 'printf'], \true) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\\[[^\\]]+\\])';
         $pattern = '~(?<before>%*)%(?:(?<position>\\d+)\\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\\d*(?:\\.\\d*)?' . $specifiers . '~';
-        $matches = \_PhpScoper006a73f0e455\Nette\Utils\Strings::matchAll($format, $pattern, \PREG_SET_ORDER);
+        $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::matchAll($format, $pattern, \PREG_SET_ORDER);
         if (\count($matches) === 0) {
             return 0;
         }

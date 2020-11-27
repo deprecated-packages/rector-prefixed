@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function mb_strcut(string $string, int $start, ?int $length = null, ?string $encoding = null) : string
 {

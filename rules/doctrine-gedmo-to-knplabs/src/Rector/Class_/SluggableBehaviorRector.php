@@ -114,8 +114,8 @@ CODE_SAMPLE
             }
             $this->removeNode($classMethod);
         }
-        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggableTrait');
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SluggableInterface');
+        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoperbd5d0c5f7638\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggableTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbd5d0c5f7638\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SluggableInterface');
         $this->addGetSluggableFieldsClassMethod($node, $slugFields);
         // change the node
         return $node;

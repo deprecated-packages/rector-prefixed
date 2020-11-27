@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function ldap_explode_dn(string $dn, int $with_attrib) : array|false
 {

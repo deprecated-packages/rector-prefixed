@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\RingCentral\Psr7;
+namespace _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
 
 use InvalidArgumentException;
-use _PhpScoper006a73f0e455\Psr\Http\Message\RequestInterface;
-use _PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface;
-use _PhpScoper006a73f0e455\Psr\Http\Message\UriInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\RequestInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\UriInterface;
 /**
  * PSR-7 request implementation.
  */
-class Request extends \_PhpScoper006a73f0e455\RingCentral\Psr7\MessageTrait implements \_PhpScoper006a73f0e455\Psr\Http\Message\RequestInterface
+class Request extends \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MessageTrait implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\RequestInterface
 {
     /** @var string */
     private $method;
@@ -29,9 +29,9 @@ class Request extends \_PhpScoper006a73f0e455\RingCentral\Psr7\MessageTrait impl
     public function __construct($method, $uri, array $headers = array(), $body = null, $protocolVersion = '1.1')
     {
         if (\is_string($uri)) {
-            $uri = new \_PhpScoper006a73f0e455\RingCentral\Psr7\Uri($uri);
-        } elseif (!$uri instanceof \_PhpScoper006a73f0e455\Psr\Http\Message\UriInterface) {
-            throw new \InvalidArgumentException('_PhpScoper006a73f0e455\\URI must be a string or Psr\\Http\\Message\\UriInterface');
+            $uri = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Uri($uri);
+        } elseif (!$uri instanceof \_PhpScoperbd5d0c5f7638\Psr\Http\Message\UriInterface) {
+            throw new \InvalidArgumentException('_PhpScoperbd5d0c5f7638\\URI must be a string or Psr\\Http\\Message\\UriInterface');
         }
         $this->method = \strtoupper($method);
         $this->uri = $uri;
@@ -82,7 +82,7 @@ class Request extends \_PhpScoper006a73f0e455\RingCentral\Psr7\MessageTrait impl
     {
         return $this->uri;
     }
-    public function withUri(\_PhpScoper006a73f0e455\Psr\Http\Message\UriInterface $uri, $preserveHost = \false)
+    public function withUri(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\UriInterface $uri, $preserveHost = \false)
     {
         if ($uri === $this->uri) {
             return $this;

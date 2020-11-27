@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Socket;
+namespace _PhpScoperbd5d0c5f7638\React\Socket;
 
-use _PhpScoper006a73f0e455\React\Dns\Model\Message;
-use _PhpScoper006a73f0e455\React\Dns\Resolver\ResolverInterface;
-use _PhpScoper006a73f0e455\React\EventLoop\LoopInterface;
-use _PhpScoper006a73f0e455\React\EventLoop\TimerInterface;
-use _PhpScoper006a73f0e455\React\Promise;
-use _PhpScoper006a73f0e455\React\Promise\CancellablePromiseInterface;
+use _PhpScoperbd5d0c5f7638\React\Dns\Model\Message;
+use _PhpScoperbd5d0c5f7638\React\Dns\Resolver\ResolverInterface;
+use _PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface;
+use _PhpScoperbd5d0c5f7638\React\EventLoop\TimerInterface;
+use _PhpScoperbd5d0c5f7638\React\Promise;
+use _PhpScoperbd5d0c5f7638\React\Promise\CancellablePromiseInterface;
 /**
  * @internal
  */
@@ -32,7 +32,7 @@ final class HappyEyeBallsConnectionBuilder
     public $resolver;
     public $uri;
     public $host;
-    public $resolved = array(\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_A => \false, \_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_AAAA => \false);
+    public $resolved = array(\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_A => \false, \_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_AAAA => \false);
     public $resolverPromises = array();
     public $connectionPromises = array();
     public $connectQueue = array();
@@ -45,7 +45,7 @@ final class HappyEyeBallsConnectionBuilder
     public $lastErrorFamily;
     public $lastError6;
     public $lastError4;
-    public function __construct(\_PhpScoper006a73f0e455\React\EventLoop\LoopInterface $loop, \_PhpScoper006a73f0e455\React\Socket\ConnectorInterface $connector, \_PhpScoper006a73f0e455\React\Dns\Resolver\ResolverInterface $resolver, $uri, $host, $parts)
+    public function __construct(\_PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface $loop, \_PhpScoperbd5d0c5f7638\React\Socket\ConnectorInterface $connector, \_PhpScoperbd5d0c5f7638\React\Dns\Resolver\ResolverInterface $resolver, $uri, $host, $parts)
     {
         $this->loop = $loop;
         $this->connector = $connector;
@@ -58,7 +58,7 @@ final class HappyEyeBallsConnectionBuilder
     {
         $timer = null;
         $that = $this;
-        return new \_PhpScoper006a73f0e455\React\Promise\Promise(function ($resolve, $reject) use($that, &$timer) {
+        return new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function ($resolve, $reject) use($that, &$timer) {
             $lookupResolve = function ($type) use($that, $resolve, $reject) {
                 return function (array $ips) use($that, $type, $resolve, $reject) {
                     unset($that->resolverPromises[$type]);
@@ -70,28 +70,28 @@ final class HappyEyeBallsConnectionBuilder
                     }
                 };
             };
-            $that->resolverPromises[\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_AAAA] = $that->resolve(\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_AAAA, $reject)->then($lookupResolve(\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_AAAA));
-            $that->resolverPromises[\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_A] = $that->resolve(\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_A, $reject)->then(function (array $ips) use($that, &$timer) {
+            $that->resolverPromises[\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_AAAA] = $that->resolve(\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_AAAA, $reject)->then($lookupResolve(\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_AAAA));
+            $that->resolverPromises[\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_A] = $that->resolve(\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_A, $reject)->then(function (array $ips) use($that, &$timer) {
                 // happy path: IPv6 has resolved already, continue with IPv4 addresses
-                if ($that->resolved[\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_AAAA] === \true) {
+                if ($that->resolved[\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_AAAA] === \true) {
                     return $ips;
                 }
                 // Otherwise delay processing IPv4 lookup until short timer passes or IPv6 resolves in the meantime
-                $deferred = new \_PhpScoper006a73f0e455\React\Promise\Deferred();
+                $deferred = new \_PhpScoperbd5d0c5f7638\React\Promise\Deferred();
                 $timer = $that->loop->addTimer($that::RESOLUTION_DELAY, function () use($deferred, $ips) {
                     $deferred->resolve($ips);
                 });
-                $that->resolverPromises[\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_AAAA]->then(function () use($that, $timer, $deferred, $ips) {
+                $that->resolverPromises[\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_AAAA]->then(function () use($that, $timer, $deferred, $ips) {
                     $that->loop->cancelTimer($timer);
                     $deferred->resolve($ips);
                 });
                 return $deferred->promise();
-            })->then($lookupResolve(\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_A));
+            })->then($lookupResolve(\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_A));
         }, function ($_, $reject) use($that, &$timer) {
             $reject(new \RuntimeException('Connection to ' . $that->uri . ' cancelled' . (!$that->connectionPromises ? ' during DNS lookup' : '')));
             $_ = $reject = null;
             $that->cleanUp();
-            if ($timer instanceof \_PhpScoper006a73f0e455\React\EventLoop\TimerInterface) {
+            if ($timer instanceof \_PhpScoperbd5d0c5f7638\React\EventLoop\TimerInterface) {
                 $that->loop->cancelTimer($timer);
             }
         });
@@ -109,7 +109,7 @@ final class HappyEyeBallsConnectionBuilder
         return $that->resolver->resolveAll($that->host, $type)->then(null, function (\Exception $e) use($type, $reject, $that) {
             unset($that->resolverPromises[$type]);
             $that->resolved[$type] = \true;
-            if ($type === \_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_A) {
+            if ($type === \_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_A) {
                 $that->lastError4 = $e->getMessage();
                 $that->lastErrorFamily = 4;
             } else {
@@ -170,7 +170,7 @@ final class HappyEyeBallsConnectionBuilder
         });
         // Allow next connection attempt in 100ms: https://tools.ietf.org/html/rfc8305#section-5
         // Only start timer when more IPs are queued or when DNS query is still pending (might add more IPs)
-        if ($this->nextAttemptTimer === null && (\count($this->connectQueue) > 0 || $this->resolved[\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_A] === \false || $this->resolved[\_PhpScoper006a73f0e455\React\Dns\Model\Message::TYPE_AAAA] === \false)) {
+        if ($this->nextAttemptTimer === null && (\count($this->connectQueue) > 0 || $this->resolved[\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_A] === \false || $this->resolved[\_PhpScoperbd5d0c5f7638\React\Dns\Model\Message::TYPE_AAAA] === \false)) {
             $this->nextAttemptTimer = $this->loop->addTimer(self::CONNECTION_ATTEMPT_DELAY, function () use($that, $resolve, $reject) {
                 $that->nextAttemptTimer = null;
                 if ($that->connectQueue) {
@@ -228,16 +228,16 @@ final class HappyEyeBallsConnectionBuilder
         // clear list of outstanding IPs to avoid creating new connections
         $this->connectQueue = array();
         foreach ($this->connectionPromises as $connectionPromise) {
-            if ($connectionPromise instanceof \_PhpScoper006a73f0e455\React\Promise\CancellablePromiseInterface) {
+            if ($connectionPromise instanceof \_PhpScoperbd5d0c5f7638\React\Promise\CancellablePromiseInterface) {
                 $connectionPromise->cancel();
             }
         }
         foreach ($this->resolverPromises as $resolverPromise) {
-            if ($resolverPromise instanceof \_PhpScoper006a73f0e455\React\Promise\CancellablePromiseInterface) {
+            if ($resolverPromise instanceof \_PhpScoperbd5d0c5f7638\React\Promise\CancellablePromiseInterface) {
                 $resolverPromise->cancel();
             }
         }
-        if ($this->nextAttemptTimer instanceof \_PhpScoper006a73f0e455\React\EventLoop\TimerInterface) {
+        if ($this->nextAttemptTimer instanceof \_PhpScoperbd5d0c5f7638\React\EventLoop\TimerInterface) {
             $this->loop->cancelTimer($this->nextAttemptTimer);
             $this->nextAttemptTimer = null;
         }

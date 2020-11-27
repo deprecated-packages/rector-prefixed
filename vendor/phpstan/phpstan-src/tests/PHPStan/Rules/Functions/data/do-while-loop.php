@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\CallToFunctionDoWhileLoop;
+namespace _PhpScoperbd5d0c5f7638\CallToFunctionDoWhileLoop;
 
 function requireStdClass(\stdClass $object)
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug1216PropertyTest;
+namespace _PhpScoperbd5d0c5f7638\Bug1216PropertyTest;
 
 abstract class Foo
 {
@@ -22,7 +22,7 @@ trait Bar
  * @property string $bar
  * @property string $untypedBar
  */
-class Baz extends \_PhpScoper006a73f0e455\Bug1216PropertyTest\Foo
+class Baz extends \_PhpScoperbd5d0c5f7638\Bug1216PropertyTest\Foo
 {
     public function __construct()
     {
@@ -46,9 +46,9 @@ class Dummy
 {
     use DecoratorTrait;
 }
-function (\_PhpScoper006a73f0e455\Bug1216PropertyTest\Dummy $dummy) : void {
+function (\_PhpScoperbd5d0c5f7638\Bug1216PropertyTest\Dummy $dummy) : void {
     $dummy->foo = new \stdClass();
 };
-function (\_PhpScoper006a73f0e455\Bug1216PropertyTest\Dummy $dummy) : void {
+function (\_PhpScoperbd5d0c5f7638\Bug1216PropertyTest\Dummy $dummy) : void {
     $dummy->foo = new \Exception();
 };

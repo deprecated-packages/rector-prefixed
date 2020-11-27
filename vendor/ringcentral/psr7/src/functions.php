@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\RingCentral\Psr7;
+namespace _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
 
-use _PhpScoper006a73f0e455\Psr\Http\Message\MessageInterface;
-use _PhpScoper006a73f0e455\Psr\Http\Message\RequestInterface;
-use _PhpScoper006a73f0e455\Psr\Http\Message\ResponseInterface;
-use _PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface;
-use _PhpScoper006a73f0e455\Psr\Http\Message\UriInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\MessageInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\RequestInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\ResponseInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\UriInterface;
 // Manually define missing constants for PHP 5.3
 \defined('PHP_QUERY_RFC1738') or \define('PHP_QUERY_RFC1738', 1);
 \defined('PHP_QUERY_RFC3986') or \define('PHP_QUERY_RFC3986', 2);
@@ -17,14 +17,14 @@ use _PhpScoper006a73f0e455\Psr\Http\Message\UriInterface;
  *
  * @return string
  */
-function str(\_PhpScoper006a73f0e455\Psr\Http\Message\MessageInterface $message)
+function str(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\MessageInterface $message)
 {
-    if ($message instanceof \_PhpScoper006a73f0e455\Psr\Http\Message\RequestInterface) {
+    if ($message instanceof \_PhpScoperbd5d0c5f7638\Psr\Http\Message\RequestInterface) {
         $msg = \trim($message->getMethod() . ' ' . $message->getRequestTarget()) . ' HTTP/' . $message->getProtocolVersion();
         if (!$message->hasHeader('host')) {
             $msg .= "\r\nHost: " . $message->getUri()->getHost();
         }
-    } elseif ($message instanceof \_PhpScoper006a73f0e455\Psr\Http\Message\ResponseInterface) {
+    } elseif ($message instanceof \_PhpScoperbd5d0c5f7638\Psr\Http\Message\ResponseInterface) {
         $msg = 'HTTP/' . $message->getProtocolVersion() . ' ' . $message->getStatusCode() . ' ' . $message->getReasonPhrase();
     } else {
         throw new \InvalidArgumentException('Unknown message type');
@@ -48,10 +48,10 @@ function str(\_PhpScoper006a73f0e455\Psr\Http\Message\MessageInterface $message)
  */
 function uri_for($uri)
 {
-    if ($uri instanceof \_PhpScoper006a73f0e455\Psr\Http\Message\UriInterface) {
+    if ($uri instanceof \_PhpScoperbd5d0c5f7638\Psr\Http\Message\UriInterface) {
         return $uri;
     } elseif (\is_string($uri)) {
-        return new \_PhpScoper006a73f0e455\RingCentral\Psr7\Uri($uri);
+        return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Uri($uri);
     }
     throw new \InvalidArgumentException('URI must be a string or UriInterface');
 }
@@ -77,14 +77,14 @@ function stream_for($resource = '', array $options = array())
                 \fwrite($stream, $resource);
                 \fseek($stream, 0);
             }
-            return new \_PhpScoper006a73f0e455\RingCentral\Psr7\Stream($stream, $options);
+            return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Stream($stream, $options);
         case 'resource':
-            return new \_PhpScoper006a73f0e455\RingCentral\Psr7\Stream($resource, $options);
+            return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Stream($resource, $options);
         case 'object':
-            if ($resource instanceof \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface) {
+            if ($resource instanceof \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface) {
                 return $resource;
             } elseif ($resource instanceof \Iterator) {
-                return new \_PhpScoper006a73f0e455\RingCentral\Psr7\PumpStream(function () use($resource) {
+                return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\PumpStream(function () use($resource) {
                     if (!$resource->valid()) {
                         return \false;
                     }
@@ -97,10 +97,10 @@ function stream_for($resource = '', array $options = array())
             }
             break;
         case 'NULL':
-            return new \_PhpScoper006a73f0e455\RingCentral\Psr7\Stream(\fopen('php://temp', 'r+'), $options);
+            return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Stream(\fopen('php://temp', 'r+'), $options);
     }
     if (\is_callable($resource)) {
-        return new \_PhpScoper006a73f0e455\RingCentral\Psr7\PumpStream($resource, $options);
+        return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\PumpStream($resource, $options);
     }
     throw new \InvalidArgumentException('Invalid resource type: ' . \gettype($resource));
 }
@@ -180,7 +180,7 @@ function normalize_header($header)
  *
  * @return RequestInterface
  */
-function modify_request(\_PhpScoper006a73f0e455\Psr\Http\Message\RequestInterface $request, array $changes)
+function modify_request(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\RequestInterface $request, array $changes)
 {
     if (!$changes) {
         return $request;
@@ -205,7 +205,7 @@ function modify_request(\_PhpScoper006a73f0e455\Psr\Http\Message\RequestInterfac
     if (isset($changes['query'])) {
         $uri = $uri->withQuery($changes['query']);
     }
-    return new \_PhpScoper006a73f0e455\RingCentral\Psr7\Request(isset($changes['method']) ? $changes['method'] : $request->getMethod(), $uri, $headers, isset($changes['body']) ? $changes['body'] : $request->getBody(), isset($changes['version']) ? $changes['version'] : $request->getProtocolVersion());
+    return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Request(isset($changes['method']) ? $changes['method'] : $request->getMethod(), $uri, $headers, isset($changes['body']) ? $changes['body'] : $request->getBody(), isset($changes['version']) ? $changes['version'] : $request->getProtocolVersion());
 }
 /**
  * Attempts to rewind a message body and throws an exception on failure.
@@ -217,7 +217,7 @@ function modify_request(\_PhpScoper006a73f0e455\Psr\Http\Message\RequestInterfac
  *
  * @throws \RuntimeException
  */
-function rewind_body(\_PhpScoper006a73f0e455\Psr\Http\Message\MessageInterface $message)
+function rewind_body(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\MessageInterface $message)
 {
     $body = $message->getBody();
     if ($body->tell()) {
@@ -261,7 +261,7 @@ function try_fopen($filename, $mode)
  * @return string
  * @throws \RuntimeException on error.
  */
-function copy_to_string(\_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface $stream, $maxLen = -1)
+function copy_to_string(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $stream, $maxLen = -1)
 {
     $buffer = '';
     if ($maxLen === -1) {
@@ -298,7 +298,7 @@ function copy_to_string(\_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface
  *
  * @throws \RuntimeException on error.
  */
-function copy_to_stream(\_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface $source, \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface $dest, $maxLen = -1)
+function copy_to_stream(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $source, \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $dest, $maxLen = -1)
 {
     if ($maxLen === -1) {
         while (!$source->eof()) {
@@ -331,7 +331,7 @@ function copy_to_stream(\_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface
  * @return string Returns the hash of the stream
  * @throws \RuntimeException on error.
  */
-function hash(\_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface $stream, $algo, $rawOutput = \false)
+function hash(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $stream, $algo, $rawOutput = \false)
 {
     $pos = $stream->tell();
     if ($pos > 0) {
@@ -353,7 +353,7 @@ function hash(\_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface $stream, 
  *
  * @return string|bool
  */
-function readline(\_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface $stream, $maxLength = null)
+function readline(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $stream, $maxLength = null)
 {
     $buffer = '';
     $size = 0;
@@ -387,7 +387,7 @@ function parse_request($message)
     $parts = \explode(' ', $data['start-line'], 3);
     $subParts = isset($parts[2]) ? \explode('/', $parts[2]) : array();
     $version = isset($parts[2]) ? $subParts[1] : '1.1';
-    $request = new \_PhpScoper006a73f0e455\RingCentral\Psr7\Request($parts[0], $matches[1] === '/' ? _parse_request_uri($parts[1], $data['headers']) : $parts[1], $data['headers'], $data['body'], $version);
+    $request = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Request($parts[0], $matches[1] === '/' ? _parse_request_uri($parts[1], $data['headers']) : $parts[1], $data['headers'], $data['body'], $version);
     return $matches[1] === '/' ? $request : $request->withRequestTarget($parts[1]);
 }
 /**
@@ -402,7 +402,7 @@ function parse_request($message)
 function parse_server_request($message, array $serverParams = array())
 {
     $request = parse_request($message);
-    return new \_PhpScoper006a73f0e455\RingCentral\Psr7\ServerRequest($request->getMethod(), $request->getUri(), $request->getHeaders(), $request->getBody(), $request->getProtocolVersion(), $serverParams);
+    return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\ServerRequest($request->getMethod(), $request->getUri(), $request->getHeaders(), $request->getBody(), $request->getProtocolVersion(), $serverParams);
 }
 /**
  * Parses a response message string into a response object.
@@ -422,7 +422,7 @@ function parse_response($message)
     }
     $parts = \explode(' ', $data['start-line'], 3);
     $subParts = \explode('/', $parts[0]);
-    return new \_PhpScoper006a73f0e455\RingCentral\Psr7\Response($parts[1], $data['headers'], $data['body'], $subParts[1], isset($parts[2]) ? $parts[2] : null);
+    return new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Response($parts[1], $data['headers'], $data['body'], $subParts[1], isset($parts[2]) ? $parts[2] : null);
 }
 /**
  * Parse a query string into an associative array.

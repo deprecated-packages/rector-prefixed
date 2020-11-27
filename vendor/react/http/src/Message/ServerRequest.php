@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Http\Message;
+namespace _PhpScoperbd5d0c5f7638\React\Http\Message;
 
-use _PhpScoper006a73f0e455\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface;
-use _PhpScoper006a73f0e455\Psr\Http\Message\UriInterface;
-use _PhpScoper006a73f0e455\React\Http\Io\HttpBodyStream;
-use _PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface;
-use _PhpScoper006a73f0e455\RingCentral\Psr7\Request;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\UriInterface;
+use _PhpScoperbd5d0c5f7638\React\Http\Io\HttpBodyStream;
+use _PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface;
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\Request;
 /**
  * Respresents an incoming server request message.
  *
@@ -28,7 +28,7 @@ use _PhpScoper006a73f0e455\RingCentral\Psr7\Request;
  *
  * @see ServerRequestInterface
  */
-final class ServerRequest extends \_PhpScoper006a73f0e455\RingCentral\Psr7\Request implements \_PhpScoper006a73f0e455\Psr\Http\Message\ServerRequestInterface
+final class ServerRequest extends \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Request implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\ServerRequestInterface
 {
     private $attributes = array();
     private $serverParams;
@@ -48,10 +48,10 @@ final class ServerRequest extends \_PhpScoper006a73f0e455\RingCentral\Psr7\Reque
     public function __construct($method, $url, array $headers = array(), $body = '', $version = '1.1', $serverParams = array())
     {
         $stream = null;
-        if ($body instanceof \_PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface && !$body instanceof \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface) {
+        if ($body instanceof \_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface && !$body instanceof \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface) {
             $stream = $body;
             $body = null;
-        } elseif (!\is_string($body) && !$body instanceof \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface) {
+        } elseif (!\is_string($body) && !$body instanceof \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface) {
             throw new \InvalidArgumentException('Invalid server request body given');
         }
         $this->serverParams = $serverParams;
@@ -61,7 +61,7 @@ final class ServerRequest extends \_PhpScoper006a73f0e455\RingCentral\Psr7\Reque
             if (\strtolower($this->getHeaderLine('Transfer-Encoding')) === 'chunked') {
                 $size = null;
             }
-            $this->stream = new \_PhpScoper006a73f0e455\React\Http\Io\HttpBodyStream($stream, $size);
+            $this->stream = new \_PhpScoperbd5d0c5f7638\React\Http\Io\HttpBodyStream($stream, $size);
         }
         $query = $this->getUri()->getQuery();
         if ($query !== '') {

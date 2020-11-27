@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Session\SessionInterface;
 final class SelfContainerMethodCallCollector
 {
     /**
@@ -57,6 +57,6 @@ final class SelfContainerMethodCallCollector
     }
     private function shouldSkipServiceType(string $serviceType) : bool
     {
-        return $serviceType === \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Session\SessionInterface::class;
+        return $serviceType === \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Session\SessionInterface::class;
     }
 }

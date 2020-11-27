@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Cache;
+namespace _PhpScoperbd5d0c5f7638\React\Cache;
 
-use _PhpScoper006a73f0e455\React\Promise\PromiseInterface;
+use _PhpScoperbd5d0c5f7638\React\Promise\PromiseInterface;
 interface CacheInterface
 {
     /**

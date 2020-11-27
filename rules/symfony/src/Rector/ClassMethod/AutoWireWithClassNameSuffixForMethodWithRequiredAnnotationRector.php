@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Rector\ClassMethod;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -59,7 +59,7 @@ CODE_SAMPLE
         if ($docComment === null) {
             return null;
         }
-        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($docComment->getText(), self::REQUIRED_DOCBLOCK_REGEX)) {
+        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($docComment->getText(), self::REQUIRED_DOCBLOCK_REGEX)) {
             return null;
         }
         $classShortName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME);

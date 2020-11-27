@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\InheritDocMergingVar;
+namespace _PhpScoperbd5d0c5f7638\InheritDocMergingVar;
 
 use function PHPStan\Analyser\assertType;
 class A
 {
 }
-class B extends \_PhpScoper006a73f0e455\InheritDocMergingVar\A
+class B extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\A
 {
 }
 class One
@@ -16,51 +16,51 @@ class One
     protected $property;
     public function method() : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingVar\\A', $this->property);
+        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingVar\\A', $this->property);
     }
 }
-class Two extends \_PhpScoper006a73f0e455\InheritDocMergingVar\One
+class Two extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\One
 {
     /** @var B */
     protected $property;
     public function method() : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingVar\\B', $this->property);
+        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingVar\\B', $this->property);
     }
 }
-class Three extends \_PhpScoper006a73f0e455\InheritDocMergingVar\Two
+class Three extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\Two
 {
     /** Some comment */
     protected $property;
     public function method() : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingVar\\B', $this->property);
+        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingVar\\B', $this->property);
     }
 }
-class Four extends \_PhpScoper006a73f0e455\InheritDocMergingVar\Three
+class Four extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\Three
 {
     protected $property;
     public function method() : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingVar\\B', $this->property);
+        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingVar\\B', $this->property);
     }
 }
-class Five extends \_PhpScoper006a73f0e455\InheritDocMergingVar\Four
+class Five extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\Four
 {
     public function method() : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingVar\\B', $this->property);
+        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingVar\\B', $this->property);
     }
 }
-class Six extends \_PhpScoper006a73f0e455\InheritDocMergingVar\Five
+class Six extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\Five
 {
     protected $property;
     public function method() : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingVar\\B', $this->property);
+        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingVar\\B', $this->property);
     }
 }
-class Seven extends \_PhpScoper006a73f0e455\InheritDocMergingVar\One
+class Seven extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\One
 {
     /**
      * @inheritDoc
@@ -76,7 +76,7 @@ class ClassWithTemplate
     /** @var T */
     protected $prop;
 }
-class ChildClassExtendingClassWithTemplate extends \_PhpScoper006a73f0e455\InheritDocMergingVar\ClassWithTemplate
+class ChildClassExtendingClassWithTemplate extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\ClassWithTemplate
 {
     protected $prop;
     public function doFoo()
@@ -87,7 +87,7 @@ class ChildClassExtendingClassWithTemplate extends \_PhpScoper006a73f0e455\Inher
 /**
  * @extends ClassWithTemplate<\stdClass>
  */
-class ChildClass2ExtendingClassWithTemplate extends \_PhpScoper006a73f0e455\InheritDocMergingVar\ClassWithTemplate
+class ChildClass2ExtendingClassWithTemplate extends \_PhpScoperbd5d0c5f7638\InheritDocMergingVar\ClassWithTemplate
 {
     /** someComment */
     protected $prop;

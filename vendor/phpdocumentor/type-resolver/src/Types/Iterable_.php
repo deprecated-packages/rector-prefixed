@@ -9,14 +9,14 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\Types;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types;
 
 /**
  * Value Object representing iterable type
  *
  * @psalm-immutable
  */
-final class Iterable_ extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\AbstractList
+final class Iterable_ extends \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\AbstractList
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.
@@ -26,7 +26,7 @@ final class Iterable_ extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\T
         if ($this->keyType) {
             return 'iterable<' . $this->keyType . ',' . $this->valueType . '>';
         }
-        if ($this->valueType instanceof \_PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\Mixed_) {
+        if ($this->valueType instanceof \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Mixed_) {
             return 'iterable';
         }
         return 'iterable<' . $this->valueType . '>';

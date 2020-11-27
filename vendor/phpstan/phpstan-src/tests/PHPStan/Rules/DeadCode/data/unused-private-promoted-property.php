@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper006a73f0e455\UnusedPrivatePromotedProperty;
+namespace _PhpScoperbd5d0c5f7638\UnusedPrivatePromotedProperty;
 
 class Foo
 {

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI\Definitions;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI\Definitions;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * Definition used by ContainerBuilder.
  */
@@ -31,7 +31,7 @@ abstract class Definition
     public final function setName(string $name)
     {
         if ($this->name) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidStateException('Name already has been set.');
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException('Name already has been set.');
         }
         $this->name = $name;
         return $this;
@@ -49,9 +49,9 @@ abstract class Definition
         if ($type === null) {
             $this->type = null;
         } elseif (!\class_exists($type) && !\interface_exists($type)) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidArgumentException("Service '{$this->name}': Class or interface '{$type}' not found.");
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException("Service '{$this->name}': Class or interface '{$type}' not found.");
         } else {
-            $this->type = \_PhpScoper006a73f0e455\Nette\DI\Helpers::normalizeClass($type);
+            $this->type = \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::normalizeClass($type);
         }
         return $this;
     }
@@ -114,9 +114,9 @@ abstract class Definition
         $this->notifier = $this->name = null;
     }
     /********************* life cycle ****************d*g**/
-    public abstract function resolveType(\_PhpScoper006a73f0e455\Nette\DI\Resolver $resolver) : void;
-    public abstract function complete(\_PhpScoper006a73f0e455\Nette\DI\Resolver $resolver) : void;
-    public abstract function generateMethod(\_PhpScoper006a73f0e455\Nette\PhpGenerator\Method $method, \_PhpScoper006a73f0e455\Nette\DI\PhpGenerator $generator) : void;
+    public abstract function resolveType(\_PhpScoperbd5d0c5f7638\Nette\DI\Resolver $resolver) : void;
+    public abstract function complete(\_PhpScoperbd5d0c5f7638\Nette\DI\Resolver $resolver) : void;
+    public abstract function generateMethod(\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Method $method, \_PhpScoperbd5d0c5f7638\Nette\DI\PhpGenerator $generator) : void;
     public final function setNotifier(?callable $notifier) : void
     {
         $this->notifier = $notifier;

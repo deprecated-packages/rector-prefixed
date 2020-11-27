@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\BinaryOperations\NestedNamespace;
+namespace _PhpScoperbd5d0c5f7638\BinaryOperations\NestedNamespace;
 
 class Foo
 {
@@ -19,7 +19,7 @@ class Foo
         /** @var string|null $stringOrNull */
         $stringOrNull = doFoo();
         $arrayOfIntegers = [$integer, $integer + 1, $integer + 2];
-        $foo = new \_PhpScoper006a73f0e455\BinaryOperations\NestedNamespace\Foo();
+        $foo = new \_PhpScoperbd5d0c5f7638\BinaryOperations\NestedNamespace\Foo();
         $one = 1;
         $array = [1, 2, 3];
         \reset($array);

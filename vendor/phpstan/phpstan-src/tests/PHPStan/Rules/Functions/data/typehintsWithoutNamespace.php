@@ -1,21 +1,21 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class FooFunctionTypehints
 {
 }
-\class_alias('_PhpScoper006a73f0e455\\FooFunctionTypehints', 'FooFunctionTypehints', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\FooFunctionTypehints', 'FooFunctionTypehints', \false);
 trait SomeTraitWithoutNamespace
 {
 }
-function fooWithoutNamespace(\_PhpScoper006a73f0e455\FooFunctionTypehints $foo, $bar, array $lorem) : \_PhpScoper006a73f0e455\NonexistentClass
+function fooWithoutNamespace(\_PhpScoperbd5d0c5f7638\FooFunctionTypehints $foo, $bar, array $lorem) : \_PhpScoperbd5d0c5f7638\NonexistentClass
 {
 }
-function barWithoutNamespace(\_PhpScoper006a73f0e455\BarFunctionTypehints $bar) : array
+function barWithoutNamespace(\_PhpScoperbd5d0c5f7638\BarFunctionTypehints $bar) : array
 {
 }
-function bazWithoutNamespace(...$bar) : \_PhpScoper006a73f0e455\FooFunctionTypehints
+function bazWithoutNamespace(...$bar) : \_PhpScoperbd5d0c5f7638\FooFunctionTypehints
 {
 }
 /**
@@ -24,24 +24,24 @@ function bazWithoutNamespace(...$bar) : \_PhpScoper006a73f0e455\FooFunctionTypeh
 function returnParentWithoutNamespace()
 {
 }
-function badCaseTypehintsWithoutNamespace(\_PhpScoper006a73f0e455\fOOFunctionTypehints $foo) : \_PhpScoper006a73f0e455\fOOFunctionTypehintS
+function badCaseTypehintsWithoutNamespace(\_PhpScoperbd5d0c5f7638\fOOFunctionTypehints $foo) : \_PhpScoperbd5d0c5f7638\fOOFunctionTypehintS
 {
 }
 /**
  * @param FOOFunctionTypehints $foo
  * @return FOOFunctionTypehints
  */
-function badCaseInNativeAndPhpDocWithoutNamespace(\_PhpScoper006a73f0e455\FooFunctionTypehints $foo) : \_PhpScoper006a73f0e455\FooFunctionTypehints
+function badCaseInNativeAndPhpDocWithoutNamespace(\_PhpScoperbd5d0c5f7638\FooFunctionTypehints $foo) : \_PhpScoperbd5d0c5f7638\FooFunctionTypehints
 {
 }
 /**
  * @param FooFunctionTypehints $foo
  * @return FooFunctionTypehints
  */
-function anotherBadCaseInNativeAndPhpDocWithoutNamespace(\_PhpScoper006a73f0e455\FOOFunctionTypehints $foo) : \_PhpScoper006a73f0e455\FOOFunctionTypehints
+function anotherBadCaseInNativeAndPhpDocWithoutNamespace(\_PhpScoperbd5d0c5f7638\FOOFunctionTypehints $foo) : \_PhpScoperbd5d0c5f7638\FOOFunctionTypehints
 {
 }
-function referencesTraitsInNativeWithoutNamespace(\_PhpScoper006a73f0e455\SomeTraitWithoutNamespace $trait) : \_PhpScoper006a73f0e455\SomeTraitWithoutNamespace
+function referencesTraitsInNativeWithoutNamespace(\_PhpScoperbd5d0c5f7638\SomeTraitWithoutNamespace $trait) : \_PhpScoperbd5d0c5f7638\SomeTraitWithoutNamespace
 {
 }
 /**

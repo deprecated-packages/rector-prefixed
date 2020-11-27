@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Socket;
+namespace _PhpScoperbd5d0c5f7638\React\Socket;
 
-use _PhpScoper006a73f0e455\React\Stream\DuplexStreamInterface;
+use _PhpScoperbd5d0c5f7638\React\Stream\DuplexStreamInterface;
 /**
  * Any incoming and outgoing connection is represented by this interface,
  * such as a normal TCP/IP connection.
@@ -51,7 +51,7 @@ use _PhpScoper006a73f0e455\React\Stream\DuplexStreamInterface;
  * @see ServerInterface
  * @see ConnectorInterface
  */
-interface ConnectionInterface extends \_PhpScoper006a73f0e455\React\Stream\DuplexStreamInterface
+interface ConnectionInterface extends \_PhpScoperbd5d0c5f7638\React\Stream\DuplexStreamInterface
 {
     /**
      * Returns the full remote address (URI) where this connection has been established with

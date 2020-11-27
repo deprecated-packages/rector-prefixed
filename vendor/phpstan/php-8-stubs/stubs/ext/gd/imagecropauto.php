@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imagecropauto(\_PhpScoper006a73f0e455\GdImage $image, int $mode = \IMG_CROP_DEFAULT, float $threshold = 0.5, int $color = -1) : \GdImage|false
+function imagecropauto(\_PhpScoperbd5d0c5f7638\GdImage $image, int $mode = \IMG_CROP_DEFAULT, float $threshold = 0.5, int $color = -1) : \GdImage|false
 {
 }

@@ -150,7 +150,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
     public function testGenericFunction() : void
     {
         require_once __DIR__ . '/data/call-generic-function.php';
-        $this->analyse([__DIR__ . '/data/call-generic-function.php'], [['_PhpScoper006a73f0e455\\Unable to resolve the template type A in call to function CallGenericFunction\\f', 15], ['_PhpScoper006a73f0e455\\Unable to resolve the template type B in call to function CallGenericFunction\\f', 15], ['Parameter #1 $a of function CallGenericFunction\\g expects DateTime, DateTimeImmutable given.', 26], ['_PhpScoper006a73f0e455\\Unable to resolve the template type A in call to function CallGenericFunction\\g', 26]]);
+        $this->analyse([__DIR__ . '/data/call-generic-function.php'], [['_PhpScoperbd5d0c5f7638\\Unable to resolve the template type A in call to function CallGenericFunction\\f', 15], ['_PhpScoperbd5d0c5f7638\\Unable to resolve the template type B in call to function CallGenericFunction\\f', 15], ['Parameter #1 $a of function CallGenericFunction\\g expects DateTime, DateTimeImmutable given.', 26], ['_PhpScoperbd5d0c5f7638\\Unable to resolve the template type A in call to function CallGenericFunction\\g', 26]]);
     }
     public function testNamedArguments() : void
     {

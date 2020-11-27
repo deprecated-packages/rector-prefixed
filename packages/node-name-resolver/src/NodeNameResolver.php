@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeNameResolver;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
@@ -81,10 +81,10 @@ final class NodeNameResolver
         }
         // is probably regex pattern
         if ($this->regexPatternDetector->isRegexPattern($name)) {
-            return (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($resolvedName, $name);
+            return (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($resolvedName, $name);
         }
         // is probably fnmatch
-        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($name, '*')) {
+        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($name, '*')) {
             return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
         }
         // special case

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 final class DOMException extends \Exception
 {
 }
-\class_alias('_PhpScoper006a73f0e455\\DOMException', 'DOMException', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\DOMException', 'DOMException', \false);

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\Schema;
+namespace _PhpScoperbd5d0c5f7638\Nette\Schema;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * Schema validator.
  */
@@ -27,7 +27,7 @@ final class Processor
      * @return mixed
      * @throws ValidationException
      */
-    public function process(\_PhpScoper006a73f0e455\Nette\Schema\Schema $schema, $data)
+    public function process(\_PhpScoperbd5d0c5f7638\Nette\Schema\Schema $schema, $data)
     {
         $context = $this->createContext();
         $data = $schema->normalize($data, $context);
@@ -41,7 +41,7 @@ final class Processor
      * @return mixed
      * @throws ValidationException
      */
-    public function processMultiple(\_PhpScoper006a73f0e455\Nette\Schema\Schema $schema, array $dataset)
+    public function processMultiple(\_PhpScoperbd5d0c5f7638\Nette\Schema\Schema $schema, array $dataset)
     {
         $context = $this->createContext();
         $flatten = null;
@@ -56,7 +56,7 @@ final class Processor
         $this->throwsErrors($context);
         return $data;
     }
-    private function throwsErrors(\_PhpScoper006a73f0e455\Nette\Schema\Context $context) : void
+    private function throwsErrors(\_PhpScoperbd5d0c5f7638\Nette\Schema\Context $context) : void
     {
         $messages = [];
         foreach ($context->errors as $error) {
@@ -64,12 +64,12 @@ final class Processor
             $messages[] = \str_replace(' %path%', $error->path ? $pathStr : '', $error->message);
         }
         if ($messages) {
-            throw new \_PhpScoper006a73f0e455\Nette\Schema\ValidationException($messages[0], $messages);
+            throw new \_PhpScoperbd5d0c5f7638\Nette\Schema\ValidationException($messages[0], $messages);
         }
     }
-    private function createContext() : \_PhpScoper006a73f0e455\Nette\Schema\Context
+    private function createContext() : \_PhpScoperbd5d0c5f7638\Nette\Schema\Context
     {
-        $context = new \_PhpScoper006a73f0e455\Nette\Schema\Context();
+        $context = new \_PhpScoperbd5d0c5f7638\Nette\Schema\Context();
         $context->skipDefaults = $this->skipDefaults;
         $this->onNewContext($context);
         return $context;

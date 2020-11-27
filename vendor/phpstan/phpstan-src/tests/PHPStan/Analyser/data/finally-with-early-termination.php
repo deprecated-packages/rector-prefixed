@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\FinallyNamespace;
+namespace _PhpScoperbd5d0c5f7638\FinallyNamespace;
 
 try {
     $integerOrString = 1;
     $fooOrBarException = null;
     return 1;
-} catch (\_PhpScoper006a73f0e455\FinallyNamespace\FooException $e) {
+} catch (\_PhpScoperbd5d0c5f7638\FinallyNamespace\FooException $e) {
     $integerOrString = 1;
     $fooOrBarException = $e;
     throw $e;
-} catch (\_PhpScoper006a73f0e455\FinallyNamespace\BarException $e) {
+} catch (\_PhpScoperbd5d0c5f7638\FinallyNamespace\BarException $e) {
     $integerOrString = 'foo';
     $fooOrBarException = $e;
     return $e;

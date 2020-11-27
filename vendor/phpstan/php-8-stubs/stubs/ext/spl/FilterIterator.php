@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 abstract class FilterIterator extends \IteratorIterator
 {
@@ -18,4 +18,4 @@ abstract class FilterIterator extends \IteratorIterator
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\FilterIterator', 'FilterIterator', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\FilterIterator', 'FilterIterator', \false);

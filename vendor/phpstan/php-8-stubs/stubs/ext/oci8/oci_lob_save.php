@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function oci_lob_save(\_PhpScoper006a73f0e455\OCILob $lob, string $data, int $offset = 0) : bool
+function oci_lob_save(\_PhpScoperbd5d0c5f7638\OCILob $lob, string $data, int $offset = 0) : bool
 {
 }

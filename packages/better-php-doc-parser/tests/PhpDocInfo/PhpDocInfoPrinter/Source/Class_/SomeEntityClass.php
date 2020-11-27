@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Class_;
 
-use _PhpScoper006a73f0e455\Doctrine\ORM\Mapping as ORM;
+use _PhpScoperbd5d0c5f7638\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(name="amenity_building", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="building_id_amenity_id", columns={"building_id", "amenity_id"})

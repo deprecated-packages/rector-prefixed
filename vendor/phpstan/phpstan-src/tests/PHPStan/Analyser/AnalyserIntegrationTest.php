@@ -68,7 +68,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
         $errors = $this->runAnalyse(__DIR__ . '/data/extending-known-class-with-check.php');
         $this->assertCount(0, $errors);
         $broker = self::getContainer()->getByType(\PHPStan\Broker\Broker::class);
-        $this->assertTrue($broker->hasClass(\_PhpScoper006a73f0e455\ExtendingKnownClassWithCheck\Foo::class));
+        $this->assertTrue($broker->hasClass(\_PhpScoperbd5d0c5f7638\ExtendingKnownClassWithCheck\Foo::class));
     }
     public function testInfiniteRecursionWithCallable() : void
     {

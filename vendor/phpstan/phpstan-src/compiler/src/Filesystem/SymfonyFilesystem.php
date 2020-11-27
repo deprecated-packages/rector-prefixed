@@ -7,7 +7,7 @@ final class SymfonyFilesystem implements \PHPStan\Compiler\Filesystem\Filesystem
 {
     /** @var \Symfony\Component\Filesystem\Filesystem */
     private $filesystem;
-    public function __construct(\_PhpScoper006a73f0e455\Symfony\Component\Filesystem\Filesystem $filesystem)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Symfony\Component\Filesystem\Filesystem $filesystem)
     {
         $this->filesystem = $filesystem;
     }

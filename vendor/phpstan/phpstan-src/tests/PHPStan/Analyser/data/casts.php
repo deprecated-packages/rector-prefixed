@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\TypesNamespaceCasts;
+namespace _PhpScoperbd5d0c5f7638\TypesNamespaceCasts;
 
 class Bar
 {
     /** @var self */
     private $barProperty;
 }
-class Foo extends \_PhpScoper006a73f0e455\TypesNamespaceCasts\Bar
+class Foo extends \_PhpScoperbd5d0c5f7638\TypesNamespaceCasts\Bar
 {
     /** @var self */
     private $foo;

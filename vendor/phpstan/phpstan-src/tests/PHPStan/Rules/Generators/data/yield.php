@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\YieldTypeRuleTest;
+namespace _PhpScoperbd5d0c5f7638\YieldTypeRuleTest;
 
 class Foo
 {
@@ -68,7 +68,7 @@ class TestMap
     {
         foreach ($iterator as $key => $value) {
             $result = $callback($value, $key);
-            if ($result instanceof \_PhpScoper006a73f0e455\YieldTypeRuleTest\Map) {
+            if ($result instanceof \_PhpScoperbd5d0c5f7638\YieldTypeRuleTest\Map) {
                 (yield $result->key() => $result->value());
                 continue;
             }

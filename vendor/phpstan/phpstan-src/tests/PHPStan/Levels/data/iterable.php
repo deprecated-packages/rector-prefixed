@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Levels\Iterables;
+namespace _PhpScoperbd5d0c5f7638\Levels\Iterables;
 
 class Foo
 {

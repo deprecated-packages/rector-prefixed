@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\ReturnTypes;
+namespace _PhpScoperbd5d0c5f7638\ReturnTypes;
 
-class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_PhpScoper006a73f0e455\ReturnTypes\FooInterface
+class Foo extends \_PhpScoperbd5d0c5f7638\ReturnTypes\FooParent implements \_PhpScoperbd5d0c5f7638\ReturnTypes\FooInterface
 {
     public function returnNothing()
     {
@@ -20,7 +20,7 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return 'bar';
         };
     }
-    public function returnObject() : \_PhpScoper006a73f0e455\ReturnTypes\Bar
+    public function returnObject() : \_PhpScoperbd5d0c5f7638\ReturnTypes\Bar
     {
         if (\rand(0, 1)) {
             return 1;
@@ -29,7 +29,7 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return new self();
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\Bar();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\Bar();
         }
     }
     public function returnChild() : self
@@ -38,10 +38,10 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return new self();
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\FooChild();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\FooChild();
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\OtherInterfaceImpl();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\OtherInterfaceImpl();
         }
     }
     /**
@@ -56,7 +56,7 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return null;
         }
     }
-    public function returnInterface() : \_PhpScoper006a73f0e455\ReturnTypes\FooInterface
+    public function returnInterface() : \_PhpScoperbd5d0c5f7638\ReturnTypes\FooInterface
     {
         return new self();
     }
@@ -78,12 +78,12 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
     /**
      * @return static
      */
-    public function returnStatic() : \_PhpScoper006a73f0e455\ReturnTypes\FooParent
+    public function returnStatic() : \_PhpScoperbd5d0c5f7638\ReturnTypes\FooParent
     {
         if (\rand(0, 1)) {
             return parent::returnStatic();
         }
-        $parent = new \_PhpScoper006a73f0e455\ReturnTypes\FooParent();
+        $parent = new \_PhpScoperbd5d0c5f7638\ReturnTypes\FooParent();
         if (\rand(0, 1)) {
             return $parent->returnStatic();
             // the only case with wrong static base class
@@ -92,13 +92,13 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return $this->returnStatic();
         }
     }
-    public function returnAlias() : \_PhpScoper006a73f0e455\ReturnTypes\Foo
+    public function returnAlias() : \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo
     {
-        return new \_PhpScoper006a73f0e455\ReturnTypes\FooAlias();
+        return new \_PhpScoperbd5d0c5f7638\ReturnTypes\FooAlias();
     }
-    public function returnAnotherAlias() : \_PhpScoper006a73f0e455\ReturnTypes\FooAlias
+    public function returnAnotherAlias() : \_PhpScoperbd5d0c5f7638\ReturnTypes\FooAlias
     {
-        return new \_PhpScoper006a73f0e455\ReturnTypes\Foo();
+        return new \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo();
     }
     /**
      * @param self[]|Collection $collection
@@ -110,7 +110,7 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return $collection;
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\Collection();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\Collection();
         }
         if (\rand(0, 1)) {
             return new self();
@@ -119,10 +119,10 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return [new self()];
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\Bar();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\Bar();
         }
         if (\rand(0, 1)) {
-            return [new \_PhpScoper006a73f0e455\ReturnTypes\Bar()];
+            return [new \_PhpScoperbd5d0c5f7638\ReturnTypes\Bar()];
         }
         if (\rand(0, 1)) {
             return 1;
@@ -228,10 +228,10 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return $this;
         }
     }
-    public function returnsParent() : \_PhpScoper006a73f0e455\parent
+    public function returnsParent() : \_PhpScoperbd5d0c5f7638\parent
     {
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\FooParent();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\FooParent();
         }
         if (\rand(0, 1)) {
             return 1;
@@ -246,7 +246,7 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
     public function returnsPhpDocParent()
     {
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\FooParent();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\FooParent();
         }
         if (\rand(0, 1)) {
             return 1;
@@ -298,7 +298,7 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return $intOrNull !== null ? $intOrNull : null;
         }
     }
-    public function misleadingBoolReturnType() : \_PhpScoper006a73f0e455\ReturnTypes\boolean
+    public function misleadingBoolReturnType() : \_PhpScoperbd5d0c5f7638\ReturnTypes\boolean
     {
         if (\rand(0, 1)) {
             return \true;
@@ -307,10 +307,10 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return 1;
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\boolean();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\boolean();
         }
     }
-    public function misleadingIntReturnType() : \_PhpScoper006a73f0e455\ReturnTypes\integer
+    public function misleadingIntReturnType() : \_PhpScoperbd5d0c5f7638\ReturnTypes\integer
     {
         if (\rand(0, 1)) {
             return 1;
@@ -319,7 +319,7 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return \true;
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\integer();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\integer();
         }
     }
     public function misleadingMixedReturnType() : mixed
@@ -331,11 +331,11 @@ class Foo extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Php
             return \true;
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\mixed();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\mixed();
         }
     }
 }
-class FooChild extends \_PhpScoper006a73f0e455\ReturnTypes\Foo
+class FooChild extends \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo
 {
 }
 class Stock
@@ -467,7 +467,7 @@ class ReturningSomethingFromConstructor
 {
     public function __construct()
     {
-        return new \_PhpScoper006a73f0e455\ReturnTypes\Foo();
+        return new \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo();
     }
 }
 class WeirdReturnFormat
@@ -509,16 +509,16 @@ class ReturnTernary
      * @param Foo|false $fooOrFalse
      * @return Foo
      */
-    public function returnTernary($fooOrFalse) : \_PhpScoper006a73f0e455\ReturnTypes\Foo
+    public function returnTernary($fooOrFalse) : \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo
     {
         if (\rand(0, 1)) {
-            return $fooOrFalse ?: new \_PhpScoper006a73f0e455\ReturnTypes\Foo();
+            return $fooOrFalse ?: new \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo();
         }
         if (\rand(0, 1)) {
-            return $fooOrFalse !== \false ? $fooOrFalse : new \_PhpScoper006a73f0e455\ReturnTypes\Foo();
+            return $fooOrFalse !== \false ? $fooOrFalse : new \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo();
         }
         if (\rand(0, 1)) {
-            $fooOrFalse ? $fooResult = $fooOrFalse : new \_PhpScoper006a73f0e455\ReturnTypes\Foo();
+            $fooOrFalse ? $fooResult = $fooOrFalse : new \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo();
             return $fooResult;
         }
         if (\rand(0, 1)) {
@@ -664,7 +664,7 @@ class ArrayFillKeysIssue
     {
         $paired = \array_fill_keys($stringIds, []);
         foreach ($stringIds as $id) {
-            $paired[$id][] = new \_PhpScoper006a73f0e455\ReturnTypes\Foo();
+            $paired[$id][] = new \_PhpScoperbd5d0c5f7638\ReturnTypes\Foo();
         }
         return $paired;
     }
@@ -677,7 +677,7 @@ class ArrayFillKeysIssue
     {
         $paired = \array_fill_keys($stringIds, []);
         foreach ($stringIds as $id) {
-            $paired[$id][] = new \_PhpScoper006a73f0e455\ReturnTypes\Bar();
+            $paired[$id][] = new \_PhpScoperbd5d0c5f7638\ReturnTypes\Bar();
         }
         return $paired;
     }
@@ -689,7 +689,7 @@ class AssertThisInstanceOf
      */
     public function doFoo()
     {
-        \assert($this instanceof \_PhpScoper006a73f0e455\ReturnTypes\FooInterface);
+        \assert($this instanceof \_PhpScoperbd5d0c5f7638\ReturnTypes\FooInterface);
         return $this;
     }
     /**
@@ -698,7 +698,7 @@ class AssertThisInstanceOf
     public function doBar()
     {
         $otherInstance = new self();
-        \assert($otherInstance instanceof \_PhpScoper006a73f0e455\ReturnTypes\FooInterface);
+        \assert($otherInstance instanceof \_PhpScoperbd5d0c5f7638\ReturnTypes\FooInterface);
         return $otherInstance;
     }
 }
@@ -777,7 +777,7 @@ class RecursiveStaticResolving
         return $this->f2()->f3();
     }
 }
-class Foo2 extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_PhpScoper006a73f0e455\ReturnTypes\FooInterface
+class Foo2 extends \_PhpScoperbd5d0c5f7638\ReturnTypes\FooParent implements \_PhpScoperbd5d0c5f7638\ReturnTypes\FooInterface
 {
     public function returnIntFromParent()
     {
@@ -788,7 +788,7 @@ class Foo2 extends \_PhpScoper006a73f0e455\ReturnTypes\FooParent implements \_Ph
             return '1';
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoper006a73f0e455\ReturnTypes\integer();
+            return new \_PhpScoperbd5d0c5f7638\ReturnTypes\integer();
         }
     }
     public function returnsVoid() : self
@@ -914,37 +914,37 @@ interface InterfaceThatWillBeDocInherited
      */
     public function setTableSchema5() : self;
 }
-class ClassThatImplementsInterfaceAndInheritDocsIt implements \_PhpScoper006a73f0e455\ReturnTypes\InterfaceThatWillBeDocInherited
+class ClassThatImplementsInterfaceAndInheritDocsIt implements \_PhpScoperbd5d0c5f7638\ReturnTypes\InterfaceThatWillBeDocInherited
 {
-    public function setTableSchema() : \_PhpScoper006a73f0e455\ReturnTypes\InterfaceThatWillBeDocInherited
+    public function setTableSchema() : \_PhpScoperbd5d0c5f7638\ReturnTypes\InterfaceThatWillBeDocInherited
     {
         return $this;
     }
     /**
      * {@inheritDoc}
      */
-    public function setTableSchema2() : \_PhpScoper006a73f0e455\ReturnTypes\InterfaceThatWillBeDocInherited
+    public function setTableSchema2() : \_PhpScoperbd5d0c5f7638\ReturnTypes\InterfaceThatWillBeDocInherited
     {
         return $this;
     }
     /**
      * @inheritDoc
      */
-    public function setTableSchema3() : \_PhpScoper006a73f0e455\ReturnTypes\InterfaceThatWillBeDocInherited
+    public function setTableSchema3() : \_PhpScoperbd5d0c5f7638\ReturnTypes\InterfaceThatWillBeDocInherited
     {
         return $this;
     }
     /**
      * @inheritDoc
      */
-    public function setTableSchema4() : \_PhpScoper006a73f0e455\ReturnTypes\InterfaceThatWillBeDocInherited
+    public function setTableSchema4() : \_PhpScoperbd5d0c5f7638\ReturnTypes\InterfaceThatWillBeDocInherited
     {
         return $this;
     }
     /**
      * @inheritDoc
      */
-    public function setTableSchema5() : \_PhpScoper006a73f0e455\ReturnTypes\InterfaceThatWillBeDocInherited
+    public function setTableSchema5() : \_PhpScoperbd5d0c5f7638\ReturnTypes\InterfaceThatWillBeDocInherited
     {
         return $this;
     }

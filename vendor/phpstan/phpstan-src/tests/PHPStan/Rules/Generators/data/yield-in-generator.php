@@ -1,7 +1,7 @@
 <?php
 
 // lint <= 7.0
-namespace _PhpScoper006a73f0e455\YieldInGenerator;
+namespace _PhpScoperbd5d0c5f7638\YieldInGenerator;
 
 function doFoo() : \Generator
 {

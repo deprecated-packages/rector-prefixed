@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 #ifdef HAVE_GLOB
 class GlobIterator extends \FilesystemIterator implements \Countable
@@ -14,4 +14,4 @@ class GlobIterator extends \FilesystemIterator implements \Countable
     }
 }
 #ifdef HAVE_GLOB
-\class_alias('_PhpScoper006a73f0e455\\GlobIterator', 'GlobIterator', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\GlobIterator', 'GlobIterator', \false);

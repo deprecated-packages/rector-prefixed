@@ -59,6 +59,6 @@ CODE_SAMPLE
         if ($classLike === null) {
             return \false;
         }
-        return $this->isObjectType($classLike, '_PhpScoper006a73f0e455\\PhpSpec\\ObjectBehavior');
+        return $this->isObjectType($classLike, '_PhpScoperbd5d0c5f7638\\PhpSpec\\ObjectBehavior');
     }
 }

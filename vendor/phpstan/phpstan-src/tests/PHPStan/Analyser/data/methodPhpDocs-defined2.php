@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\MethodPhpDocsNamespace;
+namespace _PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace;
 
-use _PhpScoper006a73f0e455\SomeNamespace\Amet as Dolor;
+use _PhpScoperbd5d0c5f7638\SomeNamespace\Amet as Dolor;
 interface FooInterface
 {
     /**
@@ -25,7 +25,7 @@ class FooParentParent
     {
     }
 }
-abstract class FooParent extends \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\FooParentParent implements \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\FooInterface
+abstract class FooParent extends \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooParentParent implements \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooInterface
 {
     /**
      * @return Static

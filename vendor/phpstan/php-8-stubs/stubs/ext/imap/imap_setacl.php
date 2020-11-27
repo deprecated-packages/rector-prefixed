@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param resource $imap */
 function imap_setacl($imap, string $mailbox, string $user_id, string $rights) : bool

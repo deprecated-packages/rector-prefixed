@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\CallStaticMethods;
+namespace _PhpScoperbd5d0c5f7638\CallStaticMethods;
 
 class Foo
 {
     public static function test()
     {
-        \_PhpScoper006a73f0e455\CallStaticMethods\Bar::protectedMethodFromChild();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Bar::protectedMethodFromChild();
     }
     protected static function baz()
     {
@@ -18,23 +18,23 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper006a73f0e455\CallStaticMethods\Foo
+class Bar extends \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo
 {
     public static function test()
     {
-        \_PhpScoper006a73f0e455\CallStaticMethods\Foo::test();
-        \_PhpScoper006a73f0e455\CallStaticMethods\Foo::baz();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::test();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::baz();
         parent::test();
         parent::baz();
-        \_PhpScoper006a73f0e455\CallStaticMethods\Foo::bar();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::bar();
         // nonexistent
         self::bar();
         // nonexistent
         parent::bar();
         // nonexistent
-        \_PhpScoper006a73f0e455\CallStaticMethods\Foo::loremIpsum();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::loremIpsum();
         // instance
-        \_PhpScoper006a73f0e455\CallStaticMethods\Foo::dolor();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::dolor();
     }
     public function loremIpsum()
     {
@@ -50,11 +50,11 @@ class Ipsum
     {
         parent::lorem();
         // does not have a parent
-        \_PhpScoper006a73f0e455\CallStaticMethods\Foo::test();
-        \_PhpScoper006a73f0e455\CallStaticMethods\Foo::test(1);
-        \_PhpScoper006a73f0e455\CallStaticMethods\Foo::baz();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::test();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::test(1);
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::baz();
         // protected and not from a parent
-        \_PhpScoper006a73f0e455\CallStaticMethods\UnknownStaticMethodClass::loremIpsum();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\UnknownStaticMethodClass::loremIpsum();
     }
 }
 class ClassWithConstructor
@@ -63,7 +63,7 @@ class ClassWithConstructor
     {
     }
 }
-class CheckConstructor extends \_PhpScoper006a73f0e455\CallStaticMethods\ClassWithConstructor
+class CheckConstructor extends \_PhpScoperbd5d0c5f7638\CallStaticMethods\ClassWithConstructor
 {
     public function __construct()
     {
@@ -74,11 +74,11 @@ function () {
     self::someStaticMethod();
     static::someStaticMethod();
     parent::someStaticMethod();
-    \_PhpScoper006a73f0e455\CallStaticMethods\Foo::test();
-    \_PhpScoper006a73f0e455\CallStaticMethods\Foo::baz();
-    \_PhpScoper006a73f0e455\CallStaticMethods\Foo::bar();
-    \_PhpScoper006a73f0e455\CallStaticMethods\Foo::loremIpsum();
-    \_PhpScoper006a73f0e455\CallStaticMethods\Foo::dolor();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::test();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::baz();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::bar();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::loremIpsum();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo::dolor();
     \Locale::getDisplayLanguage('cs_CZ');
     // OK
     \Locale::getDisplayLanguage('cs_CZ', 'en');
@@ -89,8 +89,8 @@ function () {
 interface SomeInterface
 {
 }
-function (\_PhpScoper006a73f0e455\CallStaticMethods\Foo $foo) {
-    if ($foo instanceof \_PhpScoper006a73f0e455\CallStaticMethods\SomeInterface) {
+function (\_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo $foo) {
+    if ($foo instanceof \_PhpScoperbd5d0c5f7638\CallStaticMethods\SomeInterface) {
         $foo::test();
         $foo::test(1, 2, 3);
     }
@@ -98,27 +98,27 @@ function (\_PhpScoper006a73f0e455\CallStaticMethods\Foo $foo) {
     $stringOrInt = doFoo();
     $stringOrInt::foo();
 };
-function (\_PhpScoper006a73f0e455\CallStaticMethods\FOO $foo) {
+function (\_PhpScoperbd5d0c5f7638\CallStaticMethods\FOO $foo) {
     $foo::test();
     // do not report case mismatch
-    \_PhpScoper006a73f0e455\CallStaticMethods\FOO::unknownMethod();
-    \_PhpScoper006a73f0e455\CallStaticMethods\FOO::loremIpsum();
-    \_PhpScoper006a73f0e455\CallStaticMethods\FOO::dolor();
-    \_PhpScoper006a73f0e455\CallStaticMethods\FOO::test(1, 2, 3);
-    \_PhpScoper006a73f0e455\CallStaticMethods\FOO::TEST();
-    \_PhpScoper006a73f0e455\CallStaticMethods\FOO::test();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\FOO::unknownMethod();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\FOO::loremIpsum();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\FOO::dolor();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\FOO::test(1, 2, 3);
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\FOO::TEST();
+    \_PhpScoperbd5d0c5f7638\CallStaticMethods\FOO::test();
 };
 function (string $className) {
     $className::foo();
 };
-class CallingNonexistentParentConstructor extends \_PhpScoper006a73f0e455\CallStaticMethods\Foo
+class CallingNonexistentParentConstructor extends \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo
 {
     public function __construct()
     {
         parent::__construct();
     }
 }
-class Baz extends \_PhpScoper006a73f0e455\CallStaticMethods\Foo
+class Baz extends \_PhpScoperbd5d0c5f7638\CallStaticMethods\Foo
 {
     public function doFoo()
     {
@@ -138,7 +138,7 @@ class ClassOrString
         $class = doFoo();
         $class::calledMethod();
         $class::calledMethod(1);
-        \_PhpScoper006a73f0e455\CallStaticMethods\Self::calledMethod();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\Self::calledMethod();
     }
     private static function calledMethod()
     {
@@ -160,13 +160,13 @@ interface InterfaceWithStaticMethod
 }
 class CallStaticMethodOnAnInterface
 {
-    public function doFoo(\_PhpScoper006a73f0e455\CallStaticMethods\InterfaceWithStaticMethod $foo)
+    public function doFoo(\_PhpScoperbd5d0c5f7638\CallStaticMethods\InterfaceWithStaticMethod $foo)
     {
-        \_PhpScoper006a73f0e455\CallStaticMethods\InterfaceWithStaticMethod::doFoo();
-        \_PhpScoper006a73f0e455\CallStaticMethods\InterfaceWithStaticMethod::doBar();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\InterfaceWithStaticMethod::doFoo();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\InterfaceWithStaticMethod::doBar();
         $foo::doFoo();
         // fine - it's an object
-        \_PhpScoper006a73f0e455\CallStaticMethods\InterfaceWithStaticMethod::doInstanceFoo();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\InterfaceWithStaticMethod::doInstanceFoo();
         $foo::doInstanceFoo();
     }
 }
@@ -249,9 +249,9 @@ class MethodCallingTraitWithStaticMethod
 {
     public function doFoo() : void
     {
-        \_PhpScoper006a73f0e455\CallStaticMethods\TraitWithStaticMethod::doFoo();
+        \_PhpScoperbd5d0c5f7638\CallStaticMethods\TraitWithStaticMethod::doFoo();
     }
-    public function doBar(\_PhpScoper006a73f0e455\CallStaticMethods\TraitWithStaticMethod $a) : void
+    public function doBar(\_PhpScoperbd5d0c5f7638\CallStaticMethods\TraitWithStaticMethod $a) : void
     {
         $a::doFoo();
     }

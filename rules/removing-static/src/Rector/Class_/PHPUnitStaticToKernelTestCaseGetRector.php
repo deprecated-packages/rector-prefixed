@@ -71,17 +71,17 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert static calls in PHPUnit test cases, to get() from the container of KernelTestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-use _PhpScoper006a73f0e455\PHPUnit\Framework\TestCase;
-final class SomeTestCase extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+final class SomeTestCase extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     public function test()
     {
-        $product = \_PhpScoper006a73f0e455\EntityFactory::create('product');
+        $product = \_PhpScoperbd5d0c5f7638\EntityFactory::create('product');
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeTestCase', 'SomeTestCase', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeTestCase', 'SomeTestCase', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -189,8 +189,8 @@ CODE_SAMPLE
             }
         }
         // update parent clsas if not already
-        if (!$this->isObjectType($class, '_PhpScoper006a73f0e455\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
-            $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
+        if (!$this->isObjectType($class, '_PhpScoperbd5d0c5f7638\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
+            $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbd5d0c5f7638\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
         }
         return $class;
     }

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Profiler;
+namespace _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * Storage for profiler using files.
  *
  * @author Alexandre Salomé <alexandre.salome@gmail.com>
  */
-class FileProfilerStorage implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
+class FileProfilerStorage implements \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
 {
     /**
      * Folder where profiler data are stored.
@@ -89,7 +89,7 @@ class FileProfilerStorage implements \_PhpScoper006a73f0e455\Symfony\Component\H
     /**
      * {@inheritdoc}
      */
-    public function read($token) : ?\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Profiler\Profile
+    public function read($token) : ?\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Profiler\Profile
     {
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;
@@ -104,7 +104,7 @@ class FileProfilerStorage implements \_PhpScoper006a73f0e455\Symfony\Component\H
      *
      * @throws \RuntimeException
      */
-    public function write(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool
+    public function write(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool
     {
         $file = $this->getFilename($profile->getToken());
         $profileIndexed = \is_file($file);
@@ -119,7 +119,7 @@ class FileProfilerStorage implements \_PhpScoper006a73f0e455\Symfony\Component\H
         // when there are errors in sub-requests, the parent and/or children tokens
         // may equal the profile token, resulting in infinite loops
         $parentToken = $profile->getParentToken() !== $profileToken ? $profile->getParentToken() : null;
-        $childrenToken = \array_filter(\array_map(function (\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
+        $childrenToken = \array_filter(\array_map(function (\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
             return $profileToken !== $p->getToken() ? $p->getToken() : null;
         }, $profile->getChildren()));
         // Store profile
@@ -205,7 +205,7 @@ class FileProfilerStorage implements \_PhpScoper006a73f0e455\Symfony\Component\H
     }
     protected function createProfileFromData($token, $data, $parent = null)
     {
-        $profile = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Profiler\Profile($token);
+        $profile = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);
         $profile->setMethod($data['method']);
         $profile->setUrl($data['url']);

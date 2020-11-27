@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\LessParametersVariadics;
+namespace _PhpScoperbd5d0c5f7638\LessParametersVariadics;
 
 class Foo
 {
@@ -8,19 +8,19 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper006a73f0e455\LessParametersVariadics\Foo
+class Bar extends \_PhpScoperbd5d0c5f7638\LessParametersVariadics\Foo
 {
     public function doFoo(...$everything)
     {
     }
 }
-class Baz extends \_PhpScoper006a73f0e455\LessParametersVariadics\Foo
+class Baz extends \_PhpScoperbd5d0c5f7638\LessParametersVariadics\Foo
 {
     public function doFoo(int ...$everything)
     {
     }
 }
-class Lorem extends \_PhpScoper006a73f0e455\LessParametersVariadics\Foo
+class Lorem extends \_PhpScoperbd5d0c5f7638\LessParametersVariadics\Foo
 {
     public function doFoo(int $many, string ...$everything)
     {

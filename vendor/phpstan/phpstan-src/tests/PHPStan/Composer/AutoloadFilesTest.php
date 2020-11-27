@@ -3,20 +3,20 @@
 declare (strict_types=1);
 namespace PHPStan\Composer;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Json;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Json;
 use PHPStan\File\FileHelper;
 use PHPStan\File\FileReader;
-use _PhpScoper006a73f0e455\PHPUnit\Framework\TestCase;
-use _PhpScoper006a73f0e455\Symfony\Component\Finder\Finder;
+use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Finder\Finder;
 use const PHP_VERSION_ID;
-class AutoloadFilesTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+class AutoloadFilesTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     public function testExpectedFiles() : void
     {
         if (\PHP_VERSION_ID >= 70400) {
             $this->markTestSkipped();
         }
-        $finder = new \_PhpScoper006a73f0e455\Symfony\Component\Finder\Finder();
+        $finder = new \_PhpScoperbd5d0c5f7638\Symfony\Component\Finder\Finder();
         $finder->followLinks();
         $autoloadFiles = [];
         $vendorPath = \realpath(__DIR__ . '/../../../vendor');
@@ -29,7 +29,7 @@ class AutoloadFilesTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCa
             if ($realpath === \false) {
                 throw new \PHPStan\ShouldNotHappenException();
             }
-            $json = \_PhpScoper006a73f0e455\Nette\Utils\Json::decode(\PHPStan\File\FileReader::read($realpath), \_PhpScoper006a73f0e455\Nette\Utils\Json::FORCE_ARRAY);
+            $json = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode(\PHPStan\File\FileReader::read($realpath), \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
             if (!isset($json['autoload']['files'])) {
                 continue;
             }

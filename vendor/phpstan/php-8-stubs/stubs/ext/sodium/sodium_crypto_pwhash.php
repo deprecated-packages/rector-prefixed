@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 #ifdef crypto_pwhash_SALTBYTES
 function sodium_crypto_pwhash(int $length, string $password, string $salt, int $opslimit, int $memlimit, int $algo = \SODIUM_CRYPTO_PWHASH_ALG_DEFAULT) : string

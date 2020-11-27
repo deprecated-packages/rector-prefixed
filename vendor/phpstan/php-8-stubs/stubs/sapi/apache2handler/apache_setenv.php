@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function apache_setenv(string $variable, string $value, bool $walk_to_top = \false) : bool
 {

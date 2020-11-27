@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 #endif
 /** @alias sodium_crypto_box_publickey_from_secretkey */

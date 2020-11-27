@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\TraitsWrongProperty;
+namespace _PhpScoperbd5d0c5f7638\TraitsWrongProperty;
 
-use _PhpScoper006a73f0e455\Lorem as Bar;
+use _PhpScoperbd5d0c5f7638\Lorem as Bar;
 class Foo
 {
     use FooTrait;

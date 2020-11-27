@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug3226;
+namespace _PhpScoperbd5d0c5f7638\Bug3226;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -24,7 +24,7 @@ class Foo
         return $this->class;
     }
 }
-function (\_PhpScoper006a73f0e455\Bug3226\Foo $foo) : void {
+function (\_PhpScoperbd5d0c5f7638\Bug3226\Foo $foo) : void {
     \PHPStan\Analyser\assertType('class-string', $foo->__toString());
     \PHPStan\Analyser\assertType('class-string', (string) $foo);
 };
@@ -52,12 +52,12 @@ class Bar
         return $this->class;
     }
 }
-function (\_PhpScoper006a73f0e455\Bug3226\Bar $bar) : void {
+function (\_PhpScoperbd5d0c5f7638\Bug3226\Bar $bar) : void {
     \PHPStan\Analyser\assertType('class-string<mixed>', $bar->__toString());
     \PHPStan\Analyser\assertType('class-string<mixed>', (string) $bar);
 };
 function () : void {
-    $bar = new \_PhpScoper006a73f0e455\Bug3226\Bar(\Exception::class);
+    $bar = new \_PhpScoperbd5d0c5f7638\Bug3226\Bar(\Exception::class);
     \PHPStan\Analyser\assertType('class-string<Exception>', $bar->__toString());
     \PHPStan\Analyser\assertType('class-string<Exception>', (string) $bar);
 };

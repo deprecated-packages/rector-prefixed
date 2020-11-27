@@ -48,6 +48,6 @@ final class OneToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
     }
     public function getShortName() : string
     {
-        return '_PhpScoper006a73f0e455\\@ORM\\OneToOne';
+        return '_PhpScoperbd5d0c5f7638\\@ORM\\OneToOne';
     }
 }

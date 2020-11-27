@@ -103,10 +103,10 @@ CODE_SAMPLE
             return \true;
         }
         //one of the cases when we are in the repo and it's extended from EntityRepository
-        if (!$this->isObjectType($classLike, '_PhpScoper006a73f0e455\\Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($classLike, '_PhpScoperbd5d0c5f7638\\Doctrine\\ORM\\EntityRepository')) {
             return \true;
         }
-        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperbd5d0c5f7638\\Doctrine\\ORM\\EntityRepository')) {
             return \true;
         }
         return !$this->isName($node->name, 'setParameters');
@@ -122,11 +122,11 @@ CODE_SAMPLE
             if (!$firstArgumentArrayItem->key instanceof \PhpParser\Node\Scalar\String_ || !$firstArgumentArrayItem->value instanceof \PhpParser\Node\Scalar\String_) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $queryParameter = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\Doctrine\\ORM\\Query\\Parameter'));
+            $queryParameter = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoperbd5d0c5f7638\\Doctrine\\ORM\\Query\\Parameter'));
             $queryParameter->args = [new \PhpParser\Node\Arg($firstArgumentArrayItem->key), new \PhpParser\Node\Arg($firstArgumentArrayItem->value)];
             $arrayCollectionArrayArguments[] = new \PhpParser\Node\Expr\ArrayItem($queryParameter);
         }
-        $arrayCollection = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\Doctrine\\Common\\Collections\\ArrayCollection'));
+        $arrayCollection = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoperbd5d0c5f7638\\Doctrine\\Common\\Collections\\ArrayCollection'));
         $arrayCollection->args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($arrayCollectionArrayArguments))];
         return $arrayCollection;
     }

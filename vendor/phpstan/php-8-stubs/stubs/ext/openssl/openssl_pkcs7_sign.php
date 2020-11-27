@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param OpenSSLAsymmetricKey|OpenSSLCertificate|array|string $private_key */
 function openssl_pkcs7_sign(string $input_filename, string $output_filename, \OpenSSLCertificate|string $certificate, $private_key, ?array $headers, int $flags = \PKCS7_DETACHED, ?string $untrusted_certificates_filename = null) : bool

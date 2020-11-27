@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\InheritDocMergingReturn;
+namespace _PhpScoperbd5d0c5f7638\InheritDocMergingReturn;
 
 use function PHPStan\Analyser\assertType;
 class A
 {
 }
-class B extends \_PhpScoper006a73f0e455\InheritDocMergingReturn\A
+class B extends \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\A
 {
 }
-class C extends \_PhpScoper006a73f0e455\InheritDocMergingReturn\B
+class C extends \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\B
 {
 }
-class D extends \_PhpScoper006a73f0e455\InheritDocMergingReturn\A
+class D extends \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\A
 {
 }
 class GrandparentClass
@@ -21,7 +21,7 @@ class GrandparentClass
     /** @return B */
     public function method()
     {
-        return new \_PhpScoper006a73f0e455\InheritDocMergingReturn\B();
+        return new \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\B();
     }
 }
 interface InterfaceC
@@ -34,20 +34,20 @@ interface InterfaceA
     /** @return A */
     public function method();
 }
-class ParentClass extends \_PhpScoper006a73f0e455\InheritDocMergingReturn\GrandparentClass implements \_PhpScoper006a73f0e455\InheritDocMergingReturn\InterfaceC, \_PhpScoper006a73f0e455\InheritDocMergingReturn\InterfaceA
+class ParentClass extends \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\GrandparentClass implements \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\InterfaceC, \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\InterfaceA
 {
     /** Some comment */
     public function method()
     {
     }
 }
-class ChildClass extends \_PhpScoper006a73f0e455\InheritDocMergingReturn\ParentClass
+class ChildClass extends \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\ParentClass
 {
     public function method()
     {
     }
 }
-class ChildClass2 extends \_PhpScoper006a73f0e455\InheritDocMergingReturn\ParentClass
+class ChildClass2 extends \_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\ParentClass
 {
     /**
      * @return D
@@ -56,12 +56,12 @@ class ChildClass2 extends \_PhpScoper006a73f0e455\InheritDocMergingReturn\Parent
     {
     }
 }
-function (\_PhpScoper006a73f0e455\InheritDocMergingReturn\ParentClass $foo) : void {
-    \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingReturn\\B', $foo->method());
+function (\_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\ParentClass $foo) : void {
+    \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingReturn\\B', $foo->method());
 };
-function (\_PhpScoper006a73f0e455\InheritDocMergingReturn\ChildClass $foo) : void {
-    \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingReturn\\B', $foo->method());
+function (\_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\ChildClass $foo) : void {
+    \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingReturn\\B', $foo->method());
 };
-function (\_PhpScoper006a73f0e455\InheritDocMergingReturn\ChildClass2 $foo) : void {
-    \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\InheritDocMergingReturn\\D', $foo->method());
+function (\_PhpScoperbd5d0c5f7638\InheritDocMergingReturn\ChildClass2 $foo) : void {
+    \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingReturn\\D', $foo->method());
 };

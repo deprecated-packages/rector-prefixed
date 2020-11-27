@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Http\Io;
+namespace _PhpScoperbd5d0c5f7638\React\Http\Io;
 
-use _PhpScoper006a73f0e455\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoper006a73f0e455\RingCentral\Psr7;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
 /**
  * [Internal] Parses a string body with "Content-Type: multipart/form-data" into structured data
  *
@@ -76,10 +76,10 @@ final class MultipartParser
         if ($uploadMaxFilesize === null) {
             $uploadMaxFilesize = \ini_get('upload_max_filesize');
         }
-        $this->uploadMaxFilesize = \_PhpScoper006a73f0e455\React\Http\Io\IniUtil::iniSizeToBytes($uploadMaxFilesize);
+        $this->uploadMaxFilesize = \_PhpScoperbd5d0c5f7638\React\Http\Io\IniUtil::iniSizeToBytes($uploadMaxFilesize);
         $this->maxFileUploads = $maxFileUploads === null ? \ini_get('file_uploads') === '' ? 0 : (int) \ini_get('max_file_uploads') : (int) $maxFileUploads;
     }
-    public function parse(\_PhpScoper006a73f0e455\Psr\Http\Message\ServerRequestInterface $request)
+    public function parse(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\ServerRequestInterface $request)
     {
         $contentType = $request->getHeaderLine('content-type');
         if (!\preg_match('/boundary="?(.*?)"?$/', $contentType, $matches)) {
@@ -152,7 +152,7 @@ final class MultipartParser
             if (++$this->emptyCount + $this->filesCount > $this->maxInputVars) {
                 return;
             }
-            return new \_PhpScoper006a73f0e455\React\Http\Io\UploadedFile(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_NO_FILE, $filename, $contentType);
+            return new \_PhpScoperbd5d0c5f7638\React\Http\Io\UploadedFile(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_NO_FILE, $filename, $contentType);
         }
         // ignore excessive number of file uploads
         if (++$this->filesCount > $this->maxFileUploads) {
@@ -160,13 +160,13 @@ final class MultipartParser
         }
         // file exceeds "upload_max_filesize" ini setting
         if ($size > $this->uploadMaxFilesize) {
-            return new \_PhpScoper006a73f0e455\React\Http\Io\UploadedFile(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_INI_SIZE, $filename, $contentType);
+            return new \_PhpScoperbd5d0c5f7638\React\Http\Io\UploadedFile(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_INI_SIZE, $filename, $contentType);
         }
         // file exceeds MAX_FILE_SIZE value
         if ($this->maxFileSize !== null && $size > $this->maxFileSize) {
-            return new \_PhpScoper006a73f0e455\React\Http\Io\UploadedFile(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_FORM_SIZE, $filename, $contentType);
+            return new \_PhpScoperbd5d0c5f7638\React\Http\Io\UploadedFile(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_FORM_SIZE, $filename, $contentType);
         }
-        return new \_PhpScoper006a73f0e455\React\Http\Io\UploadedFile(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for($contents), $size, \UPLOAD_ERR_OK, $filename, $contentType);
+        return new \_PhpScoperbd5d0c5f7638\React\Http\Io\UploadedFile(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for($contents), $size, \UPLOAD_ERR_OK, $filename, $contentType);
     }
     private function parsePost($name, $value)
     {

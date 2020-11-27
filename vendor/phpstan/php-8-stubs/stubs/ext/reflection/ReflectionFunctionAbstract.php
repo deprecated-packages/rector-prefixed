@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 abstract class ReflectionFunctionAbstract implements \Reflector
 {
@@ -113,4 +113,4 @@ abstract class ReflectionFunctionAbstract implements \Reflector
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\ReflectionFunctionAbstract', 'ReflectionFunctionAbstract', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\ReflectionFunctionAbstract', 'ReflectionFunctionAbstract', \false);

@@ -11,11 +11,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tag;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-class AlignFormatter implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Formatter
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tag;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+class AlignFormatter implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter
 {
     /** @var int The maximum tag name length. */
     protected $maxLen = 0;
@@ -37,7 +37,7 @@ class AlignFormatter implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection
      *
      * @return string
      */
-    public function format(\_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tag $tag)
+    public function format(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tag $tag)
     {
         return '@' . $tag->getName() . \str_repeat(' ', $this->maxLen - \strlen($tag->getName()) + 1) . (string) $tag;
     }

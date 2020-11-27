@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class Error implements \Throwable
 {
@@ -55,4 +55,4 @@ class Error implements \Throwable
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\Error', 'Error', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\Error', 'Error', \false);

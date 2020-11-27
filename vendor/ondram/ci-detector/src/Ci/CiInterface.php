@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\OndraM\CiDetector\Ci;
+namespace _PhpScoperbd5d0c5f7638\OndraM\CiDetector\Ci;
 
-use _PhpScoper006a73f0e455\OndraM\CiDetector\Env;
-use _PhpScoper006a73f0e455\OndraM\CiDetector\TrinaryLogic;
+use _PhpScoperbd5d0c5f7638\OndraM\CiDetector\Env;
+use _PhpScoperbd5d0c5f7638\OndraM\CiDetector\TrinaryLogic;
 interface CiInterface
 {
     /**
      * Return true if this CI was detected
      */
-    public static function isDetected(\_PhpScoper006a73f0e455\OndraM\CiDetector\Env $env) : bool;
+    public static function isDetected(\_PhpScoperbd5d0c5f7638\OndraM\CiDetector\Env $env) : bool;
     /**
      * Get name of the CI server type
      */
@@ -19,7 +19,7 @@ interface CiInterface
      * Returned TrinaryLogic object's value will be true if the current build is from a pull/merge request,
      * false if it not, and maybe if we can't determine it.
      */
-    public function isPullRequest() : \_PhpScoper006a73f0e455\OndraM\CiDetector\TrinaryLogic;
+    public function isPullRequest() : \_PhpScoperbd5d0c5f7638\OndraM\CiDetector\TrinaryLogic;
     /**
      * Get number of this concrete build.
      *

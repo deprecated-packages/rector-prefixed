@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 final class tidyNode
 {
@@ -35,4 +35,4 @@ final class tidyNode
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\tidyNode', 'tidyNode', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\tidyNode', 'tidyNode', \false);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DeadCode\Rector\Class_;
 
-use _PhpScoper006a73f0e455\Doctrine\Common\Collections\ArrayCollection;
+use _PhpScoperbd5d0c5f7638\Doctrine\Common\Collections\ArrayCollection;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
@@ -202,7 +202,7 @@ CODE_SAMPLE
         }
         /** @var New_ $new */
         $new = $parentNode->expr;
-        return $this->isName($new->class, \_PhpScoper006a73f0e455\Doctrine\Common\Collections\ArrayCollection::class);
+        return $this->isName($new->class, \_PhpScoperbd5d0c5f7638\Doctrine\Common\Collections\ArrayCollection::class);
     }
     private function getOtherRelationProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {

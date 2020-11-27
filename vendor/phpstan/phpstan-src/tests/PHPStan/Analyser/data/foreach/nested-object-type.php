@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-use _PhpScoper006a73f0e455\AnotherNamespace\Foo;
+use _PhpScoperbd5d0c5f7638\AnotherNamespace\Foo;
 /** @var Foo[][] $fooses */
-$fooses = \_PhpScoper006a73f0e455\foos();
+$fooses = \_PhpScoperbd5d0c5f7638\foos();
 foreach ($fooses as $foos) {
     foreach ($foos as $foo) {
         die;

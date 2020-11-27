@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\EventLoop\Timer;
+namespace _PhpScoperbd5d0c5f7638\React\EventLoop\Timer;
 
-use _PhpScoper006a73f0e455\React\EventLoop\TimerInterface;
+use _PhpScoperbd5d0c5f7638\React\EventLoop\TimerInterface;
 /**
  * The actual connection implementation for TimerInterface
  *
@@ -11,7 +11,7 @@ use _PhpScoper006a73f0e455\React\EventLoop\TimerInterface;
  * @see TimerInterface
  * @internal
  */
-final class Timer implements \_PhpScoper006a73f0e455\React\EventLoop\TimerInterface
+final class Timer implements \_PhpScoperbd5d0c5f7638\React\EventLoop\TimerInterface
 {
     const MIN_INTERVAL = 1.0E-6;
     private $interval;

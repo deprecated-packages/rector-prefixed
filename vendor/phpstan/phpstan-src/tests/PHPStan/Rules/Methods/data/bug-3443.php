@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug3443;
+namespace _PhpScoperbd5d0c5f7638\Bug3443;
 
 /**
  * Interface Collection.
@@ -18,7 +18,7 @@ interface CollectionInterface
 /**
  * Class Collection.
  */
-final class Collection implements \_PhpScoper006a73f0e455\Bug3443\CollectionInterface
+final class Collection implements \_PhpScoperbd5d0c5f7638\Bug3443\CollectionInterface
 {
     public static function with($data = [], ...$parameters)
     {
@@ -32,7 +32,7 @@ interface TranslatorInterface
      */
     public function translate(string $translationKey, bool $upperCaseFirst = \true, ...$additionalParametersToInjectIntoTranslation) : string;
 }
-class Translator implements \_PhpScoper006a73f0e455\Bug3443\TranslatorInterface
+class Translator implements \_PhpScoperbd5d0c5f7638\Bug3443\TranslatorInterface
 {
     public function translate(string $translationKey, bool $upperCaseFirst = \true, ...$additionalParametersToInjectIntoTranslation) : string
     {

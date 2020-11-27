@@ -10,20 +10,20 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Type;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\TypeResolver;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\TypeResolver;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}throws tag in a Docblock.
  */
-final class Throws extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\TagWithType implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Throws extends \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\TagWithType implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
-    public function __construct(\_PhpScoper006a73f0e455\phpDocumentor\Reflection\Type $type, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type $type, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
         $this->name = 'throws';
         $this->type = $type;
@@ -32,10 +32,10 @@ final class Throws extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocB
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::string($body);
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::string($body);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
         list($type, $description) = self::extractTypeFromBody($body);
         $type = $typeResolver->resolve($type, $context);
         $description = $descriptionFactory->create($description, $context);

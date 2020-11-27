@@ -48,6 +48,6 @@ class Element extends \Hoa\Test\Unit\Suite
 {
     public function case_interface()
     {
-        $this->when($result = new \_PhpScoper006a73f0e455\Mock\Hoa\Visitor\Element())->object($result)->isInstanceOf('Hoa\\Visitor\\Element');
+        $this->when($result = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Visitor\Element())->object($result)->isInstanceOf('Hoa\\Visitor\\Element');
     }
 }

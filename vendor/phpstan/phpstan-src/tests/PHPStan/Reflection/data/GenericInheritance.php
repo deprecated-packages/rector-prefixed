@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\GenericInheritance;
+namespace _PhpScoperbd5d0c5f7638\GenericInheritance;
 
 /**
  * interface I0
@@ -27,7 +27,7 @@ interface I1
  * @extends I0<T>
  * @extends I1<int>
  */
-interface I extends \_PhpScoper006a73f0e455\GenericInheritance\I0, \_PhpScoper006a73f0e455\GenericInheritance\I1
+interface I extends \_PhpScoperbd5d0c5f7638\GenericInheritance\I0, \_PhpScoperbd5d0c5f7638\GenericInheritance\I1
 {
 }
 /**
@@ -37,7 +37,7 @@ interface I extends \_PhpScoper006a73f0e455\GenericInheritance\I0, \_PhpScoper00
  *
  * @implements I<T>
  */
-class C0 implements \_PhpScoper006a73f0e455\GenericInheritance\I
+class C0 implements \_PhpScoperbd5d0c5f7638\GenericInheritance\I
 {
 }
 /**
@@ -45,12 +45,12 @@ class C0 implements \_PhpScoper006a73f0e455\GenericInheritance\I
  *
  * @extends C0<\DateTime>
  */
-class C extends \_PhpScoper006a73f0e455\GenericInheritance\C0
+class C extends \_PhpScoperbd5d0c5f7638\GenericInheritance\C0
 {
 }
 /**
  * @implements I<\DateTimeInterface>
  */
-class Override extends \_PhpScoper006a73f0e455\GenericInheritance\C
+class Override extends \_PhpScoperbd5d0c5f7638\GenericInheritance\C
 {
 }

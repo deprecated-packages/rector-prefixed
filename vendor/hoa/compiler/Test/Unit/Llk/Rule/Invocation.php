@@ -36,7 +36,7 @@
 namespace Hoa\Compiler\Test\Unit\Llk\Rule;
 
 use Hoa\Test;
-use _PhpScoper006a73f0e455\Mock\Hoa\Compiler\Llk\Rule\Invocation as SUT;
+use _PhpScoperbd5d0c5f7638\Mock\Hoa\Compiler\Llk\Rule\Invocation as SUT;
 /**
  * Class \Hoa\Compiler\Test\Unit\Llk\Rule\Invocation.
  *
@@ -49,26 +49,26 @@ class Invocation extends \Hoa\Test\Unit\Suite
 {
     public function case_constructor()
     {
-        $this->given($rule = 'foo', $data = 'bar')->when($result = new \_PhpScoper006a73f0e455\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data))->then->string($result->getRule())->isEqualTo($rule)->string($result->getData())->isEqualTo($data)->variable($result->getTodo())->isNull()->integer($result->getDepth())->isEqualTo(-1)->boolean($result->isTransitional())->isFalse();
+        $this->given($rule = 'foo', $data = 'bar')->when($result = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data))->then->string($result->getRule())->isEqualTo($rule)->string($result->getData())->isEqualTo($data)->variable($result->getTodo())->isNull()->integer($result->getDepth())->isEqualTo(-1)->boolean($result->isTransitional())->isFalse();
     }
     public function case_constructor_with_todo()
     {
-        $this->given($rule = 'foo', $data = 'bar', $todo = ['baz', 'qux'])->when($result = new \_PhpScoper006a73f0e455\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data, $todo))->then->string($result->getRule())->isEqualTo($rule)->string($result->getData())->isEqualTo($data)->array($result->getTodo())->isEqualTo($todo)->integer($result->getDepth())->isEqualTo(-1)->boolean($result->isTransitional())->isFalse();
+        $this->given($rule = 'foo', $data = 'bar', $todo = ['baz', 'qux'])->when($result = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data, $todo))->then->string($result->getRule())->isEqualTo($rule)->string($result->getData())->isEqualTo($data)->array($result->getTodo())->isEqualTo($todo)->integer($result->getDepth())->isEqualTo(-1)->boolean($result->isTransitional())->isFalse();
     }
     public function case_constructor_with_todo_and_depth()
     {
-        $this->given($rule = 'foo', $data = 'bar', $todo = ['baz', 'qux'], $depth = 42)->when($result = new \_PhpScoper006a73f0e455\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data, $todo, $depth))->then->string($result->getRule())->isEqualTo($rule)->string($result->getData())->isEqualTo($data)->array($result->getTodo())->isEqualTo($todo)->integer($result->getDepth())->isEqualTo($depth)->boolean($result->isTransitional())->isFalse();
+        $this->given($rule = 'foo', $data = 'bar', $todo = ['baz', 'qux'], $depth = 42)->when($result = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data, $todo, $depth))->then->string($result->getRule())->isEqualTo($rule)->string($result->getData())->isEqualTo($data)->array($result->getTodo())->isEqualTo($todo)->integer($result->getDepth())->isEqualTo($depth)->boolean($result->isTransitional())->isFalse();
     }
     public function case_set_depth()
     {
-        $this->given($rule = 42, $data = 'bar', $todo = ['baz', 'qux'], $depth = 42, $invocation = new \_PhpScoper006a73f0e455\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data))->when($result = $invocation->setDepth($depth))->then->integer($result)->isEqualTo(-1);
+        $this->given($rule = 42, $data = 'bar', $todo = ['baz', 'qux'], $depth = 42, $invocation = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data))->when($result = $invocation->setDepth($depth))->then->integer($result)->isEqualTo(-1);
     }
     public function case_get_depth()
     {
-        $this->given($rule = 42, $data = 'bar', $todo = ['baz', 'qux'], $depth = 42, $invocation = new \_PhpScoper006a73f0e455\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data), $invocation->setDepth($depth))->when($result = $invocation->getDepth())->then->integer($result)->isEqualTo($depth);
+        $this->given($rule = 42, $data = 'bar', $todo = ['baz', 'qux'], $depth = 42, $invocation = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data), $invocation->setDepth($depth))->when($result = $invocation->getDepth())->then->integer($result)->isEqualTo($depth);
     }
     public function case_is_transitional()
     {
-        $this->given($rule = 42, $data = 'bar', $invocation = new \_PhpScoper006a73f0e455\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data))->when($result = $invocation->isTransitional())->then->boolean($result)->isTrue();
+        $this->given($rule = 42, $data = 'bar', $invocation = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Compiler\Llk\Rule\Invocation($rule, $data))->when($result = $invocation->isTransitional())->then->boolean($result)->isTrue();
     }
 }

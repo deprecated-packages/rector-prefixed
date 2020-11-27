@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\MethodPhpDocsNamespace;
+namespace _PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace;
 
-use _PhpScoper006a73f0e455\SomeNamespace\Amet as Dolor;
+use _PhpScoperbd5d0c5f7638\SomeNamespace\Amet as Dolor;
 class Bar
 {
     /**
@@ -32,7 +32,7 @@ class Bar
     /**
      * @return static[]|Collection
      */
-    public function doFluentUnionIterable() : \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\Collection
+    public function doFluentUnionIterable() : \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\Collection
     {
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug2600;
+namespace _PhpScoperbd5d0c5f7638\Bug2600;
 
-function (\_PhpScoper006a73f0e455\Bug2600\Foo $foo) : void {
+function (\_PhpScoperbd5d0c5f7638\Bug2600\Foo $foo) : void {
     $foo->doFoo();
     $foo->doFoo(1, 2, 3);
     $foo->doBar();

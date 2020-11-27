@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class NoRewindIterator extends \IteratorIterator
 {
@@ -28,4 +28,4 @@ class NoRewindIterator extends \IteratorIterator
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\NoRewindIterator', 'NoRewindIterator', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\NoRewindIterator', 'NoRewindIterator', \false);

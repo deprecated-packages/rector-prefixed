@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited;
+namespace _PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited;
 
 class A
 {
 }
-class B extends \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\A
+class B extends \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\A
 {
 }
-class C extends \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\B
+class C extends \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\B
 {
 }
 class D
@@ -22,29 +22,29 @@ class GrandparentClass
     {
     }
 }
-class ParentClass extends \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\GrandparentClass
+class ParentClass extends \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\GrandparentClass
 {
     /** @param B $dos */
     public function method($uno, $dos) : void
     {
     }
 }
-class ChildClass extends \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\ParentClass
+class ChildClass extends \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\ParentClass
 {
     /** @param C $one */
     public function method($one, $two) : void
     {
     }
 }
-function (\_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\ParentClass $foo) {
-    $foo->method(new \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\A(), new \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\B());
+function (\_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\ParentClass $foo) {
+    $foo->method(new \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\A(), new \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\B());
     // ok
-    $foo->method(new \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\D(), new \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\D());
+    $foo->method(new \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\D(), new \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\D());
     // expects A, B
 };
-function (\_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\ChildClass $foo) {
-    $foo->method(new \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\C(), new \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\B());
+function (\_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\ChildClass $foo) {
+    $foo->method(new \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\C(), new \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\B());
     // ok
-    $foo->method(new \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\B(), new \_PhpScoper006a73f0e455\CallMethodsPhpDocMergeParamInherited\D());
+    $foo->method(new \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\B(), new \_PhpScoperbd5d0c5f7638\CallMethodsPhpDocMergeParamInherited\D());
     // expects C, B
 };

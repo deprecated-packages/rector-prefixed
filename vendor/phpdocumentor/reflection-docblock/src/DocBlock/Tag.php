@@ -10,13 +10,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 interface Tag
 {
     public function getName();
     public static function create($body);
-    public function render(\_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null);
+    public function render(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null);
     public function __toString();
 }

@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\ValueObjectFactory;
 
-use _PhpScoper006a73f0e455\PHPUnit\Framework\TestCase;
+use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
-final class TagValueNodeConfigurationFactoryTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+final class TagValueNodeConfigurationFactoryTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     /**
      * @var TagValueNodeConfigurationFactory

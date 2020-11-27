@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Rector\MethodCall;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
@@ -68,7 +68,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperbd5d0c5f7638\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
             return null;
         }
         if (!$this->isName($node->name, 'getParameter')) {
@@ -77,7 +77,7 @@ CODE_SAMPLE
         /** @var String_ $stringArgument */
         $stringArgument = $node->args[0]->value;
         $parameterName = $stringArgument->value;
-        $parameterName = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($parameterName, '#\\.#', '_');
+        $parameterName = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::replace($parameterName, '#\\.#', '_');
         $propertyName = $this->propertyNaming->underscoreToName($parameterName);
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {

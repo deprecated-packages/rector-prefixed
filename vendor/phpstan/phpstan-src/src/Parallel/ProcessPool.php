@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Parallel;
 
-use _PhpScoper006a73f0e455\React\Socket\TcpServer;
+use _PhpScoperbd5d0c5f7638\React\Socket\TcpServer;
 use function array_key_exists;
 class ProcessPool
 {
@@ -13,7 +13,7 @@ class ProcessPool
     private $server;
     /** @var array<string, Process> */
     private $processes = [];
-    public function __construct(\_PhpScoper006a73f0e455\React\Socket\TcpServer $server)
+    public function __construct(\_PhpScoperbd5d0c5f7638\React\Socket\TcpServer $server)
     {
         $this->server = $server;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 final class InternalIterator implements \Iterator
 {
@@ -13,4 +13,4 @@ final class InternalIterator implements \Iterator
     public function valid() : bool;
     public function rewind() : void;
 }
-\class_alias('_PhpScoper006a73f0e455\\InternalIterator', 'InternalIterator', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\InternalIterator', 'InternalIterator', \false);

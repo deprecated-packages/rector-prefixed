@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Utils;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 /**
  * Helpers class for ordering items in values objects on call.
  * Beware of static methods as they might doom you on the edge of life.
@@ -30,7 +30,7 @@ final class ArrayItemStaticHelper
             return [];
         }
         $itemsOrder = [];
-        $matches = \_PhpScoper006a73f0e455\Nette\Utils\Strings::matchAll($content, self::ITEM_EQUALS_REGEX);
+        $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::matchAll($content, self::ITEM_EQUALS_REGEX);
         foreach ($matches as $match) {
             $itemsOrder[] = $match['item'];
         }
@@ -81,7 +81,7 @@ final class ArrayItemStaticHelper
      */
     private static function isNotEmptyAndHasSilentKey(string $content, ?string $silentKey, array $itemsOrder) : bool
     {
-        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($content, self::NON_EMPTY_SILENT_KEY_REGEX)) {
+        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($content, self::NON_EMPTY_SILENT_KEY_REGEX)) {
             return \false;
         }
         if ($silentKey === null) {

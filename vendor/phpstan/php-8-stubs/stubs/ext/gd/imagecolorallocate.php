@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imagecolorallocate(\_PhpScoper006a73f0e455\GdImage $image, int $red, int $green, int $blue) : int|false
+function imagecolorallocate(\_PhpScoperbd5d0c5f7638\GdImage $image, int $red, int $green, int $blue) : int|false
 {
 }

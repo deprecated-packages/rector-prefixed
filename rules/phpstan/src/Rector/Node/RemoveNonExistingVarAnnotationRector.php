@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStan\Rector\Node;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
@@ -84,7 +84,7 @@ CODE_SAMPLE
         }
         $nodeContentWithoutPhpDoc = $this->printWithoutComments($node);
         // it's there
-        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($nodeContentWithoutPhpDoc, '#' . \preg_quote($variableName, '#') . '\\b#')) {
+        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($nodeContentWithoutPhpDoc, '#' . \preg_quote($variableName, '#') . '\\b#')) {
             return null;
         }
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);

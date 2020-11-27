@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @alias strstr */
 function strchr(string $haystack, string $needle, bool $before_needle = \false) : string|false

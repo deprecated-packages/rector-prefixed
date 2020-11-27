@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Concat;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Scalar\String_;
@@ -94,7 +94,7 @@ CODE_SAMPLE
             return $node;
         }
         $resultString = new \PhpParser\Node\Scalar\String_($concat->left->value . $concat->right->value);
-        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::length($resultString->value) >= self::LINE_BREAK_POINT) {
+        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::length($resultString->value) >= self::LINE_BREAK_POINT) {
             $this->nodeReplacementIsRestricted = \true;
             return $node;
         }

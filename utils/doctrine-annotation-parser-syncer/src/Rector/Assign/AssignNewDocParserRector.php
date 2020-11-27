@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Utils\DoctrineAnnotationParserSyncer\Rector\Assign;
 
-use _PhpScoper006a73f0e455\Doctrine\Common\Annotations\AnnotationReader;
+use _PhpScoperbd5d0c5f7638\Doctrine\Common\Annotations\AnnotationReader;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
@@ -27,7 +27,7 @@ final class AssignNewDocParserRector extends \Rector\Core\Rector\AbstractRector 
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isInClassNamed($node, \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\AnnotationReader::class)) {
+        if (!$this->isInClassNamed($node, \_PhpScoperbd5d0c5f7638\Doctrine\Common\Annotations\AnnotationReader::class)) {
             return null;
         }
         if (!$this->isName($node->var, 'preParser')) {

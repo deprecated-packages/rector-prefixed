@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\HierarchyDistances;
+namespace _PhpScoperbd5d0c5f7638\HierarchyDistances;
 
-class Ipsum extends \_PhpScoper006a73f0e455\HierarchyDistances\Lorem implements \_PhpScoper006a73f0e455\HierarchyDistances\FirstIpsumInterface, \_PhpScoper006a73f0e455\HierarchyDistances\SecondIpsumInterface, \_PhpScoper006a73f0e455\HierarchyDistances\ThirdIpsumInterface
+class Ipsum extends \_PhpScoperbd5d0c5f7638\HierarchyDistances\Lorem implements \_PhpScoperbd5d0c5f7638\HierarchyDistances\FirstIpsumInterface, \_PhpScoperbd5d0c5f7638\HierarchyDistances\SecondIpsumInterface, \_PhpScoperbd5d0c5f7638\HierarchyDistances\ThirdIpsumInterface
 {
     use TraitOne;
 }

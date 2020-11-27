@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function enchant_broker_request_dict(\EnchantBroker $broker, string $tag) : \EnchantDictionary|false
 {

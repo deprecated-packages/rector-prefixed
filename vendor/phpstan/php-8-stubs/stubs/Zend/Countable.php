@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 interface Countable
 {
     /** @return int */
     public function count();
 }
-\class_alias('_PhpScoper006a73f0e455\\Countable', 'Countable', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\Countable', 'Countable', \false);

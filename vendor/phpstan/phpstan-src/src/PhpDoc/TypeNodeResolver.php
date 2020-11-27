@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\PhpDoc;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PHPStan\Analyser\NameScope;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
@@ -435,11 +435,11 @@ class TypeNodeResolver
             }
             $classReflection = $this->getReflectionProvider()->getClass($className);
             $constantName = $constExpr->name;
-            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::endsWith($constantName, '*')) {
-                $constantNameStartsWith = \_PhpScoper006a73f0e455\Nette\Utils\Strings::substring($constantName, 0, \_PhpScoper006a73f0e455\Nette\Utils\Strings::length($constantName) - 1);
+            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::endsWith($constantName, '*')) {
+                $constantNameStartsWith = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::substring($constantName, 0, \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::length($constantName) - 1);
                 $constantTypes = [];
                 foreach ($classReflection->getNativeReflection()->getConstants() as $classConstantName => $constantValue) {
-                    if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
+                    if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
                         continue;
                     }
                     $constantTypes[] = \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($constantValue);

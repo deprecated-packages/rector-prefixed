@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\RingCentral\Tests\Psr7;
+namespace _PhpScoperbd5d0c5f7638\RingCentral\Tests\Psr7;
 
-use _PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface;
-use _PhpScoper006a73f0e455\RingCentral\Psr7;
-use _PhpScoper006a73f0e455\RingCentral\Psr7\StreamDecoratorTrait;
-class Str extends \_PhpScoper006a73f0e455\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\StreamDecoratorTrait;
+class Str extends \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface
 {
 }
 /**
  * @covers RingCentral\Psr7\StreamDecoratorTrait
  */
-class StreamDecoratorTraitTest extends \_PhpScoper006a73f0e455\PHPUnit_Framework_TestCase
+class StreamDecoratorTraitTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
 {
     private $a;
     private $b;
@@ -21,18 +21,18 @@ class StreamDecoratorTraitTest extends \_PhpScoper006a73f0e455\PHPUnit_Framework
         $this->c = \fopen('php://temp', 'r+');
         \fwrite($this->c, 'foo');
         \fseek($this->c, 0);
-        $this->a = \_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for($this->c);
-        $this->b = new \_PhpScoper006a73f0e455\RingCentral\Tests\Psr7\Str($this->a);
+        $this->a = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for($this->c);
+        $this->b = new \_PhpScoperbd5d0c5f7638\RingCentral\Tests\Psr7\Str($this->a);
     }
     public function testCatchesExceptionsWhenCastingToString()
     {
-        $s = $this->getMockBuilder('_PhpScoper006a73f0e455\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('read'))->getMockForAbstractClass();
+        $s = $this->getMockBuilder('_PhpScoperbd5d0c5f7638\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('read'))->getMockForAbstractClass();
         $s->expects($this->once())->method('read')->will($this->throwException(new \Exception('foo')));
         $msg = '';
         \set_error_handler(function ($errNo, $str) use(&$msg) {
             $msg = $str;
         });
-        echo new \_PhpScoper006a73f0e455\RingCentral\Tests\Psr7\Str($s);
+        echo new \_PhpScoperbd5d0c5f7638\RingCentral\Tests\Psr7\Str($s);
         \restore_error_handler();
         $this->assertContains('foo', $msg);
     }

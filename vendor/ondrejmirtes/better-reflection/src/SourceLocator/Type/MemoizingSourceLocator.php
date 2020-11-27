@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type;
 
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
 use function array_key_exists;
 use function get_class;
 use function spl_object_hash;
-final class MemoizingSourceLocator implements \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+final class MemoizingSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var SourceLocator */
     private $wrappedSourceLocator;
@@ -18,11 +18,11 @@ final class MemoizingSourceLocator implements \_PhpScoper006a73f0e455\Roave\Bett
     private $cacheByIdentifierKeyAndOid = [];
     /** @var Reflection[][] indexed by reflector key and identifier type cache key */
     private $cacheByIdentifierTypeKeyAndOid = [];
-    public function __construct(\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator $wrappedSourceLocator)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator $wrappedSourceLocator)
     {
         $this->wrappedSourceLocator = $wrappedSourceLocator;
     }
-    public function locateIdentifier(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
     {
         $cacheKey = $this->reflectorCacheKey($reflector) . '_' . $this->identifierToCacheKey($identifier);
         if (\array_key_exists($cacheKey, $this->cacheByIdentifierKeyAndOid)) {
@@ -33,7 +33,7 @@ final class MemoizingSourceLocator implements \_PhpScoper006a73f0e455\Roave\Bett
     /**
      * @return Reflection[]
      */
-    public function locateIdentifiersByType(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         $cacheKey = $this->reflectorCacheKey($reflector) . '_' . $this->identifierTypeToCacheKey($identifierType);
         if (\array_key_exists($cacheKey, $this->cacheByIdentifierTypeKeyAndOid)) {
@@ -41,15 +41,15 @@ final class MemoizingSourceLocator implements \_PhpScoper006a73f0e455\Roave\Bett
         }
         return $this->cacheByIdentifierTypeKeyAndOid[$cacheKey] = $this->wrappedSourceLocator->locateIdentifiersByType($reflector, $identifierType);
     }
-    private function reflectorCacheKey(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector) : string
+    private function reflectorCacheKey(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector) : string
     {
         return 'type:' . \get_class($reflector) . '#oid:' . \spl_object_hash($reflector);
     }
-    private function identifierToCacheKey(\_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier $identifier) : string
+    private function identifierToCacheKey(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier $identifier) : string
     {
         return $this->identifierTypeToCacheKey($identifier->getType()) . '#name:' . $identifier->getName();
     }
-    private function identifierTypeToCacheKey(\_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : string
+    private function identifierTypeToCacheKey(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : string
     {
         return 'type:' . $identifierType->getName();
     }

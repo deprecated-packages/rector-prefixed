@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $stubs = ['../../resources/functionMap.php', '../../resources/functionMap_php74delta.php', '../../resources/functionMap_php80delta.php', '../../resources/functionMetadata.php', '../../vendor/hoa/consistency/Prelude.php'];
-$stubFinder = \_PhpScoper006a73f0e455\Isolated\Symfony\Component\Finder\Finder::create();
+$stubFinder = \_PhpScoperbd5d0c5f7638\Isolated\Symfony\Component\Finder\Finder::create();
 foreach ($stubFinder->files()->name('*.php')->in(['../../stubs', '../../vendor/jetbrains/phpstorm-stubs', '../../vendor/phpstan/php-8-stubs/stubs']) as $file) {
     if ($file->getPathName() === '../../vendor/jetbrains/phpstorm-stubs/PhpStormStubsMap.php') {
         continue;
@@ -21,31 +21,31 @@ return ['prefix' => null, 'finders' => [], 'files-whitelist' => $stubs, 'patcher
     if ($filePath !== 'vendor/nette/di/src/DI/Compiler.php') {
         return $content;
     }
-    return \str_replace('_PhpScoper006a73f0e455\\|Nette\\DI\\Statement', \sprintf('_PhpScoper006a73f0e455\\|\\%s\\Nette\\DI\\Statement', $prefix), $content);
+    return \str_replace('_PhpScoperbd5d0c5f7638\\|Nette\\DI\\Statement', \sprintf('_PhpScoperbd5d0c5f7638\\|\\%s\\Nette\\DI\\Statement', $prefix), $content);
 }, function (string $filePath, string $prefix, string $content) : string {
     if ($filePath !== 'vendor/nette/di/src/DI/Config/DefinitionSchema.php') {
         return $content;
     }
-    $content = \str_replace(\sprintf('_PhpScoper006a73f0e455\\\'%s\\callable', $prefix), '\'callable', $content);
-    $content = \str_replace('_PhpScoper006a73f0e455\\|Nette\\DI\\Definitions\\Statement', \sprintf('_PhpScoper006a73f0e455\\|%s\\Nette\\DI\\Definitions\\Statement', $prefix), $content);
+    $content = \str_replace(\sprintf('_PhpScoperbd5d0c5f7638\\\'%s\\callable', $prefix), '\'callable', $content);
+    $content = \str_replace('_PhpScoperbd5d0c5f7638\\|Nette\\DI\\Definitions\\Statement', \sprintf('_PhpScoperbd5d0c5f7638\\|%s\\Nette\\DI\\Definitions\\Statement', $prefix), $content);
     return $content;
 }, function (string $filePath, string $prefix, string $content) : string {
     if ($filePath !== 'vendor/nette/di/src/DI/Extensions/ExtensionsExtension.php') {
         return $content;
     }
-    $content = \str_replace(\sprintf('_PhpScoper006a73f0e455\\\'%s\\string', $prefix), '\'string', $content);
-    $content = \str_replace('_PhpScoper006a73f0e455\\|Nette\\DI\\Definitions\\Statement', \sprintf('_PhpScoper006a73f0e455\\|%s\\Nette\\DI\\Definitions\\Statement', $prefix), $content);
+    $content = \str_replace(\sprintf('_PhpScoperbd5d0c5f7638\\\'%s\\string', $prefix), '\'string', $content);
+    $content = \str_replace('_PhpScoperbd5d0c5f7638\\|Nette\\DI\\Definitions\\Statement', \sprintf('_PhpScoperbd5d0c5f7638\\|%s\\Nette\\DI\\Definitions\\Statement', $prefix), $content);
     return $content;
 }, function (string $filePath, string $prefix, string $content) : string {
     if ($filePath !== 'src/Testing/TestCase.php') {
         return $content;
     }
-    return \str_replace(\sprintf('_PhpScoper006a73f0e455\\%s\\PHPUnit\\Framework\\TestCase', $prefix), '_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase', $content);
+    return \str_replace(\sprintf('_PhpScoperbd5d0c5f7638\\%s\\PHPUnit\\Framework\\TestCase', $prefix), '_PhpScoperbd5d0c5f7638\\PHPUnit\\Framework\\TestCase', $content);
 }, function (string $filePath, string $prefix, string $content) : string {
     if ($filePath !== 'src/Testing/LevelsTestCase.php') {
         return $content;
     }
-    return \str_replace([\sprintf('_PhpScoper006a73f0e455\\%s\\PHPUnit\\Framework\\AssertionFailedError', $prefix), \sprintf('_PhpScoper006a73f0e455\\%s\\PHPUnit\\Framework\\TestCase', $prefix)], ['\\PHPUnit\\Framework\\AssertionFailedError', '\\PHPUnit\\Framework\\TestCase'], $content);
+    return \str_replace([\sprintf('_PhpScoperbd5d0c5f7638\\%s\\PHPUnit\\Framework\\AssertionFailedError', $prefix), \sprintf('_PhpScoperbd5d0c5f7638\\%s\\PHPUnit\\Framework\\TestCase', $prefix)], ['\\PHPUnit\\Framework\\AssertionFailedError', '\\PHPUnit\\Framework\\TestCase'], $content);
 }, function (string $filePath, string $prefix, string $content) : string {
     if (\strpos($filePath, 'src/') !== 0) {
         return $content;
@@ -75,7 +75,7 @@ return ['prefix' => null, 'finders' => [], 'files-whitelist' => $stubs, 'patcher
         }
         return $prefix . '\\' . $class;
     };
-    $neon = \_PhpScoper006a73f0e455\Nette\Neon\Neon::decode($content);
+    $neon = \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::decode($content);
     $updatedNeon = $neon;
     if (\array_key_exists('services', $neon)) {
         foreach ($neon['services'] as $key => $service) {
@@ -93,12 +93,12 @@ return ['prefix' => null, 'finders' => [], 'files-whitelist' => $stubs, 'patcher
             $updatedNeon['services'][$key] = $service;
         }
     }
-    return \_PhpScoper006a73f0e455\Nette\Neon\Neon::encode($updatedNeon, \_PhpScoper006a73f0e455\Nette\Neon\Neon::BLOCK);
+    return \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::encode($updatedNeon, \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::BLOCK);
 }, function (string $filePath, string $prefix, string $content) : string {
     if (!\in_array($filePath, ['src/Testing/TestCaseSourceLocatorFactory.php', 'src/Testing/TestCase.php'], \true)) {
         return $content;
     }
-    return \str_replace(\sprintf('_PhpScoper006a73f0e455\\%s\\Composer\\Autoload\\ClassLoader', $prefix), '_PhpScoper006a73f0e455\\Composer\\Autoload\\ClassLoader', $content);
+    return \str_replace(\sprintf('_PhpScoperbd5d0c5f7638\\%s\\Composer\\Autoload\\ClassLoader', $prefix), '_PhpScoperbd5d0c5f7638\\Composer\\Autoload\\ClassLoader', $content);
 }, function (string $filePath, string $prefix, string $content) : string {
     if ($filePath !== 'vendor/jetbrains/phpstorm-stubs/PhpStormStubsMap.php') {
         return $content;
@@ -115,12 +115,12 @@ return ['prefix' => null, 'finders' => [], 'files-whitelist' => $stubs, 'patcher
     if (!\in_array($filePath, ['src/Type/TypehintHelper.php', 'vendor/ondrejmirtes/better-reflection/src/Reflection/Adapter/ReflectionUnionType.php'], \true)) {
         return $content;
     }
-    return \str_replace(\sprintf('_PhpScoper006a73f0e455\\%s\\ReflectionUnionType', $prefix), 'ReflectionUnionType', $content);
+    return \str_replace(\sprintf('_PhpScoperbd5d0c5f7638\\%s\\ReflectionUnionType', $prefix), 'ReflectionUnionType', $content);
 }, function (string $filePath, string $prefix, string $content) : string {
     if (\strpos($filePath, 'src/') !== 0) {
         return $content;
     }
-    return \str_replace(\sprintf('_PhpScoper006a73f0e455\\%s\\Attribute', $prefix), 'Attribute', $content);
+    return \str_replace(\sprintf('_PhpScoperbd5d0c5f7638\\%s\\Attribute', $prefix), 'Attribute', $content);
 }, function (string $filePath, string $prefix, string $content) : string {
     return \str_replace('private static', 'private static', $content);
 }, function (string $filePath, string $prefix, string $content) : string {

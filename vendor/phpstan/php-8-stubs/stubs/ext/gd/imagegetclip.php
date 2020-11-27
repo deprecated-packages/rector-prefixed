@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imagegetclip(\_PhpScoper006a73f0e455\GdImage $image) : array
+function imagegetclip(\_PhpScoperbd5d0c5f7638\GdImage $image) : array
 {
 }

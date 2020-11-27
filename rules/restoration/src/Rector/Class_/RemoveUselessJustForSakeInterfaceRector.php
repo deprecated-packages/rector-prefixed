@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Restoration\Rector\Class_;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
@@ -56,12 +56,12 @@ final class RemoveUselessJustForSakeInterfaceRector extends \Rector\Core\Rector\
             if ($implementedInterfaceName === null) {
                 return null;
             }
-            if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
+            if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
                 continue;
             }
             // is interface in /vendor? probably useful
             $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
-            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
+            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
                 continue;
             }
             $interfaceImplementers = $this->getInterfaceImplementers($implementedInterfaceName);

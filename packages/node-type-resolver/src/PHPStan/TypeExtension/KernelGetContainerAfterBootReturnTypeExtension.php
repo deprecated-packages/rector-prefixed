@@ -12,12 +12,12 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Kernel;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Kernel;
 final class KernelGetContainerAfterBootReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
 {
     public function getClass() : string
     {
-        return \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Kernel::class;
+        return \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Kernel::class;
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {

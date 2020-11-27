@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\OverwritingVariable;
+namespace _PhpScoperbd5d0c5f7638\OverwritingVariable;
 
-$var = new \_PhpScoper006a73f0e455\OverwritingVariable\Bar();
+$var = new \_PhpScoperbd5d0c5f7638\OverwritingVariable\Bar();
 $var = $var->methodFoo();
 die;

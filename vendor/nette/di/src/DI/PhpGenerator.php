@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI;
 
-use _PhpScoper006a73f0e455\Nette;
-use _PhpScoper006a73f0e455\Nette\DI\Definitions\Reference;
-use _PhpScoper006a73f0e455\Nette\DI\Definitions\Statement;
-use _PhpScoper006a73f0e455\Nette\PhpGenerator as Php;
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement;
+use _PhpScoperbd5d0c5f7638\Nette\PhpGenerator as Php;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 /**
  * Container PHP code generator.
  */
@@ -22,18 +22,18 @@ class PhpGenerator
     private $builder;
     /** @var string */
     private $className;
-    public function __construct(\_PhpScoper006a73f0e455\Nette\DI\ContainerBuilder $builder)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Nette\DI\ContainerBuilder $builder)
     {
         $this->builder = $builder;
     }
     /**
      * Generates PHP classes. First class is the container.
      */
-    public function generate(string $className) : \_PhpScoper006a73f0e455\Nette\PhpGenerator\ClassType
+    public function generate(string $className) : \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType
     {
         $this->className = $className;
-        $class = new \_PhpScoper006a73f0e455\Nette\PhpGenerator\ClassType($this->className);
-        $class->setExtends(\_PhpScoper006a73f0e455\Nette\DI\Container::class);
+        $class = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType($this->className);
+        $class->setExtends(\_PhpScoperbd5d0c5f7638\Nette\DI\Container::class);
         $class->addMethod('__construct')->addBody('parent::__construct($params);')->addParameter('params', [])->setType('array');
         foreach ($this->builder->exportMeta() as $key => $value) {
             $class->addProperty($key)->setProtected()->setValue($value);
@@ -43,11 +43,11 @@ class PhpGenerator
         foreach ($definitions as $def) {
             $class->addMember($this->generateMethod($def));
         }
-        $class->getMethod(\_PhpScoper006a73f0e455\Nette\DI\Container::getMethodName(\_PhpScoper006a73f0e455\Nette\DI\ContainerBuilder::THIS_CONTAINER))->setReturnType($className)->setBody('return $this;');
+        $class->getMethod(\_PhpScoperbd5d0c5f7638\Nette\DI\Container::getMethodName(\_PhpScoperbd5d0c5f7638\Nette\DI\ContainerBuilder::THIS_CONTAINER))->setReturnType($className)->setBody('return $this;');
         $class->addMethod('initialize');
         return $class;
     }
-    public function toString(\_PhpScoper006a73f0e455\Nette\PhpGenerator\ClassType $class) : string
+    public function toString(\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType $class) : string
     {
         return '/** @noinspection PhpParamsInspection,PhpMethodMayBeStaticInspection */
 
@@ -55,35 +55,35 @@ declare(strict_types=1);
 
 ' . $class->__toString();
     }
-    public function addInitialization(\_PhpScoper006a73f0e455\Nette\PhpGenerator\ClassType $class, \_PhpScoper006a73f0e455\Nette\DI\CompilerExtension $extension) : void
+    public function addInitialization(\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType $class, \_PhpScoperbd5d0c5f7638\Nette\DI\CompilerExtension $extension) : void
     {
         $closure = $extension->getInitialization();
         if ($closure->getBody()) {
             $class->getMethod('initialize')->addBody('// ' . $extension->prefix(''))->addBody("({$closure})();");
         }
     }
-    public function generateMethod(\_PhpScoper006a73f0e455\Nette\DI\Definitions\Definition $def) : \_PhpScoper006a73f0e455\Nette\PhpGenerator\Method
+    public function generateMethod(\_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Definition $def) : \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Method
     {
         $name = $def->getName();
         try {
-            $method = new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Method(\_PhpScoper006a73f0e455\Nette\DI\Container::getMethodName($name));
+            $method = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Method(\_PhpScoperbd5d0c5f7638\Nette\DI\Container::getMethodName($name));
             $method->setPublic();
             $method->setReturnType($def->getType());
             $def->generateMethod($method, $this);
             return $method;
         } catch (\Exception $e) {
-            throw new \_PhpScoper006a73f0e455\Nette\DI\ServiceCreationException("Service '{$name}': " . $e->getMessage(), 0, $e);
+            throw new \_PhpScoperbd5d0c5f7638\Nette\DI\ServiceCreationException("Service '{$name}': " . $e->getMessage(), 0, $e);
         }
     }
     /**
      * Formats PHP code for class instantiating, function calling or property setting in PHP.
      */
-    public function formatStatement(\_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement $statement) : string
+    public function formatStatement(\_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement $statement) : string
     {
         $entity = $statement->getEntity();
         $arguments = $statement->arguments;
         switch (\true) {
-            case \is_string($entity) && \_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($entity, '?'):
+            case \is_string($entity) && \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($entity, '?'):
                 // PHP literal
                 return $this->formatPhp($entity, $arguments);
             case \is_string($entity):
@@ -97,15 +97,15 @@ declare(strict_types=1);
                         if ($append = \substr($name, -2) === '[]') {
                             $name = \substr($name, 0, -2);
                         }
-                        $prop = $entity[0] instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Reference ? $this->formatPhp('?->?', [$entity[0], $name]) : $this->formatPhp($entity[0] . '::$?', [$name]);
+                        $prop = $entity[0] instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference ? $this->formatPhp('?->?', [$entity[0], $name]) : $this->formatPhp($entity[0] . '::$?', [$name]);
                         return $arguments ? $this->formatPhp($prop . ($append ? '[]' : '') . ' = ?', [$arguments[0]]) : $prop;
-                    case $entity[0] instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement:
+                    case $entity[0] instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement:
                         $inner = $this->formatPhp('?', [$entity[0]]);
                         if (\substr($inner, 0, 4) === 'new ') {
                             $inner = "({$inner})";
                         }
                         return $this->formatPhp("{$inner}->?(...?)", [$entity[1], $arguments]);
-                    case $entity[0] instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Reference:
+                    case $entity[0] instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference:
                         return $this->formatPhp('?->?(...?)', [$entity[0], $entity[1], $arguments]);
                     case $entity[0] === '':
                         // function call
@@ -115,7 +115,7 @@ declare(strict_types=1);
                         return $this->formatPhp("{$entity[0]}::{$entity[1]}(...?)", [$arguments]);
                 }
         }
-        throw new \_PhpScoper006a73f0e455\Nette\InvalidStateException();
+        throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException();
     }
     /**
      * Formats PHP statement.
@@ -124,20 +124,20 @@ declare(strict_types=1);
     public function formatPhp(string $statement, array $args) : string
     {
         \array_walk_recursive($args, function (&$val) : void {
-            if ($val instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement) {
-                $val = new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Literal($this->formatStatement($val));
-            } elseif ($val instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\Reference) {
+            if ($val instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement) {
+                $val = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Literal($this->formatStatement($val));
+            } elseif ($val instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference) {
                 $name = $val->getValue();
                 if ($val->isSelf()) {
-                    $val = new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Literal('$service');
-                } elseif ($name === \_PhpScoper006a73f0e455\Nette\DI\ContainerBuilder::THIS_CONTAINER) {
-                    $val = new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Literal('$this');
+                    $val = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Literal('$service');
+                } elseif ($name === \_PhpScoperbd5d0c5f7638\Nette\DI\ContainerBuilder::THIS_CONTAINER) {
+                    $val = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Literal('$this');
                 } else {
-                    $val = \_PhpScoper006a73f0e455\Nette\DI\ContainerBuilder::literal('$this->getService(?)', [$name]);
+                    $val = \_PhpScoperbd5d0c5f7638\Nette\DI\ContainerBuilder::literal('$this->getService(?)', [$name]);
                 }
             }
         });
-        return \_PhpScoper006a73f0e455\Nette\PhpGenerator\Helpers::formatArgs($statement, $args);
+        return \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Helpers::formatArgs($statement, $args);
     }
     /**
      * Converts parameters from Definition to PhpGenerator.
@@ -148,7 +148,7 @@ declare(strict_types=1);
         $res = [];
         foreach ($parameters as $k => $v) {
             $tmp = \explode(' ', \is_int($k) ? $v : $k);
-            $param = $res[] = new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Parameter(\end($tmp));
+            $param = $res[] = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Parameter(\end($tmp));
             if (!\is_int($k)) {
                 $param->setDefaultValue($v);
             }

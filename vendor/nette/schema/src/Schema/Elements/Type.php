@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\Schema\Elements;
+namespace _PhpScoperbd5d0c5f7638\Nette\Schema\Elements;
 
-use _PhpScoper006a73f0e455\Nette;
-use _PhpScoper006a73f0e455\Nette\Schema\Context;
-use _PhpScoper006a73f0e455\Nette\Schema\DynamicParameter;
-use _PhpScoper006a73f0e455\Nette\Schema\Helpers;
-use _PhpScoper006a73f0e455\Nette\Schema\Schema;
-final class Type implements \_PhpScoper006a73f0e455\Nette\Schema\Schema
+use _PhpScoperbd5d0c5f7638\Nette;
+use _PhpScoperbd5d0c5f7638\Nette\Schema\Context;
+use _PhpScoperbd5d0c5f7638\Nette\Schema\DynamicParameter;
+use _PhpScoperbd5d0c5f7638\Nette\Schema\Helpers;
+use _PhpScoperbd5d0c5f7638\Nette\Schema\Schema;
+final class Type implements \_PhpScoperbd5d0c5f7638\Nette\Schema\Schema
 {
     use Base;
     use Nette\SmartObject;
@@ -37,7 +37,7 @@ final class Type implements \_PhpScoper006a73f0e455\Nette\Schema\Schema
     }
     public function dynamic() : self
     {
-        $this->type .= '|' . \_PhpScoper006a73f0e455\Nette\Schema\DynamicParameter::class;
+        $this->type .= '|' . \_PhpScoperbd5d0c5f7638\Nette\Schema\DynamicParameter::class;
         return $this;
     }
     public function min(?float $min) : self
@@ -56,7 +56,7 @@ final class Type implements \_PhpScoper006a73f0e455\Nette\Schema\Schema
      */
     public function items($type = 'mixed') : self
     {
-        $this->items = $type instanceof \_PhpScoper006a73f0e455\Nette\Schema\Schema ? $type : new self($type);
+        $this->items = $type instanceof \_PhpScoperbd5d0c5f7638\Nette\Schema\Schema ? $type : new self($type);
         return $this;
     }
     public function pattern(?string $pattern) : self
@@ -65,7 +65,7 @@ final class Type implements \_PhpScoper006a73f0e455\Nette\Schema\Schema
         return $this;
     }
     /********************* processing ****************d*g**/
-    public function normalize($value, \_PhpScoper006a73f0e455\Nette\Schema\Context $context)
+    public function normalize($value, \_PhpScoperbd5d0c5f7638\Nette\Schema\Context $context)
     {
         $value = $this->doNormalize($value, $context);
         if (\is_array($value) && $this->items) {
@@ -79,8 +79,8 @@ final class Type implements \_PhpScoper006a73f0e455\Nette\Schema\Schema
     }
     public function merge($value, $base)
     {
-        if (\is_array($value) && isset($value[\_PhpScoper006a73f0e455\Nette\Schema\Helpers::PREVENT_MERGING])) {
-            unset($value[\_PhpScoper006a73f0e455\Nette\Schema\Helpers::PREVENT_MERGING]);
+        if (\is_array($value) && isset($value[\_PhpScoperbd5d0c5f7638\Nette\Schema\Helpers::PREVENT_MERGING])) {
+            unset($value[\_PhpScoperbd5d0c5f7638\Nette\Schema\Helpers::PREVENT_MERGING]);
             return $value;
         }
         if (\is_array($value) && \is_array($base) && $this->items) {
@@ -95,9 +95,9 @@ final class Type implements \_PhpScoper006a73f0e455\Nette\Schema\Schema
             }
             return $base;
         }
-        return \_PhpScoper006a73f0e455\Nette\Schema\Helpers::merge($value, $base);
+        return \_PhpScoperbd5d0c5f7638\Nette\Schema\Helpers::merge($value, $base);
     }
-    public function complete($value, \_PhpScoper006a73f0e455\Nette\Schema\Context $context)
+    public function complete($value, \_PhpScoperbd5d0c5f7638\Nette\Schema\Context $context)
     {
         if ($value === null && \is_array($this->default)) {
             $value = [];
@@ -111,8 +111,8 @@ final class Type implements \_PhpScoper006a73f0e455\Nette\Schema\Schema
             $context->addError("The option %path% expects to match pattern '{$this->pattern}', '{$value}' given.");
             return;
         }
-        if ($value instanceof \_PhpScoper006a73f0e455\Nette\Schema\DynamicParameter) {
-            $context->dynamics[] = [$value, \str_replace('|' . \_PhpScoper006a73f0e455\Nette\Schema\DynamicParameter::class, '', $expected)];
+        if ($value instanceof \_PhpScoperbd5d0c5f7638\Nette\Schema\DynamicParameter) {
+            $context->dynamics[] = [$value, \str_replace('|' . \_PhpScoperbd5d0c5f7638\Nette\Schema\DynamicParameter::class, '', $expected)];
         }
         if ($this->items) {
             $errCount = \count($context->errors);
@@ -125,7 +125,7 @@ final class Type implements \_PhpScoper006a73f0e455\Nette\Schema\Schema
                 return null;
             }
         }
-        $value = \_PhpScoper006a73f0e455\Nette\Schema\Helpers::merge($value, $this->default);
+        $value = \_PhpScoperbd5d0c5f7638\Nette\Schema\Helpers::merge($value, $this->default);
         return $this->doFinalize($value, $context);
     }
 }

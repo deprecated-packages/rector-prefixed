@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function gzdeflate(string $data, int $level = -1, int $encoding = \ZLIB_ENCODING_RAW) : string|false
 {

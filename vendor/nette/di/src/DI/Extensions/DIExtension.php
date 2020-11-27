@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI\Extensions;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI\Extensions;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * DI extension.
  */
-final class DIExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExtension
+final class DIExtension extends \_PhpScoperbd5d0c5f7638\Nette\DI\CompilerExtension
 {
     /** @var array */
     public $exportedTags = [];
@@ -57,19 +57,19 @@ final class DIExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExtensi
             $this->getContainerBuilder()->parameters = [];
         }
     }
-    public function afterCompile(\_PhpScoper006a73f0e455\Nette\PhpGenerator\ClassType $class)
+    public function afterCompile(\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType $class)
     {
         if ($this->config->parentClass) {
             $class->setExtends($this->config->parentClass);
         }
         $this->restrictTags($class);
         $this->restrictTypes($class);
-        if ($this->debugMode && ($this->config->debugger ?? $this->getContainerBuilder()->getByType(\_PhpScoper006a73f0e455\Tracy\Bar::class))) {
+        if ($this->debugMode && ($this->config->debugger ?? $this->getContainerBuilder()->getByType(\_PhpScoperbd5d0c5f7638\Tracy\Bar::class))) {
             $this->enableTracyIntegration();
         }
         $this->initializeTaggedServices();
     }
-    private function restrictTags(\_PhpScoper006a73f0e455\Nette\PhpGenerator\ClassType $class) : void
+    private function restrictTags(\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType $class) : void
     {
         $option = $this->config->export->tags;
         if ($option === \true) {
@@ -79,7 +79,7 @@ final class DIExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExtensi
             $prop->value = \array_intersect_key($prop->value, $this->exportedTags + \array_flip((array) $option));
         }
     }
-    private function restrictTypes(\_PhpScoper006a73f0e455\Nette\PhpGenerator\ClassType $class) : void
+    private function restrictTypes(\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType $class) : void
     {
         $option = $this->config->export->types;
         if ($option === \true) {
@@ -97,7 +97,7 @@ final class DIExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExtensi
     }
     private function enableTracyIntegration() : void
     {
-        \_PhpScoper006a73f0e455\Nette\Bridges\DITracy\ContainerPanel::$compilationTime = $this->time;
-        $this->initialization->addBody($this->getContainerBuilder()->formatPhp('?;', [new \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement('@Tracy\\Bar::addPanel', [new \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement(\_PhpScoper006a73f0e455\Nette\Bridges\DITracy\ContainerPanel::class)])]));
+        \_PhpScoperbd5d0c5f7638\Nette\Bridges\DITracy\ContainerPanel::$compilationTime = $this->time;
+        $this->initialization->addBody($this->getContainerBuilder()->formatPhp('?;', [new \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement('@Tracy\\Bar::addPanel', [new \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement(\_PhpScoperbd5d0c5f7638\Nette\Bridges\DITracy\ContainerPanel::class)])]));
     }
 }

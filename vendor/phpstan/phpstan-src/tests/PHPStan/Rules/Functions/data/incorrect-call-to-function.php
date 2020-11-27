@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\IncorrectCallToFunction;
+namespace _PhpScoperbd5d0c5f7638\IncorrectCallToFunction;
 
 foo(1);
 foo(1, 2, 3);

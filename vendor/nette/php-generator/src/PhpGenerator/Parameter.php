@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\PhpGenerator;
+namespace _PhpScoperbd5d0c5f7638\Nette\PhpGenerator;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * Function/Method parameter description.
  *

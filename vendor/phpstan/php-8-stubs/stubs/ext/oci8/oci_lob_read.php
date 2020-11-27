@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function oci_lob_read(\_PhpScoper006a73f0e455\OCILob $lob, int $length) : string|false
+function oci_lob_read(\_PhpScoperbd5d0c5f7638\OCILob $lob, int $length) : string|false
 {
 }

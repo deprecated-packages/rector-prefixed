@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imagesetinterpolation(\_PhpScoper006a73f0e455\GdImage $image, int $method = \IMG_BILINEAR_FIXED) : bool
+function imagesetinterpolation(\_PhpScoperbd5d0c5f7638\GdImage $image, int $method = \IMG_BILINEAR_FIXED) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class SplMaxHeap extends \SplHeap
 {
@@ -9,4 +9,4 @@ class SplMaxHeap extends \SplHeap
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\SplMaxHeap', 'SplMaxHeap', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SplMaxHeap', 'SplMaxHeap', \false);

@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _PhpScoper006a73f0e455\OndraM\CiDetector\CiDetector;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Helper\ProgressBar;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperbd5d0c5f7638\OndraM\CiDetector\CiDetector;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Helper\ProgressBar;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
 class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 {
     public const OPTION_NO_PROGRESS = 'no-progress';
@@ -22,7 +22,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
      * @var bool|null
      */
     private $isCiDetected = null;
-    public function __construct(\_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface $output)
     {
         parent::__construct($input, $output);
         $this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool) $input->getOption(self::OPTION_NO_PROGRESS);
@@ -30,7 +30,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
     private function isCiDetected() : bool
     {
         if ($this->isCiDetected === null) {
-            $ciDetector = new \_PhpScoper006a73f0e455\OndraM\CiDetector\CiDetector();
+            $ciDetector = new \_PhpScoperbd5d0c5f7638\OndraM\CiDetector\CiDetector();
             $this->isCiDetected = $ciDetector->isCiDetected();
         }
         return $this->isCiDetected;
@@ -42,7 +42,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
     public function table(array $headers, array $rows) : void
     {
         /** @var int $terminalWidth */
-        $terminalWidth = (new \_PhpScoper006a73f0e455\Symfony\Component\Console\Terminal())->getWidth() - 2;
+        $terminalWidth = (new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Terminal())->getWidth() - 2;
         $maxHeaderWidth = \strlen($headers[0]);
         foreach ($rows as $row) {
             $length = \strlen($row[0]);
@@ -67,7 +67,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      * @param int $max
      */
-    public function createProgressBar($max = 0) : \_PhpScoper006a73f0e455\Symfony\Component\Console\Helper\ProgressBar
+    public function createProgressBar($max = 0) : \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Helper\ProgressBar
     {
         $this->progressBar = parent::createProgressBar($max);
         $this->progressBar->setOverwrite(!$this->isCiDetected());

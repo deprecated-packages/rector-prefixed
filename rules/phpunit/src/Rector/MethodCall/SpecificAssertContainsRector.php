@@ -29,9 +29,9 @@ final class SpecificAssertContainsRector extends \Rector\Core\Rector\AbstractPHP
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertContains()/assertNotContains() method to new string and iterable alternatives', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-final class SomeTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+final class SomeTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     public function test()
     {
@@ -39,14 +39,14 @@ final class SomeTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
         $this->assertNotContains('foo', 'foo bar');
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeTest', 'SomeTest', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeTest', 'SomeTest', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-final class SomeTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+final class SomeTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     public function test()
     {
@@ -54,7 +54,7 @@ final class SomeTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
         $this->assertStringNotContainsString('foo', 'foo bar');
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeTest', 'SomeTest', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeTest', 'SomeTest', \false);
 CODE_SAMPLE
 )]);
     }

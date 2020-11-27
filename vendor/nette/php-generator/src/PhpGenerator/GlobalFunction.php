@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\PhpGenerator;
+namespace _PhpScoperbd5d0c5f7638\Nette\PhpGenerator;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * Global function.
  *
@@ -22,16 +22,16 @@ final class GlobalFunction
     use Traits\AttributeAware;
     public static function from(string $function) : self
     {
-        return (new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($function));
+        return (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($function));
     }
     public static function withBodyFrom(string $function) : self
     {
-        return (new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($function), \true);
+        return (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($function), \true);
     }
     public function __toString() : string
     {
         try {
-            return (new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Printer())->printFunction($this);
+            return (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Printer())->printFunction($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;

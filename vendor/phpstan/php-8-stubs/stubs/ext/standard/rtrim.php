@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function rtrim(string $string, string $characters = " \n\r\t\v\0") : string
 {

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\ExtendingUnknownClass;
+namespace _PhpScoperbd5d0c5f7638\ExtendingUnknownClass;
 
-class Foo extends \_PhpScoper006a73f0e455\ExtendingUnknownClass\Bar
+class Foo extends \_PhpScoperbd5d0c5f7638\ExtendingUnknownClass\Bar
 {
 }

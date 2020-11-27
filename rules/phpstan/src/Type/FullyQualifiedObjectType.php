@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStan\Type;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
@@ -24,10 +24,10 @@ final class FullyQualifiedObjectType extends \PHPStan\Type\ObjectType
     }
     public function getShortName() : string
     {
-        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($this->getClassName(), '\\')) {
+        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($this->getClassName(), '\\')) {
             return $this->getClassName();
         }
-        return (string) \_PhpScoper006a73f0e455\Nette\Utils\Strings::after($this->getClassName(), '\\', -1);
+        return (string) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::after($this->getClassName(), '\\', -1);
     }
     public function getShortNameNode() : \PhpParser\Node\Name
     {

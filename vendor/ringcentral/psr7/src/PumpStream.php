@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\RingCentral\Psr7;
+namespace _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
 
-use _PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
 /**
  * Provides a read only stream that pumps data from a PHP callable.
  *
@@ -13,7 +13,7 @@ use _PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface;
  * the read() function of the PumpStream. The provided callable MUST return
  * false when there is no more data to read.
  */
-class PumpStream implements \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface
+class PumpStream implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface
 {
     /** @var callable */
     private $source;
@@ -40,7 +40,7 @@ class PumpStream implements \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInter
         $this->source = $source;
         $this->size = isset($options['size']) ? $options['size'] : null;
         $this->metadata = isset($options['metadata']) ? $options['metadata'] : array();
-        $this->buffer = new \_PhpScoper006a73f0e455\RingCentral\Psr7\BufferStream();
+        $this->buffer = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\BufferStream();
     }
     public function __toString()
     {

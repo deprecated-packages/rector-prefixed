@@ -24,7 +24,7 @@ final class ChangeQueryWhereDateValueWithCarbonRector extends \Rector\Core\Recto
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoper006a73f0e455\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoperbd5d0c5f7638\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Database\Query\Builder;
 
 final class SomeClass
@@ -92,7 +92,7 @@ CODE_SAMPLE
     }
     private function matchWhereDateThirdArgValue(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr
     {
-        if (!$this->isOnClassMethodCall($methodCall, '_PhpScoper006a73f0e455\\Illuminate\\Database\\Query\\Builder', 'whereDate')) {
+        if (!$this->isOnClassMethodCall($methodCall, '_PhpScoperbd5d0c5f7638\\Illuminate\\Database\\Query\\Builder', 'whereDate')) {
             return null;
         }
         if (!isset($methodCall->args[2])) {
@@ -103,7 +103,7 @@ CODE_SAMPLE
             return null;
         }
         // nothing to change
-        if ($this->isStaticCallNamed($argValue, '_PhpScoper006a73f0e455\\Carbon\\Carbon', 'today')) {
+        if ($this->isStaticCallNamed($argValue, '_PhpScoperbd5d0c5f7638\\Carbon\\Carbon', 'today')) {
             return null;
         }
         if ($this->isValues($methodCall->args[1]->value, ['>=', '<='])) {

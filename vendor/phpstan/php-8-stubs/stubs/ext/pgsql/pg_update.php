@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param resource $connection */
 function pg_update($connection, string $table_name, array $values, array $conditions, int $flags = \PGSQL_DML_EXEC) : string|bool

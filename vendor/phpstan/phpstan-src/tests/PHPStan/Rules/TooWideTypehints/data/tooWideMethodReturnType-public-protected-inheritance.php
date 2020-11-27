@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\TooWideMethodReturnType;
+namespace _PhpScoperbd5d0c5f7638\TooWideMethodReturnType;
 
 class Ancestor
 {
@@ -9,7 +9,7 @@ class Ancestor
         return null;
     }
 }
-final class Baz extends \_PhpScoper006a73f0e455\TooWideMethodReturnType\Ancestor
+final class Baz extends \_PhpScoperbd5d0c5f7638\TooWideMethodReturnType\Ancestor
 {
     public function foo() : \Generator
     {
@@ -37,7 +37,7 @@ interface FooInterface
 {
     public function doFoo() : ?string;
 }
-class BarClass implements \_PhpScoper006a73f0e455\TooWideMethodReturnType\FooInterface
+class BarClass implements \_PhpScoperbd5d0c5f7638\TooWideMethodReturnType\FooInterface
 {
     public function doFoo() : ?string
     {

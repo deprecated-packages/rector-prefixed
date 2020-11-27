@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper006a73f0e455\InstantiationPromotedProperties;
+namespace _PhpScoperbd5d0c5f7638\InstantiationPromotedProperties;
 
 class Foo
 {
@@ -23,8 +23,8 @@ class Bar
     }
 }
 function () {
-    new \_PhpScoper006a73f0e455\InstantiationPromotedProperties\Foo([], ['foo']);
-    new \_PhpScoper006a73f0e455\InstantiationPromotedProperties\Foo([], [1]);
-    new \_PhpScoper006a73f0e455\InstantiationPromotedProperties\Bar([], ['foo']);
-    new \_PhpScoper006a73f0e455\InstantiationPromotedProperties\Bar([], [1]);
+    new \_PhpScoperbd5d0c5f7638\InstantiationPromotedProperties\Foo([], ['foo']);
+    new \_PhpScoperbd5d0c5f7638\InstantiationPromotedProperties\Foo([], [1]);
+    new \_PhpScoperbd5d0c5f7638\InstantiationPromotedProperties\Bar([], ['foo']);
+    new \_PhpScoperbd5d0c5f7638\InstantiationPromotedProperties\Bar([], [1]);
 };

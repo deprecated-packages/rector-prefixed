@@ -14,7 +14,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
-use _PhpScoper006a73f0e455\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use _PhpScoperbd5d0c5f7638\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**

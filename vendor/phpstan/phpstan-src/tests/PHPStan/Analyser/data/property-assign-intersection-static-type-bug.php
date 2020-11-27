@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\PropertyAssignIntersectionStaticTypeBug;
+namespace _PhpScoperbd5d0c5f7638\PropertyAssignIntersectionStaticTypeBug;
 
 abstract class Base
 {
@@ -8,13 +8,13 @@ abstract class Base
     private $foo;
     public function __construct(string $foo)
     {
-        \assert($this instanceof \_PhpScoper006a73f0e455\PropertyAssignIntersectionStaticTypeBug\Frontend || $this instanceof \_PhpScoper006a73f0e455\PropertyAssignIntersectionStaticTypeBug\Backend);
+        \assert($this instanceof \_PhpScoperbd5d0c5f7638\PropertyAssignIntersectionStaticTypeBug\Frontend || $this instanceof \_PhpScoperbd5d0c5f7638\PropertyAssignIntersectionStaticTypeBug\Backend);
         $this->foo = $foo;
     }
 }
-class Frontend extends \_PhpScoper006a73f0e455\PropertyAssignIntersectionStaticTypeBug\Base
+class Frontend extends \_PhpScoperbd5d0c5f7638\PropertyAssignIntersectionStaticTypeBug\Base
 {
 }
-class Backend extends \_PhpScoper006a73f0e455\PropertyAssignIntersectionStaticTypeBug\Base
+class Backend extends \_PhpScoperbd5d0c5f7638\PropertyAssignIntersectionStaticTypeBug\Base
 {
 }

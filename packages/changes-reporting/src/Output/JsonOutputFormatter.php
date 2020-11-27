@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\ChangesReporting\Output;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Json;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Json;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
@@ -60,7 +60,7 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
             }
             $errorsArray['errors'][] = $errorData;
         }
-        $json = \_PhpScoper006a73f0e455\Nette\Utils\Json::encode($errorsArray, \_PhpScoper006a73f0e455\Nette\Utils\Json::PRETTY);
+        $json = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::encode($errorsArray, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::PRETTY);
         $outputFile = $this->configuration->getOutputFile();
         if ($outputFile !== null) {
             $this->smartFileSystem->dumpFile($outputFile, $json . \PHP_EOL);

@@ -57,6 +57,6 @@ CODE_SAMPLE
         if (\count($node->args) !== 2) {
             return null;
         }
-        return $this->createStaticCall('_PhpScoper006a73f0e455\\Nette\\Utils\\FileSystem', 'write', $node->args);
+        return $this->createStaticCall('_PhpScoperbd5d0c5f7638\\Nette\\Utils\\FileSystem', 'write', $node->args);
     }
 }

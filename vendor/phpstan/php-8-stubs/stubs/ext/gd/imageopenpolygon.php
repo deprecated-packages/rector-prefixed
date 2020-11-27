@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imageopenpolygon(\_PhpScoper006a73f0e455\GdImage $image, array $points, int $num_points_or_color, ?int $color = null) : bool
+function imageopenpolygon(\_PhpScoperbd5d0c5f7638\GdImage $image, array $points, int $num_points_or_color, ?int $color = null) : bool
 {
 }

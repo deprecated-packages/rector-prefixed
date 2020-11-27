@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug3403;
+namespace _PhpScoperbd5d0c5f7638\Bug3403;
 
 interface Foo
 {
     public function bar(...$baz) : void;
 }
-class AFoo implements \_PhpScoper006a73f0e455\Bug3403\Foo
+class AFoo implements \_PhpScoperbd5d0c5f7638\Bug3403\Foo
 {
     public function bar(...$baz) : void
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function shm_attach(int $key, ?int $size = null, int $permissions = 0666) : \SysvSharedMemory|false
 {

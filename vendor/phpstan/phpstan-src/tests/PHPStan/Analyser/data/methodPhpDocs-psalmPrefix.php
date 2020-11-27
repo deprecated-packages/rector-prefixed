@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\MethodPhpDocsNamespace;
+namespace _PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace;
 
-use _PhpScoper006a73f0e455\SomeNamespace\Amet as Dolor;
-use _PhpScoper006a73f0e455\SomeNamespace\Consecteur;
-class FooPsalmPrefix extends \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\FooParent
+use _PhpScoperbd5d0c5f7638\SomeNamespace\Amet as Dolor;
+use _PhpScoperbd5d0c5f7638\SomeNamespace\Consecteur;
+class FooPsalmPrefix extends \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooParent
 {
     /**
      * @psalm-return Bar
@@ -49,9 +49,9 @@ class FooPsalmPrefix extends \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\FooP
      * @psalm-param object $objectWithNativeTypehint
      * @psalm-return Foo
      */
-    public function doFoo($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $yetAnotherMixedParameter, $integerParameter, $anotherIntegerParameter, $arrayParameterOne, $arrayParameterOther, $objectRelative, $objectFullyQualified, $objectUsed, $nullableInteger, $nullableObject, $selfType, $staticType, $nullType, $barObject, \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\Bar $conflictedObject, \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\Bar $moreSpecifiedObject, $resource, $yetAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherAnotherMixedParameter, $voidParameter, $useWithoutAlias, $true, $false, bool $boolTrue, bool $boolFalse, bool $trueBoolean, $objectWithoutNativeTypehint, object $objectWithNativeTypehint, $parameterWithDefaultValueFalse = \false, $anotherNullableObject = null)
+    public function doFoo($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $yetAnotherMixedParameter, $integerParameter, $anotherIntegerParameter, $arrayParameterOne, $arrayParameterOther, $objectRelative, $objectFullyQualified, $objectUsed, $nullableInteger, $nullableObject, $selfType, $staticType, $nullType, $barObject, \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\Bar $conflictedObject, \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\Bar $moreSpecifiedObject, $resource, $yetAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherAnotherMixedParameter, $voidParameter, $useWithoutAlias, $true, $false, bool $boolTrue, bool $boolFalse, bool $trueBoolean, $objectWithoutNativeTypehint, object $objectWithNativeTypehint, $parameterWithDefaultValueFalse = \false, $anotherNullableObject = null)
     {
-        $parent = new \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\FooParent();
+        $parent = new \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooParent();
         $differentInstance = new self();
         /** @psalm-var self $inlineSelf */
         $inlineSelf = doFoo();
@@ -67,7 +67,7 @@ class FooPsalmPrefix extends \_PhpScoper006a73f0e455\MethodPhpDocsNamespace\FooP
     public function doBar() : array
     {
     }
-    public function returnParent() : \_PhpScoper006a73f0e455\parent
+    public function returnParent() : \_PhpScoperbd5d0c5f7638\parent
     {
     }
     /**

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
@@ -37,104 +37,104 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     # forms - collection
     $services->set(\Rector\Symfony\Rector\MethodCall\ChangeCollectionTypeOptionTypeFromStringToClassReferenceRector::class);
     $services->set(\Rector\Symfony\Rector\MethodCall\ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector::class);
-    $services->set(\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::class)->call('configure', [[\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::CLASS_CONSTANT_RENAME => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\FormEvents', 'PRE_BIND', 'PRE_SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\FormEvents', 'BIND', 'SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\FormEvents', 'POST_BIND', 'POST_SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFEVEN', 'ROUND_HALF_EVEN'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFUP', 'ROUND_HALF_UP'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFDOWN', 'ROUND_HALF_DOWN')])]]);
+    $services->set(\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::class)->call('configure', [[\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::CLASS_CONSTANT_RENAME => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\FormEvents', 'PRE_BIND', 'PRE_SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\FormEvents', 'BIND', 'SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\FormEvents', 'POST_BIND', 'POST_SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFEVEN', 'ROUND_HALF_EVEN'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFUP', 'ROUND_HALF_UP'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFDOWN', 'ROUND_HALF_DOWN')])]]);
     $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'registerNamespaces', 'addPrefixes'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'registerPrefixes', 'addPrefixes'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'registerNamespace', 'addPrefix'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'registerPrefix', 'addPrefix'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'getNamespaces', 'getPrefixes'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'getNamespaceFallbacks', 'getFallbackDirs'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'getPrefixFallbacks', 'getFallbackDirs'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'registerNamespaces', 'addPrefixes'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'registerPrefixes', 'addPrefixes'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'registerNamespace', 'addPrefix'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'registerPrefix', 'addPrefix'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'getNamespaces', 'getPrefixes'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'getNamespaceFallbacks', 'getFallbackDirs'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader', 'getPrefixFallbacks', 'getFallbackDirs'),
         // form
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\AbstractType', 'getName', 'getBlockPrefix'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\AbstractType', 'setDefaultOptions', 'configureOptions'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\FormTypeInterface', 'getName', 'getBlockPrefix'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\FormTypeInterface', 'setDefaultOptions', 'configureOptions'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ResolvedFormTypeInterface', 'getName', 'getBlockPrefix'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\AbstractTypeExtension', 'setDefaultOptions', 'configureOptions'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Form', 'bind', 'submit'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Form', 'isBound', 'isSubmitted'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\AbstractType', 'getName', 'getBlockPrefix'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\AbstractType', 'setDefaultOptions', 'configureOptions'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\FormTypeInterface', 'getName', 'getBlockPrefix'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\FormTypeInterface', 'setDefaultOptions', 'configureOptions'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ResolvedFormTypeInterface', 'getName', 'getBlockPrefix'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\AbstractTypeExtension', 'setDefaultOptions', 'configureOptions'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Form', 'bind', 'submit'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Form', 'isBound', 'isSubmitted'),
         // process
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Process\\Process', 'setStdin', 'setInput'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Process\\Process', 'getStdin', 'getInput'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Process\\Process', 'setStdin', 'setInput'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Process\\Process', 'getStdin', 'getInput'),
         // monolog
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Logger', 'emerg', 'emergency'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Logger', 'crit', 'critical'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Logger', 'err', 'error'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Logger', 'warn', 'warning'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Bridge\\Monolog\\Logger', 'emerg', 'emergency'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Bridge\\Monolog\\Logger', 'crit', 'critical'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Bridge\\Monolog\\Logger', 'err', 'error'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Bridge\\Monolog\\Logger', 'warn', 'warning'),
         # http kernel
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface', 'emerg', 'emergency'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface', 'crit', 'critical'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface', 'err', 'error'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface', 'warn', 'warning'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\NullLogger', 'emerg', 'emergency'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\NullLogger', 'crit', 'critical'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\NullLogger', 'err', 'error'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\NullLogger', 'warn', 'warning'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface', 'emerg', 'emergency'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface', 'crit', 'critical'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface', 'err', 'error'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface', 'warn', 'warning'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\NullLogger', 'emerg', 'emergency'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\NullLogger', 'crit', 'critical'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\NullLogger', 'err', 'error'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\NullLogger', 'warn', 'warning'),
         // property access
-        new \Rector\Renaming\ValueObject\MethodCallRename('getPropertyAccessor', '_PhpScoper006a73f0e455\\Symfony\\Component\\PropertyAccess\\PropertyAccess', 'createPropertyAccessor'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('getPropertyAccessor', '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\PropertyAccess\\PropertyAccess', 'createPropertyAccessor'),
         // translator
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Translation\\Dumper\\FileDumper', 'format', 'formatCatalogue'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Translation\\Translator', 'getMessages', 'getCatalogue'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Translation\\Dumper\\FileDumper', 'format', 'formatCatalogue'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Translation\\Translator', 'getMessages', 'getCatalogue'),
         // validator
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\ConstraintViolationInterface', 'getMessageParameters', 'getParameters'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\ConstraintViolationInterface', 'getMessagePluralization', 'getPlural'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\ConstraintViolation', 'getMessageParameters', 'getParameters'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\ConstraintViolation', 'getMessagePluralization', 'getPlural'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\ConstraintViolationInterface', 'getMessageParameters', 'getParameters'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\ConstraintViolationInterface', 'getMessagePluralization', 'getPlural'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\ConstraintViolation', 'getMessageParameters', 'getParameters'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\ConstraintViolation', 'getMessagePluralization', 'getPlural'),
     ])]]);
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
         # class loader
         # partial with method rename
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader' => '_PhpScoper006a73f0e455\\Symfony\\Component\\ClassLoader\\ClassLoader',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\UniversalClassLoader\\UniversalClassLoader' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\ClassLoader\\ClassLoader',
         # console
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Helper\\ProgressHelper' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Helper\\ProgressBar',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Console\\Helper\\ProgressHelper' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Console\\Helper\\ProgressBar',
         # form
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Util\\VirtualFormAwareIterator' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Util\\InheritDataAwareIterator',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Tests\\Extension\\Core\\Type\\TypeTestCase' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Test\\TypeTestCase',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Tests\\FormIntegrationTestCase' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Test\\FormIntegrationTestCase',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Tests\\FormPerformanceTestCase' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Test\\FormPerformanceTestCase',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\ChoiceListInterface' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ChoiceList\\ChoiceListInterface',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\View\\ChoiceView' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ChoiceList\\View\\ChoiceView',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Csrf\\CsrfProvider\\CsrfProviderInterface' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Security\\Csrf\\CsrfTokenManagerInterface',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\ChoiceList' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ChoiceList\\ArrayChoiceList',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\LazyChoiceList' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ChoiceList\\LazyChoiceList',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\ObjectChoiceList' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ChoiceList\\ArrayChoiceList',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\SimpleChoiceList' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ChoiceList\\ArrayChoiceList',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ChoiceList\\ArrayKeyChoiceList' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\ChoiceList\\ArrayChoiceList',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Util\\VirtualFormAwareIterator' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Util\\InheritDataAwareIterator',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Tests\\Extension\\Core\\Type\\TypeTestCase' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Test\\TypeTestCase',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Tests\\FormIntegrationTestCase' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Test\\FormIntegrationTestCase',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Tests\\FormPerformanceTestCase' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Test\\FormPerformanceTestCase',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\ChoiceListInterface' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ChoiceList\\ChoiceListInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\View\\ChoiceView' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ChoiceList\\View\\ChoiceView',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Csrf\\CsrfProvider\\CsrfProviderInterface' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Security\\Csrf\\CsrfTokenManagerInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\ChoiceList' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ChoiceList\\ArrayChoiceList',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\LazyChoiceList' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ChoiceList\\LazyChoiceList',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\ObjectChoiceList' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ChoiceList\\ArrayChoiceList',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\SimpleChoiceList' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ChoiceList\\ArrayChoiceList',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ChoiceList\\ArrayKeyChoiceList' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\ChoiceList\\ArrayChoiceList',
         # http kernel
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Debug\\ErrorHandler' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Debug\\ErrorHandler',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Debug\\ExceptionHandler' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Debug\\ExceptionHandler',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Exception\\FatalErrorException' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Debug\\Exception\\FatalErrorException',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Exception\\FlattenException' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Debug\\Exception\\FlattenException',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Debug\\ErrorHandler' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Debug\\ErrorHandler',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Debug\\ExceptionHandler' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Debug\\ExceptionHandler',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Exception\\FatalErrorException' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Debug\\Exception\\FatalErrorException',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Exception\\FlattenException' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Debug\\Exception\\FlattenException',
         # partial with method rename
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface' => '_PhpScoper006a73f0e455\\Psr\\Log\\LoggerInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\LoggerInterface' => '_PhpScoperbd5d0c5f7638\\Psr\\Log\\LoggerInterface',
         # event disptacher
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\DependencyInjection\\RegisterListenersPass' => '_PhpScoper006a73f0e455\\Symfony\\Component\\EventDispatcher\\DependencyInjection\\RegisterListenersPass',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\DependencyInjection\\RegisterListenersPass' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\EventDispatcher\\DependencyInjection\\RegisterListenersPass',
         # partial with methor rename
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\Log\\NullLogger' => '_PhpScoper006a73f0e455\\Psr\\Log\\LoggerInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpKernel\\Log\\NullLogger' => '_PhpScoperbd5d0c5f7638\\Psr\\Log\\LoggerInterface',
         # monolog
         # partial with method rename
-        '_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Logger' => '_PhpScoper006a73f0e455\\Psr\\Log\\LoggerInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Bridge\\Monolog\\Logger' => '_PhpScoperbd5d0c5f7638\\Psr\\Log\\LoggerInterface',
         # security
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Security\\Core\\Authorization\\Voter\\Voter',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AbstractVoter' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Security\\Core\\Authorization\\Voter\\Voter',
         # translator
         # partial with class rename
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Translation\\Translator' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Translation\\TranslatorBagInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Translation\\Translator' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Translation\\TranslatorBagInterface',
         # twig
-        '_PhpScoper006a73f0e455\\Symfony\\Bundle\\TwigBundle\\TwigDefaultEscapingStrategy' => 'Twig_FileExtensionEscapingStrategy',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Bundle\\TwigBundle\\TwigDefaultEscapingStrategy' => 'Twig_FileExtensionEscapingStrategy',
         # validator
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Collection\\Optional' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Optional',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Collection\\Required' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Required',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\MetadataInterface' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\MetadataInterface',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\PropertyMetadataInterface' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\PropertyMetadataInterface',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\PropertyMetadataContainerInterface' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\ClassMetadataInterface',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\ClassBasedInterface' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\ClassMetadataInterface',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\ElementMetadata' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\GenericMetadata',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\ExecutionContextInterface' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Context\\ExecutionContextInterface',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\ClassMetadataFactory' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\Factory\\LazyLoadingMetadataFactory',
-        '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\MetadataFactoryInterface' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Mapping\\Factory\\MetadataFactoryInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Constraints\\Collection\\Optional' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Constraints\\Optional',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Constraints\\Collection\\Required' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Constraints\\Required',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\MetadataInterface' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\MetadataInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\PropertyMetadataInterface' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\PropertyMetadataInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\PropertyMetadataContainerInterface' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\ClassMetadataInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\ClassBasedInterface' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\ClassMetadataInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\ElementMetadata' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\GenericMetadata',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\ExecutionContextInterface' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Context\\ExecutionContextInterface',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\ClassMetadataFactory' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\Factory\\LazyLoadingMetadataFactory',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\MetadataFactoryInterface' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Mapping\\Factory\\MetadataFactoryInterface',
         # swift mailer
-        '_PhpScoper006a73f0e455\\Symfony\\Bridge\\Swiftmailer\\DataCollector\\MessageDataCollector' => '_PhpScoper006a73f0e455\\Symfony\\Bundle\\SwiftmailerBundle\\DataCollector\\MessageDataCollector',
+        '_PhpScoperbd5d0c5f7638\\Symfony\\Bridge\\Swiftmailer\\DataCollector\\MessageDataCollector' => '_PhpScoperbd5d0c5f7638\\Symfony\\Bundle\\SwiftmailerBundle\\DataCollector\\MessageDataCollector',
     ]]]);
 };

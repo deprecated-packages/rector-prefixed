@@ -1,32 +1,32 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Tests\Promise\Stream;
+namespace _PhpScoperbd5d0c5f7638\React\Tests\Promise\Stream;
 
-use _PhpScoper006a73f0e455\Clue\React\Block;
-use _PhpScoper006a73f0e455\React\EventLoop\Factory;
-use _PhpScoper006a73f0e455\React\Promise;
-use _PhpScoper006a73f0e455\React\Promise\Stream;
-use _PhpScoper006a73f0e455\React\Promise\Timer;
-use _PhpScoper006a73f0e455\React\Stream\ThroughStream;
-class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Stream\TestCase
+use _PhpScoperbd5d0c5f7638\Clue\React\Block;
+use _PhpScoperbd5d0c5f7638\React\EventLoop\Factory;
+use _PhpScoperbd5d0c5f7638\React\Promise;
+use _PhpScoperbd5d0c5f7638\React\Promise\Stream;
+use _PhpScoperbd5d0c5f7638\React\Promise\Timer;
+use _PhpScoperbd5d0c5f7638\React\Stream\ThroughStream;
+class UnwrapReadableTest extends \_PhpScoperbd5d0c5f7638\React\Tests\Promise\Stream\TestCase
 {
     private $loop;
     public function setUp()
     {
-        $this->loop = \_PhpScoper006a73f0e455\React\EventLoop\Factory::create();
+        $this->loop = \_PhpScoperbd5d0c5f7638\React\EventLoop\Factory::create();
     }
     public function testReturnsReadableStreamForPromise()
     {
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $this->assertTrue($stream->isReadable());
     }
     public function testClosingStreamMakesItNotReadable()
     {
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('close', $this->expectCallableOnce());
         $stream->on('end', $this->expectCallableNever());
         $stream->on('error', $this->expectCallableNever());
@@ -35,8 +35,8 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testClosingRejectingStreamMakesItNotReadable()
     {
-        $promise = \_PhpScoper006a73f0e455\React\Promise\Timer\reject(0.001, $this->loop);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\Timer\reject(0.001, $this->loop);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('close', $this->expectCallableOnce());
         $stream->on('end', $this->expectCallableNever());
         $stream->on('error', $this->expectCallableNever());
@@ -46,16 +46,16 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testClosingStreamWillCancelInputPromiseAndMakeStreamNotReadable()
     {
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         }, $this->expectCallableOnce());
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->close();
         $this->assertFalse($stream->isReadable());
     }
     public function testEmitsErrorWhenPromiseRejects()
     {
-        $promise = \_PhpScoper006a73f0e455\React\Promise\Timer\reject(0.001, $this->loop);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\Timer\reject(0.001, $this->loop);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $this->assertTrue($stream->isReadable());
         $stream->on('error', $this->expectCallableOnce());
         $stream->on('end', $this->expectCallableNever());
@@ -64,8 +64,8 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testEmitsErrorWhenPromiseResolvesWithWrongValue()
     {
-        $promise = \_PhpScoper006a73f0e455\React\Promise\Timer\resolve(0.001, $this->loop);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\Timer\resolve(0.001, $this->loop);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $this->assertTrue($stream->isReadable());
         $stream->on('error', $this->expectCallableOnce());
         $stream->on('end', $this->expectCallableNever());
@@ -74,26 +74,26 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testReturnsClosedStreamIfInputStreamIsClosed()
     {
-        $input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
+        $input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
         $input->close();
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve($input);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve($input);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $this->assertFalse($stream->isReadable());
     }
     public function testReturnsClosedStreamIfInputHasWrongValue()
     {
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve(42);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve(42);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $this->assertFalse($stream->isReadable());
     }
     public function testReturnsStreamThatWillBeClosedWhenPromiseResolvesWithClosedInputStream()
     {
-        $input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
+        $input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
         $input->close();
-        $promise = \_PhpScoper006a73f0e455\React\Promise\Timer\resolve(0.001, $this->loop)->then(function () use($input) {
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\Timer\resolve(0.001, $this->loop)->then(function () use($input) {
             return $input;
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $this->assertTrue($stream->isReadable());
         $stream->on('close', $this->expectCallableOnce());
         $this->loop->run();
@@ -101,17 +101,17 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testEmitsDataWhenInputEmitsData()
     {
-        $input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve($input);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve($input);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('data', $this->expectCallableOnceWith('hello world'));
         $input->emit('data', array('hello world'));
     }
     public function testEmitsErrorAndClosesWhenInputEmitsError()
     {
-        $input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve($input);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve($input);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('error', $this->expectCallableOnceWith(new \RuntimeException()));
         $stream->on('close', $this->expectCallableOnce());
         $input->emit('error', array(new \RuntimeException()));
@@ -119,9 +119,9 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testEmitsEndAndClosesWhenInputEmitsEnd()
     {
-        $input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve($input);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve($input);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('end', $this->expectCallableOnce());
         $stream->on('close', $this->expectCallableOnce());
         $input->emit('end', array());
@@ -129,9 +129,9 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testEmitsCloseOnlyOnceWhenClosingStreamMultipleTimes()
     {
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('end', $this->expectCallableNever());
         $stream->on('close', $this->expectCallableOnce());
         $stream->close();
@@ -139,10 +139,10 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testForwardsPauseToInputStream()
     {
-        $input = $this->getMockBuilder('_PhpScoper006a73f0e455\\React\\Stream\\ReadableStreamInterface')->getMock();
+        $input = $this->getMockBuilder('_PhpScoperbd5d0c5f7638\\React\\Stream\\ReadableStreamInterface')->getMock();
         $input->expects($this->once())->method('pause');
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve($input);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve($input);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->pause();
     }
     /**
@@ -150,9 +150,9 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
      */
     public function testPauseAfterCloseHasNoEffect()
     {
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->close();
         $stream->pause();
     }
@@ -161,16 +161,16 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
      */
     public function testPauseAfterErrorDueToInvalidInputHasNoEffect()
     {
-        $promise = \_PhpScoper006a73f0e455\React\Promise\reject(new \RuntimeException());
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\reject(new \RuntimeException());
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->pause();
     }
     public function testForwardsResumeToInputStream()
     {
-        $input = $this->getMockBuilder('_PhpScoper006a73f0e455\\React\\Stream\\ReadableStreamInterface')->getMock();
+        $input = $this->getMockBuilder('_PhpScoperbd5d0c5f7638\\React\\Stream\\ReadableStreamInterface')->getMock();
         $input->expects($this->once())->method('resume');
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve($input);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve($input);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->resume();
     }
     /**
@@ -178,19 +178,19 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
      */
     public function testResumeAfterCloseHasNoEffect()
     {
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->close();
         $stream->resume();
     }
     public function testPipingStreamWillForwardDataEvents()
     {
-        $input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve($input);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
-        $output = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
-        $outputPromise = \_PhpScoper006a73f0e455\React\Promise\Stream\buffer($output);
+        $input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve($input);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
+        $output = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
+        $outputPromise = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\buffer($output);
         $stream->pipe($output);
         $input->emit('data', array('hello'));
         $input->emit('data', array('world'));
@@ -199,45 +199,45 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testClosingStreamWillCloseInputStream()
     {
-        $input = $this->getMockBuilder('_PhpScoper006a73f0e455\\React\\Stream\\ReadableStreamInterface')->getMock();
+        $input = $this->getMockBuilder('_PhpScoperbd5d0c5f7638\\React\\Stream\\ReadableStreamInterface')->getMock();
         $input->expects($this->once())->method('isReadable')->willReturn(\true);
         $input->expects($this->once())->method('close');
-        $promise = \_PhpScoper006a73f0e455\React\Promise\resolve($input);
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $promise = \_PhpScoperbd5d0c5f7638\React\Promise\resolve($input);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->close();
     }
     public function testClosingStreamWillCloseStreamIfItIgnoredCancellationAndResolvesLater()
     {
-        $input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
+        $input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
         $loop = $this->loop;
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function ($resolve) use($loop, $input) {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function ($resolve) use($loop, $input) {
             $loop->addTimer(0.001, function () use($resolve, $input) {
                 $resolve($input);
             });
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('close', $this->expectCallableOnce());
         $stream->close();
-        \_PhpScoper006a73f0e455\Clue\React\Block\await($promise, $this->loop);
+        \_PhpScoperbd5d0c5f7638\Clue\React\Block\await($promise, $this->loop);
         $this->assertFalse($input->isReadable());
     }
     public function testClosingStreamWillCloseStreamFromCancellationHandler()
     {
-        $input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         }, function ($resolve) use($input) {
             $resolve($input);
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('close', $this->expectCallableOnce());
         $stream->close();
         $this->assertFalse($input->isReadable());
     }
     public function testCloseShouldRemoveAllListenersAfterCloseEvent()
     {
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->on('close', $this->expectCallableOnce());
         $this->assertCount(1, $stream->listeners('close'));
         $stream->close();
@@ -245,9 +245,9 @@ class UnwrapReadableTest extends \_PhpScoper006a73f0e455\React\Tests\Promise\Str
     }
     public function testCloseShouldRemoveReferenceToPromiseToAvoidGarbageReferences()
     {
-        $promise = new \_PhpScoper006a73f0e455\React\Promise\Promise(function () {
+        $promise = new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function () {
         });
-        $stream = \_PhpScoper006a73f0e455\React\Promise\Stream\unwrapReadable($promise);
+        $stream = \_PhpScoperbd5d0c5f7638\React\Promise\Stream\unwrapReadable($promise);
         $stream->close();
         $ref = new \ReflectionProperty($stream, 'promise');
         $ref->setAccessible(\true);

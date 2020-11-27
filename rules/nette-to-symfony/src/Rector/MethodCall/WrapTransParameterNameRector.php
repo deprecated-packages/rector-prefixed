@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\MethodCall;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
@@ -70,7 +70,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Symfony\\Component\\Translation\\TranslatorInterface')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Translation\\TranslatorInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'trans')) {
@@ -91,7 +91,7 @@ CODE_SAMPLE
             if (!$arrayItem->key instanceof \PhpParser\Node\Scalar\String_) {
                 continue;
             }
-            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($arrayItem->key->value, self::BETWEEN_PERCENT_CHARS_REGEX)) {
+            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($arrayItem->key->value, self::BETWEEN_PERCENT_CHARS_REGEX)) {
                 continue;
             }
             $arrayItem->key = new \PhpParser\Node\Scalar\String_('%' . $arrayItem->key->value . '%');

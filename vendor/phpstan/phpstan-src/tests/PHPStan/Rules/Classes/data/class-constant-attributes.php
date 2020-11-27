@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\ClassConstantAttributes;
+namespace _PhpScoperbd5d0c5f7638\ClassConstantAttributes;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
 class Foo

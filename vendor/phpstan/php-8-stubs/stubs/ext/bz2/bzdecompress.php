@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function bzdecompress(string $data, bool $use_less_memory = \false) : string|int|false
 {

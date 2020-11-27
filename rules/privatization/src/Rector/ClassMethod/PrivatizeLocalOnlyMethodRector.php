@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Privatization\Rector\ClassMethod;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -109,7 +109,7 @@ CODE_SAMPLE
         if ($this->isAnonymousClass($classLike)) {
             return \true;
         }
-        if ($this->isObjectType($classLike, '_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase')) {
+        if ($this->isObjectType($classLike, '_PhpScoperbd5d0c5f7638\\PHPUnit\\Framework\\TestCase')) {
             return \true;
         }
         if ($this->isDoctrineEntityClass($classLike)) {
@@ -141,11 +141,11 @@ CODE_SAMPLE
         if ($className === null) {
             return \false;
         }
-        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
+        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
             return \false;
         }
         $classMethodName = $this->getName($classMethod);
-        if ((bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
+        if ((bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
             return \true;
         }
         /** @var PhpDocInfo|null $phpDocInfo */

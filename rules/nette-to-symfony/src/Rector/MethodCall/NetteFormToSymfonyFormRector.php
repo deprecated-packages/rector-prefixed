@@ -31,24 +31,24 @@ final class NetteFormToSymfonyFormRector extends \Rector\Core\Rector\AbstractRec
      * @var string[]
      */
     private const ADD_METHOD_TO_FORM_TYPE = [
-        'addText' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
-        'addPassword' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
-        'addTextArea' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
-        'addEmail' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
-        'addInteger' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType',
-        'addHidden' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType',
+        'addText' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
+        'addPassword' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
+        'addTextArea' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
+        'addEmail' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
+        'addInteger' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType',
+        'addHidden' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType',
         // https://symfony.com/doc/current/reference/forms/types/checkbox.html
-        'addCheckbox' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
-        'addUpload' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
-        'addImage' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
-        'addMultiUpload' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addCheckbox' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
+        'addUpload' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addImage' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addMultiUpload' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
         // https://symfony.com/doc/current/reference/forms/types/choice.html#select-tag-checkboxes-or-radio-buttons
-        'addSelect' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addRadioList' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addCheckboxList' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addMultiSelect' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addSubmit' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType',
-        'addButton' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType',
+        'addSelect' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addRadioList' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addCheckboxList' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addMultiSelect' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addSubmit' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType',
+        'addButton' => '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType',
     ];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -104,14 +104,14 @@ CODE_SAMPLE
         if ($classLike === null) {
             return null;
         }
-        if (!$this->isObjectType($classLike, '_PhpScoper006a73f0e455\\Nette\\Application\\IPresenter')) {
+        if (!$this->isObjectType($classLike, '_PhpScoperbd5d0c5f7638\\Nette\\Application\\IPresenter')) {
             return null;
         }
         if ($node instanceof \PhpParser\Node\Expr\New_) {
             return $this->processNew($node);
         }
         /** @var MethodCall $node */
-        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Nette\\Application\\UI\\Form')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperbd5d0c5f7638\\Nette\\Application\\UI\\Form')) {
             return null;
         }
         foreach (self::ADD_METHOD_TO_FORM_TYPE as $method => $classType) {
@@ -124,7 +124,7 @@ CODE_SAMPLE
     }
     private function processNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if (!$this->isName($new->class, '_PhpScoper006a73f0e455\\Nette\\Application\\UI\\Form')) {
+        if (!$this->isName($new->class, '_PhpScoperbd5d0c5f7638\\Nette\\Application\\UI\\Form')) {
             return null;
         }
         return $this->createMethodCall('this', 'createFormBuilder');

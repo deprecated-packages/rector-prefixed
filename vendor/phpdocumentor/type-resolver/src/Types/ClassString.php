@@ -9,30 +9,30 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\Types;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Fqsen;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Type;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Fqsen;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing the type 'string'.
  *
  * @psalm-immutable
  */
-final class ClassString implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection\Type
+final class ClassString implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type
 {
     /** @var Fqsen|null */
     private $fqsen;
     /**
      * Initializes this representation of a class string with the given Fqsen.
      */
-    public function __construct(?\_PhpScoper006a73f0e455\phpDocumentor\Reflection\Fqsen $fqsen = null)
+    public function __construct(?\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Fqsen $fqsen = null)
     {
         $this->fqsen = $fqsen;
     }
     /**
      * Returns the FQSEN associated with this object.
      */
-    public function getFqsen() : ?\_PhpScoper006a73f0e455\phpDocumentor\Reflection\Fqsen
+    public function getFqsen() : ?\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Fqsen
     {
         return $this->fqsen;
     }

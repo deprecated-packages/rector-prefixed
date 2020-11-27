@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper006a73f0e455\Symfony\Component\Console\Helper;
+namespace _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Helper;
 
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  */
@@ -23,7 +23,7 @@ class TableCell
         $this->value = $value;
         // check option names
         if ($diff = \array_diff(\array_keys($options), \array_keys($this->options))) {
-            throw new \_PhpScoper006a73f0e455\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The TableCell does not support the following options: \'%s\'.', \implode('\', \'', $diff)));
+            throw new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The TableCell does not support the following options: \'%s\'.', \implode('\', \'', $diff)));
         }
         $this->options = \array_merge($this->options, $options);
     }

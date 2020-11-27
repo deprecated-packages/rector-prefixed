@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\PropertiesNamespace;
+namespace _PhpScoperbd5d0c5f7638\PropertiesNamespace;
 
 use DOMDocument;
-use _PhpScoper006a73f0e455\SomeNamespace\Sit as Dolor;
+use _PhpScoperbd5d0c5f7638\SomeNamespace\Sit as Dolor;
 /**
  * @property-read int $readOnlyProperty
  * @property-read int $overriddenReadOnlyProperty
@@ -26,7 +26,7 @@ class Bar extends \DOMDocument
      * @var self
      */
     protected $implicitInheritDocProperty;
-    public function doBar() : \_PhpScoper006a73f0e455\PropertiesNamespace\Self
+    public function doBar() : \_PhpScoperbd5d0c5f7638\PropertiesNamespace\Self
     {
     }
 }

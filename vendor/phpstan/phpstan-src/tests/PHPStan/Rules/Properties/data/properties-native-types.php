@@ -1,12 +1,12 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScoper006a73f0e455\PropertiesNativeTypes;
+namespace _PhpScoperbd5d0c5f7638\PropertiesNativeTypes;
 
 class Foo
 {
-    private \_PhpScoper006a73f0e455\PropertiesNativeTypes\Foo $foo;
-    private \_PhpScoper006a73f0e455\PropertiesNativeTypes\Bar $bar;
+    private \_PhpScoperbd5d0c5f7638\PropertiesNativeTypes\Foo $foo;
+    private \_PhpScoperbd5d0c5f7638\PropertiesNativeTypes\Bar $bar;
     /** @var Baz */
-    private \_PhpScoper006a73f0e455\PropertiesNativeTypes\Baz $baz;
+    private \_PhpScoperbd5d0c5f7638\PropertiesNativeTypes\Baz $baz;
 }

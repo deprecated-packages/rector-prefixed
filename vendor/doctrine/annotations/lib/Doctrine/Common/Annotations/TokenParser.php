@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Doctrine\Common\Annotations;
+namespace _PhpScoperbd5d0c5f7638\Doctrine\Common\Annotations;
 
 use function array_merge;
 use function count;
@@ -11,8 +11,8 @@ use const PHP_VERSION_ID;
 use const T_AS;
 use const T_COMMENT;
 use const T_DOC_COMMENT;
-use const _PhpScoper006a73f0e455\T_NAME_FULLY_QUALIFIED;
-use const _PhpScoper006a73f0e455\T_NAME_QUALIFIED;
+use const _PhpScoperbd5d0c5f7638\T_NAME_FULLY_QUALIFIED;
+use const _PhpScoperbd5d0c5f7638\T_NAME_QUALIFIED;
 use const T_NAMESPACE;
 use const T_NS_SEPARATOR;
 use const T_STRING;

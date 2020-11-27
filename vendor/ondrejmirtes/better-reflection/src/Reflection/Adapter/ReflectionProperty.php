@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionException as CoreReflectionException;
 use ReflectionProperty as CoreReflectionProperty;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\NotAnObject;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
 use Throwable;
 class ReflectionProperty extends \ReflectionProperty
 {
@@ -16,11 +16,11 @@ class ReflectionProperty extends \ReflectionProperty
     private $betterReflectionProperty;
     /** @var bool */
     private $accessible = \false;
-    public function __construct(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionProperty $betterReflectionProperty)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty $betterReflectionProperty)
     {
         $this->betterReflectionProperty = $betterReflectionProperty;
     }
-    public function getBetterReflection() : \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionProperty
+    public function getBetterReflection() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty
     {
         return $this->betterReflectionProperty;
     }
@@ -57,7 +57,7 @@ class ReflectionProperty extends \ReflectionProperty
         }
         try {
             return $this->betterReflectionProperty->getValue($object);
-        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return null;
         } catch (\Throwable $e) {
             throw new \ReflectionException($e->getMessage(), 0, $e);
@@ -73,7 +73,7 @@ class ReflectionProperty extends \ReflectionProperty
         }
         try {
             $this->betterReflectionProperty->setValue($object, $value);
-        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return;
         } catch (\Throwable $e) {
             throw new \ReflectionException($e->getMessage(), 0, $e);
@@ -91,7 +91,7 @@ class ReflectionProperty extends \ReflectionProperty
      */
     public function getType()
     {
-        return \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionProperty->getType());
+        return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionProperty->getType());
     }
     /**
      * {@inheritDoc}
@@ -144,7 +144,7 @@ class ReflectionProperty extends \ReflectionProperty
      */
     public function getDeclaringClass()
     {
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterReflectionProperty->getImplementingClass());
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterReflectionProperty->getImplementingClass());
     }
     /**
      * {@inheritDoc}

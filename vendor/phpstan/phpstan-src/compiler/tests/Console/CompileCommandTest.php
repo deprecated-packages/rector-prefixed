@@ -6,10 +6,10 @@ namespace PHPStan\Compiler\Console;
 use PHPStan\Compiler\Filesystem\Filesystem;
 use PHPStan\Compiler\Process\Process;
 use PHPStan\Compiler\Process\ProcessFactory;
-use _PhpScoper006a73f0e455\PHPUnit\Framework\TestCase;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Application;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Tester\CommandTester;
-final class CompileCommandTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Application;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Tester\CommandTester;
+final class CompileCommandTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     public function testCommand() : void
     {
@@ -35,10 +35,10 @@ EOT
         $processFactory = $this->createMock(\PHPStan\Compiler\Process\ProcessFactory::class);
         $processFactory->expects(self::at(0))->method('setOutput');
         $processFactory->expects(self::at(1))->method('create')->with(['php', 'box.phar', 'compile', '--no-parallel'], 'foo')->willReturn($process);
-        $application = new \_PhpScoper006a73f0e455\Symfony\Component\Console\Application();
+        $application = new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Application();
         $application->add(new \PHPStan\Compiler\Console\CompileCommand($filesystem, $processFactory, 'foo', 'bar'));
         $command = $application->find('phpstan:compile');
-        $commandTester = new \_PhpScoper006a73f0e455\Symfony\Component\Console\Tester\CommandTester($command);
+        $commandTester = new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Tester\CommandTester($command);
         $exitCode = $commandTester->execute(['command' => $command->getName()]);
         self::assertSame(0, $exitCode);
     }

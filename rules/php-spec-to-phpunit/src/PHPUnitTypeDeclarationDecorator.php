@@ -15,14 +15,14 @@ final class PHPUnitTypeDeclarationDecorator
 {
     public function decorate(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        if (!\class_exists('_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase')) {
+        if (!\class_exists('_PhpScoperbd5d0c5f7638\\PHPUnit\\Framework\\TestCase')) {
             return;
         }
         // skip test run
         if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return;
         }
-        $reflectionMethod = new \ReflectionMethod('_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase', \Rector\Core\ValueObject\MethodName::SET_UP);
+        $reflectionMethod = new \ReflectionMethod('_PhpScoperbd5d0c5f7638\\PHPUnit\\Framework\\TestCase', \Rector\Core\ValueObject\MethodName::SET_UP);
         if (!$reflectionMethod->hasReturnType()) {
             return;
         }

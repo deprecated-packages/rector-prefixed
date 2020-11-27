@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\SignatureTest;
+namespace _PhpScoperbd5d0c5f7638\Roave\SignatureTest;
 
-use _PhpScoper006a73f0e455\PHPUnit\Framework\TestCase;
-use _PhpScoper006a73f0e455\Roave\Signature\Encoder\Base64Encoder;
-use _PhpScoper006a73f0e455\Roave\Signature\FileContentSigner;
+use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+use _PhpScoperbd5d0c5f7638\Roave\Signature\Encoder\Base64Encoder;
+use _PhpScoperbd5d0c5f7638\Roave\Signature\FileContentSigner;
 /**
  * @covers \Roave\Signature\FileContentSigner
  */
-final class FileContentSignerTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+final class FileContentSignerTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     /**
      * @return string[][]
@@ -23,7 +23,7 @@ final class FileContentSignerTest extends \_PhpScoper006a73f0e455\PHPUnit\Framew
      */
     public function testSign(string $expected, string $inputString) : void
     {
-        $signer = new \_PhpScoper006a73f0e455\Roave\Signature\FileContentSigner(new \_PhpScoper006a73f0e455\Roave\Signature\Encoder\Base64Encoder());
+        $signer = new \_PhpScoperbd5d0c5f7638\Roave\Signature\FileContentSigner(new \_PhpScoperbd5d0c5f7638\Roave\Signature\Encoder\Base64Encoder());
         self::assertSame($expected, $signer->sign($inputString));
     }
 }

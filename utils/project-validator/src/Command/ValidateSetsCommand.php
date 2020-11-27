@@ -6,11 +6,11 @@ namespace Rector\Utils\ProjectValidator\Command;
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Set\RectorSetProvider;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Command\Command;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Command\Command;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelInterface;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SetConfigResolver\ValueObject\Set;
 use Throwable;
@@ -18,7 +18,7 @@ use Throwable;
  * We'll only check one file for now.
  * This makes sure that all sets are "runnable" but keeps the runtime at a managable level
  */
-final class ValidateSetsCommand extends \_PhpScoper006a73f0e455\Symfony\Component\Console\Command\Command
+final class ValidateSetsCommand extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Command\Command
 {
     /**
      * @var string[]
@@ -45,7 +45,7 @@ final class ValidateSetsCommand extends \_PhpScoper006a73f0e455\Symfony\Componen
     {
         $this->setDescription('[CI] Validate each sets has correct configuration by loading the configs');
     }
-    protected function execute(\_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $hasErrors = \false;
         $message = \sprintf('Testing %d sets', \count($this->rectorSetProvider->provide()));
@@ -74,7 +74,7 @@ final class ValidateSetsCommand extends \_PhpScoper006a73f0e455\Symfony\Componen
         }
         return $hasErrors ? \Symplify\PackageBuilder\Console\ShellCode::ERROR : \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
-    private function bootRectorKernelWithSet(\Symplify\SetConfigResolver\ValueObject\Set $set) : \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelInterface
+    private function bootRectorKernelWithSet(\Symplify\SetConfigResolver\ValueObject\Set $set) : \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelInterface
     {
         $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel('prod' . \sha1($set->getName()), \true);
         $rectorKernel->setConfigs([$set->getSetPathname()]);

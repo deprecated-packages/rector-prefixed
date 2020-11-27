@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @generate-function-entries */
 class SQLite3
@@ -107,4 +107,4 @@ class SQLite3
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper006a73f0e455\\SQLite3', 'SQLite3', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SQLite3', 'SQLite3', \false);

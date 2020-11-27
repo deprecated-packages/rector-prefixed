@@ -5,41 +5,41 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI\Extensions;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI\Extensions;
 
-use _PhpScoper006a73f0e455\Nette;
-use _PhpScoper006a73f0e455\Nette\DI;
-use _PhpScoper006a73f0e455\Nette\DI\Definitions;
-use _PhpScoper006a73f0e455\Nette\Utils\Reflection;
+use _PhpScoperbd5d0c5f7638\Nette;
+use _PhpScoperbd5d0c5f7638\Nette\DI;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Definitions;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Reflection;
 /**
  * Calls inject methods and fills @inject properties.
  */
-final class InjectExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExtension
+final class InjectExtension extends \_PhpScoperbd5d0c5f7638\Nette\DI\CompilerExtension
 {
     public const TAG_INJECT = 'nette.inject';
-    public function getConfigSchema() : \_PhpScoper006a73f0e455\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoperbd5d0c5f7638\Nette\Schema\Schema
     {
-        return \_PhpScoper006a73f0e455\Nette\Schema\Expect::structure([]);
+        return \_PhpScoperbd5d0c5f7638\Nette\Schema\Expect::structure([]);
     }
     public function beforeCompile()
     {
         foreach ($this->getContainerBuilder()->getDefinitions() as $def) {
             if ($def->getTag(self::TAG_INJECT)) {
-                $def = $def instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\FactoryDefinition ? $def->getResultDefinition() : $def;
-                if ($def instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\ServiceDefinition) {
+                $def = $def instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\FactoryDefinition ? $def->getResultDefinition() : $def;
+                if ($def instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\ServiceDefinition) {
                     $this->updateDefinition($def);
                 }
             }
         }
     }
-    private function updateDefinition(\_PhpScoper006a73f0e455\Nette\DI\Definitions\ServiceDefinition $def) : void
+    private function updateDefinition(\_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\ServiceDefinition $def) : void
     {
-        $resolvedType = (new \_PhpScoper006a73f0e455\Nette\DI\Resolver($this->getContainerBuilder()))->resolveEntityType($def->getFactory());
+        $resolvedType = (new \_PhpScoperbd5d0c5f7638\Nette\DI\Resolver($this->getContainerBuilder()))->resolveEntityType($def->getFactory());
         $class = \is_subclass_of($resolvedType, $def->getType()) ? $resolvedType : $def->getType();
         $setups = $def->getSetup();
         foreach (self::getInjectProperties($class) as $property => $type) {
             $builder = $this->getContainerBuilder();
-            $inject = new \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement('$' . $property, [\_PhpScoper006a73f0e455\Nette\DI\Definitions\Reference::fromType((string) $type)]);
+            $inject = new \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement('$' . $property, [\_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Reference::fromType((string) $type)]);
             foreach ($setups as $key => $setup) {
                 if ($setup->getEntity() === $inject->getEntity()) {
                     $inject = $setup;
@@ -51,7 +51,7 @@ final class InjectExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExt
             \array_unshift($setups, $inject);
         }
         foreach (\array_reverse(self::getInjectMethods($class)) as $method) {
-            $inject = new \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement($method);
+            $inject = new \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement($method);
             foreach ($setups as $key => $setup) {
                 if ($setup->getEntity() === $inject->getEntity()) {
                     $inject = $setup;
@@ -89,14 +89,14 @@ final class InjectExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExt
         $res = [];
         foreach (\get_class_vars($class) as $name => $foo) {
             $rp = new \ReflectionProperty($class, $name);
-            $hasAttr = \PHP_VERSION_ID >= 80000 && $rp->getAttributes(\_PhpScoper006a73f0e455\Nette\DI\Attributes\Inject::class);
-            if ($hasAttr || \_PhpScoper006a73f0e455\Nette\DI\Helpers::parseAnnotation($rp, 'inject') !== null) {
-                if ($type = \_PhpScoper006a73f0e455\Nette\Utils\Reflection::getPropertyType($rp)) {
-                } elseif (!$hasAttr && ($type = \_PhpScoper006a73f0e455\Nette\DI\Helpers::parseAnnotation($rp, 'var'))) {
+            $hasAttr = \PHP_VERSION_ID >= 80000 && $rp->getAttributes(\_PhpScoperbd5d0c5f7638\Nette\DI\Attributes\Inject::class);
+            if ($hasAttr || \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::parseAnnotation($rp, 'inject') !== null) {
+                if ($type = \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::getPropertyType($rp)) {
+                } elseif (!$hasAttr && ($type = \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::parseAnnotation($rp, 'var'))) {
                     if (\strpos($type, '|') !== \false) {
-                        throw new \_PhpScoper006a73f0e455\Nette\InvalidStateException('The ' . \_PhpScoper006a73f0e455\Nette\Utils\Reflection::toString($rp) . ' is not expected to have a union type.');
+                        throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException('The ' . \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::toString($rp) . ' is not expected to have a union type.');
                     }
-                    $type = \_PhpScoper006a73f0e455\Nette\Utils\Reflection::expandClassName($type, \_PhpScoper006a73f0e455\Nette\Utils\Reflection::getPropertyDeclaringClass($rp));
+                    $type = \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::expandClassName($type, \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::getPropertyDeclaringClass($rp));
                 }
                 $res[$name] = $type;
             }
@@ -108,10 +108,10 @@ final class InjectExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExt
      * Calls all methods starting with with "inject" using autowiring.
      * @param  object  $service
      */
-    public static function callInjects(\_PhpScoper006a73f0e455\Nette\DI\Container $container, $service) : void
+    public static function callInjects(\_PhpScoperbd5d0c5f7638\Nette\DI\Container $container, $service) : void
     {
         if (!\is_object($service)) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidArgumentException(\sprintf('Service must be object, %s given.', \gettype($service)));
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException(\sprintf('Service must be object, %s given.', \gettype($service)));
         }
         foreach (self::getInjectMethods(\get_class($service)) as $method) {
             $container->callMethod([$service, $method]);
@@ -127,13 +127,13 @@ final class InjectExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExt
      */
     private static function checkType($class, string $name, ?string $type, $container) : void
     {
-        $propName = \_PhpScoper006a73f0e455\Nette\Utils\Reflection::toString(new \ReflectionProperty($class, $name));
+        $propName = \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::toString(new \ReflectionProperty($class, $name));
         if (!$type) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidStateException("Property {$propName} has no type hint.");
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException("Property {$propName} has no type hint.");
         } elseif (!\class_exists($type) && !\interface_exists($type)) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidStateException("Class or interface '{$type}' used in type hint at {$propName} not found. Check type and 'use' statements.");
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException("Class or interface '{$type}' used in type hint at {$propName} not found. Check type and 'use' statements.");
         } elseif ($container && !$container->getByType($type, \false)) {
-            throw new \_PhpScoper006a73f0e455\Nette\DI\MissingServiceException("Service of type {$type} used in type hint at {$propName} not found. Did you add it to configuration file?");
+            throw new \_PhpScoperbd5d0c5f7638\Nette\DI\MissingServiceException("Service of type {$type} used in type hint at {$propName} not found. Did you add it to configuration file?");
         }
     }
 }

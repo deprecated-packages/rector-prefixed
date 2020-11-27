@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\GuzzleHttp\Message;
+namespace _PhpScoperbd5d0c5f7638\GuzzleHttp\Message;
 
-if (\interface_exists('_PhpScoper006a73f0e455\\GuzzleHttp\\Message\\MessageInterface')) {
+if (\interface_exists('_PhpScoperbd5d0c5f7638\\GuzzleHttp\\Message\\MessageInterface')) {
     return;
 }
 interface MessageInterface

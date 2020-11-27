@@ -15,7 +15,7 @@ final class DowngradeParamObjectTypeDeclarationRector extends \Rector\DowngradeP
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition($this->getRectorDefinitionDescription(), [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class SomeClass
 {
@@ -23,12 +23,12 @@ class SomeClass
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class SomeClass
 {
@@ -39,7 +39,7 @@ class SomeClass
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , [self::ADD_DOC_BLOCK => \true])]);
     }

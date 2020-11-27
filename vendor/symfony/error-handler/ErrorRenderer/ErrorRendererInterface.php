@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper006a73f0e455\Symfony\Component\ErrorHandler\ErrorRenderer;
+namespace _PhpScoperbd5d0c5f7638\Symfony\Component\ErrorHandler\ErrorRenderer;
 
-use _PhpScoper006a73f0e455\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\ErrorHandler\Exception\FlattenException;
 /**
  * Formats an exception to be used as response content.
  *
@@ -21,5 +21,5 @@ interface ErrorRendererInterface
     /**
      * Renders a Throwable as a FlattenException.
      */
-    public function render(\Throwable $exception) : \_PhpScoper006a73f0e455\Symfony\Component\ErrorHandler\Exception\FlattenException;
+    public function render(\Throwable $exception) : \_PhpScoperbd5d0c5f7638\Symfony\Component\ErrorHandler\Exception\FlattenException;
 }

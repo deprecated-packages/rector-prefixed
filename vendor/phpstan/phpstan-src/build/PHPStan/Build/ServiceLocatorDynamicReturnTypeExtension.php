@@ -16,7 +16,7 @@ class ServiceLocatorDynamicReturnTypeExtension implements \PHPStan\Type\DynamicM
 {
     public function getClass() : string
     {
-        return \_PhpScoper006a73f0e455\Nette\DI\Container::class;
+        return \_PhpScoperbd5d0c5f7638\Nette\DI\Container::class;
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {

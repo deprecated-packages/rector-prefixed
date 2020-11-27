@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\PhpGenerator;
+namespace _PhpScoperbd5d0c5f7638\Nette\PhpGenerator;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * Class method.
  *
@@ -34,12 +34,12 @@ final class Method
      */
     public static function from($method) : self
     {
-        return (new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Factory())->fromMethodReflection(\_PhpScoper006a73f0e455\Nette\Utils\Callback::toReflection($method));
+        return (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Factory())->fromMethodReflection(\_PhpScoperbd5d0c5f7638\Nette\Utils\Callback::toReflection($method));
     }
     public function __toString() : string
     {
         try {
-            return (new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Printer())->printMethod($this);
+            return (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Printer())->printMethod($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -51,7 +51,7 @@ final class Method
     /** @return static */
     public function setBody(?string $code, array $args = null) : self
     {
-        $this->body = $args === null || $code === null ? $code : (new \_PhpScoper006a73f0e455\Nette\PhpGenerator\Dumper())->format($code, ...$args);
+        $this->body = $args === null || $code === null ? $code : (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Dumper())->format($code, ...$args);
         return $this;
     }
     public function getBody() : ?string
@@ -91,9 +91,9 @@ final class Method
     /**
      * @param  string  $name without $
      */
-    public function addPromotedParameter(string $name, $defaultValue = null) : \_PhpScoper006a73f0e455\Nette\PhpGenerator\PromotedParameter
+    public function addPromotedParameter(string $name, $defaultValue = null) : \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\PromotedParameter
     {
-        $param = new \_PhpScoper006a73f0e455\Nette\PhpGenerator\PromotedParameter($name);
+        $param = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\PromotedParameter($name);
         if (\func_num_args() > 1) {
             $param->setDefaultValue($defaultValue);
         }
@@ -102,8 +102,8 @@ final class Method
     /** @throws Nette\InvalidStateException */
     public function validate() : void
     {
-        if ($this->abstract && ($this->final || $this->visibility === \_PhpScoper006a73f0e455\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE)) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidStateException('Method cannot be abstract and final or private.');
+        if ($this->abstract && ($this->final || $this->visibility === \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE)) {
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException('Method cannot be abstract and final or private.');
         }
     }
 }

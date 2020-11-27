@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Levels\MethodCalls;
+namespace _PhpScoperbd5d0c5f7638\Levels\MethodCalls;
 
 class Foo
 {
@@ -17,10 +17,10 @@ class Bar
 {
     public static function doBar(int $i)
     {
-        \_PhpScoper006a73f0e455\Levels\MethodCalls\Bar::doBar($i);
-        \_PhpScoper006a73f0e455\Levels\MethodCalls\Bar::doBar();
-        \_PhpScoper006a73f0e455\Levels\MethodCalls\Lorem::doBar();
-        $bar = new \_PhpScoper006a73f0e455\Levels\MethodCalls\Bar();
+        \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Bar::doBar($i);
+        \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Bar::doBar();
+        \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Lorem::doBar();
+        $bar = new \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Bar();
         $bar::doBar($i);
         $bar::doBar();
     }
@@ -33,7 +33,7 @@ class Baz
      * @param Foo|Bar|null $fooOrBarOrNull
      * @param Bar|Baz $barOrBaz
      */
-    public function doBaz($fooOrBar, ?\_PhpScoper006a73f0e455\Levels\MethodCalls\Foo $fooOrNull, $fooOrBarOrNull, $barOrBaz)
+    public function doBaz($fooOrBar, ?\_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Foo $fooOrNull, $fooOrBarOrNull, $barOrBaz)
     {
         $fooOrBar->doFoo(1);
         $fooOrBar->doFoo();
@@ -81,9 +81,9 @@ class Ipsum
     private function makeFooOrBar()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScoper006a73f0e455\Levels\MethodCalls\Foo();
+            return new \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Foo();
         } else {
-            return new \_PhpScoper006a73f0e455\Levels\MethodCalls\Bar();
+            return new \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Bar();
         }
     }
     /**
@@ -92,7 +92,7 @@ class Ipsum
     private function makeFooOrNull()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScoper006a73f0e455\Levels\MethodCalls\Foo();
+            return new \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Foo();
         } else {
             return null;
         }
@@ -103,9 +103,9 @@ class Ipsum
     public function makeFooOrBarOrNull()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScoper006a73f0e455\Levels\MethodCalls\Foo();
+            return new \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Foo();
         } elseif (\rand(0, 1) === 1) {
-            return new \_PhpScoper006a73f0e455\Levels\MethodCalls\Bar();
+            return new \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Bar();
         } else {
             return null;
         }
@@ -116,9 +116,9 @@ class Ipsum
     public function makeBarOrBaz()
     {
         if (\rand(0, 1) === 0) {
-            return new \_PhpScoper006a73f0e455\Levels\MethodCalls\Bar();
+            return new \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Bar();
         } else {
-            return new \_PhpScoper006a73f0e455\Levels\MethodCalls\Baz();
+            return new \_PhpScoperbd5d0c5f7638\Levels\MethodCalls\Baz();
         }
     }
     public function doLorem()
@@ -160,7 +160,7 @@ class TestExceptions
     public function doFoo()
     {
         try {
-        } catch (\_PhpScoper006a73f0e455\Levels\MethodCalls\FooException|\_PhpScoper006a73f0e455\Levels\MethodCalls\BarException $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\Levels\MethodCalls\FooException|\_PhpScoperbd5d0c5f7638\Levels\MethodCalls\BarException $e) {
             $e->commonMethod();
             $e->doFoo();
             $e->doBar();

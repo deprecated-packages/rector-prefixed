@@ -10,7 +10,7 @@
  *  @license   http://www.opensource.org/licenses/mit-license.php MIT
  *  @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
 /**
  * Interface for references in {@see phpDocumentor\Reflection\DocBlock\Tags\See}

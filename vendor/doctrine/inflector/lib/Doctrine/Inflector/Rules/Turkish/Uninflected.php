@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Doctrine\Inflector\Rules\Turkish;
+namespace _PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Turkish;
 
-use _PhpScoper006a73f0e455\Doctrine\Inflector\Rules\Pattern;
+use _PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -25,8 +25,8 @@ final class Uninflected
      */
     private static function getDefault() : iterable
     {
-        (yield new \_PhpScoper006a73f0e455\Doctrine\Inflector\Rules\Pattern('lunes'));
-        (yield new \_PhpScoper006a73f0e455\Doctrine\Inflector\Rules\Pattern('rompecabezas'));
-        (yield new \_PhpScoper006a73f0e455\Doctrine\Inflector\Rules\Pattern('crisis'));
+        (yield new \_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Pattern('lunes'));
+        (yield new \_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Pattern('rompecabezas'));
+        (yield new \_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Pattern('crisis'));
     }
 }

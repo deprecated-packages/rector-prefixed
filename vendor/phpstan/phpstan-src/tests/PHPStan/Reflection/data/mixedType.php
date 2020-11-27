@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper006a73f0e455\NativeMixedType;
+namespace _PhpScoperbd5d0c5f7638\NativeMixedType;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -20,7 +20,7 @@ function doFoo(mixed $foo) : mixed
 {
     \PHPStan\Analyser\assertType('mixed', $foo);
 }
-function (\_PhpScoper006a73f0e455\NativeMixedType\Foo $foo) : void {
+function (\_PhpScoperbd5d0c5f7638\NativeMixedType\Foo $foo) : void {
     \PHPStan\Analyser\assertType('mixed', $foo->fooProp);
     \PHPStan\Analyser\assertType('mixed', $foo->doFoo(1));
     \PHPStan\Analyser\assertType('mixed', doFoo(1));

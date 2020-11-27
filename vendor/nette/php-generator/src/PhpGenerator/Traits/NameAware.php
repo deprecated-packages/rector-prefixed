@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\PhpGenerator\Traits;
+namespace _PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Traits;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * @internal
  */
@@ -17,8 +17,8 @@ trait NameAware
     private $name;
     public function __construct(string $name)
     {
-        if (!\_PhpScoper006a73f0e455\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidArgumentException("Value '{$name}' is not valid name.");
+        if (!\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException("Value '{$name}' is not valid name.");
         }
         $this->name = $name;
     }

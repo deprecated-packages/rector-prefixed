@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Reflection;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Reflection;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Reflection;
 use Rector\Core\PhpDoc\PhpDocTagsFinder;
 final class ClassMethodReflectionHelper
 {
@@ -37,7 +37,7 @@ final class ClassMethodReflectionHelper
         $classes = [];
         foreach ($throwsTypes as $returnTag) {
             /** @var class-string $className */
-            $className = \_PhpScoper006a73f0e455\Nette\Utils\Reflection::expandClassName($returnTag, $reflectedMethod->getDeclaringClass());
+            $className = \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::expandClassName($returnTag, $reflectedMethod->getDeclaringClass());
             $classes[] = $className;
         }
         return $classes;

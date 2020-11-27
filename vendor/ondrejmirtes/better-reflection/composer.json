@@ -40,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper006a73f0e455\\Roave\\BetterReflection\\": "src"
+            "_PhpScoperbd5d0c5f7638\\Roave\\BetterReflection\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper006a73f0e455\\Roave\\BetterReflectionTest\\": "test\/unit",
-            "_PhpScoper006a73f0e455\\Roave\\BetterReflectionBenchmark\\": "test\/benchmark"
+            "_PhpScoperbd5d0c5f7638\\Roave\\BetterReflectionTest\\": "test\/unit",
+            "_PhpScoperbd5d0c5f7638\\Roave\\BetterReflectionBenchmark\\": "test\/benchmark"
         }
     },
     "suggest": {

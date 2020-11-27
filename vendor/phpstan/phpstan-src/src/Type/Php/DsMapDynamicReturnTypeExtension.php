@@ -16,7 +16,7 @@ final class DsMapDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMeth
 {
     public function getClass() : string
     {
-        return '_PhpScoper006a73f0e455\\Ds\\Map';
+        return '_PhpScoperbd5d0c5f7638\\Ds\\Map';
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {

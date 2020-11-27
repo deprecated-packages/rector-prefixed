@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 use Rector\Core\Tests\Configuration\Source\CustomLocalRector;
 use Rector\Php72\Rector\Assign\ListEachRector;

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Analyser;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -1853,7 +1853,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
             }
             $variableTypes[$variableName] = \PHPStan\Analyser\VariableTypeHolder::createYes($variableType);
             foreach ($this->moreSpecificTypes as $exprString => $moreSpecificType) {
-                $matches = \_PhpScoper006a73f0e455\Nette\Utils\Strings::matchAll((string) $exprString, '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
+                $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::matchAll((string) $exprString, '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
                 if ($matches === []) {
                     continue;
                 }
@@ -1998,7 +1998,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
         $variableString = $this->printer->prettyPrintExpr(new \PhpParser\Node\Expr\Variable($variableName));
         $moreSpecificTypeHolders = $this->moreSpecificTypes;
         foreach (\array_keys($moreSpecificTypeHolders) as $key) {
-            $matches = \_PhpScoper006a73f0e455\Nette\Utils\Strings::matchAll((string) $key, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
+            $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::matchAll((string) $key, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
             if ($matches === []) {
                 continue;
             }
@@ -2092,17 +2092,17 @@ class MutatingScope implements \PHPStan\Analyser\Scope
         $moreSpecificTypeHolders = $this->moreSpecificTypes;
         foreach (\array_keys($moreSpecificTypeHolders) as $exprString) {
             $exprString = (string) $exprString;
-            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::startsWith($exprString, $exprStringToInvalidate)) {
+            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::startsWith($exprString, $exprStringToInvalidate)) {
                 if ($exprString === $exprStringToInvalidate && $requireMoreCharacters) {
                     continue;
                 }
                 $nextLetter = \substr($exprString, \strlen($exprStringToInvalidate), 1);
-                if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($nextLetter, '#[a-zA-Z_0-9\\x7f-\\xff]#') === null) {
+                if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($nextLetter, '#[a-zA-Z_0-9\\x7f-\\xff]#') === null) {
                     unset($moreSpecificTypeHolders[$exprString]);
                     continue;
                 }
             }
-            $matches = \_PhpScoper006a73f0e455\Nette\Utils\Strings::matchAll($exprString, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
+            $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::matchAll($exprString, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
             if ($matches === []) {
                 continue;
             }

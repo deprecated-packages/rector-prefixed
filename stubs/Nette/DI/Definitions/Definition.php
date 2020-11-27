@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI\Definitions;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI\Definitions;
 
-if (\class_exists('_PhpScoper006a73f0e455\\Nette\\DI\\Definitions\\Definition')) {
+if (\class_exists('_PhpScoperbd5d0c5f7638\\Nette\\DI\\Definitions\\Definition')) {
     return;
 }
 class Definition

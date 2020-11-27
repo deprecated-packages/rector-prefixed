@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\DynamicMethodReturnCompoundTypes;
+namespace _PhpScoperbd5d0c5f7638\DynamicMethodReturnCompoundTypes;
 
 class Collection
 {

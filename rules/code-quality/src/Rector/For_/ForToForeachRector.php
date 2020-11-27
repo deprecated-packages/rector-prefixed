@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\For_;
 
-use _PhpScoper006a73f0e455\Doctrine\Inflector\Inflector;
+use _PhpScoperbd5d0c5f7638\Doctrine\Inflector\Inflector;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -58,7 +58,7 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
      * @var Expr|null
      */
     private $iteratedExpr;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScoper006a73f0e455\Doctrine\Inflector\Inflector $inflector)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Inflector $inflector)
     {
         $this->assignManipulator = $assignManipulator;
         $this->inflector = $inflector;

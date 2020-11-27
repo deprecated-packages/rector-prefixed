@@ -10,18 +10,18 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Fqsen;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\FqsenResolver;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Fqsen;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\FqsenResolver;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert;
 /**
  * Reflection class for a @covers tag in a Docblock.
  */
-final class Covers extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Covers extends \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'covers';
     /** @var Fqsen */
@@ -32,7 +32,7 @@ final class Covers extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocB
      * @param Fqsen $refers
      * @param Description $description
      */
-    public function __construct(\_PhpScoper006a73f0e455\phpDocumentor\Reflection\Fqsen $refers, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Fqsen $refers, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
         $this->refers = $refers;
         $this->description = $description;
@@ -40,10 +40,10 @@ final class Covers extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocB
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::string($body);
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::notEmpty($body);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::string($body);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::notEmpty($body);
         $parts = \preg_split('/\\s+/Su', $body, 2);
         return new static($resolver->resolve($parts[0], $context), $descriptionFactory->create(isset($parts[1]) ? $parts[1] : '', $context));
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\AnonymousClassWithInheritedConstructor;
+namespace _PhpScoperbd5d0c5f7638\AnonymousClassWithInheritedConstructor;
 
 class Foo
 {
@@ -11,7 +11,7 @@ class Foo
     }
 }
 function () {
-    new class(1, 2) extends \_PhpScoper006a73f0e455\AnonymousClassWithInheritedConstructor\Foo
+    new class(1, 2) extends \_PhpScoperbd5d0c5f7638\AnonymousClassWithInheritedConstructor\Foo
     {
     };
 };
@@ -24,7 +24,7 @@ class Bar
     }
 }
 function () {
-    new class(1, 2) extends \_PhpScoper006a73f0e455\AnonymousClassWithInheritedConstructor\Bar
+    new class(1, 2) extends \_PhpScoperbd5d0c5f7638\AnonymousClassWithInheritedConstructor\Bar
     {
     };
 };

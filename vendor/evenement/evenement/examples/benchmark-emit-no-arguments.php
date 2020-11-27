@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /*
  * This file is part of Evenement.
@@ -12,9 +12,9 @@ namespace _PhpScoper006a73f0e455;
  * file that was distributed with this source code.
  */
 const ITERATIONS = 10000000;
-use _PhpScoper006a73f0e455\Evenement\EventEmitter;
+use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
 require __DIR__ . '/../vendor/autoload.php';
-$emitter = new \_PhpScoper006a73f0e455\Evenement\EventEmitter();
+$emitter = new \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter();
 $emitter->on('event', function () {
 });
 $start = \microtime(\true);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Doctrine\Common\Annotations;
+namespace _PhpScoperbd5d0c5f7638\Doctrine\Common\Annotations;
 
 use InvalidArgumentException;
 use ReflectionClass;
@@ -33,7 +33,7 @@ use function var_export;
  *             in version 2.0.0 of doctrine/annotations. Please use the
  *             {@see \Doctrine\Common\Annotations\CachedReader} instead.
  */
-class FileCacheReader implements \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Reader
+class FileCacheReader implements \_PhpScoperbd5d0c5f7638\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $reader;
@@ -54,7 +54,7 @@ class FileCacheReader implements \_PhpScoper006a73f0e455\Doctrine\Common\Annotat
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(\_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Reader $reader, $cacheDir, $debug = \false, $umask = 02)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Doctrine\Common\Annotations\Reader $reader, $cacheDir, $debug = \false, $umask = 02)
     {
         if (!\is_int($umask)) {
             throw new \InvalidArgumentException(\sprintf('The parameter umask must be an integer, was: %s', \gettype($umask)));

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /* info.c */
 function phpinfo(int $flags = \INFO_ALL) : bool

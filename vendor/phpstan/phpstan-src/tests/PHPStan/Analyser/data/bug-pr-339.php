@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\BugPr339;
+namespace _PhpScoperbd5d0c5f7638\BugPr339;
 
 use PHPStan\TrinaryLogic;
 use function PHPStan\Analyser\assertType;

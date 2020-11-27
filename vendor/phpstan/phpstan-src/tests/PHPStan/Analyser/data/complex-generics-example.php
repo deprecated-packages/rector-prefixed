@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\ComplexGenericsExample;
+namespace _PhpScoperbd5d0c5f7638\ComplexGenericsExample;
 
 use function PHPStan\Analyser\assertType;
 /**
@@ -20,26 +20,26 @@ interface VariantRetrieverInterface
      * @param ExperimentInterface<TVariant> $experiment
      * @return TVariant
      */
-    public function getVariant(\_PhpScoper006a73f0e455\ComplexGenericsExample\ExperimentInterface $experiment) : \_PhpScoper006a73f0e455\ComplexGenericsExample\VariantInterface;
+    public function getVariant(\_PhpScoperbd5d0c5f7638\ComplexGenericsExample\ExperimentInterface $experiment) : \_PhpScoperbd5d0c5f7638\ComplexGenericsExample\VariantInterface;
 }
 /**
  * @implements ExperimentInterface<SomeVariant>
  */
-class SomeExperiment implements \_PhpScoper006a73f0e455\ComplexGenericsExample\ExperimentInterface
+class SomeExperiment implements \_PhpScoperbd5d0c5f7638\ComplexGenericsExample\ExperimentInterface
 {
 }
-class SomeVariant implements \_PhpScoper006a73f0e455\ComplexGenericsExample\VariantInterface
+class SomeVariant implements \_PhpScoperbd5d0c5f7638\ComplexGenericsExample\VariantInterface
 {
 }
 class SomeClass
 {
     private $variantRetriever;
-    public function __construct(\_PhpScoper006a73f0e455\ComplexGenericsExample\VariantRetrieverInterface $variantRetriever)
+    public function __construct(\_PhpScoperbd5d0c5f7638\ComplexGenericsExample\VariantRetrieverInterface $variantRetriever)
     {
         $this->variantRetriever = $variantRetriever;
     }
     public function someFunction() : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoper006a73f0e455\\ComplexGenericsExample\\SomeVariant', $this->variantRetriever->getVariant(new \_PhpScoper006a73f0e455\ComplexGenericsExample\SomeExperiment()));
+        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\ComplexGenericsExample\\SomeVariant', $this->variantRetriever->getVariant(new \_PhpScoperbd5d0c5f7638\ComplexGenericsExample\SomeExperiment()));
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\RingCentral\Tests\Psr7;
+namespace _PhpScoperbd5d0c5f7638\RingCentral\Tests\Psr7;
 
-use _PhpScoper006a73f0e455\RingCentral\Psr7\LimitStream;
-use _PhpScoper006a73f0e455\RingCentral\Psr7\PumpStream;
-use _PhpScoper006a73f0e455\RingCentral\Psr7;
-class PumpStreamTest extends \_PhpScoper006a73f0e455\PHPUnit_Framework_TestCase
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream;
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\PumpStream;
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
+class PumpStreamTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
 {
     public function testHasMetadataAndSize()
     {
-        $p = new \_PhpScoper006a73f0e455\RingCentral\Psr7\PumpStream(function () {
+        $p = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\PumpStream(function () {
         }, array('metadata' => array('foo' => 'bar'), 'size' => 100));
         $this->assertEquals('bar', $p->getMetadata('foo'));
         $this->assertEquals(array('foo' => 'bar'), $p->getMetadata());
@@ -17,7 +17,7 @@ class PumpStreamTest extends \_PhpScoper006a73f0e455\PHPUnit_Framework_TestCase
     }
     public function testCanReadFromCallable()
     {
-        $p = \_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for(function ($size) {
+        $p = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(function ($size) {
             return 'a';
         });
         $this->assertEquals('a', $p->read(1));
@@ -28,7 +28,7 @@ class PumpStreamTest extends \_PhpScoper006a73f0e455\PHPUnit_Framework_TestCase
     public function testStoresExcessDataInBuffer()
     {
         $called = array();
-        $p = \_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for(function ($size) use(&$called) {
+        $p = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(function ($size) use(&$called) {
             $called[] = $size;
             return 'abcdef';
         });
@@ -40,15 +40,15 @@ class PumpStreamTest extends \_PhpScoper006a73f0e455\PHPUnit_Framework_TestCase
     }
     public function testInifiniteStreamWrappedInLimitStream()
     {
-        $p = \_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for(function () {
+        $p = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(function () {
             return 'a';
         });
-        $s = new \_PhpScoper006a73f0e455\RingCentral\Psr7\LimitStream($p, 5);
+        $s = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($p, 5);
         $this->assertEquals('aaaaa', (string) $s);
     }
     public function testDescribesCapabilities()
     {
-        $p = \_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for(function () {
+        $p = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(function () {
         });
         $this->assertTrue($p->isReadable());
         $this->assertFalse($p->isSeekable());

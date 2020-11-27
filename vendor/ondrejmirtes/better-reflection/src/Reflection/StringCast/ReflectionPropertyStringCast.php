@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\StringCast;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\StringCast;
 
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionProperty;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty;
 use function sprintf;
 /**
  * @internal
  */
 final class ReflectionPropertyStringCast
 {
-    public static function toString(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : string
+    public static function toString(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : string
     {
         $stateModifier = '';
         if (!$propertyReflection->isStatic()) {
@@ -18,7 +18,7 @@ final class ReflectionPropertyStringCast
         }
         return \sprintf('Property [%s %s%s $%s ]', $stateModifier, self::visibilityToString($propertyReflection), $propertyReflection->isStatic() ? ' static' : '', $propertyReflection->getName());
     }
-    private static function visibilityToString(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : string
+    private static function visibilityToString(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty $propertyReflection) : string
     {
         if ($propertyReflection->isProtected()) {
             return 'protected';

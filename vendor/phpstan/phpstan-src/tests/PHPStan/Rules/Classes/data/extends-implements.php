@@ -1,23 +1,23 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\ExtendsImplements;
+namespace _PhpScoperbd5d0c5f7638\ExtendsImplements;
 
 class Foo
 {
 }
-class Bar extends \_PhpScoper006a73f0e455\ExtendsImplements\Foo implements \_PhpScoper006a73f0e455\ExtendsImplements\FooInterface
+class Bar extends \_PhpScoperbd5d0c5f7638\ExtendsImplements\Foo implements \_PhpScoperbd5d0c5f7638\ExtendsImplements\FooInterface
 {
 }
-class Baz extends \_PhpScoper006a73f0e455\ExtendsImplements\FOO implements \_PhpScoper006a73f0e455\ExtendsImplements\FOOInterface
+class Baz extends \_PhpScoperbd5d0c5f7638\ExtendsImplements\FOO implements \_PhpScoperbd5d0c5f7638\ExtendsImplements\FOOInterface
 {
 }
 interface FooInterface
 {
 }
-interface BarInterface extends \_PhpScoper006a73f0e455\ExtendsImplements\FooInterface
+interface BarInterface extends \_PhpScoperbd5d0c5f7638\ExtendsImplements\FooInterface
 {
 }
-interface BazInterface extends \_PhpScoper006a73f0e455\ExtendsImplements\FOOInterface
+interface BazInterface extends \_PhpScoperbd5d0c5f7638\ExtendsImplements\FOOInterface
 {
 }
 /**
@@ -26,6 +26,6 @@ interface BazInterface extends \_PhpScoper006a73f0e455\ExtendsImplements\FOOInte
 class FinalWithAnnotation
 {
 }
-class ExtendsFinalWithAnnotation extends \_PhpScoper006a73f0e455\ExtendsImplements\FinalWithAnnotation
+class ExtendsFinalWithAnnotation extends \_PhpScoperbd5d0c5f7638\ExtendsImplements\FinalWithAnnotation
 {
 }

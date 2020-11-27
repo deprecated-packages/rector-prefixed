@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\Compiler\Renaming;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper006a73f0e455\Symfony\Component\Finder\Finder;
-use _PhpScoper006a73f0e455\Symfony\Component\Finder\SplFileInfo;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Finder\Finder;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Finder\SplFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 final class JetbrainsStubsRenamer
 {
@@ -52,7 +52,7 @@ final class JetbrainsStubsRenamer
             throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('File "%s" was not found', $stubsMapPath));
         }
         $stubsMapContents = $this->smartFileSystem->readFile($stubsMapPath);
-        $stubsMapContents = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($stubsMapContents, self::PHP_SUFFIX_COMMA_REGEX, ".stub',");
+        $stubsMapContents = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::replace($stubsMapContents, self::PHP_SUFFIX_COMMA_REGEX, ".stub',");
         $this->smartFileSystem->dumpFile($stubsMapPath, $stubsMapContents);
     }
     /**
@@ -63,7 +63,7 @@ final class JetbrainsStubsRenamer
         if (!\is_dir($phpStormStubsDirectory)) {
             throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Directory "%s" was not found', $phpStormStubsDirectory));
         }
-        $stubFinder = \_PhpScoper006a73f0e455\Symfony\Component\Finder\Finder::create()->files()->name('*.php')->in($phpStormStubsDirectory)->notName('#PhpStormStubsMap\\.php$#');
+        $stubFinder = \_PhpScoperbd5d0c5f7638\Symfony\Component\Finder\Finder::create()->files()->name('*.php')->in($phpStormStubsDirectory)->notName('#PhpStormStubsMap\\.php$#');
         return \iterator_to_array($stubFinder->getIterator());
     }
 }

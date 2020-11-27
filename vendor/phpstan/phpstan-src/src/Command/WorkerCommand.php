@@ -3,23 +3,23 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _PhpScoper006a73f0e455\Clue\React\NDJson\Decoder;
-use _PhpScoper006a73f0e455\Clue\React\NDJson\Encoder;
+use _PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder;
+use _PhpScoperbd5d0c5f7638\Clue\React\NDJson\Encoder;
 use PHPStan\Analyser\FileAnalyser;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\Rules\Registry;
-use _PhpScoper006a73f0e455\React\EventLoop\StreamSelectLoop;
-use _PhpScoper006a73f0e455\React\Socket\ConnectionInterface;
-use _PhpScoper006a73f0e455\React\Socket\TcpConnector;
-use _PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface;
-use _PhpScoper006a73f0e455\React\Stream\WritableStreamInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Command\Command;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface;
-class WorkerCommand extends \_PhpScoper006a73f0e455\Symfony\Component\Console\Command\Command
+use _PhpScoperbd5d0c5f7638\React\EventLoop\StreamSelectLoop;
+use _PhpScoperbd5d0c5f7638\React\Socket\ConnectionInterface;
+use _PhpScoperbd5d0c5f7638\React\Socket\TcpConnector;
+use _PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface;
+use _PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Command\Command;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputArgument;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
+class WorkerCommand extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Command\Command
 {
     private const NAME = 'worker';
     /** @var string[] */
@@ -38,9 +38,9 @@ class WorkerCommand extends \_PhpScoper006a73f0e455\Symfony\Component\Console\Co
     }
     protected function configure() : void
     {
-        $this->setName(self::NAME)->setDescription('(Internal) Support for parallel analysis.')->setDefinition([new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputArgument('paths', \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('paths-file', null, \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption(\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, 'l', \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('memory-limit', null, \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('xdebug', null, \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('port', null, \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('identifier', null, \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('tmp-file', null, \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption('instead-of', null, \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED)]);
+        $this->setName(self::NAME)->setDescription('(Internal) Support for parallel analysis.')->setDefinition([new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputArgument('paths', \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('paths-file', null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption(\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, 'l', \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('memory-limit', null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('xdebug', null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('port', null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('identifier', null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('tmp-file', null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption('instead-of', null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED)]);
     }
-    protected function execute(\_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $paths = $input->getArgument('paths');
         $memoryLimit = $input->getOption('memory-limit');
@@ -67,7 +67,7 @@ class WorkerCommand extends \_PhpScoper006a73f0e455\Symfony\Component\Console\Co
         } catch (\PHPStan\Command\InceptionNotSuccessfulException $e) {
             return 1;
         }
-        $loop = new \_PhpScoper006a73f0e455\React\EventLoop\StreamSelectLoop();
+        $loop = new \_PhpScoperbd5d0c5f7638\React\EventLoop\StreamSelectLoop();
         $container = $inceptionResult->getContainer();
         try {
             [$analysedFiles] = $inceptionResult->getFiles();
@@ -80,10 +80,10 @@ class WorkerCommand extends \_PhpScoper006a73f0e455\Symfony\Component\Console\Co
         $nodeScopeResolver = $container->getByType(\PHPStan\Analyser\NodeScopeResolver::class);
         $nodeScopeResolver->setAnalysedFiles($analysedFiles);
         $analysedFiles = \array_fill_keys($analysedFiles, \true);
-        $tcpConector = new \_PhpScoper006a73f0e455\React\Socket\TcpConnector($loop);
-        $tcpConector->connect(\sprintf('127.0.0.1:%d', $port))->done(function (\_PhpScoper006a73f0e455\React\Socket\ConnectionInterface $connection) use($container, $identifier, $output, $analysedFiles, $tmpFile, $insteadOfFile) : void {
-            $out = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
-            $in = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $container->getParameter('parallel')['buffer']);
+        $tcpConector = new \_PhpScoperbd5d0c5f7638\React\Socket\TcpConnector($loop);
+        $tcpConector->connect(\sprintf('127.0.0.1:%d', $port))->done(function (\_PhpScoperbd5d0c5f7638\React\Socket\ConnectionInterface $connection) use($container, $identifier, $output, $analysedFiles, $tmpFile, $insteadOfFile) : void {
+            $out = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
+            $in = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $container->getParameter('parallel')['buffer']);
             $out->write(['action' => 'hello', 'identifier' => $identifier]);
             $this->runWorker($container, $out, $in, $output, $analysedFiles, $tmpFile, $insteadOfFile);
         });
@@ -102,7 +102,7 @@ class WorkerCommand extends \_PhpScoper006a73f0e455\Symfony\Component\Console\Co
      * @param string|null $tmpFile
      * @param string|null $insteadOfFile
      */
-    private function runWorker(\PHPStan\DependencyInjection\Container $container, \_PhpScoper006a73f0e455\React\Stream\WritableStreamInterface $out, \_PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface $in, \_PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface $output, array $analysedFiles, ?string $tmpFile, ?string $insteadOfFile) : void
+    private function runWorker(\PHPStan\DependencyInjection\Container $container, \_PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface $out, \_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface $in, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface $output, array $analysedFiles, ?string $tmpFile, ?string $insteadOfFile) : void
     {
         $handleError = function (\Throwable $error) use($out, $output) : void {
             $this->errorCount++;

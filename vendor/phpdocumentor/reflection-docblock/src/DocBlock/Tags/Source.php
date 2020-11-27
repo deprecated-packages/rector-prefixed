@@ -10,16 +10,16 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}source tag in a Docblock.
  */
-final class Source extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Source extends \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string */
     protected $name = 'source';
@@ -27,10 +27,10 @@ final class Source extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocB
     private $startingLine = 1;
     /** @var int|null The number of lines, relative to the starting line. NULL means "to the end". */
     private $lineCount = null;
-    public function __construct($startingLine, $lineCount = null, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($startingLine, $lineCount = null, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::integerish($startingLine);
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::nullOrIntegerish($lineCount);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::integerish($startingLine);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::nullOrIntegerish($lineCount);
         $this->startingLine = (int) $startingLine;
         $this->lineCount = $lineCount !== null ? (int) $lineCount : null;
         $this->description = $description;
@@ -38,10 +38,10 @@ final class Source extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocB
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::stringNotEmpty($body);
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::notNull($descriptionFactory);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::stringNotEmpty($body);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::notNull($descriptionFactory);
         $startingLine = 1;
         $lineCount = null;
         $description = null;

@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 $x = null;
 /** @var string[] $arr */
-$arr = \_PhpScoper006a73f0e455\doFoo();
+$arr = \_PhpScoperbd5d0c5f7638\doFoo();
 foreach ($arr as $foo) {
     $x = $foo;
 }
 $y = null;
-if (\_PhpScoper006a73f0e455\doFoo()) {
+if (\_PhpScoperbd5d0c5f7638\doFoo()) {
 } else {
-    if (\_PhpScoper006a73f0e455\doBar()) {
+    if (\_PhpScoperbd5d0c5f7638\doBar()) {
     } else {
         $y = 1;
     }

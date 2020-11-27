@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Http\Io;
+namespace _PhpScoperbd5d0c5f7638\React\Http\Io;
 
-use _PhpScoper006a73f0e455\Evenement\EventEmitter;
-use _PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface;
-use _PhpScoper006a73f0e455\React\Stream\Util;
-use _PhpScoper006a73f0e455\React\Stream\WritableStreamInterface;
+use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
+use _PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface;
+use _PhpScoperbd5d0c5f7638\React\Stream\Util;
+use _PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Limits the amount of data the given stream can emit
  *
@@ -14,13 +14,13 @@ use _PhpScoper006a73f0e455\React\Stream\WritableStreamInterface;
  *
  * @internal
  */
-class LengthLimitedStream extends \_PhpScoper006a73f0e455\Evenement\EventEmitter implements \_PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface
+class LengthLimitedStream extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter implements \_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface
 {
     private $stream;
     private $closed = \false;
     private $transferredLength = 0;
     private $maxLength;
-    public function __construct(\_PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface $stream, $maxLength)
+    public function __construct(\_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface $stream, $maxLength)
     {
         $this->stream = $stream;
         $this->maxLength = $maxLength;
@@ -41,9 +41,9 @@ class LengthLimitedStream extends \_PhpScoper006a73f0e455\Evenement\EventEmitter
     {
         $this->stream->resume();
     }
-    public function pipe(\_PhpScoper006a73f0e455\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper006a73f0e455\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoperbd5d0c5f7638\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

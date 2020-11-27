@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Socket;
+namespace _PhpScoperbd5d0c5f7638\React\Socket;
 
-use _PhpScoper006a73f0e455\React\Dns\Resolver\ResolverInterface;
-use _PhpScoper006a73f0e455\React\Promise;
-use _PhpScoper006a73f0e455\React\Promise\CancellablePromiseInterface;
-final class DnsConnector implements \_PhpScoper006a73f0e455\React\Socket\ConnectorInterface
+use _PhpScoperbd5d0c5f7638\React\Dns\Resolver\ResolverInterface;
+use _PhpScoperbd5d0c5f7638\React\Promise;
+use _PhpScoperbd5d0c5f7638\React\Promise\CancellablePromiseInterface;
+final class DnsConnector implements \_PhpScoperbd5d0c5f7638\React\Socket\ConnectorInterface
 {
     private $connector;
     private $resolver;
-    public function __construct(\_PhpScoper006a73f0e455\React\Socket\ConnectorInterface $connector, \_PhpScoper006a73f0e455\React\Dns\Resolver\ResolverInterface $resolver)
+    public function __construct(\_PhpScoperbd5d0c5f7638\React\Socket\ConnectorInterface $connector, \_PhpScoperbd5d0c5f7638\React\Dns\Resolver\ResolverInterface $resolver)
     {
         $this->connector = $connector;
         $this->resolver = $resolver;
@@ -23,7 +23,7 @@ final class DnsConnector implements \_PhpScoper006a73f0e455\React\Socket\Connect
             $parts = \parse_url($uri);
         }
         if (!$parts || !isset($parts['host'])) {
-            return \_PhpScoper006a73f0e455\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \_PhpScoperbd5d0c5f7638\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $host = \trim($parts['host'], '[]');
         $connector = $this->connector;
@@ -33,7 +33,7 @@ final class DnsConnector implements \_PhpScoper006a73f0e455\React\Socket\Connect
         }
         $promise = $this->resolver->resolve($host);
         $resolved = null;
-        return new \_PhpScoper006a73f0e455\React\Promise\Promise(function ($resolve, $reject) use(&$promise, &$resolved, $uri, $connector, $host, $parts) {
+        return new \_PhpScoperbd5d0c5f7638\React\Promise\Promise(function ($resolve, $reject) use(&$promise, &$resolved, $uri, $connector, $host, $parts) {
             // resolve/reject with result of DNS lookup
             $promise->then(function ($ip) use(&$promise, &$resolved, $connector, $host, $parts) {
                 $resolved = $ip;
@@ -82,7 +82,7 @@ final class DnsConnector implements \_PhpScoper006a73f0e455\React\Socket\Connect
                 $reject(new \RuntimeException('Connection to ' . $uri . ' cancelled during DNS lookup'));
             }
             // (try to) cancel pending DNS lookup / connection attempt
-            if ($promise instanceof \_PhpScoper006a73f0e455\React\Promise\CancellablePromiseInterface) {
+            if ($promise instanceof \_PhpScoperbd5d0c5f7638\React\Promise\CancellablePromiseInterface) {
                 // overwrite callback arguments for PHP7+ only, so they do not show
                 // up in the Exception trace and do not cause a possible cyclic reference.
                 $_ = $reject = null;

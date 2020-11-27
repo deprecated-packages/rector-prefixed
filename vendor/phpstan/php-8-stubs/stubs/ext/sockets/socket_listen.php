@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function socket_listen(\_PhpScoper006a73f0e455\Socket $socket, int $backlog = 0) : bool
+function socket_listen(\_PhpScoperbd5d0c5f7638\Socket $socket, int $backlog = 0) : bool
 {
 }

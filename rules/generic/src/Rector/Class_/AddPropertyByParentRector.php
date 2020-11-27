@@ -14,7 +14,7 @@ use Rector\Naming\ValueObject\ExpectedName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
+use _PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\Class_\AddPropertyByParentRector\AddPropertyByParentRectorTest
  */
@@ -90,7 +90,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $parentDependencies = $configuration[self::PARENT_DEPENDENCIES] ?? [];
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::allIsInstanceOf($parentDependencies, \Rector\Generic\ValueObject\AddPropertyByParent::class);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::allIsInstanceOf($parentDependencies, \Rector\Generic\ValueObject\AddPropertyByParent::class);
         $this->parentDependencies = $parentDependencies;
     }
 }

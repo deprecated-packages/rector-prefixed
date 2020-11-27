@@ -57,7 +57,7 @@ class Autoloader extends \Hoa\Test\Unit\Suite
     }
     public function case_add_namespace_with_invalid_prefix()
     {
-        $this->given($autoloader = new \Hoa\Consistency\Autoloader(), $prefix = '_PhpScoper006a73f0e455\\Foo\\Bar', $baseDirectory = 'Source/Foo/Bar/')->when($result = $autoloader->addNamespace($prefix, $baseDirectory))->then->boolean($autoloader->hasBaseDirectory('Foo\\Bar\\'))->isTrue()->array($autoloader->getBaseDirectories('Foo\\Bar\\'))->isEqualTo([$baseDirectory]);
+        $this->given($autoloader = new \Hoa\Consistency\Autoloader(), $prefix = '_PhpScoperbd5d0c5f7638\\Foo\\Bar', $baseDirectory = 'Source/Foo/Bar/')->when($result = $autoloader->addNamespace($prefix, $baseDirectory))->then->boolean($autoloader->hasBaseDirectory('Foo\\Bar\\'))->isTrue()->array($autoloader->getBaseDirectories('Foo\\Bar\\'))->isEqualTo([$baseDirectory]);
     }
     public function case_add_namespace_with_invalid_base_directory()
     {
@@ -69,9 +69,9 @@ class Autoloader extends \Hoa\Test\Unit\Suite
     }
     public function case_load()
     {
-        $this->given($autoloader = new \_PhpScoper006a73f0e455\Mock\Hoa\Consistency\Autoloader(), $autoloader->addNamespace('Foo\\Bar\\', 'Source/Foo/Bar/'), $this->calling($autoloader)->requireFile = function ($file) {
+        $this->given($autoloader = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Consistency\Autoloader(), $autoloader->addNamespace('Foo\\Bar\\', 'Source/Foo/Bar/'), $this->calling($autoloader)->requireFile = function ($file) {
             return $file;
-        })->when($result = $autoloader->load('_PhpScoper006a73f0e455\\Foo\\Bar\\Baz\\Qux'))->then->string($result)->isEqualTo('Source/Foo/Bar/Baz/Qux.php');
+        })->when($result = $autoloader->load('_PhpScoperbd5d0c5f7638\\Foo\\Bar\\Baz\\Qux'))->then->string($result)->isEqualTo('Source/Foo/Bar/Baz/Qux.php');
     }
     public function case_load_invalid_entity()
     {
@@ -80,19 +80,19 @@ class Autoloader extends \Hoa\Test\Unit\Suite
     public function case_load_flex_entity()
     {
         $self = $this;
-        $this->given($autoloader = new \_PhpScoper006a73f0e455\Mock\Hoa\Consistency\Autoloader(), $autoloader->addNamespace('Foo\\Bar\\', 'Source/Foo/'), $this->calling($autoloader)->runAutoloaderStack = function ($entity) use($self, &$called) {
+        $this->given($autoloader = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Consistency\Autoloader(), $autoloader->addNamespace('Foo\\Bar\\', 'Source/Foo/'), $this->calling($autoloader)->runAutoloaderStack = function ($entity) use($self, &$called) {
             $called = \true;
-            $self->string($entity)->isEqualTo('_PhpScoper006a73f0e455\\Foo\\Bar\\Baz\\Baz');
+            $self->string($entity)->isEqualTo('_PhpScoperbd5d0c5f7638\\Foo\\Bar\\Baz\\Baz');
             return;
-        }, $autoloader->register())->when($result = $autoloader->load('_PhpScoper006a73f0e455\\Foo\\Bar\\Baz'))->then->variable($result)->isNull()->boolean($called)->isTrue();
+        }, $autoloader->register())->when($result = $autoloader->load('_PhpScoperbd5d0c5f7638\\Foo\\Bar\\Baz'))->then->variable($result)->isNull()->boolean($called)->isTrue();
     }
     public function case_load_unmapped_flex_entity()
     {
         $self = $this;
-        $this->given($autoloader = new \_PhpScoper006a73f0e455\Mock\Hoa\Consistency\Autoloader(), $this->calling($autoloader)->runAutoloaderStack = function ($entity) use($self, &$called) {
+        $this->given($autoloader = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Consistency\Autoloader(), $this->calling($autoloader)->runAutoloaderStack = function ($entity) use($self, &$called) {
             $called = \true;
             return;
-        }, $autoloader->register())->when($result = $autoloader->load('_PhpScoper006a73f0e455\\Foo\\Bar\\Baz'))->then->variable($result)->isNull()->variable($called)->isNull();
+        }, $autoloader->register())->when($result = $autoloader->load('_PhpScoperbd5d0c5f7638\\Foo\\Bar\\Baz'))->then->variable($result)->isNull()->variable($called)->isNull();
     }
     public function case_require_existing_file()
     {

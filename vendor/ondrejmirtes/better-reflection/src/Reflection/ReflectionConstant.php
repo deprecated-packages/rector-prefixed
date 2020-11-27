@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Namespace_ as NamespaceNode;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\BetterReflection;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\CompilerContext;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\StringCast\ReflectionConstantStringCast;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Util\CalculateReflectionColum;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Util\ConstantNodeChecker;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Util\GetLastDocComment;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\BetterReflection;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\StringCast\ReflectionConstantStringCast;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\CalculateReflectionColum;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\ConstantNodeChecker;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\GetLastDocComment;
 use function array_slice;
 use function assert;
 use function count;
 use function explode;
 use function implode;
 use function substr_count;
-class ReflectionConstant implements \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection
+class ReflectionConstant implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
 {
     /** @var Reflector */
     private $reflector;
@@ -48,7 +48,7 @@ class ReflectionConstant implements \_PhpScoper006a73f0e455\Roave\BetterReflecti
      */
     public static function createFromName(string $constantName) : self
     {
-        return (new \_PhpScoper006a73f0e455\Roave\BetterReflection\BetterReflection())->constantReflector()->reflect($constantName);
+        return (new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\BetterReflection())->constantReflector()->reflect($constantName);
     }
     /**
      * Create a reflection of a constant
@@ -57,11 +57,11 @@ class ReflectionConstant implements \_PhpScoper006a73f0e455\Roave\BetterReflecti
      *
      * @param Node\Stmt\Const_|Node\Expr\FuncCall $node Node has to be processed by the PhpParser\NodeVisitor\NameResolver
      */
-    public static function createFromNode(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node $node, \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespace = null, ?int $positionInNode = null) : self
+    public static function createFromNode(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node $node, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespace = null, ?int $positionInNode = null) : self
     {
         return $node instanceof \PhpParser\Node\Stmt\Const_ ? self::createFromConstKeyword($reflector, $node, $locatedSource, $namespace, $positionInNode) : self::createFromDefineFunctionCall($reflector, $node, $locatedSource);
     }
-    private static function createFromConstKeyword(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\Const_ $node, \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespace, int $positionInNode) : self
+    private static function createFromConstKeyword(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\Const_ $node, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespace, int $positionInNode) : self
     {
         $constant = new self();
         $constant->reflector = $reflector;
@@ -74,9 +74,9 @@ class ReflectionConstant implements \_PhpScoper006a73f0e455\Roave\BetterReflecti
     /**
      * @throws InvalidConstantNode
      */
-    private static function createFromDefineFunctionCall(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Expr\FuncCall $node, \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource) : self
+    private static function createFromDefineFunctionCall(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Expr\FuncCall $node, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource) : self
     {
-        \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+        \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
         $constant = new self();
         $constant->reflector = $reflector;
         $constant->node = $node;
@@ -183,7 +183,7 @@ class ReflectionConstant implements \_PhpScoper006a73f0e455\Roave\BetterReflecti
             $namespace = (string) $this->declaringNamespace->name;
         }
         /** @psalm-suppress UndefinedPropertyFetch */
-        $this->value = (new \_PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\CompileNodeToValue())->__invoke($valueNode, new \_PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->getFileName(), null, $namespace, null));
+        $this->value = (new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompileNodeToValue())->__invoke($valueNode, new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->getFileName(), null, $namespace, null));
         $this->valueWasCached = \true;
         return $this->value;
     }
@@ -191,7 +191,7 @@ class ReflectionConstant implements \_PhpScoper006a73f0e455\Roave\BetterReflecti
     {
         return $this->locatedSource->getFileName();
     }
-    public function getLocatedSource() : \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    public function getLocatedSource() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         return $this->locatedSource;
     }
@@ -211,22 +211,22 @@ class ReflectionConstant implements \_PhpScoper006a73f0e455\Roave\BetterReflecti
     }
     public function getStartColumn() : int
     {
-        return \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->locatedSource->getSource(), $this->node);
+        return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->locatedSource->getSource(), $this->node);
     }
     public function getEndColumn() : int
     {
-        return \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->locatedSource->getSource(), $this->node);
+        return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->locatedSource->getSource(), $this->node);
     }
     /**
      * Returns the doc comment for this constant
      */
     public function getDocComment() : string
     {
-        return \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->node);
+        return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->node);
     }
     public function __toString() : string
     {
-        return \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\StringCast\ReflectionConstantStringCast::toString($this);
+        return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\StringCast\ReflectionConstantStringCast::toString($this);
     }
     /**
      * @return Node\Stmt\Const_|Node\Expr\FuncCall

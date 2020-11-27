@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /**
  * @param string $data
  * @param string $address
  * @param int $port
  */
-function socket_recvfrom(\_PhpScoper006a73f0e455\Socket $socket, &$data, int $length, int $flags, &$address, &$port = null) : int|false
+function socket_recvfrom(\_PhpScoperbd5d0c5f7638\Socket $socket, &$data, int $length, int $flags, &$address, &$port = null) : int|false
 {
 }

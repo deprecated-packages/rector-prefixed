@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\EventListener;
+namespace _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\EventListener;
 
-use _PhpScoper006a73f0e455\Psr\Log\LoggerInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\ErrorHandler\Exception\FlattenException;
-use _PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Log\LoggerInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\HttpKernelInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
-@\trigger_error(\sprintf('The "%s" class is deprecated since Symfony 4.4, use "ErrorListener" instead.', \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\EventListener\ExceptionListener::class), \E_USER_DEPRECATED);
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\HttpKernelInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+@\trigger_error(\sprintf('The "%s" class is deprecated since Symfony 4.4, use "ErrorListener" instead.', \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\EventListener\ExceptionListener::class), \E_USER_DEPRECATED);
 /**
  * @deprecated since Symfony 4.4, use ErrorListener instead
  */
@@ -29,18 +29,18 @@ class ExceptionListener implements \Symfony\Component\EventDispatcher\EventSubsc
     protected $controller;
     protected $logger;
     protected $debug;
-    public function __construct($controller, \_PhpScoper006a73f0e455\Psr\Log\LoggerInterface $logger = null, $debug = \false)
+    public function __construct($controller, \_PhpScoperbd5d0c5f7638\Psr\Log\LoggerInterface $logger = null, $debug = \false)
     {
         $this->controller = $controller;
         $this->logger = $logger;
         $this->debug = $debug;
     }
-    public function logKernelException(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event)
+    public function logKernelException(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event)
     {
-        $e = \_PhpScoper006a73f0e455\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($event->getException());
+        $e = \_PhpScoperbd5d0c5f7638\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($event->getException());
         $this->logException($event->getException(), \sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), $e->getFile(), $e->getLine()));
     }
-    public function onKernelException(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event)
+    public function onKernelException(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event)
     {
         if (null === $this->controller) {
             return;
@@ -49,9 +49,9 @@ class ExceptionListener implements \Symfony\Component\EventDispatcher\EventSubsc
         $request = $this->duplicateRequest($exception, $event->getRequest());
         $eventDispatcher = \func_num_args() > 2 ? \func_get_arg(2) : null;
         try {
-            $response = $event->getKernel()->handle($request, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\HttpKernelInterface::SUB_REQUEST, \false);
+            $response = $event->getKernel()->handle($request, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\HttpKernelInterface::SUB_REQUEST, \false);
         } catch (\Exception $e) {
-            $f = \_PhpScoper006a73f0e455\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($e);
+            $f = \_PhpScoperbd5d0c5f7638\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($e);
             $this->logException($e, \sprintf('Exception thrown when handling an exception (%s: %s at %s line %s)', $f->getClass(), $f->getMessage(), $e->getFile(), $e->getLine()));
             $prev = $e;
             do {
@@ -65,17 +65,17 @@ class ExceptionListener implements \Symfony\Component\EventDispatcher\EventSubsc
             throw $e;
         }
         $event->setResponse($response);
-        if ($this->debug && $eventDispatcher instanceof \_PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\EventDispatcherInterface) {
+        if ($this->debug && $eventDispatcher instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\EventDispatcherInterface) {
             $cspRemovalListener = function ($event) use(&$cspRemovalListener, $eventDispatcher) {
                 $event->getResponse()->headers->remove('Content-Security-Policy');
-                $eventDispatcher->removeListener(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::RESPONSE, $cspRemovalListener);
+                $eventDispatcher->removeListener(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::RESPONSE, $cspRemovalListener);
             };
-            $eventDispatcher->addListener(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::RESPONSE, $cspRemovalListener, -128);
+            $eventDispatcher->addListener(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::RESPONSE, $cspRemovalListener, -128);
         }
     }
     public static function getSubscribedEvents()
     {
-        return [\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => [['logKernelException', 0], ['onKernelException', -128]]];
+        return [\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => [['logKernelException', 0], ['onKernelException', -128]]];
     }
     /**
      * Logs an exception.
@@ -86,7 +86,7 @@ class ExceptionListener implements \Symfony\Component\EventDispatcher\EventSubsc
     protected function logException(\Exception $exception, $message)
     {
         if (null !== $this->logger) {
-            if (!$exception instanceof \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface || $exception->getStatusCode() >= 500) {
+            if (!$exception instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface || $exception->getStatusCode() >= 500) {
                 $this->logger->critical($message, ['exception' => $exception]);
             } else {
                 $this->logger->error($message, ['exception' => $exception]);
@@ -98,9 +98,9 @@ class ExceptionListener implements \Symfony\Component\EventDispatcher\EventSubsc
      *
      * @return Request The cloned request
      */
-    protected function duplicateRequest(\Exception $exception, \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request $request)
+    protected function duplicateRequest(\Exception $exception, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request $request)
     {
-        $attributes = ['_controller' => $this->controller, 'exception' => \_PhpScoper006a73f0e455\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception), 'logger' => $this->logger instanceof \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Log\DebugLoggerInterface ? $this->logger : null];
+        $attributes = ['_controller' => $this->controller, 'exception' => \_PhpScoperbd5d0c5f7638\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception), 'logger' => $this->logger instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Log\DebugLoggerInterface ? $this->logger : null];
         $request = $request->duplicate(null, null, $attributes);
         $request->setMethod('GET');
         return $request;

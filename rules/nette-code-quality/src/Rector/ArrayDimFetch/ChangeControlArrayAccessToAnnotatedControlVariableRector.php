@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Rector\ArrayDimFetch;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Isset_;
@@ -100,7 +100,7 @@ CODE_SAMPLE
             return null;
         }
         // probably multiplier factory, nothing we can do... yet
-        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($controlName, '-')) {
+        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($controlName, '-')) {
             return null;
         }
         $variableName = $this->netteControlNaming->createVariableName($controlName);

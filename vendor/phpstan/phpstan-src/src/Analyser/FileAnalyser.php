@@ -15,8 +15,8 @@ use PHPStan\Rules\MetadataRuleError;
 use PHPStan\Rules\NonIgnorableRuleError;
 use PHPStan\Rules\Registry;
 use PHPStan\Rules\TipRuleError;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use function array_fill_keys;
 use function array_key_exists;
 use function array_unique;
@@ -83,10 +83,10 @@ class FileAnalyser
                             $uniquedAnalysedCodeExceptionMessages[$e->getMessage()] = \true;
                             $fileErrors[] = new \PHPStan\Analyser\Error($e->getMessage(), $file, $node->getLine(), $e, null, null, $e->getTip());
                             continue;
-                        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                             $fileErrors[] = new \PHPStan\Analyser\Error(\sprintf('Reflection error: %s not found.', $e->getIdentifier()->getName()), $file, $node->getLine(), $e, null, null, 'Learn more at https://phpstan.org/user-guide/discovering-symbols');
                             continue;
-                        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
+                        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
                             $fileErrors[] = new \PHPStan\Analyser\Error(\sprintf('Reflection error: %s', $e->getMessage()), $file, $node->getLine(), $e, null, null, 'Learn more at https://phpstan.org/user-guide/discovering-symbols');
                             continue;
                         }
@@ -147,9 +147,9 @@ class FileAnalyser
                         }
                     } catch (\PHPStan\AnalysedCodeException $e) {
                         // pass
-                    } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                    } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                         // pass
-                    } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
+                    } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
                         // pass
                     }
                 };
@@ -186,9 +186,9 @@ class FileAnalyser
                 }
             } catch (\PHPStan\AnalysedCodeException $e) {
                 $fileErrors[] = new \PHPStan\Analyser\Error($e->getMessage(), $file, null, $e, null, null, $e->getTip());
-            } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 $fileErrors[] = new \PHPStan\Analyser\Error(\sprintf('Reflection error: %s not found.', $e->getIdentifier()->getName()), $file, null, $e, null, null, 'Learn more at https://phpstan.org/user-guide/discovering-symbols');
-            } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
+            } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
                 $fileErrors[] = new \PHPStan\Analyser\Error(\sprintf('Reflection error: %s', $e->getMessage()), $file, null, $e, null, null, 'Learn more at https://phpstan.org/user-guide/discovering-symbols');
             }
         } elseif (\is_dir($file)) {

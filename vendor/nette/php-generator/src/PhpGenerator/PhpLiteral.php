@@ -5,8 +5,8 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\PhpGenerator;
+namespace _PhpScoperbd5d0c5f7638\Nette\PhpGenerator;
 
-class PhpLiteral extends \_PhpScoper006a73f0e455\Nette\PhpGenerator\Literal
+class PhpLiteral extends \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Literal
 {
 }

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter;
 
 use InvalidArgumentException;
 use OutOfBoundsException;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionException as CoreReflectionException;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionObject as BetterReflectionObject;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Util\FileHelper;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\NotAnObject;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionObject as BetterReflectionObject;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper;
 use function array_combine;
 use function array_map;
 use function array_values;
@@ -28,12 +28,12 @@ class ReflectionClass extends \ReflectionClass
 {
     /** @var BetterReflectionClass */
     private $betterReflectionClass;
-    public function __construct(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass $betterReflectionClass)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass $betterReflectionClass)
     {
         $this->betterReflectionClass = $betterReflectionClass;
         unset($this->name);
     }
-    public function getBetterReflection() : \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getBetterReflection() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->betterReflectionClass;
     }
@@ -46,9 +46,9 @@ class ReflectionClass extends \ReflectionClass
     {
         if (\is_string($argument) || \is_object($argument)) {
             if (\is_string($argument)) {
-                $output = \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($argument)->__toString();
+                $output = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($argument)->__toString();
             } else {
-                $output = \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionObject::createFromInstance($argument)->__toString();
+                $output = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionObject::createFromInstance($argument)->__toString();
             }
             if ($return) {
                 return $output;
@@ -123,7 +123,7 @@ class ReflectionClass extends \ReflectionClass
     public function getFileName()
     {
         $fileName = $this->betterReflectionClass->getFileName();
-        return $fileName !== null ? \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
+        return $fileName !== null ? \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
     }
     /**
      * {@inheritDoc}
@@ -152,7 +152,7 @@ class ReflectionClass extends \ReflectionClass
     public function getConstructor()
     {
         try {
-            return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod($this->betterReflectionClass->getConstructor());
+            return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod($this->betterReflectionClass->getConstructor());
         } catch (\OutOfBoundsException $e) {
             return null;
         }
@@ -169,15 +169,15 @@ class ReflectionClass extends \ReflectionClass
      */
     public function getMethod($name)
     {
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod($this->betterReflectionClass->getMethod($name));
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod($this->betterReflectionClass->getMethod($name));
     }
     /**
      * {@inheritDoc}
      */
     public function getMethods($filter = null)
     {
-        return \array_map(static function (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionMethod $method) : ReflectionMethod {
-            return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod($method);
+        return \array_map(static function (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionMethod $method) : ReflectionMethod {
+            return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod($method);
         }, $this->betterReflectionClass->getMethods($filter));
     }
     /**
@@ -196,15 +196,15 @@ class ReflectionClass extends \ReflectionClass
         if ($betterReflectionProperty === null) {
             throw new \ReflectionException(\sprintf('Property "%s" does not exist', $name));
         }
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty($betterReflectionProperty);
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty($betterReflectionProperty);
     }
     /**
      * {@inheritDoc}
      */
     public function getProperties($filter = null)
     {
-        return \array_values(\array_map(static function (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionProperty $property) : ReflectionProperty {
-            return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty($property);
+        return \array_values(\array_map(static function (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty $property) : ReflectionProperty {
+            return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty($property);
         }, $this->betterReflectionClass->getProperties($filter)));
     }
     /**
@@ -233,15 +233,15 @@ class ReflectionClass extends \ReflectionClass
      */
     public function getReflectionConstant($name)
     {
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionClassConstant($this->betterReflectionClass->getReflectionConstant($name));
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClassConstant($this->betterReflectionClass->getReflectionConstant($name));
     }
     /**
      * {@inheritdoc}
      */
     public function getReflectionConstants(int $filter = null)
     {
-        return \array_values(\array_map(static function (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClassConstant $betterConstant) : ReflectionClassConstant {
-            return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionClassConstant($betterConstant);
+        return \array_values(\array_map(static function (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClassConstant $betterConstant) : ReflectionClassConstant {
+            return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClassConstant($betterConstant);
         }, $this->betterReflectionClass->getReflectionConstants($filter)));
     }
     /**
@@ -277,10 +277,10 @@ class ReflectionClass extends \ReflectionClass
     {
         $traits = $this->betterReflectionClass->getTraits();
         /** @var array<trait-string> $traitNames */
-        $traitNames = \array_map(static function (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass $trait) : string {
+        $traitNames = \array_map(static function (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass $trait) : string {
             return $trait->getName();
         }, $traits);
-        $traitsByName = \array_combine($traitNames, \array_map(static function (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass $trait) : self {
+        $traitsByName = \array_combine($traitNames, \array_map(static function (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass $trait) : self {
             return new self($trait);
         }, $traits));
         \assert(\is_array($traitsByName), \sprintf('Could not create an array<trait-string, ReflectionClass> for class "%s"', $this->betterReflectionClass->getName()));
@@ -335,7 +335,7 @@ class ReflectionClass extends \ReflectionClass
     {
         try {
             return $this->betterReflectionClass->isInstance($object);
-        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return null;
         }
     }
@@ -344,21 +344,21 @@ class ReflectionClass extends \ReflectionClass
      */
     public function newInstance($arg = null, ...$args)
     {
-        throw new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
      */
     public function newInstanceWithoutConstructor()
     {
-        throw new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
      */
     public function newInstanceArgs(?array $args = null)
     {
-        throw new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -402,7 +402,7 @@ class ReflectionClass extends \ReflectionClass
             }
             throw new \ReflectionException(\sprintf('Property "%s" does not exist', $name));
         }
-        $property = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty($betterReflectionProperty);
+        $property = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty($betterReflectionProperty);
         if (!$property->isAccessible()) {
             throw new \ReflectionException(\sprintf('Property "%s" is not accessible', $name));
         }
@@ -420,7 +420,7 @@ class ReflectionClass extends \ReflectionClass
         if ($betterReflectionProperty === null) {
             throw new \ReflectionException(\sprintf('Property "%s" does not exist', $name));
         }
-        $property = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty($betterReflectionProperty);
+        $property = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty($betterReflectionProperty);
         if (!$property->isAccessible()) {
             throw new \ReflectionException(\sprintf('Property "%s" is not accessible', $name));
         }
@@ -460,7 +460,7 @@ class ReflectionClass extends \ReflectionClass
      */
     public function getExtension()
     {
-        throw new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class DOMEntity extends \DOMNode
 {
 }
-\class_alias('_PhpScoper006a73f0e455\\DOMEntity', 'DOMEntity', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\DOMEntity', 'DOMEntity', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /* {{{ head.c */
 function header(string $header, bool $replace = \true, int $response_code = 0) : void

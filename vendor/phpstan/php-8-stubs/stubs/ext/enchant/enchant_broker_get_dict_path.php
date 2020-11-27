@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @deprecated */
 function enchant_broker_get_dict_path(\EnchantBroker $broker, int $type) : string|false

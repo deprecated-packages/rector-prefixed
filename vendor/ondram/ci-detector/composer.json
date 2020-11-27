@@ -49,12 +49,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper006a73f0e455\\OndraM\\CiDetector\\": "src\/"
+            "_PhpScoperbd5d0c5f7638\\OndraM\\CiDetector\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper006a73f0e455\\OndraM\\CiDetector\\Ci\\Tests\\": "tests\/"
+            "_PhpScoperbd5d0c5f7638\\OndraM\\CiDetector\\Ci\\Tests\\": "tests\/"
         }
     },
     "scripts": {

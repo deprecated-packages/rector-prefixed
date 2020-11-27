@@ -5,40 +5,40 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI\Extensions;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI\Extensions;
 
-use _PhpScoper006a73f0e455\Nette;
-use _PhpScoper006a73f0e455\Nette\DI\Definitions;
-use _PhpScoper006a73f0e455\Nette\Schema\Expect;
+use _PhpScoperbd5d0c5f7638\Nette;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Definitions;
+use _PhpScoperbd5d0c5f7638\Nette\Schema\Expect;
 /**
  * Decorators for services.
  */
-final class DecoratorExtension extends \_PhpScoper006a73f0e455\Nette\DI\CompilerExtension
+final class DecoratorExtension extends \_PhpScoperbd5d0c5f7638\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScoper006a73f0e455\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoperbd5d0c5f7638\Nette\Schema\Schema
     {
-        return \_PhpScoper006a73f0e455\Nette\Schema\Expect::arrayOf(\_PhpScoper006a73f0e455\Nette\Schema\Expect::structure(['setup' => \_PhpScoper006a73f0e455\Nette\Schema\Expect::list(), 'tags' => \_PhpScoper006a73f0e455\Nette\Schema\Expect::array(), 'inject' => \_PhpScoper006a73f0e455\Nette\Schema\Expect::bool()]));
+        return \_PhpScoperbd5d0c5f7638\Nette\Schema\Expect::arrayOf(\_PhpScoperbd5d0c5f7638\Nette\Schema\Expect::structure(['setup' => \_PhpScoperbd5d0c5f7638\Nette\Schema\Expect::list(), 'tags' => \_PhpScoperbd5d0c5f7638\Nette\Schema\Expect::array(), 'inject' => \_PhpScoperbd5d0c5f7638\Nette\Schema\Expect::bool()]));
     }
     public function beforeCompile()
     {
         $this->getContainerBuilder()->resolve();
         foreach ($this->config as $type => $info) {
             if ($info->inject !== null) {
-                $info->tags[\_PhpScoper006a73f0e455\Nette\DI\Extensions\InjectExtension::TAG_INJECT] = $info->inject;
+                $info->tags[\_PhpScoperbd5d0c5f7638\Nette\DI\Extensions\InjectExtension::TAG_INJECT] = $info->inject;
             }
-            $this->addSetups($type, \_PhpScoper006a73f0e455\Nette\DI\Helpers::filterArguments($info->setup));
-            $this->addTags($type, \_PhpScoper006a73f0e455\Nette\DI\Helpers::filterArguments($info->tags));
+            $this->addSetups($type, \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::filterArguments($info->setup));
+            $this->addTags($type, \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::filterArguments($info->tags));
         }
     }
     public function addSetups(string $type, array $setups) : void
     {
         foreach ($this->findByType($type) as $def) {
-            if ($def instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\FactoryDefinition) {
+            if ($def instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\FactoryDefinition) {
                 $def = $def->getResultDefinition();
             }
             foreach ($setups as $setup) {
                 if (\is_array($setup)) {
-                    $setup = new \_PhpScoper006a73f0e455\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
+                    $setup = new \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
                 }
                 $def->addSetup($setup);
             }
@@ -46,15 +46,15 @@ final class DecoratorExtension extends \_PhpScoper006a73f0e455\Nette\DI\Compiler
     }
     public function addTags(string $type, array $tags) : void
     {
-        $tags = \_PhpScoper006a73f0e455\Nette\Utils\Arrays::normalize($tags, \true);
+        $tags = \_PhpScoperbd5d0c5f7638\Nette\Utils\Arrays::normalize($tags, \true);
         foreach ($this->findByType($type) as $def) {
             $def->setTags($def->getTags() + $tags);
         }
     }
     private function findByType(string $type) : array
     {
-        return \array_filter($this->getContainerBuilder()->getDefinitions(), function (\_PhpScoper006a73f0e455\Nette\DI\Definitions\Definition $def) use($type) : bool {
-            return \is_a($def->getType(), $type, \true) || $def instanceof \_PhpScoper006a73f0e455\Nette\DI\Definitions\FactoryDefinition && \is_a($def->getResultType(), $type, \true);
+        return \array_filter($this->getContainerBuilder()->getDefinitions(), function (\_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\Definition $def) use($type) : bool {
+            return \is_a($def->getType(), $type, \true) || $def instanceof \_PhpScoperbd5d0c5f7638\Nette\DI\Definitions\FactoryDefinition && \is_a($def->getResultType(), $type, \true);
         });
     }
 }

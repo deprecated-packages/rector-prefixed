@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\OndraM\CiDetector\Ci;
+namespace _PhpScoperbd5d0c5f7638\OndraM\CiDetector\Ci;
 
-use _PhpScoper006a73f0e455\OndraM\CiDetector\CiDetector;
-use _PhpScoper006a73f0e455\OndraM\CiDetector\Env;
-use _PhpScoper006a73f0e455\OndraM\CiDetector\TrinaryLogic;
-class AppVeyor extends \_PhpScoper006a73f0e455\OndraM\CiDetector\Ci\AbstractCi
+use _PhpScoperbd5d0c5f7638\OndraM\CiDetector\CiDetector;
+use _PhpScoperbd5d0c5f7638\OndraM\CiDetector\Env;
+use _PhpScoperbd5d0c5f7638\OndraM\CiDetector\TrinaryLogic;
+class AppVeyor extends \_PhpScoperbd5d0c5f7638\OndraM\CiDetector\Ci\AbstractCi
 {
-    public static function isDetected(\_PhpScoper006a73f0e455\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_PhpScoperbd5d0c5f7638\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('APPVEYOR') === 'True';
     }
     public function getCiName() : string
     {
-        return \_PhpScoper006a73f0e455\OndraM\CiDetector\CiDetector::CI_APPVEYOR;
+        return \_PhpScoperbd5d0c5f7638\OndraM\CiDetector\CiDetector::CI_APPVEYOR;
     }
-    public function isPullRequest() : \_PhpScoper006a73f0e455\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_PhpScoperbd5d0c5f7638\OndraM\CiDetector\TrinaryLogic
     {
-        return \_PhpScoper006a73f0e455\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('APPVEYOR_PULL_REQUEST_NUMBER') !== '');
+        return \_PhpScoperbd5d0c5f7638\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('APPVEYOR_PULL_REQUEST_NUMBER') !== '');
     }
     public function getBuildNumber() : string
     {

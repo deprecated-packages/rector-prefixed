@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 \random_int(0, 0);
 \random_int(0, 1);
@@ -19,9 +19,9 @@ namespace _PhpScoper006a73f0e455;
 \random_int(\random_int(-5, 1), \random_int(0, 5));
 \random_int(\random_int(-5, 0), \random_int(-1, 5));
 /** @var int */
-$x = \_PhpScoper006a73f0e455\foo();
+$x = \_PhpScoperbd5d0c5f7638\foo();
 /** @var int */
-$y = \_PhpScoper006a73f0e455\bar();
+$y = \_PhpScoperbd5d0c5f7638\bar();
 \random_int($x, $y);
 \random_int(0, $x);
 \random_int($x, \random_int(0, \PHP_INT_MAX));

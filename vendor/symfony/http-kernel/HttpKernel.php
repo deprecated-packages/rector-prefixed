@@ -8,72 +8,72 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper006a73f0e455\Symfony\Component\HttpKernel;
+namespace _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel;
 
-use _PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\RequestStack;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ControllerEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\RequestEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\TerminateEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ViewEvent;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use _PhpScoper006a73f0e455\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\RequestStack;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Response;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ControllerEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\RequestEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\TerminateEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ViewEvent;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use _PhpScoperbd5d0c5f7638\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ControllerEvent::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ExceptionEvent::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\RequestEvent::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ResponseEvent::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\TerminateEvent::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ViewEvent::class);
-\class_exists(\_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ControllerEvent::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ExceptionEvent::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\RequestEvent::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ResponseEvent::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\TerminateEvent::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ViewEvent::class);
+\class_exists(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::class);
 /**
  * HttpKernel notifies events to convert a Request object to a Response one.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HttpKernel implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\HttpKernelInterface, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\TerminableInterface
+class HttpKernel implements \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\HttpKernelInterface, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\TerminableInterface
 {
     protected $dispatcher;
     protected $resolver;
     protected $requestStack;
     private $argumentResolver;
-    public function __construct(\_PhpScoper006a73f0e455\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver, \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $argumentResolver = null)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $argumentResolver = null)
     {
-        $this->dispatcher = \_PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy::decorate($dispatcher);
+        $this->dispatcher = \_PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy::decorate($dispatcher);
         $this->resolver = $resolver;
-        $this->requestStack = $requestStack ?: new \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\RequestStack();
+        $this->requestStack = $requestStack ?: new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\RequestStack();
         $this->argumentResolver = $argumentResolver;
         if (null === $this->argumentResolver) {
-            $this->argumentResolver = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Controller\ArgumentResolver();
+            $this->argumentResolver = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Controller\ArgumentResolver();
         }
     }
     /**
      * {@inheritdoc}
      */
-    public function handle(\_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request $request, $type = \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
+    public function handle(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request $request, $type = \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
         $request->headers->set('X-Php-Ob-Level', (string) \ob_get_level());
         try {
             return $this->handleRaw($request, $type);
         } catch (\Exception $e) {
-            if ($e instanceof \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface) {
-                $e = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\BadRequestHttpException($e->getMessage(), $e);
+            if ($e instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface) {
+                $e = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\BadRequestHttpException($e->getMessage(), $e);
             }
             if (\false === $catch) {
                 $this->finishRequest($request, $type);
@@ -85,14 +85,14 @@ class HttpKernel implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel
     /**
      * {@inheritdoc}
      */
-    public function terminate(\_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request $request, \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response $response)
+    public function terminate(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request $request, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Response $response)
     {
-        $this->dispatcher->dispatch(new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\TerminateEvent($this, $request, $response), \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::TERMINATE);
+        $this->dispatcher->dispatch(new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\TerminateEvent($this, $request, $response), \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::TERMINATE);
     }
     /**
      * @internal
      */
-    public function terminateWithException(\Throwable $exception, \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request $request = null)
+    public function terminateWithException(\Throwable $exception, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request $request = null)
     {
         if (!($request = $request ?: $this->requestStack->getMasterRequest())) {
             throw $exception;
@@ -110,34 +110,34 @@ class HttpKernel implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel
      * @throws \LogicException       If one of the listener does not behave as expected
      * @throws NotFoundHttpException When controller cannot be found
      */
-    private function handleRaw(\_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request $request, int $type = self::MASTER_REQUEST) : \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response
+    private function handleRaw(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request $request, int $type = self::MASTER_REQUEST) : \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Response
     {
         $this->requestStack->push($request);
         // request
-        $event = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\RequestEvent($this, $request, $type);
-        $this->dispatcher->dispatch($event, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::REQUEST);
+        $event = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\RequestEvent($this, $request, $type);
+        $this->dispatcher->dispatch($event, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::REQUEST);
         if ($event->hasResponse()) {
             return $this->filterResponse($event->getResponse(), $request, $type);
         }
         // load controller
         if (\false === ($controller = $this->resolver->getController($request))) {
-            throw new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\NotFoundHttpException(\sprintf('Unable to find the controller for path "%s". The route is wrongly configured.', $request->getPathInfo()));
+            throw new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\NotFoundHttpException(\sprintf('Unable to find the controller for path "%s". The route is wrongly configured.', $request->getPathInfo()));
         }
-        $event = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ControllerEvent($this, $controller, $request, $type);
-        $this->dispatcher->dispatch($event, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER);
+        $event = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ControllerEvent($this, $controller, $request, $type);
+        $this->dispatcher->dispatch($event, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER);
         $controller = $event->getController();
         // controller arguments
         $arguments = $this->argumentResolver->getArguments($request, $controller);
-        $event = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent($this, $controller, $arguments, $request, $type);
-        $this->dispatcher->dispatch($event, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS);
+        $event = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent($this, $controller, $arguments, $request, $type);
+        $this->dispatcher->dispatch($event, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS);
         $controller = $event->getController();
         $arguments = $event->getArguments();
         // call controller
         $response = $controller(...$arguments);
         // view
-        if (!$response instanceof \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response) {
-            $event = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ViewEvent($this, $request, $type, $response);
-            $this->dispatcher->dispatch($event, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::VIEW);
+        if (!$response instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Response) {
+            $event = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ViewEvent($this, $request, $type, $response);
+            $this->dispatcher->dispatch($event, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::VIEW);
             if ($event->hasResponse()) {
                 $response = $event->getResponse();
             } else {
@@ -146,7 +146,7 @@ class HttpKernel implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel
                 if (null === $response) {
                     $msg .= ' Did you forget to add a return statement somewhere in your controller?';
                 }
-                throw new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException($msg, $controller, __FILE__, __LINE__ - 17);
+                throw new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException($msg, $controller, __FILE__, __LINE__ - 17);
             }
         }
         return $this->filterResponse($response, $request, $type);
@@ -156,10 +156,10 @@ class HttpKernel implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel
      *
      * @throws \RuntimeException if the passed object is not a Response instance
      */
-    private function filterResponse(\_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response $response, \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request $request, int $type) : \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response
+    private function filterResponse(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Response $response, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request $request, int $type) : \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Response
     {
-        $event = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ResponseEvent($this, $request, $type, $response);
-        $this->dispatcher->dispatch($event, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::RESPONSE);
+        $event = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ResponseEvent($this, $request, $type, $response);
+        $this->dispatcher->dispatch($event, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::RESPONSE);
         $this->finishRequest($request, $type);
         return $event->getResponse();
     }
@@ -170,9 +170,9 @@ class HttpKernel implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel
      * operations such as {@link RequestStack::getParentRequest()} can lead to
      * weird results.
      */
-    private function finishRequest(\_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request $request, int $type)
+    private function finishRequest(\_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request $request, int $type)
     {
-        $this->dispatcher->dispatch(new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\FinishRequestEvent($this, $request, $type), \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST);
+        $this->dispatcher->dispatch(new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\FinishRequestEvent($this, $request, $type), \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST);
         $this->requestStack->pop();
     }
     /**
@@ -180,10 +180,10 @@ class HttpKernel implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel
      *
      * @throws \Exception
      */
-    private function handleThrowable(\Throwable $e, \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Request $request, int $type) : \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response
+    private function handleThrowable(\Throwable $e, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Request $request, int $type) : \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpFoundation\Response
     {
-        $event = new \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Event\ExceptionEvent($this, $request, $type, $e);
-        $this->dispatcher->dispatch($event, \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION);
+        $event = new \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Event\ExceptionEvent($this, $request, $type, $e);
+        $this->dispatcher->dispatch($event, \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION);
         // a listener might have replaced the exception
         $e = $event->getThrowable();
         if (!$event->hasResponse()) {
@@ -194,7 +194,7 @@ class HttpKernel implements \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel
         // the developer asked for a specific status code
         if (!$event->isAllowingCustomResponseCode() && !$response->isClientError() && !$response->isServerError() && !$response->isRedirect()) {
             // ensure that we actually have an error response
-            if ($e instanceof \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
+            if ($e instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
                 // keep the HTTP status code and headers
                 $response->setStatusCode($e->getStatusCode());
                 $response->headers->add($e->getHeaders());

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\ClosureReturnTypeExtensionsNamespace;
+namespace _PhpScoperbd5d0c5f7638\ClosureReturnTypeExtensionsNamespace;
 
 use function PHPStan\Analyser\assertType;
 $predicate = function (object $thing) : bool {

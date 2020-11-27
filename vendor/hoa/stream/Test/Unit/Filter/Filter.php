@@ -54,22 +54,22 @@ class Filter extends \Hoa\Test\Unit\Suite
     }
     public function case_register()
     {
-        $this->when($result = \Hoa\Stream\Filter::register('foo', \_PhpScoper006a73f0e455\StdClass::class))->then->boolean($result)->isTrue();
+        $this->when($result = \Hoa\Stream\Filter::register('foo', \_PhpScoperbd5d0c5f7638\StdClass::class))->then->boolean($result)->isTrue();
     }
     public function case_register_already_registered_do_not_overwrite()
     {
-        $this->given($name = 'foo', $class = \_PhpScoper006a73f0e455\StdClass::class, \Hoa\Stream\Filter::register($name, $class))->exception(function () use($name, $class) {
+        $this->given($name = 'foo', $class = \_PhpScoperbd5d0c5f7638\StdClass::class, \Hoa\Stream\Filter::register($name, $class))->exception(function () use($name, $class) {
             \Hoa\Stream\Filter::register($name, $class);
         })->isInstanceOf(\Hoa\Stream\Filter\Exception::class)->hasMessage('Filter foo is already registered.');
     }
     public function case_register_already_registered_do_overwrite()
     {
-        $this->given($name = 'foo', \Hoa\Stream\Filter::register($name, \_PhpScoper006a73f0e455\StdClass::class), new \_PhpScoper006a73f0e455\Mock\StdClass())->when($result = \Hoa\Stream\Filter::register($name, \_PhpScoper006a73f0e455\Mock\StdClass::class, \Hoa\Stream\Filter::OVERWRITE))->then->boolean($result)->isFalse();
+        $this->given($name = 'foo', \Hoa\Stream\Filter::register($name, \_PhpScoperbd5d0c5f7638\StdClass::class), new \_PhpScoperbd5d0c5f7638\Mock\StdClass())->when($result = \Hoa\Stream\Filter::register($name, \_PhpScoperbd5d0c5f7638\Mock\StdClass::class, \Hoa\Stream\Filter::OVERWRITE))->then->boolean($result)->isFalse();
     }
     public function case_register_empty_name()
     {
         $this->exception(function () {
-            \Hoa\Stream\Filter::register('', \_PhpScoper006a73f0e455\StdClass::class);
+            \Hoa\Stream\Filter::register('', \_PhpScoperbd5d0c5f7638\StdClass::class);
         })->isInstanceOf(\Hoa\Stream\Filter\Exception::class)->hasMessage('Filter name cannot be empty ' . '(implementation class is StdClass).');
     }
     public function case_register_unknown_class()

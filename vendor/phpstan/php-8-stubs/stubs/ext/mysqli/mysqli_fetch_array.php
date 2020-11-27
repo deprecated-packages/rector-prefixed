@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 #endif
 function mysqli_fetch_array(\mysqli_result $result, int $mode = \MYSQLI_BOTH) : array|null|false

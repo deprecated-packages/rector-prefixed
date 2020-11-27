@@ -10,9 +10,9 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Example;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Example;
 /**
  * Class used to find an example file's location based on a given ExampleDescriptor.
  */
@@ -29,7 +29,7 @@ class ExampleFinder
      *
      * @return string
      */
-    public function find(\_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Example $example)
+    public function find(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Example $example)
     {
         $filename = $example->getFilePath();
         $file = $this->getExampleFileContents($filename);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class DateTimeImmutable implements \DateTimeInterface
 {
@@ -104,4 +104,4 @@ class DateTimeImmutable implements \DateTimeInterface
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\DateTimeImmutable', 'DateTimeImmutable', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\DateTimeImmutable', 'DateTimeImmutable', \false);

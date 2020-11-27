@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug2572;
+namespace _PhpScoperbd5d0c5f7638\Bug2572;
 
 class Foo extends \SimpleXMLElement
 {

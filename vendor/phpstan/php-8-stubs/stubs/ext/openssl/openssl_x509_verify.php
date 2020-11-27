@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param OpenSSLAsymmetricKey|OpenSSLCertificate|array|string $public_key */
 function openssl_x509_verify(\OpenSSLCertificate|string $certificate, $public_key) : int

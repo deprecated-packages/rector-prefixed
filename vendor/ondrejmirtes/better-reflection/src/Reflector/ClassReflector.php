@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector;
 
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
 use function assert;
 use function strtolower;
-class ClassReflector implements \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector
+class ClassReflector implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector
 {
     /** @var SourceLocator */
     private $sourceLocator;
     /** @var (ReflectionClass|null)[] */
     private $cachedReflections = [];
-    public function __construct(\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator)
     {
         $this->sourceLocator = $sourceLocator;
     }
@@ -29,22 +29,22 @@ class ClassReflector implements \_PhpScoper006a73f0e455\Roave\BetterReflection\R
      *
      * @throws IdentifierNotFound
      */
-    public function reflect(string $className) : \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $className) : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
     {
         $lowerClassName = \strtolower($className);
         if (\array_key_exists($lowerClassName, $this->cachedReflections)) {
             $classInfo = $this->cachedReflections[$lowerClassName];
         } else {
-            $identifier = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier($className, new \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
+            $identifier = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier($className, new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
             $classInfo = $this->sourceLocator->locateIdentifier($this, $identifier);
-            \assert($classInfo instanceof \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass || $classInfo === null);
+            \assert($classInfo instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass || $classInfo === null);
             $this->cachedReflections[$lowerClassName] = $classInfo;
         }
         if ($classInfo === null) {
             if (!isset($identifier)) {
-                $identifier = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier($className, new \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
+                $identifier = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier($className, new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
             }
-            throw \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
+            throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
         }
         return $classInfo;
     }
@@ -56,7 +56,7 @@ class ClassReflector implements \_PhpScoper006a73f0e455\Roave\BetterReflection\R
     public function getAllClasses() : array
     {
         /** @var ReflectionClass[] $allClasses */
-        $allClasses = $this->sourceLocator->locateIdentifiersByType($this, new \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
+        $allClasses = $this->sourceLocator->locateIdentifiersByType($this, new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
         return $allClasses;
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\MethodCall;
 
-use _PhpScoper006a73f0e455\Nette\Application\Request;
+use _PhpScoperbd5d0c5f7638\Nette\Application\Request;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -56,7 +56,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper006a73f0e455\\Nette\\Application\\Request')) {
+        if (!$this->isObjectType($node, '_PhpScoperbd5d0c5f7638\\Nette\\Application\\Request')) {
             return null;
         }
         if (!$this->isName($node->name, 'getParameter')) {

@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\PackageBuilder\Tests\DependencyInjection;
 
-use _PhpScoper006a73f0e455\PHPUnit\Framework\TestCase;
+use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
 use stdClass;
-use _PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 use Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
-final class DefinitionFinderTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+final class DefinitionFinderTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     /**
      * @var ContainerBuilder
@@ -20,7 +20,7 @@ final class DefinitionFinderTest extends \_PhpScoper006a73f0e455\PHPUnit\Framewo
     private $definitionFinder;
     protected function setUp() : void
     {
-        $this->containerBuilder = new \_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $this->containerBuilder = new \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerBuilder();
         $this->definitionFinder = new \Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
     }
     public function testAutowired() : void

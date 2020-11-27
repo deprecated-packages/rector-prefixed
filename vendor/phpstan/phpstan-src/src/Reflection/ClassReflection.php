@@ -24,7 +24,7 @@ use PHPStan\Type\Generic\TemplateTypeScope;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use ReflectionMethod;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
 class ClassReflection implements \PHPStan\Reflection\ReflectionWithFilename
 {
     /**
@@ -654,7 +654,7 @@ class ClassReflection implements \PHPStan\Reflection\ReflectionWithFilename
         if ($this->isInterface() || $this->isTrait()) {
             return null;
         }
-        if ($this->reflection instanceof \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionClass) {
+        if ($this->reflection instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClass) {
             foreach ($this->reflection->getBetterReflection()->getAttributes() as $attribute) {
                 if ($attribute->getName() === \Attribute::class) {
                     /** @var \Attribute */

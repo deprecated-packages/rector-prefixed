@@ -5,19 +5,19 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * Service not found exception.
  */
-class MissingServiceException extends \_PhpScoper006a73f0e455\Nette\InvalidStateException
+class MissingServiceException extends \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException
 {
 }
 /**
  * Service creation exception.
  */
-class ServiceCreationException extends \_PhpScoper006a73f0e455\Nette\InvalidStateException
+class ServiceCreationException extends \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException
 {
     public function setMessage(string $message) : self
     {
@@ -28,12 +28,12 @@ class ServiceCreationException extends \_PhpScoper006a73f0e455\Nette\InvalidStat
 /**
  * Not allowed when container is resolving.
  */
-class NotAllowedDuringResolvingException extends \_PhpScoper006a73f0e455\Nette\InvalidStateException
+class NotAllowedDuringResolvingException extends \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException
 {
 }
 /**
  * Error in configuration.
  */
-class InvalidConfigurationException extends \_PhpScoper006a73f0e455\Nette\InvalidStateException
+class InvalidConfigurationException extends \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException
 {
 }

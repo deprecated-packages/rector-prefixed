@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Process\Runnable;
 
-use _PhpScoper006a73f0e455\PHPUnit\Framework\TestCase;
-class RunnableQueueTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+class RunnableQueueTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     public function testQueuedProcessIsRun() : void
     {

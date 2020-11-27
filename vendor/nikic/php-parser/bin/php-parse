@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
     if (\file_exists($file)) {
@@ -13,13 +13,13 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
 \ini_set('xdebug.var_display_max_children', -1);
 \ini_set('xdebug.var_display_max_data', -1);
 \ini_set('xdebug.var_display_max_depth', -1);
-list($operations, $files, $attributes) = \_PhpScoper006a73f0e455\parseArgs($argv);
+list($operations, $files, $attributes) = \_PhpScoperbd5d0c5f7638\parseArgs($argv);
 /* Dump nodes by default */
 if (empty($operations)) {
     $operations[] = 'dump';
 }
 if (empty($files)) {
-    \_PhpScoper006a73f0e455\showHelp("Must specify at least one file.");
+    \_PhpScoperbd5d0c5f7638\showHelp("Must specify at least one file.");
 }
 $lexer = new \PhpParser\Lexer\Emulative(['usedAttributes' => ['startLine', 'endLine', 'startFilePos', 'endFilePos', 'comments']]);
 $parser = (new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::PREFER_PHP7, $lexer);
@@ -43,7 +43,7 @@ foreach ($files as $file) {
         $errorHandler = new \PhpParser\ErrorHandler\Collecting();
         $stmts = $parser->parse($code, $errorHandler);
         foreach ($errorHandler->getErrors() as $error) {
-            $message = \_PhpScoper006a73f0e455\formatErrorMessage($error, $code, $attributes['with-column-info']);
+            $message = \_PhpScoperbd5d0c5f7638\formatErrorMessage($error, $code, $attributes['with-column-info']);
             \fwrite(\STDERR, $message . "\n");
         }
         if (null === $stmts) {
@@ -53,7 +53,7 @@ foreach ($files as $file) {
         try {
             $stmts = $parser->parse($code);
         } catch (\PhpParser\Error $error) {
-            $message = \_PhpScoper006a73f0e455\formatErrorMessage($error, $code, $attributes['with-column-info']);
+            $message = \_PhpScoperbd5d0c5f7638\formatErrorMessage($error, $code, $attributes['with-column-info']);
             \fwrite(\STDERR, $message . "\n");
             exit(1);
         }
@@ -163,14 +163,14 @@ function parseArgs($args)
                 break;
             case '--help':
             case '-h':
-                \_PhpScoper006a73f0e455\showHelp();
+                \_PhpScoperbd5d0c5f7638\showHelp();
                 break;
             case '--':
                 $parseOptions = \false;
                 break;
             default:
                 if ($arg[0] === '-') {
-                    \_PhpScoper006a73f0e455\showHelp("Invalid operation {$arg}.");
+                    \_PhpScoperbd5d0c5f7638\showHelp("Invalid operation {$arg}.");
                 } else {
                     $files[] = $arg;
                 }

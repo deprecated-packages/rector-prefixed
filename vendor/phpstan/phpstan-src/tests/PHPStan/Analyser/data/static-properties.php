@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\StaticProperties;
+namespace _PhpScoperbd5d0c5f7638\StaticProperties;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -17,7 +17,7 @@ class Foo
         \PHPStan\Analyser\assertType('array<static(StaticProperties\\Foo)>', static::$staticProp);
     }
 }
-class Bar extends \_PhpScoper006a73f0e455\StaticProperties\Foo
+class Bar extends \_PhpScoperbd5d0c5f7638\StaticProperties\Foo
 {
     public function doFoo()
     {
@@ -27,9 +27,9 @@ class Bar extends \_PhpScoper006a73f0e455\StaticProperties\Foo
         \PHPStan\Analyser\assertType('array<static(StaticProperties\\Bar)>', static::$staticProp);
     }
 }
-function (\_PhpScoper006a73f0e455\StaticProperties\Foo $foo, \_PhpScoper006a73f0e455\StaticProperties\Bar $bar) {
+function (\_PhpScoperbd5d0c5f7638\StaticProperties\Foo $foo, \_PhpScoperbd5d0c5f7638\StaticProperties\Bar $bar) {
     \PHPStan\Analyser\assertType('array<StaticProperties\\Foo>', $foo->prop);
     \PHPStan\Analyser\assertType('array<StaticProperties\\Bar>', $bar->prop);
-    \PHPStan\Analyser\assertType('array<StaticProperties\\Foo>', \_PhpScoper006a73f0e455\StaticProperties\Foo::$staticProp);
-    \PHPStan\Analyser\assertType('array<StaticProperties\\Bar>', \_PhpScoper006a73f0e455\StaticProperties\Bar::$staticProp);
+    \PHPStan\Analyser\assertType('array<StaticProperties\\Foo>', \_PhpScoperbd5d0c5f7638\StaticProperties\Foo::$staticProp);
+    \PHPStan\Analyser\assertType('array<StaticProperties\\Bar>', \_PhpScoperbd5d0c5f7638\StaticProperties\Bar::$staticProp);
 };

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Php\Regex;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -27,7 +27,7 @@ final class RegexPatternArgumentManipulator
     /**
      * @var array<string, array<string, int>>
      */
-    private const STATIC_METHODS_WITH_PATTERNS_TO_ARGUMENT_POSITION = [\_PhpScoper006a73f0e455\Nette\Utils\Strings::class => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
+    private const STATIC_METHODS_WITH_PATTERNS_TO_ARGUMENT_POSITION = [\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::class => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
     /**
      * @var NodeTypeResolver
      */

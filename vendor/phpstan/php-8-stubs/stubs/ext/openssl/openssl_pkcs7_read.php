@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param array $certificates */
 function openssl_pkcs7_read(string $input_filename, &$certificates) : bool

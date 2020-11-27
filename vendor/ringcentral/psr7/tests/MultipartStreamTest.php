@@ -1,29 +1,29 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\RingCentral\Tests;
+namespace _PhpScoperbd5d0c5f7638\RingCentral\Tests;
 
-use _PhpScoper006a73f0e455\RingCentral\Psr7;
-use _PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream;
-class MultipartStreamTest extends \_PhpScoper006a73f0e455\PHPUnit_Framework_TestCase
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
+use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream;
+class MultipartStreamTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
 {
     public function testCreatesDefaultBoundary()
     {
-        $b = new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream();
+        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream();
         $this->assertNotEmpty($b->getBoundary());
     }
     public function testCanProvideBoundary()
     {
-        $b = new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream(array(), 'foo');
+        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream(array(), 'foo');
         $this->assertEquals('foo', $b->getBoundary());
     }
     public function testIsNotWritable()
     {
-        $b = new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream();
+        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream();
         $this->assertFalse($b->isWritable());
     }
     public function testCanCreateEmptyStream()
     {
-        $b = new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream();
+        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream();
         $boundary = $b->getBoundary();
         $this->assertSame("--{$boundary}--\r\n", $b->getContents());
         $this->assertSame(\strlen($boundary) + 6, $b->getSize());
@@ -33,32 +33,32 @@ class MultipartStreamTest extends \_PhpScoper006a73f0e455\PHPUnit_Framework_Test
      */
     public function testValidatesFilesArrayElement()
     {
-        new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream(array(array('foo' => 'bar')));
+        new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream(array(array('foo' => 'bar')));
     }
     /**
      * @expectedException \InvalidArgumentException
      */
     public function testEnsuresFileHasName()
     {
-        new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream(array(array('contents' => 'bar')));
+        new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream(array(array('contents' => 'bar')));
     }
     public function testSerializesFields()
     {
-        $b = new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream(array(array('name' => 'foo', 'contents' => 'bar'), array('name' => 'baz', 'contents' => 'bam')), 'boundary');
+        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream(array(array('name' => 'foo', 'contents' => 'bar'), array('name' => 'baz', 'contents' => 'bam')), 'boundary');
         $this->assertEquals("--boundary\r\nContent-Disposition: form-data; name=\"foo\"\r\nContent-Length: 3\r\n\r\n" . "bar\r\n--boundary\r\nContent-Disposition: form-data; name=\"baz\"\r\nContent-Length: 3" . "\r\n\r\nbam\r\n--boundary--\r\n", (string) $b);
     }
     public function testSerializesFiles()
     {
-        $f1 = \_PhpScoper006a73f0e455\RingCentral\Psr7\FnStream::decorate(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for('foo'), array('getMetadata' => function () {
+        $f1 = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream::decorate(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foo'), array('getMetadata' => function () {
             return '/foo/bar.txt';
         }));
-        $f2 = \_PhpScoper006a73f0e455\RingCentral\Psr7\FnStream::decorate(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for('baz'), array('getMetadata' => function () {
+        $f2 = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream::decorate(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('baz'), array('getMetadata' => function () {
             return '/foo/baz.jpg';
         }));
-        $f3 = \_PhpScoper006a73f0e455\RingCentral\Psr7\FnStream::decorate(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for('bar'), array('getMetadata' => function () {
+        $f3 = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream::decorate(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('bar'), array('getMetadata' => function () {
             return '/foo/bar.gif';
         }));
-        $b = new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream(array(array('name' => 'foo', 'contents' => $f1), array('name' => 'qux', 'contents' => $f2), array('name' => 'qux', 'contents' => $f3)), 'boundary');
+        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream(array(array('name' => 'foo', 'contents' => $f1), array('name' => 'qux', 'contents' => $f2), array('name' => 'qux', 'contents' => $f3)), 'boundary');
         $expected = <<<EOT
 --boundary
 Content-Disposition: form-data; name="foo"; filename="bar.txt"
@@ -85,10 +85,10 @@ EOT;
     }
     public function testSerializesFilesWithCustomHeaders()
     {
-        $f1 = \_PhpScoper006a73f0e455\RingCentral\Psr7\FnStream::decorate(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for('foo'), array('getMetadata' => function () {
+        $f1 = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream::decorate(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foo'), array('getMetadata' => function () {
             return '/foo/bar.txt';
         }));
-        $b = new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream(array(array('name' => 'foo', 'contents' => $f1, 'headers' => array('x-foo' => 'bar', 'content-disposition' => 'custom'))), 'boundary');
+        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream(array(array('name' => 'foo', 'contents' => $f1, 'headers' => array('x-foo' => 'bar', 'content-disposition' => 'custom'))), 'boundary');
         $expected = <<<EOT
 --boundary
 x-foo: bar
@@ -104,13 +104,13 @@ EOT;
     }
     public function testSerializesFilesWithCustomHeadersAndMultipleValues()
     {
-        $f1 = \_PhpScoper006a73f0e455\RingCentral\Psr7\FnStream::decorate(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for('foo'), array('getMetadata' => function () {
+        $f1 = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream::decorate(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foo'), array('getMetadata' => function () {
             return '/foo/bar.txt';
         }));
-        $f2 = \_PhpScoper006a73f0e455\RingCentral\Psr7\FnStream::decorate(\_PhpScoper006a73f0e455\RingCentral\Psr7\stream_for('baz'), array('getMetadata' => function () {
+        $f2 = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream::decorate(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('baz'), array('getMetadata' => function () {
             return '/foo/baz.jpg';
         }));
-        $b = new \_PhpScoper006a73f0e455\RingCentral\Psr7\MultipartStream(array(array('name' => 'foo', 'contents' => $f1, 'headers' => array('x-foo' => 'bar', 'content-disposition' => 'custom')), array('name' => 'foo', 'contents' => $f2, 'headers' => array('cOntenT-Type' => 'custom'))), 'boundary');
+        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\MultipartStream(array(array('name' => 'foo', 'contents' => $f1, 'headers' => array('x-foo' => 'bar', 'content-disposition' => 'custom')), array('name' => 'foo', 'contents' => $f2, 'headers' => array('cOntenT-Type' => 'custom'))), 'boundary');
         $expected = <<<EOT
 --boundary
 x-foo: bar

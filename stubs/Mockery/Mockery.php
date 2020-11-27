@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-if (\class_exists('_PhpScoper006a73f0e455\\Mockery')) {
+if (\class_exists('_PhpScoperbd5d0c5f7638\\Mockery')) {
     return;
 }
 class Mockery
@@ -15,7 +15,7 @@ class Mockery
      */
     public static function mock(...$args)
     {
-        return new \_PhpScoper006a73f0e455\Mockery\DummyMock();
+        return new \_PhpScoperbd5d0c5f7638\Mockery\DummyMock();
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\Mockery', 'Mockery', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\Mockery', 'Mockery', \false);

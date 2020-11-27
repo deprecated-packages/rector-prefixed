@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug4017_2;
+namespace _PhpScoperbd5d0c5f7638\Bug4017_2;
 
 class Foo
 {
@@ -20,7 +20,7 @@ class Bar
 /**
  * @extends Bar<Foo>
  */
-class Baz extends \_PhpScoper006a73f0e455\Bug4017_2\Bar
+class Baz extends \_PhpScoperbd5d0c5f7638\Bug4017_2\Bar
 {
     /**
      * @param Foo $a
@@ -32,7 +32,7 @@ class Baz extends \_PhpScoper006a73f0e455\Bug4017_2\Bar
 /**
  * @extends Bar<\stdClass>
  */
-class Lorem extends \_PhpScoper006a73f0e455\Bug4017_2\Bar
+class Lorem extends \_PhpScoperbd5d0c5f7638\Bug4017_2\Bar
 {
     /**
      * @param Foo $a

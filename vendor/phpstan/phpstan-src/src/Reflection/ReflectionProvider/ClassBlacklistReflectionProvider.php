@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\ReflectionProvider;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\GlobalConstantReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Reflection\ReflectionWithFilename;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 class ClassBlacklistReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
 {
     /**
@@ -31,7 +31,7 @@ class ClassBlacklistReflectionProvider implements \PHPStan\Reflection\Reflection
      * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
      * @param string[] $patterns
      */
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber, array $patterns, ?string $singleReflectionFile)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber, array $patterns, ?string $singleReflectionFile)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->phpStormStubsSourceStubber = $phpStormStubsSourceStubber;
@@ -81,7 +81,7 @@ class ClassBlacklistReflectionProvider implements \PHPStan\Reflection\Reflection
             }
         }
         foreach ($this->patterns as $pattern) {
-            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($className, $pattern) !== null) {
+            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($className, $pattern) !== null) {
                 return \true;
             }
         }

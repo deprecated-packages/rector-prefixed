@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\ArrowFunctionReturnTypeInference;
+namespace _PhpScoperbd5d0c5f7638\ArrowFunctionReturnTypeInference;
 
 use function PHPStan\Analyser\assertType;
 function (int $i) : void {

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI;
 
-use _PhpScoper006a73f0e455\Nette;
+use _PhpScoperbd5d0c5f7638\Nette;
 /**
  * Autowiring.
  */
@@ -22,7 +22,7 @@ class Autowiring
     private $lowPriority = [];
     /** @var string[] of classes excluded from autowiring */
     private $excludedClasses = [];
-    public function __construct(\_PhpScoper006a73f0e455\Nette\DI\ContainerBuilder $builder)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Nette\DI\ContainerBuilder $builder)
     {
         $this->builder = $builder;
     }
@@ -34,11 +34,11 @@ class Autowiring
      */
     public function getByType(string $type, bool $throw = \false) : ?string
     {
-        $type = \_PhpScoper006a73f0e455\Nette\DI\Helpers::normalizeClass($type);
+        $type = \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::normalizeClass($type);
         $types = $this->highPriority;
         if (empty($types[$type])) {
             if ($throw) {
-                throw new \_PhpScoper006a73f0e455\Nette\DI\MissingServiceException("Service of type '{$type}' not found.");
+                throw new \_PhpScoperbd5d0c5f7638\Nette\DI\MissingServiceException("Service of type '{$type}' not found.");
             }
             return null;
         } elseif (\count($types[$type]) === 1) {
@@ -47,7 +47,7 @@ class Autowiring
             $list = $types[$type];
             \natsort($list);
             $hint = \count($list) === 2 && ($tmp = \strpos($list[0], '.') xor \strpos($list[1], '.')) ? '. If you want to overwrite service ' . $list[$tmp ? 0 : 1] . ', give it proper name.' : '';
-            throw new \_PhpScoper006a73f0e455\Nette\DI\ServiceCreationException("Multiple services of type {$type} found: " . \implode(', ', $list) . $hint);
+            throw new \_PhpScoperbd5d0c5f7638\Nette\DI\ServiceCreationException("Multiple services of type {$type} found: " . \implode(', ', $list) . $hint);
         }
     }
     /**
@@ -56,7 +56,7 @@ class Autowiring
      */
     public function findByType(string $type) : array
     {
-        $type = \_PhpScoper006a73f0e455\Nette\DI\Helpers::normalizeClass($type);
+        $type = \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::normalizeClass($type);
         $definitions = $this->builder->getDefinitions();
         $names = \array_merge($this->highPriority[$type] ?? [], $this->lowPriority[$type] ?? []);
         $res = [];
@@ -72,7 +72,7 @@ class Autowiring
     {
         foreach ($types as $type) {
             if (\class_exists($type) || \interface_exists($type)) {
-                $type = \_PhpScoper006a73f0e455\Nette\DI\Helpers::normalizeClass($type);
+                $type = \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::normalizeClass($type);
                 $this->excludedClasses += \class_parents($type) + \class_implements($type) + [$type => $type];
             }
         }
@@ -91,10 +91,10 @@ class Autowiring
             $autowired = $def->getAutowired();
             if (\is_array($autowired)) {
                 foreach ($autowired as $k => $autowiredType) {
-                    if ($autowiredType === \_PhpScoper006a73f0e455\Nette\DI\ContainerBuilder::THIS_SERVICE) {
+                    if ($autowiredType === \_PhpScoperbd5d0c5f7638\Nette\DI\ContainerBuilder::THIS_SERVICE) {
                         $autowired[$k] = $type;
                     } elseif (!\is_a($type, $autowiredType, \true)) {
-                        throw new \_PhpScoper006a73f0e455\Nette\DI\ServiceCreationException("Incompatible class {$autowiredType} in autowiring definition of service '{$name}'.");
+                        throw new \_PhpScoperbd5d0c5f7638\Nette\DI\ServiceCreationException("Incompatible class {$autowiredType} in autowiring definition of service '{$name}'.");
                     }
                 }
             }

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace _PhpScoperbd5d0c5f7638\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('_PhpScoper006a73f0e455\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter')) {
+if (\class_exists('_PhpScoperbd5d0c5f7638\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter')) {
     return;
 }
 /**
  * @Annotation
 */
-class ParamConverter extends \_PhpScoper006a73f0e455\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
+class ParamConverter extends \_PhpScoperbd5d0c5f7638\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
 {
     /**
      * The parameter name.

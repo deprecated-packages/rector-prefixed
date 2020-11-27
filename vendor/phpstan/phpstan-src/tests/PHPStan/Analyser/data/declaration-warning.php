@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\DeclarationWarning;
+namespace _PhpScoperbd5d0c5f7638\DeclarationWarning;
 
 @\mkdir('/foo/bar');
 require __DIR__ . '/trigger-warning.php';
@@ -10,7 +10,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper006a73f0e455\DeclarationWarning\Foo
+class Bar extends \_PhpScoperbd5d0c5f7638\DeclarationWarning\Foo
 {
     public function doFoo(int $i) : void
     {

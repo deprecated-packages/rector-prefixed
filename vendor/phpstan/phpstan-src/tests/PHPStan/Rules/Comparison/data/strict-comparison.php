@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\StrictComparison;
+namespace _PhpScoperbd5d0c5f7638\StrictComparison;
 
 class Foo
 {
@@ -13,14 +13,14 @@ class Foo
         // wrong
         doFoo() === doBar();
         1 === null;
-        new \_PhpScoper006a73f0e455\StrictComparison\Bar() === 1;
+        new \_PhpScoperbd5d0c5f7638\StrictComparison\Bar() === 1;
         // wrong
         /** @var Foo[]|Collection|bool $unionIterableType */
         $unionIterableType = doFoo();
         1 === $unionIterableType;
         \false === $unionIterableType;
-        $unionIterableType === [new \_PhpScoper006a73f0e455\StrictComparison\Foo()];
-        $unionIterableType === new \_PhpScoper006a73f0e455\StrictComparison\Collection();
+        $unionIterableType === [new \_PhpScoperbd5d0c5f7638\StrictComparison\Foo()];
+        $unionIterableType === new \_PhpScoperbd5d0c5f7638\StrictComparison\Collection();
         /** @var bool $boolean */
         $boolean = doFoo();
         \true === $boolean;
@@ -705,10 +705,10 @@ abstract class RandomAbstractClass
 }
 class AvoidRegressionBecauseThisWasReturningAnErrorInPhpstan11_5
 {
-    private const MAPPING = [\stdClass::class, \_PhpScoper006a73f0e455\StrictComparison\RandomAbstractClass::class];
+    private const MAPPING = [\stdClass::class, \_PhpScoperbd5d0c5f7638\StrictComparison\RandomAbstractClass::class];
     public function test(int $key)
     {
-        if (\is_subclass_of(self::MAPPING[$key], \_PhpScoper006a73f0e455\StrictComparison\RandomAbstractClass::class) === \false) {
+        if (\is_subclass_of(self::MAPPING[$key], \_PhpScoperbd5d0c5f7638\StrictComparison\RandomAbstractClass::class) === \false) {
             return;
         }
     }

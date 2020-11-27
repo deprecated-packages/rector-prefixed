@@ -50,7 +50,7 @@ class Pointable extends \Hoa\Test\Unit\Suite
 {
     public function case_is_a_valid_interface()
     {
-        $this->when($result = new \_PhpScoper006a73f0e455\Mock\Hoa\Stream\IStream\Pointable())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\Pointable::class)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
+        $this->when($result = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Stream\IStream\Pointable())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\Pointable::class)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
     }
     public function case_constants()
     {

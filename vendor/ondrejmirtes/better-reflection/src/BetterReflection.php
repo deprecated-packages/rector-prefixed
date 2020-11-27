@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection;
 
 use PhpParser\Lexer\Emulative;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ConstantReflector;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Locator as AstLocator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Util\FindReflectionOnLine;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator as AstLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FindReflectionOnLine;
 use const PHP_VERSION_ID;
 final class BetterReflection
 {
@@ -55,7 +55,7 @@ final class BetterReflection
     private $astLocator;
     /** @var FindReflectionOnLine|null */
     private $findReflectionOnLine;
-    public static function populate(\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector, \PhpParser\Parser $phpParser, \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $sourceStubber) : void
+    public static function populate(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector, \PhpParser\Parser $phpParser, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $sourceStubber) : void
     {
         self::$sharedSourceLocator = $sourceLocator;
         self::$sharedClassReflector = $classReflector;
@@ -73,40 +73,40 @@ final class BetterReflection
         $this->phpParser = self::$sharedPhpParser;
         $this->sourceStubber = self::$sharedSourceStubber;
     }
-    public function sourceLocator() : \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+    public function sourceLocator() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
     {
         $astLocator = $this->astLocator();
         $sourceStubber = $this->sourceStubber();
-        return $this->sourceLocator ?? ($this->sourceLocator = new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator([new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $sourceStubber), new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $sourceStubber), new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator($astLocator, $this->phpParser())])));
+        return $this->sourceLocator ?? ($this->sourceLocator = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator([new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $sourceStubber), new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $sourceStubber), new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator($astLocator, $this->phpParser())])));
     }
-    public function classReflector() : \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ClassReflector
+    public function classReflector() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector
     {
-        return $this->classReflector ?? ($this->classReflector = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ClassReflector($this->sourceLocator()));
+        return $this->classReflector ?? ($this->classReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector($this->sourceLocator()));
     }
-    public function functionReflector() : \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\FunctionReflector
+    public function functionReflector() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector
     {
-        return $this->functionReflector ?? ($this->functionReflector = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\FunctionReflector($this->sourceLocator(), $this->classReflector()));
+        return $this->functionReflector ?? ($this->functionReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector($this->sourceLocator(), $this->classReflector()));
     }
-    public function constantReflector() : \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ConstantReflector
+    public function constantReflector() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector
     {
-        return $this->constantReflector ?? ($this->constantReflector = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ConstantReflector($this->sourceLocator(), $this->classReflector()));
+        return $this->constantReflector ?? ($this->constantReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector($this->sourceLocator(), $this->classReflector()));
     }
     public function phpParser() : \PhpParser\Parser
     {
-        return $this->phpParser ?? ($this->phpParser = new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser((new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative(['usedAttributes' => ['comments', 'startLine', 'endLine', 'startFilePos', 'endFilePos']]))));
+        return $this->phpParser ?? ($this->phpParser = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser((new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative(['usedAttributes' => ['comments', 'startLine', 'endLine', 'startFilePos', 'endFilePos']]))));
     }
-    public function astLocator() : \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Locator
+    public function astLocator() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator
     {
-        return $this->astLocator ?? ($this->astLocator = new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Locator($this->phpParser(), function () : FunctionReflector {
+        return $this->astLocator ?? ($this->astLocator = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator($this->phpParser(), function () : FunctionReflector {
             return $this->functionReflector();
         }));
     }
-    public function findReflectionsOnLine() : \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\FindReflectionOnLine
+    public function findReflectionsOnLine() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FindReflectionOnLine
     {
-        return $this->findReflectionOnLine ?? ($this->findReflectionOnLine = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\FindReflectionOnLine($this->sourceLocator(), $this->astLocator()));
+        return $this->findReflectionOnLine ?? ($this->findReflectionOnLine = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FindReflectionOnLine($this->sourceLocator(), $this->astLocator()));
     }
-    public function sourceStubber() : \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+    public function sourceStubber() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
     {
-        return $this->sourceStubber ?? ($this->sourceStubber = new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber(new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber($this->phpParser(), self::$phpVersion), new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber()));
+        return $this->sourceStubber ?? ($this->sourceStubber = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber(new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber($this->phpParser(), self::$phpVersion), new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber()));
     }
 }

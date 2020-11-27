@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function sem_get(int $key, int $max_acquire = 1, int $permissions = 0666, bool $auto_release = \true) : \SysvSemaphore|false
 {

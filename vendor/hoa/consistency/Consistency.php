@@ -236,7 +236,7 @@ class Consistency
         return \sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x', \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xfff) | 0x4000, \mt_rand(0, 0x3fff) | 0x8000, \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff));
     }
 }
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 if (70000 > \PHP_VERSION_ID && \false === \interface_exists('Throwable', \false)) {
     /**
@@ -273,7 +273,7 @@ if (50600 > \PHP_VERSION_ID) {
     $define('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT', 33);
     $define('STREAM_CRYPTO_METHOD_ANY_CLIENT', 63);
 }
-if (!\function_exists('_PhpScoper006a73f0e455\\curry')) {
+if (!\function_exists('_PhpScoperbd5d0c5f7638\\curry')) {
     /**
      * Curry.
      * Example:

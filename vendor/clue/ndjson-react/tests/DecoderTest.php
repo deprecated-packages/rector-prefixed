@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-use _PhpScoper006a73f0e455\Clue\React\NDJson\Decoder;
-use _PhpScoper006a73f0e455\React\Stream\ThroughStream;
-class DecoderTest extends \_PhpScoper006a73f0e455\TestCase
+use _PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder;
+use _PhpScoperbd5d0c5f7638\React\Stream\ThroughStream;
+class DecoderTest extends \_PhpScoperbd5d0c5f7638\TestCase
 {
     private $input;
     private $decoder;
     public function setUp()
     {
-        $this->input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input);
+        $this->input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input);
     }
     public function testEmitDataArrayWillForward()
     {
@@ -45,7 +45,7 @@ class DecoderTest extends \_PhpScoper006a73f0e455\TestCase
         if (!\defined('JSON_BIGINT_AS_STRING')) {
             $this->markTestSkipped('Const JSON_BIGINT_AS_STRING only available in PHP 5.4+');
         }
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input, \false, 512, \JSON_BIGINT_AS_STRING);
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input, \false, 512, \JSON_BIGINT_AS_STRING);
         $this->decoder->on('data', $this->expectCallableOnceWith($this->identicalTo('999888777666555444333222111000')));
         $this->input->emit('data', array("999888777666555444333222111000\n"));
     }
@@ -67,8 +67,8 @@ class DecoderTest extends \_PhpScoper006a73f0e455\TestCase
         if (!\defined('JSON_THROW_ON_ERROR')) {
             $this->markTestSkipped('Const JSON_THROW_ON_ERROR only available in PHP 7.3+');
         }
-        $this->input = new \_PhpScoper006a73f0e455\React\Stream\ThroughStream();
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input, \false, 512, \JSON_THROW_ON_ERROR);
+        $this->input = new \_PhpScoperbd5d0c5f7638\React\Stream\ThroughStream();
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input, \false, 512, \JSON_THROW_ON_ERROR);
         $this->decoder->on('data', $this->expectCallableNever());
         $this->decoder->on('error', $this->expectCallableOnce());
         $this->input->emit('data', array("invalid\n"));
@@ -82,14 +82,14 @@ class DecoderTest extends \_PhpScoper006a73f0e455\TestCase
     }
     public function testEmitDataWithExactLimitWillForward()
     {
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input, \false, 512, 0, 4);
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input, \false, 512, 0, 4);
         $this->decoder->on('data', $this->expectCallableOnceWith(null));
         $this->decoder->on('error', $this->expectCallableNever());
         $this->input->emit('data', array("null\n"));
     }
     public function testEmitDataOverflowBehindExactLimitWillForwardError()
     {
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input, \false, 512, 0, 3);
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input, \false, 512, 0, 3);
         $this->decoder->on('data', $this->expectCallableNever());
         $this->decoder->on('error', $this->expectCallableOnce());
         $this->input->emit('data', array("null"));
@@ -166,13 +166,13 @@ class DecoderTest extends \_PhpScoper006a73f0e455\TestCase
     public function testUnreadableInputWillResultInUnreadableDecoder()
     {
         $this->input->close();
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input);
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input);
         $this->assertFalse($this->decoder->isReadable());
     }
     public function testUnreadableInputWillNotAddAnyEventListeners()
     {
         $this->input->close();
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input);
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input);
         $this->assertEquals(array(), $this->input->listeners('data'));
         $this->assertEquals(array(), $this->decoder->listeners('data'));
     }
@@ -184,23 +184,23 @@ class DecoderTest extends \_PhpScoper006a73f0e455\TestCase
     }
     public function testPipeReturnsDestStream()
     {
-        $dest = $this->getMockBuilder('_PhpScoper006a73f0e455\\React\\Stream\\WritableStreamInterface')->getMock();
+        $dest = $this->getMockBuilder('_PhpScoperbd5d0c5f7638\\React\\Stream\\WritableStreamInterface')->getMock();
         $ret = $this->decoder->pipe($dest);
         $this->assertSame($dest, $ret);
     }
     public function testForwardPauseToInput()
     {
-        $this->input = $this->getMockBuilder('_PhpScoper006a73f0e455\\React\\Stream\\ReadableStreamInterface')->getMock();
+        $this->input = $this->getMockBuilder('_PhpScoperbd5d0c5f7638\\React\\Stream\\ReadableStreamInterface')->getMock();
         $this->input->expects($this->once())->method('pause');
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input);
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input);
         $this->decoder->pause();
     }
     public function testForwardResumeToInput()
     {
-        $this->input = $this->getMockBuilder('_PhpScoper006a73f0e455\\React\\Stream\\ReadableStreamInterface')->getMock();
+        $this->input = $this->getMockBuilder('_PhpScoperbd5d0c5f7638\\React\\Stream\\ReadableStreamInterface')->getMock();
         $this->input->expects($this->once())->method('resume');
-        $this->decoder = new \_PhpScoper006a73f0e455\Clue\React\NDJson\Decoder($this->input);
+        $this->decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($this->input);
         $this->decoder->resume();
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\DecoderTest', 'DecoderTest', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\DecoderTest', 'DecoderTest', \false);

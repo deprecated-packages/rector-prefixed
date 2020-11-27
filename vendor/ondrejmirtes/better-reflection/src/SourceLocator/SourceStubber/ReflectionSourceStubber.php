@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber;
 
 use LogicException;
 use PhpParser\Builder;
@@ -55,7 +55,7 @@ use function trait_exists;
  *
  * @internal
  */
-final class ReflectionSourceStubber implements \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+final class ReflectionSourceStubber implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
 {
     private const BUILDER_OPTIONS = ['shortArraySyntax' => \true];
     /** @var BuilderFactory */
@@ -71,7 +71,7 @@ final class ReflectionSourceStubber implements \_PhpScoper006a73f0e455\Roave\Bet
     {
         return \class_exists($className, \false) || \interface_exists($className, \false) || \trait_exists($className, \false);
     }
-    public function generateClassStub(string $className) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateClassStub(string $className) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         if (!$this->hasClass($className)) {
             return null;
@@ -97,7 +97,7 @@ final class ReflectionSourceStubber implements \_PhpScoper006a73f0e455\Roave\Bet
         }
         return $this->createStubData($this->generateStubInNamespace($classNode->getNode(), $classReflection->getNamespaceName()), $extensionName);
     }
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateFunctionStub(string $functionName) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         if (!\function_exists($functionName)) {
             return null;
@@ -117,7 +117,7 @@ final class ReflectionSourceStubber implements \_PhpScoper006a73f0e455\Roave\Bet
         }
         return $this->createStubData($this->generateStubInNamespace($functionNode->getNode(), $functionReflection->getNamespaceName()), $extensionName);
     }
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateConstantStub(string $constantName) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         // Not supported because of resource as value
         if (\in_array($constantName, ['STDIN', 'STDOUT', 'STDERR'], \true)) {
@@ -433,8 +433,8 @@ final class ReflectionSourceStubber implements \_PhpScoper006a73f0e455\Roave\Bet
     {
         return "<?php\n\n" . $this->prettyPrinter->prettyPrint([$node]) . ($node instanceof \PhpParser\Node\Expr\FuncCall ? ';' : '') . "\n";
     }
-    private function createStubData(string $stub, ?string $extensionName) : \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    private function createStubData(string $stub, ?string $extensionName) : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $extensionName);
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $extensionName);
     }
 }

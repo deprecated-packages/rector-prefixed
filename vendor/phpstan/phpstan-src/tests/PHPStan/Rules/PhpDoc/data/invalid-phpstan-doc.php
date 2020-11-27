@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\InvalidPHPStanDoc;
+namespace _PhpScoperbd5d0c5f7638\InvalidPHPStanDoc;
 
 class Baz
 {
 }
 /** @phpstan-extens Baz */
-class Boo extends \_PhpScoper006a73f0e455\InvalidPHPStanDoc\Baz
+class Boo extends \_PhpScoperbd5d0c5f7638\InvalidPHPStanDoc\Baz
 {
     /**
      * @phpstan-template T

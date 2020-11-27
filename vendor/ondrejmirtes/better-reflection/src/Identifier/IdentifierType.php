@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier;
 
 use InvalidArgumentException;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionFunction;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction;
 use function array_key_exists;
 use function sprintf;
 class IdentifierType
 {
-    public const IDENTIFIER_CLASS = \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass::class;
-    public const IDENTIFIER_FUNCTION = \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionFunction::class;
-    public const IDENTIFIER_CONSTANT = \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionConstant::class;
+    public const IDENTIFIER_CLASS = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass::class;
+    public const IDENTIFIER_FUNCTION = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction::class;
+    public const IDENTIFIER_CONSTANT = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant::class;
     private const VALID_TYPES = [self::IDENTIFIER_CLASS => null, self::IDENTIFIER_FUNCTION => null, self::IDENTIFIER_CONSTANT => null];
     /** @var string */
     private $name;
@@ -44,16 +44,16 @@ class IdentifierType
     /**
      * Check to see if a reflector is of a valid type specified by this identifier.
      */
-    public function isMatchingReflector(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection $reflector) : bool
+    public function isMatchingReflector(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection $reflector) : bool
     {
         if ($this->name === self::IDENTIFIER_CLASS) {
-            return $reflector instanceof \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass;
+            return $reflector instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass;
         }
         if ($this->name === self::IDENTIFIER_FUNCTION) {
-            return $reflector instanceof \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionFunction;
+            return $reflector instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction;
         }
         if ($this->name === self::IDENTIFIER_CONSTANT) {
-            return $reflector instanceof \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionConstant;
+            return $reflector instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant;
         }
         return \false;
     }

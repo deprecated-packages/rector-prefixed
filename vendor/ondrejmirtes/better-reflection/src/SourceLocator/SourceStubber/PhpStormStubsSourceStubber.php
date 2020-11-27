@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber;
 
 use Error;
-use _PhpScoper006a73f0e455\JetBrains\PHPStormStub\PhpStormStubsMap;
+use _PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\PhpStormStubsMap;
 use ParseError;
 use PhpParser\BuilderFactory;
 use PhpParser\BuilderHelpers;
@@ -14,10 +14,10 @@ use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\FileChecker;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Util\ConstantNodeChecker;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\ConstantNodeChecker;
 use Traversable;
 use function array_change_key_case;
 use function array_key_exists;
@@ -40,7 +40,7 @@ use const PHP_VERSION_ID;
 /**
  * @internal
  */
-final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+final class PhpStormStubsSourceStubber implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
 {
     private const BUILDER_OPTIONS = ['shortArraySyntax' => \true];
     private const SEARCH_DIRECTORIES = [__DIR__ . '/../../../../../jetbrains/phpstorm-stubs', __DIR__ . '/../../../vendor/jetbrains/phpstorm-stubs'];
@@ -84,9 +84,9 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
         $this->nodeTraverser = new \PhpParser\NodeTraverser();
         $this->nodeTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
         $this->nodeTraverser->addVisitor($this->cachingVisitor);
-        $this->classMap = \array_change_key_case(\_PhpScoper006a73f0e455\JetBrains\PHPStormStub\PhpStormStubsMap::CLASSES);
-        $this->functionMap = \array_change_key_case(\_PhpScoper006a73f0e455\JetBrains\PHPStormStub\PhpStormStubsMap::FUNCTIONS);
-        $this->constantMap = \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\PhpStormStubsMap::CONSTANTS;
+        $this->classMap = \array_change_key_case(\_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\PhpStormStubsMap::CLASSES);
+        $this->functionMap = \array_change_key_case(\_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\PhpStormStubsMap::FUNCTIONS);
+        $this->constantMap = \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\PhpStormStubsMap::CONSTANTS;
     }
     public function hasClass(string $className) : bool
     {
@@ -113,7 +113,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
         $functionNode = $this->findFunctionNode($filePath, $lowercaseFunctionName);
         return $functionNode !== null;
     }
-    public function generateClassStub(string $className) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateClassStub(string $className) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowercaseClassName = \strtolower($className);
         if (!\array_key_exists($lowercaseClassName, $this->classMap)) {
@@ -154,7 +154,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
         if ($className === 'SimpleXMLElement' && $this->phpVersionId < 80000) {
             $stub = \str_replace(', \\RecursiveIterator', '', $stub);
         }
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $this->getExtensionFromFilePath($filePath), $this->getAbsoluteFilePath($filePath));
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $this->getExtensionFromFilePath($filePath), $this->getAbsoluteFilePath($filePath));
     }
     private function findClassNode(string $filePath, string $lowercaseName) : ?\PhpParser\Node\Stmt\ClassLike
     {
@@ -189,7 +189,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
         }
         return $filtered;
     }
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateFunctionStub(string $functionName) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowercaseFunctionName = \strtolower($functionName);
         if (!\array_key_exists($lowercaseFunctionName, $this->functionMap)) {
@@ -200,7 +200,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
         if ($functionNode === null) {
             return null;
         }
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($this->createStub($functionNode), $this->getExtensionFromFilePath($filePath));
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($this->createStub($functionNode), $this->getExtensionFromFilePath($filePath));
     }
     private function findFunctionNode(string $filePath, string $lowercaseFunctionName) : ?\PhpParser\Node\Stmt\Function_
     {
@@ -213,7 +213,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
         }
         return $this->functionNodes[$lowercaseFunctionName];
     }
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateConstantStub(string $constantName) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowercaseConstantName = $constantName;
         if (\in_array($constantName, ['TRUE', 'FALSE', 'NULL'], \true)) {
@@ -236,12 +236,12 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
                 return null;
             }
         }
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($this->createStub($constantNode), $this->getExtensionFromFilePath($filePath));
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($this->createStub($constantNode), $this->getExtensionFromFilePath($filePath));
     }
     private function parseFile(string $filePath) : void
     {
         $absoluteFilePath = $this->getAbsoluteFilePath($filePath);
-        \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($absoluteFilePath);
+        \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($absoluteFilePath);
         $isCore = $this->isCoreExtension($this->getExtensionFromFilePath($filePath));
         $ast = $this->phpParser->parse(\file_get_contents($absoluteFilePath));
         /** @psalm-suppress UndefinedMethod */
@@ -384,8 +384,8 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
                 }
                 if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
                     try {
-                        \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
-                    } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
+                        \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+                    } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
                         return null;
                     }
                     $nameNode = $node->args[0]->value;
@@ -456,6 +456,6 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper006a73f0e455\Roave\
                 return $this->stubsDirectory = $directory;
             }
         }
-        throw \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs::create();
+        throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs::create();
     }
 }

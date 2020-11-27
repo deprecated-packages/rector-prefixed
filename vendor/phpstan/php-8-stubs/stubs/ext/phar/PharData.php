@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class PharData extends \RecursiveDirectoryIterator implements \Countable, \ArrayAccess
 {
@@ -352,4 +352,4 @@ class PharData extends \RecursiveDirectoryIterator implements \Countable, \Array
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\PharData', 'PharData', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\PharData', 'PharData', \false);

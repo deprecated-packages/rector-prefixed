@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\Types;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types;
 
 /**
  * Represents an array type as described in the PSR-5, the PHPDoc Standard.
@@ -22,6 +22,6 @@ namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\Types;
  *
  * @psalm-immutable
  */
-final class Array_ extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\Types\AbstractList
+final class Array_ extends \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\AbstractList
 {
 }

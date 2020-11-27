@@ -1,22 +1,22 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Http\Io;
+namespace _PhpScoperbd5d0c5f7638\React\Http\Io;
 
-use _PhpScoper006a73f0e455\Evenement\EventEmitter;
-use _PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface;
-use _PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface;
-use _PhpScoper006a73f0e455\React\Stream\Util;
-use _PhpScoper006a73f0e455\React\Stream\WritableStreamInterface;
+use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
+use _PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface;
+use _PhpScoperbd5d0c5f7638\React\Stream\Util;
+use _PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface;
 /**
  * @internal
  */
-class ReadableBodyStream extends \_PhpScoper006a73f0e455\Evenement\EventEmitter implements \_PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface, \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface
+class ReadableBodyStream extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter implements \_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface, \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface
 {
     private $input;
     private $position = 0;
     private $size;
     private $closed = \false;
-    public function __construct(\_PhpScoper006a73f0e455\React\Stream\ReadableStreamInterface $input, $size = null)
+    public function __construct(\_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface $input, $size = null)
     {
         $this->input = $input;
         $this->size = $size;
@@ -57,9 +57,9 @@ class ReadableBodyStream extends \_PhpScoper006a73f0e455\Evenement\EventEmitter 
     {
         $this->input->resume();
     }
-    public function pipe(\_PhpScoper006a73f0e455\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper006a73f0e455\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoperbd5d0c5f7638\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function eof()

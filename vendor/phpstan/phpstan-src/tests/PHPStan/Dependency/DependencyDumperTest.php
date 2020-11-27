@@ -13,9 +13,9 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Testing\TestCase;
 use PHPStan\Type\FileTypeMapper;
-use _PhpScoper006a73f0e455\Tests\Dependency\Child;
-use _PhpScoper006a73f0e455\Tests\Dependency\GrandChild;
-use _PhpScoper006a73f0e455\Tests\Dependency\ParentClass;
+use _PhpScoperbd5d0c5f7638\Tests\Dependency\Child;
+use _PhpScoperbd5d0c5f7638\Tests\Dependency\GrandChild;
+use _PhpScoperbd5d0c5f7638\Tests\Dependency\ParentClass;
 class DependencyDumperTest extends \PHPStan\Testing\TestCase
 {
     public function testDumpDependencies() : void
@@ -37,7 +37,7 @@ class DependencyDumperTest extends \PHPStan\Testing\TestCase
         $fileHelper = new \PHPStan\File\FileHelper(__DIR__);
         $mockBroker = $this->createMock(\PHPStan\Broker\Broker::class);
         $mockBroker->method('getClass')->willReturnCallback(function (string $class) use($realBroker, $fileHelper) : ClassReflection {
-            if (\in_array($class, [\_PhpScoper006a73f0e455\Tests\Dependency\GrandChild::class, \_PhpScoper006a73f0e455\Tests\Dependency\Child::class, \_PhpScoper006a73f0e455\Tests\Dependency\ParentClass::class], \true)) {
+            if (\in_array($class, [\_PhpScoperbd5d0c5f7638\Tests\Dependency\GrandChild::class, \_PhpScoperbd5d0c5f7638\Tests\Dependency\Child::class, \_PhpScoperbd5d0c5f7638\Tests\Dependency\ParentClass::class], \true)) {
                 return $realBroker->getClass($class);
             }
             $nameParts = \explode('\\', $class);

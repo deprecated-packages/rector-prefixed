@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class DOMComment
 {
@@ -8,4 +8,4 @@ class DOMComment
     {
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\DOMComment', 'DOMComment', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\DOMComment', 'DOMComment', \false);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Tests\Rector\Assign\ArrayAccessSetControlToAddComponentMethodCallRector\Source;
 
-use _PhpScoper006a73f0e455\Nette\Application\UI\Control;
-final class ChildControl extends \_PhpScoper006a73f0e455\Nette\Application\UI\Control
+use _PhpScoperbd5d0c5f7638\Nette\Application\UI\Control;
+final class ChildControl extends \_PhpScoperbd5d0c5f7638\Nette\Application\UI\Control
 {
 }

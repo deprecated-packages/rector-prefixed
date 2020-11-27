@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\Types;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Type;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing the pseudo-type 'void'.
  *
@@ -20,7 +20,7 @@ use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-final class Void_ implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection\Type
+final class Void_ implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.

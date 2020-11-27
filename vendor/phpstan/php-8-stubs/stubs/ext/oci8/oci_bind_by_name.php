@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param resource $statement */
 function oci_bind_by_name($statement, string $param, mixed &$var, int $max_length = -1, int $type = 0) : bool

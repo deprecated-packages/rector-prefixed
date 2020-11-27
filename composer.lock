@@ -2708,7 +2708,7 @@
             "version": "0.12.57",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phpstan/phpstan-src.git",
+                "url": "git@github.com:phpstan/phpstan-src.git",
                 "reference": "b5a2fe2120e58bba9b28b8b3cc8fd3b823691344"
             },
             "dist": {
@@ -2798,9 +2798,6 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "support": {
-                "source": "https://github.com/phpstan/phpstan-src/tree/0.12.57"
-            },
             "time": "2020-11-21T12:41:43+00:00"
         },
         {
@@ -9918,12 +9915,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/phpstan-rules.git",
-                "reference": "0109a2c92d87519d69788b55bdba757d54a676fa"
+                "reference": "6b98a389b80d1ffd6fb69cebbca1fcf5a1e5878b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/phpstan-rules/zipball/0109a2c92d87519d69788b55bdba757d54a676fa",
-                "reference": "0109a2c92d87519d69788b55bdba757d54a676fa",
+                "url": "https://api.github.com/repos/symplify/phpstan-rules/zipball/6b98a389b80d1ffd6fb69cebbca1fcf5a1e5878b",
+                "reference": "6b98a389b80d1ffd6fb69cebbca1fcf5a1e5878b",
                 "shasum": ""
             },
             "require": {
@@ -9966,7 +9963,7 @@
             ],
             "description": "Set of Symplify rules for PHPStan",
             "support": {
-                "source": "https://github.com/symplify/phpstan-rules/tree/9.0.0-BETA7"
+                "source": "https://github.com/symplify/phpstan-rules/tree/master"
             },
             "funding": [
                 {
@@ -9978,7 +9975,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-26T23:04:42+00:00"
+            "time": "2020-11-27T11:30:30+00:00"
         },
         {
             "name": "symplify/symfony-php-config",

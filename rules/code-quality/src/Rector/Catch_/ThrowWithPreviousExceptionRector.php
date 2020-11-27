@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Catch_;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
@@ -113,7 +113,7 @@ CODE_SAMPLE
     {
         $fullyQualifiedName = $this->getName($exceptionName);
         // is native exception?
-        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
+        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
             return self::DEFAULT_EXCEPTION_ARGUMENT_POSITION;
         }
         // is class missing?

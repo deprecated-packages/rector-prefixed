@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 #endif
 #ifdef HAVE_GD_JPG
 /** @param resource|string|null $file */
-function imagejpeg(\_PhpScoper006a73f0e455\GdImage $image, $file = null, int $quality = -1) : bool
+function imagejpeg(\_PhpScoperbd5d0c5f7638\GdImage $image, $file = null, int $quality = -1) : bool
 {
 }

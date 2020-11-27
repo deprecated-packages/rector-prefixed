@@ -24,7 +24,7 @@ class InvalidThrowsPhpDocValueRuleTest extends \PHPStan\Testing\RuleTestCase
     }
     public function dataMergeInheritedPhpDocs() : array
     {
-        return [[\_PhpScoper006a73f0e455\InvalidThrowsPhpDocMergeInherited\Two::class, 'method', '_PhpScoper006a73f0e455\\InvalidThrowsPhpDocMergeInherited\\C|InvalidThrowsPhpDocMergeInherited\\D'], [\_PhpScoper006a73f0e455\InvalidThrowsPhpDocMergeInherited\Three::class, 'method', '_PhpScoper006a73f0e455\\InvalidThrowsPhpDocMergeInherited\\C|InvalidThrowsPhpDocMergeInherited\\D'], [\_PhpScoper006a73f0e455\InvalidThrowsPhpDocMergeInherited\Four::class, 'method', '_PhpScoper006a73f0e455\\InvalidThrowsPhpDocMergeInherited\\C|InvalidThrowsPhpDocMergeInherited\\D']];
+        return [[\_PhpScoperbd5d0c5f7638\InvalidThrowsPhpDocMergeInherited\Two::class, 'method', '_PhpScoperbd5d0c5f7638\\InvalidThrowsPhpDocMergeInherited\\C|InvalidThrowsPhpDocMergeInherited\\D'], [\_PhpScoperbd5d0c5f7638\InvalidThrowsPhpDocMergeInherited\Three::class, 'method', '_PhpScoperbd5d0c5f7638\\InvalidThrowsPhpDocMergeInherited\\C|InvalidThrowsPhpDocMergeInherited\\D'], [\_PhpScoperbd5d0c5f7638\InvalidThrowsPhpDocMergeInherited\Four::class, 'method', '_PhpScoperbd5d0c5f7638\\InvalidThrowsPhpDocMergeInherited\\C|InvalidThrowsPhpDocMergeInherited\\D']];
     }
     /**
      * @dataProvider dataMergeInheritedPhpDocs

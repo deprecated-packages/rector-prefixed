@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imagefill(\_PhpScoper006a73f0e455\GdImage $image, int $x, int $y, int $color) : bool
+function imagefill(\_PhpScoperbd5d0c5f7638\GdImage $image, int $x, int $y, int $color) : bool
 {
 }

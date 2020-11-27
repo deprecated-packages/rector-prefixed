@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-use _PhpScoper006a73f0e455\React\EventLoop\Factory;
-use _PhpScoper006a73f0e455\React\ChildProcess\Process;
+use _PhpScoperbd5d0c5f7638\React\EventLoop\Factory;
+use _PhpScoperbd5d0c5f7638\React\ChildProcess\Process;
 require __DIR__ . '/../vendor/autoload.php';
 if (\DIRECTORY_SEPARATOR === '\\') {
     exit('Process pipes not supported on Windows' . \PHP_EOL);
 }
-$loop = \_PhpScoper006a73f0e455\React\EventLoop\Factory::create();
-$process = new \_PhpScoper006a73f0e455\React\ChildProcess\Process('cat');
+$loop = \_PhpScoperbd5d0c5f7638\React\EventLoop\Factory::create();
+$process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('cat');
 $process->start($loop);
 $process->stdout->on('data', function ($chunk) {
     echo $chunk;

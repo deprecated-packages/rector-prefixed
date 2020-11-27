@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\ParameterContravariance;
+namespace _PhpScoperbd5d0c5f7638\ParameterContravariance;
 
 class Foo
 {
@@ -11,7 +11,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper006a73f0e455\ParameterContravariance\Foo
+class Bar extends \_PhpScoperbd5d0c5f7638\ParameterContravariance\Foo
 {
     public function doFoo(?\Exception $e)
     {
@@ -20,19 +20,19 @@ class Bar extends \_PhpScoper006a73f0e455\ParameterContravariance\Foo
     {
     }
 }
-class Baz extends \_PhpScoper006a73f0e455\ParameterContravariance\Foo
+class Baz extends \_PhpScoperbd5d0c5f7638\ParameterContravariance\Foo
 {
     public function doBar(?\Exception $e)
     {
     }
 }
-class Lorem extends \_PhpScoper006a73f0e455\ParameterContravariance\Foo
+class Lorem extends \_PhpScoperbd5d0c5f7638\ParameterContravariance\Foo
 {
     public function doFoo(\InvalidArgumentException $e)
     {
     }
 }
-class Ipsum extends \_PhpScoper006a73f0e455\ParameterContravariance\Foo
+class Ipsum extends \_PhpScoperbd5d0c5f7638\ParameterContravariance\Foo
 {
     public function doFoo(?\InvalidArgumentException $e)
     {

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function socket_clear_error(?\_PhpScoper006a73f0e455\Socket $socket = null) : void
+function socket_clear_error(?\_PhpScoperbd5d0c5f7638\Socket $socket = null) : void
 {
 }

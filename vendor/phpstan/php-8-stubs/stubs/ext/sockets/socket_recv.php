@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param string|null $data */
-function socket_recv(\_PhpScoper006a73f0e455\Socket $socket, &$data, int $length, int $flags) : int|false
+function socket_recv(\_PhpScoperbd5d0c5f7638\Socket $socket, &$data, int $length, int $flags) : int|false
 {
 }

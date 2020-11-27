@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug4023;
+namespace _PhpScoperbd5d0c5f7638\Bug4023;
 
 interface A
 {
@@ -13,7 +13,7 @@ interface A
      */
     public function x($data) : object;
 }
-final class B implements \_PhpScoper006a73f0e455\Bug4023\A
+final class B implements \_PhpScoperbd5d0c5f7638\Bug4023\A
 {
     /**
      * @template T of object

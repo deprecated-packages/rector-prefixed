@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\Bug2950;
+namespace _PhpScoperbd5d0c5f7638\Bug2950;
 
 class BlockFactory
 {
@@ -42,11 +42,11 @@ class AttributeMap implements \ArrayAccess
 {
     /** @var Attribute[] */
     private $attributes = [];
-    public function addAttribute(\_PhpScoper006a73f0e455\Bug2950\Attribute $attribute) : void
+    public function addAttribute(\_PhpScoperbd5d0c5f7638\Bug2950\Attribute $attribute) : void
     {
         $this->attributes[$attribute->getId()] = $attribute;
     }
-    public function getAttribute(int $id) : ?\_PhpScoper006a73f0e455\Bug2950\Attribute
+    public function getAttribute(int $id) : ?\_PhpScoperbd5d0c5f7638\Bug2950\Attribute
     {
         return $this->attributes[$id] ?? null;
     }
@@ -62,7 +62,7 @@ class AttributeMap implements \ArrayAccess
      */
     public function needSend() : array
     {
-        return \array_filter($this->attributes, function (\_PhpScoper006a73f0e455\Bug2950\Attribute $attribute) {
+        return \array_filter($this->attributes, function (\_PhpScoperbd5d0c5f7638\Bug2950\Attribute $attribute) {
             return $attribute->isSyncable() and $attribute->isDesynchronized();
         });
     }

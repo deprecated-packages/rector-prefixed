@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
@@ -25,9 +25,9 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \_PhpScoper006a73f0e455\AutoloadIncluder();
+$autoloadIncluder = new \_PhpScoperbd5d0c5f7638\AutoloadIncluder();
 $autoloadIncluder->includeCwdVendorAutoloadIfExists();
-$autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
+$autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->autoloadFromCommandLine();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \Symplify\PackageBuilder\Reflection\PrivatesCaller());
@@ -75,6 +75,11 @@ final class AutoloadIncluder
     private $alreadyLoadedAutoloadFiles = [];
     public function includeCwdVendorAutoloadIfExists() : void
     {
+        // needed for php-scoper
+        $scoperAutoload = __DIR__ . '/../vendor/scoper-autoload.php';
+        if (\file_exists($scoperAutoload)) {
+            require_once $scoperAutoload;
+        }
         $cwdVendorAutoload = \getcwd() . '/vendor/autoload.php';
         if (!\is_file($cwdVendorAutoload)) {
             return;
@@ -87,34 +92,20 @@ final class AutoloadIncluder
         if (\class_exists('Rector\\HttpKernel\\RectorKernel')) {
             return;
         }
-        $devOrPharVendorAutoload = __DIR__ . '/../vendor/autoload.php';
-        if (!\is_file($devOrPharVendorAutoload)) {
+        $devVendorAutoload = __DIR__ . '/../vendor/autoload.php';
+        if (!\is_file($devVendorAutoload)) {
             return;
         }
-        $this->loadIfNotLoadedYet($devOrPharVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
+        $this->loadIfNotLoadedYet($devVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
     }
     /**
      * Inspired by https://github.com/phpstan/phpstan-src/blob/e2308ecaf49a9960510c47f5a992ce7b27f6dba2/bin/phpstan#L19
      */
-    public function autoloadProjectAutoloaderFile(string $file) : void
+    public function autoloadProjectAutoloaderFile() : void
     {
-        $path = \dirname(__DIR__) . $file;
-        if (!\extension_loaded('phar')) {
-            if (\is_file($path)) {
-                $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
-            }
-            return;
-        }
-        $pharPath = \Phar::running(\false);
-        if ($pharPath === '') {
-            if (\is_file($path)) {
-                $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
-            }
-        } else {
-            $path = \dirname($pharPath) . $file;
-            if (\is_file($path)) {
-                $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
-            }
+        $path = \dirname(__DIR__) . '/../../autoload.php';
+        if (\is_file($path)) {
+            $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
         }
     }
     public function autoloadFromCommandLine() : void
@@ -147,4 +138,4 @@ final class AutoloadIncluder
         return \in_array('--debug', $_SERVER['argv'], \true);
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\AutoloadIncluder', 'AutoloadIncluder', \false);

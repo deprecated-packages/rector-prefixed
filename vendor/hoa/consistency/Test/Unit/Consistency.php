@@ -69,11 +69,11 @@ class Consistency extends \Hoa\Test\Unit\Suite
     }
     public function case_get_entity_shortest_name()
     {
-        $this->when($result = \Hoa\Consistency\Consistency::getEntityShortestName('_PhpScoper006a73f0e455\\Foo\\Bar\\Bar'))->then->string($result)->isEqualTo('_PhpScoper006a73f0e455\\Foo\\Bar');
+        $this->when($result = \Hoa\Consistency\Consistency::getEntityShortestName('_PhpScoperbd5d0c5f7638\\Foo\\Bar\\Bar'))->then->string($result)->isEqualTo('_PhpScoperbd5d0c5f7638\\Foo\\Bar');
     }
     public function case_get_entity_shortest_name_with_already_the_shortest()
     {
-        $this->when($result = \Hoa\Consistency\Consistency::getEntityShortestName('_PhpScoper006a73f0e455\\Foo\\Bar'))->then->string($result)->isEqualTo('_PhpScoper006a73f0e455\\Foo\\Bar');
+        $this->when($result = \Hoa\Consistency\Consistency::getEntityShortestName('_PhpScoperbd5d0c5f7638\\Foo\\Bar'))->then->string($result)->isEqualTo('_PhpScoperbd5d0c5f7638\\Foo\\Bar');
     }
     public function case_get_entity_shortest_name_with_no_namespace()
     {

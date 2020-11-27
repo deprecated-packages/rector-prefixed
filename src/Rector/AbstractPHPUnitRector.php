@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Rector;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
@@ -26,7 +26,7 @@ abstract class AbstractPHPUnitRector extends \Rector\Core\Rector\AbstractRector
         }
         $docComment = $classMethod->getDocComment();
         if ($docComment !== null) {
-            return (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($docComment->getText(), self::TEST_ANNOTATOIN_REGEX);
+            return (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($docComment->getText(), self::TEST_ANNOTATOIN_REGEX);
         }
         return \false;
     }
@@ -55,7 +55,7 @@ abstract class AbstractPHPUnitRector extends \Rector\Core\Rector\AbstractRector
         if ($classLike === null) {
             return \false;
         }
-        return $this->isObjectTypes($classLike, ['_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
+        return $this->isObjectTypes($classLike, ['_PhpScoperbd5d0c5f7638\\PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
     }
     /**
      * @param StaticCall|MethodCall $node

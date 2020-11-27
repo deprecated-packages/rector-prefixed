@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\CallableOrClosureProblem;
+namespace _PhpScoperbd5d0c5f7638\CallableOrClosureProblem;
 
 function call(callable $callable)
 {

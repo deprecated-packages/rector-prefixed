@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\InheritDocFromInterface2;
+namespace _PhpScoperbd5d0c5f7638\InheritDocFromInterface2;
 
-class Foo implements \_PhpScoper006a73f0e455\InheritDocFromInterface2\FooInterface
+class Foo implements \_PhpScoperbd5d0c5f7638\InheritDocFromInterface2\FooInterface
 {
     /**
      * {@inheritdoc}

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located;
 
 use InvalidArgumentException;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\FileChecker;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Util\FileHelper;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper;
 /**
  * Value object containing source code that has been located.
  *
@@ -25,8 +25,8 @@ class LocatedSource
     public function __construct(string $source, ?string $filename)
     {
         if ($filename !== null) {
-            \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($filename);
-            $filename = \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($filename);
+            \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($filename);
+            $filename = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($filename);
         }
         $this->source = $source;
         $this->filename = $filename;

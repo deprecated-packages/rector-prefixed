@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\React\Promise;
+namespace _PhpScoperbd5d0c5f7638\React\Promise;
 
 /**
  * @deprecated 2.8.0 External usage of FulfilledPromise is deprecated, use `resolve()` instead.
  */
-class FulfilledPromise implements \_PhpScoper006a73f0e455\React\Promise\ExtendedPromiseInterface, \_PhpScoper006a73f0e455\React\Promise\CancellablePromiseInterface
+class FulfilledPromise implements \_PhpScoperbd5d0c5f7638\React\Promise\ExtendedPromiseInterface, \_PhpScoperbd5d0c5f7638\React\Promise\CancellablePromiseInterface
 {
     private $value;
     public function __construct($value = null)
     {
-        if ($value instanceof \_PhpScoper006a73f0e455\React\Promise\PromiseInterface) {
+        if ($value instanceof \_PhpScoperbd5d0c5f7638\React\Promise\PromiseInterface) {
             throw new \InvalidArgumentException('You cannot create React\\Promise\\FulfilledPromise with a promise. Use React\\Promise\\resolve($promiseOrValue) instead.');
         }
         $this->value = $value;
@@ -23,9 +23,9 @@ class FulfilledPromise implements \_PhpScoper006a73f0e455\React\Promise\Extended
         try {
             return resolve($onFulfilled($this->value));
         } catch (\Throwable $exception) {
-            return new \_PhpScoper006a73f0e455\React\Promise\RejectedPromise($exception);
+            return new \_PhpScoperbd5d0c5f7638\React\Promise\RejectedPromise($exception);
         } catch (\Exception $exception) {
-            return new \_PhpScoper006a73f0e455\React\Promise\RejectedPromise($exception);
+            return new \_PhpScoperbd5d0c5f7638\React\Promise\RejectedPromise($exception);
         }
     }
     public function done(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null)
@@ -34,7 +34,7 @@ class FulfilledPromise implements \_PhpScoper006a73f0e455\React\Promise\Extended
             return;
         }
         $result = $onFulfilled($this->value);
-        if ($result instanceof \_PhpScoper006a73f0e455\React\Promise\ExtendedPromiseInterface) {
+        if ($result instanceof \_PhpScoperbd5d0c5f7638\React\Promise\ExtendedPromiseInterface) {
             $result->done();
         }
     }

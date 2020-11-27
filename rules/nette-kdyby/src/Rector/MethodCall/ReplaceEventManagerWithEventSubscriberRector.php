@@ -98,7 +98,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Kdyby\\Events\\EventManager')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperbd5d0c5f7638\\Kdyby\\Events\\EventManager')) {
             return null;
         }
         if (!$this->isName($node->name, 'dispatchEvent')) {

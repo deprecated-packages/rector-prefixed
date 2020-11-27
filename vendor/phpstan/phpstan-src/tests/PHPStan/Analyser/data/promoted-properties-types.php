@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper006a73f0e455\PromotedPropertiesTypes;
+namespace _PhpScoperbd5d0c5f7638\PromotedPropertiesTypes;
 
 use function PHPStan\Analyser\assertNativeType;
 use function PHPStan\Analyser\assertType;
@@ -43,7 +43,7 @@ class Foo
         \PHPStan\Analyser\assertType('array<int>', $anotherBothProperty);
     }
 }
-function (\_PhpScoper006a73f0e455\PromotedPropertiesTypes\Foo $foo) : void {
+function (\_PhpScoperbd5d0c5f7638\PromotedPropertiesTypes\Foo $foo) : void {
     \PHPStan\Analyser\assertType('mixed', $foo->noType);
     \PHPStan\Analyser\assertType('int', $foo->nativeIntType);
     \PHPStan\Analyser\assertType('array<int, string>', $foo->phpDocArray);
@@ -55,10 +55,10 @@ function (\_PhpScoper006a73f0e455\PromotedPropertiesTypes\Foo $foo) : void {
 /**
  * @extends Foo<\stdClass>
  */
-class Bar extends \_PhpScoper006a73f0e455\PromotedPropertiesTypes\Foo
+class Bar extends \_PhpScoperbd5d0c5f7638\PromotedPropertiesTypes\Foo
 {
 }
-function (\_PhpScoper006a73f0e455\PromotedPropertiesTypes\Bar $bar) : void {
+function (\_PhpScoperbd5d0c5f7638\PromotedPropertiesTypes\Bar $bar) : void {
     \PHPStan\Analyser\assertType('stdClass', $bar->templateProperty);
     \PHPStan\Analyser\assertType('stdClass', $bar->anotherTemplateProperty);
 };
@@ -75,13 +75,13 @@ class Lorem
     }
 }
 function () : void {
-    $lorem = new \_PhpScoper006a73f0e455\PromotedPropertiesTypes\Lorem(new \stdClass());
+    $lorem = new \_PhpScoperbd5d0c5f7638\PromotedPropertiesTypes\Lorem(new \stdClass());
     \PHPStan\Analyser\assertType('stdClass', $lorem->foo);
 };
 /**
  * @extends Foo<\stdClass>
  */
-class Baz extends \_PhpScoper006a73f0e455\PromotedPropertiesTypes\Foo
+class Baz extends \_PhpScoperbd5d0c5f7638\PromotedPropertiesTypes\Foo
 {
     public function __construct(public $anotherPhpDocArray)
     {
@@ -89,7 +89,7 @@ class Baz extends \_PhpScoper006a73f0e455\PromotedPropertiesTypes\Foo
         \PHPStan\Analyser\assertNativeType('mixed', $anotherPhpDocArray);
     }
 }
-function (\_PhpScoper006a73f0e455\PromotedPropertiesTypes\Baz $baz) : void {
+function (\_PhpScoperbd5d0c5f7638\PromotedPropertiesTypes\Baz $baz) : void {
     \PHPStan\Analyser\assertType('array<int, string>', $baz->anotherPhpDocArray);
     \PHPStan\Analyser\assertType('stdClass', $baz->templateProperty);
 };

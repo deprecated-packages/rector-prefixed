@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type;
 
 use InvalidArgumentException;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\FileChecker;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use function file_get_contents;
 /**
  * This source locator loads an entire file, specified in the constructor
@@ -18,16 +18,16 @@ use function file_get_contents;
  * also the class required if you want to use Reflector->getClassesFromFile
  * (which loads all classes from specified file)
  */
-class SingleFileSourceLocator extends \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator
+class SingleFileSourceLocator extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator
 {
     /** @var string */
     private $fileName;
     /**
      * @throws InvalidFileLocation
      */
-    public function __construct(string $fileName, \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator)
+    public function __construct(string $fileName, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator)
     {
-        \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($fileName);
+        \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($fileName);
         parent::__construct($astLocator);
         $this->fileName = $fileName;
     }
@@ -37,8 +37,8 @@ class SingleFileSourceLocator extends \_PhpScoper006a73f0e455\Roave\BetterReflec
      * @throws InvalidArgumentException
      * @throws InvalidFileLocation
      */
-    protected function createLocatedSource(\_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    protected function createLocatedSource(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource(\file_get_contents($this->fileName), $this->fileName);
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource(\file_get_contents($this->fileName), $this->fileName);
     }
 }

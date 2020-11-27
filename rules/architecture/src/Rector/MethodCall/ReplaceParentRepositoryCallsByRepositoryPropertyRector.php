@@ -24,32 +24,32 @@ final class ReplaceParentRepositoryCallsByRepositoryPropertyRector extends \Rect
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Handles method calls in child of Doctrine EntityRepository and moves them to $this->repository property.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-use _PhpScoper006a73f0e455\Doctrine\ORM\EntityRepository;
-class SomeRepository extends \_PhpScoper006a73f0e455\Doctrine\ORM\EntityRepository
+use _PhpScoperbd5d0c5f7638\Doctrine\ORM\EntityRepository;
+class SomeRepository extends \_PhpScoperbd5d0c5f7638\Doctrine\ORM\EntityRepository
 {
     public function someMethod()
     {
         return $this->findAll();
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeRepository', 'SomeRepository', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeRepository', 'SomeRepository', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-use _PhpScoper006a73f0e455\Doctrine\ORM\EntityRepository;
-class SomeRepository extends \_PhpScoper006a73f0e455\Doctrine\ORM\EntityRepository
+use _PhpScoperbd5d0c5f7638\Doctrine\ORM\EntityRepository;
+class SomeRepository extends \_PhpScoperbd5d0c5f7638\Doctrine\ORM\EntityRepository
 {
     public function someMethod()
     {
         return $this->repository->findAll();
     }
 }
-\class_alias('_PhpScoper006a73f0e455\\SomeRepository', 'SomeRepository', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SomeRepository', 'SomeRepository', \false);
 CODE_SAMPLE
 )]);
     }
@@ -68,7 +68,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperbd5d0c5f7638\\Doctrine\\ORM\\EntityRepository')) {
             return null;
         }
         if (!$this->isNames($node->name, self::ENTITY_REPOSITORY_PUBLIC_METHODS)) {
@@ -83,6 +83,6 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
-        return !$this->isInObjectType($classLike, '_PhpScoper006a73f0e455\\Doctrine\\ORM\\EntityRepository');
+        return !$this->isInObjectType($classLike, '_PhpScoperbd5d0c5f7638\\Doctrine\\ORM\\EntityRepository');
     }
 }

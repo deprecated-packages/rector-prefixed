@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\MinMaxArrays;
+namespace _PhpScoperbd5d0c5f7638\MinMaxArrays;
 
 use function PHPStan\Analyser\assertType;
 function dummy() : void

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function msgfmt_format_message(string $locale, string $pattern, array $values) : string|false
 {

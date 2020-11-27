@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\AnonymousTraitClass;
+namespace _PhpScoperbd5d0c5f7638\AnonymousTraitClass;
 
 trait TraitWithTypeSpecification
 {
@@ -8,7 +8,7 @@ trait TraitWithTypeSpecification
     private $string;
     public function doFoo() : void
     {
-        if (!$this instanceof \_PhpScoper006a73f0e455\AnonymousTraitClass\FooInterface) {
+        if (!$this instanceof \_PhpScoperbd5d0c5f7638\AnonymousTraitClass\FooInterface) {
             return;
         }
         $this->string = 'foo';

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection;
 
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -26,9 +26,9 @@ abstract class ReflectionType
             $allowsNull = \true;
         }
         if ($type instanceof \PhpParser\Node\Identifier || $type instanceof \PhpParser\Node\Name) {
-            return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionNamedType($type, $allowsNull);
+            return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionNamedType($type, $allowsNull);
         }
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionUnionType($type, $allowsNull);
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionUnionType($type, $allowsNull);
     }
     /**
      * Does the parameter allow null?

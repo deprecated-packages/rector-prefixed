@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\TypesFinder;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\TypesFinder;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Return_;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlockFactory;
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Type;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlockFactory;
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type;
 use PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
 use function explode;
 class FindReturnType
 {
@@ -20,16 +20,16 @@ class FindReturnType
     private $makeContext;
     public function __construct()
     {
-        $this->resolveTypes = new \_PhpScoper006a73f0e455\Roave\BetterReflection\TypesFinder\ResolveTypes();
-        $this->docBlockFactory = \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlockFactory::createInstance();
-        $this->makeContext = new \_PhpScoper006a73f0e455\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
+        $this->resolveTypes = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\TypesFinder\ResolveTypes();
+        $this->docBlockFactory = \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlockFactory::createInstance();
+        $this->makeContext = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
     }
     /**
      * Given a function, attempt to find the return type.
      *
      * @return Type[]
      */
-    public function __invoke(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, ?\PhpParser\Node\Stmt\Namespace_ $namespace) : array
+    public function __invoke(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, ?\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
         $docComment = $function->getDocComment();
         if ($docComment === '') {

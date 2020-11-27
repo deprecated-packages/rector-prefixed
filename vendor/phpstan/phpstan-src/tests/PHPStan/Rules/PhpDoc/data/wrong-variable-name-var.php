@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\WrongVariableNameVarTag;
+namespace _PhpScoperbd5d0c5f7638\WrongVariableNameVarTag;
 
 class Foo
 {

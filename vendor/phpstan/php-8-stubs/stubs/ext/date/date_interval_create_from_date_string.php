@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function date_interval_create_from_date_string(string $datetime) : \DateInterval|false
 {

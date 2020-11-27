@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -91,7 +91,7 @@ final class NodeTypeResolver
     public function isObjectType(\PhpParser\Node $node, $requiredType) : bool
     {
         $this->ensureRequiredTypeIsStringOrObjectType($requiredType, __METHOD__);
-        if (\is_string($requiredType) && \_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($requiredType, '*')) {
+        if (\is_string($requiredType) && \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($requiredType, '*')) {
             return $this->isFnMatch($node, $requiredType);
         }
         $resolvedType = $this->resolve($node);

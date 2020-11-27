@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\MixedTypehint;
+namespace _PhpScoperbd5d0c5f7638\MixedTypehint;
 
 use function PHPStan\Analyser\assertType;
 class Foo

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\NullableReturnTypes;
+namespace _PhpScoperbd5d0c5f7638\NullableReturnTypes;
 
 class Foo
 {

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function () {
-    \_PhpScoper006a73f0e455\six('one', \_PhpScoper006a73f0e455\five('two', 'three', \_PhpScoper006a73f0e455\four()));
+    \_PhpScoperbd5d0c5f7638\six('one', \_PhpScoperbd5d0c5f7638\five('two', 'three', \_PhpScoperbd5d0c5f7638\four()));
 };

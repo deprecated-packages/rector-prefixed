@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Utils\PHPStanAttributeTypeSyncer\Generator;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use Rector\Utils\PHPStanAttributeTypeSyncer\ClassNaming\AttributeClassNaming;
 use Rector\Utils\PHPStanAttributeTypeSyncer\NodeFactory\AttributeAwareClassFactory;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -44,7 +44,7 @@ final class AttributeAwareNodeGenerator extends \Rector\Utils\PHPStanAttributeTy
     private function resolveTargetFilePath(string $phpDocParserNodeClass) : string
     {
         $shortClassName = $this->attributeClassNaming->createAttributeAwareShortClassName($phpDocParserNodeClass);
-        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($phpDocParserNodeClass, '\\Type\\')) {
+        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($phpDocParserNodeClass, '\\Type\\')) {
             return __DIR__ . '/../../../../packages/attribute-aware-php-doc/src/Ast/Type/' . $shortClassName . '.php';
         }
         return __DIR__ . '/../../../../packages/attribute-aware-php-doc/src/Ast/PhpDoc/' . $shortClassName . '.php';

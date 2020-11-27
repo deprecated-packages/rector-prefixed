@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Nette\DI\Config;
+namespace _PhpScoperbd5d0c5f7638\Nette\DI\Config;
 
-use _PhpScoper006a73f0e455\Nette;
-use _PhpScoper006a73f0e455\Nette\Utils\Validators;
+use _PhpScoperbd5d0c5f7638\Nette;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Validators;
 /**
  * Configuration file loader.
  */
@@ -16,7 +16,7 @@ class Loader
 {
     use Nette\SmartObject;
     private const INCLUDES_KEY = 'includes';
-    private $adapters = ['php' => \_PhpScoper006a73f0e455\Nette\DI\Config\Adapters\PhpAdapter::class, 'neon' => \_PhpScoper006a73f0e455\Nette\DI\Config\Adapters\NeonAdapter::class];
+    private $adapters = ['php' => \_PhpScoperbd5d0c5f7638\Nette\DI\Config\Adapters\PhpAdapter::class, 'neon' => \_PhpScoperbd5d0c5f7638\Nette\DI\Config\Adapters\NeonAdapter::class];
     private $dependencies = [];
     private $loadedFiles = [];
     private $parameters = [];
@@ -26,28 +26,28 @@ class Loader
     public function load(string $file, ?bool $merge = \true) : array
     {
         if (!\is_file($file) || !\is_readable($file)) {
-            throw new \_PhpScoper006a73f0e455\Nette\FileNotFoundException("File '{$file}' is missing or is not readable.");
+            throw new \_PhpScoperbd5d0c5f7638\Nette\FileNotFoundException("File '{$file}' is missing or is not readable.");
         }
         if (isset($this->loadedFiles[$file])) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidStateException("Recursive included file '{$file}'");
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException("Recursive included file '{$file}'");
         }
         $this->loadedFiles[$file] = \true;
         $this->dependencies[] = $file;
         $data = $this->getAdapter($file)->load($file);
         $res = [];
         if (isset($data[self::INCLUDES_KEY])) {
-            \_PhpScoper006a73f0e455\Nette\Utils\Validators::assert($data[self::INCLUDES_KEY], 'list', "section 'includes' in file '{$file}'");
-            $includes = \_PhpScoper006a73f0e455\Nette\DI\Helpers::expand($data[self::INCLUDES_KEY], $this->parameters);
+            \_PhpScoperbd5d0c5f7638\Nette\Utils\Validators::assert($data[self::INCLUDES_KEY], 'list', "section 'includes' in file '{$file}'");
+            $includes = \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::expand($data[self::INCLUDES_KEY], $this->parameters);
             foreach ($includes as $include) {
                 $include = $this->expandIncludedFile($include, $file);
-                $res = \_PhpScoper006a73f0e455\Nette\Schema\Helpers::merge($this->load($include, $merge), $res);
+                $res = \_PhpScoperbd5d0c5f7638\Nette\Schema\Helpers::merge($this->load($include, $merge), $res);
             }
         }
         unset($data[self::INCLUDES_KEY], $this->loadedFiles[$file]);
         if ($merge === \false) {
             $res[] = $data;
         } else {
-            $res = \_PhpScoper006a73f0e455\Nette\Schema\Helpers::merge($data, $res);
+            $res = \_PhpScoperbd5d0c5f7638\Nette\Schema\Helpers::merge($data, $res);
         }
         return $res;
     }
@@ -57,7 +57,7 @@ class Loader
     public function save(array $data, string $file) : void
     {
         if (\file_put_contents($file, $this->getAdapter($file)->dump($data)) === \false) {
-            throw new \_PhpScoper006a73f0e455\Nette\IOException("Cannot write file '{$file}'.");
+            throw new \_PhpScoperbd5d0c5f7638\Nette\IOException("Cannot write file '{$file}'.");
         }
     }
     /**
@@ -84,11 +84,11 @@ class Loader
         $this->adapters[\strtolower($extension)] = $adapter;
         return $this;
     }
-    private function getAdapter(string $file) : \_PhpScoper006a73f0e455\Nette\DI\Config\Adapter
+    private function getAdapter(string $file) : \_PhpScoperbd5d0c5f7638\Nette\DI\Config\Adapter
     {
         $extension = \strtolower(\pathinfo($file, \PATHINFO_EXTENSION));
         if (!isset($this->adapters[$extension])) {
-            throw new \_PhpScoper006a73f0e455\Nette\InvalidArgumentException("Unknown file extension '{$file}'.");
+            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException("Unknown file extension '{$file}'.");
         }
         return \is_object($this->adapters[$extension]) ? $this->adapters[$extension] : new $this->adapters[$extension]();
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @generate-function-entries */
 class IntlIterator implements \Iterator
@@ -27,4 +27,4 @@ class IntlIterator implements \Iterator
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper006a73f0e455\\IntlIterator', 'IntlIterator', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\IntlIterator', 'IntlIterator', \false);

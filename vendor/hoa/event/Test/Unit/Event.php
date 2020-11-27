@@ -54,21 +54,21 @@ class Event extends \Hoa\Test\Unit\Suite
     }
     public function case_register_source_instance()
     {
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper006a73f0e455\Mock\Hoa\Event\Source())->when($result = \Hoa\Event\Event::register($eventId, $source))->then->variable($result)->isNull()->boolean(\Hoa\Event\Event::eventExists($eventId))->isTrue();
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source())->when($result = \Hoa\Event\Event::register($eventId, $source))->then->variable($result)->isNull()->boolean(\Hoa\Event\Event::eventExists($eventId))->isTrue();
     }
     public function case_register_source_name()
     {
-        $this->given($eventId = 'hoa://Event/Test', $source = '_PhpScoper006a73f0e455\\Mock\\Hoa\\Event\\Source')->when($result = \Hoa\Event\Event::register($eventId, $source))->then->variable($result)->isNull()->boolean(\Hoa\Event\Event::eventExists($eventId))->isTrue();
+        $this->given($eventId = 'hoa://Event/Test', $source = '_PhpScoperbd5d0c5f7638\\Mock\\Hoa\\Event\\Source')->when($result = \Hoa\Event\Event::register($eventId, $source))->then->variable($result)->isNull()->boolean(\Hoa\Event\Event::eventExists($eventId))->isTrue();
     }
     public function case_register_redeclare()
     {
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper006a73f0e455\Mock\Hoa\Event\Source(), \Hoa\Event\Event::register($eventId, $source))->exception(function () use($eventId, $source) {
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source(), \Hoa\Event\Event::register($eventId, $source))->exception(function () use($eventId, $source) {
             \Hoa\Event\Event::register($eventId, $source);
         })->isInstanceOf('Hoa\\Event\\Exception');
     }
     public function case_register_not_a_source_instance()
     {
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper006a73f0e455\StdClass())->exception(function () use($eventId, $source) {
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\StdClass())->exception(function () use($eventId, $source) {
             $result = \Hoa\Event\Event::register($eventId, $source);
         })->isInstanceOf('Hoa\\Event\\Exception');
     }
@@ -80,11 +80,11 @@ class Event extends \Hoa\Test\Unit\Suite
     }
     public function case_unregister()
     {
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper006a73f0e455\Mock\Hoa\Event\Source(), \Hoa\Event\Event::register($eventId, $source))->when($result = \Hoa\Event\Event::unregister($eventId))->then->boolean(\Hoa\Event\Event::eventExists($eventId))->isFalse();
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source(), \Hoa\Event\Event::register($eventId, $source))->when($result = \Hoa\Event\Event::unregister($eventId))->then->boolean(\Hoa\Event\Event::eventExists($eventId))->isFalse();
     }
     public function case_unregister_hard()
     {
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper006a73f0e455\Mock\Hoa\Event\Source(), \Hoa\Event\Event::register($eventId, $source), $event = \Hoa\Event\Event::getEvent($eventId))->when($result = \Hoa\Event\Event::unregister($eventId, \true))->then->boolean(\Hoa\Event\Event::eventExists($eventId))->isFalse()->object(\Hoa\Event\Event::getEvent($eventId))->isNotIdenticalTo($event);
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source(), \Hoa\Event\Event::register($eventId, $source), $event = \Hoa\Event\Event::getEvent($eventId))->when($result = \Hoa\Event\Event::unregister($eventId, \true))->then->boolean(\Hoa\Event\Event::eventExists($eventId))->isFalse()->object(\Hoa\Event\Event::getEvent($eventId))->isNotIdenticalTo($event);
     }
     public function case_unregister_not_registered()
     {
@@ -112,20 +112,20 @@ class Event extends \Hoa\Test\Unit\Suite
     public function case_notify()
     {
         $self = $this;
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper006a73f0e455\Mock\Hoa\Event\Source(), $bucket = new \Hoa\Event\Bucket(), \Hoa\Event\Event::register($eventId, $source), \Hoa\Event\Event::getEvent($eventId)->attach(function (\Hoa\Event\Bucket $receivedBucket) use($self, $source, $bucket, &$called) {
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source(), $bucket = new \Hoa\Event\Bucket(), \Hoa\Event\Event::register($eventId, $source), \Hoa\Event\Event::getEvent($eventId)->attach(function (\Hoa\Event\Bucket $receivedBucket) use($self, $source, $bucket, &$called) {
             $called = \true;
             $this->object($receivedBucket)->isIdenticalTo($bucket)->object($receivedBucket->getSource())->isIdenticalTo($source);
         }))->when($result = \Hoa\Event\Event::notify($eventId, $source, $bucket))->then->variable($result)->isNull()->boolean($called)->isTrue();
     }
     public function case_notify_unregistered_event_id()
     {
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper006a73f0e455\Mock\Hoa\Event\Source(), $data = new \Hoa\Event\Bucket())->exception(function () use($eventId, $source, $data) {
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source(), $data = new \Hoa\Event\Bucket())->exception(function () use($eventId, $source, $data) {
             \Hoa\Event\Event::notify($eventId, $source, $data);
         })->isInstanceOf('Hoa\\Event\\Exception');
     }
     public function case_event_exists()
     {
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper006a73f0e455\Mock\Hoa\Event\Source(), \Hoa\Event\Event::register($eventId, $source))->when($result = \Hoa\Event\Event::eventExists($eventId))->then->boolean($result)->isTrue();
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source(), \Hoa\Event\Event::register($eventId, $source))->when($result = \Hoa\Event\Event::eventExists($eventId))->then->boolean($result)->isTrue();
     }
     public function case_event_not_exists()
     {

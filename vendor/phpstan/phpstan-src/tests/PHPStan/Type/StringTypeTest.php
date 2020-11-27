@@ -8,7 +8,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Generic\GenericClassStringType;
-use _PhpScoper006a73f0e455\Test\ClassWithToString;
+use _PhpScoperbd5d0c5f7638\Test\ClassWithToString;
 class StringTypeTest extends \PHPStan\Testing\TestCase
 {
     public function dataIsSuperTypeOf() : array
@@ -25,7 +25,7 @@ class StringTypeTest extends \PHPStan\Testing\TestCase
     }
     public function dataAccepts() : iterable
     {
-        (yield [new \PHPStan\Type\StringType(), new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectType(\_PhpScoper006a73f0e455\Test\ClassWithToString::class), new \PHPStan\Type\Accessory\HasPropertyType('foo')]), \PHPStan\TrinaryLogic::createNo()]);
+        (yield [new \PHPStan\Type\StringType(), new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectType(\_PhpScoperbd5d0c5f7638\Test\ClassWithToString::class), new \PHPStan\Type\Accessory\HasPropertyType('foo')]), \PHPStan\TrinaryLogic::createNo()]);
         (yield [new \PHPStan\Type\StringType(), new \PHPStan\Type\ClassStringType(), \PHPStan\TrinaryLogic::createYes()]);
     }
     /**

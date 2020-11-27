@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\JetBrains\PHPStormStub;
+namespace _PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub;
 
 use DirectoryIterator;
 use RecursiveDirectoryIterator;
@@ -48,16 +48,16 @@ use const PHP_EOL;
     function assertReadableFile(string $filename) : void
     {
         if (empty($filename)) {
-            throw new \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidFileLocation('Filename was empty');
+            throw new \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidFileLocation('Filename was empty');
         }
         if (!\file_exists($filename)) {
-            throw new \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('File "%s" does not exist', $filename));
+            throw new \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('File "%s" does not exist', $filename));
         }
         if (!\is_readable($filename)) {
-            throw new \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('File "%s" is not readable', $filename));
+            throw new \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('File "%s" is not readable', $filename));
         }
         if (!\is_file($filename)) {
-            throw new \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('"%s" is not a file', $filename));
+            throw new \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('"%s" is not a file', $filename));
         }
     }
     /**
@@ -66,23 +66,23 @@ use const PHP_EOL;
     function assertValidDefineFunctionCall(\PhpParser\Node\Expr\FuncCall $node) : void
     {
         if (!$node->name instanceof \PhpParser\Node\Name) {
-            throw \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+            throw \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
         if ($node->name->toLowerString() !== 'define') {
-            throw \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+            throw \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
         if (!\in_array(\count($node->args), [2, 3], \true)) {
-            throw \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+            throw \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
         if (!$node->args[0]->value instanceof \PhpParser\Node\Scalar\String_) {
-            throw \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+            throw \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
         $valueNode = $node->args[1]->value;
         if ($valueNode instanceof \PhpParser\Node\Expr\FuncCall) {
-            throw \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+            throw \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
         if ($valueNode instanceof \PhpParser\Node\Expr\Variable) {
-            throw \_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+            throw \_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
     }
     $phpStormStubsDirectory = __DIR__;
@@ -114,7 +114,7 @@ use const PHP_EOL;
             if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
                 try {
                     assertValidDefineFunctionCall($node);
-                } catch (\_PhpScoper006a73f0e455\JetBrains\PHPStormStub\InvalidConstantNode $e) {
+                } catch (\_PhpScoperbd5d0c5f7638\JetBrains\PHPStormStub\InvalidConstantNode $e) {
                     return null;
                 }
                 /** @var Node\Scalar\String_ $nameNode */

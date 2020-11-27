@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Rector\Property;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
@@ -77,7 +77,7 @@ CODE_SAMPLE
         if ($nodeName === null) {
             return null;
         }
-        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($nodeName, '_')) {
+        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($nodeName, '_')) {
             return null;
         }
         $propertyRename = $this->propertyRenameFactory->create($node, $this->underscoreCamelCaseExpectedNameResolver);

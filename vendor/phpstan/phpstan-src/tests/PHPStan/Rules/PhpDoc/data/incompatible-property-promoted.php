@@ -1,10 +1,10 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper006a73f0e455\InvalidPhpDocPromotedProperties;
+namespace _PhpScoperbd5d0c5f7638\InvalidPhpDocPromotedProperties;
 
-use _PhpScoper006a73f0e455\InvalidPhpDoc\Foo;
-use _PhpScoper006a73f0e455\InvalidPhpDoc\Bar;
+use _PhpScoperbd5d0c5f7638\InvalidPhpDoc\Foo;
+use _PhpScoperbd5d0c5f7638\InvalidPhpDoc\Bar;
 class FooWithProperty
 {
     public function __construct(

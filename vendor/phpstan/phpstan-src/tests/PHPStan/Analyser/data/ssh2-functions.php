@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @var resource $resource */
-$resource = \_PhpScoper006a73f0e455\doFoo();
+$resource = \_PhpScoperbd5d0c5f7638\doFoo();
 $ssh2SftpStat = \ssh2_sftp_stat($resource, __FILE__);
 die;

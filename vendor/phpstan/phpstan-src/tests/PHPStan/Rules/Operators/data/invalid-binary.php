@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function ($mixed, array $array, string $string, int $int) {
     $array += [];
@@ -47,7 +47,7 @@ function (int $int, string $string) {
     $string ^ "x";
     $string ^ 5;
 };
-function (string $string1, string $string2, \stdClass $std, \_PhpScoper006a73f0e455\Test\ClassWithToString $classWithToString) {
+function (string $string1, string $string2, \stdClass $std, \_PhpScoperbd5d0c5f7638\Test\ClassWithToString $classWithToString) {
     $string1 . $string2;
     $string1 . $std;
     $string1 . $classWithToString;
@@ -70,11 +70,11 @@ function () {
     $o = new \stdClass();
     $o->user ?? '';
     $o->user->name ?? '';
-    \_PhpScoper006a73f0e455\nonexistentFunction() ?? '';
+    \_PhpScoperbd5d0c5f7638\nonexistentFunction() ?? '';
 };
 function () {
     $possibleZero = 0;
-    if (\_PhpScoper006a73f0e455\doFoo()) {
+    if (\_PhpScoperbd5d0c5f7638\doFoo()) {
         $possibleZero = 1;
     }
     5 / $possibleZero;

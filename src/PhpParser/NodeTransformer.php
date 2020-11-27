@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -39,7 +39,7 @@ final class NodeTransformer
         $messageParts = $this->splitBySpace($stringValue);
         $arrayMessageParts = [];
         foreach ($messageParts as $messagePart) {
-            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($messagePart, self::PERCENT_TEXT_REGEX)) {
+            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($messagePart, self::PERCENT_TEXT_REGEX)) {
                 /** @var Expr $messagePartNode */
                 $messagePartNode = \array_shift($arrayItems);
             } else {

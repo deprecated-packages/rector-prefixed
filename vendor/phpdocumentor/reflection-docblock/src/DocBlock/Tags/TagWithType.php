@@ -11,10 +11,10 @@ declare (strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper006a73f0e455\phpDocumentor\Reflection\Type;
-abstract class TagWithType extends \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\BaseTag
+use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type;
+abstract class TagWithType extends \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\BaseTag
 {
     /** @var Type */
     protected $type;

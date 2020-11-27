@@ -61,7 +61,7 @@ class SignatureMapParser
      */
     private function getParameterInfoFromName(string $parameterNameString) : array
     {
-        $matches = \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($parameterNameString, '#^(?P<reference>&(?:\\.\\.\\.)?r?w?_?)?(?P<variadic>\\.\\.\\.)?(?P<name>[^=]+)?(?P<optional>=)?($)#');
+        $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($parameterNameString, '#^(?P<reference>&(?:\\.\\.\\.)?r?w?_?)?(?P<variadic>\\.\\.\\.)?(?P<name>[^=]+)?(?P<optional>=)?($)#');
         if ($matches === null || !isset($matches['optional'])) {
             throw new \PHPStan\ShouldNotHappenException();
         }

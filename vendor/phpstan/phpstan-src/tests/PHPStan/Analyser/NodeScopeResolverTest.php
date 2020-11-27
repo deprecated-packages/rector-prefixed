@@ -36,7 +36,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
-use _PhpScoper006a73f0e455\SomeNodeScopeResolverNamespace\Foo;
+use _PhpScoperbd5d0c5f7638\SomeNodeScopeResolverNamespace\Foo;
 use const PHP_VERSION_ID;
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 {
@@ -52,7 +52,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
             }
             $this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
             $this->assertTrue($scope->isInClass());
-            $this->assertSame(\_PhpScoper006a73f0e455\SomeNodeScopeResolverNamespace\Foo::class, $scope->getClassReflection()->getName());
+            $this->assertSame(\_PhpScoperbd5d0c5f7638\SomeNodeScopeResolverNamespace\Foo::class, $scope->getClassReflection()->getName());
             $this->assertSame('doFoo', $scope->getFunctionName());
             $this->assertSame('$this(SomeNodeScopeResolverNamespace\\Foo)', $scope->getVariableType('this')->describe(\PHPStan\Type\VerbosityLevel::precise()));
             $this->assertTrue($scope->hasVariableType('baz')->yes());
@@ -60,7 +60,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
             $this->assertFalse($scope->hasVariableType('ipsum')->yes());
             $this->assertTrue($scope->hasVariableType('i')->yes());
             $this->assertTrue($scope->hasVariableType('val')->yes());
-            $this->assertSame('_PhpScoper006a73f0e455\\SomeNodeScopeResolverNamespace\\InvalidArgumentException', $scope->getVariableType('exception')->describe(\PHPStan\Type\VerbosityLevel::precise()));
+            $this->assertSame('_PhpScoperbd5d0c5f7638\\SomeNodeScopeResolverNamespace\\InvalidArgumentException', $scope->getVariableType('exception')->describe(\PHPStan\Type\VerbosityLevel::precise()));
             $this->assertTrue($scope->hasVariableType('staticVariable')->yes());
             $this->assertSame($scope->getVariableType('staticVariable')->describe(\PHPStan\Type\VerbosityLevel::precise()), 'mixed');
             $this->assertTrue($scope->hasVariableType('staticVariableWithPhpDocType')->yes());
@@ -85,7 +85,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataUnionInCatch() : array
     {
-        return [['_PhpScoper006a73f0e455\\CatchUnion\\BarException|CatchUnion\\FooException', '$e']];
+        return [['_PhpScoperbd5d0c5f7638\\CatchUnion\\BarException|CatchUnion\\FooException', '$e']];
     }
     /**
      * @dataProvider dataUnionInCatch
@@ -98,7 +98,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataUnionAndIntersection() : array
     {
-        return [['_PhpScoper006a73f0e455\\UnionIntersection\\AnotherFoo|UnionIntersection\\Foo', '$this->union->foo'], ['_PhpScoper006a73f0e455\\UnionIntersection\\Bar', '$this->union->bar'], ['_PhpScoper006a73f0e455\\UnionIntersection\\Foo', '$foo->foo'], ['*ERROR*', '$foo->bar'], ['_PhpScoper006a73f0e455\\UnionIntersection\\AnotherFoo|UnionIntersection\\Foo', '$this->union->doFoo()'], ['_PhpScoper006a73f0e455\\UnionIntersection\\Bar', '$this->union->doBar()'], ['_PhpScoper006a73f0e455\\UnionIntersection\\Foo', '$foo->doFoo()'], ['*ERROR*', '$foo->doBar()'], ['_PhpScoper006a73f0e455\\UnionIntersection\\AnotherFoo&UnionIntersection\\Foo', '$foobar->doFoo()'], ['_PhpScoper006a73f0e455\\UnionIntersection\\Bar', '$foobar->doBar()'], ['1', '$this->union::FOO_CONSTANT'], ['1', '$this->union::BAR_CONSTANT'], ['1', '$foo::FOO_CONSTANT'], ['*ERROR*', '$foo::BAR_CONSTANT'], ['1', '$foobar::FOO_CONSTANT'], ['1', '$foobar::BAR_CONSTANT'], ['\'foo\'', 'self::IPSUM_CONSTANT'], ['array(1, 2, 3)', 'parent::PARENT_CONSTANT'], ['_PhpScoper006a73f0e455\\UnionIntersection\\Foo', '$foo::doStaticFoo()'], ['*ERROR*', '$foo::doStaticBar()'], ['_PhpScoper006a73f0e455\\UnionIntersection\\AnotherFoo&UnionIntersection\\Foo', '$foobar::doStaticFoo()'], ['_PhpScoper006a73f0e455\\UnionIntersection\\Bar', '$foobar::doStaticBar()'], ['_PhpScoper006a73f0e455\\UnionIntersection\\AnotherFoo|UnionIntersection\\Foo', '$this->union::doStaticFoo()'], ['_PhpScoper006a73f0e455\\UnionIntersection\\Bar', '$this->union::doStaticBar()'], ['object', '$this->objectUnion'], ['_PhpScoper006a73f0e455\\UnionIntersection\\SomeInterface', '$object']];
+        return [['_PhpScoperbd5d0c5f7638\\UnionIntersection\\AnotherFoo|UnionIntersection\\Foo', '$this->union->foo'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\Bar', '$this->union->bar'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\Foo', '$foo->foo'], ['*ERROR*', '$foo->bar'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\AnotherFoo|UnionIntersection\\Foo', '$this->union->doFoo()'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\Bar', '$this->union->doBar()'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\Foo', '$foo->doFoo()'], ['*ERROR*', '$foo->doBar()'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\AnotherFoo&UnionIntersection\\Foo', '$foobar->doFoo()'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\Bar', '$foobar->doBar()'], ['1', '$this->union::FOO_CONSTANT'], ['1', '$this->union::BAR_CONSTANT'], ['1', '$foo::FOO_CONSTANT'], ['*ERROR*', '$foo::BAR_CONSTANT'], ['1', '$foobar::FOO_CONSTANT'], ['1', '$foobar::BAR_CONSTANT'], ['\'foo\'', 'self::IPSUM_CONSTANT'], ['array(1, 2, 3)', 'parent::PARENT_CONSTANT'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\Foo', '$foo::doStaticFoo()'], ['*ERROR*', '$foo::doStaticBar()'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\AnotherFoo&UnionIntersection\\Foo', '$foobar::doStaticFoo()'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\Bar', '$foobar::doStaticBar()'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\AnotherFoo|UnionIntersection\\Foo', '$this->union::doStaticFoo()'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\Bar', '$this->union::doStaticBar()'], ['object', '$this->objectUnion'], ['_PhpScoperbd5d0c5f7638\\UnionIntersection\\SomeInterface', '$object']];
     }
     /**
      * @dataProvider dataUnionAndIntersection
@@ -112,7 +112,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     public function dataAssignInIf() : array
     {
         $testScope = $this->getFileScope(__DIR__ . '/data/if.php');
-        return [[$testScope, 'nonexistentVariable', \PHPStan\TrinaryLogic::createNo()], [$testScope, 'foo', \PHPStan\TrinaryLogic::createMaybe(), 'bool'], [$testScope, 'lorem', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'callParameter', \PHPStan\TrinaryLogic::createYes(), '3'], [$testScope, 'arrOne', \PHPStan\TrinaryLogic::createYes(), 'array(\'one\')'], [$testScope, 'arrTwo', \PHPStan\TrinaryLogic::createYes(), 'array(\'test\' => \'two\', 0 => Foo)'], [$testScope, 'arrThree', \PHPStan\TrinaryLogic::createYes(), 'array(\'three\')'], [$testScope, 'inArray', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'i', \PHPStan\TrinaryLogic::createYes(), 'int<min, 4>'], [$testScope, 'f', \PHPStan\TrinaryLogic::createMaybe(), 'int'], [$testScope, 'anotherF', \PHPStan\TrinaryLogic::createYes(), 'int'], [$testScope, 'matches', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'anotherArray', \PHPStan\TrinaryLogic::createYes(), 'array(\'test\' => array(\'another\'))'], [$testScope, 'ifVar', \PHPStan\TrinaryLogic::createYes(), '1|2|3'], [$testScope, 'ifNotVar', \PHPStan\TrinaryLogic::createMaybe(), '1|2'], [$testScope, 'ifNestedVar', \PHPStan\TrinaryLogic::createYes(), '1|2|3'], [$testScope, 'ifNotNestedVar', \PHPStan\TrinaryLogic::createMaybe(), '1|2|3'], [$testScope, 'variableOnlyInEarlyTerminatingElse', \PHPStan\TrinaryLogic::createNo()], [$testScope, 'matches2', \PHPStan\TrinaryLogic::createMaybe(), 'mixed'], [$testScope, 'inTry', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'matches3', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'matches4', \PHPStan\TrinaryLogic::createMaybe(), 'mixed'], [$testScope, 'issetFoo', \PHPStan\TrinaryLogic::createYes(), 'Foo'], [$testScope, 'issetBar', \PHPStan\TrinaryLogic::createYes(), 'mixed~null'], [$testScope, 'issetBaz', \PHPStan\TrinaryLogic::createYes(), 'mixed~null'], [$testScope, 'doWhileVar', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'switchVar', \PHPStan\TrinaryLogic::createYes(), '1|2|3|4'], [$testScope, 'noSwitchVar', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'anotherNoSwitchVar', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'inTryTwo', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'ternaryMatches', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'previousI', \PHPStan\TrinaryLogic::createYes(), '0|1'], [$testScope, 'previousJ', \PHPStan\TrinaryLogic::createYes(), '0'], [$testScope, 'frame', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'listOne', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'listTwo', \PHPStan\TrinaryLogic::createYes(), '2'], [$testScope, 'e', \PHPStan\TrinaryLogic::createYes(), 'Exception'], [$testScope, 'exception', \PHPStan\TrinaryLogic::createYes(), 'Exception'], [$testScope, 'inTryNotInCatch', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'fooObjectFromTryCatch', \PHPStan\TrinaryLogic::createYes(), 'InTryCatchFoo'], [$testScope, 'mixedVarFromTryCatch', \PHPStan\TrinaryLogic::createYes(), '1|1.0'], [$testScope, 'nullableIntegerFromTryCatch', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'anotherNullableIntegerFromTryCatch', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'nullableIntegers', \PHPStan\TrinaryLogic::createYes(), 'array(1, 2, 3, null)'], [$testScope, 'union', \PHPStan\TrinaryLogic::createYes(), 'array(1, 2, 3, \'foo\')', '1|2|3|\'foo\''], [$testScope, 'trueOrFalse', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'falseOrTrue', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'true', \PHPStan\TrinaryLogic::createYes(), 'true'], [$testScope, 'false', \PHPStan\TrinaryLogic::createYes(), 'false'], [$testScope, 'trueOrFalseFromSwitch', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'trueOrFalseInSwitchWithDefault', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'trueOrFalseInSwitchInAllCases', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'trueOrFalseInSwitchInAllCasesWithDefault', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'trueOrFalseInSwitchInAllCasesWithDefaultCase', \PHPStan\TrinaryLogic::createYes(), 'true'], [$testScope, 'variableDefinedInSwitchWithOtherCasesWithEarlyTermination', \PHPStan\TrinaryLogic::createYes(), 'true'], [$testScope, 'anotherVariableDefinedInSwitchWithOtherCasesWithEarlyTermination', \PHPStan\TrinaryLogic::createYes(), 'true'], [$testScope, 'variableDefinedOnlyInEarlyTerminatingSwitchCases', \PHPStan\TrinaryLogic::createNo()], [$testScope, 'nullableTrueOrFalse', \PHPStan\TrinaryLogic::createYes(), 'bool|null'], [$testScope, 'nonexistentVariableOutsideFor', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'integerOrNullFromFor', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'nonexistentVariableOutsideWhile', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'integerOrNullFromWhile', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'nonexistentVariableOutsideForeach', \PHPStan\TrinaryLogic::createMaybe(), 'null'], [$testScope, 'integerOrNullFromForeach', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'notNullableString', \PHPStan\TrinaryLogic::createYes(), 'string'], [$testScope, 'anotherNotNullableString', \PHPStan\TrinaryLogic::createYes(), 'string'], [$testScope, 'notNullableObject', \PHPStan\TrinaryLogic::createYes(), 'Foo'], [$testScope, 'nullableString', \PHPStan\TrinaryLogic::createYes(), 'string|null'], [$testScope, 'alsoNotNullableString', \PHPStan\TrinaryLogic::createYes(), 'string'], [$testScope, 'integerOrString', \PHPStan\TrinaryLogic::createYes(), '\'str\'|int'], [$testScope, 'nullableIntegerAfterNeverCondition', \PHPStan\TrinaryLogic::createYes(), 'int|null'], [$testScope, 'stillNullableInteger', \PHPStan\TrinaryLogic::createYes(), '2|null'], [$testScope, 'arrayOfIntegers', \PHPStan\TrinaryLogic::createYes(), 'array(1, 2, 3)'], [$testScope, 'arrayAccessObject', \PHPStan\TrinaryLogic::createYes(), \_PhpScoper006a73f0e455\ObjectWithArrayAccess\Foo::class], [$testScope, 'width', \PHPStan\TrinaryLogic::createYes(), '2.0'], [$testScope, 'someVariableThatWillGetOverrideInFinally', \PHPStan\TrinaryLogic::createYes(), '\'foo\''], [$testScope, 'maybeDefinedButLaterCertainlyDefined', \PHPStan\TrinaryLogic::createYes(), '2|3'], [$testScope, 'mixed', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'variableDefinedInSwitchWithoutEarlyTermination', \PHPStan\TrinaryLogic::createMaybe(), 'false'], [$testScope, 'anotherVariableDefinedInSwitchWithoutEarlyTermination', \PHPStan\TrinaryLogic::createMaybe(), 'bool'], [$testScope, 'alwaysDefinedFromSwitch', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'exceptionFromTryCatch', \PHPStan\TrinaryLogic::createYes(), '(AnotherException&Throwable)|(Throwable&YetAnotherException)|null'], [$testScope, 'nullOverwrittenInSwitchToOne', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'variableFromSwitchShouldBeBool', \PHPStan\TrinaryLogic::createYes(), 'bool']];
+        return [[$testScope, 'nonexistentVariable', \PHPStan\TrinaryLogic::createNo()], [$testScope, 'foo', \PHPStan\TrinaryLogic::createMaybe(), 'bool'], [$testScope, 'lorem', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'callParameter', \PHPStan\TrinaryLogic::createYes(), '3'], [$testScope, 'arrOne', \PHPStan\TrinaryLogic::createYes(), 'array(\'one\')'], [$testScope, 'arrTwo', \PHPStan\TrinaryLogic::createYes(), 'array(\'test\' => \'two\', 0 => Foo)'], [$testScope, 'arrThree', \PHPStan\TrinaryLogic::createYes(), 'array(\'three\')'], [$testScope, 'inArray', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'i', \PHPStan\TrinaryLogic::createYes(), 'int<min, 4>'], [$testScope, 'f', \PHPStan\TrinaryLogic::createMaybe(), 'int'], [$testScope, 'anotherF', \PHPStan\TrinaryLogic::createYes(), 'int'], [$testScope, 'matches', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'anotherArray', \PHPStan\TrinaryLogic::createYes(), 'array(\'test\' => array(\'another\'))'], [$testScope, 'ifVar', \PHPStan\TrinaryLogic::createYes(), '1|2|3'], [$testScope, 'ifNotVar', \PHPStan\TrinaryLogic::createMaybe(), '1|2'], [$testScope, 'ifNestedVar', \PHPStan\TrinaryLogic::createYes(), '1|2|3'], [$testScope, 'ifNotNestedVar', \PHPStan\TrinaryLogic::createMaybe(), '1|2|3'], [$testScope, 'variableOnlyInEarlyTerminatingElse', \PHPStan\TrinaryLogic::createNo()], [$testScope, 'matches2', \PHPStan\TrinaryLogic::createMaybe(), 'mixed'], [$testScope, 'inTry', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'matches3', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'matches4', \PHPStan\TrinaryLogic::createMaybe(), 'mixed'], [$testScope, 'issetFoo', \PHPStan\TrinaryLogic::createYes(), 'Foo'], [$testScope, 'issetBar', \PHPStan\TrinaryLogic::createYes(), 'mixed~null'], [$testScope, 'issetBaz', \PHPStan\TrinaryLogic::createYes(), 'mixed~null'], [$testScope, 'doWhileVar', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'switchVar', \PHPStan\TrinaryLogic::createYes(), '1|2|3|4'], [$testScope, 'noSwitchVar', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'anotherNoSwitchVar', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'inTryTwo', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'ternaryMatches', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'previousI', \PHPStan\TrinaryLogic::createYes(), '0|1'], [$testScope, 'previousJ', \PHPStan\TrinaryLogic::createYes(), '0'], [$testScope, 'frame', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'listOne', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'listTwo', \PHPStan\TrinaryLogic::createYes(), '2'], [$testScope, 'e', \PHPStan\TrinaryLogic::createYes(), 'Exception'], [$testScope, 'exception', \PHPStan\TrinaryLogic::createYes(), 'Exception'], [$testScope, 'inTryNotInCatch', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'fooObjectFromTryCatch', \PHPStan\TrinaryLogic::createYes(), 'InTryCatchFoo'], [$testScope, 'mixedVarFromTryCatch', \PHPStan\TrinaryLogic::createYes(), '1|1.0'], [$testScope, 'nullableIntegerFromTryCatch', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'anotherNullableIntegerFromTryCatch', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'nullableIntegers', \PHPStan\TrinaryLogic::createYes(), 'array(1, 2, 3, null)'], [$testScope, 'union', \PHPStan\TrinaryLogic::createYes(), 'array(1, 2, 3, \'foo\')', '1|2|3|\'foo\''], [$testScope, 'trueOrFalse', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'falseOrTrue', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'true', \PHPStan\TrinaryLogic::createYes(), 'true'], [$testScope, 'false', \PHPStan\TrinaryLogic::createYes(), 'false'], [$testScope, 'trueOrFalseFromSwitch', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'trueOrFalseInSwitchWithDefault', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'trueOrFalseInSwitchInAllCases', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'trueOrFalseInSwitchInAllCasesWithDefault', \PHPStan\TrinaryLogic::createYes(), 'bool'], [$testScope, 'trueOrFalseInSwitchInAllCasesWithDefaultCase', \PHPStan\TrinaryLogic::createYes(), 'true'], [$testScope, 'variableDefinedInSwitchWithOtherCasesWithEarlyTermination', \PHPStan\TrinaryLogic::createYes(), 'true'], [$testScope, 'anotherVariableDefinedInSwitchWithOtherCasesWithEarlyTermination', \PHPStan\TrinaryLogic::createYes(), 'true'], [$testScope, 'variableDefinedOnlyInEarlyTerminatingSwitchCases', \PHPStan\TrinaryLogic::createNo()], [$testScope, 'nullableTrueOrFalse', \PHPStan\TrinaryLogic::createYes(), 'bool|null'], [$testScope, 'nonexistentVariableOutsideFor', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'integerOrNullFromFor', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'nonexistentVariableOutsideWhile', \PHPStan\TrinaryLogic::createMaybe(), '1'], [$testScope, 'integerOrNullFromWhile', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'nonexistentVariableOutsideForeach', \PHPStan\TrinaryLogic::createMaybe(), 'null'], [$testScope, 'integerOrNullFromForeach', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'notNullableString', \PHPStan\TrinaryLogic::createYes(), 'string'], [$testScope, 'anotherNotNullableString', \PHPStan\TrinaryLogic::createYes(), 'string'], [$testScope, 'notNullableObject', \PHPStan\TrinaryLogic::createYes(), 'Foo'], [$testScope, 'nullableString', \PHPStan\TrinaryLogic::createYes(), 'string|null'], [$testScope, 'alsoNotNullableString', \PHPStan\TrinaryLogic::createYes(), 'string'], [$testScope, 'integerOrString', \PHPStan\TrinaryLogic::createYes(), '\'str\'|int'], [$testScope, 'nullableIntegerAfterNeverCondition', \PHPStan\TrinaryLogic::createYes(), 'int|null'], [$testScope, 'stillNullableInteger', \PHPStan\TrinaryLogic::createYes(), '2|null'], [$testScope, 'arrayOfIntegers', \PHPStan\TrinaryLogic::createYes(), 'array(1, 2, 3)'], [$testScope, 'arrayAccessObject', \PHPStan\TrinaryLogic::createYes(), \_PhpScoperbd5d0c5f7638\ObjectWithArrayAccess\Foo::class], [$testScope, 'width', \PHPStan\TrinaryLogic::createYes(), '2.0'], [$testScope, 'someVariableThatWillGetOverrideInFinally', \PHPStan\TrinaryLogic::createYes(), '\'foo\''], [$testScope, 'maybeDefinedButLaterCertainlyDefined', \PHPStan\TrinaryLogic::createYes(), '2|3'], [$testScope, 'mixed', \PHPStan\TrinaryLogic::createYes(), 'mixed'], [$testScope, 'variableDefinedInSwitchWithoutEarlyTermination', \PHPStan\TrinaryLogic::createMaybe(), 'false'], [$testScope, 'anotherVariableDefinedInSwitchWithoutEarlyTermination', \PHPStan\TrinaryLogic::createMaybe(), 'bool'], [$testScope, 'alwaysDefinedFromSwitch', \PHPStan\TrinaryLogic::createYes(), '1|null'], [$testScope, 'exceptionFromTryCatch', \PHPStan\TrinaryLogic::createYes(), '(AnotherException&Throwable)|(Throwable&YetAnotherException)|null'], [$testScope, 'nullOverwrittenInSwitchToOne', \PHPStan\TrinaryLogic::createYes(), '1'], [$testScope, 'variableFromSwitchShouldBeBool', \PHPStan\TrinaryLogic::createYes(), 'bool']];
     }
     /**
      * @dataProvider dataAssignInIf
@@ -172,7 +172,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataParameterTypes() : array
     {
-        return [['int', '$integer'], ['bool', '$boolean'], ['string', '$string'], ['float', '$float'], ['_PhpScoper006a73f0e455\\TypesNamespaceTypehints\\Lorem', '$loremObject'], ['mixed', '$mixed'], ['array', '$array'], ['bool|null', '$isNullable'], ['_PhpScoper006a73f0e455\\TypesNamespaceTypehints\\Lorem', '$loremObjectRef'], ['_PhpScoper006a73f0e455\\TypesNamespaceTypehints\\Bar', '$barObject'], ['_PhpScoper006a73f0e455\\TypesNamespaceTypehints\\Foo', '$fooObject'], ['_PhpScoper006a73f0e455\\TypesNamespaceTypehints\\Bar', '$anotherBarObject'], ['callable(): mixed', '$callable'], ['array<int, string>', '$variadicStrings'], ['string', '$variadicStrings[0]']];
+        return [['int', '$integer'], ['bool', '$boolean'], ['string', '$string'], ['float', '$float'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceTypehints\\Lorem', '$loremObject'], ['mixed', '$mixed'], ['array', '$array'], ['bool|null', '$isNullable'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceTypehints\\Lorem', '$loremObjectRef'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceTypehints\\Bar', '$barObject'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceTypehints\\Foo', '$fooObject'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceTypehints\\Bar', '$anotherBarObject'], ['callable(): mixed', '$callable'], ['array<int, string>', '$variadicStrings'], ['string', '$variadicStrings[0]']];
     }
     /**
      * @dataProvider dataParameterTypes
@@ -185,7 +185,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataAnonymousFunctionParameterTypes() : array
     {
-        return [['int', '$integer'], ['bool', '$boolean'], ['string', '$string'], ['float', '$float'], ['_PhpScoper006a73f0e455\\TypesNamespaceTypehints\\Lorem', '$loremObject'], ['mixed', '$mixed'], ['array', '$array'], ['bool|null', '$isNullable'], ['callable(): mixed', '$callable'], ['_PhpScoper006a73f0e455\\TypesNamespaceTypehints\\FooWithAnonymousFunction', '$self']];
+        return [['int', '$integer'], ['bool', '$boolean'], ['string', '$string'], ['float', '$float'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceTypehints\\Lorem', '$loremObject'], ['mixed', '$mixed'], ['array', '$array'], ['bool|null', '$isNullable'], ['callable(): mixed', '$callable'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceTypehints\\FooWithAnonymousFunction', '$self']];
     }
     /**
      * @dataProvider dataAnonymousFunctionParameterTypes
@@ -198,7 +198,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataVarAnnotations() : array
     {
-        return [['int', '$integer'], ['bool', '$boolean'], ['string', '$string'], ['float', '$float'], ['_PhpScoper006a73f0e455\\VarAnnotations\\Lorem', '$loremObject'], ['_PhpScoper006a73f0e455\\AnotherNamespace\\Bar', '$barObject'], ['mixed', '$mixed'], ['array', '$array'], ['bool|null', '$isNullable'], ['callable(): mixed', '$callable'], ['callable(int, ...string): void', '$callableWithTypes'], ['Closure(int, ...string): void', '$closureWithTypes'], ['_PhpScoper006a73f0e455\\VarAnnotations\\Foo', '$self'], ['float', '$invalidInteger'], ['static(VarAnnotations\\Foo)', '$static']];
+        return [['int', '$integer'], ['bool', '$boolean'], ['string', '$string'], ['float', '$float'], ['_PhpScoperbd5d0c5f7638\\VarAnnotations\\Lorem', '$loremObject'], ['_PhpScoperbd5d0c5f7638\\AnotherNamespace\\Bar', '$barObject'], ['mixed', '$mixed'], ['array', '$array'], ['bool|null', '$isNullable'], ['callable(): mixed', '$callable'], ['callable(int, ...string): void', '$callableWithTypes'], ['Closure(int, ...string): void', '$closureWithTypes'], ['_PhpScoperbd5d0c5f7638\\VarAnnotations\\Foo', '$self'], ['float', '$invalidInteger'], ['static(VarAnnotations\\Foo)', '$static']];
     }
     /**
      * @dataProvider dataVarAnnotations
@@ -211,7 +211,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataCasts() : array
     {
-        return [['int', '$castedInteger'], ['bool', '$castedBoolean'], ['float', '$castedFloat'], ['string', '$castedString'], ['array', '$castedArray'], ['stdClass', '$castedObject'], ['_PhpScoper006a73f0e455\\TypesNamespaceCasts\\Foo', '$castedFoo'], ['_PhpScoper006a73f0e455\\stdClass|TypesNamespaceCasts\\Foo', '$castedArrayOrObject'], ['0|1', '(int) $bool'], ['0.0|1.0', '(float) $bool'], ['*ERROR*', '(int) $foo'], ['true', '(bool) $foo'], ['1', '(int) true'], ['0', '(int) false'], ['5', '(int) 5.25'], ['5.0', '(float) 5'], ['5', '(int) "5"'], ['5.0', '(float) "5"'], ['*ERROR*', '(int) "blabla"'], ['*ERROR*', '(float) "blabla"'], ['0', '(int) null'], ['0.0', '(float) null'], ['int', '(int) $str'], ['float', '(float) $str'], ['array(\'\' . "\\0" . \'TypesNamespaceCasts\\\\Foo\' . "\\0" . \'foo\' => TypesNamespaceCasts\\Foo, \'\' . "\\0" . \'TypesNamespaceCasts\\\\Foo\' . "\\0" . \'int\' => int, \'\' . "\\0" . \'*\' . "\\0" . \'protectedInt\' => int, \'publicInt\' => int, \'\' . "\\0" . \'TypesNamespaceCasts\\\\Bar\' . "\\0" . \'barProperty\' => TypesNamespaceCasts\\Bar)', '(array) $foo'], ['array(1, 2, 3)', '(array) [1, 2, 3]'], ['array(1)', '(array) 1'], ['array(1.0)', '(array) 1.0'], ['array(true)', '(array) true'], ['array(\'blabla\')', '(array) "blabla"'], ['array(int)', '(array) $castedInteger'], ['array<string, DateTimeImmutable>', '(array) $iterable'], ['array', '(array) new stdClass()']];
+        return [['int', '$castedInteger'], ['bool', '$castedBoolean'], ['float', '$castedFloat'], ['string', '$castedString'], ['array', '$castedArray'], ['stdClass', '$castedObject'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceCasts\\Foo', '$castedFoo'], ['_PhpScoperbd5d0c5f7638\\stdClass|TypesNamespaceCasts\\Foo', '$castedArrayOrObject'], ['0|1', '(int) $bool'], ['0.0|1.0', '(float) $bool'], ['*ERROR*', '(int) $foo'], ['true', '(bool) $foo'], ['1', '(int) true'], ['0', '(int) false'], ['5', '(int) 5.25'], ['5.0', '(float) 5'], ['5', '(int) "5"'], ['5.0', '(float) "5"'], ['*ERROR*', '(int) "blabla"'], ['*ERROR*', '(float) "blabla"'], ['0', '(int) null'], ['0.0', '(float) null'], ['int', '(int) $str'], ['float', '(float) $str'], ['array(\'\' . "\\0" . \'TypesNamespaceCasts\\\\Foo\' . "\\0" . \'foo\' => TypesNamespaceCasts\\Foo, \'\' . "\\0" . \'TypesNamespaceCasts\\\\Foo\' . "\\0" . \'int\' => int, \'\' . "\\0" . \'*\' . "\\0" . \'protectedInt\' => int, \'publicInt\' => int, \'\' . "\\0" . \'TypesNamespaceCasts\\\\Bar\' . "\\0" . \'barProperty\' => TypesNamespaceCasts\\Bar)', '(array) $foo'], ['array(1, 2, 3)', '(array) [1, 2, 3]'], ['array(1)', '(array) 1'], ['array(1.0)', '(array) 1.0'], ['array(true)', '(array) true'], ['array(\'blabla\')', '(array) "blabla"'], ['array(int)', '(array) $castedInteger'], ['array<string, DateTimeImmutable>', '(array) $iterable'], ['array', '(array) new stdClass()']];
     }
     /**
      * @dataProvider dataCasts
@@ -240,7 +240,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataDeductedTypes() : array
     {
-        return [['1', '$integerLiteral'], ['true', '$booleanLiteral'], ['false', '$anotherBooleanLiteral'], ['\'foo\'', '$stringLiteral'], ['1.0', '$floatLiteral'], ['1.0', '$floatAssignedByRef'], ['null', '$nullLiteral'], ['_PhpScoper006a73f0e455\\TypesNamespaceDeductedTypes\\Lorem', '$loremObjectLiteral'], ['mixed', '$mixedObjectLiteral'], ['static(TypesNamespaceDeductedTypes\\Foo)', '$newStatic'], ['array()', '$arrayLiteral'], ['string', '$stringFromFunction'], ['_PhpScoper006a73f0e455\\TypesNamespaceFunctions\\Foo', '$fooObjectFromFunction'], ['mixed', '$mixedFromFunction'], ['1', '\\TypesNamespaceDeductedTypes\\Foo::INTEGER_CONSTANT'], ['1', 'self::INTEGER_CONSTANT'], ['1.0', 'self::FLOAT_CONSTANT'], ['\'foo\'', 'self::STRING_CONSTANT'], ['array()', 'self::ARRAY_CONSTANT'], ['true', 'self::BOOLEAN_CONSTANT'], ['null', 'self::NULL_CONSTANT'], ['1', '$foo::INTEGER_CONSTANT'], ['1.0', '$foo::FLOAT_CONSTANT'], ['\'foo\'', '$foo::STRING_CONSTANT'], ['array()', '$foo::ARRAY_CONSTANT'], ['true', '$foo::BOOLEAN_CONSTANT'], ['null', '$foo::NULL_CONSTANT']];
+        return [['1', '$integerLiteral'], ['true', '$booleanLiteral'], ['false', '$anotherBooleanLiteral'], ['\'foo\'', '$stringLiteral'], ['1.0', '$floatLiteral'], ['1.0', '$floatAssignedByRef'], ['null', '$nullLiteral'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceDeductedTypes\\Lorem', '$loremObjectLiteral'], ['mixed', '$mixedObjectLiteral'], ['static(TypesNamespaceDeductedTypes\\Foo)', '$newStatic'], ['array()', '$arrayLiteral'], ['string', '$stringFromFunction'], ['_PhpScoperbd5d0c5f7638\\TypesNamespaceFunctions\\Foo', '$fooObjectFromFunction'], ['mixed', '$mixedFromFunction'], ['1', '\\TypesNamespaceDeductedTypes\\Foo::INTEGER_CONSTANT'], ['1', 'self::INTEGER_CONSTANT'], ['1.0', 'self::FLOAT_CONSTANT'], ['\'foo\'', 'self::STRING_CONSTANT'], ['array()', 'self::ARRAY_CONSTANT'], ['true', 'self::BOOLEAN_CONSTANT'], ['null', 'self::NULL_CONSTANT'], ['1', '$foo::INTEGER_CONSTANT'], ['1.0', '$foo::FLOAT_CONSTANT'], ['\'foo\'', '$foo::STRING_CONSTANT'], ['array()', '$foo::ARRAY_CONSTANT'], ['true', '$foo::BOOLEAN_CONSTANT'], ['null', '$foo::NULL_CONSTANT']];
     }
     /**
      * @dataProvider dataDeductedTypes
@@ -254,7 +254,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataProperties() : array
     {
-        return [['mixed', '$this->mixedProperty'], ['mixed', '$this->anotherMixedProperty'], ['mixed', '$this->yetAnotherMixedProperty'], ['int', '$this->integerProperty'], ['int', '$this->anotherIntegerProperty'], ['array', '$this->arrayPropertyOne'], ['array', '$this->arrayPropertyOther'], ['_PhpScoper006a73f0e455\\PropertiesNamespace\\Lorem', '$this->objectRelative'], ['_PhpScoper006a73f0e455\\SomeOtherNamespace\\Ipsum', '$this->objectFullyQualified'], ['_PhpScoper006a73f0e455\\SomeNamespace\\Amet', '$this->objectUsed'], ['*ERROR*', '$this->nonexistentProperty'], ['int|null', '$this->nullableInteger'], ['SomeNamespace\\Amet|null', '$this->nullableObject'], ['_PhpScoper006a73f0e455\\PropertiesNamespace\\Foo', '$this->selfType'], ['static(PropertiesNamespace\\Foo)', '$this->staticType'], ['null', '$this->nullType'], ['_PhpScoper006a73f0e455\\SomeNamespace\\Sit', '$this->inheritedProperty'], ['_PhpScoper006a73f0e455\\PropertiesNamespace\\Bar', '$this->barObject->doBar()'], ['mixed', '$this->invalidTypeProperty'], ['resource', '$this->resource'], ['array', '$this->yetAnotherAnotherMixedParameter'], ['mixed', '$this->yetAnotherAnotherAnotherMixedParameter'], ['string', 'self::$staticStringProperty'], ['_PhpScoper006a73f0e455\\SomeGroupNamespace\\One', '$this->groupUseProperty'], ['_PhpScoper006a73f0e455\\SomeGroupNamespace\\Two', '$this->anotherGroupUseProperty'], ['_PhpScoper006a73f0e455\\PropertiesNamespace\\Bar', '$this->inheritDocProperty'], ['_PhpScoper006a73f0e455\\PropertiesNamespace\\Bar', '$this->inheritDocWithoutCurlyBracesProperty'], ['_PhpScoper006a73f0e455\\PropertiesNamespace\\Bar', '$this->implicitInheritDocProperty'], ['int', '$this->readOnlyProperty'], ['string', '$this->overriddenReadOnlyProperty'], ['string', '$this->documentElement']];
+        return [['mixed', '$this->mixedProperty'], ['mixed', '$this->anotherMixedProperty'], ['mixed', '$this->yetAnotherMixedProperty'], ['int', '$this->integerProperty'], ['int', '$this->anotherIntegerProperty'], ['array', '$this->arrayPropertyOne'], ['array', '$this->arrayPropertyOther'], ['_PhpScoperbd5d0c5f7638\\PropertiesNamespace\\Lorem', '$this->objectRelative'], ['_PhpScoperbd5d0c5f7638\\SomeOtherNamespace\\Ipsum', '$this->objectFullyQualified'], ['_PhpScoperbd5d0c5f7638\\SomeNamespace\\Amet', '$this->objectUsed'], ['*ERROR*', '$this->nonexistentProperty'], ['int|null', '$this->nullableInteger'], ['SomeNamespace\\Amet|null', '$this->nullableObject'], ['_PhpScoperbd5d0c5f7638\\PropertiesNamespace\\Foo', '$this->selfType'], ['static(PropertiesNamespace\\Foo)', '$this->staticType'], ['null', '$this->nullType'], ['_PhpScoperbd5d0c5f7638\\SomeNamespace\\Sit', '$this->inheritedProperty'], ['_PhpScoperbd5d0c5f7638\\PropertiesNamespace\\Bar', '$this->barObject->doBar()'], ['mixed', '$this->invalidTypeProperty'], ['resource', '$this->resource'], ['array', '$this->yetAnotherAnotherMixedParameter'], ['mixed', '$this->yetAnotherAnotherAnotherMixedParameter'], ['string', 'self::$staticStringProperty'], ['_PhpScoperbd5d0c5f7638\\SomeGroupNamespace\\One', '$this->groupUseProperty'], ['_PhpScoperbd5d0c5f7638\\SomeGroupNamespace\\Two', '$this->anotherGroupUseProperty'], ['_PhpScoperbd5d0c5f7638\\PropertiesNamespace\\Bar', '$this->inheritDocProperty'], ['_PhpScoperbd5d0c5f7638\\PropertiesNamespace\\Bar', '$this->inheritDocWithoutCurlyBracesProperty'], ['_PhpScoperbd5d0c5f7638\\PropertiesNamespace\\Bar', '$this->implicitInheritDocProperty'], ['int', '$this->readOnlyProperty'], ['string', '$this->overriddenReadOnlyProperty'], ['string', '$this->documentElement']];
     }
     /**
      * @dataProvider dataProperties
@@ -439,7 +439,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
             ['false', '$fooString !== "foo"'],
             ['bool', '$string == "foo"'],
             ['bool', '$string != "foo"'],
-            ['true', '_PhpScoper006a73f0e455\\$foo instanceof \\BinaryOperations\\NestedNamespace\\Foo'],
+            ['true', '_PhpScoperbd5d0c5f7638\\$foo instanceof \\BinaryOperations\\NestedNamespace\\Foo'],
             ['bool', '$foo instanceof Bar'],
             ['true', 'isset($foo)'],
             ['true', 'isset($foo, $one)'],
@@ -617,7 +617,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataVarStatementAnnotation() : array
     {
-        return [['_PhpScoper006a73f0e455\\VarStatementAnnotation\\Foo', '$object']];
+        return [['_PhpScoperbd5d0c5f7638\\VarStatementAnnotation\\Foo', '$object']];
     }
     /**
      * @dataProvider dataVarStatementAnnotation
@@ -630,7 +630,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataCloneOperators() : array
     {
-        return [['_PhpScoper006a73f0e455\\CloneOperators\\Foo', 'clone $fooObject']];
+        return [['_PhpScoperbd5d0c5f7638\\CloneOperators\\Foo', 'clone $fooObject']];
     }
     /**
      * @dataProvider dataCloneOperators
@@ -685,11 +685,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataTypeFromFunctionPhpDocs() : array
     {
-        return [['mixed', '$mixedParameter'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Bar|MethodPhpDocsNamespace\\Foo', '$unionTypeParameter'], ['int', '$anotherMixedParameter'], ['mixed', '$yetAnotherMixedParameter'], ['int', '$integerParameter'], ['int', '$anotherIntegerParameter'], ['array', '$arrayParameterOne'], ['array', '$arrayParameterOther'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Lorem', '$objectRelative'], ['_PhpScoper006a73f0e455\\SomeOtherNamespace\\Ipsum', '$objectFullyQualified'], ['_PhpScoper006a73f0e455\\SomeNamespace\\Amet', '$objectUsed'], ['*ERROR*', '$nonexistentParameter'], ['int|null', '$nullableInteger'], ['SomeNamespace\\Amet|null', '$nullableObject'], ['SomeNamespace\\Amet|null', '$anotherNullableObject'], ['null', '$nullType'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Bar', '$barObject->doBar()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Bar', '$conflictedObject'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Baz', '$moreSpecifiedObject'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Baz', '$moreSpecifiedObject->doFluent()'], ['MethodPhpDocsNamespace\\Baz|null', '$moreSpecifiedObject->doFluentNullable()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Baz', '$moreSpecifiedObject->doFluentArray()[0]'], ['_PhpScoper006a73f0e455\\iterable<MethodPhpDocsNamespace\\Baz>&MethodPhpDocsNamespace\\Collection', '$moreSpecifiedObject->doFluentUnionIterable()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Baz', '$fluentUnionIterableBaz'], ['resource', '$resource'], ['mixed', '$yetAnotherAnotherMixedParameter'], ['mixed', '$yetAnotherAnotherAnotherMixedParameter'], ['void', '$voidParameter'], ['_PhpScoper006a73f0e455\\SomeNamespace\\Consecteur', '$useWithoutAlias'], ['true', '$true'], ['false', '$false'], ['true', '$boolTrue'], ['false', '$boolFalse'], ['bool', '$trueBoolean'], ['bool', '$parameterWithDefaultValueFalse']];
+        return [['mixed', '$mixedParameter'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Bar|MethodPhpDocsNamespace\\Foo', '$unionTypeParameter'], ['int', '$anotherMixedParameter'], ['mixed', '$yetAnotherMixedParameter'], ['int', '$integerParameter'], ['int', '$anotherIntegerParameter'], ['array', '$arrayParameterOne'], ['array', '$arrayParameterOther'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Lorem', '$objectRelative'], ['_PhpScoperbd5d0c5f7638\\SomeOtherNamespace\\Ipsum', '$objectFullyQualified'], ['_PhpScoperbd5d0c5f7638\\SomeNamespace\\Amet', '$objectUsed'], ['*ERROR*', '$nonexistentParameter'], ['int|null', '$nullableInteger'], ['SomeNamespace\\Amet|null', '$nullableObject'], ['SomeNamespace\\Amet|null', '$anotherNullableObject'], ['null', '$nullType'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Bar', '$barObject->doBar()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Bar', '$conflictedObject'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Baz', '$moreSpecifiedObject'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Baz', '$moreSpecifiedObject->doFluent()'], ['MethodPhpDocsNamespace\\Baz|null', '$moreSpecifiedObject->doFluentNullable()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Baz', '$moreSpecifiedObject->doFluentArray()[0]'], ['_PhpScoperbd5d0c5f7638\\iterable<MethodPhpDocsNamespace\\Baz>&MethodPhpDocsNamespace\\Collection', '$moreSpecifiedObject->doFluentUnionIterable()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Baz', '$fluentUnionIterableBaz'], ['resource', '$resource'], ['mixed', '$yetAnotherAnotherMixedParameter'], ['mixed', '$yetAnotherAnotherAnotherMixedParameter'], ['void', '$voidParameter'], ['_PhpScoperbd5d0c5f7638\\SomeNamespace\\Consecteur', '$useWithoutAlias'], ['true', '$true'], ['false', '$false'], ['true', '$boolTrue'], ['false', '$boolFalse'], ['bool', '$trueBoolean'], ['bool', '$parameterWithDefaultValueFalse']];
     }
     public function dataTypeFromFunctionFunctionPhpDocs() : array
     {
-        return [['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$fooFunctionResult'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Bar', '$barFunctionResult']];
+        return [['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$fooFunctionResult'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Bar', '$barFunctionResult']];
     }
     /**
      * @dataProvider dataTypeFromFunctionPhpDocs
@@ -704,7 +704,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataTypeFromFunctionPrefixedPhpDocs() : array
     {
-        return [['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$fooFunctionResult']];
+        return [['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$fooFunctionResult']];
     }
     /**
      * @dataProvider dataTypeFromFunctionPhpDocs
@@ -730,7 +730,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataTypeFromMethodPhpDocs() : array
     {
-        return [['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$selfType'], ['static(MethodPhpDocsNamespace\\Foo)', '$staticType', \false], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$this->doFoo()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Bar', 'static::doSomethingStatic()'], ['static(MethodPhpDocsNamespace\\Foo)', 'parent::doLorem()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooParent', '$parent->doLorem()', \false], ['static(MethodPhpDocsNamespace\\Foo)', '$this->doLorem()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$differentInstance->doLorem()'], ['static(MethodPhpDocsNamespace\\Foo)', 'parent::doIpsum()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooParent', '$parent->doIpsum()', \false], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$differentInstance->doIpsum()'], ['static(MethodPhpDocsNamespace\\Foo)', '$this->doIpsum()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$this->doBar()[0]'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Bar', 'self::doSomethingStatic()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Bar', '\\MethodPhpDocsNamespace\\Foo::doSomethingStatic()'], ['$this(MethodPhpDocsNamespace\\Foo)', 'parent::doThis()'], ['$this(MethodPhpDocsNamespace\\Foo)|null', 'parent::doThisNullable()'], ['$this(MethodPhpDocsNamespace\\Foo)|MethodPhpDocsNamespace\\Bar|null', 'parent::doThisUnion()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooParent', '$this->returnParent()', \false], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooParent', '$this->returnPhpDocParent()', \false], ['array<null>', '$this->returnNulls()'], ['object', '$objectWithoutNativeTypehint'], ['object', '$objectWithNativeTypehint'], ['object', '$this->returnObject()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooParent', 'new parent()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$inlineSelf'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Bar', '$inlineBar'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$this->phpDocVoidMethod()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$this->phpDocVoidMethodFromInterface()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$this->phpDocVoidParentMethod()'], ['_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', '$this->phpDocWithoutCurlyBracesVoidParentMethod()'], ['array<string>', '$this->returnsStringArray()'], ['mixed', '$this->privateMethodWithPhpDoc()']];
+        return [['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$selfType'], ['static(MethodPhpDocsNamespace\\Foo)', '$staticType', \false], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$this->doFoo()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Bar', 'static::doSomethingStatic()'], ['static(MethodPhpDocsNamespace\\Foo)', 'parent::doLorem()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooParent', '$parent->doLorem()', \false], ['static(MethodPhpDocsNamespace\\Foo)', '$this->doLorem()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$differentInstance->doLorem()'], ['static(MethodPhpDocsNamespace\\Foo)', 'parent::doIpsum()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooParent', '$parent->doIpsum()', \false], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$differentInstance->doIpsum()'], ['static(MethodPhpDocsNamespace\\Foo)', '$this->doIpsum()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$this->doBar()[0]'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Bar', 'self::doSomethingStatic()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Bar', '\\MethodPhpDocsNamespace\\Foo::doSomethingStatic()'], ['$this(MethodPhpDocsNamespace\\Foo)', 'parent::doThis()'], ['$this(MethodPhpDocsNamespace\\Foo)|null', 'parent::doThisNullable()'], ['$this(MethodPhpDocsNamespace\\Foo)|MethodPhpDocsNamespace\\Bar|null', 'parent::doThisUnion()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooParent', '$this->returnParent()', \false], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooParent', '$this->returnPhpDocParent()', \false], ['array<null>', '$this->returnNulls()'], ['object', '$objectWithoutNativeTypehint'], ['object', '$objectWithNativeTypehint'], ['object', '$this->returnObject()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooParent', 'new parent()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$inlineSelf'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Bar', '$inlineBar'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$this->phpDocVoidMethod()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$this->phpDocVoidMethodFromInterface()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$this->phpDocVoidParentMethod()'], ['_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', '$this->phpDocWithoutCurlyBracesVoidParentMethod()'], ['array<string>', '$this->returnsStringArray()'], ['mixed', '$this->privateMethodWithPhpDoc()']];
     }
     /**
      * @dataProvider dataTypeFromFunctionPhpDocs
@@ -755,7 +755,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         if ($replaceClass && $expression !== '$this->doFoo()') {
             $description = \str_replace('$this(MethodPhpDocsNamespace\\Foo)', '$this(MethodPhpDocsNamespace\\FooPsalmPrefix)', $description);
             if ($description === 'MethodPhpDocsNamespace\\Foo') {
-                $description = '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooPsalmPrefix';
+                $description = '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooPsalmPrefix';
             }
         }
         $this->assertTypes(__DIR__ . '/data/methodPhpDocs-psalmPrefix.php', $description, $expression);
@@ -773,7 +773,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         if ($replaceClass && $expression !== '$this->doFoo()') {
             $description = \str_replace('$this(MethodPhpDocsNamespace\\Foo)', '$this(MethodPhpDocsNamespace\\FooPhpstanPrefix)', $description);
             if ($description === 'MethodPhpDocsNamespace\\Foo') {
-                $description = '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooPhpstanPrefix';
+                $description = '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooPhpstanPrefix';
             }
         }
         $this->assertTypes(__DIR__ . '/data/methodPhpDocs-phpstanPrefix.php', $description, $expression);
@@ -791,7 +791,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         if ($replaceClass && $expression !== '$this->doFoo()') {
             $description = \str_replace('$this(MethodPhpDocsNamespace\\Foo)', '$this(MethodPhpDocsNamespace\\FooWithTrait)', $description);
             if ($description === 'MethodPhpDocsNamespace\\Foo') {
-                $description = '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooWithTrait';
+                $description = '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooWithTrait';
             }
         }
         $this->assertTypes(__DIR__ . '/data/methodPhpDocs-trait.php', $description, $expression);
@@ -808,9 +808,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         if ($replaceClass) {
             $description = \str_replace('$this(MethodPhpDocsNamespace\\Foo)', '$this(MethodPhpDocsNamespace\\FooInheritDocChild)', $description);
             $description = \str_replace('static(MethodPhpDocsNamespace\\Foo)', 'static(MethodPhpDocsNamespace\\FooInheritDocChild)', $description);
-            $description = \str_replace('_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooParent', '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', $description);
+            $description = \str_replace('_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooParent', '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', $description);
             if ($expression === '$inlineSelf') {
-                $description = '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooInheritDocChild';
+                $description = '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooInheritDocChild';
             }
         }
         $this->assertTypes(__DIR__ . '/data/method-phpDocs-inheritdoc-without-curly-braces.php', $description, $expression);
@@ -828,7 +828,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         if ($replaceClass && $expression !== '$this->doFoo()') {
             $description = \str_replace('$this(MethodPhpDocsNamespace\\Foo)', '$this(MethodPhpDocsNamespace\\FooWithRecursiveTrait)', $description);
             if ($description === 'MethodPhpDocsNamespace\\Foo') {
-                $description = '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooWithRecursiveTrait';
+                $description = '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooWithRecursiveTrait';
             }
         }
         $this->assertTypes(__DIR__ . '/data/methodPhpDocs-recursiveTrait.php', $description, $expression);
@@ -858,9 +858,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         if ($replaceClass) {
             $description = \str_replace('$this(MethodPhpDocsNamespace\\Foo)', '$this(MethodPhpDocsNamespace\\FooInheritDocChild)', $description);
             $description = \str_replace('static(MethodPhpDocsNamespace\\Foo)', 'static(MethodPhpDocsNamespace\\FooInheritDocChild)', $description);
-            $description = \str_replace('_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooParent', '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', $description);
+            $description = \str_replace('_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooParent', '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', $description);
             if ($expression === '$inlineSelf') {
-                $description = '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooInheritDocChild';
+                $description = '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooInheritDocChild';
             }
         }
         $this->assertTypes(__DIR__ . '/data/method-phpDocs-inheritdoc.php', $description, $expression);
@@ -877,9 +877,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         if ($replaceClass) {
             $description = \str_replace('$this(MethodPhpDocsNamespace\\Foo)', '$this(MethodPhpDocsNamespace\\FooPhpDocsImplicitInheritanceChild)', $description);
             $description = \str_replace('static(MethodPhpDocsNamespace\\Foo)', 'static(MethodPhpDocsNamespace\\FooPhpDocsImplicitInheritanceChild)', $description);
-            $description = \str_replace('_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooParent', '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\Foo', $description);
+            $description = \str_replace('_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooParent', '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\Foo', $description);
             if ($expression === '$inlineSelf') {
-                $description = '_PhpScoper006a73f0e455\\MethodPhpDocsNamespace\\FooPhpDocsImplicitInheritanceChild';
+                $description = '_PhpScoperbd5d0c5f7638\\MethodPhpDocsNamespace\\FooPhpDocsImplicitInheritanceChild';
             }
         }
         $this->assertTypes(__DIR__ . '/data/methodPhpDocs-implicitInheritance.php', $description, $expression);
@@ -890,7 +890,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataSwitchInstanceOf() : array
     {
-        return [['*ERROR*', '$foo'], ['*ERROR*', '$bar'], ['_PhpScoper006a73f0e455\\SwitchInstanceOf\\Baz', '$baz']];
+        return [['*ERROR*', '$foo'], ['*ERROR*', '$bar'], ['_PhpScoperbd5d0c5f7638\\SwitchInstanceOf\\Baz', '$baz']];
     }
     /**
      * @dataProvider dataSwitchInstanceOf
@@ -912,7 +912,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataSwitchGetClass() : array
     {
-        return [['_PhpScoper006a73f0e455\\SwitchGetClass\\Lorem', '$lorem', "'normalName'"], ['_PhpScoper006a73f0e455\\SwitchGetClass\\Foo', '$lorem', "'selfReferentialName'"]];
+        return [['_PhpScoperbd5d0c5f7638\\SwitchGetClass\\Lorem', '$lorem', "'normalName'"], ['_PhpScoperbd5d0c5f7638\\SwitchGetClass\\Foo', '$lorem', "'selfReferentialName'"]];
     }
     /**
      * @dataProvider dataSwitchGetClass
@@ -926,7 +926,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataSwitchInstanceOfFallthrough() : array
     {
-        return [['_PhpScoper006a73f0e455\\SwitchInstanceOfFallthrough\\A|SwitchInstanceOfFallthrough\\B', '$object']];
+        return [['_PhpScoperbd5d0c5f7638\\SwitchInstanceOfFallthrough\\A|SwitchInstanceOfFallthrough\\B', '$object']];
     }
     /**
      * @dataProvider dataSwitchInstanceOfFallthrough
@@ -952,7 +952,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataDynamicMethodReturnTypeExtensions() : array
     {
-        return [['*ERROR*', '$em->getByFoo($foo)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Entity', '$em->getByPrimary()'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Entity', '$em->getByPrimary($foo)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Foo', '$em->getByPrimary(DynamicMethodReturnTypesNamespace\\Foo::class)'], ['*ERROR*', '$iem->getByFoo($foo)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Entity', '$iem->getByPrimary()'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Entity', '$iem->getByPrimary($foo)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Foo', '$iem->getByPrimary(DynamicMethodReturnTypesNamespace\\Foo::class)'], ['*ERROR*', 'EntityManager::getByFoo($foo)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\EntityManager', '\\DynamicMethodReturnTypesNamespace\\EntityManager::createManagerForEntity()'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\EntityManager', '\\DynamicMethodReturnTypesNamespace\\EntityManager::createManagerForEntity($foo)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Foo', '\\DynamicMethodReturnTypesNamespace\\EntityManager::createManagerForEntity(DynamicMethodReturnTypesNamespace\\Foo::class)'], ['*ERROR*', '\\DynamicMethodReturnTypesNamespace\\InheritedEntityManager::getByFoo($foo)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\EntityManager', '\\DynamicMethodReturnTypesNamespace\\InheritedEntityManager::createManagerForEntity()'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\EntityManager', '\\DynamicMethodReturnTypesNamespace\\InheritedEntityManager::createManagerForEntity($foo)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Foo', '\\DynamicMethodReturnTypesNamespace\\InheritedEntityManager::createManagerForEntity(DynamicMethodReturnTypesNamespace\\Foo::class)'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnTypesNamespace\\Foo', '$container[\\DynamicMethodReturnTypesNamespace\\Foo::class]'], ['object', 'new \\DynamicMethodReturnTypesNamespace\\Foo()'], ['object', 'new \\DynamicMethodReturnTypesNamespace\\FooWithoutConstructor()']];
+        return [['*ERROR*', '$em->getByFoo($foo)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Entity', '$em->getByPrimary()'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Entity', '$em->getByPrimary($foo)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Foo', '$em->getByPrimary(DynamicMethodReturnTypesNamespace\\Foo::class)'], ['*ERROR*', '$iem->getByFoo($foo)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Entity', '$iem->getByPrimary()'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Entity', '$iem->getByPrimary($foo)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Foo', '$iem->getByPrimary(DynamicMethodReturnTypesNamespace\\Foo::class)'], ['*ERROR*', 'EntityManager::getByFoo($foo)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\EntityManager', '\\DynamicMethodReturnTypesNamespace\\EntityManager::createManagerForEntity()'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\EntityManager', '\\DynamicMethodReturnTypesNamespace\\EntityManager::createManagerForEntity($foo)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Foo', '\\DynamicMethodReturnTypesNamespace\\EntityManager::createManagerForEntity(DynamicMethodReturnTypesNamespace\\Foo::class)'], ['*ERROR*', '\\DynamicMethodReturnTypesNamespace\\InheritedEntityManager::getByFoo($foo)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\EntityManager', '\\DynamicMethodReturnTypesNamespace\\InheritedEntityManager::createManagerForEntity()'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\EntityManager', '\\DynamicMethodReturnTypesNamespace\\InheritedEntityManager::createManagerForEntity($foo)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Foo', '\\DynamicMethodReturnTypesNamespace\\InheritedEntityManager::createManagerForEntity(DynamicMethodReturnTypesNamespace\\Foo::class)'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnTypesNamespace\\Foo', '$container[\\DynamicMethodReturnTypesNamespace\\Foo::class]'], ['object', 'new \\DynamicMethodReturnTypesNamespace\\Foo()'], ['object', 'new \\DynamicMethodReturnTypesNamespace\\FooWithoutConstructor()']];
     }
     /**
      * @dataProvider dataDynamicMethodReturnTypeExtensions
@@ -965,7 +965,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         {
             public function getClass() : string
             {
-                return \_PhpScoper006a73f0e455\DynamicMethodReturnTypesNamespace\EntityManager::class;
+                return \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\EntityManager::class;
             }
             public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
             {
@@ -990,7 +990,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         {
             public function getClass() : string
             {
-                return \_PhpScoper006a73f0e455\DynamicMethodReturnTypesNamespace\ComponentContainer::class;
+                return \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\ComponentContainer::class;
             }
             public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
             {
@@ -1012,7 +1012,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         {
             public function getClass() : string
             {
-                return \_PhpScoper006a73f0e455\DynamicMethodReturnTypesNamespace\EntityManager::class;
+                return \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\EntityManager::class;
             }
             public function isStaticMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
             {
@@ -1037,7 +1037,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         {
             public function getClass() : string
             {
-                return \_PhpScoper006a73f0e455\DynamicMethodReturnTypesNamespace\Foo::class;
+                return \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\Foo::class;
             }
             public function isStaticMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
             {
@@ -1051,7 +1051,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         {
             public function getClass() : string
             {
-                return \_PhpScoper006a73f0e455\DynamicMethodReturnTypesNamespace\FooWithoutConstructor::class;
+                return \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\FooWithoutConstructor::class;
             }
             public function isStaticMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
             {
@@ -1065,7 +1065,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataDynamicReturnTypeExtensionsOnCompoundTypes() : array
     {
-        return [['_PhpScoper006a73f0e455\\DynamicMethodReturnCompoundTypes\\Collection', '$collection->getSelf()'], ['_PhpScoper006a73f0e455\\DynamicMethodReturnCompoundTypes\\Collection|DynamicMethodReturnCompoundTypes\\Foo', '$collectionOrFoo->getSelf()']];
+        return [['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnCompoundTypes\\Collection', '$collection->getSelf()'], ['_PhpScoperbd5d0c5f7638\\DynamicMethodReturnCompoundTypes\\Collection|DynamicMethodReturnCompoundTypes\\Foo', '$collectionOrFoo->getSelf()']];
     }
     /**
      * @dataProvider dataDynamicReturnTypeExtensionsOnCompoundTypes
@@ -1078,7 +1078,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         {
             public function getClass() : string
             {
-                return \_PhpScoper006a73f0e455\DynamicMethodReturnCompoundTypes\Collection::class;
+                return \_PhpScoperbd5d0c5f7638\DynamicMethodReturnCompoundTypes\Collection::class;
             }
             public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
             {
@@ -1086,13 +1086,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
             }
             public function getTypeFromMethodCall(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $methodCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
             {
-                return new \PHPStan\Type\ObjectType(\_PhpScoper006a73f0e455\DynamicMethodReturnCompoundTypes\Collection::class);
+                return new \PHPStan\Type\ObjectType(\_PhpScoperbd5d0c5f7638\DynamicMethodReturnCompoundTypes\Collection::class);
             }
         }, new class implements \PHPStan\Type\DynamicMethodReturnTypeExtension
         {
             public function getClass() : string
             {
-                return \_PhpScoper006a73f0e455\DynamicMethodReturnCompoundTypes\Foo::class;
+                return \_PhpScoperbd5d0c5f7638\DynamicMethodReturnCompoundTypes\Foo::class;
             }
             public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
             {
@@ -1100,13 +1100,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
             }
             public function getTypeFromMethodCall(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $methodCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
             {
-                return new \PHPStan\Type\ObjectType(\_PhpScoper006a73f0e455\DynamicMethodReturnCompoundTypes\Foo::class);
+                return new \PHPStan\Type\ObjectType(\_PhpScoperbd5d0c5f7638\DynamicMethodReturnCompoundTypes\Foo::class);
             }
         }]);
     }
     public function dataOverwritingVariable() : array
     {
-        return [['mixed', '$var', 'new \\OverwritingVariable\\Bar()'], ['_PhpScoper006a73f0e455\\OverwritingVariable\\Bar', '$var', '$var->methodFoo()'], ['_PhpScoper006a73f0e455\\OverwritingVariable\\Foo', '$var', 'die']];
+        return [['mixed', '$var', 'new \\OverwritingVariable\\Bar()'], ['_PhpScoperbd5d0c5f7638\\OverwritingVariable\\Bar', '$var', '$var->methodFoo()'], ['_PhpScoperbd5d0c5f7638\\OverwritingVariable\\Foo', '$var', 'die']];
     }
     /**
      * @dataProvider dataOverwritingVariable
@@ -1120,7 +1120,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataNegatedInstanceof() : array
     {
-        return [['_PhpScoper006a73f0e455\\NegatedInstanceOf\\Foo', '$foo'], ['_PhpScoper006a73f0e455\\NegatedInstanceOf\\Bar', '$bar'], ['mixed', '$lorem'], ['_PhpScoper006a73f0e455\\mixed~NegatedInstanceOf\\Dolor', '$dolor'], ['_PhpScoper006a73f0e455\\mixed~NegatedInstanceOf\\Sit', '$sit'], ['mixed', '$mixedFoo'], ['mixed', '$mixedBar'], ['_PhpScoper006a73f0e455\\NegatedInstanceOf\\Foo', '$self'], ['static(NegatedInstanceOf\\Foo)', '$static'], ['_PhpScoper006a73f0e455\\NegatedInstanceOf\\Foo', '$anotherFoo'], ['_PhpScoper006a73f0e455\\NegatedInstanceOf\\Bar&NegatedInstanceOf\\Foo', '$fooAndBar']];
+        return [['_PhpScoperbd5d0c5f7638\\NegatedInstanceOf\\Foo', '$foo'], ['_PhpScoperbd5d0c5f7638\\NegatedInstanceOf\\Bar', '$bar'], ['mixed', '$lorem'], ['_PhpScoperbd5d0c5f7638\\mixed~NegatedInstanceOf\\Dolor', '$dolor'], ['_PhpScoperbd5d0c5f7638\\mixed~NegatedInstanceOf\\Sit', '$sit'], ['mixed', '$mixedFoo'], ['mixed', '$mixedBar'], ['_PhpScoperbd5d0c5f7638\\NegatedInstanceOf\\Foo', '$self'], ['static(NegatedInstanceOf\\Foo)', '$static'], ['_PhpScoperbd5d0c5f7638\\NegatedInstanceOf\\Foo', '$anotherFoo'], ['_PhpScoperbd5d0c5f7638\\NegatedInstanceOf\\Bar&NegatedInstanceOf\\Foo', '$fooAndBar']];
     }
     /**
      * @dataProvider dataNegatedInstanceof
@@ -1146,7 +1146,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataForeachArrayType() : array
     {
-        return [[__DIR__ . '/data/foreach/array-object-type.php', '_PhpScoper006a73f0e455\\AnotherNamespace\\Foo', '$foo'], [__DIR__ . '/data/foreach/array-object-type.php', '_PhpScoper006a73f0e455\\AnotherNamespace\\Foo', '$foos[0]'], [__DIR__ . '/data/foreach/array-object-type.php', '0', 'self::ARRAY_CONSTANT[0]'], [__DIR__ . '/data/foreach/array-object-type.php', '\'foo\'', 'self::MIXED_CONSTANT[1]'], [__DIR__ . '/data/foreach/nested-object-type.php', '_PhpScoper006a73f0e455\\AnotherNamespace\\Foo', '$foo'], [__DIR__ . '/data/foreach/nested-object-type.php', '_PhpScoper006a73f0e455\\AnotherNamespace\\Foo', '$foos[0]'], [__DIR__ . '/data/foreach/nested-object-type.php', '_PhpScoper006a73f0e455\\AnotherNamespace\\Foo', '$fooses[0][0]'], [__DIR__ . '/data/foreach/integer-type.php', 'int', '$integer'], [__DIR__ . '/data/foreach/reusing-specified-variable.php', '1|2|3', '$business'], [__DIR__ . '/data/foreach/type-in-comment-variable-first.php', 'mixed', '$value'], [__DIR__ . '/data/foreach/type-in-comment-variable-second.php', 'stdClass', '$value'], [__DIR__ . '/data/foreach/type-in-comment-no-variable.php', 'mixed', '$value'], [__DIR__ . '/data/foreach/type-in-comment-wrong-variable.php', 'mixed', '$value'], [__DIR__ . '/data/foreach/type-in-comment-variable-with-reference.php', 'string', '$value'], [__DIR__ . '/data/foreach/foreach-with-specified-key-type.php', 'array<string, float|int|string>', '$list'], [__DIR__ . '/data/foreach/foreach-with-specified-key-type.php', 'string', '$key'], [__DIR__ . '/data/foreach/foreach-with-specified-key-type.php', 'float|int|string', '$value'], [__DIR__ . '/data/foreach/foreach-with-complex-value-type.php', '_PhpScoper006a73f0e455\\float|ForeachWithComplexValueType\\Foo', '$value'], [__DIR__ . '/data/foreach/foreach-iterable-with-specified-key-type.php', '_PhpScoper006a73f0e455\\ForeachWithGenericsPhpDoc\\Bar|ForeachWithGenericsPhpDoc\\Foo', '$key'], [__DIR__ . '/data/foreach/foreach-iterable-with-specified-key-type.php', 'float|int|string', '$value'], [__DIR__ . '/data/foreach/foreach-iterable-with-complex-value-type.php', '_PhpScoper006a73f0e455\\float|ForeachWithComplexValueType\\Foo', '$value'], [__DIR__ . '/data/foreach/type-in-comment-key.php', 'int', '$key']];
+        return [[__DIR__ . '/data/foreach/array-object-type.php', '_PhpScoperbd5d0c5f7638\\AnotherNamespace\\Foo', '$foo'], [__DIR__ . '/data/foreach/array-object-type.php', '_PhpScoperbd5d0c5f7638\\AnotherNamespace\\Foo', '$foos[0]'], [__DIR__ . '/data/foreach/array-object-type.php', '0', 'self::ARRAY_CONSTANT[0]'], [__DIR__ . '/data/foreach/array-object-type.php', '\'foo\'', 'self::MIXED_CONSTANT[1]'], [__DIR__ . '/data/foreach/nested-object-type.php', '_PhpScoperbd5d0c5f7638\\AnotherNamespace\\Foo', '$foo'], [__DIR__ . '/data/foreach/nested-object-type.php', '_PhpScoperbd5d0c5f7638\\AnotherNamespace\\Foo', '$foos[0]'], [__DIR__ . '/data/foreach/nested-object-type.php', '_PhpScoperbd5d0c5f7638\\AnotherNamespace\\Foo', '$fooses[0][0]'], [__DIR__ . '/data/foreach/integer-type.php', 'int', '$integer'], [__DIR__ . '/data/foreach/reusing-specified-variable.php', '1|2|3', '$business'], [__DIR__ . '/data/foreach/type-in-comment-variable-first.php', 'mixed', '$value'], [__DIR__ . '/data/foreach/type-in-comment-variable-second.php', 'stdClass', '$value'], [__DIR__ . '/data/foreach/type-in-comment-no-variable.php', 'mixed', '$value'], [__DIR__ . '/data/foreach/type-in-comment-wrong-variable.php', 'mixed', '$value'], [__DIR__ . '/data/foreach/type-in-comment-variable-with-reference.php', 'string', '$value'], [__DIR__ . '/data/foreach/foreach-with-specified-key-type.php', 'array<string, float|int|string>', '$list'], [__DIR__ . '/data/foreach/foreach-with-specified-key-type.php', 'string', '$key'], [__DIR__ . '/data/foreach/foreach-with-specified-key-type.php', 'float|int|string', '$value'], [__DIR__ . '/data/foreach/foreach-with-complex-value-type.php', '_PhpScoperbd5d0c5f7638\\float|ForeachWithComplexValueType\\Foo', '$value'], [__DIR__ . '/data/foreach/foreach-iterable-with-specified-key-type.php', '_PhpScoperbd5d0c5f7638\\ForeachWithGenericsPhpDoc\\Bar|ForeachWithGenericsPhpDoc\\Foo', '$key'], [__DIR__ . '/data/foreach/foreach-iterable-with-specified-key-type.php', 'float|int|string', '$value'], [__DIR__ . '/data/foreach/foreach-iterable-with-complex-value-type.php', '_PhpScoperbd5d0c5f7638\\float|ForeachWithComplexValueType\\Foo', '$value'], [__DIR__ . '/data/foreach/type-in-comment-key.php', 'int', '$key']];
     }
     /**
      * @dataProvider dataForeachArrayType
@@ -1160,7 +1160,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataOverridingSpecifiedType() : array
     {
-        return [[__DIR__ . '/data/catch-specified-variable.php', '_PhpScoper006a73f0e455\\TryCatchWithSpecifiedVariable\\FooException', '$foo']];
+        return [[__DIR__ . '/data/catch-specified-variable.php', '_PhpScoperbd5d0c5f7638\\TryCatchWithSpecifiedVariable\\FooException', '$foo']];
     }
     /**
      * @dataProvider dataOverridingSpecifiedType
@@ -1174,7 +1174,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataForeachObjectType() : array
     {
-        return [[__DIR__ . '/data/foreach/object-type.php', '_PhpScoper006a73f0e455\\ObjectType\\MyKey', '$keyFromIterator', "'insideFirstForeach'"], [__DIR__ . '/data/foreach/object-type.php', '_PhpScoper006a73f0e455\\ObjectType\\MyValue', '$valueFromIterator', "'insideFirstForeach'"], [__DIR__ . '/data/foreach/object-type.php', '_PhpScoper006a73f0e455\\ObjectType\\MyKey', '$keyFromAggregate', "'insideSecondForeach'"], [__DIR__ . '/data/foreach/object-type.php', '_PhpScoper006a73f0e455\\ObjectType\\MyValue', '$valueFromAggregate', "'insideSecondForeach'"], [__DIR__ . '/data/foreach/object-type.php', '*ERROR*', '$keyFromRecursiveAggregate', "'insideThirdForeach'"], [__DIR__ . '/data/foreach/object-type.php', '*ERROR*', '$valueFromRecursiveAggregate', "'insideThirdForeach'"]];
+        return [[__DIR__ . '/data/foreach/object-type.php', '_PhpScoperbd5d0c5f7638\\ObjectType\\MyKey', '$keyFromIterator', "'insideFirstForeach'"], [__DIR__ . '/data/foreach/object-type.php', '_PhpScoperbd5d0c5f7638\\ObjectType\\MyValue', '$valueFromIterator', "'insideFirstForeach'"], [__DIR__ . '/data/foreach/object-type.php', '_PhpScoperbd5d0c5f7638\\ObjectType\\MyKey', '$keyFromAggregate', "'insideSecondForeach'"], [__DIR__ . '/data/foreach/object-type.php', '_PhpScoperbd5d0c5f7638\\ObjectType\\MyValue', '$valueFromAggregate', "'insideSecondForeach'"], [__DIR__ . '/data/foreach/object-type.php', '*ERROR*', '$keyFromRecursiveAggregate', "'insideThirdForeach'"], [__DIR__ . '/data/foreach/object-type.php', '*ERROR*', '$valueFromRecursiveAggregate', "'insideThirdForeach'"]];
     }
     /**
      * @dataProvider dataForeachObjectType
@@ -1337,7 +1337,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
      */
     public function testDioFunctions(string $description, string $expression) : void
     {
-        if (!\function_exists('_PhpScoper006a73f0e455\\dio_stat')) {
+        if (!\function_exists('_PhpScoperbd5d0c5f7638\\dio_stat')) {
             $this->markTestSkipped('This test requires DIO extension.');
         }
         $this->assertTypes(__DIR__ . '/data/dio-functions.php', $description, $expression);
@@ -1425,7 +1425,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataIterable() : array
     {
-        return [['iterable', '$this->iterableProperty'], ['iterable', '$iterableSpecifiedLater'], ['iterable', '$iterableWithoutTypehint'], ['mixed', '$iterableWithoutTypehint[0]'], ['iterable', '$iterableWithIterableTypehint'], ['mixed', '$iterableWithIterableTypehint[0]'], ['mixed', '$mixed'], ['iterable<Iterables\\Bar>', '$iterableWithConcreteTypehint'], ['mixed', '$iterableWithConcreteTypehint[0]'], ['_PhpScoper006a73f0e455\\Iterables\\Bar', '$bar'], ['iterable', '$this->doBar()'], ['iterable<Iterables\\Baz>', '$this->doBaz()'], ['_PhpScoper006a73f0e455\\Iterables\\Baz', '$baz'], ['array', '$arrayWithIterableTypehint'], ['mixed', '$arrayWithIterableTypehint[0]'], ['_PhpScoper006a73f0e455\\iterable<Iterables\\Bar>&Iterables\\Collection', '$unionIterableType'], ['_PhpScoper006a73f0e455\\Iterables\\Bar', '$unionBar'], ['array', '$mixedUnionIterableType'], ['_PhpScoper006a73f0e455\\iterable<Iterables\\Bar>&Iterables\\Collection', '$unionIterableIterableType'], ['mixed', '$mixedBar'], ['_PhpScoper006a73f0e455\\Iterables\\Bar', '$iterableUnionBar'], ['_PhpScoper006a73f0e455\\Iterables\\Bar', '$unionBarFromMethod'], ['iterable<string>', '$this->stringIterableProperty'], ['iterable', '$this->mixedIterableProperty'], ['iterable<int>', '$integers'], ['iterable', '$mixeds'], ['iterable', '$this->returnIterableMixed()'], ['iterable<string>', '$this->returnIterableString()'], ['int|iterable<string>', '$this->iterablePropertyAlsoWithSomethingElse'], ['int|iterable<int|string>', '$this->iterablePropertyWithTwoItemTypes'], ['_PhpScoper006a73f0e455\\array<string>|Iterables\\CollectionOfIntegers', '$this->collectionOfIntegersOrArrayOfStrings'], ['Generator<mixed, Iterables\\Foo, mixed, mixed>', '$generatorOfFoos'], ['_PhpScoper006a73f0e455\\Iterables\\Foo', '$fooFromGenerator'], ['ArrayObject<int, string>', '$arrayObject'], ['int', '$arrayObjectKey'], ['string', '$arrayObjectValue']];
+        return [['iterable', '$this->iterableProperty'], ['iterable', '$iterableSpecifiedLater'], ['iterable', '$iterableWithoutTypehint'], ['mixed', '$iterableWithoutTypehint[0]'], ['iterable', '$iterableWithIterableTypehint'], ['mixed', '$iterableWithIterableTypehint[0]'], ['mixed', '$mixed'], ['iterable<Iterables\\Bar>', '$iterableWithConcreteTypehint'], ['mixed', '$iterableWithConcreteTypehint[0]'], ['_PhpScoperbd5d0c5f7638\\Iterables\\Bar', '$bar'], ['iterable', '$this->doBar()'], ['iterable<Iterables\\Baz>', '$this->doBaz()'], ['_PhpScoperbd5d0c5f7638\\Iterables\\Baz', '$baz'], ['array', '$arrayWithIterableTypehint'], ['mixed', '$arrayWithIterableTypehint[0]'], ['_PhpScoperbd5d0c5f7638\\iterable<Iterables\\Bar>&Iterables\\Collection', '$unionIterableType'], ['_PhpScoperbd5d0c5f7638\\Iterables\\Bar', '$unionBar'], ['array', '$mixedUnionIterableType'], ['_PhpScoperbd5d0c5f7638\\iterable<Iterables\\Bar>&Iterables\\Collection', '$unionIterableIterableType'], ['mixed', '$mixedBar'], ['_PhpScoperbd5d0c5f7638\\Iterables\\Bar', '$iterableUnionBar'], ['_PhpScoperbd5d0c5f7638\\Iterables\\Bar', '$unionBarFromMethod'], ['iterable<string>', '$this->stringIterableProperty'], ['iterable', '$this->mixedIterableProperty'], ['iterable<int>', '$integers'], ['iterable', '$mixeds'], ['iterable', '$this->returnIterableMixed()'], ['iterable<string>', '$this->returnIterableString()'], ['int|iterable<string>', '$this->iterablePropertyAlsoWithSomethingElse'], ['int|iterable<int|string>', '$this->iterablePropertyWithTwoItemTypes'], ['_PhpScoperbd5d0c5f7638\\array<string>|Iterables\\CollectionOfIntegers', '$this->collectionOfIntegersOrArrayOfStrings'], ['Generator<mixed, Iterables\\Foo, mixed, mixed>', '$generatorOfFoos'], ['_PhpScoperbd5d0c5f7638\\Iterables\\Foo', '$fooFromGenerator'], ['ArrayObject<int, string>', '$arrayObject'], ['int', '$arrayObjectKey'], ['string', '$arrayObjectValue']];
     }
     /**
      * @dataProvider dataIterable
@@ -1503,7 +1503,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataTypeElimination() : array
     {
-        return [['null', '$foo', "'nullForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Foo', '$foo', "'notNullForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Foo', '$foo', "'notNullForSure2'"], ['null', '$foo', "'nullForSure2'"], ['null', '$foo', "'nullForSure3'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Foo', '$foo', "'notNullForSure3'"], ['null', '$foo', "'yodaNullForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Foo', '$foo', "'yodaNotNullForSure'"], ['false', '$intOrFalse', "'falseForSure'"], ['int', '$intOrFalse', "'intForSure'"], ['false', '$intOrFalse', "'yodaFalseForSure'"], ['int', '$intOrFalse', "'yodaIntForSure'"], ['true', '$intOrTrue', "'trueForSure'"], ['int', '$intOrTrue', "'anotherIntForSure'"], ['true', '$intOrTrue', "'yodaTrueForSure'"], ['int', '$intOrTrue', "'yodaAnotherIntForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Foo', '$fooOrBarOrBaz', "'fooForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Bar|TypeElimination\\Baz', '$fooOrBarOrBaz', "'barOrBazForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Bar', '$fooOrBarOrBaz', "'barForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Baz', '$fooOrBarOrBaz', "'bazForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Bar|TypeElimination\\Baz', '$fooOrBarOrBaz', "'anotherBarOrBazForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Foo', '$fooOrBarOrBaz', "'anotherFooForSure'"], ['string|null', '$result', "'stringOrNullForSure'"], ['int', '$intOrFalse', "'yetAnotherIntForSure'"], ['int', '$intOrTrue', "'yetYetAnotherIntForSure'"], ['TypeElimination\\Foo|null', '$fooOrStringOrNull', "'fooOrNull'"], ['string', '$fooOrStringOrNull', "'stringForSure'"], ['string', '$fooOrStringOrNull', "'anotherStringForSure'"], ['null', '$this->bar', "'propertyNullForSure'"], ['_PhpScoper006a73f0e455\\TypeElimination\\Bar', '$this->bar', "'propertyNotNullForSure'"]];
+        return [['null', '$foo', "'nullForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Foo', '$foo', "'notNullForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Foo', '$foo', "'notNullForSure2'"], ['null', '$foo', "'nullForSure2'"], ['null', '$foo', "'nullForSure3'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Foo', '$foo', "'notNullForSure3'"], ['null', '$foo', "'yodaNullForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Foo', '$foo', "'yodaNotNullForSure'"], ['false', '$intOrFalse', "'falseForSure'"], ['int', '$intOrFalse', "'intForSure'"], ['false', '$intOrFalse', "'yodaFalseForSure'"], ['int', '$intOrFalse', "'yodaIntForSure'"], ['true', '$intOrTrue', "'trueForSure'"], ['int', '$intOrTrue', "'anotherIntForSure'"], ['true', '$intOrTrue', "'yodaTrueForSure'"], ['int', '$intOrTrue', "'yodaAnotherIntForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Foo', '$fooOrBarOrBaz', "'fooForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Bar|TypeElimination\\Baz', '$fooOrBarOrBaz', "'barOrBazForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Bar', '$fooOrBarOrBaz', "'barForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Baz', '$fooOrBarOrBaz', "'bazForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Bar|TypeElimination\\Baz', '$fooOrBarOrBaz', "'anotherBarOrBazForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Foo', '$fooOrBarOrBaz', "'anotherFooForSure'"], ['string|null', '$result', "'stringOrNullForSure'"], ['int', '$intOrFalse', "'yetAnotherIntForSure'"], ['int', '$intOrTrue', "'yetYetAnotherIntForSure'"], ['TypeElimination\\Foo|null', '$fooOrStringOrNull', "'fooOrNull'"], ['string', '$fooOrStringOrNull', "'stringForSure'"], ['string', '$fooOrStringOrNull', "'anotherStringForSure'"], ['null', '$this->bar', "'propertyNullForSure'"], ['_PhpScoperbd5d0c5f7638\\TypeElimination\\Bar', '$this->bar', "'propertyNotNullForSure'"]];
     }
     /**
      * @dataProvider dataTypeElimination
@@ -1517,7 +1517,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataMisleadingTypes() : array
     {
-        return [['_PhpScoper006a73f0e455\\MisleadingTypes\\boolean', '$foo->misleadingBoolReturnType()'], ['_PhpScoper006a73f0e455\\MisleadingTypes\\integer', '$foo->misleadingIntReturnType()'], ['mixed', '$foo->misleadingMixedReturnType()']];
+        return [['_PhpScoperbd5d0c5f7638\\MisleadingTypes\\boolean', '$foo->misleadingBoolReturnType()'], ['_PhpScoperbd5d0c5f7638\\MisleadingTypes\\integer', '$foo->misleadingIntReturnType()'], ['mixed', '$foo->misleadingMixedReturnType()']];
     }
     /**
      * @dataProvider dataMisleadingTypes
@@ -1573,7 +1573,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataConstants() : array
     {
-        \define('_PhpScoper006a73f0e455\\ConstantsForNodeScopeResolverTest\\FOO_CONSTANT', 1);
+        \define('_PhpScoperbd5d0c5f7638\\ConstantsForNodeScopeResolverTest\\FOO_CONSTANT', 1);
         return [['1', '$foo'], ['*ERROR*', 'NONEXISTENT_CONSTANT'], ["'bar'", '\\BAR_CONSTANT'], ['mixed', '\\BAZ_CONSTANT']];
     }
     /**
@@ -1703,7 +1703,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataResolveStatic() : array
     {
-        return [['_PhpScoper006a73f0e455\\ResolveStatic\\Foo', '\\ResolveStatic\\Foo::create()'], ['_PhpScoper006a73f0e455\\ResolveStatic\\Bar', '\\ResolveStatic\\Bar::create()'], ['array(\'foo\' => ResolveStatic\\Bar)', '$bar->returnConstantArray()'], ['ResolveStatic\\Bar|null', '$bar->nullabilityNotInSync()'], ['_PhpScoper006a73f0e455\\ResolveStatic\\Bar', '$bar->anotherNullabilityNotInSync()']];
+        return [['_PhpScoperbd5d0c5f7638\\ResolveStatic\\Foo', '\\ResolveStatic\\Foo::create()'], ['_PhpScoperbd5d0c5f7638\\ResolveStatic\\Bar', '\\ResolveStatic\\Bar::create()'], ['array(\'foo\' => ResolveStatic\\Bar)', '$bar->returnConstantArray()'], ['ResolveStatic\\Bar|null', '$bar->nullabilityNotInSync()'], ['_PhpScoperbd5d0c5f7638\\ResolveStatic\\Bar', '$bar->anotherNullabilityNotInSync()']];
     }
     /**
      * @dataProvider dataResolveStatic
@@ -1716,7 +1716,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataLoopVariables() : array
     {
-        return [['LoopVariables\\Foo|LoopVariables\\Lorem|null', '$foo', "'begin'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Foo', '$foo', "'afterAssign'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Foo', '$foo', "'end'"], ['LoopVariables\\Bar|LoopVariables\\Foo|LoopVariables\\Lorem|null', '$foo', "'afterLoop'"], ['int|null', '$nullableVal', "'begin'"], ['null', '$nullableVal', "'nullableValIf'"], ['int', '$nullableVal', "'nullableValElse'"], ['int|null', '$nullableVal', "'afterLoop'"], ['LoopVariables\\Foo|false', '$falseOrObject', "'begin'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Foo', '$falseOrObject', "'end'"], ['LoopVariables\\Foo|false', '$falseOrObject', "'afterLoop'"]];
+        return [['LoopVariables\\Foo|LoopVariables\\Lorem|null', '$foo', "'begin'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Foo', '$foo', "'afterAssign'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Foo', '$foo', "'end'"], ['LoopVariables\\Bar|LoopVariables\\Foo|LoopVariables\\Lorem|null', '$foo', "'afterLoop'"], ['int|null', '$nullableVal', "'begin'"], ['null', '$nullableVal', "'nullableValIf'"], ['int', '$nullableVal', "'nullableValElse'"], ['int|null', '$nullableVal', "'afterLoop'"], ['LoopVariables\\Foo|false', '$falseOrObject', "'begin'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Foo', '$falseOrObject', "'end'"], ['LoopVariables\\Foo|false', '$falseOrObject', "'afterLoop'"]];
     }
     public function dataForeachLoopVariables() : array
     {
@@ -1765,7 +1765,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataDoWhileLoopVariables() : array
     {
-        return [['LoopVariables\\Foo|LoopVariables\\Lorem|null', '$foo', "'begin'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Foo', '$foo', "'afterAssign'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Foo', '$foo', "'end'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Bar|LoopVariables\\Foo|LoopVariables\\Lorem', '$foo', "'afterLoop'"], ['int', '$i', "'begin'"], ['int', '$i', "'end'"], ['int', '$i', "'afterLoop'"], ['int|null', '$nullableVal', "'begin'"], ['null', '$nullableVal', "'nullableValIf'"], ['int', '$nullableVal', "'nullableValElse'"], ['int', '$nullableVal', "'afterLoop'"], ['LoopVariables\\Foo|false', '$falseOrObject', "'begin'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Foo', '$falseOrObject', "'end'"], ['LoopVariables\\Foo|false', '$falseOrObject', "'afterLoop'"], ['LoopVariables\\Foo|false', '$anotherFalseOrObject', "'begin'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Foo', '$anotherFalseOrObject', "'end'"], ['_PhpScoper006a73f0e455\\LoopVariables\\Foo', '$anotherFalseOrObject', "'afterLoop'"]];
+        return [['LoopVariables\\Foo|LoopVariables\\Lorem|null', '$foo', "'begin'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Foo', '$foo', "'afterAssign'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Foo', '$foo', "'end'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Bar|LoopVariables\\Foo|LoopVariables\\Lorem', '$foo', "'afterLoop'"], ['int', '$i', "'begin'"], ['int', '$i', "'end'"], ['int', '$i', "'afterLoop'"], ['int|null', '$nullableVal', "'begin'"], ['null', '$nullableVal', "'nullableValIf'"], ['int', '$nullableVal', "'nullableValElse'"], ['int', '$nullableVal', "'afterLoop'"], ['LoopVariables\\Foo|false', '$falseOrObject', "'begin'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Foo', '$falseOrObject', "'end'"], ['LoopVariables\\Foo|false', '$falseOrObject', "'afterLoop'"], ['LoopVariables\\Foo|false', '$anotherFalseOrObject', "'begin'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Foo', '$anotherFalseOrObject', "'end'"], ['_PhpScoperbd5d0c5f7638\\LoopVariables\\Foo', '$anotherFalseOrObject', "'afterLoop'"]];
     }
     /**
      * @dataProvider dataDoWhileLoopVariables
@@ -1779,7 +1779,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataMultipleClassesInOneFile() : array
     {
-        return [['_PhpScoper006a73f0e455\\MultipleClasses\\Foo', '$self', "'Foo'"], ['_PhpScoper006a73f0e455\\MultipleClasses\\Bar', '$self', "'Bar'"]];
+        return [['_PhpScoperbd5d0c5f7638\\MultipleClasses\\Foo', '$self', "'Foo'"], ['_PhpScoperbd5d0c5f7638\\MultipleClasses\\Bar', '$self', "'Bar'"]];
     }
     /**
      * @dataProvider dataMultipleClassesInOneFile
@@ -1793,7 +1793,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataCallingMultipleClassesInOneFile() : array
     {
-        return [['_PhpScoper006a73f0e455\\MultipleClasses\\Foo', '$foo->returnSelf()'], ['_PhpScoper006a73f0e455\\MultipleClasses\\Bar', '$bar->returnSelf()']];
+        return [['_PhpScoperbd5d0c5f7638\\MultipleClasses\\Foo', '$foo->returnSelf()'], ['_PhpScoperbd5d0c5f7638\\MultipleClasses\\Bar', '$bar->returnSelf()']];
     }
     /**
      * @dataProvider dataCallingMultipleClassesInOneFile
@@ -1885,7 +1885,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataClosureWithUsePassedByReference() : array
     {
-        return [['false', '$progressStarted', "'beforeCallback'"], ['false', '$anotherVariable', "'beforeCallback'"], ['1|bool', '$progressStarted', "'inCallbackBeforeAssign'"], ['false', '$anotherVariable', "'inCallbackBeforeAssign'"], ['null', '$untouchedPassedByRef', "'inCallbackBeforeAssign'"], ['1|true', '$progressStarted', "'inCallbackAfterAssign'"], ['true', '$anotherVariable', "'inCallbackAfterAssign'"], ['1|bool', '$progressStarted', "'afterCallback'"], ['false', '$anotherVariable', "'afterCallback'"], ['null', '$untouchedPassedByRef', "'afterCallback'"], ['1', '$incrementedInside', "'beforeCallback'"], ['int', '$incrementedInside', "'inCallbackBeforeAssign'"], ['int', '$incrementedInside', "'inCallbackAfterAssign'"], ['int', '$incrementedInside', "'afterCallback'"], ['null', '$fooOrNull', "'beforeCallback'"], ['ClosurePassedByReference\\Foo|null', '$fooOrNull', "'inCallbackBeforeAssign'"], ['_PhpScoper006a73f0e455\\ClosurePassedByReference\\Foo', '$fooOrNull', "'inCallbackAfterAssign'"], ['ClosurePassedByReference\\Foo|null', '$fooOrNull', "'afterCallback'"]];
+        return [['false', '$progressStarted', "'beforeCallback'"], ['false', '$anotherVariable', "'beforeCallback'"], ['1|bool', '$progressStarted', "'inCallbackBeforeAssign'"], ['false', '$anotherVariable', "'inCallbackBeforeAssign'"], ['null', '$untouchedPassedByRef', "'inCallbackBeforeAssign'"], ['1|true', '$progressStarted', "'inCallbackAfterAssign'"], ['true', '$anotherVariable', "'inCallbackAfterAssign'"], ['1|bool', '$progressStarted', "'afterCallback'"], ['false', '$anotherVariable', "'afterCallback'"], ['null', '$untouchedPassedByRef', "'afterCallback'"], ['1', '$incrementedInside', "'beforeCallback'"], ['int', '$incrementedInside', "'inCallbackBeforeAssign'"], ['int', '$incrementedInside', "'inCallbackAfterAssign'"], ['int', '$incrementedInside', "'afterCallback'"], ['null', '$fooOrNull', "'beforeCallback'"], ['ClosurePassedByReference\\Foo|null', '$fooOrNull', "'inCallbackBeforeAssign'"], ['_PhpScoperbd5d0c5f7638\\ClosurePassedByReference\\Foo', '$fooOrNull', "'inCallbackAfterAssign'"], ['ClosurePassedByReference\\Foo|null', '$fooOrNull', "'afterCallback'"]];
     }
     /**
      * @dataProvider dataClosureWithUsePassedByReference
@@ -1912,7 +1912,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataClosureWithUsePassedByReferenceReturn() : array
     {
-        return [['null', '$fooOrNull', "'beforeCallback'"], ['ClosurePassedByReference\\Foo|null', '$fooOrNull', "'inCallbackBeforeAssign'"], ['_PhpScoper006a73f0e455\\ClosurePassedByReference\\Foo', '$fooOrNull', "'inCallbackAfterAssign'"], ['ClosurePassedByReference\\Foo|null', '$fooOrNull', "'afterCallback'"]];
+        return [['null', '$fooOrNull', "'beforeCallback'"], ['ClosurePassedByReference\\Foo|null', '$fooOrNull', "'inCallbackBeforeAssign'"], ['_PhpScoperbd5d0c5f7638\\ClosurePassedByReference\\Foo', '$fooOrNull', "'inCallbackAfterAssign'"], ['ClosurePassedByReference\\Foo|null', '$fooOrNull', "'afterCallback'"]];
     }
     public function dataStaticClosure() : array
     {
@@ -1952,7 +1952,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataTraitsPhpDocs() : array
     {
-        return [['mixed', '$this->propertyWithoutPhpDoc'], ['_PhpScoper006a73f0e455\\TraitPhpDocsTwo\\TraitPropertyType', '$this->traitProperty'], ['_PhpScoper006a73f0e455\\TraitPhpDocs\\PropertyTypeFromClass', '$this->conflictingProperty'], ['_PhpScoper006a73f0e455\\TraitPhpDocs\\AmbiguousPropertyType', '$this->bogusProperty'], ['_PhpScoper006a73f0e455\\TraitPhpDocs\\BogusPropertyType', '$this->anotherBogusProperty'], ['_PhpScoper006a73f0e455\\TraitPhpDocsTwo\\BogusPropertyType', '$this->differentBogusProperty'], ['string', '$this->methodWithoutPhpDoc()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsTwo\\TraitMethodType', '$this->traitMethod()'], ['_PhpScoper006a73f0e455\\TraitPhpDocs\\MethodTypeFromClass', '$this->conflictingMethod()'], ['_PhpScoper006a73f0e455\\TraitPhpDocs\\AmbiguousMethodType', '$this->bogusMethod()'], ['_PhpScoper006a73f0e455\\TraitPhpDocs\\BogusMethodType', '$this->anotherBogusMethod()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsTwo\\BogusMethodType', '$this->differentBogusMethod()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsTwo\\DuplicateMethodType', '$this->methodInMoreTraits()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsThree\\AnotherDuplicateMethodType', '$this->anotherMethodInMoreTraits()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsTwo\\YetAnotherDuplicateMethodType', '$this->yetAnotherMethodInMoreTraits()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsThree\\YetAnotherDuplicateMethodType', '$this->aliasedYetAnotherMethodInMoreTraits()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsThree\\YetYetAnotherDuplicateMethodType', '$this->yetYetAnotherMethodInMoreTraits()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsTwo\\YetYetAnotherDuplicateMethodType', '$this->aliasedYetYetAnotherMethodInMoreTraits()'], ['int', '$this->propertyFromTraitUsingTrait'], ['string', '$this->methodFromTraitUsingTrait()'], ['_PhpScoper006a73f0e455\\TraitPhpDocsThree\\Foo', '$this->loremTraitProperty']];
+        return [['mixed', '$this->propertyWithoutPhpDoc'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsTwo\\TraitPropertyType', '$this->traitProperty'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocs\\PropertyTypeFromClass', '$this->conflictingProperty'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocs\\AmbiguousPropertyType', '$this->bogusProperty'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocs\\BogusPropertyType', '$this->anotherBogusProperty'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsTwo\\BogusPropertyType', '$this->differentBogusProperty'], ['string', '$this->methodWithoutPhpDoc()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsTwo\\TraitMethodType', '$this->traitMethod()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocs\\MethodTypeFromClass', '$this->conflictingMethod()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocs\\AmbiguousMethodType', '$this->bogusMethod()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocs\\BogusMethodType', '$this->anotherBogusMethod()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsTwo\\BogusMethodType', '$this->differentBogusMethod()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsTwo\\DuplicateMethodType', '$this->methodInMoreTraits()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsThree\\AnotherDuplicateMethodType', '$this->anotherMethodInMoreTraits()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsTwo\\YetAnotherDuplicateMethodType', '$this->yetAnotherMethodInMoreTraits()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsThree\\YetAnotherDuplicateMethodType', '$this->aliasedYetAnotherMethodInMoreTraits()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsThree\\YetYetAnotherDuplicateMethodType', '$this->yetYetAnotherMethodInMoreTraits()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsTwo\\YetYetAnotherDuplicateMethodType', '$this->aliasedYetYetAnotherMethodInMoreTraits()'], ['int', '$this->propertyFromTraitUsingTrait'], ['string', '$this->methodFromTraitUsingTrait()'], ['_PhpScoperbd5d0c5f7638\\TraitPhpDocsThree\\Foo', '$this->loremTraitProperty']];
     }
     /**
      * @dataProvider dataTraitsPhpDocs
@@ -1978,7 +1978,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataCallables() : array
     {
-        return [['int', '$foo()'], ['string', '$closure()'], ['_PhpScoper006a73f0e455\\Callables\\Bar', '$arrayWithStaticMethod()'], ['float', '$stringWithStaticMethod()'], ['float', '$arrayWithInstanceMethod()'], ['mixed', '$closureObject()']];
+        return [['int', '$foo()'], ['string', '$closure()'], ['_PhpScoperbd5d0c5f7638\\Callables\\Bar', '$arrayWithStaticMethod()'], ['float', '$stringWithStaticMethod()'], ['float', '$arrayWithInstanceMethod()'], ['mixed', '$closureObject()']];
     }
     /**
      * @dataProvider dataCallables
@@ -2035,7 +2035,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataCaseInsensitivePhpDocTypes() : array
     {
-        return [['_PhpScoper006a73f0e455\\Foo\\Bar', '$this->bar'], ['_PhpScoper006a73f0e455\\Foo\\Baz', '$this->lorem']];
+        return [['_PhpScoperbd5d0c5f7638\\Foo\\Bar', '$this->bar'], ['_PhpScoperbd5d0c5f7638\\Foo\\Baz', '$this->lorem']];
     }
     /**
      * @dataProvider dataCaseInsensitivePhpDocTypes
@@ -2062,7 +2062,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataAnonymousClass() : array
     {
-        return [['$this(AnonymousClass3301acd9e9d13ba9bbce9581cdb00699)', '$this', "'inside'"], ['AnonymousClass3301acd9e9d13ba9bbce9581cdb00699', '$foo', "'outside'"], ['_PhpScoper006a73f0e455\\AnonymousClassName\\Foo', '$this->fooProperty', "'inside'"], ['_PhpScoper006a73f0e455\\AnonymousClassName\\Foo', '$foo->fooProperty', "'outside'"], ['_PhpScoper006a73f0e455\\AnonymousClassName\\Foo', '$this->doFoo()', "'inside'"], ['_PhpScoper006a73f0e455\\AnonymousClassName\\Foo', '$foo->doFoo()', "'outside'"]];
+        return [['$this(AnonymousClass3301acd9e9d13ba9bbce9581cdb00699)', '$this', "'inside'"], ['AnonymousClass3301acd9e9d13ba9bbce9581cdb00699', '$foo', "'outside'"], ['_PhpScoperbd5d0c5f7638\\AnonymousClassName\\Foo', '$this->fooProperty', "'inside'"], ['_PhpScoperbd5d0c5f7638\\AnonymousClassName\\Foo', '$foo->fooProperty', "'outside'"], ['_PhpScoperbd5d0c5f7638\\AnonymousClassName\\Foo', '$this->doFoo()', "'inside'"], ['_PhpScoperbd5d0c5f7638\\AnonymousClassName\\Foo', '$foo->doFoo()', "'outside'"]];
     }
     /**
      * @dataProvider dataAnonymousClass
@@ -2186,7 +2186,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataUnionMethods() : array
     {
-        return [['_PhpScoper006a73f0e455\\UnionMethods\\Bar|UnionMethods\\Foo', '$something->doSomething()'], ['_PhpScoper006a73f0e455\\UnionMethods\\Bar|UnionMethods\\Foo', '$something::doSomething()']];
+        return [['_PhpScoperbd5d0c5f7638\\UnionMethods\\Bar|UnionMethods\\Foo', '$something->doSomething()'], ['_PhpScoperbd5d0c5f7638\\UnionMethods\\Bar|UnionMethods\\Foo', '$something::doSomething()']];
     }
     /**
      * @dataProvider dataUnionMethods
@@ -2199,7 +2199,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataUnionProperties() : array
     {
-        return [['_PhpScoper006a73f0e455\\UnionProperties\\Bar|UnionProperties\\Foo', '$something->doSomething'], ['_PhpScoper006a73f0e455\\UnionProperties\\Bar|UnionProperties\\Foo', '$something::$doSomething']];
+        return [['_PhpScoperbd5d0c5f7638\\UnionProperties\\Bar|UnionProperties\\Foo', '$something->doSomething'], ['_PhpScoperbd5d0c5f7638\\UnionProperties\\Bar|UnionProperties\\Foo', '$something::$doSomething']];
     }
     /**
      * @dataProvider dataUnionProperties
@@ -2212,7 +2212,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataAssignmentInCondition() : array
     {
-        return [['_PhpScoper006a73f0e455\\AssignmentInCondition\\Foo', '$bar']];
+        return [['_PhpScoperbd5d0c5f7638\\AssignmentInCondition\\Foo', '$bar']];
     }
     /**
      * @dataProvider dataAssignmentInCondition
@@ -2935,7 +2935,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataInferPrivatePropertyTypeFromConstructor() : array
     {
-        return [['int', '$this->intProp'], ['string', '$this->stringProp'], ['_PhpScoper006a73f0e455\\InferPrivatePropertyTypeFromConstructor\\Bar|InferPrivatePropertyTypeFromConstructor\\Foo', '$this->unionProp'], ['stdClass', '$this->stdClassProp'], ['stdClass', '$this->unrelatedDocComment'], ['mixed', '$this->explicitMixed'], ['bool', '$this->bool'], ['array', '$this->array']];
+        return [['int', '$this->intProp'], ['string', '$this->stringProp'], ['_PhpScoperbd5d0c5f7638\\InferPrivatePropertyTypeFromConstructor\\Bar|InferPrivatePropertyTypeFromConstructor\\Foo', '$this->unionProp'], ['stdClass', '$this->stdClassProp'], ['stdClass', '$this->unrelatedDocComment'], ['mixed', '$this->explicitMixed'], ['bool', '$this->bool'], ['array', '$this->array']];
     }
     /**
      * @dataProvider dataInferPrivatePropertyTypeFromConstructor
@@ -2948,7 +2948,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataPropertyNativeTypes() : array
     {
-        return [['string', '$this->stringProp'], ['_PhpScoper006a73f0e455\\PropertyNativeTypes\\Foo', '$this->selfProp'], ['array<int>', '$this->integersProp']];
+        return [['string', '$this->stringProp'], ['_PhpScoperbd5d0c5f7638\\PropertyNativeTypes\\Foo', '$this->selfProp'], ['array<int>', '$this->integersProp']];
     }
     /**
      * @dataProvider dataPropertyNativeTypes
@@ -3060,7 +3060,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
     }
     public function dataTryCatchScope() : array
     {
-        return [['_PhpScoper006a73f0e455\\TryCatchScope\\Foo', '$resource', "'first'"], ['TryCatchScope\\Foo|null', '$resource', "'second'"], ['TryCatchScope\\Foo|null', '$resource', "'third'"]];
+        return [['_PhpScoperbd5d0c5f7638\\TryCatchScope\\Foo', '$resource', "'first'"], ['TryCatchScope\\Foo|null', '$resource', "'second'"], ['TryCatchScope\\Foo|null', '$resource', "'third'"]];
     }
     /**
      * @dataProvider dataTryCatchScope
@@ -3074,8 +3074,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
             $this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
             try {
                 $this->assertTypes(__DIR__ . '/data/try-catch-scope.php', $description, $expression, [], [], [], [], $evaluatedPointExpression, [], \false);
-            } catch (\_PhpScoper006a73f0e455\PHPUnit\Framework\ExpectationFailedException $e) {
-                throw new \_PhpScoper006a73f0e455\PHPUnit\Framework\ExpectationFailedException(\sprintf('%s (polluteCatchScopeWithTryAssignments: %s)', $e->getMessage(), $polluteCatchScopeWithTryAssignments ? 'true' : 'false'), $e->getComparisonFailure());
+            } catch (\_PhpScoperbd5d0c5f7638\PHPUnit\Framework\ExpectationFailedException $e) {
+                throw new \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\ExpectationFailedException(\sprintf('%s (polluteCatchScopeWithTryAssignments: %s)', $e->getMessage(), $polluteCatchScopeWithTryAssignments ? 'true' : 'false'), $e->getComparisonFailure());
             }
         }
     }
@@ -3137,7 +3137,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
         $fileHelper = new \PHPStan\File\FileHelper($currentWorkingDirectory);
         $fileTypeMapper = new \PHPStan\Type\FileTypeMapper(new \PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider($broker), $this->getParser(), $phpDocStringResolver, $phpDocNodeResolver, $this->createMock(\PHPStan\Cache\Cache::class), new \PHPStan\Broker\AnonymousClassNameHelper($fileHelper, new \PHPStan\File\SimpleRelativePathHelper($currentWorkingDirectory)));
         $phpDocInheritanceResolver = new \PHPStan\PhpDoc\PhpDocInheritanceResolver($fileTypeMapper);
-        $resolver = new \PHPStan\Analyser\NodeScopeResolver($broker, self::getReflectors()[0], $this->getClassReflectionExtensionRegistryProvider(), $this->getParser(), $fileTypeMapper, self::getContainer()->getByType(\PHPStan\Php\PhpVersion::class), $phpDocInheritanceResolver, $fileHelper, $typeSpecifier, \true, $this->polluteCatchScopeWithTryAssignments, \true, [\_PhpScoper006a73f0e455\EarlyTermination\Foo::class => ['doFoo', 'doBar']], ['baz']);
+        $resolver = new \PHPStan\Analyser\NodeScopeResolver($broker, self::getReflectors()[0], $this->getClassReflectionExtensionRegistryProvider(), $this->getParser(), $fileTypeMapper, self::getContainer()->getByType(\PHPStan\Php\PhpVersion::class), $phpDocInheritanceResolver, $fileHelper, $typeSpecifier, \true, $this->polluteCatchScopeWithTryAssignments, \true, [\_PhpScoperbd5d0c5f7638\EarlyTermination\Foo::class => ['doFoo', 'doBar']], ['baz']);
         $resolver->setAnalysedFiles(\array_map(static function (string $file) use($fileHelper) : string {
             return $fileHelper->normalizePath($file);
         }, [$file, __DIR__ . '/data/methodPhpDocs-trait-defined.php', __DIR__ . '/data/anonymous-class-name-in-trait-trait.php']));

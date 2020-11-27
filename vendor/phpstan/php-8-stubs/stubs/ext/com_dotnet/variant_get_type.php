@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function variant_get_type(\_PhpScoper006a73f0e455\variant $variant) : int
+function variant_get_type(\_PhpScoperbd5d0c5f7638\variant $variant) : int
 {
 }

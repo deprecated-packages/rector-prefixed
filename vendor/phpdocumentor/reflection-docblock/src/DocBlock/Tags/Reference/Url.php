@@ -10,13 +10,13 @@
  *  @license   http://www.opensource.org/licenses/mit-license.php MIT
  *  @link      http://phpdoc.org
  */
-namespace _PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
-use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
+use _PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert;
 /**
  * Url reference used by {@see phpDocumentor\Reflection\DocBlock\Tags\See}
  */
-final class Url implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
+final class Url implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
 {
     /**
      * @var string
@@ -27,7 +27,7 @@ final class Url implements \_PhpScoper006a73f0e455\phpDocumentor\Reflection\DocB
      */
     public function __construct($uri)
     {
-        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::stringNotEmpty($uri);
+        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::stringNotEmpty($uri);
         $this->uri = $uri;
     }
     public function __toString()

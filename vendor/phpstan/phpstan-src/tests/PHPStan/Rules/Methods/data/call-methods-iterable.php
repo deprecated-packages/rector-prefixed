@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\CallMethodsIterables;
+namespace _PhpScoperbd5d0c5f7638\CallMethodsIterables;
 
 class Uuid
 {
@@ -58,7 +58,7 @@ class Foo
      * @param int[]|iterable $integers
      * @param mixed[]|iterable $mixeds
      */
-    public function doFoo(iterable $iterableWithoutTypehint, iterable $iterableWithIterableTypehint, iterable $iterableWithConcreteTypehint, array $arrayWithIterableTypehint, \_PhpScoper006a73f0e455\CallMethodsIterables\Collection $unionIterableType, array $mixedUnionIterableType, iterable $unionIterableIterableType, $iterableSpecifiedLater, iterable $integers, iterable $mixeds)
+    public function doFoo(iterable $iterableWithoutTypehint, iterable $iterableWithIterableTypehint, iterable $iterableWithConcreteTypehint, array $arrayWithIterableTypehint, \_PhpScoperbd5d0c5f7638\CallMethodsIterables\Collection $unionIterableType, array $mixedUnionIterableType, iterable $unionIterableIterableType, $iterableSpecifiedLater, iterable $integers, iterable $mixeds)
     {
     }
 }

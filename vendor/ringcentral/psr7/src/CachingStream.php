@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\RingCentral\Psr7;
+namespace _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
 
-use _PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface;
+use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that can cache previously read bytes from a sequentially
  * read stream.
  */
-class CachingStream extends \_PhpScoper006a73f0e455\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface
+class CachingStream extends \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface
 {
     /** @var StreamInterface Stream being wrapped */
     private $remoteStream;
@@ -19,10 +19,10 @@ class CachingStream extends \_PhpScoper006a73f0e455\RingCentral\Psr7\StreamDecor
      * @param StreamInterface $stream Stream to cache
      * @param StreamInterface $target Optionally specify where data is cached
      */
-    public function __construct(\_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface $stream, \_PhpScoper006a73f0e455\Psr\Http\Message\StreamInterface $target = null)
+    public function __construct(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $stream, \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $target = null)
     {
         $this->remoteStream = $stream;
-        parent::__construct($target ?: new \_PhpScoper006a73f0e455\RingCentral\Psr7\Stream(\fopen('php://temp', 'r+')));
+        parent::__construct($target ?: new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Stream(\fopen('php://temp', 'r+')));
     }
     public function getSize()
     {
@@ -105,7 +105,7 @@ class CachingStream extends \_PhpScoper006a73f0e455\RingCentral\Psr7\StreamDecor
     }
     private function cacheEntireStream()
     {
-        $target = new \_PhpScoper006a73f0e455\RingCentral\Psr7\FnStream(array('write' => 'strlen'));
+        $target = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream(array('write' => 'strlen'));
         copy_to_stream($this, $target);
         return $this->tell();
     }

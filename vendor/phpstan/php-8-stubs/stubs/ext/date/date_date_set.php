@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 function date_date_set(\DateTime $object, int $year, int $month, int $day) : \DateTime
 {

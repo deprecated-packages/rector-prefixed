@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\TraitPhpDocs;
+namespace _PhpScoperbd5d0c5f7638\TraitPhpDocs;
 
-use _PhpScoper006a73f0e455\TraitPhpDocsThree\LoremTrait;
+use _PhpScoperbd5d0c5f7638\TraitPhpDocsThree\LoremTrait;
 class Bar
 {
     use LoremTrait;

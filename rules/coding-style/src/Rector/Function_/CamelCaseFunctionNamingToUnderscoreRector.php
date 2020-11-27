@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Function_;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Identifier;
@@ -72,7 +72,7 @@ CODE_SAMPLE
         if ($functionOrFuncCallName === null) {
             return null;
         }
-        $shortName = \_PhpScoper006a73f0e455\Nette\Utils\Strings::after($functionOrFuncCallName, '\\', -1);
+        $shortName = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::after($functionOrFuncCallName, '\\', -1);
         if ($shortName === null) {
             return $functionOrFuncCallName;
         }

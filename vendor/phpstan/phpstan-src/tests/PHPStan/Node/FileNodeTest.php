@@ -38,8 +38,8 @@ class FileNodeTest extends \PHPStan\Testing\RuleTestCase
     public function dataRule() : iterable
     {
         (yield [__DIR__ . '/data/empty.php', 'File empty.php is empty.', 1]);
-        (yield [__DIR__ . '/data/declare.php', '_PhpScoper006a73f0e455\\First node in file declare.php is: PhpParser\\Node\\Stmt\\Declare_', 1]);
-        (yield [__DIR__ . '/data/namespace.php', '_PhpScoper006a73f0e455\\First node in file namespace.php is: PhpParser\\Node\\Stmt\\Namespace_', 3]);
+        (yield [__DIR__ . '/data/declare.php', '_PhpScoperbd5d0c5f7638\\First node in file declare.php is: PhpParser\\Node\\Stmt\\Declare_', 1]);
+        (yield [__DIR__ . '/data/namespace.php', '_PhpScoperbd5d0c5f7638\\First node in file namespace.php is: PhpParser\\Node\\Stmt\\Namespace_', 3]);
     }
     /**
      * @dataProvider dataRule

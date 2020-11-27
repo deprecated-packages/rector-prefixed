@@ -18,7 +18,7 @@ final class ComponentModelDynamicReturnTypeExtension implements \PHPStan\Type\Dy
 {
     public function getClass() : string
     {
-        return '_PhpScoper006a73f0e455\\Nette\\ComponentModel\\Container';
+        return '_PhpScoperbd5d0c5f7638\\Nette\\ComponentModel\\Container';
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {

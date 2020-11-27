@@ -24,15 +24,15 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ConstantReflector;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
 {
     /**
@@ -97,7 +97,7 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
     private $classReflections = [];
     /** @var \PHPStan\Reflection\ClassReflection[] */
     private static $anonymousClasses = [];
-    public function __construct(\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\File\RelativePathHelper $relativePathHelper, \PHPStan\Broker\AnonymousClassNameHelper $anonymousClassNameHelper, \PhpParser\PrettyPrinter\Standard $printer, \PHPStan\File\FileHelper $fileHelper, \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\File\RelativePathHelper $relativePathHelper, \PHPStan\Broker\AnonymousClassNameHelper $anonymousClassNameHelper, \PhpParser\PrettyPrinter\Standard $printer, \PHPStan\File\FileHelper $fileHelper, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector)
     {
         $this->reflectionProviderProvider = $reflectionProviderProvider;
         $this->classReflectionExtensionRegistryProvider = $classReflectionExtensionRegistryProvider;
@@ -122,9 +122,9 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
         try {
             $this->classReflector->reflect($className);
             return \true;
-        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             return \false;
-        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
             return \false;
         }
     }
@@ -135,14 +135,14 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
         }
         try {
             $reflectionClass = $this->classReflector->reflect($className);
-        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             throw new \PHPStan\Broker\ClassNotFoundException($className);
         }
         $reflectionClassName = \strtolower($reflectionClass->getName());
         if (\array_key_exists($reflectionClassName, $this->classReflections)) {
             return $this->classReflections[$reflectionClassName];
         }
-        $classReflection = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $reflectionClass->getName(), new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), null, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
+        $classReflection = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $reflectionClass->getName(), new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), null, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
         $this->classReflections[$reflectionClassName] = $classReflection;
         return $classReflection;
     }
@@ -181,8 +181,8 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
         if (isset(self::$anonymousClasses[$className])) {
             return self::$anonymousClasses[$className];
         }
-        $reflectionClass = \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionClass::createFromNode($this->classReflector, $classNode, new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource($this->printer->prettyPrint([$classNode]), $scopeFile), null);
-        self::$anonymousClasses[$className] = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), \sprintf('class@anonymous/%s:%s', $filename, $classNode->getLine()), new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), $scopeFile, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
+        $reflectionClass = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass::createFromNode($this->classReflector, $classNode, new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource($this->printer->prettyPrint([$classNode]), $scopeFile), null);
+        self::$anonymousClasses[$className] = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), \sprintf('class@anonymous/%s:%s', $filename, $classNode->getLine()), new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), $scopeFile, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
         $this->classReflections[$className] = self::$anonymousClasses[$className];
         return self::$anonymousClasses[$className];
     }
@@ -210,7 +210,7 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
     }
     private function getCustomFunction(string $functionName) : \PHPStan\Reflection\Php\PhpFunctionReflection
     {
-        $reflectionFunction = new \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction($this->functionReflector->reflect($functionName));
+        $reflectionFunction = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction($this->functionReflector->reflect($functionName));
         $templateTypeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         $phpDocParameterTags = [];
         $phpDocReturnTag = null;
@@ -245,9 +245,9 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
             try {
                 $this->functionReflector->reflect($name);
                 return \true;
-            } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
-            } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
+            } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
                 // pass
             }
             return \false;
@@ -268,7 +268,7 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
             $constantValue = $constantReflection->getValue();
             $constantValueType = \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($constantValue);
             $fileName = $constantReflection->getFileName();
-        } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
             $constantValueType = new \PHPStan\Type\MixedType();
             $fileName = null;
         }
@@ -280,9 +280,9 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
             try {
                 $this->constantReflector->reflect($name);
                 return \true;
-            } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
-            } catch (\_PhpScoper006a73f0e455\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
+            } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode $e) {
                 // pass
             }
             return \false;

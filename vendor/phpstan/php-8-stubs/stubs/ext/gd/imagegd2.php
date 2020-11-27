@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imagegd2(\_PhpScoper006a73f0e455\GdImage $image, string $file = \UNKNOWN, int $chunk_size = \UNKNOWN, int $mode = \UNKNOWN) : bool
+function imagegd2(\_PhpScoperbd5d0c5f7638\GdImage $image, string $file = \UNKNOWN, int $chunk_size = \UNKNOWN, int $mode = \UNKNOWN) : bool
 {
 }

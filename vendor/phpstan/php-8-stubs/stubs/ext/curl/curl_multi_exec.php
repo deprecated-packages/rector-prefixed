@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param int $still_running */
 function curl_multi_exec(\CurlMultiHandle $multi_handle, &$still_running) : int

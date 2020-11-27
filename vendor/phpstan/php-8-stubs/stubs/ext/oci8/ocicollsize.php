@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /**
  * @alias oci_collection_size
  * @deprecated
  */
-function ocicollsize(\_PhpScoper006a73f0e455\OCICollection $collection) : int|false
+function ocicollsize(\_PhpScoperbd5d0c5f7638\OCICollection $collection) : int|false
 {
 }

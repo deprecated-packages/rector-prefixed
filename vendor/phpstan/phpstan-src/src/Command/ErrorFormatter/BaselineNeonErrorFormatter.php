@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper006a73f0e455\Nette\DI\Helpers;
-use _PhpScoper006a73f0e455\Nette\Neon\Neon;
+use _PhpScoperbd5d0c5f7638\Nette\DI\Helpers;
+use _PhpScoperbd5d0c5f7638\Nette\Neon\Neon;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\Output;
 use PHPStan\File\RelativePathHelper;
@@ -22,7 +22,7 @@ class BaselineNeonErrorFormatter implements \PHPStan\Command\ErrorFormatter\Erro
     public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         if (!$analysisResult->hasErrors()) {
-            $output->writeRaw(\_PhpScoper006a73f0e455\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \_PhpScoper006a73f0e455\Nette\Neon\Neon::BLOCK));
+            $output->writeRaw(\_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::BLOCK));
             return 0;
         }
         $fileErrors = [];
@@ -43,10 +43,10 @@ class BaselineNeonErrorFormatter implements \PHPStan\Command\ErrorFormatter\Erro
                 $fileErrorsCounts[$errorMessage]++;
             }
             foreach ($fileErrorsCounts as $message => $count) {
-                $errorsToOutput[] = ['message' => \_PhpScoper006a73f0e455\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \_PhpScoper006a73f0e455\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
+                $errorsToOutput[] = ['message' => \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
             }
         }
-        $output->writeRaw(\_PhpScoper006a73f0e455\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \_PhpScoper006a73f0e455\Nette\Neon\Neon::BLOCK));
+        $output->writeRaw(\_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::BLOCK));
         return 1;
     }
 }

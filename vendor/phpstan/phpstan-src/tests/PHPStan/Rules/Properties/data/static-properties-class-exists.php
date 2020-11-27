@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\StaticPropertiesClassExists;
+namespace _PhpScoperbd5d0c5f7638\StaticPropertiesClassExists;
 
 class Foo
 {
     public function doFoo() : void
     {
-        if (!\class_exists(\_PhpScoper006a73f0e455\StaticPropertiesClassExists\Bar::class)) {
+        if (!\class_exists(\_PhpScoperbd5d0c5f7638\StaticPropertiesClassExists\Bar::class)) {
             return;
         }
-        echo \_PhpScoper006a73f0e455\StaticPropertiesClassExists\Bar::$foo;
+        echo \_PhpScoperbd5d0c5f7638\StaticPropertiesClassExists\Bar::$foo;
     }
 }

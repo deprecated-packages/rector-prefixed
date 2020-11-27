@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
-function imagesetclip(\_PhpScoper006a73f0e455\GdImage $image, int $x1, int $x2, int $y1, int $y2) : bool
+function imagesetclip(\_PhpScoperbd5d0c5f7638\GdImage $image, int $x1, int $x2, int $y1, int $y2) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455\StubValidator;
+namespace _PhpScoperbd5d0c5f7638\StubValidator;
 
 use Countable;
 class Foo implements \Countable
@@ -18,7 +18,7 @@ function someFunction(array $argument)
 }
 new class extends \ArrayIterator
 {
-    public function doFoo(\_PhpScoper006a73f0e455\StubValidator\Foooooooo $foo)
+    public function doFoo(\_PhpScoperbd5d0c5f7638\StubValidator\Foooooooo $foo)
     {
     }
 };

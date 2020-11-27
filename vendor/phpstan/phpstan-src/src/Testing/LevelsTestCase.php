@@ -5,7 +5,7 @@ namespace PHPStan\Testing;
 
 use PHPStan\File\FileHelper;
 use PHPStan\File\FileWriter;
-abstract class LevelsTestCase extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
+abstract class LevelsTestCase extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
 {
     /**
      * @return array<array<string>>
@@ -43,9 +43,9 @@ abstract class LevelsTestCase extends \_PhpScoper006a73f0e455\PHPUnit\Framework\
             \exec(\sprintf('%s %s analyse --no-progress --error-format=prettyJson --level=%d %s %s %s', \escapeshellarg(\PHP_BINARY), $command, $level, $configPath !== null ? '--configuration ' . \escapeshellarg($configPath) : '', $this->shouldAutoloadAnalysedFile() ? \sprintf('--autoload-file %s', \escapeshellarg($file)) : '', \escapeshellarg($file)), $outputLines);
             $output = \implode("\n", $outputLines);
             try {
-                $actualJson = \_PhpScoper006a73f0e455\Nette\Utils\Json::decode($output, \_PhpScoper006a73f0e455\Nette\Utils\Json::FORCE_ARRAY);
-            } catch (\_PhpScoper006a73f0e455\Nette\Utils\JsonException $e) {
-                throw new \_PhpScoper006a73f0e455\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
+                $actualJson = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode($output, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
+            } catch (\_PhpScoperbd5d0c5f7638\Nette\Utils\JsonException $e) {
+                throw new \_PhpScoperbd5d0c5f7638\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
             }
             if (\count($actualJson['files']) > 0) {
                 $normalizedFilePath = $fileHelper->normalizePath($file);
@@ -111,21 +111,21 @@ abstract class LevelsTestCase extends \_PhpScoper006a73f0e455\PHPUnit\Framework\
      * @param string[] $expectedMessages
      * @return \PHPUnit\Framework\AssertionFailedError|null
      */
-    private function compareFiles(string $expectedJsonFile, array $expectedMessages) : ?\_PhpScoper006a73f0e455\PHPUnit\Framework\AssertionFailedError
+    private function compareFiles(string $expectedJsonFile, array $expectedMessages) : ?\_PhpScoperbd5d0c5f7638\PHPUnit\Framework\AssertionFailedError
     {
         if (\count($expectedMessages) === 0) {
             try {
                 self::assertFileNotExists($expectedJsonFile);
                 return null;
-            } catch (\_PhpScoper006a73f0e455\PHPUnit\Framework\AssertionFailedError $e) {
+            } catch (\_PhpScoperbd5d0c5f7638\PHPUnit\Framework\AssertionFailedError $e) {
                 \unlink($expectedJsonFile);
                 return $e;
             }
         }
-        $actualOutput = \_PhpScoper006a73f0e455\Nette\Utils\Json::encode($expectedMessages, \_PhpScoper006a73f0e455\Nette\Utils\Json::PRETTY);
+        $actualOutput = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::encode($expectedMessages, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::PRETTY);
         try {
             $this->assertJsonStringEqualsJsonFile($expectedJsonFile, $actualOutput);
-        } catch (\_PhpScoper006a73f0e455\PHPUnit\Framework\AssertionFailedError $e) {
+        } catch (\_PhpScoperbd5d0c5f7638\PHPUnit\Framework\AssertionFailedError $e) {
             \PHPStan\File\FileWriter::write($expectedJsonFile, $actualOutput);
             return $e;
         }

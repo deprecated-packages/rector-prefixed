@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 class SingleFileSourceLocatorTestClass
 {
 }
-\class_alias('_PhpScoper006a73f0e455\\SingleFileSourceLocatorTestClass', 'SingleFileSourceLocatorTestClass', \false);
+\class_alias('_PhpScoperbd5d0c5f7638\\SingleFileSourceLocatorTestClass', 'SingleFileSourceLocatorTestClass', \false);
 function singleFileSourceLocatorTestFunction()
 {
 }

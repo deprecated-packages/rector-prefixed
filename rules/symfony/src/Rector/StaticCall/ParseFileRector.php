@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Rector\StaticCall;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\StaticCall;
@@ -54,7 +54,7 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->isName($node->name, 'parse')) {
             return null;
         }
-        if (!$this->isObjectType($node->class, '_PhpScoper006a73f0e455\\Symfony\\Component\\Yaml\\Yaml')) {
+        if (!$this->isObjectType($node->class, '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Yaml\\Yaml')) {
             return null;
         }
         if (!$this->isArgumentYamlFile($node)) {
@@ -69,11 +69,11 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         $possibleFileNode = $staticCall->args[0]->value;
         $possibleFileNodeAsString = $this->print($possibleFileNode);
         // is yml/yaml file
-        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($possibleFileNodeAsString, self::YAML_SUFFIX_IN_QUOTE_REGEX)) {
+        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($possibleFileNodeAsString, self::YAML_SUFFIX_IN_QUOTE_REGEX)) {
             return \true;
         }
         // is probably a file variable
-        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($possibleFileNodeAsString, self::FILE_SUFFIX_REGEX)) {
+        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($possibleFileNodeAsString, self::FILE_SUFFIX_REGEX)) {
             return \true;
         }
         // try to detect current value
@@ -82,6 +82,6 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $nodeType = $nodeScope->getType($possibleFileNode);
-        return $nodeType instanceof \PHPStan\Type\Constant\ConstantStringType && \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($nodeType->getValue(), self::YAML_SUFFIX_REGEX);
+        return $nodeType instanceof \PHPStan\Type\Constant\ConstantStringType && \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($nodeType->getValue(), self::YAML_SUFFIX_REGEX);
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObjectFactory;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
@@ -43,15 +43,15 @@ final class TagValueNodeConfigurationFactory
         }
         $silentKey = $this->resolveSilentKey($phpDocTagValueNode);
         $orderedVisibleItems = \Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper::resolveAnnotationItemsOrder($originalContent, $silentKey);
-        $hasNewlineAfterOpening = (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($originalContent, self::NEWLINE_AFTER_OPENING_REGEX);
-        $hasNewlineBeforeClosing = (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($originalContent, self::NEWLINE_BEFORE_CLOSING_REGEX);
-        $hasOpeningBracket = (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($originalContent, self::OPENING_BRACKET_REGEX);
-        $hasClosingBracket = (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($originalContent, self::CLOSING_BRACKET_REGEX);
+        $hasNewlineAfterOpening = (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($originalContent, self::NEWLINE_AFTER_OPENING_REGEX);
+        $hasNewlineBeforeClosing = (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($originalContent, self::NEWLINE_BEFORE_CLOSING_REGEX);
+        $hasOpeningBracket = (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($originalContent, self::OPENING_BRACKET_REGEX);
+        $hasClosingBracket = (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($originalContent, self::CLOSING_BRACKET_REGEX);
         $keysByQuotedStatus = [];
         foreach ($orderedVisibleItems as $orderedVisibleItem) {
             $keysByQuotedStatus[$orderedVisibleItem] = $this->isKeyQuoted($originalContent, $orderedVisibleItem, $silentKey);
         }
-        $isSilentKeyExplicit = (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($originalContent, \sprintf('%s=', $silentKey));
+        $isSilentKeyExplicit = (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($originalContent, \sprintf('%s=', $silentKey));
         $arrayEqualSign = $this->resolveArrayEqualSignByPhpNodeClass($phpDocTagValueNode);
         return new \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration($originalContent, $orderedVisibleItems, $hasNewlineAfterOpening, $hasNewlineBeforeClosing, $hasOpeningBracket, $hasClosingBracket, $keysByQuotedStatus, $silentKey, $isSilentKeyExplicit, $arrayEqualSign);
     }
@@ -66,12 +66,12 @@ final class TagValueNodeConfigurationFactory
     {
         $escapedKey = \preg_quote($key, '#');
         $quotedKeyPattern = $this->createQuotedKeyPattern($silentKey, $key, $escapedKey);
-        if ((bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern)) {
+        if ((bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern)) {
             return \true;
         }
         // @see https://regex101.com/r/VgvK8C/5/
         $quotedArrayPattern = \sprintf('#%s=\\{"(.*)"\\}|\\{"(.*)"\\}#', $escapedKey);
-        return (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($originalContent, $quotedArrayPattern);
+        return (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($originalContent, $quotedArrayPattern);
     }
     /**
      * Before:

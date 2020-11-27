@@ -55,7 +55,7 @@ final class BetterStandardPrinterTest extends \Symplify\PackageBuilder\Testing\A
     }
     public function provideDataForDoubleSlashEscaping() : \Iterator
     {
-        (yield ['_PhpScoper006a73f0e455\\Vendor\\Name', "'Vendor\\Name'"]);
+        (yield ['_PhpScoperbd5d0c5f7638\\Vendor\\Name', "'Vendor\\Name'"]);
         (yield ['Vendor\\', "'Vendor\\\\'"]);
         (yield ["Vendor'Name", "'Vendor\\'Name'"]);
     }

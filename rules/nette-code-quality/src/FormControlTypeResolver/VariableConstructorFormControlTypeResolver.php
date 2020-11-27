@@ -53,7 +53,7 @@ final class VariableConstructorFormControlTypeResolver implements \Rector\NetteC
         if (!$formType instanceof \PHPStan\Type\TypeWithClassName) {
             return [];
         }
-        if (!\is_a($formType->getClassName(), '_PhpScoper006a73f0e455\\Nette\\Application\\UI\\Form', \true)) {
+        if (!\is_a($formType->getClassName(), '_PhpScoperbd5d0c5f7638\\Nette\\Application\\UI\\Form', \true)) {
             return [];
         }
         $constructorClassMethod = $this->nodeRepository->findClassMethod($formType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);

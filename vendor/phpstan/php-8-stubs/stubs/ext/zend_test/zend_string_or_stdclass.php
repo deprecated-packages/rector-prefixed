@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper006a73f0e455;
+namespace _PhpScoperbd5d0c5f7638;
 
 /** @param stdClass|string $param */
 function zend_string_or_stdclass($param) : \stdClass|string

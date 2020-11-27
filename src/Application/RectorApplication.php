@@ -11,9 +11,9 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\EventDispatcher\Event\AfterProcessEvent;
 use Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Helper\ProgressBar;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
@@ -79,7 +79,7 @@ final class RectorApplication
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \_PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \_PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -206,7 +206,7 @@ final class RectorApplication
     {
         $this->symfonyStyle->progressStart($fileCount * self::PROGRESS_BAR_STEP_MULTIPLIER);
         $progressBar = $this->privatesAccessor->getPrivateProperty($this->symfonyStyle, 'progressBar');
-        if (!$progressBar instanceof \_PhpScoper006a73f0e455\Symfony\Component\Console\Helper\ProgressBar) {
+        if (!$progressBar instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Helper\ProgressBar) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         if ($progressBar->getMaxSteps() < 40) {

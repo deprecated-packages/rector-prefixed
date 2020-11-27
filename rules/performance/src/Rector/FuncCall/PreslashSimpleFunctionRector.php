@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Performance\Rector\FuncCall;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name\FullyQualified;
@@ -58,7 +58,7 @@ CODE_SAMPLE
         if ($functionName === null) {
             return null;
         }
-        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($functionName, '\\')) {
+        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($functionName, '\\')) {
             return null;
         }
         $node->name = new \PhpParser\Node\Name\FullyQualified($functionName);

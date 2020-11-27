@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type;
+namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type;
 
 use Closure;
 use PhpParser\Node;
@@ -10,18 +10,18 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use ReflectionFunction as CoreFunctionReflection;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionFunction;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocated;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\FileChecker;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\Util\FileHelper;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocated;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper;
 use function array_filter;
 use function array_values;
 use function assert;
@@ -31,7 +31,7 @@ use function strpos;
 /**
  * @internal
  */
-final class ClosureSourceLocator implements \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+final class ClosureSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var CoreFunctionReflection */
     private $coreFunctionReflection;
@@ -47,7 +47,7 @@ final class ClosureSourceLocator implements \_PhpScoper006a73f0e455\Roave\Better
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifier(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
     {
         return $this->getReflectionFunction($reflector, $identifier->getType());
     }
@@ -56,21 +56,21 @@ final class ClosureSourceLocator implements \_PhpScoper006a73f0e455\Roave\Better
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifiersByType(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return \array_filter([$this->getReflectionFunction($reflector, $identifierType)]);
     }
-    private function getReflectionFunction(\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper006a73f0e455\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionFunction
+    private function getReflectionFunction(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction
     {
         if (!$identifierType->isFunction()) {
             return null;
         }
         $fileName = $this->coreFunctionReflection->getFileName();
         if (\strpos($fileName, 'eval()\'d code') !== \false) {
-            throw \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocated::create();
+            throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocated::create();
         }
-        \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($fileName);
-        $fileName = \_PhpScoper006a73f0e455\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($fileName);
+        \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($fileName);
+        $fileName = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($fileName);
         $nodeVisitor = new class($fileName, $this->coreFunctionReflection->getStartLine()) extends \PhpParser\NodeVisitorAbstract
         {
             /** @var string */
@@ -127,7 +127,7 @@ final class ClosureSourceLocator implements \_PhpScoper006a73f0e455\Roave\Better
                     return null;
                 }
                 if (isset($closureNodesDataOnSameLine[1])) {
-                    throw \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine::create($this->fileName, $this->startLine);
+                    throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine::create($this->fileName, $this->startLine);
                 }
                 return $closureNodesDataOnSameLine[0];
             }
@@ -140,8 +140,8 @@ final class ClosureSourceLocator implements \_PhpScoper006a73f0e455\Roave\Better
         $closureNodes = $nodeVisitor->getClosureNodes();
         \assert(\is_array($closureNodes));
         \assert($closureNodes[1] instanceof \PhpParser\Node\Stmt\Namespace_ || $closureNodes[1] === null);
-        $reflectionFunction = (new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection())->__invoke($reflector, $closureNodes[0], new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Located\LocatedSource($fileContents, $fileName), $closureNodes[1]);
-        \assert($reflectionFunction instanceof \_PhpScoper006a73f0e455\Roave\BetterReflection\Reflection\ReflectionFunction || $reflectionFunction === null);
+        $reflectionFunction = (new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection())->__invoke($reflector, $closureNodes[0], new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource($fileContents, $fileName), $closureNodes[1]);
+        \assert($reflectionFunction instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction || $reflectionFunction === null);
         return $reflectionFunction;
     }
 }

@@ -6,9 +6,9 @@ namespace Rector\Utils\NodeDocumentationGenerator\Command;
 use Rector\Core\Console\Command\AbstractCommand;
 use Rector\Utils\NodeDocumentationGenerator\NodeInfosFactory;
 use Rector\Utils\NodeDocumentationGenerator\Printer\MarkdownNodeInfosPrinter;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption;
-use _PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption;
+use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -46,9 +46,9 @@ final class DumpNodesCommand extends \Rector\Core\Console\Command\AbstractComman
     protected function configure() : void
     {
         $this->setDescription('[DOCS] Dump overview of all Nodes');
-        $this->addOption(self::OUTPUT_FILE, null, \_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Where to output the file', \getcwd() . '/docs/nodes_overview.md');
+        $this->addOption(self::OUTPUT_FILE, null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Where to output the file', \getcwd() . '/docs/nodes_overview.md');
     }
-    protected function execute(\_PhpScoper006a73f0e455\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $outputFile = (string) $input->getOption(self::OUTPUT_FILE);
         $nodeInfos = $this->nodeInfosFactory->create();

@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Json;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Json;
 use PHPStan\File\FileReader;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping;
-use _PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping;
+use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 class ComposerJsonAndInstalledJsonSourceLocatorMaker
 {
     /**
@@ -29,7 +29,7 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
         $this->optimizedSingleFileSourceLocatorRepository = $optimizedSingleFileSourceLocatorRepository;
         $this->optimizedPsrAutoloaderLocatorFactory = $optimizedPsrAutoloaderLocatorFactory;
     }
-    public function create(string $projectInstallationPath) : ?\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+    public function create(string $projectInstallationPath) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
     {
         $composerJsonPath = $projectInstallationPath . '/composer.json';
         if (!\is_file($composerJsonPath)) {
@@ -42,14 +42,14 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
         $installedJsonDirectoryPath = \dirname($installedJsonPath);
         try {
             $composerJsonContents = \PHPStan\File\FileReader::read($composerJsonPath);
-            $composer = \_PhpScoper006a73f0e455\Nette\Utils\Json::decode($composerJsonContents, \_PhpScoper006a73f0e455\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\PHPStan\File\CouldNotReadFileException|\_PhpScoper006a73f0e455\Nette\Utils\JsonException $e) {
+            $composer = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode($composerJsonContents, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\PHPStan\File\CouldNotReadFileException|\_PhpScoperbd5d0c5f7638\Nette\Utils\JsonException $e) {
             return null;
         }
         try {
             $installedJsonContents = \PHPStan\File\FileReader::read($installedJsonPath);
-            $installedJson = \_PhpScoper006a73f0e455\Nette\Utils\Json::decode($installedJsonContents, \_PhpScoper006a73f0e455\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\PHPStan\File\CouldNotReadFileException|\_PhpScoper006a73f0e455\Nette\Utils\JsonException $e) {
+            $installedJson = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode($installedJsonContents, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\PHPStan\File\CouldNotReadFileException|\_PhpScoperbd5d0c5f7638\Nette\Utils\JsonException $e) {
             return null;
         }
         $installed = $installedJson['packages'] ?? $installedJson;
@@ -62,10 +62,10 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
             return $this->prefixPaths($this->packageToFilePaths($package), $this->packagePrefixPath($projectInstallationPath, $installedJsonDirectoryPath, $package));
         }, $installed));
         $locators = [];
-        $locators[] = $this->optimizedPsrAutoloaderLocatorFactory->create(\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping::fromArrayMappings(\array_merge_recursive($this->prefixWithInstallationPath($this->packageToPsr4AutoloadNamespaces($composer), $projectInstallationPath), ...\array_map(function (array $package) use($projectInstallationPath, $installedJsonDirectoryPath) : array {
+        $locators[] = $this->optimizedPsrAutoloaderLocatorFactory->create(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping::fromArrayMappings(\array_merge_recursive($this->prefixWithInstallationPath($this->packageToPsr4AutoloadNamespaces($composer), $projectInstallationPath), ...\array_map(function (array $package) use($projectInstallationPath, $installedJsonDirectoryPath) : array {
             return $this->prefixWithPackagePath($this->packageToPsr4AutoloadNamespaces($package), $projectInstallationPath, $installedJsonDirectoryPath, $package);
         }, $installed))));
-        $locators[] = $this->optimizedPsrAutoloaderLocatorFactory->create(\_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping::fromArrayMappings(\array_merge_recursive($this->prefixWithInstallationPath($this->packageToPsr0AutoloadNamespaces($composer), $projectInstallationPath), ...\array_map(function (array $package) use($projectInstallationPath, $installedJsonDirectoryPath) : array {
+        $locators[] = $this->optimizedPsrAutoloaderLocatorFactory->create(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping::fromArrayMappings(\array_merge_recursive($this->prefixWithInstallationPath($this->packageToPsr0AutoloadNamespaces($composer), $projectInstallationPath), ...\array_map(function (array $package) use($projectInstallationPath, $installedJsonDirectoryPath) : array {
             return $this->prefixWithPackagePath($this->packageToPsr0AutoloadNamespaces($package), $projectInstallationPath, $installedJsonDirectoryPath, $package);
         }, $installed))));
         foreach ($classMapDirectories as $classMapDirectory) {
@@ -80,7 +80,7 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
             }
             $locators[] = $this->optimizedSingleFileSourceLocatorRepository->getOrCreate($file);
         }
-        return new \_PhpScoper006a73f0e455\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators);
+        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators);
     }
     /**
      * @param mixed[] $package

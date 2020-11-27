@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming;
 
-use _PhpScoper006a73f0e455\Nette\Utils\Strings;
+use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
 use Rector\Core\ValueObject\RenamedNamespace;
 final class NamespaceMatcher
 {
@@ -15,7 +15,7 @@ final class NamespaceMatcher
         \krsort($oldToNewNamespace);
         /** @var string $oldNamespace */
         foreach ($oldToNewNamespace as $oldNamespace => $newNamespace) {
-            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::startsWith($name, $oldNamespace)) {
+            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::startsWith($name, $oldNamespace)) {
                 return new \Rector\Core\ValueObject\RenamedNamespace($name, $oldNamespace, $newNamespace);
             }
         }
