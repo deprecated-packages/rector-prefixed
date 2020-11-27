@@ -1,21 +1,23 @@
-name: Exclude and Include
+name: Simple Run
 
 on: [pull_request, push]
 
 jobs:
-    exclude_and_include:
+    simple_run:
         name: Exclude And Include
         runs-on: ubuntu-latest
 
+        strategy:
+            fail-fast: false
+            matrix:
+                php: ['7.2', '7.3', '7.4']
+
         steps:
             -   uses: actions/checkout@v2
-            -   uses: shivammathur/setup-php@v1
+
+            -   uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 7.2
+                    php-version: ${{ matrix.php }}
                     coverage: none
 
-            # enable autoload-dev
-            -   run: composer dump-autoload
-
-            # this should test "EXCLUDE_PATHS" option in config, only 1 case of dead-method should be reported
-            -   run: bin/rector process fixture-dead-code --config rector-exclude-include.php --ansi
+            -   run: bin/rector
