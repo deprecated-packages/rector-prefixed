@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node\Manipulator;
 
 use PhpParser\Node\Name;
@@ -15,39 +14,31 @@ use PhpParser\Node\Stmt\Trait_;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
-
 final class ClassManipulator
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var NodesToRemoveCollector
      */
     private $nodesToRemoveCollector;
-
-    public function __construct(
-        NodeNameResolver $nodeNameResolver,
-        NodeTypeResolver $nodeTypeResolver,
-        NodesToRemoveCollector $nodesToRemoveCollector
-    ) {
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
+    {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
     }
-
     /**
      * @param Class_|Trait_ $classLike
      * @return Name[]
      */
-    public function getUsedTraits(ClassLike $classLike): array
+    public function getUsedTraits(\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $usedTraits = [];
         foreach ($classLike->getTraitUses() as $traitUse) {
@@ -57,138 +48,113 @@ final class ClassManipulator
                 $usedTraits[$traitName] = $trait;
             }
         }
-
         return $usedTraits;
     }
-
-    public function hasParentMethodOrInterface(string $class, string $method): bool
+    public function hasParentMethodOrInterface(string $class, string $method) : bool
     {
-        if (! class_exists($class)) {
-            return false;
+        if (!\class_exists($class)) {
+            return \false;
         }
-
         $parentClass = $class;
-        while ($parentClass = get_parent_class($parentClass)) {
-            if (method_exists($parentClass, $method)) {
-                return true;
+        while ($parentClass = \get_parent_class($parentClass)) {
+            if (\method_exists($parentClass, $method)) {
+                return \true;
             }
         }
-
-        $implementedInterfaces = class_implements($class);
+        $implementedInterfaces = \class_implements($class);
         foreach ($implementedInterfaces as $implementedInterface) {
-            if (method_exists($implementedInterface, $method)) {
-                return true;
+            if (\method_exists($implementedInterface, $method)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @return string[]
      */
-    public function getPrivatePropertyNames(Class_ $class): array
+    public function getPrivatePropertyNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $privateProperties = array_filter($class->getProperties(), function (Property $property): bool {
+        $privateProperties = \array_filter($class->getProperties(), function (\PhpParser\Node\Stmt\Property $property) : bool {
             return $property->isPrivate();
         });
-
         return $this->nodeNameResolver->getNames($privateProperties);
     }
-
     /**
      * @return string[]
      */
-    public function getPublicMethodNames(Class_ $class): array
+    public function getPublicMethodNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $publicMethods = array_filter($class->getMethods(), function (ClassMethod $classMethod): bool {
+        $publicMethods = \array_filter($class->getMethods(), function (\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool {
             if ($classMethod->isAbstract()) {
-                return false;
+                return \false;
             }
-
             return $classMethod->isPublic();
         });
-
         return $this->nodeNameResolver->getNames($publicMethods);
     }
-
-    public function findPropertyByType(Class_ $class, string $serviceType): ?Property
+    public function findPropertyByType(\PhpParser\Node\Stmt\Class_ $class, string $serviceType) : ?\PhpParser\Node\Stmt\Property
     {
         foreach ($class->getProperties() as $property) {
-            if (! $this->nodeTypeResolver->isObjectType($property, $serviceType)) {
+            if (!$this->nodeTypeResolver->isObjectType($property, $serviceType)) {
                 continue;
             }
-
             return $property;
         }
-
         return null;
     }
-
     /**
      * @return string[]
      */
-    public function getImplementedInterfaceNames(Class_ $class): array
+    public function getImplementedInterfaceNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         return $this->nodeNameResolver->getNames($class->implements);
     }
-
-    public function hasInterface(Class_ $class, string $desiredInterface): bool
+    public function hasInterface(\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface) : bool
     {
         return $this->nodeNameResolver->haveName($class->implements, $desiredInterface);
     }
-
-    public function hasTrait(Class_ $class, string $desiredTrait): bool
+    public function hasTrait(\PhpParser\Node\Stmt\Class_ $class, string $desiredTrait) : bool
     {
         foreach ($class->getTraitUses() as $traitUse) {
-            if (! $this->nodeNameResolver->haveName($traitUse->traits, $desiredTrait)) {
+            if (!$this->nodeNameResolver->haveName($traitUse->traits, $desiredTrait)) {
                 continue;
             }
-
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
-    public function replaceTrait(Class_ $class, string $oldTrait, string $newTrait): void
+    public function replaceTrait(\PhpParser\Node\Stmt\Class_ $class, string $oldTrait, string $newTrait) : void
     {
         foreach ($class->getTraitUses() as $traitUse) {
             foreach ($traitUse->traits as $key => $traitTrait) {
-                if (! $this->nodeNameResolver->isName($traitTrait, $oldTrait)) {
+                if (!$this->nodeNameResolver->isName($traitTrait, $oldTrait)) {
                     continue;
                 }
-
-                $traitUse->traits[$key] = new FullyQualified($newTrait);
+                $traitUse->traits[$key] = new \PhpParser\Node\Name\FullyQualified($newTrait);
                 break;
             }
         }
     }
-
     /**
      * @param Class_|Interface_ $classLike
      * @return string[]|mixed
      */
-    public function getClassLikeNodeParentInterfaceNames(ClassLike $classLike)
+    public function getClassLikeNodeParentInterfaceNames(\PhpParser\Node\Stmt\ClassLike $classLike)
     {
-        if ($classLike instanceof Class_) {
+        if ($classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->nodeNameResolver->getNames($classLike->implements);
         }
-
-        if ($classLike instanceof Interface_) {
+        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
             return $this->nodeNameResolver->getNames($classLike->extends);
         }
-
         return [];
     }
-
-    public function removeInterface(Class_ $class, string $desiredInterface): void
+    public function removeInterface(\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface) : void
     {
         foreach ($class->implements as $implement) {
-            if (! $this->nodeNameResolver->isName($implement, $desiredInterface)) {
+            if (!$this->nodeNameResolver->isName($implement, $desiredInterface)) {
                 continue;
             }
-
             $this->nodesToRemoveCollector->addNodeToRemove($implement);
         }
     }

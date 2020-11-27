@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Defluent\Tests\NodeFactory\FluentChainMethodCallRootExtractor\Source;
 
 final class AnotherTypeFactory
@@ -11,6 +10,6 @@ final class AnotherTypeFactory
      */
     public function createSomeClassWithFluentMethods()
     {
-        return new SomeClassWithFluentMethods();
+        return new \Rector\Defluent\Tests\NodeFactory\FluentChainMethodCallRootExtractor\Source\SomeClassWithFluentMethods();
     }
 }

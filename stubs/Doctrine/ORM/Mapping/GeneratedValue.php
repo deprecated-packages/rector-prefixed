@@ -2,15 +2,14 @@
 
 namespace Doctrine\ORM\Mapping;
 
-if (class_exists('Doctrine\ORM\Mapping\GeneratedValue')) {
+if (\class_exists('Doctrine\\ORM\\Mapping\\GeneratedValue')) {
     return;
 }
-
 /**
  * @Annotation
  * @Target("PROPERTY")
  */
-final class GeneratedValue implements Annotation
+final class GeneratedValue implements \Doctrine\ORM\Mapping\Annotation
 {
     /**
      * The type of Id generator.

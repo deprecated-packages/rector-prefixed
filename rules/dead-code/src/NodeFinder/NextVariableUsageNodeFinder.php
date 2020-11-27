@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\NodeFinder;
 
 use PhpParser\Node;
@@ -14,96 +13,71 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeNestingScope\ParentScopeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
 final class NextVariableUsageNodeFinder
 {
     /**
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-
     /**
      * @var ParentScopeFinder
      */
     private $parentScopeFinder;
-
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
-    public function __construct(
-        BetterNodeFinder $betterNodeFinder,
-        BetterStandardPrinter $betterStandardPrinter,
-        CallableNodeTraverser $callableNodeTraverser,
-        NodeNameResolver $nodeNameResolver,
-        ParentScopeFinder $parentScopeFinder
-    ) {
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)
+    {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->parentScopeFinder = $parentScopeFinder;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-
-    public function find(Assign $assign): ?Node
+    public function find(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
     {
         $scopeNode = $this->parentScopeFinder->find($assign);
         if ($scopeNode === null) {
             return null;
         }
-
         /** @var Variable $expr */
         $expr = $assign->var;
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $scopeNode->stmts, function (Node $currentNode) use (
-            $expr,
-            &$nextUsageOfVariable
-        ): ?int {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $scopeNode->stmts, function (\PhpParser\Node $currentNode) use($expr, &$nextUsageOfVariable) : ?int {
             // used above the assign
             if ($currentNode->getStartTokenPos() < $expr->getStartTokenPos()) {
                 return null;
             }
-
             // skip self
             if ($currentNode === $expr) {
                 return null;
             }
-
-            if (! $this->betterStandardPrinter->areNodesEqual($currentNode, $expr)) {
+            if (!$this->betterStandardPrinter->areNodesEqual($currentNode, $expr)) {
                 return null;
             }
-
-            $currentNodeParent = $currentNode->getAttribute(AttributeKey::PARENT_NODE);
-
-            if ($currentNodeParent instanceof Assign && ! $this->hasInParentExpression($currentNodeParent, $expr)) {
-                return NodeTraverser::STOP_TRAVERSAL;
+            $currentNodeParent = $currentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($currentNodeParent instanceof \PhpParser\Node\Expr\Assign && !$this->hasInParentExpression($currentNodeParent, $expr)) {
+                return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
             }
-
             $nextUsageOfVariable = $currentNode;
-
-            return NodeTraverser::STOP_TRAVERSAL;
+            return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
-
         return $nextUsageOfVariable;
     }
-
-    private function hasInParentExpression(Assign $assign, Variable $variable): bool
+    private function hasInParentExpression(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         $name = $this->nodeNameResolver->getName($variable);
         if ($name === null) {
-            return false;
+            return \false;
         }
-
         return $this->betterNodeFinder->hasVariableOfName($assign->expr, $name);
     }
 }

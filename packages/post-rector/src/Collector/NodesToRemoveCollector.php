@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PostRector\Collector;
 
 use PhpParser\Node;
@@ -14,95 +13,75 @@ use Rector\NodeRemoval\BreakingRemovalGuard;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class NodesToRemoveCollector implements NodeCollectorInterface
+final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
      * @var AffectedFilesCollector
      */
     private $affectedFilesCollector;
-
     /**
      * @var BreakingRemovalGuard
      */
     private $breakingRemovalGuard;
-
     /**
      * @var Stmt[]|Node[]
      */
     private $nodesToRemove = [];
-
-    public function __construct(
-        AffectedFilesCollector $affectedFilesCollector,
-        BreakingRemovalGuard $breakingRemovalGuard
-    ) {
+    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard)
+    {
         $this->affectedFilesCollector = $affectedFilesCollector;
         $this->breakingRemovalGuard = $breakingRemovalGuard;
     }
-
-    public function addNodeToRemove(Node $node): void
+    public function addNodeToRemove(\PhpParser\Node $node) : void
     {
         // chain call: "->method()->another()"
         $this->ensureIsNotPartOfChainMethodCall($node);
-
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-        if (! $node instanceof Expression && $parentNode instanceof Expression) {
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$node instanceof \PhpParser\Node\Stmt\Expression && $parentNode instanceof \PhpParser\Node\Stmt\Expression) {
             // only expressions can be removed
             $node = $parentNode;
         } else {
             $this->breakingRemovalGuard->ensureNodeCanBeRemove($node);
         }
-
         /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo !== null) {
             $this->affectedFilesCollector->addFile($fileInfo);
         }
-
         /** @var Stmt $node */
         $this->nodesToRemove[] = $node;
     }
-
-    public function isNodeRemoved(Node $node): bool
+    public function isNodeRemoved(\PhpParser\Node $node) : bool
     {
-        return in_array($node, $this->nodesToRemove, true);
+        return \in_array($node, $this->nodesToRemove, \true);
     }
-
-    public function isActive(): bool
+    public function isActive() : bool
     {
         return $this->getCount() > 0;
     }
-
-    public function getCount(): int
+    public function getCount() : int
     {
-        return count($this->nodesToRemove);
+        return \count($this->nodesToRemove);
     }
-
     /**
      * @return Node[]
      */
-    public function getNodesToRemove(): array
+    public function getNodesToRemove() : array
     {
         return $this->nodesToRemove;
     }
-
-    public function unset(int $key): void
+    public function unset(int $key) : void
     {
         unset($this->nodesToRemove[$key]);
     }
-
-    private function ensureIsNotPartOfChainMethodCall(Node $node): void
+    private function ensureIsNotPartOfChainMethodCall(\PhpParser\Node $node) : void
     {
-        if (! $node instanceof MethodCall) {
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return;
         }
-
-        if (! $node->var instanceof MethodCall) {
+        if (!$node->var instanceof \PhpParser\Node\Expr\MethodCall) {
             return;
         }
-
-        throw new ShouldNotHappenException(
-            'Chain method calls cannot be removed this way. It would remove the whole tree of calls. Remove them manually by creating new parent node with no following method.'
-        );
+        throw new \Rector\Core\Exception\ShouldNotHappenException('Chain method calls cannot be removed this way. It would remove the whole tree of calls. Remove them manually by creating new parent node with no following method.');
     }
 }

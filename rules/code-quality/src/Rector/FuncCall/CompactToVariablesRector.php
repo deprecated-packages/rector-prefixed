@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -10,29 +9,24 @@ use Rector\CodeQuality\CompactConverter;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://stackoverflow.com/a/16319909/1348344
  * @see https://3v4l.org/8GJEs
  * @see \Rector\CodeQuality\Tests\Rector\FuncCall\CompactToVariablesRector\CompactToVariablesRectorTest
  */
-final class CompactToVariablesRector extends AbstractRector
+final class CompactToVariablesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var CompactConverter
      */
     private $compactConverter;
-
-    public function __construct(CompactConverter $compactConverter)
+    public function __construct(\Rector\CodeQuality\CompactConverter $compactConverter)
     {
         $this->compactConverter = $compactConverter;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change compact() call to own array', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change compact() call to own array', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -44,8 +38,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -57,31 +50,26 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
-
     /**
      * @param FuncCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isName($node, 'compact')) {
+        if (!$this->isName($node, 'compact')) {
             return null;
         }
-
-        if (! $this->compactConverter->hasAllArgumentsNamed($node)) {
+        if (!$this->compactConverter->hasAllArgumentsNamed($node)) {
             return null;
         }
-
         return $this->compactConverter->convertToArray($node);
     }
 }

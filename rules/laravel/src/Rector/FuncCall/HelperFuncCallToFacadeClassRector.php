@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Laravel\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -9,20 +8,17 @@ use PhpParser\Node\Expr\FuncCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://laravel.com/docs/8.x/helpers#method-app
  * @see https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/helpers.php
  *
  * @see \Rector\Laravel\Tests\Rector\FuncCall\HelperFuncCallToFacadeClassRector\HelperFuncCallToFacadeClassRectorTest
  */
-final class HelperFuncCallToFacadeClassRector extends AbstractRector
+final class HelperFuncCallToFacadeClassRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change app() func calls to facade calls', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change app() func calls to facade calls', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -31,9 +27,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -42,31 +36,26 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
-
     /**
      * @param FuncCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isName($node->name, 'app')) {
+        if (!$this->isName($node->name, 'app')) {
             return null;
         }
-
-        if (count((array) $node->args) !== 1) {
+        if (\count((array) $node->args) !== 1) {
             return null;
         }
-
-        return $this->createStaticCall('Illuminate\Support\Facades\App', 'get', (array) $node->args);
+        return $this->createStaticCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\App', 'get', (array) $node->args);
     }
 }

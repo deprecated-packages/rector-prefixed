@@ -1,32 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Naming\Guard;
 
-use Ramsey\Uuid\UuidInterface;
+use _PhpScoper006a73f0e455\Ramsey\Uuid\UuidInterface;
 use Rector\Naming\Contract\Guard\GuardInterface;
 use Rector\Naming\Contract\RenameValueObjectInterface;
 use Rector\Naming\ValueObject\PropertyRename;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
-final class RamseyUuidInterfaceGuard implements GuardInterface
+final class RamseyUuidInterfaceGuard implements \Rector\Naming\Contract\Guard\GuardInterface
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
-    public function __construct(NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-
     /**
      * @param PropertyRename $renameValueObject
      */
-    public function check(RenameValueObjectInterface $renameValueObject): bool
+    public function check(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($renameValueObject->getProperty(), UuidInterface::class);
+        return $this->nodeTypeResolver->isObjectType($renameValueObject->getProperty(), \_PhpScoper006a73f0e455\Ramsey\Uuid\UuidInterface::class);
     }
 }

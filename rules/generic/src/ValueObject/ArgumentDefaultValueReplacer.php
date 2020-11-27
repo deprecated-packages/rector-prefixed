@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\ValueObject;
 
 final class ArgumentDefaultValueReplacer
@@ -10,27 +9,22 @@ final class ArgumentDefaultValueReplacer
      * @var string
      */
     private $class;
-
     /**
      * @var string
      */
     private $method;
-
     /**
      * @var int
      */
     private $position;
-
     /**
      * @var mixed
      */
     private $valueBefore;
-
     /**
      * @var mixed
      */
     private $valueAfter;
-
     /**
      * @param mixed $valueBefore
      * @param mixed $valueAfter
@@ -43,22 +37,18 @@ final class ArgumentDefaultValueReplacer
         $this->valueBefore = $valueBefore;
         $this->valueAfter = $valueAfter;
     }
-
-    public function getClass(): string
+    public function getClass() : string
     {
         return $this->class;
     }
-
-    public function getMethod(): string
+    public function getMethod() : string
     {
         return $this->method;
     }
-
-    public function getPosition(): int
+    public function getPosition() : int
     {
         return $this->position;
     }
-
     /**
      * @return mixed
      */
@@ -66,7 +56,6 @@ final class ArgumentDefaultValueReplacer
     {
         return $this->valueBefore;
     }
-
     /**
      * @return mixed
      */

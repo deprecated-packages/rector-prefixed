@@ -1,15 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Contract;
 
 use PhpParser\Node;
-
 interface FormControlTypeResolverInterface
 {
     /**
      * @return array<string, string>
      */
-    public function resolve(Node $node): array;
+    public function resolve(\PhpParser\Node $node) : array;
 }

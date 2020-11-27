@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\VendorLocker\NodeVendorLocker;
 
 use PhpParser\Node\Stmt\Property;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
-final class PropertyVisibilityVendorLockResolver extends AbstractNodeVendorLockResolver
+final class PropertyVisibilityVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     /**
      * Checks for:
@@ -16,59 +14,46 @@ final class PropertyVisibilityVendorLockResolver extends AbstractNodeVendorLockR
      * Prevents:
      * - changing visibility conflicting with children
      */
-    public function isParentLockedProperty(Property $property): bool
+    public function isParentLockedProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var string $className */
-        $className = $property->getAttribute(AttributeKey::CLASS_NAME);
-
+        $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
-
         return $this->hasParentProperty($className, $propertyName);
     }
-
-    public function isChildLockedProperty(Property $property): bool
+    public function isChildLockedProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var string $className */
-        $className = $property->getAttribute(AttributeKey::CLASS_NAME);
-
+        $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
-
         return $this->hasChildProperty($className, $propertyName);
     }
-
-    private function hasParentProperty(string $className, string $propertyName): bool
+    private function hasParentProperty(string $className, string $propertyName) : bool
     {
-        $parentClasses = class_parents($className);
-
+        $parentClasses = \class_parents($className);
         foreach ($parentClasses as $parentClass) {
-            if (! property_exists($parentClass, $propertyName)) {
+            if (!\property_exists($parentClass, $propertyName)) {
                 continue;
             }
-
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
-    private function hasChildProperty(string $desiredClassName, string $propertyName): bool
+    private function hasChildProperty(string $desiredClassName, string $propertyName) : bool
     {
-        foreach (get_declared_classes() as $className) {
+        foreach (\get_declared_classes() as $className) {
             if ($className === $desiredClassName) {
                 continue;
             }
-
-            if (! is_a($className, $desiredClassName, true)) {
+            if (!\is_a($className, $desiredClassName, \true)) {
                 continue;
             }
-
-            if (property_exists($className, $propertyName)) {
-                return true;
+            if (\property_exists($className, $propertyName)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\StaticTypeMapper\Mapper;
 
 use PhpParser\Node;
@@ -10,14 +9,12 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\Type;
 use Rector\Core\Exception\NotImplementedException;
 use Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
-
 final class PhpParserNodeMapper
 {
     /**
      * @var PhpParserNodeMapperInterface[]
      */
     private $phpParserNodeMappers = [];
-
     /**
      * @param PhpParserNodeMapperInterface[] $phpParserNodeMappers
      */
@@ -25,23 +22,19 @@ final class PhpParserNodeMapper
     {
         $this->phpParserNodeMappers = $phpParserNodeMappers;
     }
-
-    public function mapToPHPStanType(Node $node): Type
+    public function mapToPHPStanType(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         foreach ($this->phpParserNodeMappers as $phpParserNodeMapper) {
-            if (! is_a($node, $phpParserNodeMapper->getNodeType())) {
+            if (!\is_a($node, $phpParserNodeMapper->getNodeType())) {
                 continue;
             }
-
             // do not let Expr collect all the types
             // note: can be solve later with priorities on mapper interface, making this last
-            if ($phpParserNodeMapper->getNodeType() === Expr::class && is_a($node, String_::class)) {
+            if ($phpParserNodeMapper->getNodeType() === \PhpParser\Node\Expr::class && \is_a($node, \PhpParser\Node\Scalar\String_::class)) {
                 continue;
             }
-
             return $phpParserNodeMapper->mapToPHPStan($node);
         }
-
-        throw new NotImplementedException();
+        throw new \Rector\Core\Exception\NotImplementedException();
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\FamilyTree\NodeAnalyzer;
 
 use PhpParser\Node;
@@ -12,77 +11,58 @@ use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
 final class PropertyUsageAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
     /**
      * @var FamilyRelationsAnalyzer
      */
     private $familyRelationsAnalyzer;
-
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-
-    public function __construct(
-        BetterNodeFinder $betterNodeFinder,
-        FamilyRelationsAnalyzer $familyRelationsAnalyzer,
-        NodeNameResolver $nodeNameResolver,
-        NodeRepository $nodeRepository
-    ) {
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
         $this->nodeRepository = $nodeRepository;
     }
-
-    public function isPropertyFetchedInChildClass(Property $property): bool
+    public function isPropertyFetchedInChildClass(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        $className = $property->getAttribute(AttributeKey::CLASS_NAME);
+        $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
-            return false;
+            return \false;
         }
-
-        $classLike = $property->getAttribute(AttributeKey::CLASS_NODE);
-        if ($classLike instanceof Class_ && $classLike->isFinal()) {
-            return false;
+        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if ($classLike instanceof \PhpParser\Node\Stmt\Class_ && $classLike->isFinal()) {
+            return \false;
         }
-
         $propertyName = $this->nodeNameResolver->getName($property);
         if ($propertyName === null) {
-            return false;
+            return \false;
         }
-
         $childrenClassNames = $this->familyRelationsAnalyzer->getChildrenOfClass($className);
         foreach ($childrenClassNames as $childClassName) {
             $childClass = $this->nodeRepository->findClass($childClassName);
             if ($childClass === null) {
                 continue;
             }
-
-            $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst(
-                (array) $childClass->stmts,
-                function (Node $node) use ($propertyName): bool {
-                    return $this->nodeNameResolver->isLocalPropertyFetchNamed($node, $propertyName);
-                }
-            );
-
+            $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst((array) $childClass->stmts, function (\PhpParser\Node $node) use($propertyName) : bool {
+                return $this->nodeNameResolver->isLocalPropertyFetchNamed($node, $propertyName);
+            });
             if ($isPropertyFetched) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

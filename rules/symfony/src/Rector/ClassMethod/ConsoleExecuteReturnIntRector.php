@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -20,18 +19,15 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/symfony/symfony/pull/33775/files
  * @see \Rector\Symfony\Tests\Rector\ClassMethod\ConsoleExecuteReturnIntRector\ConsoleExecuteReturnIntRectorTest
  */
-final class ConsoleExecuteReturnIntRector extends AbstractRector
+final class ConsoleExecuteReturnIntRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Returns int from Command::execute command', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Returns int from Command::execute command', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeCommand extends Command
 {
     public function execute(InputInterface $input, OutputInterface $output)
@@ -40,8 +36,7 @@ class SomeCommand extends Command
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeCommand extends Command
 {
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -50,134 +45,105 @@ class SomeCommand extends Command
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isName($node, 'execute')) {
+        if (!$this->isName($node, 'execute')) {
             return null;
         }
-
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-
-        if (! $this->isObjectType($classLike, 'Symfony\Component\Console\Command\Command')) {
+        if (!$this->isObjectType($classLike, '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Command\\Command')) {
             return null;
         }
-
         $this->refactorReturnTypeDeclaration($node);
         $this->addReturn0ToMethod($node);
-
         return $node;
     }
-
-    private function refactorReturnTypeDeclaration(ClassMethod $classMethod): void
+    private function refactorReturnTypeDeclaration(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // already set
         if ($classMethod->returnType !== null && $this->isName($classMethod->returnType, 'int')) {
             return;
         }
-
-        $classMethod->returnType = new Identifier('int');
+        $classMethod->returnType = new \PhpParser\Node\Identifier('int');
     }
-
-    private function addReturn0ToMethod(ClassMethod $classMethod): void
+    private function addReturn0ToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $hasReturn = false;
-
-        $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (Node $node) use (
-            $classMethod,
-            &$hasReturn
-        ): ?int {
-            if ($node instanceof FunctionLike) {
-                return NodeTraverser::DONT_TRAVERSE_CHILDREN;
+        $hasReturn = \false;
+        $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use($classMethod, &$hasReturn) : ?int {
+            if ($node instanceof \PhpParser\Node\FunctionLike) {
+                return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
-
-            if (! $node instanceof Return_) {
+            if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return null;
             }
-
-            if ($node->expr instanceof Int_) {
+            if ($node->expr instanceof \PhpParser\Node\Expr\Cast\Int_) {
                 return null;
             }
-
             // is there return without nesting?
-            $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($this->areNodesEqual($parentNode, $classMethod)) {
-                $hasReturn = true;
+                $hasReturn = \true;
             }
-
             $this->setReturnTo0InsteadOfNull($node);
-
             return null;
         });
-
         if ($hasReturn) {
             return;
         }
-
-        $classMethod->stmts[] = new Return_(new LNumber(0));
+        $classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Scalar\LNumber(0));
     }
-
-    private function setReturnTo0InsteadOfNull(Return_ $return): void
+    private function setReturnTo0InsteadOfNull(\PhpParser\Node\Stmt\Return_ $return) : void
     {
         if ($return->expr === null) {
-            $return->expr = new LNumber(0);
+            $return->expr = new \PhpParser\Node\Scalar\LNumber(0);
             return;
         }
-
         if ($this->isNull($return->expr)) {
-            $return->expr = new LNumber(0);
+            $return->expr = new \PhpParser\Node\Scalar\LNumber(0);
             return;
         }
-
-        if ($return->expr instanceof Coalesce && $this->isNull($return->expr->right)) {
-            $return->expr->right = new LNumber(0);
+        if ($return->expr instanceof \PhpParser\Node\Expr\BinaryOp\Coalesce && $this->isNull($return->expr->right)) {
+            $return->expr->right = new \PhpParser\Node\Scalar\LNumber(0);
             return;
         }
-
-        if ($return->expr instanceof Ternary) {
+        if ($return->expr instanceof \PhpParser\Node\Expr\Ternary) {
             $hasChanged = $this->refactorTernaryReturn($return->expr);
             if ($hasChanged) {
                 return;
             }
         }
-
         $staticType = $this->getStaticType($return->expr);
-        if (! $staticType instanceof IntegerType) {
-            $return->expr = new Int_($return->expr);
+        if (!$staticType instanceof \PHPStan\Type\IntegerType) {
+            $return->expr = new \PhpParser\Node\Expr\Cast\Int_($return->expr);
             return;
         }
     }
-
-    private function refactorTernaryReturn(Ternary $ternary): bool
+    private function refactorTernaryReturn(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
-        $hasChanged = false;
+        $hasChanged = \false;
         if ($ternary->if && $this->isNull($ternary->if)) {
-            $ternary->if = new LNumber(0);
-            $hasChanged = true;
+            $ternary->if = new \PhpParser\Node\Scalar\LNumber(0);
+            $hasChanged = \true;
         }
-
         if ($this->isNull($ternary->else)) {
-            $ternary->else = new LNumber(0);
-            $hasChanged = true;
+            $ternary->else = new \PhpParser\Node\Scalar\LNumber(0);
+            $hasChanged = \true;
         }
-
         return $hasChanged;
     }
 }

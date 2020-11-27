@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PSR4;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Namespace_;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 /**
  * @see \Rector\PSR4\Tests\FileRelocationResolverTest
  */
@@ -18,153 +16,102 @@ final class FileRelocationResolver
      * @var string
      */
     private const NAMESPACE_SEPARATOR = '\\';
-
     /**
      * @param string[] $groupNames
      */
-    public function createNewFileDestination(
-        SmartFileInfo $smartFileInfo,
-        string $suffixName,
-        array $groupNames
-    ): string {
+    public function createNewFileDestination(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
+    {
         $newDirectory = $this->resolveRootDirectory($smartFileInfo, $suffixName, $groupNames);
-
-        return $newDirectory . DIRECTORY_SEPARATOR . $smartFileInfo->getFilename();
+        return $newDirectory . \DIRECTORY_SEPARATOR . $smartFileInfo->getFilename();
     }
-
     /**
      * @param string[] $groupNames
      */
-    public function resolveNewNamespaceName(Namespace_ $namespace, string $suffixName, array $groupNames): string
+    public function resolveNewNamespaceName(\PhpParser\Node\Stmt\Namespace_ $namespace, string $suffixName, array $groupNames) : string
     {
         /** @var Name $name */
         $name = $namespace->name;
         $currentNamespaceParts = $name->parts;
-
-        return $this->resolveNearestRootWithCategory(
-            $currentNamespaceParts,
-            $suffixName,
-            self::NAMESPACE_SEPARATOR,
-            $groupNames
-        );
+        return $this->resolveNearestRootWithCategory($currentNamespaceParts, $suffixName, self::NAMESPACE_SEPARATOR, $groupNames);
     }
-
-    public function resolveNewFileLocationFromOldClassToNewClass(
-        SmartFileInfo $smartFileInfo,
-        string $oldClass,
-        string $newClass
-    ): string {
+    public function resolveNewFileLocationFromOldClassToNewClass(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $oldClass, string $newClass) : string
+    {
         $beforeToAfterPart = $this->resolveBeforeToAfterPartBetweenClassNames($oldClass, $newClass);
-
         return $this->replaceRelativeFilePathsWithBeforeAfter($smartFileInfo, $beforeToAfterPart);
     }
-
     /**
      * @param string[] $groupNames
      */
-    private function resolveRootDirectory(SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames): string
+    private function resolveRootDirectory(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
     {
-        $currentTraversePath = dirname($smartFileInfo->getRelativeFilePath());
-        $currentDirectoryParts = explode(DIRECTORY_SEPARATOR, $currentTraversePath);
-
-        return $this->resolveNearestRootWithCategory(
-            $currentDirectoryParts,
-            $suffixName,
-            DIRECTORY_SEPARATOR,
-            $groupNames
-        );
+        $currentTraversePath = \dirname($smartFileInfo->getRelativeFilePath());
+        $currentDirectoryParts = \explode(\DIRECTORY_SEPARATOR, $currentTraversePath);
+        return $this->resolveNearestRootWithCategory($currentDirectoryParts, $suffixName, \DIRECTORY_SEPARATOR, $groupNames);
     }
-
     /**
      * @param string[] $groupNames
      * @param string[] $nameParts
      */
-    private function resolveNearestRootWithCategory(
-        array $nameParts,
-        string $suffixName,
-        string $separator,
-        array $groupNames
-    ): string {
-        $reversedNameParts = array_reverse($nameParts);
-
+    private function resolveNearestRootWithCategory(array $nameParts, string $suffixName, string $separator, array $groupNames) : string
+    {
+        $reversedNameParts = \array_reverse($nameParts);
         $removedParts = [];
-        $hasStopped = false;
-
+        $hasStopped = \false;
         foreach ($reversedNameParts as $key => $reversedNamePart) {
             unset($reversedNameParts[$key]);
-
-            if (in_array($reversedNamePart, $groupNames, true)) {
-                $hasStopped = true;
+            if (\in_array($reversedNamePart, $groupNames, \true)) {
+                $hasStopped = \true;
                 break;
             }
-
             $removedParts[] = $reversedNamePart;
         }
-
-        if (! $hasStopped) {
+        if (!$hasStopped) {
             $rootNameParts = $nameParts;
             $rootNameParts[] = $suffixName;
         } else {
-            $rootNameParts = array_reverse($reversedNameParts);
+            $rootNameParts = \array_reverse($reversedNameParts);
             $rootNameParts[] = $suffixName;
-
             if ($removedParts !== []) {
-                $rootNameParts = array_merge($rootNameParts, $removedParts);
+                $rootNameParts = \array_merge($rootNameParts, $removedParts);
             }
         }
-
-        return implode($separator, $rootNameParts);
+        return \implode($separator, $rootNameParts);
     }
-
     /**
      * @return string[]
      */
-    private function resolveBeforeToAfterPartBetweenClassNames(string $oldClass, string $newClass): array
+    private function resolveBeforeToAfterPartBetweenClassNames(string $oldClass, string $newClass) : array
     {
-        $oldClassNameParts = explode(self::NAMESPACE_SEPARATOR, $oldClass);
-        $newClassNameParts = explode(self::NAMESPACE_SEPARATOR, $newClass);
-
+        $oldClassNameParts = \explode(self::NAMESPACE_SEPARATOR, $oldClass);
+        $newClassNameParts = \explode(self::NAMESPACE_SEPARATOR, $newClass);
         $beforeToAfterParts = [];
         foreach ($oldClassNameParts as $key => $oldClassNamePart) {
-            if (! isset($newClassNameParts[$key])) {
+            if (!isset($newClassNameParts[$key])) {
                 continue;
             }
-
             $newClassNamePart = $newClassNameParts[$key];
             if ($oldClassNamePart === $newClassNamePart) {
                 continue;
             }
-
             $beforeToAfterParts[$oldClassNamePart] = $newClassNamePart;
         }
-
         return $beforeToAfterParts;
     }
-
     /**
      * @param string[] $beforeToAfterPart
      */
-    private function replaceRelativeFilePathsWithBeforeAfter(
-        SmartFileInfo $oldSmartFileInfo,
-        array $beforeToAfterPart
-    ): string {
+    private function replaceRelativeFilePathsWithBeforeAfter(\Symplify\SmartFileSystem\SmartFileInfo $oldSmartFileInfo, array $beforeToAfterPart) : string
+    {
         // A. first "dir has changed" dummy detection
-        $relativeFilePathParts = Strings::split(
-            $oldSmartFileInfo->getRelativeFilePath(),
-            '#' . DIRECTORY_SEPARATOR . '#'
-        );
-
+        $relativeFilePathParts = \_PhpScoper006a73f0e455\Nette\Utils\Strings::split($oldSmartFileInfo->getRelativeFilePath(), '#' . \DIRECTORY_SEPARATOR . '#');
         foreach ($relativeFilePathParts as $key => $relativeFilePathPart) {
-            if (! isset($beforeToAfterPart[$relativeFilePathPart])) {
+            if (!isset($beforeToAfterPart[$relativeFilePathPart])) {
                 continue;
             }
-
             $relativeFilePathParts[$key] = $beforeToAfterPart[$relativeFilePathPart];
-
             // clear from further use
             unset($beforeToAfterPart[$relativeFilePathPart]);
         }
-
-        return implode(DIRECTORY_SEPARATOR, $relativeFilePathParts);
+        return \implode(\DIRECTORY_SEPARATOR, $relativeFilePathParts);
     }
 }

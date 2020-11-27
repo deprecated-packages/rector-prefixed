@@ -1,42 +1,35 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\Stubs;
 
-use Nette\Loaders\RobotLoader;
-
+use _PhpScoper006a73f0e455\Nette\Loaders\RobotLoader;
 final class StubLoader
 {
     /**
      * @var bool
      */
-    private $areStubsLoaded = false;
-
+    private $areStubsLoaded = \false;
     /**
      * Load stubs after composer autoload is loaded + rector "process <src>" is loaded,
      * so it is loaded only if the classes are really missing
      */
-    public function loadStubs(): void
+    public function loadStubs() : void
     {
         if ($this->areStubsLoaded) {
             return;
         }
-
         $stubDirectory = __DIR__ . '/../../stubs';
-
         // stubs might not exists on composer install, to prevent PHPStorm duplicated confusion
         // @see https://github.com/rectorphp/rector/issues/1899
-        if (! file_exists($stubDirectory)) {
+        if (!\file_exists($stubDirectory)) {
             return;
         }
-
-        $robotLoader = new RobotLoader();
+        $robotLoader = new \_PhpScoper006a73f0e455\Nette\Loaders\RobotLoader();
         $robotLoader->addDirectory($stubDirectory);
-        $robotLoader->setTempDirectory(sys_get_temp_dir() . '/_rector_stubs');
+        $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/_rector_stubs');
         $robotLoader->register();
         $robotLoader->rebuild();
-
-        $this->areStubsLoaded = true;
+        $this->areStubsLoaded = \true;
     }
 }

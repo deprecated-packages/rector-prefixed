@@ -1,0 +1,31 @@
+{
+    "name": "react\/child-process",
+    "description": "Event-driven library for executing child processes with ReactPHP.",
+    "keywords": [
+        "process",
+        "event-driven",
+        "ReactPHP"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.0",
+        "evenement\/evenement": "^3.0 || ^2.0 || ^1.0",
+        "react\/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5",
+        "react\/stream": "^1.0 || ^0.7.6"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^7.0 || ^6.4 || ^5.7 || ^4.8.35",
+        "react\/socket": "^1.0",
+        "sebastian\/environment": "^3.0 || ^2.0 || ^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "_PhpScoper006a73f0e455\\React\\ChildProcess\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "_PhpScoper006a73f0e455\\React\\Tests\\ChildProcess\\": "tests"
+        }
+    }
+}

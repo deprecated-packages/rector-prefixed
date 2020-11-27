@@ -1,17 +1,15 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-namespace Sensio\Bundle\FrameworkExtraBundle\Configuration;
-
-if (class_exists('Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter')) {
     return;
 }
-
 /**
  * @Annotation
 */
-class ParamConverter extends ConfigurationAnnotation
+class ParamConverter extends \_PhpScoper006a73f0e455\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
 {
     /**
      * The parameter name.
@@ -36,7 +34,7 @@ class ParamConverter extends ConfigurationAnnotation
      *
      * @var bool
      */
-    private $isOptional = false;
+    private $isOptional = \false;
     /**
      * Use explicitly named converter instead of iterating by priorities.
      *
@@ -162,6 +160,6 @@ class ParamConverter extends ConfigurationAnnotation
      */
     public function allowArray()
     {
-        return true;
+        return \true;
     }
 }

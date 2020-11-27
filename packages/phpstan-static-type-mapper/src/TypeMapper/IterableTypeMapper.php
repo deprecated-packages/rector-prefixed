@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
@@ -18,88 +17,73 @@ use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-
-final class IterableTypeMapper implements TypeMapperInterface
+final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
      * @var PHPStanStaticTypeMapper
      */
     private $phpStanStaticTypeMapper;
-
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-
-    public function __construct(PhpVersionProvider $phpVersionProvider)
+    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
-
     /**
      * @required
      */
-    public function autowireIterableTypeMapper(PHPStanStaticTypeMapper $phpStanStaticTypeMapper): void
+    public function autowireIterableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
-
-    public function getNodeClass(): string
+    public function getNodeClass() : string
     {
-        return IterableType::class;
+        return \PHPStan\Type\IterableType::class;
     }
-
     /**
      * @param IterableType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $itemTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getItemType());
-        if ($itemTypeNode instanceof UnionTypeNode) {
+        if ($itemTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             return $this->convertUnionArrayTypeNodesToArrayTypeOfUnionTypeNodes($itemTypeNode);
         }
-
-        return new AttributeAwareArrayTypeNode($itemTypeNode);
+        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode($itemTypeNode);
     }
-
     /**
      * @param IterableType $type
      */
-    public function mapToPhpParserNode(Type $type, ?string $kind = null): ?Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
-        return new Name('iterable');
+        return new \PhpParser\Node\Name('iterable');
     }
-
     /**
      * @param IterableType $type
      */
-    public function mapToDocString(Type $type, ?Type $parentType = null): string
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
-        if ($this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::SCALAR_TYPES)) {
+        if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             // iterable type is better done in PHP code, than in doc
             return '';
         }
-
-        return $type->describe(VerbosityLevel::typeOnly());
+        return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }
-
-    private function convertUnionArrayTypeNodesToArrayTypeOfUnionTypeNodes(
-        UnionTypeNode $unionTypeNode
-    ): AttributeAwareUnionTypeNode {
+    private function convertUnionArrayTypeNodesToArrayTypeOfUnionTypeNodes(\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode $unionTypeNode) : \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode
+    {
         $unionedArrayType = [];
         foreach ($unionTypeNode->types as $unionedType) {
-            if ($unionedType instanceof UnionTypeNode) {
+            if ($unionedType instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
                 foreach ($unionedType->types as $key => $subUnionedType) {
-                    $unionedType->types[$key] = new ArrayTypeNode($subUnionedType);
+                    $unionedType->types[$key] = new \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode($subUnionedType);
                 }
-
                 $unionedArrayType[] = $unionedType;
                 continue;
             }
-
-            $unionedArrayType[] = new ArrayTypeNode($unionedType);
+            $unionedArrayType[] = new \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode($unionedType);
         }
-
-        return new AttributeAwareUnionTypeNode($unionedArrayType);
+        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode($unionedArrayType);
     }
 }

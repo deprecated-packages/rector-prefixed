@@ -1,12 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\Rector\Property;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use Ramsey\Uuid\UuidInterface;
+use _PhpScoper006a73f0e455\Ramsey\Uuid\UuidInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
@@ -16,19 +15,16 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\Doctrine\Tests\Rector\Property\AddUuidAnnotationsToIdPropertyRector\AddUuidAnnotationsToIdPropertyRectorTest
  */
-final class AddUuidAnnotationsToIdPropertyRector extends AbstractRector
+final class AddUuidAnnotationsToIdPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Add uuid annotations to $id property', [
-            new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add uuid annotations to $id property', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Attributes as ORM;
 
 /**
@@ -46,8 +42,7 @@ class SomeClass
     public $id;
 }
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Doctrine\ORM\Attributes as ORM;
 
 /**
@@ -64,66 +59,53 @@ class SomeClass
     public $id;
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Property::class];
+        return [\PhpParser\Node\Stmt\Property::class];
     }
-
     /**
      * @param Property $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isDoctrineProperty($node)) {
+        if (!$this->isDoctrineProperty($node)) {
             return null;
         }
-
-        if (! $this->isName($node, 'id')) {
+        if (!$this->isName($node, 'id')) {
             return null;
         }
-
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
-
-        $fullyQualifiedObjectType = new FullyQualifiedObjectType(UuidInterface::class);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $fullyQualifiedObjectType = new \Rector\PHPStan\Type\FullyQualifiedObjectType(\_PhpScoper006a73f0e455\Ramsey\Uuid\UuidInterface::class);
         $phpDocInfo->changeVarType($fullyQualifiedObjectType);
-
-        $phpDocInfo->removeByType(GeneratedValueTagValueNode::class);
+        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode::class);
         $this->changeColumnTypeToUuidBinary($phpDocInfo);
         $this->changeSerializerTypeToString($phpDocInfo);
-
         return $node;
     }
-
-    private function changeColumnTypeToUuidBinary(PhpDocInfo $phpDocInfo): void
+    private function changeColumnTypeToUuidBinary(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        $columnTagValueNode = $phpDocInfo->getByType(ColumnTagValueNode::class);
+        $columnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
         if ($columnTagValueNode === null) {
             return;
         }
-
         $columnTagValueNode->changeType('uuid_binary');
     }
-
-    private function changeSerializerTypeToString(PhpDocInfo $phpDocInfo): void
+    private function changeSerializerTypeToString(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
         /** @var SerializerTypeTagValueNode|null $serializerTypeTagValueNode */
-        $serializerTypeTagValueNode = $phpDocInfo->getByType(SerializerTypeTagValueNode::class);
+        $serializerTypeTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class);
         if ($serializerTypeTagValueNode === null) {
             return;
         }
-
         if ($serializerTypeTagValueNode->getName() === 'string') {
             return;
         }
-
         $serializerTypeTagValueNode->changeName('string');
     }
 }

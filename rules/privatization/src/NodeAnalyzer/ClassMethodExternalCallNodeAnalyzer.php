@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Privatization\NodeAnalyzer;
 
 use PhpParser\Node\Expr\MethodCall;
@@ -15,130 +14,100 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use ReflectionMethod;
-
 final class ClassMethodExternalCallNodeAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var EventSubscriberMethodNamesResolver
      */
     private $eventSubscriberMethodNamesResolver;
-
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-
-    public function __construct(
-        EventSubscriberMethodNamesResolver $eventSubscriberMethodNamesResolver,
-        NodeRepository $nodeRepository,
-        NodeNameResolver $nodeNameResolver,
-        NodeTypeResolver $nodeTypeResolver
-    ) {
+    public function __construct(\Rector\Privatization\NodeAnalyzer\EventSubscriberMethodNamesResolver $eventSubscriberMethodNamesResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->eventSubscriberMethodNamesResolver = $eventSubscriberMethodNamesResolver;
         $this->nodeRepository = $nodeRepository;
     }
-
-    public function hasExternalCall(ClassMethod $classMethod): bool
+    public function hasExternalCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $methodCalls = $this->nodeRepository->findCallsByClassMethod($classMethod);
-
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
         if ($this->isArrayCallable($classMethod, $methodCalls, $methodName)) {
-            return true;
+            return \true;
         }
-
         if ($this->isEventSubscriberMethod($classMethod, $methodName)) {
-            return true;
+            return \true;
         }
-
         // remove static calls and [$this, 'call']
         /** @var MethodCall[] $methodCalls */
-        $methodCalls = array_filter($methodCalls, function (object $node): bool {
-            return $node instanceof MethodCall;
+        $methodCalls = \array_filter($methodCalls, function (object $node) : bool {
+            return $node instanceof \PhpParser\Node\Expr\MethodCall;
         });
-
         foreach ($methodCalls as $methodCall) {
             $callerType = $this->nodeTypeResolver->resolve($methodCall->var);
-            if (! $callerType instanceof TypeWithClassName) {
+            if (!$callerType instanceof \PHPStan\Type\TypeWithClassName) {
                 // unable to handle reliably
-                return true;
+                return \true;
             }
-
             // external call
-            $nodeClassName = $methodCall->getAttribute(AttributeKey::CLASS_NAME);
+            $nodeClassName = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($nodeClassName !== $callerType->getClassName()) {
-                return true;
+                return \true;
             }
-
             /** @var string $methodName */
             $methodName = $this->nodeNameResolver->getName($classMethod);
-            $reflectionMethod = new ReflectionMethod($nodeClassName, $methodName);
+            $reflectionMethod = new \ReflectionMethod($nodeClassName, $methodName);
             // parent class name, must be at least protected
             $reflectionClass = $reflectionMethod->getDeclaringClass();
             if ($reflectionClass->getName() !== $nodeClassName) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @param StaticCall[]|MethodCall[]|ArrayCallable[] $methodCalls
      */
-    private function isArrayCallable(ClassMethod $classMethod, array $methodCalls, string $methodName): bool
+    private function isArrayCallable(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $methodCalls, string $methodName) : bool
     {
         /** @var ArrayCallable[] $arrayCallables */
-        $arrayCallables = array_filter($methodCalls, function (object $node): bool {
-            return $node instanceof ArrayCallable;
+        $arrayCallables = \array_filter($methodCalls, function (object $node) : bool {
+            return $node instanceof \Rector\NodeCollector\ValueObject\ArrayCallable;
         });
-
         foreach ($arrayCallables as $arrayCallable) {
-            $className = $classMethod->getAttribute(AttributeKey::CLASS_NAME);
+            $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($className === $arrayCallable->getClass() && $methodName === $arrayCallable->getMethod()) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    private function isEventSubscriberMethod(ClassMethod $classMethod, string $methodName): bool
+    private function isEventSubscriberMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $methodName) : bool
     {
-        $classLike = $classMethod->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
-            return false;
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return \false;
         }
-
-        if (! $this->nodeTypeResolver->isObjectType(
-            $classLike,
-            'Symfony\Component\EventDispatcher\EventSubscriberInterface')
-        ) {
-            return false;
+        if (!$this->nodeTypeResolver->isObjectType($classLike, '_PhpScoper006a73f0e455\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+            return \false;
         }
-
         $getSubscribedEventsClassMethod = $classLike->getMethod('getSubscribedEvents');
         if ($getSubscribedEventsClassMethod === null) {
-            return false;
+            return \false;
         }
-
-        $methodNames = $this->eventSubscriberMethodNamesResolver->resolveFromClassMethod(
-            $getSubscribedEventsClassMethod
-        );
-
-        return in_array($methodName, $methodNames, true);
+        $methodNames = $this->eventSubscriberMethodNamesResolver->resolveFromClassMethod($getSubscribedEventsClassMethod);
+        return \in_array($methodName, $methodNames, \true);
     }
 }

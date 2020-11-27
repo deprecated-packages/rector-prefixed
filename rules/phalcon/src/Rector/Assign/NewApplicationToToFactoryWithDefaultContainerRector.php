@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Phalcon\Rector\Assign;
 
 use PhpParser\Node;
@@ -14,21 +13,16 @@ use PhpParser\Node\Name\FullyQualified;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/rectorphp/rector/issues/2408
  *
  * @see \Rector\Phalcon\Tests\Rector\Assign\NewApplicationToToFactoryWithDefaultContainerRector\NewApplicationToToFactoryWithDefaultContainerRectorTest
  */
-final class NewApplicationToToFactoryWithDefaultContainerRector extends AbstractRector
+final class NewApplicationToToFactoryWithDefaultContainerRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change new application to default factory with application',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change new application to default factory with application', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($di)
@@ -39,8 +33,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($di)
@@ -52,52 +45,41 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Assign::class];
+        return [\PhpParser\Node\Expr\Assign::class];
     }
-
     /**
      * @param Assign $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isNewApplication($node->expr)) {
+        if (!$this->isNewApplication($node->expr)) {
             return null;
         }
-
-        if (! $node->expr instanceof New_) {
+        if (!$node->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
         }
-
-        $containerVariable = new Variable('container');
+        $containerVariable = new \PhpParser\Node\Expr\Variable('container');
         $factoryAssign = $this->createNewContainerToFactoryDefaultAssign($containerVariable);
-
-        $node->expr->args = [new Arg($containerVariable)];
-
+        $node->expr->args = [new \PhpParser\Node\Arg($containerVariable)];
         $this->addNodeBeforeNode($factoryAssign, $node);
-
         return $node;
     }
-
-    private function isNewApplication(Expr $expr): bool
+    private function isNewApplication(\PhpParser\Node\Expr $expr) : bool
     {
-        if (! $expr instanceof New_) {
-            return false;
+        if (!$expr instanceof \PhpParser\Node\Expr\New_) {
+            return \false;
         }
-        return $this->isName($expr->class, 'Phalcon\Mvc\Application');
+        return $this->isName($expr->class, '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Application');
     }
-
-    private function createNewContainerToFactoryDefaultAssign(Variable $variable): Assign
+    private function createNewContainerToFactoryDefaultAssign(\PhpParser\Node\Expr\Variable $variable) : \PhpParser\Node\Expr\Assign
     {
-        return new Assign($variable, new New_(new FullyQualified('Phalcon\Di\FactoryDefault')));
+        return new \PhpParser\Node\Expr\Assign($variable, new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\Phalcon\\Di\\FactoryDefault')));
     }
 }

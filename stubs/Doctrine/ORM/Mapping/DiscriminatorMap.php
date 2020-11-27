@@ -2,10 +2,9 @@
 
 namespace Doctrine\ORM\Mapping;
 
-if (class_exists('Doctrine\ORM\Mapping\DiscriminatorMap')) {
+if (\class_exists('Doctrine\\ORM\\Mapping\\DiscriminatorMap')) {
     return;
 }
-
-class DiscriminatorMap implements Annotation
+class DiscriminatorMap implements \Doctrine\ORM\Mapping\Annotation
 {
 }

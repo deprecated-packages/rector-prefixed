@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\AttributeAwarePhpDoc\AttributeAwareNodeFactory\PhpDoc;
 
 use PHPStan\PhpDocParser\Ast\Node;
@@ -11,35 +10,29 @@ use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeAwar
 use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface;
 use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-
-final class AttributeAwareThrowsTagValueNodeFactory implements AttributeNodeAwareFactoryInterface, AttributeAwareNodeFactoryAwareInterface
+final class AttributeAwareThrowsTagValueNodeFactory implements \Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface, \Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeAwareNodeFactoryAwareInterface
 {
     /**
      * @var AttributeAwareNodeFactory
      */
     private $attributeAwareNodeFactory;
-
-    public function getOriginalNodeClass(): string
+    public function getOriginalNodeClass() : string
     {
-        return ThrowsTagValueNode::class;
+        return \PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode::class;
     }
-
-    public function isMatch(Node $node): bool
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
-        return is_a($node, ThrowsTagValueNode::class, true);
+        return \is_a($node, \PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode::class, \true);
     }
-
     /**
      * @param ThrowsTagValueNode $node
      */
-    public function create(Node $node, string $docContent): AttributeAwareNodeInterface
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $node->type = $this->attributeAwareNodeFactory->createFromNode($node->type, $docContent);
-
-        return new AttributeAwareThrowsTagValueNode($node->type, $node->description);
+        return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareThrowsTagValueNode($node->type, $node->description);
     }
-
-    public function setAttributeAwareNodeFactory(AttributeAwareNodeFactory $attributeAwareNodeFactory): void
+    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

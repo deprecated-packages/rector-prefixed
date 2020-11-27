@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -13,98 +12,71 @@ use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\PHPUnit\ValueObject\ConstantWithAssertMethods;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector\AssertSameBoolNullToSpecificMethodRectorTest
  */
-final class AssertSameBoolNullToSpecificMethodRector extends AbstractPHPUnitRector
+final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var ConstantWithAssertMethods[]
      */
     private $constantWithAssertMethods = [];
-
     /**
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-
-    public function __construct(IdentifierManipulator $identifierManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
     {
         $this->identifierManipulator = $identifierManipulator;
-
-        $this->constantWithAssertMethods = [
-            new ConstantWithAssertMethods('null', 'assertNull', 'assertNotNull'),
-            new ConstantWithAssertMethods('true', 'assertTrue', 'assertNotTrue'),
-            new ConstantWithAssertMethods('false', 'assertFalse', 'assertNotFalse'),
-        ];
+        $this->constantWithAssertMethods = [new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('null', 'assertNull', 'assertNotNull'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('true', 'assertTrue', 'assertNotTrue'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('false', 'assertFalse', 'assertNotFalse')];
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Turns same bool and null comparisons to their method name alternatives in PHPUnit TestCase',
-            [
-                new CodeSample('$this->assertSame(null, $anything);', '$this->assertNull($anything);'),
-                new CodeSample('$this->assertNotSame(false, $anything);', '$this->assertNotFalse($anything);'),
-            ]
-        );
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns same bool and null comparisons to their method name alternatives in PHPUnit TestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertSame(null, $anything);', '$this->assertNull($anything);'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertNotSame(false, $anything);', '$this->assertNotFalse($anything);')]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isPHPUnitMethodNames($node, ['assertSame', 'assertNotSame'])) {
+        if (!$this->isPHPUnitMethodNames($node, ['assertSame', 'assertNotSame'])) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
-        if (! $firstArgumentValue instanceof ConstFetch) {
+        if (!$firstArgumentValue instanceof \PhpParser\Node\Expr\ConstFetch) {
             return null;
         }
-
         foreach ($this->constantWithAssertMethods as $constantWithAssertMethod) {
-            if (! $this->isName($firstArgumentValue, $constantWithAssertMethod->getConstant())) {
+            if (!$this->isName($firstArgumentValue, $constantWithAssertMethod->getConstant())) {
                 continue;
             }
-
             $this->renameMethod($node, $constantWithAssertMethod);
             $this->moveArguments($node);
-
             return $node;
         }
-
         return null;
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function renameMethod(Node $node, ConstantWithAssertMethods $constantWithAssertMethods): void
+    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods $constantWithAssertMethods) : void
     {
-        $this->identifierManipulator->renameNodeWithMap($node, [
-            'assertSame' => $constantWithAssertMethods->getAssetMethodName(),
-            'assertNotSame' => $constantWithAssertMethods->getNotAssertMethodName(),
-        ]);
+        $this->identifierManipulator->renameNodeWithMap($node, ['assertSame' => $constantWithAssertMethods->getAssetMethodName(), 'assertNotSame' => $constantWithAssertMethods->getNotAssertMethodName()]);
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function moveArguments(Node $node): void
+    private function moveArguments(\PhpParser\Node $node) : void
     {
         $methodArguments = $node->args;
-        array_shift($methodArguments);
-
+        \array_shift($methodArguments);
         $node->args = $methodArguments;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php71\Rector\Assign;
 
 use PhpParser\Node;
@@ -24,165 +23,133 @@ use PHPStan\Type\UnionType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://3v4l.org/ABDNv
  * @see https://stackoverflow.com/a/41000866/1348344
  * @see \Rector\Php71\Tests\Rector\Assign\AssignArrayToStringRector\AssignArrayToStringRectorTest
  */
-final class AssignArrayToStringRector extends AbstractRector
+final class AssignArrayToStringRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyProperty[]
      */
     private $emptyStringPropertyNodes = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'String cannot be turned into array by assignment anymore',
-            [new CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('String cannot be turned into array by assignment anymore', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $string = '';
 $string[] = 1;
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 $string = [];
 $string[] = 1;
 CODE_SAMPLE
-            )]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Assign::class];
+        return [\PhpParser\Node\Expr\Assign::class];
     }
-
     /**
      * @param Assign $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // only array with no explicit key assign, e.g. "$value[] = 5";
-        if (! $node->var instanceof ArrayDimFetch || $node->var->dim !== null) {
+        if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch || $node->var->dim !== null) {
             return null;
         }
-
         $arrayDimFetchNode = $node->var;
-
         /** @var Variable|PropertyFetch|StaticPropertyFetch|Expr $variableNode */
         $variableNode = $arrayDimFetchNode->var;
-
         // set default value to property
-        if (($variableNode instanceof PropertyFetch || $variableNode instanceof StaticPropertyFetch) &&
-            $this->processProperty($variableNode)
-        ) {
+        if (($variableNode instanceof \PhpParser\Node\Expr\PropertyFetch || $variableNode instanceof \PhpParser\Node\Expr\StaticPropertyFetch) && $this->processProperty($variableNode)) {
             return $node;
         }
-
         // fallback to variable, property or static property = '' set
         if ($this->processVariable($node, $variableNode)) {
             return $node;
         }
-
         // there is "$string[] = ...;", which would cause error in PHP 7+
         // fallback - if no array init found, retype to (array)
-        $assign = new Assign($arrayDimFetchNode->var, new ArrayCast($arrayDimFetchNode->var));
-
+        $assign = new \PhpParser\Node\Expr\Assign($arrayDimFetchNode->var, new \PhpParser\Node\Expr\Cast\Array_($arrayDimFetchNode->var));
         $this->addNodeAfterNode(clone $node, $node);
-
         return $assign;
     }
-
     /**
      * @param Node[] $nodes
      * @return Node[]|null
      */
-    public function beforeTraverse(array $nodes): ?array
+    public function beforeTraverse(array $nodes) : ?array
     {
         // collect all known "{anything} = '';" assigns
-        $this->traverseNodesWithCallable($nodes, function (Node $node): void {
-            if (! $node instanceof PropertyProperty) {
+        $this->traverseNodesWithCallable($nodes, function (\PhpParser\Node $node) : void {
+            if (!$node instanceof \PhpParser\Node\Stmt\PropertyProperty) {
                 return;
             }
             if ($node->default === null) {
                 return;
             }
-            if (! $this->isEmptyStringNode($node->default)) {
+            if (!$this->isEmptyStringNode($node->default)) {
                 return;
             }
             $this->emptyStringPropertyNodes[] = $node;
         });
-
         return $nodes;
     }
-
     /**
      * @param PropertyFetch|StaticPropertyFetch $propertyNode
      */
-    private function processProperty(Node $propertyNode): bool
+    private function processProperty(\PhpParser\Node $propertyNode) : bool
     {
         foreach ($this->emptyStringPropertyNodes as $emptyStringPropertyNode) {
             if ($this->areNamesEqual($emptyStringPropertyNode, $propertyNode)) {
-                $emptyStringPropertyNode->default = new Array_();
-
-                return true;
+                $emptyStringPropertyNode->default = new \PhpParser\Node\Expr\Array_();
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @param Variable|PropertyFetch|StaticPropertyFetch|Expr $expr
      */
-    private function processVariable(Assign $assign, Expr $expr): bool
+    private function processVariable(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr $expr) : bool
     {
         if ($this->shouldSkipVariable($expr)) {
-            return true;
+            return \true;
         }
-
-        $variableAssign = $this->betterNodeFinder->findFirstPrevious($assign, function (Node $node) use ($expr): bool {
-            if (! $node instanceof Assign) {
-                return false;
+        $variableAssign = $this->betterNodeFinder->findFirstPrevious($assign, function (\PhpParser\Node $node) use($expr) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
             }
-
-            if (! $this->areNodesEqual($node->var, $expr)) {
-                return false;
+            if (!$this->areNodesEqual($node->var, $expr)) {
+                return \false;
             }
             // we look for variable assign = string
             return $this->isEmptyStringNode($node->expr);
         });
-
-        if ($variableAssign instanceof Assign) {
-            $variableAssign->expr = new Array_();
-            return true;
+        if ($variableAssign instanceof \PhpParser\Node\Expr\Assign) {
+            $variableAssign->expr = new \PhpParser\Node\Expr\Array_();
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
-    private function isEmptyStringNode(Node $node): bool
+    private function isEmptyStringNode(\PhpParser\Node $node) : bool
     {
-        return $node instanceof String_ && $node->value === '';
+        return $node instanceof \PhpParser\Node\Scalar\String_ && $node->value === '';
     }
-
-    private function shouldSkipVariable(Expr $expr): bool
+    private function shouldSkipVariable(\PhpParser\Node\Expr $expr) : bool
     {
         $staticType = $this->getStaticType($expr);
-        if ($staticType instanceof ErrorType) {
-            return false;
+        if ($staticType instanceof \PHPStan\Type\ErrorType) {
+            return \false;
         }
-
-        if ($staticType instanceof UnionType) {
-            return ! ($staticType->isSuperTypeOf(new ArrayType(new MixedType(), new MixedType()))->yes() &&
-                $staticType->isSuperTypeOf(new ConstantStringType(''))
-                    ->yes());
+        if ($staticType instanceof \PHPStan\Type\UnionType) {
+            return !($staticType->isSuperTypeOf(new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType()))->yes() && $staticType->isSuperTypeOf(new \PHPStan\Type\Constant\ConstantStringType(''))->yes());
         }
-
-        return ! $staticType instanceof StringType;
+        return !$staticType instanceof \PHPStan\Type\StringType;
     }
 }

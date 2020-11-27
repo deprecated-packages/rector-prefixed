@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -17,37 +16,27 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\VendorLocker\NodeVendorLocker\ClassMethodVendorLockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDeadRecursiveClassMethodRector\RemoveDeadRecursiveClassMethodRectorTest
  */
-final class RemoveDeadRecursiveClassMethodRector extends AbstractRector implements ZeroCacheRectorInterface
+final class RemoveDeadRecursiveClassMethodRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
 {
     /**
      * @var ClassMethodAndCallMatcher
      */
     private $classMethodAndCallMatcher;
-
     /**
      * @var ClassMethodVendorLockResolver
      */
     private $classMethodVendorLockResolver;
-
-    public function __construct(
-        ClassMethodAndCallMatcher $classMethodAndCallMatcher,
-        ClassMethodVendorLockResolver $classMethodVendorLockResolver
-    ) {
+    public function __construct(\Rector\DeadCode\NodeManipulator\ClassMethodAndCallMatcher $classMethodAndCallMatcher, \Rector\VendorLocker\NodeVendorLocker\ClassMethodVendorLockResolver $classMethodVendorLockResolver)
+    {
         $this->classMethodAndCallMatcher = $classMethodAndCallMatcher;
         $this->classMethodVendorLockResolver = $classMethodVendorLockResolver;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Remove unused public method that only calls itself recursively',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused public method that only calls itself recursively', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -56,97 +45,78 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-
-        if (! $this->containsClassMethodAnyCalls($node)) {
+        if (!$this->containsClassMethodAnyCalls($node)) {
             return null;
         }
-
         $methodCalls = $this->nodeRepository->findCallsByClassMethod($node);
-
         // handles remove dead methods rules
         if ($methodCalls === []) {
             return null;
         }
-
         foreach ($methodCalls as $methodCall) {
             if ($this->shouldSkipCall($node, $methodCall)) {
                 return null;
             }
         }
-
         $this->removeNode($node);
-
         return null;
     }
-
-    private function containsClassMethodAnyCalls(ClassMethod $classMethod): bool
+    private function containsClassMethodAnyCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        return $this->betterNodeFinder->hasInstancesOf($classMethod, [MethodCall::class, StaticCall::class]);
+        return $this->betterNodeFinder->hasInstancesOf($classMethod, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
     }
-
     /**
      * @param StaticCall|MethodCall|ArrayCallable $methodCall
      */
-    private function shouldSkipCall(ClassMethod $classMethod, object $methodCall): bool
+    private function shouldSkipCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, object $methodCall) : bool
     {
         if ($this->classMethodVendorLockResolver->isRemovalVendorLocked($classMethod)) {
-            return true;
+            return \true;
         }
-
-        if (! $methodCall instanceof MethodCall && ! $methodCall instanceof StaticCall) {
-            return true;
+        if (!$methodCall instanceof \PhpParser\Node\Expr\MethodCall && !$methodCall instanceof \PhpParser\Node\Expr\StaticCall) {
+            return \true;
         }
-
         /** @var string|null $methodCallMethodName */
-        $methodCallMethodName = $methodCall->getAttribute(AttributeKey::METHOD_NAME);
+        $methodCallMethodName = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
         if ($methodCallMethodName === null) {
-            return true;
+            return \true;
         }
-
-        if ($methodCall->name instanceof MethodCall) {
-            return false;
+        if ($methodCall->name instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
         }
-
         // is method called not in itself
-        if (! $this->isName($methodCall->name, $methodCallMethodName)) {
-            return true;
+        if (!$this->isName($methodCall->name, $methodCallMethodName)) {
+            return \true;
         }
-
         // differnt class, probably inheritance
-        $methodCallClassName = $methodCall->getAttribute(AttributeKey::CLASS_NAME);
-        $classMethodClassName = $classMethod->getAttribute(AttributeKey::CLASS_NAME);
+        $methodCallClassName = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $classMethodClassName = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($methodCallClassName !== $classMethodClassName) {
-            return true;
+            return \true;
         }
-
-        return ! $this->classMethodAndCallMatcher->isMethodLikeCallMatchingClassMethod($methodCall, $classMethod);
+        return !$this->classMethodAndCallMatcher->isMethodLikeCallMatchingClassMethod($methodCall, $classMethod);
     }
 }

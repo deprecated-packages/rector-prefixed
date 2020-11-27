@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Method Levels\\BinaryOps\\Foo::doFoo() has no return typehint specified.",
+        "line": 14,
+        "ignorable": true
+    }
+]

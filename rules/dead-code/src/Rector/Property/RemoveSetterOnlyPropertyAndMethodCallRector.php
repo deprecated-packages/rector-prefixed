@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\Rector\Property;
 
 use PhpParser\Node;
@@ -19,37 +18,29 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\VendorLocker\VendorLockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\DeadCode\Tests\Rector\Property\RemoveSetterOnlyPropertyAndMethodCallRector\RemoveSetterOnlyPropertyAndMethodCallRectorTest
  */
-final class RemoveSetterOnlyPropertyAndMethodCallRector extends AbstractRector
+final class RemoveSetterOnlyPropertyAndMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyManipulator
      */
     private $propertyManipulator;
-
     /**
      * @var VendorLockResolver
      */
     private $vendorLockResolver;
-
-    public function __construct(PropertyManipulator $propertyManipulator, VendorLockResolver $vendorLockResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver)
     {
         $this->propertyManipulator = $propertyManipulator;
         $this->vendorLockResolver = $vendorLockResolver;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Removes method that set values that are never used',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes method that set values that are never used', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     private $name;
@@ -69,8 +60,7 @@ class ActiveOnlySetter
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
 }
@@ -83,132 +73,105 @@ class ActiveOnlySetter
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Property::class];
+        return [\PhpParser\Node\Stmt\Property::class];
     }
-
     /**
      * @param Property $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
         }
-
         $propertyFetches = $this->propertyManipulator->getPrivatePropertyFetches($node);
         $classMethodsToCheck = $this->collectClassMethodsToCheck($propertyFetches);
-
         $vendorLockedClassMethodNames = $this->getVendorLockedClassMethodNames($classMethodsToCheck);
-
         $this->removePropertyAndUsages($node, $vendorLockedClassMethodNames);
-
         /** @var ClassMethod $method */
         foreach ($classMethodsToCheck as $method) {
-            if (! $this->hasMethodSomeStmtsLeft($method)) {
+            if (!$this->hasMethodSomeStmtsLeft($method)) {
                 continue;
             }
-
             $classMethodName = $this->getName($method->name);
-            if (in_array($classMethodName, $vendorLockedClassMethodNames, true)) {
+            if (\in_array($classMethodName, $vendorLockedClassMethodNames, \true)) {
                 continue;
             }
-
             $this->removeClassMethodAndUsages($method);
         }
-
         return $node;
     }
-
-    private function shouldSkipProperty(Property $property): bool
+    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        if (count($property->props) !== 1) {
-            return true;
+        if (\count($property->props) !== 1) {
+            return \true;
         }
-
-        if (! $property->isPrivate()) {
-            return true;
+        if (!$property->isPrivate()) {
+            return \true;
         }
-
         /** @var Class_|Interface_|Trait_|null $classLike */
-        $classLike = $property->getAttribute(AttributeKey::CLASS_NODE);
+        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
-            return true;
+            return \true;
         }
-
-        if ($classLike instanceof Trait_) {
-            return true;
+        if ($classLike instanceof \PhpParser\Node\Stmt\Trait_) {
+            return \true;
         }
-
-        if ($classLike instanceof Interface_) {
-            return true;
+        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+            return \true;
         }
-
         return $this->propertyManipulator->isPropertyUsedInReadContext($property);
     }
-
     /**
      * @param PropertyFetch[]|StaticPropertyFetch[] $propertyFetches
      * @return ClassMethod[]
      */
-    private function collectClassMethodsToCheck(array $propertyFetches): array
+    private function collectClassMethodsToCheck(array $propertyFetches) : array
     {
         $classMethodsToCheck = [];
-
         foreach ($propertyFetches as $propertyFetch) {
-            $methodName = $propertyFetch->getAttribute(AttributeKey::METHOD_NAME);
+            $methodName = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
             // this rector does not remove empty constructors
-            if ($methodName === MethodName::CONSTRUCT) {
+            if ($methodName === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 continue;
             }
-
             /** @var ClassMethod|null $classMethod */
-            $classMethod = $propertyFetch->getAttribute(AttributeKey::METHOD_NODE);
+            $classMethod = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
             if ($classMethod === null) {
                 continue;
             }
-
             $classMethodsToCheck[$methodName] = $classMethod;
         }
-
         return $classMethodsToCheck;
     }
-
     /**
      * @param ClassMethod[] $methodsToCheck
      * @return string[]
      */
-    private function getVendorLockedClassMethodNames(array $methodsToCheck): array
+    private function getVendorLockedClassMethodNames(array $methodsToCheck) : array
     {
         $vendorLockedClassMethodsNames = [];
         foreach ($methodsToCheck as $method) {
-            if (! $this->vendorLockResolver->isClassMethodRemovalVendorLocked($method)) {
+            if (!$this->vendorLockResolver->isClassMethodRemovalVendorLocked($method)) {
                 continue;
             }
-
             $vendorLockedClassMethodsNames[] = $this->getName($method);
         }
-
         return $vendorLockedClassMethodsNames;
     }
-
-    private function hasMethodSomeStmtsLeft(ClassMethod $classMethod): bool
+    private function hasMethodSomeStmtsLeft(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ((array) $classMethod->stmts as $stmt) {
-            if (! $this->isNodeRemoved($stmt)) {
-                return false;
+            if (!$this->isNodeRemoved($stmt)) {
+                return \false;
             }
         }
-
-        return true;
+        return \true;
     }
 }

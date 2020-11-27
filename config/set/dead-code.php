@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\CodeQuality\Rector\Return_\SimplifyUselessVariableRector;
 use Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector;
@@ -42,85 +43,45 @@ use Rector\DeadCode\Rector\Ternary\TernaryToBooleanOrFalseToBooleanAndRector;
 use Rector\DeadCode\Rector\TryCatch\RemoveDeadTryCatchRector;
 use Rector\PHPUnit\Rector\ClassMethod\RemoveEmptyTestMethodRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(RemoveDeadStmtRector::class);
-
-    $services->set(RemoveDuplicatedArrayKeyRector::class);
-
-    $services->set(RemoveUnusedForeachKeyRector::class);
-
-    $services->set(RemoveParentCallWithoutParentRector::class);
-
-    $services->set(RemoveEmptyClassMethodRector::class);
-
-    $services->set(RemoveUnusedPrivatePropertyRector::class);
-
-    $services->set(RemoveDoubleAssignRector::class);
-
-    $services->set(RemoveUnusedParameterRector::class);
-
-    $services->set(SimplifyMirrorAssignRector::class);
-
-    $services->set(RemoveOverriddenValuesRector::class);
-
-    $services->set(RemoveUnusedPrivateConstantRector::class);
-
-    $services->set(RemoveUnusedPrivateMethodRector::class);
-
-    $services->set(RemoveCodeAfterReturnRector::class);
-
-    $services->set(RemoveDeadConstructorRector::class);
-
-    $services->set(RemoveDeadReturnRector::class);
-
-    $services->set(RemoveDeadIfForeachForRector::class);
-
-    $services->set(RemoveAndTrueRector::class);
-
-    $services->set(RemoveDefaultArgumentValueRector::class);
-
-    $services->set(RemoveConcatAutocastRector::class);
-
-    $services->set(SimplifyUselessVariableRector::class);
-
-    $services->set(RemoveDelegatingParentCallRector::class);
-
-    $services->set(RemoveDuplicatedInstanceOfRector::class);
-
-    $services->set(RemoveDuplicatedCaseInSwitchRector::class);
-
-    $services->set(RemoveUnusedDoctrineEntityMethodAndPropertyRector::class);
-
-    $services->set(RemoveSetterOnlyPropertyAndMethodCallRector::class);
-
-    $services->set(RemoveNullPropertyInitializationRector::class);
-
-    $services->set(RemoveUnreachableStatementRector::class);
-
-    $services->set(SimplifyIfElseWithSameContentRector::class);
-
-    $services->set(TernaryToBooleanOrFalseToBooleanAndRector::class);
-
-    $services->set(RemoveEmptyTestMethodRector::class);
-
-    $services->set(RemoveDeadTryCatchRector::class);
-
-    $services->set(RemoveUnusedClassConstantRector::class);
-
-    $services->set(RemoveUnusedVariableAssignRector::class);
-
-    $services->set(RemoveDuplicatedIfReturnRector::class);
-
-    $services->set(RemoveUnusedFunctionRector::class);
-
-    $services->set(RemoveUnusedNonEmptyArrayBeforeForeachRector::class);
-
-    $services->set(RemoveAssignOfVoidReturnFunctionRector::class);
-
-    $services->set(RemoveDeadRecursiveClassMethodRector::class);
-
-    $services->set(RemoveEmptyMethodCallRector::class);
+    $services->set(\Rector\DeadCode\Rector\Expression\RemoveDeadStmtRector::class);
+    $services->set(\Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector::class);
+    $services->set(\Rector\DeadCode\Rector\Foreach_\RemoveUnusedForeachKeyRector::class);
+    $services->set(\Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector::class);
+    $services->set(\Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector::class);
+    $services->set(\Rector\DeadCode\Rector\Assign\RemoveDoubleAssignRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector::class);
+    $services->set(\Rector\DeadCode\Rector\Expression\SimplifyMirrorAssignRector::class);
+    $services->set(\Rector\DeadCode\Rector\FunctionLike\RemoveOverriddenValuesRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassConst\RemoveUnusedPrivateConstantRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector::class);
+    $services->set(\Rector\DeadCode\Rector\FunctionLike\RemoveCodeAfterReturnRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveDeadConstructorRector::class);
+    $services->set(\Rector\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector::class);
+    $services->set(\Rector\DeadCode\Rector\For_\RemoveDeadIfForeachForRector::class);
+    $services->set(\Rector\DeadCode\Rector\BooleanAnd\RemoveAndTrueRector::class);
+    $services->set(\Rector\DeadCode\Rector\MethodCall\RemoveDefaultArgumentValueRector::class);
+    $services->set(\Rector\DeadCode\Rector\Concat\RemoveConcatAutocastRector::class);
+    $services->set(\Rector\CodeQuality\Rector\Return_\SimplifyUselessVariableRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveDelegatingParentCallRector::class);
+    $services->set(\Rector\DeadCode\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector::class);
+    $services->set(\Rector\DeadCode\Rector\Switch_\RemoveDuplicatedCaseInSwitchRector::class);
+    $services->set(\Rector\DeadCode\Rector\Class_\RemoveUnusedDoctrineEntityMethodAndPropertyRector::class);
+    $services->set(\Rector\DeadCode\Rector\Property\RemoveSetterOnlyPropertyAndMethodCallRector::class);
+    $services->set(\Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class);
+    $services->set(\Rector\DeadCode\Rector\Stmt\RemoveUnreachableStatementRector::class);
+    $services->set(\Rector\DeadCode\Rector\If_\SimplifyIfElseWithSameContentRector::class);
+    $services->set(\Rector\DeadCode\Rector\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class);
+    $services->set(\Rector\PHPUnit\Rector\ClassMethod\RemoveEmptyTestMethodRector::class);
+    $services->set(\Rector\DeadCode\Rector\TryCatch\RemoveDeadTryCatchRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassConst\RemoveUnusedClassConstantRector::class);
+    $services->set(\Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector::class);
+    $services->set(\Rector\DeadCode\Rector\FunctionLike\RemoveDuplicatedIfReturnRector::class);
+    $services->set(\Rector\DeadCode\Rector\Function_\RemoveUnusedFunctionRector::class);
+    $services->set(\Rector\DeadCode\Rector\If_\RemoveUnusedNonEmptyArrayBeforeForeachRector::class);
+    $services->set(\Rector\DeadCode\Rector\Assign\RemoveAssignOfVoidReturnFunctionRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveDeadRecursiveClassMethodRector::class);
+    $services->set(\Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector::class);
 };

@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Rector\FuncCall;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -21,29 +20,20 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://www.tomasvotruba.cz/blog/2019/02/07/what-i-learned-by-using-thecodingmachine-safe/#is-there-a-better-way
  *
  * @see \Rector\Nette\Tests\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector\PregMatchFunctionToNetteUtilsStringsRectorTest
  */
-final class PregMatchFunctionToNetteUtilsStringsRector extends AbstractRector
+final class PregMatchFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
      */
-    private const FUNCTION_NAME_TO_METHOD_NAME = [
-        'preg_match' => 'match',
-        'preg_match_all' => 'matchAll',
-    ];
-
-    public function getRuleDefinition(): RuleDefinition
+    private const FUNCTION_NAME_TO_METHOD_NAME = ['preg_match' => 'match', 'preg_match_all' => 'matchAll'];
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Use Nette\Utils\Strings over bare preg_match() and preg_match_all() functions',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare preg_match() and preg_match_all() functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -53,8 +43,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Nette\Utils\Strings;
 
 class SomeClass
@@ -66,97 +55,77 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [FuncCall::class, Identical::class];
+        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\BinaryOp\Identical::class];
     }
-
     /**
      * @param FuncCall|Identical $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof Identical) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $this->refactorIdentical($node);
         }
-
         return $this->refactorFuncCall($node);
     }
-
-    private function refactorIdentical(Identical $identical): ?Bool_
+    private function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\Cast\Bool_
     {
-        $parentNode = $identical->getAttribute(AttributeKey::PARENT_NODE);
-
-        if ($identical->left instanceof FuncCall) {
+        $parentNode = $identical->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall) {
             $refactoredFuncCall = $this->refactorFuncCall($identical->left);
             if ($refactoredFuncCall !== null && $this->isValue($identical->right, 1)) {
                 return $this->createBoolCast($parentNode, $refactoredFuncCall);
             }
         }
-
-        if ($identical->right instanceof FuncCall) {
+        if ($identical->right instanceof \PhpParser\Node\Expr\FuncCall) {
             $refactoredFuncCall = $this->refactorFuncCall($identical->right);
             if ($refactoredFuncCall !== null && $this->isValue($identical->left, 1)) {
                 return $this->createBoolCast($parentNode, $refactoredFuncCall);
             }
         }
-
         return null;
     }
-
     /**
      * @return FuncCall|StaticCall|Assign|null
      */
-    private function refactorFuncCall(FuncCall $funcCall): ?Expr
+    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
-        $oldFunctionNames = array_keys(self::FUNCTION_NAME_TO_METHOD_NAME);
-        if (! $this->isNames($funcCall, $oldFunctionNames)) {
+        $oldFunctionNames = \array_keys(self::FUNCTION_NAME_TO_METHOD_NAME);
+        if (!$this->isNames($funcCall, $oldFunctionNames)) {
             return null;
         }
-
         $currentFunctionName = $this->getName($funcCall);
-
         $methodName = self::FUNCTION_NAME_TO_METHOD_NAME[$currentFunctionName];
         $matchStaticCall = $this->createMatchStaticCall($funcCall, $methodName);
-
         // skip assigns, might be used with different return value
-        $parentNode = $funcCall->getAttribute(AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof Assign) {
+        $parentNode = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \PhpParser\Node\Expr\Assign) {
             if ($methodName === 'matchAll') {
                 // use count
-                return new FuncCall(new Name('count'), [new Arg($matchStaticCall)]);
+                return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('count'), [new \PhpParser\Node\Arg($matchStaticCall)]);
             }
-
             return null;
         }
-
         // assign
         if (isset($funcCall->args[2])) {
-            return new Assign($funcCall->args[2]->value, $matchStaticCall);
+            return new \PhpParser\Node\Expr\Assign($funcCall->args[2]->value, $matchStaticCall);
         }
-
         return $matchStaticCall;
     }
-
-    private function createMatchStaticCall(FuncCall $funcCall, string $methodName): StaticCall
+    private function createMatchStaticCall(\PhpParser\Node\Expr\FuncCall $funcCall, string $methodName) : \PhpParser\Node\Expr\StaticCall
     {
         $args = [];
         $args[] = $funcCall->args[1];
         $args[] = $funcCall->args[0];
-
         $args = $this->compensateMatchAllEnforcedFlag($methodName, $funcCall, $args);
-
-        return $this->createStaticCall('Nette\Utils\Strings', $methodName, $args);
+        return $this->createStaticCall('_PhpScoper006a73f0e455\\Nette\\Utils\\Strings', $methodName, $args);
     }
-
     /**
      * Compensate enforced flag https://github.com/nette/utils/blob/e3dd1853f56ee9a68bfbb2e011691283c2ed420d/src/Utils/Strings.php#L487
      * See https://stackoverflow.com/a/61424319/1348344
@@ -164,20 +133,17 @@ CODE_SAMPLE
      * @param Arg[] $args
      * @return Arg[]
      */
-    private function compensateMatchAllEnforcedFlag(string $methodName, FuncCall $funcCall, array $args): array
+    private function compensateMatchAllEnforcedFlag(string $methodName, \PhpParser\Node\Expr\FuncCall $funcCall, array $args) : array
     {
         if ($methodName !== 'matchAll') {
             return $args;
         }
-
-        if (count($funcCall->args) !== 3) {
+        if (\count($funcCall->args) !== 3) {
             return $args;
         }
-
-        $constFetch = new ConstFetch(new Name('PREG_SET_ORDER'));
-        $minus = new Minus($constFetch, new LNumber(1));
-        $args[] = new Arg($minus);
-
+        $constFetch = new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PREG_SET_ORDER'));
+        $minus = new \PhpParser\Node\Expr\BinaryOp\Minus($constFetch, new \PhpParser\Node\Scalar\LNumber(1));
+        $args[] = new \PhpParser\Node\Arg($minus);
         return $args;
     }
 }

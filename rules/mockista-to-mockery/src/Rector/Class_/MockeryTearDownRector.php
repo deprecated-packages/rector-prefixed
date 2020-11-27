@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\MockistaToMockery\Rector\Class_;
 
 use PhpParser\BuilderHelpers;
@@ -16,29 +15,22 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\MockistaToMockery\MockistaDetector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\MockistaToMockery\Tests\Rector\Class_\MockeryTearDownRector\MockeryTearDownRectorTest
  */
-final class MockeryTearDownRector extends AbstractRector
+final class MockeryTearDownRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var MockistaDetector
      */
     private $mockistaDetector;
-
-    public function __construct(MockistaDetector $mockistaDetector)
+    public function __construct(\Rector\MockistaToMockery\MockistaDetector $mockistaDetector)
     {
         $this->mockistaDetector = $mockistaDetector;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Add Mockery::close() in tearDown() method if not yet',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add Mockery::close() in tearDown() method if not yet', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 
 class SomeTest extends TestCase
@@ -49,8 +41,7 @@ class SomeTest extends TestCase
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 
 class SomeTest extends TestCase
@@ -65,69 +56,55 @@ class SomeTest extends TestCase
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->mockistaDetector->isInClass($node)) {
+        if (!$this->mockistaDetector->isInClass($node)) {
             return null;
         }
-
-        $tearDownClassMethod = $node->getMethod(MethodName::TEAR_DOWN);
+        $tearDownClassMethod = $node->getMethod(\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
         if ($tearDownClassMethod === null) {
             $node->stmts[] = $this->createTearDownMethodWithMockeryClose();
-        } elseif (! $this->containsMockeryClose($tearDownClassMethod)) {
+        } elseif (!$this->containsMockeryClose($tearDownClassMethod)) {
             $tearDownClassMethod->stmts[] = $this->createMockeryClose();
         }
-
         return $node;
     }
-
-    private function createTearDownMethodWithMockeryClose(): ClassMethod
+    private function createTearDownMethodWithMockeryClose() : \PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new MethodBuilder(MethodName::TEAR_DOWN);
+        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder(\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
         $methodBuilder->setReturnType('void');
         $methodBuilder->makeProtected();
-
         $staticCall = $this->createMockeryClose();
         $methodBuilder->addStmt($staticCall);
-
         return $methodBuilder->getNode();
     }
-
-    private function containsMockeryClose(ClassMethod $classMethod): bool
+    private function containsMockeryClose(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (Node $node): bool {
-            if (! $node instanceof StaticCall) {
-                return false;
+        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
+                return \false;
             }
-
-            if (! $this->isName($node->class, 'Mockery')) {
-                return false;
+            if (!$this->isName($node->class, 'Mockery')) {
+                return \false;
             }
-
             return $this->isName($node->name, 'close');
         });
     }
-
-    private function createMockeryClose(): Stmt
+    private function createMockeryClose() : \PhpParser\Node\Stmt
     {
         $staticCall = $this->createStaticCall('Mockery', 'close');
-
-        return BuilderHelpers::normalizeStmt($staticCall);
+        return \PhpParser\BuilderHelpers::normalizeStmt($staticCall);
     }
 }

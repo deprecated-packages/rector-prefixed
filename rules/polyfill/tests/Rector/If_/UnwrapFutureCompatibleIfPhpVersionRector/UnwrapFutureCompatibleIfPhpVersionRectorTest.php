@@ -1,31 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Polyfill\Tests\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector;
 
 use Iterator;
 use Rector\Polyfill\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class UnwrapFutureCompatibleIfPhpVersionRectorTest extends AbstractRectorTestCase
+final class UnwrapFutureCompatibleIfPhpVersionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
-        return UnwrapFutureCompatibleIfPhpVersionRector::class;
+        return \Rector\Polyfill\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector::class;
     }
 }

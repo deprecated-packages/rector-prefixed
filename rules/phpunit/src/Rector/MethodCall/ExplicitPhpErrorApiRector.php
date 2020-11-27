@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -10,32 +9,21 @@ use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractPHPUnitRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-9.0.md
  * @see https://github.com/sebastianbergmann/phpunit/commit/1ba2e3e1bb091acda3139f8a9259fa8161f3242d
  *
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\ExplicitPhpErrorApiRector\ExplicitPhpErrorApiRectorTest
  */
-final class ExplicitPhpErrorApiRector extends AbstractPHPUnitRector
+final class ExplicitPhpErrorApiRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, string>
      */
-    private const REPLACEMENTS = [
-        'PHPUnit\Framework\TestCase\Notice' => 'expectNotice',
-        'PHPUnit\Framework\TestCase\Deprecated' => 'expectDeprecation',
-        'PHPUnit\Framework\TestCase\Error' => 'expectError',
-        'PHPUnit\Framework\TestCase\Warning' => 'expectWarning',
-    ];
-
-    public function getRuleDefinition(): RuleDefinition
+    private const REPLACEMENTS = ['_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', '_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', '_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase\\Error' => 'expectError', '_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Use explicit API for expecting PHP errors, warnings, and notices',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use explicit API for expecting PHP errors, warnings, and notices', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
@@ -47,8 +35,7 @@ final class SomeTest extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
@@ -60,51 +47,42 @@ final class SomeTest extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isPHPUnitMethodNames($node, ['expectException'])) {
+        if (!$this->isPHPUnitMethodNames($node, ['expectException'])) {
             return null;
         }
-
         foreach (self::REPLACEMENTS as $class => $method) {
             $newNode = $this->replaceExceptionWith($node, $class, $method);
             if ($newNode !== null) {
                 return $newNode;
             }
         }
-
         return $node;
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function replaceExceptionWith(Node $node, string $exceptionClass, string $explicitMethod): ?Node
+    private function replaceExceptionWith(\PhpParser\Node $node, string $exceptionClass, string $explicitMethod) : ?\PhpParser\Node
     {
-        if (! isset($node->args[0])) {
+        if (!isset($node->args[0])) {
             return null;
         }
-
-        if (! $this->isClassConstReference($node->args[0]->value, $exceptionClass)) {
+        if (!$this->isClassConstReference($node->args[0]->value, $exceptionClass)) {
             return null;
         }
-
         return $this->createPHPUnitCallWithName($node, $explicitMethod);
     }
 }

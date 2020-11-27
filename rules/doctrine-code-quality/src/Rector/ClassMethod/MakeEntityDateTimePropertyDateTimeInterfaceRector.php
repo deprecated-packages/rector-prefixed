@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -11,7 +10,6 @@ use Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer;
 use Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://www.luzanky.cz/ for sponsoring this rule
  *
@@ -19,33 +17,24 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\ClassMethod\MakeEntityDateTimePropertyDateTimeInterfaceRector\MakeEntityDateTimePropertyDateTimeInterfaceRectorTest
  */
-final class MakeEntityDateTimePropertyDateTimeInterfaceRector extends AbstractRector
+final class MakeEntityDateTimePropertyDateTimeInterfaceRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var SetterClassMethodAnalyzer
      */
     private $setterClassMethodAnalyzer;
-
     /**
      * @var PropertyTypeManipulator
      */
     private $propertyTypeManipulator;
-
-    public function __construct(
-        SetterClassMethodAnalyzer $setterClassMethodAnalyzer,
-        PropertyTypeManipulator $propertyTypeManipulator
-    ) {
+    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer, \Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator $propertyTypeManipulator)
+    {
         $this->setterClassMethodAnalyzer = $setterClassMethodAnalyzer;
         $this->propertyTypeManipulator = $propertyTypeManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Make maker bundle generate DateTime property accept DateTimeInterface too',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make maker bundle generate DateTime property accept DateTimeInterface too', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -64,9 +53,7 @@ class User
     }
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -85,35 +72,28 @@ class User
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $property = $this->setterClassMethodAnalyzer->matchDateTimeSetterProperty($node);
         if ($property === null) {
             return null;
         }
-
-        if (! $this->isObjectType($property, 'DateTime')) {
+        if (!$this->isObjectType($property, 'DateTime')) {
             return null;
         }
-
         $this->propertyTypeManipulator->changePropertyType($property, 'DateTime', 'DateTimeInterface');
-
         return $node;
     }
 }

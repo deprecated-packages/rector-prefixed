@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
@@ -16,163 +17,134 @@ use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
 use Symplify\SetConfigResolver\Exception\SetNotFoundException;
-
 // @ intentionally: continue anyway
-@ini_set('memory_limit', '-1');
-
+@\ini_set('memory_limit', '-1');
 // Performance boost
-error_reporting(E_ALL);
-ini_set('display_errors', 'stderr');
-gc_disable();
-
-define('__RECTOR_RUNNING__', true);
-
+\error_reporting(\E_ALL);
+\ini_set('display_errors', 'stderr');
+\gc_disable();
+\define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new AutoloadIncluder();
+$autoloadIncluder = new \_PhpScoper006a73f0e455\AutoloadIncluder();
 $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->autoloadFromCommandLine();
-
-$symfonyStyleFactory = new SymfonyStyleFactory(new PrivatesCaller());
+$symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
-
 try {
-    $composerJsonReader = new ComposerJsonReader(__DIR__ . '/../composer.json');
-    $versionChecker = new MinimalVersionChecker(PHP_VERSION, new ComposerJsonParser($composerJsonReader->read()));
+    $composerJsonReader = new \Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonReader(__DIR__ . '/../composer.json');
+    $versionChecker = new \Rector\Core\Configuration\MinimalVersionChecker(\PHP_VERSION, new \Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonParser($composerJsonReader->read()));
     $versionChecker->check();
-
-    $rectorConfigsResolver = new RectorConfigsResolver();
+    $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
     $configFileInfos = $rectorConfigsResolver->provide();
-
     // Build DI container
-    $rectorContainerFactory = new RectorContainerFactory();
-
+    $rectorContainerFactory = new \Rector\Core\DependencyInjection\RectorContainerFactory();
     // shift configs as last so parameters with main config have higher priority
-    $configShifter = new ConfigShifter();
+    $configShifter = new \Rector\Core\Bootstrap\ConfigShifter();
     $firstResolvedConfig = $rectorConfigsResolver->getFirstResolvedConfig();
     if ($firstResolvedConfig !== null) {
         $configFileInfos = $configShifter->shiftInputConfigAsLast($configFileInfos, $firstResolvedConfig);
     }
-
     $container = $rectorContainerFactory->createFromConfigs($configFileInfos);
-
     $firstResolvedConfig = $rectorConfigsResolver->getFirstResolvedConfig();
     if ($firstResolvedConfig) {
         /** @var Configuration $configuration */
-        $configuration = $container->get(Configuration::class);
+        $configuration = $container->get(\Rector\Core\Configuration\Configuration::class);
         $configuration->setFirstResolverConfigFileInfo($firstResolvedConfig);
-
         /** @var ChangedFilesDetector $changedFilesDetector */
-        $changedFilesDetector = $container->get(ChangedFilesDetector::class);
+        $changedFilesDetector = $container->get(\Rector\Caching\Detector\ChangedFilesDetector::class);
         $changedFilesDetector->setFirstResolvedConfigFileInfo($firstResolvedConfig);
     }
-} catch (SetNotFoundException $setNotFoundException) {
-    $invalidSetReporter = new InvalidSetReporter();
+} catch (\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) {
+    $invalidSetReporter = new \Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
     $invalidSetReporter->report($setNotFoundException);
-    exit(ShellCode::ERROR);
-} catch (Throwable $throwable) {
+    exit(\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+} catch (\Throwable $throwable) {
     $symfonyStyle->error($throwable->getMessage());
-    exit(ShellCode::ERROR);
+    exit(\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 }
-
 /** @var ConsoleApplication $application */
-$application = $container->get(ConsoleApplication::class);
+$application = $container->get(\Rector\Core\Console\ConsoleApplication::class);
 exit($application->run());
-
 final class AutoloadIncluder
 {
     /**
      * @var string[]
      */
     private $alreadyLoadedAutoloadFiles = [];
-
-    public function includeCwdVendorAutoloadIfExists(): void
+    public function includeCwdVendorAutoloadIfExists() : void
     {
-        $cwdVendorAutoload = getcwd() . '/vendor/autoload.php';
-        if (! is_file($cwdVendorAutoload)) {
+        $cwdVendorAutoload = \getcwd() . '/vendor/autoload.php';
+        if (!\is_file($cwdVendorAutoload)) {
             return;
         }
-
         $this->loadIfNotLoadedYet($cwdVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
     }
-
-    public function includeDependencyOrRepositoryVendorAutoloadIfExists(): void
+    public function includeDependencyOrRepositoryVendorAutoloadIfExists() : void
     {
         // Rector's vendor is already loaded
-        if (class_exists('Rector\HttpKernel\RectorKernel')) {
+        if (\class_exists('Rector\\HttpKernel\\RectorKernel')) {
             return;
         }
-
         $devOrPharVendorAutoload = __DIR__ . '/../vendor/autoload.php';
-        if (! is_file($devOrPharVendorAutoload)) {
+        if (!\is_file($devOrPharVendorAutoload)) {
             return;
         }
-
         $this->loadIfNotLoadedYet($devOrPharVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
     }
-
     /**
      * Inspired by https://github.com/phpstan/phpstan-src/blob/e2308ecaf49a9960510c47f5a992ce7b27f6dba2/bin/phpstan#L19
      */
-    public function autoloadProjectAutoloaderFile(string $file): void
+    public function autoloadProjectAutoloaderFile(string $file) : void
     {
-        $path = dirname(__DIR__) . $file;
-        if (! extension_loaded('phar')) {
-            if (is_file($path)) {
+        $path = \dirname(__DIR__) . $file;
+        if (!\extension_loaded('phar')) {
+            if (\is_file($path)) {
                 $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
             }
             return;
         }
-
-        $pharPath = Phar::running(false);
+        $pharPath = \Phar::running(\false);
         if ($pharPath === '') {
-            if (is_file($path)) {
+            if (\is_file($path)) {
                 $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
             }
         } else {
-            $path = dirname($pharPath) . $file;
-            if (is_file($path)) {
+            $path = \dirname($pharPath) . $file;
+            if (\is_file($path)) {
                 $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
             }
         }
     }
-
-    public function autoloadFromCommandLine(): void
+    public function autoloadFromCommandLine() : void
     {
         $cliArgs = $_SERVER['argv'];
-
-        $autoloadOptionPosition = array_search('-a', $cliArgs, true) ?: array_search('--autoload-file', $cliArgs, true);
-        if (! $autoloadOptionPosition) {
+        $autoloadOptionPosition = \array_search('-a', $cliArgs, \true) ?: \array_search('--autoload-file', $cliArgs, \true);
+        if (!$autoloadOptionPosition) {
             return;
         }
-
         $autoloadFileValuePosition = $autoloadOptionPosition + 1;
         $fileToAutoload = $cliArgs[$autoloadFileValuePosition] ?? null;
         if ($fileToAutoload === null) {
             return;
         }
-
         $this->loadIfNotLoadedYet($fileToAutoload, __METHOD__);
     }
-
-    private function loadIfNotLoadedYet(string $file, string $location): void
+    private function loadIfNotLoadedYet(string $file, string $location) : void
     {
-        if (in_array($file, $this->alreadyLoadedAutoloadFiles, true)) {
+        if (\in_array($file, $this->alreadyLoadedAutoloadFiles, \true)) {
             return;
         }
-
         if ($this->isDebugOption()) {
-            echo sprintf(sprintf('File "%s" is about to be loaded in "%s"' . PHP_EOL, $file, $location));
+            echo \sprintf(\sprintf('File "%s" is about to be loaded in "%s"' . \PHP_EOL, $file, $location));
         }
-
-        $this->alreadyLoadedAutoloadFiles[] = realpath($file);
-
+        $this->alreadyLoadedAutoloadFiles[] = \realpath($file);
         require_once $file;
     }
-
-    private function isDebugOption(): bool
+    private function isDebugOption() : bool
     {
-        return in_array('--debug', $_SERVER['argv'], true);
+        return \in_array('--debug', $_SERVER['argv'], \true);
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\AutoloadIncluder', 'AutoloadIncluder', \false);

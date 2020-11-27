@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\EventDispatcher;
 
 use Rector\Core\ValueObject\MethodName;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use _PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
-final class AutowiredEventDispatcher extends EventDispatcher
+final class AutowiredEventDispatcher extends \_PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\EventDispatcher
 {
     /**
      * @param EventSubscriberInterface[] $eventSubscribers
@@ -18,9 +16,8 @@ final class AutowiredEventDispatcher extends EventDispatcher
         foreach ($eventSubscribers as $eventSubscriber) {
             $this->addSubscriber($eventSubscriber);
         }
-
         // Symfony 4.4/5 compat
-        if (method_exists(parent::class, MethodName::CONSTRUCT)) {
+        if (\method_exists(parent::class, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             parent::__construct();
         }
     }

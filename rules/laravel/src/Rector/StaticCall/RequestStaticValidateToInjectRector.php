@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Laravel\Rector\StaticCall;
 
 use PhpParser\Node;
@@ -16,35 +15,27 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/laravel/framework/pull/27276
  * @see \Rector\Laravel\Tests\Rector\StaticCall\RequestStaticValidateToInjectRector\RequestStaticValidateToInjectRectorTest
  */
-final class RequestStaticValidateToInjectRector extends AbstractRector
+final class RequestStaticValidateToInjectRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
-    private const REQUEST_TYPES = ['Illuminate\Http\Request', 'Request'];
-
+    private const REQUEST_TYPES = ['_PhpScoper006a73f0e455\\Illuminate\\Http\\Request', 'Request'];
     /**
      * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
-
-    public function __construct(ClassMethodManipulator $classMethodManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change static validate() method to $request->validate()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change static validate() method to $request->validate()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Http\Request;
 
 class SomeClass
@@ -55,8 +46,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Illuminate\Http\Request;
 
 class SomeClass
@@ -67,66 +57,49 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [StaticCall::class, FuncCall::class];
+        return [\PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\FuncCall::class];
     }
-
     /**
      * @param StaticCall|FuncCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
-        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing(
-            $node,
-            'Illuminate\Http\Request',
-            ['request', 'httpRequest']
-        );
-
-        $variable = new Variable($requestName);
-
+        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, '_PhpScoper006a73f0e455\\Illuminate\\Http\\Request', ['request', 'httpRequest']);
+        $variable = new \PhpParser\Node\Expr\Variable($requestName);
         $methodName = $this->getName($node->name);
         if ($methodName === null) {
             return null;
         }
-
-        if ($node instanceof FuncCall) {
+        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             if ($node->args === []) {
                 return $variable;
             }
-
             $methodName = 'input';
         }
-
-        return new MethodCall($variable, new Identifier($methodName), $node->args);
+        return new \PhpParser\Node\Expr\MethodCall($variable, new \PhpParser\Node\Identifier($methodName), $node->args);
     }
-
     /**
      * @param StaticCall|FuncCall $node
      */
-    private function shouldSkip(Node $node): bool
+    private function shouldSkip(\PhpParser\Node $node) : bool
     {
-        if ($node instanceof StaticCall) {
-            return ! $this->isObjectTypes($node, self::REQUEST_TYPES);
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
+            return !$this->isObjectTypes($node, self::REQUEST_TYPES);
         }
-
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
-            return true;
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return \true;
         }
-
-        return ! $this->isName($node, 'request');
+        return !$this->isName($node, 'request');
     }
 }

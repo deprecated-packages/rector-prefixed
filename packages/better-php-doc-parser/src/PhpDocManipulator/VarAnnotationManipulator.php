@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
 use PhpParser\Node;
@@ -14,76 +13,53 @@ use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareFullyQualifiedIdentifierT
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
 final class VarAnnotationManipulator
 {
     /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-
-    public function __construct(PhpDocInfoFactory $phpDocInfoFactory)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-
-    public function decorateNodeWithInlineVarType(
-        Node $node,
-        TypeWithClassName $typeWithClassName,
-        string $variableName
-    ): void {
+    public function decorateNodeWithInlineVarType(\PhpParser\Node $node, \PHPStan\Type\TypeWithClassName $typeWithClassName, string $variableName) : void
+    {
         $phpDocInfo = $this->resolvePhpDocInfo($node);
-
         // already done
         if ($phpDocInfo->getVarTagValueNode() !== null) {
             return;
         }
-
-        $attributeAwareFullyQualifiedIdentifierTypeNode = new AttributeAwareFullyQualifiedIdentifierTypeNode(
-            $typeWithClassName->getClassName()
-        );
-
-        $attributeAwareVarTagValueNode = new AttributeAwareVarTagValueNode(
-            $attributeAwareFullyQualifiedIdentifierTypeNode,
-            '$' . $variableName,
-            ''
-        );
-
+        $attributeAwareFullyQualifiedIdentifierTypeNode = new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareFullyQualifiedIdentifierTypeNode($typeWithClassName->getClassName());
+        $attributeAwareVarTagValueNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode($attributeAwareFullyQualifiedIdentifierTypeNode, '$' . $variableName, '');
         $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);
     }
-
-    public function decorateNodeWithType(Node $node, Type $staticType): void
+    public function decorateNodeWithType(\PhpParser\Node $node, \PHPStan\Type\Type $staticType) : void
     {
-        if ($staticType instanceof MixedType) {
+        if ($staticType instanceof \PHPStan\Type\MixedType) {
             return;
         }
-
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             $phpDocInfo = $this->phpDocInfoFactory->createEmpty($node);
         }
-
         $phpDocInfo->changeVarType($staticType);
     }
-
-    private function resolvePhpDocInfo(Node $node): PhpDocInfo
+    private function resolvePhpDocInfo(\PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
-        $currentStmt = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        if ($currentStmt instanceof Expression) {
+        $currentStmt = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        if ($currentStmt instanceof \PhpParser\Node\Stmt\Expression) {
             /** @var PhpDocInfo|null $phpDocInfo */
-            $phpDocInfo = $currentStmt->getAttribute(AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $currentStmt->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         } else {
             /** @var PhpDocInfo|null $phpDocInfo */
-            $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         }
-
         if ($phpDocInfo === null) {
             $phpDocInfo = $this->phpDocInfoFactory->createEmpty($node);
         }
-
         $phpDocInfo->makeSingleLined();
-
         return $phpDocInfo;
     }
 }

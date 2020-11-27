@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -13,17 +12,14 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedPrivateMethodRector\RemoveUnusedPrivateMethodRectorTest
  */
-final class RemoveUnusedPrivateMethodRector extends AbstractRector
+final class RemoveUnusedPrivateMethodRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Remove unused private method', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused private method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeController
 {
     public function run()
@@ -37,8 +33,7 @@ final class SomeController
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeController
 {
     public function run()
@@ -47,59 +42,48 @@ final class SomeController
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
         $calls = $this->nodeRepository->findCallsByClassMethod($node);
         if ($calls !== []) {
             return null;
         }
-
         $this->removeNode($node);
-
         return $node;
     }
-
-    private function shouldSkip(ClassMethod $classMethod): bool
+    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var Class_|Interface_|Trait_|null $classLike */
-        $classLike = $classMethod->getAttribute(AttributeKey::CLASS_NODE);
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
-            return true;
+            return \true;
         }
-
         // unreliable to detect trait, interface doesn't make sense
-        if ($classLike instanceof Trait_ || $classLike instanceof Interface_) {
-            return true;
+        if ($classLike instanceof \PhpParser\Node\Stmt\Trait_ || $classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+            return \true;
         }
-
         if ($this->isAnonymousClass($classLike)) {
-            return true;
+            return \true;
         }
-
         // skips interfaces by default too
-        if (! $classMethod->isPrivate()) {
-            return true;
+        if (!$classMethod->isPrivate()) {
+            return \true;
         }
-
         // skip magic methods - @see https://www.php.net/manual/en/language.oop5.magic.php
         return $this->isName($classMethod, '__*');
     }

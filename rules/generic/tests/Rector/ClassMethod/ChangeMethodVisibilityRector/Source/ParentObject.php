@@ -1,23 +1,20 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source;
 
 class ParentObject
 {
-    private function toBePublicMethod() {
-
+    private function toBePublicMethod()
+    {
     }
-
-    static function toBePublicStaticMethod() {
-
+    static function toBePublicStaticMethod()
+    {
     }
-
-    protected function toBeProtectedMethod() {
-
+    protected function toBeProtectedMethod()
+    {
     }
-    private function toBePrivateMethod() {
-
+    private function toBePrivateMethod()
+    {
     }
 }

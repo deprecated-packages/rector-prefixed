@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -17,28 +16,23 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\ChangeContractMethodSingleToManyRector\ChangeContractMethodSingleToManyRectorTest
  */
-final class ChangeContractMethodSingleToManyRector extends AbstractRector implements ConfigurableRectorInterface
+final class ChangeContractMethodSingleToManyRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
      * @var string
      */
     public const OLD_TO_NEW_METHOD_BY_TYPE = '$oldToNewMethodByType';
-
     /**
      * @var mixed[]
      */
     private $oldToNewMethodByType = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change method that returns single value to multiple values', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change method that returns single value to multiple values', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function getNode(): string
@@ -47,8 +41,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -60,84 +53,63 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            , [
-                self::OLD_TO_NEW_METHOD_BY_TYPE => [
-                    'SomeClass' => [
-                        'getNode' => 'getNodes',
-                    ],
-                ],
-            ]),
-        ]);
+, [self::OLD_TO_NEW_METHOD_BY_TYPE => ['SomeClass' => ['getNode' => 'getNodes']]])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Class_ $classLike */
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         /** @var string $type */
         foreach ($this->oldToNewMethodByType as $type => $oldToNewMethod) {
-            if (! $this->isObjectType($classLike, $type)) {
+            if (!$this->isObjectType($classLike, $type)) {
                 continue;
             }
-
             foreach ($oldToNewMethod as $oldMethod => $newMethod) {
-                if (! $this->isName($node, $oldMethod)) {
+                if (!$this->isName($node, $oldMethod)) {
                     continue;
                 }
-
-                $node->name = new Identifier($newMethod);
+                $node->name = new \PhpParser\Node\Identifier($newMethod);
                 $this->keepOldReturnTypeInDocBlock($node);
-
-                $node->returnType = new Identifier('array');
+                $node->returnType = new \PhpParser\Node\Identifier('array');
                 $this->wrapReturnValueToArray($node);
-
                 break;
             }
         }
-
         return $node;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $this->oldToNewMethodByType = $configuration[self::OLD_TO_NEW_METHOD_BY_TYPE] ?? [];
     }
-
-    private function keepOldReturnTypeInDocBlock(ClassMethod $classMethod): void
+    private function keepOldReturnTypeInDocBlock(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // keep old return type in the docblock
         $oldReturnType = $classMethod->returnType;
         if ($oldReturnType === null) {
             return;
         }
-
         $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($oldReturnType);
-        $arrayType = new ArrayType(new MixedType(), $staticType);
-
+        $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $staticType);
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $phpDocInfo->changeReturnType($arrayType);
     }
-
-    private function wrapReturnValueToArray(ClassMethod $classMethod): void
+    private function wrapReturnValueToArray(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (Node $node) {
-            if (! $node instanceof Return_) {
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
+            if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return null;
             }
-
             $node->expr = $this->createArray([$node->expr]);
             return null;
         });

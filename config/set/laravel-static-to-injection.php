@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Generic\Rector\FuncCall\FuncCallToNewRector;
 use Rector\Laravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector;
@@ -13,214 +14,47 @@ use Rector\Transform\ValueObject\ArrayFuncCallToMethodCall;
 use Rector\Transform\ValueObject\StaticCallToMethodCall;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-
 /**
  * @see https://www.freecodecamp.org/news/moving-away-from-magic-or-why-i-dont-want-to-use-laravel-anymore-2ce098c979bd/
  * @see https://tomasvotruba.com/blog/2019/03/04/how-to-turn-laravel-from-static-to-dependency-injection-in-one-day/
  * @see https://laravel.com/docs/5.7/facades#facades-vs-dependency-injection
  */
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(__DIR__ . '/laravel-array-str-functions-to-static-call.php');
     $services = $containerConfigurator->services();
-    $services->set(StaticCallToMethodCallRector::class)->call('configure', [[
-        StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => ValueObjectInliner::inline([
-            new StaticCallToMethodCall('Illuminate\Support\Facades\App', '*', 'Illuminate\Foundation\Application', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Artisan',
-                '*',
-                'Illuminate\Contracts\Console\Kernel',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Auth', '*', 'Illuminate\Auth\AuthManager', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Blade',
-                '*',
-                'Illuminate\View\Compilers\BladeCompiler',
-                '*'
-            ),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Broadcast',
-                '*',
-                'Illuminate\Contracts\Broadcasting\Factory',
-                '*'
-            ),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Bus',
-                '*',
-                'Illuminate\Contracts\Bus\Dispatcher',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Cache', '*', 'Illuminate\Cache\CacheManager', '*'),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Config', '*', 'Illuminate\Config\Repository', '*'),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Cookie', '*', 'Illuminate\Cookie\CookieJar', '*'),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Crypt', '*', 'Illuminate\Encryption\Encrypter', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\DB',
-                '*',
-                'Illuminate\Database\DatabaseManager',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Event', '*', 'Illuminate\Events\Dispatcher', '*'),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\File', '*', 'Illuminate\Filesystem\Filesystem', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Gate',
-                '*',
-                'Illuminate\Contracts\Auth\Access\Gate',
-                '*'
-            ),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Hash',
-                '*',
-                'Illuminate\Contracts\Hashing\Hasher',
-                '*'
-            ),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Lang',
-                '*',
-                'Illuminate\Translation\Translator',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Log', '*', 'Illuminate\Log\LogManager', '*'),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Mail', '*', 'Illuminate\Mail\Mailer', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Notification',
-                '*',
-                'Illuminate\Notifications\ChannelManager',
-                '*'
-            ),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Password',
-                '*',
-                'Illuminate\Auth\Passwords\PasswordBrokerManager',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Queue', '*', 'Illuminate\Queue\QueueManager', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Redirect',
-                '*',
-                'Illuminate\Routing\Redirector',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Redis', '*', 'Illuminate\Redis\RedisManager', '*'),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Request', '*', 'Illuminate\Http\Request', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Response',
-                '*',
-                'Illuminate\Contracts\Routing\ResponseFactory',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\Route', '*', 'Illuminate\Routing\Router', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Schema',
-                '*',
-                'Illuminate\Database\Schema\Builder',
-                '*'
-            ),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Session',
-                '*',
-                'Illuminate\Session\SessionManager',
-                '*'
-            ),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Storage',
-                '*',
-                'Illuminate\Filesystem\FilesystemManager',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\URL', '*', 'Illuminate\Routing\UrlGenerator', '*'),
-            new StaticCallToMethodCall(
-                'Illuminate\Support\Facades\Validator',
-                '*',
-                'Illuminate\Validation\Factory',
-                '*'
-            ),
-            new StaticCallToMethodCall('Illuminate\Support\Facades\View', '*', 'Illuminate\View\Factory', '*'),
-        ]),
-    ]]);
-    $services->set(RequestStaticValidateToInjectRector::class);
+    $services->set(\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class)->call('configure', [[\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\App', '*', '_PhpScoper006a73f0e455\\Illuminate\\Foundation\\Application', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Artisan', '*', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Console\\Kernel', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Auth', '*', '_PhpScoper006a73f0e455\\Illuminate\\Auth\\AuthManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Blade', '*', '_PhpScoper006a73f0e455\\Illuminate\\View\\Compilers\\BladeCompiler', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Broadcast', '*', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Broadcasting\\Factory', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Bus', '*', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Bus\\Dispatcher', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Cache', '*', '_PhpScoper006a73f0e455\\Illuminate\\Cache\\CacheManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Config', '*', '_PhpScoper006a73f0e455\\Illuminate\\Config\\Repository', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Cookie', '*', '_PhpScoper006a73f0e455\\Illuminate\\Cookie\\CookieJar', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Crypt', '*', '_PhpScoper006a73f0e455\\Illuminate\\Encryption\\Encrypter', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\DB', '*', '_PhpScoper006a73f0e455\\Illuminate\\Database\\DatabaseManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Event', '*', '_PhpScoper006a73f0e455\\Illuminate\\Events\\Dispatcher', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\File', '*', '_PhpScoper006a73f0e455\\Illuminate\\Filesystem\\Filesystem', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Gate', '*', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Auth\\Access\\Gate', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Hash', '*', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Hashing\\Hasher', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Lang', '*', '_PhpScoper006a73f0e455\\Illuminate\\Translation\\Translator', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Log', '*', '_PhpScoper006a73f0e455\\Illuminate\\Log\\LogManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Mail', '*', '_PhpScoper006a73f0e455\\Illuminate\\Mail\\Mailer', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Notification', '*', '_PhpScoper006a73f0e455\\Illuminate\\Notifications\\ChannelManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Password', '*', '_PhpScoper006a73f0e455\\Illuminate\\Auth\\Passwords\\PasswordBrokerManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Queue', '*', '_PhpScoper006a73f0e455\\Illuminate\\Queue\\QueueManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Redirect', '*', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Redirector', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Redis', '*', '_PhpScoper006a73f0e455\\Illuminate\\Redis\\RedisManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Request', '*', '_PhpScoper006a73f0e455\\Illuminate\\Http\\Request', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Response', '*', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Routing\\ResponseFactory', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Route', '*', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Router', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Schema', '*', '_PhpScoper006a73f0e455\\Illuminate\\Database\\Schema\\Builder', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Session', '*', '_PhpScoper006a73f0e455\\Illuminate\\Session\\SessionManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Storage', '*', '_PhpScoper006a73f0e455\\Illuminate\\Filesystem\\FilesystemManager', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\URL', '*', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\UrlGenerator', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Validator', '*', '_PhpScoper006a73f0e455\\Illuminate\\Validation\\Factory', '*'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\View', '*', '_PhpScoper006a73f0e455\\Illuminate\\View\\Factory', '*')])]]);
+    $services->set(\Rector\Laravel\Rector\StaticCall\RequestStaticValidateToInjectRector::class);
     // @see https://github.com/laravel/framework/blob/78828bc779e410e03cc6465f002b834eadf160d2/src/Illuminate/Foundation/helpers.php#L959
     // @see https://gist.github.com/barryvdh/bb6ffc5d11e0a75dba67
-    $services->set(ArgumentFuncCallToMethodCallRector::class)->call('configure', [[
-        ArgumentFuncCallToMethodCallRector::FUNCTIONS_TO_METHOD_CALLS => ValueObjectInliner::inline([
-            new ArgumentFuncCallToMethodCall('auth', 'Illuminate\Contracts\Auth\Guard'),
-            new ArgumentFuncCallToMethodCall('policy', 'Illuminate\Contracts\Auth\Access\Gate', 'getPolicyFor'),
-            new ArgumentFuncCallToMethodCall('cookie', 'Illuminate\Contracts\Cookie\Factory', 'make'),
-            // router
-            new ArgumentFuncCallToMethodCall('put', 'Illuminate\Routing\Router', 'put'),
-            new ArgumentFuncCallToMethodCall('get', 'Illuminate\Routing\Router', 'get'),
-            new ArgumentFuncCallToMethodCall('post', 'Illuminate\Routing\Router', 'post'),
-            new ArgumentFuncCallToMethodCall('patch', 'Illuminate\Routing\Router', 'patch'),
-            new ArgumentFuncCallToMethodCall('delete', 'Illuminate\Routing\Router', 'delete'),
-            new ArgumentFuncCallToMethodCall('resource', 'Illuminate\Routing\Router', 'resource'),
-            new ArgumentFuncCallToMethodCall('response', 'Illuminate\Contracts\Routing\ResponseFactory', 'make'),
-            new ArgumentFuncCallToMethodCall('info', 'Illuminate\Log\Writer', 'info'),
-            new ArgumentFuncCallToMethodCall('view', 'Illuminate\Contracts\View\Factory', 'make'),
-            new ArgumentFuncCallToMethodCall('bcrypt', 'Illuminate\Hashing\BcryptHasher', 'make'),
-            new ArgumentFuncCallToMethodCall('redirect', 'Illuminate\Routing\Redirector', 'back'),
-            new ArgumentFuncCallToMethodCall('broadcast', 'Illuminate\Contracts\Broadcasting\Factory', 'event'),
-            new ArgumentFuncCallToMethodCall('event', 'Illuminate\Events\Dispatcher', 'dispatch'),
-            new ArgumentFuncCallToMethodCall('dispatch', 'Illuminate\Events\Dispatcher', 'dispatch'),
-            new ArgumentFuncCallToMethodCall('route', 'Illuminate\Routing\UrlGenerator', 'route'),
-            new ArgumentFuncCallToMethodCall('asset', 'Illuminate\Routing\UrlGenerator', 'asset'),
-            new ArgumentFuncCallToMethodCall('url', 'Illuminate\Contracts\Routing\UrlGenerator', 'to'),
-            new ArgumentFuncCallToMethodCall('action', 'Illuminate\Routing\UrlGenerator', 'action'),
-            new ArgumentFuncCallToMethodCall('trans', 'Illuminate\Translation\Translator', 'trans'),
-            new ArgumentFuncCallToMethodCall('trans_choice', 'Illuminate\Translation\Translator', 'transChoice'),
-            new ArgumentFuncCallToMethodCall('logger', 'Illuminate\Log\Writer', 'debug'),
-            new ArgumentFuncCallToMethodCall('back', 'Illuminate\Routing\Redirector', 'back', 'back'),
-        ]),
-        ArgumentFuncCallToMethodCallRector::ARRAY_FUNCTIONS_TO_METHOD_CALLS => ValueObjectInliner::inline([
-            new ArrayFuncCallToMethodCall('config', 'Illuminate\Contracts\Config\Repository', 'set', 'get'),
-            new ArrayFuncCallToMethodCall('session', 'Illuminate\Session\SessionManager', 'put', 'get'),
-        ]),
-    ]]);
-    $services->set(FuncCallToNewRector::class)->call('configure', [[
-        FuncCallToNewRector::FUNCTION_TO_NEW => [
-            'collect' => 'Illuminate\Support\Collection',
-        ],
-    ]]);
-    $services->set(HelperFuncCallToFacadeClassRector::class);
-
-    $services->set(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'App' => 'Illuminate\Support\Facades\App',
-                'Artisan' => 'Illuminate\Support\Facades\Artisan',
-                'Auth' => 'Illuminate\Support\Facades\Auth',
-                'Blade' => 'Illuminate\Support\Facades\Blade',
-                'Broadcast' => 'Illuminate\Support\Facades\Broadcast',
-                'Bus' => 'Illuminate\Support\Facades\Bus',
-                'Cache' => 'Illuminate\Support\Facades\Cache',
-                'Config' => 'Illuminate\Support\Facades\Config',
-                'Cookie' => 'Illuminate\Support\Facades\Cookie',
-                'Crypt' => 'Illuminate\Support\Facades\Crypt',
-                'DB' => 'Illuminate\Support\Facades\DB',
-                'Date' => 'Illuminate\Support\Facades\Date',
-                'Event' => 'Illuminate\Support\Facades\Event',
-                'Facade' => 'Illuminate\Support\Facades\Facade',
-                'File' => 'Illuminate\Support\Facades\File',
-                'Gate' => 'Illuminate\Support\Facades\Gate',
-                'Hash' => 'Illuminate\Support\Facades\Hash',
-                'Http' => 'Illuminate\Support\Facades\Http',
-                'Lang' => 'Illuminate\Support\Facades\Lang',
-                'Log' => 'Illuminate\Support\Facades\Log',
-                'Mail' => 'Illuminate\Support\Facades\Mail',
-                'Notification' => 'Illuminate\Support\Facades\Notification',
-                'Password' => 'Illuminate\Support\Facades\Password',
-                'Queue' => 'Illuminate\Support\Facades\Queue',
-                'RateLimiter' => 'Illuminate\Support\Facades\RateLimiter',
-                'Redirect' => 'Illuminate\Support\Facades\Redirect',
-                'Redis' => 'Illuminate\Support\Facades\Redis',
-                'Request' => 'Illuminate\Http\Request',
-                'Response' => 'Illuminate\Support\Facades\Response',
-                'Route' => 'Illuminate\Support\Facades\Route',
-                'Schema' => 'Illuminate\Support\Facades\Schema',
-                'Session' => 'Illuminate\Support\Facades\Session',
-                'Storage' => 'Illuminate\Support\Facades\Storage',
-                'URL' => 'Illuminate\Support\Facades\URL',
-                'Validator' => 'Illuminate\Support\Facades\Validator',
-                'View' => 'Illuminate\Support\Facades\View',
-            ],
-        ]]);
+    $services->set(\Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::class)->call('configure', [[\Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::FUNCTIONS_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('auth', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Auth\\Guard'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('policy', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Auth\\Access\\Gate', 'getPolicyFor'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('cookie', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Cookie\\Factory', 'make'),
+        // router
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('put', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Router', 'put'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('get', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Router', 'get'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('post', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Router', 'post'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('patch', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Router', 'patch'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('delete', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Router', 'delete'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('resource', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Router', 'resource'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('response', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Routing\\ResponseFactory', 'make'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('info', '_PhpScoper006a73f0e455\\Illuminate\\Log\\Writer', 'info'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('view', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\View\\Factory', 'make'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('bcrypt', '_PhpScoper006a73f0e455\\Illuminate\\Hashing\\BcryptHasher', 'make'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('redirect', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Redirector', 'back'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('broadcast', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Broadcasting\\Factory', 'event'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('event', '_PhpScoper006a73f0e455\\Illuminate\\Events\\Dispatcher', 'dispatch'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('dispatch', '_PhpScoper006a73f0e455\\Illuminate\\Events\\Dispatcher', 'dispatch'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('route', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\UrlGenerator', 'route'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('asset', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\UrlGenerator', 'asset'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('url', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Routing\\UrlGenerator', 'to'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('action', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\UrlGenerator', 'action'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('trans', '_PhpScoper006a73f0e455\\Illuminate\\Translation\\Translator', 'trans'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('trans_choice', '_PhpScoper006a73f0e455\\Illuminate\\Translation\\Translator', 'transChoice'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('logger', '_PhpScoper006a73f0e455\\Illuminate\\Log\\Writer', 'debug'),
+        new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('back', '_PhpScoper006a73f0e455\\Illuminate\\Routing\\Redirector', 'back', 'back'),
+    ]), \Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::ARRAY_FUNCTIONS_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall('config', '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Config\\Repository', 'set', 'get'), new \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall('session', '_PhpScoper006a73f0e455\\Illuminate\\Session\\SessionManager', 'put', 'get')])]]);
+    $services->set(\Rector\Generic\Rector\FuncCall\FuncCallToNewRector::class)->call('configure', [[\Rector\Generic\Rector\FuncCall\FuncCallToNewRector::FUNCTION_TO_NEW => ['collect' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Collection']]]);
+    $services->set(\Rector\Laravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector::class);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['App' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\App', 'Artisan' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Artisan', 'Auth' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Auth', 'Blade' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Blade', 'Broadcast' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Broadcast', 'Bus' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Bus', 'Cache' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Cache', 'Config' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Config', 'Cookie' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Cookie', 'Crypt' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Crypt', 'DB' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\DB', 'Date' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Date', 'Event' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Event', 'Facade' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Facade', 'File' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\File', 'Gate' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Gate', 'Hash' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Hash', 'Http' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Http', 'Lang' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Lang', 'Log' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Log', 'Mail' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Mail', 'Notification' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Notification', 'Password' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Password', 'Queue' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Queue', 'RateLimiter' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\RateLimiter', 'Redirect' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Redirect', 'Redis' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Redis', 'Request' => '_PhpScoper006a73f0e455\\Illuminate\\Http\\Request', 'Response' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Response', 'Route' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Route', 'Schema' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Schema', 'Session' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Session', 'Storage' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Storage', 'URL' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\URL', 'Validator' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Validator', 'View' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\View']]]);
 };

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\Reflection;
 
 use PhpParser\Node;
@@ -11,60 +10,48 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Symplify\SmartFileSystem\SmartFileSystem;
-
 final class ClassReflectionToAstResolver
 {
     /**
      * @var Parser
      */
     private $parser;
-
     /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
-    public function __construct(Parser $parser, SmartFileSystem $smartFileSystem, BetterNodeFinder $betterNodeFinder)
+    public function __construct(\PhpParser\Parser $parser, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-
-    public function getClassFromObjectType(ObjectType $objectType): ?Class_
+    public function getClassFromObjectType(\PHPStan\Type\ObjectType $objectType) : ?\PhpParser\Node\Stmt\Class_
     {
         $classReflection = $objectType->getClassReflection();
         if ($classReflection === null) {
             return null;
         }
-
         $className = $objectType->getClassName();
-
         return $this->getClass($classReflection, $className);
     }
-
-    public function getClass(ClassReflection $classReflection, string $className): ?Class_
+    public function getClass(\PHPStan\Reflection\ClassReflection $classReflection, string $className) : ?\PhpParser\Node\Stmt\Class_
     {
         if ($classReflection->isBuiltin()) {
             return null;
         }
-
         /** @var string $fileName */
         $fileName = $classReflection->getFileName();
-
         /** @var Node[] $contentNodes */
         $contentNodes = $this->parser->parse($this->smartFileSystem->readFile($fileName));
-        $classes = $this->betterNodeFinder->findInstanceOf($contentNodes, Class_::class);
-
+        $classes = $this->betterNodeFinder->findInstanceOf($contentNodes, \PhpParser\Node\Stmt\Class_::class);
         if ($classes === []) {
             return null;
         }
-
         $reflectionClassName = $classReflection->getName();
         foreach ($classes as $class) {
             $shortClassName = $class->name;
@@ -72,7 +59,6 @@ final class ClassReflectionToAstResolver
                 return $class;
             }
         }
-
         return null;
     }
 }

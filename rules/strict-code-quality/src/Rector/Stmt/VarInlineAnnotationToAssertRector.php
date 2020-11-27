@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\StrictCodeQuality\Rector\Stmt;
 
 use PhpParser\Node;
@@ -26,24 +25,18 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\StrictCodeQuality\Tests\Rector\Stmt\VarInlineAnnotationToAssertRector\VarInlineAnnotationToAssertRectorTest
  */
-final class VarInlineAnnotationToAssertRector extends AbstractRector
+final class VarInlineAnnotationToAssertRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
     private const ASSERT = 'assert';
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Turn @var inline checks above code to assert() of the type',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @var inline checks above code to assert() of the type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -53,8 +46,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -65,157 +57,121 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Stmt::class];
+        return [\PhpParser\Node\Stmt::class];
     }
-
     /**
      * @param Stmt $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip properties
-        if ($node instanceof Property) {
+        if ($node instanceof \PhpParser\Node\Stmt\Property) {
             return null;
         }
-
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
-
         $docVariableName = $this->getVarDocVariableName($phpDocInfo);
         if ($docVariableName === null) {
             return null;
         }
-
         $variable = $this->findVariableByName($node, $docVariableName);
-        if (! $variable instanceof Variable) {
+        if (!$variable instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-
         $isVariableJustCreated = $this->isVariableJustCreated($node, $docVariableName);
-        if (! $isVariableJustCreated) {
+        if (!$isVariableJustCreated) {
             return $this->refactorFreshlyCreatedNode($node, $phpDocInfo, $variable);
         }
-
         return $this->refactorAlreadyCreatedNode($node, $phpDocInfo, $variable);
     }
-
-    private function getVarDocVariableName(PhpDocInfo $phpDocInfo): ?string
+    private function getVarDocVariableName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?string
     {
         $attributeAwareVarTagValueNode = $phpDocInfo->getVarTagValueNode();
         if ($attributeAwareVarTagValueNode === null) {
             return null;
         }
-
         $variableName = (string) $attributeAwareVarTagValueNode->variableName;
         // no variable
         if ($variableName === '') {
             return null;
         }
-
-        return ltrim($variableName, '$');
+        return \ltrim($variableName, '$');
     }
-
-    private function findVariableByName(Stmt $stmt, string $docVariableName): ?Node
+    private function findVariableByName(\PhpParser\Node\Stmt $stmt, string $docVariableName) : ?\PhpParser\Node
     {
-        return $this->betterNodeFinder->findFirst($stmt, function (Node $stmt) use ($docVariableName): bool {
+        return $this->betterNodeFinder->findFirst($stmt, function (\PhpParser\Node $stmt) use($docVariableName) : bool {
             return $this->isVariableName($stmt, $docVariableName);
         });
     }
-
-    private function isVariableJustCreated(Node $node, string $docVariableName): bool
+    private function isVariableJustCreated(\PhpParser\Node $node, string $docVariableName) : bool
     {
-        if (! $node instanceof Expression) {
-            return false;
+        if (!$node instanceof \PhpParser\Node\Stmt\Expression) {
+            return \false;
         }
-
-        if (! $node->expr instanceof Assign) {
-            return false;
+        if (!$node->expr instanceof \PhpParser\Node\Expr\Assign) {
+            return \false;
         }
-
         $assign = $node->expr;
-
         // the variable is on the left side = just created
         return $this->isVariableName($assign->var, $docVariableName);
     }
-
-    private function refactorFreshlyCreatedNode(Node $node, PhpDocInfo $phpDocInfo, Variable $variable): ?Node
+    private function refactorFreshlyCreatedNode(\PhpParser\Node $node, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
     {
-        $node->setAttribute(AttributeKey::COMMENTS, null);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
         $type = $phpDocInfo->getVarType();
-
         $assertFuncCall = $this->createFuncCallBasedOnType($type, $variable);
         if ($assertFuncCall === null) {
             return null;
         }
-
-        $phpDocInfo->removeByType(VarTagValueNode::class);
-
+        $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
         $this->addNodeBeforeNode($assertFuncCall, $node);
-
         return $node;
     }
-
-    private function refactorAlreadyCreatedNode(Node $node, PhpDocInfo $phpDocInfo, Variable $variable): ?Node
+    private function refactorAlreadyCreatedNode(\PhpParser\Node $node, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
     {
         $varTagValue = $phpDocInfo->getVarTagValueNode();
         if ($varTagValue === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType(
-            $varTagValue->type,
-            $variable
-        );
-
+        $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($varTagValue->type, $variable);
         $assertFuncCall = $this->createFuncCallBasedOnType($phpStanType, $variable);
         if ($assertFuncCall === null) {
             return null;
         }
-
         $this->addNodeAfterNode($assertFuncCall, $node);
-
         return $node;
     }
-
-    private function createFuncCallBasedOnType(Type $type, Variable $variable): ?FuncCall
+    private function createFuncCallBasedOnType(\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\FuncCall
     {
-        if ($type instanceof ObjectType) {
-            $instanceOf = new Instanceof_($variable, new FullyQualified($type->getClassName()));
+        if ($type instanceof \PHPStan\Type\ObjectType) {
+            $instanceOf = new \PhpParser\Node\Expr\Instanceof_($variable, new \PhpParser\Node\Name\FullyQualified($type->getClassName()));
             return $this->createFuncCall(self::ASSERT, [$instanceOf]);
         }
-
-        if ($type instanceof IntegerType) {
+        if ($type instanceof \PHPStan\Type\IntegerType) {
             $isInt = $this->createFuncCall('is_int', [$variable]);
             return $this->createFuncCall(self::ASSERT, [$isInt]);
         }
-
-        if ($type instanceof FloatType) {
+        if ($type instanceof \PHPStan\Type\FloatType) {
             $funcCall = $this->createFuncCall('is_float', [$variable]);
             return $this->createFuncCall(self::ASSERT, [$funcCall]);
         }
-
-        if ($type instanceof StringType) {
+        if ($type instanceof \PHPStan\Type\StringType) {
             $isString = $this->createFuncCall('is_string', [$variable]);
             return $this->createFuncCall(self::ASSERT, [$isString]);
         }
-
-        if ($type instanceof BooleanType) {
+        if ($type instanceof \PHPStan\Type\BooleanType) {
             $isInt = $this->createFuncCall('is_bool', [$variable]);
             return $this->createFuncCall(self::ASSERT, [$isInt]);
         }
-
         return null;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\PhpDoc;
 
 use PHPStan\Type\ArrayType;
@@ -11,21 +10,17 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
-
 final class CollectionTypeFactory
 {
-    public function createType(FullyQualifiedObjectType $fullyQualifiedObjectType): UnionType
+    public function createType(\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \PHPStan\Type\UnionType
     {
         $genericType = $this->createGenericObjectType($fullyQualifiedObjectType);
-        $arrayType = new ArrayType(new MixedType(), $fullyQualifiedObjectType);
-
-        return new UnionType([$genericType, $arrayType]);
+        $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $fullyQualifiedObjectType);
+        return new \PHPStan\Type\UnionType([$genericType, $arrayType]);
     }
-
-    private function createGenericObjectType(FullyQualifiedObjectType $fullyQualifiedObjectType): Type
+    private function createGenericObjectType(\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \PHPStan\Type\Type
     {
-        $genericTypes = [new IntegerType(), $fullyQualifiedObjectType];
-
-        return new GenericObjectType('Doctrine\Common\Collections\Collection', $genericTypes);
+        $genericTypes = [new \PHPStan\Type\IntegerType(), $fullyQualifiedObjectType];
+        return new \PHPStan\Type\Generic\GenericObjectType('_PhpScoper006a73f0e455\\Doctrine\\Common\\Collections\\Collection', $genericTypes);
     }
 }

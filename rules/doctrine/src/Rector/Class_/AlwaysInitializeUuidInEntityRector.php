@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\Rector\Class_;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Class_;
@@ -17,39 +16,29 @@ use Rector\Doctrine\NodeFactory\EntityUuidNodeFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\Doctrine\Tests\Rector\Class_\AlwaysInitializeUuidInEntityRector\AlwaysInitializeUuidInEntityRectorTest
  */
-final class AlwaysInitializeUuidInEntityRector extends AbstractRector
+final class AlwaysInitializeUuidInEntityRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var EntityUuidNodeFactory
      */
     private $entityUuidNodeFactory;
-
     /**
      * @var ClassDependencyManipulator
      */
     private $classDependencyManipulator;
-
-    public function __construct(
-        ClassDependencyManipulator $classDependencyManipulator,
-        EntityUuidNodeFactory $entityUuidNodeFactory
-    ) {
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator, \Rector\Doctrine\NodeFactory\EntityUuidNodeFactory $entityUuidNodeFactory)
+    {
         $this->entityUuidNodeFactory = $entityUuidNodeFactory;
         $this->classDependencyManipulator = $classDependencyManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Add uuid initializion to all entities that misses it',
-            [
-                new CodeSample(
-<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add uuid initializion to all entities that misses it', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -64,8 +53,7 @@ class AddUuidInit
     private $superUuid;
 }
 CODE_SAMPLE
-                    ,
-<<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -84,87 +72,67 @@ class AddUuidInit
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isDoctrineEntityClass($node)) {
+        if (!$this->isDoctrineEntityClass($node)) {
             return null;
         }
-
         $uuidProperty = $this->resolveUuidPropertyFromClass($node);
         if ($uuidProperty === null) {
             return null;
         }
-
         $uuidPropertyName = $this->getName($uuidProperty);
         if ($this->hasUuidInitAlreadyAdded($node, $uuidPropertyName)) {
             return null;
         }
-
         $stmts = [];
         $stmts[] = $this->entityUuidNodeFactory->createUuidPropertyDefaultValueAssign($uuidPropertyName);
-
         $this->classDependencyManipulator->addStmtsToConstructorIfNotThereYet($node, $stmts);
-
         return $node;
     }
-
-    private function resolveUuidPropertyFromClass(Class_ $class): ?Property
+    private function resolveUuidPropertyFromClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Property
     {
         foreach ($class->getProperties() as $property) {
-            $propertyPhpDoc = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
+            $propertyPhpDoc = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             if ($propertyPhpDoc === null) {
                 continue;
             }
-
             $varType = $propertyPhpDoc->getVarType();
-            if (! $varType instanceof ObjectType) {
+            if (!$varType instanceof \PHPStan\Type\ObjectType) {
                 continue;
             }
-
-            if (! Strings::contains($varType->getClassName(), 'UuidInterface')) {
+            if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($varType->getClassName(), 'UuidInterface')) {
                 continue;
             }
-
             return $property;
         }
-
         return null;
     }
-
-    private function hasUuidInitAlreadyAdded(Class_ $class, string $uuidPropertyName): bool
+    private function hasUuidInitAlreadyAdded(\PhpParser\Node\Stmt\Class_ $class, string $uuidPropertyName) : bool
     {
-        $constructClassMethod = $class->getMethod(MethodName::CONSTRUCT);
+        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
-            return false;
+            return \false;
         }
-
-        return (bool) $this->betterNodeFinder->findFirst((array) $class->stmts, function (Node $node) use (
-            $uuidPropertyName
-        ): bool {
-            if (! $node instanceof Assign) {
-                return false;
+        return (bool) $this->betterNodeFinder->findFirst((array) $class->stmts, function (\PhpParser\Node $node) use($uuidPropertyName) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
             }
-
-            if (! $this->isStaticCallNamed($node->expr, 'Ramsey\Uuid\Uuid', 'uuid4')) {
-                return false;
+            if (!$this->isStaticCallNamed($node->expr, '_PhpScoper006a73f0e455\\Ramsey\\Uuid\\Uuid', 'uuid4')) {
+                return \false;
             }
-
             return $this->isName($node->var, $uuidPropertyName);
         });
     }

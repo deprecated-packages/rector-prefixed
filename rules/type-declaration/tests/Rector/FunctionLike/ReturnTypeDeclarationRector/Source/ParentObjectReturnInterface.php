@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\Tests\Rector\FunctionLike\ReturnTypeDeclarationRector\Source;
 
 interface ParentObjectReturnInterface
@@ -7,5 +8,5 @@ interface ParentObjectReturnInterface
     /**
      * @return object
      */
-    public function hydrate(): object;
+    public function hydrate() : object;
 }

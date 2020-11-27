@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\Reflection;
 
 use PHPStan\Type\IntersectionType;
@@ -10,43 +9,35 @@ use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\PHPStan\Type\ShortenedObjectType;
 use ReflectionMethod;
-
 final class ClassMethodReflectionFactory
 {
-    public function createFromPHPStanTypeAndMethodName(Type $type, string $methodName): ?ReflectionMethod
+    public function createFromPHPStanTypeAndMethodName(\PHPStan\Type\Type $type, string $methodName) : ?\ReflectionMethod
     {
-        if ($type instanceof ShortenedObjectType) {
+        if ($type instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
             return $this->createReflectionMethodIfExists($type->getFullyQualifiedName(), $methodName);
         }
-
-        if ($type instanceof ObjectType) {
+        if ($type instanceof \PHPStan\Type\ObjectType) {
             return $this->createReflectionMethodIfExists($type->getClassName(), $methodName);
         }
-
-        if ($type instanceof UnionType || $type instanceof IntersectionType) {
+        if ($type instanceof \PHPStan\Type\UnionType || $type instanceof \PHPStan\Type\IntersectionType) {
             foreach ($type->getTypes() as $unionedType) {
-                if (! $unionedType instanceof ObjectType) {
+                if (!$unionedType instanceof \PHPStan\Type\ObjectType) {
                     continue;
                 }
-
                 $methodReflection = $this->createFromPHPStanTypeAndMethodName($unionedType, $methodName);
                 if ($methodReflection === null) {
                     continue;
                 }
-
                 return $methodReflection;
             }
         }
-
         return null;
     }
-
-    public function createReflectionMethodIfExists(string $class, string $method): ?ReflectionMethod
+    public function createReflectionMethodIfExists(string $class, string $method) : ?\ReflectionMethod
     {
-        if (! method_exists($class, $method)) {
+        if (!\method_exists($class, $method)) {
             return null;
         }
-
-        return new ReflectionMethod($class, $method);
+        return new \ReflectionMethod($class, $method);
     }
 }

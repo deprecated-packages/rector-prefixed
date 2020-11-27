@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodeQuality\Tests\Rector\Name\FixClassCaseSensitivityNameRector\Source;
 
 final class MissCaseTypedClass

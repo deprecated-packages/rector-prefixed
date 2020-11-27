@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -11,21 +10,16 @@ use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\Nette\Tests\Rector\FuncCall\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRectorTest
  */
-final class JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector extends AbstractRector
+final class JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Changes json_encode()/json_decode() to safer and more verbose Nette\Utils\Json::encode()/decode() calls',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes json_encode()/json_decode() to safer and more verbose Nette\\Utils\\Json::encode()/decode() calls', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function decodeJson(string $jsonString)
@@ -44,8 +38,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function decodeJson(string $jsonString)
@@ -64,65 +57,52 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
-
     /**
      * @param FuncCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->isName($node, 'json_encode')) {
             return $this->refactorJsonEncode($node);
         }
-
         if ($this->isName($node, 'json_decode')) {
             return $this->refactorJsonDecode($node);
         }
-
         return null;
     }
-
-    private function refactorJsonEncode(FuncCall $funcCall): StaticCall
+    private function refactorJsonEncode(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\StaticCall
     {
         $args = $funcCall->args;
         if (isset($args[1])) {
             $secondArgumentValue = $args[1]->value;
-
             if ($this->isName($secondArgumentValue, 'JSON_PRETTY_PRINT')) {
-                $classConstFetch = $this->createClassConstFetch('Nette\Utils\Json', 'PRETTY');
-                $args[1] = new Arg($classConstFetch);
+                $classConstFetch = $this->createClassConstFetch('_PhpScoper006a73f0e455\\Nette\\Utils\\Json', 'PRETTY');
+                $args[1] = new \PhpParser\Node\Arg($classConstFetch);
             }
         }
-
-        return $this->createStaticCall('Nette\Utils\Json', 'encode', $args);
+        return $this->createStaticCall('_PhpScoper006a73f0e455\\Nette\\Utils\\Json', 'encode', $args);
     }
-
-    private function refactorJsonDecode(FuncCall $funcCall): StaticCall
+    private function refactorJsonDecode(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\StaticCall
     {
         $args = $funcCall->args;
-
         if (isset($args[1])) {
             $secondArgumentValue = $args[1]->value;
-
             if ($this->isFalse($secondArgumentValue)) {
                 unset($args[1]);
             } elseif ($this->isTrue($secondArgumentValue)) {
-                $classConstFetch = $this->createClassConstFetch('Nette\Utils\Json', 'FORCE_ARRAY');
-                $args[1] = new Arg($classConstFetch);
+                $classConstFetch = $this->createClassConstFetch('_PhpScoper006a73f0e455\\Nette\\Utils\\Json', 'FORCE_ARRAY');
+                $args[1] = new \PhpParser\Node\Arg($classConstFetch);
             }
         }
-
-        return $this->createStaticCall('Nette\Utils\Json', 'decode', $args);
+        return $this->createStaticCall('_PhpScoper006a73f0e455\\Nette\\Utils\\Json', 'decode', $args);
     }
 }

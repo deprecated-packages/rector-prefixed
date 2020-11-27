@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Switch_;
 
 use PhpParser\Node;
@@ -17,17 +16,14 @@ use PhpParser\Node\Stmt\Switch_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Switch_\BinarySwitchToIfElseRector\BinarySwitchToIfElseRectorTest
  */
-final class BinarySwitchToIfElseRector extends AbstractRector
+final class BinarySwitchToIfElseRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Changes switch with 2 options to if-else', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes switch with 2 options to if-else', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 switch ($foo) {
     case 'my string':
         $result = 'ok';
@@ -37,87 +33,72 @@ switch ($foo) {
         $result = 'not ok';
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 if ($foo == 'my string') {
     $result = 'ok;
 } else {
     $result = 'not ok';
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Switch_::class];
+        return [\PhpParser\Node\Stmt\Switch_::class];
     }
-
     /**
      * @param Switch_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (count($node->cases) > 2) {
+        if (\count($node->cases) > 2) {
             return null;
         }
-
         /** @var Case_ $firstCase */
-        $firstCase = array_shift($node->cases);
+        $firstCase = \array_shift($node->cases);
         if ($firstCase->cond === null) {
             return null;
         }
-
         /** @var Case_|null $secondCase */
-        $secondCase = array_shift($node->cases);
-
+        $secondCase = \array_shift($node->cases);
         // special case with empty first case → ||
         $isFirstCaseEmpty = $firstCase->stmts === [];
         if ($isFirstCaseEmpty && $secondCase !== null && $secondCase->cond !== null) {
-            $else = new BooleanOr(new Equal($node->cond, $firstCase->cond), new Equal($node->cond, $secondCase->cond));
-
-            $ifNode = new If_($else);
+            $else = new \PhpParser\Node\Expr\BinaryOp\BooleanOr(new \PhpParser\Node\Expr\BinaryOp\Equal($node->cond, $firstCase->cond), new \PhpParser\Node\Expr\BinaryOp\Equal($node->cond, $secondCase->cond));
+            $ifNode = new \PhpParser\Node\Stmt\If_($else);
             $ifNode->stmts = $this->removeBreakNodes($secondCase->stmts);
-
             return $ifNode;
         }
-
-        $ifNode = new If_(new Equal($node->cond, $firstCase->cond));
+        $ifNode = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\BinaryOp\Equal($node->cond, $firstCase->cond));
         $ifNode->stmts = $this->removeBreakNodes($firstCase->stmts);
-
         // just one condition
         if ($secondCase === null) {
             return $ifNode;
         }
-
         if ($secondCase->cond !== null) {
             // has condition
-            $equal = new Equal($node->cond, $secondCase->cond);
-            $ifNode->elseifs[] = new ElseIf_($equal, $this->removeBreakNodes($secondCase->stmts));
+            $equal = new \PhpParser\Node\Expr\BinaryOp\Equal($node->cond, $secondCase->cond);
+            $ifNode->elseifs[] = new \PhpParser\Node\Stmt\ElseIf_($equal, $this->removeBreakNodes($secondCase->stmts));
         } else {
             // defaults
-            $ifNode->else = new Else_($this->removeBreakNodes($secondCase->stmts));
+            $ifNode->else = new \PhpParser\Node\Stmt\Else_($this->removeBreakNodes($secondCase->stmts));
         }
-
         return $ifNode;
     }
-
     /**
      * @param Stmt[] $stmts
      * @return Stmt[]
      */
-    private function removeBreakNodes(array $stmts): array
+    private function removeBreakNodes(array $stmts) : array
     {
         foreach ($stmts as $key => $node) {
-            if ($node instanceof Break_) {
+            if ($node instanceof \PhpParser\Node\Stmt\Break_) {
                 unset($stmts[$key]);
             }
         }
-
         return $stmts;
     }
 }

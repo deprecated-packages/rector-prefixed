@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php70\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -16,20 +15,15 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://wiki.php.net/rfc/remove_php4_constructors
  * @see \Rector\Php70\Tests\Rector\ClassMethod\Php4ConstructorRector\Php4ConstructorRectorTest
  */
-final class Php4ConstructorRector extends AbstractRector
+final class Php4ConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Changes PHP 4 style constructor to __construct.',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes PHP 4 style constructor to __construct.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function SomeClass()
@@ -37,8 +31,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct()
@@ -46,132 +39,104 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-
         // process parent call references first
         $this->processClassMethodStatementsForParentConstructorCalls($node);
-
         // not PSR-4 constructor
-        if (! $this->isName($classLike, $this->getName($node))) {
+        if (!$this->isName($classLike, $this->getName($node))) {
             return null;
         }
-        $classMethod = $classLike->getMethod(MethodName::CONSTRUCT);
-
+        $classMethod = $classLike->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         // does it already have a __construct method?
         if ($classMethod === null) {
-            $node->name = new Identifier(MethodName::CONSTRUCT);
+            $node->name = new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         }
-
         if ($node->stmts === null) {
             return null;
         }
-
-        if (count($node->stmts) === 1) {
+        if (\count($node->stmts) === 1) {
             /** @var Expression $stmt */
             $stmt = $node->stmts[0];
-
-            if ($this->isLocalMethodCallNamed($stmt->expr, MethodName::CONSTRUCT)) {
+            if ($this->isLocalMethodCallNamed($stmt->expr, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
                 $this->removeNode($node);
-
                 return null;
             }
         }
-
         return $node;
     }
-
-    private function shouldSkip(ClassMethod $classMethod): bool
+    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $namespace = $classMethod->getAttribute(AttributeKey::NAMESPACE_NAME);
+        $namespace = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
         // catch only classes without namespace
         if ($namespace !== null) {
-            return true;
+            return \true;
         }
-
         if ($classMethod->isAbstract() || $classMethod->isStatic()) {
-            return true;
+            return \true;
         }
-
-        $classLike = $classMethod->getAttribute(AttributeKey::CLASS_NODE);
-        return $classLike instanceof Class_ && $classLike->name === null;
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        return $classLike instanceof \PhpParser\Node\Stmt\Class_ && $classLike->name === null;
     }
-
-    private function processClassMethodStatementsForParentConstructorCalls(ClassMethod $classMethod): void
+    private function processClassMethodStatementsForParentConstructorCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        if (! is_iterable($classMethod->stmts)) {
+        if (!\is_iterable($classMethod->stmts)) {
             return;
         }
-
         /** @var Expression $methodStmt */
         foreach ($classMethod->stmts as $methodStmt) {
-            if ($methodStmt instanceof Expression) {
+            if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {
                 $methodStmt = $methodStmt->expr;
             }
-
-            if (! $methodStmt instanceof StaticCall) {
+            if (!$methodStmt instanceof \PhpParser\Node\Expr\StaticCall) {
                 continue;
             }
-
             $this->processParentPhp4ConstructCall($methodStmt);
         }
     }
-
-    private function processParentPhp4ConstructCall(Node $node): void
+    private function processParentPhp4ConstructCall(\PhpParser\Node $node) : void
     {
-        $parentClassName = $node->getAttribute(AttributeKey::PARENT_CLASS_NAME);
-
-        if (! $node instanceof StaticCall) {
+        $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
             return;
         }
-
         // no parent class
-        if (! is_string($parentClassName)) {
+        if (!\is_string($parentClassName)) {
             return;
         }
-
-        if (! $node->class instanceof Name) {
+        if (!$node->class instanceof \PhpParser\Node\Name) {
             return;
         }
-
         // rename ParentClass
         if ($this->isName($node->class, $parentClassName)) {
-            $node->class = new Name('parent');
+            $node->class = new \PhpParser\Node\Name('parent');
         }
-
-        if (! $this->isName($node->class, 'parent')) {
+        if (!$this->isName($node->class, 'parent')) {
             return;
         }
-
         // it's not a parent PHP 4 constructor call
-        if (! $this->isName($node->name, $parentClassName)) {
+        if (!$this->isName($node->name, $parentClassName)) {
             return;
         }
-
-        $node->name = new Identifier(MethodName::CONSTRUCT);
+        $node->name = new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
     }
 }

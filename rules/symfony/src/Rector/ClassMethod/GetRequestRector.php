@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -16,39 +15,30 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Symfony\Tests\Rector\ClassMethod\GetRequestRector\GetRequestRectorTest
  */
-final class GetRequestRector extends AbstractRector
+final class GetRequestRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
-    private const REQUEST_CLASS = 'Symfony\Component\HttpFoundation\Request';
-
+    private const REQUEST_CLASS = '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpFoundation\\Request';
     /**
      * @var string
      */
     private $requestVariableAndParamName;
-
     /**
      * @var ControllerMethodAnalyzer
      */
     private $controllerMethodAnalyzer;
-
-    public function __construct(ControllerMethodAnalyzer $controllerMethodAnalyzer)
+    public function __construct(\Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer $controllerMethodAnalyzer)
     {
         $this->controllerMethodAnalyzer = $controllerMethodAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeController
 {
     public function someAction()
@@ -57,8 +47,7 @@ class SomeController
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\HttpFoundation\Request;
 
 class SomeController
@@ -69,141 +58,110 @@ class SomeController
     }
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class, MethodCall::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param ClassMethod|MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->requestVariableAndParamName = $this->resolveUniqueName($node, 'request');
         }
-
         if ($this->isGetRequestInAction($node)) {
-            return new Variable($this->requestVariableAndParamName);
+            return new \PhpParser\Node\Expr\Variable($this->requestVariableAndParamName);
         }
-
         if ($this->isActionWithGetRequestInBody($node)) {
-            $node->params[] = new Param(new Variable($this->requestVariableAndParamName), null, new FullyQualified(
-                self::REQUEST_CLASS
-            ));
-
+            $node->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($this->requestVariableAndParamName), null, new \PhpParser\Node\Name\FullyQualified(self::REQUEST_CLASS));
             return $node;
         }
-
         return null;
     }
-
     /**
      * @param ClassMethod|MethodCall $node
      */
-    private function resolveUniqueName(Node $node, string $name): string
+    private function resolveUniqueName(\PhpParser\Node $node, string $name) : string
     {
-        $candidates = $node instanceof ClassMethod ? $node->params : $node->args;
-
+        $candidates = $node instanceof \PhpParser\Node\Stmt\ClassMethod ? $node->params : $node->args;
         $candidateNames = [];
         foreach ($candidates as $candidate) {
             $candidateNames[] = $this->getName($candidate);
         }
-
         $bareName = $name;
         $prefixes = ['main', 'default'];
-
-        while (in_array($name, $candidateNames, true)) {
-            $name = array_shift($prefixes) . ucfirst($bareName);
+        while (\in_array($name, $candidateNames, \true)) {
+            $name = \array_shift($prefixes) . \ucfirst($bareName);
         }
-
         return $name;
     }
-
-    private function isGetRequestInAction(Node $node): bool
+    private function isGetRequestInAction(\PhpParser\Node $node) : bool
     {
-        if (! $node instanceof MethodCall) {
-            return false;
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
         }
-
-        if (! $node->var instanceof Variable) {
-            return false;
+        if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
         }
-
         // must be $this->getRequest() in controller
-        if (! $this->isVariableName($node->var, 'this')) {
-            return false;
+        if (!$this->isVariableName($node->var, 'this')) {
+            return \false;
         }
-
-        if (! $this->isName($node->name, 'getRequest') && ! $this->isGetMethodCallWithRequestParameters($node)) {
-            return false;
+        if (!$this->isName($node->name, 'getRequest') && !$this->isGetMethodCallWithRequestParameters($node)) {
+            return \false;
         }
-
-        $classMethod = $node->getAttribute(AttributeKey::METHOD_NODE);
+        $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod === null) {
-            return false;
+            return \false;
         }
-
         return $this->controllerMethodAnalyzer->isAction($classMethod);
     }
-
-    private function isActionWithGetRequestInBody(Node $node): bool
+    private function isActionWithGetRequestInBody(\PhpParser\Node $node) : bool
     {
-        if (! $this->controllerMethodAnalyzer->isAction($node)) {
-            return false;
+        if (!$this->controllerMethodAnalyzer->isAction($node)) {
+            return \false;
         }
         $containsGetRequestMethod = $this->containsGetRequestMethod($node);
         if ($containsGetRequestMethod) {
-            return true;
+            return \true;
         }
-
         // "$this->get('request')"
         /** @var MethodCall[] $getMethodCalls */
-        $getMethodCalls = $this->betterNodeFinder->find($node, function (Node $node): bool {
+        $getMethodCalls = $this->betterNodeFinder->find($node, function (\PhpParser\Node $node) : bool {
             return $this->isLocalMethodCallNamed($node, 'get');
         });
-
         foreach ($getMethodCalls as $getMethodCall) {
             if ($this->isGetMethodCallWithRequestParameters($getMethodCall)) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    private function isGetMethodCallWithRequestParameters(MethodCall $methodCall): bool
+    private function isGetMethodCallWithRequestParameters(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (! $this->isName($methodCall->name, 'get')) {
-            return false;
+        if (!$this->isName($methodCall->name, 'get')) {
+            return \false;
         }
-
-        if (count($methodCall->args) !== 1) {
-            return false;
+        if (\count($methodCall->args) !== 1) {
+            return \false;
         }
-
-        if (! $methodCall->args[0]->value instanceof String_) {
-            return false;
+        if (!$methodCall->args[0]->value instanceof \PhpParser\Node\Scalar\String_) {
+            return \false;
         }
-
         /** @var String_ $stringValue */
         $stringValue = $methodCall->args[0]->value;
-
         return $stringValue->value === 'request';
     }
-
-    private function containsGetRequestMethod(Node $node): bool
+    private function containsGetRequestMethod(\PhpParser\Node $node) : bool
     {
         // "$this->getRequest()"
-        return (bool) $this->betterNodeFinder->find($node, function (Node $node): bool {
+        return (bool) $this->betterNodeFinder->find($node, function (\PhpParser\Node $node) : bool {
             return $this->isLocalMethodCallNamed($node, 'getRequest');
         });
     }

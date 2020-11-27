@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Defluent\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -13,73 +12,54 @@ use Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://ocramius.github.io/blog/fluent-interfaces-are-evil/
  * @see https://www.yegor256.com/2018/03/13/fluent-interfaces.html
  *
  * @see \Rector\Defluent\Tests\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector\FluentChainMethodCallToNormalMethodCallRectorTest
  */
-final class FluentChainMethodCallToNormalMethodCallRector extends AbstractFluentChainMethodCallRector
+final class FluentChainMethodCallToNormalMethodCallRector extends \Rector\Defluent\Rector\AbstractFluentChainMethodCallRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Turns fluent interface calls to classic ones.',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fluent interface calls to classic ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $someClass = new SomeClass();
 $someClass->someFunction()
             ->otherFunction();
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 $someClass = new SomeClass();
 $someClass->someFunction();
 $someClass->otherFunction();
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->isHandledByAnotherRule($node)) {
             return null;
         }
-
         if ($this->shouldSkipMethodCallIncludingNew($node)) {
             return null;
         }
-
-        $assignAndRootExprAndNodesToAdd = $this->createStandaloneNodesToAddFromChainMethodCalls(
-            $node,
-            FluentCallsKind::NORMAL
-        );
-
+        $assignAndRootExprAndNodesToAdd = $this->createStandaloneNodesToAddFromChainMethodCalls($node, \Rector\Defluent\ValueObject\FluentCallsKind::NORMAL);
         if ($assignAndRootExprAndNodesToAdd === null) {
             return null;
         }
-
         $this->removeCurrentNode($node);
         $this->addNodesAfterNode($assignAndRootExprAndNodesToAdd->getNodesToAdd(), $node);
-
         return null;
     }
-
     /**
      * Is handled by:
      * @see DefluentReturnMethodCallRector
@@ -87,8 +67,8 @@ CODE_SAMPLE
      *
      * @param MethodCall|Return_ $node
      */
-    private function isHandledByAnotherRule(Node $node): bool
+    private function isHandledByAnotherRule(\PhpParser\Node $node) : bool
     {
-        return $this->hasParentTypes($node, [Return_::class, Arg::class]);
+        return $this->hasParentTypes($node, [\PhpParser\Node\Stmt\Return_::class, \PhpParser\Node\Arg::class]);
     }
 }

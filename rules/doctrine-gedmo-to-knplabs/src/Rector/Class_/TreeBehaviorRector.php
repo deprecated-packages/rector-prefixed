@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineGedmoToKnplabs\Rector\Class_;
 
 use PhpParser\Node;
@@ -19,32 +18,25 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/Atlantic18/DoctrineExtensions/blob/v2.4.x/doc/tree.md
  * @see https://github.com/KnpLabs/DoctrineBehaviors/blob/4e0677379dd4adf84178f662d08454a9627781a8/docs/tree.md
  *
  * @see \Rector\DoctrineGedmoToKnplabs\Tests\Rector\Class_\TreeBehaviorRector\TreeBehaviorRectorTest
  */
-final class TreeBehaviorRector extends AbstractRector
+final class TreeBehaviorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-
-    public function __construct(ClassInsertManipulator $classInsertManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->classInsertManipulator = $classInsertManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change Tree from gedmo/doctrine-extensions to knplabs/doctrine-behaviors',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Tree from gedmo/doctrine-extensions to knplabs/doctrine-behaviors', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -112,8 +104,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Knp\DoctrineBehaviors\Contract\Entity\TreeNodeInterface;
 use Knp\DoctrineBehaviors\Model\Tree\TreeNodeTrait;
 
@@ -122,95 +113,75 @@ class SomeClass implements TreeNodeInterface
     use TreeNodeTrait;
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classPhpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $classPhpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($classPhpDocInfo === null) {
             return null;
         }
-        $hasTypeTreeTagValueNode = $classPhpDocInfo->hasByType(TreeTagValueNode::class);
-
-        if (! $hasTypeTreeTagValueNode) {
+        $hasTypeTreeTagValueNode = $classPhpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeTagValueNode::class);
+        if (!$hasTypeTreeTagValueNode) {
             return null;
         }
-
         // we're in a tree entity
-        $classPhpDocInfo->removeByType(TreeTagValueNode::class);
-
-        $node->implements[] = new FullyQualified('Knp\DoctrineBehaviors\Contract\Entity\TreeNodeInterface');
-        $this->classInsertManipulator->addAsFirstTrait($node, 'Knp\DoctrineBehaviors\Model\Tree\TreeNodeTrait');
-
+        $classPhpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeTagValueNode::class);
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TreeNodeInterface');
+        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Tree\\TreeNodeTrait');
         // remove all tree-related properties and their getters and setters - it's handled by behavior trait
-
         $removedPropertyNames = [];
-
         foreach ($node->getProperties() as $property) {
-            $propertyPhpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
+            $propertyPhpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             if ($propertyPhpDocInfo === null) {
                 continue;
             }
-
-            if (! $this->shouldRemoveProperty($propertyPhpDocInfo)) {
+            if (!$this->shouldRemoveProperty($propertyPhpDocInfo)) {
                 continue;
             }
-
             $removedPropertyNames[] = $this->getName($property);
             $this->removeNode($property);
         }
-
         $this->removeClassMethodsForProperties($node, $removedPropertyNames);
-
         return $node;
     }
-
-    private function shouldRemoveProperty(PhpDocInfo $phpDocInfo): bool
+    private function shouldRemoveProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
     {
-        if ($phpDocInfo->hasByType(TreeLeftTagValueNode::class)) {
-            return true;
+        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeLeftTagValueNode::class)) {
+            return \true;
         }
-
-        if ($phpDocInfo->hasByType(TreeRightTagValueNode::class)) {
-            return true;
+        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeRightTagValueNode::class)) {
+            return \true;
         }
-
-        if ($phpDocInfo->hasByType(TreeRootTagValueNode::class)) {
-            return true;
+        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeRootTagValueNode::class)) {
+            return \true;
         }
-
-        if ($phpDocInfo->hasByType(TreeParentTagValueNode::class)) {
-            return true;
+        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeParentTagValueNode::class)) {
+            return \true;
         }
-        return $phpDocInfo->hasByType(TreeLevelTagValueNode::class);
+        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeLevelTagValueNode::class);
     }
-
     /**
      * @param string[] $removedPropertyNames
      */
-    private function removeClassMethodsForProperties(Class_ $class, array $removedPropertyNames): void
+    private function removeClassMethodsForProperties(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
     {
         foreach ($removedPropertyNames as $removedPropertyName) {
             foreach ($class->getMethods() as $classMethod) {
-                if ($this->isName($classMethod, 'get' . ucfirst($removedPropertyName))) {
+                if ($this->isName($classMethod, 'get' . \ucfirst($removedPropertyName))) {
                     $this->removeNode($classMethod);
                 }
-
-                if ($this->isName($classMethod, 'set' . ucfirst($removedPropertyName))) {
+                if ($this->isName($classMethod, 'set' . \ucfirst($removedPropertyName))) {
                     $this->removeNode($classMethod);
                 }
             }

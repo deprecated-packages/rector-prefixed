@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php56\Rector\FunctionLike;
 
 use PhpParser\Node;
@@ -28,25 +27,21 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/vimeo/psalm/blob/29b70442b11e3e66113935a2ee22e165a70c74a4/docs/fixing_code.md#possiblyundefinedvariable
  * @see https://3v4l.org/MZFel
  *
  * @see \Rector\Php56\Tests\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector\AddDefaultValueForUndefinedVariableRectorTest
  */
-final class AddDefaultValueForUndefinedVariableRector extends AbstractRector
+final class AddDefaultValueForUndefinedVariableRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
     private $definedVariables = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Adds default value for undefined variable', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds default value for undefined variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -58,8 +53,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -72,168 +66,133 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class, Function_::class, Closure::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Expr\Closure::class];
     }
-
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->definedVariables = [];
-
         $undefinedVariables = $this->collectUndefinedVariableScope($node);
         if ($undefinedVariables === []) {
             return null;
         }
-
         $variablesInitiation = [];
         foreach ($undefinedVariables as $undefinedVariable) {
-            if (in_array($undefinedVariable, $this->definedVariables, true)) {
+            if (\in_array($undefinedVariable, $this->definedVariables, \true)) {
                 continue;
             }
-
-            $variablesInitiation[] = new Expression(new Assign(new Variable($undefinedVariable), $this->createNull()));
+            $variablesInitiation[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable($undefinedVariable), $this->createNull()));
         }
-
-        $node->stmts = array_merge($variablesInitiation, (array) $node->stmts);
-
+        $node->stmts = \array_merge($variablesInitiation, (array) $node->stmts);
         return $node;
     }
-
     /**
      * @param ClassMethod|Function_|Closure $node
      * @return string[]
      */
-    private function collectUndefinedVariableScope(Node $node): array
+    private function collectUndefinedVariableScope(\PhpParser\Node $node) : array
     {
         $undefinedVariables = [];
-
-        $this->traverseNodesWithCallable((array) $node->stmts, function (Node $node) use (&$undefinedVariables): ?int {
+        $this->traverseNodesWithCallable((array) $node->stmts, function (\PhpParser\Node $node) use(&$undefinedVariables) : ?int {
             // entering new scope - break!
-            if ($node instanceof FunctionLike && ! $node instanceof ArrowFunction) {
-                return NodeTraverser::STOP_TRAVERSAL;
+            if ($node instanceof \PhpParser\Node\FunctionLike && !$node instanceof \PhpParser\Node\Expr\ArrowFunction) {
+                return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
             }
-
-            if ($node instanceof Foreach_) {
+            if ($node instanceof \PhpParser\Node\Stmt\Foreach_) {
                 // handled above
                 $this->collectDefinedVariablesFromForeach($node);
-                return NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+                return \PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
-
-            if (! $node instanceof Variable) {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return null;
             }
-
             if ($this->shouldSkipVariable($node)) {
                 return null;
             }
-
             /** @var string $variableName */
             $variableName = $this->getName($node);
-
             // defined 100 %
             /** @var Scope $nodeScope */
-            $nodeScope = $node->getAttribute(AttributeKey::SCOPE);
+            $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
             if ($nodeScope->hasVariableType($variableName)->yes()) {
                 return null;
             }
-
             $undefinedVariables[] = $variableName;
-
             return null;
         });
-
-        return array_unique($undefinedVariables);
+        return \array_unique($undefinedVariables);
     }
-
-    private function collectDefinedVariablesFromForeach(Foreach_ $foreach): void
+    private function collectDefinedVariablesFromForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
-        $this->traverseNodesWithCallable((array) $foreach->stmts, function (Node $node): void {
-            if ($node instanceof Assign || $node instanceof AssignRef) {
-                if (! $node->var instanceof Variable) {
+        $this->traverseNodesWithCallable((array) $foreach->stmts, function (\PhpParser\Node $node) : void {
+            if ($node instanceof \PhpParser\Node\Expr\Assign || $node instanceof \PhpParser\Node\Expr\AssignRef) {
+                if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
                     return;
                 }
-
                 $variableName = $this->getName($node->var);
                 if ($variableName === null) {
                     return;
                 }
-
                 $this->definedVariables[] = $variableName;
             }
         });
     }
-
-    private function shouldSkipVariable(Variable $variable): bool
+    private function shouldSkipVariable(\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        $parentNode = $variable->getAttribute(AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof Global_) {
-            return true;
+        $parentNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \PhpParser\Node\Stmt\Global_) {
+            return \true;
         }
-
-        if ($parentNode instanceof Node &&
-            ($parentNode instanceof Assign || $parentNode instanceof AssignRef || $this->isStaticVariable($parentNode)
-        )) {
-            return true;
+        if ($parentNode instanceof \PhpParser\Node && ($parentNode instanceof \PhpParser\Node\Expr\Assign || $parentNode instanceof \PhpParser\Node\Expr\AssignRef || $this->isStaticVariable($parentNode))) {
+            return \true;
         }
-
-        if ($parentNode instanceof Unset_ || $parentNode instanceof UnsetCast) {
-            return true;
+        if ($parentNode instanceof \PhpParser\Node\Stmt\Unset_ || $parentNode instanceof \PhpParser\Node\Expr\Cast\Unset_) {
+            return \true;
         }
-
         // list() = | [$values] = defines variables as null
         if ($this->isListAssign($parentNode)) {
-            return true;
+            return \true;
         }
-
         /** @var Scope|null $nodeScope */
-        $nodeScope = $variable->getAttribute(AttributeKey::SCOPE);
+        $nodeScope = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($nodeScope === null) {
-            return true;
+            return \true;
         }
-
         $variableName = $this->getName($variable);
-
         // skip $this, as probably in outer scope
         if ($variableName === 'this') {
-            return true;
+            return \true;
         }
-
         return $variableName === null;
     }
-
-    private function isStaticVariable(Node $parentNode): bool
+    private function isStaticVariable(\PhpParser\Node $parentNode) : bool
     {
         // definition of static variable
-        if ($parentNode instanceof StaticVar) {
-            $parentParentNode = $parentNode->getAttribute(AttributeKey::PARENT_NODE);
-            if ($parentParentNode instanceof Static_) {
-                return true;
+        if ($parentNode instanceof \PhpParser\Node\Stmt\StaticVar) {
+            $parentParentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentParentNode instanceof \PhpParser\Node\Stmt\Static_) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    private function isListAssign(?Node $parentNode): bool
+    private function isListAssign(?\PhpParser\Node $parentNode) : bool
     {
-        if ($parentNode instanceof Node) {
-            $parentParentNode = $parentNode->getAttribute(AttributeKey::PARENT_NODE);
-            if ($parentParentNode instanceof List_ || $parentParentNode instanceof Array_) {
-                return true;
+        if ($parentNode instanceof \PhpParser\Node) {
+            $parentParentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentParentNode instanceof \PhpParser\Node\Expr\List_ || $parentParentNode instanceof \PhpParser\Node\Expr\Array_) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

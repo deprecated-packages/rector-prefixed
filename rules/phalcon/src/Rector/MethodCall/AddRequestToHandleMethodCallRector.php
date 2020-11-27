@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Phalcon\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -13,21 +12,17 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/rectorphp/rector/issues/2408
  */
-
 /**
  * @see \Rector\Phalcon\Tests\Rector\MethodCall\AddRequestToHandleMethodCallRector\AddRequestToHandleMethodCallRectorTest
  */
-final class AddRequestToHandleMethodCallRector extends AbstractRector
+final class AddRequestToHandleMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Add $_SERVER REQUEST_URI to method call', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add $_SERVER REQUEST_URI to method call', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($di)
@@ -37,8 +32,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($di)
@@ -48,42 +42,34 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node->var, 'Phalcon\Mvc\Application')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Application')) {
             return null;
         }
-
-        if (! $this->isName($node->name, 'handle')) {
+        if (!$this->isName($node->name, 'handle')) {
             return null;
         }
-
         if ($node->args === null || $node->args !== []) {
             return null;
         }
-
-        $node->args[] = new Arg($this->createServerRequestUri());
-
+        $node->args[] = new \PhpParser\Node\Arg($this->createServerRequestUri());
         return $node;
     }
-
-    private function createServerRequestUri(): ArrayDimFetch
+    private function createServerRequestUri() : \PhpParser\Node\Expr\ArrayDimFetch
     {
-        return new ArrayDimFetch(new Variable('_SERVER'), new String_('REQUEST_URI'));
+        return new \PhpParser\Node\Expr\ArrayDimFetch(new \PhpParser\Node\Expr\Variable('_SERVER'), new \PhpParser\Node\Scalar\String_('REQUEST_URI'));
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\NodeManipulator;
 
 use PhpParser\Node\Stmt\Class_;
@@ -11,36 +10,31 @@ use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
 final class ConstructorManipulator
 {
     /**
      * @var NodeFactory
      */
     private $nodeFactory;
-
     /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-
-    public function __construct(NodeFactory $nodeFactory, ClassInsertManipulator $classInsertManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->nodeFactory = $nodeFactory;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-
-    public function addStmtToConstructor(Class_ $class, Expression $newExpression): void
+    public function addStmtToConstructor(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Expression $newExpression) : void
     {
-        $constructClassMethod = $class->getMethod(MethodName::CONSTRUCT);
-        if ($constructClassMethod instanceof ClassMethod) {
+        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        if ($constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $constructClassMethod->stmts[] = $newExpression;
         } else {
-            $constructClassMethod = $this->nodeFactory->createPublicMethod(MethodName::CONSTRUCT);
+            $constructClassMethod = $this->nodeFactory->createPublicMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             $constructClassMethod->stmts[] = $newExpression;
             $this->classInsertManipulator->addAsFirstMethod($class, $constructClassMethod);
-
-            $class->setAttribute(AttributeKey::ORIGINAL_NODE, null);
+            $class->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         }
     }
 }

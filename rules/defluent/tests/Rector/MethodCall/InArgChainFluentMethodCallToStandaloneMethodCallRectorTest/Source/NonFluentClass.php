@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Defluent\Tests\Rector\MethodCall\InArgChainFluentMethodCallToStandaloneMethodCallRectorTest\Source;
 
 final class NonFluentClass
@@ -10,7 +9,6 @@ final class NonFluentClass
     {
         return 5;
     }
-
     public function letter()
     {
         return 'Z';

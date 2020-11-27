@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\SOLID\Rector\If_;
 
 use PhpParser\Node;
@@ -14,35 +13,29 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://engineering.helpscout.com/reducing-complexity-with-guard-clauses-in-php-and-javascript-74600fd865c7
  *
  * @see \Rector\SOLID\Tests\Rector\If_\ChangeIfElseValueAssignToEarlyReturnRector\ChangeIfElseValueAssignToEarlyReturnRectorTest
  */
-final class ChangeIfElseValueAssignToEarlyReturnRector extends AbstractRector
+final class ChangeIfElseValueAssignToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var IfManipulator
      */
     private $ifManipulator;
-
     /**
      * @var StmtsManipulator
      */
     private $stmtsManipulator;
-
-    public function __construct(IfManipulator $ifManipulator, StmtsManipulator $stmtsManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator $stmtsManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->stmtsManipulator = $stmtsManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change if/else value to early return', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change if/else value to early return', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -57,8 +50,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -70,56 +62,42 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
-
     /**
      * @param If_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $nextNode = $node->getAttribute(AttributeKey::NEXT_NODE);
-        if (! $nextNode instanceof Return_) {
+        $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
             return null;
         }
-
         if ($nextNode->expr === null) {
             return null;
         }
-
-        if (! $this->ifManipulator->isIfAndElseWithSameVariableAssignAsLastStmts($node, $nextNode->expr)) {
+        if (!$this->ifManipulator->isIfAndElseWithSameVariableAssignAsLastStmts($node, $nextNode->expr)) {
             return null;
         }
-
-        $lastIfStmtKey = array_key_last($node->stmts);
-
+        $lastIfStmtKey = \array_key_last($node->stmts);
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($node->stmts);
-
-        $node->stmts[$lastIfStmtKey] = new Return_($assign->expr);
-
+        $node->stmts[$lastIfStmtKey] = new \PhpParser\Node\Stmt\Return_($assign->expr);
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($node->else->stmts);
-
-        $lastElseStmtKey = array_key_last($node->else->stmts);
-
+        $lastElseStmtKey = \array_key_last($node->else->stmts);
         $elseStmts = $node->else->stmts;
-        $elseStmts[$lastElseStmtKey] = new Return_($assign->expr);
-
+        $elseStmts[$lastElseStmtKey] = new \PhpParser\Node\Stmt\Return_($assign->expr);
         $node->else = null;
         $this->addNodesAfterNode($elseStmts, $node);
-
         $this->removeNode($nextNode);
-
         return $node;
     }
 }

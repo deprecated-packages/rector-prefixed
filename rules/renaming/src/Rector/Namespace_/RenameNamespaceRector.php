@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Renaming\Rector\Namespace_;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
@@ -18,157 +17,115 @@ use Rector\Naming\NamespaceMatcher;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Renaming\Tests\Rector\Namespace_\RenameNamespaceRector\RenameNamespaceRectorTest
  */
-final class RenameNamespaceRector extends AbstractRector implements ConfigurableRectorInterface
+final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const OLD_TO_NEW_NAMESPACES = '$oldToNewNamespaces';
-
     /**
      * @var string[]
      */
     private $oldToNewNamespaces = [];
-
     /**
      * @var NamespaceMatcher
      */
     private $namespaceMatcher;
-
-    public function __construct(NamespaceMatcher $namespaceMatcher)
+    public function __construct(\Rector\Naming\NamespaceMatcher $namespaceMatcher)
     {
         $this->namespaceMatcher = $namespaceMatcher;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Replaces old namespace by new one.', [
-            new ConfiguredCodeSample(
-                '$someObject = new SomeOldNamespace\SomeClass;',
-                '$someObject = new SomeNewNamespace\SomeClass;',
-                [
-                    self::OLD_TO_NEW_NAMESPACES => [
-                        'SomeOldNamespace' => 'SomeNewNamespace',
-                    ],
-                ]
-            ),
-        ]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces old namespace by new one.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('$someObject = new SomeOldNamespace\\SomeClass;', '$someObject = new SomeNewNamespace\\SomeClass;', [self::OLD_TO_NEW_NAMESPACES => ['SomeOldNamespace' => 'SomeNewNamespace']])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Namespace_::class, Use_::class, Name::class];
+        return [\PhpParser\Node\Stmt\Namespace_::class, \PhpParser\Node\Stmt\Use_::class, \PhpParser\Node\Name::class];
     }
-
     /**
      * @param Namespace_|Use_|Name $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $name = $this->getName($node);
         if ($name === null) {
             return null;
         }
-
         $renamedNamespaceValueObject = $this->namespaceMatcher->matchRenamedNamespace($name, $this->oldToNewNamespaces);
-
         if ($renamedNamespaceValueObject === null) {
             return null;
         }
-
         if ($this->isClassFullyQualifiedName($node)) {
             return null;
         }
-
-        if ($node instanceof Namespace_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             $newName = $renamedNamespaceValueObject->getNameInNewNamespace();
-            $node->name = new Name($newName);
-
+            $node->name = new \PhpParser\Node\Name($newName);
             return $node;
         }
-
-        if ($node instanceof Use_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Use_) {
             $newName = $renamedNamespaceValueObject->getNameInNewNamespace();
-            $node->uses[0]->name = new Name($newName);
-
+            $node->uses[0]->name = new \PhpParser\Node\Name($newName);
             return $node;
         }
-
-        $newName = $this->isPartialNamespace($node) ? $this->resolvePartialNewName(
-            $node,
-            $renamedNamespaceValueObject
-        ) : $renamedNamespaceValueObject->getNameInNewNamespace();
+        $newName = $this->isPartialNamespace($node) ? $this->resolvePartialNewName($node, $renamedNamespaceValueObject) : $renamedNamespaceValueObject->getNameInNewNamespace();
         if ($newName === null) {
             return null;
         }
-
-        return new FullyQualified($newName);
+        return new \PhpParser\Node\Name\FullyQualified($newName);
     }
-
     /**
      * @param mixed[] $configuration
      */
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $this->oldToNewNamespaces = $configuration[self::OLD_TO_NEW_NAMESPACES] ?? [];
     }
-
     /**
      * Checks for "new \ClassNoNamespace;"
      * This should be skipped, not a namespace.
      */
-    private function isClassFullyQualifiedName(Node $node): bool
+    private function isClassFullyQualifiedName(\PhpParser\Node $node) : bool
     {
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode === null) {
-            return false;
+            return \false;
         }
-
-        if (! $parentNode instanceof New_) {
-            return false;
+        if (!$parentNode instanceof \PhpParser\Node\Expr\New_) {
+            return \false;
         }
-
         /** @var FullyQualified $fullyQualifiedNode */
         $fullyQualifiedNode = $parentNode->class;
-
         $newClassName = $fullyQualifiedNode->toString();
-
-        return array_key_exists($newClassName, $this->oldToNewNamespaces);
+        return \array_key_exists($newClassName, $this->oldToNewNamespaces);
     }
-
-    private function isPartialNamespace(Name $name): bool
+    private function isPartialNamespace(\PhpParser\Node\Name $name) : bool
     {
-        $resolvedName = $name->getAttribute(AttributeKey::RESOLVED_NAME);
+        $resolvedName = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME);
         if ($resolvedName === null) {
-            return false;
+            return \false;
         }
-
-        if ($resolvedName instanceof FullyQualified) {
-            return ! $this->isName($name, $resolvedName->toString());
+        if ($resolvedName instanceof \PhpParser\Node\Name\FullyQualified) {
+            return !$this->isName($name, $resolvedName->toString());
         }
-
-        return false;
+        return \false;
     }
-
-    private function resolvePartialNewName(Name $name, RenamedNamespace $renamedNamespace): ?string
+    private function resolvePartialNewName(\PhpParser\Node\Name $name, \Rector\Core\ValueObject\RenamedNamespace $renamedNamespace) : ?string
     {
         $nodeName = $this->getName($name);
         if ($nodeName === null) {
             return null;
         }
-
         $nameInNewNamespace = $renamedNamespace->getNameInNewNamespace();
-
         // first dummy implementation - improve
-        $cutOffFromTheLeft = Strings::length($nameInNewNamespace) - Strings::length($name->toString());
-
-        return Strings::substring($nameInNewNamespace, $cutOffFromTheLeft);
+        $cutOffFromTheLeft = \_PhpScoper006a73f0e455\Nette\Utils\Strings::length($nameInNewNamespace) - \_PhpScoper006a73f0e455\Nette\Utils\Strings::length($name->toString());
+        return \_PhpScoper006a73f0e455\Nette\Utils\Strings::substring($nameInNewNamespace, $cutOffFromTheLeft);
     }
 }

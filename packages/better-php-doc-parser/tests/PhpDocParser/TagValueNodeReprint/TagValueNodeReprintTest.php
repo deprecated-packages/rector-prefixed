@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint;
 
 use Iterator;
@@ -24,55 +23,52 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValu
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertTypeTagValueNode;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class TagValueNodeReprintTest extends AbstractPhpDocInfoTest
+final class TagValueNodeReprintTest extends \Rector\BetterPhpDocParser\Tests\PhpDocParser\AbstractPhpDocInfoTest
 {
     /**
      * @dataProvider provideData()
      * @param class-string $tagValueNodeClass
      */
-    public function test(SmartFileInfo $fileInfo, string $tagValueNodeClass): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $tagValueNodeClass) : void
     {
         $this->doTestPrintedPhpDocInfo($fileInfo, $tagValueNodeClass);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         foreach ($this->getDirectoriesByTagValueNodes() as $tagValueNode => $directory) {
             $filesInDirectory = $this->findFilesFromDirectory($directory);
             foreach ($filesInDirectory as $fileInfos) {
                 foreach ($fileInfos as $fileInfo) {
-                    yield [$fileInfo, $tagValueNode];
+                    (yield [$fileInfo, $tagValueNode]);
                 }
             }
         }
     }
-
     /**
      * @return string[]
      */
-    private function getDirectoriesByTagValueNodes(): array
+    private function getDirectoriesByTagValueNodes() : array
     {
         return [
-            BlameableTagValueNode::class => __DIR__ . '/Fixture/Blameable',
-            SlugTagValueNode::class => __DIR__ . '/Fixture/Gedmo',
-            AssertChoiceTagValueNode::class => __DIR__ . '/Fixture/AssertChoice',
-            AssertTypeTagValueNode::class => __DIR__ . '/Fixture/AssertType',
-            SymfonyRouteTagValueNode::class => __DIR__ . '/Fixture/SymfonyRoute',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\BlameableTagValueNode::class => __DIR__ . '/Fixture/Blameable',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SlugTagValueNode::class => __DIR__ . '/Fixture/Gedmo',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode::class => __DIR__ . '/Fixture/AssertChoice',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertTypeTagValueNode::class => __DIR__ . '/Fixture/AssertType',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class => __DIR__ . '/Fixture/SymfonyRoute',
             // Doctrine
-            ColumnTagValueNode::class => __DIR__ . '/Fixture/DoctrineColumn',
-            JoinTableTagValueNode::class => __DIR__ . '/Fixture/DoctrineJoinTable',
-            EntityTagValueNode::class => __DIR__ . '/Fixture/DoctrineEntity',
-            TableTagValueNode::class => __DIR__ . '/Fixture/DoctrineTable',
-            CustomIdGeneratorTagValueNode::class => __DIR__ . '/Fixture/DoctrineCustomIdGenerator',
-            GeneratedValueTagValueNode::class => __DIR__ . '/Fixture/DoctrineGeneratedValue',
-            EmbeddedTagValueNode::class => __DIR__ . '/Fixture/DoctrineEmbedded',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class => __DIR__ . '/Fixture/DoctrineColumn',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinTableTagValueNode::class => __DIR__ . '/Fixture/DoctrineJoinTable',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class => __DIR__ . '/Fixture/DoctrineEntity',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\TableTagValueNode::class => __DIR__ . '/Fixture/DoctrineTable',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\CustomIdGeneratorTagValueNode::class => __DIR__ . '/Fixture/DoctrineCustomIdGenerator',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode::class => __DIR__ . '/Fixture/DoctrineGeneratedValue',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddedTagValueNode::class => __DIR__ . '/Fixture/DoctrineEmbedded',
             // special case
-            GenericTagValueNode::class => __DIR__ . '/Fixture/ConstantReference',
-            SensioTemplateTagValueNode::class => __DIR__ . '/Fixture/SensioTemplate',
-            SensioMethodTagValueNode::class => __DIR__ . '/Fixture/SensioMethod',
-            TemplateTagValueNode::class => __DIR__ . '/Fixture/Native/Template',
-            VarTagValueNode::class => __DIR__ . '/Fixture/Native/VarTag',
+            \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode::class => __DIR__ . '/Fixture/ConstantReference',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class => __DIR__ . '/Fixture/SensioTemplate',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode::class => __DIR__ . '/Fixture/SensioMethod',
+            \PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode::class => __DIR__ . '/Fixture/Native/Template',
+            \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class => __DIR__ . '/Fixture/Native/VarTag',
         ];
     }
 }

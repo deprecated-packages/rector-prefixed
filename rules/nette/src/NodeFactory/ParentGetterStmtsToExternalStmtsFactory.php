@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare (strict_types=1);
 namespace Rector\Nette\NodeFactory;
 
 use PhpParser\Node;
@@ -13,99 +13,76 @@ use PhpParser\Node\Stmt\Return_;
 use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
 final class ParentGetterStmtsToExternalStmtsFactory
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-
-    public function __construct(
-        NodeTypeResolver $nodeTypeResolver,
-        CallableNodeTraverser $callableNodeTraverser,
-        BetterStandardPrinter $betterStandardPrinter
-    ) {
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-
     /**
      * @param Node[] $getUserStmts
      * @return Node[]
      */
-    public function create(array $getUserStmts): array
+    public function create(array $getUserStmts) : array
     {
         $userExpression = null;
-
         foreach ($getUserStmts as $key => $getUserStmt) {
-            if (! $getUserStmt instanceof Expression) {
+            if (!$getUserStmt instanceof \PhpParser\Node\Stmt\Expression) {
                 continue;
             }
-
             $getUserStmt = $getUserStmt->expr;
-            if (! $getUserStmt instanceof Assign) {
+            if (!$getUserStmt instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
             }
-
-            if (! $getUserStmt->expr instanceof StaticCall) {
+            if (!$getUserStmt->expr instanceof \PhpParser\Node\Expr\StaticCall) {
                 continue;
             }
-
-            if (! $this->nodeTypeResolver->isObjectType($getUserStmt->expr, 'Nette\Security\User')) {
+            if (!$this->nodeTypeResolver->isObjectType($getUserStmt->expr, '_PhpScoper006a73f0e455\\Nette\\Security\\User')) {
                 continue;
             }
-
             $userExpression = $getUserStmt->var;
             unset($getUserStmts[$key]);
         }
-
         $getUserStmts = $this->removeReturn($getUserStmts);
-
         // nothing we can do
         if ($userExpression === null) {
             return [];
         }
-
         // stmts without assign
-        $this->callableNodeTraverser->traverseNodesWithCallable($getUserStmts, function (Node $node) use (
-            $userExpression
-        ): ?MethodCall {
-            if (! $this->betterStandardPrinter->areNodesEqual($node, $userExpression)) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($getUserStmts, function (\PhpParser\Node $node) use($userExpression) : ?MethodCall {
+            if (!$this->betterStandardPrinter->areNodesEqual($node, $userExpression)) {
                 return null;
             }
-
-            return new MethodCall(new Variable('this'), 'getUser');
+            return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getUser');
         });
-
         return $getUserStmts;
     }
-
     /**
      * @param Node[] $stmts
      * @return Node[]
      */
-    private function removeReturn(array $stmts): array
+    private function removeReturn(array $stmts) : array
     {
         foreach ($stmts as $key => $stmt) {
-            if (! $stmt instanceof Return_) {
+            if (!$stmt instanceof \PhpParser\Node\Stmt\Return_) {
                 continue;
             }
-
             unset($stmts[$key]);
         }
-
         return $stmts;
     }
 }

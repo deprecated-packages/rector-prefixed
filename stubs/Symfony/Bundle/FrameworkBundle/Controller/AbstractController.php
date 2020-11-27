@@ -1,28 +1,23 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Symfony\Bundle\FrameworkBundle\Controller;
 
-namespace Symfony\Bundle\FrameworkBundle\Controller;
-
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
-
-if (class_exists('Symfony\Bundle\FrameworkBundle\Controller\AbstractController')) {
+use _PhpScoper006a73f0e455\Doctrine\Common\Persistence\ManagerRegistry;
+use _PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\RedirectResponse;
+use _PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response;
+if (\class_exists('_PhpScoper006a73f0e455\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController')) {
     return;
 }
-
 abstract class AbstractController
 {
-    public function getDoctrine(): ManagerRegistry
+    public function getDoctrine() : \_PhpScoper006a73f0e455\Doctrine\Common\Persistence\ManagerRegistry
     {
     }
-
-    public function render($templateName, $params = []): Response
+    public function render($templateName, $params = []) : \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\Response
     {
     }
-
-    public function redirectToRoute($routeName): RedirectResponse
+    public function redirectToRoute($routeName) : \_PhpScoper006a73f0e455\Symfony\Component\HttpFoundation\RedirectResponse
     {
     }
 }

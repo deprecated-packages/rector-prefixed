@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php72\Contract;
 
 use PhpParser\Node;
@@ -12,23 +11,19 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\UnionType;
-
 interface ConvertToAnonymousFunctionRectorInterface
 {
-    public function shouldSkip(Node $node): bool;
-
+    public function shouldSkip(\PhpParser\Node $node) : bool;
     /**
      * @return Param[]
      */
-    public function getParameters(Node $node): array;
-
+    public function getParameters(\PhpParser\Node $node) : array;
     /**
      * @return Identifier|Name|NullableType|UnionType|null
      */
-    public function getReturnType(Node $node): ?Node;
-
+    public function getReturnType(\PhpParser\Node $node) : ?\PhpParser\Node;
     /**
      * @return Expression[]|Stmt[]
      */
-    public function getBody(Node $node): array;
+    public function getBody(\PhpParser\Node $node) : array;
 }

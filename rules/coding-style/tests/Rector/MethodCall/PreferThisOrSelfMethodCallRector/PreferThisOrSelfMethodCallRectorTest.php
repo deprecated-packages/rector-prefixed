@@ -1,45 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 
 use Iterator;
-use PHPUnit\Framework\TestCase;
+use _PhpScoper006a73f0e455\PHPUnit\Framework\TestCase;
 use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 use Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\AbstractTestCase;
 use Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\BeLocalClass;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class PreferThisOrSelfMethodCallRectorTest extends AbstractRectorTestCase
+final class PreferThisOrSelfMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            PreferThisOrSelfMethodCallRector::class => [
-                PreferThisOrSelfMethodCallRector::TYPE_TO_PREFERENCE => [
-                    AbstractTestCase::class => 'self',
-                    BeLocalClass::class => 'this',
-                    TestCase::class => 'self',
-                ],
-            ],
-        ];
+        return [\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::class => [\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::TYPE_TO_PREFERENCE => [\Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\AbstractTestCase::class => 'self', \Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\BeLocalClass::class => 'this', \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase::class => 'self']]];
     }
 }

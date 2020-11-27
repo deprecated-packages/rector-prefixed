@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NodeTypeResolver\NodeTypeResolver;
 
 use PhpParser\Node;
@@ -12,42 +11,35 @@ use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use ReflectionClass;
-
 /**
  * @see \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\TraitTypeResolver\TraitTypeResolverTest
  */
-final class TraitTypeResolver implements NodeTypeResolverInterface
+final class TraitTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @return string[]
      */
-    public function getNodeClasses(): array
+    public function getNodeClasses() : array
     {
-        return [Trait_::class];
+        return [\PhpParser\Node\Stmt\Trait_::class];
     }
-
     /**
      * @param Trait_ $traitNode
      */
-    public function resolve(Node $traitNode): Type
+    public function resolve(\PhpParser\Node $traitNode) : \PHPStan\Type\Type
     {
-        $reflectionClass = new ReflectionClass((string) $traitNode->namespacedName);
-
+        $reflectionClass = new \ReflectionClass((string) $traitNode->namespacedName);
         $types = [];
-        $types[] = new ObjectType($reflectionClass->getName());
-
+        $types[] = new \PHPStan\Type\ObjectType($reflectionClass->getName());
         foreach ($reflectionClass->getTraits() as $usedTraitReflection) {
-            $types[] = new ObjectType($usedTraitReflection->getName());
+            $types[] = new \PHPStan\Type\ObjectType($usedTraitReflection->getName());
         }
-
-        if (count($types) === 1) {
+        if (\count($types) === 1) {
             return $types[0];
         }
-
-        if (count($types) > 1) {
-            return new UnionType($types);
+        if (\count($types) > 1) {
+            return new \PHPStan\Type\UnionType($types);
         }
-
-        return new MixedType();
+        return new \PHPStan\Type\MixedType();
     }
 }

@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use Symfony\Component\Routing\Annotation\Route;
-
+use _PhpScoper006a73f0e455\Symfony\Component\Routing\Annotation\Route;
 class RoutePropertyClass
 {
     /**
@@ -15,7 +13,7 @@ class RoutePropertyClass
      *     requirements={"arg1"="\d+", "arg2"=".*"}
      * )
      */
-    public function nothing(): void
+    public function nothing() : void
     {
     }
 }

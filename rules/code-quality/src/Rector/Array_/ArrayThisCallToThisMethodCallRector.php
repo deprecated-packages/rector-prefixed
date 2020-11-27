@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Array_;
 
 use PhpParser\Node;
@@ -18,29 +17,22 @@ use Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Array_\ArrayThisCallToThisMethodCallRector\ArrayThisCallToThisMethodCallRectorTest
  */
-final class ArrayThisCallToThisMethodCallRector extends AbstractRector
+final class ArrayThisCallToThisMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ArrayCallableMethodReferenceAnalyzer
      */
     private $arrayCallableMethodReferenceAnalyzer;
-
-    public function __construct(ArrayCallableMethodReferenceAnalyzer $arrayCallableMethodReferenceAnalyzer)
+    public function __construct(\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer $arrayCallableMethodReferenceAnalyzer)
     {
         $this->arrayCallableMethodReferenceAnalyzer = $arrayCallableMethodReferenceAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change `[$this, someMethod]` without any args to $this->someMethod()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change `[$this, someMethod]` without any args to $this->someMethod()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -54,8 +46,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -69,90 +60,70 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Array_::class];
+        return [\PhpParser\Node\Expr\Array_::class];
     }
-
     /**
      * @param Array_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($node);
         if ($arrayCallable === null) {
             return null;
         }
-
         if ($this->isAssignedToNetteMagicOnProperty($node) || $this->isInsideProperty($node)) {
             return null;
         }
-
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // skip if part of method
-        if ($parentNode instanceof Arg) {
+        if ($parentNode instanceof \PhpParser\Node\Arg) {
             return null;
         }
-
-        if (! $arrayCallable->isExistingMethod()) {
+        if (!$arrayCallable->isExistingMethod()) {
             return null;
         }
-
         $reflectionMethod = $arrayCallable->getReflectionMethod();
         if ($reflectionMethod->getNumberOfParameters() > 0) {
-            $classMethod = $this->nodeRepository->findClassMethod(
-                $arrayCallable->getClass(),
-                $arrayCallable->getMethod()
-            );
+            $classMethod = $this->nodeRepository->findClassMethod($arrayCallable->getClass(), $arrayCallable->getMethod());
             if ($classMethod !== null) {
                 return $this->nodeFactory->createClosureFromClassMethod($classMethod);
             }
-
             return null;
         }
-
-        return new MethodCall(new Variable('this'), $arrayCallable->getMethod());
+        return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), $arrayCallable->getMethod());
     }
-
-    private function isAssignedToNetteMagicOnProperty(Array_ $array): bool
+    private function isAssignedToNetteMagicOnProperty(\PhpParser\Node\Expr\Array_ $array) : bool
     {
-        $parent = $array->getAttribute(AttributeKey::PARENT_NODE);
-        if (! $parent instanceof Assign) {
-            return false;
+        $parent = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
+            return \false;
         }
-
-        if (! $parent->var instanceof ArrayDimFetch) {
-            return false;
+        if (!$parent->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+            return \false;
         }
-
-        if (! $parent->var->var instanceof PropertyFetch) {
-            return false;
+        if (!$parent->var->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
+            return \false;
         }
-
         /** @var PropertyFetch $propertyFetch */
         $propertyFetch = $parent->var->var;
         return $this->isName($propertyFetch->name, 'on*');
     }
-
-    private function isInsideProperty(Array_ $array): bool
+    private function isInsideProperty(\PhpParser\Node\Expr\Array_ $array) : bool
     {
-        $parent = $array->getAttribute(AttributeKey::PARENT_NODE);
+        $parent = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         while ($parent) {
-            if ($parent instanceof Property) {
-                return true;
+            if ($parent instanceof \PhpParser\Node\Stmt\Property) {
+                return \true;
             }
-
-            $parent = $parent->getAttribute(AttributeKey::PARENT_NODE);
+            $parent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         }
-
-        return false;
+        return \false;
     }
 }

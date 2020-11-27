@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\ValueObject;
 
 final class NormalToFluent
@@ -10,12 +9,10 @@ final class NormalToFluent
      * @var string
      */
     private $class;
-
     /**
      * @var string[]
      */
     private $methodNames = [];
-
     /**
      * @param string[] $methodNames
      */
@@ -24,16 +21,14 @@ final class NormalToFluent
         $this->class = $class;
         $this->methodNames = $methodNames;
     }
-
-    public function getClass(): string
+    public function getClass() : string
     {
         return $this->class;
     }
-
     /**
      * @return string[]
      */
-    public function getMethodNames(): array
+    public function getMethodNames() : array
     {
         return $this->methodNames;
     }

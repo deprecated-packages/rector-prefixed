@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Expression;
 
 use PhpParser\Node;
@@ -13,19 +12,16 @@ use PHPStan\Type\BooleanType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://3v4l.org/dmHCC
  *
  * @see \Rector\CodeQuality\Tests\Rector\Expression\InlineIfToExplicitIfRector\InlineIfToExplicitIfRectorTest
  */
-final class InlineIfToExplicitIfRector extends AbstractRector
+final class InlineIfToExplicitIfRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change inline if to explicit if', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change inline if to explicit if', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -36,8 +32,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -50,41 +45,33 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Expression::class];
+        return [\PhpParser\Node\Stmt\Expression::class];
     }
-
     /**
      * @param Expression $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $node->expr instanceof BooleanAnd) {
+        if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return null;
         }
-
         $booleanAnd = $node->expr;
-
         $leftStaticType = $this->getStaticType($booleanAnd->left);
-        if (! $leftStaticType instanceof BooleanType) {
+        if (!$leftStaticType instanceof \PHPStan\Type\BooleanType) {
             return null;
         }
-
-        if (! $booleanAnd->right instanceof Assign) {
+        if (!$booleanAnd->right instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-
-        $if = new If_($booleanAnd->left);
-        $if->stmts[] = new Expression($booleanAnd->right);
-
+        $if = new \PhpParser\Node\Stmt\If_($booleanAnd->left);
+        $if->stmts[] = new \PhpParser\Node\Stmt\Expression($booleanAnd->right);
         return $if;
     }
 }

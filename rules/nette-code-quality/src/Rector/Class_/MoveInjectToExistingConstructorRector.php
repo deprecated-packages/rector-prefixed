@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Rector\Class_;
 
 use PhpParser\Node;
@@ -14,31 +13,24 @@ use Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\NetteCodeQuality\Tests\Rector\Class_\MoveInjectToExistingConstructorRector\MoveInjectToExistingConstructorRectorTest
  */
-final class MoveInjectToExistingConstructorRector extends AbstractRector
+final class MoveInjectToExistingConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyUsageAnalyzer
      */
     private $propertyUsageAnalyzer;
-
-    public function __construct(PropertyUsageAnalyzer $propertyUsageAnalyzer)
+    public function __construct(\Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer)
     {
         $this->propertyUsageAnalyzer = $propertyUsageAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Move @inject properties to constructor, if there already is one',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move @inject properties to constructor, if there already is one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     /**
@@ -58,8 +50,7 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass
 {
     /**
@@ -79,63 +70,51 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $injectProperties = $this->getInjectProperties($node);
         if ($injectProperties === []) {
             return null;
         }
-
-        $constructClassMethod = $node->getMethod(MethodName::CONSTRUCT);
+        $constructClassMethod = $node->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
             return null;
         }
-
         foreach ($injectProperties as $injectProperty) {
             $this->removeInjectAnnotation($injectProperty);
-
             $this->changePropertyVisibility($injectProperty);
-
             $this->addPropertyToCollector($injectProperty);
         }
-
         return $node;
     }
-
     /**
      * @return Property[]
      */
-    private function getInjectProperties(Class_ $class): array
+    private function getInjectProperties(\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        return array_filter($class->getProperties(), function (Property $property): bool {
+        return \array_filter($class->getProperties(), function (\PhpParser\Node\Stmt\Property $property) : bool {
             return $this->isInjectProperty($property);
         });
     }
-
-    private function removeInjectAnnotation(Property $property): void
+    private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property) : void
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $phpDocInfo->removeByName('inject');
     }
-
-    private function changePropertyVisibility(Property $injectProperty): void
+    private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
     {
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($injectProperty)) {
             $this->makeProtected($injectProperty);
@@ -143,19 +122,16 @@ CODE_SAMPLE
             $this->makePrivate($injectProperty);
         }
     }
-
-    private function isInjectProperty(Property $property): bool
+    private function isInjectProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        if (! $property->isPublic()) {
-            return false;
+        if (!$property->isPublic()) {
+            return \false;
         }
-
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
-            return false;
+            return \false;
         }
-
         return (bool) $phpDocInfo->getTagsByName('inject');
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PhpAttribute\Printer;
 
 use PhpParser\BuilderHelpers;
@@ -14,126 +13,106 @@ use PhpParser\Node\Name\FullyQualified;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
-
 final class PhpAttributteGroupFactory
 {
     /**
      * @var string
      */
     public const TBA = 'TBA';
-
     /**
      * @param PhpAttributableTagNodeInterface[] $phpAttributableTagNodes
      * @return AttributeGroup[]
      */
-    public function create(array $phpAttributableTagNodes): array
+    public function create(array $phpAttributableTagNodes) : array
     {
         $attributeGroups = [];
         foreach ($phpAttributableTagNodes as $phpAttributableTagNode) {
             $currentAttributeGroups = $this->printPhpAttributableTagNode($phpAttributableTagNode);
-            $attributeGroups = array_merge($attributeGroups, $currentAttributeGroups);
+            $attributeGroups = \array_merge($attributeGroups, $currentAttributeGroups);
         }
-
         return $attributeGroups;
     }
-
     /**
      * @return Arg[]
      */
-    public function printItemsToAttributeArgs(PhpAttributableTagNodeInterface $phpAttributableTagNode): array
+    public function printItemsToAttributeArgs(\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : array
     {
         $items = $phpAttributableTagNode->getAttributableItems();
-
         $silentKey = null;
-        if ($phpAttributableTagNode instanceof SilentKeyNodeInterface) {
+        if ($phpAttributableTagNode instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface) {
             $silentKey = $phpAttributableTagNode->getSilentKey();
         }
-
         return $this->createArgsFromItems($items, $silentKey);
     }
-
     /**
      * @return AttributeGroup[]
      */
-    private function printPhpAttributableTagNode(PhpAttributableTagNodeInterface $phpAttributableTagNode): array
+    private function printPhpAttributableTagNode(\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : array
     {
         $args = $this->printItemsToAttributeArgs($phpAttributableTagNode);
-
         $attributeClassName = $this->resolveAttributeClassName($phpAttributableTagNode);
-
         $attributeGroups = [];
         $attributeGroups[] = $this->createAttributeGroupFromNameAndArgs($attributeClassName, $args);
-
-        if ($phpAttributableTagNode instanceof ManyPhpAttributableTagNodeInterface) {
+        if ($phpAttributableTagNode instanceof \Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface) {
             foreach ($phpAttributableTagNode->provide() as $shortName => $items) {
                 $args = $this->createArgsFromItems($items);
-                $name = new Name($shortName);
+                $name = new \PhpParser\Node\Name($shortName);
                 $attributeGroups[] = $this->createAttributeGroupFromNameAndArgs($name, $args);
             }
         }
-
         return $attributeGroups;
     }
-
     /**
      * @param mixed[] $items
      * @return Arg[]
      */
-    private function createArgsFromItems(array $items, ?string $silentKey = null): array
+    private function createArgsFromItems(array $items, ?string $silentKey = null) : array
     {
         $args = [];
-
         if ($silentKey !== null && isset($items[$silentKey])) {
-            $silentValue = BuilderHelpers::normalizeValue($items[$silentKey]);
-            $args[] = new Arg($silentValue);
+            $silentValue = \PhpParser\BuilderHelpers::normalizeValue($items[$silentKey]);
+            $args[] = new \PhpParser\Node\Arg($silentValue);
             unset($items[$silentKey]);
         }
-
         if ($this->isArrayArguments($items)) {
             foreach ($items as $key => $value) {
-                $argumentName = new Identifier($key);
-                $value = BuilderHelpers::normalizeValue($value);
-                $args[] = new Arg($value, false, false, [], $argumentName);
+                $argumentName = new \PhpParser\Node\Identifier($key);
+                $value = \PhpParser\BuilderHelpers::normalizeValue($value);
+                $args[] = new \PhpParser\Node\Arg($value, \false, \false, [], $argumentName);
             }
         } else {
             foreach ($items as $value) {
-                $value = BuilderHelpers::normalizeValue($value);
-                $args[] = new Arg($value);
+                $value = \PhpParser\BuilderHelpers::normalizeValue($value);
+                $args[] = new \PhpParser\Node\Arg($value);
             }
         }
-
         return $args;
     }
-
-    private function resolveAttributeClassName(PhpAttributableTagNodeInterface $phpAttributableTagNode): Name
+    private function resolveAttributeClassName(\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : \PhpParser\Node\Name
     {
         if ($phpAttributableTagNode->getAttributeClassName() !== self::TBA) {
-            return new FullyQualified($phpAttributableTagNode->getAttributeClassName());
+            return new \PhpParser\Node\Name\FullyQualified($phpAttributableTagNode->getAttributeClassName());
         }
-
-        return new Name($phpAttributableTagNode->getShortName());
+        return new \PhpParser\Node\Name($phpAttributableTagNode->getShortName());
     }
-
     /**
      * @param Arg[] $args
      */
-    private function createAttributeGroupFromNameAndArgs(Name $name, array $args): AttributeGroup
+    private function createAttributeGroupFromNameAndArgs(\PhpParser\Node\Name $name, array $args) : \PhpParser\Node\AttributeGroup
     {
-        $attribute = new Attribute($name, $args);
-        return new AttributeGroup([$attribute]);
+        $attribute = new \PhpParser\Node\Attribute($name, $args);
+        return new \PhpParser\Node\AttributeGroup([$attribute]);
     }
-
     /**
      * @param mixed[] $items
      */
-    private function isArrayArguments(array $items): bool
+    private function isArrayArguments(array $items) : bool
     {
-        foreach (array_keys($items) as $key) {
-            if (! is_int($key)) {
-                return true;
+        foreach (\array_keys($items) as $key) {
+            if (!\is_int($key)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

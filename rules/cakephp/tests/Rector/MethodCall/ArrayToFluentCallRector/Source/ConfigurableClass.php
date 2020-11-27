@@ -1,21 +1,19 @@
 <?php
-declare(strict_types=1);
 
+declare (strict_types=1);
 namespace Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source;
 
 class ConfigurableClass
 {
-    public function setName(string $name): self
+    public function setName(string $name) : self
     {
         return $this;
     }
-
-    public function setSize(int $size): self
+    public function setSize(int $size) : self
     {
         return $this;
     }
-
-    public function doSomething(): void
+    public function doSomething() : void
     {
     }
 }

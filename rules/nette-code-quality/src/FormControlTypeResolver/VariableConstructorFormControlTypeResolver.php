@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
 use PhpParser\Node;
@@ -14,74 +13,56 @@ use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
-final class VariableConstructorFormControlTypeResolver implements FormControlTypeResolverInterface, MethodNamesByInputNamesResolverAwareInterface
+final class VariableConstructorFormControlTypeResolver implements \Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var MethodNamesByInputNamesResolver
      */
     private $methodNamesByInputNamesResolver;
-
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-
-    public function __construct(
-        NodeTypeResolver $nodeTypeResolver,
-        NodeNameResolver $nodeNameResolver,
-        NodeRepository $nodeRepository
-    ) {
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
     }
-
     /**
      * @return array<string, string>
      */
-    public function resolve(Node $node): array
+    public function resolve(\PhpParser\Node $node) : array
     {
-        if (! $node instanceof Variable) {
+        if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return [];
         }
-
         // handled else-where
         if ($this->nodeNameResolver->isName($node, 'this')) {
             return [];
         }
-
         $formType = $this->nodeTypeResolver->getStaticType($node);
-        if (! $formType instanceof TypeWithClassName) {
+        if (!$formType instanceof \PHPStan\Type\TypeWithClassName) {
             return [];
         }
-
-        if (! is_a($formType->getClassName(), 'Nette\Application\UI\Form', true)) {
+        if (!\is_a($formType->getClassName(), '_PhpScoper006a73f0e455\\Nette\\Application\\UI\\Form', \true)) {
             return [];
         }
-
-        $constructorClassMethod = $this->nodeRepository->findClassMethod(
-            $formType->getClassName(),
-            MethodName::CONSTRUCT
-        );
+        $constructorClassMethod = $this->nodeRepository->findClassMethod($formType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructorClassMethod === null) {
             return [];
         }
-
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
-
-    public function setResolver(MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver): void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

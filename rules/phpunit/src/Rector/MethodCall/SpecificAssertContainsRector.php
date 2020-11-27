@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -14,32 +13,25 @@ use PHPStan\Type\UnionType;
 use Rector\Core\Rector\AbstractPHPUnitRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-8.0.md
  *
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\SpecificAssertContainsRector\SpecificAssertContainsRectorTest
  */
-final class SpecificAssertContainsRector extends AbstractPHPUnitRector
+final class SpecificAssertContainsRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, string>
      */
-    private const OLD_TO_NEW_METHOD_NAMES = [
-        'assertContains' => 'assertStringContainsString',
-        'assertNotContains' => 'assertStringNotContainsString',
-    ];
-
-    public function getRuleDefinition(): RuleDefinition
+    private const OLD_TO_NEW_METHOD_NAMES = ['assertContains' => 'assertStringContainsString', 'assertNotContains' => 'assertStringNotContainsString'];
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change assertContains()/assertNotContains() method to new string and iterable alternatives',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertContains()/assertNotContains() method to new string and iterable alternatives', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
 
-final class SomeTest extends \PHPUnit\Framework\TestCase
+namespace _PhpScoper006a73f0e455;
+
+final class SomeTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
 {
     public function test()
     {
@@ -47,12 +39,14 @@ final class SomeTest extends \PHPUnit\Framework\TestCase
         $this->assertNotContains('foo', 'foo bar');
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\SomeTest', 'SomeTest', \false);
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 <?php
 
-final class SomeTest extends \PHPUnit\Framework\TestCase
+namespace _PhpScoper006a73f0e455;
+
+final class SomeTest extends \_PhpScoper006a73f0e455\PHPUnit\Framework\TestCase
 {
     public function test()
     {
@@ -60,51 +54,43 @@ final class SomeTest extends \PHPUnit\Framework\TestCase
         $this->assertStringNotContainsString('foo', 'foo bar');
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\SomeTest', 'SomeTest', \false);
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isPHPUnitMethodNames($node, ['assertContains', 'assertNotContains'])) {
+        if (!$this->isPHPUnitMethodNames($node, ['assertContains', 'assertNotContains'])) {
             return null;
         }
-
-        if (! $this->isPossiblyStringType($node->args[1]->value)) {
+        if (!$this->isPossiblyStringType($node->args[1]->value)) {
             return null;
         }
-
         $methodName = $this->getName($node->name);
         $newMethodName = self::OLD_TO_NEW_METHOD_NAMES[$methodName];
-        $node->name = new Identifier($newMethodName);
-
+        $node->name = new \PhpParser\Node\Identifier($newMethodName);
         return $node;
     }
-
-    private function isPossiblyStringType(Expr $expr): bool
+    private function isPossiblyStringType(\PhpParser\Node\Expr $expr) : bool
     {
         $exprType = $this->getStaticType($expr);
-        if ($exprType instanceof UnionType) {
+        if ($exprType instanceof \PHPStan\Type\UnionType) {
             foreach ($exprType->getTypes() as $unionedType) {
-                if ($unionedType instanceof StringType) {
-                    return true;
+                if ($unionedType instanceof \PHPStan\Type\StringType) {
+                    return \true;
                 }
             }
         }
-
-        return $exprType instanceof StringType;
+        return $exprType instanceof \PHPStan\Type\StringType;
     }
 }

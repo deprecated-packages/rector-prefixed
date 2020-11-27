@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\NodeAnalyzer;
 
 use PhpParser\Node;
@@ -12,53 +11,42 @@ use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
 final class ConstructorAssignPropertyAnalyzer
 {
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
-    public function __construct(BetterNodeFinder $betterNodeFinder, NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-
-    public function resolveConstructorAssign(Property $property): ?Node
+    public function resolveConstructorAssign(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node
     {
-        $classLike = $property->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
+        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-
-        $constructClassMethod = $classLike->getMethod(MethodName::CONSTRUCT);
+        $constructClassMethod = $classLike->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
             return null;
         }
-
         $propertyName = $this->nodeNameResolver->getName($property);
         if ($propertyName === null) {
             return null;
         }
-
-        return $this->betterNodeFinder->findFirst((array) $constructClassMethod->stmts, function (Node $node) use (
-            $propertyName
-        ): ?Assign {
-            if (! $node instanceof Assign) {
+        return $this->betterNodeFinder->findFirst((array) $constructClassMethod->stmts, function (\PhpParser\Node $node) use($propertyName) : ?Assign {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }
-
-            if (! $this->nodeNameResolver->isLocalPropertyFetchNamed($node->var, $propertyName)) {
+            if (!$this->nodeNameResolver->isLocalPropertyFetchNamed($node->var, $propertyName)) {
                 return null;
             }
-
             return $node;
         });
     }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Transform\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -18,38 +17,31 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\ServiceGetterToConstructorInjection;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Webmozart\Assert\Assert;
-
+use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\ServiceGetterToConstructorInjectionRectorTest
  */
-final class ServiceGetterToConstructorInjectionRector extends AbstractRector implements ConfigurableRectorInterface
+final class ServiceGetterToConstructorInjectionRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const METHOD_CALL_TO_SERVICES = 'method_call_to_services';
-
     /**
      * @var ServiceGetterToConstructorInjection[]
      */
     private $methodCallToServices = [];
-
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
-
-    public function __construct(PropertyNaming $propertyNaming)
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->propertyNaming = $propertyNaming;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Get service call to constructor injection', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Get service call to constructor injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     /**
@@ -87,8 +79,7 @@ class FirstService
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass
 {
     /**
@@ -114,60 +105,43 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::METHOD_CALL_TO_SERVICES => [
-                        new ServiceGetterToConstructorInjection('FirstService', 'getAnotherService', 'AnotherService'),
-                    ],
-                ]
-            ),
-        ]);
+, [self::METHOD_CALL_TO_SERVICES => [new \Rector\Transform\ValueObject\ServiceGetterToConstructorInjection('FirstService', 'getAnotherService', 'AnotherService')]])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $this->isNonAnonymousClass($classLike)) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$this->isNonAnonymousClass($classLike)) {
             return null;
         }
-
         foreach ($this->methodCallToServices as $methodCallToService) {
-            if (! $this->isObjectType($node->var, $methodCallToService->getOldType())) {
+            if (!$this->isObjectType($node->var, $methodCallToService->getOldType())) {
                 continue;
             }
-
-            if (! $this->isName($node->name, $methodCallToService->getOldMethod())) {
+            if (!$this->isName($node->name, $methodCallToService->getOldMethod())) {
                 continue;
             }
-
-            $serviceObjectType = new ObjectType($methodCallToService->getServiceType());
-
+            $serviceObjectType = new \PHPStan\Type\ObjectType($methodCallToService->getServiceType());
             $propertyName = $this->propertyNaming->fqnToVariableName($serviceObjectType);
-
             /** @var Class_ $classLike */
             $this->addConstructorDependencyToClass($classLike, $serviceObjectType, $propertyName);
-
-            return new PropertyFetch(new Variable('this'), new Identifier($propertyName));
+            return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), new \PhpParser\Node\Identifier($propertyName));
         }
-
         return $node;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $methodCallToServices = $configuration[self::METHOD_CALL_TO_SERVICES] ?? [];
-        Assert::allIsInstanceOf($methodCallToServices, ServiceGetterToConstructorInjection::class);
+        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::allIsInstanceOf($methodCallToServices, \Rector\Transform\ValueObject\ServiceGetterToConstructorInjection::class);
         $this->methodCallToServices = $methodCallToServices;
     }
 }

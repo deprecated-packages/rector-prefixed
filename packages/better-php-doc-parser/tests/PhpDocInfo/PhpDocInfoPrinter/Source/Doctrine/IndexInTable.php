@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine;
 
-use Doctrine\ORM\Mapping as ORM;
-
+use _PhpScoper006a73f0e455\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(
  *     name="building",
@@ -16,5 +14,4 @@ use Doctrine\ORM\Mapping as ORM;
  */
 final class IndexInTable
 {
-
 }

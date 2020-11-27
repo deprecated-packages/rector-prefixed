@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodingStyle\ClassNameImport;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -23,7 +22,6 @@ use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 final class ShortNameResolver
 {
     /**
@@ -31,200 +29,152 @@ final class ShortNameResolver
      * @see https://regex101.com/r/KphLd2/1
      */
     private const BIG_LETTER_START_REGEX = '#^[A-Z]#';
-
     /**
      * @var string[][]
      */
     private $shortNamesByFilePath = [];
-
     /**
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-
     /**
      * @var CurrentFileInfoProvider
      */
     private $currentFileInfoProvider;
-
-    public function __construct(
-        CallableNodeTraverser $callableNodeTraverser,
-        CurrentFileInfoProvider $currentFileInfoProvider
-    ) {
+    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
+    {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
     }
-
     /**
      * @return string[]
      */
-    public function resolveForNode(Node $node): array
+    public function resolveForNode(\PhpParser\Node $node) : array
     {
         $realPath = $this->getNodeRealPath($node);
-
         if (isset($this->shortNamesByFilePath[$realPath])) {
             return $this->shortNamesByFilePath[$realPath];
         }
-
         $currentStmts = $this->currentFileInfoProvider->getCurrentStmts();
-
         $shortNames = $this->resolveForStmts($currentStmts);
         $this->shortNamesByFilePath[$realPath] = $shortNames;
-
         return $shortNames;
     }
-
     /**
      * Collects all "class <SomeClass>", "trait <SomeTrait>" and "interface <SomeInterface>"
      * @return string[]
      */
-    public function resolveShortClassLikeNamesForNode(Node $node): array
+    public function resolveShortClassLikeNamesForNode(\PhpParser\Node $node) : array
     {
-        $namespace = $node->getAttribute(AttributeKey::NAMESPACE_NODE);
+        $namespace = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
         if ($namespace === null) {
             // only handle namespace nodes
             return [];
         }
-
         $shortClassLikeNames = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($namespace, function (Node $node) use (
-            &$shortClassLikeNames
-        ) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($namespace, function (\PhpParser\Node $node) use(&$shortClassLikeNames) {
             // ...
-            if (! $node instanceof ClassLike) {
+            if (!$node instanceof \PhpParser\Node\Stmt\ClassLike) {
                 return null;
             }
-
             if ($node->name === null) {
                 return null;
             }
-
             /** @var string $classShortName */
-            $classShortName = $node->getAttribute(AttributeKey::CLASS_SHORT_NAME);
+            $classShortName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME);
             $shortClassLikeNames[] = $classShortName;
         });
-
-        return array_unique($shortClassLikeNames);
+        return \array_unique($shortClassLikeNames);
     }
-
-    private function getNodeRealPath(Node $node): ?string
+    private function getNodeRealPath(\PhpParser\Node $node) : ?string
     {
         /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo !== null) {
             return $fileInfo->getRealPath();
         }
-
         $smartFileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
         if ($smartFileInfo !== null) {
             return $smartFileInfo->getRealPath();
         }
-
         return null;
     }
-
     /**
      * @param Node[] $stmts
      * @return string[]
      */
-    private function resolveForStmts(array $stmts): array
+    private function resolveForStmts(array $stmts) : array
     {
         $shortNames = [];
-
-        $this->callableNodeTraverser->traverseNodesWithCallable($stmts, function (Node $node) use (
-            &$shortNames
-        ): void {
+        $this->callableNodeTraverser->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$shortNames) : void {
             // class name is used!
-            if ($node instanceof ClassLike && $node->name instanceof Identifier) {
+            if ($node instanceof \PhpParser\Node\Stmt\ClassLike && $node->name instanceof \PhpParser\Node\Identifier) {
                 $shortNames[$node->name->toString()] = $node->name->toString();
                 return;
             }
-
-            if (! $node instanceof Name) {
+            if (!$node instanceof \PhpParser\Node\Name) {
                 return;
             }
-
-            $originalName = $node->getAttribute(AttributeKey::ORIGINAL_NAME);
-            if (! $originalName instanceof Name) {
+            $originalName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
+            if (!$originalName instanceof \PhpParser\Node\Name) {
                 return;
             }
-
             // already short
-            if (Strings::contains($originalName->toString(), '\\')) {
+            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($originalName->toString(), '\\')) {
                 return;
             }
-
             $shortNames[$originalName->toString()] = $node->toString();
         });
-
         $docBlockShortNames = $this->resolveFromDocBlocks($stmts);
-
-        return array_merge($shortNames, $docBlockShortNames);
+        return \array_merge($shortNames, $docBlockShortNames);
     }
-
     /**
      * @param Node[] $stmts
      * @return string[]
      */
-    private function resolveFromDocBlocks(array $stmts): array
+    private function resolveFromDocBlocks(array $stmts) : array
     {
         $shortNames = [];
-
-        $this->callableNodeTraverser->traverseNodesWithCallable($stmts, function (Node $node) use (&$shortNames) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$shortNames) {
             /** @var PhpDocInfo|null $phpDocInfo */
-            $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             if ($phpDocInfo === null) {
                 return null;
             }
-
             foreach ($phpDocInfo->getPhpDocNode()->children as $phpDocChildNode) {
                 $shortTagName = $this->resolveShortTagNameFromPhpDocChildNode($phpDocChildNode);
                 if ($shortTagName === null) {
                     continue;
                 }
-
                 $shortNames[$shortTagName] = $shortTagName;
             }
         });
-
         return $shortNames;
     }
-
-    private function resolveShortTagNameFromPhpDocChildNode(PhpDocChildNode $phpDocChildNode): ?string
+    private function resolveShortTagNameFromPhpDocChildNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : ?string
     {
-        if (! $phpDocChildNode instanceof PhpDocTagNode) {
+        if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
             return null;
         }
-
-        $tagName = ltrim($phpDocChildNode->name, '@');
-
+        $tagName = \ltrim($phpDocChildNode->name, '@');
         // is annotation class - big letter?
-        if (Strings::match($tagName, self::BIG_LETTER_START_REGEX)) {
+        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($tagName, self::BIG_LETTER_START_REGEX)) {
             return $tagName;
         }
-
-        if (! $this->isValueNodeWithType($phpDocChildNode->value)) {
+        if (!$this->isValueNodeWithType($phpDocChildNode->value)) {
             return null;
         }
-
         $typeNode = $phpDocChildNode->value->type;
-        if (! $typeNode instanceof IdentifierTypeNode) {
+        if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return null;
         }
-
-        if (Strings::contains($typeNode->name, '\\')) {
+        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($typeNode->name, '\\')) {
             return null;
         }
-
         return $typeNode->name;
     }
-
-    private function isValueNodeWithType(PhpDocTagValueNode $phpDocTagValueNode): bool
+    private function isValueNodeWithType(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : bool
     {
-        return $phpDocTagValueNode instanceof PropertyTagValueNode ||
-            $phpDocTagValueNode instanceof ReturnTagValueNode ||
-            $phpDocTagValueNode instanceof ParamTagValueNode ||
-            $phpDocTagValueNode instanceof VarTagValueNode ||
-            $phpDocTagValueNode instanceof ThrowsTagValueNode;
+        return $phpDocTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode || $phpDocTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode || $phpDocTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode || $phpDocTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode || $phpDocTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
     }
 }

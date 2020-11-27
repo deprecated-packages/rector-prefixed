@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\ReadWrite\NodeAnalyzer;
 
 use PhpParser\Node;
@@ -17,91 +16,72 @@ use Rector\Core\Exception\Node\MissingParentNodeException;
 use Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\SOLID\Guard\VariableToConstantGuard;
-use Webmozart\Assert\Assert;
-
+use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
 final class ReadWritePropertyAnalyzer
 {
     /**
      * @var VariableToConstantGuard
      */
     private $variableToConstantGuard;
-
     /**
      * @var AssignManipulator
      */
     private $assignManipulator;
-
     /**
      * @var ReadExprAnalyzer
      */
     private $readExprAnalyzer;
-
-    public function __construct(
-        VariableToConstantGuard $variableToConstantGuard,
-        AssignManipulator $assignManipulator,
-        ReadExprAnalyzer $readExprAnalyzer
-    ) {
+    public function __construct(\Rector\SOLID\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\ReadWrite\NodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer)
+    {
         $this->variableToConstantGuard = $variableToConstantGuard;
         $this->assignManipulator = $assignManipulator;
         $this->readExprAnalyzer = $readExprAnalyzer;
     }
-
     /**
      * @param PropertyFetch|StaticPropertyFetch $node
      */
-    public function isRead(Node $node): bool
+    public function isRead(\PhpParser\Node $node) : bool
     {
-        Assert::isAnyOf($node, [PropertyFetch::class, StaticPropertyFetch::class]);
-
-        $parent = $node->getAttribute(AttributeKey::PARENT_NODE);
+        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class]);
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent === null) {
-            throw new MissingParentNodeException();
+            throw new \Rector\Core\Exception\Node\MissingParentNodeException();
         }
-
         $parent = $this->unwrapPostPreIncDec($parent);
-
-        if ($parent instanceof Arg) {
+        if ($parent instanceof \PhpParser\Node\Arg) {
             $readArg = $this->variableToConstantGuard->isReadArg($parent);
             if ($readArg) {
-                return true;
+                return \true;
             }
         }
-
-        if ($parent instanceof ArrayDimFetch && $parent->dim === $node) {
+        if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch && $parent->dim === $node) {
             return $this->isArrayDimFetchRead($parent);
         }
-
-        return ! $this->assignManipulator->isLeftPartOfAssign($node);
+        return !$this->assignManipulator->isLeftPartOfAssign($node);
     }
-
-    private function unwrapPostPreIncDec(Node $node): Node
+    private function unwrapPostPreIncDec(\PhpParser\Node $node) : \PhpParser\Node
     {
-        if ($node instanceof PreInc || $node instanceof PreDec || $node instanceof PostInc || $node instanceof PostDec) {
-            $node = $node->getAttribute(AttributeKey::PARENT_NODE);
+        if ($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PreDec || $node instanceof \PhpParser\Node\Expr\PostInc || $node instanceof \PhpParser\Node\Expr\PostDec) {
+            $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($node === null) {
-                throw new MissingParentNodeException();
+                throw new \Rector\Core\Exception\Node\MissingParentNodeException();
             }
         }
-
         return $node;
     }
-
-    private function isArrayDimFetchRead(ArrayDimFetch $arrayDimFetch): bool
+    private function isArrayDimFetchRead(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
-        $parentParent = $arrayDimFetch->getAttribute(AttributeKey::PARENT_NODE);
+        $parentParent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentParent === null) {
-            throw new MissingParentNodeException();
+            throw new \Rector\Core\Exception\Node\MissingParentNodeException();
         }
-
-        if (! $this->assignManipulator->isLeftPartOfAssign($arrayDimFetch)) {
-            return false;
+        if (!$this->assignManipulator->isLeftPartOfAssign($arrayDimFetch)) {
+            return \false;
         }
-
         // the array dim fetch is assing here only; but the variable might be used later
         if ($this->readExprAnalyzer->isExprRead($arrayDimFetch->var)) {
-            return true;
+            return \true;
         }
-
-        return ! $this->assignManipulator->isLeftPartOfAssign($arrayDimFetch);
+        return !$this->assignManipulator->isLeftPartOfAssign($arrayDimFetch);
     }
 }

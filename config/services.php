@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
-use Doctrine\Inflector\Inflector;
-use Doctrine\Inflector\Rules\English\InflectorFactory;
-use OndraM\CiDetector\CiDetector;
+use _PhpScoper006a73f0e455\Doctrine\Inflector\Inflector;
+use _PhpScoper006a73f0e455\Doctrine\Inflector\Rules\English\InflectorFactory;
+use _PhpScoper006a73f0e455\OndraM\CiDetector\CiDetector;
 use PhpParser\BuilderFactory;
 use PhpParser\Lexer;
 use PhpParser\NodeFinder;
@@ -18,13 +19,13 @@ use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\EventDispatcher\AutowiredEventDispatcher;
 use Rector\Core\PhpParser\Parser\NikicPhpParserFactory;
 use Rector\Core\PhpParser\Parser\PhpParserLexerFactory;
-use Symfony\Component\Console\Application as SymfonyApplication;
-use Symfony\Component\Console\Descriptor\TextDescriptor;
+use _PhpScoper006a73f0e455\Symfony\Component\Console\Application as SymfonyApplication;
+use _PhpScoper006a73f0e455\Symfony\Component\Console\Descriptor\TextDescriptor;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Filesystem\Filesystem;
+use function _PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref;
+use _PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use _PhpScoper006a73f0e455\Symfony\Component\Filesystem\Filesystem;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -34,80 +35,49 @@ use Symplify\PackageBuilder\Strings\StringFormatConverter;
 use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileSystem;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->defaults()
-        ->public()
-        ->autowire()
-        ->autoconfigure();
-
-    $services->load('Rector\Core\\', __DIR__ . '/../src')
-        ->exclude([
-            __DIR__ . '/../src/Rector',
-            __DIR__ . '/../src/Exception',
-            __DIR__ . '/../src/DependencyInjection/CompilerPass',
-            __DIR__ . '/../src/DependencyInjection/Loader',
-            __DIR__ . '/../src/PhpParser/Builder',
-            __DIR__ . '/../src/HttpKernel',
-            __DIR__ . '/../src/ValueObject',
-            __DIR__ . '/../src/Configuration/MinimalVersionChecker',
-            __DIR__ . '/../src/Bootstrap',
-            __DIR__ . '/../src/PhpParser/Node/CustomNode',
-            // loaded for PHPStan factory
-            __DIR__ . '/../src/PHPStan/Type',
-        ]);
-
-    $services->set(MinimalVersionChecker::class)
-        ->autowire(false);
-
-    $services->alias(SymfonyApplication::class, ConsoleApplication::class);
-
-    $services->set(NoRectorsLoadedReporter::class);
-
-    $services->set(TextDescriptor::class);
-
-    $services->set(ParserFactory::class);
-    $services->set(BuilderFactory::class);
-    $services->set(CloningVisitor::class);
-    $services->set(NodeFinder::class);
-
-    $services->set(Parser::class)
-        ->factory([ref(NikicPhpParserFactory::class), 'create']);
-
-    $services->set(Lexer::class)
-        ->factory([ref(PhpParserLexerFactory::class), 'create']);
-
+    $services->defaults()->public()->autowire()->autoconfigure();
+    $services->load('Rector\\Core\\', __DIR__ . '/../src')->exclude([
+        __DIR__ . '/../src/Rector',
+        __DIR__ . '/../src/Exception',
+        __DIR__ . '/../src/DependencyInjection/CompilerPass',
+        __DIR__ . '/../src/DependencyInjection/Loader',
+        __DIR__ . '/../src/PhpParser/Builder',
+        __DIR__ . '/../src/HttpKernel',
+        __DIR__ . '/../src/ValueObject',
+        __DIR__ . '/../src/Configuration/MinimalVersionChecker',
+        __DIR__ . '/../src/Bootstrap',
+        __DIR__ . '/../src/PhpParser/Node/CustomNode',
+        // loaded for PHPStan factory
+        __DIR__ . '/../src/PHPStan/Type',
+    ]);
+    $services->set(\Rector\Core\Configuration\MinimalVersionChecker::class)->autowire(\false);
+    $services->alias(\_PhpScoper006a73f0e455\Symfony\Component\Console\Application::class, \Rector\Core\Console\ConsoleApplication::class);
+    $services->set(\Rector\Core\Bootstrap\NoRectorsLoadedReporter::class);
+    $services->set(\_PhpScoper006a73f0e455\Symfony\Component\Console\Descriptor\TextDescriptor::class);
+    $services->set(\PhpParser\ParserFactory::class);
+    $services->set(\PhpParser\BuilderFactory::class);
+    $services->set(\PhpParser\NodeVisitor\CloningVisitor::class);
+    $services->set(\PhpParser\NodeFinder::class);
+    $services->set(\PhpParser\Parser::class)->factory([\_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\Core\PhpParser\Parser\NikicPhpParserFactory::class), 'create']);
+    $services->set(\PhpParser\Lexer::class)->factory([\_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\Core\PhpParser\Parser\PhpParserLexerFactory::class), 'create']);
     // symplify/package-builder
-    $services->set(Filesystem::class);
-    $services->set(PrivatesAccessor::class);
-    $services->set(PrivatesCaller::class);
-    $services->set(FinderSanitizer::class);
-    $services->set(FileSystemFilter::class);
-    $services->set(ParameterProvider::class);
-    $services->set(ParameterProvider::class)
-        ->arg('$container', ref('service_container'));
-
-    $services->set(RectorClassesProvider::class)
-        ->arg('$container', ref('service_container'));
-
-    $services->set(CommandNaming::class);
-
-    $services->set(SmartFileSystem::class);
-
-    $services->set(StringFormatConverter::class);
-
-    $services->set(CiDetector::class);
-
-    $services->alias(EventDispatcherInterface::class, AutowiredEventDispatcher::class);
-
-    $services->set(SymfonyStyleFactory::class);
-    $services->set(SymfonyStyle::class)
-        ->factory([ref(SymfonyStyleFactory::class), 'create']);
-
-    $services->set(InflectorFactory::class);
-
-    $services->set(Inflector::class)
-        ->factory([ref(InflectorFactory::class), 'build']);
+    $services->set(\_PhpScoper006a73f0e455\Symfony\Component\Filesystem\Filesystem::class);
+    $services->set(\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
+    $services->set(\Symplify\PackageBuilder\Reflection\PrivatesCaller::class);
+    $services->set(\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
+    $services->set(\Symplify\SmartFileSystem\FileSystemFilter::class);
+    $services->set(\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+    $services->set(\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->arg('$container', \_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref('service_container'));
+    $services->set(\Rector\Core\Configuration\RectorClassesProvider::class)->arg('$container', \_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref('service_container'));
+    $services->set(\Symplify\PackageBuilder\Console\Command\CommandNaming::class);
+    $services->set(\Symplify\SmartFileSystem\SmartFileSystem::class);
+    $services->set(\Symplify\PackageBuilder\Strings\StringFormatConverter::class);
+    $services->set(\_PhpScoper006a73f0e455\OndraM\CiDetector\CiDetector::class);
+    $services->alias(\_PhpScoper006a73f0e455\Symfony\Component\EventDispatcher\EventDispatcherInterface::class, \Rector\Core\EventDispatcher\AutowiredEventDispatcher::class);
+    $services->set(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
+    $services->set(\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->set(\_PhpScoper006a73f0e455\Doctrine\Inflector\Rules\English\InflectorFactory::class);
+    $services->set(\_PhpScoper006a73f0e455\Doctrine\Inflector\Inflector::class)->factory([\_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\_PhpScoper006a73f0e455\Doctrine\Inflector\Rules\English\InflectorFactory::class), 'build']);
 };

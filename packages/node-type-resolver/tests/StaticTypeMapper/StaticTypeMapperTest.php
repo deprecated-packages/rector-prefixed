@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Tests\StaticTypeMapper;
 
 use Iterator;
@@ -19,77 +18,58 @@ use PHPStan\Type\MixedType;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-
-final class StaticTypeMapperTest extends AbstractKernelTestCase
+final class StaticTypeMapperTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-
-    protected function setUp(): void
+    protected function setUp() : void
     {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->staticTypeMapper = self::$container->get(StaticTypeMapper::class);
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->staticTypeMapper = self::$container->get(\Rector\StaticTypeMapper\StaticTypeMapper::class);
     }
-
     /**
      * @dataProvider provideDataForMapPHPStanPhpDocTypeNodeToPHPStanType()
      */
-    public function testMapPHPStanPhpDocTypeNodeToPHPStanType(TypeNode $typeNode, string $expectedType): void
+    public function testMapPHPStanPhpDocTypeNodeToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $expectedType) : void
     {
-        $string = new String_('hey');
-
+        $string = new \PhpParser\Node\Scalar\String_('hey');
         $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($typeNode, $string);
-
         $this->assertInstanceOf($expectedType, $phpStanType);
     }
-
-    public function provideDataForMapPHPStanPhpDocTypeNodeToPHPStanType(): Iterator
+    public function provideDataForMapPHPStanPhpDocTypeNodeToPHPStanType() : \Iterator
     {
-        $genericTypeNode = new GenericTypeNode(new IdentifierTypeNode('Traversable'), []);
-        yield [$genericTypeNode, GenericObjectType::class];
-
-        $genericTypeNode = new GenericTypeNode(new IdentifierTypeNode('iterable'), [
-            new IdentifierTypeNode('string'),
-        ]);
-
-        yield [$genericTypeNode, IterableType::class];
-
-        yield [new IdentifierTypeNode('mixed'), MixedType::class];
+        $genericTypeNode = new \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('Traversable'), []);
+        (yield [$genericTypeNode, \PHPStan\Type\Generic\GenericObjectType::class]);
+        $genericTypeNode = new \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('iterable'), [new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('string')]);
+        (yield [$genericTypeNode, \PHPStan\Type\IterableType::class]);
+        (yield [new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('mixed'), \PHPStan\Type\MixedType::class]);
     }
-
-    public function testMapPHPStanTypeToPHPStanPhpDocTypeNode(): void
+    public function testMapPHPStanTypeToPHPStanPhpDocTypeNode() : void
     {
-        $iterableType = new IterableType(new MixedType(), new ClassStringType());
-
+        $iterableType = new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\ClassStringType());
         $phpStanDocTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($iterableType);
-        $this->assertInstanceOf(ArrayTypeNode::class, $phpStanDocTypeNode);
-
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode::class, $phpStanDocTypeNode);
         /** @var ArrayTypeNode $phpStanDocTypeNode */
-        $this->assertInstanceOf(IdentifierTypeNode::class, $phpStanDocTypeNode->type);
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode::class, $phpStanDocTypeNode->type);
     }
-
-    public function testMixed(): void
+    public function testMixed() : void
     {
-        $mixedType = new MixedType();
-
+        $mixedType = new \PHPStan\Type\MixedType();
         $phpStanDocTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($mixedType);
-        $this->assertInstanceOf(IdentifierTypeNode::class, $phpStanDocTypeNode);
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode::class, $phpStanDocTypeNode);
     }
-
     /**
      * @dataProvider provideDataForMapPhpParserNodePHPStanType()
      */
-    public function testMapPhpParserNodePHPStanType(Node $node, string $expectedType): void
+    public function testMapPhpParserNodePHPStanType(\PhpParser\Node $node, string $expectedType) : void
     {
         $phpStanType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($node);
         $this->assertInstanceOf($expectedType, $phpStanType);
     }
-
-    public function provideDataForMapPhpParserNodePHPStanType(): Iterator
+    public function provideDataForMapPhpParserNodePHPStanType() : \Iterator
     {
-        yield [new Identifier('iterable'), IterableType::class];
+        (yield [new \PhpParser\Node\Identifier('iterable'), \PHPStan\Type\IterableType::class]);
     }
 }

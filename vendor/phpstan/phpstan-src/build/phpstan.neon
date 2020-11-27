@@ -1,0 +1,88 @@
+includes:
+    - ../vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - ../vendor/phpstan/phpstan-php-parser/extension.neon
+    - ../vendor/phpstan/phpstan-phpunit/extension.neon
+    - ../vendor/phpstan/phpstan-phpunit/rules.neon
+    - ../vendor/phpstan/phpstan-strict-rules/rules.neon
+    - ../conf/bleedingEdge.neon
+    - ../phpstan-baseline.neon
+
+parameters:
+    bootstrapFiles:
+        - ../tests/phpstan-bootstrap.php
+
+    checkUninitializedProperties: true
+    excludes_analyse:
+        - ../src/Reflection/SignatureMap/functionMap.php
+        - ../src/Reflection/SignatureMap/functionMetadata.php
+        - ../tests/*/data/*
+        - ../tests/tmp/*
+        - ../tests/PHPStan/Analyser/traits/*
+        - ../tests/notAutoloaded/*
+        - ../tests/PHPStan/Generics/functions.php
+        - ../tests/PHPStan/Reflection/UnionTypesTest.php
+        - ../tests/PHPStan/Reflection/MixedTypeTest.php
+        - ../tests/PHPStan/Reflection/StaticTypeTest.php
+        - ../tests/e2e/magic-setter/*
+        - ../tests/PHPStan/Rules/Properties/UninitializedPropertyRuleTest.php
+
+    featureToggles:
+        readComposerPhpVersion: false
+
+    ignoreErrors:
+        - "#^Dynamic call to static method PHPUnit\\\\Framework\\\\\\S+\\(\\)\\.$#"
+        - "#should be contravariant with parameter \\$node \\(PhpParser\\\\Node\\) of method PHPStan\\\\Rules\\\\Rule<PhpParser\\\\Node>::processNode\\(\\)$#"
+        - "#Variable property access on PhpParser\\\\Node#"
+        - "#Test::data[a-zA-Z0-9_]+\\(\\) return type has no value type specified in iterable type#"
+        -
+            message: "#Fetching class constant class of deprecated class DeprecatedAnnotations\\\\DeprecatedFoo.#"
+            path: ../tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
+        -
+            message: "#Fetching class constant class of deprecated class DeprecatedAnnotations\\\\DeprecatedWithMultipleTags.#"
+            path: ../tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
+        -
+            message: "#^Variable property access on PHPStan\\\\Rules\\\\RuleError\\.$#"
+            path: ../src/Rules/RuleErrorBuilder.php
+
+    reportStaticMethodSignatures: true
+    tmpDir: %rootDir%/tmp
+    stubFiles:
+        - stubs/ReactChildProcess.stub
+        - stubs/ReactStreams.stub
+
+services:
+    0:
+        class: PHPStan\Build\ServiceLocatorDynamicReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+
+    1:
+        class: PHPStan\Internal\ContainerDynamicReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+
+    2:
+        class: PHPStan\Internal\UnionTypeGetInternalDynamicReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+
+    scopeIsInClass:
+        class: PHPStan\Internal\ScopeIsInClassTypeSpecifyingExtension
+        arguments:
+            isInMethodName: isInClass
+            removeNullMethodName: getClassReflection
+
+        tags:
+            - phpstan.typeSpecifier.methodTypeSpecifyingExtension
+
+    scopeIsInTrait:
+        class: PHPStan\Internal\ScopeIsInClassTypeSpecifyingExtension
+        arguments:
+            isInMethodName: isInTrait
+            removeNullMethodName: getTraitReflection
+
+        tags:
+            - phpstan.typeSpecifier.methodTypeSpecifyingExtension
+

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\PhpDocParser\Ast\PhpDoc;
 
 use PhpParser\Node\Stmt\Property;
@@ -15,83 +14,50 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTa
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinTableTagValueNode;
 use Rector\Doctrine\Uuid\JoinTableNameResolver;
-
 final class PhpDocTagNodeFactory
 {
     /**
      * @var string
      */
     private const UUID = 'uuid';
-
     /**
      * @var JoinTableNameResolver
      */
     private $joinTableNameResolver;
-
-    public function __construct(JoinTableNameResolver $joinTableNameResolver)
+    public function __construct(\Rector\Doctrine\Uuid\JoinTableNameResolver $joinTableNameResolver)
     {
         $this->joinTableNameResolver = $joinTableNameResolver;
     }
-
-    public function createVarTagIntValueNode(): AttributeAwareVarTagValueNode
+    public function createVarTagIntValueNode() : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode
     {
-        return $this->createVarTagValueNodeWithType(new IdentifierTypeNode('int'));
+        return $this->createVarTagValueNodeWithType(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('int'));
     }
-
-    public function createUuidInterfaceVarTagValueNode(): AttributeAwareVarTagValueNode
+    public function createUuidInterfaceVarTagValueNode() : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode
     {
-        $identifierTypeNode = new IdentifierTypeNode('\Ramsey\Uuid\UuidInterface');
-
+        $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('_PhpScoper006a73f0e455\\Ramsey\\Uuid\\UuidInterface');
         return $this->createVarTagValueNodeWithType($identifierTypeNode);
     }
-
-    public function createIdColumnTagValueNode(): ColumnTagValueNode
+    public function createIdColumnTagValueNode() : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode
     {
-        return new ColumnTagValueNode([
-            'type' => 'integer',
-        ]);
+        return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode(['type' => 'integer']);
     }
-
-    public function createUuidColumnTagValueNode(bool $isNullable): ColumnTagValueNode
+    public function createUuidColumnTagValueNode(bool $isNullable) : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode
     {
-        return new ColumnTagValueNode([
-            'type' => 'uuid_binary',
-            'unique' => true,
-            'nullable' => $isNullable ? true : null,
-        ]);
+        return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode(['type' => 'uuid_binary', 'unique' => \true, 'nullable' => $isNullable ? \true : null]);
     }
-
-    public function createJoinTableTagNode(Property $property): PhpDocTagNode
+    public function createJoinTableTagNode(\PhpParser\Node\Stmt\Property $property) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
     {
         $uuidJoinTable = $this->joinTableNameResolver->resolveManyToManyUuidTableNameForProperty($property);
-
-        $uuidJoinColumnTagValueNodes = [new JoinColumnTagValueNode([
-            'referencedColumnName' => self::UUID,
-        ])];
-
-        $joinTableTagValueNode = new JoinTableTagValueNode(
-            $uuidJoinTable,
-            null,
-            $uuidJoinColumnTagValueNodes,
-            $uuidJoinColumnTagValueNodes,
-            '',
-            new OpeningAndClosingSpace('', ''),
-            new OpeningAndClosingSpace('', '')
-        );
-
-        return new SpacelessPhpDocTagNode($joinTableTagValueNode->getShortName(), $joinTableTagValueNode);
+        $uuidJoinColumnTagValueNodes = [new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode(['referencedColumnName' => self::UUID])];
+        $joinTableTagValueNode = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinTableTagValueNode($uuidJoinTable, null, $uuidJoinColumnTagValueNodes, $uuidJoinColumnTagValueNodes, '', new \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace('', ''), new \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace('', ''));
+        return new \Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode($joinTableTagValueNode->getShortName(), $joinTableTagValueNode);
     }
-
-    public function createJoinColumnTagNode(bool $isNullable): JoinColumnTagValueNode
+    public function createJoinColumnTagNode(bool $isNullable) : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode
     {
-        return new JoinColumnTagValueNode([
-            'referencedColumn' => self::UUID,
-            'nullable' => $isNullable,
-        ]);
+        return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode(['referencedColumn' => self::UUID, 'nullable' => $isNullable]);
     }
-
-    private function createVarTagValueNodeWithType(TypeNode $typeNode): AttributeAwareVarTagValueNode
+    private function createVarTagValueNodeWithType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode) : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode
     {
-        return new AttributeAwareVarTagValueNode($typeNode, '', '');
+        return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode($typeNode, '', '');
     }
 }

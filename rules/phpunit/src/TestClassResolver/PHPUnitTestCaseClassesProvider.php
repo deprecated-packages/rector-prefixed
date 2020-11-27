@@ -1,61 +1,49 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\TestClassResolver;
 
-use Nette\Loaders\RobotLoader;
+use _PhpScoper006a73f0e455\Nette\Loaders\RobotLoader;
 use Rector\PHPUnit\Composer\ComposerAutoloadedDirectoryProvider;
-
 final class PHPUnitTestCaseClassesProvider
 {
     /**
      * @var string[]
      */
     private $phpUnitTestCaseClasses = [];
-
     /**
      * @var ComposerAutoloadedDirectoryProvider
      */
     private $composerAutoloadedDirectoryProvider;
-
-    public function __construct(ComposerAutoloadedDirectoryProvider $composerAutoloadedDirectoryProvider)
+    public function __construct(\Rector\PHPUnit\Composer\ComposerAutoloadedDirectoryProvider $composerAutoloadedDirectoryProvider)
     {
         $this->composerAutoloadedDirectoryProvider = $composerAutoloadedDirectoryProvider;
     }
-
     /**
      * @return string[]
      */
-    public function provide(): array
+    public function provide() : array
     {
         if ($this->phpUnitTestCaseClasses !== []) {
             return $this->phpUnitTestCaseClasses;
         }
-
         $robotLoader = $this->createRobotLoadForDirectories();
         $robotLoader->rebuild();
-
-        foreach (array_keys($robotLoader->getIndexedClasses()) as $className) {
+        foreach (\array_keys($robotLoader->getIndexedClasses()) as $className) {
             $this->phpUnitTestCaseClasses[] = (string) $className;
         }
-
         return $this->phpUnitTestCaseClasses;
     }
-
-    private function createRobotLoadForDirectories(): RobotLoader
+    private function createRobotLoadForDirectories() : \_PhpScoper006a73f0e455\Nette\Loaders\RobotLoader
     {
-        $robotLoader = new RobotLoader();
-        $robotLoader->setTempDirectory(sys_get_temp_dir() . '/tests_add_see_rector_tests');
-
+        $robotLoader = new \_PhpScoper006a73f0e455\Nette\Loaders\RobotLoader();
+        $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/tests_add_see_rector_tests');
         $directories = $this->composerAutoloadedDirectoryProvider->provide();
         $robotLoader->addDirectory(...$directories);
-
         $robotLoader->acceptFiles = ['*Test.php'];
         $robotLoader->ignoreDirs[] = '*Expected*';
         $robotLoader->ignoreDirs[] = '*Fixture*';
         $robotLoader->ignoreDirs[] = 'templates';
-
         return $robotLoader;
     }
 }

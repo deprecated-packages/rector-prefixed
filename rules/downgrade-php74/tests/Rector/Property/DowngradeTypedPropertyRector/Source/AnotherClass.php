@@ -4,5 +4,4 @@ namespace Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRect
 
 class AnotherClass
 {
-
 }

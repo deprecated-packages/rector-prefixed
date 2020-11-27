@@ -1,50 +1,38 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NodeNestingScope;
 
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNestingScope\ValueObject\ControlStructure;
-
 final class ScopeNestingComparator
 {
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
-    public function __construct(BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->betterNodeFinder = $betterNodeFinder;
     }
-
-    public function areScopeNestingEqual(Node $firstNode, Node $secondNode): bool
+    public function areScopeNestingEqual(\PhpParser\Node $firstNode, \PhpParser\Node $secondNode) : bool
     {
         $firstNodeScopeNode = $this->findParentControlStructure($firstNode);
         $secondNodeScopeNode = $this->findParentControlStructure($secondNode);
-
         return $firstNodeScopeNode === $secondNodeScopeNode;
     }
-
-    public function isNodeConditionallyScoped(Node $node): bool
+    public function isNodeConditionallyScoped(\PhpParser\Node $node) : bool
     {
-        $foundParentType = $this->betterNodeFinder->findFirstParentInstanceOf(
-            $node,
-            ControlStructure::CONDITIONAL_NODE_SCOPE_TYPES + [FunctionLike::class]
-        );
-
+        $foundParentType = $this->betterNodeFinder->findFirstParentInstanceOf($node, \Rector\NodeNestingScope\ValueObject\ControlStructure::CONDITIONAL_NODE_SCOPE_TYPES + [\PhpParser\Node\FunctionLike::class]);
         if ($foundParentType === null) {
-            return false;
+            return \false;
         }
-
-        return ! $foundParentType instanceof FunctionLike;
+        return !$foundParentType instanceof \PhpParser\Node\FunctionLike;
     }
-
-    private function findParentControlStructure(Node $node): ?Node
+    private function findParentControlStructure(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        return $this->betterNodeFinder->findFirstParentInstanceOf($node, ControlStructure::BREAKING_SCOPE_NODE_TYPES);
+        return $this->betterNodeFinder->findFirstParentInstanceOf($node, \Rector\NodeNestingScope\ValueObject\ControlStructure::BREAKING_SCOPE_NODE_TYPES);
     }
 }

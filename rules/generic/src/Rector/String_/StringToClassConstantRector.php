@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\String_;
 
 use PhpParser\Node;
@@ -11,28 +10,23 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\StringToClassConstant;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Webmozart\Assert\Assert;
-
+use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\String_\StringToClassConstantRector\StringToClassConstantRectorTest
  */
-final class StringToClassConstantRector extends AbstractRector implements ConfigurableRectorInterface
+final class StringToClassConstantRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const STRINGS_TO_CLASS_CONSTANTS = 'strings_to_class_constants';
-
     /**
      * @var StringToClassConstant[]
      */
     private $stringsToClassConstants = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Changes strings to specific constants', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes strings to specific constants', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeSubscriber
 {
     public static function getSubscribedEvents()
@@ -41,8 +35,7 @@ final class SomeSubscriber
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeSubscriber
 {
     public static function getSubscribedEvents()
@@ -51,47 +44,32 @@ final class SomeSubscriber
     }
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::STRINGS_TO_CLASS_CONSTANTS => [
-                        new StringToClassConstant('compiler.post_dump', 'Yet\AnotherClass', 'CONSTANT'),
-                    ],
-                ]
-            ),
-        ]);
+, [self::STRINGS_TO_CLASS_CONSTANTS => [new \Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScoper006a73f0e455\\Yet\\AnotherClass', 'CONSTANT')]])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [String_::class];
+        return [\PhpParser\Node\Scalar\String_::class];
     }
-
     /**
      * @param String_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->stringsToClassConstants as $stringToClassConstant) {
-            if (! $this->isValue($node, $stringToClassConstant->getString())) {
+            if (!$this->isValue($node, $stringToClassConstant->getString())) {
                 continue;
             }
-
-            return $this->createClassConstFetch(
-                $stringToClassConstant->getClass(),
-                $stringToClassConstant->getConstant()
-            );
+            return $this->createClassConstFetch($stringToClassConstant->getClass(), $stringToClassConstant->getConstant());
         }
-
         return $node;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $stringToClassConstants = $configuration[self::STRINGS_TO_CLASS_CONSTANTS] ?? [];
-        Assert::allIsInstanceOf($stringToClassConstants, StringToClassConstant::class);
+        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::allIsInstanceOf($stringToClassConstants, \Rector\Generic\ValueObject\StringToClassConstant::class);
         $this->stringsToClassConstants = $stringToClassConstants;
     }
 }

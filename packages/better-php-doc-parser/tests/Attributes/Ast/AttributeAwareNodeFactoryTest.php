@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\Attributes\Ast;
 
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
@@ -18,91 +17,72 @@ use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareNullableTypeNode;
 use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
 use Rector\Core\HttpKernel\RectorKernel;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-
-final class AttributeAwareNodeFactoryTest extends AbstractKernelTestCase
+final class AttributeAwareNodeFactoryTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var AttributeAwareNodeFactory
      */
     private $attributeAwareNodeFactory;
-
-    protected function setUp(): void
+    protected function setUp() : void
     {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->attributeAwareNodeFactory = static::$container->get(AttributeAwareNodeFactory::class);
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->attributeAwareNodeFactory = static::$container->get(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory::class);
     }
-
-    public function testPhpDocNodeAndChildren(): void
+    public function testPhpDocNodeAndChildren() : void
     {
         $phpDocNode = $this->createSomeTextDocNode();
-
         $attributeAwarePhpDocNode = $this->attributeAwareNodeFactory->createFromNode($phpDocNode, '');
-        $this->assertInstanceOf(PhpDocNode::class, $attributeAwarePhpDocNode);
-        $this->assertInstanceOf(AttributeAwarePhpDocNode::class, $attributeAwarePhpDocNode);
-
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode::class, $attributeAwarePhpDocNode);
+        $this->assertInstanceOf(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode::class, $attributeAwarePhpDocNode);
         $childNode = $attributeAwarePhpDocNode->children[0];
-        $this->assertInstanceOf(PhpDocTextNode::class, $childNode);
-        $this->assertInstanceOf(AttributeAwarePhpDocTextNode::class, $childNode);
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode::class, $childNode);
+        $this->assertInstanceOf(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTextNode::class, $childNode);
     }
-
-    public function testPropertyTag(): void
+    public function testPropertyTag() : void
     {
         $phpDocNode = $this->createPropertyDocNode();
-
         $attributeAwarePhpDocNode = $this->attributeAwareNodeFactory->createFromNode($phpDocNode, '');
-
         $childNode = $attributeAwarePhpDocNode->children[0];
-        $this->assertInstanceOf(PhpDocTagNode::class, $childNode);
-
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode::class, $childNode);
         // test param tag
         /** @var PhpDocTagNode $childNode */
         $propertyTagValueNode = $childNode->value;
-        $this->assertInstanceOf(PropertyTagValueNode::class, $propertyTagValueNode);
-        $this->assertInstanceOf(AttributeAwarePropertyTagValueNode::class, $propertyTagValueNode);
-
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode::class, $propertyTagValueNode);
+        $this->assertInstanceOf(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePropertyTagValueNode::class, $propertyTagValueNode);
         // test nullable
         /** @var PropertyTagValueNode $propertyTagValueNode */
         $nullableTypeNode = $propertyTagValueNode->type;
-
-        $this->assertInstanceOf(NullableTypeNode::class, $nullableTypeNode);
-        $this->assertInstanceOf(AttributeAwareNullableTypeNode::class, $nullableTypeNode);
-
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\Type\NullableTypeNode::class, $nullableTypeNode);
+        $this->assertInstanceOf(\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareNullableTypeNode::class, $nullableTypeNode);
         // test type inside nullable
         /** @var NullableTypeNode $nullableTypeNode */
         $identifierTypeNode = $nullableTypeNode->type;
-        $this->assertInstanceOf(IdentifierTypeNode::class, $identifierTypeNode);
-        $this->assertInstanceOf(AttributeAwareIdentifierTypeNode::class, $identifierTypeNode);
+        $this->assertInstanceOf(\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode::class, $identifierTypeNode);
+        $this->assertInstanceOf(\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode::class, $identifierTypeNode);
     }
-
-    public function testAlreadyAttributeAware(): void
+    public function testAlreadyAttributeAware() : void
     {
-        $attributeAwarePhpDocNode = new AttributeAwarePhpDocNode([]);
+        $attributeAwarePhpDocNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode([]);
         $returnedNode = $this->attributeAwareNodeFactory->createFromNode($attributeAwarePhpDocNode, '');
-
         $this->assertSame($returnedNode, $attributeAwarePhpDocNode);
     }
-
     /**
      * Creates doc block for:
      * some text
      */
-    private function createSomeTextDocNode(): PhpDocNode
+    private function createSomeTextDocNode() : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
-        return new PhpDocNode([new PhpDocTextNode('some text')]);
+        return new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode([new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode('some text')]);
     }
-
     /**
      * Creates doc block for:
      * @property string|null $name
      */
-    private function createPropertyDocNode(): PhpDocNode
+    private function createPropertyDocNode() : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
-        $nullableTypeNode = new NullableTypeNode(new IdentifierTypeNode('string'));
-        $propertyTagValueNode = new PropertyTagValueNode($nullableTypeNode, 'name', '');
-
-        $children = [new PhpDocTagNode('@property', $propertyTagValueNode)];
-
-        return new PhpDocNode($children);
+        $nullableTypeNode = new \PHPStan\PhpDocParser\Ast\Type\NullableTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('string'));
+        $propertyTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode($nullableTypeNode, 'name', '');
+        $children = [new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@property', $propertyTagValueNode)];
+        return new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode($children);
     }
 }

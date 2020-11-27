@@ -1,15 +1,12 @@
 <?php
 
 // mirrors: https://github.com/Atlantic18/DoctrineExtensions/blob/v2.4.x/lib/Gedmo/Mapping/Annotation/SoftDeleteable.php
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Gedmo\Mapping\Annotation;
 
-declare(strict_types=1);
-
-namespace Gedmo\Mapping\Annotation;
-
-if (class_exists('Gedmo\Mapping\Annotation\SoftDeleteable')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\SoftDeleteable')) {
     return;
 }
-
 /**
  * @Annotation
  */
@@ -19,14 +16,12 @@ class SoftDeleteable
      * @var string
      */
     public $fieldName = 'deletedAt';
-
     /**
      * @var bool
      */
-    public $timeAware = false;
-
+    public $timeAware = \false;
     /**
      * @var bool
      */
-    public $hardDelete = true;
+    public $hardDelete = \true;
 }

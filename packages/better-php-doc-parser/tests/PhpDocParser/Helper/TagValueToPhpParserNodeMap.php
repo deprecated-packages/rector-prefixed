@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\Helper;
 
 use PhpParser\Node\Stmt\Class_;
@@ -24,32 +23,31 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagVal
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertTypeTagValueNode;
-
 final class TagValueToPhpParserNodeMap
 {
     /**
      * @var string[]
      */
     public const MAP = [
-        SymfonyRouteTagValueNode::class => ClassMethod::class,
-        SlugTagValueNode::class => Property::class,
-        BlameableTagValueNode::class => Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class => \PhpParser\Node\Stmt\ClassMethod::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SlugTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\BlameableTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
         // symfony/validation
-        AssertChoiceTagValueNode::class => Property::class,
-        AssertTypeTagValueNode::class => Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertTypeTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
         // doctrine
-        ColumnTagValueNode::class => Property::class,
-        JoinTableTagValueNode::class => Property::class,
-        EntityTagValueNode::class => Class_::class,
-        TableTagValueNode::class => Class_::class,
-        CustomIdGeneratorTagValueNode::class => Property::class,
-        GeneratedValueTagValueNode::class => Property::class,
-        EmbeddedTagValueNode::class => Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinTableTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class => \PhpParser\Node\Stmt\Class_::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\TableTagValueNode::class => \PhpParser\Node\Stmt\Class_::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\CustomIdGeneratorTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddedTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
         // special case for constants
-        GenericTagValueNode::class => Property::class,
-        SensioTemplateTagValueNode::class => Class_::class,
-        SensioMethodTagValueNode::class => ClassMethod::class,
-        TemplateTagValueNode::class => Class_::class,
-        VarTagValueNode::class => Property::class,
+        \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class => \PhpParser\Node\Stmt\Class_::class,
+        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode::class => \PhpParser\Node\Stmt\ClassMethod::class,
+        \PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode::class => \PhpParser\Node\Stmt\Class_::class,
+        \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class => \PhpParser\Node\Stmt\Property::class,
     ];
 }

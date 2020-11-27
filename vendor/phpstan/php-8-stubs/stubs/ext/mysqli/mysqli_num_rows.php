@@ -1,0 +1,7 @@
+<?php
+
+namespace _PhpScoper006a73f0e455;
+
+function mysqli_num_rows(\mysqli_result $result) : int|string
+{
+}

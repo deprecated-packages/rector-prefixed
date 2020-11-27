@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Ternary;
 
 use PhpParser\Node;
@@ -12,63 +11,46 @@ use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Ternary\SimplifyTautologyTernaryRector\SimplifyTautologyTernaryRectorTest
  */
-final class SimplifyTautologyTernaryRector extends AbstractRector
+final class SimplifyTautologyTernaryRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-
-    public function __construct(BinaryOpManipulator $binaryOpManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Simplify tautology ternary to value', [
-            new CodeSample(
-                '$value = ($fullyQualifiedTypeHint !== $typeHint) ? $fullyQualifiedTypeHint : $typeHint;',
-                '$value = $fullyQualifiedTypeHint;'
-            ),
-        ]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify tautology ternary to value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$value = ($fullyQualifiedTypeHint !== $typeHint) ? $fullyQualifiedTypeHint : $typeHint;', '$value = $fullyQualifiedTypeHint;')]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Ternary::class];
+        return [\PhpParser\Node\Expr\Ternary::class];
     }
-
     /**
      * @param Ternary $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $node->cond instanceof NotIdentical && ! $node->cond instanceof Identical) {
+        if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical && !$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return null;
         }
-
-        $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode(
-            $node->cond,
-            function (Node $leftNode) use ($node): bool {
-                return $this->areNodesEqual($leftNode, $node->if);
-            },
-            function (Node $leftNode) use ($node): bool {
-                return $this->areNodesEqual($leftNode, $node->else);
-            }
-        );
-
+        $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($node->cond, function (\PhpParser\Node $leftNode) use($node) : bool {
+            return $this->areNodesEqual($leftNode, $node->if);
+        }, function (\PhpParser\Node $leftNode) use($node) : bool {
+            return $this->areNodesEqual($leftNode, $node->else);
+        });
         if ($twoNodeMatch === null) {
             return null;
         }
-
         return $node->if;
     }
 }

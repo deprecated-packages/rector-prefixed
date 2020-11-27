@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PhpSpecToPHPUnit\Tests\Rector\Variable\PhpSpecToPHPUnitRector;
 
 use Iterator;
@@ -13,35 +12,32 @@ use Rector\PhpSpecToPHPUnit\Rector\MethodCall\PhpSpecPromisesToPHPUnitAssertRect
 use Rector\PhpSpecToPHPUnit\Rector\Variable\MockVariableToPropertyFetchRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class PhpSpecToPHPUnitRectorTest extends AbstractRectorTestCase
+final class PhpSpecToPHPUnitRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
         return [
             # 1. first convert mocks
-            PhpSpecMocksToPHPUnitMocksRector::class => [],
-            PhpSpecPromisesToPHPUnitAssertRector::class => [],
-            PhpSpecMethodToPHPUnitMethodRector::class => [],
-            PhpSpecClassToPHPUnitClassRector::class => [],
-            AddMockPropertiesRector::class => [],
-            MockVariableToPropertyFetchRector::class => [],
+            \Rector\PhpSpecToPHPUnit\Rector\MethodCall\PhpSpecMocksToPHPUnitMocksRector::class => [],
+            \Rector\PhpSpecToPHPUnit\Rector\MethodCall\PhpSpecPromisesToPHPUnitAssertRector::class => [],
+            \Rector\PhpSpecToPHPUnit\Rector\ClassMethod\PhpSpecMethodToPHPUnitMethodRector::class => [],
+            \Rector\PhpSpecToPHPUnit\Rector\Class_\PhpSpecClassToPHPUnitClassRector::class => [],
+            \Rector\PhpSpecToPHPUnit\Rector\Class_\AddMockPropertiesRector::class => [],
+            \Rector\PhpSpecToPHPUnit\Rector\Variable\MockVariableToPropertyFetchRector::class => [],
         ];
     }
 }

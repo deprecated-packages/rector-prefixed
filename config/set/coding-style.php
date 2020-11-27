@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\CodingStyle\Rector\Assign\ManualJsonStringToJsonEncodeArrayRector;
 use Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector;
@@ -30,43 +31,33 @@ use Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector;
 use Rector\CodingStyle\Rector\Use_\SplitGroupedUseImportsRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(NullableCompareToNullRector::class);
-    $services->set(BinarySwitchToIfElseRector::class);
-    $services->set(ConsistentImplodeRector::class);
-    $services->set(TernaryConditionVariableAssignmentRector::class);
-    $services->set(RemoveUnusedAliasRector::class);
-    $services->set(SymplifyQuoteEscapeRector::class);
-    $services->set(SplitGroupedConstantsAndPropertiesRector::class);
-    $services->set(SplitStringClassConstantToClassConstFetchRector::class);
-    $services->set(StringClassNameToClassConstantRector::class);
-    $services->set(ConsistentPregDelimiterRector::class);
-    $services->set(FollowRequireByDirRector::class);
-    $services->set(CatchExceptionNameMatchingTypeRector::class);
-    $services->set(UseIncrementAssignRector::class);
-    $services->set(SplitDoubleAssignRector::class);
-    $services->set(VarConstantCommentRector::class);
-    $services->set(EncapsedStringsToSprintfRector::class);
-    $services->set(WrapEncapsedVariableInCurlyBracesRector::class);
-    $services->set(NewlineBeforeNewAssignSetRector::class);
-    $services->set(ManualJsonStringToJsonEncodeArrayRector::class);
-    $services->set(AddArrayDefaultToArrayPropertyRector::class);
-    $services->set(MakeInheritedMethodVisibilitySameAsParentRector::class);
-    $services->set(CallUserFuncCallToVariadicRector::class);
-    $services->set(VersionCompareFuncCallToConstantRector::class);
-
-    $services->set(FunctionCallToConstantRector::class)
-        ->call('configure', [[
-            FunctionCallToConstantRector::FUNCTIONS_TO_CONSTANTS => [
-                'php_sapi_name' => 'PHP_SAPI',
-                'pi' => 'M_PI',
-            ],
-        ]]);
-
-    $services->set(CamelCaseFunctionNamingToUnderscoreRector::class);
-    $services->set(SplitGroupedUseImportsRector::class);
-    $services->set(RemoveDoubleUnderscoreInMethodNameRector::class);
+    $services->set(\Rector\CodingStyle\Rector\If_\NullableCompareToNullRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class);
+    $services->set(\Rector\CodingStyle\Rector\FuncCall\ConsistentImplodeRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Ternary\TernaryConditionVariableAssignmentRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class);
+    $services->set(\Rector\CodingStyle\Rector\String_\SymplifyQuoteEscapeRector::class);
+    $services->set(\Rector\CodingStyle\Rector\ClassConst\SplitGroupedConstantsAndPropertiesRector::class);
+    $services->set(\Rector\CodingStyle\Rector\String_\SplitStringClassConstantToClassConstFetchRector::class);
+    $services->set(\Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::class);
+    $services->set(\Rector\CodingStyle\Rector\FuncCall\ConsistentPregDelimiterRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Include_\FollowRequireByDirRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Plus\UseIncrementAssignRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector::class);
+    $services->set(\Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class);
+    $services->set(\Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Assign\ManualJsonStringToJsonEncodeArrayRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector::class);
+    $services->set(\Rector\CodingStyle\Rector\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector::class);
+    $services->set(\Rector\CodingStyle\Rector\FuncCall\CallUserFuncCallToVariadicRector::class);
+    $services->set(\Rector\CodingStyle\Rector\FuncCall\VersionCompareFuncCallToConstantRector::class);
+    $services->set(\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector::class)->call('configure', [[\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI', 'pi' => 'M_PI']]]);
+    $services->set(\Rector\CodingStyle\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector::class);
+    $services->set(\Rector\CodingStyle\Rector\Use_\SplitGroupedUseImportsRector::class);
+    $services->set(\Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector::class);
 };

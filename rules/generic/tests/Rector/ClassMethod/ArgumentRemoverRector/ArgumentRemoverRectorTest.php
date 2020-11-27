@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\ClassMethod\ArgumentRemoverRector;
 
 use Iterator;
@@ -10,44 +9,26 @@ use Rector\Generic\Tests\Rector\ClassMethod\ArgumentRemoverRector\Source\Persist
 use Rector\Generic\Tests\Rector\ClassMethod\ArgumentRemoverRector\Source\RemoveInTheMiddle;
 use Rector\Generic\ValueObject\ArgumentRemover;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symfony\Component\Yaml\Yaml;
+use _PhpScoper006a73f0e455\Symfony\Component\Yaml\Yaml;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class ArgumentRemoverRectorTest extends AbstractRectorTestCase
+final class ArgumentRemoverRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            ArgumentRemoverRector::class => [
-                ArgumentRemoverRector::REMOVED_ARGUMENTS => [
-                    new ArgumentRemover(Persister::class, 'getSelectJoinColumnSQL', 4, null),
-                    new ArgumentRemover(Yaml::class, 'parse', 1, [
-                        'Symfony\Component\Yaml\Yaml::PARSE_KEYS_AS_STRINGS',
-                        'hey',
-                        55,
-                        5.5,
-                    ]),
-                    new ArgumentRemover(RemoveInTheMiddle::class, 'run', 1, [
-                        'name' => 'second',
-                    ]),
-                ],
-            ],
-        ];
+        return [\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::class => [\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::REMOVED_ARGUMENTS => [new \Rector\Generic\ValueObject\ArgumentRemover(\Rector\Generic\Tests\Rector\ClassMethod\ArgumentRemoverRector\Source\Persister::class, 'getSelectJoinColumnSQL', 4, null), new \Rector\Generic\ValueObject\ArgumentRemover(\_PhpScoper006a73f0e455\Symfony\Component\Yaml\Yaml::class, 'parse', 1, ['Symfony\\Component\\Yaml\\Yaml::PARSE_KEYS_AS_STRINGS', 'hey', 55, 5.5]), new \Rector\Generic\ValueObject\ArgumentRemover(\Rector\Generic\Tests\Rector\ClassMethod\ArgumentRemoverRector\Source\RemoveInTheMiddle::class, 'run', 1, ['name' => 'second'])]]];
     }
 }

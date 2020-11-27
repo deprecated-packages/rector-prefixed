@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
 use PhpParser\Node;
@@ -16,83 +15,62 @@ use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
-final class MagicNetteFactoryInterfaceFormControlTypeResolver implements FormControlTypeResolverInterface, MethodNamesByInputNamesResolverAwareInterface
+final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var MethodNamesByInputNamesResolver
      */
     private $methodNamesByInputNamesResolver;
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-
-    public function __construct(
-        NodeRepository $nodeRepository,
-        NodeNameResolver $nodeNameResolver,
-        NodeTypeResolver $nodeTypeResolver
-    ) {
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
     }
-
     /**
      * @return array<string, string>
      */
-    public function resolve(Node $node): array
+    public function resolve(\PhpParser\Node $node) : array
     {
-        if (! $node instanceof MethodCall) {
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return [];
         }
-
         // skip constructor, handled elsewhere
-        if ($this->nodeNameResolver->isName($node, MethodName::CONSTRUCT)) {
+        if ($this->nodeNameResolver->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return [];
         }
-
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
         if ($classMethod === null) {
             return [];
         }
-
-        $classLike = $classMethod->getAttribute(AttributeKey::CLASS_NODE);
-
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         // magic interface handled esle where
-        if (! $classLike instanceof Interface_) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Interface_) {
             return [];
         }
-
         $returnedType = $this->nodeTypeResolver->getStaticType($node);
-        if (! $returnedType instanceof TypeWithClassName) {
+        if (!$returnedType instanceof \PHPStan\Type\TypeWithClassName) {
             return [];
         }
-
-        $constructorClassMethod = $this->nodeRepository->findClassMethod(
-            $returnedType->getClassName(),
-            MethodName::CONSTRUCT
-        );
-
+        $constructorClassMethod = $this->nodeRepository->findClassMethod($returnedType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructorClassMethod === null) {
             return [];
         }
-
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
-
-    public function setResolver(MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver): void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

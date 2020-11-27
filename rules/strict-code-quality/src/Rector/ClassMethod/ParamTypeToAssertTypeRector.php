@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\StrictCodeQuality\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -25,17 +24,14 @@ use Rector\PHPStan\Type\FullyQualifiedObjectType;
 use Rector\PHPStan\Type\ShortenedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\StrictCodeQuality\Tests\Rector\ClassMethod\ParamTypeToAssertTypeRector\ParamTypeToAssertTypeRectorTest
  */
-final class ParamTypeToAssertTypeRector extends AbstractRector
+final class ParamTypeToAssertTypeRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Turn @param type to assert type', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @param type to assert type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -47,8 +43,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -60,142 +55,110 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
-
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         /** @var Type[] $paramTypes */
         $paramTypes = $phpDocInfo->getParamTypesByName();
-
         /** @var Param[] $params */
         $params = $node->getParams();
-
         if ($paramTypes === [] || $params === []) {
             return null;
         }
-
         $toBeProcessedTypes = [];
         foreach ($paramTypes as $key => $paramType) {
-            if (! $paramType instanceof FullyQualifiedObjectType && ! $paramType instanceof UnionType && ! $paramType instanceof ShortenedObjectType) {
+            if (!$paramType instanceof \Rector\PHPStan\Type\FullyQualifiedObjectType && !$paramType instanceof \PHPStan\Type\UnionType && !$paramType instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
                 continue;
             }
-
             $types = $this->getTypes($paramType);
             if ($this->isNotClassTypes($types)) {
                 continue;
             }
-
             $toBeProcessedTypes = $this->getToBeProcessedTypes($params, $key, $types, $toBeProcessedTypes);
         }
-
         return $this->processAddTypeAssert($node, $toBeProcessedTypes);
     }
-
     /**
      * @return Type[]
      */
-    private function getTypes(Type $type): array
+    private function getTypes(\PHPStan\Type\Type $type) : array
     {
-        return ! $type instanceof UnionType
-            ? [$type]
-            : $type->getTypes();
+        return !$type instanceof \PHPStan\Type\UnionType ? [$type] : $type->getTypes();
     }
-
     /**
      * @param Type[] $types
      */
-    private function isNotClassTypes(array $types): bool
+    private function isNotClassTypes(array $types) : bool
     {
         foreach ($types as $type) {
-            if (! $type instanceof FullyQualifiedObjectType && ! $type instanceof ShortenedObjectType) {
-                return true;
+            if (!$type instanceof \Rector\PHPStan\Type\FullyQualifiedObjectType && !$type instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @param Param[] $params
      * @param Type[] $types
      * @param array<string, array<int, string>> $toBeProcessedTypes
      * @return array<string, array<int, string>>
      */
-    private function getToBeProcessedTypes(array $params, string $key, array $types, array $toBeProcessedTypes): array
+    private function getToBeProcessedTypes(array $params, string $key, array $types, array $toBeProcessedTypes) : array
     {
         foreach ($params as $param) {
             $paramVarName = $this->getName($param->var);
-            if (! $param->type instanceof FullyQualified || $key !== '$' . $paramVarName) {
+            if (!$param->type instanceof \PhpParser\Node\Name\FullyQualified || $key !== '$' . $paramVarName) {
                 continue;
             }
-
             foreach ($types as $type) {
-                $className = $type instanceof ShortenedObjectType
-                    ? $type->getFullyQualifiedName()
-                    : $type->getClassName();
-
-                if (! is_a($className, $param->type->toString(), true) || $className === $param->type->toString()) {
+                $className = $type instanceof \Rector\PHPStan\Type\ShortenedObjectType ? $type->getFullyQualifiedName() : $type->getClassName();
+                if (!\is_a($className, $param->type->toString(), \true) || $className === $param->type->toString()) {
                     continue 2;
                 }
-
                 $toBeProcessedTypes[$paramVarName][] = '\\' . $className;
             }
         }
-
         return $toBeProcessedTypes;
     }
-
     /**
      * @param array<string, array<int, string>> $toBeProcessedTypes
      */
-    private function processAddTypeAssert(ClassMethod $classMethod, array $toBeProcessedTypes): ClassMethod
+    private function processAddTypeAssert(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $toBeProcessedTypes) : \PhpParser\Node\Stmt\ClassMethod
     {
         $assertStatements = [];
         foreach ($toBeProcessedTypes as $key => $toBeProcessedType) {
             $types = [];
             foreach ($toBeProcessedType as $keyType => $type) {
-                $toBeProcessedType[$keyType] = sprintf('%s::class', $type);
-                $types[] = new ArrayItem(new ConstFetch(new Name($toBeProcessedType[$keyType])));
+                $toBeProcessedType[$keyType] = \sprintf('%s::class', $type);
+                $types[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($toBeProcessedType[$keyType])));
             }
-
-            if (count($types) > 1) {
-                $assertStatements[] = new Expression(new StaticCall(new Name('\Webmozart\Assert\Assert'), 'isAnyOf', [
-                    new Arg(new Variable($key)),
-                    new Arg(new Array_($types)),
-                ]));
+            if (\count($types) > 1) {
+                $assertStatements[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('_PhpScoper006a73f0e455\\Webmozart\\Assert\\Assert'), 'isAnyOf', [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable($key)), new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($types))]));
             } else {
-                $assertStatements[] = new Expression(new StaticCall(new Name('\Webmozart\Assert\Assert'), 'isAOf', [
-                    new Arg(new Variable($key)),
-                    new Arg(new ConstFetch(new Name($toBeProcessedType[0]))),
-                ]));
+                $assertStatements[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('_PhpScoper006a73f0e455\\Webmozart\\Assert\\Assert'), 'isAOf', [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable($key)), new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($toBeProcessedType[0])))]));
             }
         }
-
         return $this->addStatements($classMethod, $assertStatements);
     }
-
     /**
      * @param array<int, Expression> $assertStatements
      */
-    private function addStatements(ClassMethod $classMethod, array $assertStatements): ClassMethod
+    private function addStatements(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $assertStatements) : \PhpParser\Node\Stmt\ClassMethod
     {
-        if (! isset($classMethod->stmts[0])) {
+        if (!isset($classMethod->stmts[0])) {
             foreach ($assertStatements as $assertStatement) {
                 $classMethod->stmts[] = $assertStatement;
             }
@@ -204,7 +167,6 @@ CODE_SAMPLE
                 $this->addNodeBeforeNode($assertStatement, $classMethod->stmts[0]);
             }
         }
-
         return $classMethod;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\Class_;
 
 use PhpParser\Node;
@@ -15,53 +14,44 @@ use Rector\Naming\ValueObject\ExpectedName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Webmozart\Assert\Assert;
-
+use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\Class_\AddPropertyByParentRector\AddPropertyByParentRectorTest
  */
-final class AddPropertyByParentRector extends AbstractRector implements ConfigurableRectorInterface
+final class AddPropertyByParentRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
      * @var string
      */
     public const PARENT_DEPENDENCIES = 'parent_dependencies';
-
     /**
      * @var AddPropertyByParent[]
      */
     private $parentDependencies = [];
-
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
-
-    public function __construct(PropertyNaming $propertyNaming)
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->propertyNaming = $propertyNaming;
     }
-
     /**
      * @return class-string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Add dependency via constructor by parent class type', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add dependency via constructor by parent class type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeClass extends SomeParentClass
 {
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass extends SomeParentClass
 {
     /**
@@ -75,44 +65,32 @@ final class SomeClass extends SomeParentClass
     }
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::PARENT_DEPENDENCIES => [
-                        'SomeParentClass' => ['SomeDependency'],
-                    ],
-                ]
-            ),
-        ]);
+, [self::PARENT_DEPENDENCIES => ['SomeParentClass' => ['SomeDependency']]])]);
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->extends === null) {
             return null;
         }
-
-        $currentParentClassName = $node->getAttribute(AttributeKey::PARENT_CLASS_NAME);
+        $currentParentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         foreach ($this->parentDependencies as $parentDependency) {
             if ($currentParentClassName !== $parentDependency->getParentClass()) {
                 continue;
             }
-
-            $propertyType = new ObjectType($parentDependency->getDependencyType());
+            $propertyType = new \PHPStan\Type\ObjectType($parentDependency->getDependencyType());
             /** @var ExpectedName $propertyName */
             $propertyName = $this->propertyNaming->getExpectedNameFromType($propertyType);
             $this->addConstructorDependencyToClass($node, $propertyType, $propertyName->getName());
         }
-
         return $node;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $parentDependencies = $configuration[self::PARENT_DEPENDENCIES] ?? [];
-        Assert::allIsInstanceOf($parentDependencies, AddPropertyByParent::class);
+        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::allIsInstanceOf($parentDependencies, \Rector\Generic\ValueObject\AddPropertyByParent::class);
         $this->parentDependencies = $parentDependencies;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\Rector;
 
 use PhpParser\BuilderFactory;
@@ -33,114 +32,74 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\Skipper\Skipper\Skipper;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-abstract class AbstractRector extends NodeVisitorAbstract implements PhpRectorInterface
+abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements \Rector\Core\Contract\Rector\PhpRectorInterface
 {
     use AbstractRectorTrait;
-
     /**
      * @var string[]
      */
-    private const ATTRIBUTES_TO_MIRROR = [
-        AttributeKey::PARENT_NODE,
-        AttributeKey::CLASS_NODE,
-        AttributeKey::CLASS_NAME,
-        AttributeKey::FILE_INFO,
-        AttributeKey::METHOD_NODE,
-        AttributeKey::USE_NODES,
-        AttributeKey::SCOPE,
-        AttributeKey::METHOD_NAME,
-        AttributeKey::NAMESPACE_NAME,
-        AttributeKey::NAMESPACE_NODE,
-        AttributeKey::RESOLVED_NAME,
-    ];
-
+    private const ATTRIBUTES_TO_MIRROR = [\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, \Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, \Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES, \Rector\NodeTypeResolver\Node\AttributeKey::SCOPE, \Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME, \Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME, \Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME];
     /**
      * @var string
      */
     private const COMMENTS = 'comments';
-
     /**
      * @var BuilderFactory
      */
     protected $builderFactory;
-
     /**
      * @var ParameterProvider
      */
     protected $parameterProvider;
-
     /**
      * @var PhpVersionProvider
      */
     protected $phpVersionProvider;
-
     /**
      * @var DocBlockManipulator
      */
     protected $docBlockManipulator;
-
     /**
      * @var StaticTypeMapper
      */
     protected $staticTypeMapper;
-
     /**
      * @var SmartFileInfo
      */
     private $currentFileInfo;
-
     /**
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-
     /**
      * @var ExclusionManager
      */
     private $exclusionManager;
-
     /**
      * @var CurrentRectorProvider
      */
     private $currentRectorProvider;
-
     /**
      * @var ClassNodeAnalyzer
      */
     private $classNodeAnalyzer;
-
     /**
      * @var CurrentNodeProvider
      */
     private $currentNodeProvider;
-
     /**
      * @var Skipper
      */
     private $skipper;
-
     /**
      * @var string|null
      */
     private $previousAppliedClass;
-
     /**
      * @required
      */
-    public function autowireAbstractRector(
-        SymfonyStyle $symfonyStyle,
-        PhpVersionProvider $phpVersionProvider,
-        BuilderFactory $builderFactory,
-        ExclusionManager $exclusionManager,
-        DocBlockManipulator $docBlockManipulator,
-        StaticTypeMapper $staticTypeMapper,
-        ParameterProvider $parameterProvider,
-        CurrentRectorProvider $currentRectorProvider,
-        ClassNodeAnalyzer $classNodeAnalyzer,
-        CurrentNodeProvider $currentNodeProvider,
-        Skipper $skipper
-    ): void {
+    public function autowireAbstractRector(\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator $docBlockManipulator, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Symplify\Skipper\Skipper\Skipper $skipper) : void
+    {
         $this->symfonyStyle = $symfonyStyle;
         $this->phpVersionProvider = $phpVersionProvider;
         $this->builderFactory = $builderFactory;
@@ -153,88 +112,70 @@ abstract class AbstractRector extends NodeVisitorAbstract implements PhpRectorIn
         $this->currentNodeProvider = $currentNodeProvider;
         $this->skipper = $skipper;
     }
-
     /**
      * @return Node[]|null
      */
-    public function beforeTraverse(array $nodes): ?array
+    public function beforeTraverse(array $nodes) : ?array
     {
         $this->previousAppliedClass = null;
-
         return parent::beforeTraverse($nodes);
     }
-
     /**
      * @param string[] $types
      */
-    public function hasParentTypes(Node $node, array $types): bool
+    public function hasParentTypes(\PhpParser\Node $node, array $types) : bool
     {
         foreach ($types as $type) {
-            if (! is_a($type, Node::class, true)) {
-                throw new ShouldNotHappenException(__METHOD__);
+            if (!\is_a($type, \PhpParser\Node::class, \true)) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException(__METHOD__);
             }
-
             if ($this->hasParentType($node, $type)) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    public function hasParentType(Node $node, string $type): bool
+    public function hasParentType(\PhpParser\Node $node, string $type) : bool
     {
-        $parent = $node->getAttribute(AttributeKey::PARENT_NODE);
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent === null) {
-            return false;
+            return \false;
         }
-
-        return is_a($parent, $type, true);
+        return \is_a($parent, $type, \true);
     }
-
     /**
      * @return Expression|Node|null
      */
-    final public function enterNode(Node $node)
+    public final function enterNode(\PhpParser\Node $node)
     {
-        $nodeClass = get_class($node);
-        if (! $this->isMatchingNodeType($nodeClass)) {
+        $nodeClass = \get_class($node);
+        if (!$this->isMatchingNodeType($nodeClass)) {
             return null;
         }
-
-        $this->currentFileInfo = $node->getAttribute(SmartFileInfo::class);
-
+        $this->currentFileInfo = $node->getAttribute(\Symplify\SmartFileSystem\SmartFileInfo::class);
         $this->currentRectorProvider->changeCurrentRector($this);
-
         // mostly for PHP doc and change notifications
         $this->currentNodeProvider->setNode($node);
-
         // already removed
         if ($this->isNodeRemoved($node)) {
             return null;
         }
-
         if ($this->exclusionManager->isNodeSkippedByRector($this, $node)) {
             return null;
         }
-
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-        if ($fileInfo instanceof SmartFileInfo && $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo)) {
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        if ($fileInfo instanceof \Symplify\SmartFileSystem\SmartFileInfo && $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo)) {
             return null;
         }
-
         // show current Rector class on --debug
         $this->printDebugApplying();
-
-        $originalNode = $node->getAttribute(AttributeKey::ORIGINAL_NODE) ?? clone $node;
+        $originalNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE) ?? clone $node;
         $originalNodeWithAttributes = clone $node;
         $node = $this->refactor($node);
-
         // nothing to change → continue
         if ($node === null) {
             return null;
         }
-
         // changed!
         if ($this->hasNodeChanged($originalNode, $node)) {
             $this->mirrorAttributes($originalNodeWithAttributes, $node);
@@ -242,234 +183,192 @@ abstract class AbstractRector extends NodeVisitorAbstract implements PhpRectorIn
             $this->keepFileInfoAttribute($node, $originalNode);
             $this->notifyNodeFileInfo($node);
         }
-
         // if stmt ("$value;") was replaced by expr ("$value"), add the ending ";" (Expression) to prevent breaking the code
-        if ($originalNode instanceof Stmt && $node instanceof Expr) {
-            return new Expression($node);
+        if ($originalNode instanceof \PhpParser\Node\Stmt && $node instanceof \PhpParser\Node\Expr) {
+            return new \PhpParser\Node\Stmt\Expression($node);
         }
-
         return $node;
     }
-
-    protected function getNextExpression(Node $node): ?Node
+    protected function getNextExpression(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $currentExpression = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        if (! $currentExpression instanceof Expression) {
+        $currentExpression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        if (!$currentExpression instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-
-        return $currentExpression->getAttribute(AttributeKey::NEXT_NODE);
+        return $currentExpression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
     }
-
     /**
      * @param Expr[]|null[] $nodes
      * @param mixed[] $expectedValues
      */
-    protected function areValues(array $nodes, array $expectedValues): bool
+    protected function areValues(array $nodes, array $expectedValues) : bool
     {
         foreach ($nodes as $i => $node) {
             if ($node !== null && $this->isValue($node, $expectedValues[$i])) {
                 continue;
             }
-
-            return false;
+            return \false;
         }
-
-        return true;
+        return \true;
     }
-
-    protected function isAtLeastPhpVersion(int $version): bool
+    protected function isAtLeastPhpVersion(int $version) : bool
     {
         return $this->phpVersionProvider->isAtLeastPhpVersion($version);
     }
-
-    protected function isAnonymousClass(Node $node): bool
+    protected function isAnonymousClass(\PhpParser\Node $node) : bool
     {
         return $this->classNodeAnalyzer->isAnonymousClass($node);
     }
-
-    protected function mirrorComments(Node $newNode, Node $oldNode): void
+    protected function mirrorComments(\PhpParser\Node $newNode, \PhpParser\Node $oldNode) : void
     {
-        $newNode->setAttribute(AttributeKey::PHP_DOC_INFO, $oldNode->getAttribute(AttributeKey::PHP_DOC_INFO));
+        $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $oldNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO));
         $newNode->setAttribute(self::COMMENTS, $oldNode->getAttribute(self::COMMENTS));
     }
-
     /**
      * @param Stmt[] $stmts
      */
-    protected function unwrapStmts(array $stmts, Node $node): void
+    protected function unwrapStmts(array $stmts, \PhpParser\Node $node) : void
     {
         foreach ($stmts as $key => $ifStmt) {
             if ($key === 0) {
                 // move /* */ doc block from if to first element to keep it
-                $currentPhpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
-                $ifStmt->setAttribute(AttributeKey::PHP_DOC_INFO, $currentPhpDocInfo);
-
+                $currentPhpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+                $ifStmt->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $currentPhpDocInfo);
                 // move // comments
                 $ifStmt->setAttribute(self::COMMENTS, $node->getComments());
             }
-
             $this->addNodeAfterNode($ifStmt, $node);
         }
     }
-
-    protected function isOnClassMethodCall(Node $node, string $type, string $methodName): bool
+    protected function isOnClassMethodCall(\PhpParser\Node $node, string $type, string $methodName) : bool
     {
-        if (! $node instanceof MethodCall) {
-            return false;
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
         }
-
-        if (! $this->isObjectType($node->var, $type)) {
-            return false;
+        if (!$this->isObjectType($node->var, $type)) {
+            return \false;
         }
-
         return $this->isName($node->name, $methodName);
     }
-
-    protected function isOpenSourceProjectType(): bool
+    protected function isOpenSourceProjectType() : bool
     {
-        $projectType = $this->parameterProvider->provideParameter(Option::PROJECT_TYPE);
-
-        return in_array(
+        $projectType = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::PROJECT_TYPE);
+        return \in_array(
             $projectType,
             // make it typo proof
-            [ProjectType::OPEN_SOURCE, ProjectType::OPEN_SOURCE_UNDESCORED],
-            true
+            [\Rector\Core\ValueObject\ProjectType::OPEN_SOURCE, \Rector\Core\ValueObject\ProjectType::OPEN_SOURCE_UNDESCORED],
+            \true
         );
     }
-
     /**
      * @param Expr $expr
      */
-    protected function createBoolCast(?Node $parentNode, Node $expr): Bool_
+    protected function createBoolCast(?\PhpParser\Node $parentNode, \PhpParser\Node $expr) : \PhpParser\Node\Expr\Cast\Bool_
     {
-        if ($parentNode instanceof Return_ && $expr instanceof Assign) {
+        if ($parentNode instanceof \PhpParser\Node\Stmt\Return_ && $expr instanceof \PhpParser\Node\Expr\Assign) {
             $expr = $expr->expr;
         }
-
-        return new Bool_($expr);
+        return new \PhpParser\Node\Expr\Cast\Bool_($expr);
     }
-
     /**
      * @param string[] $allowedTypes
      */
-    protected function isAllowedType(string $currentType, array $allowedTypes): bool
+    protected function isAllowedType(string $currentType, array $allowedTypes) : bool
     {
         foreach ($allowedTypes as $allowedType) {
-            if (is_a($currentType, $allowedType, true)) {
-                return true;
+            if (\is_a($currentType, $allowedType, \true)) {
+                return \true;
             }
-
-            if (fnmatch($allowedType, $currentType, FNM_NOESCAPE)) {
-                return true;
+            if (\fnmatch($allowedType, $currentType, \FNM_NOESCAPE)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @param Arg[] $newArgs
      * @param Arg[] $appendingArgs
      * @return Arg[]
      */
-    protected function appendArgs(array $newArgs, array $appendingArgs): array
+    protected function appendArgs(array $newArgs, array $appendingArgs) : array
     {
         foreach ($appendingArgs as $oldArgument) {
-            $newArgs[] = new Arg($oldArgument->value);
+            $newArgs[] = new \PhpParser\Node\Arg($oldArgument->value);
         }
-
         return $newArgs;
     }
-
-    protected function getFileInfo(): SmartFileInfo
+    protected function getFileInfo() : \Symplify\SmartFileSystem\SmartFileInfo
     {
         if ($this->currentFileInfo === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         return $this->currentFileInfo;
     }
-
-    private function isMatchingNodeType(string $nodeClass): bool
+    private function isMatchingNodeType(string $nodeClass) : bool
     {
         foreach ($this->getNodeTypes() as $nodeType) {
-            if (is_a($nodeClass, $nodeType, true)) {
-                return true;
+            if (\is_a($nodeClass, $nodeType, \true)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    private function printDebugApplying(): void
+    private function printDebugApplying() : void
     {
-        if (! $this->symfonyStyle->isDebug()) {
+        if (!$this->symfonyStyle->isDebug()) {
             return;
         }
-
         if ($this->previousAppliedClass === static::class) {
             return;
         }
-
         // prevent spamming with the same class over and over
         // indented on purpose to improve log nesting under [refactoring]
         $this->symfonyStyle->writeln('    [applying] ' . static::class);
         $this->previousAppliedClass = static::class;
     }
-
-    private function hasNodeChanged(Node $originalNode, Node $node): bool
+    private function hasNodeChanged(\PhpParser\Node $originalNode, \PhpParser\Node $node) : bool
     {
         if ($this->isNameIdentical($node, $originalNode)) {
-            return false;
+            return \false;
         }
-
-        return ! $this->areNodesEqual($originalNode, $node);
+        return !$this->areNodesEqual($originalNode, $node);
     }
-
-    private function mirrorAttributes(Node $oldNode, Node $newNode): void
+    private function mirrorAttributes(\PhpParser\Node $oldNode, \PhpParser\Node $newNode) : void
     {
         foreach ($oldNode->getAttributes() as $attributeName => $oldNodeAttributeValue) {
-            if (! in_array($attributeName, self::ATTRIBUTES_TO_MIRROR, true)) {
+            if (!\in_array($attributeName, self::ATTRIBUTES_TO_MIRROR, \true)) {
                 continue;
             }
-
             $newNode->setAttribute($attributeName, $oldNodeAttributeValue);
         }
     }
-
-    private function updateAttributes(Node $node): void
+    private function updateAttributes(\PhpParser\Node $node) : void
     {
         // update Resolved name attribute if name is changed
-        if ($node instanceof Name) {
-            $node->setAttribute(AttributeKey::RESOLVED_NAME, $node->toString());
+        if ($node instanceof \PhpParser\Node\Name) {
+            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME, $node->toString());
         }
     }
-
-    private function keepFileInfoAttribute(Node $node, Node $originalNode): void
+    private function keepFileInfoAttribute(\PhpParser\Node $node, \PhpParser\Node $originalNode) : void
     {
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-        if ($fileInfo instanceof SmartFileInfo) {
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        if ($fileInfo instanceof \Symplify\SmartFileSystem\SmartFileInfo) {
             return;
         }
-        $fileInfo = $originalNode->getAttribute(AttributeKey::FILE_INFO);
-
-        $originalParent = $originalNode->getAttribute(AttributeKey::PARENT_NODE);
-
+        $fileInfo = $originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $originalParent = $originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($fileInfo !== null) {
-            $node->setAttribute(AttributeKey::FILE_INFO, $originalNode->getAttribute(AttributeKey::FILE_INFO));
-        } elseif ($originalParent instanceof Node) {
-            $node->setAttribute(AttributeKey::FILE_INFO, $originalParent->getAttribute(AttributeKey::FILE_INFO));
+            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO));
+        } elseif ($originalParent instanceof \PhpParser\Node) {
+            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $originalParent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO));
         }
     }
-
-    private function isNameIdentical(Node $node, Node $originalNode): bool
+    private function isNameIdentical(\PhpParser\Node $node, \PhpParser\Node $originalNode) : bool
     {
-        if (! $originalNode instanceof Name) {
-            return false;
+        if (!$originalNode instanceof \PhpParser\Node\Name) {
+            return \false;
         }
-
         // names are the same
-        return $this->areNodesEqual($originalNode->getAttribute(AttributeKey::ORIGINAL_NAME), $node);
+        return $this->areNodesEqual($originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME), $node);
     }
 }

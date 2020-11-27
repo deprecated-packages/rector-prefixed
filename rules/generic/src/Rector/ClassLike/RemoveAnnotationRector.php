@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\ClassLike;
 
 use PhpParser\Node;
@@ -15,27 +14,22 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Generic\Tests\Rector\ClassLike\RemoveAnnotationRector\RemoveAnnotationRectorTest
  */
-final class RemoveAnnotationRector extends AbstractRector implements ConfigurableRectorInterface
+final class RemoveAnnotationRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const ANNOTATIONS_TO_REMOVE = 'annotations_to_remove';
-
     /**
      * @var mixed[]
      */
     private $annotationsToRemove = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Remove annotation by names', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove annotation by names', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 /**
  * @method getName()
  */
@@ -43,54 +37,42 @@ final class SomeClass
 {
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass
 {
 }
 CODE_SAMPLE
-,
-                [
-                    self::ANNOTATIONS_TO_REMOVE => ['method'],
-                ]
-            ),
-        ]);
+, [self::ANNOTATIONS_TO_REMOVE => ['method']])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassLike::class, FunctionLike::class, Property::class, ClassConst::class];
+        return [\PhpParser\Node\Stmt\ClassLike::class, \PhpParser\Node\FunctionLike::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassConst::class];
     }
-
     /**
      * @param ClassLike|FunctionLike|Property|ClassConst $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
-
         foreach ($this->annotationsToRemove as $annotationToRemove) {
-            if (! $phpDocInfo->hasByName($annotationToRemove)) {
+            if (!$phpDocInfo->hasByName($annotationToRemove)) {
                 continue;
             }
-
             $phpDocInfo->removeByName($annotationToRemove);
         }
-
         return $node;
     }
-
     /**
      * @param mixed[] $configuration
      */
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $this->annotationsToRemove = $configuration[self::ANNOTATIONS_TO_REMOVE] ?? [];
     }

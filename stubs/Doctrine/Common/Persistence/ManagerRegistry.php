@@ -1,18 +1,15 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Doctrine\Common\Persistence;
 
-namespace Doctrine\Common\Persistence;
-
-use Doctrine\ORM\EntityManagerInterface;
-
-if (class_exists('Doctrine\Common\Persistence\ManagerRegistry')) {
+use _PhpScoper006a73f0e455\Doctrine\ORM\EntityManagerInterface;
+if (\class_exists('_PhpScoper006a73f0e455\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
     return;
 }
-
 final class ManagerRegistry
 {
-    public function getManager(): ObjectManager
+    public function getManager() : \_PhpScoper006a73f0e455\Doctrine\Common\Persistence\ObjectManager
     {
     }
 }

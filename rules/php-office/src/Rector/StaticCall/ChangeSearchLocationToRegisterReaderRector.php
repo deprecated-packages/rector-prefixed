@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPOffice\Rector\StaticCall;
 
 use PhpParser\Node;
@@ -11,21 +10,16 @@ use PhpParser\Node\Name\FullyQualified;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/migration-from-PHPExcel.md#simplified-iofactory
  *
  * @see \Rector\PHPOffice\Tests\Rector\StaticCall\ChangeSearchLocationToRegisterReaderRector\ChangeSearchLocationToRegisterReaderRectorTest
  */
-final class ChangeSearchLocationToRegisterReaderRector extends AbstractRector
+final class ChangeSearchLocationToRegisterReaderRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change argument addSearchLocation() to registerReader()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change argument addSearchLocation() to registerReader()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -34,8 +28,7 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -44,37 +37,29 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [StaticCall::class];
+        return [\PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param StaticCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isStaticCallNamed($node, 'PHPExcel_IOFactory', 'addSearchLocation')) {
+        if (!$this->isStaticCallNamed($node, 'PHPExcel_IOFactory', 'addSearchLocation')) {
             return null;
         }
-
-        $node->class = new FullyQualified('PhpOffice\PhpSpreadsheet\IOFactory');
-        $node->name = new Identifier('registerReader');
-
+        $node->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\PhpOffice\\PhpSpreadsheet\\IOFactory');
+        $node->name = new \PhpParser\Node\Identifier('registerReader');
         // remove middle argument
         $args = $node->args;
         unset($args[1]);
-
-        $node->args = array_values($args);
-
+        $node->args = \array_values($args);
         return $node;
     }
 }

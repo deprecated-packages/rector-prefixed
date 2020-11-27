@@ -1,0 +1,62 @@
+{
+    "name": "ondrejmirtes\/better-reflection",
+    "description": "Better Reflection - an improved code reflection API",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+        "ext-json": "*",
+        "jetbrains\/phpstorm-stubs": "dev-master#7a3c489a915d08576b6ff5090ae59598ef68ff31",
+        "nikic\/php-parser": "4.10.2",
+        "phpdocumentor\/reflection-docblock": "^4.3.4 || ^5.2.0",
+        "phpdocumentor\/type-resolver": "^1.0.0",
+        "roave\/signature": "1.1.0"
+    },
+    "authors": [
+        {
+            "name": "James Titcumb",
+            "email": "james@asgrim.com",
+            "homepage": "https:\/\/github.com\/asgrim"
+        },
+        {
+            "name": "Marco Pivetta",
+            "email": "ocramius@gmail.com",
+            "homepage": "https:\/\/ocramius.github.io\/"
+        },
+        {
+            "name": "Gary Hockin",
+            "email": "gary@roave.com",
+            "homepage": "https:\/\/github.com\/geeh"
+        },
+        {
+            "name": "Jaroslav Hansl\u00edk",
+            "email": "kukulich@kukulich.cz",
+            "homepage": "https:\/\/github.com\/kukulich"
+        }
+    ],
+    "require-dev": {
+        "phpstan\/phpstan": "^0.12.49",
+        "phpunit\/phpunit": "^7.5.18",
+        "vimeo\/psalm": "3.11.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "_PhpScoper006a73f0e455\\Roave\\BetterReflection\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "_PhpScoper006a73f0e455\\Roave\\BetterReflectionTest\\": "test\/unit",
+            "_PhpScoper006a73f0e455\\Roave\\BetterReflectionBenchmark\\": "test\/benchmark"
+        }
+    },
+    "suggest": {
+        "composer\/composer": "Required to use the ComposerSourceLocator"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

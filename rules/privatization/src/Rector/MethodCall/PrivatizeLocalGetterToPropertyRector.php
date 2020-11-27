@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Privatization\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -14,19 +13,14 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Privatization\Tests\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector\PrivatizeLocalGetterToPropertyRectorTest
  */
-final class PrivatizeLocalGetterToPropertyRector extends AbstractRector
+final class PrivatizeLocalGetterToPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Privatize getter of local property to property',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Privatize getter of local property to property', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     private $some;
@@ -42,8 +36,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     private $some;
@@ -59,62 +52,50 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isVariableName($node->var, 'this')) {
+        if (!$this->isVariableName($node->var, 'this')) {
             return null;
         }
-
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-
         $methodName = $this->getName($node->name);
         if ($methodName === null) {
             return null;
         }
-
         /** @var ClassMethod|null $classMethod */
         $classMethod = $classLike->getMethod($methodName);
         if ($classMethod === null) {
             return null;
         }
-
         return $this->matchLocalPropertyFetchInGetterMethod($classMethod);
     }
-
-    private function matchLocalPropertyFetchInGetterMethod(ClassMethod $classMethod): ?PropertyFetch
+    private function matchLocalPropertyFetchInGetterMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\PropertyFetch
     {
-        if (count((array) $classMethod->getStmts()) !== 1) {
+        if (\count((array) $classMethod->getStmts()) !== 1) {
             return null;
         }
-
         $onlyStmt = $classMethod->stmts[0];
-        if (! $onlyStmt instanceof Return_) {
+        if (!$onlyStmt instanceof \PhpParser\Node\Stmt\Return_) {
             return null;
         }
-
-        if (! $onlyStmt->expr instanceof PropertyFetch) {
+        if (!$onlyStmt->expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
-
         return $onlyStmt->expr;
     }
 }

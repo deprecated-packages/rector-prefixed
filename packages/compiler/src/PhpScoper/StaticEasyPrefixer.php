@@ -1,78 +1,66 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Compiler\PhpScoper;
 
-use Nette\Utils\Strings;
-
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 final class StaticEasyPrefixer
 {
     /**
      * @var string[]
      */
     public const EXCLUDED_CLASSES = [
-        'Symfony\Component\EventDispatcher\EventSubscriberInterface',
-        'Symfony\Component\Console\Style\SymfonyStyle',
+        '_PhpScoper006a73f0e455\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface',
+        '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Style\\SymfonyStyle',
         // part of public interface of configs.php
-        'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
+        '_PhpScoper006a73f0e455\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator',
     ];
-
     /**
      * @var string[]
      */
     private const EXCLUDED_NAMESPACES = [
-        'Hoa\*',
-        'PhpParser\*',
-        'PHPStan\*',
-        'Rector\*',
-        'Symplify\*',
+        'Hoa\\*',
+        'PhpParser\\*',
+        'PHPStan\\*',
+        'Rector\\*',
+        'Symplify\\*',
         // doctrine annotations to autocomplete
-        'Doctrine\ORM\Mapping\*',
+        'Doctrine\\ORM\\Mapping\\*',
     ];
-
     /**
      * @var string
      * @see https://regex101.com/r/P8sXfr/1
      */
-    private const QUOTED_VALUE_REGEX = '#\'\\\\(\w|@)#';
-
-    public static function prefixClass(string $class, string $prefix): string
+    private const QUOTED_VALUE_REGEX = '#\'\\\\(\\w|@)#';
+    public static function prefixClass(string $class, string $prefix) : string
     {
         foreach (self::EXCLUDED_NAMESPACES as $excludedNamespace) {
-            $excludedNamespace = Strings::substring($excludedNamespace, 0, -2) . '\\';
-            if (Strings::startsWith($class, $excludedNamespace)) {
+            $excludedNamespace = \_PhpScoper006a73f0e455\Nette\Utils\Strings::substring($excludedNamespace, 0, -2) . '\\';
+            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::startsWith($class, $excludedNamespace)) {
                 return $class;
             }
         }
-
-        if (Strings::startsWith($class, '@')) {
+        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::startsWith($class, '@')) {
             return $class;
         }
-
         return $prefix . '\\' . $class;
     }
-
-    public static function unPrefixQuotedValues(string $prefix, string $content): string
+    public static function unPrefixQuotedValues(string $prefix, string $content) : string
     {
-        $match = sprintf('\'%s\\\\r\\\\n\'', $prefix);
-        $content = Strings::replace($content, '#' . $match . '#', '\'\\\\r\\\\n\'');
-
-        $match = sprintf('\'%s\\\\', $prefix);
-
-        return Strings::replace($content, '#' . $match . '#', "'");
+        $match = \sprintf('\'%s\\\\r\\\\n\'', $prefix);
+        $content = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($content, '#' . $match . '#', '\'\\\\r\\\\n\'');
+        $match = \sprintf('\'%s\\\\', $prefix);
+        return \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($content, '#' . $match . '#', "'");
     }
-
-    public static function unPreSlashQuotedValues(string $content): string
+    public static function unPreSlashQuotedValues(string $content) : string
     {
-        return Strings::replace($content, self::QUOTED_VALUE_REGEX, "'$1");
+        return \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($content, self::QUOTED_VALUE_REGEX, "'\$1");
     }
-
     /**
      * @return string[]
      */
-    public static function getExcludedNamespacesAndClasses(): array
+    public static function getExcludedNamespacesAndClasses() : array
     {
-        return array_merge(self::EXCLUDED_NAMESPACES, self::EXCLUDED_CLASSES);
+        return \array_merge(self::EXCLUDED_NAMESPACES, self::EXCLUDED_CLASSES);
     }
 }

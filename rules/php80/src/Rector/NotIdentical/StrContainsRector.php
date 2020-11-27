@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php80\Rector\NotIdentical;
 
 use PhpParser\Node;
@@ -12,27 +11,21 @@ use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://externals.io/message/108562
  * @see https://github.com/php/php-src/pull/5179
  *
  * @see \Rector\Php80\Tests\Rector\NotIdentical\StrContainsRector\StrContainsRectorTest
  */
-final class StrContainsRector extends AbstractRector
+final class StrContainsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
     private const OLD_STR_NAMES = ['strpos', 'strstr'];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Replace strpos() !== false and strstr()  with str_contains()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace strpos() !== false and strstr()  with str_contains()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -41,8 +34,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -51,55 +43,44 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [NotIdentical::class];
+        return [\PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
     }
-
     /**
      * @param NotIdentical $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $funcCall = $this->matchNotIdenticalToFalse($node);
         if ($funcCall === null) {
             return null;
         }
-
-        $funcCall->name = new Name('str_contains');
-
+        $funcCall->name = new \PhpParser\Node\Name('str_contains');
         return $funcCall;
     }
-
     /**
      * @return FuncCall|null
      */
-    private function matchNotIdenticalToFalse(NotIdentical $notIdentical): ?Expr
+    private function matchNotIdenticalToFalse(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical) : ?\PhpParser\Node\Expr
     {
         if ($this->isFalse($notIdentical->left)) {
-            if (! $this->isFuncCallNames($notIdentical->right, self::OLD_STR_NAMES)) {
+            if (!$this->isFuncCallNames($notIdentical->right, self::OLD_STR_NAMES)) {
                 return null;
             }
-
             return $notIdentical->right;
         }
-
         if ($this->isFalse($notIdentical->right)) {
-            if (! $this->isFuncCallNames($notIdentical->left, self::OLD_STR_NAMES)) {
+            if (!$this->isFuncCallNames($notIdentical->left, self::OLD_STR_NAMES)) {
                 return null;
             }
-
             return $notIdentical->left;
         }
-
         return null;
     }
 }

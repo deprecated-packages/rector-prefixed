@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector;
 use Rector\CakePHP\ValueObject\ModalToGetSet;
@@ -9,67 +10,10 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-
 # source: https://book.cakephp.org/3.0/en/appendices/3-5-migration-guide.html
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'Cake\Http\Client\CookieCollection' => 'Cake\Http\Cookie\CookieCollection',
-                'Cake\Console\ShellDispatcher' => 'Cake\Console\CommandRunner',
-            ],
-        ]]);
-
-    $services->set(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('Cake\Database\Schema\TableSchema', 'column', 'getColumn'),
-                new MethodCallRename('Cake\Database\Schema\TableSchema', 'constraint', 'getConstraint'),
-                new MethodCallRename('Cake\Database\Schema\TableSchema', 'index', 'getIndex'),
-            ]),
-        ]]);
-
-    $services->set(ModalToGetSetRector::class)
-        ->call('configure', [[
-            ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => ValueObjectInliner::inline([
-                new ModalToGetSet('Cake\Cache\Cache', 'config'),
-                new ModalToGetSet('Cake\Cache\Cache', 'registry'),
-                new ModalToGetSet('Cake\Console\Shell', 'io'),
-                new ModalToGetSet('Cake\Console\ConsoleIo', 'outputAs'),
-                new ModalToGetSet('Cake\Console\ConsoleOutput', 'outputAs'),
-                new ModalToGetSet('Cake\Database\Connection', 'logger'),
-                new ModalToGetSet('Cake\Database\TypedResultInterface', 'returnType'),
-                new ModalToGetSet('Cake\Database\TypedResultTrait', 'returnType'),
-                new ModalToGetSet('Cake\Database\Log\LoggingStatement', 'logger'),
-                new ModalToGetSet('Cake\Datasource\ModelAwareTrait', 'modelType'),
-                new ModalToGetSet('Cake\Database\Query', 'valueBinder', 'getValueBinder', 'valueBinder'),
-                new ModalToGetSet('Cake\Database\Schema\TableSchema', 'columnType'),
-                new ModalToGetSet('Cake\Datasource\QueryTrait', 'eagerLoaded', 'isEagerLoaded', 'eagerLoaded'),
-                new ModalToGetSet('Cake\Event\EventDispatcherInterface', 'eventManager'),
-                new ModalToGetSet('Cake\Event\EventDispatcherTrait', 'eventManager'),
-                new ModalToGetSet('Cake\Error\Debugger', 'outputAs', 'getOutputFormat', 'setOutputFormat'),
-                new ModalToGetSet('Cake\Http\ServerRequest', 'env', 'getEnv', 'withEnv'),
-                new ModalToGetSet('Cake\Http\ServerRequest', 'charset', 'getCharset', 'withCharset'),
-                new ModalToGetSet('Cake\I18n\I18n', 'locale'),
-                new ModalToGetSet('Cake\I18n\I18n', 'translator'),
-                new ModalToGetSet('Cake\I18n\I18n', 'defaultLocale'),
-                new ModalToGetSet('Cake\I18n\I18n', 'defaultFormatter'),
-                new ModalToGetSet('Cake\ORM\Association\BelongsToMany', 'sort'),
-                new ModalToGetSet('Cake\ORM\LocatorAwareTrait', 'tableLocator'),
-                new ModalToGetSet('Cake\ORM\Table', 'validator'),
-                new ModalToGetSet('Cake\Routing\RouteBuilder', 'extensions'),
-                new ModalToGetSet('Cake\Routing\RouteBuilder', 'routeClass'),
-                new ModalToGetSet('Cake\Routing\RouteCollection', 'extensions'),
-                new ModalToGetSet('Cake\TestSuite\TestFixture', 'schema'),
-                new ModalToGetSet('Cake\Utility\Security', 'salt'),
-                new ModalToGetSet('Cake\View\View', 'template'),
-                new ModalToGetSet('Cake\View\View', 'layout'),
-                new ModalToGetSet('Cake\View\View', 'theme'),
-                new ModalToGetSet('Cake\View\View', 'templatePath'),
-                new ModalToGetSet('Cake\View\View', 'layoutPath'),
-                new ModalToGetSet('Cake\View\View', 'autoLayout', 'isAutoLayoutEnabled', 'enableAutoLayout'),
-            ]),
-        ]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper006a73f0e455\\Cake\\Http\\Client\\CookieCollection' => '_PhpScoper006a73f0e455\\Cake\\Http\\Cookie\\CookieCollection', '_PhpScoper006a73f0e455\\Cake\\Console\\ShellDispatcher' => '_PhpScoper006a73f0e455\\Cake\\Console\\CommandRunner']]]);
+    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Cake\\Database\\Schema\\TableSchema', 'column', 'getColumn'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Cake\\Database\\Schema\\TableSchema', 'constraint', 'getConstraint'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Cake\\Database\\Schema\\TableSchema', 'index', 'getIndex')])]]);
+    $services->set(\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::class)->call('configure', [[\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Cache\\Cache', 'config'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Cache\\Cache', 'registry'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Console\\Shell', 'io'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Console\\ConsoleIo', 'outputAs'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Console\\ConsoleOutput', 'outputAs'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Database\\Connection', 'logger'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Database\\TypedResultInterface', 'returnType'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Database\\TypedResultTrait', 'returnType'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Database\\Log\\LoggingStatement', 'logger'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Datasource\\ModelAwareTrait', 'modelType'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Database\\Query', 'valueBinder', 'getValueBinder', 'valueBinder'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Database\\Schema\\TableSchema', 'columnType'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Datasource\\QueryTrait', 'eagerLoaded', 'isEagerLoaded', 'eagerLoaded'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Event\\EventDispatcherInterface', 'eventManager'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Event\\EventDispatcherTrait', 'eventManager'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Error\\Debugger', 'outputAs', 'getOutputFormat', 'setOutputFormat'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Http\\ServerRequest', 'env', 'getEnv', 'withEnv'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Http\\ServerRequest', 'charset', 'getCharset', 'withCharset'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\I18n\\I18n', 'locale'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\I18n\\I18n', 'translator'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\I18n\\I18n', 'defaultLocale'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\I18n\\I18n', 'defaultFormatter'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\ORM\\Association\\BelongsToMany', 'sort'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\ORM\\LocatorAwareTrait', 'tableLocator'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\ORM\\Table', 'validator'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Routing\\RouteBuilder', 'extensions'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Routing\\RouteBuilder', 'routeClass'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Routing\\RouteCollection', 'extensions'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\TestSuite\\TestFixture', 'schema'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Utility\\Security', 'salt'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\View\\View', 'template'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\View\\View', 'layout'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\View\\View', 'theme'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\View\\View', 'templatePath'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\View\\View', 'layoutPath'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\View\\View', 'autoLayout', 'isAutoLayoutEnabled', 'enableAutoLayout')])]]);
 };

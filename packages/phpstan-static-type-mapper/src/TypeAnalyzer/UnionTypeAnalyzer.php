@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeAnalyzer;
 
 use PHPStan\Type\ArrayType;
@@ -11,39 +10,32 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\UnionType;
 use Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis;
 use Traversable;
-
 final class UnionTypeAnalyzer
 {
-    public function analyseForNullableAndIterable(UnionType $unionType): ?UnionTypeAnalysis
+    public function analyseForNullableAndIterable(\PHPStan\Type\UnionType $unionType) : ?\Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis
     {
-        $isNullableType = false;
-        $hasIterable = false;
-        $hasArray = false;
-
+        $isNullableType = \false;
+        $hasIterable = \false;
+        $hasArray = \false;
         foreach ($unionType->getTypes() as $unionedType) {
-            if ($unionedType instanceof IterableType) {
-                $hasIterable = true;
+            if ($unionedType instanceof \PHPStan\Type\IterableType) {
+                $hasIterable = \true;
                 continue;
             }
-
-            if ($unionedType instanceof ArrayType) {
-                $hasArray = true;
+            if ($unionedType instanceof \PHPStan\Type\ArrayType) {
+                $hasArray = \true;
                 continue;
             }
-
-            if ($unionedType instanceof NullType) {
-                $isNullableType = true;
+            if ($unionedType instanceof \PHPStan\Type\NullType) {
+                $isNullableType = \true;
                 continue;
             }
-
-            if ($unionedType instanceof ObjectType && $unionedType->getClassName() === Traversable::class) {
-                $hasIterable = true;
+            if ($unionedType instanceof \PHPStan\Type\ObjectType && $unionedType->getClassName() === \Traversable::class) {
+                $hasIterable = \true;
                 continue;
             }
-
             return null;
         }
-
-        return new UnionTypeAnalysis($isNullableType, $hasIterable, $hasArray);
+        return new \Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis($isNullableType, $hasIterable, $hasArray);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -17,7 +16,6 @@ use Rector\Doctrine\Type\RepositoryTypeFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://www.luzanky.cz/ for sponsoring this rule
  *
@@ -25,38 +23,28 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Doctrine\Tests\Rector\ClassMethod\ServiceEntityRepositoryParentCallToDIRector\ServiceEntityRepositoryParentCallToDIRectorTest
  */
-final class ServiceEntityRepositoryParentCallToDIRector extends AbstractRector
+final class ServiceEntityRepositoryParentCallToDIRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
-    private const SERVICE_ENTITY_REPOSITORY_CLASS = 'Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository';
-
+    private const SERVICE_ENTITY_REPOSITORY_CLASS = '_PhpScoper006a73f0e455\\Doctrine\\Bundle\\DoctrineBundle\\Repository\\ServiceEntityRepository';
     /**
      * @var RepositoryNodeFactory
      */
     private $repositoryNodeFactory;
-
     /**
      * @var RepositoryTypeFactory
      */
     private $repositoryTypeFactory;
-
-    public function __construct(
-        RepositoryNodeFactory $repositoryNodeFactory,
-        RepositoryTypeFactory $repositoryTypeFactory
-    ) {
+    public function __construct(\Rector\Doctrine\NodeFactory\RepositoryNodeFactory $repositoryNodeFactory, \Rector\Doctrine\Type\RepositoryTypeFactory $repositoryTypeFactory)
+    {
         $this->repositoryNodeFactory = $repositoryNodeFactory;
         $this->repositoryTypeFactory = $repositoryTypeFactory;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change ServiceEntityRepository to dependency injection, with repository property',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change ServiceEntityRepository to dependency injection, with repository property', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -68,8 +56,7 @@ final class ProjectRepository extends ServiceEntityRepository
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -92,19 +79,15 @@ final class ProjectRepository extends ServiceEntityRepository
     }
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      *
@@ -112,74 +95,56 @@ CODE_SAMPLE
      * - Doctrine\Common\Persistence\ManagerRegistry
      * - Doctrine\Persistence\ManagerRegistry
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipClassMethod($node)) {
             return null;
         }
-
         /** @var ClassLike|null $classLike */
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-
         // 1. remove params
         $node->params = [];
-
         // 2. remove parent::__construct()
         $entityReferenceExpr = $this->removeParentConstructAndCollectEntityReference($node);
-
         // 3. add $entityManager->getRepository() fetch assign
         $node->stmts[] = $this->repositoryNodeFactory->createRepositoryAssign($entityReferenceExpr);
-
         // 4. add $repository property
         $this->addRepositoryProperty($classLike, $entityReferenceExpr);
-
         // 5. add param + add property, dependency
-        $this->addServiceConstructorDependencyToClass($classLike, 'Doctrine\ORM\EntityManagerInterface');
-
+        $this->addServiceConstructorDependencyToClass($classLike, '_PhpScoper006a73f0e455\\Doctrine\\ORM\\EntityManagerInterface');
         return $node;
     }
-
-    private function shouldSkipClassMethod(ClassMethod $classMethod): bool
+    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string|null $parentClassName */
-        $parentClassName = $classMethod->getAttribute(AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if ($parentClassName === null) {
-            return true;
+            return \true;
         }
-
         return $parentClassName !== self::SERVICE_ENTITY_REPOSITORY_CLASS;
     }
-
-    private function removeParentConstructAndCollectEntityReference(ClassMethod $classMethod): Expr
+    private function removeParentConstructAndCollectEntityReference(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \PhpParser\Node\Expr
     {
         $entityReferenceExpr = null;
-
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (Node $node) use (
-            &$entityReferenceExpr
-        ) {
-            if (! $node instanceof StaticCall) {
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use(&$entityReferenceExpr) {
+            if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return null;
             }
-
-            if (! $this->isName($node->class, 'parent')) {
+            if (!$this->isName($node->class, 'parent')) {
                 return null;
             }
-
             $entityReferenceExpr = $node->args[1]->value;
             $this->removeNode($node);
         });
-
         if ($entityReferenceExpr === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         return $entityReferenceExpr;
     }
-
-    private function addRepositoryProperty(Class_ $class, Expr $entityReferenceExpr): void
+    private function addRepositoryProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr $entityReferenceExpr) : void
     {
         $genericObjectType = $this->repositoryTypeFactory->createRepositoryPropertyType($entityReferenceExpr);
         $this->addPropertyToClass($class, $genericObjectType, 'repository');

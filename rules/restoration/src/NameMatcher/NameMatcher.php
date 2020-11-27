@@ -1,35 +1,29 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Restoration\NameMatcher;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use Rector\Restoration\ClassMap\ExistingClassesProvider;
-
 final class NameMatcher
 {
     /**
      * @var ExistingClassesProvider
      */
     private $existingClassesProvider;
-
-    public function __construct(ExistingClassesProvider $existingClassesProvider)
+    public function __construct(\Rector\Restoration\ClassMap\ExistingClassesProvider $existingClassesProvider)
     {
         $this->existingClassesProvider = $existingClassesProvider;
     }
-
-    public function makeNameFullyQualified(string $shortName): ?string
+    public function makeNameFullyQualified(string $shortName) : ?string
     {
         foreach ($this->existingClassesProvider->provide() as $declaredClass) {
-            $declaredShortClass = (string) Strings::after($declaredClass, '\\', -1);
+            $declaredShortClass = (string) \_PhpScoper006a73f0e455\Nette\Utils\Strings::after($declaredClass, '\\', -1);
             if ($declaredShortClass !== $shortName) {
                 continue;
             }
-
             return $declaredClass;
         }
-
         return null;
     }
 }

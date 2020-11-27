@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\ValueObject;
 
 final class ArrayArgumentToDataProvider
@@ -10,22 +9,18 @@ final class ArrayArgumentToDataProvider
      * @var string
      */
     private $class;
-
     /**
      * @var string
      */
     private $oldMethod;
-
     /**
      * @var string
      */
     private $newMethod;
-
     /**
      * @var string
      */
     private $variableName;
-
     public function __construct(string $class, string $oldMethod, string $newMethod, string $variableName)
     {
         $this->class = $class;
@@ -33,23 +28,19 @@ final class ArrayArgumentToDataProvider
         $this->newMethod = $newMethod;
         $this->variableName = $variableName;
     }
-
-    public function getClass(): string
+    public function getClass() : string
     {
         return $this->class;
     }
-
-    public function getOldMethod(): string
+    public function getOldMethod() : string
     {
         return $this->oldMethod;
     }
-
-    public function getNewMethod(): string
+    public function getNewMethod() : string
     {
         return $this->newMethod;
     }
-
-    public function getVariableName(): string
+    public function getVariableName() : string
     {
         return $this->variableName;
     }

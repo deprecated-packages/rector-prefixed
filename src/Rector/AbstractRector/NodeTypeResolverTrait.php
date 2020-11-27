@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\Rector\AbstractRector;
 
 use PhpParser\Node;
@@ -21,7 +20,6 @@ use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Rector\NodeTypeResolver\TypeAnalyzer\CountableTypeAnalyzer;
 use Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
-
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -32,184 +30,147 @@ trait NodeTypeResolverTrait
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var ArrayTypeAnalyzer
      */
     private $arrayTypeAnalyzer;
-
     /**
      * @var CountableTypeAnalyzer
      */
     private $countableTypeAnalyzer;
-
     /**
      * @var StringTypeAnalyzer
      */
     private $stringTypeAnalyzer;
-
     /**
      * @var TypeUnwrapper
      */
     private $typeUnwrapper;
-
     /**
      * @required
      */
-    public function autowireNodeTypeResolverTrait(
-        NodeTypeResolver $nodeTypeResolver,
-        ArrayTypeAnalyzer $arrayTypeAnalyzer,
-        CountableTypeAnalyzer $countableTypeAnalyzer,
-        StringTypeAnalyzer $stringTypeAnalyzer,
-        TypeUnwrapper $typeUnwrapper
-    ): void {
+    public function autowireNodeTypeResolverTrait(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \Rector\NodeTypeResolver\TypeAnalyzer\CountableTypeAnalyzer $countableTypeAnalyzer, \Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper) : void
+    {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
         $this->countableTypeAnalyzer = $countableTypeAnalyzer;
         $this->stringTypeAnalyzer = $stringTypeAnalyzer;
         $this->typeUnwrapper = $typeUnwrapper;
     }
-
-    public function isInObjectType(Node $node, string $type): bool
+    public function isInObjectType(\PhpParser\Node $node, string $type) : bool
     {
         $objectType = $this->nodeTypeResolver->resolve($node);
-
-        $desiredObjectType = new ObjectType($type);
+        $desiredObjectType = new \PHPStan\Type\ObjectType($type);
         if ($objectType->isSuperTypeOf($desiredObjectType)->yes()) {
-            return true;
+            return \true;
         }
-
         return $objectType->equals($desiredObjectType);
     }
-
-    public function isPropertyBoolean(Property $property): bool
+    public function isPropertyBoolean(\PhpParser\Node\Stmt\Property $property) : bool
     {
         return $this->nodeTypeResolver->isPropertyBoolean($property);
     }
-
     /**
      * @param ObjectType|string $type
      */
-    protected function isObjectType(Node $node, $type): bool
+    protected function isObjectType(\PhpParser\Node $node, $type) : bool
     {
         return $this->nodeTypeResolver->isObjectType($node, $type);
     }
-
     /**
      * @param string[]|ObjectType[] $requiredTypes
      */
-    protected function isObjectTypes(Node $node, array $requiredTypes): bool
+    protected function isObjectTypes(\PhpParser\Node $node, array $requiredTypes) : bool
     {
         foreach ($requiredTypes as $requiredType) {
             if ($this->isObjectType($node, $requiredType)) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    protected function isReturnOfObjectType(Return_ $return, string $objectType): bool
+    protected function isReturnOfObjectType(\PhpParser\Node\Stmt\Return_ $return, string $objectType) : bool
     {
         if ($return->expr === null) {
-            return false;
+            return \false;
         }
-
         $returnType = $this->getStaticType($return->expr);
-        if (! $returnType instanceof TypeWithClassName) {
-            return false;
+        if (!$returnType instanceof \PHPStan\Type\TypeWithClassName) {
+            return \false;
         }
-
-        return is_a($returnType->getClassName(), $objectType, true);
+        return \is_a($returnType->getClassName(), $objectType, \true);
     }
-
     /**
      * @param Type[] $desiredTypes
      */
-    protected function isSameObjectTypes(ObjectType $objectType, array $desiredTypes): bool
+    protected function isSameObjectTypes(\PHPStan\Type\ObjectType $objectType, array $desiredTypes) : bool
     {
         foreach ($desiredTypes as $abstractClassConstructorParamType) {
             if ($abstractClassConstructorParamType->equals($objectType)) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    protected function isStringOrUnionStringOnlyType(Node $node): bool
+    protected function isStringOrUnionStringOnlyType(\PhpParser\Node $node) : bool
     {
         return $this->stringTypeAnalyzer->isStringOrUnionStringOnlyType($node);
     }
-
-    protected function isNumberType(Node $node): bool
+    protected function isNumberType(\PhpParser\Node $node) : bool
     {
         return $this->nodeTypeResolver->isNumberType($node);
     }
-
-    protected function isStaticType(Node $node, string $staticTypeClass): bool
+    protected function isStaticType(\PhpParser\Node $node, string $staticTypeClass) : bool
     {
         return $this->nodeTypeResolver->isStaticType($node, $staticTypeClass);
     }
-
-    protected function getStaticType(Node $node): Type
+    protected function getStaticType(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         return $this->nodeTypeResolver->getStaticType($node);
     }
-
-    protected function isNullableType(Node $node): bool
+    protected function isNullableType(\PhpParser\Node $node) : bool
     {
         return $this->nodeTypeResolver->isNullableType($node);
     }
-
-    protected function isNullableObjectType(Node $node): bool
+    protected function isNullableObjectType(\PhpParser\Node $node) : bool
     {
         return $this->nodeTypeResolver->isNullableObjectType($node);
     }
-
-    protected function isCountableType(Node $node): bool
+    protected function isCountableType(\PhpParser\Node $node) : bool
     {
         return $this->countableTypeAnalyzer->isCountableType($node);
     }
-
-    protected function isArrayType(Node $node): bool
+    protected function isArrayType(\PhpParser\Node $node) : bool
     {
         return $this->arrayTypeAnalyzer->isArrayType($node);
     }
-
-    protected function getObjectType(Node $node): Type
+    protected function getObjectType(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         return $this->nodeTypeResolver->resolve($node);
     }
-
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
      */
-    protected function isMethodStaticCallOrClassMethodObjectType(Node $node, string $type): bool
+    protected function isMethodStaticCallOrClassMethodObjectType(\PhpParser\Node $node, string $type) : bool
     {
-        if ($node instanceof MethodCall) {
-            if ($node->var instanceof Variable) {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+            if ($node->var instanceof \PhpParser\Node\Expr\Variable) {
                 return $this->isObjectType($node->var, $type);
             }
-
             // method call is variable return
             return $this->isObjectType($node->var, $type);
         }
-
-        if ($node instanceof StaticCall) {
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
             return $this->isObjectType($node->class, $type);
         }
-
-        if ($node instanceof ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             /** @var Class_|null $classLike */
-            $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+            $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             if ($classLike === null) {
-                return false;
+                return \false;
             }
-
             return $this->isObjectType($classLike, $type);
         }
-
-        return false;
+        return \false;
     }
 }

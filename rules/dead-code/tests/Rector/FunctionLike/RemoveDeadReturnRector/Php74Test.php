@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\Tests\Rector\FunctionLike\RemoveDeadReturnRector;
 
 use Iterator;
@@ -9,32 +8,28 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 /**
  * @requires PHP 7.4
  */
-final class Php74Test extends AbstractRectorTestCase
+final class Php74Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixturePhp74');
     }
-
-    protected function getPhpVersion(): int
+    protected function getPhpVersion() : int
     {
-        return PhpVersionFeature::ARROW_FUNCTION;
+        return \Rector\Core\ValueObject\PhpVersionFeature::ARROW_FUNCTION;
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
-        return RemoveDeadReturnRector::class;
+        return \Rector\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector::class;
     }
 }

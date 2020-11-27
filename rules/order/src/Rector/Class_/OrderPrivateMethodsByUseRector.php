@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Order\Rector\Class_;
 
 use PhpParser\Node;
@@ -15,24 +14,18 @@ use Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
 use Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Order\Tests\Rector\Class_\OrderPrivateMethodsByUseRector\OrderPrivateMethodsByUseRectorTest
  */
-final class OrderPrivateMethodsByUseRector extends AbstractConstantPropertyMethodOrderRector
+final class OrderPrivateMethodsByUseRector extends \Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
 {
     /**
      * @var int
      */
     private const MAX_ATTEMPTS = 5;
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Order private methods in order of their use',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order private methods in order of their use', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -50,8 +43,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -69,129 +61,94 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class, Trait_::class];
+        return [\PhpParser\Node\Stmt\Class_::class, \PhpParser\Node\Stmt\Trait_::class];
     }
-
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $sortedAndOriginalClassMethods = $this->getSortedAndOriginalClassMethods($node);
-
         // order is correct, nothing to change
         if ($sortedAndOriginalClassMethods->hasOrderChanged()) {
             return null;
         }
-
         // different private method count, one of them is dead probably
-        if (! $sortedAndOriginalClassMethods->hasIdenticalClassMethodCount()) {
+        if (!$sortedAndOriginalClassMethods->hasIdenticalClassMethodCount()) {
             return null;
         }
-
         $attempt = 0;
-        while (! $sortedAndOriginalClassMethods->hasOrderSame()) {
+        while (!$sortedAndOriginalClassMethods->hasOrderSame()) {
             $attempt++;
             if ($attempt >= self::MAX_ATTEMPTS) {
-                throw new ShouldNotHappenException('Number of attempts to reorder the methods exceeded');
+                throw new \Rector\Core\Exception\ShouldNotHappenException('Number of attempts to reorder the methods exceeded');
             }
-
-            $oldToNewKeys = $this->stmtOrder->createOldToNewKeys(
-                $sortedAndOriginalClassMethods->getSortedClassMethods(),
-                $sortedAndOriginalClassMethods->getOriginalClassMethods()
-            );
-
+            $oldToNewKeys = $this->stmtOrder->createOldToNewKeys($sortedAndOriginalClassMethods->getSortedClassMethods(), $sortedAndOriginalClassMethods->getOriginalClassMethods());
             /** @var Class_ $node */
             $node = $this->stmtOrder->reorderClassStmtsByOldToNewKeys($node, $oldToNewKeys);
-
             $sortedAndOriginalClassMethods = $this->getSortedAndOriginalClassMethods($node);
         }
-
         return $node;
     }
-
     /**
      * @param Class_|Trait_ $classLike
      */
-    private function getSortedAndOriginalClassMethods(
-        ClassLike $classLike
-    ): SortedClassMethodsAndOriginalClassMethods {
-        return new SortedClassMethodsAndOriginalClassMethods(
-            $this->getLocalPrivateMethodCallOrder($classLike),
-            $this->resolvePrivateClassMethods($classLike)
-        );
+    private function getSortedAndOriginalClassMethods(\PhpParser\Node\Stmt\ClassLike $classLike) : \Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods
+    {
+        return new \Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods($this->getLocalPrivateMethodCallOrder($classLike), $this->resolvePrivateClassMethods($classLike));
     }
-
     /**
      * @return array<int, string>
      */
-    private function getLocalPrivateMethodCallOrder(ClassLike $classLike): array
+    private function getLocalPrivateMethodCallOrder(\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $localPrivateMethodCallInOrder = [];
-
-        $this->traverseNodesWithCallable($classLike->getMethods(), function (Node $node) use (
-            &$localPrivateMethodCallInOrder,
-            $classLike
-        ) {
-            if (! $node instanceof MethodCall) {
+        $this->traverseNodesWithCallable($classLike->getMethods(), function (\PhpParser\Node $node) use(&$localPrivateMethodCallInOrder, $classLike) {
+            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
-
-            if (! $this->isVariableName($node->var, 'this')) {
+            if (!$this->isVariableName($node->var, 'this')) {
                 return null;
             }
-
             $methodName = $this->getName($node->name);
             if ($methodName === null) {
                 return null;
             }
-
             $classMethod = $classLike->getMethod($methodName);
             if ($classMethod === null) {
                 return null;
             }
-
             if ($classMethod->isPrivate()) {
                 $localPrivateMethodCallInOrder[] = $methodName;
             }
-
             return null;
         });
-
-        return array_unique($localPrivateMethodCallInOrder);
+        return \array_unique($localPrivateMethodCallInOrder);
     }
-
     /**
      * @return array<int, string>
      */
-    private function resolvePrivateClassMethods(ClassLike $classLike): array
+    private function resolvePrivateClassMethods(\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $privateClassMethods = [];
-
         foreach ($classLike->stmts as $key => $classStmt) {
-            if (! $classStmt instanceof ClassMethod) {
+            if (!$classStmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
-
-            if (! $classStmt->isPrivate()) {
+            if (!$classStmt->isPrivate()) {
                 continue;
             }
-
             /** @var string $classMethodName */
             $classMethodName = $this->getName($classStmt);
             $privateClassMethods[$key] = $classMethodName;
         }
-
         return $privateClassMethods;
     }
 }

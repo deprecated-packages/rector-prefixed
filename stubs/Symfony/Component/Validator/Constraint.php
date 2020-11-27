@@ -1,17 +1,14 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Symfony\Component\Validator;
 
-namespace Symfony\Component\Validator;
-
-if (class_exists('Symfony\Component\Validator\Constraint')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraint')) {
     return;
 }
-
 use Exception;
-use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
-
+use _PhpScoper006a73f0e455\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use _PhpScoper006a73f0e455\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 /**
  * @property array $groups The groups that the constraint belongs to
  */
@@ -21,29 +18,24 @@ abstract class Constraint
      * The name of the group given to all constraints with no explicit group.
      */
     const DEFAULT_GROUP = 'Default';
-
     /**
      * Marks a constraint that can be put onto classes.
      */
     const CLASS_CONSTRAINT = 'class';
-
     /**
      * Marks a constraint that can be put onto properties.
      */
     const PROPERTY_CONSTRAINT = 'property';
-
     /**
      * Maps error codes to the names of their constants.
      */
     protected static $errorNames = [];
-
     /**
      * Domain-specific data attached to a constraint.
      *
      * @var mixed
      */
     public $payload;
-
     /**
      * Initializes the constraint with options.
      *
@@ -75,28 +67,24 @@ abstract class Constraint
     {
         $defaultOption = $this->getDefaultOption();
         $invalidOptions = [];
-        $missingOptions = array_flip((array) $this->getRequiredOptions());
-        $knownOptions = get_object_vars($this);
-
+        $missingOptions = \array_flip((array) $this->getRequiredOptions());
+        $knownOptions = \get_object_vars($this);
         // The "groups" option is added to the object lazily
-        $knownOptions['groups'] = true;
-
-        if (\is_array($options) && isset($options['value']) && !property_exists($this, 'value')) {
+        $knownOptions['groups'] = \true;
+        if (\is_array($options) && isset($options['value']) && !\property_exists($this, 'value')) {
             if (null === $defaultOption) {
-                throw new Exception(sprintf('No default option is configured for constraint "%s".', \get_class($this)));
+                throw new \Exception(\sprintf('No default option is configured for constraint "%s".', \get_class($this)));
             }
-
             $options[$defaultOption] = $options['value'];
             unset($options['value']);
         }
-
         if (\is_array($options)) {
-            reset($options);
+            \reset($options);
         }
-        if ($options && \is_array($options) && \is_string(key($options))) {
+        if ($options && \is_array($options) && \is_string(\key($options))) {
             foreach ($options as $option => $value) {
                 if (\array_key_exists($option, $knownOptions)) {
-                    $this->$option = $value;
+                    $this->{$option} = $value;
                     unset($missingOptions[$option]);
                 } else {
                     $invalidOptions[] = $option;
@@ -104,26 +92,22 @@ abstract class Constraint
             }
         } elseif (null !== $options && !(\is_array($options) && 0 === \count($options))) {
             if (null === $defaultOption) {
-                throw new Exception(sprintf('No default option is configured for constraint "%s".', \get_class($this)));
+                throw new \Exception(\sprintf('No default option is configured for constraint "%s".', \get_class($this)));
             }
-
             if (\array_key_exists($defaultOption, $knownOptions)) {
-                $this->$defaultOption = $options;
+                $this->{$defaultOption} = $options;
                 unset($missingOptions[$defaultOption]);
             } else {
                 $invalidOptions[] = $defaultOption;
             }
         }
-
         if (\count($invalidOptions) > 0) {
-            throw new InvalidOptionsException(sprintf('The options "%s" do not exist in constraint "%s".', implode('", "', $invalidOptions), \get_class($this)), $invalidOptions);
+            throw new \_PhpScoper006a73f0e455\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The options "%s" do not exist in constraint "%s".', \implode('", "', $invalidOptions), \get_class($this)), $invalidOptions);
         }
-
         if (\count($missingOptions) > 0) {
-            throw new MissingOptionsException(sprintf('The options "%s" must be set for constraint "%s".', implode('", "', array_keys($missingOptions)), \get_class($this)), array_keys($missingOptions));
+            throw new \_PhpScoper006a73f0e455\Symfony\Component\OptionsResolver\Exception\MissingOptionsException(\sprintf('The options "%s" must be set for constraint "%s".', \implode('", "', \array_keys($missingOptions)), \get_class($this)), \array_keys($missingOptions));
         }
     }
-
     /**
      * Sets the value of a lazily initialized option.
      *
@@ -140,13 +124,10 @@ abstract class Constraint
     {
         if ('groups' === $option) {
             $this->groups = (array) $value;
-
             return;
         }
-
-        throw new InvalidOptionsException(sprintf('The option "%s" does not exist in constraint "%s".', $option, \get_class($this)), [$option]);
+        throw new \_PhpScoper006a73f0e455\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The option "%s" does not exist in constraint "%s".', $option, \get_class($this)), [$option]);
     }
-
     /**
      * Returns the value of a lazily initialized option.
      *
@@ -166,13 +147,10 @@ abstract class Constraint
     {
         if ('groups' === $option) {
             $this->groups = [self::DEFAULT_GROUP];
-
             return $this->groups;
         }
-
-        throw new InvalidOptionsException(sprintf('The option "%s" does not exist in constraint "%s".', $option, \get_class($this)), [$option]);
+        throw new \_PhpScoper006a73f0e455\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The option "%s" does not exist in constraint "%s".', $option, \get_class($this)), [$option]);
     }
-
     /**
      * @param string $option The option name
      *
@@ -182,7 +160,6 @@ abstract class Constraint
     {
         return 'groups' === $option;
     }
-
     /**
      * Adds the given group if this constraint is in the Default group.
      *
@@ -194,7 +171,6 @@ abstract class Constraint
             $this->groups[] = $group;
         }
     }
-
     /**
      * Returns the name of the default option.
      *
@@ -208,7 +184,6 @@ abstract class Constraint
     {
         return null;
     }
-
     /**
      * Returns the name of the required options.
      *
@@ -222,7 +197,6 @@ abstract class Constraint
     {
         return [];
     }
-
     /**
      * Returns the name of the class that validates this constraint.
      *
@@ -234,9 +208,8 @@ abstract class Constraint
      */
     public function validatedBy()
     {
-        return \get_class($this).'Validator';
+        return \get_class($this) . 'Validator';
     }
-
     /**
      * Returns whether the constraint can be put onto classes, properties or
      * both.
@@ -250,17 +223,15 @@ abstract class Constraint
     {
         return self::PROPERTY_CONSTRAINT;
     }
-
     /**
      * Optimizes the serialized value to minimize storage space.
      *
      * @internal
      */
-    public function __sleep(): array
+    public function __sleep() : array
     {
         // Initialize "groups" option if it is not set
         $this->groups;
-
-        return array_keys(get_object_vars($this));
+        return \array_keys(\get_object_vars($this));
     }
 }

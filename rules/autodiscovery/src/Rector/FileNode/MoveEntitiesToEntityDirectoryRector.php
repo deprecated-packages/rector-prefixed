@@ -1,17 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Autodiscovery\Rector\FileNode;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
@@ -19,19 +17,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Autodiscovery\Tests\Rector\FileNode\MoveEntitiesToEntityDirectoryRector\MoveEntitiesToEntityDirectoryRectorTest
  */
-final class MoveEntitiesToEntityDirectoryRector extends AbstractRector
+final class MoveEntitiesToEntityDirectoryRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/auSMk3/1
      */
-    private const ENTITY_PATH_REGEX = '#\bEntity\b#';
-
-    public function getRuleDefinition(): RuleDefinition
+    private const ENTITY_PATH_REGEX = '#\\bEntity\\b#';
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Move entities to Entity namespace', [
-            new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move entities to Entity namespace', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // file: app/Controller/Product.php
 
 namespace App\Controller;
@@ -45,8 +40,7 @@ class Product
 {
 }
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 // file: app/Entity/Product.php
 
 namespace App\Entity;
@@ -60,55 +54,42 @@ class Product
 {
 }
 CODE_SAMPLE
-        ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [FileNode::class];
+        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
-
     /**
      * @param FileNode $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isDoctrineEntityFileNode($node)) {
+        if (!$this->isDoctrineEntityFileNode($node)) {
             return null;
         }
-
         // is entity in expected directory?
         $smartFileInfo = $node->getFileInfo();
-        if (Strings::match($smartFileInfo->getRealPath(), self::ENTITY_PATH_REGEX)) {
+        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), self::ENTITY_PATH_REGEX)) {
             return null;
         }
-
-        $movedFileWithNodes = $this->movedFileWithNodesFactory->createWithDesiredGroup(
-            $smartFileInfo,
-            $node->stmts,
-            'Entity'
-        );
+        $movedFileWithNodes = $this->movedFileWithNodesFactory->createWithDesiredGroup($smartFileInfo, $node->stmts, 'Entity');
         if ($movedFileWithNodes === null) {
             return null;
         }
-
         $this->addMovedFile($movedFileWithNodes);
-
         return null;
     }
-
-    private function isDoctrineEntityFileNode(FileNode $fileNode): bool
+    private function isDoctrineEntityFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : bool
     {
         /** @var Class_|null $class */
-        $class = $this->betterNodeFinder->findFirstInstanceOf($fileNode->stmts, Class_::class);
+        $class = $this->betterNodeFinder->findFirstInstanceOf($fileNode->stmts, \PhpParser\Node\Stmt\Class_::class);
         if ($class === null) {
-            return false;
+            return \false;
         }
-
         return $this->isDoctrineEntityClass($class);
     }
 }

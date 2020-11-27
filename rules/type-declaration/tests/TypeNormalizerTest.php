@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\Tests;
 
 use Iterator;
@@ -14,53 +13,43 @@ use Rector\Core\HttpKernel\RectorKernel;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\TypeDeclaration\TypeNormalizer;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-
-final class TypeNormalizerTest extends AbstractKernelTestCase
+final class TypeNormalizerTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var TypeNormalizer
      */
     private $typeNormalizer;
-
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-
-    protected function setUp(): void
+    protected function setUp() : void
     {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->typeNormalizer = self::$container->get(TypeNormalizer::class);
-        $this->staticTypeMapper = self::$container->get(StaticTypeMapper::class);
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->typeNormalizer = self::$container->get(\Rector\TypeDeclaration\TypeNormalizer::class);
+        $this->staticTypeMapper = self::$container->get(\Rector\StaticTypeMapper\StaticTypeMapper::class);
     }
-
     /**
      * @dataProvider provideDataNormalizeArrayOfUnionToUnionArray()
      */
-    public function testNormalizeArrayOfUnionToUnionArray(ArrayType $arrayType, string $expectedDocString): void
+    public function testNormalizeArrayOfUnionToUnionArray(\PHPStan\Type\ArrayType $arrayType, string $expectedDocString) : void
     {
         $arrayDocString = $this->staticTypeMapper->mapPHPStanTypeToDocString($arrayType);
         $this->assertSame($expectedDocString, $arrayDocString);
-
         $unionType = $this->typeNormalizer->normalizeArrayOfUnionToUnionArray($arrayType);
-        $this->assertInstanceOf(UnionType::class, $unionType);
-
+        $this->assertInstanceOf(\PHPStan\Type\UnionType::class, $unionType);
         $unionDocString = $this->staticTypeMapper->mapPHPStanTypeToDocString($unionType);
         $this->assertSame($expectedDocString, $unionDocString);
     }
-
-    public function provideDataNormalizeArrayOfUnionToUnionArray(): Iterator
+    public function provideDataNormalizeArrayOfUnionToUnionArray() : \Iterator
     {
-        $unionType = new UnionType([new StringType(), new IntegerType()]);
-        $arrayType = new ArrayType(new MixedType(), $unionType);
-        yield [$arrayType, 'int[]|string[]'];
-
-        $arrayType = new ArrayType(new MixedType(), $unionType);
-        $moreNestedArrayType = new ArrayType(new MixedType(), $arrayType);
-        yield [$moreNestedArrayType, 'int[][]|string[][]'];
-
-        $evenMoreNestedArrayType = new ArrayType(new MixedType(), $moreNestedArrayType);
-        yield [$evenMoreNestedArrayType, 'int[][][]|string[][][]'];
+        $unionType = new \PHPStan\Type\UnionType([new \PHPStan\Type\StringType(), new \PHPStan\Type\IntegerType()]);
+        $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $unionType);
+        (yield [$arrayType, 'int[]|string[]']);
+        $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $unionType);
+        $moreNestedArrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $arrayType);
+        (yield [$moreNestedArrayType, 'int[][]|string[][]']);
+        $evenMoreNestedArrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $moreNestedArrayType);
+        (yield [$evenMoreNestedArrayType, 'int[][][]|string[][][]']);
     }
 }

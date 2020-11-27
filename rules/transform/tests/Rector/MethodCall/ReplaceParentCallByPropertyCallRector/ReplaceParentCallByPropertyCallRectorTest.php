@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Transform\Tests\Rector\MethodCall\ReplaceParentCallByPropertyCallRector;
 
 use Iterator;
@@ -10,37 +9,24 @@ use Rector\Transform\Rector\MethodCall\ReplaceParentCallByPropertyCallRector;
 use Rector\Transform\Tests\Rector\MethodCall\ReplaceParentCallByPropertyCallRector\Source\TypeClassToReplaceMethodCallBy;
 use Rector\Transform\ValueObject\ReplaceParentCallByPropertyCall;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class ReplaceParentCallByPropertyCallRectorTest extends AbstractRectorTestCase
+final class ReplaceParentCallByPropertyCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            ReplaceParentCallByPropertyCallRector::class => [
-                ReplaceParentCallByPropertyCallRector::PARENT_CALLS_TO_PROPERTIES => [
-                    new ReplaceParentCallByPropertyCall(
-                        TypeClassToReplaceMethodCallBy::class,
-                        'someMethod',
-                        'someProperty'
-                    ),
-                ],
-            ],
-        ];
+        return [\Rector\Transform\Rector\MethodCall\ReplaceParentCallByPropertyCallRector::class => [\Rector\Transform\Rector\MethodCall\ReplaceParentCallByPropertyCallRector::PARENT_CALLS_TO_PROPERTIES => [new \Rector\Transform\ValueObject\ReplaceParentCallByPropertyCall(\Rector\Transform\Tests\Rector\MethodCall\ReplaceParentCallByPropertyCallRector\Source\TypeClassToReplaceMethodCallBy::class, 'someMethod', 'someProperty')]]];
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -15,31 +14,24 @@ use Rector\NodeCollector\ValueObject\ArrayCallable;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddMethodCallBasedParamTypeRector\AddMethodCallBasedParamTypeRectorTest
  */
-final class AddMethodCallBasedParamTypeRector extends AbstractRector
+final class AddMethodCallBasedParamTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var TypeFactory
      */
     private $typeFactory;
-
-    public function __construct(TypeFactory $typeFactory)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change param type of passed getId() to UuidInterface type declaration',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type of passed getId() to UuidInterface type declaration', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function getById($id)
@@ -57,8 +49,7 @@ class CallerClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function getById(\Ramsey\Uuid\UuidInterface $id)
@@ -76,82 +67,66 @@ class CallerClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classMethodCalls = $this->nodeRepository->findCallsByClassMethod($node);
         $classParameterTypes = $this->getCallTypesByPosition($classMethodCalls);
-
         foreach ($classParameterTypes as $position => $argumentStaticType) {
             if ($this->skipArgumentStaticType($node, $argumentStaticType, $position)) {
                 continue;
             }
-
             $phpParserTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($argumentStaticType);
-
             // update parameter
             $node->params[$position]->type = $phpParserTypeNode;
         }
-
         return $node;
     }
-
     /**
      * @param MethodCall[]|StaticCall[]|ArrayCallable[] $classMethodCalls
      * @return Type[]
      */
-    private function getCallTypesByPosition(array $classMethodCalls): array
+    private function getCallTypesByPosition(array $classMethodCalls) : array
     {
         $staticTypesByArgumentPosition = [];
         foreach ($classMethodCalls as $classMethodCall) {
-            if (! $classMethodCall instanceof StaticCall && ! $classMethodCall instanceof MethodCall) {
+            if (!$classMethodCall instanceof \PhpParser\Node\Expr\StaticCall && !$classMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
                 continue;
             }
-
             foreach ($classMethodCall->args as $position => $arg) {
                 $staticTypesByArgumentPosition[$position][] = $this->getStaticType($arg->value);
             }
         }
-
         // unite to single type
         $staticTypeByArgumentPosition = [];
         foreach ($staticTypesByArgumentPosition as $position => $staticTypes) {
             $staticTypeByArgumentPosition[$position] = $this->typeFactory->createMixedPassedOrUnionType($staticTypes);
         }
-
         return $staticTypeByArgumentPosition;
     }
-
-    private function skipArgumentStaticType(Node $node, Type $argumentStaticType, int $position): bool
+    private function skipArgumentStaticType(\PhpParser\Node $node, \PHPStan\Type\Type $argumentStaticType, int $position) : bool
     {
-        if ($argumentStaticType instanceof MixedType) {
-            return true;
+        if ($argumentStaticType instanceof \PHPStan\Type\MixedType) {
+            return \true;
         }
-
-        if (! isset($node->params[$position])) {
-            return true;
+        if (!isset($node->params[$position])) {
+            return \true;
         }
-
         $parameter = $node->params[$position];
         if ($parameter->type === null) {
-            return false;
+            return \false;
         }
-
         $parameterStaticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($parameter->type);
         // already completed → skip
         return $parameterStaticType->equals($argumentStaticType);

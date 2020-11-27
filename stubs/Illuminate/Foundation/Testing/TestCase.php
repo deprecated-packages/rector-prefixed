@@ -1,11 +1,10 @@
 <?php
 
-namespace Illuminate\Foundation\Testing;
+namespace _PhpScoper006a73f0e455\Illuminate\Foundation\Testing;
 
-if (class_exists('Illuminate\Foundation\Testing\TestCase')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Illuminate\\Foundation\\Testing\\TestCase')) {
     return;
 }
-
 class TestCase
 {
 }

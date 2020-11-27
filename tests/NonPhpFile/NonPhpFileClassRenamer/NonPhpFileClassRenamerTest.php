@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare (strict_types=1);
 namespace Rector\Core\Tests\NonPhpFile\NonPhpFileClassRenamer;
 
 use Iterator;
@@ -14,57 +14,44 @@ use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class NonPhpFileClassRenamerTest extends AbstractKernelTestCase
+final class NonPhpFileClassRenamerTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var array<string, string>
      */
     private const CLASS_RENAMES = [
-        'Session' => 'Illuminate\Support\Facades\Session',
-        OldClass::class => NewClass::class,
+        'Session' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Session',
+        \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class,
         // Laravel
-        'Form' => 'Collective\Html\FormFacade',
-        'Html' => 'Collective\Html\HtmlFacade',
+        'Form' => '_PhpScoper006a73f0e455\\Collective\\Html\\FormFacade',
+        'Html' => '_PhpScoper006a73f0e455\\Collective\\Html\\HtmlFacade',
     ];
-
     /**
      * @var NonPhpFileClassRenamer
      */
     private $nonPhpFileClassRenamer;
-
     /**
      * @var ParameterProvider
      */
     private $parameterProvider;
-
-    protected function setUp(): void
+    protected function setUp() : void
     {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->nonPhpFileClassRenamer = self::$container->get(NonPhpFileClassRenamer::class);
-        $this->parameterProvider = self::$container->get(ParameterProvider::class);
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->nonPhpFileClassRenamer = self::$container->get(\Rector\Core\NonPhpFile\NonPhpFileClassRenamer::class);
+        $this->parameterProvider = self::$container->get(\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
     }
-
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fixtureFileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
-        $this->parameterProvider->changeParameter(Option::AUTO_IMPORT_NAMES, false);
-
-        $inputAndExpected = StaticFixtureSplitter::splitFileInfoToInputAndExpected($fixtureFileInfo);
-
-        $changedContent = $this->nonPhpFileClassRenamer->renameClasses(
-            $inputAndExpected->getInput(),
-            self::CLASS_RENAMES
-        );
-
+        $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \false);
+        $inputAndExpected = \Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToInputAndExpected($fixtureFileInfo);
+        $changedContent = $this->nonPhpFileClassRenamer->renameClasses($inputAndExpected->getInput(), self::CLASS_RENAMES);
         $this->assertSame($inputAndExpected->getExpected(), $changedContent);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*');
+        return \Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*');
     }
 }

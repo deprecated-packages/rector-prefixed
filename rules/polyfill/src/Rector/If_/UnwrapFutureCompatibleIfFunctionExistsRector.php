@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Polyfill\Rector\If_;
 
 use PhpParser\Node;
@@ -12,35 +11,27 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Polyfill\FeatureSupport\FunctionSupportResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Polyfill\Tests\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector\UnwrapFutureCompatibleIfFunctionExistsRectorTest
  */
-final class UnwrapFutureCompatibleIfFunctionExistsRector extends AbstractRector
+final class UnwrapFutureCompatibleIfFunctionExistsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var IfManipulator
      */
     private $ifManipulator;
-
     /**
      * @var FunctionSupportResolver
      */
     private $functionSupportResolver;
-
-    public function __construct(FunctionSupportResolver $functionSupportResolver, IfManipulator $ifManipulator)
+    public function __construct(\Rector\Polyfill\FeatureSupport\FunctionSupportResolver $functionSupportResolver, \Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->functionSupportResolver = $functionSupportResolver;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Remove functions exists if with else for always existing',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove functions exists if with else for always existing', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -54,8 +45,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -65,44 +55,35 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
-
     /**
      * @param If_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $match = $this->ifManipulator->isIfOrIfElseWithFunctionCondition($node, 'function_exists');
-        if (! $match) {
+        if (!$match) {
             return null;
         }
-
         /** @var FuncCall $funcCall */
         $funcCall = $node->cond;
-
         $functionToExistName = $this->getValue($funcCall->args[0]->value);
-        if (! is_string($functionToExistName)) {
+        if (!\is_string($functionToExistName)) {
             return null;
         }
-
-        if (! $this->functionSupportResolver->isFunctionSupported($functionToExistName)) {
+        if (!$this->functionSupportResolver->isFunctionSupported($functionToExistName)) {
             return null;
         }
-
         $this->unwrapStmts($node->stmts, $node);
         $this->removeNode($node);
-
         return null;
     }
 }

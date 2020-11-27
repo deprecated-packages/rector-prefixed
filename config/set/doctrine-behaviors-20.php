@@ -1,75 +1,43 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector;
 use Rector\Generic\Rector\Class_\AddInterfaceByTraitRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(AddInterfaceByTraitRector::class)
-        ->call('configure', [[
-            AddInterfaceByTraitRector::INTERFACE_BY_TRAIT => [
-                'Knp\DoctrineBehaviors\Model\Timestampable\Timestampable' => 'Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface',
-                'Knp\DoctrineBehaviors\Model\Timestampable\TimestampableMethods' => 'Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface',
-                'Knp\DoctrineBehaviors\Model\Blameable\Blameable' => 'Knp\DoctrineBehaviors\Contract\Entity\BlameableInterface',
-                'Knp\DoctrineBehaviors\Model\Blameable\BlameableMethods' => 'Knp\DoctrineBehaviors\Contract\Entity\BlameableInterface',
-                'Knp\DoctrineBehaviors\Model\Loggable\Loggable' => 'Knp\DoctrineBehaviors\Contract\Entity\LoggableInterface',
-                'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletable' => 'Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface',
-                'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableMethodsTrait' => 'Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface',
-                'Knp\DoctrineBehaviors\Model\Translatable\Translatable' => 'Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface',
-                'Knp\DoctrineBehaviors\Model\Translatable\TranslatableMethods' => 'Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface',
-                'Knp\DoctrineBehaviors\Model\Translatable\Translation' => 'Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface',
-                'Knp\DoctrineBehaviors\Model\Translatable\TranslationMethods' => 'Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface',
-                'Knp\DoctrineBehaviors\Model\Uuidable\Uuidable' => 'Knp\DoctrineBehaviors\Contract\Entity\UuidableInterface',
-                'Knp\DoctrineBehaviors\Model\Uuidable\UuidableMethods' => 'Knp\DoctrineBehaviors\Contract\Entity\UuidableInterface',
-            ],
-        ]]);
-
-    $services->set(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                # move interface to "Contract"
-                'Knp\DoctrineBehaviors\Model\Tree\NodeInterface' => 'Knp\DoctrineBehaviors\Contract\Entity\TreeNodeInterface',
-                # suffix "Trait" for traits
-                'Knp\DoctrineBehaviors\Model\Blameable\BlameableMethods' => 'Knp\DoctrineBehaviors\Model\Blameable\BlameableMethodsTrait',
-                'Knp\DoctrineBehaviors\Model\Blameable\BlameableProperties' => 'Knp\DoctrineBehaviors\Model\Blameable\BlameablePropertiesTrait',
-                'Knp\DoctrineBehaviors\Model\Blameable\Blameable' => 'Knp\DoctrineBehaviors\Model\Blameable\BlameableTrait',
-                'Knp\DoctrineBehaviors\Model\Geocodable\GeocodableMethods' => 'Knp\DoctrineBehaviors\Model\Geocodable\GeocodableMethodsTrait',
-                'Knp\DoctrineBehaviors\Model\Geocodable\GeocodableProperties' => 'Knp\DoctrineBehaviors\Model\Geocodable\GeocodablePropertiesTrait',
-                'Knp\DoctrineBehaviors\Model\Geocodable\Geocodable' => 'Knp\DoctrineBehaviors\Model\Geocodable\GeocodableTrait',
-                'Knp\DoctrineBehaviors\Model\Loggable\Loggable' => 'Knp\DoctrineBehaviors\Model\Loggable\LoggableTrait',
-                'Knp\DoctrineBehaviors\Model\Sluggable\SluggableMethods' => 'Knp\DoctrineBehaviors\Model\Sluggable\SluggableMethodsTrait',
-                'Knp\DoctrineBehaviors\Model\Sluggable\SluggableProperties' => 'Knp\DoctrineBehaviors\Model\Sluggable\SluggablePropertiesTrait',
-                'Knp\DoctrineBehaviors\Model\Sluggable\Sluggable' => 'Knp\DoctrineBehaviors\Model\Sluggable\SluggableTrait',
-                'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableMethods' => 'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableMethodsTrait',
-                'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableProperties' => 'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletablePropertiesTrait',
-                'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletable' => 'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableTrait',
-                'Knp\DoctrineBehaviors\Model\Timestampable\TimestampableMethods' => 'Knp\DoctrineBehaviors\Model\Timestampable\TimestampableMethodsTrait',
-                'Knp\DoctrineBehaviors\Model\Timestampable\TimestampableProperties' => 'Knp\DoctrineBehaviors\Model\Timestampable\TimestampablePropertiesTrait',
-                'Knp\DoctrineBehaviors\Model\Timestampable\Timestampable' => 'Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait',
-                'Knp\DoctrineBehaviors\Model\Translatable\TranslatableMethods' => 'Knp\DoctrineBehaviors\Model\Translatable\TranslatableMethodsTrait',
-                'Knp\DoctrineBehaviors\Model\Translatable\TranslatableProperties' => 'Knp\DoctrineBehaviors\Model\Translatable\TranslatablePropertiesTrait',
-                'Knp\DoctrineBehaviors\Model\Translatable\Translatable' => 'Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait',
-                'Knp\DoctrineBehaviors\Model\Translatable\TranslationMethods' => 'Knp\DoctrineBehaviors\Model\Translatable\TranslationMethodsTrait',
-                'Knp\DoctrineBehaviors\Model\Translatable\TranslationProperties' => 'Knp\DoctrineBehaviors\Model\Translatable\TranslationPropertiesTrait',
-                'Knp\DoctrineBehaviors\Model\Translatable\Translation' => 'Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait',
-                # tree
-                'Knp\DoctrineBehaviors\Model\Tree\Node' => 'Knp\DoctrineBehaviors\Model\Tree\TreeNodeTrait',
-            ],
-        ]]);
-
-    $services->set(AddEntityIdByConditionRector::class)
-        ->call(
-            'configure',
-            [[
-                AddEntityIdByConditionRector::DETECTED_TRAITS => [
-                    'Knp\DoctrineBehaviors\Model\Translatable\Translation',
-                    'Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait',
-                ],
-            ]]
-        );
+    $services->set(\Rector\Generic\Rector\Class_\AddInterfaceByTraitRector::class)->call('configure', [[\Rector\Generic\Rector\Class_\AddInterfaceByTraitRector::INTERFACE_BY_TRAIT => ['_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\Timestampable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TimestampableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TimestampableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Blameable\\Blameable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\BlameableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Blameable\\BlameableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\BlameableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Loggable\\Loggable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\LoggableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SoftDeletableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableMethodsTrait' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SoftDeletableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translatable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslatableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslatableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translation' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Uuidable\\Uuidable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\UuidableInterface', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Uuidable\\UuidableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\UuidableInterface']]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
+        # move interface to "Contract"
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Tree\\NodeInterface' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TreeNodeInterface',
+        # suffix "Trait" for traits
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Blameable\\BlameableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Blameable\\BlameableMethodsTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Blameable\\BlameableProperties' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Blameable\\BlameablePropertiesTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Blameable\\Blameable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Blameable\\BlameableTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Geocodable\\GeocodableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Geocodable\\GeocodableMethodsTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Geocodable\\GeocodableProperties' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Geocodable\\GeocodablePropertiesTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Geocodable\\Geocodable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Geocodable\\GeocodableTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Loggable\\Loggable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Loggable\\LoggableTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggableMethodsTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggableProperties' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggablePropertiesTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\Sluggable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggableTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableMethodsTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableProperties' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletablePropertiesTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableMethodsTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableProperties' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampablePropertiesTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\Timestampable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableMethodsTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableProperties' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatablePropertiesTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translatable' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationMethods' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationMethodsTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationProperties' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationPropertiesTrait',
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translation' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait',
+        # tree
+        '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Tree\\Node' => '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Tree\\TreeNodeTrait',
+    ]]]);
+    $services->set(\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::class)->call('configure', [[\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::DETECTED_TRAITS => ['_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translation', '_PhpScoper006a73f0e455\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait']]]);
 };

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector;
 
 use Iterator;
@@ -10,37 +9,24 @@ use Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector\Source\FluentIn
 use Rector\Generic\ValueObject\NormalToFluent;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class NormalToFluentRectorTest extends AbstractRectorTestCase
+final class NormalToFluentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            NormalToFluentRector::class => [
-                NormalToFluentRector::CALLS_TO_FLUENT => [
-                    new NormalToFluent(FluentInterfaceClass::class, [
-                        'someFunction',
-                        'otherFunction',
-                        'joinThisAsWell',
-                    ]),
-                ],
-            ],
-        ];
+        return [\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::class => [\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::CALLS_TO_FLUENT => [new \Rector\Generic\ValueObject\NormalToFluent(\Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector\Source\FluentInterfaceClass::class, ['someFunction', 'otherFunction', 'joinThisAsWell'])]]];
     }
 }

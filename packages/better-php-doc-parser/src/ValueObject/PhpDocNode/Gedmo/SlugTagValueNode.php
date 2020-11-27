@@ -1,29 +1,25 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo;
 
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-
-final class SlugTagValueNode extends AbstractTagValueNode implements ShortNameAwareTagInterface, SilentKeyNodeInterface
+final class SlugTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
 {
     /**
      * @return mixed[]
      */
-    public function getFields(): array
+    public function getFields() : array
     {
         return $this->items['fields'];
     }
-
-    public function getShortName(): string
+    public function getShortName() : string
     {
-        return '@Gedmo\Slug';
+        return '_PhpScoper006a73f0e455\\@Gedmo\\Slug';
     }
-
-    public function getSilentKey(): string
+    public function getSilentKey() : string
     {
         return 'fields';
     }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteKdyby\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -19,39 +18,29 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\ReplaceEventManagerWithEventSubscriberRectorTest
  */
-final class ReplaceEventManagerWithEventSubscriberRector extends AbstractRector
+final class ReplaceEventManagerWithEventSubscriberRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var EventClassNaming
      */
     private $eventClassNaming;
-
     /**
      * @var EventValueObjectClassFactory
      */
     private $eventValueObjectClassFactory;
-
-    public function __construct(
-        EventClassNaming $eventClassNaming,
-        EventValueObjectClassFactory $eventValueObjectClassFactory
-    ) {
+    public function __construct(\Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\NetteKdyby\NodeFactory\EventValueObjectClassFactory $eventValueObjectClassFactory)
+    {
         $this->eventClassNaming = $eventClassNaming;
         $this->eventValueObjectClassFactory = $eventValueObjectClassFactory;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change Kdyby EventManager to EventDispatcher',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Kdyby EventManager to EventDispatcher', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Kdyby\Events\EventManager;
 
 final class SomeClass
@@ -73,8 +62,7 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Kdyby\Events\EventManager;
 
 final class SomeClass
@@ -96,76 +84,54 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node->var, 'Kdyby\Events\EventManager')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Kdyby\\Events\\EventManager')) {
             return null;
         }
-
-        if (! $this->isName($node->name, 'dispatchEvent')) {
+        if (!$this->isName($node->name, 'dispatchEvent')) {
             return null;
         }
-
-        $node->name = new Identifier('dispatch');
-
+        $node->name = new \PhpParser\Node\Identifier('dispatch');
         $oldArgs = $node->args;
         $node->args = [];
-
         $eventReference = $oldArgs[0]->value;
-
-        $classAndStaticProperty = $this->getValue($eventReference, true);
-        $eventClassName = $this->eventClassNaming->createEventClassNameFromClassPropertyReference(
-            $classAndStaticProperty
-        );
-
+        $classAndStaticProperty = $this->getValue($eventReference, \true);
+        $eventClassName = $this->eventClassNaming->createEventClassNameFromClassPropertyReference($classAndStaticProperty);
         $args = [];
-        if ($oldArgs[1]->value instanceof New_) {
+        if ($oldArgs[1]->value instanceof \PhpParser\Node\Expr\New_) {
             /** @var New_ $new */
             $new = $oldArgs[1]->value;
-
             $array = $new->args[0]->value;
-            if ($array instanceof Array_) {
+            if ($array instanceof \PhpParser\Node\Expr\Array_) {
                 foreach ($array->items as $arrayItem) {
-                    $args[] = new Arg($arrayItem->value);
+                    $args[] = new \PhpParser\Node\Arg($arrayItem->value);
                 }
             }
         }
-
-        $class = new New_(new FullyQualified($eventClassName), $args);
-        $node->args[] = new Arg($class);
-
+        $class = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($eventClassName), $args);
+        $node->args[] = new \PhpParser\Node\Arg($class);
         // 3. create new event class with args
         $eventClassInNamespace = $this->eventValueObjectClassFactory->create($eventClassName, $args);
-
         /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        $eventFileLocation = $this->eventClassNaming->resolveEventFileLocationFromClassNameAndFileInfo(
-            $eventClassName,
-            $fileInfo
-        );
-
+        $eventFileLocation = $this->eventClassNaming->resolveEventFileLocationFromClassNameAndFileInfo($eventClassName, $fileInfo);
         $this->printNodesToFilePath([$eventClassInNamespace], $eventFileLocation);
-
         return $node;
     }
 }

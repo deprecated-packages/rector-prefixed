@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Defluent\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -16,29 +15,22 @@ use Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Defluent\Tests\Rector\ClassMethod\ReturnThisRemoveRector\ReturnThisRemoveRectorTest
  */
-final class ReturnThisRemoveRector extends AbstractRector
+final class ReturnThisRemoveRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ParentClassMethodTypeOverrideGuard
      */
     private $parentClassMethodTypeOverrideGuard;
-
-    public function __construct(ParentClassMethodTypeOverrideGuard $parentClassMethodTypeOverrideGuard)
+    public function __construct(\Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard $parentClassMethodTypeOverrideGuard)
     {
         $this->parentClassMethodTypeOverrideGuard = $parentClassMethodTypeOverrideGuard;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Removes "return $this;" from *fluent interfaces* for specified classes.',
-            [
-                new CodeSample(
-                        <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes "return $this;" from *fluent interfaces* for specified classes.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeExampleClass
 {
     public function someFunction()
@@ -52,8 +44,7 @@ class SomeExampleClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeExampleClass
 {
     public function someFunction()
@@ -65,89 +56,70 @@ class SomeExampleClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $returnThis = $this->matchSingleReturnThis($node);
         if ($returnThis === null) {
             return null;
         }
-
         if ($this->shouldSkip($returnThis, $node)) {
             return null;
         }
-
         $this->removeNode($returnThis);
-
-        $classMethod = $node->getAttribute(AttributeKey::METHOD_NODE);
+        $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        if ($this->isAtLeastPhpVersion(PhpVersionFeature::VOID_TYPE)) {
-            $classMethod->returnType = new Identifier('void');
+        if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
+            $classMethod->returnType = new \PhpParser\Node\Identifier('void');
         }
-
-        $this->removePhpDocTagValueNode($classMethod, ReturnTagValueNode::class);
-
+        $this->removePhpDocTagValueNode($classMethod, \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
         return null;
     }
-
     /**
      * Matches only 1st level "return $this;"
      */
-    private function matchSingleReturnThis(ClassMethod $classMethod): ?Return_
+    private function matchSingleReturnThis(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\Return_
     {
         /** @var Return_[] $returns */
-        $returns = $this->betterNodeFinder->findInstanceOf($classMethod, Return_::class);
-
+        $returns = $this->betterNodeFinder->findInstanceOf($classMethod, \PhpParser\Node\Stmt\Return_::class);
         // can be only 1 return
-        if (count($returns) !== 1) {
+        if (\count($returns) !== 1) {
             return null;
         }
-
         $return = $returns[0];
         if ($return->expr === null) {
             return null;
         }
-
-        if (! $this->isVariableName($return->expr, 'this')) {
+        if (!$this->isVariableName($return->expr, 'this')) {
             return null;
         }
-
-        $parentNode = $return->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $return->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode !== $classMethod) {
             return null;
         }
-
         return $return;
     }
-
-    private function shouldSkip(Return_ $return, ClassMethod $classMethod): bool
+    private function shouldSkip(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (! $this->parentClassMethodTypeOverrideGuard->isReturnTypeChangeAllowed($classMethod)) {
-            return true;
+        if (!$this->parentClassMethodTypeOverrideGuard->isReturnTypeChangeAllowed($classMethod)) {
+            return \true;
         }
-
         if ($return->expr === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        return false;
+        return \false;
     }
 }

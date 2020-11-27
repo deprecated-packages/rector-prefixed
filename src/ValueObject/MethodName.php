@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\ValueObject;
 
 final class MethodName
@@ -10,18 +9,15 @@ final class MethodName
      * @var string
      */
     public const CONSTRUCT = '__construct';
-
     /**
      * @var string
      */
     public const DESCTRUCT = '__destruct';
-
     /**
      * Mostly used in unit tests
      * @var string
      */
     public const SET_UP = 'setUp';
-
     /**
      * Mostly used in unit tests
      * @var string

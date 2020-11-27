@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
@@ -14,86 +13,64 @@ use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
-final class NameImportingPostRector extends AbstractPostRector
+final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var ParameterProvider
      */
     private $parameterProvider;
-
     /**
      * @var NameImporter
      */
     private $nameImporter;
-
     /**
      * @var DocBlockNameImporter
      */
     private $docBlockNameImporter;
-
-    public function __construct(
-        ParameterProvider $parameterProvider,
-        NameImporter $nameImporter,
-        DocBlockNameImporter $docBlockNameImporter
-    ) {
+    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter)
+    {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;
         $this->docBlockNameImporter = $docBlockNameImporter;
     }
-
-    public function enterNode(Node $node): ?Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $autoImportNames = $this->parameterProvider->provideParameter(Option::AUTO_IMPORT_NAMES);
-        if (! $autoImportNames) {
+        $autoImportNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
+        if (!$autoImportNames) {
             return null;
         }
-
-        if ($node instanceof Name) {
+        if ($node instanceof \PhpParser\Node\Name) {
             return $this->nameImporter->importName($node);
         }
-
-        $importDocBlocks = (bool) $this->parameterProvider->provideParameter(Option::IMPORT_DOC_BLOCKS);
-        if (! $importDocBlocks) {
+        $importDocBlocks = (bool) $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS);
+        if (!$importDocBlocks) {
             return null;
         }
-
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
-
         $hasChanged = $this->docBlockNameImporter->importNames($phpDocInfo, $node);
-        if (! $hasChanged) {
+        if (!$hasChanged) {
             return null;
         }
-
         return $node;
     }
-
-    public function getPriority(): int
+    public function getPriority() : int
     {
         return 600;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Imports fully qualified class names in parameter types, return types, extended classes, implemented, interfaces and even docblocks',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Imports fully qualified class names in parameter types, return types, extended classes, implemented, interfaces and even docblocks', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $someClass = new \Some\FullyQualified\SomeClass();
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Some\FullyQualified\SomeClass;
 
 $someClass = new SomeClass();
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
 }

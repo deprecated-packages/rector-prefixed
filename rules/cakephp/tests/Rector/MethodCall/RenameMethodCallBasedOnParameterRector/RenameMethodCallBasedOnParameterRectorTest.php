@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CakePHP\Tests\Rector\MethodCall\RenameMethodCallBasedOnParameterRector;
 
 use Iterator;
@@ -10,37 +9,27 @@ use Rector\CakePHP\Tests\Rector\MethodCall\RenameMethodCallBasedOnParameterRecto
 use Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class RenameMethodCallBasedOnParameterRectorTest extends AbstractRectorTestCase
+final class RenameMethodCallBasedOnParameterRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
     /**
      * @return Iterator
      */
-    public function provideData(): iterable
+    public function provideData() : iterable
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            RenameMethodCallBasedOnParameterRector::class => [
-                RenameMethodCallBasedOnParameterRector::CALLS_WITH_PARAM_RENAMES => [
-                    new RenameMethodCallBasedOnParameter(SomeModelType::class, 'getParam', 'paging', 'getAttribute'),
-                    new RenameMethodCallBasedOnParameter(SomeModelType::class, 'withParam', 'paging', 'withAttribute'),
-                ],
-            ],
-        ];
+        return [\Rector\CakePHP\Rector\MethodCall\RenameMethodCallBasedOnParameterRector::class => [\Rector\CakePHP\Rector\MethodCall\RenameMethodCallBasedOnParameterRector::CALLS_WITH_PARAM_RENAMES => [new \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter(\Rector\CakePHP\Tests\Rector\MethodCall\RenameMethodCallBasedOnParameterRector\Source\SomeModelType::class, 'getParam', 'paging', 'getAttribute'), new \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter(\Rector\CakePHP\Tests\Rector\MethodCall\RenameMethodCallBasedOnParameterRector\Source\SomeModelType::class, 'withParam', 'paging', 'withAttribute')]]];
     }
 }

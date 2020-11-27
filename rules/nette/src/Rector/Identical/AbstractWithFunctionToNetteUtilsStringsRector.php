@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Rector\Identical;
 
 use PhpParser\Node;
@@ -12,52 +11,41 @@ use PhpParser\Node\Expr\Variable;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Nette\Contract\WithFunctionToNetteUtilsStringsRectorInterface;
 use Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
-
-abstract class AbstractWithFunctionToNetteUtilsStringsRector extends AbstractRector implements WithFunctionToNetteUtilsStringsRectorInterface
+abstract class AbstractWithFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Nette\Contract\WithFunctionToNetteUtilsStringsRectorInterface
 {
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Identical::class, NotIdentical::class];
+        return [\PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
     }
-
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $contentExprAndNeedleExpr = $this->resolveContentExprAndNeedleExpr($node);
         if ($contentExprAndNeedleExpr === null) {
             return null;
         }
-
-        $staticCall = $this->createStaticCall('Nette\Utils\Strings', $this->getMethodName(), [
-            $contentExprAndNeedleExpr->getContentExpr(),
-            $contentExprAndNeedleExpr->getNeedleExpr(),
-        ]);
-
-        if ($node instanceof NotIdentical) {
-            return new BooleanNot($staticCall);
+        $staticCall = $this->createStaticCall('_PhpScoper006a73f0e455\\Nette\\Utils\\Strings', $this->getMethodName(), [$contentExprAndNeedleExpr->getContentExpr(), $contentExprAndNeedleExpr->getNeedleExpr()]);
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
+            return new \PhpParser\Node\Expr\BooleanNot($staticCall);
         }
-
         return $staticCall;
     }
-
     /**
      * @param Identical|NotIdentical $node
      */
-    private function resolveContentExprAndNeedleExpr($node): ?ContentExprAndNeedleExpr
+    private function resolveContentExprAndNeedleExpr($node) : ?\Rector\Nette\ValueObject\ContentExprAndNeedleExpr
     {
-        if ($node->left instanceof Variable) {
+        if ($node->left instanceof \PhpParser\Node\Expr\Variable) {
             return $this->matchContentAndNeedleOfSubstrOfVariableLength($node->right, $node->left);
         }
-
-        if ($node->right instanceof Variable) {
+        if ($node->right instanceof \PhpParser\Node\Expr\Variable) {
             return $this->matchContentAndNeedleOfSubstrOfVariableLength($node->left, $node->right);
         }
-
         return null;
     }
 }

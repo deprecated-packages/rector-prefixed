@@ -1,51 +1,42 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-
-final class SerializerTypeTagValueNode extends AbstractTagValueNode implements TypeAwareTagValueNodeInterface, ShortNameAwareTagInterface, SilentKeyNodeInterface
+final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
 {
     /**
      * @var string
      */
     private const NAME = 'name';
-
-    public function getShortName(): string
+    public function getShortName() : string
     {
-        return '@Serializer\Type';
+        return '_PhpScoper006a73f0e455\\@Serializer\\Type';
     }
-
-    public function changeName(string $newName): void
+    public function changeName(string $newName) : void
     {
         $this->items[self::NAME] = $newName;
     }
-
-    public function getName(): string
+    public function getName() : string
     {
         return $this->items[self::NAME];
     }
-
-    public function replaceName(string $oldName, string $newName): bool
+    public function replaceName(string $oldName, string $newName) : bool
     {
-        $oldNamePattern = '#\b' . preg_quote($oldName, '#') . '\b#';
-
-        $newNameValue = Strings::replace($this->items[self::NAME], $oldNamePattern, $newName);
+        $oldNamePattern = '#\\b' . \preg_quote($oldName, '#') . '\\b#';
+        $newNameValue = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($this->items[self::NAME], $oldNamePattern, $newName);
         if ($newNameValue !== $this->items[self::NAME]) {
             $this->changeName($newNameValue);
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
-    public function getSilentKey(): string
+    public function getSilentKey() : string
     {
         return self::NAME;
     }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\ClassConst;
 
 use PhpParser\Node;
@@ -11,30 +10,23 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\ClassConstantVisibilityChange;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Webmozart\Assert\Assert;
-
+use _PhpScoper006a73f0e455\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\ChangeConstantVisibilityRectorTest
  */
-final class ChangeConstantVisibilityRector extends AbstractRector implements ConfigurableRectorInterface
+final class ChangeConstantVisibilityRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const CLASS_CONSTANT_VISIBILITY_CHANGES = 'class_constant_visibility_changes';
-
     /**
      * @var ClassConstantVisibilityChange[]
      */
     private $classConstantVisibilityChanges = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change visibility of constant from parent class.',
-            [
-                new ConfiguredCodeSample(
-                                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change visibility of constant from parent class.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class FrameworkClass
 {
     protected const SOME_CONSTANT = 1;
@@ -45,8 +37,7 @@ class MyClass extends FrameworkClass
     public const SOME_CONSTANT = 1;
 }
 CODE_SAMPLE
-                                ,
-                                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class FrameworkClass
 {
     protected const SOME_CONSTANT = 1;
@@ -57,51 +48,36 @@ class MyClass extends FrameworkClass
     protected const SOME_CONSTANT = 1;
 }
 CODE_SAMPLE
-                                ,
-                                [
-                                    self::CLASS_CONSTANT_VISIBILITY_CHANGES => [
-                                        new ClassConstantVisibilityChange('ParentObject', 'SOME_CONSTANT', 'protected'),
-                                    ],
-                                ]
-                            ),
-            ]
-        );
+, [self::CLASS_CONSTANT_VISIBILITY_CHANGES => [new \Rector\Generic\ValueObject\ClassConstantVisibilityChange('ParentObject', 'SOME_CONSTANT', 'protected')]])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassConst::class];
+        return [\PhpParser\Node\Stmt\ClassConst::class];
     }
-
     /**
      * @param ClassConst $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->classConstantVisibilityChanges as $classConstantVisibilityChange) {
-            if (! $this->isObjectType($node, $classConstantVisibilityChange->getClass())) {
+            if (!$this->isObjectType($node, $classConstantVisibilityChange->getClass())) {
                 continue;
             }
-
-            if (! $this->isName($node, $classConstantVisibilityChange->getConstant())) {
+            if (!$this->isName($node, $classConstantVisibilityChange->getConstant())) {
                 continue;
             }
-
             $this->changeNodeVisibility($node, $classConstantVisibilityChange->getVisibility());
-
             return $node;
         }
-
         return null;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $classConstantVisibilityChanges = $configuration[self::CLASS_CONSTANT_VISIBILITY_CHANGES] ?? [];
-        Assert::allIsInstanceOf($classConstantVisibilityChanges, ClassConstantVisibilityChange::class);
+        \_PhpScoper006a73f0e455\Webmozart\Assert\Assert::allIsInstanceOf($classConstantVisibilityChanges, \Rector\Generic\ValueObject\ClassConstantVisibilityChange::class);
         $this->classConstantVisibilityChanges = $classConstantVisibilityChanges;
     }
 }

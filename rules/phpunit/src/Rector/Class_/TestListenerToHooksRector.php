@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\Class_;
 
 use PhpParser\Node;
@@ -12,7 +11,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/sebastianbergmann/phpunit/issues/3388
  * @see https://github.com/sebastianbergmann/phpunit/commit/34a0abd8b56a4a9de83c9e56384f462541a0f939
@@ -20,33 +18,28 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://github.com/sebastianbergmann/phpunit/tree/master/src/Runner/Hook
  * @see \Rector\PHPUnit\Tests\Rector\Class_\TestListenerToHooksRector\TestListenerToHooksRectorTest
  */
-final class TestListenerToHooksRector extends AbstractRector
+final class TestListenerToHooksRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[][]
      */
     private const LISTENER_METHOD_TO_HOOK_INTERFACES = [
-        'addIncompleteTest' => ['PHPUnit\Runner\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
-        'addRiskyTest' => ['PHPUnit\Runner\AfterRiskyTestHook', 'executeAfterRiskyTest'],
-        'addSkippedTest' => ['PHPUnit\Runner\AfterSkippedTestHook', 'executeAfterSkippedTest'],
-        'addError' => ['PHPUnit\Runner\AfterTestErrorHook', 'executeAfterTestError'],
-        'addFailure' => ['PHPUnit\Runner\AfterTestFailureHook', 'executeAfterTestFailure'],
-        'addWarning' => ['PHPUnit\Runner\AfterTestWarningHook', 'executeAfterTestWarning'],
+        'addIncompleteTest' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
+        'addRiskyTest' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\AfterRiskyTestHook', 'executeAfterRiskyTest'],
+        'addSkippedTest' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\AfterSkippedTestHook', 'executeAfterSkippedTest'],
+        'addError' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\AfterTestErrorHook', 'executeAfterTestError'],
+        'addFailure' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\AfterTestFailureHook', 'executeAfterTestFailure'],
+        'addWarning' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\AfterTestWarningHook', 'executeAfterTestWarning'],
         # test
-        'startTest' => ['PHPUnit\Runner\BeforeTestHook', 'executeBeforeTest'],
-        'endTest' => ['PHPUnit\Runner\AfterTestHook', 'executeAfterTest'],
+        'startTest' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\BeforeTestHook', 'executeBeforeTest'],
+        'endTest' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\AfterTestHook', 'executeAfterTest'],
         # suite
-        'startTestSuite' => ['PHPUnit\Runner\BeforeFirstTestHook', 'executeBeforeFirstTest'],
-        'endTestSuite' => ['PHPUnit\Runner\AfterLastTestHook', 'executeAfterLastTest'],
+        'startTestSuite' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\BeforeFirstTestHook', 'executeBeforeFirstTest'],
+        'endTestSuite' => ['_PhpScoper006a73f0e455\\PHPUnit\\Runner\\AfterLastTestHook', 'executeAfterLastTest'],
     ];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Refactor "*TestListener.php" to particular "*Hook.php" files',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Refactor "*TestListener.php" to particular "*Hook.php" files', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 namespace App\Tests;
 
 use PHPUnit\Framework\TestListener;
@@ -96,8 +89,7 @@ final class BeforeListHook implements TestListener
     }
 }
 CODE_SAMPLE
-                    ,
-<<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 namespace App\Tests;
 
 final class BeforeListHook implements \PHPUnit\Runner\BeforeTestHook, \PHPUnit\Runner\AfterTestHook
@@ -113,57 +105,48 @@ final class BeforeListHook implements \PHPUnit\Runner\BeforeTestHook, \PHPUnit\R
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * List of nodes this class checks, classes that implement @see \PhpParser\Node
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * Process Node of matched type
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node, 'PHPUnit\Framework\TestListener')) {
+        if (!$this->isObjectType($node, '_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestListener')) {
             return null;
         }
-
         foreach ($node->implements as $implement) {
-            if ($this->isName($implement, 'PHPUnit\Framework\TestListener')) {
+            if ($this->isName($implement, '_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestListener')) {
                 $this->removeNode($implement);
             }
         }
-
         foreach ($node->getMethods() as $classMethod) {
             $this->processClassMethod($node, $classMethod);
         }
-
         return $node;
     }
-
-    private function processClassMethod(Class_ $class, ClassMethod $classMethod): void
+    private function processClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach (self::LISTENER_METHOD_TO_HOOK_INTERFACES as $methodName => $hookClassAndMethod) {
             /** @var string $methodName */
-            if (! $this->isName($classMethod, $methodName)) {
+            if (!$this->isName($classMethod, $methodName)) {
                 continue;
             }
-
             // remove empty methods
             if ($classMethod->stmts === [] || $classMethod->stmts === null) {
                 $this->removeNode($classMethod);
             } else {
-                $class->implements[] = new FullyQualified($hookClassAndMethod[0]);
-                $classMethod->name = new Identifier($hookClassAndMethod[1]);
+                $class->implements[] = new \PhpParser\Node\Name\FullyQualified($hookClassAndMethod[0]);
+                $classMethod->name = new \PhpParser\Node\Identifier($hookClassAndMethod[1]);
             }
         }
     }

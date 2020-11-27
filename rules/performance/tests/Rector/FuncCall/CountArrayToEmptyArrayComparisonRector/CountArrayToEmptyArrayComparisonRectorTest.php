@@ -1,31 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Performance\Tests\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
 
 use Iterator;
 use Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class CountArrayToEmptyArrayComparisonRectorTest extends AbstractRectorTestCase
+final class CountArrayToEmptyArrayComparisonRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
-        return CountArrayToEmptyArrayComparisonRector::class;
+        return \Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector::class;
     }
 }

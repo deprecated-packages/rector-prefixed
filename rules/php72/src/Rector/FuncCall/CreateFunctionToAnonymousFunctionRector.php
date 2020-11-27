@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php72\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -24,32 +23,25 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Parser\InlineCodeParser;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://stackoverflow.com/q/48161526/1348344
  * @see http://php.net/manual/en/migration72.deprecated.php#migration72.deprecated.create_function-function
  *
  * @see \Rector\Php72\Tests\Rector\FuncCall\CreateFunctionToAnonymousFunctionRector\CreateFunctionToAnonymousFunctionRectorTest
  */
-final class CreateFunctionToAnonymousFunctionRector extends AbstractConvertToAnonymousFunctionRector
+final class CreateFunctionToAnonymousFunctionRector extends \Rector\Php72\Rector\FuncCall\AbstractConvertToAnonymousFunctionRector
 {
     /**
      * @var InlineCodeParser
      */
     private $inlineCodeParser;
-
-    public function __construct(InlineCodeParser $inlineCodeParser)
+    public function __construct(\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser)
     {
         $this->inlineCodeParser = $inlineCodeParser;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Use anonymous functions instead of deprecated create_function()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use anonymous functions instead of deprecated create_function()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class ClassWithCreateFunction
 {
     public function run()
@@ -58,8 +50,7 @@ class ClassWithCreateFunction
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class ClassWithCreateFunction
 {
     public function run()
@@ -70,97 +61,80 @@ class ClassWithCreateFunction
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
-
     /**
      * @param FuncCall $node
      */
-    public function shouldSkip(Node $node): bool
+    public function shouldSkip(\PhpParser\Node $node) : bool
     {
-        return ! $this->isName($node, 'create_function');
+        return !$this->isName($node, 'create_function');
     }
-
     /**
      * @param FuncCall $node
      * @return Param[]
      */
-    public function getParameters(Node $node): array
+    public function getParameters(\PhpParser\Node $node) : array
     {
         return $this->parseStringToParameters($node->args[0]->value);
     }
-
     /**
      * @return Identifier|Name|NullableType|UnionType|null
      */
-    public function getReturnType(Node $node): ?Node
+    public function getReturnType(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         return null;
     }
-
     /**
      * @param FuncCall $node
      * @return Stmt[]
      */
-    public function getBody(Node $node): array
+    public function getBody(\PhpParser\Node $node) : array
     {
         return $this->parseStringToBody($node->args[1]->value);
     }
-
     /**
      * @return Param[]
      */
-    private function parseStringToParameters(Expr $expr): array
+    private function parseStringToParameters(\PhpParser\Node\Expr $expr) : array
     {
         $content = $this->inlineCodeParser->stringify($expr);
         $content = '<?php $value = function(' . $content . ') {};';
-
         $nodes = $this->inlineCodeParser->parse($content);
-
         /** @var Expression $expression */
         $expression = $nodes[0];
-
         /** @var Assign $assign */
         $assign = $expression->expr;
-
         /** @var Closure $function */
         $function = $assign->expr;
-        if (! $function instanceof Closure) {
-            throw new ShouldNotHappenException();
+        if (!$function instanceof \PhpParser\Node\Expr\Closure) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         return $function->params;
     }
-
     /**
      * @param String_|Expr $node
      * @return Expression[]|Stmt[]
      */
-    private function parseStringToBody(Node $node): array
+    private function parseStringToBody(\PhpParser\Node $node) : array
     {
-        if (! $node instanceof String_ && ! $node instanceof Encapsed && ! $node instanceof Concat) {
+        if (!$node instanceof \PhpParser\Node\Scalar\String_ && !$node instanceof \PhpParser\Node\Scalar\Encapsed && !$node instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             // special case of code elsewhere
             return [$this->createEval($node)];
         }
-
         $node = $this->inlineCodeParser->stringify($node);
         return $this->inlineCodeParser->parse($node);
     }
-
-    private function createEval(Expr $expr): Expression
+    private function createEval(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\Expression
     {
-        $evalFuncCall = new FuncCall(new Name('eval'), [new Arg($expr)]);
-
-        return new Expression($evalFuncCall);
+        $evalFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('eval'), [new \PhpParser\Node\Arg($expr)]);
+        return new \PhpParser\Node\Stmt\Expression($evalFuncCall);
     }
 }

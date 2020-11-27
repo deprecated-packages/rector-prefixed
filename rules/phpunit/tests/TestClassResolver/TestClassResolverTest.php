@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Tests\TestClassResolver;
 
 use Iterator;
@@ -14,33 +13,29 @@ use Rector\PHPUnit\TestClassResolver\TestClassResolver;
 use Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass;
 use Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-
-final class TestClassResolverTest extends AbstractKernelTestCase
+final class TestClassResolverTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var TestClassResolver
      */
     private $testClassResolver;
-
-    protected function setUp(): void
+    protected function setUp() : void
     {
-        $this->bootKernel(RectorKernel::class);
-        $this->testClassResolver = self::$container->get(TestClassResolver::class);
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->testClassResolver = self::$container->get(\Rector\PHPUnit\TestClassResolver\TestClassResolver::class);
     }
-
     /**
      * @dataProvider provideData()
      */
-    public function test(string $rectorClass, string $expectedTestClass): void
+    public function test(string $rectorClass, string $expectedTestClass) : void
     {
         $testClass = $this->testClassResolver->resolveFromClassName($rectorClass);
         $this->assertSame($expectedTestClass, $testClass);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
-        yield [SeeSomeClass::class, SeeSomeClassTest::class];
-        yield [TypedPropertyRector::class, TypedPropertyRectorTest::class];
-        yield [DowngradeTypedPropertyRector::class, DowngradeTypedPropertyRectorTest::class];
+        (yield [\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass::class, \Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest::class]);
+        (yield [\Rector\Php74\Rector\Property\TypedPropertyRector::class, \Rector\Php74\Tests\Rector\Property\TypedPropertyRector\TypedPropertyRectorTest::class]);
+        (yield [\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector::class, \Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector\DowngradeTypedPropertyRectorTest::class]);
     }
 }

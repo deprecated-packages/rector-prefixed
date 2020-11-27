@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Order\Rector\Class_\OrderClassConstantsByIntegerValueRector;
 use Rector\Order\Rector\Class_\OrderConstantsByVisibilityRector;
@@ -11,23 +12,14 @@ use Rector\Order\Rector\Class_\OrderPropertyByComplexityRector;
 use Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector;
 use Rector\Order\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(OrderPrivateMethodsByUseRector::class);
-
-    $services->set(OrderPublicInterfaceMethodRector::class);
-
-    $services->set(OrderPropertyByComplexityRector::class);
-
-    $services->set(OrderClassConstantsByIntegerValueRector::class);
-
-    $services->set(OrderConstructorDependenciesByTypeAlphabeticallyRector::class);
-
-    $services->set(OrderMethodsByVisibilityRector::class);
-
-    $services->set(OrderPropertiesByVisibilityRector::class);
-
-    $services->set(OrderConstantsByVisibilityRector::class);
+    $services->set(\Rector\Order\Rector\Class_\OrderPrivateMethodsByUseRector::class);
+    $services->set(\Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector::class);
+    $services->set(\Rector\Order\Rector\Class_\OrderPropertyByComplexityRector::class);
+    $services->set(\Rector\Order\Rector\Class_\OrderClassConstantsByIntegerValueRector::class);
+    $services->set(\Rector\Order\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector::class);
+    $services->set(\Rector\Order\Rector\Class_\OrderMethodsByVisibilityRector::class);
+    $services->set(\Rector\Order\Rector\Class_\OrderPropertiesByVisibilityRector::class);
+    $services->set(\Rector\Order\Rector\Class_\OrderConstantsByVisibilityRector::class);
 };

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\SymfonyPHPUnit\Rector\Class_;
 
 use PhpParser\Node;
@@ -13,44 +12,32 @@ use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory;
 use Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\SymfonyPHPUnit\Tests\Rector\Class_\SelfContainerGetMethodCallFromTestToSetUpMethodRector\SelfContainerGetMethodCallFromTestToSetUpMethodRectorTest
  */
-final class SelfContainerGetMethodCallFromTestToSetUpMethodRector extends AbstractPHPUnitRector
+final class SelfContainerGetMethodCallFromTestToSetUpMethodRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var KernelTestCaseNodeFactory
      */
     private $kernelTestCaseNodeFactory;
-
     /**
      * @var SelfContainerMethodCallCollector
      */
     private $selfContainerMethodCallCollector;
-
     /**
      * @var OnContainerGetCallManipulator
      */
     private $onContainerGetCallManipulator;
-
-    public function __construct(
-        KernelTestCaseNodeFactory $kernelTestCaseNodeFactory,
-        OnContainerGetCallManipulator $onContainerGetCallManipulator,
-        SelfContainerMethodCallCollector $selfContainerMethodCallCollector
-    ) {
+    public function __construct(\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory $kernelTestCaseNodeFactory, \Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator $onContainerGetCallManipulator, \Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector $selfContainerMethodCallCollector)
+    {
         $this->kernelTestCaseNodeFactory = $kernelTestCaseNodeFactory;
         $this->selfContainerMethodCallCollector = $selfContainerMethodCallCollector;
         $this->onContainerGetCallManipulator = $onContainerGetCallManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Move self::$container service fetching from test methods up to setUp method',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move self::$container service fetching from test methods up to setUp method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use ItemRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -69,8 +56,7 @@ class SomeTest extends KernelTestCase
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use ItemRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -98,59 +84,46 @@ class SomeTest extends KernelTestCase
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isInTestClass($node)) {
+        if (!$this->isInTestClass($node)) {
             return null;
         }
-
         // 1. find self::$container->get(<X>)
         $serviceTypes = $this->selfContainerMethodCallCollector->collectContainerGetServiceTypes($node);
         if ($serviceTypes === []) {
             return null;
         }
-
         // 2. put them to setUp() method
-        $setUpClassMethod = $node->getMethod(MethodName::SET_UP);
+        $setUpClassMethod = $node->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);
         if ($setUpClassMethod === null) {
-            $setUpClassMethod = $this->kernelTestCaseNodeFactory->createSetUpClassMethodWithGetTypes(
-                $node,
-                $serviceTypes
-            );
+            $setUpClassMethod = $this->kernelTestCaseNodeFactory->createSetUpClassMethodWithGetTypes($node, $serviceTypes);
             if ($setUpClassMethod !== null) {
-                $node->stmts = array_merge([$setUpClassMethod], $node->stmts);
+                $node->stmts = \array_merge([$setUpClassMethod], $node->stmts);
             }
         } else {
             $assigns = $this->kernelTestCaseNodeFactory->createSelfContainerGetWithTypeAssigns($node, $serviceTypes);
-            $setUpClassMethod->stmts = array_merge((array) $setUpClassMethod->stmts, $assigns);
+            $setUpClassMethod->stmts = \array_merge((array) $setUpClassMethod->stmts, $assigns);
         }
-
         // 3. create private properties with this types
         $privateProperties = $this->kernelTestCaseNodeFactory->createPrivatePropertiesFromTypes($node, $serviceTypes);
-        $node->stmts = array_merge($privateProperties, $node->stmts);
-
+        $node->stmts = \array_merge($privateProperties, $node->stmts);
         // 4. remove old in-method $property assigns
         $this->onContainerGetCallManipulator->removeAndCollectFormerAssignedVariables($node);
-
         // 5. replace former variables by $this->someProperty
         $this->onContainerGetCallManipulator->replaceFormerVariablesWithPropertyFetch($node);
-
         return $node;
     }
 }

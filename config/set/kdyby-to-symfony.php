@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Generic\ValueObject\ChangeMethodVisibility;
@@ -10,35 +11,10 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(ChangeMethodVisibilityRector::class)
-        ->call('configure', [[
-            ChangeMethodVisibilityRector::METHOD_VISIBILITIES => ValueObjectInliner::inline([
-                new ChangeMethodVisibility('Kdyby\Events\Subscriber', 'getSubscribedEvents', 'static'),
-            ]),
-        ]]);
-
-    $services->set(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('Kdyby\Translation\Translator', 'translate', 'trans'),
-                new MethodCallRename('Kdyby\RabbitMq\IConsumer', 'process', 'execute'),
-            ]),
-        ]]);
-
-    $services->set(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'Kdyby\RabbitMq\IConsumer' => 'OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface',
-                'Kdyby\RabbitMq\IProducer' => 'OldSound\RabbitMqBundle\RabbitMq\ProducerInterface',
-                'Kdyby\Monolog\Logger' => 'Psr\Log\LoggerInterface',
-                'Kdyby\Events\Subscriber' => 'Symfony\Component\EventDispatcher\EventSubscriberInterface',
-                'Kdyby\Translation\Translator' => 'Symfony\Contracts\Translation\TranslatorInterface',
-            ],
-        ]]);
-
-    $services->set(WrapTransParameterNameRector::class);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper006a73f0e455\\Kdyby\\Events\\Subscriber', 'getSubscribedEvents', 'static')])]]);
+    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Kdyby\\Translation\\Translator', 'translate', 'trans'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Kdyby\\RabbitMq\\IConsumer', 'process', 'execute')])]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper006a73f0e455\\Kdyby\\RabbitMq\\IConsumer' => '_PhpScoper006a73f0e455\\OldSound\\RabbitMqBundle\\RabbitMq\\ConsumerInterface', '_PhpScoper006a73f0e455\\Kdyby\\RabbitMq\\IProducer' => '_PhpScoper006a73f0e455\\OldSound\\RabbitMqBundle\\RabbitMq\\ProducerInterface', '_PhpScoper006a73f0e455\\Kdyby\\Monolog\\Logger' => '_PhpScoper006a73f0e455\\Psr\\Log\\LoggerInterface', '_PhpScoper006a73f0e455\\Kdyby\\Events\\Subscriber' => '_PhpScoper006a73f0e455\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', '_PhpScoper006a73f0e455\\Kdyby\\Translation\\Translator' => '_PhpScoper006a73f0e455\\Symfony\\Contracts\\Translation\\TranslatorInterface']]]);
+    $services->set(\Rector\NetteToSymfony\Rector\MethodCall\WrapTransParameterNameRector::class);
 };

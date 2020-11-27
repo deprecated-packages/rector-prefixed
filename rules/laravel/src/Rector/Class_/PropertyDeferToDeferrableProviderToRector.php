@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Laravel\Rector\Class_;
 
 use PhpParser\Node;
@@ -11,21 +10,16 @@ use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://laravel.com/docs/5.8/upgrade#deferred-service-providers
  *
  * @see \Rector\Laravel\Tests\Rector\Class_\PropertyDeferToDeferrableProviderToRector\PropertyDeferToDeferrableProviderToRectorTest
  */
-final class PropertyDeferToDeferrableProviderToRector extends AbstractRector
+final class PropertyDeferToDeferrableProviderToRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change deprecated $defer = true; to Illuminate\Contracts\Support\DeferrableProvider interface',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change deprecated $defer = true; to Illuminate\\Contracts\\Support\\DeferrableProvider interface', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Support\ServiceProvider;
 
 final class SomeServiceProvider extends ServiceProvider
@@ -36,8 +30,7 @@ final class SomeServiceProvider extends ServiceProvider
     protected $defer = true;
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
 
@@ -45,57 +38,45 @@ final class SomeServiceProvider extends ServiceProvider implements DeferrablePro
 {
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node, 'Illuminate\Support\ServiceProvider')) {
+        if (!$this->isObjectType($node, '_PhpScoper006a73f0e455\\Illuminate\\Support\\ServiceProvider')) {
             return null;
         }
-
         $deferProperty = $this->matchDeferWithFalseProperty($node);
         if ($deferProperty === null) {
             return null;
         }
-
         $this->removeNode($deferProperty);
-
-        $node->implements[] = new FullyQualified('Illuminate\Contracts\Support\DeferrableProvider');
-
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Support\\DeferrableProvider');
         return $node;
     }
-
-    private function matchDeferWithFalseProperty(Class_ $class): ?Property
+    private function matchDeferWithFalseProperty(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Property
     {
         foreach ($class->getProperties() as $property) {
-            if (! $this->isName($property, 'defer')) {
+            if (!$this->isName($property, 'defer')) {
                 continue;
             }
-
             $onlyProperty = $property->props[0];
             if ($onlyProperty->default === null) {
                 return null;
             }
-
             if ($this->isTrue($onlyProperty->default)) {
                 return $property;
             }
         }
-
         return null;
     }
 }

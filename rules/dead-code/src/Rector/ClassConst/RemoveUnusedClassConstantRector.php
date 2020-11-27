@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\Rector\ClassConst;
 
 use PhpParser\Node;
@@ -13,27 +12,22 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\DeadCode\Tests\Rector\ClassConst\RemoveUnusedClassConstantRector\RemoveUnusedClassConstantRectorTest
  */
-final class RemoveUnusedClassConstantRector extends AbstractRector implements ZeroCacheRectorInterface
+final class RemoveUnusedClassConstantRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
 {
     /**
      * @var ClassConstManipulator
      */
     private $classConstManipulator;
-
-    public function __construct(ClassConstManipulator $classConstManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator $classConstManipulator)
     {
         $this->classConstManipulator = $classConstManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Remove unused class constants', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused class constants', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     private const SOME_CONST = 'dead';
@@ -43,8 +37,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -52,81 +45,66 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassConst::class];
+        return [\PhpParser\Node\Stmt\ClassConst::class];
     }
-
     /**
      * @param ClassConst $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
         /** @var string|null $class */
-        $class = $node->getAttribute(AttributeKey::CLASS_NAME);
+        $class = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($class === null) {
             return null;
         }
         $nodeRepositoryFindInterface = $this->nodeRepository->findInterface($class);
-
         // 0. constants declared in interfaces have to be public
         if ($nodeRepositoryFindInterface !== null) {
             $this->makePublic($node);
             return $node;
         }
-
         /** @var string $constant */
         $constant = $this->getName($node);
-
         $directUseClasses = $this->nodeRepository->findDirectClassConstantFetches($class, $constant);
         if ($directUseClasses !== []) {
             return null;
         }
-
         $indirectUseClasses = $this->nodeRepository->findIndirectClassConstantFetches($class, $constant);
         if ($indirectUseClasses !== []) {
             return null;
         }
-
         $this->removeNode($node);
-
         return null;
     }
-
     /**
      * @param ClassConst $node
      */
-    private function shouldSkip(Node $node): bool
+    private function shouldSkip(\PhpParser\Node $node) : bool
     {
         if ($this->isOpenSourceProjectType()) {
-            return true;
+            return \true;
         }
-
-        if (count($node->consts) !== 1) {
-            return true;
+        if (\count($node->consts) !== 1) {
+            return \true;
         }
-
         if ($this->classConstManipulator->isEnum($node)) {
-            return true;
+            return \true;
         }
-
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
-            return false;
+            return \false;
         }
-
         return $phpDocInfo->hasByName('api');
     }
 }

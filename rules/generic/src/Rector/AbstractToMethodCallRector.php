@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector;
 
 use PhpParser\Node\Expr;
@@ -17,79 +16,61 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
-
-abstract class AbstractToMethodCallRector extends AbstractRector implements ConfigurableRectorInterface
+abstract class AbstractToMethodCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
-
     /**
      * @var TypeProvidingExprFromClassResolver
      */
     private $typeProvidingExprFromClassResolver;
-
     /**
      * @required
      */
-    public function autowireAbstractToMethodCallRector(
-        PropertyNaming $propertyNaming,
-        TypeProvidingExprFromClassResolver $typeProvidingExprFromClassResolver
-    ): void {
+    public function autowireAbstractToMethodCallRector(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver $typeProvidingExprFromClassResolver) : void
+    {
         $this->propertyNaming = $propertyNaming;
         $this->typeProvidingExprFromClassResolver = $typeProvidingExprFromClassResolver;
     }
-
     /**
      * @param ClassMethod|Function_ $functionLike
      * @return MethodCall|PropertyFetch|Variable
      */
-    protected function matchTypeProvidingExpr(Class_ $class, FunctionLike $functionLike, string $type): Expr
+    protected function matchTypeProvidingExpr(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\FunctionLike $functionLike, string $type) : \PhpParser\Node\Expr
     {
-        $expr = $this->typeProvidingExprFromClassResolver->resolveTypeProvidingExprFromClass(
-            $class,
-            $functionLike,
-            $type
-        );
+        $expr = $this->typeProvidingExprFromClassResolver->resolveTypeProvidingExprFromClass($class, $functionLike, $type);
         if ($expr !== null) {
-            if ($expr instanceof Variable) {
+            if ($expr instanceof \PhpParser\Node\Expr\Variable) {
                 $this->addClassMethodParamForVariable($expr, $type, $functionLike);
             }
-
             return $expr;
         }
-
         $this->addPropertyTypeToClass($type, $class);
         return $this->createPropertyFetchFromClass($type);
     }
-
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function addClassMethodParamForVariable(Variable $variable, string $type, FunctionLike $functionLike): void
+    private function addClassMethodParamForVariable(\PhpParser\Node\Expr\Variable $variable, string $type, \PhpParser\Node\FunctionLike $functionLike) : void
     {
         /** @var string $variableName */
         $variableName = $this->getName($variable);
-
         // add variable to __construct as dependency
-        $param = $this->nodeFactory->createParamFromNameAndType($variableName, new FullyQualifiedObjectType($type));
-
+        $param = $this->nodeFactory->createParamFromNameAndType($variableName, new \Rector\PHPStan\Type\FullyQualifiedObjectType($type));
         $functionLike->params[] = $param;
     }
-
-    private function addPropertyTypeToClass(string $type, Class_ $class): void
+    private function addPropertyTypeToClass(string $type, \PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $fullyQualifiedObjectType = new FullyQualifiedObjectType($type);
+        $fullyQualifiedObjectType = new \Rector\PHPStan\Type\FullyQualifiedObjectType($type);
         $propertyName = $this->propertyNaming->fqnToVariableName($fullyQualifiedObjectType);
         $this->addConstructorDependencyToClass($class, $fullyQualifiedObjectType, $propertyName);
     }
-
-    private function createPropertyFetchFromClass(string $type): PropertyFetch
+    private function createPropertyFetchFromClass(string $type) : \PhpParser\Node\Expr\PropertyFetch
     {
-        $thisVariable = new Variable('this');
+        $thisVariable = new \PhpParser\Node\Expr\Variable('this');
         $propertyName = $this->propertyNaming->fqnToVariableName($type);
-
-        return new PropertyFetch($thisVariable, $propertyName);
+        return new \PhpParser\Node\Expr\PropertyFetch($thisVariable, $propertyName);
     }
 }

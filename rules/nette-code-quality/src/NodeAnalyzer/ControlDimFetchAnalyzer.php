@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteCodeQuality\NodeAnalyzer;
 
 use PhpParser\Node;
@@ -10,79 +9,65 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
 final class ControlDimFetchAnalyzer
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
-    public function __construct(NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-
-    public function matchNameOnFormOrControlVariable(Node $node): ?string
+    public function matchNameOnFormOrControlVariable(\PhpParser\Node $node) : ?string
     {
-        return $this->matchNameOnVariableTypes($node, ['Nette\Application\UI\Form']);
+        return $this->matchNameOnVariableTypes($node, ['_PhpScoper006a73f0e455\\Nette\\Application\\UI\\Form']);
     }
-
-    public function matchNameOnControlVariable(Node $node): ?string
+    public function matchNameOnControlVariable(\PhpParser\Node $node) : ?string
     {
-        return $this->matchNameOnVariableTypes($node, ['Nette\Application\UI\Control']);
+        return $this->matchNameOnVariableTypes($node, ['_PhpScoper006a73f0e455\\Nette\\Application\\UI\\Control']);
     }
-
-    public function matchName(Node $node): ?string
+    public function matchName(\PhpParser\Node $node) : ?string
     {
-        if (! $node instanceof ArrayDimFetch) {
+        if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
-
-        if (! $this->isVariableTypes($node->var, ['Nette\ComponentModel\IContainer'])) {
+        if (!$this->isVariableTypes($node->var, ['_PhpScoper006a73f0e455\\Nette\\ComponentModel\\IContainer'])) {
             return null;
         }
-
-        if (! $node->dim instanceof String_) {
+        if (!$node->dim instanceof \PhpParser\Node\Scalar\String_) {
             return null;
         }
-
         return $node->dim->value;
     }
-
     /**
      * @param string[] $types
      */
-    private function matchNameOnVariableTypes(Node $node, array $types): ?string
+    private function matchNameOnVariableTypes(\PhpParser\Node $node, array $types) : ?string
     {
         $matchedName = $this->matchName($node);
         if ($matchedName === null) {
             return null;
         }
-
         /** @var Assign $node */
-        if (! $this->isVariableTypes($node->var, $types)) {
+        if (!$this->isVariableTypes($node->var, $types)) {
             return null;
         }
-
         return $matchedName;
     }
-
     /**
      * @param string[] $types
      */
-    private function isVariableTypes(Node $node, array $types): bool
+    private function isVariableTypes(\PhpParser\Node $node, array $types) : bool
     {
-        if (! $node instanceof Variable) {
-            return false;
+        if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
         }
-
         foreach ($types as $type) {
             if ($this->nodeTypeResolver->isObjectTypeOrNullableObjectType($node, $type)) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

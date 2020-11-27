@@ -1,25 +1,19 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->defaults()
-        ->public()
-        ->autowire()
-        ->autoconfigure();
-
-    $services->load('Rector\SimplePhpDocParser\\', __DIR__ . '/../src');
-
-    $services->set(PhpDocParser::class);
-    $services->set(Lexer::class);
-    $services->set(TypeParser::class);
-    $services->set(ConstExprParser::class);
+    $services->defaults()->public()->autowire()->autoconfigure();
+    $services->load('Rector\\SimplePhpDocParser\\', __DIR__ . '/../src');
+    $services->set(\PHPStan\PhpDocParser\Parser\PhpDocParser::class);
+    $services->set(\PHPStan\PhpDocParser\Lexer\Lexer::class);
+    $services->set(\PHPStan\PhpDocParser\Parser\TypeParser::class);
+    $services->set(\PHPStan\PhpDocParser\Parser\ConstExprParser::class);
 };

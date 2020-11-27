@@ -4,7 +4,7 @@ namespace Rector\CodeQuality\Tests\Rector\Foreach_\ForeachToInArrayRector\Source
 
 use ArrayIterator;
 use Closure;
-use Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
+use _PhpScoper006a73f0e455\Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
 use const ARRAY_FILTER_USE_BOTH;
 use function array_filter;
 use function array_key_exists;
@@ -23,7 +23,6 @@ use function next;
 use function reset;
 use function spl_object_hash;
 use function uasort;
-
 class Collection implements \Countable, \IteratorAggregate, \ArrayAccess
 {
     /**
@@ -32,35 +31,30 @@ class Collection implements \Countable, \IteratorAggregate, \ArrayAccess
     public function offsetExists($offset)
     {
     }
-
     /**
      * {@inheritDoc}
      */
     public function offsetGet($offset)
     {
     }
-
     /**
      * {@inheritDoc}
      */
     public function offsetSet($offset, $value)
     {
     }
-
     /**
      * {@inheritDoc}
      */
     public function offsetUnset($offset)
     {
     }
-
     /**
      * {@inheritDoc}
      */
     public function count()
     {
     }
-
     /**
      * {@inheritDoc}
      */

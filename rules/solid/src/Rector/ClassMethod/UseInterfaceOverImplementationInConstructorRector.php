@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\SOLID\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -11,17 +10,14 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\UseInterfaceOverImplementationInConstructorRectorTest
  */
-final class UseInterfaceOverImplementationInConstructorRector extends AbstractRector
+final class UseInterfaceOverImplementationInConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Use interface instead of specific class', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use interface instead of specific class', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(SomeImplementation $someImplementation)
@@ -37,8 +33,7 @@ interface SomeInterface
 {
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(SomeInterface $someImplementation)
@@ -54,108 +49,88 @@ interface SomeInterface
 {
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isName($node, MethodName::CONSTRUCT)) {
+        if (!$this->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;
         }
-
         foreach ($node->params as $param) {
             if ($param->type === null) {
                 continue;
             }
-
             $typeName = $this->getName($param->type);
             if ($typeName === null) {
                 continue;
             }
-
-            if (! class_exists($typeName)) {
+            if (!\class_exists($typeName)) {
                 continue;
             }
-
-            $implementedInterfaces = class_implements($typeName);
+            $implementedInterfaces = \class_implements($typeName);
             if ($implementedInterfaces === []) {
                 continue;
             }
-
             $interfaceNames = $this->getClassDirectInterfaces($typeName);
             $interfaceNames = $this->filterOutInterfaceThatHaveTwoAndMoreImplementers($interfaceNames);
-
-            if (count($interfaceNames) !== 1) {
+            if (\count($interfaceNames) !== 1) {
                 continue;
             }
-
-            $param->type = new FullyQualified($interfaceNames[0]);
+            $param->type = new \PhpParser\Node\Name\FullyQualified($interfaceNames[0]);
         }
-
         return $node;
     }
-
     /**
      * @return string[]
      */
-    private function getClassDirectInterfaces(string $typeName): array
+    private function getClassDirectInterfaces(string $typeName) : array
     {
-        $interfaceNames = class_implements($typeName);
-
+        $interfaceNames = \class_implements($typeName);
         foreach ($interfaceNames as $possibleDirectInterfaceName) {
             foreach ($interfaceNames as $key => $interfaceName) {
                 if ($possibleDirectInterfaceName === $interfaceName) {
                     continue;
                 }
-
-                if (! is_a($possibleDirectInterfaceName, $interfaceName, true)) {
+                if (!\is_a($possibleDirectInterfaceName, $interfaceName, \true)) {
                     continue;
                 }
-
                 unset($interfaceNames[$key]);
             }
         }
-
-        return array_values($interfaceNames);
+        return \array_values($interfaceNames);
     }
-
     /**
      * 2 and more classes that implement the same interface → better skip it, the particular implementation is used on purpose probably
      *
      * @param string[] $interfaceNames
      * @return string[]
      */
-    private function filterOutInterfaceThatHaveTwoAndMoreImplementers(array $interfaceNames): array
+    private function filterOutInterfaceThatHaveTwoAndMoreImplementers(array $interfaceNames) : array
     {
-        $classes = get_declared_classes();
+        $classes = \get_declared_classes();
         foreach ($interfaceNames as $key => $interfaceName) {
             $implementations = [];
             foreach ($classes as $class) {
-                $interfacesImplementedByClass = class_implements($class);
-                if (! in_array($interfaceName, $interfacesImplementedByClass, true)) {
+                $interfacesImplementedByClass = \class_implements($class);
+                if (!\in_array($interfaceName, $interfacesImplementedByClass, \true)) {
                     continue;
                 }
-
                 $implementations[] = $class;
             }
-
-            if (count($implementations) > 1) {
+            if (\count($implementations) > 1) {
                 unset($interfaceNames[$key]);
             }
         }
-
-        return array_values($interfaceNames);
+        return \array_values($interfaceNames);
     }
 }

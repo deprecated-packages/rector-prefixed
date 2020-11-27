@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\DoctrineGedmoToKnplabs\Rector\Class_\BlameableBehaviorRector;
 use Rector\DoctrineGedmoToKnplabs\Rector\Class_\LoggableBehaviorRector;
@@ -10,22 +11,14 @@ use Rector\DoctrineGedmoToKnplabs\Rector\Class_\TimestampableBehaviorRector;
 use Rector\DoctrineGedmoToKnplabs\Rector\Class_\TranslationBehaviorRector;
 use Rector\DoctrineGedmoToKnplabs\Rector\Class_\TreeBehaviorRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
 # version gedmo/doctrine-extensions 2.x to knplabs/doctrine-behaviors 2.0
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(TimestampableBehaviorRector::class);
-
-    $services->set(SluggableBehaviorRector::class);
-
-    $services->set(TreeBehaviorRector::class);
-
-    $services->set(TranslationBehaviorRector::class);
-
-    $services->set(SoftDeletableBehaviorRector::class);
-
-    $services->set(BlameableBehaviorRector::class);
-
-    $services->set(LoggableBehaviorRector::class);
+    $services->set(\Rector\DoctrineGedmoToKnplabs\Rector\Class_\TimestampableBehaviorRector::class);
+    $services->set(\Rector\DoctrineGedmoToKnplabs\Rector\Class_\SluggableBehaviorRector::class);
+    $services->set(\Rector\DoctrineGedmoToKnplabs\Rector\Class_\TreeBehaviorRector::class);
+    $services->set(\Rector\DoctrineGedmoToKnplabs\Rector\Class_\TranslationBehaviorRector::class);
+    $services->set(\Rector\DoctrineGedmoToKnplabs\Rector\Class_\SoftDeletableBehaviorRector::class);
+    $services->set(\Rector\DoctrineGedmoToKnplabs\Rector\Class_\BlameableBehaviorRector::class);
+    $services->set(\Rector\DoctrineGedmoToKnplabs\Rector\Class_\LoggableBehaviorRector::class);
 };

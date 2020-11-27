@@ -1,22 +1,19 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-namespace Sensio\Bundle\FrameworkExtraBundle\Configuration;
-
-if (class_exists('Sensio\Bundle\FrameworkExtraBundle\Configuration\Template')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template')) {
     return;
 }
-
 // mimics https://github.com/sensiolabs/SensioFrameworkExtraBundle/blob/master/Configuration/Template.php, is missing localy
-
 /**
  * The Template class handles the Template annotation parts.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @Annotation
  */
-class Template extends ConfigurationAnnotation
+class Template extends \_PhpScoper006a73f0e455\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
 {
     /**
      * The template.
@@ -24,28 +21,24 @@ class Template extends ConfigurationAnnotation
      * @var string
      */
     public $template;
-
     /**
      * The associative array of template variables.
      *
      * @var array
      */
     public $vars = [];
-
     /**
      * Should the template be streamed?
      *
      * @var bool
      */
-    public $streamable = false;
-
+    public $streamable = \false;
     /**
      * The controller (+action) this annotation is set to.
      *
      * @var array
      */
     public $owner = [];
-
     /**
      * Returns the array of templates variables.
      *
@@ -55,7 +48,6 @@ class Template extends ConfigurationAnnotation
     {
         return $this->vars;
     }
-
     /**
      * @param bool $streamable
      */
@@ -63,7 +55,6 @@ class Template extends ConfigurationAnnotation
     {
         $this->streamable = $streamable;
     }
-
     /**
      * @return bool
      */
@@ -71,7 +62,6 @@ class Template extends ConfigurationAnnotation
     {
         return (bool) $this->streamable;
     }
-
     /**
      * Sets the template variables.
      *
@@ -81,7 +71,6 @@ class Template extends ConfigurationAnnotation
     {
         $this->vars = $vars;
     }
-
     /**
      * Sets the template logic name.
      *
@@ -91,7 +80,6 @@ class Template extends ConfigurationAnnotation
     {
         $this->setTemplate($template);
     }
-
     /**
      * Returns the template.
      *
@@ -101,7 +89,6 @@ class Template extends ConfigurationAnnotation
     {
         return $this->template;
     }
-
     /**
      * Sets the template.
      *
@@ -111,7 +98,6 @@ class Template extends ConfigurationAnnotation
     {
         $this->template = $template;
     }
-
     /**
      * Returns the annotation alias name.
      *
@@ -123,7 +109,6 @@ class Template extends ConfigurationAnnotation
     {
         return 'template';
     }
-
     /**
      * Only one template directive is allowed.
      *
@@ -133,14 +118,12 @@ class Template extends ConfigurationAnnotation
      */
     public function allowArray()
     {
-        return false;
+        return \false;
     }
-
     public function setOwner(array $owner)
     {
         $this->owner = $owner;
     }
-
     /**
      * The controller (+action) this annotation is attached to.
      *

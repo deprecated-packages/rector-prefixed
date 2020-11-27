@@ -1,20 +1,17 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Symfony\Bridge\Doctrine\Validator\Constraints;
 
-namespace Symfony\Bridge\Doctrine\Validator\Constraints;
-
-use Symfony\Component\Validator\Constraint;
-
-if (class_exists('Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity')) {
+use _PhpScoper006a73f0e455\Symfony\Component\Validator\Constraint;
+if (\class_exists('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')) {
     return;
 }
-
 /**
  * @Annotation
  * @Target({"CLASS", "ANNOTATION"})
  */
-class UniqueEntity extends Constraint
+class UniqueEntity extends \_PhpScoper006a73f0e455\Symfony\Component\Validator\Constraint
 {
     const NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
     public $message = 'This value is already used.';
@@ -24,16 +21,12 @@ class UniqueEntity extends Constraint
     public $repositoryMethod = 'findBy';
     public $fields = [];
     public $errorPath = null;
-    public $ignoreNull = true;
-    protected static $errorNames = [
-        self::NOT_UNIQUE_ERROR => 'NOT_UNIQUE_ERROR',
-    ];
-
+    public $ignoreNull = \true;
+    protected static $errorNames = [self::NOT_UNIQUE_ERROR => 'NOT_UNIQUE_ERROR'];
     public function getRequiredOptions()
     {
         return ['fields'];
     }
-
     /**
      * The validator must be defined as a service with this name.
      *
@@ -43,7 +36,6 @@ class UniqueEntity extends Constraint
     {
         return $this->service;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -51,7 +43,6 @@ class UniqueEntity extends Constraint
     {
         return self::CLASS_CONSTRAINT;
     }
-
     public function getDefaultOption()
     {
         return 'fields';

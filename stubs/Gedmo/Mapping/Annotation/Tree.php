@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Gedmo\Mapping\Annotation;
 
-namespace Gedmo\Mapping\Annotation;
-
-if (class_exists('Gedmo\Mapping\Annotation\Tree')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Tree')) {
     return;
 }
-
 /**
  * @Annotation
  */
@@ -16,7 +14,7 @@ class Tree
     /** @var string */
     public $type = 'nested';
     /** @var string */
-    public $activateLocking = false;
+    public $activateLocking = \false;
     /** @var integer */
     public $lockingTimeout = 3;
     /** @var string $identifierMethod */

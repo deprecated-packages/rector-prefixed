@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector;
 use Rector\Generic\ValueObject\SwapClassMethodArguments;
@@ -13,135 +14,17 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-
 # https://docs.phalcon.io/4.0/en/upgrade#general-notes
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
     # !!! be careful not to run this twice, since it swaps arguments back and forth
     # see https://github.com/rectorphp/rector/issues/2408#issue-534441142
-    $services->set(SwapClassMethodArgumentsRector::class)
-        ->call('configure', [[
-            SwapClassMethodArgumentsRector::ARGUMENT_SWAPS => ValueObjectInliner::inline([
-                new SwapClassMethodArguments('Phalcon\Model', 'assign', [0, 2, 1]),
-            ]),
-        ]]);
-
+    $services->set(\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector::class)->call('configure', [[\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector::ARGUMENT_SWAPS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\SwapClassMethodArguments('_PhpScoper006a73f0e455\\Phalcon\\Model', 'assign', [0, 2, 1])])]]);
     # for class renames is better - https://docs.phalcon.io/4.0/en/upgrade#cheat-sheet
-    $services->set(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'Phalcon\Acl\Adapter' => 'Phalcon\Acl\Adapter\AbstractAdapter',
-                'Phalcon\Acl\Resource' => 'Phalcon\Acl\Component',
-                'Phalcon\Acl\ResourceInterface' => 'Phalcon\Acl\ComponentInterface',
-                'Phalcon\Acl\ResourceAware' => 'Phalcon\Acl\ComponentAware',
-                'Phalcon\Assets\ResourceInterface' => 'Phalcon\Assets\AssetInterface',
-                'Phalcon\Validation\MessageInterface' => 'Phalcon\Messages\MessageInterface',
-                'Phalcon\Mvc\Model\MessageInterface' => 'Phalcon\Messages\MessageInterface',
-                'Phalcon\Annotations\Adapter' => 'Phalcon\Annotations\Adapter\AbstractAdapter',
-                'Phalcon\Annotations\Factory' => 'Phalcon\Annotations\AnnotationsFactory',
-                'Phalcon\Application' => 'Phalcon\Application\AbstractApplication',
-                'Phalcon\Assets\Resource' => 'Phalcon\Assets\Asset',
-                'Phalcon\Assets\Resource\Css' => 'Phalcon\Assets\Asset\Css',
-                'Phalcon\Assets\Resource\Js' => 'Phalcon\Assets\Asset\Js',
-                'Phalcon\Cache\Backend' => 'Phalcon\Cache',
-                'Phalcon\Cache\Backend\Factory' => 'Phalcon\Cache\AdapterFactory',
-                'Phalcon\Cache\Backend\Apcu' => 'Phalcon\Cache\Adapter\Apcu',
-                'Phalcon\Cache\Backend\File' => 'Phalcon\Cache\Adapter\Stream',
-                'Phalcon\Cache\Backend\Libmemcached' => 'Phalcon\Cache\Adapter\Libmemcached',
-                'Phalcon\Cache\Backend\Memory' => 'Phalcon\Cache\Adapter\Memory',
-                'Phalcon\Cache\Backend\Redis' => 'Phalcon\Cache\Adapter\Redis',
-                'Phalcon\Cache\Exception' => 'Phalcon\Cache\Exception\Exception',
-                'Phalcon\Config\Factory' => 'Phalcon\Config\ConfigFactory',
-                'Phalcon\Db' => 'Phalcon\Db\AbstractDb',
-                'Phalcon\Db\Adapter' => 'Phalcon\Db\Adapter\AbstractAdapter',
-                'Phalcon\Db\Adapter\Pdo' => 'Phalcon\Db\Adapter\Pdo\AbstractPdo',
-                'Phalcon\Db\Adapter\Pdo\Factory' => 'Phalcon\Db\Adapter\PdoFactory',
-                'Phalcon\Dispatcher' => 'Phalcon\Dispatcher\AbstractDispatcher',
-                'Phalcon\Factory' => 'Phalcon\Factory\AbstractFactory',
-                'Phalcon\Flash' => 'Phalcon\Flash\AbstractFlash',
-                'Phalcon\Forms\Element' => 'Phalcon\Forms\Element\AbstractElement',
-                'Phalcon\Image\Adapter' => 'Phalcon\Image\Adapter\AbstractAdapter',
-                'Phalcon\Image\Factory' => 'Phalcon\Image\ImageFactory',
-                'Phalcon\Logger\Adapter' => 'Phalcon\Logger\Adapter\AbstractAdapter',
-                'Phalcon\Logger\Adapter\Blackhole' => 'Phalcon\Logger\Adapter\Noop',
-                'Phalcon\Logger\Adapter\File' => 'Phalcon\Logger\Adapter\Stream',
-                'Phalcon\Logger\Factory' => 'Phalcon\Logger\LoggerFactory',
-                'Phalcon\Logger\Formatter' => 'Phalcon\Logger\Formatter\AbstractFormatter',
-                'Phalcon\Mvc\Collection' => 'Phalcon\Collection',
-                'Phalcon\Mvc\Collection\Exception' => 'Phalcon\Collection\Exception',
-                'Phalcon\Mvc\Model\Message' => 'Phalcon\Messages\Message',
-                'Phalcon\Mvc\Model\MetaData\Files' => 'Phalcon\Mvc\Model\MetaData\Stream',
-                'Phalcon\Mvc\Model\Validator' => 'Phalcon\Validation\Validator',
-                'Phalcon\Mvc\Model\Validator\Email' => 'Phalcon\Validation\Validator\Email',
-                'Phalcon\Mvc\Model\Validator\Exclusionin' => 'Phalcon\Validation\Validator\ExclusionIn',
-                'Phalcon\Mvc\Model\Validator\Inclusionin' => 'Phalcon\Validation\Validator\InclusionIn',
-                'Phalcon\Mvc\Model\Validator\Ip' => 'Phalcon\Validation\Validator\Ip',
-                'Phalcon\Mvc\Model\Validator\Numericality' => 'Phalcon\Validation\Validator\Numericality',
-                'Phalcon\Mvc\Model\Validator\PresenceOf' => 'Phalcon\Validation\Validator\PresenceOf',
-                'Phalcon\Mvc\Model\Validator\Regex' => 'Phalcon\Validation\Validator\Regex',
-                'Phalcon\Mvc\Model\Validator\StringLength' => 'Phalcon\Validation\Validator\StringLength',
-                'Phalcon\Mvc\Model\Validator\Uniqueness' => 'Phalcon\Validation\Validator\Uniqueness',
-                'Phalcon\Mvc\Model\Validator\Url' => 'Phalcon\Validation\Validator\Url',
-                'Phalcon\Mvc\Url' => 'Phalcon\Url',
-                'Phalcon\Mvc\Url\Exception' => 'Phalcon\Url\Exception',
-                'Phalcon\Mvc\User\Component' => 'Phalcon\Di\Injectable',
-                'Phalcon\Mvc\User\Module' => 'Phalcon\Di\Injectable',
-                'Phalcon\Mvc\User\Plugin' => 'Phalcon\Di\Injectable',
-                'Phalcon\Mvc\View\Engine' => 'Phalcon\Mvc\View\Engine\AbstractEngine',
-                'Phalcon\Paginator\Adapter' => 'Phalcon\Paginator\Adapter\AbstractAdapter',
-                'Phalcon\Paginator\Factory' => 'Phalcon\Paginator\PaginatorFactory',
-                'Phalcon\Session\Adapter' => 'Phalcon\Session\Adapter\AbstractAdapter',
-                'Phalcon\Session\Adapter\Files' => 'Phalcon\Session\Adapter\Stream',
-                'Phalcon\Session\Factory' => 'Phalcon\Session\Manager',
-                'Phalcon\Translate\Adapter' => 'Phalcon\Translate\Adapter\AbstractAdapter',
-                'Phalcon\Translate\Factory' => 'Phalcon\Translate\TranslateFactory',
-                'Phalcon\Validation\CombinedFieldsValidator' => 'Phalcon\Validation\AbstractCombinedFieldsValidator',
-                'Phalcon\Validation\Message' => 'Phalcon\Messages\Message',
-                'Phalcon\Validation\Message\Group' => 'Phalcon\Messages\Messages',
-                'Phalcon\Validation\Validator' => 'Phalcon\Validation\AbstractValidator',
-                'Phalcon\Text' => 'Phalcon\Helper\Str',
-                'Phalcon\Session\AdapterInterface' => 'SessionHandlerInterface',
-            ],
-        ]]);
-
-    $services->set(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('Phalcon\Acl\AdapterInterface', 'isResource', 'isComponent'),
-                new MethodCallRename('Phalcon\Acl\AdapterInterface', 'addResource', 'addComponent'),
-                new MethodCallRename('Phalcon\Acl\AdapterInterface', 'addResourceAccess', 'addComponentAccess'),
-                new MethodCallRename('Phalcon\Acl\AdapterInterface', 'dropResourceAccess', 'dropComponentAccess'),
-                new MethodCallRename('Phalcon\Acl\AdapterInterface', 'getActiveResource', 'getActiveComponent'),
-                new MethodCallRename('Phalcon\Acl\AdapterInterface', 'getResources', 'getComponents'),
-                new MethodCallRename('Phalcon\Acl\Adapter\Memory', 'isResource', 'isComponent'),
-                new MethodCallRename('Phalcon\Acl\Adapter\Memory', 'addResource', 'addComponent'),
-                new MethodCallRename('Phalcon\Acl\Adapter\Memory', 'addResourceAccess', 'addComponentAccess'),
-                new MethodCallRename('Phalcon\Acl\Adapter\Memory', 'dropResourceAccess', 'dropComponentAccess'),
-                new MethodCallRename('Phalcon\Acl\Adapter\Memory', 'getResources', 'getComponents'),
-                new MethodCallRename('Phalcon\Cli\Console', 'addModules', 'registerModules'),
-                new MethodCallRename('Phalcon\Dispatcher', 'setModelBinding', 'setModelBinder'),
-                new MethodCallRename('Phalcon\Assets\Manager', 'addResource', 'addAsset'),
-                new MethodCallRename('Phalcon\Assets\Manager', 'addResourceByType', 'addAssetByType'),
-                new MethodCallRename('Phalcon\Assets\Manager', 'collectionResourcesByType', 'collectionAssetsByType'),
-                new MethodCallRename('Phalcon\Http\RequestInterface', 'isSecureRequest', 'isSecure'),
-                new MethodCallRename('Phalcon\Http\RequestInterface', 'isSoapRequested', 'isSoap'),
-                new MethodCallRename('Phalcon\Paginator', 'getPaginate', 'paginate'),
-                new MethodCallRename('Phalcon\Mvc\Model\Criteria', 'order', 'orderBy'),
-            ]),
-        ]]);
-
-    $services->set(RenameConstantRector::class)
-        ->call('configure', [[
-            RenameConstantRector::OLD_TO_NEW_CONSTANTS => [
-                'FILTER_SPECIAL_CHARS' => 'FILTER_SPECIAL',
-                'FILTER_ALPHANUM' => 'FILTER_ALNUM',
-            ],
-        ]]);
-
-    $services->set(FlashWithCssClassesToExtraCallRector::class);
-
-    $services->set(NewApplicationToToFactoryWithDefaultContainerRector::class);
-
-    $services->set(AddRequestToHandleMethodCallRector::class);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper006a73f0e455\\Phalcon\\Acl\\Adapter' => '_PhpScoper006a73f0e455\\Phalcon\\Acl\\Adapter\\AbstractAdapter', '_PhpScoper006a73f0e455\\Phalcon\\Acl\\Resource' => '_PhpScoper006a73f0e455\\Phalcon\\Acl\\Component', '_PhpScoper006a73f0e455\\Phalcon\\Acl\\ResourceInterface' => '_PhpScoper006a73f0e455\\Phalcon\\Acl\\ComponentInterface', '_PhpScoper006a73f0e455\\Phalcon\\Acl\\ResourceAware' => '_PhpScoper006a73f0e455\\Phalcon\\Acl\\ComponentAware', '_PhpScoper006a73f0e455\\Phalcon\\Assets\\ResourceInterface' => '_PhpScoper006a73f0e455\\Phalcon\\Assets\\AssetInterface', '_PhpScoper006a73f0e455\\Phalcon\\Validation\\MessageInterface' => '_PhpScoper006a73f0e455\\Phalcon\\Messages\\MessageInterface', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\MessageInterface' => '_PhpScoper006a73f0e455\\Phalcon\\Messages\\MessageInterface', '_PhpScoper006a73f0e455\\Phalcon\\Annotations\\Adapter' => '_PhpScoper006a73f0e455\\Phalcon\\Annotations\\Adapter\\AbstractAdapter', '_PhpScoper006a73f0e455\\Phalcon\\Annotations\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Annotations\\AnnotationsFactory', '_PhpScoper006a73f0e455\\Phalcon\\Application' => '_PhpScoper006a73f0e455\\Phalcon\\Application\\AbstractApplication', '_PhpScoper006a73f0e455\\Phalcon\\Assets\\Resource' => '_PhpScoper006a73f0e455\\Phalcon\\Assets\\Asset', '_PhpScoper006a73f0e455\\Phalcon\\Assets\\Resource\\Css' => '_PhpScoper006a73f0e455\\Phalcon\\Assets\\Asset\\Css', '_PhpScoper006a73f0e455\\Phalcon\\Assets\\Resource\\Js' => '_PhpScoper006a73f0e455\\Phalcon\\Assets\\Asset\\Js', '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Backend' => '_PhpScoper006a73f0e455\\Phalcon\\Cache', '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Backend\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Cache\\AdapterFactory', '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Backend\\Apcu' => '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Adapter\\Apcu', '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Backend\\File' => '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Adapter\\Stream', '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Backend\\Libmemcached' => '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Adapter\\Libmemcached', '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Backend\\Memory' => '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Adapter\\Memory', '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Backend\\Redis' => '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Adapter\\Redis', '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Exception' => '_PhpScoper006a73f0e455\\Phalcon\\Cache\\Exception\\Exception', '_PhpScoper006a73f0e455\\Phalcon\\Config\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Config\\ConfigFactory', '_PhpScoper006a73f0e455\\Phalcon\\Db' => '_PhpScoper006a73f0e455\\Phalcon\\Db\\AbstractDb', '_PhpScoper006a73f0e455\\Phalcon\\Db\\Adapter' => '_PhpScoper006a73f0e455\\Phalcon\\Db\\Adapter\\AbstractAdapter', '_PhpScoper006a73f0e455\\Phalcon\\Db\\Adapter\\Pdo' => '_PhpScoper006a73f0e455\\Phalcon\\Db\\Adapter\\Pdo\\AbstractPdo', '_PhpScoper006a73f0e455\\Phalcon\\Db\\Adapter\\Pdo\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Db\\Adapter\\PdoFactory', '_PhpScoper006a73f0e455\\Phalcon\\Dispatcher' => '_PhpScoper006a73f0e455\\Phalcon\\Dispatcher\\AbstractDispatcher', '_PhpScoper006a73f0e455\\Phalcon\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Factory\\AbstractFactory', '_PhpScoper006a73f0e455\\Phalcon\\Flash' => '_PhpScoper006a73f0e455\\Phalcon\\Flash\\AbstractFlash', '_PhpScoper006a73f0e455\\Phalcon\\Forms\\Element' => '_PhpScoper006a73f0e455\\Phalcon\\Forms\\Element\\AbstractElement', '_PhpScoper006a73f0e455\\Phalcon\\Image\\Adapter' => '_PhpScoper006a73f0e455\\Phalcon\\Image\\Adapter\\AbstractAdapter', '_PhpScoper006a73f0e455\\Phalcon\\Image\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Image\\ImageFactory', '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Adapter' => '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Adapter\\AbstractAdapter', '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Adapter\\Blackhole' => '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Adapter\\Noop', '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Adapter\\File' => '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Adapter\\Stream', '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Logger\\LoggerFactory', '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Formatter' => '_PhpScoper006a73f0e455\\Phalcon\\Logger\\Formatter\\AbstractFormatter', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Collection' => '_PhpScoper006a73f0e455\\Phalcon\\Collection', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Collection\\Exception' => '_PhpScoper006a73f0e455\\Phalcon\\Collection\\Exception', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Message' => '_PhpScoper006a73f0e455\\Phalcon\\Messages\\Message', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\MetaData\\Files' => '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\MetaData\\Stream', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\Email' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\Email', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\Exclusionin' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\ExclusionIn', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\Inclusionin' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\InclusionIn', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\Ip' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\Ip', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\Numericality' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\Numericality', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\PresenceOf' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\PresenceOf', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\Regex' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\Regex', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\StringLength' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\StringLength', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\Uniqueness' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\Uniqueness', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Validator\\Url' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator\\Url', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Url' => '_PhpScoper006a73f0e455\\Phalcon\\Url', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Url\\Exception' => '_PhpScoper006a73f0e455\\Phalcon\\Url\\Exception', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\User\\Component' => '_PhpScoper006a73f0e455\\Phalcon\\Di\\Injectable', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\User\\Module' => '_PhpScoper006a73f0e455\\Phalcon\\Di\\Injectable', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\User\\Plugin' => '_PhpScoper006a73f0e455\\Phalcon\\Di\\Injectable', '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\View\\Engine' => '_PhpScoper006a73f0e455\\Phalcon\\Mvc\\View\\Engine\\AbstractEngine', '_PhpScoper006a73f0e455\\Phalcon\\Paginator\\Adapter' => '_PhpScoper006a73f0e455\\Phalcon\\Paginator\\Adapter\\AbstractAdapter', '_PhpScoper006a73f0e455\\Phalcon\\Paginator\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Paginator\\PaginatorFactory', '_PhpScoper006a73f0e455\\Phalcon\\Session\\Adapter' => '_PhpScoper006a73f0e455\\Phalcon\\Session\\Adapter\\AbstractAdapter', '_PhpScoper006a73f0e455\\Phalcon\\Session\\Adapter\\Files' => '_PhpScoper006a73f0e455\\Phalcon\\Session\\Adapter\\Stream', '_PhpScoper006a73f0e455\\Phalcon\\Session\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Session\\Manager', '_PhpScoper006a73f0e455\\Phalcon\\Translate\\Adapter' => '_PhpScoper006a73f0e455\\Phalcon\\Translate\\Adapter\\AbstractAdapter', '_PhpScoper006a73f0e455\\Phalcon\\Translate\\Factory' => '_PhpScoper006a73f0e455\\Phalcon\\Translate\\TranslateFactory', '_PhpScoper006a73f0e455\\Phalcon\\Validation\\CombinedFieldsValidator' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\AbstractCombinedFieldsValidator', '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Message' => '_PhpScoper006a73f0e455\\Phalcon\\Messages\\Message', '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Message\\Group' => '_PhpScoper006a73f0e455\\Phalcon\\Messages\\Messages', '_PhpScoper006a73f0e455\\Phalcon\\Validation\\Validator' => '_PhpScoper006a73f0e455\\Phalcon\\Validation\\AbstractValidator', '_PhpScoper006a73f0e455\\Phalcon\\Text' => '_PhpScoper006a73f0e455\\Phalcon\\Helper\\Str', '_PhpScoper006a73f0e455\\Phalcon\\Session\\AdapterInterface' => 'SessionHandlerInterface']]]);
+    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\AdapterInterface', 'isResource', 'isComponent'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\AdapterInterface', 'addResource', 'addComponent'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\AdapterInterface', 'addResourceAccess', 'addComponentAccess'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\AdapterInterface', 'dropResourceAccess', 'dropComponentAccess'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\AdapterInterface', 'getActiveResource', 'getActiveComponent'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\AdapterInterface', 'getResources', 'getComponents'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\Adapter\\Memory', 'isResource', 'isComponent'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\Adapter\\Memory', 'addResource', 'addComponent'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\Adapter\\Memory', 'addResourceAccess', 'addComponentAccess'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\Adapter\\Memory', 'dropResourceAccess', 'dropComponentAccess'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Acl\\Adapter\\Memory', 'getResources', 'getComponents'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Cli\\Console', 'addModules', 'registerModules'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Dispatcher', 'setModelBinding', 'setModelBinder'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Assets\\Manager', 'addResource', 'addAsset'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Assets\\Manager', 'addResourceByType', 'addAssetByType'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Assets\\Manager', 'collectionResourcesByType', 'collectionAssetsByType'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Http\\RequestInterface', 'isSecureRequest', 'isSecure'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Http\\RequestInterface', 'isSoapRequested', 'isSoap'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Paginator', 'getPaginate', 'paginate'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Phalcon\\Mvc\\Model\\Criteria', 'order', 'orderBy')])]]);
+    $services->set(\Rector\Renaming\Rector\ConstFetch\RenameConstantRector::class)->call('configure', [[\Rector\Renaming\Rector\ConstFetch\RenameConstantRector::OLD_TO_NEW_CONSTANTS => ['FILTER_SPECIAL_CHARS' => 'FILTER_SPECIAL', 'FILTER_ALPHANUM' => 'FILTER_ALNUM']]]);
+    $services->set(\Rector\Phalcon\Rector\Assign\FlashWithCssClassesToExtraCallRector::class);
+    $services->set(\Rector\Phalcon\Rector\Assign\NewApplicationToToFactoryWithDefaultContainerRector::class);
+    $services->set(\Rector\Phalcon\Rector\MethodCall\AddRequestToHandleMethodCallRector::class);
 };

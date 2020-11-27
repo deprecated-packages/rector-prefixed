@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -10,66 +9,50 @@ use PhpParser\Node\Identifier;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Nette\Tests\Rector\MethodCall\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRectorTest
  */
-final class ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector extends AbstractRector
+final class ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'convert addUpload() with 3rd argument true to addMultiUpload()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('convert addUpload() with 3rd argument true to addMultiUpload()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $form = new Nette\Forms\Form();
 $form->addUpload('...', '...', true);
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 $form = new Nette\Forms\Form();
 $form->addMultiUpload('...', '...');
 CODE_SAMPLE
-
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node->var, 'Nette\Forms\Form')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Nette\\Forms\\Form')) {
             return null;
         }
-
-        if (! $this->isName($node->name, 'addUpload')) {
+        if (!$this->isName($node->name, 'addUpload')) {
             return null;
         }
-
         $args = $node->args;
-        if (! isset($args[2])) {
+        if (!isset($args[2])) {
             return null;
         }
-
         if ($this->isTrue($node->args[2]->value)) {
-            $node->name = new Identifier('addMultiUpload');
+            $node->name = new \PhpParser\Node\Identifier('addMultiUpload');
             unset($node->args[2]);
             return $node;
         }
-
         return null;
     }
 }

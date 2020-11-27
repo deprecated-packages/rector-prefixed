@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Naming\Rector\Assign\RenameVariableToMatchMethodCallReturnTypeRector;
 use Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
@@ -13,17 +14,16 @@ use Rector\Naming\Rector\Property\MakeBoolPropertyRespectIsHasWasMethodNamingRec
 use Rector\Naming\Rector\Property\UnderscoreToCamelCasePropertyNameRector;
 use Rector\Naming\Rector\Variable\UnderscoreToCamelCaseVariableNameRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(RenameParamToMatchTypeRector::class);
-    $services->set(RenamePropertyToMatchTypeRector::class);
-    $services->set(RenameVariableToMatchNewTypeRector::class);
-    $services->set(RenameVariableToMatchMethodCallReturnTypeRector::class);
-    $services->set(MakeGetterClassMethodNameStartWithGetRector::class);
-    $services->set(MakeIsserClassMethodNameStartWithIsRector::class);
-    $services->set(RenameForeachValueVariableToMatchMethodCallReturnTypeRector::class);
-    $services->set(MakeBoolPropertyRespectIsHasWasMethodNamingRector::class);
-    $services->set(UnderscoreToCamelCasePropertyNameRector::class);
-    $services->set(UnderscoreToCamelCaseVariableNameRector::class);
+    $services->set(\Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector::class);
+    $services->set(\Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class);
+    $services->set(\Rector\Naming\Rector\ClassMethod\RenameVariableToMatchNewTypeRector::class);
+    $services->set(\Rector\Naming\Rector\Assign\RenameVariableToMatchMethodCallReturnTypeRector::class);
+    $services->set(\Rector\Naming\Rector\ClassMethod\MakeGetterClassMethodNameStartWithGetRector::class);
+    $services->set(\Rector\Naming\Rector\ClassMethod\MakeIsserClassMethodNameStartWithIsRector::class);
+    $services->set(\Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchMethodCallReturnTypeRector::class);
+    $services->set(\Rector\Naming\Rector\Property\MakeBoolPropertyRespectIsHasWasMethodNamingRector::class);
+    $services->set(\Rector\Naming\Rector\Property\UnderscoreToCamelCasePropertyNameRector::class);
+    $services->set(\Rector\Naming\Rector\Variable\UnderscoreToCamelCaseVariableNameRector::class);
 };

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
 use PhpParser\Node;
@@ -18,17 +17,14 @@ use PhpParser\Node\Stmt\If_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\CodeQuality\Tests\Rector\If_\SimplifyIfIssetToNullCoalescingRector\SimplifyIfIssetToNullCoalescingRectorTest
  */
-final class SimplifyIfIssetToNullCoalescingRector extends AbstractRector
+final class SimplifyIfIssetToNullCoalescingRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Simplify binary if to null coalesce', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify binary if to null coalesce', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeController
 {
     public function run($possibleStatieYamlFile)
@@ -41,8 +37,7 @@ final class SomeController
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeController
 {
     public function run($possibleStatieYamlFile)
@@ -51,102 +46,81 @@ final class SomeController
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
-
     /**
      * @param If_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
         /** @var Isset_ $issetNode */
         $issetNode = $node->cond;
-
         $valueNode = $issetNode->vars[0];
-
         // various scenarios
         /** @var Assign $firstAssign */
         $firstAssign = $node->stmts[0]->expr;
         /** @var Assign $secondAssign */
         $secondAssign = $node->else->stmts[0]->expr;
-
         // 1. array_merge
-        if (! $firstAssign->expr instanceof FuncCall) {
+        if (!$firstAssign->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
-
-        if (! $this->isName($firstAssign->expr, 'array_merge')) {
+        if (!$this->isName($firstAssign->expr, 'array_merge')) {
             return null;
         }
-
-        if (! $this->areNodesEqual($firstAssign->expr->args[0]->value, $valueNode)) {
+        if (!$this->areNodesEqual($firstAssign->expr->args[0]->value, $valueNode)) {
             return null;
         }
-
-        if (! $this->areNodesEqual($secondAssign->expr, $firstAssign->expr->args[1]->value)) {
+        if (!$this->areNodesEqual($secondAssign->expr, $firstAssign->expr->args[1]->value)) {
             return null;
         }
-
-        $args = [new Arg(new Coalesce($valueNode, new Array_([]))), new Arg($secondAssign->expr)];
-        $funcCall = new FuncCall(new Name('array_merge'), $args);
-
-        return new Assign($valueNode, $funcCall);
+        $args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\BinaryOp\Coalesce($valueNode, new \PhpParser\Node\Expr\Array_([]))), new \PhpParser\Node\Arg($secondAssign->expr)];
+        $funcCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('array_merge'), $args);
+        return new \PhpParser\Node\Expr\Assign($valueNode, $funcCall);
     }
-
-    private function shouldSkip(If_ $if): bool
+    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if ($if->else === null) {
-            return true;
+            return \true;
         }
-
-        if (count($if->elseifs) > 1) {
-            return true;
+        if (\count($if->elseifs) > 1) {
+            return \true;
         }
-
-        if (! $if->cond instanceof Isset_) {
-            return true;
+        if (!$if->cond instanceof \PhpParser\Node\Expr\Isset_) {
+            return \true;
         }
-
-        if (! $this->hasOnlyStatementAssign($if)) {
-            return true;
+        if (!$this->hasOnlyStatementAssign($if)) {
+            return \true;
         }
-
-        if (! $this->hasOnlyStatementAssign($if->else)) {
-            return true;
+        if (!$this->hasOnlyStatementAssign($if->else)) {
+            return \true;
         }
-
-        if (! $this->areNodesEqual($if->cond->vars[0], $if->stmts[0]->expr->var)) {
-            return true;
+        if (!$this->areNodesEqual($if->cond->vars[0], $if->stmts[0]->expr->var)) {
+            return \true;
         }
-        return ! $this->areNodesEqual($if->cond->vars[0], $if->else->stmts[0]->expr->var);
+        return !$this->areNodesEqual($if->cond->vars[0], $if->else->stmts[0]->expr->var);
     }
-
     /**
      * @param If_|Else_ $node
      */
-    private function hasOnlyStatementAssign(Node $node): bool
+    private function hasOnlyStatementAssign(\PhpParser\Node $node) : bool
     {
-        if (count($node->stmts) !== 1) {
-            return false;
+        if (\count($node->stmts) !== 1) {
+            return \false;
         }
-
-        if (! $node->stmts[0] instanceof Expression) {
-            return false;
+        if (!$node->stmts[0] instanceof \PhpParser\Node\Stmt\Expression) {
+            return \false;
         }
-
-        return $node->stmts[0]->expr instanceof Assign;
+        return $node->stmts[0]->expr instanceof \PhpParser\Node\Expr\Assign;
     }
 }

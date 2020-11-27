@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\Rector\FunctionLike;
 
 use PhpParser\Node;
@@ -21,36 +20,30 @@ use Rector\TypeDeclaration\ValueObject\NewType;
 use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\TypeDeclaration\Tests\Rector\FunctionLike\ParamTypeDeclarationRector\ParamTypeDeclarationRectorTest
  */
-final class ParamTypeDeclarationRector extends AbstractTypeDeclarationRector
+final class ParamTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\FunctionLike\AbstractTypeDeclarationRector
 {
     /**
      * @var ParamTypeInferer
      */
     private $paramTypeInferer;
-
     /**
      * @var ChildParamPopulator
      */
     private $childParamPopulator;
-
-    public function __construct(ChildParamPopulator $childParamPopulator, ParamTypeInferer $paramTypeInferer)
+    public function __construct(\Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator, \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer)
     {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->childParamPopulator = $childParamPopulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change @param types to type declarations if not a BC-break',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change @param types to type declarations if not a BC-break', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
+
+namespace _PhpScoper006a73f0e455;
 
 class ParentClass
 {
@@ -61,8 +54,8 @@ class ParentClass
     {
     }
 }
-
-final class ChildClass extends ParentClass
+\class_alias('_PhpScoper006a73f0e455\\ParentClass', 'ParentClass', \false);
+final class ChildClass extends \_PhpScoper006a73f0e455\ParentClass
 {
     /**
      * @param int $number
@@ -70,7 +63,6 @@ final class ChildClass extends ParentClass
     public function keep($number)
     {
     }
-
     /**
      * @param int $number
      */
@@ -78,10 +70,12 @@ final class ChildClass extends ParentClass
     {
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\ChildClass', 'ChildClass', \false);
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 <?php
+
+namespace _PhpScoper006a73f0e455;
 
 class ParentClass
 {
@@ -92,8 +86,8 @@ class ParentClass
     {
     }
 }
-
-final class ChildClass extends ParentClass
+\class_alias('_PhpScoper006a73f0e455\\ParentClass', 'ParentClass', \false);
+final class ChildClass extends \_PhpScoper006a73f0e455\ParentClass
 {
     /**
      * @param int $number
@@ -101,7 +95,6 @@ final class ChildClass extends ParentClass
     public function keep($number)
     {
     }
-
     /**
      * @param int $number
      */
@@ -109,100 +102,77 @@ final class ChildClass extends ParentClass
     {
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\ChildClass', 'ChildClass', \false);
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::SCALAR_TYPES)) {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;
         }
-
         if ($node->params === null || $node->params === []) {
             return null;
         }
-
         foreach ($node->params as $position => $param) {
             $this->refactorParam($param, $node, (int) $position);
         }
-
         return null;
     }
-
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function refactorParam(Param $param, FunctionLike $functionLike, int $position): void
+    private function refactorParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : void
     {
         if ($this->shouldSkipParam($param, $functionLike, $position)) {
             return;
         }
-
         $inferedType = $this->paramTypeInferer->inferParam($param);
-        if ($inferedType instanceof MixedType) {
+        if ($inferedType instanceof \PHPStan\Type\MixedType) {
             return;
         }
-
         if ($this->isTraitType($inferedType)) {
             return;
         }
-
-        $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode(
-            $inferedType,
-            PHPStanStaticTypeMapper::KIND_PARAM
-        );
-
+        $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper::KIND_PARAM);
         if ($paramTypeNode === null) {
             return;
         }
-
         $param->type = $paramTypeNode;
         $this->childParamPopulator->populateChildClassMethod($functionLike, $position, $inferedType);
     }
-
-    private function shouldSkipParam(Param $param, FunctionLike $functionLike, int $position): bool
+    private function shouldSkipParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : bool
     {
         if ($this->vendorLockResolver->isClassMethodParamLockedIn($functionLike, $position)) {
-            return true;
+            return \true;
         }
-
         if ($param->variadic) {
-            return true;
+            return \true;
         }
-
         // no type → check it
         if ($param->type === null) {
-            return false;
+            return \false;
         }
-
         // already set → skip
-        return ! $param->type->getAttribute(NewType::HAS_NEW_INHERITED_TYPE, false);
+        return !$param->type->getAttribute(\Rector\TypeDeclaration\ValueObject\NewType::HAS_NEW_INHERITED_TYPE, \false);
     }
-
-    private function isTraitType(Type $type): bool
+    private function isTraitType(\PHPStan\Type\Type $type) : bool
     {
-        if (! $type instanceof TypeWithClassName) {
-            return false;
+        if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
+            return \false;
         }
-
         $fullyQualifiedName = $this->getFullyQualifiedName($type);
-        $reflectionClass = new ReflectionClass($fullyQualifiedName);
-
+        $reflectionClass = new \ReflectionClass($fullyQualifiedName);
         return $reflectionClass->isTrait();
     }
-
-    private function getFullyQualifiedName(TypeWithClassName $typeWithClassName): string
+    private function getFullyQualifiedName(\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
     {
-        if ($typeWithClassName instanceof ShortenedObjectType) {
+        if ($typeWithClassName instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
             return $typeWithClassName->getFullyQualifiedName();
         }
-
         return $typeWithClassName->getClassName();
     }
 }

@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodingStyle\ClassNameImport\ClassNameImportSkipVoter;
 
 use PhpParser\Node;
 use Rector\CodingStyle\ClassNameImport\ShortNameResolver;
 use Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
-
 /**
  * Prevents adding:
  *
@@ -18,31 +16,27 @@ use Rector\PHPStan\Type\FullyQualifiedObjectType;
  *
  * SomeClass::callThis();
  */
-final class FullyQualifiedNameClassNameImportSkipVoter implements ClassNameImportSkipVoterInterface
+final class FullyQualifiedNameClassNameImportSkipVoter implements \Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
 {
     /**
      * @var ShortNameResolver
      */
     private $shortNameResolver;
-
-    public function __construct(ShortNameResolver $shortNameResolver)
+    public function __construct(\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
     {
         $this->shortNameResolver = $shortNameResolver;
     }
-
-    public function shouldSkip(FullyQualifiedObjectType $fullyQualifiedObjectType, Node $node): bool
+    public function shouldSkip(\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \PhpParser\Node $node) : bool
     {
         // "new X" or "X::static()"
         $shortNames = $this->shortNameResolver->resolveForNode($node);
         foreach ($shortNames as $shortName => $fullyQualifiedName) {
-            $shortNameLowered = strtolower($shortName);
+            $shortNameLowered = \strtolower($shortName);
             if ($fullyQualifiedObjectType->getShortNameLowered() !== $shortNameLowered) {
                 continue;
             }
-
-            return $fullyQualifiedObjectType->getClassNameLowered() !== strtolower($fullyQualifiedName);
+            return $fullyQualifiedObjectType->getClassNameLowered() !== \strtolower($fullyQualifiedName);
         }
-
-        return false;
+        return \false;
     }
 }

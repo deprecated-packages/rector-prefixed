@@ -1,11 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
-use Nette\Application\Routers\RouteList;
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Application\Routers\RouteList;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
@@ -24,53 +23,40 @@ use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 use ReflectionMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://doc.nette.org/en/2.4/routing
  * @see https://symfony.com/doc/current/routing.html
  *
  * @see \Rector\NetteToSymfony\Tests\Rector\ClassMethod\RouterListToControllerAnnotationsRector\RouterListToControllerAnnotationsRectorTest
  */
-final class RouterListToControllerAnnotationsRector extends AbstractRector
+final class RouterListToControllerAnnotationsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/qVlXk2/2
      */
     private const ACTION_RENDER_NAME_MATCHING_REGEX = '#^(action|render)(?<short_action_name>.*?$)#sm';
-
     /**
      * @var RouteInfoFactory
      */
     private $routeInfoFactory;
-
     /**
      * @var ReturnTypeInferer
      */
     private $returnTypeInferer;
-
     /**
      * @var ExplicitRouteAnnotationDecorator
      */
     private $explicitRouteAnnotationDecorator;
-
-    public function __construct(
-        ExplicitRouteAnnotationDecorator $explicitRouteAnnotationDecorator,
-        ReturnTypeInferer $returnTypeInferer,
-        RouteInfoFactory $routeInfoFactory
-    ) {
+    public function __construct(\Rector\NetteToSymfony\Routing\ExplicitRouteAnnotationDecorator $explicitRouteAnnotationDecorator, \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\NetteToSymfony\Route\RouteInfoFactory $routeInfoFactory)
+    {
         $this->routeInfoFactory = $routeInfoFactory;
         $this->returnTypeInferer = $returnTypeInferer;
         $this->explicitRouteAnnotationDecorator = $explicitRouteAnnotationDecorator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change new Route() from RouteFactory to @Route annotation above controller method',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change new Route() from RouteFactory to @Route annotation above controller method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class RouterFactory
 {
     public function create(): RouteList
@@ -89,8 +75,7 @@ final class SomePresenter
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class RouterFactory
 {
     public function create(): RouteList
@@ -116,228 +101,170 @@ final class SomePresenter
     }
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * List of nodes this class checks, classes that implement @see \PhpParser\Node
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->stmts === null || $node->stmts === []) {
             return null;
         }
-
         $inferedReturnType = $this->returnTypeInferer->inferFunctionLike($node);
-
-        $routeListObjectType = new ObjectType(RouteList::class);
-        if (! $inferedReturnType->isSuperTypeOf($routeListObjectType)->yes()) {
+        $routeListObjectType = new \PHPStan\Type\ObjectType(\_PhpScoper006a73f0e455\Nette\Application\Routers\RouteList::class);
+        if (!$inferedReturnType->isSuperTypeOf($routeListObjectType)->yes()) {
             return null;
         }
-
         $assignNodes = $this->resolveAssignRouteNodes($node);
         if ($assignNodes === []) {
             return null;
         }
-
         $routeInfos = $this->createRouteInfosFromAssignNodes($assignNodes);
-
         /** @var RouteInfo $routeInfo */
         foreach ($routeInfos as $routeInfo) {
             $classMethod = $this->resolveControllerClassMethod($routeInfo);
             if ($classMethod === null) {
                 continue;
             }
-
             $symfonyRoutePhpDocTagValueNode = $this->createSymfonyRoutePhpDocTagValueNode($routeInfo);
-
-            $this->explicitRouteAnnotationDecorator->decorateClassMethodWithRouteAnnotation(
-                $classMethod,
-                $symfonyRoutePhpDocTagValueNode
-            );
+            $this->explicitRouteAnnotationDecorator->decorateClassMethodWithRouteAnnotation($classMethod, $symfonyRoutePhpDocTagValueNode);
         }
-
         // complete all other non-explicit methods, from "<presenter>/<action>"
         $this->completeImplicitRoutes();
-
         // remove routes
         $this->removeNodes($assignNodes);
-
         return null;
     }
-
     /**
      * @return Assign[]
      */
-    private function resolveAssignRouteNodes(ClassMethod $classMethod): array
+    private function resolveAssignRouteNodes(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         // look for <...>[] = IRoute<Type>
-
-        return $this->betterNodeFinder->find($classMethod->stmts, function (Node $node): bool {
-            if (! $node instanceof Assign) {
-                return false;
+        return $this->betterNodeFinder->find($classMethod->stmts, function (\PhpParser\Node $node) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
             }
-
             // $routeList[] =
-            if (! $node->var instanceof ArrayDimFetch) {
-                return false;
+            if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+                return \false;
             }
-
-            if ($this->isObjectType($node->expr, 'Nette\Application\IRouter')) {
-                return true;
+            if ($this->isObjectType($node->expr, '_PhpScoper006a73f0e455\\Nette\\Application\\IRouter')) {
+                return \true;
             }
-
-            if ($node->expr instanceof StaticCall) {
+            if ($node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
                 // for custom static route factories
                 return $this->isRouteStaticCallMatch($node->expr);
             }
-
-            return false;
+            return \false;
         });
     }
-
     /**
      * @param Assign[] $assignNodes
      * @return RouteInfo[]
      */
-    private function createRouteInfosFromAssignNodes(array $assignNodes): array
+    private function createRouteInfosFromAssignNodes(array $assignNodes) : array
     {
         $routeInfos = [];
-
         // collect annotations and target controllers
         foreach ($assignNodes as $assignNode) {
             $routeNameToControllerMethod = $this->routeInfoFactory->createFromNode($assignNode->expr);
             if ($routeNameToControllerMethod === null) {
                 continue;
             }
-
             $routeInfos[] = $routeNameToControllerMethod;
         }
-
         return $routeInfos;
     }
-
-    private function resolveControllerClassMethod(RouteInfo $routeInfo): ?ClassMethod
+    private function resolveControllerClassMethod(\Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $classNode = $this->nodeRepository->findClass($routeInfo->getClass());
         if ($classNode === null) {
             return null;
         }
-
         return $classNode->getMethod($routeInfo->getMethod());
     }
-
-    private function createSymfonyRoutePhpDocTagValueNode(RouteInfo $routeInfo): SymfonyRouteTagValueNode
+    private function createSymfonyRoutePhpDocTagValueNode(\Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo) : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode
     {
-        return new SymfonyRouteTagValueNode([
-            'path' => $routeInfo->getPath(),
-            'methods' => $routeInfo->getHttpMethods(),
-        ]);
+        return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode(['path' => $routeInfo->getPath(), 'methods' => $routeInfo->getHttpMethods()]);
     }
-
-    private function completeImplicitRoutes(): void
+    private function completeImplicitRoutes() : void
     {
         $presenterClasses = $this->nodeRepository->findClassesBySuffix('Presenter');
-
         foreach ($presenterClasses as $presenterClass) {
             foreach ($presenterClass->getMethods() as $classMethod) {
                 if ($this->shouldSkipClassStmt($classMethod)) {
                     continue;
                 }
-
                 $path = $this->resolvePathFromClassAndMethodNodes($presenterClass, $classMethod);
-                $symfonyRoutePhpDocTagValueNode = new SymfonyRouteTagValueNode([
-                    'path' => $path,
-                ]);
-
-                $this->explicitRouteAnnotationDecorator->decorateClassMethodWithRouteAnnotation(
-                    $classMethod,
-                    $symfonyRoutePhpDocTagValueNode
-                );
+                $symfonyRoutePhpDocTagValueNode = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode(['path' => $path]);
+                $this->explicitRouteAnnotationDecorator->decorateClassMethodWithRouteAnnotation($classMethod, $symfonyRoutePhpDocTagValueNode);
             }
         }
     }
-
-    private function isRouteStaticCallMatch(StaticCall $staticCall): bool
+    private function isRouteStaticCallMatch(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
         $className = $this->getName($staticCall->class);
         if ($className === null) {
-            return false;
+            return \false;
         }
-
         $methodName = $this->getName($staticCall->name);
         if ($methodName === null) {
-            return false;
+            return \false;
         }
-
-        if (! method_exists($className, $methodName)) {
-            return false;
+        if (!\method_exists($className, $methodName)) {
+            return \false;
         }
-
-        $reflectionMethod = new ReflectionMethod($className, $methodName);
+        $reflectionMethod = new \ReflectionMethod($className, $methodName);
         if ($reflectionMethod->getReturnType() === null) {
-            return false;
+            return \false;
         }
-
         $staticCallReturnType = (string) $reflectionMethod->getReturnType();
-        return is_a($staticCallReturnType, 'Nette\Application\IRouter', true);
+        return \is_a($staticCallReturnType, '_PhpScoper006a73f0e455\\Nette\\Application\\IRouter', \true);
     }
-
-    private function shouldSkipClassStmt(Node $node): bool
+    private function shouldSkipClassStmt(\PhpParser\Node $node) : bool
     {
-        if (! $node instanceof ClassMethod) {
-            return true;
+        if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return \true;
         }
-
         // not an action method
-        if (! $node->isPublic()) {
-            return true;
+        if (!$node->isPublic()) {
+            return \true;
         }
-
-        if (! $this->isName($node, '#^(render|action)#')) {
-            return true;
+        if (!$this->isName($node, '#^(render|action)#')) {
+            return \true;
         }
-        $hasRouteAnnotation = $node->getAttribute(ExplicitRouteAnnotationDecorator::HAS_ROUTE_ANNOTATION);
-
+        $hasRouteAnnotation = $node->getAttribute(\Rector\NetteToSymfony\Routing\ExplicitRouteAnnotationDecorator::HAS_ROUTE_ANNOTATION);
         if ($hasRouteAnnotation) {
-            return true;
+            return \true;
         }
-
         // already has Route tag
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
-            return false;
+            return \false;
         }
-
-        return $phpDocInfo->hasByType(SymfonyRouteTagValueNode::class);
+        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class);
     }
-
-    private function resolvePathFromClassAndMethodNodes(Class_ $class, ClassMethod $classMethod): string
+    private function resolvePathFromClassAndMethodNodes(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : string
     {
         /** @var string $presenterName */
         $presenterName = $this->getName($class);
-
         /** @var string $presenterPart */
-        $presenterPart = Strings::after($presenterName, '\\', -1);
-
+        $presenterPart = \_PhpScoper006a73f0e455\Nette\Utils\Strings::after($presenterName, '\\', -1);
         /** @var string $presenterPart */
-        $presenterPart = Strings::substring($presenterPart, 0, -Strings::length('Presenter'));
-        $presenterPart = StaticRectorStrings::camelCaseToDashes($presenterPart);
-
-        $match = (array) Strings::match($this->getName($classMethod), self::ACTION_RENDER_NAME_MATCHING_REGEX);
-        $actionPart = lcfirst($match['short_action_name']);
-
+        $presenterPart = \_PhpScoper006a73f0e455\Nette\Utils\Strings::substring($presenterPart, 0, -\_PhpScoper006a73f0e455\Nette\Utils\Strings::length('Presenter'));
+        $presenterPart = \Rector\Core\Util\StaticRectorStrings::camelCaseToDashes($presenterPart);
+        $match = (array) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($this->getName($classMethod), self::ACTION_RENDER_NAME_MATCHING_REGEX);
+        $actionPart = \lcfirst($match['short_action_name']);
         return $presenterPart . '/' . $actionPart;
     }
 }

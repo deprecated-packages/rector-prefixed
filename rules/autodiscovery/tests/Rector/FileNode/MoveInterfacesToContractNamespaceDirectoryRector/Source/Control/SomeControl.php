@@ -1,12 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Autodiscovery\Tests\Rector\FileNode\MoveInterfacesToContractNamespaceDirectoryRector\Source\Control;
 
-use Nette\Application\UI\Control;
-
-final class SomeControl extends Control
+use _PhpScoper006a73f0e455\Nette\Application\UI\Control;
+final class SomeControl extends \_PhpScoper006a73f0e455\Nette\Application\UI\Control
 {
-
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 
 use PhpParser\Node\Expr\Array_;
@@ -20,121 +19,98 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
-
-final class PHPUnitDataProviderParamTypeInferer implements ParamTypeInfererInterface
+final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
 {
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var TypeFactory
      */
     private $typeFactory;
-
-    public function __construct(BetterNodeFinder $betterNodeFinder, TypeFactory $typeFactory)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->typeFactory = $typeFactory;
     }
-
     /**
      * Prevents circular reference
      * @required
      */
-    public function autowirePHPUnitDataProviderParamTypeInferer(NodeTypeResolver $nodeTypeResolver): void
+    public function autowirePHPUnitDataProviderParamTypeInferer(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-
-    public function inferParam(Param $param): Type
+    public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
         $dataProviderClassMethod = $this->resolveDataProviderClassMethod($param);
         if ($dataProviderClassMethod === null) {
-            return new MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-
-        $parameterPosition = $param->getAttribute(AttributeKey::PARAMETER_POSITION);
+        $parameterPosition = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARAMETER_POSITION);
         if ($parameterPosition === null) {
-            return new MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-
         /** @var Return_[] $returns */
-        $returns = $this->betterNodeFinder->findInstanceOf((array) $dataProviderClassMethod->stmts, Return_::class);
-
+        $returns = $this->betterNodeFinder->findInstanceOf((array) $dataProviderClassMethod->stmts, \PhpParser\Node\Stmt\Return_::class);
         return $this->resolveReturnStaticArrayTypeByParameterPosition($returns, $parameterPosition);
     }
-
-    private function resolveDataProviderClassMethod(Param $param): ?ClassMethod
+    private function resolveDataProviderClassMethod(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $phpDocInfo = $this->getFunctionLikePhpDocInfo($param);
         if ($phpDocInfo === null) {
             return null;
         }
-
         /** @var AttributeAwareDataProviderTagValueNode|null $attributeAwareDataProviderTagValueNode */
-        $attributeAwareDataProviderTagValueNode = $phpDocInfo->getByType(AttributeAwareDataProviderTagValueNode::class);
+        $attributeAwareDataProviderTagValueNode = $phpDocInfo->getByType(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareDataProviderTagValueNode::class);
         if ($attributeAwareDataProviderTagValueNode === null) {
             return null;
         }
-
-        $classLike = $param->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
+        $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-
         return $classLike->getMethod($attributeAwareDataProviderTagValueNode->getMethodName());
     }
-
     /**
      * @param Return_[] $returns
      */
-    private function resolveReturnStaticArrayTypeByParameterPosition(array $returns, int $parameterPosition): Type
+    private function resolveReturnStaticArrayTypeByParameterPosition(array $returns, int $parameterPosition) : \PHPStan\Type\Type
     {
         $paramOnPositionTypes = [];
-
         foreach ($returns as $classMethodReturn) {
-            if (! $classMethodReturn->expr instanceof Array_) {
+            if (!$classMethodReturn->expr instanceof \PhpParser\Node\Expr\Array_) {
                 continue;
             }
-
             $arrayTypes = $this->nodeTypeResolver->resolve($classMethodReturn->expr);
-
             // impossible to resolve
-            if (! $arrayTypes instanceof ConstantArrayType) {
-                return new MixedType();
+            if (!$arrayTypes instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+                return new \PHPStan\Type\MixedType();
             }
-
             // nest to 1 item
             foreach ($arrayTypes->getValueTypes() as $position => $valueType) {
                 if ($position !== $parameterPosition) {
                     continue;
                 }
-
                 $paramOnPositionTypes[] = $valueType;
             }
         }
-
         if ($paramOnPositionTypes === []) {
-            return new MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-
         return $this->typeFactory->createMixedPassedOrUnionType($paramOnPositionTypes);
     }
-
-    private function getFunctionLikePhpDocInfo(Param $param): ?PhpDocInfo
+    private function getFunctionLikePhpDocInfo(\PhpParser\Node\Param $param) : ?\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
-        $parent = $param->getAttribute(AttributeKey::PARENT_NODE);
-        if (! $parent instanceof FunctionLike) {
+        $parent = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\FunctionLike) {
             return null;
         }
-
-        return $parent->getAttribute(AttributeKey::PHP_DOC_INFO);
+        return $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Laravel\Rector\Assign;
 
 use PhpParser\Node;
@@ -14,88 +13,64 @@ use Rector\Laravel\NodeFactory\AppAssignFactory;
 use Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Laravel\Tests\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector\CallOnAppArrayAccessToStandaloneAssignRectorTest
  */
-final class CallOnAppArrayAccessToStandaloneAssignRector extends AbstractRector
+final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ServiceNameTypeAndVariableName[]
      */
     private $serviceNameTypeAndVariableNames = [];
-
     /**
      * @var AppAssignFactory
      */
     private $appAssignFactory;
-
-    public function __construct(AppAssignFactory $appAssignFactory)
+    public function __construct(\Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory)
     {
-        $this->serviceNameTypeAndVariableNames[] = new ServiceNameTypeAndVariableName(
-            'validator',
-            'Illuminate\Validation\Factory',
-        'validationFactory'
-        );
-
+        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', '_PhpScoper006a73f0e455\\Illuminate\\Validation\\Factory', 'validationFactory');
         $this->appAssignFactory = $appAssignFactory;
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Assign::class];
+        return [\PhpParser\Node\Expr\Assign::class];
     }
-
     /**
      * @param Assign $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $node->expr instanceof MethodCall) {
+        if (!$node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-
         $methodCall = $node->expr;
-        if (! $this->isObjectType($methodCall->var, 'Illuminate\Contracts\Foundation\Application')) {
+        if (!$this->isObjectType($methodCall->var, '_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Foundation\\Application')) {
             return null;
         }
-
-        if (! $methodCall->var instanceof ArrayDimFetch) {
+        if (!$methodCall->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
-
         $arrayDimFetchDim = $methodCall->var->dim;
         if ($arrayDimFetchDim === null) {
             return null;
         }
-
         foreach ($this->serviceNameTypeAndVariableNames as $serviceNameTypeAndVariableName) {
-            if (! $this->isValue($arrayDimFetchDim, $serviceNameTypeAndVariableName->getServiceName())) {
+            if (!$this->isValue($arrayDimFetchDim, $serviceNameTypeAndVariableName->getServiceName())) {
                 continue;
             }
-
-            $assignExpression = $this->appAssignFactory->createAssignExpression(
-                $serviceNameTypeAndVariableName,
-                $methodCall->var
-            );
-
+            $assignExpression = $this->appAssignFactory->createAssignExpression($serviceNameTypeAndVariableName, $methodCall->var);
             $this->addNodeBeforeNode($assignExpression, $node);
-            $methodCall->var = new Variable($serviceNameTypeAndVariableName->getVariableName());
-
+            $methodCall->var = new \PhpParser\Node\Expr\Variable($serviceNameTypeAndVariableName->getVariableName());
             return $node;
         }
-
         return null;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Replace magical call on $this->app["something"] to standalone type assign variable',
-            [new CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace magical call on $this->app["something"] to standalone type assign variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -125,6 +100,6 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                )]);
+)]);
     }
 }

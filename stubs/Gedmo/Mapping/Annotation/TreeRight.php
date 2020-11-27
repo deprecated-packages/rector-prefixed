@@ -1,15 +1,14 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Gedmo\Mapping\Annotation;
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Gedmo\Mapping\Annotation;
 
-if (class_exists('Gedmo\Mapping\Annotation\TreeRight')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\TreeRight')) {
     return;
 }
-
 /**
  * @Annotation
  */
 class TreeRight
 {
-
 }

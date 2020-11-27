@@ -1,0 +1,37 @@
+<?php
+
+declare (strict_types=1);
+namespace PHPStan\Analyser;
+
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\Rule;
+class AnonymousClassNameRule implements \PHPStan\Rules\Rule
+{
+    /** @var ReflectionProvider */
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
+    public function getNodeType() : string
+    {
+        return \PhpParser\Node\Stmt\Class_::class;
+    }
+    /**
+     * @param Class_ $node
+     * @param Scope $scope
+     * @return string[]
+     */
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    {
+        $className = isset($node->namespacedName) ? (string) $node->namespacedName : (string) $node->name;
+        try {
+            $this->reflectionProvider->getClass($className);
+        } catch (\PHPStan\Broker\ClassNotFoundException $e) {
+            return ['not found'];
+        }
+        return ['found'];
+    }
+}

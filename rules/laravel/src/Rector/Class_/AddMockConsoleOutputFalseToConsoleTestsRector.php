@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Laravel\Rector\Class_;
 
 use PhpParser\Node;
@@ -14,40 +13,30 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/laravel/framework/issues/26450#issuecomment-449401202
  * @see https://github.com/laravel/framework/commit/055fe52dbb7169dc51bd5d5deeb05e8da9be0470#diff-76a649cb397ea47f5613459c335f88c1b68e5f93e51d46e9fb5308ec55ded221
  *
  * @see \Rector\Laravel\Tests\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector\AddMockConsoleOutputFalseToConsoleTestsRectorTest
  */
-final class AddMockConsoleOutputFalseToConsoleTestsRector extends AbstractRector
+final class AddMockConsoleOutputFalseToConsoleTestsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
-
     /**
      * @var SetUpClassMethodNodeManipulator
      */
     private $setUpClassMethodNodeManipulator;
-
-    public function __construct(
-        PropertyFetchAnalyzer $propertyFetchAnalyzer,
-        SetUpClassMethodNodeManipulator $setUpClassMethodNodeManipulator
-    ) {
+    public function __construct(\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator $setUpClassMethodNodeManipulator)
+    {
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->setUpClassMethodNodeManipulator = $setUpClassMethodNodeManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Add "$this->mockConsoleOutput = false"; to console tests that work with output content',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add "$this->mockConsoleOutput = false"; to console tests that work with output content', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\TestCase;
 
@@ -59,9 +48,7 @@ final class SomeTest extends TestCase
     }
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\TestCase;
 
@@ -80,69 +67,55 @@ final class SomeTest extends TestCase
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node, 'Illuminate\Foundation\Testing\TestCase')) {
+        if (!$this->isObjectType($node, '_PhpScoper006a73f0e455\\Illuminate\\Foundation\\Testing\\TestCase')) {
             return null;
         }
-
-        if (! $this->isTestingConsoleOutput($node)) {
+        if (!$this->isTestingConsoleOutput($node)) {
             return null;
         }
-
         // has setUp with property `$mockConsoleOutput = false`
         if ($this->hasMockConsoleOutputFalse($node)) {
             return null;
         }
-
         $assign = $this->createAssign();
-
         $this->setUpClassMethodNodeManipulator->decorateOrCreate($node, [$assign]);
-
         return $node;
     }
-
-    private function isTestingConsoleOutput(Class_ $class): bool
+    private function isTestingConsoleOutput(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $class->stmts, function (Node $node): bool {
-            return $this->isStaticCallNamed($node, 'Illuminate\Support\Facades\Artisan', 'output');
+        return (bool) $this->betterNodeFinder->findFirst((array) $class->stmts, function (\PhpParser\Node $node) : bool {
+            return $this->isStaticCallNamed($node, '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Artisan', 'output');
         });
     }
-
-    private function hasMockConsoleOutputFalse(Class_ $class): bool
+    private function hasMockConsoleOutputFalse(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst($class, function (Node $node): bool {
-            if ($node instanceof Assign) {
-                if (! $this->propertyFetchAnalyzer->isLocalPropertyFetchName($node->var, 'mockConsoleOutput')) {
-                    return false;
+        return (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $node) : bool {
+            if ($node instanceof \PhpParser\Node\Expr\Assign) {
+                if (!$this->propertyFetchAnalyzer->isLocalPropertyFetchName($node->var, 'mockConsoleOutput')) {
+                    return \false;
                 }
-
                 return $this->isFalse($node->expr);
             }
-
-            return false;
+            return \false;
         });
     }
-
-    private function createAssign(): Assign
+    private function createAssign() : \PhpParser\Node\Expr\Assign
     {
-        $propertyFetch = new PropertyFetch(new Variable('this'), 'mockConsoleOutput');
-        return new Assign($propertyFetch, $this->createFalse());
+        $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), 'mockConsoleOutput');
+        return new \PhpParser\Node\Expr\Assign($propertyFetch, $this->createFalse());
     }
 }

@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector\Source;
 
 final class OldClassWithConstants
@@ -7,10 +8,9 @@ final class OldClassWithConstants
     /**
      * @var string
      */
-    public const DEVELOPMENT =  'development';
-
+    public const DEVELOPMENT = 'development';
     /**
      * @var string
      */
-    public const PRODUCTION =  'production';
+    public const PRODUCTION = 'production';
 }

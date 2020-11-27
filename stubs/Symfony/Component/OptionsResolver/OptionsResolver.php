@@ -1,14 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Symfony\Component\OptionsResolver;
 
-namespace Symfony\Component\OptionsResolver;
-
-if (class_exists('Symfony\Component\OptionsResolver\OptionsResolver')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Symfony\\Component\\OptionsResolver\\OptionsResolver')) {
     return;
 }
-
 class OptionsResolver
 {
-
 }

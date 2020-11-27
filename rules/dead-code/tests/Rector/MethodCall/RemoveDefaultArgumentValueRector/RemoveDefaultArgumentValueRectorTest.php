@@ -1,31 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\Tests\Rector\MethodCall\RemoveDefaultArgumentValueRector;
 
 use Iterator;
 use Rector\DeadCode\Rector\MethodCall\RemoveDefaultArgumentValueRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class RemoveDefaultArgumentValueRectorTest extends AbstractRectorTestCase
+final class RemoveDefaultArgumentValueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
-        return RemoveDefaultArgumentValueRector::class;
+        return \Rector\DeadCode\Rector\MethodCall\RemoveDefaultArgumentValueRector::class;
     }
 }

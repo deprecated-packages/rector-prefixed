@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\Property;
 
 use PhpParser\Node;
@@ -14,7 +13,6 @@ use Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * Can cover these cases:
  * - https://doc.nette.org/en/2.4/di-usage#toc-inject-annotations
@@ -24,44 +22,35 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Generic\Tests\Rector\Property\AnnotatedPropertyInjectToConstructorInjectionRector\AnnotatedPropertyInjectToConstructorInjectionRectorTest
  */
-final class AnnotatedPropertyInjectToConstructorInjectionRector extends AbstractRector
+final class AnnotatedPropertyInjectToConstructorInjectionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
     private const INJECT_ANNOTATION = 'inject';
-
     /**
      * @var PropertyUsageAnalyzer
      */
     private $propertyUsageAnalyzer;
-
     /**
      * @var ClassChildAnalyzer
      */
     private $classChildAnalyzer;
-
-    public function __construct(ClassChildAnalyzer $classChildAnalyzer, PropertyUsageAnalyzer $propertyUsageAnalyzer)
+    public function __construct(\Rector\FamilyTree\NodeAnalyzer\ClassChildAnalyzer $classChildAnalyzer, \Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer)
     {
         $this->propertyUsageAnalyzer = $propertyUsageAnalyzer;
         $this->classChildAnalyzer = $classChildAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Turns non-private properties with `@annotation` to private properties and constructor injection',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns non-private properties with `@annotation` to private properties and constructor injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * @var SomeService
  * @inject
  */
 public $someService;
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 /**
  * @var SomeService
  */
@@ -72,81 +61,64 @@ public function __construct(SomeService $someService)
     $this->someService = $someService;
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Property::class];
+        return [\PhpParser\Node\Stmt\Property::class];
     }
-
     /**
      * @param Property $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
         }
-
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $phpDocInfo->removeByName(self::INJECT_ANNOTATION);
-
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($node)) {
             $this->makeProtected($node);
         } else {
             $this->makePrivate($node);
         }
-
         $this->addPropertyToCollector($node);
-
         return $node;
     }
-
-    private function shouldSkipProperty(Property $property): bool
+    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
-            return true;
+            return \true;
         }
-
-        if (! $phpDocInfo->hasByName(self::INJECT_ANNOTATION)) {
-            return true;
+        if (!$phpDocInfo->hasByName(self::INJECT_ANNOTATION)) {
+            return \true;
         }
-
-        $classLike = $property->getAttribute(AttributeKey::CLASS_NODE);
+        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
-            return true;
+            return \true;
         }
-
-        if (! $classLike instanceof Class_) {
-            return true;
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return \true;
         }
-
         if ($classLike->isAbstract()) {
-            return true;
+            return \true;
         }
-
         if ($this->classChildAnalyzer->hasChildClassConstructor($classLike)) {
-            return true;
+            return \true;
         }
-
         if ($this->classChildAnalyzer->hasParentClassConstructor($classLike)) {
-            return true;
+            return \true;
         }
-
         // it needs @var tag as well, to get the type
         if ($phpDocInfo->getVarTagValueNode() !== null) {
-            return false;
+            return \false;
         }
-
         return $property->type === null;
     }
 }

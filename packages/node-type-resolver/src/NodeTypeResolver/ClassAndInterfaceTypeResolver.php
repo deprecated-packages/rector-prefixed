@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NodeTypeResolver\NodeTypeResolver;
 
 use PhpParser\Node;
@@ -15,53 +14,45 @@ use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\NodeTypeResolver\Reflection\ClassReflectionTypesResolver;
-
-final class ClassAndInterfaceTypeResolver implements NodeTypeResolverInterface
+final class ClassAndInterfaceTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @var ClassReflectionTypesResolver
      */
     private $classReflectionTypesResolver;
-
     /**
      * @var TypeFactory
      */
     private $typeFactory;
-
-    public function __construct(ClassReflectionTypesResolver $classReflectionTypesResolver, TypeFactory $typeFactory)
+    public function __construct(\Rector\NodeTypeResolver\Reflection\ClassReflectionTypesResolver $classReflectionTypesResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->classReflectionTypesResolver = $classReflectionTypesResolver;
         $this->typeFactory = $typeFactory;
     }
-
     /**
      * @return string[]
      */
-    public function getNodeClasses(): array
+    public function getNodeClasses() : array
     {
-        return [Class_::class, Interface_::class];
+        return [\PhpParser\Node\Stmt\Class_::class, \PhpParser\Node\Stmt\Interface_::class];
     }
-
     /**
      * @param Class_|Interface_ $node
      */
-    public function resolve(Node $node): Type
+    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         /** @var Scope|null $nodeScope */
-        $nodeScope = $node->getAttribute(AttributeKey::SCOPE);
+        $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($nodeScope === null) {
             // new node probably
-            return new MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-
         /** @var ClassReflection|null $classReflection */
         $classReflection = $nodeScope->getClassReflection();
         if ($classReflection === null) {
-            return new MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-
         $classTypes = $this->classReflectionTypesResolver->resolve($classReflection);
-
         return $this->typeFactory->createObjectTypeOrUnionType($classTypes);
     }
 }

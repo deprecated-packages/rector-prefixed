@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Attributes\Attribute;
 
 trait AttributeTrait
@@ -10,7 +9,6 @@ trait AttributeTrait
      * @var mixed[]
      */
     private $attributes = [];
-
     /**
      * @return mixed|null
      */
@@ -18,11 +16,10 @@ trait AttributeTrait
     {
         return $this->attributes[$name] ?? null;
     }
-
     /**
      * @param mixed $value
      */
-    public function setAttribute(string $name, $value): void
+    public function setAttribute(string $name, $value) : void
     {
         $this->attributes[$name] = $value;
     }

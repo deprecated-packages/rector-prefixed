@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
-
 use Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector;
@@ -27,210 +27,46 @@ use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-
 # https://github.com/symfony/symfony/pull/28447
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(NewToStaticCallRector::class)
-        ->call('configure', [[
-            NewToStaticCallRector::TYPE_TO_STATIC_CALLS => ValueObjectInliner::inline([
-                new NewToStaticCall(
-                    'Symfony\Component\HttpFoundation\Cookie',
-                    'Symfony\Component\HttpFoundation\Cookie',
-                    'create'
-                ),
-            ]),
-        ]]);
-
-    $services->set(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                # https://github.com/symfony/symfony/commit/a7e319d9e1316e2e18843f8ce15b67a8693e5bf9
-                'Symfony\Bundle\FrameworkBundle\Controller\Controller' => 'Symfony\Bundle\FrameworkBundle\Controller\AbstractController',
-                # https://github.com/symfony/symfony/commit/744bf0e7ac3ecf240d0bf055cc58f881bb0b3ec0
-                'Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand' => 'Symfony\Component\Console\Command\Command',
-                'Symfony\Component\Translation\TranslatorInterface' => 'Symfony\Contracts\Translation\TranslatorInterface',
-            ],
-        ]]);
-
+    $services->set(\Rector\Transform\Rector\New_\NewToStaticCallRector::class)->call('configure', [[\Rector\Transform\Rector\New_\NewToStaticCallRector::TYPE_TO_STATIC_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\NewToStaticCall('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpFoundation\\Cookie', '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpFoundation\\Cookie', 'create')])]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
+        # https://github.com/symfony/symfony/commit/a7e319d9e1316e2e18843f8ce15b67a8693e5bf9
+        '_PhpScoper006a73f0e455\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller' => '_PhpScoper006a73f0e455\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController',
+        # https://github.com/symfony/symfony/commit/744bf0e7ac3ecf240d0bf055cc58f881bb0b3ec0
+        '_PhpScoper006a73f0e455\\Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand' => '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Command\\Command',
+        '_PhpScoper006a73f0e455\\Symfony\\Component\\Translation\\TranslatorInterface' => '_PhpScoper006a73f0e455\\Symfony\\Contracts\\Translation\\TranslatorInterface',
+    ]]]);
     # related to "Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand" deprecation, see https://github.com/rectorphp/rector/issues/1629
-    $services->set(ContainerGetToConstructorInjectionRector::class);
-
+    $services->set(\Rector\Symfony\Rector\MethodCall\ContainerGetToConstructorInjectionRector::class);
     # https://symfony.com/blog/new-in-symfony-4-2-important-deprecations
-    $services->set(StringToArrayArgumentProcessRector::class);
-
-    $services->set(RootNodeTreeBuilderRector::class);
-
-    $services->set(ArgumentAdderRector::class)
-        ->call('configure', [[
-            ArgumentAdderRector::ADDED_ARGUMENTS => ValueObjectInliner::inline([
-                // https://github.com/symfony/symfony/commit/fa2063efe43109aea093d6fbfc12d675dba82146
-                // https://github.com/symfony/symfony/commit/e3aa90f852f69040be19da3d8729cdf02d238ec7
-                new ArgumentAdder(
-                    'Symfony\Component\BrowserKit\Client',
-                    'submit',
-                    2,
-                    'serverParameters',
-                    [],
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-                new ArgumentAdder(
-                    'Symfony\Component\DomCrawler\Crawler',
-                    'children',
-                    0,
-                    null,
-                    null,
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-                new ArgumentAdder(
-                    'Symfony\Component\Finder\Finder',
-                    'sortByName',
-                    0,
-                    null,
-                    false,
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-                new ArgumentAdder(
-                    'Symfony\Bridge\Monolog\Processor\DebugProcessor',
-                    'getLogs',
-                    0,
-                    null,
-                    null,
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-                new ArgumentAdder(
-                    'Symfony\Bridge\Monolog\Processor\DebugProcessor',
-                    'countErrors',
-                    0,
-                    'default_value',
-                    null,
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-                new ArgumentAdder(
-                    'Symfony\Bridge\Monolog\Logger',
-                    'getLogs',
-                    0,
-                    'default_value',
-                    null,
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-                new ArgumentAdder(
-                    'Symfony\Bridge\Monolog\Logger',
-                    'countErrors',
-                    0,
-                    'default_value',
-                    null,
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-                new ArgumentAdder(
-                    'Symfony\Component\Serializer\Normalizer',
-                    'handleCircularReference',
-                    1,
-                    null,
-                    null,
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-                new ArgumentAdder(
-                    'Symfony\Component\Serializer\Normalizer',
-                    'handleCircularReference',
-                    2,
-                    null,
-                    null,
-                    null,
-                    ArgumentAdderRector::SCOPE_METHOD_CALL
-                ),
-            ]),
-        ]]);
-
-    $services->set(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('Symfony\Component\Cache\CacheItem', 'getPreviousTags', 'getMetadata'),
-                new MethodCallRename(
-                    'Symfony\Component\Form\AbstractTypeExtension',
-                    'getExtendedType',
-                    'getExtendedTypes'
-                ),
-            ]),
-        ]]);
-
-    $iterableType = new IterableType(new MixedType(), new MixedType());
-
-    $services->set(AddReturnTypeDeclarationRector::class)
-        ->call('configure', [[
-            AddReturnTypeDeclarationRector::METHOD_RETURN_TYPES => ValueObjectInliner::inline([
-                new AddReturnTypeDeclaration(
-                    'Symfony\Component\Form\AbstractTypeExtension',
-                    'getExtendedTypes',
-                    $iterableType
-                ),
-            ]),
-        ]]);
-
-    $services->set(ChangeMethodVisibilityRector::class)
-        ->call('configure', [[
-            ChangeMethodVisibilityRector::METHOD_VISIBILITIES => ValueObjectInliner::inline([
-                new ChangeMethodVisibility(
-                    'Symfony\Component\Form\AbstractTypeExtension',
-                    'getExtendedTypes',
-                    'static'
-                ),
-            ]),
-        ]]);
-
-    $services->set(WrapReturnRector::class)
-        ->call('configure', [[
-            WrapReturnRector::TYPE_METHOD_WRAPS => ValueObjectInliner::inline([
-                new WrapReturn('Symfony\Component\Form\AbstractTypeExtension', 'getExtendedTypes', true),
-            ]),
-        ]]);
-
-    $services->set(ArgumentDefaultValueReplacerRector::class)
-        ->call('configure', [[
-            // https://github.com/symfony/symfony/commit/9493cfd5f2366dab19bbdde0d0291d0575454567
-            ArgumentDefaultValueReplacerRector::REPLACED_ARGUMENTS => ValueObjectInliner::inline([
-                new ArgumentDefaultValueReplacer(
-                    'Symfony\Component\HttpFoundation\Cookie',
-                    '__construct',
-                    5,
-                    false,
-                    null
-                ),
-                new ArgumentDefaultValueReplacer(
-                    'Symfony\Component\HttpFoundation\Cookie',
-                    '__construct',
-                    8,
-                    null,
-                    'lax'
-                ),
-            ]),
-        ]]);
-
-    $services->set(ArgumentRemoverRector::class)
-        ->call('configure', [[
-            # https://github.com/symfony/symfony/commit/f5c355e1ba399a1b3512367647d902148bdaf09f
-            ArgumentRemoverRector::REMOVED_ARGUMENTS => ValueObjectInliner::inline([
-                new ArgumentRemover(
-                    'Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector',
-                    '__construct',
-                    0,
-                    null
-                ),
-                new ArgumentRemover(
-                    'Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector',
-                    '__construct',
-                    1,
-                    null
-                ),
-            ]),
-        ]]);
+    $services->set(\Rector\Symfony\Rector\New_\StringToArrayArgumentProcessRector::class);
+    $services->set(\Rector\Symfony\Rector\New_\RootNodeTreeBuilderRector::class);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+        // https://github.com/symfony/symfony/commit/fa2063efe43109aea093d6fbfc12d675dba82146
+        // https://github.com/symfony/symfony/commit/e3aa90f852f69040be19da3d8729cdf02d238ec7
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Component\\BrowserKit\\Client', 'submit', 2, 'serverParameters', [], null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Component\\DomCrawler\\Crawler', 'children', 0, null, null, null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Component\\Finder\\Finder', 'sortByName', 0, null, \false, null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Processor\\DebugProcessor', 'getLogs', 0, null, null, null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Processor\\DebugProcessor', 'countErrors', 0, 'default_value', null, null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Logger', 'getLogs', 0, 'default_value', null, null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Bridge\\Monolog\\Logger', 'countErrors', 0, 'default_value', null, null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Component\\Serializer\\Normalizer', 'handleCircularReference', 1, null, null, null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+        new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Symfony\\Component\\Serializer\\Normalizer', 'handleCircularReference', 2, null, null, null, \Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_METHOD_CALL),
+    ])]]);
+    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Cache\\CacheItem', 'getPreviousTags', 'getMetadata'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\AbstractTypeExtension', 'getExtendedType', 'getExtendedTypes')])]]);
+    $iterableType = new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector::METHOD_RETURN_TYPES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\AbstractTypeExtension', 'getExtendedTypes', $iterableType)])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\AbstractTypeExtension', 'getExtendedTypes', 'static')])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\WrapReturnRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\WrapReturnRector::TYPE_METHOD_WRAPS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\WrapReturn('_PhpScoper006a73f0e455\\Symfony\\Component\\Form\\AbstractTypeExtension', 'getExtendedTypes', \true)])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::class)->call('configure', [[
+        // https://github.com/symfony/symfony/commit/9493cfd5f2366dab19bbdde0d0291d0575454567
+        \Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::REPLACED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpFoundation\\Cookie', '__construct', 5, \false, null), new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpFoundation\\Cookie', '__construct', 8, null, 'lax')]),
+    ]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::class)->call('configure', [[
+        # https://github.com/symfony/symfony/commit/f5c355e1ba399a1b3512367647d902148bdaf09f
+        \Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::REMOVED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentRemover('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\DataCollector\\ConfigDataCollector', '__construct', 0, null), new \Rector\Generic\ValueObject\ArgumentRemover('_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\DataCollector\\ConfigDataCollector', '__construct', 1, null)]),
+    ]]);
 };

@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Catch_;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
@@ -22,25 +21,19 @@ use ReflectionNamedType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Throwable;
-
 /**
  * @see https://github.com/thecodingmachine/phpstan-strict-rules/blob/e3d746a61d38993ca2bc2e2fcda7012150de120c/src/Rules/Exceptions/ThrowMustBundlePreviousExceptionRule.php#L83
  * @see \Rector\CodeQuality\Tests\Rector\Catch_\ThrowWithPreviousExceptionRector\ThrowWithPreviousExceptionRectorTest
  */
-final class ThrowWithPreviousExceptionRector extends AbstractRector
+final class ThrowWithPreviousExceptionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
      */
     private const DEFAULT_EXCEPTION_ARGUMENT_POSITION = 2;
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'When throwing into a catch block, checks that the previous exception is passed to the new throw clause',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('When throwing into a catch block, checks that the previous exception is passed to the new throw clause', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -53,8 +46,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -67,106 +59,84 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Catch_::class];
+        return [\PhpParser\Node\Stmt\Catch_::class];
     }
-
     /**
      * @param Catch_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $caughtThrowableVariable = $node->var;
         if ($caughtThrowableVariable === null) {
             return null;
         }
-
-        $this->traverseNodesWithCallable($node->stmts, function (Node $node) use ($caughtThrowableVariable): ?int {
-            if (! $node instanceof Throw_) {
+        $this->traverseNodesWithCallable($node->stmts, function (\PhpParser\Node $node) use($caughtThrowableVariable) : ?int {
+            if (!$node instanceof \PhpParser\Node\Stmt\Throw_) {
                 return null;
             }
-
             return $this->refactorThrow($node, $caughtThrowableVariable);
         });
-
         return $node;
     }
-
-    private function refactorThrow(Throw_ $throw, Variable $catchedThrowableVariable): ?int
+    private function refactorThrow(\PhpParser\Node\Stmt\Throw_ $throw, \PhpParser\Node\Expr\Variable $catchedThrowableVariable) : ?int
     {
-        if (! $throw->expr instanceof New_) {
+        if (!$throw->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
         }
-
-        if (! $throw->expr->class instanceof Name) {
+        if (!$throw->expr->class instanceof \PhpParser\Node\Name) {
             return null;
         }
-
         $exceptionArgumentPosition = $this->resolveExceptionArgumentPosition($throw->expr->class);
         if ($exceptionArgumentPosition === null) {
             return null;
         }
-
         // exception is bundled
         if (isset($throw->expr->args[$exceptionArgumentPosition])) {
             return null;
         }
-
-        if (! isset($throw->expr->args[1])) {
+        if (!isset($throw->expr->args[1])) {
             // get previous code
-            $throw->expr->args[1] = new Arg(new MethodCall($catchedThrowableVariable, 'getCode'));
+            $throw->expr->args[1] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\MethodCall($catchedThrowableVariable, 'getCode'));
         }
-
-        $throw->expr->args[$exceptionArgumentPosition] = new Arg($catchedThrowableVariable);
-
+        $throw->expr->args[$exceptionArgumentPosition] = new \PhpParser\Node\Arg($catchedThrowableVariable);
         // nothing more to add
-        return NodeTraverser::STOP_TRAVERSAL;
+        return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
     }
-
-    private function resolveExceptionArgumentPosition(Name $exceptionName): ?int
+    private function resolveExceptionArgumentPosition(\PhpParser\Node\Name $exceptionName) : ?int
     {
         $fullyQualifiedName = $this->getName($exceptionName);
-
         // is native exception?
-        if (! Strings::contains($fullyQualifiedName, '\\')) {
+        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
             return self::DEFAULT_EXCEPTION_ARGUMENT_POSITION;
         }
-
         // is class missing?
-        if (! class_exists($fullyQualifiedName)) {
+        if (!\class_exists($fullyQualifiedName)) {
             return self::DEFAULT_EXCEPTION_ARGUMENT_POSITION;
         }
-
-        $reflectionClass = new ReflectionClass($fullyQualifiedName);
-        if (! $reflectionClass->hasMethod(MethodName::CONSTRUCT)) {
+        $reflectionClass = new \ReflectionClass($fullyQualifiedName);
+        if (!$reflectionClass->hasMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return self::DEFAULT_EXCEPTION_ARGUMENT_POSITION;
         }
-
         /** @var ReflectionMethod $constructorReflectionMethod */
         $constructorReflectionMethod = $reflectionClass->getConstructor();
         foreach ($constructorReflectionMethod->getParameters() as $position => $reflectionParameter) {
-            if (! $reflectionParameter->hasType()) {
+            if (!$reflectionParameter->hasType()) {
                 continue;
             }
-
             /** @var ReflectionNamedType $reflectionNamedType */
             $reflectionNamedType = $reflectionParameter->getType();
-            if (! is_a($reflectionNamedType->getName(), Throwable::class, true)) {
+            if (!\is_a($reflectionNamedType->getName(), \Throwable::class, \true)) {
                 continue;
             }
-
             return $position;
         }
-
         return null;
     }
 }

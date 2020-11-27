@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector;
 
 use Iterator;
@@ -12,42 +11,28 @@ use Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjection
 use Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\Source\FirstService;
 use Rector\Transform\ValueObject\ServiceGetterToConstructorInjection;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class ServiceGetterToConstructorInjectionRectorTest extends AbstractRectorTestCase
+final class ServiceGetterToConstructorInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
-    protected function getPhpVersion(): int
+    protected function getPhpVersion() : int
     {
-        return PhpVersionFeature::TYPED_PROPERTIES - 1;
+        return \Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES - 1;
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            ServiceGetterToConstructorInjectionRector::class => [
-                ServiceGetterToConstructorInjectionRector::METHOD_CALL_TO_SERVICES => [
-                    new ServiceGetterToConstructorInjection(
-                        FirstService::class,
-                        'getAnotherService',
-                        AnotherService::class
-                    ),
-                ],
-            ],
-        ];
+        return [\Rector\Transform\Rector\MethodCall\ServiceGetterToConstructorInjectionRector::class => [\Rector\Transform\Rector\MethodCall\ServiceGetterToConstructorInjectionRector::METHOD_CALL_TO_SERVICES => [new \Rector\Transform\ValueObject\ServiceGetterToConstructorInjection(\Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\Source\FirstService::class, 'getAnotherService', \Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\Source\AnotherService::class)]]];
     }
 }

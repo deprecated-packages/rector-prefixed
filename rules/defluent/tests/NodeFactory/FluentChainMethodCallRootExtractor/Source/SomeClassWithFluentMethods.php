@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Defluent\Tests\NodeFactory\FluentChainMethodCallRootExtractor\Source;
 
 final class SomeClassWithFluentMethods
@@ -13,7 +12,6 @@ final class SomeClassWithFluentMethods
     {
         return $this;
     }
-
     /**
      * @return $this
      */

@@ -1,31 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Tests\Rector\New_\RootNodeTreeBuilderRector;
 
 use Iterator;
 use Rector\Symfony\Rector\New_\RootNodeTreeBuilderRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class RootNodeTreeBuilderRectorTest extends AbstractRectorTestCase
+final class RootNodeTreeBuilderRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
-        return RootNodeTreeBuilderRector::class;
+        return \Rector\Symfony\Rector\New_\RootNodeTreeBuilderRector::class;
     }
 }

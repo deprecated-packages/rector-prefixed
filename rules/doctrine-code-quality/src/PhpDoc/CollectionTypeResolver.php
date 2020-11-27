@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\PhpDoc;
 
 use PhpParser\Node;
@@ -16,22 +15,19 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\PHPStan\NameScopeFactory;
-
 final class CollectionTypeResolver
 {
     /**
      * @var NameScopeFactory
      */
     private $nameScopeFactory;
-
-    public function __construct(NameScopeFactory $nameScopeFactory)
+    public function __construct(\Rector\StaticTypeMapper\PHPStan\NameScopeFactory $nameScopeFactory)
     {
         $this->nameScopeFactory = $nameScopeFactory;
     }
-
-    public function resolveFromTypeNode(TypeNode $typeNode, Node $node): ?FullyQualifiedObjectType
+    public function resolveFromTypeNode(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node) : ?\Rector\PHPStan\Type\FullyQualifiedObjectType
     {
-        if ($typeNode instanceof UnionTypeNode) {
+        if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             foreach ($typeNode->types as $unionedTypeNode) {
                 $resolvedUnionedType = $this->resolveFromTypeNode($unionedTypeNode, $node);
                 if ($resolvedUnionedType !== null) {
@@ -39,33 +35,28 @@ final class CollectionTypeResolver
                 }
             }
         }
-
-        if ($typeNode instanceof ArrayTypeNode && $typeNode->type instanceof IdentifierTypeNode) {
+        if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode && $typeNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             $nameScope = $this->nameScopeFactory->createNameScopeFromNode($node);
             $fullyQualifiedName = $nameScope->resolveStringName($typeNode->type->name);
-            return new FullyQualifiedObjectType($fullyQualifiedName);
+            return new \Rector\PHPStan\Type\FullyQualifiedObjectType($fullyQualifiedName);
         }
-
         return null;
     }
-
-    public function resolveFromOneToManyProperty(Property $property): ?FullyQualifiedObjectType
+    public function resolveFromOneToManyProperty(\PhpParser\Node\Stmt\Property $property) : ?\Rector\PHPStan\Type\FullyQualifiedObjectType
     {
-        $phpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
-        if (! $phpDocInfo instanceof PhpDocInfo) {
+        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
         /** @var OneToManyTagValueNode|null $oneToManyTagValueNode */
-        $oneToManyTagValueNode = $phpDocInfo->getByType(OneToManyTagValueNode::class);
+        $oneToManyTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class);
         if ($oneToManyTagValueNode === null) {
             return null;
         }
-
         $fullyQualifiedTargetEntity = $oneToManyTagValueNode->getFullyQualifiedTargetEntity();
         if ($fullyQualifiedTargetEntity === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        return new FullyQualifiedObjectType($fullyQualifiedTargetEntity);
+        return new \Rector\PHPStan\Type\FullyQualifiedObjectType($fullyQualifiedTargetEntity);
     }
 }

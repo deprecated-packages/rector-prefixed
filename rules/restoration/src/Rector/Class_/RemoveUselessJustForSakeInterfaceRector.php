@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Restoration\Rector\Class_;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
@@ -17,92 +16,71 @@ use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Restoration\Tests\Rector\Class_\RemoveUselessJustForSakeInterfaceRector\RemoveUselessJustForSakeInterfaceRectorTest
  */
-final class RemoveUselessJustForSakeInterfaceRector extends AbstractRector
+final class RemoveUselessJustForSakeInterfaceRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
     private $interfacePattern;
-
     /**
      * @var RenamedClassesCollector
      */
     private $renamedClassesCollector;
-
-    public function __construct(
-        RenamedClassesCollector $renamedClassesCollector,
-        string $interfacePattern = '#(.*?)#'
-    ) {
+    public function __construct(\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, string $interfacePattern = '#(.*?)#')
+    {
         $this->interfacePattern = $interfacePattern;
         $this->renamedClassesCollector = $renamedClassesCollector;
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ((array) $node->implements === []) {
             return null;
         }
-
         foreach ($node->implements as $key => $implement) {
             $implementedInterfaceName = $this->getName($implement);
             if ($implementedInterfaceName === null) {
                 return null;
             }
-
-            if (! Strings::match($implementedInterfaceName, $this->interfacePattern)) {
+            if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
                 continue;
             }
-
             // is interface in /vendor? probably useful
             $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
-            if (Strings::contains($classFileLocation, 'vendor')) {
+            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
                 continue;
             }
-
             $interfaceImplementers = $this->getInterfaceImplementers($implementedInterfaceName);
-
             // makes sense
-            if (count($interfaceImplementers) > 1) {
+            if (\count($interfaceImplementers) > 1) {
                 continue;
             }
-
             // 1. replace current interface with one more parent or remove it
             $this->removeOrReplaceImlementedInterface($implementedInterfaceName, $node, $key);
-
             // 2. remove file if not in /vendor
             $this->removeInterfaceFile($implementedInterfaceName, $classFileLocation);
-
             // 3. replace interface with explicit current class
             $this->replaceName($node, $implementedInterfaceName);
         }
-
         return null;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Remove interface, that are added just for its sake, but nowhere useful',
-            [
-                new CodeSample(
-<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove interface, that are added just for its sake, but nowhere useful', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass implements OnlyHereUsedInterface
 {
 }
@@ -118,8 +96,7 @@ class SomePresenter
     }
 }
 CODE_SAMPLE
-,
-<<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
 }
@@ -131,72 +108,58 @@ class SomePresenter
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
-    private function resolveClassFileLocation(string $implementedInterfaceName): string
+    private function resolveClassFileLocation(string $implementedInterfaceName) : string
     {
-        $reflectionClass = new ReflectionClass($implementedInterfaceName);
+        $reflectionClass = new \ReflectionClass($implementedInterfaceName);
         $fileName = $reflectionClass->getFileName();
-        if (! $fileName) {
-            throw new ShouldNotHappenException();
+        if (!$fileName) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         return $fileName;
     }
-
     /**
      * @return class-string[]
      */
-    private function getInterfaceImplementers(string $interfaceName): array
+    private function getInterfaceImplementers(string $interfaceName) : array
     {
-        return array_filter(
-            get_declared_classes(),
-            function (string $className) use ($interfaceName): bool {
-                return in_array($interfaceName, class_implements($className), true);
-            }
-        );
+        return \array_filter(\get_declared_classes(), function (string $className) use($interfaceName) : bool {
+            return \in_array($interfaceName, \class_implements($className), \true);
+        });
     }
-
-    private function removeOrReplaceImlementedInterface(string $implementedInterfaceName, Class_ $class, int $key): void
+    private function removeOrReplaceImlementedInterface(string $implementedInterfaceName, \PhpParser\Node\Stmt\Class_ $class, int $key) : void
     {
         $parentInterface = $this->getParentInterfaceIfFound($implementedInterfaceName);
         if ($parentInterface !== null) {
-            $class->implements[$key] = new FullyQualified($parentInterface);
+            $class->implements[$key] = new \PhpParser\Node\Name\FullyQualified($parentInterface);
         } else {
             unset($class->implements[$key]);
         }
     }
-
-    private function removeInterfaceFile(string $interfaceName, string $classFileLocation): void
+    private function removeInterfaceFile(string $interfaceName, string $classFileLocation) : void
     {
-        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $interface = $this->nodeRepository->findInterface($interfaceName);
-            if ($interface instanceof Interface_) {
+            if ($interface instanceof \PhpParser\Node\Stmt\Interface_) {
                 $this->removeNode($interface);
             }
         } else {
-            $smartFileInfo = new SmartFileInfo($classFileLocation);
+            $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
             $this->removeFile($smartFileInfo);
         }
     }
-
-    private function replaceName(Class_ $class, string $implementedInterfaceName): void
+    private function replaceName(\PhpParser\Node\Stmt\Class_ $class, string $implementedInterfaceName) : void
     {
         $className = $this->getName($class);
         if ($className === null) {
             return;
         }
-
         $this->renamedClassesCollector->addClassRename($implementedInterfaceName, $className);
     }
-
-    private function getParentInterfaceIfFound(string $implementedInterfaceName): ?string
+    private function getParentInterfaceIfFound(string $implementedInterfaceName) : ?string
     {
-        $reflectionClass = new ReflectionClass($implementedInterfaceName);
-
+        $reflectionClass = new \ReflectionClass($implementedInterfaceName);
         // get first parent interface
         return $reflectionClass->getInterfaceNames()[0] ?? null;
     }

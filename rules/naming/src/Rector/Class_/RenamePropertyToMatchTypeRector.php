@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Naming\Rector\Class_;
 
 use PhpParser\Node;
@@ -14,49 +13,36 @@ use Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer;
 use Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector\RenamePropertyToMatchTypeRectorTest
  */
-final class RenamePropertyToMatchTypeRector extends AbstractRector
+final class RenamePropertyToMatchTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var bool
      */
-    private $hasChanged = false;
-
+    private $hasChanged = \false;
     /**
      * @var PropertyRenameFactory
      */
     private $propertyRenameFactory;
-
     /**
      * @var MatchTypePropertyRenamer
      */
     private $matchTypePropertyRenamer;
-
     /**
      * @var MatchPropertyTypeExpectedNameResolver
      */
     private $matchPropertyTypeExpectedNameResolver;
-
-    public function __construct(
-        MatchTypePropertyRenamer $matchTypePropertyRenamer,
-        PropertyRenameFactory $propertyRenameFactory,
-        MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver
-    ) {
+    public function __construct(\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer $matchTypePropertyRenamer, \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver)
+    {
         $this->propertyRenameFactory = $propertyRenameFactory;
         $this->matchTypePropertyRenamer = $matchTypePropertyRenamer;
         $this->matchPropertyTypeExpectedNameResolver = $matchPropertyTypeExpectedNameResolver;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Rename property and method param to match its type',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename property and method param to match its type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -70,8 +56,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -85,47 +70,36 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class, Interface_::class];
+        return [\PhpParser\Node\Stmt\Class_::class, \PhpParser\Node\Stmt\Interface_::class];
     }
-
     /**
      * @param Class_|Interface_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->refactorClassProperties($node);
-
-        if (! $this->hasChanged) {
+        if (!$this->hasChanged) {
             return null;
         }
-
         return $node;
     }
-
-    private function refactorClassProperties(ClassLike $classLike): void
+    private function refactorClassProperties(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         foreach ($classLike->getProperties() as $property) {
-            $propertyRename = $this->propertyRenameFactory->create(
-                $property,
-                $this->matchPropertyTypeExpectedNameResolver
-            );
+            $propertyRename = $this->propertyRenameFactory->create($property, $this->matchPropertyTypeExpectedNameResolver);
             if ($propertyRename === null) {
                 continue;
             }
             $matchTypePropertyRenamerRename = $this->matchTypePropertyRenamer->rename($propertyRename);
-
             if ($matchTypePropertyRenamerRename !== null) {
-                $this->hasChanged = true;
+                $this->hasChanged = \true;
             }
         }
     }

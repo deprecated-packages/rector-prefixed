@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector;
 
 use Iterator;
@@ -11,44 +10,28 @@ use Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\T
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class PassFactoryToEntityRectorTest extends AbstractRectorTestCase
+final class PassFactoryToEntityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
-
-        $expectedFactoryFilePath = StaticFixtureSplitter::getTemporaryPath() . '/AnotherClassWithMoreArgumentsFactory.php';
-
+        $expectedFactoryFilePath = \Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath() . '/AnotherClassWithMoreArgumentsFactory.php';
         $this->assertFileExists($expectedFactoryFilePath);
-        $this->assertFileEquals(
-            __DIR__ . '/Source/ExpectedAnotherClassWithMoreArgumentsFactory.php',
-            $expectedFactoryFilePath
-        );
+        $this->assertFileEquals(__DIR__ . '/Source/ExpectedAnotherClassWithMoreArgumentsFactory.php', $expectedFactoryFilePath);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureWithMultipleArguments');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        $typesToServices = [TurnMeToService::class];
-
-        return [
-            PassFactoryToUniqueObjectRector::class => [
-                PassFactoryToUniqueObjectRector::TYPES_TO_SERVICES => $typesToServices,
-            ],
-            NewUniqueObjectToEntityFactoryRector::class => [
-                NewUniqueObjectToEntityFactoryRector::TYPES_TO_SERVICES => $typesToServices,
-            ],
-        ];
+        $typesToServices = [\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService::class];
+        return [\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector::class => [\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector::TYPES_TO_SERVICES => $typesToServices], \Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector::class => [\Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector::TYPES_TO_SERVICES => $typesToServices]];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector;
 use Rector\CakePHP\Rector\Property\ChangeSnakedFixtureNameToPascalRector;
@@ -13,69 +14,12 @@ use Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments;
 use Rector\Transform\ValueObject\PropertyToMethod;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-
 # source: https://book.cakephp.org/3.0/en/appendices/3-7-migration-guide.html
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('Cake\Form\Form', 'errors', 'getErrors'),
-                new MethodCallRename('Cake\Validation\Validation', 'cc', 'creditCard'),
-                new MethodCallRename('Cake\Filesystem\Folder', 'normalizePath', 'correctSlashFor'),
-                new MethodCallRename('Cake\Http\Client\Response', 'body', 'getStringBody'),
-                new MethodCallRename('Cake\Core\Plugin', 'unload', 'clear'),
-            ]),
-        ]]);
-
-    $services->set(PropertyToMethodRector::class)
-        ->call('configure', [[
-            PropertyToMethodRector::PROPERTIES_TO_METHOD_CALLS => ValueObjectInliner::inline([
-                new PropertyToMethod('Cake\Http\Client\Response', 'body', 'getStringBody'),
-                new PropertyToMethod('Cake\Http\Client\Response', 'json', 'getJson'),
-                new PropertyToMethod('Cake\Http\Client\Response', 'xml', 'getXml'),
-                new PropertyToMethod('Cake\Http\Client\Response', 'cookies', 'getCookies'),
-                new PropertyToMethod('Cake\Http\Client\Response', 'code', 'getStatusCode'),
-
-                new PropertyToMethod('Cake\View\View', 'request', 'getRequest', 'setRequest'),
-                new PropertyToMethod('Cake\View\View', 'response', 'getResponse', 'setResponse'),
-                new PropertyToMethod('Cake\View\View', 'templatePath', 'getTemplatePath', 'setTemplatePath'),
-                new PropertyToMethod('Cake\View\View', 'template', 'getTemplate', 'setTemplate'),
-                new PropertyToMethod('Cake\View\View', 'layout', 'getLayout', 'setLayout'),
-                new PropertyToMethod('Cake\View\View', 'layoutPath', 'getLayoutPath', 'setLayoutPath'),
-                new PropertyToMethod('Cake\View\View', 'autoLayout', 'isAutoLayoutEnabled', 'enableAutoLayout'),
-                new PropertyToMethod('Cake\View\View', 'theme', 'getTheme', 'setTheme'),
-                new PropertyToMethod('Cake\View\View', 'subDir', 'getSubDir', 'setSubDir'),
-                new PropertyToMethod('Cake\View\View', 'plugin', 'getPlugin', 'setPlugin'),
-                new PropertyToMethod('Cake\View\View', 'name', 'getName', 'setName'),
-                new PropertyToMethod('Cake\View\View', 'elementCache', 'getElementCache', 'setElementCache'),
-                new PropertyToMethod('Cake\View\View', 'helpers', 'helpers'),
-            ]),
-        ]]);
-
-    $services->set(MethodCallToAnotherMethodCallWithArgumentsRector::class)
-        ->call('configure', [[
-            MethodCallToAnotherMethodCallWithArgumentsRector::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS => ValueObjectInliner::inline(
-                [
-                    new MethodCallToAnotherMethodCallWithArguments('Cake\Database\Query', 'join', 'clause', ['join']),
-                    new MethodCallToAnotherMethodCallWithArguments('Cake\Database\Query', 'from', 'clause', ['from']),
-                ]
-            ),
-        ]]);
-
-    $services->set(ModalToGetSetRector::class)
-        ->call('configure', [[
-            ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => ValueObjectInliner::inline([
-                new ModalToGetSet(
-                    'Cake\Database\Connection',
-                    'logQueries',
-                    'isQueryLoggingEnabled',
-                    'enableQueryLogging'
-                ),
-                new ModalToGetSet('Cake\ORM\Association', 'className', 'getClassName', 'setClassName'),
-            ]),
-        ]]);
-
-    $services->set(ChangeSnakedFixtureNameToPascalRector::class);
+    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Cake\\Form\\Form', 'errors', 'getErrors'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Cake\\Validation\\Validation', 'cc', 'creditCard'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Cake\\Filesystem\\Folder', 'normalizePath', 'correctSlashFor'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Cake\\Http\\Client\\Response', 'body', 'getStringBody'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper006a73f0e455\\Cake\\Core\\Plugin', 'unload', 'clear')])]]);
+    $services->set(\Rector\Transform\Rector\Assign\PropertyToMethodRector::class)->call('configure', [[\Rector\Transform\Rector\Assign\PropertyToMethodRector::PROPERTIES_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\Http\\Client\\Response', 'body', 'getStringBody'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\Http\\Client\\Response', 'json', 'getJson'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\Http\\Client\\Response', 'xml', 'getXml'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\Http\\Client\\Response', 'cookies', 'getCookies'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\Http\\Client\\Response', 'code', 'getStatusCode'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'request', 'getRequest', 'setRequest'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'response', 'getResponse', 'setResponse'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'templatePath', 'getTemplatePath', 'setTemplatePath'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'template', 'getTemplate', 'setTemplate'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'layout', 'getLayout', 'setLayout'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'layoutPath', 'getLayoutPath', 'setLayoutPath'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'autoLayout', 'isAutoLayoutEnabled', 'enableAutoLayout'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'theme', 'getTheme', 'setTheme'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'subDir', 'getSubDir', 'setSubDir'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'plugin', 'getPlugin', 'setPlugin'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'name', 'getName', 'setName'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'elementCache', 'getElementCache', 'setElementCache'), new \Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper006a73f0e455\\Cake\\View\\View', 'helpers', 'helpers')])]]);
+    $services->set(\Rector\Transform\Rector\MethodCall\MethodCallToAnotherMethodCallWithArgumentsRector::class)->call('configure', [[\Rector\Transform\Rector\MethodCall\MethodCallToAnotherMethodCallWithArgumentsRector::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments('_PhpScoper006a73f0e455\\Cake\\Database\\Query', 'join', 'clause', ['join']), new \Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments('_PhpScoper006a73f0e455\\Cake\\Database\\Query', 'from', 'clause', ['from'])])]]);
+    $services->set(\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::class)->call('configure', [[\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\Database\\Connection', 'logQueries', 'isQueryLoggingEnabled', 'enableQueryLogging'), new \Rector\CakePHP\ValueObject\ModalToGetSet('_PhpScoper006a73f0e455\\Cake\\ORM\\Association', 'className', 'getClassName', 'setClassName')])]]);
+    $services->set(\Rector\CakePHP\Rector\Property\ChangeSnakedFixtureNameToPascalRector::class);
 };

@@ -1,31 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php73\Tests\Rector\FuncCall\StringifyStrNeedlesRector;
 
 use Iterator;
 use Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class StringifyStrNeedlesRectorTest extends AbstractRectorTestCase
+final class StringifyStrNeedlesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
-        return StringifyStrNeedlesRector::class;
+        return \Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector::class;
     }
 }

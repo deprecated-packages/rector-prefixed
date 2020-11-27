@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php 
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
+
+use PHPStan\Compiler\Console\CompileCommand;
+use PHPStan\Compiler\Filesystem\SymfonyFilesystem;
+use PHPStan\Compiler\Process\DefaultProcessFactory;
+use _PhpScoper006a73f0e455\Symfony\Component\Console\Application;
+require_once __DIR__ . '/../vendor/autoload.php';
+$compileCommand = new \PHPStan\Compiler\Console\CompileCommand(new \PHPStan\Compiler\Filesystem\SymfonyFilesystem(new \_PhpScoper006a73f0e455\Symfony\Component\Filesystem\Filesystem()), new \PHPStan\Compiler\Process\DefaultProcessFactory(), __DIR__ . '/../build', \realpath(__DIR__ . '/../..'));
+$application = new \_PhpScoper006a73f0e455\Symfony\Component\Console\Application();
+$application->add($compileCommand);
+$application->setDefaultCommand($compileCommand->getName(), \true);
+$application->run();

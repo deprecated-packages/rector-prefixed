@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo;
 
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-
-final class VersionedTagValueNode extends AbstractTagValueNode implements ShortNameAwareTagInterface
+final class VersionedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface
 {
-    public function getShortName(): string
+    public function getShortName() : string
     {
-        return '@Gedmo\Versioned';
+        return '_PhpScoper006a73f0e455\\@Gedmo\\Versioned';
     }
 }

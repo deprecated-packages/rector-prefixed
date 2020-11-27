@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node\Manipulator;
 
 use PhpParser\Node;
@@ -18,178 +17,138 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
 final class ClassMethodManipulator
 {
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var FuncCallManipulator
      */
     private $funcCallManipulator;
-
-    public function __construct(
-        BetterNodeFinder $betterNodeFinder,
-        BetterStandardPrinter $betterStandardPrinter,
-        FuncCallManipulator $funcCallManipulator,
-        NodeNameResolver $nodeNameResolver,
-        NodeTypeResolver $nodeTypeResolver
-    ) {
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Node\Manipulator\FuncCallManipulator $funcCallManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->funcCallManipulator = $funcCallManipulator;
     }
-
-    public function isParameterUsedInClassMethod(Param $param, ClassMethod $classMethod): bool
+    public function isParameterUsedInClassMethod(\PhpParser\Node\Param $param, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $isUsedDirectly = (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (Node $node) use (
-            $param
-        ): bool {
+        $isUsedDirectly = (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) use($param) : bool {
             return $this->betterStandardPrinter->areNodesEqual($node, $param->var);
         });
-
         if ($isUsedDirectly) {
-            return true;
+            return \true;
         }
-
         /** @var FuncCall[] $compactFuncCalls */
-        $compactFuncCalls = $this->betterNodeFinder->find((array) $classMethod->stmts, function (Node $node): bool {
-            if (! $node instanceof FuncCall) {
-                return false;
+        $compactFuncCalls = $this->betterNodeFinder->find((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+                return \false;
             }
-
             return $this->nodeNameResolver->isName($node, 'compact');
         });
-
         $arguments = $this->funcCallManipulator->extractArgumentsFromCompactFuncCalls($compactFuncCalls);
-
         return $this->nodeNameResolver->isNames($param, $arguments);
     }
-
-    public function isNamedConstructor(ClassMethod $classMethod): bool
+    public function isNamedConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (! $this->nodeNameResolver->isName($classMethod, MethodName::CONSTRUCT)) {
-            return false;
+        if (!$this->nodeNameResolver->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+            return \false;
         }
-
-        $classLike = $classMethod->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof Class_) {
-            return false;
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return \false;
         }
-
-        return $classMethod->isPrivate() || (! $classLike->isFinal() && $classMethod->isProtected());
+        return $classMethod->isPrivate() || !$classLike->isFinal() && $classMethod->isProtected();
     }
-
-    public function hasParentMethodOrInterfaceMethod(ClassMethod $classMethod, ?string $methodName = null): bool
+    public function hasParentMethodOrInterfaceMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?string $methodName = null) : bool
     {
         $methodName = $methodName ?? $this->nodeNameResolver->getName($classMethod->name);
-
-        $class = $classMethod->getAttribute(AttributeKey::CLASS_NAME);
-        if (! is_string($class)) {
-            return false;
+        $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if (!\is_string($class)) {
+            return \false;
         }
-
-        if (! class_exists($class)) {
-            return false;
+        if (!\class_exists($class)) {
+            return \false;
         }
-
-        if (! is_string($methodName)) {
-            return false;
+        if (!\is_string($methodName)) {
+            return \false;
         }
-
         if ($this->isMethodInParent($class, $methodName)) {
-            return true;
+            return \true;
         }
-
-        $implementedInterfaces = class_implements($class);
+        $implementedInterfaces = \class_implements($class);
         foreach ($implementedInterfaces as $implementedInterface) {
-            if (method_exists($implementedInterface, $methodName)) {
-                return true;
+            if (\method_exists($implementedInterface, $methodName)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * Is method actually static, or has some $this-> calls?
      */
-    public function isStaticClassMethod(ClassMethod $classMethod): bool
+    public function isStaticClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (Node $node): bool {
-            if (! $node instanceof Variable) {
-                return false;
+        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
             }
-
             return $this->nodeNameResolver->isName($node, 'this');
         });
     }
-
     /**
      * @param string[] $possibleNames
      */
-    public function addMethodParameterIfMissing(Node $node, string $type, array $possibleNames): string
+    public function addMethodParameterIfMissing(\PhpParser\Node $node, string $type, array $possibleNames) : string
     {
-        $classMethodNode = $node->getAttribute(AttributeKey::METHOD_NODE);
-        if (! $classMethodNode instanceof ClassMethod) {
+        $classMethodNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
             // or null?
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         foreach ($classMethodNode->params as $paramNode) {
-            if (! $this->nodeTypeResolver->isObjectType($paramNode, $type)) {
+            if (!$this->nodeTypeResolver->isObjectType($paramNode, $type)) {
                 continue;
             }
-
             $paramName = $this->nodeNameResolver->getName($paramNode);
-            if (! is_string($paramName)) {
-                throw new ShouldNotHappenException();
+            if (!\is_string($paramName)) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-
             return $paramName;
         }
-
         $paramName = $this->resolveName($classMethodNode, $possibleNames);
-        $classMethodNode->params[] = new Param(new Variable($paramName), null, new FullyQualified($type));
-
+        $classMethodNode->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($paramName), null, new \PhpParser\Node\Name\FullyQualified($type));
         return $paramName;
     }
-
-    private function isMethodInParent(string $class, string $method): bool
+    private function isMethodInParent(string $class, string $method) : bool
     {
-        foreach (class_parents($class) as $parentClass) {
-            if (method_exists($parentClass, $method)) {
-                return true;
+        foreach (\class_parents($class) as $parentClass) {
+            if (\method_exists($parentClass, $method)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @param string[] $possibleNames
      */
-    private function resolveName(ClassMethod $classMethod, array $possibleNames): string
+    private function resolveName(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $possibleNames) : string
     {
         foreach ($possibleNames as $possibleName) {
             foreach ($classMethod->params as $paramNode) {
@@ -197,10 +156,8 @@ final class ClassMethodManipulator
                     continue 2;
                 }
             }
-
             return $possibleName;
         }
-
-        throw new ShouldNotHappenException();
+        throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
 }

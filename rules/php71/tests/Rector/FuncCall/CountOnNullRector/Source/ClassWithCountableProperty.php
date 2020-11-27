@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php71\Tests\Rector\FuncCall\CountOnNullRector\Source;
 
 final class ClassWithCountableProperty

@@ -1,0 +1,161 @@
+<?php
+
+/**
+ * @template-covariant TKey
+ * @template-covariant TValue
+ */
+interface Traversable
+{
+}
+
+/**
+ * @template-covariant TKey
+ * @template-covariant TValue
+ *
+ * @extends Traversable<TKey, TValue>
+ */
+interface IteratorAggregate extends Traversable
+{
+
+	/**
+	 * @return Traversable<TKey, TValue>
+	 */
+	public function getIterator();
+
+}
+
+/**
+ * @template-covariant TKey
+ * @template-covariant TValue
+ *
+ * @extends Traversable<TKey, TValue>
+ */
+interface Iterator extends Traversable
+{
+
+	/**
+	 * @return TValue
+	 */
+	public function current();
+
+	/**
+	 * @return TKey
+	 */
+	public function key();
+
+}
+
+/**
+ * @extends Iterator<mixed, mixed>
+ */
+interface RecursiveIterator extends Iterator
+{
+
+}
+
+/**
+ * @template-covariant TKey
+ * @template-covariant TValue
+ * @template TSend
+ * @template-covariant TReturn
+ *
+ * @implements Iterator<TKey, TValue>
+ */
+class Generator implements Iterator
+{
+
+	/**
+	 * @return TReturn
+	 */
+	public function getReturn() {}
+
+	/**
+	 * @param TSend $value
+	 * @return TValue
+	 */
+	public function send($value) {}
+
+}
+
+/**
+ * @implements Traversable<mixed, mixed>
+ * @implements ArrayAccess<mixed, mixed>
+ * @implements Iterator<mixed, mixed>
+ */
+class SimpleXMLElement implements Traversable, ArrayAccess, Iterator, RecursiveIterator
+{
+
+}
+
+/**
+ * @template-covariant TKey
+ * @template-covariant TValue
+ * @extends Iterator<TKey, TValue>
+ */
+interface SeekableIterator extends Iterator
+{
+
+}
+
+/**
+ * @template TKey
+ * @template TValue
+ * @implements SeekableIterator<TKey, TValue>
+ * @implements ArrayAccess<TKey, TValue>
+ */
+class ArrayIterator implements SeekableIterator, ArrayAccess, Countable
+{
+
+	/**
+	 * @param array<TKey, TValue> $array
+	 * @param int $flags
+	 */
+	public function __construct($array = array(), $flags = 0) { }
+
+	/**
+	 * @param TValue $value
+	 * @return void
+	 */
+	public function append($value) { }
+
+	/**
+	 * @return array<TKey, TValue>
+	 */
+	public function getArrayCopy() { }
+
+	/**
+	 * @param callable(TValue, TValue): int $cmp_function
+	 * @return void
+	 */
+	public function uasort($cmp_function) { }
+
+	/**
+	 * @param callable(TKey, TKey): int $cmp_function
+	 * @return void
+	 */
+	public function uksort($cmp_function) { }
+
+}
+
+/**
+ * @template T of \Traversable
+ * @mixin T
+ */
+class RecursiveIteratorIterator
+{
+
+	/**
+	 * @param T $iterator
+	 * @param int $mode
+	 * @param int $flags
+	 */
+	public function __construct(
+		$iterator,
+		$mode = RecursiveIteratorIterator::LEAVES_ONLY,
+		int $flags = 0
+	)
+	{
+
+	}
+
+}

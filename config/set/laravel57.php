@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector;
@@ -15,49 +16,15 @@ use Rector\Laravel\Rector\New_\AddGuardToLoginEventRector;
 use Rector\Laravel\Rector\StaticCall\Redirect301ToPermanentRedirectRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-
 # see: https://laravel.com/docs/5.7/upgrade
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(ChangeMethodVisibilityRector::class)->call('configure', [[
-        ChangeMethodVisibilityRector::METHOD_VISIBILITIES => ValueObjectInliner::inline([
-            new ChangeMethodVisibility('Illuminate\Routing\Router', 'addRoute', 'public'),
-            new ChangeMethodVisibility('Illuminate\Contracts\Auth\Access\Gate', 'raw', 'public'),
-        ]),
-    ]]);
-    $services->set(ArgumentAdderRector::class)->call('configure', [[
-        ArgumentAdderRector::ADDED_ARGUMENTS => ValueObjectInliner::inline([
-            new ArgumentAdder('Illuminate\Auth\Middleware\Authenticate', 'authenticate', 0, 'request'),
-            new ArgumentAdder(
-                'Illuminate\Foundation\Auth\ResetsPasswords',
-                'sendResetResponse',
-                0,
-                'request',
-                null,
-                'Illuminate\Http\Illuminate\Http'
-            ),
-            new ArgumentAdder(
-                'Illuminate\Foundation\Auth\SendsPasswordResetEmails',
-                'sendResetLinkResponse',
-                0,
-                'request',
-                null,
-                'Illuminate\Http\Illuminate\Http'
-            ),
-            new ArgumentAdder('Illuminate\Database\ConnectionInterface', 'select', 2, 'useReadPdo', true),
-            new ArgumentAdder('Illuminate\Database\ConnectionInterface', 'selectOne', 2, 'useReadPdo', true),
-        ]),
-    ]]);
-    $services->set(Redirect301ToPermanentRedirectRector::class);
-    $services->set(ArgumentRemoverRector::class)->call('configure', [[
-        ArgumentRemoverRector::REMOVED_ARGUMENTS => ValueObjectInliner::inline([
-            new ArgumentRemover('Illuminate\Foundation\Application', 'register', 1, [
-                'name' => 'options',
-            ]), ]
-        ),
-    ]]);
-    $services->set(AddParentBootToModelClassMethodRector::class);
-    $services->set(ChangeQueryWhereDateValueWithCarbonRector::class);
-    $services->set(AddMockConsoleOutputFalseToConsoleTestsRector::class);
-    $services->set(AddGuardToLoginEventRector::class);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper006a73f0e455\\Illuminate\\Routing\\Router', 'addRoute', 'public'), new \Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper006a73f0e455\\Illuminate\\Contracts\\Auth\\Access\\Gate', 'raw', 'public')])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Illuminate\\Auth\\Middleware\\Authenticate', 'authenticate', 0, 'request'), new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Illuminate\\Foundation\\Auth\\ResetsPasswords', 'sendResetResponse', 0, 'request', null, '_PhpScoper006a73f0e455\\Illuminate\\Http\\Illuminate\\Http'), new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Illuminate\\Foundation\\Auth\\SendsPasswordResetEmails', 'sendResetLinkResponse', 0, 'request', null, '_PhpScoper006a73f0e455\\Illuminate\\Http\\Illuminate\\Http'), new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Illuminate\\Database\\ConnectionInterface', 'select', 2, 'useReadPdo', \true), new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper006a73f0e455\\Illuminate\\Database\\ConnectionInterface', 'selectOne', 2, 'useReadPdo', \true)])]]);
+    $services->set(\Rector\Laravel\Rector\StaticCall\Redirect301ToPermanentRedirectRector::class);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::REMOVED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentRemover('_PhpScoper006a73f0e455\\Illuminate\\Foundation\\Application', 'register', 1, ['name' => 'options'])])]]);
+    $services->set(\Rector\Laravel\Rector\ClassMethod\AddParentBootToModelClassMethodRector::class);
+    $services->set(\Rector\Laravel\Rector\MethodCall\ChangeQueryWhereDateValueWithCarbonRector::class);
+    $services->set(\Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector::class);
+    $services->set(\Rector\Laravel\Rector\New_\AddGuardToLoginEventRector::class);
 };

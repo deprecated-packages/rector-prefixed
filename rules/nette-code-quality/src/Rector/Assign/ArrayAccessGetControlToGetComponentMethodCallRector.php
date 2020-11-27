@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Rector\Assign;
 
 use PhpParser\Node;
@@ -11,7 +10,6 @@ use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -19,15 +17,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\NetteCodeQuality\Tests\Rector\Assign\ArrayAccessGetControlToGetComponentMethodCallRector\ArrayAccessGetControlToGetComponentMethodCallRectorTest
  */
-final class ArrayAccessGetControlToGetComponentMethodCallRector extends AbstractRector
+final class ArrayAccessGetControlToGetComponentMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change magic arrays access get, to explicit $this->getComponent(...) method',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change magic arrays access get, to explicit $this->getComponent(...) method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Presenter;
 
 class SomeClass extends Presenter
@@ -38,8 +32,7 @@ class SomeClass extends Presenter
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Nette\Application\UI\Presenter;
 
 class SomeClass extends Presenter
@@ -50,43 +43,34 @@ class SomeClass extends Presenter
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Assign::class];
+        return [\PhpParser\Node\Expr\Assign::class];
     }
-
     /**
      * @param Assign $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isFetchOfControlFromPresenterDimFetch($node)) {
+        if (!$this->isFetchOfControlFromPresenterDimFetch($node)) {
             return null;
         }
-
         /** @var ArrayDimFetch $arrayDimFetch */
         $arrayDimFetch = $node->expr;
-
         $args = $this->createArgs([$arrayDimFetch->dim]);
-        $node->expr = new MethodCall($arrayDimFetch->var, 'getComponent', $args);
-
+        $node->expr = new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'getComponent', $args);
         return $node;
     }
-
-    private function isFetchOfControlFromPresenterDimFetch(Assign $assign): bool
+    private function isFetchOfControlFromPresenterDimFetch(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        if (! $assign->expr instanceof ArrayDimFetch) {
-            return false;
+        if (!$assign->expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+            return \false;
         }
-
-        return $this->isObjectType($assign->expr, 'Nette\Application\UI\Presenter');
+        return $this->isObjectType($assign->expr, '_PhpScoper006a73f0e455\\Nette\\Application\\UI\\Presenter');
     }
 }

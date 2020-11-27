@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\MethodCall;
 
-use Nette\Application\Request;
+use _PhpScoper006a73f0e455\Nette\Application\Request;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -12,21 +11,16 @@ use PhpParser\Node\Identifier;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://doc.nette.org/en/2.4/http-request-response
  * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpFoundation/Request.php
  * @see \Rector\NetteToSymfony\Tests\Rector\MethodCall\FromRequestGetParameterToAttributesGetRector\FromRequestGetParameterToAttributesGetRectorTest
  */
-final class FromRequestGetParameterToAttributesGetRector extends AbstractRector
+final class FromRequestGetParameterToAttributesGetRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Changes "getParameter()" to "attributes->get()" from Nette to Symfony',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes "getParameter()" to "attributes->get()" from Nette to Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Request;
 
 final class SomeController
@@ -37,8 +31,7 @@ final class SomeController
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Nette\Request;
 
 final class SomeController
@@ -49,37 +42,29 @@ final class SomeController
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node, 'Nette\Application\Request')) {
+        if (!$this->isObjectType($node, '_PhpScoper006a73f0e455\\Nette\\Application\\Request')) {
             return null;
         }
-
-        if (! $this->isName($node->name, 'getParameter')) {
+        if (!$this->isName($node->name, 'getParameter')) {
             return null;
         }
-
-        $requestAttributesPropertyFetch = new PropertyFetch($node->var, 'attributes');
+        $requestAttributesPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch($node->var, 'attributes');
         $node->var = $requestAttributesPropertyFetch;
-
-        $node->name = new Identifier('get');
-
+        $node->name = new \PhpParser\Node\Identifier('get');
         return $node;
     }
 }

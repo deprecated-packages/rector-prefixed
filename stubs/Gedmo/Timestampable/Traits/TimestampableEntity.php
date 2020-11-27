@@ -1,12 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Gedmo\Timestampable\Traits;
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Gedmo\Timestampable\Traits;
 
-if (trait_exists('Gedmo\Timestampable\Traits\TimestampableEntity')) {
+if (\trait_exists('_PhpScoper006a73f0e455\\Gedmo\\Timestampable\\Traits\\TimestampableEntity')) {
     return;
 }
-
 trait TimestampableEntity
 {
-
 }

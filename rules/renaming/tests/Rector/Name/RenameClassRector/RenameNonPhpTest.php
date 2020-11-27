@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Renaming\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
@@ -11,40 +10,30 @@ use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class RenameNonPhpTest extends AbstractRectorTestCase
+final class RenameNonPhpTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfoWithoutAutoload($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
-        return $this->yieldFilesFromDirectory(
-            __DIR__ . '/FixtureRenameNonPhp',
-            StaticNonPhpFileSuffixes::getSuffixRegexPattern()
-        );
+        return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureRenameNonPhp', \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern());
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            RenameClassRector::class => [
-                RenameClassRector::OLD_TO_NEW_CLASSES => [
-                    OldClass::class => NewClass::class,
-                    // Laravel
-                    'Session' => 'Illuminate\Support\Facades\Session',
-                    'Form' => 'Collective\Html\FormFacade',
-                    'Html' => 'Collective\Html\HtmlFacade',
-                ],
-            ],
-        ];
+        return [\Rector\Renaming\Rector\Name\RenameClassRector::class => [\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
+            \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class,
+            // Laravel
+            'Session' => '_PhpScoper006a73f0e455\\Illuminate\\Support\\Facades\\Session',
+            'Form' => '_PhpScoper006a73f0e455\\Collective\\Html\\FormFacade',
+            'Html' => '_PhpScoper006a73f0e455\\Collective\\Html\\HtmlFacade',
+        ]]];
     }
 }

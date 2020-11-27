@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\Class_;
 
 use PhpParser\Node;
@@ -11,7 +10,6 @@ use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * Can handle cases like:
  * - https://doc.nette.org/en/2.4/migration-2-4#toc-nette-smartobject
@@ -19,96 +17,72 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Generic\Tests\Rector\Class_\ParentClassToTraitsRector\ParentClassToTraitsRectorTest
  */
-final class ParentClassToTraitsRector extends AbstractRector implements ConfigurableRectorInterface
+final class ParentClassToTraitsRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const PARENT_CLASS_TO_TRAITS = '$parentClassToTraits';
-
     /**
      * @var string[][] { parent class => [ traits ] }
      */
     private $parentClassToTraits = [];
-
     /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-
-    public function __construct(ClassInsertManipulator $classInsertManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->classInsertManipulator = $classInsertManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Replaces parent class to specific traits', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces parent class to specific traits', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends Nette\Object
 {
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     use Nette\SmartObject;
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::PARENT_CLASS_TO_TRAITS => [
-                        'Nette\Object' => ['Nette\SmartObject'],
-                    ],
-                ]
-            ),
-        ]);
+, [self::PARENT_CLASS_TO_TRAITS => ['_PhpScoper006a73f0e455\\Nette\\Object' => ['_PhpScoper006a73f0e455\\Nette\\SmartObject']]])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->extends === null || $node->isAnonymous()) {
             return null;
         }
-
         $nodeParentClassName = $this->getName($node->extends);
-        if (! isset($this->parentClassToTraits[$nodeParentClassName])) {
+        if (!isset($this->parentClassToTraits[$nodeParentClassName])) {
             return null;
         }
-
         $traitNames = $this->parentClassToTraits[$nodeParentClassName];
-
         // keep the Trait order the way it is in config
-        $traitNames = array_reverse($traitNames);
-
+        $traitNames = \array_reverse($traitNames);
         foreach ($traitNames as $traitName) {
             $this->classInsertManipulator->addAsFirstTrait($node, $traitName);
         }
-
         $this->removeParentClass($node);
-
         return $node;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $this->parentClassToTraits = $configuration[self::PARENT_CLASS_TO_TRAITS] ?? [];
     }
-
-    private function removeParentClass(Class_ $class): void
+    private function removeParentClass(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $class->extends = null;
     }

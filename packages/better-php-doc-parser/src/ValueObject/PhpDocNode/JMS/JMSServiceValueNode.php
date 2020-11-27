@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS;
 
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-
-final class JMSServiceValueNode extends AbstractTagValueNode implements ShortNameAwareTagInterface
+final class JMSServiceValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface
 {
-    public function getShortName(): string
+    public function getShortName() : string
     {
-        return '@DI\Service';
+        return '_PhpScoper006a73f0e455\\@DI\\Service';
     }
 }

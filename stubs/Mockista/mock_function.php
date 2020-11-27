@@ -1,10 +1,11 @@
 <?php
 
-if (function_exists('mock')) {
+namespace _PhpScoper006a73f0e455;
+
+if (\function_exists('_PhpScoper006a73f0e455\\mock')) {
     return;
 }
-
-function mock(): \Mockery\MockInterface
+function mock() : \_PhpScoper006a73f0e455\Mockery\MockInterface
 {
-    return new DummyMock();
+    return new \_PhpScoper006a73f0e455\DummyMock();
 }

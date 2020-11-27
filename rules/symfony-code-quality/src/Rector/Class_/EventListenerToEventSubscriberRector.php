@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\SymfonyCodeQuality\Rector\Class_;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -28,91 +27,71 @@ use Rector\Symfony\ValueObject\Tag\EventListenerTag;
 use Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\SymfonyCodeQuality\Tests\Rector\Class_\EventListenerToEventSubscriberRector\EventListenerToEventSubscriberRectorTest
  */
-final class EventListenerToEventSubscriberRector extends AbstractRector
+final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
-    private const EVENT_SUBSCRIBER_INTERFACE = 'Symfony\Component\EventDispatcher\EventSubscriberInterface';
-
+    private const EVENT_SUBSCRIBER_INTERFACE = '_PhpScoper006a73f0e455\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
     /**
      * @var string
      */
-    private const KERNEL_EVENTS_CLASS = 'Symfony\Component\HttpKernel\KernelEvents';
-
+    private const KERNEL_EVENTS_CLASS = '_PhpScoper006a73f0e455\\Symfony\\Component\\HttpKernel\\KernelEvents';
     /**
      * @var string
      */
-    private const CONSOLE_EVENTS_CLASS = 'Symfony\Component\Console\ConsoleEvents';
-
+    private const CONSOLE_EVENTS_CLASS = '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\ConsoleEvents';
     /**
      * @var string
      * @see https://regex101.com/r/qiHZ4T/1
      */
     private const LISTENER_MATCH_REGEX = '#^(.*?)(Listener)?$#';
-
     /**
      * @var string
      * @see https://regex101.com/r/j6SAga/1
      */
-    private const SYMFONY_FAMILY_REGEX = '#^(Symfony|Sensio|Doctrine)\b#';
-
+    private const SYMFONY_FAMILY_REGEX = '#^(Symfony|Sensio|Doctrine)\\b#';
     /**
      * @var bool
      */
-    private $areListenerClassesLoaded = false;
-
+    private $areListenerClassesLoaded = \false;
     /**
      * @var EventNameToClassAndConstant[]
      */
     private $eventNamesToClassConstants = [];
-
     /**
      * @var ServiceDefinition[][][]
      */
     private $listenerClassesToEvents = [];
-
     /**
      * @var ServiceMapProvider
      */
     private $applicationServiceMapProvider;
-
-    public function __construct(ServiceMapProvider $applicationServiceMapProvider)
+    public function __construct(\Rector\Symfony\ServiceMapProvider $applicationServiceMapProvider)
     {
         $this->applicationServiceMapProvider = $applicationServiceMapProvider;
-
         $this->eventNamesToClassConstants = [
             // kernel events
-            new EventNameToClassAndConstant('kernel.request', self::KERNEL_EVENTS_CLASS, 'REQUEST'),
-            new EventNameToClassAndConstant('kernel.exception', self::KERNEL_EVENTS_CLASS, 'EXCEPTION'),
-            new EventNameToClassAndConstant('kernel.view', self::KERNEL_EVENTS_CLASS, 'VIEW'),
-            new EventNameToClassAndConstant('kernel.controller', self::KERNEL_EVENTS_CLASS, 'CONTROLLER'),
-            new EventNameToClassAndConstant(
-                'kernel.controller_arguments',
-                self::KERNEL_EVENTS_CLASS,
-                'CONTROLLER_ARGUMENTS'
-            ),
-            new EventNameToClassAndConstant('kernel.response', self::KERNEL_EVENTS_CLASS, 'RESPONSE'),
-            new EventNameToClassAndConstant('kernel.terminate', self::KERNEL_EVENTS_CLASS, 'TERMINATE'),
-            new EventNameToClassAndConstant('kernel.finish_request', self::KERNEL_EVENTS_CLASS, 'FINISH_REQUEST'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('kernel.request', self::KERNEL_EVENTS_CLASS, 'REQUEST'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('kernel.exception', self::KERNEL_EVENTS_CLASS, 'EXCEPTION'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('kernel.view', self::KERNEL_EVENTS_CLASS, 'VIEW'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('kernel.controller', self::KERNEL_EVENTS_CLASS, 'CONTROLLER'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('kernel.controller_arguments', self::KERNEL_EVENTS_CLASS, 'CONTROLLER_ARGUMENTS'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('kernel.response', self::KERNEL_EVENTS_CLASS, 'RESPONSE'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('kernel.terminate', self::KERNEL_EVENTS_CLASS, 'TERMINATE'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('kernel.finish_request', self::KERNEL_EVENTS_CLASS, 'FINISH_REQUEST'),
             // console events
-            new EventNameToClassAndConstant('console.command', self::CONSOLE_EVENTS_CLASS, 'COMMAND'),
-            new EventNameToClassAndConstant('console.terminate', self::CONSOLE_EVENTS_CLASS, 'TERMINATE'),
-            new EventNameToClassAndConstant('console.error', self::CONSOLE_EVENTS_CLASS, 'ERROR'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('console.command', self::CONSOLE_EVENTS_CLASS, 'COMMAND'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('console.terminate', self::CONSOLE_EVENTS_CLASS, 'TERMINATE'),
+            new \Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant('console.error', self::CONSOLE_EVENTS_CLASS, 'ERROR'),
         ];
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change Symfony Event listener class to Event Subscriber based on configuration in service.yaml file',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Symfony Event listener class to Event Subscriber based on configuration in service.yaml file', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
 
 class SomeListener
@@ -128,282 +107,215 @@ services:
         tags:
             - { name: kernel.event_listener, event: 'some_event', method: 'methodToBeCalled' }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 <?php
 
+namespace _PhpScoper006a73f0e455;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
-class SomeEventSubscriber implements EventSubscriberInterface
+class SomeEventSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
-     /**
-      * @return string[]
-      */
-     public static function getSubscribedEvents(): array
-     {
-         return ['some_event' => 'methodToBeCalled'];
-     }
-
-     public function methodToBeCalled()
-     {
-     }
-}
-CODE_SAMPLE
-                ),
-            ]
-        );
-    }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public static function getSubscribedEvents() : array
     {
-        return [Class_::class];
+        return ['some_event' => 'methodToBeCalled'];
     }
-
+    public function methodToBeCalled()
+    {
+    }
+}
+\class_alias('_PhpScoper006a73f0e455\\SomeEventSubscriber', 'SomeEventSubscriber', \false);
+CODE_SAMPLE
+)]);
+    }
+    /**
+     * @return string[]
+     */
+    public function getNodeTypes() : array
+    {
+        return [\PhpParser\Node\Stmt\Class_::class];
+    }
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // anonymous class
         if ($node->name === null) {
             return null;
         }
-
         // is already a subscriber
         if ($this->isAlreadyEventSubscriber($node)) {
             return null;
         }
-
         // there must be event dispatcher in the application
         $listenerClassesToEventsToMethods = $this->getListenerClassesToEventsToMethods();
         if ($listenerClassesToEventsToMethods === []) {
             return null;
         }
-
         $className = $this->getName($node);
-        if (! isset($listenerClassesToEventsToMethods[$className])) {
+        if (!isset($listenerClassesToEventsToMethods[$className])) {
             return null;
         }
-
         return $this->changeListenerToSubscriberWithMethods($node, $listenerClassesToEventsToMethods[$className]);
     }
-
-    private function isAlreadyEventSubscriber(Class_ $class): bool
+    private function isAlreadyEventSubscriber(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ((array) $class->implements as $implement) {
-            if ($this->isName($implement, 'Symfony\Component\EventDispatcher\EventSubscriberInterface')) {
-                return true;
+            if ($this->isName($implement, '_PhpScoper006a73f0e455\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @return ServiceDefinition[][][]
      */
-    private function getListenerClassesToEventsToMethods(): array
+    private function getListenerClassesToEventsToMethods() : array
     {
         if ($this->areListenerClassesLoaded) {
             return $this->listenerClassesToEvents;
         }
-
         $serviceMap = $this->applicationServiceMapProvider->provide();
         $eventListeners = $serviceMap->getServicesByTag('kernel.event_listener');
-
         foreach ($eventListeners as $eventListener) {
             // skip Symfony core listeners
-            if (Strings::match((string) $eventListener->getClass(), self::SYMFONY_FAMILY_REGEX)) {
+            if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match((string) $eventListener->getClass(), self::SYMFONY_FAMILY_REGEX)) {
                 continue;
             }
-
             foreach ($eventListener->getTags() as $tag) {
-                if (! $tag instanceof EventListenerTag) {
+                if (!$tag instanceof \Rector\Symfony\ValueObject\Tag\EventListenerTag) {
                     continue;
                 }
-
                 $eventName = $tag->getEvent();
                 $this->listenerClassesToEvents[$eventListener->getClass()][$eventName][] = $eventListener;
             }
         }
-
-        $this->areListenerClassesLoaded = true;
-
+        $this->areListenerClassesLoaded = \true;
         return $this->listenerClassesToEvents;
     }
-
     /**
      * @param mixed[] $eventsToMethods
      */
-    private function changeListenerToSubscriberWithMethods(Class_ $class, array $eventsToMethods): Class_
+    private function changeListenerToSubscriberWithMethods(\PhpParser\Node\Stmt\Class_ $class, array $eventsToMethods) : \PhpParser\Node\Stmt\Class_
     {
-        $class->implements[] = new FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
-
+        $class->implements[] = new \PhpParser\Node\Name\FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
         $classShortName = (string) $class->name;
         // remove suffix
-        $classShortName = Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
-
-        $class->name = new Identifier($classShortName . 'EventSubscriber');
-
+        $classShortName = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
+        $class->name = new \PhpParser\Node\Identifier($classShortName . 'EventSubscriber');
         $classMethod = $this->createGetSubscribedEventsClassMethod($eventsToMethods);
         $class->stmts[] = $classMethod;
-
         return $class;
     }
-
     /**
      * @param mixed[][] $eventsToMethods
      */
-    private function createGetSubscribedEventsClassMethod(array $eventsToMethods): ClassMethod
+    private function createGetSubscribedEventsClassMethod(array $eventsToMethods) : \PhpParser\Node\Stmt\ClassMethod
     {
         $getSubscribersClassMethod = $this->nodeFactory->createPublicMethod('getSubscribedEvents');
-
-        $eventsToMethodsArray = new Array_();
-
+        $eventsToMethodsArray = new \PhpParser\Node\Expr\Array_();
         $this->makeStatic($getSubscribersClassMethod);
-
         foreach ($eventsToMethods as $eventName => $methodNamesWithPriorities) {
             $eventNameExpr = $this->createEventName($eventName);
-
-            if (count($methodNamesWithPriorities) === 1) {
+            if (\count($methodNamesWithPriorities) === 1) {
                 $this->createSingleMethod($methodNamesWithPriorities, $eventNameExpr, $eventsToMethodsArray);
             } else {
-                $this->createMultipleMethods(
-                    $methodNamesWithPriorities,
-                    $eventNameExpr,
-                    $eventsToMethodsArray,
-                    $eventName
-                );
+                $this->createMultipleMethods($methodNamesWithPriorities, $eventNameExpr, $eventsToMethodsArray, $eventName);
             }
         }
-
-        $getSubscribersClassMethod->stmts[] = new Return_($eventsToMethodsArray);
+        $getSubscribersClassMethod->stmts[] = new \PhpParser\Node\Stmt\Return_($eventsToMethodsArray);
         $this->decorateClassMethodWithReturnType($getSubscribersClassMethod);
-
         return $getSubscribersClassMethod;
     }
-
     /**
      * @return String_|ClassConstFetch
      */
-    private function createEventName(string $eventName): Node
+    private function createEventName(string $eventName) : \PhpParser\Node
     {
-        if (class_exists($eventName)) {
+        if (\class_exists($eventName)) {
             return $this->createClassConstantReference($eventName);
         }
-
         // is string a that could be caught in constant, e.g. KernelEvents?
         foreach ($this->eventNamesToClassConstants as $eventNameToClassConstant) {
             if ($eventNameToClassConstant->getEventName() !== $eventName) {
                 continue;
             }
-
-            return $this->createClassConstFetch(
-                $eventNameToClassConstant->getEventClass(),
-                $eventNameToClassConstant->getEventConstant()
-            );
+            return $this->createClassConstFetch($eventNameToClassConstant->getEventClass(), $eventNameToClassConstant->getEventConstant());
         }
-
-        return new String_($eventName);
+        return new \PhpParser\Node\Scalar\String_($eventName);
     }
-
     /**
      * @param ClassConstFetch|String_ $expr
      * @param ServiceDefinition[] $methodNamesWithPriorities
      */
-    private function createSingleMethod(
-        array $methodNamesWithPriorities,
-        Expr $expr,
-        Array_ $eventsToMethodsArray
-    ): void {
-
+    private function createSingleMethod(array $methodNamesWithPriorities, \PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $eventsToMethodsArray) : void
+    {
         /** @var EventListenerTag $eventTag */
         $eventTag = $methodNamesWithPriorities[0]->getTags()[0];
-
         $methodName = $eventTag->getMethod();
         $priority = $eventTag->getPriority();
-
         if ($priority !== 0) {
-            $methodNameWithPriorityArray = new Array_();
-            $methodNameWithPriorityArray->items[] = new ArrayItem(new String_($methodName));
-            $methodNameWithPriorityArray->items[] = new ArrayItem(new LNumber((int) $priority));
-
-            $eventsToMethodsArray->items[] = new ArrayItem($methodNameWithPriorityArray, $expr);
+            $methodNameWithPriorityArray = new \PhpParser\Node\Expr\Array_();
+            $methodNameWithPriorityArray->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\String_($methodName));
+            $methodNameWithPriorityArray->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\LNumber((int) $priority));
+            $eventsToMethodsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($methodNameWithPriorityArray, $expr);
         } else {
-            $eventsToMethodsArray->items[] = new ArrayItem(new String_($methodName), $expr);
+            $eventsToMethodsArray->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\String_($methodName), $expr);
         }
     }
-
     /**
      * @param ClassConstFetch|String_ $expr
      * @param ServiceDefinition[] $methodNamesWithPriorities
      */
-    private function createMultipleMethods(
-        array $methodNamesWithPriorities,
-        Expr $expr,
-        Array_ $eventsToMethodsArray,
-        string $eventName
-    ): void {
+    private function createMultipleMethods(array $methodNamesWithPriorities, \PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $eventsToMethodsArray, string $eventName) : void
+    {
         $eventItems = [];
         $alreadyUsedTags = [];
-
         foreach ($methodNamesWithPriorities as $methodNamesWithPriority) {
             foreach ($methodNamesWithPriority->getTags() as $tag) {
                 if ($this->shouldSkip($eventName, $tag, $alreadyUsedTags)) {
                     continue;
                 }
-
                 $eventItems[] = $this->createEventItem($tag);
-
                 $alreadyUsedTags[] = $tag;
             }
         }
-
-        $multipleMethodsArray = new Array_($eventItems);
-
-        $eventsToMethodsArray->items[] = new ArrayItem($multipleMethodsArray, $expr);
+        $multipleMethodsArray = new \PhpParser\Node\Expr\Array_($eventItems);
+        $eventsToMethodsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multipleMethodsArray, $expr);
     }
-
-    private function decorateClassMethodWithReturnType(ClassMethod $classMethod): void
+    private function decorateClassMethodWithReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        if ($this->isAtLeastPhpVersion(PhpVersionFeature::SCALAR_TYPES)) {
-            $classMethod->returnType = new Identifier('array');
+        if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
+            $classMethod->returnType = new \PhpParser\Node\Identifier('array');
         }
-
-        $returnType = new ArrayType(new MixedType(), new MixedType(true));
+        $returnType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType(\true));
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($classMethod);
         $phpDocInfo->changeReturnType($returnType);
     }
-
     /**
      * @param TagInterface[] $alreadyUsedTags
      */
-    private function shouldSkip(string $eventName, TagInterface $tag, array $alreadyUsedTags): bool
+    private function shouldSkip(string $eventName, \Rector\Symfony\Contract\Tag\TagInterface $tag, array $alreadyUsedTags) : bool
     {
-        if (! $tag instanceof EventListenerTag) {
-            return true;
+        if (!$tag instanceof \Rector\Symfony\ValueObject\Tag\EventListenerTag) {
+            return \true;
         }
-
         if ($eventName !== $tag->getEvent()) {
-            return true;
+            return \true;
         }
-
-        return in_array($tag, $alreadyUsedTags, true);
+        return \in_array($tag, $alreadyUsedTags, \true);
     }
-
-    private function createEventItem(EventListenerTag $eventListenerTag): ArrayItem
+    private function createEventItem(\Rector\Symfony\ValueObject\Tag\EventListenerTag $eventListenerTag) : \PhpParser\Node\Expr\ArrayItem
     {
         if ($eventListenerTag->getPriority() !== 0) {
-            $methodNameWithPriorityArray = new Array_();
-            $methodNameWithPriorityArray->items[] = new ArrayItem(new String_($eventListenerTag->getMethod()));
-            $methodNameWithPriorityArray->items[] = new ArrayItem(new LNumber($eventListenerTag->getPriority()));
-
-            return new ArrayItem($methodNameWithPriorityArray);
+            $methodNameWithPriorityArray = new \PhpParser\Node\Expr\Array_();
+            $methodNameWithPriorityArray->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\String_($eventListenerTag->getMethod()));
+            $methodNameWithPriorityArray->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\LNumber($eventListenerTag->getPriority()));
+            return new \PhpParser\Node\Expr\ArrayItem($methodNameWithPriorityArray);
         }
-
-        return new ArrayItem(new String_($eventListenerTag->getMethod()));
+        return new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\String_($eventListenerTag->getMethod()));
     }
 }

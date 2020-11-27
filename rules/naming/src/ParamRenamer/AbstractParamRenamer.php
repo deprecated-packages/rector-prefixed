@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Naming\ParamRenamer;
 
 use PhpParser\Node;
@@ -11,48 +10,33 @@ use Rector\Naming\Contract\RenamerInterface;
 use Rector\Naming\Contract\RenameValueObjectInterface;
 use Rector\Naming\ValueObject\ParamRename;
 use Rector\Naming\VariableRenamer;
-
-abstract class AbstractParamRenamer implements RenamerInterface
+abstract class AbstractParamRenamer implements \Rector\Naming\Contract\RenamerInterface
 {
     /**
      * @var VariableRenamer
      */
     private $variableRenamer;
-
     /**
      * @var PropertyDocBlockManipulator
      */
     private $propertyDocBlockManipulator;
-
-    public function __construct(
-        VariableRenamer $variableRenamer,
-        PropertyDocBlockManipulator $propertyDocBlockManipulator
-    ) {
+    public function __construct(\Rector\Naming\VariableRenamer $variableRenamer, \Rector\BetterPhpDocParser\PhpDocManipulator\PropertyDocBlockManipulator $propertyDocBlockManipulator)
+    {
         $this->variableRenamer = $variableRenamer;
         $this->propertyDocBlockManipulator = $propertyDocBlockManipulator;
     }
-
     /**
      * @param ParamRename $renameValueObject
      * @return Param
      */
-    public function rename(RenameValueObjectInterface $renameValueObject): ?Node
+    public function rename(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : ?\PhpParser\Node
     {
         // 1. rename param
-        $renameValueObject->getVariable()
-            ->name = $renameValueObject->getExpectedName();
-
+        $renameValueObject->getVariable()->name = $renameValueObject->getExpectedName();
         // 2. rename param in the rest of the method
-        $this->variableRenamer->renameVariableInFunctionLike(
-            $renameValueObject->getFunctionLike(),
-            null,
-            $renameValueObject->getCurrentName(),
-            $renameValueObject->getExpectedName()
-        );
-
+        $this->variableRenamer->renameVariableInFunctionLike($renameValueObject->getFunctionLike(), null, $renameValueObject->getCurrentName(), $renameValueObject->getExpectedName());
         // 3. rename @param variable in docblock too
         $this->propertyDocBlockManipulator->renameParameterNameInDocBlock($renameValueObject);
-
         return $renameValueObject->getParam();
     }
 }

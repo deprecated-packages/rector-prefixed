@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
 use PhpParser\Node;
@@ -11,37 +10,27 @@ use Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrineClassAnalyzer;
 use Rector\DoctrineCodeQuality\NodeManipulator\DoctrineItemDefaultValueManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\Class_\RemoveRedundantDefaultClassAnnotationValuesRector\RemoveRedundantDefaultClassAnnotationValuesRectorTest
  */
-final class RemoveRedundantDefaultClassAnnotationValuesRector extends AbstractRector
+final class RemoveRedundantDefaultClassAnnotationValuesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var DoctrineClassAnalyzer
      */
     private $doctrineClassAnalyzer;
-
     /**
      * @var DoctrineItemDefaultValueManipulator
      */
     private $doctrineItemDefaultValueManipulator;
-
-    public function __construct(
-        DoctrineClassAnalyzer $doctrineClassAnalyzer,
-        DoctrineItemDefaultValueManipulator $doctrineItemDefaultValueManipulator
-    ) {
+    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrineClassAnalyzer $doctrineClassAnalyzer, \Rector\DoctrineCodeQuality\NodeManipulator\DoctrineItemDefaultValueManipulator $doctrineItemDefaultValueManipulator)
+    {
         $this->doctrineClassAnalyzer = $doctrineClassAnalyzer;
         $this->doctrineItemDefaultValueManipulator = $doctrineItemDefaultValueManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Removes redundant default values from Doctrine ORM annotations on class level',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes redundant default values from Doctrine ORM annotations on class level', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,8 +40,7 @@ class SomeClass
 {
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,48 +50,39 @@ class SomeClass
 {
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->doctrineItemDefaultValueManipulator->resetHasModifiedAnnotation();
-        if ($node instanceof Class_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             $this->refactorClassAnnotations($node);
         }
-
-        if (! $this->doctrineItemDefaultValueManipulator->hasModifiedAnnotation()) {
+        if (!$this->doctrineItemDefaultValueManipulator->hasModifiedAnnotation()) {
             return null;
         }
-
         return $node;
     }
-
-    private function refactorClassAnnotations(Class_ $class): void
+    private function refactorClassAnnotations(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->refactorEntityAnnotation($class);
     }
-
-    private function refactorEntityAnnotation(Class_ $class): void
+    private function refactorEntityAnnotation(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $entityTagValueNode = $this->doctrineClassAnalyzer->matchDoctrineEntityTagValueNode($class);
         if ($entityTagValueNode === null) {
             return;
         }
-
-        $this->doctrineItemDefaultValueManipulator->remove($entityTagValueNode, 'readOnly', false);
+        $this->doctrineItemDefaultValueManipulator->remove($entityTagValueNode, 'readOnly', \false);
     }
 }

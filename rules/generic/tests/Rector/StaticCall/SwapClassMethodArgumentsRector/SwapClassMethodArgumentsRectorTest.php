@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector;
 
 use Iterator;
@@ -10,33 +9,24 @@ use Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\Fixtur
 use Rector\Generic\ValueObject\SwapClassMethodArguments;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class SwapClassMethodArgumentsRectorTest extends AbstractRectorTestCase
+final class SwapClassMethodArgumentsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            SwapClassMethodArgumentsRector::class => [
-                SwapClassMethodArgumentsRector::ARGUMENT_SWAPS => [
-                    new SwapClassMethodArguments(SomeClass::class, 'run', [1, 0]),
-                ],
-            ],
-        ];
+        return [\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector::class => [\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector::ARGUMENT_SWAPS => [new \Rector\Generic\ValueObject\SwapClassMethodArguments(\Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\Fixture\SomeClass::class, 'run', [1, 0])]]];
     }
 }

@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Foo;
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Foo;
 
 final class Bar
 {
-
 }

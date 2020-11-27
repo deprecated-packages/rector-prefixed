@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use Closure;
@@ -12,36 +11,31 @@ use PHPStan\Type\ClosureType;
 use PHPStan\Type\Type;
 use Rector\Core\Exception\NotImplementedException;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-
-final class ClosureTypeMapper implements TypeMapperInterface
+final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
-    public function getNodeClass(): string
+    public function getNodeClass() : string
     {
-        return ClosureType::class;
+        return \PHPStan\Type\ClosureType::class;
     }
-
     /**
      * @param ClosureType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        throw new NotImplementedException();
+        throw new \Rector\Core\Exception\NotImplementedException();
     }
-
     /**
      * @param ClosureType $type
      */
-    public function mapToPhpParserNode(Type $type, ?string $kind = null): ?Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         if ($kind === 'property') {
             return null;
         }
-
-        return new Name('callable');
+        return new \PhpParser\Node\Name('callable');
     }
-
-    public function mapToDocString(Type $type, ?Type $parentType = null): string
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
-        return '\\' . Closure::class;
+        return '\\' . \Closure::class;
     }
 }

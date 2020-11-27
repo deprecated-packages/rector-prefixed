@@ -2,26 +2,23 @@
 
 namespace Doctrine\ORM\Mapping;
 
-if (class_exists('Doctrine\ORM\Mapping\ManyToOne')) {
+if (\class_exists('Doctrine\\ORM\\Mapping\\ManyToOne')) {
     return;
 }
-
 /**
  * @Annotation
  * @Target("PROPERTY")
  */
-class ManyToOne implements Annotation
+class ManyToOne implements \Doctrine\ORM\Mapping\Annotation
 {
     /**
      * @var string
      */
     public $targetEntity;
-
     /**
      * @var array<string>
      */
     public $cascade;
-
     /**
      * The fetching strategy to use for the association.
      *
@@ -30,7 +27,6 @@ class ManyToOne implements Annotation
      * @Enum({"LAZY", "EAGER", "EXTRA_LAZY"})
      */
     public $fetch = 'LAZY';
-
     /**
      * @var string
      */

@@ -1,14 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Contract\PhpDocNode;
 
 use PHPStan\PhpDocParser\Ast\Node;
-
-interface AttributeAwareNodeInterface extends Node
+interface AttributeAwareNodeInterface extends \PHPStan\PhpDocParser\Ast\Node
 {
-    public function setAttribute(string $name, $value): void;
-
+    public function setAttribute(string $name, $value) : void;
     public function getAttribute(string $name);
 }

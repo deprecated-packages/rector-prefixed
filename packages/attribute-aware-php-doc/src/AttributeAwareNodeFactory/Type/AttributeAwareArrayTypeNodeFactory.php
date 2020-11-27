@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\AttributeAwarePhpDoc\AttributeAwareNodeFactory\Type;
 
 use PHPStan\PhpDocParser\Ast\Node;
@@ -11,35 +10,29 @@ use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeAwar
 use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface;
 use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-
-final class AttributeAwareArrayTypeNodeFactory implements AttributeNodeAwareFactoryInterface, AttributeAwareNodeFactoryAwareInterface
+final class AttributeAwareArrayTypeNodeFactory implements \Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface, \Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeAwareNodeFactoryAwareInterface
 {
     /**
      * @var AttributeAwareNodeFactory
      */
     private $attributeAwareNodeFactory;
-
-    public function getOriginalNodeClass(): string
+    public function getOriginalNodeClass() : string
     {
-        return ArrayTypeNode::class;
+        return \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode::class;
     }
-
-    public function isMatch(Node $node): bool
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
-        return is_a($node, ArrayTypeNode::class, true);
+        return \is_a($node, \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode::class, \true);
     }
-
     /**
      * @param ArrayTypeNode $node
      */
-    public function create(Node $node, string $docContent): AttributeAwareNodeInterface
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $node->type = $this->attributeAwareNodeFactory->createFromNode($node->type, $docContent);
-
-        return new AttributeAwareArrayTypeNode($node->type);
+        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode($node->type);
     }
-
-    public function setAttributeAwareNodeFactory(AttributeAwareNodeFactory $attributeAwareNodeFactory): void
+    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

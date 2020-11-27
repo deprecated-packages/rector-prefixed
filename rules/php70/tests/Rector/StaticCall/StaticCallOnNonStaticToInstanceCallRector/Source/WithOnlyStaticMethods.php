@@ -1,17 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php70\Tests\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector\Source;
 
 class WithOnlyStaticMethods
 {
-    public static function aBoolMethod():bool
+    public static function aBoolMethod() : bool
     {
-        return true;
+        return \true;
     }
-
-    public static function aStringMethod():string
+    public static function aStringMethod() : string
     {
         return 'yeah';
     }

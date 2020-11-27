@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
 use PhpParser\Node;
@@ -41,75 +40,66 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constrain
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertEmailTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertRangeTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertTypeTagValueNode;
-
-final class MultiPhpDocNodeFactory extends AbstractPhpDocNodeFactory implements GenericPhpDocNodeFactoryInterface
+final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\GenericPhpDocNodeFactoryInterface
 {
     /**
      * @return array<string, string>
      */
-    public function getTagValueNodeClassesToAnnotationClasses(): array
+    public function getTagValueNodeClassesToAnnotationClasses() : array
     {
         return [
             // tag value node class => annotation class
-
             // doctrine - intentionally in string, so prefixer of rector.phar doesn't prefix it
-            EmbeddableTagValueNode::class => 'Doctrine\ORM\Mapping\Embeddable',
-            EntityTagValueNode::class => 'Doctrine\ORM\Mapping\Entity',
-            InheritanceTypeTagValueNode::class => 'Doctrine\ORM\Mapping\InheritanceType',
-            ColumnTagValueNode::class => 'Doctrine\ORM\Mapping\Column',
-            CustomIdGeneratorTagValueNode::class => 'Doctrine\ORM\Mapping\CustomIdGenerator',
-            IdTagValueNode::class => 'Doctrine\ORM\Mapping\Id',
-            GeneratedValueTagValueNode::class => 'Doctrine\ORM\Mapping\GeneratedValue',
-            JoinColumnTagValueNode::class => 'Doctrine\ORM\Mapping\JoinColumn',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode::class => 'Doctrine\\ORM\\Mapping\\Embeddable',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class => 'Doctrine\\ORM\\Mapping\\Entity',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode::class => 'Doctrine\\ORM\\Mapping\\InheritanceType',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class => 'Doctrine\\ORM\\Mapping\\Column',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\CustomIdGeneratorTagValueNode::class => 'Doctrine\\ORM\\Mapping\\CustomIdGenerator',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class => 'Doctrine\\ORM\\Mapping\\Id',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode::class => 'Doctrine\\ORM\\Mapping\\GeneratedValue',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class => 'Doctrine\\ORM\\Mapping\\JoinColumn',
             // symfony/http-kernel
-            SymfonyRouteTagValueNode::class => 'Symfony\Component\Routing\Annotation\Route',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class => '_PhpScoper006a73f0e455\\Symfony\\Component\\Routing\\Annotation\\Route',
             // symfony/validator
-            AssertRangeTagValueNode::class => 'Symfony\Component\Validator\Constraints\Range',
-            AssertTypeTagValueNode::class => 'Symfony\Component\Validator\Constraints\Type',
-            AssertChoiceTagValueNode::class => 'Symfony\Component\Validator\Constraints\Choice',
-            AssertEmailTagValueNode::class => 'Symfony\Component\Validator\Constraints\Email',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertRangeTagValueNode::class => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Range',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertTypeTagValueNode::class => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Type',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode::class => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Choice',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertEmailTagValueNode::class => '_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Email',
             // gedmo
-            LocaleTagValueNode::class => 'Gedmo\Mapping\Annotation\Locale',
-            BlameableTagValueNode::class => 'Gedmo\Mapping\Annotation\Blameable',
-            SlugTagValueNode::class => 'Gedmo\Mapping\Annotation\Slug',
-            SoftDeleteableTagValueNode::class => 'Gedmo\Mapping\Annotation\SoftDeleteable',
-            TreeRootTagValueNode::class => 'Gedmo\Mapping\Annotation\TreeRoot',
-            TreeLeftTagValueNode::class => 'Gedmo\Mapping\Annotation\TreeLeft',
-            TreeLevelTagValueNode::class => 'Gedmo\Mapping\Annotation\TreeLevel',
-            TreeParentTagValueNode::class => 'Gedmo\Mapping\Annotation\TreeParent',
-            TreeRightTagValueNode::class => 'Gedmo\Mapping\Annotation\TreeRight',
-            VersionedTagValueNode::class => 'Gedmo\Mapping\Annotation\Versioned',
-            TranslatableTagValueNode::class => 'Gedmo\Mapping\Annotation\Translatable',
-            LoggableTagValueNode::class => 'Gedmo\Mapping\Annotation\Loggable',
-            TreeTagValueNode::class => 'Gedmo\Mapping\Annotation\Tree',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\LocaleTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Locale',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\BlameableTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Blameable',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SlugTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Slug',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\SoftDeleteable',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeRootTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\TreeRoot',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeLeftTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\TreeLeft',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeLevelTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\TreeLevel',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeParentTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\TreeParent',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeRightTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\TreeRight',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\VersionedTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Versioned',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TranslatableTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Translatable',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\LoggableTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Loggable',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeTagValueNode::class => '_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Tree',
             // Sensio
-            SensioTemplateTagValueNode::class => 'Sensio\Bundle\FrameworkExtraBundle\Configuration\Template',
-            SensioMethodTagValueNode::class => 'Sensio\Bundle\FrameworkExtraBundle\Configuration\Method',
-            SensioRouteTagValueNode::class => 'Sensio\Bundle\FrameworkExtraBundle\Configuration\Route',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class => '_PhpScoper006a73f0e455\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode::class => '_PhpScoper006a73f0e455\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Method',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode::class => '_PhpScoper006a73f0e455\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route',
             // JMS
-            JMSInjectParamsTagValueNode::class => 'JMS\DiExtraBundle\Annotation\InjectParams',
-            JMSServiceValueNode::class => 'JMS\DiExtraBundle\Annotation\Service',
-            SerializerTypeTagValueNode::class => 'JMS\Serializer\Annotation\Type',
-            PHPDIInjectTagValueNode::class => 'DI\Annotation\Inject',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectParamsTagValueNode::class => '_PhpScoper006a73f0e455\\JMS\\DiExtraBundle\\Annotation\\InjectParams',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSServiceValueNode::class => '_PhpScoper006a73f0e455\\JMS\\DiExtraBundle\\Annotation\\Service',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class => '_PhpScoper006a73f0e455\\JMS\\Serializer\\Annotation\\Type',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class => '_PhpScoper006a73f0e455\\DI\\Annotation\\Inject',
         ];
     }
-
-    public function createFromNodeAndTokens(
-        Node $node,
-        TokenIterator $tokenIterator,
-        string $annotationClass
-    ): ?PhpDocTagValueNode {
+    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    {
         $tagValueNodeClassesToAnnotationClasses = $this->getTagValueNodeClassesToAnnotationClasses();
-        $tagValueNodeClass = array_search($annotationClass, $tagValueNodeClassesToAnnotationClasses, true);
-
+        $tagValueNodeClass = \array_search($annotationClass, $tagValueNodeClassesToAnnotationClasses, \true);
         $annotation = $this->nodeAnnotationReader->readAnnotation($node, $annotationClass);
         if ($annotation === null) {
             return null;
         }
-
         $items = $this->annotationItemsResolver->resolve($annotation);
         $content = $this->annotationContentResolver->resolveFromTokenIterator($tokenIterator);
-
         return new $tagValueNodeClass($items, $content);
     }
 }

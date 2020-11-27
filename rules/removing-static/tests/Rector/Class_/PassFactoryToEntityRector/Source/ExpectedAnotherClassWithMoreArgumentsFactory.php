@@ -12,7 +12,7 @@ final class AnotherClassWithMoreArgumentsFactory
     {
         $this->turnMeToService = $turnMeToService;
     }
-    public function create($number): \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClassWithMoreArguments
+    public function create($number) : \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClassWithMoreArguments
     {
         return new \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClassWithMoreArguments($number, $this->turnMeToService);
     }

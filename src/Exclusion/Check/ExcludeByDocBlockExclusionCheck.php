@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\Exclusion\Check;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Const_;
@@ -13,49 +12,42 @@ use PhpParser\Node\Stmt\PropertyProperty;
 use Rector\Core\Contract\Exclusion\ExclusionCheckInterface;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
 /**
  * @see \Rector\Core\Tests\Exclusion\Check\ExcludeByDocBlockExclusionCheckTest
  */
-final class ExcludeByDocBlockExclusionCheck implements ExclusionCheckInterface
+final class ExcludeByDocBlockExclusionCheck implements \Rector\Core\Contract\Exclusion\ExclusionCheckInterface
 {
     /**
      * @var string
      * @see https://regex101.com/r/d1NMi6/1
      */
-    private const NO_RECTORE_ANNOTATION_WITH_CLASS_REGEX = '#\@noRector(\s)+[^\w\\\\]#i';
-
-    public function isNodeSkippedByRector(PhpRectorInterface $phpRector, Node $node): bool
+    private const NO_RECTORE_ANNOTATION_WITH_CLASS_REGEX = '#\\@noRector(\\s)+[^\\w\\\\]#i';
+    public function isNodeSkippedByRector(\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, \PhpParser\Node $node) : bool
     {
-        if ($node instanceof PropertyProperty || $node instanceof Const_) {
-            $node = $node->getAttribute(AttributeKey::PARENT_NODE);
+        if ($node instanceof \PhpParser\Node\Stmt\PropertyProperty || $node instanceof \PhpParser\Node\Const_) {
+            $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($node === null) {
-                return false;
+                return \false;
             }
         }
-
         $doc = $node->getDocComment();
         if ($doc !== null && $this->hasNoRectorComment($phpRector, $doc)) {
-            return true;
+            return \true;
         }
-
         // recurse up until a Stmt node is found since it might contain a noRector
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-        if (! $node instanceof Stmt && $parentNode !== null) {
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$node instanceof \PhpParser\Node\Stmt && $parentNode !== null) {
             return $this->isNodeSkippedByRector($phpRector, $parentNode);
         }
-
-        return false;
+        return \false;
     }
-
-    private function hasNoRectorComment(PhpRectorInterface $phpRector, Doc $doc): bool
+    private function hasNoRectorComment(\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, \PhpParser\Comment\Doc $doc) : bool
     {
         // bare @noRector ignored all rules
-        if (Strings::match($doc->getText(), self::NO_RECTORE_ANNOTATION_WITH_CLASS_REGEX)) {
-            return true;
+        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($doc->getText(), self::NO_RECTORE_ANNOTATION_WITH_CLASS_REGEX)) {
+            return \true;
         }
-
-        $regex = '#@noRector\s*\\\\?' . preg_quote(get_class($phpRector), '/') . '#i';
-        return (bool) Strings::match($doc->getText(), $regex);
+        $regex = '#@noRector\\s*\\\\?' . \preg_quote(\get_class($phpRector), '/') . '#i';
+        return (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($doc->getText(), $regex);
     }
 }

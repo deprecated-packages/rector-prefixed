@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
-use Symfony\Component\Validator\Constraints as Assert;
-
+use _PhpScoper006a73f0e455\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper006a73f0e455\JMS\Serializer\Annotation as Serializer;
+use _PhpScoper006a73f0e455\Symfony\Component\Validator\Constraints as Assert;
 final class ManyToPropertyClass
 {
     /**

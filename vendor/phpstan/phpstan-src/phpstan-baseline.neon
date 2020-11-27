@@ -1,0 +1,267 @@
+parameters:
+    ignoreErrors:
+        -
+            message: "#^Only numeric types are allowed in pre\\-increment, bool\\|float\\|int\\|string\\|null given\\.$#"
+            count: 1
+            path: src/Analyser/MutatingScope.php
+
+        -
+            message: "#^Only numeric types are allowed in pre\\-decrement, bool\\|float\\|int\\|string\\|null given\\.$#"
+            count: 1
+            path: src/Analyser/MutatingScope.php
+
+        -
+            message: "#^Anonymous function has an unused use \\$container\\.$#"
+            count: 2
+            path: src/Command/CommandHelper.php
+
+        -
+            message: "#^Parameter \\#1 \\$headers \\(array\\<string\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$headers \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\StyleInterface\\:\\:table\\(\\)$#"
+            count: 1
+            path: src/Command/ErrorsConsoleStyle.php
+
+        -
+            message: "#^Parameter \\#1 \\$headers \\(array\\<string\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$headers \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\SymfonyStyle\\:\\:table\\(\\)$#"
+            count: 1
+            path: src/Command/ErrorsConsoleStyle.php
+
+        -
+            message: "#^Parameter \\#2 \\$rows \\(array\\<array\\<string\\>\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$rows \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\StyleInterface\\:\\:table\\(\\)$#"
+            count: 1
+            path: src/Command/ErrorsConsoleStyle.php
+
+        -
+            message: "#^Parameter \\#2 \\$rows \\(array\\<array\\<string\\>\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$rows \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\SymfonyStyle\\:\\:table\\(\\)$#"
+            count: 1
+            path: src/Command/ErrorsConsoleStyle.php
+
+        -
+            message: "#^Call to an undefined method React\\\\Promise\\\\PromiseInterface\\:\\:done\\(\\)\\.$#"
+            count: 2
+            path: src/Command/FixerApplication.php
+
+        -
+            message: "#^Parameter \\#1 \\$arg of function escapeshellarg expects string, string\\|false given\\.$#"
+            count: 1
+            path: src/Command/FixerApplication.php
+
+        -
+            message: "#^Call to an undefined method React\\\\Promise\\\\PromiseInterface\\<Psr\\\\Http\\\\Message\\\\ResponseInterface, React\\\\Http\\\\Exception\\>\\:\\:done\\(\\)\\.$#"
+            count: 1
+            path: src/Command/FixerApplication.php
+
+        -
+            message: "#^Call to an undefined method React\\\\Promise\\\\PromiseInterface\\:\\:done\\(\\)\\.$#"
+            count: 1
+            path: src/Command/WorkerCommand.php
+
+        -
+            message: "#^Fetching class constant PREVENT_MERGING of deprecated class Nette\\\\DI\\\\Config\\\\Helpers\\.$#"
+            count: 1
+            path: src/DependencyInjection/NeonAdapter.php
+
+        -
+            message: "#^Variable static method call on Nette\\\\Schema\\\\Expect\\.$#"
+            count: 1
+            path: src/DependencyInjection/ParametersSchemaExtension.php
+
+        -
+            message: "#^Variable method call on Nette\\\\Schema\\\\Elements\\\\AnyOf\\|Nette\\\\Schema\\\\Elements\\\\Structure\\|Nette\\\\Schema\\\\Elements\\\\Type\\.$#"
+            count: 1
+            path: src/DependencyInjection/ParametersSchemaExtension.php
+
+        -
+            message: "#^Variable method call on PHPStan\\\\Reflection\\\\ClassReflection\\.$#"
+            count: 2
+            path: src/PhpDoc/PhpDocBlock.php
+
+        -
+            message: "#^Variable static method call on PHPStan\\\\PhpDoc\\\\PhpDocBlock\\.$#"
+            count: 1
+            path: src/PhpDoc/PhpDocBlock.php
+
+        -
+            message: "#^Method PHPStan\\\\PhpDoc\\\\ResolvedPhpDocBlock\\:\\:getNameScope\\(\\) should return PHPStan\\\\Analyser\\\\NameScope but returns PHPStan\\\\Analyser\\\\NameScope\\|null\\.$#"
+            count: 1
+            path: src/PhpDoc/ResolvedPhpDocBlock.php
+
+        -
+            message: "#^Return type \\(PHPStan\\\\PhpDoc\\\\Tag\\\\ParamTag\\) of method PHPStan\\\\PhpDoc\\\\Tag\\\\ParamTag\\:\\:withType\\(\\) should be covariant with return type \\(static\\(PHPStan\\\\PhpDoc\\\\Tag\\\\TypedTag\\)\\) of method PHPStan\\\\PhpDoc\\\\Tag\\\\TypedTag\\:\\:withType\\(\\)$#"
+            count: 1
+            path: src/PhpDoc/Tag/ParamTag.php
+
+        -
+            message: "#^Return type \\(PHPStan\\\\PhpDoc\\\\Tag\\\\ReturnTag\\) of method PHPStan\\\\PhpDoc\\\\Tag\\\\ReturnTag\\:\\:withType\\(\\) should be covariant with return type \\(static\\(PHPStan\\\\PhpDoc\\\\Tag\\\\TypedTag\\)\\) of method PHPStan\\\\PhpDoc\\\\Tag\\\\TypedTag\\:\\:withType\\(\\)$#"
+            count: 1
+            path: src/PhpDoc/Tag/ReturnTag.php
+
+        -
+            message: "#^Return type \\(PHPStan\\\\PhpDoc\\\\Tag\\\\VarTag\\) of method PHPStan\\\\PhpDoc\\\\Tag\\\\VarTag\\:\\:withType\\(\\) should be covariant with return type \\(static\\(PHPStan\\\\PhpDoc\\\\Tag\\\\TypedTag\\)\\) of method PHPStan\\\\PhpDoc\\\\Tag\\\\TypedTag\\:\\:withType\\(\\)$#"
+            count: 1
+            path: src/PhpDoc/Tag/VarTag.php
+
+        -
+            message: "#^Only booleans are allowed in a negated boolean, int\\|false given\\.$#"
+            count: 1
+            path: src/Reflection/BetterReflection/SourceLocator/OptimizedDirectorySourceLocator.php
+
+        -
+            message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
+            count: 4
+            path: src/Reflection/BetterReflection/SourceLocator/OptimizedDirectorySourceLocator.php
+
+        -
+            message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|null given\\.$#"
+            count: 3
+            path: src/Reflection/BetterReflection/SourceLocator/OptimizedDirectorySourceLocator.php
+
+        -
+            message: "#^Parameter \\#1 \\$haystack of function strrpos expects string, string\\|null given\\.$#"
+            count: 1
+            path: src/Reflection/BetterReflection/SourceLocator/OptimizedDirectorySourceLocator.php
+
+        -
+            message: "#^Only booleans are allowed in an if condition, int\\|false given\\.$#"
+            count: 1
+            path: src/Reflection/BetterReflection/SourceLocator/OptimizedDirectorySourceLocator.php
+
+        -
+            message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|null given\\.$#"
+            count: 1
+            path: src/Reflection/BetterReflection/SourceLocator/OptimizedDirectorySourceLocator.php
+
+        -
+            message: "#^Parameter \\#2 \\$subject of function preg_match_all expects string, string\\|null given\\.$#"
+            count: 1
+            path: src/Reflection/BetterReflection/SourceLocator/OptimizedDirectorySourceLocator.php
+
+        -
+            message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+            count: 1
+            path: src/Reflection/BetterReflection/SourceLocator/OptimizedDirectorySourceLocator.php
+
+        -
+            message: "#^Property PHPStan\\\\Reflection\\\\ClassReflection\\:\\:\\$reflection with generic class ReflectionClass does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/ClassReflection.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\ClassReflection\\:\\:__construct\\(\\) has parameter \\$reflection with generic class ReflectionClass but does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/ClassReflection.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\ClassReflection\\:\\:getNativeReflection\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/ClassReflection.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\ClassReflection\\:\\:getCacheKey\\(\\) should return string but returns string\\|null\\.$#"
+            count: 1
+            path: src/Reflection/ClassReflection.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\Php\\\\BuiltinMethodReflection\\:\\:getDeclaringClass\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/Php/BuiltinMethodReflection.php
+
+        -
+            message: "#^Property PHPStan\\\\Reflection\\\\Php\\\\FakeBuiltinMethodReflection\\:\\:\\$declaringClass with generic class ReflectionClass does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/Php/FakeBuiltinMethodReflection.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\Php\\\\FakeBuiltinMethodReflection\\:\\:__construct\\(\\) has parameter \\$declaringClass with generic class ReflectionClass but does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/Php/FakeBuiltinMethodReflection.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\Php\\\\FakeBuiltinMethodReflection\\:\\:getDeclaringClass\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/Php/FakeBuiltinMethodReflection.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\Php\\\\NativeBuiltinMethodReflection\\:\\:getDeclaringClass\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/Php/NativeBuiltinMethodReflection.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\Php\\\\PhpClassReflectionExtension\\:\\:collectTraits\\(\\) has parameter \\$class with generic class ReflectionClass but does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/Php/PhpClassReflectionExtension.php
+
+        -
+            message: "#^Method PHPStan\\\\Reflection\\\\Php\\\\PhpClassReflectionExtension\\:\\:collectTraits\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"
+            count: 1
+            path: src/Reflection/Php/PhpClassReflectionExtension.php
+
+        -
+            message: "#^Property PHPStan\\\\Rules\\\\Registry\\:\\:\\$rules with generic interface PHPStan\\\\Rules\\\\Rule does not specify its types\\: TNodeType$#"
+            count: 1
+            path: src/Rules/Registry.php
+
+        -
+            message: "#^Property PHPStan\\\\Rules\\\\Registry\\:\\:\\$cache with generic interface PHPStan\\\\Rules\\\\Rule does not specify its types\\: TNodeType$#"
+            count: 1
+            path: src/Rules/Registry.php
+
+        -
+            message: "#^Method PHPStan\\\\Rules\\\\Registry\\:\\:__construct\\(\\) has parameter \\$rules with generic interface PHPStan\\\\Rules\\\\Rule but does not specify its types\\: TNodeType$#"
+            count: 1
+            path: src/Rules/Registry.php
+
+        -
+            message: "#^Cannot call method getActiveTemplateTypeMap\\(\\) on PHPStan\\\\Reflection\\\\ClassReflection\\|null\\.$#"
+            count: 2
+            path: src/Type/Generic/GenericObjectType.php
+
+        -
+            message: "#^Unreachable statement \\- code above always terminates\\.$#"
+            count: 1
+            path: tests/PHPStan/Analyser/AnalyserTest.php
+
+        -
+            message: "#^Class PHPStan\\\\Analyser\\\\AnonymousClassNameRule implements generic interface PHPStan\\\\Rules\\\\Rule but does not specify its types\\: TNodeType$#"
+            count: 1
+            path: tests/PHPStan/Analyser/AnonymousClassNameRule.php
+
+        -
+            message: "#^Class PHPStan\\\\Analyser\\\\AnonymousClassNameRuleTest extends generic class PHPStan\\\\Testing\\\\RuleTestCase but does not specify its types\\: TRule$#"
+            count: 1
+            path: tests/PHPStan/Analyser/AnonymousClassNameRuleTest.php
+
+        -
+            message: "#^Method PHPStan\\\\Analyser\\\\AnonymousClassNameRuleTest\\:\\:getRule\\(\\) return type with generic interface PHPStan\\\\Rules\\\\Rule does not specify its types\\: TNodeType$#"
+            count: 1
+            path: tests/PHPStan/Analyser/AnonymousClassNameRuleTest.php
+
+        -
+            message: "#^Class PHPStan\\\\Analyser\\\\EvaluationOrderRule implements generic interface PHPStan\\\\Rules\\\\Rule but does not specify its types\\: TNodeType$#"
+            count: 1
+            path: tests/PHPStan/Analyser/EvaluationOrderRule.php
+
+        -
+            message: "#^Class PHPStan\\\\Analyser\\\\EvaluationOrderTest extends generic class PHPStan\\\\Testing\\\\RuleTestCase but does not specify its types\\: TRule$#"
+            count: 1
+            path: tests/PHPStan/Analyser/EvaluationOrderTest.php
+
+        -
+            message: "#^Method PHPStan\\\\Analyser\\\\EvaluationOrderTest\\:\\:getRule\\(\\) return type with generic interface PHPStan\\\\Rules\\\\Rule does not specify its types\\: TNodeType$#"
+            count: 1
+            path: tests/PHPStan/Analyser/EvaluationOrderTest.php
+
+        -
+            message: "#^Constant SOME_CONSTANT_IN_AUTOLOAD_FILE not found\\.$#"
+            count: 1
+            path: tests/PHPStan/Command/AnalyseCommandTest.php
+
+        -
+            message: "#^Class PHPStan\\\\Node\\\\FileNodeTest extends generic class PHPStan\\\\Testing\\\\RuleTestCase but does not specify its types\\: TRule$#"
+            count: 1
+            path: tests/PHPStan/Node/FileNodeTest.php
+
+        -
+            message: "#^Method PHPStan\\\\Node\\\\FileNodeTest\\:\\:getRule\\(\\) return type with generic interface PHPStan\\\\Rules\\\\Rule does not specify its types\\: TNodeType$#"
+            count: 1
+            path: tests/PHPStan/Node/FileNodeTest.php
+

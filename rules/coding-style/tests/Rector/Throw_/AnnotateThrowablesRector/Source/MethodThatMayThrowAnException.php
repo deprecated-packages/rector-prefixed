@@ -4,7 +4,6 @@ namespace Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source
 
 use Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException;
 use Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond;
-
 class MethodThatMayThrowAnException
 {
     /**
@@ -14,13 +13,13 @@ class MethodThatMayThrowAnException
      * @throws TheException
      * @throws \Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond
      */
-    public function mayThrowAnException(int $code):int
+    public function mayThrowAnException(int $code) : int
     {
         switch ($code) {
             case 1:
-                throw new TheException('');
+                throw new \Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException('');
             case 2:
-                throw new TheExceptionTheSecond('');
+                throw new \Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond('');
             default:
                 return $code;
         }

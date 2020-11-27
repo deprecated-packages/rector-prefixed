@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\Tests\Rector\PropertyProperty\RemoveNullPropertyInitializationRector;
 
 use Iterator;
@@ -9,30 +8,26 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class TypedPropertiesRemoveNullPropertyInitializationRectorTest extends AbstractRectorTestCase
+final class TypedPropertiesRemoveNullPropertyInitializationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP 7.4
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureTypedProperties');
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
-        return RemoveNullPropertyInitializationRector::class;
+        return \Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class;
     }
-
-    protected function getPhpVersion(): int
+    protected function getPhpVersion() : int
     {
-        return PhpVersionFeature::TYPED_PROPERTIES;
+        return \Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES;
     }
 }

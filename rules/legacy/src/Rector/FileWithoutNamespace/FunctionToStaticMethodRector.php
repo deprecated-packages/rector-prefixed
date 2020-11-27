@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Legacy\Rector\FileWithoutNamespace;
 
 use PhpParser\Node;
@@ -19,52 +18,39 @@ use Rector\Legacy\ValueObject\FunctionToStaticCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 /**
  * @see \Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector\FunctionToStaticMethodRectorTest
  */
-final class FunctionToStaticMethodRector extends AbstractRector
+final class FunctionToStaticMethodRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassNaming
      */
     private $classNaming;
-
     /**
      * @var StaticMethodClassFactory
      */
     private $staticMethodClassFactory;
-
     /**
      * @var FullyQualifiedNameResolver
      */
     private $fullyQualifiedNameResolver;
-
-    public function __construct(
-        ClassNaming $classNaming,
-        StaticMethodClassFactory $staticMethodClassFactory,
-        FullyQualifiedNameResolver $fullyQualifiedNameResolver
-    ) {
+    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Legacy\NodeFactory\StaticMethodClassFactory $staticMethodClassFactory, \Rector\Legacy\Naming\FullyQualifiedNameResolver $fullyQualifiedNameResolver)
+    {
         $this->classNaming = $classNaming;
         $this->staticMethodClassFactory = $staticMethodClassFactory;
         $this->fullyQualifiedNameResolver = $fullyQualifiedNameResolver;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change functions to static calls, so composer can autoload them',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change functions to static calls, so composer can autoload them', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function some_function()
 {
 }
 
 some_function('lol');
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeUtilsClass
 {
     public static function someFunction()
@@ -74,130 +60,99 @@ class SomeUtilsClass
 
 SomeUtilsClass::someFunction('lol');
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [FileWithoutNamespace::class, Namespace_::class];
+        return [\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \PhpParser\Node\Stmt\Namespace_::class];
     }
-
     /**
      * @param FileWithoutNamespace|Namespace_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Function_[] $functions */
-        $functions = $this->betterNodeFinder->findInstanceOf($node, Function_::class);
+        $functions = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Stmt\Function_::class);
         if ($functions === []) {
             return null;
         }
-
-        $smartFileInfo = $node->getAttribute(SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }
-
         $shortClassName = $this->classNaming->getNameFromFileInfo($smartFileInfo);
         $class = $this->staticMethodClassFactory->createStaticMethodClass($shortClassName, $functions);
-
         $stmts = $node->stmts;
         $this->removeNodes($functions);
-
         // replace function calls with class static call
         $functionsToStaticCalls = $this->resolveFunctionsToStaticCalls($stmts, $shortClassName, $functions);
         $node->stmts = $this->replaceFuncCallsWithStaticCalls($stmts, $functionsToStaticCalls);
-
         $this->printStaticMethodClass($smartFileInfo, $shortClassName, $node, $class);
-
         return $node;
     }
-
     /**
      * @param Node[] $stmts
      * @param Function_[] $functions
      * @return FunctionToStaticCall[]
      */
-    private function resolveFunctionsToStaticCalls(array $stmts, string $shortClassName, array $functions): array
+    private function resolveFunctionsToStaticCalls(array $stmts, string $shortClassName, array $functions) : array
     {
         $functionsToStaticCalls = [];
-
         $className = $this->fullyQualifiedNameResolver->resolveFullyQualifiedName($stmts, $shortClassName);
         foreach ($functions as $function) {
             $functionName = $this->getName($function);
             if ($functionName === null) {
                 continue;
             }
-
             $methodName = $this->classNaming->createMethodNameFromFunction($function);
-            $functionsToStaticCalls[] = new FunctionToStaticCall($functionName, $className, $methodName);
+            $functionsToStaticCalls[] = new \Rector\Legacy\ValueObject\FunctionToStaticCall($functionName, $className, $methodName);
         }
-
         return $functionsToStaticCalls;
     }
-
     /**
      * @param Node[] $stmts
      * @param FunctionToStaticCall[] $functionsToStaticCalls
      * @return Node[]
      */
-    private function replaceFuncCallsWithStaticCalls(array $stmts, array $functionsToStaticCalls): array
+    private function replaceFuncCallsWithStaticCalls(array $stmts, array $functionsToStaticCalls) : array
     {
-        $this->traverseNodesWithCallable($stmts, function (Node $node) use ($functionsToStaticCalls): ?StaticCall {
-            if (! $node instanceof FuncCall) {
+        $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use($functionsToStaticCalls) : ?StaticCall {
+            if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
                 return null;
             }
-
             foreach ($functionsToStaticCalls as $functionToStaticCall) {
-                if (! $this->isName($node, $functionToStaticCall->getFunction())) {
+                if (!$this->isName($node, $functionToStaticCall->getFunction())) {
                     continue;
                 }
-
-                $staticCall = $this->createStaticCall(
-                    $functionToStaticCall->getClass(),
-                    $functionToStaticCall->getMethod()
-                );
+                $staticCall = $this->createStaticCall($functionToStaticCall->getClass(), $functionToStaticCall->getMethod());
                 $staticCall->args = $node->args;
-
                 return $staticCall;
             }
-
             return null;
         });
-
         return $stmts;
     }
-
     /**
      * @param Namespace_|FileWithoutNamespace $node
      */
-    private function printStaticMethodClass(
-        SmartFileInfo $smartFileInfo,
-        string $shortClassName,
-        Node $node,
-        Class_ $class
-    ): void {
-        $classFileDestination = $smartFileInfo->getPath() . DIRECTORY_SEPARATOR . $shortClassName . '.php';
-
+    private function printStaticMethodClass(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : void
+    {
+        $classFileDestination = $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . $shortClassName . '.php';
         $nodesToPrint = [$this->resolveNodeToPrint($node, $class)];
         $this->printNodesToFilePath($nodesToPrint, $classFileDestination);
     }
-
     /**
      * @param Namespace_|FileWithoutNamespace $node
      * @return Namespace_|Class_
      */
-    private function resolveNodeToPrint(Node $node, Class_ $class): Node
+    private function resolveNodeToPrint(\PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node
     {
-        if ($node instanceof Namespace_) {
-            return new Namespace_($node->name, [$class]);
+        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+            return new \PhpParser\Node\Stmt\Namespace_($node->name, [$class]);
         }
-
         return $class;
     }
 }

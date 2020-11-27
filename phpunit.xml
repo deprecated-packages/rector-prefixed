@@ -1,0 +1,35 @@
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+>
+    <php>
+        <const name="RECTOR_REPOSITORY" value="true"/>
+    </php>
+
+    <filter>
+		<whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">./packages</directory>
+            <directory suffix=".php">./rules</directory>
+            <directory suffix=".php">./src</directory>
+			<exclude>
+				<directory suffix=".php">./packages/*/tests</directory>
+				<directory suffix=".php">./rules/*/tests</directory>
+                <directory suffix=".php">./packages/rector-generator/templates</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+
+    <testsuites>
+        <testsuite name="main">
+            <directory>rules/*/tests</directory>
+            <directory>packages/*/tests</directory>
+            <directory>tests</directory>
+            <directory>utils/*/tests</directory>
+            <exclude>packages/rector-generator/templates/*</exclude>
+            <exclude>packages/rector-generator/tests/RectorGenerator/Fixture/expected</exclude>
+            <exclude>rules/nette-tester-to-phpunit/tests/Rector/RenameTesterTestToPHPUnitToTestFileRector/Source/*</exclude>
+        </testsuite>
+    </testsuites>
+</phpunit>

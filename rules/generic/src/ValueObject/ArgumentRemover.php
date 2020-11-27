@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\ValueObject;
 
 final class ArgumentRemover
@@ -10,22 +9,18 @@ final class ArgumentRemover
      * @var string
      */
     private $class;
-
     /**
      * @var string
      */
     private $method;
-
     /**
      * @var int
      */
     private $position;
-
     /**
      * @var mixed
      */
     private $value;
-
     /**
      * @param mixed $value
      */
@@ -36,22 +31,18 @@ final class ArgumentRemover
         $this->position = $position;
         $this->value = $value;
     }
-
-    public function getClass(): string
+    public function getClass() : string
     {
         return $this->class;
     }
-
-    public function getMethod(): string
+    public function getMethod() : string
     {
         return $this->method;
     }
-
-    public function getPosition(): int
+    public function getPosition() : int
     {
         return $this->position;
     }
-
     /**
      * @return mixed
      */

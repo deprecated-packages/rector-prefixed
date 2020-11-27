@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\Type\ObjectType;
@@ -15,7 +14,6 @@ use Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
-
 abstract class AbstractPhpDocNodeFactory
 {
     /**
@@ -23,99 +21,76 @@ abstract class AbstractPhpDocNodeFactory
      * @see https://regex101.com/r/548EJJ/1
      */
     private const CLASS_CONST_REGEX = '#::class#';
-
     /**
      * @var string
      * @see https://regex101.com/r/CsmMaz/1
      */
-    private const OPENING_SPACE_REGEX = '#^\{(?<opening_space>\s+)#';
-
+    private const OPENING_SPACE_REGEX = '#^\\{(?<opening_space>\\s+)#';
     /**
      * @var string
      * @see https://regex101.com/r/Rrbi3V/1
      */
-    private const CLOSING_SPACE_REGEX = '#(?<closing_space>\s+)\}$#';
-
+    private const CLOSING_SPACE_REGEX = '#(?<closing_space>\\s+)\\}$#';
     /**
      * @var NodeAnnotationReader
      */
     protected $nodeAnnotationReader;
-
     /**
      * @var AnnotationContentResolver
      */
     protected $annotationContentResolver;
-
     /**
      * @var AnnotationItemsResolver
      */
     protected $annotationItemsResolver;
-
     /**
      * @var ObjectTypeSpecifier
      */
     private $objectTypeSpecifier;
-
     /**
      * @required
      */
-    public function autowireAbstractPhpDocNodeFactory(
-        NodeAnnotationReader $nodeAnnotationReader,
-        AnnotationContentResolver $annotationContentResolver,
-        AnnotationItemsResolver $annotationItemsResolver,
-        ObjectTypeSpecifier $objectTypeSpecifier
-    ): void {
+    public function autowireAbstractPhpDocNodeFactory(\Rector\BetterPhpDocParser\AnnotationReader\NodeAnnotationReader $nodeAnnotationReader, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier) : void
+    {
         $this->nodeAnnotationReader = $nodeAnnotationReader;
         $this->annotationContentResolver = $annotationContentResolver;
         $this->annotationItemsResolver = $annotationItemsResolver;
         $this->objectTypeSpecifier = $objectTypeSpecifier;
     }
-
-    protected function resolveContentFromTokenIterator(TokenIterator $tokenIterator): string
+    protected function resolveContentFromTokenIterator(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
     {
         return $this->annotationContentResolver->resolveFromTokenIterator($tokenIterator);
     }
-
-    protected function resolveFqnTargetEntity(string $targetEntity, Node $node): string
+    protected function resolveFqnTargetEntity(string $targetEntity, \PhpParser\Node $node) : string
     {
         $targetEntity = $this->getCleanedUpTargetEntity($targetEntity);
-        if (class_exists($targetEntity)) {
+        if (\class_exists($targetEntity)) {
             return $targetEntity;
         }
-
-        $namespacedTargetEntity = $node->getAttribute(AttributeKey::NAMESPACE_NAME) . '\\' . $targetEntity;
-        if (class_exists($namespacedTargetEntity)) {
+        $namespacedTargetEntity = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME) . '\\' . $targetEntity;
+        if (\class_exists($namespacedTargetEntity)) {
             return $namespacedTargetEntity;
         }
-
-        $resolvedType = $this->objectTypeSpecifier->narrowToFullyQualifiedOrAlaisedObjectType(
-            $node,
-            new ObjectType($targetEntity)
-        );
-        if ($resolvedType instanceof ShortenedObjectType) {
+        $resolvedType = $this->objectTypeSpecifier->narrowToFullyQualifiedOrAlaisedObjectType($node, new \PHPStan\Type\ObjectType($targetEntity));
+        if ($resolvedType instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
             return $resolvedType->getFullyQualifiedName();
         }
-
         // probably tested class
         return $targetEntity;
     }
-
     /**
      * Covers spaces like https://github.com/rectorphp/rector/issues/2110
      */
-    protected function matchCurlyBracketOpeningAndClosingSpace(string $annotationContent): OpeningAndClosingSpace
+    protected function matchCurlyBracketOpeningAndClosingSpace(string $annotationContent) : \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace
     {
-        $match = Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
+        $match = \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
         $openingSpace = $match['opening_space'] ?? '';
-
-        $match = Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
+        $match = \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
         $closingSpace = $match['closing_space'] ?? '';
-
-        return new OpeningAndClosingSpace($openingSpace, $closingSpace);
+        return new \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace($openingSpace, $closingSpace);
     }
-
-    private function getCleanedUpTargetEntity(string $targetEntity): string
+    private function getCleanedUpTargetEntity(string $targetEntity) : string
     {
-        return Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
+        return \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
     }
 }

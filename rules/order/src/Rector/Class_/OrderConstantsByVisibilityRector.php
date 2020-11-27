@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Order\Rector\Class_;
 
 use PhpParser\Node;
@@ -10,17 +9,14 @@ use PhpParser\Node\Stmt\ClassConst;
 use Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Order\Tests\Rector\Class_\OrderConstantsByVisibilityRector\OrderConstantsByVisibilityRectorTest
  */
-final class OrderConstantsByVisibilityRector extends AbstractConstantPropertyMethodOrderRector
+final class OrderConstantsByVisibilityRector extends \Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Orders constants by visibility', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Orders constants by visibility', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     private const PRIVATE_CONST = 'private';
@@ -28,9 +24,7 @@ final class SomeClass
     public const PUBLIC_CONST = 'public';
 }
 CODE_SAMPLE
-
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public const PUBLIC_CONST = 'public';
@@ -38,33 +32,26 @@ final class SomeClass
     private const PRIVATE_CONST = 'private';
 }
 CODE_SAMPLE
-
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $currentClassConstsOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, ClassConst::class);
+        $currentClassConstsOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \PhpParser\Node\Stmt\ClassConst::class);
         $classConstsInDesiredOrder = $this->stmtVisibilitySorter->sortConstants($node);
-
         $oldToNewKeys = $this->stmtOrder->createOldToNewKeys($classConstsInDesiredOrder, $currentClassConstsOrder);
-
-        if (! $this->hasOrderChanged($oldToNewKeys)) {
+        if (!$this->hasOrderChanged($oldToNewKeys)) {
             return null;
         }
-
         return $this->stmtOrder->reorderClassStmtsByOldToNewKeys($node, $oldToNewKeys);
     }
 }

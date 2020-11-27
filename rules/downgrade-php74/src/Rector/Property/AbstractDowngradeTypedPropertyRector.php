@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DowngradePhp74\Rector\Property;
 
 use PhpParser\Node;
@@ -10,44 +9,38 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\DowngradePhp71\Rector\FunctionLike\AbstractDowngradeRector;
 use Rector\DowngradePhp74\Contract\Rector\DowngradeTypedPropertyRectorInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
-abstract class AbstractDowngradeTypedPropertyRector extends AbstractDowngradeRector implements DowngradeTypedPropertyRectorInterface
+abstract class AbstractDowngradeTypedPropertyRector extends \Rector\DowngradePhp71\Rector\FunctionLike\AbstractDowngradeRector implements \Rector\DowngradePhp74\Contract\Rector\DowngradeTypedPropertyRectorInterface
 {
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Property::class];
+        return [\PhpParser\Node\Stmt\Property::class];
     }
-
     /**
      * @param Property $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->type === null) {
             return null;
         }
-
-        if (! $this->shouldRemoveProperty($node)) {
+        if (!$this->shouldRemoveProperty($node)) {
             return null;
         }
-
         if ($this->addDocBlock) {
             /** @var PhpDocInfo|null $phpDocInfo */
-            $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             if ($phpDocInfo === null) {
                 $phpDocInfo = $this->phpDocInfoFactory->createEmpty($node);
             }
-
             if ($phpDocInfo->getVarTagValueNode() === null) {
                 $newType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($node->type);
                 $phpDocInfo->changeVarType($newType);
             }
         }
         $node->type = null;
-
         return $node;
     }
 }

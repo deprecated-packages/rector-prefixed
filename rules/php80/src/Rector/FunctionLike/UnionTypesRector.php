@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php80\Rector\FunctionLike;
 
 use PhpParser\Node;
@@ -17,19 +16,14 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Php80\Tests\Rector\FunctionLike\UnionTypesRector\UnionTypesRectorTest
  */
-final class UnionTypesRector extends AbstractRector
+final class UnionTypesRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change docs types to union types, where possible (properties are covered by TypedPropertiesRector)',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change docs types to union types, where possible (properties are covered by TypedPropertiesRector)', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -41,8 +35,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -54,81 +47,67 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class, Function_::class, Closure::class, ArrowFunction::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Expr\ArrowFunction::class];
     }
-
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
-
         $this->refactorParamTypes($node, $phpDocInfo);
         $this->refactorReturnType($node, $phpDocInfo);
-
         return $node;
     }
-
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
      */
-    private function refactorParamTypes(FunctionLike $functionLike, PhpDocInfo $phpDocInfo): void
+    private function refactorParamTypes(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
         foreach ($functionLike->params as $param) {
             if ($param->type !== null) {
                 continue;
             }
-
             /** @var string $paramName */
             $paramName = $this->getName($param->var);
             $paramType = $phpDocInfo->getParamType($paramName);
-            if (! $paramType instanceof UnionType) {
+            if (!$paramType instanceof \PHPStan\Type\UnionType) {
                 continue;
             }
-
             $phpParserUnionType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($paramType);
-            if (! $phpParserUnionType instanceof PhpParserUnionType) {
+            if (!$phpParserUnionType instanceof \PhpParser\Node\UnionType) {
                 continue;
             }
-
             $param->type = $phpParserUnionType;
         }
     }
-
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
      */
-    private function refactorReturnType(FunctionLike $functionLike, PhpDocInfo $phpDocInfo): void
+    private function refactorReturnType(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
         // do not override existing return type
         if ($functionLike->getReturnType() !== null) {
             return;
         }
-
         $returnType = $phpDocInfo->getReturnType();
-        if (! $returnType instanceof UnionType) {
+        if (!$returnType instanceof \PHPStan\Type\UnionType) {
             return;
         }
-
         $phpParserUnionType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($returnType);
-        if (! $phpParserUnionType instanceof PhpParserUnionType) {
+        if (!$phpParserUnionType instanceof \PhpParser\Node\UnionType) {
             return;
         }
-
         $functionLike->returnType = $phpParserUnionType;
     }
 }

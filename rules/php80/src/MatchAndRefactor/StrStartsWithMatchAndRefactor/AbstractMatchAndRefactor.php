@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php80\MatchAndRefactor\StrStartsWithMatchAndRefactor;
 
 use PhpParser\Node;
@@ -13,68 +12,52 @@ use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\Php80\ValueObject\StrStartsWith;
-
 abstract class AbstractMatchAndRefactor
 {
     /**
      * @var NodeNameResolver
      */
     protected $nodeNameResolver;
-
     /**
      * @var ValueResolver
      */
     protected $valueResolver;
-
     /**
      * @var BetterStandardPrinter
      */
     protected $betterStandardPrinter;
-
     /**
      * @required
      */
-    public function autowireAbstractMatchAndRefactor(
-        NodeNameResolver $nodeNameResolver,
-        ValueResolver $valueResolver,
-        BetterStandardPrinter $betterStandardPrinter
-    ): void {
+    public function autowireAbstractMatchAndRefactor(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter) : void
+    {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-
-    protected function isFuncCallName(Node $node, string $name): bool
+    protected function isFuncCallName(\PhpParser\Node $node, string $name) : bool
     {
-        if (! $node instanceof FuncCall) {
-            return false;
+        if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+            return \false;
         }
-
         return $this->nodeNameResolver->isName($node, $name);
     }
-
     /**
      * @return FuncCall|BooleanNot
      */
-    protected function createStrStartsWith(StrStartsWith $strStartsWith): Node
+    protected function createStrStartsWith(\Rector\Php80\ValueObject\StrStartsWith $strStartsWith) : \PhpParser\Node
     {
-        $args = [new Arg($strStartsWith->getHaystackExpr()), new Arg($strStartsWith->getNeedleExpr())];
-
-        $funcCall = new FuncCall(new Name('str_starts_with'), $args);
+        $args = [new \PhpParser\Node\Arg($strStartsWith->getHaystackExpr()), new \PhpParser\Node\Arg($strStartsWith->getNeedleExpr())];
+        $funcCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('str_starts_with'), $args);
         if ($strStartsWith->isPositive()) {
             return $funcCall;
         }
-
-        return new BooleanNot($funcCall);
+        return new \PhpParser\Node\Expr\BooleanNot($funcCall);
     }
-
-    protected function createStrStartsWithValueObjectFromFuncCall(
-        FuncCall $funcCall,
-        bool $isPositive
-    ): StrStartsWith {
+    protected function createStrStartsWithValueObjectFromFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall, bool $isPositive) : \Rector\Php80\ValueObject\StrStartsWith
+    {
         $haystack = $funcCall->args[0]->value;
         $needle = $funcCall->args[1]->value;
-
-        return new StrStartsWith($funcCall, $haystack, $needle, $isPositive);
+        return new \Rector\Php80\ValueObject\StrStartsWith($funcCall, $haystack, $needle, $isPositive);
     }
 }

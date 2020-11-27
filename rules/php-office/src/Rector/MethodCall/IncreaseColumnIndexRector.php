@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPOffice\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -15,21 +14,16 @@ use PhpParser\Node\Stmt\For_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/migration-from-PHPExcel.md#column-index-based-on-1
  *
  * @see \Rector\PHPOffice\Tests\Rector\MethodCall\IncreaseColumnIndexRector\IncreaseColumnIndexRectorTest
  */
-final class IncreaseColumnIndexRector extends AbstractRector
+final class IncreaseColumnIndexRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Column index changed from 0 to 1 - run only ONCE! changes current value without memory',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Column index changed from 0 to 1 - run only ONCE! changes current value without memory', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -39,8 +33,7 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -50,104 +43,85 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectTypes($node->var, ['PHPExcel_Worksheet', 'PHPExcel_Worksheet_PageSetup'])) {
+        if (!$this->isObjectTypes($node->var, ['PHPExcel_Worksheet', 'PHPExcel_Worksheet_PageSetup'])) {
             return null;
         }
-
-        if (! $this->isName($node->name, '*ByColumnAndRow')) {
+        if (!$this->isName($node->name, '*ByColumnAndRow')) {
             return null;
         }
-
         // increase column value
         $firstArgumentValue = $node->args[0]->value;
-        if ($firstArgumentValue instanceof LNumber) {
+        if ($firstArgumentValue instanceof \PhpParser\Node\Scalar\LNumber) {
             ++$firstArgumentValue->value;
         }
-
-        if ($firstArgumentValue instanceof BinaryOp) {
+        if ($firstArgumentValue instanceof \PhpParser\Node\Expr\BinaryOp) {
             $this->refactorBinaryOp($firstArgumentValue);
         }
-
-        if ($firstArgumentValue instanceof Variable) {
+        if ($firstArgumentValue instanceof \PhpParser\Node\Expr\Variable) {
             // check if for() value, rather update that
             $lNumber = $this->findPreviousForWithVariable($firstArgumentValue);
             if ($lNumber === null) {
-                $node->args[0]->value = new Plus($firstArgumentValue, new LNumber(1));
+                $node->args[0]->value = new \PhpParser\Node\Expr\BinaryOp\Plus($firstArgumentValue, new \PhpParser\Node\Scalar\LNumber(1));
                 return null;
             }
-
             ++$lNumber->value;
         }
-
         return $node;
     }
-
-    private function refactorBinaryOp(BinaryOp $binaryOp): void
+    private function refactorBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : void
     {
-        if ($binaryOp->left instanceof LNumber) {
+        if ($binaryOp->left instanceof \PhpParser\Node\Scalar\LNumber) {
             ++$binaryOp->left->value;
             return;
         }
-
-        if ($binaryOp->right instanceof LNumber) {
+        if ($binaryOp->right instanceof \PhpParser\Node\Scalar\LNumber) {
             ++$binaryOp->right->value;
             return;
         }
     }
-
-    private function findPreviousForWithVariable(Variable $variable): ?LNumber
+    private function findPreviousForWithVariable(\PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Scalar\LNumber
     {
         /** @var For_|null $for */
-        $for = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [For_::class]);
+        $for = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [\PhpParser\Node\Stmt\For_::class]);
         if ($for === null) {
             return null;
         }
-
         $variableName = $this->getName($variable);
         if ($variableName === null) {
             return null;
         }
-
         $assignVariable = $this->findVariableAssignName($for->init, $variableName);
         if ($assignVariable === null) {
             return null;
         }
-
-        if ($assignVariable->expr instanceof LNumber) {
+        if ($assignVariable->expr instanceof \PhpParser\Node\Scalar\LNumber) {
             return $assignVariable->expr;
         }
-
         return null;
     }
-
     /**
      * @param Node|Node[] $node
      */
-    private function findVariableAssignName($node, string $variableName): ?Node
+    private function findVariableAssignName($node, string $variableName) : ?\PhpParser\Node
     {
-        return $this->betterNodeFinder->findFirst((array) $node, function (Node $node) use ($variableName): bool {
-            if (! $node instanceof Assign) {
-                return false;
+        return $this->betterNodeFinder->findFirst((array) $node, function (\PhpParser\Node $node) use($variableName) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
             }
-
             return $this->isVariableName($node->var, $variableName);
         });
     }

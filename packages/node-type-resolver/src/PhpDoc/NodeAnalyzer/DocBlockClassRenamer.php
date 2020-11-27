@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 
 use PhpParser\Node;
@@ -13,75 +12,51 @@ use PHPStan\Type\Type;
 use Rector\PHPStan\Type\ShortenedObjectType;
 use Rector\SimplePhpDocParser\PhpDocNodeTraverser;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-
 final class DocBlockClassRenamer
 {
     /**
      * @var bool
      */
-    private $hasNodeChanged = false;
-
+    private $hasNodeChanged = \false;
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-
     /**
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
-
-    public function __construct(PhpDocNodeTraverser $phpDocNodeTraverser, StaticTypeMapper $staticTypeMapper)
+    public function __construct(\Rector\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
     }
-
     /**
      * @param Type[] $oldTypes
      */
-    public function renamePhpDocTypes(
-        PhpDocNode $phpDocNode,
-        array $oldTypes,
-        Type $newType,
-        Node $phpParserNode
-    ): void {
+    public function renamePhpDocTypes(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, array $oldTypes, \PHPStan\Type\Type $newType, \PhpParser\Node $phpParserNode) : void
+    {
         foreach ($oldTypes as $oldType) {
             $this->renamePhpDocType($phpDocNode, $oldType, $newType, $phpParserNode);
         }
     }
-
-    public function renamePhpDocType(
-        PhpDocNode $phpDocNode,
-        Type $oldType,
-        Type $newType,
-        Node $phpParserNode
-    ): bool {
-        $this->phpDocNodeTraverser->traverseWithCallable(
-            $phpDocNode,
-            '',
-            function (PhpDocParserNode $node) use ($phpParserNode, $oldType, $newType): PhpDocParserNode {
-                if (! $node instanceof IdentifierTypeNode) {
-                    return $node;
-                }
-
-                $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($node, $phpParserNode);
-
-                // make sure to compare FQNs
-                if ($staticType instanceof ShortenedObjectType) {
-                    $staticType = new ObjectType($staticType->getFullyQualifiedName());
-                }
-
-                if (! $staticType->equals($oldType)) {
-                    return $node;
-                }
-
-                $this->hasNodeChanged = true;
-
-                return $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($newType);
+    public function renamePhpDocType(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType, \PhpParser\Node $phpParserNode) : bool
+    {
+        $this->phpDocNodeTraverser->traverseWithCallable($phpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($phpParserNode, $oldType, $newType) : PhpDocParserNode {
+            if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+                return $node;
             }
-        );
-
+            $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($node, $phpParserNode);
+            // make sure to compare FQNs
+            if ($staticType instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
+                $staticType = new \PHPStan\Type\ObjectType($staticType->getFullyQualifiedName());
+            }
+            if (!$staticType->equals($oldType)) {
+                return $node;
+            }
+            $this->hasNodeChanged = \true;
+            return $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($newType);
+        });
         return $this->hasNodeChanged;
     }
 }

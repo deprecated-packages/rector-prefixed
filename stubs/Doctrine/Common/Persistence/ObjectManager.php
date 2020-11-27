@@ -1,14 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Doctrine\Common\Persistence;
 
-namespace Doctrine\Common\Persistence;
-
-if (interface_exists('Doctrine\Common\Persistence\ObjectManager')) {
+if (\interface_exists('_PhpScoper006a73f0e455\\Doctrine\\Common\\Persistence\\ObjectManager')) {
     return;
 }
-
 interface ObjectManager
 {
-
 }

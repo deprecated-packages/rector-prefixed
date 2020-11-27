@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\Rector\FunctionLike;
 
 use PhpParser\Node;
@@ -27,57 +26,43 @@ use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\TypeDeclaration\Tests\Rector\FunctionLike\ReturnTypeDeclarationRector\ReturnTypeDeclarationRectorTest
  */
-final class ReturnTypeDeclarationRector extends AbstractTypeDeclarationRector
+final class ReturnTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\FunctionLike\AbstractTypeDeclarationRector
 {
     /**
      * @var string[]
      */
-    private const EXCLUDED_METHOD_NAMES = [MethodName::CONSTRUCT, MethodName::DESCTRUCT, '__clone'];
-
+    private const EXCLUDED_METHOD_NAMES = [\Rector\Core\ValueObject\MethodName::CONSTRUCT, \Rector\Core\ValueObject\MethodName::DESCTRUCT, '__clone'];
     /**
      * @var bool
      */
-    private $overrideExistingReturnTypes = true;
-
+    private $overrideExistingReturnTypes = \true;
     /**
      * @var ReturnTypeInferer
      */
     private $returnTypeInferer;
-
     /**
      * @var ReturnTypeAlreadyAddedChecker
      */
     private $returnTypeAlreadyAddedChecker;
-
     /**
      * @var NonInformativeReturnTagRemover
      */
     private $nonInformativeReturnTagRemover;
-
     /**
      * @var ChildReturnPopulator
      */
     private $childReturnPopulator;
-
     /**
      * @var ClassMethodReturnTypeOverrideGuard
      */
     private $classMethodReturnTypeOverrideGuard;
-
-    public function __construct(
-        ReturnTypeInferer $returnTypeInferer,
-        ChildReturnPopulator $childReturnPopulator,
-        ReturnTypeAlreadyAddedChecker $returnTypeAlreadyAddedChecker,
-        NonInformativeReturnTagRemover $nonInformativeReturnTagRemover,
-        ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard,
-        bool $overrideExistingReturnTypes = true
-    ) {
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator $childReturnPopulator, \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker $returnTypeAlreadyAddedChecker, \Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover $nonInformativeReturnTagRemover, \Rector\TypeDeclaration\OverrideGuard\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, bool $overrideExistingReturnTypes = \true)
+    {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->overrideExistingReturnTypes = $overrideExistingReturnTypes;
         $this->returnTypeAlreadyAddedChecker = $returnTypeAlreadyAddedChecker;
@@ -85,15 +70,12 @@ final class ReturnTypeDeclarationRector extends AbstractTypeDeclarationRector
         $this->childReturnPopulator = $childReturnPopulator;
         $this->classMethodReturnTypeOverrideGuard = $classMethodReturnTypeOverrideGuard;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change @return types and type from static analysis to type declarations if not a BC-break',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change @return types and type from static analysis to type declarations if not a BC-break', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
+
+namespace _PhpScoper006a73f0e455;
 
 class SomeClass
 {
@@ -104,143 +86,113 @@ class SomeClass
     {
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 <?php
+
+namespace _PhpScoper006a73f0e455;
 
 class SomeClass
 {
-    public function getCount(): int
+    public function getCount() : int
     {
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
-        $inferedType = $this->returnTypeInferer->inferFunctionLikeWithExcludedInferers(
-            $node,
-            [ReturnTypeDeclarationReturnTypeInferer::class]
-        );
-
-        if ($inferedType instanceof MixedType) {
+        $inferedType = $this->returnTypeInferer->inferFunctionLikeWithExcludedInferers($node, [\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer::class]);
+        if ($inferedType instanceof \PHPStan\Type\MixedType) {
             return null;
         }
-
         if ($this->returnTypeAlreadyAddedChecker->isSameOrBetterReturnTypeAlreadyAdded($node, $inferedType)) {
             return null;
         }
-
-        $inferredReturnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode(
-            $inferedType,
-            PHPStanStaticTypeMapper::KIND_RETURN
-        );
-
+        $inferredReturnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper::KIND_RETURN);
         if ($this->shouldSkipInferredReturnNode($node, $inferredReturnNode)) {
             return null;
         }
-
         // should be previous overridden?
         if ($node->returnType !== null && $this->shouldSkipExistingReturnType($node, $inferedType)) {
             return null;
         }
-
         /** @var Name|NullableType|PhpParserUnionType $inferredReturnNode */
         $this->addReturnType($node, $inferredReturnNode);
         $this->nonInformativeReturnTagRemover->removeReturnTagIfNotUseful($node);
-
-        if ($node instanceof ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->childReturnPopulator->populateChildren($node, $inferedType);
         }
-
         return $node;
     }
-
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function shouldSkip(FunctionLike $functionLike): bool
+    private function shouldSkip(\PhpParser\Node\FunctionLike $functionLike) : bool
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::SCALAR_TYPES)) {
-            return true;
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
+            return \true;
         }
-
-        if (! $this->overrideExistingReturnTypes && $functionLike->returnType !== null) {
-            return true;
+        if (!$this->overrideExistingReturnTypes && $functionLike->returnType !== null) {
+            return \true;
         }
-
-        if (! $functionLike instanceof ClassMethod) {
-            return false;
+        if (!$functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return \false;
         }
-
         if ($this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethod($functionLike)) {
-            return true;
+            return \true;
         }
-
         return $this->isNames($functionLike, self::EXCLUDED_METHOD_NAMES);
     }
-
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function shouldSkipInferredReturnNode(FunctionLike $functionLike, ?Node $inferredReturnNode): bool
+    private function shouldSkipInferredReturnNode(\PhpParser\Node\FunctionLike $functionLike, ?\PhpParser\Node $inferredReturnNode) : bool
     {
         // nothing to change in PHP code
         if ($inferredReturnNode === null) {
-            return true;
+            return \true;
         }
-
         // already overridden by previous populateChild() method run
-        return $functionLike->returnType && $functionLike->returnType->getAttribute(AttributeKey::DO_NOT_CHANGE);
+        return $functionLike->returnType && $functionLike->returnType->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE);
     }
-
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function shouldSkipExistingReturnType(FunctionLike $functionLike, Type $inferedType): bool
+    private function shouldSkipExistingReturnType(\PhpParser\Node\FunctionLike $functionLike, \PHPStan\Type\Type $inferedType) : bool
     {
         if ($functionLike->returnType === null) {
-            return false;
+            return \false;
         }
-
         $currentType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($functionLike->returnType);
-
-        if ($functionLike instanceof ClassMethod && $this->vendorLockResolver->isReturnChangeVendorLockedIn(
-            $functionLike
-        )) {
-            return true;
+        if ($functionLike instanceof \PhpParser\Node\Stmt\ClassMethod && $this->vendorLockResolver->isReturnChangeVendorLockedIn($functionLike)) {
+            return \true;
         }
-
         if ($this->isCurrentObjectTypeSubType($currentType, $inferedType)) {
-            return true;
+            return \true;
         }
-
         return $this->isNullableTypeSubType($currentType, $inferedType);
     }
-
     /**
      * @param ClassMethod|Function_ $functionLike
      * @param Name|NullableType|PhpParserUnionType $inferredReturnNode
      */
-    private function addReturnType(FunctionLike $functionLike, Node $inferredReturnNode): void
+    private function addReturnType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode) : void
     {
         if ($functionLike->returnType !== null) {
             $isSubtype = $this->phpParserTypeAnalyzer->isSubtypeOf($inferredReturnNode, $functionLike->returnType);
-            if ($this->isAtLeastPhpVersion(PhpVersionFeature::COVARIANT_RETURN) && $isSubtype) {
+            if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::COVARIANT_RETURN) && $isSubtype) {
                 $functionLike->returnType = $inferredReturnNode;
-            } elseif (! $isSubtype) {
+            } elseif (!$isSubtype) {
                 // type override with correct one
                 $functionLike->returnType = $inferredReturnNode;
             }
@@ -248,34 +200,27 @@ CODE_SAMPLE
             $functionLike->returnType = $inferredReturnNode;
         }
     }
-
     /**
      * E.g. current E, new type A, E extends A → true
      */
-    private function isCurrentObjectTypeSubType(Type $currentType, Type $inferedType): bool
+    private function isCurrentObjectTypeSubType(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $inferedType) : bool
     {
-        if (! $currentType instanceof ObjectType) {
-            return false;
+        if (!$currentType instanceof \PHPStan\Type\ObjectType) {
+            return \false;
         }
-
-        if (! $inferedType instanceof ObjectType) {
-            return false;
+        if (!$inferedType instanceof \PHPStan\Type\ObjectType) {
+            return \false;
         }
-
-        return is_a($currentType->getClassName(), $inferedType->getClassName(), true);
+        return \is_a($currentType->getClassName(), $inferedType->getClassName(), \true);
     }
-
-    private function isNullableTypeSubType(Type $currentType, Type $inferedType): bool
+    private function isNullableTypeSubType(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $inferedType) : bool
     {
-        if (! $currentType instanceof UnionType) {
-            return false;
+        if (!$currentType instanceof \PHPStan\Type\UnionType) {
+            return \false;
         }
-
-        if (! $inferedType instanceof UnionType) {
-            return false;
+        if (!$inferedType instanceof \PHPStan\Type\UnionType) {
+            return \false;
         }
-
-        return $inferedType->isSubTypeOf($currentType)
-            ->yes();
+        return $inferedType->isSubTypeOf($currentType)->yes();
     }
 }

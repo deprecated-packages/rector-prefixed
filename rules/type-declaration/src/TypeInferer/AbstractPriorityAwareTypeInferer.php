@@ -1,45 +1,36 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer;
 
 use Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface;
 use Rector\TypeDeclaration\Exception\ConflictingPriorityException;
-
 abstract class AbstractPriorityAwareTypeInferer
 {
     /**
      * @var PriorityAwareTypeInfererInterface[]
      */
     private $sortedTypeInferers = [];
-
     /**
      * @param PriorityAwareTypeInfererInterface[] $priorityAwareTypeInferers
      * @return PriorityAwareTypeInfererInterface[]
      */
-    protected function sortTypeInferersByPriority(array $priorityAwareTypeInferers): array
+    protected function sortTypeInferersByPriority(array $priorityAwareTypeInferers) : array
     {
         $this->sortedTypeInferers = [];
-
         foreach ($priorityAwareTypeInferers as $propertyTypeInferer) {
             $this->ensurePriorityIsUnique($propertyTypeInferer);
             $this->sortedTypeInferers[$propertyTypeInferer->getPriority()] = $propertyTypeInferer;
         }
-
-        krsort($this->sortedTypeInferers);
-
+        \krsort($this->sortedTypeInferers);
         return $this->sortedTypeInferers;
     }
-
-    private function ensurePriorityIsUnique(PriorityAwareTypeInfererInterface $priorityAwareTypeInferer): void
+    private function ensurePriorityIsUnique(\Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface $priorityAwareTypeInferer) : void
     {
-        if (! isset($this->sortedTypeInferers[$priorityAwareTypeInferer->getPriority()])) {
+        if (!isset($this->sortedTypeInferers[$priorityAwareTypeInferer->getPriority()])) {
             return;
         }
-
         $alreadySetPropertyTypeInferer = $this->sortedTypeInferers[$priorityAwareTypeInferer->getPriority()];
-
-        throw new ConflictingPriorityException($priorityAwareTypeInferer, $alreadySetPropertyTypeInferer);
+        throw new \Rector\TypeDeclaration\Exception\ConflictingPriorityException($priorityAwareTypeInferer, $alreadySetPropertyTypeInferer);
     }
 }

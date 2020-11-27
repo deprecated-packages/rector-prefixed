@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Sensio;
 
 use PhpParser\Node;
@@ -13,101 +12,77 @@ use Rector\Core\PhpParser\Parser\Parser;
 use Rector\NodeNameResolver\NodeNameResolver;
 use ReflectionClass;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 final class BundleClassResolver
 {
     /**
      * @var Parser
      */
     private $parser;
-
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
     /**
      * @var ClassNaming
      */
     private $classNaming;
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
-    public function __construct(
-        BetterNodeFinder $betterNodeFinder,
-        ClassNaming $classNaming,
-        NodeNameResolver $nodeNameResolver,
-        Parser $parser
-    ) {
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Parser\Parser $parser)
+    {
         $this->parser = $parser;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->classNaming = $classNaming;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-
-    public function resolveShortBundleClassFromControllerClass(string $class): ?string
+    public function resolveShortBundleClassFromControllerClass(string $class) : ?string
     {
         // resolve bundle from existing ones
-        $reflectionClass = new ReflectionClass($class);
-
+        $reflectionClass = new \ReflectionClass($class);
         $fileName = $reflectionClass->getFileName();
-        if (! $fileName) {
+        if (!$fileName) {
             return null;
         }
-
-        $controllerDirectory = dirname($fileName);
-
-        $rootFolder = getenv('SystemDrive', true) . DIRECTORY_SEPARATOR;
-
+        $controllerDirectory = \dirname($fileName);
+        $rootFolder = \getenv('SystemDrive', \true) . \DIRECTORY_SEPARATOR;
         // traverse up, un-till first bundle class appears
         $bundleFiles = [];
         while ($bundleFiles === [] && $controllerDirectory !== $rootFolder) {
-            $bundleFiles = (array) glob($controllerDirectory . '/**Bundle.php');
-            $controllerDirectory = dirname($controllerDirectory);
+            $bundleFiles = (array) \glob($controllerDirectory . '/**Bundle.php');
+            $controllerDirectory = \dirname($controllerDirectory);
         }
-
         if ($bundleFiles === []) {
             return null;
         }
-
         /** @var string $bundleFile */
         $bundleFile = $bundleFiles[0];
-
         $bundleClassName = $this->resolveClassNameFromFilePath($bundleFile);
         if ($bundleClassName !== null) {
             return $this->classNaming->getShortName($bundleClassName);
         }
-
         return null;
     }
-
-    private function resolveClassNameFromFilePath(string $filePath): ?string
+    private function resolveClassNameFromFilePath(string $filePath) : ?string
     {
-        $fileInfo = new SmartFileInfo($filePath);
+        $fileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($filePath);
         $nodes = $this->parser->parseFileInfo($fileInfo);
-
         $this->addFullyQualifiedNamesToNodes($nodes);
-
         $class = $this->betterNodeFinder->findFirstNonAnonymousClass($nodes);
         if ($class === null) {
             return null;
         }
-
         return $this->nodeNameResolver->getName($class);
     }
-
     /**
      * @param Node[] $nodes
      */
-    private function addFullyQualifiedNamesToNodes(array $nodes): void
+    private function addFullyQualifiedNamesToNodes(array $nodes) : void
     {
-        $nodeTraverser = new NodeTraverser();
-        $nameResolver = new NameResolver();
+        $nodeTraverser = new \PhpParser\NodeTraverser();
+        $nameResolver = new \PhpParser\NodeVisitor\NameResolver();
         $nodeTraverser->addVisitor($nameResolver);
-
         $nodeTraverser->traverse($nodes);
     }
 }

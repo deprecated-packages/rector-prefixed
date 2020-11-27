@@ -1,18 +1,15 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use Rector\Symfony\Rector\BinaryOp\ResponseStatusCodeRector;
 use Rector\Symfony\Rector\Class_\MakeCommandLazyRector;
 use Rector\SymfonyCodeQuality\Rector\Class_\EventListenerToEventSubscriberRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->set(ResponseStatusCodeRector::class);
-
-    $services->set(MakeCommandLazyRector::class);
-
-    $services->set(EventListenerToEventSubscriberRector::class);
+    $services->set(\Rector\Symfony\Rector\BinaryOp\ResponseStatusCodeRector::class);
+    $services->set(\Rector\Symfony\Rector\Class_\MakeCommandLazyRector::class);
+    $services->set(\Rector\SymfonyCodeQuality\Rector\Class_\EventListenerToEventSubscriberRector::class);
 };

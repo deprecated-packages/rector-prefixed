@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Restoration\Type;
 
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -11,44 +10,38 @@ use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-
 final class ConstantReturnToParamTypeConverter
 {
     /**
      * @var TypeFactory
      */
     private $typeFactory;
-
-    public function __construct(TypeFactory $typeFactory)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
-
-    public function convert(Type $type): ?Type
+    public function convert(\PHPStan\Type\Type $type) : ?\PHPStan\Type\Type
     {
-        if (! $type instanceof ConstantStringType && ! $type instanceof ConstantArrayType) {
+        if (!$type instanceof \PHPStan\Type\Constant\ConstantStringType && !$type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return null;
         }
-
         return $this->unwrapConstantTypeToObjectType($type);
     }
-
-    private function unwrapConstantTypeToObjectType(Type $type): Type
+    private function unwrapConstantTypeToObjectType(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {
-        if ($type instanceof ConstantArrayType) {
+        if ($type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return $this->unwrapConstantTypeToObjectType($type->getItemType());
         }
-        if ($type instanceof ConstantStringType) {
-            return new ObjectType($type->getValue());
+        if ($type instanceof \PHPStan\Type\Constant\ConstantStringType) {
+            return new \PHPStan\Type\ObjectType($type->getValue());
         }
-        if ($type instanceof UnionType) {
+        if ($type instanceof \PHPStan\Type\UnionType) {
             $types = [];
             foreach ($type->getTypes() as $unionedType) {
                 $types[] = $this->unwrapConstantTypeToObjectType($unionedType);
             }
             return $this->typeFactory->createMixedPassedOrUnionType($types);
         }
-
-        throw new NotImplementedYetException();
+        throw new \Rector\Core\Exception\NotImplementedYetException();
     }
 }

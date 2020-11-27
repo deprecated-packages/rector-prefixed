@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Identical;
 
 use PhpParser\Node;
@@ -17,110 +16,81 @@ use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Identical\GetClassToInstanceOfRector\GetClassToInstanceOfRectorTest
  */
-final class GetClassToInstanceOfRector extends AbstractRector
+final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-
-    public function __construct(BinaryOpManipulator $binaryOpManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Changes comparison with get_class to instanceof',
-            [
-                new CodeSample(
-                    'if (EventsListener::class === get_class($event->job)) { }',
-                    'if ($event->job instanceof EventsListener) { }'
-                ),
-            ]
-        );
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes comparison with get_class to instanceof', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('if (EventsListener::class === get_class($event->job)) { }', 'if ($event->job instanceof EventsListener) { }')]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Identical::class, NotIdentical::class];
+        return [\PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
     }
-
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode(
-            $node,
-            function (Node $node): bool {
-                return $this->isClassReference($node);
-            },
-            function (Node $node): bool {
-                return $this->isGetClassFuncCallNode($node);
-            }
-        );
-
+        $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($node, function (\PhpParser\Node $node) : bool {
+            return $this->isClassReference($node);
+        }, function (\PhpParser\Node $node) : bool {
+            return $this->isGetClassFuncCallNode($node);
+        });
         if ($twoNodeMatch === null) {
             return null;
         }
-
         /** @var ClassConstFetch $classReferenceNode */
         $classReferenceNode = $twoNodeMatch->getFirstExpr();
         /** @var FuncCall $funcCallNode */
         $funcCallNode = $twoNodeMatch->getSecondExpr();
-
         $varNode = $funcCallNode->args[0]->value;
         $className = $this->matchClassName($classReferenceNode);
         if ($className === null) {
             return null;
         }
-
-        $instanceof = new Instanceof_($varNode, new FullyQualified($className));
-        if ($node instanceof NotIdentical) {
-            return new BooleanNot($instanceof);
+        $instanceof = new \PhpParser\Node\Expr\Instanceof_($varNode, new \PhpParser\Node\Name\FullyQualified($className));
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
+            return new \PhpParser\Node\Expr\BooleanNot($instanceof);
         }
-
         return $instanceof;
     }
-
-    private function isClassReference(Node $node): bool
+    private function isClassReference(\PhpParser\Node $node) : bool
     {
-        if ($node instanceof ClassConstFetch && $this->isName($node->name, 'class')) {
-            return true;
+        if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch && $this->isName($node->name, 'class')) {
+            return \true;
         }
-
         // might be
-        return $node instanceof String_;
+        return $node instanceof \PhpParser\Node\Scalar\String_;
     }
-
-    private function isGetClassFuncCallNode(Node $node): bool
+    private function isGetClassFuncCallNode(\PhpParser\Node $node) : bool
     {
-        if (! $node instanceof FuncCall) {
-            return false;
+        if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+            return \false;
         }
-
         return $this->isName($node, 'get_class');
     }
-
-    private function matchClassName(Node $node): ?string
+    private function matchClassName(\PhpParser\Node $node) : ?string
     {
-        if ($node instanceof ClassConstFetch) {
+        if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return $this->getName($node->class);
         }
-
-        if ($node instanceof String_) {
+        if ($node instanceof \PhpParser\Node\Scalar\String_) {
             return $node->value;
         }
-
         return null;
     }
 }

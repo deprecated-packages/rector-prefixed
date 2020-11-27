@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode;
 
 use PhpParser\Node\Expr;
@@ -15,53 +14,43 @@ use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\MixedType;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
 final class UselessIfCondBeforeForeachDetector
 {
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
-    public function __construct(BetterStandardPrinter $betterStandardPrinter, NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-
     /**
      * Matches:
      * !empty($values)
      */
-    public function isMatchingNotEmpty(If_ $if, Expr $foreachExpr): bool
+    public function isMatchingNotEmpty(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr $foreachExpr) : bool
     {
         $cond = $if->cond;
-        if (! $cond instanceof BooleanNot) {
-            return false;
+        if (!$cond instanceof \PhpParser\Node\Expr\BooleanNot) {
+            return \false;
         }
-
-        if (! $cond->expr instanceof Empty_) {
-            return false;
+        if (!$cond->expr instanceof \PhpParser\Node\Expr\Empty_) {
+            return \false;
         }
-
         /** @var Empty_ $empty */
         $empty = $cond->expr;
-
-        if (! $this->betterStandardPrinter->areNodesEqual($empty->expr, $foreachExpr)) {
-            return false;
+        if (!$this->betterStandardPrinter->areNodesEqual($empty->expr, $foreachExpr)) {
+            return \false;
         }
-
         // is array though?
         $arrayType = $this->nodeTypeResolver->resolve($empty->expr);
-
-        return ! $arrayType instanceof MixedType;
+        return !$arrayType instanceof \PHPStan\Type\MixedType;
     }
-
     /**
      * Matches:
      * $values !== []
@@ -69,45 +58,37 @@ final class UselessIfCondBeforeForeachDetector
      * [] !== $values
      * [] != $values
      */
-    public function isMatchingNotIdenticalEmptyArray(If_ $if, Expr $foreachExpr): bool
+    public function isMatchingNotIdenticalEmptyArray(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr $foreachExpr) : bool
     {
-        if (! $if->cond instanceof NotIdentical && ! $if->cond instanceof NotEqual) {
-            return false;
+        if (!$if->cond instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical && !$if->cond instanceof \PhpParser\Node\Expr\BinaryOp\NotEqual) {
+            return \false;
         }
-
         /** @var NotIdentical|NotEqual $notIdentical */
         $notIdentical = $if->cond;
-
         return $this->isMatchingNotBinaryOp($notIdentical, $foreachExpr);
     }
-
     /**
      * @param NotIdentical|NotEqual $binaryOp
      */
-    private function isMatchingNotBinaryOp(BinaryOp $binaryOp, Expr $foreachExpr): bool
+    private function isMatchingNotBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Expr $foreachExpr) : bool
     {
         if ($this->isEmptyArrayAndForeachedVariable($binaryOp->left, $binaryOp->right, $foreachExpr)) {
-            return true;
+            return \true;
         }
-
         return $this->isEmptyArrayAndForeachedVariable($binaryOp->right, $binaryOp->left, $foreachExpr);
     }
-
-    private function isEmptyArrayAndForeachedVariable(Expr $leftExpr, Expr $rightExpr, Expr $foreachExpr): bool
+    private function isEmptyArrayAndForeachedVariable(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr, \PhpParser\Node\Expr $foreachExpr) : bool
     {
-        if (! $this->isEmptyArray($leftExpr)) {
-            return false;
+        if (!$this->isEmptyArray($leftExpr)) {
+            return \false;
         }
-
         return $this->betterStandardPrinter->areNodesEqual($foreachExpr, $rightExpr);
     }
-
-    private function isEmptyArray(Expr $expr): bool
+    private function isEmptyArray(\PhpParser\Node\Expr $expr) : bool
     {
-        if (! $expr instanceof Array_) {
-            return false;
+        if (!$expr instanceof \PhpParser\Node\Expr\Array_) {
+            return \false;
         }
-
         return $expr->items === [];
     }
 }

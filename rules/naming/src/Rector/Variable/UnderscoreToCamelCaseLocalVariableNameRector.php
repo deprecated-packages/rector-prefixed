@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Naming\Rector\Variable;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -19,29 +18,22 @@ use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Naming\Tests\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector\UnderscoreToCamelCaseLocalVariableNameRectorTest
  */
-final class UnderscoreToCamelCaseLocalVariableNameRector extends AbstractRector
+final class UnderscoreToCamelCaseLocalVariableNameRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
-
-    public function __construct(ReservedKeywordAnalyzer $reservedKeywordAnalyzer)
+    public function __construct(\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer)
     {
         $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change under_score local variable names to camelCase',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change under_score local variable names to camelCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run($a_b)
@@ -50,8 +42,7 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run($a_b)
@@ -60,89 +51,71 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Variable::class];
+        return [\PhpParser\Node\Expr\Variable::class];
     }
-
     /**
      * @param Variable $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $nodeName = $this->getName($node);
         if ($nodeName === null) {
             return null;
         }
-
-        if (! Strings::contains($nodeName, '_')) {
+        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($nodeName, '_')) {
             return null;
         }
-
         if ($this->reservedKeywordAnalyzer->isNativeVariable($nodeName)) {
             return null;
         }
-
-        $camelCaseName = StaticRectorStrings::underscoreToCamelCase($nodeName);
-        if ($camelCaseName === 'this' || $camelCaseName === '' || is_numeric($camelCaseName[0])) {
+        $camelCaseName = \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($nodeName);
+        if ($camelCaseName === 'this' || $camelCaseName === '' || \is_numeric($camelCaseName[0])) {
             return null;
         }
-
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof Expr && $this->isFoundInParentNode($node)) {
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \PhpParser\Node\Expr && $this->isFoundInParentNode($node)) {
             return null;
         }
-
-        if (($parentNode instanceof Arg || $parentNode instanceof Param || $parentNode instanceof Stmt)
-            && $this->isFoundInParentNode($node)) {
+        if (($parentNode instanceof \PhpParser\Node\Arg || $parentNode instanceof \PhpParser\Node\Param || $parentNode instanceof \PhpParser\Node\Stmt) && $this->isFoundInParentNode($node)) {
             return null;
         }
-
         if ($this->isFoundInPreviousNode($node)) {
             return null;
         }
-
         $node->name = $camelCaseName;
-
         return $node;
     }
-
-    private function isFoundInParentNode(Variable $variable): bool
+    private function isFoundInParentNode(\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        $parentNode = $variable->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         while ($parentNode) {
             /** @var ClassMethod|Function_ $parentNode */
-            $parentNode = $parentNode->getAttribute(AttributeKey::PARENT_NODE);
-            if ($parentNode instanceof ClassMethod || $parentNode instanceof Function_) {
+            $parentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentNode instanceof \PhpParser\Node\Stmt\ClassMethod || $parentNode instanceof \PhpParser\Node\Stmt\Function_) {
                 break;
             }
         }
-
         if ($parentNode === null) {
-            return false;
+            return \false;
         }
-
         $params = $parentNode->getParams();
         foreach ($params as $param) {
             if ($param->var->name === $variable->name) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    private function isFoundInPreviousNode(Variable $variable): bool
+    private function isFoundInPreviousNode(\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        $previousNode = $variable->getAttribute(AttributeKey::PREVIOUS_NODE);
-        return $previousNode instanceof Expr && $this->isFoundInParentNode($variable);
+        $previousNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
+        return $previousNode instanceof \PhpParser\Node\Expr && $this->isFoundInParentNode($variable);
     }
 }

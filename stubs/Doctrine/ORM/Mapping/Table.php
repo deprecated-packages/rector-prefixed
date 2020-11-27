@@ -2,36 +2,31 @@
 
 namespace Doctrine\ORM\Mapping;
 
-if (class_exists('Doctrine\ORM\Mapping\Table')) {
+if (\class_exists('Doctrine\\ORM\\Mapping\\Table')) {
     return;
 }
-
 /**
  * @Annotation
  * @Target("CLASS")
  */
-class Table implements Annotation
+class Table implements \Doctrine\ORM\Mapping\Annotation
 {
     /**
      * @var string
      */
     public $name;
-
     /**
      * @var string
      */
     public $schema;
-
     /**
      * @var array<\Doctrine\ORM\Mapping\Index>
      */
     public $indexes;
-
     /**
      * @var array<\Doctrine\ORM\Mapping\UniqueConstraint>
      */
     public $uniqueConstraints;
-
     /**
      * @var array
      */

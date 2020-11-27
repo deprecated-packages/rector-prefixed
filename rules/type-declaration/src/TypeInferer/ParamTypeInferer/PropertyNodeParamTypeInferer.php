@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 
 use PhpParser\Node;
@@ -16,56 +15,42 @@ use Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
 use Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
-
-final class PropertyNodeParamTypeInferer extends AbstractTypeInferer implements ParamTypeInfererInterface
+final class PropertyNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
 {
     /**
      * @var PropertyFetchManipulator
      */
     private $propertyFetchManipulator;
-
-    public function __construct(PropertyFetchManipulator $propertyFetchManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator)
     {
         $this->propertyFetchManipulator = $propertyFetchManipulator;
     }
-
-    public function inferParam(Param $param): Type
+    public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
         /** @var Class_|null $classLike */
-        $classLike = $param->getAttribute(AttributeKey::CLASS_NODE);
+        $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
-            return new MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-
         $paramName = $this->nodeNameResolver->getName($param);
-        if (! is_string($paramName)) {
-            throw new ShouldNotHappenException();
+        if (!\is_string($paramName)) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         /** @var ClassMethod $classMethod */
-        $classMethod = $param->getAttribute(AttributeKey::PARENT_NODE);
-
+        $classMethod = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         $propertyStaticTypes = [];
-
-        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (Node $node) use (
-            $paramName,
-            &$propertyStaticTypes
-        ) {
-            if (! $this->propertyFetchManipulator->isVariableAssignToThisPropertyFetch($node, $paramName)) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use($paramName, &$propertyStaticTypes) {
+            if (!$this->propertyFetchManipulator->isVariableAssignToThisPropertyFetch($node, $paramName)) {
                 return null;
             }
-
             /** @var Assign $node */
             $staticType = $this->nodeTypeResolver->getStaticType($node->var);
-
             /** @var Type|null $staticType */
             if ($staticType !== null) {
                 $propertyStaticTypes[] = $staticType;
             }
-
             return null;
         });
-
         return $this->typeFactory->createMixedPassedOrUnionType($propertyStaticTypes);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\SymfonyPhpConfig\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -12,43 +11,32 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see phpstan rule https://github.com/symplify/coding-standard/blob/master/docs/phpstan_rules.md#check-required-autowire-autoconfigure-and-public-are-used-in-config-service-rule
  * @see \Rector\SymfonyPhpConfig\Tests\Rector\MethodCall\AutoInPhpSymfonyConfigRector\AutoInPhpSymfonyConfigRectorTest
  */
-final class AutoInPhpSymfonyConfigRector extends AbstractRector
+final class AutoInPhpSymfonyConfigRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
     private const REQUIRED_METHOD_NAMES = ['public', 'autowire', 'autoconfigure'];
-
     /**
      * @var SymfonyPhpConfigClosureAnalyzer
      */
     private $symfonyPhpConfigClosureAnalyzer;
-
     /**
      * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
-
-    public function __construct(
-        SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer,
-        FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer
-    ) {
+    public function __construct(\Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer)
+    {
         $this->symfonyPhpConfigClosureAnalyzer = $symfonyPhpConfigClosureAnalyzer;
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Make sure there is public(), autowire(), autoconfigure() calls on defaults() in Symfony configs',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make sure there is public(), autowire(), autoconfigure() calls on defaults() in Symfony configs', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -58,8 +46,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autowire();
 };
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -71,78 +58,62 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autoconfigure();
 };
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipMethodCall($node)) {
             return null;
         }
-
         $missingMethodNames = $this->resolveMissingMethodNames($node);
         if ($missingMethodNames === []) {
             return null;
         }
-
-        $node->setAttribute(AttributeKey::IS_FRESH_NODE, true);
-
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_FRESH_NODE, \true);
         $methodCall = clone $node;
         foreach ($missingMethodNames as $missingMethodName) {
-            $methodCall = new MethodCall($methodCall, $missingMethodName);
+            $methodCall = new \PhpParser\Node\Expr\MethodCall($methodCall, $missingMethodName);
         }
-
         return $methodCall;
     }
-
-    private function shouldSkipMethodCall(MethodCall $methodCall): bool
+    private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        $isFreshNode = $methodCall->getAttribute(AttributeKey::IS_FRESH_NODE);
+        $isFreshNode = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_FRESH_NODE);
         if ($isFreshNode) {
-            return true;
+            return \true;
         }
-
-        $closure = $methodCall->getAttribute(AttributeKey::CLOSURE_NODE);
+        $closure = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE);
         if ($closure === null) {
-            return true;
+            return \true;
         }
-
-        if (! $this->symfonyPhpConfigClosureAnalyzer->isPhpConfigClosure($closure)) {
-            return true;
+        if (!$this->symfonyPhpConfigClosureAnalyzer->isPhpConfigClosure($closure)) {
+            return \true;
         }
-
-        if (! $this->fluentChainMethodCallNodeAnalyzer->isLastChainMethodCall($methodCall)) {
-            return true;
+        if (!$this->fluentChainMethodCallNodeAnalyzer->isLastChainMethodCall($methodCall)) {
+            return \true;
         }
-
         $rootMethodCall = $this->fluentChainMethodCallNodeAnalyzer->resolveRootMethodCall($methodCall);
         if ($rootMethodCall === null) {
-            return true;
+            return \true;
         }
-
-        return ! $this->isName($rootMethodCall->name, 'defaults');
+        return !$this->isName($rootMethodCall->name, 'defaults');
     }
-
     /**
      * @return string[]
      */
-    private function resolveMissingMethodNames(MethodCall $methodCall): array
+    private function resolveMissingMethodNames(\PhpParser\Node\Expr\MethodCall $methodCall) : array
     {
         $methodCallNames = $this->fluentChainMethodCallNodeAnalyzer->collectMethodCallNamesInChain($methodCall);
-
-        return array_diff(self::REQUIRED_METHOD_NAMES, $methodCallNames);
+        return \array_diff(self::REQUIRED_METHOD_NAMES, $methodCallNames);
     }
 }

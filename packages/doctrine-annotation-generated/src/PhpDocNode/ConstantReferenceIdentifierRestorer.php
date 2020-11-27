@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineAnnotationGenerated\PhpDocNode;
 
 use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
 use Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector;
 use Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-
 /**
  * @see https://github.com/rectorphp/rector/pull/3275/files
  */
@@ -18,39 +16,29 @@ final class ConstantReferenceIdentifierRestorer
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-
     /**
      * @var AnnotationItemsResolver
      */
     private $annotationItemsResolver;
-
     /**
      * @var AnnotationVisibilityDetector
      */
     private $annotationVisibilityDetector;
-
-    public function __construct(
-        PrivatesAccessor $privatesAccessor,
-        AnnotationItemsResolver $annotationItemsResolver,
-        AnnotationVisibilityDetector $annotationVisibilityDetector
-    ) {
+    public function __construct(\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
+    {
         $this->privatesAccessor = $privatesAccessor;
         $this->annotationItemsResolver = $annotationItemsResolver;
         $this->annotationVisibilityDetector = $annotationVisibilityDetector;
     }
-
-    public function restoreObject(object $annotation): void
+    public function restoreObject(object $annotation) : void
     {
         // restore constant value back to original value
-        $identifierToResolvedValues = ResolvedConstantStaticCollector::provide();
+        $identifierToResolvedValues = \Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector::provide();
         if ($identifierToResolvedValues === []) {
             return;
         }
-
         $propertyNameToValues = $this->annotationItemsResolver->resolve($annotation);
-
         $isPrivate = $this->annotationVisibilityDetector->isPrivate($annotation);
-
         foreach ($propertyNameToValues as $propertyName => $value) {
             $originalIdentifier = $this->matchIdentifierBasedOnResolverValue($identifierToResolvedValues, $value);
             if ($originalIdentifier !== null) {
@@ -62,18 +50,14 @@ final class ConstantReferenceIdentifierRestorer
                 }
                 continue;
             }
-
             // nested resolved value
-            if (! is_array($value)) {
+            if (!\is_array($value)) {
                 continue;
             }
-
             $this->restoreNestedValue($value, $identifierToResolvedValues, $isPrivate, $annotation, $propertyName);
         }
-
-        ResolvedConstantStaticCollector::clear();
+        \Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector::clear();
     }
-
     /**
      * @param array<string, mixed> $identifierToResolvedValues
      * @param mixed $value
@@ -85,34 +69,21 @@ final class ConstantReferenceIdentifierRestorer
             if ($value !== $resolvedValue) {
                 continue;
             }
-
             return $identifier;
         }
-
         return null;
     }
-
     /**
      * @param mixed[] $value
      * @param array<string, mixed> $identifierToResolvedValues
      */
-    private function restoreNestedValue(
-        array $value,
-        array $identifierToResolvedValues,
-        bool $isPrivate,
-        object $annotation,
-        string $propertyName
-    ): void {
+    private function restoreNestedValue(array $value, array $identifierToResolvedValues, bool $isPrivate, object $annotation, string $propertyName) : void
+    {
         foreach ($value as $key => $nestedValue) {
-            $originalIdentifier = $this->matchIdentifierBasedOnResolverValue(
-                $identifierToResolvedValues,
-                $nestedValue
-            );
-
+            $originalIdentifier = $this->matchIdentifierBasedOnResolverValue($identifierToResolvedValues, $nestedValue);
             if ($originalIdentifier === null) {
                 continue;
             }
-
             // restore value
             if ($isPrivate) {
                 $value = $this->privatesAccessor->getPrivateProperty($annotation, $propertyName);

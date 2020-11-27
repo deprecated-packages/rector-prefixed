@@ -1,19 +1,17 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\SimplePhpDocParser\Bundle\DependencyInjection\Extension;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-
-final class SimplePhpDocParserExtension extends Extension
+use _PhpScoper006a73f0e455\Symfony\Component\Config\FileLocator;
+use _PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Extension\Extension;
+use _PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+final class SimplePhpDocParserExtension extends \_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Extension\Extension
 {
-    public function load(array $configs, ContainerBuilder $containerBuilder): void
+    public function load(array $configs, \_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
-        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../../../../config'));
+        $phpFileLoader = new \_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \_PhpScoper006a73f0e455\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../../config'));
         $phpFileLoader->load('config.php');
     }
 }

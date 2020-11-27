@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Defluent\ValueObject;
 
 use PhpParser\Node\Expr;
@@ -14,146 +13,113 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
 use Rector\Defluent\Contract\ValueObject\RootExprAwareInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
-final class AssignAndRootExpr implements RootExprAwareInterface, FirstCallFactoryAwareInterface
+final class AssignAndRootExpr implements \Rector\Defluent\Contract\ValueObject\RootExprAwareInterface, \Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface
 {
     /**
      * @var bool
      */
-    private $isFirstCallFactory = false;
-
+    private $isFirstCallFactory = \false;
     /**
      * @var Expr
      */
     private $assignExpr;
-
     /**
      * @var Expr
      */
     private $rootExpr;
-
     /**
      * @var Variable|null
      */
     private $silentVariable;
-
-    public function __construct(
-        Expr $assignExpr,
-        Expr $rootExpr,
-        ?Variable $silentVariable = null,
-        bool $isFirstCallFactory = false
-    ) {
+    public function __construct(\PhpParser\Node\Expr $assignExpr, \PhpParser\Node\Expr $rootExpr, ?\PhpParser\Node\Expr\Variable $silentVariable = null, bool $isFirstCallFactory = \false)
+    {
         $this->assignExpr = $assignExpr;
         $this->rootExpr = $rootExpr;
         $this->silentVariable = $silentVariable;
         $this->isFirstCallFactory = $isFirstCallFactory;
     }
-
-    public function getAssignExpr(): Expr
+    public function getAssignExpr() : \PhpParser\Node\Expr
     {
         return $this->assignExpr;
     }
-
-    public function getRootExpr(): Expr
+    public function getRootExpr() : \PhpParser\Node\Expr
     {
         return $this->rootExpr;
     }
-
-    public function getSilentVariable(): ?Variable
+    public function getSilentVariable() : ?\PhpParser\Node\Expr\Variable
     {
         return $this->silentVariable;
     }
-
-    public function getReturnSilentVariable(): Return_
+    public function getReturnSilentVariable() : \PhpParser\Node\Stmt\Return_
     {
         if ($this->silentVariable === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        return new Return_($this->silentVariable);
+        return new \PhpParser\Node\Stmt\Return_($this->silentVariable);
     }
-
-    public function createFirstAssign(): Assign
+    public function createFirstAssign() : \PhpParser\Node\Expr\Assign
     {
         if ($this->isFirstCallFactory && $this->getFirstAssign() !== null) {
             return $this->createFactoryAssign();
         }
-
         return $this->createAssign($this->assignExpr, $this->rootExpr);
     }
-
-    public function getCallerExpr(): Expr
+    public function getCallerExpr() : \PhpParser\Node\Expr
     {
         if ($this->silentVariable !== null) {
             return $this->silentVariable;
         }
-
         return $this->assignExpr;
     }
-
-    public function isFirstCallFactory(): bool
+    public function isFirstCallFactory() : bool
     {
         return $this->isFirstCallFactory;
     }
-
-    public function getFactoryAssignVariable(): Expr
+    public function getFactoryAssignVariable() : \PhpParser\Node\Expr
     {
         $firstAssign = $this->getFirstAssign();
         if ($firstAssign === null) {
             return $this->getCallerExpr();
         }
-
         return $firstAssign->var;
     }
-
-    private function getFirstAssign(): ?Assign
+    private function getFirstAssign() : ?\PhpParser\Node\Expr\Assign
     {
-        $currentStmt = $this->assignExpr->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        if (! $currentStmt instanceof Expression) {
+        $currentStmt = $this->assignExpr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        if (!$currentStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-
-        if ($currentStmt->expr instanceof Assign) {
+        if ($currentStmt->expr instanceof \PhpParser\Node\Expr\Assign) {
             return $currentStmt->expr;
         }
-
         return null;
     }
-
-    private function createFactoryAssign(): Assign
+    private function createFactoryAssign() : \PhpParser\Node\Expr\Assign
     {
         /** @var Assign $firstAssign */
         $firstAssign = $this->getFirstAssign();
         $currentMethodCall = $firstAssign->expr;
-
-        if (! $currentMethodCall instanceof MethodCall) {
-            throw new ShouldNotHappenException();
+        if (!$currentMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         $currentMethodCall = $this->resolveLastMethodCall($currentMethodCall);
-
         // ensure var and expr are different
         $assignVar = $firstAssign->var;
         $assignExpr = $currentMethodCall;
-
         return $this->createAssign($assignVar, $assignExpr);
     }
-
-    private function createAssign(Expr $assignVar, Expr $assignExpr): Assign
+    private function createAssign(\PhpParser\Node\Expr $assignVar, \PhpParser\Node\Expr $assignExpr) : \PhpParser\Node\Expr\Assign
     {
         if ($assignVar === $assignExpr) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        return new Assign($assignVar, $assignExpr);
+        return new \PhpParser\Node\Expr\Assign($assignVar, $assignExpr);
     }
-
-    private function resolveLastMethodCall(MethodCall $currentMethodCall): MethodCall
+    private function resolveLastMethodCall(\PhpParser\Node\Expr\MethodCall $currentMethodCall) : \PhpParser\Node\Expr\MethodCall
     {
-        while ($currentMethodCall->var instanceof MethodCall) {
+        while ($currentMethodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
             $currentMethodCall = $currentMethodCall->var;
         }
-
         return $currentMethodCall;
     }
 }

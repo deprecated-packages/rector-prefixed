@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -25,145 +24,92 @@ use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertComparisonToSpecificMethodRector\AssertComparisonToSpecificMethodRectorTest
  */
-final class AssertComparisonToSpecificMethodRector extends AbstractPHPUnitRector
+final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var BinaryOpWithAssertMethod[]
      */
     private $binaryOpWithAssertMethods = [];
-
     /**
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-
-    public function __construct(IdentifierManipulator $identifierManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
     {
         $this->identifierManipulator = $identifierManipulator;
-
-        $this->binaryOpWithAssertMethods = [
-            new BinaryOpWithAssertMethod(Identical::class, 'assertSame', 'assertNotSame'),
-            new BinaryOpWithAssertMethod(NotIdentical::class, 'assertNotSame', 'assertSame'),
-            new BinaryOpWithAssertMethod(Equal::class, 'assertEquals', 'assertNotEquals'),
-            new BinaryOpWithAssertMethod(NotEqual::class, 'assertNotEquals', 'assertEquals'),
-            new BinaryOpWithAssertMethod(Greater::class, 'assertGreaterThan', 'assertLessThan'),
-            new BinaryOpWithAssertMethod(Smaller::class, 'assertLessThan', 'assertGreaterThan'),
-            new BinaryOpWithAssertMethod(
-                GreaterOrEqual::class,
-                'assertGreaterThanOrEqual',
-                'assertLessThanOrEqual'
-            ),
-            new BinaryOpWithAssertMethod(
-                SmallerOrEqual::class,
-                'assertLessThanOrEqual',
-                'assertGreaterThanOrEqual'
-            ),
-        ];
+        $this->binaryOpWithAssertMethods = [new \Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod(\PhpParser\Node\Expr\BinaryOp\Identical::class, 'assertSame', 'assertNotSame'), new \Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod(\PhpParser\Node\Expr\BinaryOp\NotIdentical::class, 'assertNotSame', 'assertSame'), new \Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod(\PhpParser\Node\Expr\BinaryOp\Equal::class, 'assertEquals', 'assertNotEquals'), new \Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod(\PhpParser\Node\Expr\BinaryOp\NotEqual::class, 'assertNotEquals', 'assertEquals'), new \Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod(\PhpParser\Node\Expr\BinaryOp\Greater::class, 'assertGreaterThan', 'assertLessThan'), new \Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod(\PhpParser\Node\Expr\BinaryOp\Smaller::class, 'assertLessThan', 'assertGreaterThan'), new \Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod(\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class, 'assertGreaterThanOrEqual', 'assertLessThanOrEqual'), new \Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod(\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class, 'assertLessThanOrEqual', 'assertGreaterThanOrEqual')];
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Turns comparison operations to their method name alternatives in PHPUnit TestCase',
-            [
-                new CodeSample(
-                        '$this->assertTrue($foo === $bar, "message");',
-                        '$this->assertSame($bar, $foo, "message");'
-                    ),
-                new CodeSample(
-                    '$this->assertFalse($foo >= $bar, "message");',
-                    '$this->assertLessThanOrEqual($bar, $foo, "message");'
-                ),
-            ]
-        );
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns comparison operations to their method name alternatives in PHPUnit TestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue($foo === $bar, "message");', '$this->assertSame($bar, $foo, "message");'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertFalse($foo >= $bar, "message");', '$this->assertLessThanOrEqual($bar, $foo, "message");')]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isPHPUnitMethodNames($node, ['assertTrue', 'assertFalse'])) {
+        if (!$this->isPHPUnitMethodNames($node, ['assertTrue', 'assertFalse'])) {
             return null;
         }
-
         $firstArgumentValue = $node->args[0]->value;
-        if (! $firstArgumentValue instanceof BinaryOp) {
+        if (!$firstArgumentValue instanceof \PhpParser\Node\Expr\BinaryOp) {
             return null;
         }
-
         return $this->processCallWithBinaryOp($node, $firstArgumentValue);
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processCallWithBinaryOp(Node $node, BinaryOp $binaryOp): ?Node
+    private function processCallWithBinaryOp(\PhpParser\Node $node, \PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node
     {
         foreach ($this->binaryOpWithAssertMethods as $binaryOpWithAssertMethod) {
-            if (get_class($binaryOp) !== $binaryOpWithAssertMethod->getBinaryOpClass()) {
+            if (\get_class($binaryOp) !== $binaryOpWithAssertMethod->getBinaryOpClass()) {
                 continue;
             }
-
-            $this->identifierManipulator->renameNodeWithMap($node, [
-                'assertTrue' => $binaryOpWithAssertMethod->getAssetMethodName(),
-                'assertFalse' => $binaryOpWithAssertMethod->getNotAssertMethodName(),
-            ]);
-
+            $this->identifierManipulator->renameNodeWithMap($node, ['assertTrue' => $binaryOpWithAssertMethod->getAssetMethodName(), 'assertFalse' => $binaryOpWithAssertMethod->getNotAssertMethodName()]);
             $this->changeArgumentsOrder($node);
-
             return $node;
         }
-
         return null;
     }
-
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function changeArgumentsOrder(Node $node): void
+    private function changeArgumentsOrder(\PhpParser\Node $node) : void
     {
         $oldArguments = $node->args;
-
         /** @var BinaryOp $expression */
         $expression = $oldArguments[0]->value;
-
         if ($this->isConstantValue($expression->left)) {
-            $firstArgument = new Arg($expression->left);
-            $secondArgument = new Arg($expression->right);
+            $firstArgument = new \PhpParser\Node\Arg($expression->left);
+            $secondArgument = new \PhpParser\Node\Arg($expression->right);
         } else {
-            $firstArgument = new Arg($expression->right);
-            $secondArgument = new Arg($expression->left);
+            $firstArgument = new \PhpParser\Node\Arg($expression->right);
+            $secondArgument = new \PhpParser\Node\Arg($expression->left);
         }
-
         unset($oldArguments[0]);
         $newArgs = [$firstArgument, $secondArgument];
         $node->args = $this->appendArgs($newArgs, $oldArguments);
     }
-
-    private function isConstantValue(Node $node): bool
+    private function isConstantValue(\PhpParser\Node $node) : bool
     {
-        $nodeClass = get_class($node);
-        if (in_array($nodeClass, [Array_::class, ConstFetch::class], true)) {
-            return true;
+        $nodeClass = \get_class($node);
+        if (\in_array($nodeClass, [\PhpParser\Node\Expr\Array_::class, \PhpParser\Node\Expr\ConstFetch::class], \true)) {
+            return \true;
         }
-
-        if (is_subclass_of($node, Scalar::class)) {
-            return true;
+        if (\is_subclass_of($node, \PhpParser\Node\Scalar::class)) {
+            return \true;
         }
-
         return $this->isVariableName($node, 'exp*');
     }
 }

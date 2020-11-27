@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -14,7 +13,6 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Exception\NodeChanger\NodeMissingIdentifierException;
 use Rector\NodeNameResolver\NodeNameResolver;
-
 /**
  * This class renames node identifier, e.g. ClassMethod rename:
  *
@@ -26,72 +24,53 @@ final class IdentifierManipulator
     /**
      * @var string[]
      */
-    private const NODE_CLASSES_WITH_IDENTIFIER = [
-        ClassConstFetch::class, MethodCall::class, PropertyFetch::class, StaticCall::class, ClassMethod::class,
-    ];
-
+    private const NODE_CLASSES_WITH_IDENTIFIER = [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class];
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
-    public function __construct(NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-
     /**
      * @param ClassConstFetch|MethodCall|PropertyFetch|StaticCall|ClassMethod $node
      * @param string[] $renameMethodMap
      */
-    public function renameNodeWithMap(Node $node, array $renameMethodMap): void
+    public function renameNodeWithMap(\PhpParser\Node $node, array $renameMethodMap) : void
     {
         $this->ensureNodeHasIdentifier($node);
-
         $oldNodeMethodName = $this->resolveOldMethodName($node);
         if ($oldNodeMethodName === null) {
             return;
         }
-
-        $node->name = new Identifier($renameMethodMap[$oldNodeMethodName]);
+        $node->name = new \PhpParser\Node\Identifier($renameMethodMap[$oldNodeMethodName]);
     }
-
     /**
      * @param ClassConstFetch|MethodCall|PropertyFetch|StaticCall|ClassMethod $node
      */
-    public function removeSuffix(Node $node, string $suffixToRemove): void
+    public function removeSuffix(\PhpParser\Node $node, string $suffixToRemove) : void
     {
         $this->ensureNodeHasIdentifier($node);
-
         $name = $this->nodeNameResolver->getName($node);
         if ($name === null) {
             return;
         }
-        $newName = Strings::replace($name, sprintf('#%s$#', $suffixToRemove));
-
-        $node->name = new Identifier($newName);
+        $newName = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove));
+        $node->name = new \PhpParser\Node\Identifier($newName);
     }
-
-    private function ensureNodeHasIdentifier(Node $node): void
+    private function ensureNodeHasIdentifier(\PhpParser\Node $node) : void
     {
-        if (in_array(get_class($node), self::NODE_CLASSES_WITH_IDENTIFIER, true)) {
+        if (\in_array(\get_class($node), self::NODE_CLASSES_WITH_IDENTIFIER, \true)) {
             return;
         }
-
-        throw new NodeMissingIdentifierException(sprintf(
-            'Node "%s" does not contain a "$name" property with "%s". Pass only one of "%s".',
-            get_class($node),
-            Identifier::class,
-            implode('", "', self::NODE_CLASSES_WITH_IDENTIFIER)
-        ));
+        throw new \Rector\Core\Exception\NodeChanger\NodeMissingIdentifierException(\sprintf('Node "%s" does not contain a "$name" property with "%s". Pass only one of "%s".', \get_class($node), \PhpParser\Node\Identifier::class, \implode('", "', self::NODE_CLASSES_WITH_IDENTIFIER)));
     }
-
-    private function resolveOldMethodName(Node $node): ?string
+    private function resolveOldMethodName(\PhpParser\Node $node) : ?string
     {
-        if ($node instanceof StaticCall || $node instanceof MethodCall) {
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall || $node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->nodeNameResolver->getName($node->name);
         }
-
         return $this->nodeNameResolver->getName($node);
     }
 }

@@ -1,90 +1,75 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\Rector;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
-abstract class AbstractPHPUnitRector extends AbstractRector
+abstract class AbstractPHPUnitRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/76ZfTX/1
      */
-    private const TEST_ANNOTATOIN_REGEX = '#@test\b#';
-
-    protected function isTestClassMethod(ClassMethod $classMethod): bool
+    private const TEST_ANNOTATOIN_REGEX = '#@test\\b#';
+    protected function isTestClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (! $classMethod->isPublic()) {
-            return false;
+        if (!$classMethod->isPublic()) {
+            return \false;
         }
-
         if ($this->isName($classMethod, 'test*')) {
-            return true;
+            return \true;
         }
-
         $docComment = $classMethod->getDocComment();
         if ($docComment !== null) {
-            return (bool) Strings::match($docComment->getText(), self::TEST_ANNOTATOIN_REGEX);
+            return (bool) \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($docComment->getText(), self::TEST_ANNOTATOIN_REGEX);
         }
-
-        return false;
+        return \false;
     }
-
-    protected function isPHPUnitMethodName(Node $node, string $name): bool
+    protected function isPHPUnitMethodName(\PhpParser\Node $node, string $name) : bool
     {
-        if (! $this->isPHPUnitTestCaseCall($node)) {
-            return false;
+        if (!$this->isPHPUnitTestCaseCall($node)) {
+            return \false;
         }
-
         /** @var StaticCall|MethodCall $node */
         return $this->isName($node->name, $name);
     }
-
     /**
      * @param string[] $names
      */
-    protected function isPHPUnitMethodNames(Node $node, array $names): bool
+    protected function isPHPUnitMethodNames(\PhpParser\Node $node, array $names) : bool
     {
-        if (! $this->isPHPUnitTestCaseCall($node)) {
-            return false;
+        if (!$this->isPHPUnitTestCaseCall($node)) {
+            return \false;
         }
-
         /** @var MethodCall|StaticCall $node */
         return $this->isNames($node->name, $names);
     }
-
-    protected function isInTestClass(Node $node): bool
+    protected function isInTestClass(\PhpParser\Node $node) : bool
     {
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
-            return false;
+            return \false;
         }
-
-        return $this->isObjectTypes($classLike, ['PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase']);
+        return $this->isObjectTypes($classLike, ['_PhpScoper006a73f0e455\\PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
     }
-
     /**
      * @param StaticCall|MethodCall $node
      * @return StaticCall|MethodCall
      */
-    protected function createPHPUnitCallWithName(Node $node, string $name): Node
+    protected function createPHPUnitCallWithName(\PhpParser\Node $node, string $name) : \PhpParser\Node
     {
-        return $node instanceof MethodCall ? new MethodCall($node->var, $name) : new StaticCall($node->class, $name);
+        return $node instanceof \PhpParser\Node\Expr\MethodCall ? new \PhpParser\Node\Expr\MethodCall($node->var, $name) : new \PhpParser\Node\Expr\StaticCall($node->class, $name);
     }
-
-    protected function isPHPUnitTestCaseCall(Node $node): bool
+    protected function isPHPUnitTestCaseCall(\PhpParser\Node $node) : bool
     {
-        if (! $this->isInTestClass($node)) {
-            return false;
+        if (!$this->isInTestClass($node)) {
+            return \false;
         }
-
-        return $node instanceof MethodCall || $node instanceof StaticCall;
+        return $node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall;
     }
 }

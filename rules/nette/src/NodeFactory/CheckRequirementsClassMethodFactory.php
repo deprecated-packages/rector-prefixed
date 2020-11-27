@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare (strict_types=1);
 namespace Rector\Nette\NodeFactory;
 
 use PhpParser\Node;
@@ -12,50 +12,39 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\PhpParser\Builder\MethodBuilder;
 use Rector\Core\PhpParser\Builder\ParamBuilder;
-
 final class CheckRequirementsClassMethodFactory
 {
     /**
      * @var string
      */
     private const CHECK_REQUIREMENTS_METHOD_NAME = 'checkRequirements';
-
     /**
      * @var ParentGetterStmtsToExternalStmtsFactory
      */
     private $parentGetterStmtsToExternalStmtsFactory;
-
-    public function __construct(ParentGetterStmtsToExternalStmtsFactory $parentGetterStmtsToExternalStmtsFactory)
+    public function __construct(\Rector\Nette\NodeFactory\ParentGetterStmtsToExternalStmtsFactory $parentGetterStmtsToExternalStmtsFactory)
     {
         $this->parentGetterStmtsToExternalStmtsFactory = $parentGetterStmtsToExternalStmtsFactory;
     }
-
     /**
      * @param Node[] $getUserStmts
      */
-    public function create(array $getUserStmts): ClassMethod
+    public function create(array $getUserStmts) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new MethodBuilder(self::CHECK_REQUIREMENTS_METHOD_NAME);
+        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder(self::CHECK_REQUIREMENTS_METHOD_NAME);
         $methodBuilder->makePublic();
-
-        $paramBuilder = new ParamBuilder('element');
+        $paramBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder('element');
         $methodBuilder->addParam($paramBuilder);
         $methodBuilder->setReturnType('void');
-
         $parentStaticCall = $this->creatParentStaticCall();
-
         $newStmts = $this->parentGetterStmtsToExternalStmtsFactory->create($getUserStmts);
         $methodBuilder->addStmts($newStmts);
-
         $methodBuilder->addStmt($parentStaticCall);
-
         return $methodBuilder->getNode();
     }
-
-    private function creatParentStaticCall(): StaticCall
+    private function creatParentStaticCall() : \PhpParser\Node\Expr\StaticCall
     {
-        $args = [new Arg(new Variable('element'))];
-
-        return new StaticCall(new Name('parent'), new Identifier(self::CHECK_REQUIREMENTS_METHOD_NAME), $args);
+        $args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable('element'))];
+        return new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('parent'), new \PhpParser\Node\Identifier(self::CHECK_REQUIREMENTS_METHOD_NAME), $args);
     }
 }

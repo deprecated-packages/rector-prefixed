@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -14,7 +13,6 @@ use Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://www.luzanky.cz/ for sponsoring this rule
  *
@@ -22,25 +20,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\ClassMethod\MakeEntitySetterNullabilityInSyncWithPropertyRector\MakeEntitySetterNullabilityInSyncWithPropertyRectorTest
  */
-final class MakeEntitySetterNullabilityInSyncWithPropertyRector extends AbstractRector
+final class MakeEntitySetterNullabilityInSyncWithPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var SetterClassMethodAnalyzer
      */
     private $setterClassMethodAnalyzer;
-
-    public function __construct(SetterClassMethodAnalyzer $setterClassMethodAnalyzer)
+    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer)
     {
         $this->setterClassMethodAnalyzer = $setterClassMethodAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Make nullability in setter class method with respect to property',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make nullability in setter class method with respect to property', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,9 +51,7 @@ class Product
     }
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -80,52 +70,41 @@ class Product
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // is setter in doctrine?
-        if (! $this->isInDoctrineEntityClass($node)) {
+        if (!$this->isInDoctrineEntityClass($node)) {
             return null;
         }
-
         $property = $this->setterClassMethodAnalyzer->matchNullalbeClassMethodProperty($node);
         if ($property === null) {
             return null;
         }
-
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
-
-        $manyToOneTagValueNode = $phpDocInfo->getByType(ManyToOneTagValueNode::class);
+        $manyToOneTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode::class);
         if ($manyToOneTagValueNode === null) {
             return null;
         }
-
         $param = $node->params[0];
-
         /** @var NullableType $paramType */
         $paramType = $param->type;
-
         $param->type = $paramType->type;
-
         return $node;
     }
 }

@@ -2,36 +2,31 @@
 
 namespace Doctrine\ORM\Mapping;
 
-if (class_exists('Doctrine\ORM\Mapping\OneToOne')) {
+if (\class_exists('Doctrine\\ORM\\Mapping\\OneToOne')) {
     return;
 }
-
 /**
  * @Annotation
  * @Target("PROPERTY")
  */
-class OneToOne implements Annotation
+class OneToOne implements \Doctrine\ORM\Mapping\Annotation
 {
     /**
      * @var string
      */
     public $targetEntity;
-
     /**
      * @var string
      */
     public $mappedBy;
-
     /**
      * @var string
      */
     public $inversedBy;
-
     /**
      * @var array<string>
      */
     public $cascade;
-
     /**
      * The fetching strategy to use for the association.
      *
@@ -40,9 +35,8 @@ class OneToOne implements Annotation
      * @Enum({"LAZY", "EAGER", "EXTRA_LAZY"})
      */
     public $fetch = 'LAZY';
-
     /**
      * @var boolean
      */
-    public $orphanRemoval = false;
+    public $orphanRemoval = \false;
 }

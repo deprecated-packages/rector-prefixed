@@ -1,18 +1,16 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\VendorLocker\NodeVendorLocker;
 
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
-
 /**
  * @deprecated
  * Merge with @see ClassMethodVisibilityGuard
  */
-final class ClassMethodVisibilityVendorLockResolver extends AbstractNodeVendorLockResolver
+final class ClassMethodVisibilityVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     /**
      * Checks for:
@@ -23,84 +21,66 @@ final class ClassMethodVisibilityVendorLockResolver extends AbstractNodeVendorLo
      * Prevents:
      * - changing visibility conflicting with children
      */
-    public function isParentLockedMethod(ClassMethod $classMethod): bool
+    public function isParentLockedMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $className */
-        $className = $classMethod->getAttribute(AttributeKey::CLASS_NAME);
-
+        $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($this->isInterfaceMethod($classMethod, $className)) {
-            return true;
+            return \true;
         }
-
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
-
         return $this->hasParentMethod($className, $methodName);
     }
-
-    public function isChildLockedMethod(ClassMethod $classMethod): bool
+    public function isChildLockedMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $className */
-        $className = $classMethod->getAttribute(AttributeKey::CLASS_NAME);
-
+        $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
-
         return $this->hasChildMethod($className, $methodName);
     }
-
-    private function isInterfaceMethod(ClassMethod $classMethod, string $className): bool
+    private function isInterfaceMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : bool
     {
         $interfaceMethodNames = $this->getInterfaceMethodNames($className);
         return $this->nodeNameResolver->isNames($classMethod, $interfaceMethodNames);
     }
-
-    private function hasParentMethod(string $className, string $methodName): bool
+    private function hasParentMethod(string $className, string $methodName) : bool
     {
-        $parentClasses = class_parents($className);
-
+        $parentClasses = \class_parents($className);
         foreach ($parentClasses as $parentClass) {
-            if (! method_exists($parentClass, $methodName)) {
+            if (!\method_exists($parentClass, $methodName)) {
                 continue;
             }
-
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
-    private function hasChildMethod(string $desiredClassName, string $methodName): bool
+    private function hasChildMethod(string $desiredClassName, string $methodName) : bool
     {
-        foreach (get_declared_classes() as $className) {
+        foreach (\get_declared_classes() as $className) {
             if ($className === $desiredClassName) {
                 continue;
             }
-
-            if (! is_a($className, $desiredClassName, true)) {
+            if (!\is_a($className, $desiredClassName, \true)) {
                 continue;
             }
-
-            if (method_exists($className, $methodName)) {
-                return true;
+            if (\method_exists($className, $methodName)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @return string[]
      */
-    private function getInterfaceMethodNames(string $className): array
+    private function getInterfaceMethodNames(string $className) : array
     {
-        $interfaces = class_implements($className);
-
+        $interfaces = \class_implements($className);
         $interfaceMethods = [];
         foreach ($interfaces as $interface) {
-            $interfaceMethods = array_merge($interfaceMethods, get_class_methods($interface));
+            $interfaceMethods = \array_merge($interfaceMethods, \get_class_methods($interface));
         }
-
         return $interfaceMethods;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Fixture\Event;
 
-final class DuplicatedEventParamsUploadEvent extends \Symfony\Contracts\EventDispatcher\Event
+final class DuplicatedEventParamsUploadEvent extends \_PhpScoper006a73f0e455\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * @var mixed
@@ -30,7 +30,7 @@ final class DuplicatedEventParamsUploadEvent extends \Symfony\Contracts\EventDis
     {
         return $this->userNameValue;
     }
-    public function getSomeUnderscore(): string
+    public function getSomeUnderscore() : string
     {
         return $this->someUnderscore;
     }

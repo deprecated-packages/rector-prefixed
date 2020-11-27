@@ -2,7 +2,7 @@
 
 namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\Event;
 
-final class SomeClassCopyEvent extends \Symfony\Contracts\EventDispatcher\Event
+final class SomeClassCopyEvent extends \_PhpScoper006a73f0e455\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * @var \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass
@@ -17,11 +17,11 @@ final class SomeClassCopyEvent extends \Symfony\Contracts\EventDispatcher\Event
         $this->someClass = $someClass;
         $this->key = $key;
     }
-    public function getSomeClass(): \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass
+    public function getSomeClass() : \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass
     {
         return $this->someClass;
     }
-    public function getKey(): string
+    public function getKey() : string
     {
         return $this->key;
     }

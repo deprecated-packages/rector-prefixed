@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\RemovingStatic\Printer;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -13,38 +12,30 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
-
 final class FactoryClassPrinter
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-
     /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-
-    public function __construct(
-        BetterStandardPrinter $betterStandardPrinter,
-        SmartFileSystem $smartFileSystem,
-        NodeNameResolver $nodeNameResolver
-    ) {
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->smartFileSystem = $smartFileSystem;
     }
-
-    public function printFactoryForClass(Class_ $factoryClass, Class_ $oldClass): void
+    public function printFactoryForClass(\PhpParser\Node\Stmt\Class_ $factoryClass, \PhpParser\Node\Stmt\Class_ $oldClass) : void
     {
-        $parentNode = $oldClass->getAttribute(AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof Namespace_) {
+        $parentNode = $oldClass->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \PhpParser\Node\Stmt\Namespace_) {
             $newNamespace = clone $parentNode;
             $newNamespace->stmts = [];
             $newNamespace->stmts[] = $factoryClass;
@@ -52,29 +43,23 @@ final class FactoryClassPrinter
         } else {
             $nodeToPrint = $factoryClass;
         }
-
         $factoryClassFilePath = $this->createFactoryClassFilePath($oldClass);
         $factoryClassContent = $this->betterStandardPrinter->prettyPrintFile([$nodeToPrint]);
-
         $this->smartFileSystem->dumpFile($factoryClassFilePath, $factoryClassContent);
     }
-
-    private function createFactoryClassFilePath(Class_ $oldClass): string
+    private function createFactoryClassFilePath(\PhpParser\Node\Stmt\Class_ $oldClass) : string
     {
         /** @var SmartFileInfo|null $classFileInfo */
-        $classFileInfo = $oldClass->getAttribute(AttributeKey::FILE_INFO);
+        $classFileInfo = $oldClass->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($classFileInfo === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        $directoryPath = Strings::before($classFileInfo->getRealPath(), DIRECTORY_SEPARATOR, -1);
+        $directoryPath = \_PhpScoper006a73f0e455\Nette\Utils\Strings::before($classFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
         $resolvedOldClass = $this->nodeNameResolver->getName($oldClass);
         if ($resolvedOldClass === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        $bareClassName = Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
-
-        return $directoryPath . DIRECTORY_SEPARATOR . $bareClassName;
+        $bareClassName = \_PhpScoper006a73f0e455\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
+        return $directoryPath . \DIRECTORY_SEPARATOR . $bareClassName;
     }
 }

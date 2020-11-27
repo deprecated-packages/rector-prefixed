@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\New_;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -18,27 +17,22 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\NewObjectToFactoryCreateRectorTest
  */
-final class NewObjectToFactoryCreateRector extends AbstractRector implements ConfigurableRectorInterface
+final class NewObjectToFactoryCreateRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const OBJECT_TO_FACTORY_METHOD = '$objectToFactoryMethod';
-
     /**
      * @var string[][]
      */
     private $objectToFactoryMethod = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Replaces creating object instances with "new" keyword with factory method.', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces creating object instances with "new" keyword with factory method.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
 	public function example() {
@@ -46,8 +40,7 @@ class SomeClass
 	}
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
 	/**
@@ -60,88 +53,59 @@ class SomeClass
 	}
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::OBJECT_TO_FACTORY_METHOD => [
-                        'MyClass' => [
-                            'class' => 'MyClassFactory',
-                            'method' => 'create',
-                        ],
-                    ],
-                ]
-            ),
-        ]);
+, [self::OBJECT_TO_FACTORY_METHOD => ['MyClass' => ['class' => 'MyClassFactory', 'method' => 'create']]])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [New_::class];
+        return [\PhpParser\Node\Expr\New_::class];
     }
-
     /**
      * @param New_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->objectToFactoryMethod as $object => $factoryInfo) {
-            if (! $this->isObjectType($node, $object)) {
+            if (!$this->isObjectType($node, $object)) {
                 continue;
             }
-
             $factoryClass = $factoryInfo['class'];
             $factoryMethod = $factoryInfo['method'];
-            $className = $node->getAttribute(AttributeKey::CLASS_NAME);
-
+            $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($className === $factoryClass) {
                 continue;
             }
-
             /** @var Class_ $classNode */
-            $classNode = $node->getAttribute(AttributeKey::CLASS_NODE);
+            $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             $propertyName = $this->getExistingFactoryPropertyName($classNode, $factoryClass);
-
             if ($propertyName === null) {
                 $propertyName = $this->getFactoryPropertyName($factoryClass);
-
-                $factoryObjectType = new ObjectType($factoryClass);
-
+                $factoryObjectType = new \PHPStan\Type\ObjectType($factoryClass);
                 $this->addConstructorDependencyToClass($classNode, $factoryObjectType, $propertyName);
             }
-
-            return new MethodCall(
-                new PropertyFetch(new Variable('this'), $propertyName),
-                $factoryMethod,
-                $node->args
-            );
+            return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName), $factoryMethod, $node->args);
         }
-
         return $node;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $this->objectToFactoryMethod = $configuration[self::OBJECT_TO_FACTORY_METHOD] ?? [];
     }
-
-    private function getExistingFactoryPropertyName(Class_ $class, string $factoryClass): ?string
+    private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, string $factoryClass) : ?string
     {
         foreach ($class->getProperties() as $property) {
             if ($this->isObjectType($property, $factoryClass)) {
                 return (string) $property->props[0]->name;
             }
         }
-
         return null;
     }
-
-    private function getFactoryPropertyName(string $factoryFullQualifiedName): string
+    private function getFactoryPropertyName(string $factoryFullQualifiedName) : string
     {
-        $reflectionClass = new ReflectionClass($factoryFullQualifiedName);
+        $reflectionClass = new \ReflectionClass($factoryFullQualifiedName);
         $shortName = $reflectionClass->getShortName();
-
-        return Strings::firstLower($shortName);
+        return \_PhpScoper006a73f0e455\Nette\Utils\Strings::firstLower($shortName);
     }
 }

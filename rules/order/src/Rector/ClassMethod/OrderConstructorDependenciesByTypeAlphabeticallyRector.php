@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Order\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -18,28 +17,23 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 /**
  * @see \Rector\Order\Tests\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector\OrderConstructorDependenciesByTypeAlphabeticallyRectorTest
  */
-final class OrderConstructorDependenciesByTypeAlphabeticallyRector extends AbstractRector implements ConfigurableRectorInterface
+final class OrderConstructorDependenciesByTypeAlphabeticallyRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
      * @var string
      */
     public const SKIP_PATTERNS = '$skipPatterns';
-
     /**
      * @var string[]
      */
     private $skipPatterns = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Order __constructor dependencies by type A-Z', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order __constructor dependencies by type A-Z', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(
@@ -51,8 +45,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(
@@ -64,127 +57,101 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                [
-                    self::SKIP_PATTERNS => ['Cla*ame', 'Ano?herClassName'],
-                ]
-            ),
-        ]);
+, [self::SKIP_PATTERNS => ['Cla*ame', 'Ano?herClassName']])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
         $node->params = $this->getSortedParams($node);
-
         return $node;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $this->skipPatterns = $configuration[self::SKIP_PATTERNS] ?? [];
     }
-
-    private function shouldSkip(ClassMethod $classMethod): bool
+    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (! $this->isName($classMethod, MethodName::CONSTRUCT)) {
-            return true;
+        if (!$this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+            return \true;
         }
-
         /** @var SmartFileInfo $smartFileInfo */
-        $smartFileInfo = $classMethod->getAttribute(AttributeKey::FILE_INFO);
+        $smartFileInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($this->isFileInfoMatch($smartFileInfo)) {
-            return true;
+            return \true;
         }
-
         if ($classMethod->params === []) {
-            return true;
+            return \true;
         }
-
         if ($this->hasPrimitiveDataTypeParam($classMethod)) {
-            return true;
+            return \true;
         }
-
         return $this->hasParamWithNoType($classMethod);
     }
-
     /**
      * @return Param[]
      */
-    private function getSortedParams(ClassMethod $classMethod): array
+    private function getSortedParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $params = $classMethod->getParams();
-        usort($params, function (Param $firstParam, Param $secondParam): int {
+        \usort($params, function (\PhpParser\Node\Param $firstParam, \PhpParser\Node\Param $secondParam) : int {
             /** @var Name $firstParamType */
             $firstParamType = $this->getParamType($firstParam);
             /** @var Name $secondParamType */
             $secondParamType = $this->getParamType($secondParam);
-
             return $this->getShortName($firstParamType) <=> $this->getShortName($secondParamType);
         });
-
         return $params;
     }
-
     /**
      * Match file against matches, no patterns provided, then it matches
      */
-    private function isFileInfoMatch(SmartFileInfo $smartFileInfo): bool
+    private function isFileInfoMatch(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         if ($this->skipPatterns === []) {
-            return true;
+            return \true;
         }
-
         foreach ($this->skipPatterns as $pattern) {
-            if (fnmatch($pattern, $smartFileInfo->getRelativeFilePath(), FNM_NOESCAPE)) {
-                return true;
+            if (\fnmatch($pattern, $smartFileInfo->getRelativeFilePath(), \FNM_NOESCAPE)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    private function hasPrimitiveDataTypeParam(ClassMethod $classMethod): bool
+    private function hasPrimitiveDataTypeParam(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ($classMethod->params as $param) {
-            if ($param->type instanceof Identifier) {
-                return true;
+            if ($param->type instanceof \PhpParser\Node\Identifier) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    private function hasParamWithNoType(ClassMethod $classMethod): bool
+    private function hasParamWithNoType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ($classMethod->params as $param) {
             if ($param->type === null) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @return Identifier|Name|UnionType|null
      */
-    private function getParamType(Param $param)
+    private function getParamType(\PhpParser\Node\Param $param)
     {
-        return $param->type instanceof NullableType ? $param->type->type : $param->type;
+        return $param->type instanceof \PhpParser\Node\NullableType ? $param->type->type : $param->type;
     }
 }

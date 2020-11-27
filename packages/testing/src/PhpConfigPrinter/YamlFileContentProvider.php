@@ -1,18 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Testing\PhpConfigPrinter;
 
 use Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
-
-final class YamlFileContentProvider implements YamlFileContentProviderInterface
+final class YamlFileContentProvider implements \Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface
 {
-    public function setContent(string $yamlContent): void
+    public function setContent(string $yamlContent) : void
     {
     }
-
-    public function getYamlContent(): string
+    public function getYamlContent() : string
     {
         return '';
     }

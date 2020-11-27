@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteKdyby\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -16,42 +15,32 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use _PhpScoper006a73f0e455\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\ReplaceMagicPropertyEventWithEventClassRectorTest
  */
-final class ReplaceMagicPropertyEventWithEventClassRector extends AbstractRector
+final class ReplaceMagicPropertyEventWithEventClassRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassNaming
      */
     private $classNaming;
-
     /**
      * @var EventAndListenerTreeProvider
      */
     private $eventAndListenerTreeProvider;
-
-    public function __construct(
-        ClassNaming $classNaming,
-        EventAndListenerTreeProvider $eventAndListenerTreeProvider
-    ) {
+    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider)
+    {
         $this->classNaming = $classNaming;
         $this->eventAndListenerTreeProvider = $eventAndListenerTreeProvider;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change $onProperty magic call with event disptacher and class dispatch',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $onProperty magic call with event disptacher and class dispatch', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class FileManager
 {
     public $onUpload;
@@ -62,8 +51,7 @@ final class FileManager
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class FileManager
 {
     use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -80,71 +68,52 @@ final class FileManager
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // 1. is onProperty? call
         $eventAndListenerTree = $this->eventAndListenerTreeProvider->matchMethodCall($node);
         if ($eventAndListenerTree === null) {
             return null;
         }
-
         // 2. guess event name
         $eventClassName = $eventAndListenerTree->getEventClassName();
-
         // 3. create new event class with args
         $eventClassInNamespace = $eventAndListenerTree->getEventClassInNamespace();
         $this->printNodesToFilePath([$eventClassInNamespace], $eventAndListenerTree->getEventFileLocation());
-
         // 4. ad dispatch method call
         $dispatchMethodCall = $eventAndListenerTree->getEventDispatcherDispatchMethodCall();
         $this->addNodeAfterNode($dispatchMethodCall, $node);
-
         // 5. return event adding
         // add event dispatcher dependency if needed
         $assign = $this->createEventInstanceAssign($eventClassName, $node);
-
         /** @var Class_ $classLike */
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        $this->addConstructorDependencyToClass(
-            $classLike,
-            new FullyQualifiedObjectType(EventDispatcherInterface::class),
-            'eventDispatcher'
-        );
-
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $this->addConstructorDependencyToClass($classLike, new \Rector\PHPStan\Type\FullyQualifiedObjectType(\_PhpScoper006a73f0e455\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class), 'eventDispatcher');
         // 6. remove property
         if ($eventAndListenerTree->getOnMagicProperty() !== null) {
             $this->removeNode($eventAndListenerTree->getOnMagicProperty());
         }
-
         return $assign;
     }
-
-    private function createEventInstanceAssign(string $eventClassName, MethodCall $methodCall): Assign
+    private function createEventInstanceAssign(string $eventClassName, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\Assign
     {
         $shortEventClassName = $this->classNaming->getVariableName($eventClassName);
-
-        $new = new New_(new FullyQualified($eventClassName));
-
+        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($eventClassName));
         if ($methodCall->args) {
             $new->args = $methodCall->args;
         }
-
-        return new Assign(new Variable($shortEventClassName), $new);
+        return new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable($shortEventClassName), $new);
     }
 }

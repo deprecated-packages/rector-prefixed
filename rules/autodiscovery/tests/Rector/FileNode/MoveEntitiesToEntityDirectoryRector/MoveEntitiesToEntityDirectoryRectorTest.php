@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Autodiscovery\Tests\Rector\FileNode\MoveEntitiesToEntityDirectoryRector;
 
 use Iterator;
@@ -11,40 +10,27 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
-
-final class MoveEntitiesToEntityDirectoryRectorTest extends AbstractRectorTestCase
+final class MoveEntitiesToEntityDirectoryRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(
-        SmartFileInfo $originalFileInfo,
-        AddedFileWithContent $expectedAddedFileWithContent
-    ): void {
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \Rector\FileSystemRector\ValueObject\AddedFileWithContent $expectedAddedFileWithContent) : void
+    {
         $this->doTestFileInfo($originalFileInfo);
         $this->assertFileWithContentWasAdded($expectedAddedFileWithContent);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
-        $smartFileSystem = new SmartFileSystem();
-
-        yield [
-            new SmartFileInfo(__DIR__ . '/Source/Controller/RandomEntity.php'),
-            new AddedFileWithContent(
-                $this->getFixtureTempDirectory() . '/Source/Entity/RandomEntity.php',
-                $smartFileSystem->readFile(__DIR__ . '/Expected/ExpectedRandomEntity.php')
-            ),
-        ];
+        $smartFileSystem = new \Symplify\SmartFileSystem\SmartFileSystem();
+        (yield [new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Controller/RandomEntity.php'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/Entity/RandomEntity.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ExpectedRandomEntity.php'))]);
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
-        return MoveEntitiesToEntityDirectoryRector::class;
+        return \Rector\Autodiscovery\Rector\FileNode\MoveEntitiesToEntityDirectoryRector::class;
     }
-
-    protected function getPhpVersion(): int
+    protected function getPhpVersion() : int
     {
-        return PhpVersionFeature::TYPED_PROPERTIES - 1;
+        return \Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES - 1;
     }
 }

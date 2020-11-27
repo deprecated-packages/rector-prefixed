@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455;
 
 use PhpParser\NodeVisitor\NodeConnectingVisitor;
 use PHPStan\Analyser\NodeScopeResolver;
@@ -13,38 +14,18 @@ use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+use function _PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->defaults()
-        ->public()
-        ->autowire()
-        ->autoconfigure();
-
-    $services->load('Rector\NodeTypeResolver\\', __DIR__ . '/../src')
-        ->exclude([__DIR__ . '/../src/Contract', __DIR__ . '/../src/PHPStan/TypeExtension']);
-
-    $services->set(TypeAnalyzer::class);
-
-    $services->set(FilesFinder::class);
-
-    $services->set(BetterStandardPrinter::class);
-
-    $services->set(BetterNodeFinder::class);
-
-    $services->set(ReflectionProvider::class)
-        ->factory([ref(PHPStanServicesFactory::class), 'createReflectionProvider']);
-
-    $services->set(NodeScopeResolver::class)
-        ->factory([ref(PHPStanServicesFactory::class), 'createNodeScopeResolver']);
-
-    $services->set(ScopeFactory::class)
-        ->factory([ref(PHPStanServicesFactory::class), 'createScopeFactory']);
-
-    $services->set(TypeNodeResolver::class)
-        ->factory([ref(PHPStanServicesFactory::class), 'createTypeNodeResolver']);
-
-    $services->set(NodeConnectingVisitor::class);
+    $services->defaults()->public()->autowire()->autoconfigure();
+    $services->load('Rector\\NodeTypeResolver\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Contract', __DIR__ . '/../src/PHPStan/TypeExtension']);
+    $services->set(\Rector\Core\Php\TypeAnalyzer::class);
+    $services->set(\Rector\Core\FileSystem\FilesFinder::class);
+    $services->set(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
+    $services->set(\Rector\Core\PhpParser\Node\BetterNodeFinder::class);
+    $services->set(\PHPStan\Reflection\ReflectionProvider::class)->factory([\_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createReflectionProvider']);
+    $services->set(\PHPStan\Analyser\NodeScopeResolver::class)->factory([\_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createNodeScopeResolver']);
+    $services->set(\PHPStan\Analyser\ScopeFactory::class)->factory([\_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createScopeFactory']);
+    $services->set(\PHPStan\PhpDoc\TypeNodeResolver::class)->factory([\_PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createTypeNodeResolver']);
+    $services->set(\PhpParser\NodeVisitor\NodeConnectingVisitor::class);
 };

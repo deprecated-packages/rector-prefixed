@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Naming\Rector\Property;
 
 use PhpParser\Node;
@@ -12,45 +11,33 @@ use Rector\Naming\PropertyRenamer\BoolPropertyRenamer;
 use Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Naming\Tests\Rector\Property\MakeBoolPropertyRespectIsHasWasMethodNamingRector\MakeBoolPropertyRespectIsHasWasMethodNamingRectorTest
  * @see \Rector\Naming\Tests\Rector\Property\MakeBoolPropertyRespectIsHasWasMethodNamingRector\Php74Test
  */
-final class MakeBoolPropertyRespectIsHasWasMethodNamingRector extends AbstractRector
+final class MakeBoolPropertyRespectIsHasWasMethodNamingRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyRenameFactory
      */
     private $propertyRenameFactory;
-
     /**
      * @var BoolPropertyRenamer
      */
     private $boolPropertyRenamer;
-
     /**
      * @var BoolPropertyExpectedNameResolver
      */
     private $boolPropertyExpectedNameResolver;
-
-    public function __construct(
-        BoolPropertyRenamer $boolPropertyRenamer,
-        PropertyRenameFactory $propertyRenameFactory,
-        BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver
-    ) {
+    public function __construct(\Rector\Naming\PropertyRenamer\BoolPropertyRenamer $boolPropertyRenamer, \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver)
+    {
         $this->propertyRenameFactory = $propertyRenameFactory;
         $this->boolPropertyRenamer = $boolPropertyRenamer;
         $this->boolPropertyExpectedNameResolver = $boolPropertyExpectedNameResolver;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Renames property to respect is/has/was method naming',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Renames property to respect is/has/was method naming', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     private $full = false;
@@ -61,9 +48,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     private $isFull = false;
@@ -75,40 +60,32 @@ class SomeClass
 
 }
 CODE_SAMPLE
-
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Property::class];
+        return [\PhpParser\Node\Stmt\Property::class];
     }
-
     /**
      * @param Property $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isPropertyBoolean($node)) {
+        if (!$this->isPropertyBoolean($node)) {
             return null;
         }
-
         $propertyRename = $this->propertyRenameFactory->create($node, $this->boolPropertyExpectedNameResolver);
         if ($propertyRename === null) {
             return null;
         }
         $property = $this->boolPropertyRenamer->rename($propertyRename);
-
-//        dd($propertyRename->getClassLike());
+        //        dd($propertyRename->getClassLike());
         if ($property === null) {
             return null;
         }
-
         return $node;
     }
 }

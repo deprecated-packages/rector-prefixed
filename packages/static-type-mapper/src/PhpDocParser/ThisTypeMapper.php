@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\StaticTypeMapper\PhpDocParser;
 
 use PhpParser\Node;
@@ -13,22 +12,19 @@ use PHPStan\Type\Type;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
-
-final class ThisTypeMapper implements PhpDocTypeMapperInterface
+final class ThisTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface
 {
-    public function getNodeType(): string
+    public function getNodeType() : string
     {
-        return ThisTypeNode::class;
+        return \PHPStan\PhpDocParser\Ast\Type\ThisTypeNode::class;
     }
-
-    public function mapToPHPStanType(TypeNode $typeNode, Node $node, NameScope $nameScope): Type
+    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         if ($node === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         /** @var string $className */
-        $className = $node->getAttribute(AttributeKey::CLASS_NAME);
-
-        return new ThisType($className);
+        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        return new \PHPStan\Type\ThisType($className);
     }
 }

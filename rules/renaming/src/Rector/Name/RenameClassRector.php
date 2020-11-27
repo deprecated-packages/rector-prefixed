@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Renaming\Rector\Name;
 
 use PhpParser\Node;
@@ -18,43 +17,35 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Renaming\Tests\Rector\Name\RenameClassRector\RenameClassRectorTest
  */
-final class RenameClassRector extends AbstractRector implements ConfigurableRectorInterface
+final class RenameClassRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const OLD_TO_NEW_CLASSES = 'old_to_new_classes';
-
     /**
      * @var string[]
      */
     private $oldToNewClasses = [];
-
     /**
      * @var ClassRenamer
      */
     private $classRenamer;
-
     /**
      * @var ChangeConfiguration
      */
     private $changeConfiguration;
-
-    public function __construct(ChangeConfiguration $changeConfiguration, ClassRenamer $classRenamer)
+    public function __construct(\Rector\Core\Configuration\ChangeConfiguration $changeConfiguration, \Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer)
     {
         $this->classRenamer = $classRenamer;
         $this->changeConfiguration = $changeConfiguration;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Replaces defined classes by new ones.', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined classes by new ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 namespace App;
 
 use SomeOldClass;
@@ -66,8 +57,7 @@ function someFunction(SomeOldClass $someOldClass): SomeOldClass
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 namespace App;
 
 use SomeNewClass;
@@ -79,41 +69,23 @@ function someFunction(SomeNewClass $someOldClass): SomeNewClass
     }
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::OLD_TO_NEW_CLASSES => [
-                        'App\SomeOldClass' => 'App\SomeNewClass',
-                    ],
-                ]
-            ),
-        ]);
+, [self::OLD_TO_NEW_CLASSES => ['_PhpScoper006a73f0e455\\App\\SomeOldClass' => '_PhpScoper006a73f0e455\\App\\SomeNewClass']])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [
-            Name::class,
-            Property::class,
-            FunctionLike::class,
-            Expression::class,
-            ClassLike::class,
-            Namespace_::class,
-            FileWithoutNamespace::class,
-        ];
+        return [\PhpParser\Node\Name::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class, \PhpParser\Node\Stmt\Expression::class, \PhpParser\Node\Stmt\ClassLike::class, \PhpParser\Node\Stmt\Namespace_::class, \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class];
     }
-
     /**
      * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $this->oldToNewClasses = $configuration[self::OLD_TO_NEW_CLASSES] ?? [];
         if ($this->oldToNewClasses !== []) {

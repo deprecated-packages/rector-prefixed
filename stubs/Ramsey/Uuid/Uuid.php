@@ -1,20 +1,17 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Ramsey\Uuid;
 
-namespace Ramsey\Uuid;
-
-if (class_exists('Ramsey\Uuid\Uuid')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Ramsey\\Uuid\\Uuid')) {
     return;
 }
-
-class Uuid implements UuidInterface
+class Uuid implements \_PhpScoper006a73f0e455\Ramsey\Uuid\UuidInterface
 {
-    public static function uuid4(): self
+    public static function uuid4() : self
     {
-        return new Uuid();
+        return new \_PhpScoper006a73f0e455\Ramsey\Uuid\Uuid();
     }
-
     public function toString()
     {
         // dummy value

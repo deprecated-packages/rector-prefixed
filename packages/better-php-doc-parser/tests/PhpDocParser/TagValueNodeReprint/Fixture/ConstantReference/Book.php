@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\ConstantReference;
 
 use Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Source\ApiFilter;
-use Doctrine\ORM\Mapping as ORM;
-
+use _PhpScoper006a73f0e455\Doctrine\ORM\Mapping as ORM;
 final class Book
 {
     /**

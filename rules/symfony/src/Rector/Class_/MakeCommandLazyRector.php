@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\Class_;
 
 use PhpParser\Node;
@@ -15,20 +14,17 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://symfony.com/doc/current/console/commands_as_services.html
  * @sponsor Thanks https://www.musement.com/ for sponsoring this rule; initiated by https://github.com/stloyd
  *
  * @see \Rector\Symfony\Tests\Rector\Class_\MakeCommandLazyRector\MakeCommandLazyRectorTest
  */
-final class MakeCommandLazyRector extends AbstractRector
+final class MakeCommandLazyRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Make Symfony commands lazy', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make Symfony commands lazy', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Console\Command\Command
 
 class SunshineCommand extends Command
@@ -39,8 +35,7 @@ class SunshineCommand extends Command
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\Console\Command\Command
 
 class SunshineCommand extends Command
@@ -51,161 +46,124 @@ class SunshineCommand extends Command
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node, 'Symfony\Component\Console\Command\Command')) {
+        if (!$this->isObjectType($node, '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Command\\Command')) {
             return null;
         }
-
         $commandName = $this->resolveCommandNameAndRemove($node);
         if ($commandName === null) {
             return null;
         }
-
-        $defaultNameProperty = $this->nodeFactory->createStaticProtectedPropertyWithDefault(
-            'defaultName',
-            $commandName
-        );
-
-        $node->stmts = array_merge([$defaultNameProperty], (array) $node->stmts);
-
+        $defaultNameProperty = $this->nodeFactory->createStaticProtectedPropertyWithDefault('defaultName', $commandName);
+        $node->stmts = \array_merge([$defaultNameProperty], (array) $node->stmts);
         return $node;
     }
-
-    private function resolveCommandNameAndRemove(Class_ $class): ?Node
+    private function resolveCommandNameAndRemove(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
     {
         $commandName = $this->resolveCommandNameFromConstructor($class);
         if ($commandName === null) {
             $commandName = $this->resolveCommandNameFromSetName($class);
         }
-
         $this->removeConstructorIfHasOnlySetNameMethodCall($class);
-
         return $commandName;
     }
-
-    private function resolveCommandNameFromConstructor(Class_ $class): ?Node
+    private function resolveCommandNameFromConstructor(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
     {
         $commandName = null;
-
-        $this->traverseNodesWithCallable((array) $class->stmts, function (Node $node) use (&$commandName) {
-            if (! $node instanceof StaticCall) {
+        $this->traverseNodesWithCallable((array) $class->stmts, function (\PhpParser\Node $node) use(&$commandName) {
+            if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return null;
             }
-            if (! $this->isObjectType($node->class, 'Symfony\Component\Console\Command\Command')) {
+            if (!$this->isObjectType($node->class, '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Command\\Command')) {
                 return null;
             }
-
             $commandName = $this->matchCommandNameNodeInConstruct($node);
             if ($commandName === null) {
                 return null;
             }
-
-            array_shift($node->args);
+            \array_shift($node->args);
         });
-
         return $commandName;
     }
-
-    private function resolveCommandNameFromSetName(Class_ $class): ?Node
+    private function resolveCommandNameFromSetName(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
     {
         $commandName = null;
-
-        $this->traverseNodesWithCallable((array) $class->stmts, function (Node $node) use (&$commandName) {
-            if (! $node instanceof MethodCall) {
+        $this->traverseNodesWithCallable((array) $class->stmts, function (\PhpParser\Node $node) use(&$commandName) {
+            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
-            if (! $this->isObjectType($node->var, 'Symfony\Component\Console\Command\Command')) {
+            if (!$this->isObjectType($node->var, '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Command\\Command')) {
                 return null;
             }
-
-            if (! $this->isName($node->name, 'setName')) {
+            if (!$this->isName($node->name, 'setName')) {
                 return null;
             }
-
             $commandName = $node->args[0]->value;
             $commandNameStaticType = $this->getStaticType($commandName);
-            if (! $commandNameStaticType instanceof StringType) {
+            if (!$commandNameStaticType instanceof \PHPStan\Type\StringType) {
                 return null;
             }
-
             // is chain call? → remove by variable nulling
-            if ($node->var instanceof MethodCall) {
+            if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
                 return $node->var;
             }
-
             $this->removeNode($node);
         });
-
         return $commandName;
     }
-
-    private function removeConstructorIfHasOnlySetNameMethodCall(Class_ $class): void
+    private function removeConstructorIfHasOnlySetNameMethodCall(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $constructClassMethod = $class->getMethod(MethodName::CONSTRUCT);
+        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
             return;
         }
-
-        if (count((array) $constructClassMethod->stmts) !== 1) {
+        if (\count((array) $constructClassMethod->stmts) !== 1) {
             return;
         }
-
         $onlyNode = $constructClassMethod->stmts[0];
-        if ($onlyNode instanceof Expression) {
+        if ($onlyNode instanceof \PhpParser\Node\Stmt\Expression) {
             $onlyNode = $onlyNode->expr;
         }
-
         /** @var Expr|null $onlyNode */
         if ($onlyNode === null) {
             return;
         }
-
-        if (! $onlyNode instanceof StaticCall) {
+        if (!$onlyNode instanceof \PhpParser\Node\Expr\StaticCall) {
             return;
         }
-
         if ($onlyNode->args !== []) {
             return;
         }
-
         $this->removeNode($constructClassMethod);
     }
-
-    private function matchCommandNameNodeInConstruct(Expr $expr): ?Node
+    private function matchCommandNameNodeInConstruct(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node
     {
-        if (! $expr instanceof MethodCall && ! $expr instanceof StaticCall) {
+        if (!$expr instanceof \PhpParser\Node\Expr\MethodCall && !$expr instanceof \PhpParser\Node\Expr\StaticCall) {
             return null;
         }
-
-        if (! $this->isName($expr->name, MethodName::CONSTRUCT)) {
+        if (!$this->isName($expr->name, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;
         }
-
-        if (count($expr->args) < 1) {
+        if (\count($expr->args) < 1) {
             return null;
         }
-
         $staticType = $this->getStaticType($expr->args[0]->value);
-        if (! $staticType instanceof StringType) {
+        if (!$staticType instanceof \PHPStan\Type\StringType) {
             return null;
         }
-
         return $expr->args[0]->value;
     }
 }

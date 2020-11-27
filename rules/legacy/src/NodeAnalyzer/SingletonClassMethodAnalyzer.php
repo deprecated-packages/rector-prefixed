@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Legacy\NodeAnalyzer;
 
 use PhpParser\Node\Expr;
@@ -17,34 +16,26 @@ use Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
 final class SingletonClassMethodAnalyzer
 {
     /**
      * @var ConstFetchManipulator
      */
     private $constFetchManipulator;
-
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
-    public function __construct(
-        BetterStandardPrinter $betterStandardPrinter,
-        ConstFetchManipulator $constFetchManipulator,
-        NodeTypeResolver $nodeTypeResolver
-    ) {
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator $constFetchManipulator, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    {
         $this->constFetchManipulator = $constFetchManipulator;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-
     /**
      * Match this code:
      * if (null === static::$instance) {
@@ -54,73 +45,58 @@ final class SingletonClassMethodAnalyzer
      *
      * Matches "static::$instance" on success
      */
-    public function matchStaticPropertyFetch(ClassMethod $classMethod): ?StaticPropertyFetch
+    public function matchStaticPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\StaticPropertyFetch
     {
-        if (count((array) $classMethod->stmts) !== 2) {
+        if (\count((array) $classMethod->stmts) !== 2) {
             return null;
         }
-
-        if (! $classMethod->stmts[0] instanceof If_) {
+        if (!$classMethod->stmts[0] instanceof \PhpParser\Node\Stmt\If_) {
             return null;
         }
-
         /** @var If_ $if */
         $if = $classMethod->stmts[0];
         $staticPropertyFetch = $this->matchStaticPropertyFetchInIfCond($if->cond);
-
-        if (count($if->stmts) !== 1) {
+        if (\count($if->stmts) !== 1) {
             return null;
         }
-
-        if (! $if->stmts[0] instanceof Expression) {
+        if (!$if->stmts[0] instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-
         $stmt = $if->stmts[0]->expr;
-
         // create self and assign to static property
-        if (! $stmt instanceof Assign) {
+        if (!$stmt instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-
-        if (! $this->betterStandardPrinter->areNodesEqual($staticPropertyFetch, $stmt->var)) {
+        if (!$this->betterStandardPrinter->areNodesEqual($staticPropertyFetch, $stmt->var)) {
             return null;
         }
-
-        if (! $stmt->expr instanceof New_) {
+        if (!$stmt->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
         }
-
         /** @var string $class */
-        $class = $classMethod->getAttribute(AttributeKey::CLASS_NAME);
-
+        $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // the "self" class is created
-        if (! $this->nodeTypeResolver->isObjectType($stmt->expr->class, $class)) {
+        if (!$this->nodeTypeResolver->isObjectType($stmt->expr->class, $class)) {
             return null;
         }
-
         /** @var StaticPropertyFetch $staticPropertyFetch */
         return $staticPropertyFetch;
     }
-
-    private function matchStaticPropertyFetchInIfCond(Expr $expr): ?StaticPropertyFetch
+    private function matchStaticPropertyFetchInIfCond(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\StaticPropertyFetch
     {
         // matching: "self::$static === null"
-        if ($expr instanceof Identical) {
-            if ($this->constFetchManipulator->isNull($expr->left) && $expr->right instanceof StaticPropertyFetch) {
+        if ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
+            if ($this->constFetchManipulator->isNull($expr->left) && $expr->right instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
                 return $expr->right;
             }
-
-            if ($this->constFetchManipulator->isNull($expr->right) && $expr->left instanceof StaticPropertyFetch) {
+            if ($this->constFetchManipulator->isNull($expr->right) && $expr->left instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
                 return $expr->left;
             }
         }
-
         // matching: "! self::$static"
-        if ($expr instanceof BooleanNot && $expr->expr instanceof StaticPropertyFetch) {
+        if ($expr instanceof \PhpParser\Node\Expr\BooleanNot && $expr->expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return $expr->expr;
         }
-
         return null;
     }
 }

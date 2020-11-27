@@ -2,8 +2,8 @@
 
 namespace Rector\DoctrineAnnotationGenerated;
 
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
-use Doctrine\Common\Annotations\Annotation\Target;
+use _PhpScoper006a73f0e455\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use _PhpScoper006a73f0e455\Doctrine\Common\Annotations\Annotation\Target;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -14,14 +14,14 @@ use function ini_get;
 /**
  * A reader for docblock annotations.
  */
-class ConstantPreservingAnnotationReader implements \Doctrine\Common\Annotations\Reader
+class ConstantPreservingAnnotationReader implements \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Reader
 {
     /**
      * Global map for imports.
      *
      * @var array<string, class-string>
      */
-    private static $globalImports = ['ignoreannotation' => \Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class];
+    private static $globalImports = ['ignoreannotation' => \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class];
     /**
      * A list with annotations that are not causing exceptions when not resolved to an annotation class.
      *
@@ -29,7 +29,7 @@ class ConstantPreservingAnnotationReader implements \Doctrine\Common\Annotations
      *
      * @var array<string, true>
      */
-    private static $globalIgnoredNames = \Doctrine\Common\Annotations\ImplicitlyIgnoredAnnotationNames::LIST;
+    private static $globalIgnoredNames = \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\ImplicitlyIgnoredAnnotationNames::LIST;
     /**
      * A list with annotations that are not causing exceptions when not resolved to an annotation class.
      *
@@ -45,7 +45,7 @@ class ConstantPreservingAnnotationReader implements \Doctrine\Common\Annotations
      */
     public static function addGlobalIgnoredName($name)
     {
-        self::$globalIgnoredNames[$name] = true;
+        self::$globalIgnoredNames[$name] = \true;
     }
     /**
      * Add a new annotation to the globally ignored annotation namespaces with regard to exception handling.
@@ -54,7 +54,7 @@ class ConstantPreservingAnnotationReader implements \Doctrine\Common\Annotations
      */
     public static function addGlobalIgnoredNamespace($namespace)
     {
-        self::$globalIgnoredNamespaces[$namespace] = true;
+        self::$globalIgnoredNamespaces[$namespace] = \true;
     }
     /**
      * Annotations parser.
@@ -94,26 +94,26 @@ class ConstantPreservingAnnotationReader implements \Doctrine\Common\Annotations
     public function __construct(\Rector\DoctrineAnnotationGenerated\ConstantPreservingDocParser $parser = null)
     {
         if (\extension_loaded('Zend Optimizer+') && (\ini_get('zend_optimizerplus.save_comments') === '0' || \ini_get('opcache.save_comments') === '0')) {
-            throw \Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
+            throw \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
         }
         if (\extension_loaded('Zend OPcache') && \ini_get('opcache.save_comments') === 0) {
-            throw \Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
+            throw \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
         }
         // Make sure that the IgnoreAnnotation annotation is loaded
-        \class_exists(\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class);
-        $this->parser = $parser ?: new \Doctrine\Common\Annotations\DocParser();
+        \class_exists(\_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class);
+        $this->parser = $parser ?: new \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\DocParser();
         $this->preParser = new \Rector\DoctrineAnnotationGenerated\ConstantPreservingDocParser();
         $this->preParser->setImports(self::$globalImports);
-        $this->preParser->setIgnoreNotImportedAnnotations(true);
+        $this->preParser->setIgnoreNotImportedAnnotations(\true);
         $this->preParser->setIgnoredAnnotationNames(self::$globalIgnoredNames);
-        $this->phpParser = new \Doctrine\Common\Annotations\PhpParser();
+        $this->phpParser = new \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\PhpParser();
     }
     /**
      * {@inheritDoc}
      */
     public function getClassAnnotations(\ReflectionClass $class)
     {
-        $this->parser->setTarget(\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
+        $this->parser->setTarget(\_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
         $this->parser->setImports($this->getClassImports($class));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -139,7 +139,7 @@ class ConstantPreservingAnnotationReader implements \Doctrine\Common\Annotations
     {
         $class = $property->getDeclaringClass();
         $context = 'property ' . $class->getName() . '::$' . $property->getName();
-        $this->parser->setTarget(\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY);
+        $this->parser->setTarget(\_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY);
         $this->parser->setImports($this->getPropertyImports($property));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -165,7 +165,7 @@ class ConstantPreservingAnnotationReader implements \Doctrine\Common\Annotations
     {
         $class = $method->getDeclaringClass();
         $context = 'method ' . $class->getName() . '::' . $method->getName() . '()';
-        $this->parser->setTarget(\Doctrine\Common\Annotations\Annotation\Target::TARGET_METHOD);
+        $this->parser->setTarget(\_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Annotation\Target::TARGET_METHOD);
         $this->parser->setImports($this->getMethodImports($method));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -256,11 +256,11 @@ class ConstantPreservingAnnotationReader implements \Doctrine\Common\Annotations
         $ignoredAnnotationNames = self::$globalIgnoredNames;
         $annotations = $this->preParser->parse($class->getDocComment(), 'class ' . $class->name);
         foreach ($annotations as $annotation) {
-            if (!$annotation instanceof \Doctrine\Common\Annotations\Annotation\IgnoreAnnotation) {
+            if (!$annotation instanceof \_PhpScoper006a73f0e455\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation) {
                 continue;
             }
             foreach ($annotation->names as $annot) {
-                $ignoredAnnotationNames[$annot] = true;
+                $ignoredAnnotationNames[$annot] = \true;
             }
         }
         $name = $class->getName();

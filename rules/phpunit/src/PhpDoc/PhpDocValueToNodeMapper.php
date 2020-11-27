@@ -1,39 +1,33 @@
 <?php
-declare(strict_types=1);
 
+declare (strict_types=1);
 namespace Rector\PHPUnit\PhpDoc;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use Rector\Core\PhpParser\Node\NodeFactory;
-
 final class PhpDocValueToNodeMapper
 {
     /**
      * @var NodeFactory
      */
     private $nodeFactory;
-
-    public function __construct(NodeFactory $nodeFactory)
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory)
     {
         $this->nodeFactory = $nodeFactory;
     }
-
-    public function mapGenericTagValueNode(GenericTagValueNode $genericTagValueNode): Expr
+    public function mapGenericTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode $genericTagValueNode) : \PhpParser\Node\Expr
     {
-        if (Strings::contains($genericTagValueNode->value, '::')) {
-            [$class, $constant] = explode('::', $genericTagValueNode->value);
+        if (\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($genericTagValueNode->value, '::')) {
+            [$class, $constant] = \explode('::', $genericTagValueNode->value);
             return $this->nodeFactory->createShortClassConstFetch($class, $constant);
         }
-
-        $reference = ltrim($genericTagValueNode->value, '\\');
-
-        if (class_exists($reference)) {
+        $reference = \ltrim($genericTagValueNode->value, '\\');
+        if (\class_exists($reference)) {
             return $this->nodeFactory->createClassConstReference($reference);
         }
-
-        return new String_($reference);
+        return new \PhpParser\Node\Scalar\String_($reference);
     }
 }

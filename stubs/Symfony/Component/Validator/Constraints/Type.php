@@ -1,30 +1,22 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Symfony\Component\Validator\Constraints;
 
-namespace Symfony\Component\Validator\Constraints;
-
-if (class_exists('Symfony\Component\Validator\Constraints\Type')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Symfony\\Component\\Validator\\Constraints\\Type')) {
     return;
 }
-
-use Symfony\Component\Validator\Constraint;
-
+use _PhpScoper006a73f0e455\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class Type extends Constraint
+class Type extends \_PhpScoper006a73f0e455\Symfony\Component\Validator\Constraint
 {
     const INVALID_TYPE_ERROR = 'ba785a8c-82cb-4283-967c-3cf342181b40';
-
-    protected static $errorNames = [
-        self::INVALID_TYPE_ERROR => 'INVALID_TYPE_ERROR',
-    ];
-
+    protected static $errorNames = [self::INVALID_TYPE_ERROR => 'INVALID_TYPE_ERROR'];
     public $message = 'This value should be of type {{ type }}.';
     public $type;
-
     /**
      * {@inheritdoc}
      */
@@ -32,7 +24,6 @@ class Type extends Constraint
     {
         return 'type';
     }
-
     /**
      * {@inheritdoc}
      */

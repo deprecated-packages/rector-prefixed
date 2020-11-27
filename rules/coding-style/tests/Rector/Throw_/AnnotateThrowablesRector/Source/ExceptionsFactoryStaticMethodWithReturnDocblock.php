@@ -5,7 +5,6 @@ namespace Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source
 use Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException;
 use Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond;
 use Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheThird;
-
 class ExceptionsFactoryStaticMethodWithReturnDocblock
 {
     /**
@@ -19,11 +18,11 @@ class ExceptionsFactoryStaticMethodWithReturnDocblock
     {
         switch ($code) {
             case 1:
-                return new TheException();
+                return new \Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException();
             case 2:
-                return new TheExceptionTheSecond();
+                return new \Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond();
             case 3:
-                return new TheExceptionTheThird();
+                return new \Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheThird();
             default:
                 return new \RuntimeException();
         }

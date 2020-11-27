@@ -1,11 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector;
 
 use Iterator;
-use Nette\Utils\Html;
+use _PhpScoper006a73f0e455\Nette\Utils\Html;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Fixture\SkipSelfMethodRename;
 use Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Source\AbstractType;
@@ -13,38 +12,31 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class RenameMethodRectorTest extends AbstractRectorTestCase
+final class RenameMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-
     /**
      * @return array<string, mixed[]>
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
-        return [
-            RenameMethodRector::class => [
-                RenameMethodRector::METHOD_CALL_RENAMES => [
-                    new MethodCallRename(AbstractType::class, 'setDefaultOptions', 'configureOptions'),
-                    new MethodCallRename(Html::class, 'add', 'addHtml'),
-                    new MethodCallRename('*Presenter', 'run', '__invoke'),
-                    new MethodCallRename(SkipSelfMethodRename::class, 'preventPHPStormRefactoring', 'gone'),
-                    // with array key
-                    new MethodCallRenameWithArrayKey(Html::class, 'addToArray', 'addToHtmlArray', 'hey'),
-                ],
-            ],
-        ];
+        return [\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class => [\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => [
+            new \Rector\Renaming\ValueObject\MethodCallRename(\Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Source\AbstractType::class, 'setDefaultOptions', 'configureOptions'),
+            new \Rector\Renaming\ValueObject\MethodCallRename(\_PhpScoper006a73f0e455\Nette\Utils\Html::class, 'add', 'addHtml'),
+            new \Rector\Renaming\ValueObject\MethodCallRename('*Presenter', 'run', '__invoke'),
+            new \Rector\Renaming\ValueObject\MethodCallRename(\Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Fixture\SkipSelfMethodRename::class, 'preventPHPStormRefactoring', 'gone'),
+            // with array key
+            new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey(\_PhpScoper006a73f0e455\Nette\Utils\Html::class, 'addToArray', 'addToHtmlArray', 'hey'),
+        ]]];
     }
 }

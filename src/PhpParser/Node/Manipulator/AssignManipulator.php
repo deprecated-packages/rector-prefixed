@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node\Manipulator;
 
 use PhpParser\Node;
@@ -22,144 +21,107 @@ use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
 final class AssignManipulator
 {
     /**
      * @var string[]
      */
-    private const MODIFYING_NODES = [
-        AssignOp::class,
-        PreDec::class,
-        PostDec::class,
-        PreInc::class,
-        PostInc::class,
-    ];
-
+    private const MODIFYING_NODES = [\PhpParser\Node\Expr\AssignOp::class, \PhpParser\Node\Expr\PreDec::class, \PhpParser\Node\Expr\PostDec::class, \PhpParser\Node\Expr\PreInc::class, \PhpParser\Node\Expr\PostInc::class];
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
     /**
      * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
-
-    public function __construct(
-        BetterStandardPrinter $betterStandardPrinter,
-        NodeNameResolver $nodeNameResolver,
-        BetterNodeFinder $betterNodeFinder,
-        PropertyFetchAnalyzer $propertyFetchAnalyzer
-    ) {
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer)
+    {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
     }
-
     /**
      * Matches:
      * each() = [1, 2];
      */
-    public function isListToEachAssign(Assign $assign): bool
+    public function isListToEachAssign(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        if (! $assign->expr instanceof FuncCall) {
-            return false;
+        if (!$assign->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+            return \false;
         }
-
-        if (! $assign->var instanceof List_) {
-            return false;
+        if (!$assign->var instanceof \PhpParser\Node\Expr\List_) {
+            return \false;
         }
-
         return $this->nodeNameResolver->isName($assign->expr, 'each');
     }
-
-    public function isLeftPartOfAssign(Node $node): bool
+    public function isLeftPartOfAssign(\PhpParser\Node $node) : bool
     {
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof Assign && $parentNode->var === $node) {
-            return true;
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $parentNode->var === $node) {
+            return \true;
         }
-
         if ($parentNode !== null && $this->isValueModifyingNode($parentNode)) {
-            return true;
+            return \true;
         }
-
         // traverse up to array dim fetches
-        if ($parentNode instanceof ArrayDimFetch) {
+        if ($parentNode instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             $previousParentNode = $parentNode;
-            while ($parentNode instanceof ArrayDimFetch) {
+            while ($parentNode instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
                 $previousParentNode = $parentNode;
-                $parentNode = $parentNode->getAttribute(AttributeKey::PARENT_NODE);
+                $parentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             }
-
-            if ($parentNode instanceof Assign) {
+            if ($parentNode instanceof \PhpParser\Node\Expr\Assign) {
                 return $parentNode->var === $previousParentNode;
             }
         }
-
-        return false;
+        return \false;
     }
-
-    public function isNodePartOfAssign(?Node $node): bool
+    public function isNodePartOfAssign(?\PhpParser\Node $node) : bool
     {
         if ($node === null) {
-            return false;
+            return \false;
         }
-
         $previousNode = $node;
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-        while ($parentNode !== null && ! $parentNode instanceof Expression) {
-            if ($parentNode instanceof Assign && $this->betterStandardPrinter->areNodesEqual(
-                $parentNode->var,
-                $previousNode
-            )) {
-                return true;
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        while ($parentNode !== null && !$parentNode instanceof \PhpParser\Node\Stmt\Expression) {
+            if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $this->betterStandardPrinter->areNodesEqual($parentNode->var, $previousNode)) {
+                return \true;
             }
-
             $previousNode = $parentNode;
-            $parentNode = $parentNode->getAttribute(AttributeKey::PARENT_NODE);
+            $parentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @return PropertyFetch[]
      */
-    public function resolveAssignsToLocalPropertyFetches(FunctionLike $functionLike): array
+    public function resolveAssignsToLocalPropertyFetches(\PhpParser\Node\FunctionLike $functionLike) : array
     {
-        return $this->betterNodeFinder->find($functionLike->getStmts(), function (Node $node): bool {
-            if (! $this->propertyFetchAnalyzer->isLocalPropertyFetch($node)) {
-                return false;
+        return $this->betterNodeFinder->find($functionLike->getStmts(), function (\PhpParser\Node $node) : bool {
+            if (!$this->propertyFetchAnalyzer->isLocalPropertyFetch($node)) {
+                return \false;
             }
-
             return $this->isLeftPartOfAssign($node);
         });
     }
-
-    private function isValueModifyingNode(Node $node): bool
+    private function isValueModifyingNode(\PhpParser\Node $node) : bool
     {
         foreach (self::MODIFYING_NODES as $modifyingNode) {
-            if (! is_a($node, $modifyingNode)) {
+            if (!\is_a($node, $modifyingNode)) {
                 continue;
             }
-
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php70\Rector\StaticCall;
 
 use PhpParser\Node;
@@ -18,7 +17,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://thephp.cc/news/2017/07/dont-call-instance-methods-statically
  * @see https://3v4l.org/tQ32f
@@ -27,31 +25,24 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Php70\Tests\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector\StaticCallOnNonStaticToInstanceCallRectorTest
  */
-final class StaticCallOnNonStaticToInstanceCallRector extends AbstractRector
+final class StaticCallOnNonStaticToInstanceCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
-
     /**
      * @var StaticAnalyzer
      */
     private $staticAnalyzer;
-
-    public function __construct(ClassMethodManipulator $classMethodManipulator, StaticAnalyzer $staticAnalyzer)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator, \Rector\NodeCollector\StaticAnalyzer $staticAnalyzer)
     {
         $this->classMethodManipulator = $classMethodManipulator;
         $this->staticAnalyzer = $staticAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Changes static call to instance call, where not useful',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes static call to instance call, where not useful', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class Something
 {
     public function doWork()
@@ -67,8 +58,7 @@ class Another
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class Something
 {
     public function doWork()
@@ -84,105 +74,82 @@ class Another
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [StaticCall::class];
+        return [\PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param StaticCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node->name instanceof Expr) {
+        if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;
         }
-
         $methodName = $this->getName($node->name);
-
         $className = $this->resolveStaticCallClassName($node);
         if ($methodName === null || $className === null) {
             return null;
         }
-
         if ($this->shouldSkip($methodName, $className, $node)) {
             return null;
         }
-
         if ($this->isInstantiable($className)) {
-            $new = new New_($node->class);
-
-            return new MethodCall($new, $node->name, $node->args);
+            $new = new \PhpParser\Node\Expr\New_($node->class);
+            return new \PhpParser\Node\Expr\MethodCall($new, $node->name, $node->args);
         }
-
         // can we add static to method?
         $classMethodNode = $this->nodeRepository->findClassMethod($className, $methodName);
         if ($classMethodNode === null) {
             return null;
         }
-
         if ($this->classMethodManipulator->isStaticClassMethod($classMethodNode)) {
             return null;
         }
-
         $this->makeStatic($classMethodNode);
-
         return null;
     }
-
-    private function resolveStaticCallClassName(Node $node): ?string
+    private function resolveStaticCallClassName(\PhpParser\Node $node) : ?string
     {
-        if ($node->class instanceof PropertyFetch) {
+        if ($node->class instanceof \PhpParser\Node\Expr\PropertyFetch) {
             $objectType = $this->getObjectType($node->class);
-            if ($objectType instanceof ObjectType) {
+            if ($objectType instanceof \PHPStan\Type\ObjectType) {
                 return $objectType->getClassName();
             }
         }
-
         return $this->getName($node->class);
     }
-
-    private function shouldSkip(string $methodName, string $className, StaticCall $staticCall): bool
+    private function shouldSkip(string $methodName, string $className, \PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
         $isStaticMethod = $this->staticAnalyzer->isStaticMethod($methodName, $className);
         if ($isStaticMethod) {
-            return true;
+            return \true;
         }
-
         if ($this->isNames($staticCall->class, ['self', 'parent', 'static', 'class'])) {
-            return true;
+            return \true;
         }
-
-        $parentClassName = $staticCall->getAttribute(AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if ($className === $parentClassName) {
-            return true;
+            return \true;
         }
-
         return $className === null;
     }
-
-    private function isInstantiable(string $className): bool
+    private function isInstantiable(string $className) : bool
     {
-        $reflectionClass = new ReflectionClass($className);
+        $reflectionClass = new \ReflectionClass($className);
         $classConstructorReflection = $reflectionClass->getConstructor();
-
         if ($classConstructorReflection === null) {
-            return true;
+            return \true;
         }
-
-        if (! $classConstructorReflection->isPublic()) {
-            return false;
+        if (!$classConstructorReflection->isPublic()) {
+            return \false;
         }
-
         // required parameters in constructor, nothing we can do
-        return ! (bool) $classConstructorReflection->getNumberOfRequiredParameters();
+        return !(bool) $classConstructorReflection->getNumberOfRequiredParameters();
     }
 }

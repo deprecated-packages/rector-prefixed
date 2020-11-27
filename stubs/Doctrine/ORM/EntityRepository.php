@@ -1,14 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Doctrine\ORM;
 
-namespace Doctrine\ORM;
-
-if (class_exists('Doctrine\ORM\EntityRepository')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Doctrine\\ORM\\EntityRepository')) {
     return;
 }
-
 class EntityRepository
 {
-
 }

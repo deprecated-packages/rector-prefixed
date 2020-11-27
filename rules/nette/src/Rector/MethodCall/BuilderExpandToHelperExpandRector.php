@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -14,7 +13,6 @@ use PhpParser\Node\Name\FullyQualified;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -22,15 +20,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Nette\Tests\Rector\MethodCall\BuilderExpandToHelperExpandRector\BuilderExpandToHelperExpandRectorTest
  */
-final class BuilderExpandToHelperExpandRector extends AbstractRector
+final class BuilderExpandToHelperExpandRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change containerBuilder->expand() to static call with parameters',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change containerBuilder->expand() to static call with parameters', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\DI\CompilerExtension;
 
 final class SomeClass extends CompilerExtension
@@ -41,9 +35,7 @@ final class SomeClass extends CompilerExtension
     }
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Nette\DI\CompilerExtension;
 
 final class SomeClass extends CompilerExtension
@@ -54,35 +46,27 @@ final class SomeClass extends CompilerExtension
     }
 }
 CODE_SAMPLE
-
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isOnClassMethodCall($node, 'Nette\DI\ContainerBuilder', 'expand')) {
+        if (!$this->isOnClassMethodCall($node, '_PhpScoper006a73f0e455\\Nette\\DI\\ContainerBuilder', 'expand')) {
             return null;
         }
-
         $args = $node->args;
-        $getContainerBuilderMethodCall = new MethodCall(new Variable('this'), 'getContainerBuilder');
-        $parametersPropertyFetch = new PropertyFetch($getContainerBuilderMethodCall, 'parameters');
-
-        $args[] = new Arg($parametersPropertyFetch);
-
-        return new StaticCall(new FullyQualified('Nette\DI\Helpers'), 'expand', $args);
+        $getContainerBuilderMethodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getContainerBuilder');
+        $parametersPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch($getContainerBuilderMethodCall, 'parameters');
+        $args[] = new \PhpParser\Node\Arg($parametersPropertyFetch);
+        return new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name\FullyQualified('_PhpScoper006a73f0e455\\Nette\\DI\\Helpers'), 'expand', $args);
     }
 }

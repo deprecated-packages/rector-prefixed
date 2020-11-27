@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DowngradePhp80\Rector\FunctionLike;
 
 use PhpParser\Node\FunctionLike;
@@ -11,24 +10,21 @@ use PhpParser\Node\UnionType;
 use Rector\DowngradePhp71\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\DowngradePhp80\Tests\Rector\FunctionLike\DowngradeUnionTypeReturnDeclarationRector\DowngradeUnionTypeReturnDeclarationRectorTest
  */
-final class DowngradeUnionTypeReturnDeclarationRector extends AbstractDowngradeReturnDeclarationRector
+final class DowngradeUnionTypeReturnDeclarationRector extends \Rector\DowngradePhp71\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Remove returning union types, add a @return tag instead',
-            [
-                new ConfiguredCodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove returning union types, add a @return tag instead', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
+
+namespace _PhpScoper006a73f0e455;
 
 class SomeClass
 {
-    public function getSomeObject(bool $flag): string|int
+    public function getSomeObject(bool $flag) : string|int
     {
         if ($flag) {
             return 1;
@@ -36,10 +32,12 @@ class SomeClass
         return 'Hello world';
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 <?php
+
+namespace _PhpScoper006a73f0e455;
 
 class SomeClass
 {
@@ -54,26 +52,19 @@ class SomeClass
         return 'Hello world';
     }
 }
+\class_alias('_PhpScoper006a73f0e455\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
-,
-                    [
-                        self::ADD_DOC_BLOCK => true,
-                    ]
-                ),
-            ]
-        );
+, [self::ADD_DOC_BLOCK => \true])]);
     }
-
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    public function shouldRemoveReturnDeclaration(FunctionLike $functionLike): bool
+    public function shouldRemoveReturnDeclaration(\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($functionLike->returnType === null) {
-            return false;
+            return \false;
         }
-
         // Check it is the union type
-        return $functionLike->returnType instanceof UnionType;
+        return $functionLike->returnType instanceof \PhpParser\Node\UnionType;
     }
 }

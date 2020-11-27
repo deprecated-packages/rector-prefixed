@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\JMS\Serializer\Annotation;
 
-namespace JMS\Serializer\Annotation;
-
-if (class_exists('JMS\Serializer\Annotation\Type')) {
+if (\class_exists('_PhpScoper006a73f0e455\\JMS\\Serializer\\Annotation\\Type')) {
     return;
 }
-
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD","ANNOTATION"})

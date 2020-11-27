@@ -1,30 +1,25 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\Guard;
 
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Exception\NoRectorsLoadedException;
-
 final class RectorGuard
 {
     /**
      * @var ActiveRectorsProvider
      */
     private $activeRectorsProvider;
-
-    public function __construct(ActiveRectorsProvider $activeRectorsProvider)
+    public function __construct(\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider)
     {
         $this->activeRectorsProvider = $activeRectorsProvider;
     }
-
-    public function ensureSomeRectorsAreRegistered(): void
+    public function ensureSomeRectorsAreRegistered() : void
     {
         if ($this->activeRectorsProvider->provide() !== []) {
             return;
         }
-
-        throw new NoRectorsLoadedException();
+        throw new \Rector\Core\Exception\NoRectorsLoadedException();
     }
 }

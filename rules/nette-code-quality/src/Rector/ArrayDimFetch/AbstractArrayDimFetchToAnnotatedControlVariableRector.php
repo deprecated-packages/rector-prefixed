@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Rector\ArrayDimFetch;
 
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -16,132 +15,93 @@ use Rector\NetteCodeQuality\Naming\NetteControlNaming;
 use Rector\NetteCodeQuality\NodeAdding\FunctionLikeFirstLevelStatementResolver;
 use Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  */
-abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends AbstractRector
+abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ControlDimFetchAnalyzer
      */
     protected $controlDimFetchAnalyzer;
-
     /**
      * @var NetteControlNaming
      */
     protected $netteControlNaming;
-
     /**
      * @var VarAnnotationManipulator
      */
     protected $varAnnotationManipulator;
-
     /**
      * @var string[]
      */
     private $alreadyInitializedAssignsClassMethodObjectHashes = [];
-
     /**
      * @var FunctionLikeFirstLevelStatementResolver
      */
     private $functionLikeFirstLevelStatementResolver;
-
     /**
      * @required
      */
-    public function autowireAbstractArrayDimFetchToAnnotatedControlVariableRector(
-        VarAnnotationManipulator $varAnnotationManipulator,
-        ControlDimFetchAnalyzer $controlDimFetchAnalyzer,
-        NetteControlNaming $netteControlNaming,
-        FunctionLikeFirstLevelStatementResolver $functionLikeFirstLevelStatementResolver
-    ): void {
+    public function autowireAbstractArrayDimFetchToAnnotatedControlVariableRector(\Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator, \Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \Rector\NetteCodeQuality\NodeAdding\FunctionLikeFirstLevelStatementResolver $functionLikeFirstLevelStatementResolver) : void
+    {
         $this->controlDimFetchAnalyzer = $controlDimFetchAnalyzer;
         $this->netteControlNaming = $netteControlNaming;
         $this->varAnnotationManipulator = $varAnnotationManipulator;
         $this->functionLikeFirstLevelStatementResolver = $functionLikeFirstLevelStatementResolver;
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ArrayDimFetch::class];
+        return [\PhpParser\Node\Expr\ArrayDimFetch::class];
     }
-
-    protected function addAssignExpressionForFirstCase(
-        string $variableName,
-        ArrayDimFetch $arrayDimFetch,
-        ObjectType $controlObjectType
-    ): void {
+    protected function addAssignExpressionForFirstCase(string $variableName, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \PHPStan\Type\ObjectType $controlObjectType) : void
+    {
         if ($this->shouldSkipForAlreadyAddedInCurrentClassMethod($arrayDimFetch, $variableName)) {
             return;
         }
-
         $assignExpression = $this->createAnnotatedAssignExpression($variableName, $arrayDimFetch, $controlObjectType);
-
         $currentStatement = $this->functionLikeFirstLevelStatementResolver->resolveFirstLevelStatement($arrayDimFetch);
         $this->addNodeBeforeNode($assignExpression, $currentStatement);
     }
-
-    protected function isBeingAssignedOrInitialized(ArrayDimFetch $arrayDimFetch): bool
+    protected function isBeingAssignedOrInitialized(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
-        $parent = $arrayDimFetch->getAttribute(AttributeKey::PARENT_NODE);
-        if (! $parent instanceof Assign) {
-            return false;
+        $parent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
+            return \false;
         }
-
         if ($parent->var === $arrayDimFetch) {
-            return true;
+            return \true;
         }
-
         return $parent->expr === $arrayDimFetch;
     }
-
-    private function shouldSkipForAlreadyAddedInCurrentClassMethod(
-        ArrayDimFetch $arrayDimFetch,
-        string $variableName
-    ): bool {
+    private function shouldSkipForAlreadyAddedInCurrentClassMethod(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $variableName) : bool
+    {
         /** @var ClassMethod|null $classMethod */
-        $classMethod = $arrayDimFetch->getAttribute(AttributeKey::METHOD_NODE);
-
+        $classMethod = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod === null) {
-            return false;
+            return \false;
         }
-
-        $classMethodObjectHash = spl_object_hash($classMethod) . $variableName;
-        if (in_array($classMethodObjectHash, $this->alreadyInitializedAssignsClassMethodObjectHashes, true)) {
-            return true;
+        $classMethodObjectHash = \spl_object_hash($classMethod) . $variableName;
+        if (\in_array($classMethodObjectHash, $this->alreadyInitializedAssignsClassMethodObjectHashes, \true)) {
+            return \true;
         }
-
         $this->alreadyInitializedAssignsClassMethodObjectHashes[] = $classMethodObjectHash;
-
-        return false;
+        return \false;
     }
-
-    private function createAnnotatedAssignExpression(
-        string $variableName,
-        ArrayDimFetch $arrayDimFetch,
-        ObjectType $controlObjectType
-    ): Expression {
+    private function createAnnotatedAssignExpression(string $variableName, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \PHPStan\Type\ObjectType $controlObjectType) : \PhpParser\Node\Stmt\Expression
+    {
         $assignExpression = $this->createAssignExpression($variableName, $arrayDimFetch);
-
-        $this->varAnnotationManipulator->decorateNodeWithInlineVarType(
-            $assignExpression,
-            $controlObjectType,
-            $variableName
-        );
-
+        $this->varAnnotationManipulator->decorateNodeWithInlineVarType($assignExpression, $controlObjectType, $variableName);
         return $assignExpression;
     }
-
-    private function createAssignExpression(string $variableName, ArrayDimFetch $arrayDimFetch): Expression
+    private function createAssignExpression(string $variableName, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : \PhpParser\Node\Stmt\Expression
     {
-        $variable = new Variable($variableName);
+        $variable = new \PhpParser\Node\Expr\Variable($variableName);
         $assignedArrayDimFetch = clone $arrayDimFetch;
-        $assign = new Assign($variable, $assignedArrayDimFetch);
-
-        return new Expression($assign);
+        $assign = new \PhpParser\Node\Expr\Assign($variable, $assignedArrayDimFetch);
+        return new \PhpParser\Node\Stmt\Expression($assign);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Generic\Rector\Class_;
 
 use PhpParser\Node;
@@ -12,99 +11,76 @@ use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Generic\Tests\Rector\Class_\AddInterfaceByTraitRector\AddInterfaceByTraitRectorTest
  */
-final class AddInterfaceByTraitRector extends AbstractRector implements ConfigurableRectorInterface
+final class AddInterfaceByTraitRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const INTERFACE_BY_TRAIT = '$interfaceByTrait';
-
     /**
      * @var string[]
      */
     private $interfaceByTrait = [];
-
     /**
      * @var ClassManipulator
      */
     private $classManipulator;
-
-    public function __construct(ClassManipulator $classManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator)
     {
         $this->classManipulator = $classManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Add interface by used trait', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add interface by used trait', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     use SomeTrait;
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass implements SomeInterface
 {
     use SomeTrait;
 }
 CODE_SAMPLE
-            , [
-                self::INTERFACE_BY_TRAIT => [
-                    'SomeTrait' => 'SomeInterface',
-                ],
-            ]),
-        ]);
+, [self::INTERFACE_BY_TRAIT => ['SomeTrait' => 'SomeInterface']])]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->isAnonymousClass($node)) {
             return null;
         }
-
         $usedTraitNames = $this->classManipulator->getUsedTraits($node);
         if ($usedTraitNames === []) {
             return null;
         }
-
         $implementedInterfaceNames = $this->classManipulator->getImplementedInterfaceNames($node);
-
-        foreach (array_keys($usedTraitNames) as $traitName) {
-            if (! isset($this->interfaceByTrait[$traitName])) {
+        foreach (\array_keys($usedTraitNames) as $traitName) {
+            if (!isset($this->interfaceByTrait[$traitName])) {
                 continue;
             }
-
             $interfaceNameToAdd = $this->interfaceByTrait[$traitName];
-
-            if (in_array($interfaceNameToAdd, $implementedInterfaceNames, true)) {
+            if (\in_array($interfaceNameToAdd, $implementedInterfaceNames, \true)) {
                 continue;
             }
-
-            $node->implements[] = new FullyQualified($interfaceNameToAdd);
+            $node->implements[] = new \PhpParser\Node\Name\FullyQualified($interfaceNameToAdd);
         }
-
         return $node;
     }
-
-    public function configure(array $configuration): void
+    public function configure(array $configuration) : void
     {
         $this->interfaceByTrait = $configuration[self::INTERFACE_BY_TRAIT] ?? [];
     }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DeadCode\Rector\MethodCall;
 
 use PhpParser\BuilderHelpers;
@@ -17,19 +16,14 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionFunction;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\DeadCode\Tests\Rector\MethodCall\RemoveDefaultArgumentValueRector\RemoveDefaultArgumentValueRectorTest
  */
-final class RemoveDefaultArgumentValueRector extends AbstractRector
+final class RemoveDefaultArgumentValueRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Remove argument value, if it is the same as default value',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove argument value, if it is the same as default value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -49,8 +43,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -70,196 +63,160 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class, StaticCall::class, FuncCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\FuncCall::class];
     }
-
     /**
      * @param MethodCall|StaticCall|FuncCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
         $defaultValues = $this->resolveDefaultValuesFromCall($node);
-
         $keysToRemove = $this->resolveKeysToRemove($node, $defaultValues);
         if ($keysToRemove === []) {
             return null;
         }
-
         foreach ($keysToRemove as $keyToRemove) {
             $this->removeArg($node, $keyToRemove);
         }
-
         return $node;
     }
-
     /**
      * @param MethodCall|StaticCall|FuncCall $node
      */
-    private function shouldSkip(Node $node): bool
+    private function shouldSkip(\PhpParser\Node $node) : bool
     {
         if ($node->args === []) {
-            return true;
+            return \true;
         }
-
-        if (! $node instanceof FuncCall) {
-            return false;
+        if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+            return \false;
         }
-
-        if (! $node->name instanceof Name) {
-            return true;
+        if (!$node->name instanceof \PhpParser\Node\Name) {
+            return \true;
         }
-
         $functionName = $this->getName($node);
         if ($functionName === null) {
-            return false;
+            return \false;
         }
-
-        if (! function_exists($functionName)) {
-            return false;
+        if (!\function_exists($functionName)) {
+            return \false;
         }
-
-        $reflectionFunction = new ReflectionFunction($functionName);
-
+        $reflectionFunction = new \ReflectionFunction($functionName);
         // skip native functions, hard to analyze without stubs (stubs would make working with IDE non-practical)
         return $reflectionFunction->isInternal();
     }
-
     /**
      * @param StaticCall|FuncCall|MethodCall $node
      * @return Node[]
      */
-    private function resolveDefaultValuesFromCall(Node $node): array
+    private function resolveDefaultValuesFromCall(\PhpParser\Node $node) : array
     {
         $nodeName = $this->resolveNodeName($node);
         if ($nodeName === null) {
             return [];
         }
-
-        if ($node instanceof FuncCall) {
+        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             return $this->resolveFuncCallDefaultParamValues($nodeName);
         }
-
         /** @var string|null $className */
-        $className = $node->getAttribute(AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // anonymous class
         if ($className === null) {
             return [];
         }
-
         $classMethodNode = $this->nodeRepository->findClassMethod($className, $nodeName);
         if ($classMethodNode !== null) {
             return $this->resolveDefaultParamValuesFromFunctionLike($classMethodNode);
         }
-
         return [];
     }
-
     /**
      * @param StaticCall|MethodCall|FuncCall $node
      * @param Expr[]|mixed[] $defaultValues
      * @return int[]
      */
-    private function resolveKeysToRemove(Node $node, array $defaultValues): array
+    private function resolveKeysToRemove(\PhpParser\Node $node, array $defaultValues) : array
     {
         $keysToRemove = [];
         $keysToKeep = [];
-
         /** @var int $key */
         foreach ($node->args as $key => $arg) {
-            if (! isset($defaultValues[$key])) {
+            if (!isset($defaultValues[$key])) {
                 $keysToKeep[] = $key;
                 continue;
             }
-
             if ($this->areNodesEqual($defaultValues[$key], $arg->value)) {
                 $keysToRemove[] = $key;
             } else {
                 $keysToKeep[] = $key;
             }
         }
-
         if ($keysToRemove === []) {
             return [];
         }
-
-        if ($keysToKeep !== [] && max($keysToKeep) > max($keysToRemove)) {
+        if ($keysToKeep !== [] && \max($keysToKeep) > \max($keysToRemove)) {
             return [];
         }
-
         /** @var int[] $keysToRemove */
         return $keysToRemove;
     }
-
     /**
      * @param StaticCall|FuncCall|MethodCall $node
      */
-    private function resolveNodeName(Node $node): ?string
+    private function resolveNodeName(\PhpParser\Node $node) : ?string
     {
-        if ($node instanceof FuncCall) {
+        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             return $this->getName($node);
         }
-
         return $this->getName($node->name);
     }
-
     /**
      * @return Node[]|Expr[]
      */
-    private function resolveFuncCallDefaultParamValues(string $nodeName): array
+    private function resolveFuncCallDefaultParamValues(string $nodeName) : array
     {
         $functionNode = $this->nodeRepository->findFunction($nodeName);
         if ($functionNode !== null) {
             return $this->resolveDefaultParamValuesFromFunctionLike($functionNode);
         }
-
         // non existing function
-        if (! function_exists($nodeName)) {
+        if (!\function_exists($nodeName)) {
             return [];
         }
-
-        $reflectionFunction = new ReflectionFunction($nodeName);
+        $reflectionFunction = new \ReflectionFunction($nodeName);
         if ($reflectionFunction->isUserDefined()) {
             $defaultValues = [];
             foreach ($reflectionFunction->getParameters() as $key => $reflectionParameter) {
                 if ($reflectionParameter->isDefaultValueAvailable()) {
-                    $defaultValues[$key] = BuilderHelpers::normalizeValue($reflectionParameter->getDefaultValue());
+                    $defaultValues[$key] = \PhpParser\BuilderHelpers::normalizeValue($reflectionParameter->getDefaultValue());
                 }
             }
-
             return $defaultValues;
         }
-
         return [];
     }
-
     /**
      * @return Node[]
      */
-    private function resolveDefaultParamValuesFromFunctionLike(FunctionLike $functionLike): array
+    private function resolveDefaultParamValuesFromFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $defaultValues = [];
         foreach ($functionLike->getParams() as $key => $param) {
             if ($param->default === null) {
                 continue;
             }
-
             $defaultValues[$key] = $param->default;
         }
-
         return $defaultValues;
     }
 }

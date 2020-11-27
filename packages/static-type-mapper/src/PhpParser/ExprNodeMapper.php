@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\StaticTypeMapper\PhpParser;
 
 use PhpParser\Node;
@@ -11,25 +10,22 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
-
-final class ExprNodeMapper implements PhpParserNodeMapperInterface
+final class ExprNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
 {
-    public function getNodeType(): string
+    public function getNodeType() : string
     {
-        return Expr::class;
+        return \PhpParser\Node\Expr::class;
     }
-
     /**
      * @param Expr $node
      */
-    public function mapToPHPStan(Node $node): Type
+    public function mapToPHPStan(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         /** @var Scope|null $scope */
-        $scope = $node->getAttribute(AttributeKey::SCOPE);
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
-            return new MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-
         return $scope->getType($node);
     }
 }

@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Sensio\Helper;
 
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Sensio\BundleClassResolver;
-
 /**
  * @see \Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector\TemplateAnnotationToThisRenderRectorTest
  */
@@ -21,109 +19,89 @@ final class TemplateGuesser
      * @see https://regex101.com/r/yZAUAC/1
      */
     private const BUNDLE_SUFFIX_REGEX = '#Bundle$#';
-
     /**
      * @var string
      * @see https://regex101.com/r/T6ItFG/1
      */
-    private const BUNDLE_NAME_MATCHING_REGEX = '#(?<bundle>[\w]*Bundle)#';
-
+    private const BUNDLE_NAME_MATCHING_REGEX = '#(?<bundle>[\\w]*Bundle)#';
     /**
      * @var string
      * @see https://regex101.com/r/5dNkCC/2
      */
-    private const SMALL_LETTER_BIG_LETTER_REGEX = '#([a-z\d])([A-Z])#';
-
+    private const SMALL_LETTER_BIG_LETTER_REGEX = '#([a-z\\d])([A-Z])#';
     /**
      * @var string
      * @see https://regex101.com/r/YUrmAD/1
      */
-    private const CONTROLLER_NAME_MATCH_REGEX = '#Controller\\\(.+)Controller$#';
-
+    private const CONTROLLER_NAME_MATCH_REGEX = '#Controller\\\\(.+)Controller$#';
     /**
      * @var string
      * @see https://regex101.com/r/nj8Ojf/1
      */
     private const ACTION_MATCH_REGEX = '#Action$#';
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var BundleClassResolver
      */
     private $bundleClassResolver;
-
-    public function __construct(BundleClassResolver $bundleClassResolver, NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\Sensio\BundleClassResolver $bundleClassResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->bundleClassResolver = $bundleClassResolver;
     }
-
-    public function resolveFromClassMethodNode(ClassMethod $classMethod): string
+    public function resolveFromClassMethodNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : string
     {
-        $namespace = $classMethod->getAttribute(AttributeKey::NAMESPACE_NAME);
-        if (! is_string($namespace)) {
-            throw new ShouldNotHappenException();
+        $namespace = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
+        if (!\is_string($namespace)) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        $class = $classMethod->getAttribute(AttributeKey::CLASS_NAME);
-        if (! is_string($class)) {
-            throw new ShouldNotHappenException();
+        $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if (!\is_string($class)) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         $method = $this->nodeNameResolver->getName($classMethod);
         if ($method === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         return $this->resolve($namespace, $class, $method);
     }
-
     /**
      * Mimics https://github.com/sensiolabs/SensioFrameworkExtraBundle/blob/v5.0.0/Templating/TemplateGuesser.php
      */
-    private function resolve(string $namespace, string $class, string $method): string
+    private function resolve(string $namespace, string $class, string $method) : string
     {
         $bundle = $this->resolveBundle($class, $namespace);
         $controller = $this->resolveController($class);
-
-        $action = Strings::replace($method, self::ACTION_MATCH_REGEX);
-
+        $action = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($method, self::ACTION_MATCH_REGEX);
         $fullPath = '';
         if ($bundle !== '') {
             $fullPath .= $bundle . '/';
         }
-
         if ($controller !== '') {
             $fullPath .= $controller . '/';
         }
-
         return $fullPath . $action . '.html.twig';
     }
-
-    private function resolveBundle(string $class, string $namespace): string
+    private function resolveBundle(string $class, string $namespace) : string
     {
         $shortBundleClass = $this->bundleClassResolver->resolveShortBundleClassFromControllerClass($class);
         if ($shortBundleClass !== null) {
             return '@' . $shortBundleClass;
         }
-
-        $bundle = Strings::match($namespace, self::BUNDLE_NAME_MATCHING_REGEX)['bundle'] ?? '';
-        $bundle = Strings::replace($bundle, self::BUNDLE_SUFFIX_REGEX);
+        $bundle = \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($namespace, self::BUNDLE_NAME_MATCHING_REGEX)['bundle'] ?? '';
+        $bundle = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($bundle, self::BUNDLE_SUFFIX_REGEX);
         return $bundle !== '' ? '@' . $bundle : '';
     }
-
-    private function resolveController(string $class): string
+    private function resolveController(string $class) : string
     {
-        $match = Strings::match($class, self::CONTROLLER_NAME_MATCH_REGEX);
-        if (! $match) {
+        $match = \_PhpScoper006a73f0e455\Nette\Utils\Strings::match($class, self::CONTROLLER_NAME_MATCH_REGEX);
+        if (!$match) {
             return '';
         }
-
-        $controller = Strings::replace($match[1], self::SMALL_LETTER_BIG_LETTER_REGEX, '\\1_\\2');
-        return str_replace('\\', '/', $controller);
+        $controller = \_PhpScoper006a73f0e455\Nette\Utils\Strings::replace($match[1], self::SMALL_LETTER_BIG_LETTER_REGEX, '_PhpScoper006a73f0e455\\1_\\2');
+        return \str_replace('\\', '/', $controller);
     }
 }

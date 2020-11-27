@@ -12,7 +12,7 @@ final class AnotherClassFactory
     {
         $this->turnMeToService = $turnMeToService;
     }
-    public function create(): \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClass
+    public function create() : \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClass
     {
         return new \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClass($this->turnMeToService);
     }

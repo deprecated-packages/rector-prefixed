@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Property;
 
 use PhpParser\Node;
@@ -15,31 +14,24 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrinePropertyAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @sponsor Thanks https://www.luzanky.cz/ for sponsoring this rule
  *
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\Property\CorrectDefaultTypesOnEntityPropertyRector\CorrectDefaultTypesOnEntityPropertyRectorTest
  */
-final class CorrectDefaultTypesOnEntityPropertyRector extends AbstractRector
+final class CorrectDefaultTypesOnEntityPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var DoctrinePropertyAnalyzer
      */
     private $doctrinePropertyAnalyzer;
-
-    public function __construct(DoctrinePropertyAnalyzer $doctrinePropertyAnalyzer)
+    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrinePropertyAnalyzer $doctrinePropertyAnalyzer)
     {
         $this->doctrinePropertyAnalyzer = $doctrinePropertyAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change default value types to match Doctrine annotation type',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change default value types to match Doctrine annotation type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -53,9 +45,7 @@ class User
     private $isOld = '0';
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -69,83 +59,67 @@ class User
     private $isOld = false;
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Property::class];
+        return [\PhpParser\Node\Stmt\Property::class];
     }
-
     /**
      * @param Property $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $columnTagValueNode = $this->doctrinePropertyAnalyzer->matchDoctrineColumnTagValueNode($node);
         if ($columnTagValueNode === null) {
             return null;
         }
-
         $onlyProperty = $node->props[0];
-
         $defaultValue = $onlyProperty->default;
         if ($defaultValue === null) {
             return null;
         }
-
-        if (in_array($columnTagValueNode->getType(), ['bool', 'boolean'], true)) {
+        if (\in_array($columnTagValueNode->getType(), ['bool', 'boolean'], \true)) {
             return $this->refactorToBoolType($onlyProperty, $node);
         }
-
-        if (in_array($columnTagValueNode->getType(), ['int', 'integer', 'bigint', 'smallint'], true)) {
+        if (\in_array($columnTagValueNode->getType(), ['int', 'integer', 'bigint', 'smallint'], \true)) {
             return $this->refactorToIntType($onlyProperty, $node);
         }
-
         return null;
     }
-
-    private function refactorToBoolType(PropertyProperty $propertyProperty, Property $property): ?Property
+    private function refactorToBoolType(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
         if ($propertyProperty->default === null) {
             return null;
         }
-
         $defaultExpr = $propertyProperty->default;
-        if ($defaultExpr instanceof String_) {
-            $propertyProperty->default = boolval($defaultExpr->value) ? $this->createTrue() : $this->createFalse();
+        if ($defaultExpr instanceof \PhpParser\Node\Scalar\String_) {
+            $propertyProperty->default = \boolval($defaultExpr->value) ? $this->createTrue() : $this->createFalse();
             return $property;
         }
-        if ($defaultExpr instanceof ConstFetch) {
+        if ($defaultExpr instanceof \PhpParser\Node\Expr\ConstFetch) {
             // already ok
             return null;
         }
-
-        throw new NotImplementedYetException();
+        throw new \Rector\Core\Exception\NotImplementedYetException();
     }
-
-    private function refactorToIntType(PropertyProperty $propertyProperty, Property $property): ?Property
+    private function refactorToIntType(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
         if ($propertyProperty->default === null) {
             return null;
         }
-
         $defaultExpr = $propertyProperty->default;
-        if ($defaultExpr instanceof String_) {
-            $propertyProperty->default = new LNumber((int) $defaultExpr->value);
+        if ($defaultExpr instanceof \PhpParser\Node\Scalar\String_) {
+            $propertyProperty->default = new \PhpParser\Node\Scalar\LNumber((int) $defaultExpr->value);
             return $property;
         }
-
-        if ($defaultExpr instanceof LNumber) {
+        if ($defaultExpr instanceof \PhpParser\Node\Scalar\LNumber) {
             // already correct
             return null;
         }
-
-        throw new NotImplementedYetException();
+        throw new \Rector\Core\Exception\NotImplementedYetException();
     }
 }

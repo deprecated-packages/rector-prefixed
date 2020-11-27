@@ -1,13 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Testing\PHPUnit;
 
 use Iterator;
-use Nette\Utils\Strings;
+use _PhpScoper006a73f0e455\Nette\Utils\Strings;
 use PHPStan\Analyser\NodeScopeResolver;
-use PHPUnit\Framework\ExpectationFailedException;
+use _PhpScoper006a73f0e455\PHPUnit\Framework\ExpectationFailedException;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
@@ -30,10 +29,10 @@ use Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
 use Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
 use Rector\Testing\PHPUnit\Behavior\RunnableTestTrait;
 use Rector\Testing\ValueObject\InputFilePathWithExpectedFile;
-use Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpKernel\KernelInterface;
+use _PhpScoper006a73f0e455\Symfony\Component\DependencyInjection\Container;
+use _PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelInterface;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use Symplify\EasyTesting\StaticFixtureSplitter;
@@ -41,477 +40,366 @@ use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
-
-abstract class AbstractRectorTestCase extends AbstractKernelTestCase
+abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     use MovingFilesTrait;
     use RunnableTestTrait;
-
     /**
      * @var int
      */
     private const PHP_VERSION_UNDEFINED = 0;
-
     /**
      * @var FileProcessor
      */
     protected $fileProcessor;
-
     /**
      * @var SmartFileSystem
      */
     protected $smartFileSystem;
-
     /**
      * @var NonPhpFileProcessor
      */
     protected $nonPhpFileProcessor;
-
     /**
      * @var ParameterProvider
      */
     protected $parameterProvider;
-
     /**
      * @var RunnableRectorFactory
      */
     protected $runnableRectorFactory;
-
     /**
      * @var NodeScopeResolver
      */
     protected $nodeScopeResolver;
-
     /**
      * @var FixtureGuard
      */
     protected $fixtureGuard;
-
     /**
      * @var RemovedAndAddedFilesCollector
      */
     protected $removedAndAddedFilesCollector;
-
     /**
      * @var SmartFileInfo
      */
     protected $originalTempFileInfo;
-
     /**
      * @var Container|ContainerInterface|null
      */
     protected static $allRectorContainer;
-
     /**
      * @var bool
      */
-    private $autoloadTestFixture = true;
-
+    private $autoloadTestFixture = \true;
     /**
      * @var mixed[]
      */
     private $oldParameterValues = [];
-
-    protected function setUp(): void
+    protected function setUp() : void
     {
-        $this->runnableRectorFactory = new RunnableRectorFactory();
-        $this->smartFileSystem = new SmartFileSystem();
-        $this->fixtureGuard = new FixtureGuard();
-
+        $this->runnableRectorFactory = new \Rector\Testing\PHPUnit\RunnableRectorFactory();
+        $this->smartFileSystem = new \Symplify\SmartFileSystem\SmartFileSystem();
+        $this->fixtureGuard = new \Rector\Testing\Guard\FixtureGuard();
         if ($this->provideConfigFileInfo() !== null) {
             $configFileInfos = $this->resolveConfigs($this->provideConfigFileInfo());
-
-            $this->bootKernelWithConfigInfos(RectorKernel::class, $configFileInfos);
-
-            $enabledRectorsProvider = static::$container->get(EnabledRectorsProvider::class);
+            $this->bootKernelWithConfigInfos(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
+            $enabledRectorsProvider = static::$container->get(\Rector\Testing\Application\EnabledRectorsProvider::class);
             $enabledRectorsProvider->reset();
         } else {
             // prepare container with all rectors
             // cache only rector tests - defined in phpunit.xml
-            if (defined('RECTOR_REPOSITORY')) {
+            if (\defined('RECTOR_REPOSITORY')) {
                 $this->createRectorRepositoryContainer();
             } else {
                 // boot core config, where 3rd party services might be loaded
-                $rootRectorPhp = getcwd() . '/rector.php';
+                $rootRectorPhp = \getcwd() . '/rector.php';
                 $configs = [];
-
-                if (file_exists($rootRectorPhp)) {
+                if (\file_exists($rootRectorPhp)) {
                     $configs[] = $rootRectorPhp;
                 }
-
                 // 3rd party
                 $configs[] = $this->getConfigFor3rdPartyTest();
-                $this->bootKernelWithConfigs(RectorKernel::class, $configs);
+                $this->bootKernelWithConfigs(\Rector\Core\HttpKernel\RectorKernel::class, $configs);
             }
-
-            $enabledRectorsProvider = self::$container->get(EnabledRectorsProvider::class);
+            $enabledRectorsProvider = self::$container->get(\Rector\Testing\Application\EnabledRectorsProvider::class);
             $enabledRectorsProvider->reset();
             $this->configureEnabledRectors($enabledRectorsProvider);
         }
-
         // load stubs
-        $stubLoader = static::$container->get(StubLoader::class);
+        $stubLoader = static::$container->get(\Rector\Core\Stubs\StubLoader::class);
         $stubLoader->loadStubs();
-
         // disable any output
-        $symfonyStyle = static::$container->get(SymfonyStyle::class);
-        $symfonyStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
-
-        $this->fileProcessor = static::$container->get(FileProcessor::class);
-        $this->nonPhpFileProcessor = static::$container->get(NonPhpFileProcessor::class);
-        $this->parameterProvider = static::$container->get(ParameterProvider::class);
-        $this->removedAndAddedFilesCollector = self::$container->get(RemovedAndAddedFilesCollector::class);
+        $symfonyStyle = static::$container->get(\Symfony\Component\Console\Style\SymfonyStyle::class);
+        $symfonyStyle->setVerbosity(\_PhpScoper006a73f0e455\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
+        $this->fileProcessor = static::$container->get(\Rector\Core\Application\FileProcessor::class);
+        $this->nonPhpFileProcessor = static::$container->get(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
+        $this->parameterProvider = static::$container->get(\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        $this->removedAndAddedFilesCollector = self::$container->get(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
-
         // needed for PHPStan, because the analyzed file is just create in /temp
-        $this->nodeScopeResolver = static::$container->get(NodeScopeResolver::class);
-
+        $this->nodeScopeResolver = static::$container->get(\PHPStan\Analyser\NodeScopeResolver::class);
         $this->configurePhpVersionFeatures();
-
         // so the files are removed and added
-        $configuration = static::$container->get(Configuration::class);
-        $configuration->setIsDryRun(false);
-
+        $configuration = static::$container->get(\Rector\Core\Configuration\Configuration::class);
+        $configuration->setIsDryRun(\false);
         $this->oldParameterValues = [];
     }
-
-    protected function tearDown(): void
+    protected function tearDown() : void
     {
         $this->restoreOldParameterValues();
-
         // restore PHP version if changed
         if ($this->getPhpVersion() !== self::PHP_VERSION_UNDEFINED) {
-            $this->setParameter(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_10_0);
+            $this->setParameter(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, \Rector\Core\ValueObject\PhpVersion::PHP_10_0);
         }
     }
-
-    protected function getRectorClass(): string
+    protected function getRectorClass() : string
     {
         // can be implemented
         return '';
     }
-
-    protected function provideConfigFileInfo(): ?SmartFileInfo
+    protected function provideConfigFileInfo() : ?\Symplify\SmartFileSystem\SmartFileInfo
     {
         // can be implemented
         return null;
     }
-
     /**
      * @deprecated Use config instead, just to narrow 2 ways to add configured config to just 1. Now
      * with PHP its easy pick.
      *
      * @return mixed[]
      */
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorsWithConfiguration() : array
     {
         // can be implemented, has the highest priority
         return [];
     }
-
     /**
      * @return mixed[]
      */
-    protected function getCurrentTestRectorClassesWithConfiguration(): array
+    protected function getCurrentTestRectorClassesWithConfiguration() : array
     {
         if ($this->getRectorsWithConfiguration() !== []) {
-            foreach (array_keys($this->getRectorsWithConfiguration()) as $rectorClass) {
+            foreach (\array_keys($this->getRectorsWithConfiguration()) as $rectorClass) {
                 $this->ensureRectorClassIsValid($rectorClass, 'getRectorsWithConfiguration');
             }
-
             return $this->getRectorsWithConfiguration();
         }
-
         $rectorClass = $this->getRectorClass();
         $this->ensureRectorClassIsValid($rectorClass, 'getRectorClass');
-
-        return [
-            $rectorClass => null,
-        ];
+        return [$rectorClass => null];
     }
-
-    protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php.inc'): Iterator
+    protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php.inc') : \Iterator
     {
-        return StaticFixtureFinder::yieldDirectory($directory, $suffix);
+        return \Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
-
     /**
      * @param mixed $value
      */
-    protected function setParameter(string $name, $value): void
+    protected function setParameter(string $name, $value) : void
     {
-        $parameterProvider = self::$container->get(ParameterProvider::class);
-
-        if ($name !== Option::PHP_VERSION_FEATURES) {
+        $parameterProvider = self::$container->get(\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        if ($name !== \Rector\Core\Configuration\Option::PHP_VERSION_FEATURES) {
             $oldParameterValue = $parameterProvider->provideParameter($name);
             $this->oldParameterValues[$name] = $oldParameterValue;
         }
-
         $parameterProvider->changeParameter($name, $value);
     }
-
     /**
      * @deprecated Will be supported in Symplify 9
      * @param SmartFileInfo[] $configFileInfos
      */
-    protected function bootKernelWithConfigInfos(string $class, array $configFileInfos): KernelInterface
+    protected function bootKernelWithConfigInfos(string $class, array $configFileInfos) : \_PhpScoper006a73f0e455\Symfony\Component\HttpKernel\KernelInterface
     {
         $configFiles = [];
         foreach ($configFileInfos as $configFileInfo) {
             $configFiles[] = $configFileInfo->getRealPath();
         }
-
         return $this->bootKernelWithConfigs($class, $configFiles);
     }
-
-    protected function getPhpVersion(): int
+    protected function getPhpVersion() : int
     {
         // to be implemented
         return 0;
     }
-
-    protected function assertFileMissing(string $temporaryFilePath): void
+    protected function assertFileMissing(string $temporaryFilePath) : void
     {
         // PHPUnit 9.0 ready
-        if (method_exists($this, 'assertFileDoesNotExist')) {
+        if (\method_exists($this, 'assertFileDoesNotExist')) {
             $this->assertFileDoesNotExist($temporaryFilePath);
         } else {
             // PHPUnit 8.0 ready
             $this->assertFileNotExists($temporaryFilePath);
         }
     }
-
-    protected function doTestFileInfoWithoutAutoload(SmartFileInfo $fileInfo): void
+    protected function doTestFileInfoWithoutAutoload(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->autoloadTestFixture = false;
+        $this->autoloadTestFixture = \false;
         $this->doTestFileInfo($fileInfo);
-        $this->autoloadTestFixture = true;
+        $this->autoloadTestFixture = \true;
     }
-
     /**
      * @param InputFilePathWithExpectedFile[] $extraFiles
      */
-    protected function doTestFileInfo(SmartFileInfo $fixtureFileInfo, array $extraFiles = []): void
+    protected function doTestFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
     {
         $this->fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
-
-        $inputFileInfoAndExpectedFileInfo = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos(
-            $fixtureFileInfo,
-            $this->autoloadTestFixture
-        );
-
+        $inputFileInfoAndExpectedFileInfo = \Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $this->autoloadTestFixture);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
         $this->nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
-
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
-
         $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo, $extraFiles);
         $this->originalTempFileInfo = $inputFileInfo;
-
         // runnable?
-        if (! file_exists($inputFileInfo->getPathname())) {
+        if (!\file_exists($inputFileInfo->getPathname())) {
             return;
         }
-
-        if (! Strings::contains($inputFileInfo->getContents(), RunnableInterface::class)) {
+        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::contains($inputFileInfo->getContents(), \Rector\Testing\Contract\RunnableInterface::class)) {
             return;
         }
-
         $this->assertOriginalAndFixedFileResultEquals($inputFileInfo, $expectedFileInfo);
     }
-
-    protected function getTempPath(): string
+    protected function getTempPath() : string
     {
-        return StaticFixtureSplitter::getTemporaryPath();
+        return \Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath();
     }
-
-    protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath): void
+    protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
     {
-        $temporaryPath = StaticFixtureSplitter::getTemporaryPath();
+        $temporaryPath = \Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath();
         $expectedFilePath = $temporaryPath . '/' . $expectedExtraFileName;
         $this->assertFileExists($expectedFilePath);
-
         $this->assertFileEquals($expectedExtraContentFilePath, $expectedFilePath);
     }
-
-    protected function getFixtureTempDirectory(): string
+    protected function getFixtureTempDirectory() : string
     {
-        return sys_get_temp_dir() . '/_temp_fixture_easy_testing';
+        return \sys_get_temp_dir() . '/_temp_fixture_easy_testing';
     }
-
     /**
      * @return SmartFileInfo[]
      */
-    private function resolveConfigs(SmartFileInfo $configFileInfo): array
+    private function resolveConfigs(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         $configFileInfos = [$configFileInfo];
-
-        $rectorConfigsResolver = new RectorConfigsResolver();
+        $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
         $setFileInfos = $rectorConfigsResolver->resolveSetFileInfosFromConfigFileInfos($configFileInfos);
-
-        return array_merge($configFileInfos, $setFileInfos);
+        return \array_merge($configFileInfos, $setFileInfos);
     }
-
-    private function createRectorRepositoryContainer(): void
+    private function createRectorRepositoryContainer() : void
     {
         if (self::$allRectorContainer === null) {
             $this->createContainerWithAllRectors();
-
             self::$allRectorContainer = self::$container;
             return;
         }
-
         // load from cache
         self::$container = self::$allRectorContainer;
     }
-
-    private function getConfigFor3rdPartyTest(): string
+    private function getConfigFor3rdPartyTest() : string
     {
         $rectorClassesWithConfiguration = $this->getCurrentTestRectorClassesWithConfiguration();
-
-        $filePath = sprintf(sys_get_temp_dir() . '/rector_temp_tests/current_test.php');
+        $filePath = \sprintf(\sys_get_temp_dir() . '/rector_temp_tests/current_test.php');
         $this->createPhpConfigFileAndDumpToPath($rectorClassesWithConfiguration, $filePath);
-
         return $filePath;
     }
-
-    private function configureEnabledRectors(EnabledRectorsProvider $enabledRectorsProvider): void
+    private function configureEnabledRectors(\Rector\Testing\Application\EnabledRectorsProvider $enabledRectorsProvider) : void
     {
         foreach ($this->getCurrentTestRectorClassesWithConfiguration() as $rectorClass => $configuration) {
             $enabledRectorsProvider->addEnabledRector($rectorClass, (array) $configuration);
         }
     }
-
-    private function configurePhpVersionFeatures(): void
+    private function configurePhpVersionFeatures() : void
     {
         if ($this->getPhpVersion() === self::PHP_VERSION_UNDEFINED) {
             return;
         }
-
-        $this->setParameter(Option::PHP_VERSION_FEATURES, $this->getPhpVersion());
+        $this->setParameter(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, $this->getPhpVersion());
     }
-
-    private function restoreOldParameterValues(): void
+    private function restoreOldParameterValues() : void
     {
         if ($this->oldParameterValues === []) {
             return;
         }
-
-        $parameterProvider = self::$container->get(ParameterProvider::class);
-
+        $parameterProvider = self::$container->get(\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         foreach ($this->oldParameterValues as $name => $oldParameterValue) {
             $parameterProvider->changeParameter($name, $oldParameterValue);
         }
     }
-
-    private function ensureRectorClassIsValid(string $rectorClass, string $methodName): void
+    private function ensureRectorClassIsValid(string $rectorClass, string $methodName) : void
     {
-        if (is_a($rectorClass, PhpRectorInterface::class, true)) {
+        if (\is_a($rectorClass, \Rector\Core\Contract\Rector\PhpRectorInterface::class, \true)) {
             return;
         }
-
-        throw new ShouldNotHappenException(sprintf(
-            'Class "%s" in "%s()" method must be type of "%s"',
-            $rectorClass,
-            $methodName,
-            PhpRectorInterface::class
-        ));
+        throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Class "%s" in "%s()" method must be type of "%s"', $rectorClass, $methodName, \Rector\Core\Contract\Rector\PhpRectorInterface::class));
     }
-
     /**
      * @param InputFilePathWithExpectedFile[] $extraFiles
      */
-    private function doTestFileMatchesExpectedContent(
-        SmartFileInfo $originalFileInfo,
-        SmartFileInfo $expectedFileInfo,
-        SmartFileInfo $fixtureFileInfo,
-        array $extraFiles = []
-    ): void {
-        $this->setParameter(Option::SOURCE, [$originalFileInfo->getRealPath()]);
-
-        if (! Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && in_array(
-            $originalFileInfo->getSuffix(),
-            ['php', 'phpt'],
-            true
-        )) {
+    private function doTestFileMatchesExpectedContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
+    {
+        $this->setParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
+        if (!\_PhpScoper006a73f0e455\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
             if ($extraFiles === []) {
                 $this->fileProcessor->parseFileInfoToLocalCache($originalFileInfo);
                 $this->fileProcessor->refactor($originalFileInfo);
                 $this->fileProcessor->postFileRefactor($originalFileInfo);
             } else {
                 $fileInfosToProcess = [$originalFileInfo];
-
                 foreach ($extraFiles as $extraFile) {
                     $fileInfosToProcess[] = $extraFile->getInputFileInfo();
                 }
-
                 // life-cycle trio :)
                 foreach ($fileInfosToProcess as $fileInfoToProcess) {
                     $this->fileProcessor->parseFileInfoToLocalCache($fileInfoToProcess);
                 }
-
                 foreach ($fileInfosToProcess as $fileInfoToProcess) {
                     $this->fileProcessor->refactor($fileInfoToProcess);
                 }
-
                 foreach ($fileInfosToProcess as $fileInfoToProcess) {
                     $this->fileProcessor->postFileRefactor($fileInfoToProcess);
                 }
             }
-
             // mimic post-rectors
             $changedContent = $this->fileProcessor->printToString($originalFileInfo);
-
-            $removedAndAddedFilesProcessor = self::$container->get(RemovedAndAddedFilesProcessor::class);
+            $removedAndAddedFilesProcessor = self::$container->get(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor::class);
             $removedAndAddedFilesProcessor->run();
-        } elseif (Strings::match($originalFileInfo->getFilename(), StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
+        } elseif (\_PhpScoper006a73f0e455\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
             $changedContent = $this->nonPhpFileProcessor->processFileInfo($originalFileInfo);
         } else {
-            $message = sprintf('Suffix "%s" is not supported yet', $originalFileInfo->getSuffix());
-            throw new ShouldNotHappenException($message);
+            $message = \sprintf('Suffix "%s" is not supported yet', $originalFileInfo->getSuffix());
+            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
         }
-
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
-
         try {
             $this->assertStringEqualsFile($expectedFileInfo->getRealPath(), $changedContent, $relativeFilePathFromCwd);
-        } catch (ExpectationFailedException $expectationFailedException) {
-            StaticFixtureUpdater::updateFixtureContent($originalFileInfo, $changedContent, $fixtureFileInfo);
+        } catch (\_PhpScoper006a73f0e455\PHPUnit\Framework\ExpectationFailedException $expectationFailedException) {
+            \Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateFixtureContent($originalFileInfo, $changedContent, $fixtureFileInfo);
             $contents = $expectedFileInfo->getContents();
-
             // if not exact match, check the regex version (useful for generated hashes/uuids in the code)
             $this->assertStringMatchesFormat($contents, $changedContent, $relativeFilePathFromCwd);
         }
     }
-
-    private function createContainerWithAllRectors(): void
+    private function createContainerWithAllRectors() : void
     {
-        $rectorsFinder = new RectorsFinder();
+        $rectorsFinder = new \Rector\Testing\Finder\RectorsFinder();
         $coreRectorClasses = $rectorsFinder->findCoreRectorClasses();
-
         $listForConfig = [];
         foreach ($coreRectorClasses as $rectorClass) {
             $listForConfig[$rectorClass] = null;
         }
-
-        foreach (array_keys($this->getCurrentTestRectorClassesWithConfiguration()) as $rectorClass) {
+        foreach (\array_keys($this->getCurrentTestRectorClassesWithConfiguration()) as $rectorClass) {
             $listForConfig[$rectorClass] = null;
         }
-
-        $filePath = sprintf(sys_get_temp_dir() . '/rector_temp_tests/all_rectors.php');
+        $filePath = \sprintf(\sys_get_temp_dir() . '/rector_temp_tests/all_rectors.php');
         $this->createPhpConfigFileAndDumpToPath($listForConfig, $filePath);
-
-        $this->bootKernelWithConfigs(RectorKernel::class, [$filePath]);
+        $this->bootKernelWithConfigs(\Rector\Core\HttpKernel\RectorKernel::class, [$filePath]);
     }
-
     /**
      * @param array<string, mixed[]|null> $rectorClassesWithConfiguration
      */
-    private function createPhpConfigFileAndDumpToPath(array $rectorClassesWithConfiguration, string $filePath): void
+    private function createPhpConfigFileAndDumpToPath(array $rectorClassesWithConfiguration, string $filePath) : void
     {
-        $phpConfigPrinterFactory = new PhpConfigPrinterFactory();
+        $phpConfigPrinterFactory = new \Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory();
         $smartPhpConfigPrinter = $phpConfigPrinterFactory->create();
-
         $fileContent = $smartPhpConfigPrinter->printConfiguredServices($rectorClassesWithConfiguration);
         $this->smartFileSystem->dumpFile($filePath, $fileContent);
     }

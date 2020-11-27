@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Naming\Matcher;
 
 use PhpParser\Node;
@@ -19,80 +18,64 @@ use Rector\Naming\ValueObject\VariableAndCallAssign;
 use Rector\Naming\ValueObject\VariableAndCallForeach;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
-abstract class AbstractMatcher implements MatcherInterface
+abstract class AbstractMatcher implements \Rector\Naming\Contract\Matcher\MatcherInterface
 {
     /**
      * @var NodeNameResolver
      */
     protected $nodeNameResolver;
-
-    public function __construct(NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-
     /**
      * @param Assign|Foreach_ $node
      * @return VariableAndCallAssign|VariableAndCallForeach|null
      */
-    public function match(Node $node)
+    public function match(\PhpParser\Node $node)
     {
         $call = $this->matchCall($node);
         if ($call === null) {
             return null;
         }
-
         $variableName = $this->getVariableName($node);
         if ($variableName === null) {
             return null;
         }
-
         $functionLike = $this->getFunctionLike($node);
         if ($functionLike === null) {
             return null;
         }
-
         $variable = $this->getVariable($node);
-
-        if ($node instanceof Foreach_) {
-            return new VariableAndCallForeach($variable, $call, $variableName, $functionLike);
+        if ($node instanceof \PhpParser\Node\Stmt\Foreach_) {
+            return new \Rector\Naming\ValueObject\VariableAndCallForeach($variable, $call, $variableName, $functionLike);
         }
-
-        if ($node instanceof Assign) {
-            return new VariableAndCallAssign($variable, $call, $node, $variableName, $functionLike);
+        if ($node instanceof \PhpParser\Node\Expr\Assign) {
+            return new \Rector\Naming\ValueObject\VariableAndCallAssign($variable, $call, $node, $variableName, $functionLike);
         }
-
         return null;
     }
-
     /**
      * @return FuncCall|StaticCall|MethodCall|null
      */
-    protected function matchCall(Node $node): ?Node
+    protected function matchCall(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node->expr instanceof MethodCall) {
+        if ($node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return $node->expr;
         }
-
-        if ($node->expr instanceof StaticCall) {
+        if ($node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
             return $node->expr;
         }
-
-        if ($node->expr instanceof FuncCall) {
+        if ($node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return $node->expr;
         }
-
         return null;
     }
-
     /**
      * @return ClassMethod|Function_|Closure|null
      */
-    protected function getFunctionLike(Node $node): ?FunctionLike
+    protected function getFunctionLike(\PhpParser\Node $node) : ?\PhpParser\Node\FunctionLike
     {
-        return $node->getAttribute(AttributeKey::CLOSURE_NODE) ??
-            $node->getAttribute(AttributeKey::METHOD_NODE) ??
-            $node->getAttribute(AttributeKey::FUNCTION_NODE);
+        return $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE) ?? $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?? $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
     }
 }

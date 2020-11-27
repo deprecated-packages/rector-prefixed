@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -11,37 +10,27 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Symfony\Tests\Rector\ClassMethod\ActionSuffixRemoverRector\ActionSuffixRemoverRectorTest
  */
-final class ActionSuffixRemoverRector extends AbstractRector
+final class ActionSuffixRemoverRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ControllerMethodAnalyzer
      */
     private $controllerMethodAnalyzer;
-
     /**
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-
-    public function __construct(
-        ControllerMethodAnalyzer $controllerMethodAnalyzer,
-        IdentifierManipulator $identifierManipulator
-    ) {
+    public function __construct(\Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer $controllerMethodAnalyzer, \Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
+    {
         $this->controllerMethodAnalyzer = $controllerMethodAnalyzer;
         $this->identifierManipulator = $identifierManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Removes Action suffixes from methods in Symfony Controllers',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes Action suffixes from methods in Symfony Controllers', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeController
 {
     public function indexAction()
@@ -49,8 +38,7 @@ class SomeController
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeController
 {
     public function index()
@@ -58,30 +46,24 @@ class SomeController
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->controllerMethodAnalyzer->isAction($node)) {
+        if (!$this->controllerMethodAnalyzer->isAction($node)) {
             return null;
         }
-
         $this->identifierManipulator->removeSuffix($node, 'Action');
-
         return $node;
     }
 }

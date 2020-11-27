@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -11,19 +10,14 @@ use PhpParser\Node\Expr\Variable;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\CodingStyle\Tests\Rector\MethodCall\UseMessageVariableForSprintfInSymfonyStyleRector\UseMessageVariableForSprintfInSymfonyStyleRectorTest
  */
-final class UseMessageVariableForSprintfInSymfonyStyleRector extends AbstractRector
+final class UseMessageVariableForSprintfInSymfonyStyleRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Decouple $message property from sprintf() calls in $this->smyfonyStyle->method()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Decouple $message property from sprintf() calls in $this->smyfonyStyle->method()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class SomeClass
@@ -34,8 +28,7 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class SomeClass
@@ -47,43 +40,34 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isObjectType($node, 'Symfony\Component\Console\Style\SymfonyStyle')) {
+        if (!$this->isObjectType($node, '_PhpScoper006a73f0e455\\Symfony\\Component\\Console\\Style\\SymfonyStyle')) {
             return null;
         }
-
-        if (! isset($node->args[0])) {
+        if (!isset($node->args[0])) {
             return null;
         }
-
         $argValue = $node->args[0]->value;
-        if (! $this->isFuncCallName($argValue, 'sprintf')) {
+        if (!$this->isFuncCallName($argValue, 'sprintf')) {
             return null;
         }
-
-        $messageVariable = new Variable('message');
-        $assign = new Assign($messageVariable, $argValue);
+        $messageVariable = new \PhpParser\Node\Expr\Variable('message');
+        $assign = new \PhpParser\Node\Expr\Assign($messageVariable, $argValue);
         $this->addNodeBeforeNode($assign, $node);
-
         $node->args[0]->value = $messageVariable;
-
         return $node;
     }
 }

@@ -1,0 +1,23 @@
+{
+    "type": "project",
+    "autoload": {
+        "classmap": [
+            "src"
+        ],
+        "psr-4": {
+            "_PhpScoper006a73f0e455\\App\\": "directory"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests"
+        ]
+    },
+    "require": {
+        "php": "^7.4",
+        "symfony\/console": "^5.2"
+    },
+    "replace": {
+        "symplify\/autodiscovery": "^8.3.45"
+    }
+}

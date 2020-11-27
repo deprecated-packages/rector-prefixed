@@ -1,0 +1,14 @@
+<?php
+
+namespace _PhpScoper006a73f0e455\Bug2885;
+
+class Test
+{
+    /**
+     * @return static
+     */
+    function do()
+    {
+        return $this->do()->do();
+    }
+}

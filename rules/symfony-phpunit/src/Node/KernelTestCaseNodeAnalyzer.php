@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\SymfonyPHPUnit\Node;
 
 use PhpParser\Node;
@@ -10,57 +9,45 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
 final class KernelTestCaseNodeAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
-    public function __construct(NodeNameResolver $nodeNameResolver, NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-
-    public function isOnContainerGetMethodCall(Node $node): bool
+    public function isOnContainerGetMethodCall(\PhpParser\Node $node) : bool
     {
         return $this->isSelfContainerGetMethodCall($node);
     }
-
     /**
      * Is inside setUp() class method
      */
-    public function isSetUpOrEmptyMethod(Node $node): bool
+    public function isSetUpOrEmptyMethod(\PhpParser\Node $node) : bool
     {
-        $methodName = $node->getAttribute(AttributeKey::METHOD_NAME);
-
-        return $methodName === MethodName::SET_UP || $methodName === null;
+        $methodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        return $methodName === \Rector\Core\ValueObject\MethodName::SET_UP || $methodName === null;
     }
-
     /**
      * Matches:
      * self::$container->get()
      */
-    private function isSelfContainerGetMethodCall(Node $node): bool
+    private function isSelfContainerGetMethodCall(\PhpParser\Node $node) : bool
     {
-        if (! $node instanceof MethodCall) {
-            return false;
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
         }
-
-        if (! $this->nodeNameResolver->isName($node->name, 'get')) {
-            return false;
+        if (!$this->nodeNameResolver->isName($node->name, 'get')) {
+            return \false;
         }
-
-        return $this->nodeTypeResolver->isObjectType(
-            $node->var,
-            'Symfony\Component\DependencyInjection\ContainerInterface'
-        );
+        return $this->nodeTypeResolver->isObjectType($node->var, '_PhpScoper006a73f0e455\\Symfony\\Component\\DependencyInjection\\ContainerInterface');
     }
 }

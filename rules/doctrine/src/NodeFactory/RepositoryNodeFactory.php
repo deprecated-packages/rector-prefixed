@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\NodeFactory;
 
 use PhpParser\Node\Arg;
@@ -12,21 +11,17 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Expression;
-
 final class RepositoryNodeFactory
 {
-    public function createRepositoryAssign(Expr $entityReferenceExpr): Expression
+    public function createRepositoryAssign(\PhpParser\Node\Expr $entityReferenceExpr) : \PhpParser\Node\Stmt\Expression
     {
-        $propertyFetch = new PropertyFetch(new Variable('this'), new Identifier('repository'));
-        $assign = new Assign($propertyFetch, $this->createGetRepositoryMethodCall($entityReferenceExpr));
-
-        return new Expression($assign);
+        $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), new \PhpParser\Node\Identifier('repository'));
+        $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $this->createGetRepositoryMethodCall($entityReferenceExpr));
+        return new \PhpParser\Node\Stmt\Expression($assign);
     }
-
-    private function createGetRepositoryMethodCall(Expr $entityReferenceExpr): MethodCall
+    private function createGetRepositoryMethodCall(\PhpParser\Node\Expr $entityReferenceExpr) : \PhpParser\Node\Expr\MethodCall
     {
-        $args = [new Arg($entityReferenceExpr)];
-
-        return new MethodCall(new Variable('entityManager'), 'getRepository', $args);
+        $args = [new \PhpParser\Node\Arg($entityReferenceExpr)];
+        return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('entityManager'), 'getRepository', $args);
     }
 }

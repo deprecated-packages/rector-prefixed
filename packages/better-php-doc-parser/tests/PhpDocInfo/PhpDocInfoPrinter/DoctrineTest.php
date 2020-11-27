@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter;
 
 use Iterator;
@@ -11,31 +10,23 @@ use Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine
 use Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine\IndexInTable;
 use Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine\Short;
 use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class DoctrineTest extends AbstractPhpDocInfoPrinterTest
+final class DoctrineTest extends \Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\AbstractPhpDocInfoPrinterTest
 {
     /**
      * @dataProvider provideDataClass()
      */
-    public function testClass(string $docFilePath, Node $node): void
+    public function testClass(string $docFilePath, \PhpParser\Node $node) : void
     {
         $docComment = $this->smartFileSystem->readFile($docFilePath);
         $phpDocInfo = $this->createPhpDocInfoFromDocCommentAndNode($docComment, $node);
-
-        $fileInfo = new SmartFileInfo($docFilePath);
+        $fileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($docFilePath);
         $relativeFilePathFromCwd = $fileInfo->getRelativeFilePathFromCwd();
-
-        $this->assertSame(
-            $docComment,
-            $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo),
-            $relativeFilePathFromCwd
-        );
+        $this->assertSame($docComment, $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo), $relativeFilePathFromCwd);
     }
-
-    public function provideDataClass(): Iterator
+    public function provideDataClass() : \Iterator
     {
-        yield [__DIR__ . '/Source/Doctrine/index_in_table.txt', new Class_(IndexInTable::class)];
-        yield [__DIR__ . '/Source/Doctrine/case_sensitive.txt', new Class_(CaseSensitive::class)];
-        yield [__DIR__ . '/Source/Doctrine/short.txt', new Class_(Short::class)];
+        (yield [__DIR__ . '/Source/Doctrine/index_in_table.txt', new \PhpParser\Node\Stmt\Class_(\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine\IndexInTable::class)]);
+        (yield [__DIR__ . '/Source/Doctrine/case_sensitive.txt', new \PhpParser\Node\Stmt\Class_(\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine\CaseSensitive::class)]);
+        (yield [__DIR__ . '/Source/Doctrine/short.txt', new \PhpParser\Node\Stmt\Class_(\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine\Short::class)]);
     }
 }

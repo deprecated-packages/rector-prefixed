@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -9,7 +8,6 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://symfony.com/doc/2.8/form/form_collections.html
  * @see https://symfony.com/doc/3.0/form/form_collections.html
@@ -17,15 +15,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Symfony\Tests\Rector\MethodCall\ChangeCollectionTypeOptionTypeFromStringToClassReferenceRector\ChangeCollectionTypeOptionTypeFromStringToClassReferenceRectorTest
  */
-final class ChangeCollectionTypeOptionTypeFromStringToClassReferenceRector extends AbstractFormAddRector
+final class ChangeCollectionTypeOptionTypeFromStringToClassReferenceRector extends \Rector\Symfony\Rector\MethodCall\AbstractFormAddRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change type in CollectionType from alias string to class reference',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change type in CollectionType from alias string to class reference', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -44,8 +38,7 @@ class TaskType extends AbstractType
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -64,60 +57,48 @@ class TaskType extends AbstractType
     }
 }
 CODE_SAMPLE
-                ),
-
-            ]);
+)]);
     }
-
     /**
      * @return string[]
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (! $this->isFormAddMethodCall($node)) {
+        if (!$this->isFormAddMethodCall($node)) {
             return null;
         }
-
-        if (! $this->isCollectionType($node)) {
+        if (!$this->isCollectionType($node)) {
             return null;
         }
-
         $optionsArray = $this->matchOptionsArray($node);
         if ($optionsArray === null) {
             return null;
         }
-
         foreach ($optionsArray->items as $optionsArrayItem) {
             if ($optionsArrayItem === null || $optionsArrayItem->key === null) {
                 continue;
             }
-
-            if (! $this->isValues($optionsArrayItem->key, ['type', 'entry_type'])) {
+            if (!$this->isValues($optionsArrayItem->key, ['type', 'entry_type'])) {
                 continue;
             }
-
             // already ::class reference
-            if (! $optionsArrayItem->value instanceof String_) {
+            if (!$optionsArrayItem->value instanceof \PhpParser\Node\Scalar\String_) {
                 return null;
             }
-
             $stringValue = $optionsArrayItem->value->value;
             $formClass = $this->formTypeStringToTypeProvider->matchClassForNameWithPrefix($stringValue);
             if ($formClass === null) {
                 return null;
             }
-
             $optionsArrayItem->value = $this->createClassConstantReference($formClass);
         }
-
         return $node;
     }
 }

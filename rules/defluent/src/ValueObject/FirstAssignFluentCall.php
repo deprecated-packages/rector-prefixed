@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Defluent\ValueObject;
 
 use PhpParser\Node\Expr;
@@ -12,127 +11,99 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
 use Rector\Defluent\Contract\ValueObject\RootExprAwareInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
-final class FirstAssignFluentCall implements RootExprAwareInterface, FirstCallFactoryAwareInterface
+final class FirstAssignFluentCall implements \Rector\Defluent\Contract\ValueObject\RootExprAwareInterface, \Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface
 {
     /**
      * @var bool
      */
-    private $isFirstCallFactory = false;
-
+    private $isFirstCallFactory = \false;
     /**
      * @var Expr
      */
     private $assignExpr;
-
     /**
      * @var Expr
      */
     private $rootExpr;
-
     /**
      * @var FluentMethodCalls
      */
     private $fluentMethodCalls;
-
-    public function __construct(
-        Expr $assignExpr,
-        Expr $rootExpr,
-        bool $isFirstCallFactory,
-        FluentMethodCalls $fluentMethodCalls
-    ) {
+    public function __construct(\PhpParser\Node\Expr $assignExpr, \PhpParser\Node\Expr $rootExpr, bool $isFirstCallFactory, \Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls)
+    {
         $this->assignExpr = $assignExpr;
         $this->rootExpr = $rootExpr;
         $this->isFirstCallFactory = $isFirstCallFactory;
         $this->fluentMethodCalls = $fluentMethodCalls;
     }
-
-    public function getAssignExpr(): Expr
+    public function getAssignExpr() : \PhpParser\Node\Expr
     {
         return $this->assignExpr;
     }
-
-    public function getRootExpr(): Expr
+    public function getRootExpr() : \PhpParser\Node\Expr
     {
         return $this->rootExpr;
     }
-
-    public function createFirstAssign(): Assign
+    public function createFirstAssign() : \PhpParser\Node\Expr\Assign
     {
         if ($this->isFirstCallFactory && $this->getFirstAssign() !== null) {
             return $this->createFactoryAssign();
         }
-
         return $this->createAssign($this->assignExpr, $this->rootExpr);
     }
-
-    public function getCallerExpr(): Expr
+    public function getCallerExpr() : \PhpParser\Node\Expr
     {
         return $this->assignExpr;
     }
-
-    public function isFirstCallFactory(): bool
+    public function isFirstCallFactory() : bool
     {
         return $this->isFirstCallFactory;
     }
-
-    public function getFactoryAssignVariable(): Expr
+    public function getFactoryAssignVariable() : \PhpParser\Node\Expr
     {
         $firstAssign = $this->getFirstAssign();
         if ($firstAssign === null) {
             return $this->assignExpr;
         }
-
         return $firstAssign->var;
     }
-
     /**
      * @return MethodCall[]
      */
-    public function getFluentMethodCalls(): array
+    public function getFluentMethodCalls() : array
     {
         return $this->fluentMethodCalls->getFluentMethodCalls();
     }
-
-    private function getFirstAssign(): ?Assign
+    private function getFirstAssign() : ?\PhpParser\Node\Expr\Assign
     {
-        $currentStmt = $this->assignExpr->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        if (! $currentStmt instanceof Expression) {
+        $currentStmt = $this->assignExpr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        if (!$currentStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-
-        if ($currentStmt->expr instanceof Assign) {
+        if ($currentStmt->expr instanceof \PhpParser\Node\Expr\Assign) {
             return $currentStmt->expr;
         }
-
         return null;
     }
-
-    private function createFactoryAssign(): Assign
+    private function createFactoryAssign() : \PhpParser\Node\Expr\Assign
     {
         /** @var Assign $firstAssign */
         $firstAssign = $this->getFirstAssign();
         $currentMethodCall = $firstAssign->expr;
-
-        if (! $currentMethodCall instanceof MethodCall) {
-            throw new ShouldNotHappenException();
+        if (!$currentMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         $currentMethodCall = $this->fluentMethodCalls->getLastMethodCall();
-
         // ensure var and expr are different
         $assignVar = $firstAssign->var;
         $assignExpr = $currentMethodCall;
-
         return $this->createAssign($assignVar, $assignExpr);
     }
-
-    private function createAssign(Expr $assignVar, Expr $assignExpr): Assign
+    private function createAssign(\PhpParser\Node\Expr $assignVar, \PhpParser\Node\Expr $assignExpr) : \PhpParser\Node\Expr\Assign
     {
         if ($assignVar === $assignExpr) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        return new Assign($assignVar, $assignExpr);
+        return new \PhpParser\Node\Expr\Assign($assignVar, $assignExpr);
     }
 }

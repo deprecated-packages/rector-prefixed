@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PHPStan\TypeExtension;
 
 use PhpParser\Node\Expr\MethodCall;
@@ -12,38 +11,29 @@ use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Psr\Container\ContainerInterface;
-
-final class StaticContainerGetDynamicMethodReturnTypeExtension implements DynamicMethodReturnTypeExtension
+use _PhpScoper006a73f0e455\Psr\Container\ContainerInterface;
+final class StaticContainerGetDynamicMethodReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
 {
-    public function getClass(): string
+    public function getClass() : string
     {
-        return ContainerInterface::class;
+        return \_PhpScoper006a73f0e455\Psr\Container\ContainerInterface::class;
     }
-
-    public function isMethodSupported(MethodReflection $methodReflection): bool
+    public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {
         return $methodReflection->getName() === 'get';
     }
-
-    public function getTypeFromMethodCall(
-        MethodReflection $methodReflection,
-        MethodCall $methodCall,
-        Scope $scope
-    ): Type {
+    public function getTypeFromMethodCall(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $methodCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    {
         $value = $methodCall->args[0]->value;
         $valueType = $scope->getType($value);
-
         // we don't know what it is
-        if ($valueType instanceof MixedType) {
+        if ($valueType instanceof \PHPStan\Type\MixedType) {
             return $valueType;
         }
-
-        if ($valueType instanceof ConstantStringType) {
-            return new ObjectType($valueType->getValue());
+        if ($valueType instanceof \PHPStan\Type\Constant\ConstantStringType) {
+            return new \PHPStan\Type\ObjectType($valueType->getValue());
         }
-
         // unknown, probably variable
-        return new MixedType();
+        return new \PHPStan\Type\MixedType();
     }
 }

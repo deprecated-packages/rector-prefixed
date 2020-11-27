@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace _PhpScoper006a73f0e455\Gedmo\Mapping\Annotation;
 
-namespace Gedmo\Mapping\Annotation;
-
-if (class_exists('Gedmo\Mapping\Annotation\Translatable')) {
+if (\class_exists('_PhpScoper006a73f0e455\\Gedmo\\Mapping\\Annotation\\Translatable')) {
     return;
 }
-
 /**
  * @Annotation
  */
