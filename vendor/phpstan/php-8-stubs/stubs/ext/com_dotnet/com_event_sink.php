@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function com_event_sink(\_PhpScoperbd5d0c5f7638\variant $variant, object $sink_object, array|string|null $sink_interface = null) : bool
+function com_event_sink(\_PhpScoper88fe6e0ad041\variant $variant, object $sink_object, array|string|null $sink_interface = null) : bool
 {
 }

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type;
 
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
 use function array_map;
 use function array_merge;
-class AggregateSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+class AggregateSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var SourceLocator[] */
     private $sourceLocators;
@@ -20,12 +20,12 @@ class AggregateSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\BetterRefl
     {
         // This slightly confusing code simply type-checks the $sourceLocators
         // array by unpacking them and splatting them in the closure.
-        $validator = static function (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator ...$sourceLocator) : array {
+        $validator = static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator ...$sourceLocator) : array {
             return $sourceLocator;
         };
         $this->sourceLocators = $validator(...$sourceLocators);
     }
-    public function locateIdentifier(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
     {
         foreach ($this->sourceLocators as $sourceLocator) {
             $located = $sourceLocator->locateIdentifier($reflector, $identifier);
@@ -38,9 +38,9 @@ class AggregateSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\BetterRefl
     /**
      * {@inheritDoc}
      */
-    public function locateIdentifiersByType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
-        return \array_merge([], ...\array_map(static function (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator) use($reflector, $identifierType) {
+        return \array_merge([], ...\array_map(static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator) use($reflector, $identifierType) {
             return $sourceLocator->locateIdentifiersByType($reflector, $identifierType);
         }, $this->sourceLocators));
     }

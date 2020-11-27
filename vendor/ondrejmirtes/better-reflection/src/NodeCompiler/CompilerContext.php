@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler;
 
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
 use RuntimeException;
 class CompilerContext
 {
@@ -18,7 +18,7 @@ class CompilerContext
     private $namespace;
     /** @var string|null */
     private $functionName;
-    public function __construct(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, ?string $fileName, ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass $self, ?string $namespace, ?string $functionName)
+    public function __construct(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, ?string $fileName, ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $self, ?string $namespace, ?string $functionName)
     {
         $this->reflector = $reflector;
         $this->fileName = $fileName;
@@ -35,14 +35,14 @@ class CompilerContext
     {
         return $this->self !== null;
     }
-    public function getSelf() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getSelf() : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass
     {
         if (!$this->hasSelf()) {
             throw new \RuntimeException('The current context does not have a class for self');
         }
         return $this->self;
     }
-    public function getReflector() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector
+    public function getReflector() : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector
     {
         return $this->reflector;
     }

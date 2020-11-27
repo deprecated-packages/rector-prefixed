@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\IteratorToArray;
+namespace _PhpScoper88fe6e0ad041\IteratorToArray;
 
 use Traversable;
 use function iterator_to_array;

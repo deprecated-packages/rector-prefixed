@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\Tests\Configuration;
 
 use Iterator;
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Json;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Json;
 use Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonParser;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 final class ComposerJsonParserTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
@@ -29,7 +29,7 @@ final class ComposerJsonParserTest extends \Symplify\PackageBuilder\Testing\Abst
     }
     private function getComposerJsonPhpVersion(string $version) : string
     {
-        $composerJsonParser = new \Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonParser(\_PhpScoperbd5d0c5f7638\Nette\Utils\Json::encode(['require' => ['php' => $version]]));
+        $composerJsonParser = new \Rector\Core\Configuration\MinimalVersionChecker\ComposerJsonParser(\_PhpScoper88fe6e0ad041\Nette\Utils\Json::encode(['require' => ['php' => $version]]));
         return $composerJsonParser->getPhpVersion();
     }
 }

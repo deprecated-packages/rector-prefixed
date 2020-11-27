@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\InheritDocWithoutCurlyBracesFromInterface2;
+namespace _PhpScoper88fe6e0ad041\InheritDocWithoutCurlyBracesFromInterface2;
 
-interface FooInterface extends \_PhpScoperbd5d0c5f7638\InheritDocWithoutCurlyBracesFromInterface2\BarInterface
+interface FooInterface extends \_PhpScoper88fe6e0ad041\InheritDocWithoutCurlyBracesFromInterface2\BarInterface
 {
 }
 interface BarInterface

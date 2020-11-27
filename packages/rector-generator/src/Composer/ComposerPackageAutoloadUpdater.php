@@ -7,7 +7,7 @@ use Rector\RectorGenerator\FileSystem\JsonFileSystem;
 use Rector\RectorGenerator\ValueObject\Package;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Process\Process;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Process\Process;
 final class ComposerPackageAutoloadUpdater
 {
     /**
@@ -76,7 +76,7 @@ final class ComposerPackageAutoloadUpdater
     }
     private function rebuildAutoload() : void
     {
-        $composerDumpProcess = new \_PhpScoperbd5d0c5f7638\Symfony\Component\Process\Process(['composer', 'dump']);
+        $composerDumpProcess = new \_PhpScoper88fe6e0ad041\Symfony\Component\Process\Process(['composer', 'dump']);
         $composerDumpProcess->run();
     }
 }

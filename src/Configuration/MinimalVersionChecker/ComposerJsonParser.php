@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration\MinimalVersionChecker;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Json;
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Json;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 /**
  * @see \Rector\Core\Tests\Configuration\ComposerJsonParserTest
  */
@@ -20,7 +20,7 @@ final class ComposerJsonParser
     }
     public function getPhpVersion() : string
     {
-        $composerArray = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode($this->composerJson, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
-        return \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::trim($composerArray['require']['php'], '~^>=*.');
+        $composerArray = \_PhpScoper88fe6e0ad041\Nette\Utils\Json::decode($this->composerJson, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::trim($composerArray['require']['php'], '~^>=*.');
     }
 }

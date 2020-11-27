@@ -66,24 +66,24 @@ final class PassFactoryToUniqueObjectRector extends \Rector\Core\Rector\Abstract
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X/Static::call() to factories in entities, pass them via constructor to each other', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class SomeClass
 {
     public function run()
     {
-        return new \_PhpScoperbd5d0c5f7638\AnotherClass();
+        return new \_PhpScoper88fe6e0ad041\AnotherClass();
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\SomeClass', 'SomeClass', \false);
 class AnotherClass
 {
     public function someFun()
     {
-        return \_PhpScoperbd5d0c5f7638\StaticClass::staticMethod();
+        return \_PhpScoper88fe6e0ad041\StaticClass::staticMethod();
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\AnotherClass', 'AnotherClass', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\AnotherClass', 'AnotherClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass

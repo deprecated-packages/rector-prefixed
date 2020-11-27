@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 #ifdef PHP_WIN32
-function socket_wsaprotocol_info_export(\_PhpScoperbd5d0c5f7638\Socket $socket, int $process_id) : string|false
+function socket_wsaprotocol_info_export(\_PhpScoper88fe6e0ad041\Socket $socket, int $process_id) : string|false
 {
 }

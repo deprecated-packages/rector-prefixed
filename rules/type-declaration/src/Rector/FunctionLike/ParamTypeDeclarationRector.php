@@ -43,7 +43,7 @@ final class ParamTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\Fu
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change @param types to type declarations if not a BC-break', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class ParentClass
 {
@@ -54,8 +54,8 @@ class ParentClass
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\ParentClass', 'ParentClass', \false);
-final class ChildClass extends \_PhpScoperbd5d0c5f7638\ParentClass
+\class_alias('_PhpScoper88fe6e0ad041\\ParentClass', 'ParentClass', \false);
+final class ChildClass extends \_PhpScoper88fe6e0ad041\ParentClass
 {
     /**
      * @param int $number
@@ -70,12 +70,12 @@ final class ChildClass extends \_PhpScoperbd5d0c5f7638\ParentClass
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\ChildClass', 'ChildClass', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\ChildClass', 'ChildClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class ParentClass
 {
@@ -86,8 +86,8 @@ class ParentClass
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\ParentClass', 'ParentClass', \false);
-final class ChildClass extends \_PhpScoperbd5d0c5f7638\ParentClass
+\class_alias('_PhpScoper88fe6e0ad041\\ParentClass', 'ParentClass', \false);
+final class ChildClass extends \_PhpScoper88fe6e0ad041\ParentClass
 {
     /**
      * @param int $number
@@ -102,7 +102,7 @@ final class ChildClass extends \_PhpScoperbd5d0c5f7638\ParentClass
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\ChildClass', 'ChildClass', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\ChildClass', 'ChildClass', \false);
 CODE_SAMPLE
 )]);
     }

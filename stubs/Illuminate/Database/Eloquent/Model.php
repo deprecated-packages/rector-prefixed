@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Illuminate\Database\Eloquent;
+namespace _PhpScoper88fe6e0ad041\Illuminate\Database\Eloquent;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Illuminate\\Database\\Eloquent\\Model')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Illuminate\\Database\\Eloquent\\Model')) {
     return;
 }
 abstract class Model

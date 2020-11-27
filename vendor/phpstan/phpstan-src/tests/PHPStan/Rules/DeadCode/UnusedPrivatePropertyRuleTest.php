@@ -48,7 +48,7 @@ class UnusedPrivatePropertyRuleTest extends \PHPStan\Testing\RuleTestCase
     }
     public function testAlwaysUsedTags() : void
     {
-        $this->alwaysWrittenTags = ['_PhpScoperbd5d0c5f7638\\@ORM\\Column'];
+        $this->alwaysWrittenTags = ['_PhpScoper88fe6e0ad041\\@ORM\\Column'];
         $this->alwaysReadTags = ['@get'];
         $this->analyse([__DIR__ . '/data/private-property-with-tags.php'], [['Property PrivatePropertyWithTags\\Foo::$title is never read, only written.', 13], ['Property PrivatePropertyWithTags\\Foo::$text is never written, only read.', 18]]);
     }

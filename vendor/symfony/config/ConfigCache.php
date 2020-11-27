@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperbd5d0c5f7638\Symfony\Component\Config;
+namespace _PhpScoper88fe6e0ad041\Symfony\Component\Config;
 
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Config\Resource\SelfCheckingResourceChecker;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Config\Resource\SelfCheckingResourceChecker;
 /**
  * ConfigCache caches arbitrary content in files on disk.
  *
@@ -21,7 +21,7 @@ use _PhpScoperbd5d0c5f7638\Symfony\Component\Config\Resource\SelfCheckingResourc
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class ConfigCache extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Config\ResourceCheckerConfigCache
+class ConfigCache extends \_PhpScoper88fe6e0ad041\Symfony\Component\Config\ResourceCheckerConfigCache
 {
     private $debug;
     /**
@@ -33,7 +33,7 @@ class ConfigCache extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Config\Resou
         $this->debug = $debug;
         $checkers = [];
         if (\true === $this->debug) {
-            $checkers = [new \_PhpScoperbd5d0c5f7638\Symfony\Component\Config\Resource\SelfCheckingResourceChecker()];
+            $checkers = [new \_PhpScoper88fe6e0ad041\Symfony\Component\Config\Resource\SelfCheckingResourceChecker()];
         }
         parent::__construct($file, $checkers);
     }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Testing\Guard;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use Rector\Core\Exception\Testing\SuperfluousAfterContentFixtureException;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class FixtureGuard
@@ -15,7 +15,7 @@ final class FixtureGuard
     private const BEFORE_AFTER_CONTENT_REGEX = '#^(?<before_content>.*?)\\-\\-\\-\\-\\-\\n(?<after_content>.*?)$#s';
     public function ensureFileInfoHasDifferentBeforeAndAfterContent(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
-        $match = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($smartFileInfo->getContents(), self::BEFORE_AFTER_CONTENT_REGEX);
+        $match = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($smartFileInfo->getContents(), self::BEFORE_AFTER_CONTENT_REGEX);
         if ($match === null) {
             return;
         }

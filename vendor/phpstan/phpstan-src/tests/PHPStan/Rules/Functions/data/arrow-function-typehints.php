@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\ArrowFunctionExistingClassesInTypehints;
+namespace _PhpScoper88fe6e0ad041\ArrowFunctionExistingClassesInTypehints;
 
 class Foo
 {
     public function doFoo()
     {
-        fn(\_PhpScoperbd5d0c5f7638\ArrowFunctionExistingClassesInTypehints\Bar $bar): \_PhpScoperbd5d0c5f7638\ArrowFunctionExistingClassesInTypehints\Baz => new \_PhpScoperbd5d0c5f7638\ArrowFunctionExistingClassesInTypehints\Baz();
+        fn(\_PhpScoper88fe6e0ad041\ArrowFunctionExistingClassesInTypehints\Bar $bar): \_PhpScoper88fe6e0ad041\ArrowFunctionExistingClassesInTypehints\Baz => new \_PhpScoper88fe6e0ad041\ArrowFunctionExistingClassesInTypehints\Baz();
     }
 }

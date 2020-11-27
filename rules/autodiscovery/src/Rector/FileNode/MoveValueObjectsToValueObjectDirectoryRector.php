@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Rector\FileNode;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Autodiscovery\Analyzer\ClassAnalyzer;
@@ -159,7 +159,7 @@ CODE_SAMPLE
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className !== null) {
             foreach ($this->suffixes as $suffix) {
-                if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::endsWith($className, $suffix)) {
+                if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith($className, $suffix)) {
                     return \true;
                 }
             }
@@ -169,7 +169,7 @@ CODE_SAMPLE
     private function isKnownServiceType(string $className) : bool
     {
         foreach (self::COMMON_SERVICE_SUFFIXES as $commonServiceSuffix) {
-            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
+            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
                 return \true;
             }
         }

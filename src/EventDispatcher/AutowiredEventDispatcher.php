@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Core\EventDispatcher;
 
 use Rector\Core\ValueObject\MethodName;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\EventDispatcher;
+use _PhpScoper88fe6e0ad041\Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-final class AutowiredEventDispatcher extends \_PhpScoperbd5d0c5f7638\Symfony\Component\EventDispatcher\EventDispatcher
+final class AutowiredEventDispatcher extends \_PhpScoper88fe6e0ad041\Symfony\Component\EventDispatcher\EventDispatcher
 {
     /**
      * @param EventSubscriberInterface[] $eventSubscribers

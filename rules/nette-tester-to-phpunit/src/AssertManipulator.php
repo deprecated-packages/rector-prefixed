@@ -109,7 +109,7 @@ final class AssertManipulator
             $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
             return $methodCall;
         }
-        $staticCall->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbd5d0c5f7638\\PHPUnit\\Framework\\Assert');
+        $staticCall->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoper88fe6e0ad041\\PHPUnit\\Framework\\Assert');
         return $staticCall;
     }
     /**

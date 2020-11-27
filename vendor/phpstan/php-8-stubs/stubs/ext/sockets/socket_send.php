@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function socket_send(\_PhpScoperbd5d0c5f7638\Socket $socket, string $data, int $length, int $flags) : int|false
+function socket_send(\_PhpScoper88fe6e0ad041\Socket $socket, string $data, int $length, int $flags) : int|false
 {
 }

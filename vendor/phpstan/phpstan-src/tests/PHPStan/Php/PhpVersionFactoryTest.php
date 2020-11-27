@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Php;
 
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
-class PhpVersionFactoryTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
+class PhpVersionFactoryTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
 {
     public function dataCreate() : array
     {

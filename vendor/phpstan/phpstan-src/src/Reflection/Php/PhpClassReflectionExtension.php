@@ -41,8 +41,8 @@ use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\TypeUtils;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty;
 class PhpClassReflectionExtension implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\MethodsClassReflectionExtension
 {
     /**
@@ -525,7 +525,7 @@ class PhpClassReflectionExtension implements \PHPStan\Reflection\PropertiesClass
     }
     private function findPropertyTrait(\ReflectionProperty $propertyReflection) : ?string
     {
-        if ($propertyReflection instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty) {
+        if ($propertyReflection instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty) {
             $declaringClass = $propertyReflection->getBetterReflection()->getDeclaringClass();
             if ($declaringClass->isTrait()) {
                 if ($propertyReflection->getDeclaringClass()->isTrait() && $propertyReflection->getDeclaringClass()->getName() === $declaringClass->getName()) {
@@ -566,7 +566,7 @@ class PhpClassReflectionExtension implements \PHPStan\Reflection\PropertiesClass
     }
     private function findMethodTrait(\PHPStan\Reflection\Php\BuiltinMethodReflection $methodReflection) : ?string
     {
-        if ($methodReflection->getReflection() instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod) {
+        if ($methodReflection->getReflection() instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod) {
             $declaringClass = $methodReflection->getReflection()->getBetterReflection()->getDeclaringClass();
             if ($declaringClass->isTrait()) {
                 if ($methodReflection->getDeclaringClass()->isTrait() && $declaringClass->getName() === $methodReflection->getDeclaringClass()->getName()) {

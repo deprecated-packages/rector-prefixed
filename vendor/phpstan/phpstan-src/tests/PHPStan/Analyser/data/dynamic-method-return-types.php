@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace;
+namespace _PhpScoper88fe6e0ad041\DynamicMethodReturnTypesNamespace;
 
 class EntityManager
 {
-    public function getByPrimary(string $className, int $id) : \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\Entity
+    public function getByPrimary(string $className, int $id) : \_PhpScoper88fe6e0ad041\DynamicMethodReturnTypesNamespace\Entity
     {
         return new $className();
     }
@@ -12,7 +12,7 @@ class EntityManager
     {
     }
 }
-class InheritedEntityManager extends \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\EntityManager
+class InheritedEntityManager extends \_PhpScoper88fe6e0ad041\DynamicMethodReturnTypesNamespace\EntityManager
 {
 }
 class ComponentContainer implements \ArrayAccess
@@ -20,7 +20,7 @@ class ComponentContainer implements \ArrayAccess
     public function offsetExists($offset)
     {
     }
-    public function offsetGet($offset) : \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\Entity
+    public function offsetGet($offset) : \_PhpScoper88fe6e0ad041\DynamicMethodReturnTypesNamespace\Entity
     {
     }
     public function offsetSet($offset, $value)
@@ -37,9 +37,9 @@ class Foo
     }
     public function doFoo()
     {
-        $em = new \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\EntityManager();
-        $iem = new \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\InheritedEntityManager();
-        $container = new \_PhpScoperbd5d0c5f7638\DynamicMethodReturnTypesNamespace\ComponentContainer();
+        $em = new \_PhpScoper88fe6e0ad041\DynamicMethodReturnTypesNamespace\EntityManager();
+        $iem = new \_PhpScoper88fe6e0ad041\DynamicMethodReturnTypesNamespace\InheritedEntityManager();
+        $container = new \_PhpScoper88fe6e0ad041\DynamicMethodReturnTypesNamespace\ComponentContainer();
         die;
     }
 }

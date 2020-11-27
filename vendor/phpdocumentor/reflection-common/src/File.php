@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection;
+namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection;
 
 /**
  * Interface for files processed by the ProjectFactory

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Ramsey\Uuid;
+namespace _PhpScoper88fe6e0ad041\Ramsey\Uuid;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Ramsey\\Uuid\\Uuid')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Ramsey\\Uuid\\Uuid')) {
     return;
 }
-class Uuid implements \_PhpScoperbd5d0c5f7638\Ramsey\Uuid\UuidInterface
+class Uuid implements \_PhpScoper88fe6e0ad041\Ramsey\Uuid\UuidInterface
 {
     public static function uuid4() : self
     {
-        return new \_PhpScoperbd5d0c5f7638\Ramsey\Uuid\Uuid();
+        return new \_PhpScoper88fe6e0ad041\Ramsey\Uuid\Uuid();
     }
     public function toString()
     {

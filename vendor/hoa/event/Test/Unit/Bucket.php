@@ -55,14 +55,14 @@ class Bucket extends \Hoa\Test\Unit\Suite
     public function case_send()
     {
         $self = $this;
-        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source(), \Hoa\Event::register($eventId, $source), $bucket = new \Hoa\Event\Bucket('foo'), \Hoa\Event::getEvent($eventId)->attach(function (\Hoa\Event\Bucket $receivedBucket) use($self, $bucket, &$called) {
+        $this->given($eventId = 'hoa://Event/Test', $source = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Event\Source(), \Hoa\Event::register($eventId, $source), $bucket = new \Hoa\Event\Bucket('foo'), \Hoa\Event::getEvent($eventId)->attach(function (\Hoa\Event\Bucket $receivedBucket) use($self, $bucket, &$called) {
             $called = \true;
             $self->object($receivedBucket)->isIdenticalTo($bucket);
         }))->when($result = $bucket->send($eventId, $source))->then->variable($result)->isNull()->boolean($called)->isTrue();
     }
     public function case_set_source()
     {
-        $this->given($bucket = new \Hoa\Event\Bucket(), $sourceA = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source())->when($result = $bucket->setSource($sourceA))->then->variable($result)->isNull()->object($bucket->getSource())->isIdenticalTo($sourceA)->given($sourceB = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Event\Source())->when($result = $bucket->setSource($sourceB))->then->object($result)->isIdenticalTo($sourceA)->object($bucket->getSource())->isIdenticalTo($sourceB);
+        $this->given($bucket = new \Hoa\Event\Bucket(), $sourceA = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Event\Source())->when($result = $bucket->setSource($sourceA))->then->variable($result)->isNull()->object($bucket->getSource())->isIdenticalTo($sourceA)->given($sourceB = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Event\Source())->when($result = $bucket->setSource($sourceB))->then->object($result)->isIdenticalTo($sourceA)->object($bucket->getSource())->isIdenticalTo($sourceB);
     }
     public function case_set_data()
     {

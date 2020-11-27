@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /**
  * @param int $a
@@ -12,7 +12,7 @@ function globalFunction($a, $b, $c) : bool
     };
     return \false;
 }
-namespace _PhpScoperbd5d0c5f7638\MissingFunctionParameterTypehint;
+namespace _PhpScoper88fe6e0ad041\MissingFunctionParameterTypehint;
 
 /**
  * @param $d
@@ -82,10 +82,10 @@ interface GenericInterface
 class NonGenericClass
 {
 }
-function acceptsGenericInterface(\_PhpScoperbd5d0c5f7638\MissingFunctionParameterTypehint\GenericInterface $i)
+function acceptsGenericInterface(\_PhpScoper88fe6e0ad041\MissingFunctionParameterTypehint\GenericInterface $i)
 {
 }
-function acceptsNonGenericClass(\_PhpScoperbd5d0c5f7638\MissingFunctionParameterTypehint\NonGenericClass $c)
+function acceptsNonGenericClass(\_PhpScoper88fe6e0ad041\MissingFunctionParameterTypehint\NonGenericClass $c)
 {
 }
 /**
@@ -95,7 +95,7 @@ function acceptsNonGenericClass(\_PhpScoperbd5d0c5f7638\MissingFunctionParameter
 class GenericClass
 {
 }
-function acceptsGenericClass(\_PhpScoperbd5d0c5f7638\MissingFunctionParameterTypehint\GenericClass $c)
+function acceptsGenericClass(\_PhpScoper88fe6e0ad041\MissingFunctionParameterTypehint\GenericClass $c)
 {
 }
 function missingIterableTypehint(iterable $iterable)

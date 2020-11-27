@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Doctrine\Inflector;
+namespace _PhpScoper88fe6e0ad041\Doctrine\Inflector;
 
-use _PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Ruleset;
+use _PhpScoper88fe6e0ad041\Doctrine\Inflector\Rules\Ruleset;
 interface LanguageInflectorFactory
 {
     /**
@@ -13,7 +13,7 @@ interface LanguageInflectorFactory
      *
      * @return $this
      */
-    public function withSingularRules(?\_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Ruleset $singularRules, bool $reset = \false) : self;
+    public function withSingularRules(?\_PhpScoper88fe6e0ad041\Doctrine\Inflector\Rules\Ruleset $singularRules, bool $reset = \false) : self;
     /**
      * Applies custom rules for pluralisation
      *
@@ -21,9 +21,9 @@ interface LanguageInflectorFactory
      *
      * @return $this
      */
-    public function withPluralRules(?\_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Ruleset $pluralRules, bool $reset = \false) : self;
+    public function withPluralRules(?\_PhpScoper88fe6e0ad041\Doctrine\Inflector\Rules\Ruleset $pluralRules, bool $reset = \false) : self;
     /**
      * Builds the inflector instance with all applicable rules
      */
-    public function build() : \_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Inflector;
+    public function build() : \_PhpScoper88fe6e0ad041\Doctrine\Inflector\Inflector;
 }

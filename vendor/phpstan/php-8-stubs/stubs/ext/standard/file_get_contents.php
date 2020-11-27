@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /** @param resource|null $context */
 function file_get_contents(string $filename, bool $use_include_path = \false, $context = null, int $offset = 0, ?int $length = null) : string|false

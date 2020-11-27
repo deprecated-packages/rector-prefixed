@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class IntlGregorianCalendar extends \IntlCalendar
 {
@@ -37,4 +37,4 @@ class IntlGregorianCalendar extends \IntlCalendar
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\IntlGregorianCalendar', 'IntlGregorianCalendar', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\IntlGregorianCalendar', 'IntlGregorianCalendar', \false);

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\JMS\DiExtraBundle\Annotation;
+namespace _PhpScoper88fe6e0ad041\JMS\DiExtraBundle\Annotation;
 
 // mimics @see https://github.com/schmittjoh/JMSDiExtraBundle/blob/master/Annotation/Service.php
-if (\class_exists('_PhpScoperbd5d0c5f7638\\JMS\\DiExtraBundle\\Annotation\\Service')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\JMS\\DiExtraBundle\\Annotation\\Service')) {
     return;
 }
 /**
  * @Annotation
  * @Target({"CLASS", "METHOD"})
  */
-class Service extends \_PhpScoperbd5d0c5f7638\JMS\DiExtraBundle\Annotation\Reference
+class Service extends \_PhpScoper88fe6e0ad041\JMS\DiExtraBundle\Annotation\Reference
 {
     /** @var string */
     public $id;

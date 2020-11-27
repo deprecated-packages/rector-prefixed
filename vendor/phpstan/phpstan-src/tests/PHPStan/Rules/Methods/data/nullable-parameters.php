@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\NullableParameters;
+namespace _PhpScoper88fe6e0ad041\NullableParameters;
 
-$foo = new \_PhpScoperbd5d0c5f7638\NullableParameters\Foo();
+$foo = new \_PhpScoper88fe6e0ad041\NullableParameters\Foo();
 $foo->doFoo();
 $foo->doFoo(1);
 $foo->doFoo(1, 2);

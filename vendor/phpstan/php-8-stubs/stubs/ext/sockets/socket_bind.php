@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function socket_bind(\_PhpScoperbd5d0c5f7638\Socket $socket, string $address, int $port = 0) : bool
+function socket_bind(\_PhpScoper88fe6e0ad041\Socket $socket, string $address, int $port = 0) : bool
 {
 }

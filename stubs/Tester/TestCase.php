@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Tester;
+namespace _PhpScoper88fe6e0ad041\Tester;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Tester\\TestCase')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Tester\\TestCase')) {
     return;
 }
 class TestCase

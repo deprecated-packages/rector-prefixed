@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 #if U_ICU_VERSION_MAJOR_NUM >= 52
 function intltz_get_windows_id(string $timezoneId) : string|false

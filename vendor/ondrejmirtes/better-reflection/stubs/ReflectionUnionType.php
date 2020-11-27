@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 if (\class_exists('ReflectionUnionType', \false)) {
     return;
@@ -13,4 +13,4 @@ class ReflectionUnionType extends \ReflectionType
         return [];
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\ReflectionUnionType', 'ReflectionUnionType', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\ReflectionUnionType', 'ReflectionUnionType', \false);

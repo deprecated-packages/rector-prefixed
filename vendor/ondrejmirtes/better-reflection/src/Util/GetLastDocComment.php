@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Util;
 
 use PhpParser\Comment\Doc;
 use PhpParser\NodeAbstract;

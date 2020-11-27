@@ -5,11 +5,11 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Nette\PhpGenerator;
+namespace _PhpScoper88fe6e0ad041\Nette\PhpGenerator;
 
-use _PhpScoperbd5d0c5f7638\Nette;
-use _PhpScoperbd5d0c5f7638\Nette\InvalidStateException;
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette;
+use _PhpScoper88fe6e0ad041\Nette\InvalidStateException;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 /**
  * Namespaced part of a PHP file.
  *
@@ -32,8 +32,8 @@ final class PhpNamespace
     private $classes = [];
     public function __construct(string $name)
     {
-        if ($name !== '' && !\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Helpers::isNamespaceIdentifier($name)) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException("Value '{$name}' is not valid name.");
+        if ($name !== '' && !\_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Helpers::isNamespaceIdentifier($name)) {
+            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException("Value '{$name}' is not valid name.");
         }
         $this->name = $name;
     }
@@ -66,8 +66,8 @@ final class PhpNamespace
     public function addUse(string $name, string $alias = null, string &$aliasOut = null) : self
     {
         $name = \ltrim($name, '\\');
-        if ($alias === null && $this->name === \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Helpers::extractNamespace($name)) {
-            $alias = \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Helpers::extractShortName($name);
+        if ($alias === null && $this->name === \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Helpers::extractNamespace($name)) {
+            $alias = \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Helpers::extractShortName($name);
         }
         if ($alias === null) {
             $path = \explode('\\', $name);
@@ -81,7 +81,7 @@ final class PhpNamespace
             } while (isset($this->uses[$alias . $counter]) && $this->uses[$alias . $counter] !== $name);
             $alias .= $counter;
         } elseif (isset($this->uses[$alias]) && $this->uses[$alias] !== $name) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException("Alias '{$alias}' used already for '{$this->uses[$alias]}', cannot use for '{$name}'.");
+            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidStateException("Alias '{$alias}' used already for '{$this->uses[$alias]}', cannot use for '{$name}'.");
         }
         $aliasOut = $alias;
         $this->uses[$alias] = $name;
@@ -106,40 +106,40 @@ final class PhpNamespace
         $res = null;
         $lower = \strtolower($name);
         foreach ($this->uses as $alias => $original) {
-            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::startsWith($lower . '\\', \strtolower($original) . '\\')) {
+            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($lower . '\\', \strtolower($original) . '\\')) {
                 $short = $alias . \substr($name, \strlen($original));
                 if (!isset($res) || \strlen($res) > \strlen($short)) {
                     $res = $short;
                 }
             }
         }
-        if (!$res && \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::startsWith($lower, \strtolower($this->name) . '\\')) {
+        if (!$res && \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($lower, \strtolower($this->name) . '\\')) {
             return \substr($name, \strlen($this->name) + 1);
         } else {
             return $res ?: ($this->name ? '\\' : '') . $name;
         }
     }
     /** @return static */
-    public function add(\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType $class) : self
+    public function add(\_PhpScoper88fe6e0ad041\Nette\PhpGenerator\ClassType $class) : self
     {
         $name = $class->getName();
         if ($name === null) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException('Class does not have a name.');
+            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Class does not have a name.');
         }
         $this->addUse($this->name . '\\' . $name);
         $this->classes[$name] = $class;
         return $this;
     }
-    public function addClass(string $name) : \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType
+    public function addClass(string $name) : \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\ClassType
     {
-        $this->add($class = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType($name, $this));
+        $this->add($class = new \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\ClassType($name, $this));
         return $class;
     }
-    public function addInterface(string $name) : \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType
+    public function addInterface(string $name) : \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\ClassType
     {
         return $this->addClass($name)->setInterface();
     }
-    public function addTrait(string $name) : \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType
+    public function addTrait(string $name) : \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\ClassType
     {
         return $this->addClass($name)->setTrait();
     }
@@ -151,7 +151,7 @@ final class PhpNamespace
     public function __toString() : string
     {
         try {
-            return (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Printer())->printNamespace($this);
+            return (new \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Printer())->printNamespace($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;

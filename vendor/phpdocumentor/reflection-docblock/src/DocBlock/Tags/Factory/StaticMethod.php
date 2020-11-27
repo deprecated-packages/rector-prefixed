@@ -10,7 +10,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Factory;
+namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Factory;
 
 interface StaticMethod
 {

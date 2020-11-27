@@ -1,23 +1,23 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-use _PhpScoperbd5d0c5f7638\Httpful\Request;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper88fe6e0ad041\Httpful\Request;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface;
 (function () {
     require_once __DIR__ . '/../vendor/autoload.php';
-    $command = new class extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Command\Command
+    $command = new class extends \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Command\Command
     {
         protected function configure()
         {
             $this->setName('run');
-            $this->addArgument('fromCommit', \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputArgument::REQUIRED);
-            $this->addArgument('toCommit', \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputArgument::REQUIRED);
+            $this->addArgument('fromCommit', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument::REQUIRED);
+            $this->addArgument('toCommit', \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputArgument::REQUIRED);
         }
-        protected function execute(\_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface $output)
+        protected function execute(\_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface $output)
         {
             $commitLines = $this->exec(['git', 'log', \sprintf('%s..%s', $input->getArgument('fromCommit'), $input->getArgument('toCommit')), '--reverse', '--pretty=%H %s']);
             $commits = \array_map(function (string $line) : array {
@@ -26,13 +26,13 @@ use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
             }, \explode("\n", $commitLines));
             $i = 0;
             foreach ($commits as $commit) {
-                $searchPullRequestsResponse = \_PhpScoperbd5d0c5f7638\Httpful\Request::get(\sprintf('https://api.github.com/search/issues?q=repo:phpstan/phpstan-src+%s', $commit['hash']))->sendsAndExpectsType('application/json')->basicAuth('ondrejmirtes', \getenv('GITHUB_TOKEN'))->send();
+                $searchPullRequestsResponse = \_PhpScoper88fe6e0ad041\Httpful\Request::get(\sprintf('https://api.github.com/search/issues?q=repo:phpstan/phpstan-src+%s', $commit['hash']))->sendsAndExpectsType('application/json')->basicAuth('ondrejmirtes', \getenv('GITHUB_TOKEN'))->send();
                 if ($searchPullRequestsResponse->code !== 200) {
                     $output->writeln(\var_export($searchPullRequestsResponse->body, \true));
                     throw new \InvalidArgumentException((string) $searchPullRequestsResponse->code);
                 }
                 $searchPullRequestsResponse = $searchPullRequestsResponse->body;
-                $searchIssuesResponse = \_PhpScoperbd5d0c5f7638\Httpful\Request::get(\sprintf('https://api.github.com/search/issues?q=repo:phpstan/phpstan+%s', $commit['hash']))->sendsAndExpectsType('application/json')->basicAuth('ondrejmirtes', \getenv('GITHUB_TOKEN'))->send();
+                $searchIssuesResponse = \_PhpScoper88fe6e0ad041\Httpful\Request::get(\sprintf('https://api.github.com/search/issues?q=repo:phpstan/phpstan+%s', $commit['hash']))->sendsAndExpectsType('application/json')->basicAuth('ondrejmirtes', \getenv('GITHUB_TOKEN'))->send();
                 if ($searchIssuesResponse->code !== 200) {
                     $output->writeln(\var_export($searchIssuesResponse->body, \true));
                     throw new \InvalidArgumentException((string) $searchIssuesResponse->code);
@@ -75,7 +75,7 @@ use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
             return $output;
         }
     };
-    $application = new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Application();
+    $application = new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Application();
     $application->add($command);
     $application->setDefaultCommand('run', \true);
     $application->run();

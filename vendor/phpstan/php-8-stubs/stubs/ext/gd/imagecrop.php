@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function imagecrop(\_PhpScoperbd5d0c5f7638\GdImage $image, array $rectangle) : \GdImage|false
+function imagecrop(\_PhpScoper88fe6e0ad041\GdImage $image, array $rectangle) : \GdImage|false
 {
 }

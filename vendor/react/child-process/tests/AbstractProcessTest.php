@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Tests\ChildProcess;
+namespace _PhpScoper88fe6e0ad041\React\Tests\ChildProcess;
 
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\ExpectationFailedException;
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
-use _PhpScoperbd5d0c5f7638\React\ChildProcess\Process;
-use _PhpScoperbd5d0c5f7638\SebastianBergmann\Environment\Runtime;
-abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\ExpectationFailedException;
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
+use _PhpScoper88fe6e0ad041\React\ChildProcess\Process;
+use _PhpScoper88fe6e0ad041\SebastianBergmann\Environment\Runtime;
+abstract class AbstractProcessTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
 {
     public abstract function createLoop();
     public function testGetCommand()
     {
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('echo foo', null, null, array());
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('echo foo', null, null, array());
         $this->assertSame('echo foo', $process->getCommand());
     }
     public function testPipesWillBeUnsetBeforeStarting()
@@ -19,7 +19,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         if (\DIRECTORY_SEPARATOR === '\\') {
             $this->markTestSkipped('Process pipes not supported on Windows');
         }
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('echo foo');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('echo foo');
         $this->assertNull($process->stdin);
         $this->assertNull($process->stdout);
         $this->assertNull($process->stderr);
@@ -30,11 +30,11 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
      */
     public function testStartWillAssignPipes()
     {
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('echo foo');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('echo foo');
         $process->start($this->createLoop());
-        $this->assertInstanceOf('_PhpScoperbd5d0c5f7638\\React\\Stream\\WritableStreamInterface', $process->stdin);
-        $this->assertInstanceOf('_PhpScoperbd5d0c5f7638\\React\\Stream\\ReadableStreamInterface', $process->stdout);
-        $this->assertInstanceOf('_PhpScoperbd5d0c5f7638\\React\\Stream\\ReadableStreamInterface', $process->stderr);
+        $this->assertInstanceOf('_PhpScoper88fe6e0ad041\\React\\Stream\\WritableStreamInterface', $process->stdin);
+        $this->assertInstanceOf('_PhpScoper88fe6e0ad041\\React\\Stream\\ReadableStreamInterface', $process->stdout);
+        $this->assertInstanceOf('_PhpScoper88fe6e0ad041\\React\\Stream\\ReadableStreamInterface', $process->stderr);
         $this->assertCount(3, $process->pipes);
         $this->assertSame($process->stdin, $process->pipes[0]);
         $this->assertSame($process->stdout, $process->pipes[1]);
@@ -43,9 +43,9 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
     public function testStartWithoutAnyPipesWillNotAssignPipes()
     {
         if (\DIRECTORY_SEPARATOR === '\\') {
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('cmd /c exit 0', null, null, array());
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('cmd /c exit 0', null, null, array());
         } else {
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('exit 0', null, null, array());
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('exit 0', null, null, array());
         }
         $process->start($this->createLoop());
         $this->assertNull($process->stdin);
@@ -58,14 +58,14 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         if (\DIRECTORY_SEPARATOR === '\\') {
             $this->markTestSkipped('Process pipes not supported on Windows');
         }
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('exit 0', null, null, array(0 => array('pipe', 'w'), 3 => array('pipe', 'r')));
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('exit 0', null, null, array(0 => array('pipe', 'w'), 3 => array('pipe', 'r')));
         $process->start($this->createLoop());
-        $this->assertInstanceOf('_PhpScoperbd5d0c5f7638\\React\\Stream\\ReadableStreamInterface', $process->stdin);
+        $this->assertInstanceOf('_PhpScoper88fe6e0ad041\\React\\Stream\\ReadableStreamInterface', $process->stdin);
         $this->assertNull($process->stdout);
         $this->assertNull($process->stderr);
         $this->assertCount(2, $process->pipes);
         $this->assertSame($process->stdin, $process->pipes[0]);
-        $this->assertInstanceOf('_PhpScoperbd5d0c5f7638\\React\\Stream\\WritableStreamInterface', $process->pipes[3]);
+        $this->assertInstanceOf('_PhpScoper88fe6e0ad041\\React\\Stream\\WritableStreamInterface', $process->pipes[3]);
     }
     /**
      * @expectedException RuntimeException
@@ -74,7 +74,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
     public function testStartWithInvalidFileDescriptorPathWillThrow()
     {
         $fds = array(4 => array('file', '/dev/does-not-exist', 'r'));
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('exit 0', null, null, $fds);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('exit 0', null, null, $fds);
         $process->start($this->createLoop());
     }
     public function testStartWithExcessiveNumberOfFileDescriptorsWillThrow()
@@ -95,7 +95,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         // try to create child process with another ~700 dummy file handles
         $new = \array_fill(0, $limit, array('file', '/dev/null', 'r'));
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('ping example.com', null, null, $new);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('ping example.com', null, null, $new);
         try {
             $process->start($loop);
             $this->fail('Did not expect to reach this point');
@@ -109,9 +109,9 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
     {
         if (\DIRECTORY_SEPARATOR === '\\') {
             // Windows doesn't have a sleep command and also does not support process pipes
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($this->getPhpBinary() . ' -r ' . \escapeshellarg('sleep(1);'), null, null, array());
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($this->getPhpBinary() . ' -r ' . \escapeshellarg('sleep(1);'), null, null, array());
         } else {
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('sleep 1');
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('sleep 1');
         }
         $this->assertFalse($process->isRunning());
         $process->start($this->createLoop());
@@ -138,11 +138,11 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
             $this->markTestSkipped('Process pipes not supported on Windows');
         }
         $loop = $this->createLoop();
-        $old = \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process::isSigchildEnabled();
-        \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process::setSigchildEnabled(\true);
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('echo foo');
+        $old = \_PhpScoper88fe6e0ad041\React\ChildProcess\Process::isSigchildEnabled();
+        \_PhpScoper88fe6e0ad041\React\ChildProcess\Process::setSigchildEnabled(\true);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('echo foo');
         $process->start($loop);
-        \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process::setSigchildEnabled($old);
+        \_PhpScoper88fe6e0ad041\React\ChildProcess\Process::setSigchildEnabled($old);
         $loop->run();
         $this->assertEquals(0, $process->getExitCode());
     }
@@ -153,7 +153,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = 'echo test';
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd);
         $process->start($loop);
         $buffer = '';
         $process->stdout->on('data', function ($data) use(&$buffer) {
@@ -171,7 +171,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
             $cmd = 'echo test';
         }
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd, null, null, array(1 => $tmp));
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd, null, null, array(1 => $tmp));
         $process->start($loop);
         $loop->run();
         \rewind($tmp);
@@ -187,7 +187,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
             $cmd = 'echo "hello" && echo "world"';
         }
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd, null, null, array(1 => $tmp));
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd, null, null, array(1 => $tmp));
         $process->start($loop);
         $loop->run();
         \rewind($tmp);
@@ -206,7 +206,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         $cmd = 'echo test';
         $loop = $this->createLoop();
         // spawn child process with $client socket as STDOUT, close local reference afterwards
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd, null, null, array(1 => $client));
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd, null, null, array(1 => $client));
         $process->start($loop);
         \fclose($client);
         $loop->run();
@@ -225,7 +225,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         $cmd .= ' | ' . $this->getPhpBinary() . ' -r ' . \escapeshellarg($code) . ' ' . \escapeshellarg(\stream_socket_get_name($server, \false));
         $loop = $this->createLoop();
         // spawn child process without any STDIO streams
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd, null, null, array());
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd, null, null, array());
         $process->start($loop);
         $peer = \stream_socket_accept($server, 10);
         $loop->run();
@@ -241,7 +241,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = 'dd if=/dev/zero bs=12345 count=1234';
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd);
         $process->start($loop);
         $bytes = 0;
         $process->stdout->on('data', function ($data) use(&$bytes) {
@@ -257,7 +257,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = $this->getPhpBinary() . ' -r ' . \escapeshellarg('echo getmypid();');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd, '/');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd, '/');
         $process->start($loop);
         $output = '';
         $process->stdout->on('data', function ($data) use(&$output) {
@@ -275,7 +275,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = 'exec ' . $this->getPhpBinary() . ' -r ' . \escapeshellarg('echo getmypid();');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd, '/');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd, '/');
         $process->start($loop);
         $output = '';
         $process->stdout->on('data', function ($data) use(&$output) {
@@ -292,7 +292,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = $this->getPhpBinary() . ' -r ' . \escapeshellarg('echo getcwd(), PHP_EOL, count($_SERVER), PHP_EOL;');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd);
         $process->start($loop);
         $output = '';
         $process->stdout->on('data', function () use(&$output) {
@@ -314,7 +314,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = $this->getPhpBinary() . ' -r ' . \escapeshellarg('echo getcwd(), PHP_EOL;');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd, '/');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd, '/');
         $process->start($loop);
         $output = '';
         $process->stdout->on('data', function () use(&$output) {
@@ -333,7 +333,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = $this->getPhpBinary() . ' -r ' . \escapeshellarg('echo getenv("foo"), PHP_EOL;');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd, null, array('foo' => 'bar'));
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd, null, array('foo' => 'bar'));
         $process->start($loop);
         $output = '';
         $process->stdout->on('data', function () use(&$output) {
@@ -348,7 +348,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
             $this->markTestSkipped('Process pipes not supported on Windows');
         }
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('exit 0');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('exit 0');
         $called = \false;
         $exitCode = 'initial';
         $termSignal = 'initial';
@@ -373,7 +373,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
             $this->markTestSkipped('Process pipes not supported on Windows');
         }
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('echo hi');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('echo hi');
         $process->start($loop, 2);
         $time = \microtime(\true);
         $loop->run();
@@ -387,7 +387,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = 'exec ' . $this->getPhpBinary() . ' -r ' . \escapeshellarg('fclose(STDOUT); sleep(1);');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd);
         $process->start($loop);
         $closed = \false;
         $process->stdout->on('close', function () use(&$closed, $loop) {
@@ -408,7 +408,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = 'exec ' . $this->getPhpBinary() . ' -r ' . \escapeshellarg('fclose(STDIN);fclose(STDOUT);fclose(STDERR);sleep(1);');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd);
         $process->start($loop);
         $closed = 0;
         $process->stdout->on('close', function () use(&$closed, $loop) {
@@ -438,7 +438,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = 'exec ' . $this->getPhpBinary() . ' -r ' . \escapeshellarg('fclose(STDIN);fclose(STDOUT);fclose(STDERR);usleep(10000);');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd);
         $process->start($loop, 0.001);
         $time = \microtime(\true);
         $loop->run();
@@ -450,9 +450,9 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
     {
         $loop = $this->createLoop();
         if (\DIRECTORY_SEPARATOR === '\\') {
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('cmd /c exit 0', null, null, array());
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('cmd /c exit 0', null, null, array());
         } else {
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('exit 0', null, null, array());
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('exit 0', null, null, array());
         }
         $process->start($loop, 0.001);
         $time = \microtime(\true);
@@ -468,7 +468,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $cmd = \tempnam(\sys_get_temp_dir(), 'react');
         $loop = $this->createLoop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($cmd);
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($cmd);
         $process->start($loop);
         $output = '';
         $process->stderr->on('data', function () use(&$output) {
@@ -485,9 +485,9 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
     {
         if (\DIRECTORY_SEPARATOR === '\\') {
             // Windows doesn't have a sleep command and also does not support process pipes
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($this->getPhpBinary() . ' -r ' . \escapeshellarg('sleep(1);'), null, null, array());
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($this->getPhpBinary() . ' -r ' . \escapeshellarg('sleep(1);'), null, null, array());
         } else {
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('sleep 1');
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('sleep 1');
         }
         //var_dump($process);
         $process->start($this->createLoop());
@@ -497,9 +497,9 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
     {
         if (\DIRECTORY_SEPARATOR === '\\') {
             // Windows doesn't have a sleep command and also does not support process pipes
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($this->getPhpBinary() . ' -r ' . \escapeshellarg('sleep(1);'), null, null, array());
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($this->getPhpBinary() . ' -r ' . \escapeshellarg('sleep(1);'), null, null, array());
         } else {
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('sleep 1');
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('sleep 1');
         }
         $this->assertFalse($process->terminate());
     }
@@ -507,9 +507,9 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
     {
         if (\DIRECTORY_SEPARATOR === '\\') {
             // Windows doesn't have a sleep command and also does not support process pipes
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($this->getPhpBinary() . ' -r ' . \escapeshellarg('sleep(10);'), null, null, array());
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($this->getPhpBinary() . ' -r ' . \escapeshellarg('sleep(10);'), null, null, array());
         } else {
-            $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('sleep 10');
+            $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('sleep 10');
         }
         $loop = $this->createloop();
         $process->start($loop);
@@ -533,7 +533,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
             $this->markTestSkipped('SIGTERM is not defined');
         }
         $loop = $this->createloop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('sleep 1; exit 0');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('sleep 1; exit 0');
         $called = \false;
         $exitCode = 'initial';
         $termSignal = 'initial';
@@ -562,7 +562,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
             $this->markTestSkipped('SIGSTOP and/or SIGCONT is not defined');
         }
         $loop = $this->createloop();
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('sleep 1; exit 0');
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('sleep 1; exit 0');
         $called = \false;
         $exitCode = 'initial';
         $termSignal = 'initial';
@@ -600,7 +600,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
         }
         $loop = $this->createLoop();
         $testString = 'x';
-        $process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($this->getPhpBinary() . " -r 'echo \"{$testString}\";'");
+        $process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($this->getPhpBinary() . " -r 'echo \"{$testString}\";'");
         $stdOut = '';
         $stdErr = '';
         $that = $this;
@@ -644,9 +644,9 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
             try {
                 \call_user_func($callback);
                 return;
-            } catch (\_PhpScoperbd5d0c5f7638\PHPUnit\Framework\ExpectationFailedException $e) {
+            } catch (\_PhpScoper88fe6e0ad041\PHPUnit\Framework\ExpectationFailedException $e) {
                 // namespaced PHPUnit exception
-            } catch (\_PhpScoperbd5d0c5f7638\PHPUnit_Framework_ExpectationFailedException $e) {
+            } catch (\_PhpScoper88fe6e0ad041\PHPUnit_Framework_ExpectationFailedException $e) {
                 // legacy PHPUnit exception
             }
             if (\microtime(\true) - $start > $timeout) {
@@ -662,7 +662,7 @@ abstract class AbstractProcessTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Frame
      */
     private function getPhpBinary()
     {
-        $runtime = new \_PhpScoperbd5d0c5f7638\SebastianBergmann\Environment\Runtime();
+        $runtime = new \_PhpScoper88fe6e0ad041\SebastianBergmann\Environment\Runtime();
         return $runtime->getBinary();
     }
 }

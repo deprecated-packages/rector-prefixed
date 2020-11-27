@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class FooWithoutNamespace
 {
-    public function misleadingBoolReturnType() : \_PhpScoperbd5d0c5f7638\boolean
+    public function misleadingBoolReturnType() : \_PhpScoper88fe6e0ad041\boolean
     {
         if (\rand(0, 1)) {
             return \true;
@@ -13,10 +13,10 @@ class FooWithoutNamespace
             return 1;
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoperbd5d0c5f7638\boolean();
+            return new \_PhpScoper88fe6e0ad041\boolean();
         }
     }
-    public function misleadingIntReturnType() : \_PhpScoperbd5d0c5f7638\integer
+    public function misleadingIntReturnType() : \_PhpScoper88fe6e0ad041\integer
     {
         if (\rand(0, 1)) {
             return 1;
@@ -25,7 +25,7 @@ class FooWithoutNamespace
             return \true;
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoperbd5d0c5f7638\integer();
+            return new \_PhpScoper88fe6e0ad041\integer();
         }
     }
     public function misleadingMixedReturnType() : mixed
@@ -37,8 +37,8 @@ class FooWithoutNamespace
             return \true;
         }
         if (\rand(0, 1)) {
-            return new \_PhpScoperbd5d0c5f7638\mixed();
+            return new \_PhpScoper88fe6e0ad041\mixed();
         }
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\FooWithoutNamespace', 'FooWithoutNamespace', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\FooWithoutNamespace', 'FooWithoutNamespace', \false);

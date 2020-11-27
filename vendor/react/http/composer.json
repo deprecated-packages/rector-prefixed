@@ -57,12 +57,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Http\\": "src"
+            "_PhpScoper88fe6e0ad041\\React\\Http\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Tests\\Http\\": "tests"
+            "_PhpScoper88fe6e0ad041\\React\\Tests\\Http\\": "tests"
         }
     }
 }

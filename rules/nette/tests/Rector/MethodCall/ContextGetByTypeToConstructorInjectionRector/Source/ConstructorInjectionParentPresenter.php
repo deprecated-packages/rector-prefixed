@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\Source;
 
-use _PhpScoperbd5d0c5f7638\Nette\Application\IPresenter;
-use _PhpScoperbd5d0c5f7638\Nette\Application\IResponse;
-use _PhpScoperbd5d0c5f7638\Nette\Application\Request;
-class ConstructorInjectionParentPresenter implements \_PhpScoperbd5d0c5f7638\Nette\Application\IPresenter
+use _PhpScoper88fe6e0ad041\Nette\Application\IPresenter;
+use _PhpScoper88fe6e0ad041\Nette\Application\IResponse;
+use _PhpScoper88fe6e0ad041\Nette\Application\Request;
+class ConstructorInjectionParentPresenter implements \_PhpScoper88fe6e0ad041\Nette\Application\IPresenter
 {
     /**
      * @var SomeTypeToInject
@@ -16,7 +16,7 @@ class ConstructorInjectionParentPresenter implements \_PhpScoperbd5d0c5f7638\Net
     {
         $this->someTypeToInject = $someTypeToInject;
     }
-    function run(\_PhpScoperbd5d0c5f7638\Nette\Application\Request $request) : \_PhpScoperbd5d0c5f7638\Nette\Application\IResponse
+    function run(\_PhpScoper88fe6e0ad041\Nette\Application\Request $request) : \_PhpScoper88fe6e0ad041\Nette\Application\IResponse
     {
     }
 }

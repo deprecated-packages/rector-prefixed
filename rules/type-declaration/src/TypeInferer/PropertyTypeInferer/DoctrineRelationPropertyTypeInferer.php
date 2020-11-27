@@ -22,7 +22,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
     /**
      * @var string
      */
-    private const COLLECTION_TYPE = '_PhpScoperbd5d0c5f7638\\Doctrine\\Common\\Collections\\Collection';
+    private const COLLECTION_TYPE = '_PhpScoper88fe6e0ad041\\Doctrine\\Common\\Collections\\Collection';
     /**
      * @var TypeFactory
      */

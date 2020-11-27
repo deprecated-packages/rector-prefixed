@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Mockery;
+namespace _PhpScoper88fe6e0ad041\Mockery;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Mockery\\MockerInterface')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Mockery\\MockerInterface')) {
     return;
 }
 interface MockInterface

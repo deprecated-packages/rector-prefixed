@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\TypesNamespaceFunctions;
+namespace _PhpScoper88fe6e0ad041\TypesNamespaceFunctions;
 
 function stringFunction() : string
 {
 }
-function objectFunction() : \_PhpScoperbd5d0c5f7638\TypesNamespaceFunctions\Foo
+function objectFunction() : \_PhpScoper88fe6e0ad041\TypesNamespaceFunctions\Foo
 {
 }
 function unknownTypeFunction()

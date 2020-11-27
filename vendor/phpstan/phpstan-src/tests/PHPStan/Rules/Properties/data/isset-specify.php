@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\IssetSpecifyAccessProperty;
+namespace _PhpScoper88fe6e0ad041\IssetSpecifyAccessProperty;
 
 class Example
 {
-    function foo(?\_PhpScoperbd5d0c5f7638\IssetSpecifyAccessProperty\ObjectWithArrayProp $nullableObject) : bool
+    function foo(?\_PhpScoper88fe6e0ad041\IssetSpecifyAccessProperty\ObjectWithArrayProp $nullableObject) : bool
     {
         return isset($nullableObject, $nullableObject->arrayProperty['key'], $nullableObject->fooProperty['foo']);
     }

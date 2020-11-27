@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\EventLoop;
+namespace _PhpScoper88fe6e0ad041\React\EventLoop;
 
-use _PhpScoperbd5d0c5f7638\React\EventLoop\Tick\FutureTickQueue;
-use _PhpScoperbd5d0c5f7638\React\EventLoop\Timer\Timer;
-use _PhpScoperbd5d0c5f7638\React\EventLoop\Timer\Timers;
+use _PhpScoper88fe6e0ad041\React\EventLoop\Tick\FutureTickQueue;
+use _PhpScoper88fe6e0ad041\React\EventLoop\Timer\Timer;
+use _PhpScoper88fe6e0ad041\React\EventLoop\Timer\Timers;
 /**
  * A `stream_select()` based event loop.
  *
@@ -48,7 +48,7 @@ use _PhpScoperbd5d0c5f7638\React\EventLoop\Timer\Timers;
  *
  * @link https://www.php.net/manual/en/function.stream-select.php
  */
-final class StreamSelectLoop implements \_PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface
+final class StreamSelectLoop implements \_PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface
 {
     /** @internal */
     const MICROSECONDS_PER_SECOND = 1000000;
@@ -64,11 +64,11 @@ final class StreamSelectLoop implements \_PhpScoperbd5d0c5f7638\React\EventLoop\
     private $signals;
     public function __construct()
     {
-        $this->futureTickQueue = new \_PhpScoperbd5d0c5f7638\React\EventLoop\Tick\FutureTickQueue();
-        $this->timers = new \_PhpScoperbd5d0c5f7638\React\EventLoop\Timer\Timers();
+        $this->futureTickQueue = new \_PhpScoper88fe6e0ad041\React\EventLoop\Tick\FutureTickQueue();
+        $this->timers = new \_PhpScoper88fe6e0ad041\React\EventLoop\Timer\Timers();
         $this->pcntl = \function_exists('pcntl_signal') && \function_exists('pcntl_signal_dispatch');
         $this->pcntlPoll = $this->pcntl && !\function_exists('pcntl_async_signals');
-        $this->signals = new \_PhpScoperbd5d0c5f7638\React\EventLoop\SignalsHandler();
+        $this->signals = new \_PhpScoper88fe6e0ad041\React\EventLoop\SignalsHandler();
         // prefer async signals if available (PHP 7.1+) or fall back to dispatching on each tick
         if ($this->pcntl && !$this->pcntlPoll) {
             \pcntl_async_signals(\true);
@@ -102,17 +102,17 @@ final class StreamSelectLoop implements \_PhpScoperbd5d0c5f7638\React\EventLoop\
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \_PhpScoperbd5d0c5f7638\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \_PhpScoper88fe6e0ad041\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $this->timers->add($timer);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \_PhpScoperbd5d0c5f7638\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \_PhpScoper88fe6e0ad041\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $this->timers->add($timer);
         return $timer;
     }
-    public function cancelTimer(\_PhpScoperbd5d0c5f7638\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\_PhpScoper88fe6e0ad041\React\EventLoop\TimerInterface $timer)
     {
         $this->timers->cancel($timer);
     }

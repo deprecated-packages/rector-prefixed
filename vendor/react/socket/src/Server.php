@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Socket;
+namespace _PhpScoper88fe6e0ad041\React\Socket;
 
-use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
-use _PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface;
+use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
+use _PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface;
 use Exception;
-final class Server extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter implements \_PhpScoperbd5d0c5f7638\React\Socket\ServerInterface
+final class Server extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Socket\ServerInterface
 {
     private $server;
-    public function __construct($uri, \_PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct($uri, \_PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         // sanitize TCP context options if not properly wrapped
         if ($context && (!isset($context['tcp']) && !isset($context['tls']) && !isset($context['unix']))) {
@@ -22,16 +22,16 @@ final class Server extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter implem
             $scheme = \substr($uri, 0, $pos);
         }
         if ($scheme === 'unix') {
-            $server = new \_PhpScoperbd5d0c5f7638\React\Socket\UnixServer($uri, $loop, $context['unix']);
+            $server = new \_PhpScoper88fe6e0ad041\React\Socket\UnixServer($uri, $loop, $context['unix']);
         } else {
-            $server = new \_PhpScoperbd5d0c5f7638\React\Socket\TcpServer(\str_replace('tls://', '', $uri), $loop, $context['tcp']);
+            $server = new \_PhpScoper88fe6e0ad041\React\Socket\TcpServer(\str_replace('tls://', '', $uri), $loop, $context['tcp']);
             if ($scheme === 'tls') {
-                $server = new \_PhpScoperbd5d0c5f7638\React\Socket\SecureServer($server, $loop, $context['tls']);
+                $server = new \_PhpScoper88fe6e0ad041\React\Socket\SecureServer($server, $loop, $context['tls']);
             }
         }
         $this->server = $server;
         $that = $this;
-        $server->on('connection', function (\_PhpScoperbd5d0c5f7638\React\Socket\ConnectionInterface $conn) use($that) {
+        $server->on('connection', function (\_PhpScoper88fe6e0ad041\React\Socket\ConnectionInterface $conn) use($that) {
             $that->emit('connection', array($conn));
         });
         $server->on('error', function (\Exception $error) use($that) {

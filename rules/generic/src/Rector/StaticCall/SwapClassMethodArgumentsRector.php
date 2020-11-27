@@ -13,7 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\SwapClassMethodArguments;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert;
+use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\SwapClassMethodArgumentsRectorTest
  */
@@ -72,7 +72,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $argumentSwaps = $configuration[self::ARGUMENT_SWAPS] ?? [];
-        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::allIsInstanceOf($argumentSwaps, \Rector\Generic\ValueObject\SwapClassMethodArguments::class);
+        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::allIsInstanceOf($argumentSwaps, \Rector\Generic\ValueObject\SwapClassMethodArguments::class);
         $this->argumentSwaps = $argumentSwaps;
     }
     /**

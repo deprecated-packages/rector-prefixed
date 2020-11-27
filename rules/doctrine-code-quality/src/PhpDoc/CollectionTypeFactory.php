@@ -21,6 +21,6 @@ final class CollectionTypeFactory
     private function createGenericObjectType(\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \PHPStan\Type\Type
     {
         $genericTypes = [new \PHPStan\Type\IntegerType(), $fullyQualifiedObjectType];
-        return new \PHPStan\Type\Generic\GenericObjectType('_PhpScoperbd5d0c5f7638\\Doctrine\\Common\\Collections\\Collection', $genericTypes);
+        return new \PHPStan\Type\Generic\GenericObjectType('_PhpScoper88fe6e0ad041\\Doctrine\\Common\\Collections\\Collection', $genericTypes);
     }
 }

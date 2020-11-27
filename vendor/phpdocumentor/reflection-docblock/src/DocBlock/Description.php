@@ -10,11 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
-use _PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert;
+use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
+use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
 /**
  * Object representing to description for a DocBlock.
  *
@@ -61,7 +61,7 @@ class Description
      */
     public function __construct($bodyTemplate, array $tags = [])
     {
-        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::string($bodyTemplate);
+        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::string($bodyTemplate);
         $this->bodyTemplate = $bodyTemplate;
         $this->tags = $tags;
     }
@@ -82,10 +82,10 @@ class Description
      *
      * @return string
      */
-    public function render(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null)
+    public function render(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null)
     {
         if ($formatter === null) {
-            $formatter = new \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+            $formatter = new \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
         }
         $tags = [];
         foreach ($this->tags as $tag) {

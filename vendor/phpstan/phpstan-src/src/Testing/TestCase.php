@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Testing;
 
-use _PhpScoperbd5d0c5f7638\Composer\Autoload\ClassLoader;
+use _PhpScoper88fe6e0ad041\Composer\Autoload\ClassLoader;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\DirectScopeFactory;
 use PHPStan\Analyser\MutatingScope;
@@ -61,17 +61,17 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Php\SimpleXMLElementClassPropertyReflectionExtension;
 use PHPStan\Type\Type;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-abstract class TestCase extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ConstantReflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+abstract class TestCase extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
 {
     /** @var bool */
     public static $useStaticReflectionProvider = \false;
@@ -146,10 +146,10 @@ abstract class TestCase extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCa
         $setterReflectionProviderProvider->setReflectionProvider($reflectionProvider);
         return $reflectionProvider;
     }
-    private static function getPhpStormStubsSourceStubber() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
+    private static function getPhpStormStubsSourceStubber() : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
     {
         if (self::$phpStormStubsSourceStubber === null) {
-            self::$phpStormStubsSourceStubber = self::getContainer()->getByType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class);
+            self::$phpStormStubsSourceStubber = self::getContainer()->getByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class);
         }
         return self::$phpStormStubsSourceStubber;
     }
@@ -167,7 +167,7 @@ abstract class TestCase extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCa
         $fileTypeMapper = new \PHPStan\Type\FileTypeMapper($setterReflectionProviderProvider, $parser, $phpDocStringResolver, $phpDocNodeResolver, $cache, $anonymousClassNameHelper);
         $classReflectionExtensionRegistryProvider = $this->getClassReflectionExtensionRegistryProvider();
         $functionReflectionFactory = $this->getFunctionReflectionFactory($functionCallStatementFinder, $cache);
-        $reflectionProvider = new \PHPStan\Reflection\ReflectionProvider\ClassBlacklistReflectionProvider(new \PHPStan\Reflection\Runtime\RuntimeReflectionProvider($setterReflectionProviderProvider, $classReflectionExtensionRegistryProvider, $functionReflectionFactory, $fileTypeMapper, self::getContainer()->getByType(\PHPStan\Php\PhpVersion::class), self::getContainer()->getByType(\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider::class), self::getContainer()->getByType(\PHPStan\PhpDoc\StubPhpDocProvider::class), self::getContainer()->getByType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class)), self::getPhpStormStubsSourceStubber(), ['#^PhpParser\\\\#', '#^PHPStan\\\\#', '#^Hoa\\\\#'], null);
+        $reflectionProvider = new \PHPStan\Reflection\ReflectionProvider\ClassBlacklistReflectionProvider(new \PHPStan\Reflection\Runtime\RuntimeReflectionProvider($setterReflectionProviderProvider, $classReflectionExtensionRegistryProvider, $functionReflectionFactory, $fileTypeMapper, self::getContainer()->getByType(\PHPStan\Php\PhpVersion::class), self::getContainer()->getByType(\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider::class), self::getContainer()->getByType(\PHPStan\PhpDoc\StubPhpDocProvider::class), self::getContainer()->getByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class)), self::getPhpStormStubsSourceStubber(), ['#^PhpParser\\\\#', '#^PHPStan\\\\#', '#^Hoa\\\\#'], null);
         $this->setUpReflectionProvider($actualReflectionProvider, $setterReflectionProviderProvider, $classReflectionExtensionRegistryProvider, $functionCallStatementFinder, $parser, $cache, $fileTypeMapper);
         return $reflectionProvider;
     }
@@ -261,10 +261,10 @@ abstract class TestCase extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCa
         if (self::$reflectors !== null) {
             return self::$reflectors;
         }
-        if (!\class_exists(\_PhpScoperbd5d0c5f7638\Composer\Autoload\ClassLoader::class)) {
+        if (!\class_exists(\_PhpScoper88fe6e0ad041\Composer\Autoload\ClassLoader::class)) {
             self::fail('Composer ClassLoader is unknown');
         }
-        $classLoaderReflection = new \ReflectionClass(\_PhpScoperbd5d0c5f7638\Composer\Autoload\ClassLoader::class);
+        $classLoaderReflection = new \ReflectionClass(\_PhpScoper88fe6e0ad041\Composer\Autoload\ClassLoader::class);
         if ($classLoaderReflection->getFileName() === \false) {
             self::fail('Unknown ClassLoader filename');
         }
@@ -282,15 +282,15 @@ abstract class TestCase extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCa
         $phpParser = new \PHPStan\Parser\PhpParserDecorator(self::getContainer()->getByType(\PHPStan\Parser\CachedParser::class));
         /** @var FunctionReflector $functionReflector */
         $functionReflector = null;
-        $astLocator = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator($phpParser, static function () use(&$functionReflector) : FunctionReflector {
+        $astLocator = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Locator($phpParser, static function () use(&$functionReflector) : FunctionReflector {
             return $functionReflector;
         });
-        $reflectionSourceStubber = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber();
-        $locators[] = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, self::getPhpStormStubsSourceStubber());
+        $reflectionSourceStubber = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber();
+        $locators[] = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, self::getPhpStormStubsSourceStubber());
         $locators[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\AutoloadSourceLocator(self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher::class));
-        $locators[] = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $reflectionSourceStubber);
-        $locators[] = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $reflectionSourceStubber);
-        $sourceLocator = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators));
+        $locators[] = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $reflectionSourceStubber);
+        $locators[] = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $reflectionSourceStubber);
+        $sourceLocator = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators));
         $classReflector = new \PHPStan\Reflection\BetterReflection\Reflector\MemoizingClassReflector($sourceLocator);
         $functionReflector = new \PHPStan\Reflection\BetterReflection\Reflector\MemoizingFunctionReflector($sourceLocator, $classReflector);
         $constantReflector = new \PHPStan\Reflection\BetterReflection\Reflector\MemoizingConstantReflector($sourceLocator, $classReflector);

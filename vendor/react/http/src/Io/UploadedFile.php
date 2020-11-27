@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Http\Io;
+namespace _PhpScoper88fe6e0ad041\React\Http\Io;
 
-use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
-use _PhpScoperbd5d0c5f7638\Psr\Http\Message\UploadedFileInterface;
+use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
+use _PhpScoper88fe6e0ad041\Psr\Http\Message\UploadedFileInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -17,7 +17,7 @@ use RuntimeException;
  * @see UploadedFileInterface
  * @internal
  */
-final class UploadedFile implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\UploadedFileInterface
+final class UploadedFile implements \_PhpScoper88fe6e0ad041\Psr\Http\Message\UploadedFileInterface
 {
     /**
      * @var StreamInterface
@@ -46,7 +46,7 @@ final class UploadedFile implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\Upl
      * @param string $filename
      * @param string $mediaType
      */
-    public function __construct(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $stream, $size, $error, $filename, $mediaType)
+    public function __construct(\_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface $stream, $size, $error, $filename, $mediaType)
     {
         $this->stream = $stream;
         $this->size = $size;

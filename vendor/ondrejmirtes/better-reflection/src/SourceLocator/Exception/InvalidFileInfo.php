@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Exception;
 
 use RuntimeException;
 use function get_class;

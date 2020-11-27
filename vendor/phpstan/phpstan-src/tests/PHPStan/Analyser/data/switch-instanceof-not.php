@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\SwitchInstanceOfNot;
+namespace _PhpScoper88fe6e0ad041\SwitchInstanceOfNot;
 
 $foo = doFoo();
 switch (\false) {
-    case $foo instanceof \_PhpScoperbd5d0c5f7638\SwitchInstanceOfNot\Foo:
+    case $foo instanceof \_PhpScoper88fe6e0ad041\SwitchInstanceOfNot\Foo:
         die;
 }

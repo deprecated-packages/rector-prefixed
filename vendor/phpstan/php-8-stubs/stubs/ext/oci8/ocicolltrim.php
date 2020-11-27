@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /**
  * @alias oci_collection_trim
  * @deprecated
  */
-function ocicolltrim(\_PhpScoperbd5d0c5f7638\OCICollection $collection, int $num) : bool
+function ocicolltrim(\_PhpScoper88fe6e0ad041\OCICollection $collection, int $num) : bool
 {
 }

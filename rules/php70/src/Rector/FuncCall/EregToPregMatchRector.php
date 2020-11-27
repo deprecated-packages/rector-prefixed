@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php70\Rector\FuncCall;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -103,7 +103,7 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
      */
     private function processSplitLimitArgument(\PhpParser\Node\Expr\FuncCall $funcCall, string $functionName) : void
     {
-        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::startsWith($functionName, 'split')) {
+        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($functionName, 'split')) {
             return;
         }
         // 3rd argument - $limit, 0 → 1
@@ -128,9 +128,9 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
     }
     private function isCaseInsensitiveFunction(string $functionName) : bool
     {
-        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($functionName, 'eregi')) {
+        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($functionName, 'eregi')) {
             return \true;
         }
-        return \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($functionName, 'spliti');
+        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($functionName, 'spliti');
     }
 }

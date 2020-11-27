@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class DOMText
 {
@@ -23,4 +23,4 @@ class DOMText
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\DOMText', 'DOMText', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\DOMText', 'DOMText', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class mysqli_stmt
 {
@@ -145,4 +145,4 @@ class mysqli_stmt
     }
     #endif
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\mysqli_stmt', 'mysqli_stmt', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\mysqli_stmt', 'mysqli_stmt', \false);

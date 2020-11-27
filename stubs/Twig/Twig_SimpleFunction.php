@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Twig_SimpleFunction')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Twig_SimpleFunction')) {
     return;
 }
 class Twig_SimpleFunction
 {
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\Twig_SimpleFunction', 'Twig_SimpleFunction', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\Twig_SimpleFunction', 'Twig_SimpleFunction', \false);

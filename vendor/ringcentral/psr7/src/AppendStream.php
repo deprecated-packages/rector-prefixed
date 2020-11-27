@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
+namespace _PhpScoper88fe6e0ad041\RingCentral\Psr7;
 
-use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
+use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
 /**
  * Reads from multiple streams, one after the other.
  *
  * This is a read-only stream decorator.
  */
-class AppendStream implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface
+class AppendStream implements \_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface
 {
     /** @var StreamInterface[] Streams being decorated */
     private $streams = array();
@@ -42,7 +42,7 @@ class AppendStream implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInt
      *
      * @throws \InvalidArgumentException if the stream is not readable
      */
-    public function addStream(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface $stream)
+    public function addStream(\_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface $stream)
     {
         if (!$stream->isReadable()) {
             throw new \InvalidArgumentException('Each stream must be readable');

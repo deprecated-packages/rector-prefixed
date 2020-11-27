@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function imagepalettecopy(\_PhpScoperbd5d0c5f7638\GdImage $dst, \_PhpScoperbd5d0c5f7638\GdImage $src) : void
+function imagepalettecopy(\_PhpScoper88fe6e0ad041\GdImage $dst, \_PhpScoper88fe6e0ad041\GdImage $src) : void
 {
 }

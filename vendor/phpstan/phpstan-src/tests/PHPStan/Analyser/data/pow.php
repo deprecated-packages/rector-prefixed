@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\PowFunction;
+namespace _PhpScoper88fe6e0ad041\PowFunction;
 
 use function PHPStan\Analyser\assertType;
 function ($a, $b) : void {

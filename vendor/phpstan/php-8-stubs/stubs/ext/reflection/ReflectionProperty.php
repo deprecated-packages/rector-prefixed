@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class ReflectionProperty implements \Reflector
 {
@@ -89,4 +89,4 @@ class ReflectionProperty implements \Reflector
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\ReflectionProperty', 'ReflectionProperty', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\ReflectionProperty', 'ReflectionProperty', \false);

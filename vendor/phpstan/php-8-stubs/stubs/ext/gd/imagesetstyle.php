@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function imagesetstyle(\_PhpScoperbd5d0c5f7638\GdImage $image, array $style) : bool
+function imagesetstyle(\_PhpScoper88fe6e0ad041\GdImage $image, array $style) : bool
 {
 }

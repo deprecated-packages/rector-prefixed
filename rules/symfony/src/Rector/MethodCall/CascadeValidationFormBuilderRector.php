@@ -124,7 +124,7 @@ CODE_SAMPLE
     }
     private function addConstraintsOptionToFollowingAddMethodCalls(\PhpParser\Node $node) : void
     {
-        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Constraints\\Valid'));
+        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoper88fe6e0ad041\\Symfony\\Component\\Validator\\Constraints\\Valid'));
         $constraintsArrayItem = new \PhpParser\Node\Expr\ArrayItem($new, new \PhpParser\Node\Scalar\String_('constraints'));
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         while ($parentNode instanceof \PhpParser\Node\Expr\MethodCall) {

@@ -47,12 +47,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Socket\\": "src"
+            "_PhpScoper88fe6e0ad041\\React\\Socket\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Tests\\Socket\\": "tests"
+            "_PhpScoper88fe6e0ad041\\React\\Tests\\Socket\\": "tests"
         }
     }
 }

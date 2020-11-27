@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class InfiniteIterator extends \IteratorIterator
 {
@@ -12,4 +12,4 @@ class InfiniteIterator extends \IteratorIterator
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\InfiniteIterator', 'InfiniteIterator', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\InfiniteIterator', 'InfiniteIterator', \false);

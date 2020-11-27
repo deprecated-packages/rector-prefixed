@@ -10,16 +10,16 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert;
+use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoper88fe6e0ad041\Webmozart\Assert\Assert;
 /**
  * Reflection class for a @link tag in a Docblock.
  */
-final class Link extends \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Link extends \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'link';
     /** @var string */
@@ -30,19 +30,19 @@ final class Link extends \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlo
      * @param string      $link
      * @param Description $description
      */
-    public function __construct($link, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($link, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::string($link);
+        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::string($link);
         $this->link = $link;
         $this->description = $description;
     }
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::string($body);
-        \_PhpScoperbd5d0c5f7638\Webmozart\Assert\Assert::notNull($descriptionFactory);
+        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::string($body);
+        \_PhpScoper88fe6e0ad041\Webmozart\Assert\Assert::notNull($descriptionFactory);
         $parts = \preg_split('/\\s+/Su', $body, 2);
         $description = isset($parts[1]) ? $descriptionFactory->create($parts[1], $context) : null;
         return new static($parts[0], $description);

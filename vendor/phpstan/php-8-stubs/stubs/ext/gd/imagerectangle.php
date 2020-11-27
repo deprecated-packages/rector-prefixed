@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function imagerectangle(\_PhpScoperbd5d0c5f7638\GdImage $image, int $x1, int $y1, int $x2, int $y2, int $color) : bool
+function imagerectangle(\_PhpScoper88fe6e0ad041\GdImage $image, int $x1, int $y1, int $x2, int $y2, int $color) : bool
 {
 }

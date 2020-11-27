@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\ArraySlice;
+namespace _PhpScoper88fe6e0ad041\ArraySlice;
 
 use function PHPStan\Analyser\assertType;
 class Foo

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class SplObjectStorage implements \Countable, \Iterator, \Serializable, \ArrayAccess
 {
@@ -116,4 +116,4 @@ class SplObjectStorage implements \Countable, \Iterator, \Serializable, \ArrayAc
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\SplObjectStorage', 'SplObjectStorage', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\SplObjectStorage', 'SplObjectStorage', \false);

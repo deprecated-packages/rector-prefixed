@@ -1,7 +1,7 @@
 <?php
 
 // lint < 8.0
-namespace _PhpScoperbd5d0c5f7638\TestInstantiation;
+namespace _PhpScoper88fe6e0ad041\TestInstantiation;
 
 class InstantiatingClass
 {
@@ -18,30 +18,30 @@ class InstantiatingClass
     }
 }
 function () {
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\FooInstantiation();
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\FooInstantiation();
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\FooInstantiation(1);
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\FooInstantiation();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\FooInstantiation();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\FooInstantiation(1);
     // additional parameter
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\FooBarInstantiation();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\FooBarInstantiation();
     // nonexistent
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\BarInstantiation();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\BarInstantiation();
     // missing parameter
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\LoremInstantiation();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\LoremInstantiation();
     // abstract
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\IpsumInstantiation();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\IpsumInstantiation();
     // interface
     $test = 'Test';
     new $test();
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\ClassWithVariadicConstructor(1, 2, 3);
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\ClassWithVariadicConstructor(1, 2, 3);
     new \DatePeriod();
     new \DatePeriod(new \DateTime(), new \DateInterval('P1D'), new \DateTime(), \DatePeriod::EXCLUDE_START_DATE);
     new self();
     new static();
     new parent();
-    $a = new \_PhpScoperbd5d0c5f7638\TestInstantiation\BarInstantiation(1);
+    $a = new \_PhpScoper88fe6e0ad041\TestInstantiation\BarInstantiation(1);
     new $a();
 };
-class ChildInstantiatingClass extends \_PhpScoperbd5d0c5f7638\TestInstantiation\InstantiatingClass
+class ChildInstantiatingClass extends \_PhpScoper88fe6e0ad041\TestInstantiation\InstantiatingClass
 {
     public function __construct(int $i, int $j)
     {
@@ -54,9 +54,9 @@ class ChildInstantiatingClass extends \_PhpScoperbd5d0c5f7638\TestInstantiation\
     }
 }
 function () {
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\FOOInstantiation(1, 2, 3);
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\BARInstantiation();
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\BARInstantiation(1);
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\FOOInstantiation(1, 2, 3);
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\BARInstantiation();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\BARInstantiation(1);
 };
 class PrivateConstructorClass
 {
@@ -70,14 +70,14 @@ class ProtectedConstructorClass
     {
     }
 }
-class ClassExtendsProtectedConstructorClass extends \_PhpScoperbd5d0c5f7638\TestInstantiation\ProtectedConstructorClass
+class ClassExtendsProtectedConstructorClass extends \_PhpScoper88fe6e0ad041\TestInstantiation\ProtectedConstructorClass
 {
     public function doFoo()
     {
         new self();
     }
 }
-class ExtendsPrivateConstructorClass extends \_PhpScoperbd5d0c5f7638\TestInstantiation\PrivateConstructorClass
+class ExtendsPrivateConstructorClass extends \_PhpScoper88fe6e0ad041\TestInstantiation\PrivateConstructorClass
 {
     public function doFoo()
     {
@@ -85,10 +85,10 @@ class ExtendsPrivateConstructorClass extends \_PhpScoperbd5d0c5f7638\TestInstant
     }
 }
 function () {
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\PrivateConstructorClass(1);
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\ProtectedConstructorClass(1);
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\ClassExtendsProtectedConstructorClass(1);
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\ExtendsPrivateConstructorClass(1);
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\PrivateConstructorClass(1);
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\ProtectedConstructorClass(1);
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\ClassExtendsProtectedConstructorClass(1);
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\ExtendsPrivateConstructorClass(1);
 };
 function () {
     new \Exception(123, 'code');
@@ -97,8 +97,8 @@ class NoConstructor
 {
 }
 function () {
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\NoConstructor();
-    new \_PhpScoperbd5d0c5f7638\TestInstantiation\NOCONSTRUCTOR();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\NoConstructor();
+    new \_PhpScoper88fe6e0ad041\TestInstantiation\NOCONSTRUCTOR();
 };
 function () {
     new class(1)
@@ -162,7 +162,7 @@ interface InterfaceWithConstructor
 {
     public function __construct(int $i);
 }
-class ConstructorComingFromAnInterface implements \_PhpScoperbd5d0c5f7638\TestInstantiation\InterfaceWithConstructor
+class ConstructorComingFromAnInterface implements \_PhpScoper88fe6e0ad041\TestInstantiation\InterfaceWithConstructor
 {
     public function __construct(int $i)
     {
@@ -193,7 +193,7 @@ abstract class AbstractConstructor
         new static();
     }
 }
-class ClassExtendingAbstractConstructor extends \_PhpScoperbd5d0c5f7638\TestInstantiation\AbstractConstructor
+class ClassExtendingAbstractConstructor extends \_PhpScoper88fe6e0ad041\TestInstantiation\AbstractConstructor
 {
     public function __construct(string $s)
     {

@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Rector\Utils\NodeDocumentationGenerator\Command;
 
-use _PhpScoperbd5d0c5f7638\Nette\Loaders\RobotLoader;
+use _PhpScoper88fe6e0ad041\Nette\Loaders\RobotLoader;
 use Rector\Core\Console\Command\AbstractCommand;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Testing\Finder\RectorsFinder;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 final class NodeTypesStatisticsCommand extends \Rector\Core\Console\Command\AbstractCommand
@@ -30,9 +30,9 @@ final class NodeTypesStatisticsCommand extends \Rector\Core\Console\Command\Abst
     protected function configure() : void
     {
         $this->setDescription('[DOCS] Show statistics of used and unused node types in PHP Rector');
-        $this->addOption(self::UNUSED, null, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Show unused nodes');
+        $this->addOption(self::UNUSED, null, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Show unused nodes');
     }
-    protected function execute(\_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $phpRectors = $this->resolvePhpRectors();
         $nodeTypes = $this->collectNodeTypesFromGetNodeTypes($phpRectors);
@@ -99,7 +99,7 @@ final class NodeTypesStatisticsCommand extends \Rector\Core\Console\Command\Abst
      */
     private function getNodeClasses() : array
     {
-        $robotLoader = new \_PhpScoperbd5d0c5f7638\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoper88fe6e0ad041\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/php_parser_nodes');
         $robotLoader->addDirectory(__DIR__ . '/../../../../vendor/nikic/php-parser/lib/PhpParser/Node');
         $robotLoader->rebuild();

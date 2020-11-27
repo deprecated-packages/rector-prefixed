@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\LoopVariables;
+namespace _PhpScoper88fe6e0ad041\LoopVariables;
 
 function () {
     $foo = null;
@@ -10,7 +10,7 @@ function () {
     $anotherFalseOrObject = \false;
     do {
         'begin';
-        $foo = new \_PhpScoperbd5d0c5f7638\LoopVariables\Foo();
+        $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Foo();
         'afterAssign';
         if ($nullableVal === null) {
             'nullableValIf';
@@ -20,24 +20,24 @@ function () {
             'nullableValElse';
         }
         if ($anotherFalseOrObject === \false) {
-            $anotherFalseOrObject = new \_PhpScoperbd5d0c5f7638\LoopVariables\Foo();
+            $anotherFalseOrObject = new \_PhpScoper88fe6e0ad041\LoopVariables\Foo();
         }
         if (doFoo()) {
             break;
         }
         if ($falseOrObject === \false) {
-            $falseOrObject = new \_PhpScoperbd5d0c5f7638\LoopVariables\Foo();
+            $falseOrObject = new \_PhpScoper88fe6e0ad041\LoopVariables\Foo();
         }
         if (something()) {
-            $foo = new \_PhpScoperbd5d0c5f7638\LoopVariables\Bar();
+            $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Bar();
             break;
         }
         if (something()) {
-            $foo = new \_PhpScoperbd5d0c5f7638\LoopVariables\Baz();
+            $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Baz();
             return;
         }
         if (something()) {
-            $foo = new \_PhpScoperbd5d0c5f7638\LoopVariables\Lorem();
+            $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Lorem();
             continue;
         }
         $i++;

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\PropertiesAssignedDefaultValuesTypes;
+namespace _PhpScoper88fe6e0ad041\PropertiesAssignedDefaultValuesTypes;
 
 class Foo
 {

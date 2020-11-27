@@ -25,14 +25,14 @@ services:
         autowired: false
 
     stubClassReflector:
-        class: _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector
+        class: _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector
         arguments:
             sourceLocator: @stubSourceLocator
 
         autowired: false
 
     stubFunctionReflector:
-        class: _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector
+        class: _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector
         arguments:
             classReflector: @stubClassReflector
             sourceLocator: @stubSourceLocator
@@ -40,7 +40,7 @@ services:
         autowired: false
 
     stubConstantReflector:
-        class: _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector
+        class: _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ConstantReflector
         arguments:
             classReflector: @stubClassReflector
             sourceLocator: @stubSourceLocator
@@ -48,7 +48,7 @@ services:
         autowired: false
 
     stubSourceLocator:
-        class: _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+        class: _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
         factory: @PHPStan\PhpDoc\StubSourceLocatorFactory::create()
         autowired: false
 

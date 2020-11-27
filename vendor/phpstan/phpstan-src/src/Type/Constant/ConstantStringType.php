@@ -57,8 +57,8 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
                 return \var_export($this->value, \true);
             }
             try {
-                $truncatedValue = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT);
-            } catch (\_PhpScoperbd5d0c5f7638\Nette\Utils\RegexpException $e) {
+                $truncatedValue = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT);
+            } catch (\_PhpScoper88fe6e0ad041\Nette\Utils\RegexpException $e) {
                 $truncatedValue = \substr($this->value, 0, self::DESCRIBE_LIMIT) . "…";
             }
             return \var_export($truncatedValue, \true);
@@ -118,7 +118,7 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
             return \PHPStan\TrinaryLogic::createYes();
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
+        $matches = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
         if ($matches !== null) {
             if (!$broker->hasClass($matches[1])) {
                 return \PHPStan\TrinaryLogic::createMaybe();
@@ -147,7 +147,7 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
             return $broker->getFunction($functionName, null)->getVariants();
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
+        $matches = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
         if ($matches !== null) {
             if (!$broker->hasClass($matches[1])) {
                 return [new \PHPStan\Reflection\TrivialParametersAcceptor()];

@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /** @var bool|null $boolOrNull */
-$boolOrNull = \_PhpScoperbd5d0c5f7638\doFoo();
+$boolOrNull = \_PhpScoper88fe6e0ad041\doFoo();
 $bool = $boolOrNull !== null ? $boolOrNull : \false;
 $short = $bool ?: null;
 /** @var bool $a */
-$a = \_PhpScoperbd5d0c5f7638\doBar();
+$a = \_PhpScoper88fe6e0ad041\doBar();
 /** @var bool $b */
-$b = \_PhpScoperbd5d0c5f7638\doBaz();
+$b = \_PhpScoper88fe6e0ad041\doBaz();
 $c = $a ?: $b;
 /** @var string|null $qux */
-$qux = \_PhpScoperbd5d0c5f7638\doQux();
+$qux = \_PhpScoper88fe6e0ad041\doQux();
 $isQux = $qux !== null ?: $bool;
 die;

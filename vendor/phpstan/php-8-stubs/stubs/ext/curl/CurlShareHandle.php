@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 final class CurlShareHandle
 {
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\CurlShareHandle', 'CurlShareHandle', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\CurlShareHandle', 'CurlShareHandle', \false);

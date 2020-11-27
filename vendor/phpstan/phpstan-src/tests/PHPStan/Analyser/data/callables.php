@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Callables;
+namespace _PhpScoper88fe6e0ad041\Callables;
 
 class Foo
 {
@@ -9,12 +9,12 @@ class Foo
         $closure = function () : string {
         };
         $foo = $this;
-        $arrayWithStaticMethod = ['_PhpScoperbd5d0c5f7638\\Callables\\Foo', 'doBar'];
+        $arrayWithStaticMethod = ['_PhpScoper88fe6e0ad041\\Callables\\Foo', 'doBar'];
         $stringWithStaticMethod = 'Callables\\Foo::doFoo';
         $arrayWithInstanceMethod = [$this, 'doFoo'];
         die;
     }
-    public function doBar() : \_PhpScoperbd5d0c5f7638\Callables\Bar
+    public function doBar() : \_PhpScoper88fe6e0ad041\Callables\Bar
     {
     }
     public function __invoke() : int

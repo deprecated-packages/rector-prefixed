@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Restoration\Rector\Namespace_;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
@@ -51,7 +51,7 @@ class SomeClass
     public $id;
 }
 CODE_SAMPLE
-, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperbd5d0c5f7638\\Doctrine\\ORM\\Mapping', 'ORM')]])]);
+, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper88fe6e0ad041\\Doctrine\\ORM\\Mapping', 'ORM')]])]);
     }
     /**
      * @return string[]
@@ -72,7 +72,7 @@ CODE_SAMPLE
         }
         foreach ($this->useImportsToRestore as $useImportToRestore) {
             $annotationToSeek = '#\\*\\s+\\@' . $useImportToRestore->getAlias() . '#';
-            if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($this->print($class), $annotationToSeek)) {
+            if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($this->print($class), $annotationToSeek)) {
                 continue;
             }
             $node = $this->addImportToNamespaceIfMissing($node, $useImportToRestore);
@@ -84,7 +84,7 @@ CODE_SAMPLE
      */
     public function configure(array $configuration) : void
     {
-        $default = [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperbd5d0c5f7638\\Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperbd5d0c5f7638\\JMS\\Serializer\\Annotation', 'Serializer')];
+        $default = [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper88fe6e0ad041\\Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper88fe6e0ad041\\Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper88fe6e0ad041\\JMS\\Serializer\\Annotation', 'Serializer')];
         $this->useImportsToRestore = \array_merge($configuration[self::USE_IMPORTS_TO_RESTORE] ?? [], $default);
     }
     private function addImportToNamespaceIfMissing(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \PhpParser\Node\Stmt\Namespace_

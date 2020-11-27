@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection;
 
 use PhpParser\Node\UnionType;
 use function array_map;
 use function implode;
-class ReflectionUnionType extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionType
+class ReflectionUnionType extends \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionType
 {
     /** @var ReflectionType[] */
     private $types;
@@ -14,7 +14,7 @@ class ReflectionUnionType extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection
     {
         parent::__construct($allowsNull);
         $this->types = \array_map(static function ($type) : ReflectionType {
-            return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($type);
+            return \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($type);
         }, $type->types);
     }
     /**
@@ -26,7 +26,7 @@ class ReflectionUnionType extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection
     }
     public function __toString() : string
     {
-        return \implode('|', \array_map(static function (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionType $type) : string {
+        return \implode('|', \array_map(static function (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionType $type) : string {
             return (string) $type;
         }, $this->types));
     }

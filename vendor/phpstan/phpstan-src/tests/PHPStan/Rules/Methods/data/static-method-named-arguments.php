@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\StaticMethodNamedArguments;
+namespace _PhpScoper88fe6e0ad041\StaticMethodNamedArguments;
 
 class Foo
 {

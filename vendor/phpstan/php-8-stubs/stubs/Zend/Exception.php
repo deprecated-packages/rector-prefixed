@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class Exception implements \Throwable
 {
@@ -39,4 +39,4 @@ class Exception implements \Throwable
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\Exception', 'Exception', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\Exception', 'Exception', \false);

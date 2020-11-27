@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\SwitchInstanceOfFallthrough;
+namespace _PhpScoper88fe6e0ad041\SwitchInstanceOfFallthrough;
 
 class Foo
 {
@@ -10,8 +10,8 @@ class Foo
     public function doFoo($object)
     {
         switch (\true) {
-            case $object instanceof \_PhpScoperbd5d0c5f7638\SwitchInstanceOfFallthrough\A:
-            case $object instanceof \_PhpScoperbd5d0c5f7638\SwitchInstanceOfFallthrough\B:
+            case $object instanceof \_PhpScoper88fe6e0ad041\SwitchInstanceOfFallthrough\A:
+            case $object instanceof \_PhpScoper88fe6e0ad041\SwitchInstanceOfFallthrough\B:
                 die;
         }
     }

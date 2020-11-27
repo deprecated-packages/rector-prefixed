@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\SomeOtherNamespace\Tests;
+namespace _PhpScoper88fe6e0ad041\SomeOtherNamespace\Tests;
 
 class Foo
 {

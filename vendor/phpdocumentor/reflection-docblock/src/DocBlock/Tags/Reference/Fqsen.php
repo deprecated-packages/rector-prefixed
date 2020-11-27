@@ -10,13 +10,13 @@
  *  @license   http://www.opensource.org/licenses/mit-license.php MIT
  *  @link      http://phpdoc.org
  */
-namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
-use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Fqsen as RealFqsen;
+use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Fqsen as RealFqsen;
 /**
  * Fqsen reference used by {@see phpDocumentor\Reflection\DocBlock\Tags\See}
  */
-final class Fqsen implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
+final class Fqsen implements \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
 {
     /**
      * @var RealFqsen
@@ -25,7 +25,7 @@ final class Fqsen implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Do
     /**
      * Fqsen constructor.
      */
-    public function __construct(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Fqsen $fqsen)
+    public function __construct(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Fqsen $fqsen)
     {
         $this->fqsen = $fqsen;
     }

@@ -4,16 +4,16 @@ declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
 use PhpParser\Node\Expr\FuncCall;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-class OptimizedSingleFileSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+class OptimizedSingleFileSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /**
      * @var \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher
@@ -32,12 +32,12 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\
         $this->fileNodesFetcher = $fileNodesFetcher;
         $this->fileName = $fileName;
     }
-    public function locateIdentifier(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
     {
         if ($this->fetchedNodesResult === null) {
             $this->fetchedNodesResult = $this->fileNodesFetcher->fetchNodes($this->fileName);
         }
-        $nodeToReflection = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         if ($identifier->isClass()) {
             $classNodes = $this->fetchedNodesResult->getClassNodes();
             $className = \strtolower($identifier->getName());
@@ -46,7 +46,7 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\
             }
             foreach ($classNodes[$className] as $classNode) {
                 $classReflection = $nodeToReflection->__invoke($reflector, $classNode->getNode(), $this->fetchedNodesResult->getLocatedSource(), $classNode->getNamespace());
-                if (!$classReflection instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass) {
+                if (!$classReflection instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass) {
                     throw new \PHPStan\ShouldNotHappenException();
                 }
                 return $classReflection;
@@ -59,7 +59,7 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\
                 return null;
             }
             $functionReflection = $nodeToReflection->__invoke($reflector, $functionNodes[$functionName]->getNode(), $this->fetchedNodesResult->getLocatedSource(), $functionNodes[$functionName]->getNamespace());
-            if (!$functionReflection instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction) {
+            if (!$functionReflection instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction) {
                 throw new \PHPStan\ShouldNotHappenException();
             }
             return $functionReflection;
@@ -72,7 +72,7 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                    if (!$constantReflection instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant) {
                         throw new \PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
@@ -85,7 +85,7 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                    if (!$constantReflection instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant) {
                         throw new \PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
@@ -98,7 +98,7 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\
         }
         throw new \PHPStan\ShouldNotHappenException();
     }
-    public function locateIdentifiersByType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
         // todo

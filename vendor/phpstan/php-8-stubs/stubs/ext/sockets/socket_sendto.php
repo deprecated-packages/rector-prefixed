@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function socket_sendto(\_PhpScoperbd5d0c5f7638\Socket $socket, string $data, int $length, int $flags, string $address, ?int $port = null) : int|false
+function socket_sendto(\_PhpScoper88fe6e0ad041\Socket $socket, string $data, int $length, int $flags, string $address, ?int $port = null) : int|false
 {
 }

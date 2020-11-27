@@ -1,7 +1,7 @@
 <?php
 
 // lint < 8.0
-namespace _PhpScoperbd5d0c5f7638\ClassConstantVisibility;
+namespace _PhpScoper88fe6e0ad041\ClassConstantVisibility;
 
 class Foo
 {
@@ -12,21 +12,21 @@ class Foo
     public function doFoo()
     {
         self::PUBLIC_CONST_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo::PUBLIC_CONST_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo::PUBLIC_CONST_FOO;
         self::PRIVATE_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo::PRIVATE_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo::PRIVATE_FOO;
         self::PROTECTED_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo::PROTECTED_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo::PROTECTED_FOO;
         self::ANOTHER_PUBLIC_CONST_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo::ANOTHER_PUBLIC_CONST_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Bar::PUBLIC_CONST_BAR;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Bar::ANOTHER_PUBLIC_CONST_BAR;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Bar::PRIVATE_BAR;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Bar::PROTECTED_BAR;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo::ANOTHER_PUBLIC_CONST_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Bar::PUBLIC_CONST_BAR;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Bar::ANOTHER_PUBLIC_CONST_BAR;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Bar::PRIVATE_BAR;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Bar::PROTECTED_BAR;
         parent::BAZ;
     }
 }
-class Bar extends \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo
+class Bar extends \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo
 {
     const PUBLIC_CONST_BAR = 1;
     private const PRIVATE_BAR = 1;
@@ -35,16 +35,16 @@ class Bar extends \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo
     public function doBar()
     {
         self::PUBLIC_CONST_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo::PUBLIC_CONST_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo::PUBLIC_CONST_FOO;
         parent::PUBLIC_CONST_FOO;
         self::PRIVATE_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo::PRIVATE_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo::PRIVATE_FOO;
         parent::PRIVATE_FOO;
         self::PROTECTED_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo::PROTECTED_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo::PROTECTED_FOO;
         parent::PROTECTED_FOO;
         self::ANOTHER_PUBLIC_CONST_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo::ANOTHER_PUBLIC_CONST_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Foo::ANOTHER_PUBLIC_CONST_FOO;
         parent::ANOTHER_PUBLIC_CONST_FOO;
         $bar = new self();
         $bar::PUBLIC_CONST_BAR;
@@ -52,14 +52,14 @@ class Bar extends \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Foo
         $bar::PRIVATE_BAR;
         $bar::PUBLIC_CONST_FOO;
         $bar::PRIVATE_FOO;
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Self::PUBLIC_CONST_BAR;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Self::PUBLIC_CONST_BAR;
     }
 }
 class Baz
 {
     public function doBaz()
     {
-        \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\Bar::PROTECTED_FOO;
+        \_PhpScoper88fe6e0ad041\ClassConstantVisibility\Bar::PROTECTED_FOO;
     }
 }
 class WithFooConstant
@@ -77,9 +77,9 @@ class Ipsum
     private $union;
     /** @var UnknownClassFirst|UnknownClassSecond */
     private $unknown;
-    public function doIpsum(\_PhpScoperbd5d0c5f7638\ClassConstantVisibility\WithFooConstant $foo)
+    public function doIpsum(\_PhpScoper88fe6e0ad041\ClassConstantVisibility\WithFooConstant $foo)
     {
-        if ($foo instanceof \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\WithFooAndBarConstant) {
+        if ($foo instanceof \_PhpScoper88fe6e0ad041\ClassConstantVisibility\WithFooAndBarConstant) {
             $foo::FOO;
             $foo::BAR;
             $foo::BAZ;
@@ -93,5 +93,5 @@ class Ipsum
     }
 }
 function () {
-    \_PhpScoperbd5d0c5f7638\ClassConstantVisibility\FOO::PRIVATE_FOO;
+    \_PhpScoper88fe6e0ad041\ClassConstantVisibility\FOO::PRIVATE_FOO;
 };

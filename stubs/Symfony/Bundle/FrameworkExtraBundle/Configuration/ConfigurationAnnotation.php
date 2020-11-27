@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace _PhpScoper88fe6e0ad041\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ConfigurationAnnotation')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ConfigurationAnnotation')) {
     return;
 }
 abstract class ConfigurationAnnotation

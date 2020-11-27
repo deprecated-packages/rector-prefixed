@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\MethodSignature;
+namespace _PhpScoper88fe6e0ad041\MethodSignature;
 
 class Foo
 {
@@ -11,7 +11,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoperbd5d0c5f7638\MethodSignature\Foo
+class Bar extends \_PhpScoper88fe6e0ad041\MethodSignature\Foo
 {
     /**
      * @param string $value

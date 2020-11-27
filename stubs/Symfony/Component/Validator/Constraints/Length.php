@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Symfony\Component\Validator\Constraints;
+namespace _PhpScoper88fe6e0ad041\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Validator\\Constraints\\Lenght')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Symfony\\Component\\Validator\\Constraints\\Lenght')) {
     return;
 }
 use InvalidArgumentException;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Validator\Constraint;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class Length extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Validator\Constraint
+class Length extends \_PhpScoper88fe6e0ad041\Symfony\Component\Validator\Constraint
 {
     const TOO_SHORT_ERROR = '9ff3fdc4-b214-49db-8718-39c315e33d45';
     const TOO_LONG_ERROR = 'd94b19cc-114f-4f44-9cc4-4138e80a87b9';

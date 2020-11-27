@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Application;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Namespace_;
@@ -113,10 +113,10 @@ final class UseImportsAdder
         if ($namespaceName === null) {
             return \false;
         }
-        $afterCurrentNamespace = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::after($objectType->getClassName(), $namespaceName . '\\');
+        $afterCurrentNamespace = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::after($objectType->getClassName(), $namespaceName . '\\');
         if (!$afterCurrentNamespace) {
             return \false;
         }
-        return !\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($afterCurrentNamespace, '\\');
+        return !\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($afterCurrentNamespace, '\\');
     }
 }

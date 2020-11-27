@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\TestFunctionTypehints;
+namespace _PhpScoper88fe6e0ad041\TestFunctionTypehints;
 
 class FooFunctionTypehints
 {
@@ -8,13 +8,13 @@ class FooFunctionTypehints
 trait SomeTrait
 {
 }
-function foo(\_PhpScoperbd5d0c5f7638\TestFunctionTypehints\FooFunctionTypehints $foo, $bar, array $lorem) : \_PhpScoperbd5d0c5f7638\TestFunctionTypehints\NonexistentClass
+function foo(\_PhpScoper88fe6e0ad041\TestFunctionTypehints\FooFunctionTypehints $foo, $bar, array $lorem) : \_PhpScoper88fe6e0ad041\TestFunctionTypehints\NonexistentClass
 {
 }
-function bar(\_PhpScoperbd5d0c5f7638\TestFunctionTypehints\BarFunctionTypehints $bar) : array
+function bar(\_PhpScoper88fe6e0ad041\TestFunctionTypehints\BarFunctionTypehints $bar) : array
 {
 }
-function baz(...$bar) : \_PhpScoperbd5d0c5f7638\TestFunctionTypehints\FooFunctionTypehints
+function baz(...$bar) : \_PhpScoper88fe6e0ad041\TestFunctionTypehints\FooFunctionTypehints
 {
 }
 /**
@@ -23,24 +23,24 @@ function baz(...$bar) : \_PhpScoperbd5d0c5f7638\TestFunctionTypehints\FooFunctio
 function returnParent()
 {
 }
-function badCaseTypehints(\_PhpScoperbd5d0c5f7638\TestFunctionTypehints\fOOFunctionTypehints $foo) : \_PhpScoperbd5d0c5f7638\TestFunctionTypehints\fOOFunctionTypehintS
+function badCaseTypehints(\_PhpScoper88fe6e0ad041\TestFunctionTypehints\fOOFunctionTypehints $foo) : \_PhpScoper88fe6e0ad041\TestFunctionTypehints\fOOFunctionTypehintS
 {
 }
 /**
  * @param FOOFunctionTypehints $foo
  * @return FOOFunctionTypehints
  */
-function badCaseInNativeAndPhpDoc(\_PhpScoperbd5d0c5f7638\TestFunctionTypehints\FooFunctionTypehints $foo) : \_PhpScoperbd5d0c5f7638\TestFunctionTypehints\FooFunctionTypehints
+function badCaseInNativeAndPhpDoc(\_PhpScoper88fe6e0ad041\TestFunctionTypehints\FooFunctionTypehints $foo) : \_PhpScoper88fe6e0ad041\TestFunctionTypehints\FooFunctionTypehints
 {
 }
 /**
  * @param FooFunctionTypehints $foo
  * @return FooFunctionTypehints
  */
-function anotherBadCaseInNativeAndPhpDoc(\_PhpScoperbd5d0c5f7638\TestFunctionTypehints\FOOFunctionTypehints $foo) : \_PhpScoperbd5d0c5f7638\TestFunctionTypehints\FOOFunctionTypehints
+function anotherBadCaseInNativeAndPhpDoc(\_PhpScoper88fe6e0ad041\TestFunctionTypehints\FOOFunctionTypehints $foo) : \_PhpScoper88fe6e0ad041\TestFunctionTypehints\FOOFunctionTypehints
 {
 }
-function referencesTraitsInNative(\_PhpScoperbd5d0c5f7638\TestFunctionTypehints\SomeTrait $trait) : \_PhpScoperbd5d0c5f7638\TestFunctionTypehints\SomeTrait
+function referencesTraitsInNative(\_PhpScoper88fe6e0ad041\TestFunctionTypehints\SomeTrait $trait) : \_PhpScoper88fe6e0ad041\TestFunctionTypehints\SomeTrait
 {
 }
 /**

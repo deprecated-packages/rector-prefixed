@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\StubsIntegrationTest;
+namespace _PhpScoper88fe6e0ad041\StubsIntegrationTest;
 
 class Foo
 {
@@ -9,18 +9,18 @@ class Foo
         return '';
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\Foo $foo) {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\Foo $foo) {
     $string = $foo->doFoo('test');
     $foo->doFoo($string);
 };
-class FooChild extends \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\Foo
+class FooChild extends \_PhpScoper88fe6e0ad041\StubsIntegrationTest\Foo
 {
     public function doFoo($i)
     {
         return '';
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\FooChild $fooChild) {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\FooChild $fooChild) {
     $string = $fooChild->doFoo('test');
     $fooChild->doFoo($string);
 };
@@ -31,43 +31,43 @@ interface InterfaceWithStubPhpDoc
      */
     public function doFoo();
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc $stub) : int {
     $stub->doFoo() === [];
     return $stub->doFoo();
     // stub wins
 };
-interface InterfaceExtendingInterfaceWithStubPhpDoc extends \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc
+interface InterfaceExtendingInterfaceWithStubPhpDoc extends \_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc
 {
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceExtendingInterfaceWithStubPhpDoc $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceExtendingInterfaceWithStubPhpDoc $stub) : int {
     $stub->doFoo() === [];
     return $stub->doFoo();
     // stub wins
 };
-interface AnotherInterfaceExtendingInterfaceWithStubPhpDoc extends \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc
+interface AnotherInterfaceExtendingInterfaceWithStubPhpDoc extends \_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc
 {
     /**
      * @return string
      */
     public function doFoo();
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\AnotherInterfaceExtendingInterfaceWithStubPhpDoc $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\AnotherInterfaceExtendingInterfaceWithStubPhpDoc $stub) : int {
     return $stub->doFoo();
     // implementation wins - string -> int mismatch reported
 };
-class ClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc
+class ClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc
 {
     public function doFoo()
     {
         throw new \Exception();
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\ClassExtendingInterfaceWithStubPhpDoc $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\ClassExtendingInterfaceWithStubPhpDoc $stub) : int {
     $stub->doFoo() === [];
     return $stub->doFoo();
     // stub wins
 };
-class AnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc
+class AnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc
 {
     /**
      * @return string
@@ -77,13 +77,13 @@ class AnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoperbd5d0c5
         throw new \Exception();
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\AnotherClassExtendingInterfaceWithStubPhpDoc $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\AnotherClassExtendingInterfaceWithStubPhpDoc $stub) : int {
     $stub->doFoo() === [];
     return $stub->doFoo();
     // stub wins
 };
 /** This one is missing in the stubs */
-class YetAnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc
+class YetAnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc
 {
     /**
      * @return string
@@ -93,18 +93,18 @@ class YetAnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoperbd5d
         throw new \Exception();
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\YetAnotherClassExtendingInterfaceWithStubPhpDoc $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\YetAnotherClassExtendingInterfaceWithStubPhpDoc $stub) : int {
     return $stub->doFoo();
     // implementation wins - string -> int mismatch reported
 };
-class YetYetAnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc
+class YetYetAnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc
 {
     public function doFoo()
     {
         throw new \Exception();
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\YetYetAnotherClassExtendingInterfaceWithStubPhpDoc $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\YetYetAnotherClassExtendingInterfaceWithStubPhpDoc $stub) : int {
     // return int should be inherited
     $stub->doFoo() === [];
     return $stub->doFoo();
@@ -114,33 +114,33 @@ interface InterfaceWithStubPhpDoc2
 {
     public function doFoo();
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc2 $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc2 $stub) : int {
     // return int should be inherited
     $stub->doFoo() === [];
     return $stub->doFoo();
     // stub wins
 };
-class YetYetAnotherClassExtendingInterfaceWithStubPhpDoc2 implements \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\InterfaceWithStubPhpDoc2
+class YetYetAnotherClassExtendingInterfaceWithStubPhpDoc2 implements \_PhpScoper88fe6e0ad041\StubsIntegrationTest\InterfaceWithStubPhpDoc2
 {
     public function doFoo()
     {
         throw new \Exception();
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\YetYetAnotherClassExtendingInterfaceWithStubPhpDoc2 $stub) : int {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\YetYetAnotherClassExtendingInterfaceWithStubPhpDoc2 $stub) : int {
     // return int should be inherited
     $stub->doFoo() === [];
     return $stub->doFoo();
     // stub wins
 };
-class AnotherFooChild extends \_PhpScoperbd5d0c5f7638\StubsIntegrationTest\Foo
+class AnotherFooChild extends \_PhpScoper88fe6e0ad041\StubsIntegrationTest\Foo
 {
     public function doFoo($j)
     {
         return '';
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\AnotherFooChild $foo) : void {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\AnotherFooChild $foo) : void {
     $string = $foo->doFoo('test');
     $foo->doFoo($string);
 };
@@ -151,7 +151,7 @@ class YetAnotherFoo
         return '';
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\YetAnotherFoo $foo) : void {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\YetAnotherFoo $foo) : void {
     $string = $foo->doFoo('test');
     $foo->doFoo($string);
 };
@@ -167,7 +167,7 @@ class YetYetAnotherFoo
         return '';
     }
 }
-function (\_PhpScoperbd5d0c5f7638\StubsIntegrationTest\YetYetAnotherFoo $foo) : void {
+function (\_PhpScoper88fe6e0ad041\StubsIntegrationTest\YetYetAnotherFoo $foo) : void {
     $string = $foo->doFoo('test');
     $foo->doFoo($string);
 };

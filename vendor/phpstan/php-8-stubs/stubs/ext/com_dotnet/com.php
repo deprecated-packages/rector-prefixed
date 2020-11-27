@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class com
 {
@@ -8,4 +8,4 @@ class com
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\com', 'com', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\com', 'com', \false);

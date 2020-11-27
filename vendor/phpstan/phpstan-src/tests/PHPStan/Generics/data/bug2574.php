@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Generics\Bug2574;
+namespace _PhpScoper88fe6e0ad041\Generics\Bug2574;
 
 abstract class Model
 {
@@ -15,7 +15,7 @@ abstract class Model
  * @param T $m
  * @return T
  */
-function foo(\_PhpScoperbd5d0c5f7638\Generics\Bug2574\Model $m) : \_PhpScoperbd5d0c5f7638\Generics\Bug2574\Model
+function foo(\_PhpScoper88fe6e0ad041\Generics\Bug2574\Model $m) : \_PhpScoper88fe6e0ad041\Generics\Bug2574\Model
 {
     return $m->newInstance();
 }

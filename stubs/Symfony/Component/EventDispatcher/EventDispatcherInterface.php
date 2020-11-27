@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Symfony\Contracts\EventDispatcher;
+namespace _PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher;
 
-if (\interface_exists('_PhpScoperbd5d0c5f7638\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface')) {
+if (\interface_exists('_PhpScoper88fe6e0ad041\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface')) {
     return;
 }
 interface EventDispatcherInterface

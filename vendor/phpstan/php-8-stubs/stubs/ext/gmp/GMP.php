@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /** @generate-function-entries */
 class GMP
 {
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoperbd5d0c5f7638\\GMP', 'GMP', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\GMP', 'GMP', \false);

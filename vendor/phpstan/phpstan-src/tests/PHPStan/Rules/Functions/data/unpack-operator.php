@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\UnpackOperator;
+namespace _PhpScoper88fe6e0ad041\UnpackOperator;
 
 class Foo
 {
@@ -17,10 +17,10 @@ class Foo
         \sprintf('%s', $constantArray);
         \sprintf(...$strings);
         \sprintf(...$constantArray);
-        \sprintf('%s', new \_PhpScoperbd5d0c5f7638\UnpackOperator\Foo());
-        \sprintf('%s', new \_PhpScoperbd5d0c5f7638\UnpackOperator\Bar());
-        \printf('%s', new \_PhpScoperbd5d0c5f7638\UnpackOperator\Foo());
-        \printf('%s', new \_PhpScoperbd5d0c5f7638\UnpackOperator\Bar());
+        \sprintf('%s', new \_PhpScoper88fe6e0ad041\UnpackOperator\Foo());
+        \sprintf('%s', new \_PhpScoper88fe6e0ad041\UnpackOperator\Bar());
+        \printf('%s', new \_PhpScoper88fe6e0ad041\UnpackOperator\Foo());
+        \printf('%s', new \_PhpScoper88fe6e0ad041\UnpackOperator\Bar());
     }
 }
 class Bar

@@ -4,14 +4,14 @@ declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
 use PHPStan\File\FileFinder;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
-class OptimizedDirectorySourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+class OptimizedDirectorySourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /**
      * @var \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher
@@ -41,7 +41,7 @@ class OptimizedDirectorySourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\B
         $this->fileFinder = $fileFinder;
         $this->directory = $directory;
     }
-    public function locateIdentifier(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
     {
         if ($identifier->isClass()) {
             $className = \strtolower($identifier->getName());
@@ -92,9 +92,9 @@ class OptimizedDirectorySourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\B
      * @param FetchedNode<\PhpParser\Node\Stmt\ClassLike>|FetchedNode<\PhpParser\Node\Stmt\Function_> $fetchedNode
      * @return Reflection
      */
-    private function nodeToReflection(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode $fetchedNode) : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
+    private function nodeToReflection(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode $fetchedNode) : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
     {
-        $nodeToReflection = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         $reflection = $nodeToReflection->__invoke($reflector, $fetchedNode->getNode(), $this->locatedSourcesByFile[$fetchedNode->getFileName()], $fetchedNode->getNamespace());
         if ($reflection === null) {
             throw new \PHPStan\ShouldNotHappenException();
@@ -220,7 +220,7 @@ class OptimizedDirectorySourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\B
         }
         return ['classes' => $classes, 'functions' => $functions];
     }
-    public function locateIdentifiersByType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
         // todo

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\StringCast;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\StringCast;
 
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionParameter;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionParameter;
 use function array_reduce;
 use function count;
 use function sprintf;
@@ -13,29 +13,29 @@ use function sprintf;
  */
 final class ReflectionFunctionStringCast
 {
-    public static function toString(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction $functionReflection) : string
+    public static function toString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction $functionReflection) : string
     {
         $parametersFormat = $functionReflection->getNumberOfParameters() > 0 ? "\n\n  - Parameters [%d] {%s\n  }" : '';
         return \sprintf('Function [ <%s> function %s ] {%s' . $parametersFormat . "\n}", self::sourceToString($functionReflection), $functionReflection->getName(), self::fileAndLinesToString($functionReflection), \count($functionReflection->getParameters()), self::parametersToString($functionReflection));
     }
-    private static function sourceToString(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction $functionReflection) : string
+    private static function sourceToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction $functionReflection) : string
     {
         if ($functionReflection->isUserDefined()) {
             return 'user';
         }
         return \sprintf('internal:%s', $functionReflection->getExtensionName());
     }
-    private static function fileAndLinesToString(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction $functionReflection) : string
+    private static function fileAndLinesToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction $functionReflection) : string
     {
         if ($functionReflection->isInternal()) {
             return '';
         }
         return \sprintf("\n  @@ %s %d - %d", $functionReflection->getFileName(), $functionReflection->getStartLine(), $functionReflection->getEndLine());
     }
-    private static function parametersToString(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionFunction $functionReflection) : string
+    private static function parametersToString(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionFunction $functionReflection) : string
     {
-        return \array_reduce($functionReflection->getParameters(), static function (string $string, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string {
-            return $string . "\n    " . \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast::toString($parameterReflection);
+        return \array_reduce($functionReflection->getParameters(), static function (string $string, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string {
+            return $string . "\n    " . \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast::toString($parameterReflection);
         }, '');
     }
 }

@@ -22,6 +22,6 @@ final class UniqueConstraintTagValueNode extends \Rector\BetterPhpDocParser\Valu
     }
     public function getShortName() : string
     {
-        return '_PhpScoperbd5d0c5f7638\\@ORM\\UniqueConstraint';
+        return '_PhpScoper88fe6e0ad041\\@ORM\\UniqueConstraint';
     }
 }

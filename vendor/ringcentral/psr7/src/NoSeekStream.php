@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
+namespace _PhpScoper88fe6e0ad041\RingCentral\Psr7;
 
-use _PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface;
+use _PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that prevents a stream from being seeked
  */
-class NoSeekStream extends \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoperbd5d0c5f7638\Psr\Http\Message\StreamInterface
+class NoSeekStream extends \_PhpScoper88fe6e0ad041\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoper88fe6e0ad041\Psr\Http\Message\StreamInterface
 {
     public function seek($offset, $whence = \SEEK_SET)
     {

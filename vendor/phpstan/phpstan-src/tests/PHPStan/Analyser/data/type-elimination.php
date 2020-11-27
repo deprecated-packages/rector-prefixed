@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\TypeElimination;
+namespace _PhpScoper88fe6e0ad041\TypeElimination;
 
 class Foo
 {
@@ -76,30 +76,30 @@ class Foo
         }
         /** @var Foo|Bar|Baz $fooOrBarOrBaz */
         $fooOrBarOrBaz = doFoo();
-        if ($fooOrBarOrBaz instanceof \_PhpScoperbd5d0c5f7638\TypeElimination\Foo) {
+        if ($fooOrBarOrBaz instanceof \_PhpScoper88fe6e0ad041\TypeElimination\Foo) {
             'fooForSure';
         } else {
             'barOrBazForSure';
         }
-        if ($fooOrBarOrBaz instanceof \_PhpScoperbd5d0c5f7638\TypeElimination\Foo) {
+        if ($fooOrBarOrBaz instanceof \_PhpScoper88fe6e0ad041\TypeElimination\Foo) {
             // already tested
-        } elseif ($fooOrBarOrBaz instanceof \_PhpScoperbd5d0c5f7638\TypeElimination\Bar) {
+        } elseif ($fooOrBarOrBaz instanceof \_PhpScoper88fe6e0ad041\TypeElimination\Bar) {
             'barForSure';
         } else {
             'bazForSure';
         }
-        if (!$fooOrBarOrBaz instanceof \_PhpScoperbd5d0c5f7638\TypeElimination\Foo) {
+        if (!$fooOrBarOrBaz instanceof \_PhpScoper88fe6e0ad041\TypeElimination\Foo) {
             'anotherBarOrBazForSure';
         } else {
             'anotherFooForSure';
         }
         /** @var Foo|string|null $value */
         $value = doFoo();
-        $result = $value instanceof \_PhpScoperbd5d0c5f7638\TypeElimination\Foo ? $value->getValue() : $value;
+        $result = $value instanceof \_PhpScoper88fe6e0ad041\TypeElimination\Foo ? $value->getValue() : $value;
         'stringOrNullForSure';
         /** @var Foo|string|null $fooOrStringOrNull */
         $fooOrStringOrNull = doFoo();
-        if ($fooOrStringOrNull === null || $fooOrStringOrNull instanceof \_PhpScoperbd5d0c5f7638\TypeElimination\Foo) {
+        if ($fooOrStringOrNull === null || $fooOrStringOrNull instanceof \_PhpScoper88fe6e0ad041\TypeElimination\Foo) {
             'fooOrNull';
             return;
         } else {

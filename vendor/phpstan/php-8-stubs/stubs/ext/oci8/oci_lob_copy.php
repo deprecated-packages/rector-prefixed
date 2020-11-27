@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function oci_lob_copy(\_PhpScoperbd5d0c5f7638\OCILob $to, \_PhpScoperbd5d0c5f7638\OCILob $from, ?int $length = null) : bool
+function oci_lob_copy(\_PhpScoper88fe6e0ad041\OCILob $to, \_PhpScoper88fe6e0ad041\OCILob $from, ?int $length = null) : bool
 {
 }

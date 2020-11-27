@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\DeadCodeNoop;
+namespace _PhpScoper88fe6e0ad041\DeadCodeNoop;
 
-function (\_PhpScoperbd5d0c5f7638\DeadCodeNoop\stdClass $foo) {
+function (\_PhpScoper88fe6e0ad041\DeadCodeNoop\stdClass $foo) {
     $foo->foo();
     $arr = [];
     $arr;
@@ -20,6 +20,6 @@ function (\_PhpScoperbd5d0c5f7638\DeadCodeNoop\stdClass $foo) {
     isset($test);
     empty($test);
     \true;
-    \_PhpScoperbd5d0c5f7638\DeadCodeNoop\Foo::TEST;
+    \_PhpScoper88fe6e0ad041\DeadCodeNoop\Foo::TEST;
     (string) 1;
 };

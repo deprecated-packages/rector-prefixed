@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /* proc_open.c */
 #ifdef PHP_CAN_SUPPORT_PROC_OPEN

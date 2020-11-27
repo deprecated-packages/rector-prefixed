@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class SoapParam
 {
@@ -8,4 +8,4 @@ class SoapParam
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\SoapParam', 'SoapParam', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\SoapParam', 'SoapParam', \false);

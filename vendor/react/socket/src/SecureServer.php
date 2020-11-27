@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Socket;
+namespace _PhpScoper88fe6e0ad041\React\Socket;
 
-use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
-use _PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface;
+use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
+use _PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface;
 use BadMethodCallException;
 use UnexpectedValueException;
 /**
@@ -50,7 +50,7 @@ use UnexpectedValueException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class SecureServer extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter implements \_PhpScoperbd5d0c5f7638\React\Socket\ServerInterface
+final class SecureServer extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Socket\ServerInterface
 {
     private $tcp;
     private $encryption;
@@ -113,7 +113,7 @@ final class SecureServer extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter 
      * @see TcpServer
      * @link https://www.php.net/manual/en/context.ssl.php for TLS context options
      */
-    public function __construct(\_PhpScoperbd5d0c5f7638\React\Socket\ServerInterface $tcp, \_PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface $loop, array $context)
+    public function __construct(\_PhpScoper88fe6e0ad041\React\Socket\ServerInterface $tcp, \_PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface $loop, array $context)
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
             throw new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)');
@@ -122,7 +122,7 @@ final class SecureServer extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter 
         // default to empty passphrase to suppress blocking passphrase prompt
         $context += array('passphrase' => '');
         $this->tcp = $tcp;
-        $this->encryption = new \_PhpScoperbd5d0c5f7638\React\Socket\StreamEncryption($loop);
+        $this->encryption = new \_PhpScoper88fe6e0ad041\React\Socket\StreamEncryption($loop);
         $this->context = $context;
         $that = $this;
         $this->tcp->on('connection', function ($connection) use($that) {
@@ -153,9 +153,9 @@ final class SecureServer extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter 
         return $this->tcp->close();
     }
     /** @internal */
-    public function handleConnection(\_PhpScoperbd5d0c5f7638\React\Socket\ConnectionInterface $connection)
+    public function handleConnection(\_PhpScoper88fe6e0ad041\React\Socket\ConnectionInterface $connection)
     {
-        if (!$connection instanceof \_PhpScoperbd5d0c5f7638\React\Socket\Connection) {
+        if (!$connection instanceof \_PhpScoper88fe6e0ad041\React\Socket\Connection) {
             $this->emit('error', array(new \UnexpectedValueException('Base server does not use internal Connection class exposing stream resource')));
             $connection->close();
             return;

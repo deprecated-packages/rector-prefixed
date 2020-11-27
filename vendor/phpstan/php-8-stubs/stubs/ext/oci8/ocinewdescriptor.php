@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /**
  * @param resource $connection
  * @alias oci_new_descriptor
  * @deprecated
  */
-function ocinewdescriptor($connection, int $type = \OCI_DTYPE_LOB) : ?\_PhpScoperbd5d0c5f7638\OCILob
+function ocinewdescriptor($connection, int $type = \OCI_DTYPE_LOB) : ?\_PhpScoper88fe6e0ad041\OCILob
 {
 }

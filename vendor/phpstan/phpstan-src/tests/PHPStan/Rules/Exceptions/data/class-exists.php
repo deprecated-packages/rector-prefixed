@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\CaughtExceptionClassExists;
+namespace _PhpScoper88fe6e0ad041\CaughtExceptionClassExists;
 
 class Foo
 {
     public function doFoo() : void
     {
-        if (!\class_exists(\_PhpScoperbd5d0c5f7638\CaughtExceptionClassExists\FooException::class)) {
+        if (!\class_exists(\_PhpScoper88fe6e0ad041\CaughtExceptionClassExists\FooException::class)) {
             return;
         }
         try {
-        } catch (\_PhpScoperbd5d0c5f7638\CaughtExceptionClassExists\FooException $e) {
+        } catch (\_PhpScoper88fe6e0ad041\CaughtExceptionClassExists\FooException $e) {
         }
     }
 }

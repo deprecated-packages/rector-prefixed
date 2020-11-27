@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php73\Rector\String_;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
@@ -57,7 +57,7 @@ CODE_SAMPLE
         // the doc label is not in the string → ok
         /** @var string $docLabel */
         $docLabel = $node->getAttribute(self::ATTRIBUTE_DOC_LABEL);
-        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($node->value, $docLabel)) {
+        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($node->value, $docLabel)) {
             return null;
         }
         $node->setAttribute(self::ATTRIBUTE_DOC_LABEL, $this->uniquateDocLabel($node->value, $docLabel));
@@ -70,7 +70,7 @@ CODE_SAMPLE
         $docLabel .= self::WRAP_SUFFIX;
         $docLabelCounterTemplate = $docLabel . '_%d';
         $i = 0;
-        while (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($value, $docLabel)) {
+        while (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($value, $docLabel)) {
             $docLabel = \sprintf($docLabelCounterTemplate, ++$i);
         }
         return $docLabel;

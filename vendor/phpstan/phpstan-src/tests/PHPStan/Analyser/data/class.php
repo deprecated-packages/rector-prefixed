@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\SomeNodeScopeResolverNamespace;
+namespace _PhpScoper88fe6e0ad041\SomeNodeScopeResolverNamespace;
 
 class InvalidArgumentException extends \Exception
 {
@@ -19,7 +19,7 @@ class Foo
         static $staticVariableWithPhpDocType2 = 100, $staticVariableWithPhpDocType3 = 3.141;
         try {
             foo();
-        } catch (\_PhpScoperbd5d0c5f7638\SomeNodeScopeResolverNamespace\InvalidArgumentException $exception) {
+        } catch (\_PhpScoper88fe6e0ad041\SomeNodeScopeResolverNamespace\InvalidArgumentException $exception) {
             $lorem = 1;
             foreach ($arr as $i => $val) {
                 die;

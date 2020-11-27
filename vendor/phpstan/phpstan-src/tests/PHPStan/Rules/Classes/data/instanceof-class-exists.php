@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\InstanceofClassExists;
+namespace _PhpScoper88fe6e0ad041\InstanceofClassExists;
 
 class Foo
 {
@@ -8,6 +8,6 @@ class Foo
     {
         /** @var object $object */
         $object = doFoo();
-        \class_exists(\_PhpScoperbd5d0c5f7638\InstanceofClassExists\Bar::class) ? $object instanceof \_PhpScoperbd5d0c5f7638\InstanceofClassExists\Bar : \false;
+        \class_exists(\_PhpScoper88fe6e0ad041\InstanceofClassExists\Bar::class) ? $object instanceof \_PhpScoper88fe6e0ad041\InstanceofClassExists\Bar : \false;
     }
 }

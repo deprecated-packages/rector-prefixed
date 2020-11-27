@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PhpDoc;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Node as PhpDocParserNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
@@ -45,7 +45,7 @@ final class PhpDocTypeRenamer
             $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($node, $phpParserNode);
             // change underscore to \\
             /** @var ObjectType $staticType */
-            $slashedName = '\\' . \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
+            $slashedName = '\\' . \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
             $node->name = $slashedName;
             return $node;
         });
@@ -59,7 +59,7 @@ final class PhpDocTypeRenamer
         if (!$staticType instanceof \PHPStan\Type\ObjectType) {
             return \true;
         }
-        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::startsWith($staticType->getClassName(), $pseudoNamespaceToNamespace->getNamespacePrefix())) {
+        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::startsWith($staticType->getClassName(), $pseudoNamespaceToNamespace->getNamespacePrefix())) {
             return \true;
         }
         // excluded?

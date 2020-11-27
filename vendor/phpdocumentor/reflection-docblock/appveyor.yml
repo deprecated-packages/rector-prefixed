@@ -19,19 +19,19 @@ matrix:
 
 cache:
   - c:\php -> appveyor.yml
-  - '%LOCALAPPDATA%\_PhpScoperbd5d0c5f7638\Composer\files'
+  - '%LOCALAPPDATA%\_PhpScoper88fe6e0ad041\Composer\files'
 
 init:
-  - SET PATH=C:\Program _PhpScoperbd5d0c5f7638\Files\OpenSSL;c:\_PhpScoperbd5d0c5f7638\tools\php;%PATH%
+  - SET PATH=C:\Program _PhpScoper88fe6e0ad041\Files\OpenSSL;c:\_PhpScoper88fe6e0ad041\tools\php;%PATH%
   - SET COMPOSER_NO_INTERACTION=1
   - SET PHP=1
   - SET ANSICON=121x90 (121x90)
 
 
 install:
-  - IF EXIST c:\_PhpScoperbd5d0c5f7638\tools\php (SET PHP=0)
-  - ps: appveyor-retry cinst --params '""/InstallDir:C:\_PhpScoperbd5d0c5f7638\tools\php""' --ignore-checksums -y php --version ((choco search php --exact --all-versions -r | select-string -pattern $env:php_ver_target | sort { [version]($_ -split '\|' | select -last 1) } -Descending | Select-Object -first 1) -replace '[php|]','')
-  - cd c:\_PhpScoperbd5d0c5f7638\tools\php
+  - IF EXIST c:\_PhpScoper88fe6e0ad041\tools\php (SET PHP=0)
+  - ps: appveyor-retry cinst --params '""/InstallDir:C:\_PhpScoper88fe6e0ad041\tools\php""' --ignore-checksums -y php --version ((choco search php --exact --all-versions -r | select-string -pattern $env:php_ver_target | sort { [version]($_ -split '\|' | select -last 1) } -Descending | Select-Object -first 1) -replace '[php|]','')
+  - cd c:\_PhpScoper88fe6e0ad041\tools\php
   - IF %PHP%==1 copy /Y php.ini-development php.ini
   - IF %PHP%==1 echo max_execution_time=1200 >> php.ini
   - IF %PHP%==1 echo date.timezone="UTC" >> php.ini
@@ -51,4 +51,4 @@ install:
 
 test_script:
   - cd c:\reflectiondocblock
-  - c:\_PhpScoperbd5d0c5f7638\Users\appveyor\AppData\Roaming\Composer\vendor\bin\phpunit --no-coverage
+  - c:\_PhpScoper88fe6e0ad041\Users\appveyor\AppData\Roaming\Composer\vendor\bin\phpunit --no-coverage

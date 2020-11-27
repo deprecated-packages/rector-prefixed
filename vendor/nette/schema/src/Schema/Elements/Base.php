@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Nette\Schema\Elements;
+namespace _PhpScoper88fe6e0ad041\Nette\Schema\Elements;
 
-use _PhpScoperbd5d0c5f7638\Nette;
-use _PhpScoperbd5d0c5f7638\Nette\Schema\Context;
+use _PhpScoper88fe6e0ad041\Nette;
+use _PhpScoper88fe6e0ad041\Nette\Schema\Context;
 /**
  * @internal
  */
@@ -49,7 +49,7 @@ trait Base
         $this->asserts[] = [$handler, $description];
         return $this;
     }
-    public function completeDefault(\_PhpScoperbd5d0c5f7638\Nette\Schema\Context $context)
+    public function completeDefault(\_PhpScoper88fe6e0ad041\Nette\Schema\Context $context)
     {
         if ($this->required) {
             $context->addError('The mandatory option %path% is missing.');
@@ -57,30 +57,30 @@ trait Base
         }
         return $this->default;
     }
-    public function doNormalize($value, \_PhpScoperbd5d0c5f7638\Nette\Schema\Context $context)
+    public function doNormalize($value, \_PhpScoper88fe6e0ad041\Nette\Schema\Context $context)
     {
         if ($this->before) {
             $value = ($this->before)($value);
         }
         return $value;
     }
-    private function doValidate($value, string $expected, \_PhpScoperbd5d0c5f7638\Nette\Schema\Context $context) : bool
+    private function doValidate($value, string $expected, \_PhpScoper88fe6e0ad041\Nette\Schema\Context $context) : bool
     {
         try {
-            \_PhpScoperbd5d0c5f7638\Nette\Utils\Validators::assert($value, $expected, 'option %path%');
+            \_PhpScoper88fe6e0ad041\Nette\Utils\Validators::assert($value, $expected, 'option %path%');
             return \true;
-        } catch (\_PhpScoperbd5d0c5f7638\Nette\Utils\AssertionException $e) {
+        } catch (\_PhpScoper88fe6e0ad041\Nette\Utils\AssertionException $e) {
             $context->addError($e->getMessage(), $expected);
             return \false;
         }
     }
-    private function doFinalize($value, \_PhpScoperbd5d0c5f7638\Nette\Schema\Context $context)
+    private function doFinalize($value, \_PhpScoper88fe6e0ad041\Nette\Schema\Context $context)
     {
         if ($this->castTo) {
-            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::isBuiltinType($this->castTo)) {
+            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Reflection::isBuiltinType($this->castTo)) {
                 \settype($value, $this->castTo);
             } else {
-                $value = \_PhpScoperbd5d0c5f7638\Nette\Utils\Arrays::toObject($value, new $this->castTo());
+                $value = \_PhpScoper88fe6e0ad041\Nette\Utils\Arrays::toObject($value, new $this->castTo());
             }
         }
         foreach ($this->asserts as $i => [$handler, $description]) {

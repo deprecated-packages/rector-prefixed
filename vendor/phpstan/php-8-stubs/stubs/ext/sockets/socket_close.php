@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function socket_close(\_PhpScoperbd5d0c5f7638\Socket $socket) : void
+function socket_close(\_PhpScoper88fe6e0ad041\Socket $socket) : void
 {
 }

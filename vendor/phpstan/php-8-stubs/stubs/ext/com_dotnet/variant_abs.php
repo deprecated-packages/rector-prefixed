@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function variant_abs(mixed $value) : \_PhpScoperbd5d0c5f7638\variant
+function variant_abs(mixed $value) : \_PhpScoper88fe6e0ad041\variant
 {
 }

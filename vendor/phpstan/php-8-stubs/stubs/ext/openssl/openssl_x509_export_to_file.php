@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 function openssl_x509_export_to_file(\OpenSSLCertificate|string $certificate, string $output_filename, bool $no_text = \true) : bool
 {

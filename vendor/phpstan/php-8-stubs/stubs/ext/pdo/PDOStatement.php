@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /** @generate-function-entries */
 class PDOStatement implements \IteratorAggregate
@@ -86,4 +86,4 @@ class PDOStatement implements \IteratorAggregate
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoperbd5d0c5f7638\\PDOStatement', 'PDOStatement', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\PDOStatement', 'PDOStatement', \false);

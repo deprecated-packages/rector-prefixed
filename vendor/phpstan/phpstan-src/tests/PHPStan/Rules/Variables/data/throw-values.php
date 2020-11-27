@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\ThrowValues;
+namespace _PhpScoper88fe6e0ad041\ThrowValues;
 
 class InvalidException
 {
@@ -34,7 +34,7 @@ function test($genericExceptionClassName, $genericException)
         throw 123;
     }
     if (\rand(0, 1)) {
-        throw new \_PhpScoperbd5d0c5f7638\ThrowValues\InvalidException();
+        throw new \_PhpScoper88fe6e0ad041\ThrowValues\InvalidException();
     }
     if (\rand(0, 1)) {
         throw $invalidInterface;
@@ -46,7 +46,7 @@ function test($genericExceptionClassName, $genericException)
         throw foo();
     }
     if (\rand(0, 1)) {
-        throw new \_PhpScoperbd5d0c5f7638\ThrowValues\NonexistentClass();
+        throw new \_PhpScoper88fe6e0ad041\ThrowValues\NonexistentClass();
     }
     if (\rand(0, 1)) {
         throw new $genericExceptionClassName();

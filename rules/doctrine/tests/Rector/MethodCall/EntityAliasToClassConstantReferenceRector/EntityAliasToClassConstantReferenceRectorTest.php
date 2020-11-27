@@ -25,6 +25,6 @@ final class EntityAliasToClassConstantReferenceRectorTest extends \Rector\Testin
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector::class => [\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector::ALIASES_TO_NAMESPACES => ['App' => '_PhpScoperbd5d0c5f7638\\App\\Entity']]];
+        return [\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector::class => [\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector::ALIASES_TO_NAMESPACES => ['App' => '_PhpScoper88fe6e0ad041\\App\\Entity']]];
     }
 }

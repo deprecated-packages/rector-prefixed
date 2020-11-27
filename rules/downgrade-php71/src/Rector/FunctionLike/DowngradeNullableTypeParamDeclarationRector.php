@@ -17,7 +17,7 @@ final class DowngradeNullableTypeParamDeclarationRector extends \Rector\Downgrad
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove the nullable type params, add @param tags instead', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class SomeClass
 {
@@ -26,12 +26,12 @@ class SomeClass
         // do something
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class SomeClass
 {
@@ -43,7 +43,7 @@ class SomeClass
         // do something
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , [self::ADD_DOC_BLOCK => \true])]);
     }

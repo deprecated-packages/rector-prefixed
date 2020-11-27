@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 #ifdef LIBXML_XPATH_ENABLED
 class DOMXPath
@@ -26,4 +26,4 @@ class DOMXPath
     }
 }
 #ifdef LIBXML_XPATH_ENABLED
-\class_alias('_PhpScoperbd5d0c5f7638\\DOMXPath', 'DOMXPath', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\DOMXPath', 'DOMXPath', \false);

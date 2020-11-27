@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection;
 
 use InvalidArgumentException;
 use PhpParser\Builder\Property as PropertyNodeBuilder;
@@ -11,17 +11,17 @@ use PhpParser\Node\Stmt\Property as PropertyNode;
 use ReflectionException;
 use ReflectionObject as CoreReflectionObject;
 use ReflectionProperty as CoreReflectionProperty;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\BetterReflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\BetterReflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator;
 use function array_merge;
 use function get_class;
 use function is_object;
 use function strpos;
-class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass
+class ReflectionObject extends \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass
 {
     /** @var ReflectionClass */
     private $reflectionClass;
@@ -32,7 +32,7 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
     /**
      * @param object $object
      */
-    private function __construct(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass $reflectionClass, $object)
+    private function __construct(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass $reflectionClass, $object)
     {
         $this->reflector = $reflector;
         $this->reflectionClass = $reflectionClass;
@@ -49,16 +49,16 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
      *
      * @psalm-suppress DocblockTypeContradiction
      */
-    public static function createFromInstance($object) : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass
+    public static function createFromInstance($object) : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass
     {
         if (!\is_object($object)) {
             throw new \InvalidArgumentException('Can only create from an instance of an object');
         }
         $className = \get_class($object);
-        if (\strpos($className, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass::ANONYMOUS_CLASS_NAME_PREFIX) === 0) {
-            $reflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector(new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator($object, (new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\BetterReflection())->phpParser()));
+        if (\strpos($className, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass::ANONYMOUS_CLASS_NAME_PREFIX) === 0) {
+            $reflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector(new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator($object, (new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\BetterReflection())->phpParser()));
         } else {
-            $reflector = (new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\BetterReflection())->classReflector();
+            $reflector = (new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\BetterReflection())->classReflector();
         }
         return new self($reflector, $reflector->reflect($className), $object);
     }
@@ -85,7 +85,7 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
                 continue;
             }
             $reflectionProperty = $this->reflectionClass->getProperty($property->getName());
-            $runtimeProperty = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, $this->createPropertyNodeFromReflection($property, $this->object), 0, $reflectionProperty ? $reflectionProperty->getDeclaringClass()->getDeclaringNamespaceAst() : null, $this, $this, \false);
+            $runtimeProperty = \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, $this->createPropertyNodeFromReflection($property, $this->object), 0, $reflectionProperty ? $reflectionProperty->getDeclaringClass()->getDeclaringNamespaceAst() : null, $this, $this, \false);
             if ($filter !== null && !($filter & $runtimeProperty->getModifiers())) {
                 continue;
             }
@@ -144,7 +144,7 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
     {
         return $this->reflectionClass->getImmediateMethods($filter);
     }
-    public function getMethod(string $methodName) : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionMethod
+    public function getMethod(string $methodName) : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod
     {
         return $this->reflectionClass->getMethod($methodName);
     }
@@ -177,7 +177,7 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
     {
         return $this->reflectionClass->hasConstant($name);
     }
-    public function getReflectionConstant(string $name) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClassConstant
+    public function getReflectionConstant(string $name) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClassConstant
     {
         return $this->reflectionClass->getReflectionConstant($name);
     }
@@ -195,7 +195,7 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
     {
         return $this->reflectionClass->getReflectionConstants();
     }
-    public function getConstructor() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionMethod
+    public function getConstructor() : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionMethod
     {
         return $this->reflectionClass->getConstructor();
     }
@@ -213,7 +213,7 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
     {
         return \array_merge($this->reflectionClass->getImmediateProperties($filter), $this->getRuntimeProperties($filter));
     }
-    public function getProperty(string $name) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionProperty
+    public function getProperty(string $name) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionProperty
     {
         $runtimeProperties = $this->getRuntimeProperties();
         if (isset($runtimeProperties[$name])) {
@@ -237,7 +237,7 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
     {
         return $this->reflectionClass->getFileName();
     }
-    public function getLocatedSource() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    public function getLocatedSource() : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         return $this->reflectionClass->getLocatedSource();
     }
@@ -257,7 +257,7 @@ class ReflectionObject extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Re
     {
         return $this->reflectionClass->getEndColumn();
     }
-    public function getParentClass() : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getParentClass() : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->reflectionClass->getParentClass();
     }

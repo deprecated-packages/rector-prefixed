@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class DOMElement implements \DOMParentNode, \DOMChildNode
 {
@@ -103,4 +103,4 @@ class DOMElement implements \DOMParentNode, \DOMChildNode
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\DOMElement', 'DOMElement', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\DOMElement', 'DOMElement', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /** @generate-function-entries */
 class php_user_filter
@@ -24,4 +24,4 @@ class php_user_filter
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoperbd5d0c5f7638\\php_user_filter', 'php_user_filter', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\php_user_filter', 'php_user_filter', \false);

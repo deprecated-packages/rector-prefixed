@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter;
+namespace _PhpScoper88fe6e0ad041\Symfony\Component\Cache\Adapter;
 
-use _PhpScoperbd5d0c5f7638\Doctrine\DBAL\Connection;
-use _PhpScoperbd5d0c5f7638\Doctrine\DBAL\DBALException;
-use _PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\ServerInfoAwareConnection;
-use _PhpScoperbd5d0c5f7638\Doctrine\DBAL\DriverManager;
-use _PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception;
-use _PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception\TableNotFoundException;
-use _PhpScoperbd5d0c5f7638\Doctrine\DBAL\Schema\Schema;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Marshaller\DefaultMarshaller;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Marshaller\MarshallerInterface;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Cache\PruneableInterface;
-class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter\AbstractAdapter implements \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\PruneableInterface
+use _PhpScoper88fe6e0ad041\Doctrine\DBAL\Connection;
+use _PhpScoper88fe6e0ad041\Doctrine\DBAL\DBALException;
+use _PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\ServerInfoAwareConnection;
+use _PhpScoper88fe6e0ad041\Doctrine\DBAL\DriverManager;
+use _PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception;
+use _PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception\TableNotFoundException;
+use _PhpScoper88fe6e0ad041\Doctrine\DBAL\Schema\Schema;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Cache\Marshaller\DefaultMarshaller;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Cache\Marshaller\MarshallerInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Cache\PruneableInterface;
+class PdoAdapter extends \_PhpScoper88fe6e0ad041\Symfony\Component\Cache\Adapter\AbstractAdapter implements \_PhpScoper88fe6e0ad041\Symfony\Component\Cache\PruneableInterface
 {
     protected $maxIdLength = 255;
     private $marshaller;
@@ -62,22 +62,22 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
      * @throws InvalidArgumentException When PDO error mode is not PDO::ERRMODE_EXCEPTION
      * @throws InvalidArgumentException When namespace contains invalid characters
      */
-    public function __construct($connOrDsn, string $namespace = '', int $defaultLifetime = 0, array $options = [], \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($connOrDsn, string $namespace = '', int $defaultLifetime = 0, array $options = [], \_PhpScoper88fe6e0ad041\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         if (isset($namespace[0]) && \preg_match('#[^-+.A-Za-z0-9]#', $namespace, $match)) {
-            throw new \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace contains "%s" but only characters in [-+.A-Za-z0-9] are allowed.', $match[0]));
+            throw new \_PhpScoper88fe6e0ad041\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace contains "%s" but only characters in [-+.A-Za-z0-9] are allowed.', $match[0]));
         }
         if ($connOrDsn instanceof \PDO) {
             if (\PDO::ERRMODE_EXCEPTION !== $connOrDsn->getAttribute(\PDO::ATTR_ERRMODE)) {
-                throw new \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('"%s" requires PDO error mode attribute be set to throw Exceptions (i.e. $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)).', __CLASS__));
+                throw new \_PhpScoper88fe6e0ad041\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('"%s" requires PDO error mode attribute be set to throw Exceptions (i.e. $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)).', __CLASS__));
             }
             $this->conn = $connOrDsn;
-        } elseif ($connOrDsn instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Connection) {
+        } elseif ($connOrDsn instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Connection) {
             $this->conn = $connOrDsn;
         } elseif (\is_string($connOrDsn)) {
             $this->dsn = $connOrDsn;
         } else {
-            throw new \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('"%s" requires PDO or Doctrine\\DBAL\\Connection instance or DSN string as first argument, "%s" given.', __CLASS__, \get_debug_type($connOrDsn)));
+            throw new \_PhpScoper88fe6e0ad041\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('"%s" requires PDO or Doctrine\\DBAL\\Connection instance or DSN string as first argument, "%s" given.', __CLASS__, \get_debug_type($connOrDsn)));
         }
         $this->table = isset($options['db_table']) ? $options['db_table'] : $this->table;
         $this->idCol = isset($options['db_id_col']) ? $options['db_id_col'] : $this->idCol;
@@ -88,7 +88,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
         $this->password = isset($options['db_password']) ? $options['db_password'] : $this->password;
         $this->connectionOptions = isset($options['db_connection_options']) ? $options['db_connection_options'] : $this->connectionOptions;
         $this->namespace = $namespace;
-        $this->marshaller = $marshaller ?? new \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
+        $this->marshaller = $marshaller ?? new \_PhpScoper88fe6e0ad041\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
         parent::__construct($namespace, $defaultLifetime);
     }
     /**
@@ -106,8 +106,8 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
     {
         // connect if we are not yet
         $conn = $this->getConnection();
-        if ($conn instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Connection) {
-            $schema = new \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Schema\Schema();
+        if ($conn instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Connection) {
+            $schema = new \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Schema\Schema();
             $this->addTableToSchema($schema);
             foreach ($schema->toSql($conn->getDatabasePlatform()) as $sql) {
                 if (\method_exists($conn, 'executeStatement')) {
@@ -151,7 +151,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
     /**
      * Adds the Table to the Schema if the adapter uses this Connection.
      */
-    public function configureSchema(\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Schema\Schema $schema, \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Connection $forConnection) : void
+    public function configureSchema(\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Schema\Schema $schema, \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Connection $forConnection) : void
     {
         // only update the schema for this connection
         if ($forConnection !== $this->getConnection()) {
@@ -173,7 +173,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
         }
         try {
             $delete = $this->getConnection()->prepare($deleteSql);
-        } catch (\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             return \true;
         } catch (\PDOException $e) {
             return \true;
@@ -184,7 +184,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
         }
         try {
             return $delete->execute();
-        } catch (\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             return \true;
         } catch (\PDOException $e) {
             return \true;
@@ -262,7 +262,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
             } else {
                 $conn->exec($sql);
             }
-        } catch (\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception\TableNotFoundException $e) {
         } catch (\PDOException $e) {
         }
         return \true;
@@ -277,7 +277,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
         try {
             $stmt = $this->getConnection()->prepare($sql);
             $stmt->execute(\array_values($ids));
-        } catch (\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception\TableNotFoundException $e) {
         } catch (\PDOException $e) {
         }
         return \true;
@@ -321,7 +321,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
         $lifetime = $lifetime ?: null;
         try {
             $stmt = $conn->prepare($sql);
-        } catch (\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             if (!$conn->isTransactionActive() || \in_array($this->driver, ['pgsql', 'sqlite', 'sqlsrv'], \true)) {
                 $this->createTable();
             }
@@ -357,7 +357,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
         foreach ($values as $id => $data) {
             try {
                 $result = $stmt->execute();
-            } catch (\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+            } catch (\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception\TableNotFoundException $e) {
                 if (!$conn->isTransactionActive() || \in_array($this->driver, ['pgsql', 'sqlite', 'sqlsrv'], \true)) {
                     $this->createTable();
                 }
@@ -371,7 +371,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
             if (null === $driver && !(\is_object($result) ? $result->rowCount() : $stmt->rowCount())) {
                 try {
                     $insertStmt->execute();
-                } catch (\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\DBALException|\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Exception $e) {
+                } catch (\_PhpScoper88fe6e0ad041\Doctrine\DBAL\DBALException|\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Exception $e) {
                 } catch (\PDOException $e) {
                     // A concurrent write won, let it be
                 }
@@ -386,10 +386,10 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
     {
         if (null === $this->conn) {
             if (\strpos($this->dsn, '://')) {
-                if (!\class_exists(\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\DriverManager::class)) {
-                    throw new \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Failed to parse the DSN "%s". Try running "composer require doctrine/dbal".', $this->dsn));
+                if (!\class_exists(\_PhpScoper88fe6e0ad041\Doctrine\DBAL\DriverManager::class)) {
+                    throw new \_PhpScoper88fe6e0ad041\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Failed to parse the DSN "%s". Try running "composer require doctrine/dbal".', $this->dsn));
                 }
-                $this->conn = \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\DriverManager::getConnection(['url' => $this->dsn]);
+                $this->conn = \_PhpScoper88fe6e0ad041\Doctrine\DBAL\DriverManager::getConnection(['url' => $this->dsn]);
             } else {
                 $this->conn = new \PDO($this->dsn, $this->username, $this->password, $this->connectionOptions);
                 $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -401,27 +401,27 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
             } else {
                 $driver = $this->conn->getDriver();
                 switch (\true) {
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\Mysqli\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\Mysqli\Driver:
                         throw new \LogicException(\sprintf('The adapter "%s" does not support the mysqli driver, use pdo_mysql instead.', static::class));
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\AbstractMySQLDriver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\AbstractMySQLDriver:
                         $this->driver = 'mysql';
                         break;
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\PDOSqlite\Driver:
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\PDO\SQLite\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\PDOSqlite\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\PDO\SQLite\Driver:
                         $this->driver = 'sqlite';
                         break;
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\PDOPgSql\Driver:
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\PDO\PgSQL\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\PDOPgSql\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\PDO\PgSQL\Driver:
                         $this->driver = 'pgsql';
                         break;
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\OCI8\Driver:
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\PDOOracle\Driver:
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\PDO\OCI\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\OCI8\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\PDOOracle\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\PDO\OCI\Driver:
                         $this->driver = 'oci';
                         break;
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\SQLSrv\Driver:
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\PDOSqlsrv\Driver:
-                    case $driver instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\PDO\SQLSrv\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\SQLSrv\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\PDOSqlsrv\Driver:
+                    case $driver instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\PDO\SQLSrv\Driver:
                         $this->driver = 'sqlsrv';
                         break;
                     default:
@@ -438,7 +438,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
             $conn = $this->conn instanceof \PDO ? $this->conn : $this->conn->getWrappedConnection();
             if ($conn instanceof \PDO) {
                 $this->serverVersion = $conn->getAttribute(\PDO::ATTR_SERVER_VERSION);
-            } elseif ($conn instanceof \_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Driver\ServerInfoAwareConnection) {
+            } elseif ($conn instanceof \_PhpScoper88fe6e0ad041\Doctrine\DBAL\Driver\ServerInfoAwareConnection) {
                 $this->serverVersion = $conn->getServerVersion();
             } else {
                 $this->serverVersion = '0';
@@ -446,7 +446,7 @@ class PdoAdapter extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Cache\Adapter
         }
         return $this->serverVersion;
     }
-    private function addTableToSchema(\_PhpScoperbd5d0c5f7638\Doctrine\DBAL\Schema\Schema $schema) : void
+    private function addTableToSchema(\_PhpScoper88fe6e0ad041\Doctrine\DBAL\Schema\Schema $schema) : void
     {
         $types = ['mysql' => 'binary', 'sqlite' => 'text', 'pgsql' => 'string', 'oci' => 'string', 'sqlsrv' => 'string'];
         if (!isset($types[$this->driver])) {

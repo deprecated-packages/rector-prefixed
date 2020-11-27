@@ -3,20 +3,20 @@
 declare (strict_types=1);
 namespace PHPStan\Command\ErrorFormatter;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Json;
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Json;
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
 use function chdir;
 use function file_put_contents;
 use function getcwd;
 /**
  * @group exec
  */
-class BaselineNeonErrorFormatterIntegrationTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
+class BaselineNeonErrorFormatterIntegrationTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
 {
     public function testErrorWithTrait() : void
     {
         $output = $this->runPhpStan(__DIR__ . '/data/', null);
-        $errors = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode($output, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
+        $errors = \_PhpScoper88fe6e0ad041\Nette\Utils\Json::decode($output, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::FORCE_ARRAY);
         $this->assertSame(10, \array_sum($errors['totals']));
         $this->assertCount(6, $errors['files']);
     }
@@ -27,21 +27,21 @@ class BaselineNeonErrorFormatterIntegrationTest extends \_PhpScoperbd5d0c5f7638\
         \file_put_contents($baselineFile, $output);
         $output = $this->runPhpStan(__DIR__ . '/data/', $baselineFile);
         @\unlink($baselineFile);
-        $errors = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode($output, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
+        $errors = \_PhpScoper88fe6e0ad041\Nette\Utils\Json::decode($output, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::FORCE_ARRAY);
         $this->assertSame(0, \array_sum($errors['totals']));
         $this->assertCount(0, $errors['files']);
     }
     public function testRunWindowsFileWithUnixBaseline() : void
     {
         $output = $this->runPhpStan(__DIR__ . '/data/WindowsNewlines.php', __DIR__ . '/data/unixBaseline.neon');
-        $errors = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode($output, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
+        $errors = \_PhpScoper88fe6e0ad041\Nette\Utils\Json::decode($output, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::FORCE_ARRAY);
         $this->assertSame(0, \array_sum($errors['totals']));
         $this->assertCount(0, $errors['files']);
     }
     public function testRunUnixFileWithWindowsBaseline() : void
     {
         $output = $this->runPhpStan(__DIR__ . '/data/UnixNewlines.php', __DIR__ . '/data/windowsBaseline.neon');
-        $errors = \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::decode($output, \_PhpScoperbd5d0c5f7638\Nette\Utils\Json::FORCE_ARRAY);
+        $errors = \_PhpScoper88fe6e0ad041\Nette\Utils\Json::decode($output, \_PhpScoper88fe6e0ad041\Nette\Utils\Json::FORCE_ARRAY);
         $this->assertSame(0, \array_sum($errors['totals']));
         $this->assertCount(0, $errors['files']);
     }

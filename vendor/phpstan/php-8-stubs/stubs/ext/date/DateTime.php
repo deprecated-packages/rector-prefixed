@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class DateTime implements \DateTimeInterface
 {
@@ -128,4 +128,4 @@ class DateTime implements \DateTimeInterface
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\DateTime', 'DateTime', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\DateTime', 'DateTime', \false);

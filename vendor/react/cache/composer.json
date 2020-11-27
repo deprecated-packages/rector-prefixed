@@ -36,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Cache\\": "src\/"
+            "_PhpScoper88fe6e0ad041\\React\\Cache\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Tests\\Cache\\": "tests\/"
+            "_PhpScoper88fe6e0ad041\\React\\Tests\\Cache\\": "tests\/"
         }
     },
     "require-dev": {

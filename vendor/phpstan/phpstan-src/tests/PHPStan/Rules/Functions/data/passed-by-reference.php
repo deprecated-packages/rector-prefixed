@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\PassedByReference;
+namespace _PhpScoper88fe6e0ad041\PassedByReference;
 
 function foo(&$foo)
 {

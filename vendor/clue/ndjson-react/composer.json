@@ -19,7 +19,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\Clue\\React\\NDJson\\": "src\/"
+            "_PhpScoper88fe6e0ad041\\Clue\\React\\NDJson\\": "src\/"
         }
     },
     "require": {

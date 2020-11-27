@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\CallingMultipleClasses;
+namespace _PhpScoper88fe6e0ad041\CallingMultipleClasses;
 
 function () {
-    $foo = new \_PhpScoperbd5d0c5f7638\MultipleClasses\Foo();
-    $bar = new \_PhpScoperbd5d0c5f7638\MultipleClasses\Bar();
+    $foo = new \_PhpScoper88fe6e0ad041\MultipleClasses\Foo();
+    $bar = new \_PhpScoper88fe6e0ad041\MultipleClasses\Bar();
     die;
 };

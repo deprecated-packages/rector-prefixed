@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Levels\ArrayAccess;
+namespace _PhpScoper88fe6e0ad041\Levels\ArrayAccess;
 
 class Foo
 {

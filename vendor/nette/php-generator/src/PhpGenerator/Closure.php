@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Nette\PhpGenerator;
+namespace _PhpScoper88fe6e0ad041\Nette\PhpGenerator;
 
-use _PhpScoperbd5d0c5f7638\Nette;
+use _PhpScoper88fe6e0ad041\Nette;
 /**
  * Closure.
  *
@@ -22,12 +22,12 @@ final class Closure
     private $uses = [];
     public static function from(\Closure $closure) : self
     {
-        return (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($closure));
+        return (new \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($closure));
     }
     public function __toString() : string
     {
         try {
-            return (new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Printer())->printClosure($this);
+            return (new \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Printer())->printClosure($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -42,7 +42,7 @@ final class Closure
      */
     public function setUses(array $uses) : self
     {
-        (function (\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Parameter ...$uses) {
+        (function (\_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Parameter ...$uses) {
         })(...$uses);
         $this->uses = $uses;
         return $this;
@@ -51,8 +51,8 @@ final class Closure
     {
         return $this->uses;
     }
-    public function addUse(string $name) : \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Parameter
+    public function addUse(string $name) : \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Parameter
     {
-        return $this->uses[] = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Parameter($name);
+        return $this->uses[] = new \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Parameter($name);
     }
 }

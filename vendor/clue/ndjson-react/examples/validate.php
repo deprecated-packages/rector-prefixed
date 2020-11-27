@@ -1,21 +1,21 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 // $ php examples/validate.php < examples/users.ndjson
-use _PhpScoperbd5d0c5f7638\React\EventLoop\Factory;
-use _PhpScoperbd5d0c5f7638\React\Stream\ReadableResourceStream;
-use _PhpScoperbd5d0c5f7638\React\Stream\WritableResourceStream;
-use _PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder;
-use _PhpScoperbd5d0c5f7638\Clue\React\NDJson\Encoder;
+use _PhpScoper88fe6e0ad041\React\EventLoop\Factory;
+use _PhpScoper88fe6e0ad041\React\Stream\ReadableResourceStream;
+use _PhpScoper88fe6e0ad041\React\Stream\WritableResourceStream;
+use _PhpScoper88fe6e0ad041\Clue\React\NDJson\Decoder;
+use _PhpScoper88fe6e0ad041\Clue\React\NDJson\Encoder;
 require __DIR__ . '/../vendor/autoload.php';
-$loop = \_PhpScoperbd5d0c5f7638\React\EventLoop\Factory::create();
+$loop = \_PhpScoper88fe6e0ad041\React\EventLoop\Factory::create();
 $exit = 0;
-$in = new \_PhpScoperbd5d0c5f7638\React\Stream\ReadableResourceStream(\STDIN, $loop);
-$out = new \_PhpScoperbd5d0c5f7638\React\Stream\WritableResourceStream(\STDOUT, $loop);
-$info = new \_PhpScoperbd5d0c5f7638\React\Stream\WritableResourceStream(\STDERR, $loop);
-$decoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Decoder($in);
-$encoder = new \_PhpScoperbd5d0c5f7638\Clue\React\NDJson\Encoder($out);
+$in = new \_PhpScoper88fe6e0ad041\React\Stream\ReadableResourceStream(\STDIN, $loop);
+$out = new \_PhpScoper88fe6e0ad041\React\Stream\WritableResourceStream(\STDOUT, $loop);
+$info = new \_PhpScoper88fe6e0ad041\React\Stream\WritableResourceStream(\STDERR, $loop);
+$decoder = new \_PhpScoper88fe6e0ad041\Clue\React\NDJson\Decoder($in);
+$encoder = new \_PhpScoper88fe6e0ad041\Clue\React\NDJson\Encoder($out);
 $decoder->pipe($encoder);
 $decoder->on('error', function (\Exception $e) use($info, &$exit) {
     $info->write('ERROR: ' . $e->getMessage() . \PHP_EOL);

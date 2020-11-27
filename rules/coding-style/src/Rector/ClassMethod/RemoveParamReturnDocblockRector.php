@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\ClassMethod;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
@@ -100,8 +100,8 @@ CODE_SAMPLE
             }
         }
         $returnRegex = \sprintf(self::RETURN_REGEX, $returnType);
-        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($docCommentText, $returnRegex)) {
-            $docCommentText = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::replace($docCommentText, $returnRegex, '');
+        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($docCommentText, $returnRegex)) {
+            $docCommentText = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($docCommentText, $returnRegex, '');
         }
         return $this->processUpdateDocblock($node, $text, $docCommentText);
     }
@@ -149,8 +149,8 @@ CODE_SAMPLE
                 continue;
             }
             $paramRegex = \sprintf(self::PARAM_REGEX, $paramName, $paramVarName);
-            if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($docCommentText, $paramRegex)) {
-                $docCommentText = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::replace($docCommentText, $paramRegex, '');
+            if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($docCommentText, $paramRegex)) {
+                $docCommentText = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::replace($docCommentText, $paramRegex, '');
             }
         }
         return $docCommentText;

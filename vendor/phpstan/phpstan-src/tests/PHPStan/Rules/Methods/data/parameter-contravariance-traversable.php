@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\ParameterContravarianceTraversable;
+namespace _PhpScoper88fe6e0ad041\ParameterContravarianceTraversable;
 
 class Foo
 {
@@ -11,7 +11,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoperbd5d0c5f7638\ParameterContravarianceTraversable\Foo
+class Bar extends \_PhpScoper88fe6e0ad041\ParameterContravarianceTraversable\Foo
 {
     public function doFoo(iterable $a)
     {
@@ -20,7 +20,7 @@ class Bar extends \_PhpScoperbd5d0c5f7638\ParameterContravarianceTraversable\Foo
     {
     }
 }
-class Baz extends \_PhpScoperbd5d0c5f7638\ParameterContravarianceTraversable\Foo
+class Baz extends \_PhpScoper88fe6e0ad041\ParameterContravarianceTraversable\Foo
 {
     public function doFoo(?iterable $a)
     {

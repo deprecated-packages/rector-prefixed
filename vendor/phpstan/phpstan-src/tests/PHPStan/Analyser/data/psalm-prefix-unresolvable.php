@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\PsalmPrefixedTagsWithUnresolvableTypes;
+namespace _PhpScoper88fe6e0ad041\PsalmPrefixedTagsWithUnresolvableTypes;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -25,7 +25,7 @@ class Foo
      */
     public function doBaz($param, $param2)
     {
-        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\PsalmPrefixedTagsWithUnresolvableTypes\\Foo', $param);
-        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\PsalmPrefixedTagsWithUnresolvableTypes\\Foo', $param2);
+        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\PsalmPrefixedTagsWithUnresolvableTypes\\Foo', $param);
+        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\PsalmPrefixedTagsWithUnresolvableTypes\\Foo', $param2);
     }
 }

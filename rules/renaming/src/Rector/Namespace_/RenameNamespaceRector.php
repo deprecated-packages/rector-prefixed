@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\Namespace_;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
@@ -125,7 +125,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
         }
         $nameInNewNamespace = $renamedNamespace->getNameInNewNamespace();
         // first dummy implementation - improve
-        $cutOffFromTheLeft = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::length($nameInNewNamespace) - \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::length($name->toString());
-        return \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::substring($nameInNewNamespace, $cutOffFromTheLeft);
+        $cutOffFromTheLeft = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::length($nameInNewNamespace) - \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::length($name->toString());
+        return \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::substring($nameInNewNamespace, $cutOffFromTheLeft);
     }
 }

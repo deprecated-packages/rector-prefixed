@@ -2,9 +2,9 @@
 
 /** @source https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Routing/Annotation/Route.php */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Symfony\Component\Routing\Annotation;
+namespace _PhpScoper88fe6e0ad041\Symfony\Component\Routing\Annotation;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Routing\\Annotation\\Route')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Symfony\\Component\\Routing\\Annotation\\Route')) {
     return;
 }
 /**

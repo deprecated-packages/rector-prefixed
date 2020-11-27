@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Http\Io;
+namespace _PhpScoper88fe6e0ad041\React\Http\Io;
 
-use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
-use _PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface;
-use _PhpScoperbd5d0c5f7638\React\Stream\Util;
-use _PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface;
+use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
+use _PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface;
+use _PhpScoper88fe6e0ad041\React\Stream\Util;
+use _PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface;
 use Exception;
 /**
  * [Internal] Decodes "Transfer-Encoding: chunked" from given stream and returns only payload data.
@@ -14,7 +14,7 @@ use Exception;
  *
  * @internal
  */
-class ChunkedDecoder extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter implements \_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface
+class ChunkedDecoder extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface
 {
     const CRLF = "\r\n";
     const MAX_CHUNK_HEADER_SIZE = 1024;
@@ -24,7 +24,7 @@ class ChunkedDecoder extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter impl
     private $chunkSize = 0;
     private $transferredSize = 0;
     private $headerCompleted = \false;
-    public function __construct(\_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -44,9 +44,9 @@ class ChunkedDecoder extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter impl
     {
         $this->input->resume();
     }
-    public function pipe(\_PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoperbd5d0c5f7638\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoper88fe6e0ad041\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

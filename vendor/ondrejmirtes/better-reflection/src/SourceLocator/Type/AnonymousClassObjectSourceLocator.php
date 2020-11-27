@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type;
 
 use InvalidArgumentException;
 use PhpParser\Node;
@@ -11,18 +11,18 @@ use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionException;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\EvaledAnonymousClassCannotBeLocated;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\TwoAnonymousClassesOnSameLine;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Exception\EvaledAnonymousClassCannotBeLocated;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Exception\TwoAnonymousClassesOnSameLine;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\FileChecker;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Util\FileHelper;
 use function array_filter;
 use function array_values;
 use function assert;
@@ -34,7 +34,7 @@ use function strpos;
 /**
  * @internal
  */
-final class AnonymousClassObjectSourceLocator implements \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+final class AnonymousClassObjectSourceLocator implements \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var CoreReflectionClass */
     private $coreClassReflection;
@@ -61,7 +61,7 @@ final class AnonymousClassObjectSourceLocator implements \_PhpScoperbd5d0c5f7638
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifier(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
     {
         return $this->getReflectionClass($reflector, $identifier->getType());
     }
@@ -70,21 +70,21 @@ final class AnonymousClassObjectSourceLocator implements \_PhpScoperbd5d0c5f7638
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifiersByType(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return \array_filter([$this->getReflectionClass($reflector, $identifierType)]);
     }
-    private function getReflectionClass(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : ?\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass
+    private function getReflectionClass(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : ?\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass
     {
         if (!$identifierType->isClass()) {
             return null;
         }
         $fileName = $this->coreClassReflection->getFileName();
         if (\strpos($fileName, 'eval()\'d code') !== \false) {
-            throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\EvaledAnonymousClassCannotBeLocated::create();
+            throw \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Exception\EvaledAnonymousClassCannotBeLocated::create();
         }
-        \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($fileName);
-        $fileName = \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($fileName);
+        \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($fileName);
+        $fileName = \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($fileName);
         $nodeVisitor = new class($fileName, $this->coreClassReflection->getStartLine()) extends \PhpParser\NodeVisitorAbstract
         {
             /** @var string */
@@ -119,7 +119,7 @@ final class AnonymousClassObjectSourceLocator implements \_PhpScoperbd5d0c5f7638
                     return null;
                 }
                 if (isset($anonymousClassNodesOnSameLine[1])) {
-                    throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Exception\TwoAnonymousClassesOnSameLine::create($this->fileName, $this->startLine);
+                    throw \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Exception\TwoAnonymousClassesOnSameLine::create($this->fileName, $this->startLine);
                 }
                 return $anonymousClassNodesOnSameLine[0];
             }
@@ -129,8 +129,8 @@ final class AnonymousClassObjectSourceLocator implements \_PhpScoperbd5d0c5f7638
         $nodeTraverser = new \PhpParser\NodeTraverser();
         $nodeTraverser->addVisitor($nodeVisitor);
         $nodeTraverser->traverse($ast);
-        $reflectionClass = (new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection())->__invoke($reflector, $nodeVisitor->getAnonymousClassNode(), new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource($fileContents, $fileName), null);
-        \assert($reflectionClass instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass || $reflectionClass === null);
+        $reflectionClass = (new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection())->__invoke($reflector, $nodeVisitor->getAnonymousClassNode(), new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource($fileContents, $fileName), null);
+        \assert($reflectionClass instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass || $reflectionClass === null);
         return $reflectionClass;
     }
 }

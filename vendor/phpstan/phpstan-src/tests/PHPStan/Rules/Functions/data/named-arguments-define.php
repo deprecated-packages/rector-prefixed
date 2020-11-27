@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\FunctionNamedArguments;
+namespace _PhpScoper88fe6e0ad041\FunctionNamedArguments;
 
 function foo(int $i, int $j) : void
 {

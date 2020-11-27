@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace;
+namespace _PhpScoper88fe6e0ad041\MethodPhpDocsNamespace;
 
-use _PhpScoperbd5d0c5f7638\SomeNamespace\Amet as Dolor;
-use _PhpScoperbd5d0c5f7638\SomeNamespace\Consecteur;
-class Foo extends \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooParent
+use _PhpScoper88fe6e0ad041\SomeNamespace\Amet as Dolor;
+use _PhpScoper88fe6e0ad041\SomeNamespace\Consecteur;
+class Foo extends \_PhpScoper88fe6e0ad041\MethodPhpDocsNamespace\FooParent
 {
     /**
      * @return Bar
@@ -49,9 +49,9 @@ class Foo extends \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooParent
      * @param object $objectWithNativeTypehint
      * @return Foo
      */
-    public function doFoo($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $yetAnotherMixedParameter, $integerParameter, $anotherIntegerParameter, $arrayParameterOne, $arrayParameterOther, $objectRelative, $objectFullyQualified, $objectUsed, $nullableInteger, $nullableObject, $selfType, $staticType, $nullType, $barObject, \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\Bar $conflictedObject, \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\Bar $moreSpecifiedObject, $resource, $yetAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherAnotherMixedParameter, $voidParameter, $useWithoutAlias, $true, $false, bool $boolTrue, bool $boolFalse, bool $trueBoolean, $objectWithoutNativeTypehint, object $objectWithNativeTypehint, $parameterWithDefaultValueFalse = \false, $anotherNullableObject = null)
+    public function doFoo($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $yetAnotherMixedParameter, $integerParameter, $anotherIntegerParameter, $arrayParameterOne, $arrayParameterOther, $objectRelative, $objectFullyQualified, $objectUsed, $nullableInteger, $nullableObject, $selfType, $staticType, $nullType, $barObject, \_PhpScoper88fe6e0ad041\MethodPhpDocsNamespace\Bar $conflictedObject, \_PhpScoper88fe6e0ad041\MethodPhpDocsNamespace\Bar $moreSpecifiedObject, $resource, $yetAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherAnotherMixedParameter, $voidParameter, $useWithoutAlias, $true, $false, bool $boolTrue, bool $boolFalse, bool $trueBoolean, $objectWithoutNativeTypehint, object $objectWithNativeTypehint, $parameterWithDefaultValueFalse = \false, $anotherNullableObject = null)
     {
-        $parent = new \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooParent();
+        $parent = new \_PhpScoper88fe6e0ad041\MethodPhpDocsNamespace\FooParent();
         $differentInstance = new self();
         /** @var self $inlineSelf */
         $inlineSelf = doFoo();
@@ -67,7 +67,7 @@ class Foo extends \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooParent
     public function doBar() : array
     {
     }
-    public function returnParent() : \_PhpScoperbd5d0c5f7638\parent
+    public function returnParent() : \_PhpScoper88fe6e0ad041\parent
     {
     }
     /**

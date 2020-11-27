@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\MethodSignature;
+namespace _PhpScoper88fe6e0ad041\MethodSignature;
 
 class Animal
 {
 }
-class Dog extends \_PhpScoperbd5d0c5f7638\MethodSignature\Animal
+class Dog extends \_PhpScoper88fe6e0ad041\MethodSignature\Animal
 {
 }
-class Cat extends \_PhpScoperbd5d0c5f7638\MethodSignature\Animal
+class Cat extends \_PhpScoper88fe6e0ad041\MethodSignature\Animal
 {
 }
 class BaseClass
@@ -212,9 +212,9 @@ class BaseClassWithPrivateMethods
     {
     }
 }
-namespace _PhpScoperbd5d0c5f7638\MethodSignature;
+namespace _PhpScoper88fe6e0ad041\MethodSignature;
 
-class SubClass extends \_PhpScoperbd5d0c5f7638\MethodSignature\BaseClass implements \_PhpScoperbd5d0c5f7638\MethodSignature\BaseInterface
+class SubClass extends \_PhpScoper88fe6e0ad041\MethodSignature\BaseClass implements \_PhpScoper88fe6e0ad041\MethodSignature\BaseInterface
 {
     /**
      * @param Dog $animal
@@ -319,14 +319,14 @@ class SubClass extends \_PhpScoperbd5d0c5f7638\MethodSignature\BaseClass impleme
     {
     }
 }
-abstract class ReturnSomethingElseThenVoid implements \_PhpScoperbd5d0c5f7638\MethodSignature\BaseInterface
+abstract class ReturnSomethingElseThenVoid implements \_PhpScoper88fe6e0ad041\MethodSignature\BaseInterface
 {
     public function returnTypeTest1() : int
     {
         return 1;
     }
 }
-class SubClassWithPrivateMethods extends \_PhpScoperbd5d0c5f7638\MethodSignature\BaseClassWithPrivateMethods
+class SubClassWithPrivateMethods extends \_PhpScoper88fe6e0ad041\MethodSignature\BaseClassWithPrivateMethods
 {
     /**
      * @param int $animal
@@ -363,7 +363,7 @@ interface GenericRule
      */
     public function processNode(\PhpParser\Node $node) : void;
 }
-class Rule implements \_PhpScoperbd5d0c5f7638\MethodSignature\GenericRule
+class Rule implements \_PhpScoper88fe6e0ad041\MethodSignature\GenericRule
 {
     /**
      * @param \PhpParser\Node\Expr\StaticCall $node
@@ -379,7 +379,7 @@ interface ConstantArrayInterface
      */
     public function foobar() : array;
 }
-class ConstantArrayClass implements \_PhpScoperbd5d0c5f7638\MethodSignature\ConstantArrayInterface
+class ConstantArrayClass implements \_PhpScoper88fe6e0ad041\MethodSignature\ConstantArrayInterface
 {
     /**
      * @return array{foo: string, bar: string}

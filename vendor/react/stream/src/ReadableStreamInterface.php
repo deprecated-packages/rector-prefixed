@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Stream;
+namespace _PhpScoper88fe6e0ad041\React\Stream;
 
-use _PhpScoperbd5d0c5f7638\Evenement\EventEmitterInterface;
+use _PhpScoper88fe6e0ad041\Evenement\EventEmitterInterface;
 /**
  * The `ReadableStreamInterface` is responsible for providing an interface for
  * read-only streams and the readable side of duplex streams.
@@ -161,7 +161,7 @@ use _PhpScoperbd5d0c5f7638\Evenement\EventEmitterInterface;
  *
  * @see EventEmitterInterface
  */
-interface ReadableStreamInterface extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitterInterface
+interface ReadableStreamInterface extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitterInterface
 {
     /**
      * Checks whether this stream is in a readable state (not closed already).
@@ -318,7 +318,7 @@ interface ReadableStreamInterface extends \_PhpScoperbd5d0c5f7638\Evenement\Even
      * @param array $options
      * @return WritableStreamInterface $dest stream as-is
      */
-    public function pipe(\_PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface $dest, array $options = array());
+    public function pipe(\_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $dest, array $options = array());
     /**
      * Closes the stream (forcefully).
      *

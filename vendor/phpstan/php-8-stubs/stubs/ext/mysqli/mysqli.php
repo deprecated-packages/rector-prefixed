@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class mysqli
 {
@@ -311,4 +311,4 @@ class mysqli
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\mysqli', 'mysqli', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\mysqli', 'mysqli', \false);

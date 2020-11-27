@@ -2,9 +2,9 @@
 
 declare (strict_types=1);
 // source: https://github.com/PHP-DI/PHP-DI/blob/master/src/Annotation/Inject.php
-namespace _PhpScoperbd5d0c5f7638\DI\Annotation;
+namespace _PhpScoper88fe6e0ad041\DI\Annotation;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\DI\\Annotation\\Inject')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\DI\\Annotation\\Inject')) {
     return;
 }
 /**

@@ -49,7 +49,7 @@ services:
         autowired: false
 
     testCaseSourceLocator:
-        class: _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+        class: _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\SourceLocator
         factory: @PHPStan\Testing\TestCaseSourceLocatorFactory::create()
         autowired: false
 

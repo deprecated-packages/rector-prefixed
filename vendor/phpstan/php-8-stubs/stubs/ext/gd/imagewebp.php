@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 #endif
 #ifdef HAVE_GD_WEBP
 /** @param resource|string|null $file */
-function imagewebp(\_PhpScoperbd5d0c5f7638\GdImage $image, $file = null, int $quality = -1) : bool
+function imagewebp(\_PhpScoper88fe6e0ad041\GdImage $image, $file = null, int $quality = -1) : bool
 {
 }

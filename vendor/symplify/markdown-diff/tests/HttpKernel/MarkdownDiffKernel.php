@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\MarkdownDiff\Tests\HttpKernel;
 
-use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle;
 use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;

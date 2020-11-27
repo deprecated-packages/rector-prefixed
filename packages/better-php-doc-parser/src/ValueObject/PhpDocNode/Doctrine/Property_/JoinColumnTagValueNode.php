@@ -11,7 +11,7 @@ final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     /**
      * @var string
      */
-    private $shortName = '_PhpScoperbd5d0c5f7638\\@ORM\\JoinColumn';
+    private $shortName = '_PhpScoper88fe6e0ad041\\@ORM\\JoinColumn';
     /**
      * @var string|null
      */

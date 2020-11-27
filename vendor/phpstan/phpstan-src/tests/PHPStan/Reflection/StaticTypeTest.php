@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection;
 
-use _PhpScoperbd5d0c5f7638\NativeStaticReturnType\Foo;
+use _PhpScoper88fe6e0ad041\NativeStaticReturnType\Foo;
 use PHPStan\Testing\TestCase;
 use PHPStan\Type\StaticType;
 class StaticTypeTest extends \PHPStan\Testing\TestCase
@@ -14,11 +14,11 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
             $this->markTestSkipped('Test requires PHP 8.0');
         }
         $reflectionProvider = $this->createBroker();
-        $class = $reflectionProvider->getClass(\_PhpScoperbd5d0c5f7638\NativeStaticReturnType\Foo::class);
+        $class = $reflectionProvider->getClass(\_PhpScoper88fe6e0ad041\NativeStaticReturnType\Foo::class);
         $method = $class->getNativeMethod('doFoo');
         $methodVariant = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants());
         $methodReturnType = $methodVariant->getReturnType();
         $this->assertInstanceOf(\PHPStan\Type\StaticType::class, $methodReturnType);
-        $this->assertSame(\_PhpScoperbd5d0c5f7638\NativeStaticReturnType\Foo::class, $methodReturnType->getClassName());
+        $this->assertSame(\_PhpScoper88fe6e0ad041\NativeStaticReturnType\Foo::class, $methodReturnType->getClassName());
     }
 }

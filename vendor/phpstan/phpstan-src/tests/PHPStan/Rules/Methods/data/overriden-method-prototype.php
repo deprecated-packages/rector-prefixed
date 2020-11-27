@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\OverridenMethodPrototype;
+namespace _PhpScoper88fe6e0ad041\OverridenMethodPrototype;
 
 class Foo
 {
@@ -8,13 +8,13 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoperbd5d0c5f7638\OverridenMethodPrototype\Foo
+class Bar extends \_PhpScoper88fe6e0ad041\OverridenMethodPrototype\Foo
 {
     public function foo()
     {
     }
 }
 function () {
-    $bar = new \_PhpScoperbd5d0c5f7638\OverridenMethodPrototype\Bar();
+    $bar = new \_PhpScoper88fe6e0ad041\OverridenMethodPrototype\Bar();
     $bar->foo();
 };

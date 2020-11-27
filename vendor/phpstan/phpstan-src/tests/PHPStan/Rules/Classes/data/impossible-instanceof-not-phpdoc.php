@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\ImpossibleInstanceofNotPhpDoc;
+namespace _PhpScoper88fe6e0ad041\ImpossibleInstanceofNotPhpDoc;
 
 class Foo
 {
@@ -18,7 +18,7 @@ class Foo
     {
         if ($date instanceof \DateTimeInterface) {
         }
-        if ($date instanceof \_PhpScoperbd5d0c5f7638\ImpossibleInstanceofNotPhpDoc\SomeFinalClass) {
+        if ($date instanceof \_PhpScoper88fe6e0ad041\ImpossibleInstanceofNotPhpDoc\SomeFinalClass) {
         }
         if ($date instanceof \DateTimeImmutable) {
         }

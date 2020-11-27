@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class DOMEntityReference
 {
@@ -8,4 +8,4 @@ class DOMEntityReference
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\DOMEntityReference', 'DOMEntityReference', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\DOMEntityReference', 'DOMEntityReference', \false);

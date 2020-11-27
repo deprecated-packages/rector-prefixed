@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\ClosurePassedByReference;
+namespace _PhpScoper88fe6e0ad041\ClosurePassedByReference;
 
 function () {
     $fooOrNull = null;
@@ -8,7 +8,7 @@ function () {
     $callback = function () use(&$fooOrNull) : void {
         'inCallbackBeforeAssign';
         if ($fooOrNull === null) {
-            $fooOrNull = new \_PhpScoperbd5d0c5f7638\ClosurePassedByReference\Foo();
+            $fooOrNull = new \_PhpScoper88fe6e0ad041\ClosurePassedByReference\Foo();
         }
         'inCallbackAfterAssign';
         return $fooOrNull;

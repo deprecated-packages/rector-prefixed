@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection;
+namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection;
 
 /**
  * Interface for project factories. A project factory shall convert a set of files
@@ -22,5 +22,5 @@ interface ProjectFactory
      *
      * @param File[] $files
      */
-    public function create(string $name, array $files) : \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Project;
+    public function create(string $name, array $files) : \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Project;
 }

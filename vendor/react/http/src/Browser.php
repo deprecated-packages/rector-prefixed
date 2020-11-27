@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Http;
+namespace _PhpScoper88fe6e0ad041\React\Http;
 
-use _PhpScoperbd5d0c5f7638\Psr\Http\Message\ResponseInterface;
-use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\Request;
-use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\Uri;
-use _PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface;
-use _PhpScoperbd5d0c5f7638\React\Http\Io\ReadableBodyStream;
-use _PhpScoperbd5d0c5f7638\React\Http\Io\Sender;
-use _PhpScoperbd5d0c5f7638\React\Http\Io\Transaction;
-use _PhpScoperbd5d0c5f7638\React\Promise\PromiseInterface;
-use _PhpScoperbd5d0c5f7638\React\Socket\ConnectorInterface;
-use _PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface;
+use _PhpScoper88fe6e0ad041\Psr\Http\Message\ResponseInterface;
+use _PhpScoper88fe6e0ad041\RingCentral\Psr7\Request;
+use _PhpScoper88fe6e0ad041\RingCentral\Psr7\Uri;
+use _PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface;
+use _PhpScoper88fe6e0ad041\React\Http\Io\ReadableBodyStream;
+use _PhpScoper88fe6e0ad041\React\Http\Io\Sender;
+use _PhpScoper88fe6e0ad041\React\Http\Io\Transaction;
+use _PhpScoper88fe6e0ad041\React\Promise\PromiseInterface;
+use _PhpScoper88fe6e0ad041\React\Socket\ConnectorInterface;
+use _PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface;
 use InvalidArgumentException;
 /**
  * @final This class is final and shouldn't be extended as it is likely to be marked final in a future relase.
@@ -55,9 +55,9 @@ class Browser
      * @param ConnectorInterface|null $connector [optional] Connector to use.
      *     Should be `null` in order to use default Connector.
      */
-    public function __construct(\_PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface $loop, \_PhpScoperbd5d0c5f7638\React\Socket\ConnectorInterface $connector = null)
+    public function __construct(\_PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface $loop, \_PhpScoper88fe6e0ad041\React\Socket\ConnectorInterface $connector = null)
     {
-        $this->transaction = new \_PhpScoperbd5d0c5f7638\React\Http\Io\Transaction(\_PhpScoperbd5d0c5f7638\React\Http\Io\Sender::createFromLoop($loop, $connector), $loop);
+        $this->transaction = new \_PhpScoper88fe6e0ad041\React\Http\Io\Transaction(\_PhpScoper88fe6e0ad041\React\Http\Io\Sender::createFromLoop($loop, $connector), $loop);
     }
     /**
      * Sends an HTTP GET request
@@ -557,7 +557,7 @@ class Browser
             $browser->baseUrl = null;
             return $browser;
         }
-        $browser->baseUrl = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Uri($baseUrl);
+        $browser->baseUrl = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\Uri($baseUrl);
         if (!\in_array($browser->baseUrl->getScheme(), array('http', 'https')) || $browser->baseUrl->getHost() === '') {
             throw new \InvalidArgumentException('Base URL must be absolute');
         }
@@ -690,11 +690,11 @@ class Browser
     {
         if ($this->baseUrl !== null) {
             // ensure we're actually below the base URL
-            $url = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Uri::resolve($this->baseUrl, $url);
+            $url = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\Uri::resolve($this->baseUrl, $url);
         }
-        if ($body instanceof \_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface) {
-            $body = new \_PhpScoperbd5d0c5f7638\React\Http\Io\ReadableBodyStream($body);
+        if ($body instanceof \_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface) {
+            $body = new \_PhpScoper88fe6e0ad041\React\Http\Io\ReadableBodyStream($body);
         }
-        return $this->transaction->send(new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\Request($method, $url, $headers, $body, $this->protocolVersion));
+        return $this->transaction->send(new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\Request($method, $url, $headers, $body, $this->protocolVersion));
     }
 }

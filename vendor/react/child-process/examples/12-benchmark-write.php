@@ -1,20 +1,20 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-use _PhpScoperbd5d0c5f7638\React\EventLoop\Factory;
-use _PhpScoperbd5d0c5f7638\React\ChildProcess\Process;
+use _PhpScoper88fe6e0ad041\React\EventLoop\Factory;
+use _PhpScoper88fe6e0ad041\React\ChildProcess\Process;
 require __DIR__ . '/../vendor/autoload.php';
 if (\DIRECTORY_SEPARATOR === '\\') {
     exit('Process pipes not supported on Windows' . \PHP_EOL);
 }
-$loop = \_PhpScoperbd5d0c5f7638\React\EventLoop\Factory::create();
-$info = new \_PhpScoperbd5d0c5f7638\React\Stream\WritableResourceStream(\STDERR, $loop);
+$loop = \_PhpScoper88fe6e0ad041\React\EventLoop\Factory::create();
+$info = new \_PhpScoper88fe6e0ad041\React\Stream\WritableResourceStream(\STDERR, $loop);
 $info->write('Pipes data to process STDIN' . \PHP_EOL);
 if (\extension_loaded('xdebug')) {
     $info->write('NOTICE: The "xdebug" extension is loaded, this has a major impact on performance.' . \PHP_EOL);
 }
-$process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process('dd of=/dev/zero');
+$process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process('dd of=/dev/zero');
 $process->start($loop);
 // 10000 * 100 KB => 1 GB
 $i = 10000;

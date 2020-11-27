@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter;
 
 use ReflectionClassConstant as CoreReflectionClassConstant;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
 class ReflectionClassConstant extends \ReflectionClassConstant
 {
     /** @var BetterReflectionClassConstant */
     private $betterClassConstant;
-    public function __construct(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClassConstant $betterClassConstant)
+    public function __construct(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClassConstant $betterClassConstant)
     {
         $this->betterClassConstant = $betterClassConstant;
     }
@@ -61,9 +61,9 @@ class ReflectionClassConstant extends \ReflectionClassConstant
     /**
      * Get the declaring class
      */
-    public function getDeclaringClass() : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClass
+    public function getDeclaringClass() : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionClass
     {
-        return new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterClassConstant->getDeclaringClass());
+        return new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterClassConstant->getDeclaringClass());
     }
     /**
      * Returns the doc comment for this constant

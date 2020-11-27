@@ -11,7 +11,7 @@ final class AssertRangeTagValueNode extends \Rector\BetterPhpDocParser\ValueObje
 {
     public function getShortName() : string
     {
-        return '_PhpScoperbd5d0c5f7638\\@Assert\\Range';
+        return '_PhpScoper88fe6e0ad041\\@Assert\\Range';
     }
     /**
      * @return mixed[]

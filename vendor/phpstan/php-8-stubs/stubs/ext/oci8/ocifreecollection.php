@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /**
  * @alias oci_free_collection
  * @deprecated
  */
-function ocifreecollection(\_PhpScoperbd5d0c5f7638\OCICollection $collection) : bool
+function ocifreecollection(\_PhpScoper88fe6e0ad041\OCICollection $collection) : bool
 {
 }

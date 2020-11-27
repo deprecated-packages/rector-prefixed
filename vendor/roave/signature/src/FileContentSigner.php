@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\Signature;
+namespace _PhpScoper88fe6e0ad041\Roave\Signature;
 
-use _PhpScoperbd5d0c5f7638\Roave\Signature\Encoder\EncoderInterface;
-final class FileContentSigner implements \_PhpScoperbd5d0c5f7638\Roave\Signature\SignerInterface
+use _PhpScoper88fe6e0ad041\Roave\Signature\Encoder\EncoderInterface;
+final class FileContentSigner implements \_PhpScoper88fe6e0ad041\Roave\Signature\SignerInterface
 {
     /**
      * @var EncoderInterface
@@ -13,7 +13,7 @@ final class FileContentSigner implements \_PhpScoperbd5d0c5f7638\Roave\Signature
     /**
      * {@inheritDoc}
      */
-    public function __construct(\_PhpScoperbd5d0c5f7638\Roave\Signature\Encoder\EncoderInterface $encoder)
+    public function __construct(\_PhpScoper88fe6e0ad041\Roave\Signature\Encoder\EncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }

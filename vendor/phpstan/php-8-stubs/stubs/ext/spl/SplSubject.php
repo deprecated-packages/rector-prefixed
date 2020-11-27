@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 interface SplSubject
 {
@@ -11,4 +11,4 @@ interface SplSubject
     /** @return void */
     public function notify();
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\SplSubject', 'SplSubject', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\SplSubject', 'SplSubject', \false);

@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /** @generate-function-entries */
 final class Shmop
 {
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoperbd5d0c5f7638\\Shmop', 'Shmop', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\Shmop', 'Shmop', \false);

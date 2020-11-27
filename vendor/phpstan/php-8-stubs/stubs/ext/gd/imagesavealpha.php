@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function imagesavealpha(\_PhpScoperbd5d0c5f7638\GdImage $image, bool $enable) : bool
+function imagesavealpha(\_PhpScoper88fe6e0ad041\GdImage $image, bool $enable) : bool
 {
 }

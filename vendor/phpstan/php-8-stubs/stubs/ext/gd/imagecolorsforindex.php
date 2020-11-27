@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function imagecolorsforindex(\_PhpScoperbd5d0c5f7638\GdImage $image, int $color) : array|false
+function imagecolorsforindex(\_PhpScoper88fe6e0ad041\GdImage $image, int $color) : array|false
 {
 }

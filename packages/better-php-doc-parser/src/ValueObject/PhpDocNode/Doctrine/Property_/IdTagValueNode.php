@@ -9,7 +9,7 @@ final class IdTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDoc
 {
     public function getShortName() : string
     {
-        return '_PhpScoperbd5d0c5f7638\\@ORM\\Id';
+        return '_PhpScoper88fe6e0ad041\\@ORM\\Id';
     }
     public function getAttributeClassName() : string
     {

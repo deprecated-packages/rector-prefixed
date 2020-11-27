@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Levels\Cloning;
+namespace _PhpScoper88fe6e0ad041\Levels\Cloning;
 
 class Foo
 {
@@ -14,7 +14,7 @@ class Foo
      * @param Foo|int|null $nullableUnion
      * @param mixed $mixed
      */
-    public function doFoo(int $int, $intOrString, \_PhpScoperbd5d0c5f7638\Levels\Cloning\Foo $foo, ?\_PhpScoperbd5d0c5f7638\Levels\Cloning\Foo $nullableFoo, $fooOrInt, ?int $nullableInt, $nullableUnion, $mixed)
+    public function doFoo(int $int, $intOrString, \_PhpScoper88fe6e0ad041\Levels\Cloning\Foo $foo, ?\_PhpScoper88fe6e0ad041\Levels\Cloning\Foo $nullableFoo, $fooOrInt, ?int $nullableInt, $nullableUnion, $mixed)
     {
         clone $int;
         clone $intOrString;

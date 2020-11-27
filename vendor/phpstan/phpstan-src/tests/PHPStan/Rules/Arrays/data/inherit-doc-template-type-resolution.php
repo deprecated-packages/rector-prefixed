@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\InheritDocTemplateTypeResolution;
+namespace _PhpScoper88fe6e0ad041\InheritDocTemplateTypeResolution;
 
 class Foo extends \SimpleXMLElement
 {

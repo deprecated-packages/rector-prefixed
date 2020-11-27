@@ -5,12 +5,12 @@ namespace PHPStan\Reflection\BetterReflection\SourceStubber;
 
 use PhpParser\Lexer\Emulative;
 use PhpParser\ParserFactory;
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-class Php8StubsSourceStubberTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+class Php8StubsSourceStubberTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
 {
     public function testClass() : void
     {
@@ -35,13 +35,13 @@ class Php8StubsSourceStubberTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framewo
         $parser = (new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative(['usedAttributes' => ['comments', 'startLine', 'endLine', 'startFilePos', 'endFilePos']]));
         /** @var FunctionReflector $functionReflector */
         $functionReflector = null;
-        $astLocator = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Ast\Locator($parser, static function () use(&$functionReflector) : FunctionReflector {
+        $astLocator = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Ast\Locator($parser, static function () use(&$functionReflector) : FunctionReflector {
             return $functionReflector;
         });
         $sourceStubber = new \PHPStan\Reflection\BetterReflection\SourceStubber\Php8StubsSourceStubber();
-        $phpInternalSourceLocator = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $sourceStubber);
-        $classReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector($phpInternalSourceLocator);
-        $functionReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector($phpInternalSourceLocator, $classReflector);
+        $phpInternalSourceLocator = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $sourceStubber);
+        $classReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector($phpInternalSourceLocator);
+        $functionReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector($phpInternalSourceLocator, $classReflector);
         return [$classReflector, $functionReflector];
     }
 }

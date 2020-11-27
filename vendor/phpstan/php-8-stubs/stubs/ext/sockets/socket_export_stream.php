@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /** @return resource|false */
-function socket_export_stream(\_PhpScoperbd5d0c5f7638\Socket $socket)
+function socket_export_stream(\_PhpScoper88fe6e0ad041\Socket $socket)
 {
 }

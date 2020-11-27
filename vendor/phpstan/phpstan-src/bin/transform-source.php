@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 \ini_set('memory_limit', '512M');
@@ -60,7 +60,7 @@ class PhpPatcher extends \PhpParser\NodeVisitorAbstract
         throw new \Exception('Unsupported type class');
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\PhpPatcher', 'PhpPatcher', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\PhpPatcher', 'PhpPatcher', \false);
 (function () {
     $dir = __DIR__ . '/../src';
     $lexer = new \PhpParser\Lexer\Emulative(['usedAttributes' => ['comments', 'startLine', 'endLine', 'startTokenPos', 'endTokenPos']]);
@@ -70,7 +70,7 @@ class PhpPatcher extends \PhpParser\NodeVisitorAbstract
     $traverser = new \PhpParser\NodeTraverser();
     $traverser->addVisitor(new \PhpParser\NodeVisitor\CloningVisitor());
     $traverser->addVisitor($nameResolver);
-    $traverser->addVisitor(new \_PhpScoperbd5d0c5f7638\PhpPatcher($printer));
+    $traverser->addVisitor(new \_PhpScoper88fe6e0ad041\PhpPatcher($printer));
     $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::LEAVES_ONLY);
     foreach ($it as $file) {
         $fileName = $file->getPathname();

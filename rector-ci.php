@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
 use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 use Rector\CodingStyle\Rector\String_\SplitStringClassConstantToClassConstFetchRector;
 use Rector\Core\Configuration\Option;
@@ -21,7 +21,7 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services = $containerConfigurator->services();
     $configuration = \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn(\Rector\Core\Rector\AbstractRector::class, 'refactor', 'getNodeTypes')]);
     $services->set(\Rector\Restoration\Rector\ClassMethod\InferParamFromClassMethodReturnRector::class)->call('configure', [[\Rector\Restoration\Rector\ClassMethod\InferParamFromClassMethodReturnRector::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS => $configuration]]);
-    $services->set(\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::class)->call('configure', [[\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::TYPE_TO_PREFERENCE => [\_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase::class => \Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::PREFER_THIS]]]);
+    $services->set(\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::class)->call('configure', [[\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::TYPE_TO_PREFERENCE => [\_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase::class => \Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::PREFER_THIS]]]);
     $services->set(\Rector\SymfonyPhpConfig\Rector\MethodCall\AutoInPhpSymfonyConfigRector::class);
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\Rector\Core\Configuration\Option::SETS, [\Rector\Set\ValueObject\SetList::CODING_STYLE, \Rector\Set\ValueObject\SetList::CODE_QUALITY, \Rector\Set\ValueObject\SetList::CODE_QUALITY_STRICT, \Rector\Set\ValueObject\SetList::DEAD_CODE, \Rector\Set\ValueObject\SetList::NETTE_UTILS_CODE_QUALITY, \Rector\Set\ValueObject\SetList::SOLID, \Rector\Set\ValueObject\SetList::PRIVATIZATION, \Rector\Set\ValueObject\SetList::NAMING, \Rector\Set\ValueObject\SetList::ORDER, \Rector\Set\ValueObject\SetList::DEFLUENT, \Rector\Set\ValueObject\SetList::TYPE_DECLARATION, \Rector\Set\ValueObject\SetList::PHPUNIT_CODE_QUALITY, \Rector\Set\ValueObject\SetList::SYMFONY_AUTOWIRE]);

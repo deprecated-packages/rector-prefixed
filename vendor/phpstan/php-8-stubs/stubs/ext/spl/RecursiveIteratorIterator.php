@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class RecursiveIteratorIterator implements \OuterIterator
 {
@@ -76,4 +76,4 @@ class RecursiveIteratorIterator implements \OuterIterator
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\RecursiveIteratorIterator', 'RecursiveIteratorIterator', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\RecursiveIteratorIterator', 'RecursiveIteratorIterator', \false);

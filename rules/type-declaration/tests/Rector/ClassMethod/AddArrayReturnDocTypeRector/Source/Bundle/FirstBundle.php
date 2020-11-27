@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddArrayReturnDocTypeRector\Source\Bundle;
 
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-final class FirstBundle implements \_PhpScoperbd5d0c5f7638\Symfony\Component\HttpKernel\Bundle\BundleInterface
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+final class FirstBundle implements \_PhpScoper88fe6e0ad041\Symfony\Component\HttpKernel\Bundle\BundleInterface
 {
     public function boot()
     {
@@ -14,7 +14,7 @@ final class FirstBundle implements \_PhpScoperbd5d0c5f7638\Symfony\Component\Htt
     public function shutdown()
     {
     }
-    public function build(\_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function build(\_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
     }
     public function getContainerExtension()
@@ -29,7 +29,7 @@ final class FirstBundle implements \_PhpScoperbd5d0c5f7638\Symfony\Component\Htt
     public function getPath()
     {
     }
-    public function setContainer(\_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
+    public function setContainer(\_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
     {
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\TestAccessProperties;
+namespace _PhpScoper88fe6e0ad041\TestAccessProperties;
 
 class FooAccessProperties
 {
@@ -8,7 +8,7 @@ class FooAccessProperties
     protected $bar;
     public $ipsum;
 }
-class BarAccessProperties extends \_PhpScoperbd5d0c5f7638\TestAccessProperties\FooAccessProperties
+class BarAccessProperties extends \_PhpScoper88fe6e0ad041\TestAccessProperties\FooAccessProperties
 {
     private $foobar;
     public function foo()
@@ -20,7 +20,7 @@ class BarAccessProperties extends \_PhpScoperbd5d0c5f7638\TestAccessProperties\F
         $this->bar;
         $this->ipsum;
         $this->foobar;
-        \_PhpScoperbd5d0c5f7638\TestAccessProperties\Foo::class;
+        \_PhpScoper88fe6e0ad041\TestAccessProperties\Foo::class;
         $string = 'foo';
         $string->propertyOnString;
     }
@@ -29,7 +29,7 @@ class BazAccessProperties
 {
     public function foo(\stdClass $stdClass)
     {
-        $foo = new \_PhpScoperbd5d0c5f7638\TestAccessProperties\FooAccessProperties();
+        $foo = new \_PhpScoper88fe6e0ad041\TestAccessProperties\FooAccessProperties();
         $foo->foo;
         $foo->bar;
         $foo->ipsum;
@@ -44,11 +44,11 @@ class BazAccessProperties
             return;
         }
         $foo->nonexistent;
-        $fooAlias = new \_PhpScoperbd5d0c5f7638\TestAccessProperties\FooAccessPropertiesAlias();
+        $fooAlias = new \_PhpScoper88fe6e0ad041\TestAccessProperties\FooAccessPropertiesAlias();
         $fooAlias->foo;
         $fooAlias->bar;
         $fooAlias->ipsum;
-        $bar = new \_PhpScoperbd5d0c5f7638\TestAccessProperties\UnknownClass();
+        $bar = new \_PhpScoper88fe6e0ad041\TestAccessProperties\UnknownClass();
         $bar->foo;
         if (!empty($foo->emptyBaz)) {
             $foo->emptyBaz;
@@ -85,9 +85,9 @@ class NullPropertyIssue
             return $this->fooOrNull;
         }
         if (doSomething()) {
-            $this->fooOrNull = new \_PhpScoperbd5d0c5f7638\TestAccessProperties\FooAccessProperties();
+            $this->fooOrNull = new \_PhpScoper88fe6e0ad041\TestAccessProperties\FooAccessProperties();
         } else {
-            $this->fooOrNull = new \_PhpScoperbd5d0c5f7638\TestAccessProperties\FooAccessProperties();
+            $this->fooOrNull = new \_PhpScoper88fe6e0ad041\TestAccessProperties\FooAccessProperties();
         }
         $this->fooOrNull->ipsum;
     }
@@ -140,9 +140,9 @@ interface SomeInterface
 }
 class PropertiesOnIntersectionType
 {
-    public function doFoo(\_PhpScoperbd5d0c5f7638\TestAccessProperties\WithFooProperty $foo)
+    public function doFoo(\_PhpScoper88fe6e0ad041\TestAccessProperties\WithFooProperty $foo)
     {
-        if ($foo instanceof \_PhpScoperbd5d0c5f7638\TestAccessProperties\SomeInterface) {
+        if ($foo instanceof \_PhpScoper88fe6e0ad041\TestAccessProperties\SomeInterface) {
             $foo->foo;
             $foo->bar;
         }
@@ -181,7 +181,7 @@ class PropertyExists
 {
     public function doFoo()
     {
-        $foo = new \_PhpScoperbd5d0c5f7638\TestAccessProperties\FooAccessProperties();
+        $foo = new \_PhpScoper88fe6e0ad041\TestAccessProperties\FooAccessProperties();
         $foo->lorem;
         if (\property_exists($foo, 'lorem')) {
             $foo->lorem;
@@ -258,7 +258,7 @@ class ClosureCallSupport
 {
     public function doFoo()
     {
-        $foo = new \_PhpScoperbd5d0c5f7638\TestAccessProperties\FooAccessProperties();
+        $foo = new \_PhpScoper88fe6e0ad041\TestAccessProperties\FooAccessProperties();
         (function () {
             $this->foo = 'test';
         })->call($foo);

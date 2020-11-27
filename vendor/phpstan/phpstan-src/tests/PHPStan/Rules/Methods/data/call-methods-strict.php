@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Test;
+namespace _PhpScoper88fe6e0ad041\Test;
 
 function () {
-    $foo = new \_PhpScoperbd5d0c5f7638\Test\ClassWithToString();
+    $foo = new \_PhpScoper88fe6e0ad041\Test\ClassWithToString();
     $foo->acceptsString($foo);
 };

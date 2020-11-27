@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function variant_date_to_timestamp(\_PhpScoperbd5d0c5f7638\variant $variant) : ?int
+function variant_date_to_timestamp(\_PhpScoper88fe6e0ad041\variant $variant) : ?int
 {
 }

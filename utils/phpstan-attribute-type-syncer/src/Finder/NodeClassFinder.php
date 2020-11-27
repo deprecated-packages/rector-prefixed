@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Utils\PHPStanAttributeTypeSyncer\Finder;
 
-use _PhpScoperbd5d0c5f7638\Nette\Loaders\RobotLoader;
+use _PhpScoper88fe6e0ad041\Nette\Loaders\RobotLoader;
 final class NodeClassFinder
 {
     /**
@@ -23,7 +23,7 @@ final class NodeClassFinder
      */
     private function findClassesByNamePatternInDirectories(string $namePattern, array $directories) : array
     {
-        $robotLoader = new \_PhpScoperbd5d0c5f7638\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoper88fe6e0ad041\Nette\Loaders\RobotLoader();
         $robotLoader->addDirectory(...$directories);
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/_phpdoc_parser_ast');
         $robotLoader->acceptFiles = [$namePattern];

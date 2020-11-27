@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\String_;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
@@ -72,7 +72,7 @@ CODE_SAMPLE
     {
         if ($doubleQuoteCount === 0 && $singleQuoteCount > 0) {
             // contains chars tha will be newly escaped
-            $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($string->value, self::ESCAPED_CHAR_REGEX);
+            $matches = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($string->value, self::ESCAPED_CHAR_REGEX);
             if ($matches) {
                 return;
             }

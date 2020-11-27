@@ -50,6 +50,6 @@ class In extends \Hoa\Test\Unit\Suite
 {
     public function case_is_a_valid_interface()
     {
-        $this->when($result = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Stream\IStream\In())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\In::class)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
+        $this->when($result = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Stream\IStream\In())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\In::class)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
     }
 }

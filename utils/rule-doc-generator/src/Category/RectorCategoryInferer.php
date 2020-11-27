@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RuleDocGenerator\Category;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Symplify\RuleDocGenerator\Contract\Category\CategoryInfererInterface;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -16,7 +16,7 @@ final class RectorCategoryInferer implements \Symplify\RuleDocGenerator\Contract
     private const RECTOR_CATEGORY_REGEX = '#Rector\\\\(?<category>\\w+)\\\\#';
     public function infer(\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : ?string
     {
-        $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($ruleDefinition->getRuleClass(), self::RECTOR_CATEGORY_REGEX);
+        $matches = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($ruleDefinition->getRuleClass(), self::RECTOR_CATEGORY_REGEX);
         if (!isset($matches['category'])) {
             $message = \sprintf('Category for "%s" could not be resolved', $ruleDefinition->getRuleClass());
             throw new \Rector\Core\Exception\ShouldNotHappenException($message);

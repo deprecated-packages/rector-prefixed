@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Identifier\Exception;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\Identifier\Exception;
 
 use InvalidArgumentException;
 use function sprintf;

@@ -91,7 +91,7 @@ CODE_SAMPLE
         if (!$node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return \false;
         }
-        return $this->isObjectType($node->class, '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\HttpFoundation\\Response');
+        return $this->isObjectType($node->class, '_PhpScoper88fe6e0ad041\\Symfony\\Component\\HttpFoundation\\Response');
     }
     /**
      * @return Variable|MethodCall|Expr|null

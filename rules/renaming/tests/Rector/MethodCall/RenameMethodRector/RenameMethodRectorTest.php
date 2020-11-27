@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector;
 
 use Iterator;
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Html;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Html;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Fixture\SkipSelfMethodRename;
 use Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Source\AbstractType;
@@ -32,11 +32,11 @@ final class RenameMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRecto
     {
         return [\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class => [\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => [
             new \Rector\Renaming\ValueObject\MethodCallRename(\Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Source\AbstractType::class, 'setDefaultOptions', 'configureOptions'),
-            new \Rector\Renaming\ValueObject\MethodCallRename(\_PhpScoperbd5d0c5f7638\Nette\Utils\Html::class, 'add', 'addHtml'),
+            new \Rector\Renaming\ValueObject\MethodCallRename(\_PhpScoper88fe6e0ad041\Nette\Utils\Html::class, 'add', 'addHtml'),
             new \Rector\Renaming\ValueObject\MethodCallRename('*Presenter', 'run', '__invoke'),
             new \Rector\Renaming\ValueObject\MethodCallRename(\Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Fixture\SkipSelfMethodRename::class, 'preventPHPStormRefactoring', 'gone'),
             // with array key
-            new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey(\_PhpScoperbd5d0c5f7638\Nette\Utils\Html::class, 'addToArray', 'addToHtmlArray', 'hey'),
+            new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey(\_PhpScoper88fe6e0ad041\Nette\Utils\Html::class, 'addToArray', 'addToHtmlArray', 'hey'),
         ]]];
     }
 }

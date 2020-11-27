@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\FunctionSignatureVariance;
+namespace _PhpScoper88fe6e0ad041\FunctionSignatureVariance;
 
 /** @template-covariant T */
 interface Out

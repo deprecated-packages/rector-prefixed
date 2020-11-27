@@ -5,7 +5,7 @@ namespace PHPStan\Command;
 
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\VerbosityLevel;
@@ -62,7 +62,7 @@ class IgnoredRegexValidator
             if ($text === null) {
                 continue;
             }
-            $matches = \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
+            $matches = \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
             if ($matches === null) {
                 continue;
             }

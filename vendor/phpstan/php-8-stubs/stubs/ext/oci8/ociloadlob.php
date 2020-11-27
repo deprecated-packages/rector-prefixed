@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /**
  * @alias oci_lob_load
  * @deprecated
  */
-function ociloadlob(\_PhpScoperbd5d0c5f7638\OCILob $lob) : string|false
+function ociloadlob(\_PhpScoper88fe6e0ad041\OCILob $lob) : string|false
 {
 }

@@ -13,7 +13,7 @@ final class GeneratedValueTagValueNode extends \Rector\BetterPhpDocParser\ValueO
 {
     public function getShortName() : string
     {
-        return '_PhpScoperbd5d0c5f7638\\@ORM\\GeneratedValue';
+        return '_PhpScoper88fe6e0ad041\\@ORM\\GeneratedValue';
     }
     public function getSilentKey() : string
     {

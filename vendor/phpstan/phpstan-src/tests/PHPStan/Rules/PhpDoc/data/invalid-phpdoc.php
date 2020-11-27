@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\InvalidPhpDoc;
+namespace _PhpScoper88fe6e0ad041\InvalidPhpDoc;
 
 /**
  * @param

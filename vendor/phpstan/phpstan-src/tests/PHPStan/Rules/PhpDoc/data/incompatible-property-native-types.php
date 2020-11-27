@@ -1,16 +1,16 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScoperbd5d0c5f7638\IncompatiblePhpDocPropertyNativeType;
+namespace _PhpScoper88fe6e0ad041\IncompatiblePhpDocPropertyNativeType;
 
 class Foo
 {
     /** @var self */
     private object $selfOne;
     /** @var object */
-    private \_PhpScoperbd5d0c5f7638\self $selfTwo;
+    private \_PhpScoper88fe6e0ad041\self $selfTwo;
     /** @var Bar */
-    private \_PhpScoperbd5d0c5f7638\IncompatiblePhpDocPropertyNativeType\Foo $foo;
+    private \_PhpScoper88fe6e0ad041\IncompatiblePhpDocPropertyNativeType\Foo $foo;
     /** @var string */
     private string $string;
     /** @var string|int */

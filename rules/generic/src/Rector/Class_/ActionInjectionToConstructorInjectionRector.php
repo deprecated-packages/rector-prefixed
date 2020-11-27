@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\Class_;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
@@ -75,7 +75,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::endsWith((string) $node->name, 'Controller')) {
+        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::endsWith((string) $node->name, 'Controller')) {
             return null;
         }
         foreach ($node->getMethods() as $classMethod) {

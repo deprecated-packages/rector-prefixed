@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Nette\DI;
+namespace _PhpScoper88fe6e0ad041\Nette\DI;
 
-use _PhpScoperbd5d0c5f7638\Nette;
+use _PhpScoper88fe6e0ad041\Nette;
 /**
  * Configurator compiling extension.
  */
@@ -23,9 +23,9 @@ abstract class CompilerExtension
     /** @var Nette\PhpGenerator\Closure */
     protected $initialization;
     /** @return static */
-    public function setCompiler(\_PhpScoperbd5d0c5f7638\Nette\DI\Compiler $compiler, string $name)
+    public function setCompiler(\_PhpScoper88fe6e0ad041\Nette\DI\Compiler $compiler, string $name)
     {
-        $this->initialization = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Closure();
+        $this->initialization = new \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Closure();
         $this->compiler = $compiler;
         $this->name = $name;
         return $this;
@@ -37,7 +37,7 @@ abstract class CompilerExtension
     public function setConfig($config)
     {
         if (!\is_array($config) && !\is_object($config)) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException();
+            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException();
         }
         $this->config = $config;
         return $this;
@@ -53,9 +53,9 @@ abstract class CompilerExtension
     /**
      * Returns configuration schema.
      */
-    public function getConfigSchema() : \_PhpScoperbd5d0c5f7638\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoper88fe6e0ad041\Nette\Schema\Schema
     {
-        return \is_object($this->config) ? \_PhpScoperbd5d0c5f7638\Nette\Schema\Expect::from($this->config) : \_PhpScoperbd5d0c5f7638\Nette\Schema\Expect::array();
+        return \is_object($this->config) ? \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::from($this->config) : \_PhpScoper88fe6e0ad041\Nette\Schema\Expect::array();
     }
     /**
      * Checks whether $config contains only $expected items and returns combined array.
@@ -69,13 +69,13 @@ abstract class CompilerExtension
         }
         if ($extra = \array_diff_key((array) $config, $expected)) {
             $name = $name ? \str_replace('.', ' › ', $name) : $this->name;
-            $hint = \_PhpScoperbd5d0c5f7638\Nette\Utils\Helpers::getSuggestion(\array_keys($expected), \key($extra));
+            $hint = \_PhpScoper88fe6e0ad041\Nette\Utils\Helpers::getSuggestion(\array_keys($expected), \key($extra));
             $extra = $hint ? \key($extra) : \implode("', '{$name} › ", \array_keys($extra));
-            throw new \_PhpScoperbd5d0c5f7638\Nette\DI\InvalidConfigurationException("Unknown configuration option '{$name} › {$extra}'" . ($hint ? ", did you mean '{$name} › {$hint}'?" : '.'));
+            throw new \_PhpScoper88fe6e0ad041\Nette\DI\InvalidConfigurationException("Unknown configuration option '{$name} › {$extra}'" . ($hint ? ", did you mean '{$name} › {$hint}'?" : '.'));
         }
-        return \_PhpScoperbd5d0c5f7638\Nette\Schema\Helpers::merge($config, $expected);
+        return \_PhpScoper88fe6e0ad041\Nette\Schema\Helpers::merge($config, $expected);
     }
-    public function getContainerBuilder() : \_PhpScoperbd5d0c5f7638\Nette\DI\ContainerBuilder
+    public function getContainerBuilder() : \_PhpScoper88fe6e0ad041\Nette\DI\ContainerBuilder
     {
         return $this->compiler->getContainerBuilder();
     }
@@ -98,15 +98,15 @@ abstract class CompilerExtension
         $res = [];
         foreach ($configList as $key => $config) {
             $key = \is_string($key) ? $this->name . '.' . $key : $key;
-            $res[$key] = \_PhpScoperbd5d0c5f7638\Nette\DI\Helpers::prefixServiceName($config, $this->name);
+            $res[$key] = \_PhpScoper88fe6e0ad041\Nette\DI\Helpers::prefixServiceName($config, $this->name);
         }
         $this->compiler->loadDefinitionsFromConfig($res);
     }
-    protected function createLoader() : \_PhpScoperbd5d0c5f7638\Nette\DI\Config\Loader
+    protected function createLoader() : \_PhpScoper88fe6e0ad041\Nette\DI\Config\Loader
     {
-        return new \_PhpScoperbd5d0c5f7638\Nette\DI\Config\Loader();
+        return new \_PhpScoper88fe6e0ad041\Nette\DI\Config\Loader();
     }
-    public function getInitialization() : \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Closure
+    public function getInitialization() : \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Closure
     {
         return $this->initialization;
     }
@@ -135,7 +135,7 @@ abstract class CompilerExtension
      * Adjusts DI container compiled to PHP class. Intended to be overridden by descendant.
      * @return void
      */
-    public function afterCompile(\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\ClassType $class)
+    public function afterCompile(\_PhpScoper88fe6e0ad041\Nette\PhpGenerator\ClassType $class)
     {
     }
 }

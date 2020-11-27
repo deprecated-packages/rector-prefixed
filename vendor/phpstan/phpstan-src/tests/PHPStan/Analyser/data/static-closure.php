@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\StaticClosure;
+namespace _PhpScoper88fe6e0ad041\StaticClosure;
 
 class Foo
 {

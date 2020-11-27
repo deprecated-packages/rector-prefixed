@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Tests\ChildProcess;
+namespace _PhpScoper88fe6e0ad041\React\Tests\ChildProcess;
 
-use _PhpScoperbd5d0c5f7638\React\EventLoop\StreamSelectLoop;
-class StreamSelectLoopProcessTest extends \_PhpScoperbd5d0c5f7638\React\Tests\ChildProcess\AbstractProcessTest
+use _PhpScoper88fe6e0ad041\React\EventLoop\StreamSelectLoop;
+class StreamSelectLoopProcessTest extends \_PhpScoper88fe6e0ad041\React\Tests\ChildProcess\AbstractProcessTest
 {
     public function createLoop()
     {
-        return new \_PhpScoperbd5d0c5f7638\React\EventLoop\StreamSelectLoop();
+        return new \_PhpScoper88fe6e0ad041\React\EventLoop\StreamSelectLoop();
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\InheritDocWithoutCurlyBracesFromTrait;
+namespace _PhpScoper88fe6e0ad041\InheritDocWithoutCurlyBracesFromTrait;
 
-class Foo implements \_PhpScoperbd5d0c5f7638\InheritDocWithoutCurlyBracesFromTrait\FooInterface
+class Foo implements \_PhpScoper88fe6e0ad041\InheritDocWithoutCurlyBracesFromTrait\FooInterface
 {
     use FooTrait;
 }

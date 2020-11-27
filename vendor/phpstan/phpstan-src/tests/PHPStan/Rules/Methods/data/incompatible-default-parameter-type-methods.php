@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\IncompatibleDefaultParameter;
+namespace _PhpScoper88fe6e0ad041\IncompatibleDefaultParameter;
 
 class FooParent
 {
@@ -16,7 +16,7 @@ class FooParent
     {
     }
 }
-class Foo extends \_PhpScoperbd5d0c5f7638\IncompatibleDefaultParameter\FooParent
+class Foo extends \_PhpScoper88fe6e0ad041\IncompatibleDefaultParameter\FooParent
 {
     /**
      * @param int $int

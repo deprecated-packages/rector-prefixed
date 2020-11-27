@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class LimitIterator extends \IteratorIterator
 {
@@ -28,4 +28,4 @@ class LimitIterator extends \IteratorIterator
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\LimitIterator', 'LimitIterator', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\LimitIterator', 'LimitIterator', \false);

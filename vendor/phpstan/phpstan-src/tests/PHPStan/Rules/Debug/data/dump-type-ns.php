@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\App\Foo;
+namespace _PhpScoper88fe6e0ad041\App\Foo;
 
 function (array $a) {
     if ($a === []) {

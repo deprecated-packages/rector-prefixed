@@ -8,7 +8,7 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Process\ProcessBuilder;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Process\ProcessBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -35,7 +35,7 @@ final class ProcessBuilderInstanceRector extends \Rector\Core\Rector\AbstractRec
         if (!$node->class instanceof \PhpParser\Node\Name) {
             return null;
         }
-        if (!$this->isName($node->class, \_PhpScoperbd5d0c5f7638\Symfony\Component\Process\ProcessBuilder::class)) {
+        if (!$this->isName($node->class, \_PhpScoper88fe6e0ad041\Symfony\Component\Process\ProcessBuilder::class)) {
             return null;
         }
         if (!$this->isName($node->name, 'create')) {

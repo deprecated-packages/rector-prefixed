@@ -8,24 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Compiler;
+namespace _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Reference;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\TypedReference;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Reference;
+use _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Emulates the invalid behavior if the reference is not found within the
  * container.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ResolveInvalidReferencesPass implements \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class ResolveInvalidReferencesPass implements \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $container;
     private $signalingException;
@@ -33,10 +33,10 @@ class ResolveInvalidReferencesPass implements \_PhpScoperbd5d0c5f7638\Symfony\Co
     /**
      * Process the ContainerBuilder to resolve invalid references.
      */
-    public function process(\_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
-        $this->signalingException = new \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Exception\RuntimeException('Invalid reference.');
+        $this->signalingException = new \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\RuntimeException('Invalid reference.');
         try {
             foreach ($container->getDefinitions() as $this->currentId => $definition) {
                 $this->processValue($definition);
@@ -54,11 +54,11 @@ class ResolveInvalidReferencesPass implements \_PhpScoperbd5d0c5f7638\Symfony\Co
      */
     private function processValue($value, int $rootLevel = 0, int $level = 0)
     {
-        if ($value instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
+        if ($value instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
             $value->setValues($this->processValue($value->getValues(), 1, 1));
-        } elseif ($value instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
+        } elseif ($value instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             $value->setValues($this->processValue($value->getValues(), $rootLevel, 1 + $level));
-        } elseif ($value instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Definition) {
+        } elseif ($value instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Definition) {
             if ($value->isSynthetic() || $value->isAbstract()) {
                 return $value;
             }
@@ -75,7 +75,7 @@ class ResolveInvalidReferencesPass implements \_PhpScoperbd5d0c5f7638\Symfony\Co
                     if ($v !== ($processedValue = $this->processValue($v, $rootLevel, 1 + $level))) {
                         $value[$k] = $processedValue;
                     }
-                } catch (\_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+                } catch (\_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
                     if ($rootLevel < $level || $rootLevel && !$level) {
                         unset($value[$k]);
                     } elseif ($rootLevel) {
@@ -89,26 +89,26 @@ class ResolveInvalidReferencesPass implements \_PhpScoperbd5d0c5f7638\Symfony\Co
             if (\false !== $i) {
                 $value = \array_values($value);
             }
-        } elseif ($value instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Reference) {
+        } elseif ($value instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Reference) {
             if ($this->container->has($id = (string) $value)) {
                 return $value;
             }
             $currentDefinition = $this->container->getDefinition($this->currentId);
             // resolve decorated service behavior depending on decorator service
-            if ($currentDefinition->innerServiceId === $id && \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $currentDefinition->decorationOnInvalid) {
+            if ($currentDefinition->innerServiceId === $id && \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $currentDefinition->decorationOnInvalid) {
                 return null;
             }
             $invalidBehavior = $value->getInvalidBehavior();
-            if (\_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior && $value instanceof \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\TypedReference && !$this->container->has($id)) {
-                $e = new \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $this->currentId);
+            if (\_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior && $value instanceof \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\TypedReference && !$this->container->has($id)) {
+                $e = new \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $this->currentId);
                 // since the error message varies by $id and $this->currentId, so should the id of the dummy errored definition
                 $this->container->register($id = \sprintf('.errored.%s.%s', $this->currentId, $id), $value->getType())->addError($e->getMessage());
-                return new \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\TypedReference($id, $value->getType(), $value->getInvalidBehavior());
+                return new \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\TypedReference($id, $value->getType(), $value->getInvalidBehavior());
             }
             // resolve invalid behavior
-            if (\_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $invalidBehavior) {
+            if (\_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $invalidBehavior) {
                 $value = null;
-            } elseif (\_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $invalidBehavior) {
+            } elseif (\_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $invalidBehavior) {
                 if (0 < $level || $rootLevel) {
                     throw $this->signalingException;
                 }

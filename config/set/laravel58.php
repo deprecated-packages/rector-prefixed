@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 use PHPStan\Type\BooleanType;
 use Rector\Laravel\Rector\Class_\PropertyDeferToDeferrableProviderToRector;
@@ -20,8 +20,8 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $containerConfigurator->import(__DIR__ . '/laravel-array-str-functions-to-static-call.php');
     $services = $containerConfigurator->services();
     $services->set(\Rector\Laravel\Rector\StaticCall\MinutesToSecondsInCacheRector::class);
-    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector::METHOD_RETURN_TYPES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoperbd5d0c5f7638\\Illuminate\\Contracts\\Cache\\Repository', 'put', new \PHPStan\Type\BooleanType()), new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoperbd5d0c5f7638\\Illuminate\\Contracts\\Cache\\Repository', 'forever', new \PHPStan\Type\BooleanType()), new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoperbd5d0c5f7638\\Illuminate\\Contracts\\Cache\\Store', 'put', new \PHPStan\Type\BooleanType()), new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoperbd5d0c5f7638\\Illuminate\\Contracts\\Cache\\Store', 'putMany', new \PHPStan\Type\BooleanType()), new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoperbd5d0c5f7638\\Illuminate\\Contracts\\Cache\\Store', 'forever', new \PHPStan\Type\BooleanType())])]]);
-    $services->set(\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::class)->call('configure', [[\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::RENAMED_PROPERTIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameProperty('_PhpScoperbd5d0c5f7638\\Illuminate\\Routing\\UrlGenerator', 'cachedSchema', 'cachedScheme')])]]);
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector::METHOD_RETURN_TYPES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoper88fe6e0ad041\\Illuminate\\Contracts\\Cache\\Repository', 'put', new \PHPStan\Type\BooleanType()), new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoper88fe6e0ad041\\Illuminate\\Contracts\\Cache\\Repository', 'forever', new \PHPStan\Type\BooleanType()), new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoper88fe6e0ad041\\Illuminate\\Contracts\\Cache\\Store', 'put', new \PHPStan\Type\BooleanType()), new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoper88fe6e0ad041\\Illuminate\\Contracts\\Cache\\Store', 'putMany', new \PHPStan\Type\BooleanType()), new \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration('_PhpScoper88fe6e0ad041\\Illuminate\\Contracts\\Cache\\Store', 'forever', new \PHPStan\Type\BooleanType())])]]);
+    $services->set(\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::class)->call('configure', [[\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::RENAMED_PROPERTIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameProperty('_PhpScoper88fe6e0ad041\\Illuminate\\Routing\\UrlGenerator', 'cachedSchema', 'cachedScheme')])]]);
     $services->set(\Rector\Laravel\Rector\Class_\PropertyDeferToDeferrableProviderToRector::class);
     $services->set(\Rector\Laravel\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector::class);
 };

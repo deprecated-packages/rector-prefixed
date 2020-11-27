@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Bug3990;
+namespace _PhpScoper88fe6e0ad041\Bug3990;
 
 use PHPStan\TrinaryLogic;
 use function PHPStan\Analyser\assertVariableCertainty;

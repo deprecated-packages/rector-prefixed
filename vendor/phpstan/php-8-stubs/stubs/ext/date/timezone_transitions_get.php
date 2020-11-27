@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 function timezone_transitions_get(\DateTimeZone $object, int $timestampBegin = \PHP_INT_MIN, int $timestampEnd = \PHP_INT_MAX) : array|false
 {

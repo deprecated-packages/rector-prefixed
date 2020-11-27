@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\TooWideFunctionReturnType;
+namespace _PhpScoper88fe6e0ad041\TooWideFunctionReturnType;
 
 function foo() : \Generator
 {

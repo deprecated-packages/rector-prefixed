@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\SomeOtherUseNamespace;
+namespace _PhpScoper88fe6e0ad041\SomeOtherUseNamespace;
 
-use _PhpScoperbd5d0c5f7638\Uses\Bar;
-use _PhpScoperbd5d0c5f7638\Uses\Nonexistent;
+use _PhpScoper88fe6e0ad041\Uses\Bar;
+use _PhpScoper88fe6e0ad041\Uses\Nonexistent;
 // could be namespace
-use function _PhpScoperbd5d0c5f7638\Uses\foo as fooFunction, _PhpScoperbd5d0c5f7638\Uses\bar;
-use const _PhpScoperbd5d0c5f7638\Uses\MY_CONSTANT, _PhpScoperbd5d0c5f7638\Uses\OTHER_CONSTANT;
-use function _PhpScoperbd5d0c5f7638\Uses\Foo;
-use _PhpScoperbd5d0c5f7638\Uses\LOREM;
-use _PhpScoperbd5d0c5f7638\DATETIME;
+use function _PhpScoper88fe6e0ad041\Uses\foo as fooFunction, _PhpScoper88fe6e0ad041\Uses\bar;
+use const _PhpScoper88fe6e0ad041\Uses\MY_CONSTANT, _PhpScoper88fe6e0ad041\Uses\OTHER_CONSTANT;
+use function _PhpScoper88fe6e0ad041\Uses\Foo;
+use _PhpScoper88fe6e0ad041\Uses\LOREM;
+use _PhpScoper88fe6e0ad041\DATETIME;

@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace;
+namespace _PhpScoper88fe6e0ad041\MethodPhpDocsNamespace;
 
-use _PhpScoperbd5d0c5f7638\SomeNamespace\Amet as Dolor;
-use _PhpScoperbd5d0c5f7638\SomeNamespace\Consecteur;
+use _PhpScoper88fe6e0ad041\SomeNamespace\Amet as Dolor;
+use _PhpScoper88fe6e0ad041\SomeNamespace\Consecteur;
 trait RecursiveFooTrait
 {
     use FooTrait;
 }
-class FooWithRecursiveTrait extends \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\FooParent
+class FooWithRecursiveTrait extends \_PhpScoper88fe6e0ad041\MethodPhpDocsNamespace\FooParent
 {
     use RecursiveFooTrait;
     /**
@@ -23,7 +23,7 @@ class FooWithRecursiveTrait extends \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespa
     public function doBar() : array
     {
     }
-    public function returnParent() : \_PhpScoperbd5d0c5f7638\parent
+    public function returnParent() : \_PhpScoper88fe6e0ad041\parent
     {
     }
     /**

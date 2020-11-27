@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\RingCentral\Tests\Psr7;
+namespace _PhpScoper88fe6e0ad041\RingCentral\Tests\Psr7;
 
-use _PhpScoperbd5d0c5f7638\RingCentral\Psr7;
-use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream;
-use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\Stream;
-use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream;
-use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\NoSeekStream;
+use _PhpScoper88fe6e0ad041\RingCentral\Psr7;
+use _PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream;
+use _PhpScoper88fe6e0ad041\RingCentral\Psr7\Stream;
+use _PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream;
+use _PhpScoper88fe6e0ad041\RingCentral\Psr7\NoSeekStream;
 /**
  * @covers RingCentral\Psr7\LimitStream
  */
-class LimitStreamTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
+class LimitStreamTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
 {
     /** @var LimitStream */
     protected $body;
@@ -18,12 +18,12 @@ class LimitStreamTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
     protected $decorated;
     public function setUp()
     {
-        $this->decorated = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(\fopen(__FILE__, 'r'));
-        $this->body = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($this->decorated, 10, 3);
+        $this->decorated = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for(\fopen(__FILE__, 'r'));
+        $this->body = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($this->decorated, 10, 3);
     }
     public function testReturnsSubset()
     {
-        $body = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foo'), -1, 1);
+        $body = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream(\_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('foo'), -1, 1);
         $this->assertEquals('oo', (string) $body);
         $this->assertTrue($body->eof());
         $body->seek(0);
@@ -34,8 +34,8 @@ class LimitStreamTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
     }
     public function testReturnsSubsetWhenCastToString()
     {
-        $body = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foo_baz_bar');
-        $limited = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($body, 3, 4);
+        $body = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('foo_baz_bar');
+        $limited = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($body, 3, 4);
         $this->assertEquals('baz', (string) $limited);
     }
     /**
@@ -44,18 +44,18 @@ class LimitStreamTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
      */
     public function testEnsuresPositionCanBeekSeekedTo()
     {
-        new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for(''), 0, 10);
+        new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream(\_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for(''), 0, 10);
     }
     public function testReturnsSubsetOfEmptyBodyWhenCastToString()
     {
-        $body = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('01234567891234');
-        $limited = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($body, 0, 10);
+        $body = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('01234567891234');
+        $limited = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($body, 0, 10);
         $this->assertEquals('', (string) $limited);
     }
     public function testReturnsSpecificSubsetOBodyWhenCastToString()
     {
-        $body = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('0123456789abcdef');
-        $limited = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($body, 3, 10);
+        $body = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('0123456789abcdef');
+        $limited = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($body, 3, 10);
         $this->assertEquals('abc', (string) $limited);
     }
     public function testSeeksWhenConstructed()
@@ -104,17 +104,17 @@ class LimitStreamTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
      */
     public function testThrowsWhenCurrentGreaterThanOffsetSeek()
     {
-        $a = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foo_bar');
-        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\NoSeekStream($a);
-        $c = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($b);
+        $a = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('foo_bar');
+        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\NoSeekStream($a);
+        $c = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($b);
         $a->getContents();
         $c->setOffset(2);
     }
     public function testCanGetContentsWithoutSeeking()
     {
-        $a = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foo_bar');
-        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\NoSeekStream($a);
-        $c = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($b);
+        $a = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('foo_bar');
+        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\NoSeekStream($a);
+        $c = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($b);
         $this->assertEquals('foo_bar', $c->getContents());
     }
     public function testClaimsConsumedWhenReadLimitIsReached()
@@ -129,23 +129,23 @@ class LimitStreamTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
     }
     public function testGetContentsIsBasedOnSubset()
     {
-        $body = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream(\_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foobazbar'), 3, 3);
+        $body = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream(\_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('foobazbar'), 3, 3);
         $this->assertEquals('baz', $body->getContents());
     }
     public function testReturnsNullIfSizeCannotBeDetermined()
     {
-        $a = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\FnStream(array('getSize' => function () {
+        $a = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\FnStream(array('getSize' => function () {
             return null;
         }, 'tell' => function () {
             return 0;
         }));
-        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($a);
+        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($a);
         $this->assertNull($b->getSize());
     }
     public function testLengthLessOffsetWhenNoLimitSize()
     {
-        $a = \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\stream_for('foo_bar');
-        $b = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\LimitStream($a, -1, 4);
+        $a = \_PhpScoper88fe6e0ad041\RingCentral\Psr7\stream_for('foo_bar');
+        $b = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\LimitStream($a, -1, 4);
         $this->assertEquals(3, $b->getSize());
     }
 }

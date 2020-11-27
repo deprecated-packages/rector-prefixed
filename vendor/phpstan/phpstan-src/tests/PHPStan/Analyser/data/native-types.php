@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\NativeTypes;
+namespace _PhpScoper88fe6e0ad041\NativeTypes;
 
 use function PHPStan\Analyser\assertType;
 use function PHPStan\Analyser\assertNativeType;
@@ -15,17 +15,17 @@ class Foo
      */
     public function doFoo($foo, \DateTimeInterface $dateTime, \DateTime $dateTimeMutable, ?string $nullableString, string $nonNullableString) : void
     {
-        \PHPStan\Analyser\assertType(\_PhpScoperbd5d0c5f7638\NativeTypes\Foo::class, $foo);
+        \PHPStan\Analyser\assertType(\_PhpScoper88fe6e0ad041\NativeTypes\Foo::class, $foo);
         \PHPStan\Analyser\assertNativeType('mixed', $foo);
         // change type after assignment
-        $foo = new \_PhpScoperbd5d0c5f7638\NativeTypes\Foo();
-        \PHPStan\Analyser\assertType(\_PhpScoperbd5d0c5f7638\NativeTypes\Foo::class, $foo);
-        \PHPStan\Analyser\assertNativeType(\_PhpScoperbd5d0c5f7638\NativeTypes\Foo::class, $foo);
+        $foo = new \_PhpScoper88fe6e0ad041\NativeTypes\Foo();
+        \PHPStan\Analyser\assertType(\_PhpScoper88fe6e0ad041\NativeTypes\Foo::class, $foo);
+        \PHPStan\Analyser\assertNativeType(\_PhpScoper88fe6e0ad041\NativeTypes\Foo::class, $foo);
         \PHPStan\Analyser\assertType(\DateTimeImmutable::class, $dateTime);
         \PHPStan\Analyser\assertNativeType(\DateTimeInterface::class, $dateTime);
-        $f = function (\_PhpScoperbd5d0c5f7638\NativeTypes\Foo $foo) use($dateTime) {
-            \PHPStan\Analyser\assertType(\_PhpScoperbd5d0c5f7638\NativeTypes\Foo::class, $foo);
-            \PHPStan\Analyser\assertNativeType(\_PhpScoperbd5d0c5f7638\NativeTypes\Foo::class, $foo);
+        $f = function (\_PhpScoper88fe6e0ad041\NativeTypes\Foo $foo) use($dateTime) {
+            \PHPStan\Analyser\assertType(\_PhpScoper88fe6e0ad041\NativeTypes\Foo::class, $foo);
+            \PHPStan\Analyser\assertNativeType(\_PhpScoper88fe6e0ad041\NativeTypes\Foo::class, $foo);
             \PHPStan\Analyser\assertType(\DateTimeImmutable::class, $dateTime);
             \PHPStan\Analyser\assertNativeType(\DateTimeInterface::class, $dateTime);
         };
@@ -74,7 +74,7 @@ class Foo
      */
     public function doCatch($foo) : void
     {
-        \PHPStan\Analyser\assertType(\_PhpScoperbd5d0c5f7638\NativeTypes\Foo::class, $foo);
+        \PHPStan\Analyser\assertType(\_PhpScoper88fe6e0ad041\NativeTypes\Foo::class, $foo);
         \PHPStan\Analyser\assertNativeType('mixed', $foo);
         try {
             throw new \Exception();
@@ -84,7 +84,7 @@ class Foo
         } catch (\Exception $e) {
             \PHPStan\Analyser\assertType(\Exception::class, $e);
             \PHPStan\Analyser\assertNativeType(\Exception::class, $e);
-            \PHPStan\Analyser\assertType(\_PhpScoperbd5d0c5f7638\NativeTypes\Foo::class, $foo);
+            \PHPStan\Analyser\assertType(\_PhpScoper88fe6e0ad041\NativeTypes\Foo::class, $foo);
             \PHPStan\Analyser\assertNativeType('mixed', $foo);
         }
     }
@@ -143,7 +143,7 @@ class Foo
  */
 function fooFunction($foo, \DateTimeInterface $dateTime, \DateTime $dateTimeMutable, ?string $nullableString, string $nonNullableString) : void
 {
-    \PHPStan\Analyser\assertType(\_PhpScoperbd5d0c5f7638\NativeTypes\Foo::class, $foo);
+    \PHPStan\Analyser\assertType(\_PhpScoper88fe6e0ad041\NativeTypes\Foo::class, $foo);
     \PHPStan\Analyser\assertNativeType('mixed', $foo);
     \PHPStan\Analyser\assertType(\DateTimeImmutable::class, $dateTime);
     \PHPStan\Analyser\assertNativeType(\DateTimeInterface::class, $dateTime);

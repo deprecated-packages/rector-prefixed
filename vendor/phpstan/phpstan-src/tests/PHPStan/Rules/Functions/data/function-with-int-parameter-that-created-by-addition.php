@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 foreach ([1, 2, 3] as $i) {
     if (!isset($sum)) {
@@ -11,7 +11,7 @@ foreach ([1, 2, 3] as $i) {
     \dechex($sum);
 }
 /** @var float|int $doFooResult */
-$doFooResult = \_PhpScoperbd5d0c5f7638\doFoo();
+$doFooResult = \_PhpScoper88fe6e0ad041\doFoo();
 if (!isset($floatOrInt)) {
     $floatOrInt = $doFooResult;
 }
@@ -26,7 +26,7 @@ function () {
         \dechex($sum);
     }
     /** @var float|int $doFooResult */
-    $doFooResult = \_PhpScoperbd5d0c5f7638\doFoo();
+    $doFooResult = \_PhpScoper88fe6e0ad041\doFoo();
     if (!isset($floatOrInt)) {
         $floatOrInt = $doFooResult;
     }

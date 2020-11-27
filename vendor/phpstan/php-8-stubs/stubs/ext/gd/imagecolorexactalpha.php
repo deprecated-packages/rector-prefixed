@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function imagecolorexactalpha(\_PhpScoperbd5d0c5f7638\GdImage $image, int $red, int $green, int $blue, int $alpha) : int|false
+function imagecolorexactalpha(\_PhpScoper88fe6e0ad041\GdImage $image, int $red, int $green, int $blue, int $alpha) : int|false
 {
 }

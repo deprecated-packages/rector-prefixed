@@ -19,7 +19,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Promise\\Stream\\": "src\/"
+            "_PhpScoper88fe6e0ad041\\React\\Promise\\Stream\\": "src\/"
         },
         "files": [
             "src\/functions_include.php"
@@ -27,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Tests\\Promise\\Stream\\": "tests\/"
+            "_PhpScoper88fe6e0ad041\\React\\Tests\\Promise\\Stream\\": "tests\/"
         }
     },
     "require": {

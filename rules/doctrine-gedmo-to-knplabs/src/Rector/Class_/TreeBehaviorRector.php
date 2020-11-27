@@ -137,8 +137,8 @@ CODE_SAMPLE
         }
         // we're in a tree entity
         $classPhpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeTagValueNode::class);
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbd5d0c5f7638\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TreeNodeInterface');
-        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoperbd5d0c5f7638\\Knp\\DoctrineBehaviors\\Model\\Tree\\TreeNodeTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoper88fe6e0ad041\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TreeNodeInterface');
+        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoper88fe6e0ad041\\Knp\\DoctrineBehaviors\\Model\\Tree\\TreeNodeTrait');
         // remove all tree-related properties and their getters and setters - it's handled by behavior trait
         $removedPropertyNames = [];
         foreach ($node->getProperties() as $property) {

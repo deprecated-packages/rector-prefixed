@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScoperbd5d0c5f7638\CoalesceAssignRule;
+namespace _PhpScoper88fe6e0ad041\CoalesceAssignRule;
 
 class FooCoalesce
 {
@@ -52,15 +52,15 @@ function coalesce()
     echo $fixedDimArray['dim-empty']['b'] ??= 0;
     //	echo rand() ??= 0; // not valid for assignment
     //	echo preg_replace('', '', '') ??= 0; // not valid for assignment
-    $foo = new \_PhpScoperbd5d0c5f7638\CoalesceAssignRule\FooCoalesce();
+    $foo = new \_PhpScoper88fe6e0ad041\CoalesceAssignRule\FooCoalesce();
     echo $foo->stringOrNull ??= '';
     echo $foo->string ??= '';
     echo $foo->alwaysNull ??= '';
     echo $foo->fooCoalesce->string ??= '';
     echo $foo->fooCoalesceOrNull->string ??= '';
-    echo \_PhpScoperbd5d0c5f7638\CoalesceAssignRule\FooCoalesce::$staticStringOrNull ??= '';
-    echo \_PhpScoperbd5d0c5f7638\CoalesceAssignRule\FooCoalesce::$staticString ??= '';
-    echo \_PhpScoperbd5d0c5f7638\CoalesceAssignRule\FooCoalesce::$staticAlwaysNull ??= '';
+    echo \_PhpScoper88fe6e0ad041\CoalesceAssignRule\FooCoalesce::$staticStringOrNull ??= '';
+    echo \_PhpScoper88fe6e0ad041\CoalesceAssignRule\FooCoalesce::$staticString ??= '';
+    echo \_PhpScoper88fe6e0ad041\CoalesceAssignRule\FooCoalesce::$staticAlwaysNull ??= '';
 }
 /**
  * @param array<string, int> $array

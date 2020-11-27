@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScoperbd5d0c5f7638\TooWideArrowFunctionReturnType;
+namespace _PhpScoper88fe6e0ad041\TooWideArrowFunctionReturnType;
 
 class Foo
 {

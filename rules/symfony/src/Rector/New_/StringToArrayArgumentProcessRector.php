@@ -15,7 +15,7 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\StringType;
 use Rector\Core\PhpParser\NodeTransformer;
 use Rector\Core\Rector\AbstractRector;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\StringInput;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\StringInput;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -58,10 +58,10 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $expr = $node instanceof \PhpParser\Node\Expr\New_ ? $node->class : $node->var;
-        if ($this->isObjectType($expr, '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Process\\Process')) {
+        if ($this->isObjectType($expr, '_PhpScoper88fe6e0ad041\\Symfony\\Component\\Process\\Process')) {
             return $this->processArgumentPosition($node, 0);
         }
-        if ($this->isObjectType($expr, '_PhpScoperbd5d0c5f7638\\Symfony\\Component\\Console\\Helper\\ProcessHelper')) {
+        if ($this->isObjectType($expr, '_PhpScoper88fe6e0ad041\\Symfony\\Component\\Console\\Helper\\ProcessHelper')) {
             return $this->processArgumentPosition($node, 1);
         }
         return null;
@@ -114,7 +114,7 @@ CODE_SAMPLE
     private function splitProcessCommandToItems(string $process) : array
     {
         $privatesCaller = new \Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        return $privatesCaller->callPrivateMethod(new \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\StringInput(''), 'tokenize', $process);
+        return $privatesCaller->callPrivateMethod(new \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\StringInput(''), 'tokenize', $process);
     }
     private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node $firstArgument) : void
     {

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\Signature\Encoder;
+namespace _PhpScoper88fe6e0ad041\Roave\Signature\Encoder;
 
-final class Sha1SumEncoder implements \_PhpScoperbd5d0c5f7638\Roave\Signature\Encoder\EncoderInterface
+final class Sha1SumEncoder implements \_PhpScoper88fe6e0ad041\Roave\Signature\Encoder\EncoderInterface
 {
     /**
      * {@inheritDoc}

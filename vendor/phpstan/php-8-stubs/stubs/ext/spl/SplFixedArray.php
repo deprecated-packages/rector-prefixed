@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /** @generate-function-entries */
 class SplFixedArray implements \IteratorAggregate, \ArrayAccess, \Countable
@@ -65,4 +65,4 @@ class SplFixedArray implements \IteratorAggregate, \ArrayAccess, \Countable
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoperbd5d0c5f7638\\SplFixedArray', 'SplFixedArray', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\SplFixedArray', 'SplFixedArray', \false);

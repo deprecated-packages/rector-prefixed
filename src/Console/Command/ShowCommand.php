@@ -6,8 +6,8 @@ namespace Rector\Core\Console\Command;
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Console\Output\RectorConfigurationFormatter;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -42,7 +42,7 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
     {
         $this->setDescription('Show loaded Rectors with their configuration');
     }
-    protected function execute(\_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbd5d0c5f7638\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper88fe6e0ad041\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper88fe6e0ad041\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->reportLoadedRectors();
         $this->reportLoadedSets();

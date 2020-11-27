@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Nette\Schema;
+namespace _PhpScoper88fe6e0ad041\Nette\Schema;
 
-use _PhpScoperbd5d0c5f7638\Nette;
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Reflection;
+use _PhpScoper88fe6e0ad041\Nette;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Reflection;
 /**
  * @internal
  */
@@ -45,12 +45,12 @@ final class Helpers
     }
     public static function getPropertyType(\ReflectionProperty $prop) : ?string
     {
-        if ($types = \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::getPropertyTypes($prop)) {
+        if ($types = \_PhpScoper88fe6e0ad041\Nette\Utils\Reflection::getPropertyTypes($prop)) {
             return \implode('|', $types);
         } elseif ($type = \preg_replace('#\\s.*#', '', (string) self::parseAnnotation($prop, 'var'))) {
-            $class = \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::getPropertyDeclaringClass($prop);
+            $class = \_PhpScoper88fe6e0ad041\Nette\Utils\Reflection::getPropertyDeclaringClass($prop);
             return \preg_replace_callback('#[\\w\\\\]+#', function ($m) use($class) {
-                return \_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::expandClassName($m[0], $class);
+                return \_PhpScoper88fe6e0ad041\Nette\Utils\Reflection::expandClassName($m[0], $class);
             }, $type);
         }
         return null;
@@ -61,8 +61,8 @@ final class Helpers
      */
     public static function parseAnnotation(\Reflector $ref, string $name) : ?string
     {
-        if (!\_PhpScoperbd5d0c5f7638\Nette\Utils\Reflection::areCommentsAvailable()) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidStateException('You have to enable phpDoc comments in opcode cache.');
+        if (!\_PhpScoper88fe6e0ad041\Nette\Utils\Reflection::areCommentsAvailable()) {
+            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidStateException('You have to enable phpDoc comments in opcode cache.');
         }
         $re = '#[\\s*]@' . \preg_quote($name, '#') . '(?=\\s|$)(?:[ \\t]+([^@\\s]\\S*))?#';
         if ($ref->getDocComment() && \preg_match($re, \trim($ref->getDocComment(), '/*'), $m)) {

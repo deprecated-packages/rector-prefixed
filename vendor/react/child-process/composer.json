@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\ChildProcess\\": "src"
+            "_PhpScoper88fe6e0ad041\\React\\ChildProcess\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\React\\Tests\\ChildProcess\\": "tests"
+            "_PhpScoper88fe6e0ad041\\React\\Tests\\ChildProcess\\": "tests"
         }
     }
 }

@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\Reflector;
 
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector;
-final class MemoizingFunctionReflector extends \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector;
+final class MemoizingFunctionReflector extends \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector
 {
     /** @var array<string, \Roave\BetterReflection\Reflection\ReflectionFunction|\Throwable> */
     private $reflections = [];
@@ -16,7 +16,7 @@ final class MemoizingFunctionReflector extends \_PhpScoperbd5d0c5f7638\Roave\Bet
      *
      * @throws \Roave\BetterReflection\Reflector\Exception\IdentifierNotFound
      */
-    public function reflect(string $functionName) : \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $functionName) : \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\Reflection
     {
         $lowerFunctionName = \strtolower($functionName);
         if (isset($this->reflections[$lowerFunctionName])) {

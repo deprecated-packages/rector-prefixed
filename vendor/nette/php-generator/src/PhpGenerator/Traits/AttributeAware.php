@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Traits;
+namespace _PhpScoper88fe6e0ad041\Nette\PhpGenerator\Traits;
 
-use _PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Attribute;
+use _PhpScoper88fe6e0ad041\Nette\PhpGenerator\Attribute;
 /**
  * @internal
  */
@@ -18,7 +18,7 @@ trait AttributeAware
     /** @return static */
     public function addAttribute(string $name, array $args = []) : self
     {
-        $this->attributes[] = new \_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Attribute($name, $args);
+        $this->attributes[] = new \_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Attribute($name, $args);
         return $this;
     }
     /**
@@ -27,7 +27,7 @@ trait AttributeAware
      */
     public function setAttributes(array $attrs) : self
     {
-        (function (\_PhpScoperbd5d0c5f7638\Nette\PhpGenerator\Attribute ...$attrs) {
+        (function (\_PhpScoper88fe6e0ad041\Nette\PhpGenerator\Attribute ...$attrs) {
         })(...$attrs);
         $this->attributes = $attrs;
         return $this;

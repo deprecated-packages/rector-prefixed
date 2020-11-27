@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Http\Io;
+namespace _PhpScoper88fe6e0ad041\React\Http\Io;
 
-use _PhpScoperbd5d0c5f7638\Psr\Http\Message\ResponseInterface;
-use _PhpScoperbd5d0c5f7638\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoperbd5d0c5f7638\React\Promise\PromiseInterface;
+use _PhpScoper88fe6e0ad041\Psr\Http\Message\ResponseInterface;
+use _PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoper88fe6e0ad041\React\Promise\PromiseInterface;
 /**
  * [Internal] Middleware runner to expose an array of middleware request handlers as a single request handler callable
  *
@@ -28,7 +28,7 @@ final class MiddlewareRunner
      * @return ResponseInterface|PromiseInterface<ResponseInterface>
      * @throws \Exception
      */
-    public function __invoke(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\ServerRequestInterface $request)
+    public function __invoke(\_PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface $request)
     {
         if (empty($this->middleware)) {
             throw new \RuntimeException('No middleware to run');
@@ -36,7 +36,7 @@ final class MiddlewareRunner
         return $this->call($request, 0);
     }
     /** @internal */
-    public function call(\_PhpScoperbd5d0c5f7638\Psr\Http\Message\ServerRequestInterface $request, $position)
+    public function call(\_PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface $request, $position)
     {
         // final request handler will be invoked without a next handler
         if (!isset($this->middleware[$position + 1])) {
@@ -44,7 +44,7 @@ final class MiddlewareRunner
             return $handler($request);
         }
         $that = $this;
-        $next = function (\_PhpScoperbd5d0c5f7638\Psr\Http\Message\ServerRequestInterface $request) use($that, $position) {
+        $next = function (\_PhpScoper88fe6e0ad041\Psr\Http\Message\ServerRequestInterface $request) use($that, $position) {
             return $that->call($request, $position + 1);
         };
         // invoke middleware request handler with next handler

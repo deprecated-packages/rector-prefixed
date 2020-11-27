@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Bug1917;
+namespace _PhpScoper88fe6e0ad041\Bug1917;
 
 class A
 {
@@ -13,7 +13,7 @@ class A
         \var_dump([$this->a, $this->b]);
     }
 }
-class B extends \_PhpScoperbd5d0c5f7638\Bug1917\A
+class B extends \_PhpScoper88fe6e0ad041\Bug1917\A
 {
     function __construct($a, $b)
     {

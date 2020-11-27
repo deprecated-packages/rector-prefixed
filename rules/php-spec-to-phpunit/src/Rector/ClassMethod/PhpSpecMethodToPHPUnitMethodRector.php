@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PhpSpecToPHPUnit\Rector\ClassMethod;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -68,7 +68,7 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
         // reorder instantiation + expected exception
         $previousStmt = null;
         foreach ((array) $classMethod->stmts as $key => $stmt) {
-            if ($previousStmt && \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($this->print($stmt), 'duringInstantiation') && \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::contains($this->print($previousStmt), 'beConstructedThrough')) {
+            if ($previousStmt && \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($this->print($stmt), 'duringInstantiation') && \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::contains($this->print($previousStmt), 'beConstructedThrough')) {
                 $classMethod->stmts[$key - 1] = $stmt;
                 $classMethod->stmts[$key] = $previousStmt;
             }

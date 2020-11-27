@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Socket;
+namespace _PhpScoper88fe6e0ad041\React\Socket;
 
-use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
-use _PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface;
+use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
+use _PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -19,7 +19,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class UnixServer extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter implements \_PhpScoperbd5d0c5f7638\React\Socket\ServerInterface
+final class UnixServer extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -41,7 +41,7 @@ final class UnixServer extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter im
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($path, \_PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct($path, \_PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->loop = $loop;
         if (\strpos($path, '://') === \false) {
@@ -109,7 +109,7 @@ final class UnixServer extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter im
     /** @internal */
     public function handleConnection($socket)
     {
-        $connection = new \_PhpScoperbd5d0c5f7638\React\Socket\Connection($socket, $this->loop);
+        $connection = new \_PhpScoper88fe6e0ad041\React\Socket\Connection($socket, $this->loop);
         $connection->unix = \true;
         $this->emit('connection', array($connection));
     }

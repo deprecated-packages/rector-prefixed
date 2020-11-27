@@ -26,7 +26,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperbd5d0c5f7638\\Clue\\Tests\\React\\Block\\": "tests\/"
+            "_PhpScoper88fe6e0ad041\\Clue\\Tests\\React\\Block\\": "tests\/"
         }
     },
     "require": {

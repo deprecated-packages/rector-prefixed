@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
@@ -25,7 +25,7 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \_PhpScoperbd5d0c5f7638\AutoloadIncluder();
+$autoloadIncluder = new \_PhpScoper88fe6e0ad041\AutoloadIncluder();
 $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
@@ -89,7 +89,7 @@ final class AutoloadIncluder
     public function includeDependencyOrRepositoryVendorAutoloadIfExists() : void
     {
         // Rector's vendor is already loaded
-        if (\class_exists('Rector\\HttpKernel\\RectorKernel')) {
+        if (\class_exists(\Rector\Core\HttpKernel\RectorKernel::class)) {
             return;
         }
         $devVendorAutoload = __DIR__ . '/../vendor/autoload.php';
@@ -138,4 +138,4 @@ final class AutoloadIncluder
         return \in_array('--debug', $_SERVER['argv'], \true);
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\AutoloadIncluder', 'AutoloadIncluder', \false);

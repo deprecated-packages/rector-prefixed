@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 #if defined(PHP_WIN32) || HAVE_DNS_SEARCH_FUNC
 function dns_check_record(string $hostname, string $type = "MX") : bool

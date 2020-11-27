@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 final class CurlMultiHandle
 {
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\CurlMultiHandle', 'CurlMultiHandle', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\CurlMultiHandle', 'CurlMultiHandle', \false);

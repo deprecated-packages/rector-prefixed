@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Symplify\ConsoleColorDiff\Tests\Console\Formatter;
 
 use Iterator;
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
 use Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
-final class ColorConsoleDiffFormatterTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
+final class ColorConsoleDiffFormatterTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
 {
     /**
      * @var ColorConsoleDiffFormatter

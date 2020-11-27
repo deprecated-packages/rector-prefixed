@@ -6,7 +6,7 @@ namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 use PhpParser\NodeTraverser;
 use PHPStan\File\FileReader;
 use PHPStan\Parser\Parser;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class FileNodesFetcher
 {
     /**
@@ -27,7 +27,7 @@ class FileNodesFetcher
         $nodeTraverser = new \PhpParser\NodeTraverser();
         $nodeTraverser->addVisitor($this->cachingVisitor);
         $contents = \PHPStan\File\FileReader::read($fileName);
-        $locatedSource = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\SourceLocator\Located\LocatedSource($contents, $fileName);
+        $locatedSource = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\SourceLocator\Located\LocatedSource($contents, $fileName);
         try {
             /** @var \PhpParser\Node[] $ast */
             $ast = $this->parser->parseFile($fileName);

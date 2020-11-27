@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Bug2875MissingReturn;
+namespace _PhpScoper88fe6e0ad041\Bug2875MissingReturn;
 
 class A
 {
@@ -16,10 +16,10 @@ class HelloWorld
         if ($obj === null) {
             return 1;
         } else {
-            if ($obj instanceof \_PhpScoperbd5d0c5f7638\Bug2875MissingReturn\A) {
+            if ($obj instanceof \_PhpScoper88fe6e0ad041\Bug2875MissingReturn\A) {
                 return 2;
             } else {
-                if ($obj instanceof \_PhpScoperbd5d0c5f7638\Bug2875MissingReturn\B) {
+                if ($obj instanceof \_PhpScoper88fe6e0ad041\Bug2875MissingReturn\B) {
                     return 3;
                 }
             }

@@ -4,16 +4,16 @@ declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
 use PHPStan\Testing\TestCase;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScoperbd5d0c5f7638\TestSingleFileSourceLocator\AFoo;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ConstantReflector;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoper88fe6e0ad041\TestSingleFileSourceLocator\AFoo;
 class OptimizedSingleFileSourceLocatorTest extends \PHPStan\Testing\TestCase
 {
     public function dataClass() : array
     {
-        return [[\_PhpScoperbd5d0c5f7638\TestSingleFileSourceLocator\AFoo::class, \_PhpScoperbd5d0c5f7638\TestSingleFileSourceLocator\AFoo::class, __DIR__ . '/data/a.php'], ['_PhpScoperbd5d0c5f7638\\testSinglefileSourceLocator\\afoo', \_PhpScoperbd5d0c5f7638\TestSingleFileSourceLocator\AFoo::class, __DIR__ . '/data/a.php'], [\_PhpScoperbd5d0c5f7638\SingleFileSourceLocatorTestClass::class, \_PhpScoperbd5d0c5f7638\SingleFileSourceLocatorTestClass::class, __DIR__ . '/data/b.php'], ['SinglefilesourceLocatortestClass', \_PhpScoperbd5d0c5f7638\SingleFileSourceLocatorTestClass::class, __DIR__ . '/data/b.php']];
+        return [[\_PhpScoper88fe6e0ad041\TestSingleFileSourceLocator\AFoo::class, \_PhpScoper88fe6e0ad041\TestSingleFileSourceLocator\AFoo::class, __DIR__ . '/data/a.php'], ['_PhpScoper88fe6e0ad041\\testSinglefileSourceLocator\\afoo', \_PhpScoper88fe6e0ad041\TestSingleFileSourceLocator\AFoo::class, __DIR__ . '/data/a.php'], [\_PhpScoper88fe6e0ad041\SingleFileSourceLocatorTestClass::class, \_PhpScoper88fe6e0ad041\SingleFileSourceLocatorTestClass::class, __DIR__ . '/data/b.php'], ['SinglefilesourceLocatortestClass', \_PhpScoper88fe6e0ad041\SingleFileSourceLocatorTestClass::class, __DIR__ . '/data/b.php']];
     }
     /**
      * @dataProvider dataClass
@@ -25,13 +25,13 @@ class OptimizedSingleFileSourceLocatorTest extends \PHPStan\Testing\TestCase
     {
         $factory = self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorFactory::class);
         $locator = $factory->create($file);
-        $classReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector($locator);
+        $classReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector($locator);
         $classReflection = $classReflector->reflect($className);
         $this->assertSame($expectedClassName, $classReflection->getName());
     }
     public function dataFunction() : array
     {
-        return [['_PhpScoperbd5d0c5f7638\\TestSingleFileSourceLocator\\doFoo', '_PhpScoperbd5d0c5f7638\\TestSingleFileSourceLocator\\doFoo', __DIR__ . '/data/a.php'], ['_PhpScoperbd5d0c5f7638\\testSingleFilesourcelocatOR\\dofoo', '_PhpScoperbd5d0c5f7638\\TestSingleFileSourceLocator\\doFoo', __DIR__ . '/data/a.php'], ['singleFileSourceLocatorTestFunction', 'singleFileSourceLocatorTestFunction', __DIR__ . '/data/b.php'], ['singlefileSourceLocatORTestfunCTion', 'singleFileSourceLocatorTestFunction', __DIR__ . '/data/b.php']];
+        return [['_PhpScoper88fe6e0ad041\\TestSingleFileSourceLocator\\doFoo', '_PhpScoper88fe6e0ad041\\TestSingleFileSourceLocator\\doFoo', __DIR__ . '/data/a.php'], ['_PhpScoper88fe6e0ad041\\testSingleFilesourcelocatOR\\dofoo', '_PhpScoper88fe6e0ad041\\TestSingleFileSourceLocator\\doFoo', __DIR__ . '/data/a.php'], ['singleFileSourceLocatorTestFunction', 'singleFileSourceLocatorTestFunction', __DIR__ . '/data/b.php'], ['singlefileSourceLocatORTestfunCTion', 'singleFileSourceLocatorTestFunction', __DIR__ . '/data/b.php']];
     }
     /**
      * @dataProvider dataFunction
@@ -43,14 +43,14 @@ class OptimizedSingleFileSourceLocatorTest extends \PHPStan\Testing\TestCase
     {
         $factory = self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorFactory::class);
         $locator = $factory->create($file);
-        $classReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector($locator);
-        $functionReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\FunctionReflector($locator, $classReflector);
+        $classReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector($locator);
+        $functionReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\FunctionReflector($locator, $classReflector);
         $functionReflection = $functionReflector->reflect($functionName);
         $this->assertSame($expectedFunctionName, $functionReflection->getName());
     }
     public function dataConst() : array
     {
-        return [['_PhpScoperbd5d0c5f7638\\ConstFile\\TABLE_NAME', 'resized_images'], ['ANOTHER_NAME', 'foo_images'], ['_PhpScoperbd5d0c5f7638\\ConstFile\\ANOTHER_NAME', 'bar_images'], ['const_with_dir_const', \str_replace('\\', '/', __DIR__ . '/data')]];
+        return [['_PhpScoper88fe6e0ad041\\ConstFile\\TABLE_NAME', 'resized_images'], ['ANOTHER_NAME', 'foo_images'], ['_PhpScoper88fe6e0ad041\\ConstFile\\ANOTHER_NAME', 'bar_images'], ['const_with_dir_const', \str_replace('\\', '/', __DIR__ . '/data')]];
     }
     /**
      * @dataProvider dataConst
@@ -61,8 +61,8 @@ class OptimizedSingleFileSourceLocatorTest extends \PHPStan\Testing\TestCase
     {
         $factory = self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorFactory::class);
         $locator = $factory->create(__DIR__ . '/data/const.php');
-        $classReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector($locator);
-        $constantReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector($locator, $classReflector);
+        $classReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector($locator);
+        $constantReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ConstantReflector($locator, $classReflector);
         $constant = $constantReflector->reflect($constantName);
         $this->assertSame($constantName, $constant->getName());
         $this->assertSame($value, $constant->getValue());
@@ -79,9 +79,9 @@ class OptimizedSingleFileSourceLocatorTest extends \PHPStan\Testing\TestCase
     {
         $factory = self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorFactory::class);
         $locator = $factory->create(__DIR__ . '/data/const.php');
-        $classReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ClassReflector($locator);
-        $constantReflector = new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\ConstantReflector($locator, $classReflector);
-        $this->expectException(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::class);
+        $classReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ClassReflector($locator);
+        $constantReflector = new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\ConstantReflector($locator, $classReflector);
+        $this->expectException(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::class);
         $constantReflector->reflect($constantName);
     }
 }

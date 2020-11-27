@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 /**
  * @alias oci_collection_append
  * @deprecated
  */
-function ocicollappend(\_PhpScoperbd5d0c5f7638\OCICollection $collection, string $value) : bool
+function ocicollappend(\_PhpScoper88fe6e0ad041\OCICollection $collection, string $value) : bool
 {
 }

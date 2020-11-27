@@ -15,7 +15,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoperbd5d0c5f7638\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use _PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -100,7 +100,7 @@ CODE_SAMPLE
         $assign = $this->createEventInstanceAssign($eventClassName, $node);
         /** @var Class_ $classLike */
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        $this->addConstructorDependencyToClass($classLike, new \Rector\PHPStan\Type\FullyQualifiedObjectType(\_PhpScoperbd5d0c5f7638\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class), 'eventDispatcher');
+        $this->addConstructorDependencyToClass($classLike, new \Rector\PHPStan\Type\FullyQualifiedObjectType(\_PhpScoper88fe6e0ad041\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class), 'eventDispatcher');
         // 6. remove property
         if ($eventAndListenerTree->getOnMagicProperty() !== null) {
             $this->removeNode($eventAndListenerTree->getOnMagicProperty());

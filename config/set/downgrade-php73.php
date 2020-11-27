@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 use Rector\DowngradePhp73\Rector\List_\DowngradeListReferenceAssignmentRector;
 use Rector\DowngradePhp73\Rector\String_\DowngradeFlexibleHeredocSyntaxRector;

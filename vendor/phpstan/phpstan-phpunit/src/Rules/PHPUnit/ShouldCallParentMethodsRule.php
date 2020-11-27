@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassMethodNode;
 use PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
 /**
  * @implements \PHPStan\Rules\Rule<InClassMethodNode>
  */
@@ -26,7 +26,7 @@ class ShouldCallParentMethodsRule implements \PHPStan\Rules\Rule
         if ($scope->getClassReflection() === null) {
             return [];
         }
-        if (!$scope->getClassReflection()->isSubclassOf(\_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase::class)) {
+        if (!$scope->getClassReflection()->isSubclassOf(\_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase::class)) {
             return [];
         }
         $parentClass = $scope->getClassReflection()->getParentClass();
@@ -37,7 +37,7 @@ class ShouldCallParentMethodsRule implements \PHPStan\Rules\Rule
             return [];
         }
         $parentMethod = $parentClass->getNativeMethod($methodName);
-        if ($parentMethod->getDeclaringClass()->getName() === \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase::class) {
+        if ($parentMethod->getDeclaringClass()->getName() === \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase::class) {
             return [];
         }
         $hasParentCall = $this->hasParentClassCall($node->getOriginalNode()->getStmts(), \strtolower($methodName));

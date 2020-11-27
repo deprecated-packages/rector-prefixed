@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\InheritDocMergingParam;
+namespace _PhpScoper88fe6e0ad041\InheritDocMergingParam;
 
 use function PHPStan\Analyser\assertType;
 class A
 {
 }
-class B extends \_PhpScoperbd5d0c5f7638\InheritDocMergingParam\A
+class B extends \_PhpScoper88fe6e0ad041\InheritDocMergingParam\A
 {
 }
-class C extends \_PhpScoperbd5d0c5f7638\InheritDocMergingParam\B
+class C extends \_PhpScoper88fe6e0ad041\InheritDocMergingParam\B
 {
 }
 class GrandparentClass
@@ -20,21 +20,21 @@ class GrandparentClass
     {
     }
 }
-class ParentClass extends \_PhpScoperbd5d0c5f7638\InheritDocMergingParam\GrandparentClass
+class ParentClass extends \_PhpScoper88fe6e0ad041\InheritDocMergingParam\GrandparentClass
 {
     /** @param B $dos */
     public function method($uno, $dos) : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingParam\\A', $uno);
-        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingParam\\B', $dos);
+        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\InheritDocMergingParam\\A', $uno);
+        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\InheritDocMergingParam\\B', $dos);
     }
 }
-class ChildClass extends \_PhpScoperbd5d0c5f7638\InheritDocMergingParam\ParentClass
+class ChildClass extends \_PhpScoper88fe6e0ad041\InheritDocMergingParam\ParentClass
 {
     /** @param C $one */
     public function method($one, $two) : void
     {
-        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingParam\\C', $one);
-        \PHPStan\Analyser\assertType('_PhpScoperbd5d0c5f7638\\InheritDocMergingParam\\B', $two);
+        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\InheritDocMergingParam\\C', $one);
+        \PHPStan\Analyser\assertType('_PhpScoper88fe6e0ad041\\InheritDocMergingParam\\B', $two);
     }
 }

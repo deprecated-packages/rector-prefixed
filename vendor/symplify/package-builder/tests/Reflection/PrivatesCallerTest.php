@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\PackageBuilder\Tests\Reflection;
 
-use _PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase;
+use _PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods;
-final class PrivatesCallerTest extends \_PhpScoperbd5d0c5f7638\PHPUnit\Framework\TestCase
+final class PrivatesCallerTest extends \_PhpScoper88fe6e0ad041\PHPUnit\Framework\TestCase
 {
     /**
      * @var PrivatesCaller

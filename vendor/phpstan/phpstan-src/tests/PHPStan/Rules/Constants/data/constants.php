@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Constants;
+namespace _PhpScoper88fe6e0ad041\Constants;
 
-use const _PhpScoperbd5d0c5f7638\OtherConstants\BAZ_CONSTANT;
+use const _PhpScoper88fe6e0ad041\OtherConstants\BAZ_CONSTANT;
 echo FOO_CONSTANT;
 echo BAR_CONSTANT;
-echo \_PhpScoperbd5d0c5f7638\OtherConstants\BAZ_CONSTANT;
+echo \_PhpScoper88fe6e0ad041\OtherConstants\BAZ_CONSTANT;
 echo NONEXISTENT_CONSTANT;
 function () {
     echo DEFINED_CONSTANT;

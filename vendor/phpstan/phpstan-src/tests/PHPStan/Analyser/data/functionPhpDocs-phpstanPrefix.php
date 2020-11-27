@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace;
+namespace _PhpScoper88fe6e0ad041\MethodPhpDocsNamespace;
 
-use _PhpScoperbd5d0c5f7638\SomeNamespace\Amet as Dolor;
-use _PhpScoperbd5d0c5f7638\SomeNamespace\Consecteur;
+use _PhpScoper88fe6e0ad041\SomeNamespace\Amet as Dolor;
+use _PhpScoper88fe6e0ad041\SomeNamespace\Consecteur;
 /**
  * @phpstan-param Foo|Bar $unionTypeParameter
  * @phpstan-param int $anotherMixedParameter
@@ -37,7 +37,7 @@ use _PhpScoperbd5d0c5f7638\SomeNamespace\Consecteur;
  * @phpstan-param bool $parameterWithDefaultValueFalse
  * @phpstan-return Foo
  */
-function doFooPhpstanPrefix($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $yetAnotherMixedParameter, $integerParameter, $anotherIntegerParameter, $arrayParameterOne, $arrayParameterOther, $objectRelative, $objectFullyQualified, $objectUsed, $nullableInteger, $nullableObject, $nullType, $barObject, \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\Bar $conflictedObject, \_PhpScoperbd5d0c5f7638\MethodPhpDocsNamespace\Bar $moreSpecifiedObject, $resource, $yetAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherAnotherMixedParameter, $voidParameter, $useWithoutAlias, $true, $false, bool $boolTrue, bool $boolFalse, bool $trueBoolean, $parameterWithDefaultValueFalse = \false, $anotherNullableObject = null)
+function doFooPhpstanPrefix($mixedParameter, $unionTypeParameter, $anotherMixedParameter, $yetAnotherMixedParameter, $integerParameter, $anotherIntegerParameter, $arrayParameterOne, $arrayParameterOther, $objectRelative, $objectFullyQualified, $objectUsed, $nullableInteger, $nullableObject, $nullType, $barObject, \_PhpScoper88fe6e0ad041\MethodPhpDocsNamespace\Bar $conflictedObject, \_PhpScoper88fe6e0ad041\MethodPhpDocsNamespace\Bar $moreSpecifiedObject, $resource, $yetAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherMixedParameter, $yetAnotherAnotherAnotherAnotherMixedParameter, $voidParameter, $useWithoutAlias, $true, $false, bool $boolTrue, bool $boolFalse, bool $trueBoolean, $parameterWithDefaultValueFalse = \false, $anotherNullableObject = null)
 {
     $fooFunctionResult = doFoo();
     foreach ($moreSpecifiedObject->doFluentUnionIterable() as $fluentUnionIterableBaz) {

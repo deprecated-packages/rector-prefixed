@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Exclusion\Check;
 
-use _PhpScoperbd5d0c5f7638\Nette\Utils\Strings;
+use _PhpScoper88fe6e0ad041\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Const_;
@@ -44,10 +44,10 @@ final class ExcludeByDocBlockExclusionCheck implements \Rector\Core\Contract\Exc
     private function hasNoRectorComment(\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, \PhpParser\Comment\Doc $doc) : bool
     {
         // bare @noRector ignored all rules
-        if (\_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($doc->getText(), self::NO_RECTORE_ANNOTATION_WITH_CLASS_REGEX)) {
+        if (\_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($doc->getText(), self::NO_RECTORE_ANNOTATION_WITH_CLASS_REGEX)) {
             return \true;
         }
         $regex = '#@noRector\\s*\\\\?' . \preg_quote(\get_class($phpRector), '/') . '#i';
-        return (bool) \_PhpScoperbd5d0c5f7638\Nette\Utils\Strings::match($doc->getText(), $regex);
+        return (bool) \_PhpScoper88fe6e0ad041\Nette\Utils\Strings::match($doc->getText(), $regex);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 #endif
 class SplFileObject extends \SplFileInfo implements \RecursiveIterator, \SeekableIterator
@@ -141,4 +141,4 @@ class SplFileObject extends \SplFileInfo implements \RecursiveIterator, \Seekabl
     }
 }
 #endif
-\class_alias('_PhpScoperbd5d0c5f7638\\SplFileObject', 'SplFileObject', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\SplFileObject', 'SplFileObject', \false);

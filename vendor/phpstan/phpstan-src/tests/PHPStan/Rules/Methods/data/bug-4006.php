@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Bug4006;
+namespace _PhpScoper88fe6e0ad041\Bug4006;
 
 interface Foo
 {
@@ -9,7 +9,7 @@ interface Foo
      */
     public function bar();
 }
-class Bar implements \_PhpScoperbd5d0c5f7638\Bug4006\Foo
+class Bar implements \_PhpScoper88fe6e0ad041\Bug4006\Foo
 {
     public function bar() : void
     {

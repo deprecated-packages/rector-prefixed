@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules;
+namespace _PhpScoper88fe6e0ad041\Doctrine\Inflector\Rules;
 
 use function array_map;
 use function implode;
@@ -12,10 +12,10 @@ class Patterns
     private $patterns;
     /** @var string */
     private $regex;
-    public function __construct(\_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Pattern ...$patterns)
+    public function __construct(\_PhpScoper88fe6e0ad041\Doctrine\Inflector\Rules\Pattern ...$patterns)
     {
         $this->patterns = $patterns;
-        $patterns = \array_map(static function (\_PhpScoperbd5d0c5f7638\Doctrine\Inflector\Rules\Pattern $pattern) : string {
+        $patterns = \array_map(static function (\_PhpScoper88fe6e0ad041\Doctrine\Inflector\Rules\Pattern $pattern) : string {
             return $pattern->getPattern();
         }, $this->patterns);
         $this->regex = '/^(?:' . \implode('|', $patterns) . ')$/i';

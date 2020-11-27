@@ -64,14 +64,14 @@ class Filter extends \Hoa\Test\Unit\Suite
 {
     public function case_classic()
     {
-        $this->given($foobar = $this->getDummyIterator(), $filter = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Iterator\Test\Unit\MyFilter($foobar), $this->calling($filter)->accept = function () {
+        $this->given($foobar = $this->getDummyIterator(), $filter = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Iterator\Test\Unit\MyFilter($foobar), $this->calling($filter)->accept = function () {
             $value = $this->current();
             return \false === \in_array($value, ['a', 'e', 'i', 'o', 'u']);
         })->when($result = \iterator_to_array($filter))->then->array($result)->isEqualTo([0 => 'f', 3 => 'b', 5 => 'r']);
     }
     public function case_remove_all()
     {
-        $this->given($foobar = $this->getDummyIterator(), $filter = new \_PhpScoperbd5d0c5f7638\Mock\Hoa\Iterator\Test\Unit\MyFilter($foobar), $this->calling($filter)->accept = \false)->when($result = \iterator_to_array($filter))->then->array($result)->isEmpty();
+        $this->given($foobar = $this->getDummyIterator(), $filter = new \_PhpScoper88fe6e0ad041\Mock\Hoa\Iterator\Test\Unit\MyFilter($foobar), $this->calling($filter)->accept = \false)->when($result = \iterator_to_array($filter))->then->array($result)->isEmpty();
     }
     public function case_remove_none()
     {

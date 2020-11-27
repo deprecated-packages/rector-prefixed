@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\TestClosureFunctionTypehintsPhp71;
+namespace _PhpScoper88fe6e0ad041\TestClosureFunctionTypehintsPhp71;
 
 class FooFunctionTypehints
 {
@@ -13,7 +13,7 @@ function () : ?iterable {
 };
 function () : ?string {
 };
-function (?\_PhpScoperbd5d0c5f7638\TestClosureFunctionTypehintsPhp71\FooFunctionTypehints $foo) : ?FooFunctionTypehints {
+function (?\_PhpScoper88fe6e0ad041\TestClosureFunctionTypehintsPhp71\FooFunctionTypehints $foo) : ?FooFunctionTypehints {
 };
-function (?\_PhpScoperbd5d0c5f7638\TestClosureFunctionTypehintsPhp71\NonexistentClass $bar) : ?NonexistentClass {
+function (?\_PhpScoper88fe6e0ad041\TestClosureFunctionTypehintsPhp71\NonexistentClass $bar) : ?NonexistentClass {
 };

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Nette\Utils;
+namespace _PhpScoper88fe6e0ad041\Nette\Utils;
 
-use _PhpScoperbd5d0c5f7638\Nette;
+use _PhpScoper88fe6e0ad041\Nette;
 /**
  * Basic manipulation with images. Supported types are JPEG, PNG, GIF, WEBP and BMP.
  *
@@ -125,15 +125,15 @@ class Image
     public static function fromFile(string $file, int &$type = null)
     {
         if (!\extension_loaded('gd')) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\NotSupportedException('PHP extension GD is not loaded.');
+            throw new \_PhpScoper88fe6e0ad041\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
         $type = self::detectTypeFromFile($file);
         if (!$type) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\Utils\UnknownImageFileException(\is_file($file) ? "Unknown type of file '{$file}'." : "File '{$file}' not found.");
+            throw new \_PhpScoper88fe6e0ad041\Nette\Utils\UnknownImageFileException(\is_file($file) ? "Unknown type of file '{$file}'." : "File '{$file}' not found.");
         }
         $method = 'imagecreatefrom' . self::FORMATS[$type];
-        return new static(\_PhpScoperbd5d0c5f7638\Nette\Utils\Callback::invokeSafe($method, [$file], function (string $message) : void {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\Utils\ImageException($message);
+        return new static(\_PhpScoper88fe6e0ad041\Nette\Utils\Callback::invokeSafe($method, [$file], function (string $message) : void {
+            throw new \_PhpScoper88fe6e0ad041\Nette\Utils\ImageException($message);
         }));
     }
     /**
@@ -145,14 +145,14 @@ class Image
     public static function fromString(string $s, int &$type = null)
     {
         if (!\extension_loaded('gd')) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\NotSupportedException('PHP extension GD is not loaded.');
+            throw new \_PhpScoper88fe6e0ad041\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
         $type = self::detectTypeFromString($s);
         if (!$type) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\Utils\UnknownImageFileException('Unknown type of image.');
+            throw new \_PhpScoper88fe6e0ad041\Nette\Utils\UnknownImageFileException('Unknown type of image.');
         }
-        return new static(\_PhpScoperbd5d0c5f7638\Nette\Utils\Callback::invokeSafe('imagecreatefromstring', [$s], function (string $message) : void {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\Utils\ImageException($message);
+        return new static(\_PhpScoper88fe6e0ad041\Nette\Utils\Callback::invokeSafe('imagecreatefromstring', [$s], function (string $message) : void {
+            throw new \_PhpScoper88fe6e0ad041\Nette\Utils\ImageException($message);
         }));
     }
     /**
@@ -163,10 +163,10 @@ class Image
     public static function fromBlank(int $width, int $height, array $color = null)
     {
         if (!\extension_loaded('gd')) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\NotSupportedException('PHP extension GD is not loaded.');
+            throw new \_PhpScoper88fe6e0ad041\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
         if ($width < 1 || $height < 1) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException('Image width and height must be greater than zero.');
+            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Image width and height must be greater than zero.');
         }
         $image = \imagecreatetruecolor($width, $height);
         if ($color) {
@@ -202,7 +202,7 @@ class Image
     public static function typeToExtension(int $type) : string
     {
         if (!isset(self::FORMATS[$type])) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
+            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
         }
         return self::FORMATS[$type];
     }
@@ -243,8 +243,8 @@ class Image
      */
     protected function setImageResource($image)
     {
-        if (!$image instanceof \_PhpScoperbd5d0c5f7638\GdImage && !(\is_resource($image) && \get_resource_type($image) === 'gd')) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException('Image is not valid.');
+        if (!$image instanceof \_PhpScoper88fe6e0ad041\GdImage && !(\is_resource($image) && \get_resource_type($image) === 'gd')) {
+            throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('Image is not valid.');
         }
         $this->image = $image;
         return $this;
@@ -304,7 +304,7 @@ class Image
         if ($flags & self::STRETCH) {
             // non-proportional
             if (!$newWidth || !$newHeight) {
-                throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException('For stretching must be both width and height specified.');
+                throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('For stretching must be both width and height specified.');
             }
             if ($flags & self::SHRINK_ONLY) {
                 $newWidth = (int) \round($srcWidth * \min(1, $newWidth / $srcWidth));
@@ -313,7 +313,7 @@ class Image
         } else {
             // proportional
             if (!$newWidth && !$newHeight) {
-                throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException('At least width or height must be specified.');
+                throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException('At least width or height must be specified.');
             }
             $scale = [];
             if ($newWidth > 0) {
@@ -460,7 +460,7 @@ class Image
             $extensions = \array_flip(self::FORMATS) + ['jpg' => self::JPEG];
             $ext = \strtolower(\pathinfo($file, \PATHINFO_EXTENSION));
             if (!isset($extensions[$ext])) {
-                throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException("Unsupported file extension '{$ext}'.");
+                throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException("Unsupported file extension '{$ext}'.");
             }
             $type = $extensions[$ext];
         }
@@ -471,7 +471,7 @@ class Image
      */
     public function toString(int $type = self::JPEG, int $quality = null) : string
     {
-        return \_PhpScoperbd5d0c5f7638\Nette\Utils\Helpers::capture(function () use($type, $quality) {
+        return \_PhpScoper88fe6e0ad041\Nette\Utils\Helpers::capture(function () use($type, $quality) {
             $this->output($type, $quality);
         });
     }
@@ -530,10 +530,10 @@ class Image
                 // @ is escalated to exception
                 break;
             default:
-                throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
+                throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
         }
         if (!$success) {
-            throw new \_PhpScoperbd5d0c5f7638\Nette\Utils\ImageException(\_PhpScoperbd5d0c5f7638\Nette\Utils\Helpers::getLastError() ?: 'Unknown error');
+            throw new \_PhpScoper88fe6e0ad041\Nette\Utils\ImageException(\_PhpScoper88fe6e0ad041\Nette\Utils\Helpers::getLastError() ?: 'Unknown error');
         }
     }
     /**
@@ -545,7 +545,7 @@ class Image
     {
         $function = 'image' . $name;
         if (!\function_exists($function)) {
-            \_PhpScoperbd5d0c5f7638\Nette\Utils\ObjectHelpers::strictCall(static::class, $name);
+            \_PhpScoper88fe6e0ad041\Nette\Utils\ObjectHelpers::strictCall(static::class, $name);
         }
         foreach ($args as $key => $value) {
             if ($value instanceof self) {
@@ -556,7 +556,7 @@ class Image
             }
         }
         $res = $function($this->image, ...$args);
-        return $res instanceof \_PhpScoperbd5d0c5f7638\GdImage || \is_resource($res) && \get_resource_type($res) === 'gd' ? $this->setImageResource($res) : $res;
+        return $res instanceof \_PhpScoper88fe6e0ad041\GdImage || \is_resource($res) && \get_resource_type($res) === 'gd' ? $this->setImageResource($res) : $res;
     }
     public function __clone()
     {
@@ -577,13 +577,13 @@ class Image
             $num = (int) $num;
             return \false;
         }
-        throw new \_PhpScoperbd5d0c5f7638\Nette\InvalidArgumentException("Expected dimension in int|string, '{$num}' given.");
+        throw new \_PhpScoper88fe6e0ad041\Nette\InvalidArgumentException("Expected dimension in int|string, '{$num}' given.");
     }
     /**
      * Prevents serialization.
      */
     public function __sleep() : array
     {
-        throw new \_PhpScoperbd5d0c5f7638\Nette\NotSupportedException('You cannot serialize or unserialize ' . self::class . ' instances.');
+        throw new \_PhpScoper88fe6e0ad041\Nette\NotSupportedException('You cannot serialize or unserialize ' . self::class . ' instances.');
     }
 }

@@ -9,11 +9,11 @@
  * @link      http://phpdoc.org
  */
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types;
+namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types;
 
 use ArrayIterator;
 use IteratorAggregate;
-use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type;
+use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type;
 use function array_key_exists;
 use function implode;
 /**
@@ -25,7 +25,7 @@ use function implode;
  * @psalm-immutable
  * @template-implements IteratorAggregate<int, Type>
  */
-abstract class AggregatedType implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type, \IteratorAggregate
+abstract class AggregatedType implements \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type, \IteratorAggregate
 {
     /**
      * @psalm-allow-private-mutation
@@ -47,7 +47,7 @@ abstract class AggregatedType implements \_PhpScoperbd5d0c5f7638\phpDocumentor\R
     /**
      * Returns the type at the given index.
      */
-    public function get(int $index) : ?\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type
+    public function get(int $index) : ?\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type
     {
         if (!$this->has($index)) {
             return null;
@@ -64,7 +64,7 @@ abstract class AggregatedType implements \_PhpScoperbd5d0c5f7638\phpDocumentor\R
     /**
      * Tests if this compound type contains the given type.
      */
-    public function contains(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type $type) : bool
+    public function contains(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type $type) : bool
     {
         foreach ($this->types as $typePart) {
             // if the type is duplicate; do not add it
@@ -91,7 +91,7 @@ abstract class AggregatedType implements \_PhpScoperbd5d0c5f7638\phpDocumentor\R
     /**
      * @psalm-suppress ImpureMethodCall
      */
-    private function add(\_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type $type) : void
+    private function add(\_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type $type) : void
     {
         if ($type instanceof self) {
             foreach ($type->getIterator() as $subType) {

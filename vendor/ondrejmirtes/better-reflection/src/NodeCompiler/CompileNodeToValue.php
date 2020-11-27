@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler;
+namespace _PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler;
 
 use PhpParser\ConstExprEvaluator;
 use PhpParser\Node;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper88fe6e0ad041\Roave\BetterReflection\Util\FileHelper;
 use function assert;
 use function constant;
 use function defined;
@@ -28,7 +28,7 @@ class CompileNodeToValue
      *
      * @throws Exception\UnableToCompileNode
      */
-    public function __invoke(\PhpParser\Node $node, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext $context)
+    public function __invoke(\PhpParser\Node $node, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\CompilerContext $context)
     {
         if ($node instanceof \PhpParser\Node\Stmt\Expression) {
             return $this($node->expr, $context);
@@ -82,7 +82,7 @@ class CompileNodeToValue
                 }
                 return '';
             }
-            throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode::forUnRecognizedExpressionInContext($node, $context);
+            throw \_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode::forUnRecognizedExpressionInContext($node, $context);
         });
         return $constExprEvaluator->evaluateDirectly($node);
     }
@@ -93,7 +93,7 @@ class CompileNodeToValue
      *
      * @throws Exception\UnableToCompileNode
      */
-    private function compileConstFetch(\PhpParser\Node\Expr\ConstFetch $constNode, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext $context)
+    private function compileConstFetch(\PhpParser\Node\Expr\ConstFetch $constNode, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\CompilerContext $context)
     {
         $constantName = $constNode->name->toString();
         switch (\strtolower($constantName)) {
@@ -110,8 +110,8 @@ class CompileNodeToValue
                         return \constant($namespacedName);
                     }
                     try {
-                        return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant::createFromName($namespacedName)->getValue();
-                    } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                        return \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant::createFromName($namespacedName)->getValue();
+                    } catch (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                         // pass
                     }
                 }
@@ -119,9 +119,9 @@ class CompileNodeToValue
                     return \constant($constantName);
                 }
                 try {
-                    return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionConstant::createFromName($constantName)->getValue();
-                } catch (\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
-                    throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode::becauseOfNotFoundConstantReference($context, $constNode);
+                    return \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionConstant::createFromName($constantName)->getValue();
+                } catch (\_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                    throw \_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode::becauseOfNotFoundConstantReference($context, $constNode);
                 }
         }
     }
@@ -133,7 +133,7 @@ class CompileNodeToValue
      * @throws IdentifierNotFound
      * @throws Exception\UnableToCompileNode If a referenced constant could not be located on the expected referenced class.
      */
-    private function compileClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $node, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext $context)
+    private function compileClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $node, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\CompilerContext $context)
     {
         \assert($node->name instanceof \PhpParser\Node\Identifier);
         $nodeName = $node->name->name;
@@ -150,36 +150,36 @@ class CompileNodeToValue
         }
         if ($classInfo === null) {
             $classInfo = $context->getReflector()->reflect($className);
-            \assert($classInfo instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass);
+            \assert($classInfo instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass);
         }
         $reflectionConstant = $classInfo->getReflectionConstant($nodeName);
-        if (!$reflectionConstant instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClassConstant) {
-            throw \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode::becauseOfNotFoundClassConstantReference($context, $classInfo, $node);
+        if (!$reflectionConstant instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClassConstant) {
+            throw \_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode::becauseOfNotFoundClassConstantReference($context, $classInfo, $node);
         }
-        return $this->__invoke($reflectionConstant->getAst()->consts[$reflectionConstant->getPositionInAst()]->value, new \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext($context->getReflector(), $context->hasFileName() ? $context->getFileName() : null, $classInfo, $context->getNamespace(), $context->getFunctionName()));
+        return $this->__invoke($reflectionConstant->getAst()->consts[$reflectionConstant->getPositionInAst()]->value, new \_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\CompilerContext($context->getReflector(), $context->hasFileName() ? $context->getFileName() : null, $classInfo, $context->getNamespace(), $context->getFunctionName()));
     }
     /**
      * Compile a __DIR__ node
      */
-    private function compileDirConstant(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext $context) : string
+    private function compileDirConstant(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\CompilerContext $context) : string
     {
-        return \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath(\dirname(\realpath($context->getFileName())));
+        return \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath(\dirname(\realpath($context->getFileName())));
     }
     /**
      * Compiles magic constant __CLASS__
      */
-    private function compileClassConstant(\_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext $context) : string
+    private function compileClassConstant(\_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\CompilerContext $context) : string
     {
         return $context->hasSelf() ? $context->getSelf()->getName() : '';
     }
-    private function resolveClassNameForClassNameConstant(string $className, \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\NodeCompiler\CompilerContext $context) : string
+    private function resolveClassNameForClassNameConstant(string $className, \_PhpScoper88fe6e0ad041\Roave\BetterReflection\NodeCompiler\CompilerContext $context) : string
     {
         if ($className === 'self' || $className === 'static') {
             return $context->getSelf()->getName();
         }
         if ($className === 'parent') {
             $parentClass = $context->getSelf()->getParentClass();
-            \assert($parentClass instanceof \_PhpScoperbd5d0c5f7638\Roave\BetterReflection\Reflection\ReflectionClass);
+            \assert($parentClass instanceof \_PhpScoper88fe6e0ad041\Roave\BetterReflection\Reflection\ReflectionClass);
             return $parentClass->getName();
         }
         return $className;

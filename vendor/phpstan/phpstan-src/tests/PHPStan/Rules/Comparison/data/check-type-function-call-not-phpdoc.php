@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\CheckTypeFunctionCallNotPhpDoc;
+namespace _PhpScoper88fe6e0ad041\CheckTypeFunctionCallNotPhpDoc;
 
 class Foo
 {

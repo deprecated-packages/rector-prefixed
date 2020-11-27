@@ -62,7 +62,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
             }
             public function getClass() : string
             {
-                return \_PhpScoperbd5d0c5f7638\ImpossibleMethodCall\Foo::class;
+                return \_PhpScoper88fe6e0ad041\ImpossibleMethodCall\Foo::class;
             }
             public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $node, \PHPStan\Analyser\TypeSpecifierContext $context) : bool
             {
@@ -82,7 +82,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
             }
             public function getClass() : string
             {
-                return \_PhpScoperbd5d0c5f7638\ImpossibleMethodCall\Foo::class;
+                return \_PhpScoper88fe6e0ad041\ImpossibleMethodCall\Foo::class;
             }
             public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $node, \PHPStan\Analyser\TypeSpecifierContext $context) : bool
             {

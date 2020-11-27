@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\InheritDocWithoutCurlyBracesFromInterface;
+namespace _PhpScoper88fe6e0ad041\InheritDocWithoutCurlyBracesFromInterface;
 
-class Foo extends \_PhpScoperbd5d0c5f7638\InheritDocWithoutCurlyBracesFromInterface\FooParent implements \_PhpScoperbd5d0c5f7638\InheritDocWithoutCurlyBracesFromInterface\FooInterface
+class Foo extends \_PhpScoper88fe6e0ad041\InheritDocWithoutCurlyBracesFromInterface\FooParent implements \_PhpScoper88fe6e0ad041\InheritDocWithoutCurlyBracesFromInterface\FooInterface
 {
     /**
      * @inheritdoc

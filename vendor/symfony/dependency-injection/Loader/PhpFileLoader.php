@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Loader;
+namespace _PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Loader;
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 /**
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class PhpFileLoader extends \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Loader\FileLoader
+class PhpFileLoader extends \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Loader\FileLoader
 {
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
@@ -36,7 +36,7 @@ class PhpFileLoader extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Dependency
         // the closure forbids access to the private scope in the included file
         $load = \Closure::bind(function ($path) use($container, $loader, $resource, $type) {
             return include $path;
-        }, $this, \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Loader\ProtectedPhpFileLoader::class);
+        }, $this, \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Loader\ProtectedPhpFileLoader::class);
         try {
             $callback = $load($path);
             if (\is_object($callback) && \is_callable($callback)) {
@@ -64,6 +64,6 @@ class PhpFileLoader extends \_PhpScoperbd5d0c5f7638\Symfony\Component\Dependency
 /**
  * @internal
  */
-final class ProtectedPhpFileLoader extends \_PhpScoperbd5d0c5f7638\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ProtectedPhpFileLoader extends \_PhpScoper88fe6e0ad041\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
 }

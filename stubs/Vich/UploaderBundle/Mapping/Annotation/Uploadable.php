@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638\Vich\UploaderBundle\Mapping\Annotation;
+namespace _PhpScoper88fe6e0ad041\Vich\UploaderBundle\Mapping\Annotation;
 
-if (\class_exists('_PhpScoperbd5d0c5f7638\\Vich\\UploaderBundle\\Mapping\\Annotation\\Uploadable')) {
+if (\class_exists('_PhpScoper88fe6e0ad041\\Vich\\UploaderBundle\\Mapping\\Annotation\\Uploadable')) {
     return;
 }
 /**

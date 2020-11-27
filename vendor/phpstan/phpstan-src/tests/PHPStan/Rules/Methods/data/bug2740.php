@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Bug2740;
+namespace _PhpScoper88fe6e0ad041\Bug2740;
 
 /**
  * A collection that can contain members.
@@ -15,10 +15,10 @@ interface Collection extends \IteratorAggregate
  *
  * In the real world, this would contain additional methods.
  */
-interface Member extends \_PhpScoperbd5d0c5f7638\Bug2740\Collection
+interface Member extends \_PhpScoper88fe6e0ad041\Bug2740\Collection
 {
 }
-class MemberImpl implements \_PhpScoperbd5d0c5f7638\Bug2740\Member
+class MemberImpl implements \_PhpScoper88fe6e0ad041\Bug2740\Member
 {
     /**
      * @return \Iterator<int,Member>
@@ -28,22 +28,22 @@ class MemberImpl implements \_PhpScoperbd5d0c5f7638\Bug2740\Member
         return new \ArrayIterator([$this]);
     }
 }
-class CollectionImpl implements \_PhpScoperbd5d0c5f7638\Bug2740\Collection
+class CollectionImpl implements \_PhpScoper88fe6e0ad041\Bug2740\Collection
 {
     /**
      * @var array<int,Member>
      */
     private $members;
-    public function __construct(\_PhpScoperbd5d0c5f7638\Bug2740\Member ...$members)
+    public function __construct(\_PhpScoper88fe6e0ad041\Bug2740\Member ...$members)
     {
         $this->members = $members;
     }
     /**
      * @return Member
      */
-    public function getMember() : \_PhpScoperbd5d0c5f7638\Bug2740\Member
+    public function getMember() : \_PhpScoper88fe6e0ad041\Bug2740\Member
     {
-        return new \_PhpScoperbd5d0c5f7638\Bug2740\MemberImpl();
+        return new \_PhpScoper88fe6e0ad041\Bug2740\MemberImpl();
     }
     /**
      * @return \Iterator<int,Member>

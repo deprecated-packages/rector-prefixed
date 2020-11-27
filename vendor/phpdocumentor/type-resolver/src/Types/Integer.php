@@ -9,15 +9,15 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Types;
+namespace _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Types;
 
-use _PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type;
+use _PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type;
 /**
  * Value object representing Integer type
  *
  * @psalm-immutable
  */
-final class Integer implements \_PhpScoperbd5d0c5f7638\phpDocumentor\Reflection\Type
+final class Integer implements \_PhpScoper88fe6e0ad041\phpDocumentor\Reflection\Type
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.

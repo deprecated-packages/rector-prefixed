@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Generics\Bug2620;
+namespace _PhpScoper88fe6e0ad041\Generics\Bug2620;
 
 class Foo
 {
@@ -21,7 +21,7 @@ class SomeIterator implements \IteratorAggregate
      */
     public function getIterator()
     {
-        (yield new \_PhpScoperbd5d0c5f7638\Generics\Bug2620\Bar());
+        (yield new \_PhpScoper88fe6e0ad041\Generics\Bug2620\Bar());
     }
 }
 /**
@@ -35,5 +35,5 @@ function takesIteratorAggregate(\IteratorAggregate $i) : void
 }
 function test() : void
 {
-    takesIteratorAggregate(new \_PhpScoperbd5d0c5f7638\Generics\Bug2620\SomeIterator());
+    takesIteratorAggregate(new \_PhpScoper88fe6e0ad041\Generics\Bug2620\SomeIterator());
 }

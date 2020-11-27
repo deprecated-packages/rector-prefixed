@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace PHPStan\Process;
 
 use PHPStan\Process\Runnable\Runnable;
-use _PhpScoperbd5d0c5f7638\React\ChildProcess\Process;
-use _PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface;
-use _PhpScoperbd5d0c5f7638\React\Promise\CancellablePromiseInterface;
-use _PhpScoperbd5d0c5f7638\React\Promise\Deferred;
-use _PhpScoperbd5d0c5f7638\React\Promise\ExtendedPromiseInterface;
+use _PhpScoper88fe6e0ad041\React\ChildProcess\Process;
+use _PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface;
+use _PhpScoper88fe6e0ad041\React\Promise\CancellablePromiseInterface;
+use _PhpScoper88fe6e0ad041\React\Promise\Deferred;
+use _PhpScoper88fe6e0ad041\React\Promise\ExtendedPromiseInterface;
 class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
 {
     /** @var LoopInterface */
@@ -29,12 +29,12 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
      * @var bool
      */
     private $canceled = \false;
-    public function __construct(\_PhpScoperbd5d0c5f7638\React\EventLoop\LoopInterface $loop, string $name, string $command)
+    public function __construct(\_PhpScoper88fe6e0ad041\React\EventLoop\LoopInterface $loop, string $name, string $command)
     {
         $this->loop = $loop;
         $this->name = $name;
         $this->command = $command;
-        $this->deferred = new \_PhpScoperbd5d0c5f7638\React\Promise\Deferred();
+        $this->deferred = new \_PhpScoper88fe6e0ad041\React\Promise\Deferred();
     }
     public function getName() : string
     {
@@ -43,7 +43,7 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
     /**
      * @return ExtendedPromiseInterface&CancellablePromiseInterface
      */
-    public function run() : \_PhpScoperbd5d0c5f7638\React\Promise\CancellablePromiseInterface
+    public function run() : \_PhpScoper88fe6e0ad041\React\Promise\CancellablePromiseInterface
     {
         $tmpStdOutResource = \tmpfile();
         if ($tmpStdOutResource === \false) {
@@ -53,7 +53,7 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
         if ($tmpStdErrResource === \false) {
             throw new \PHPStan\ShouldNotHappenException('Failed creating temp file for stderr.');
         }
-        $this->process = new \_PhpScoperbd5d0c5f7638\React\ChildProcess\Process($this->command, null, null, [1 => $tmpStdOutResource, 2 => $tmpStdErrResource]);
+        $this->process = new \_PhpScoper88fe6e0ad041\React\ChildProcess\Process($this->command, null, null, [1 => $tmpStdOutResource, 2 => $tmpStdErrResource]);
         $this->process->start($this->loop);
         $this->process->on('exit', function ($exitCode) use($tmpStdOutResource, $tmpStdErrResource) : void {
             if ($this->canceled) {

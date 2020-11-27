@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\InheritDocFromTrait2;
+namespace _PhpScoper88fe6e0ad041\InheritDocFromTrait2;
 
-class Foo extends \_PhpScoperbd5d0c5f7638\InheritDocFromTrait2\FooParent
+class Foo extends \_PhpScoper88fe6e0ad041\InheritDocFromTrait2\FooParent
 {
     /**
      * {@inheritdoc}

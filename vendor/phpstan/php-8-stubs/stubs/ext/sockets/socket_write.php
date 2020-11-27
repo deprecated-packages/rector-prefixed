@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-function socket_write(\_PhpScoperbd5d0c5f7638\Socket $socket, string $data, ?int $length = null) : int|false
+function socket_write(\_PhpScoper88fe6e0ad041\Socket $socket, string $data, ?int $length = null) : int|false
 {
 }

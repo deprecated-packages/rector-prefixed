@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\Bug3132;
+namespace _PhpScoper88fe6e0ad041\Bug3132;
 
 use function PHPStan\Analyser\assertType;
 use const ARRAY_FILTER_USE_BOTH;

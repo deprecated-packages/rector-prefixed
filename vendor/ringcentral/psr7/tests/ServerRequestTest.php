@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
-use _PhpScoperbd5d0c5f7638\RingCentral\Psr7\ServerRequest;
-class ServerRequestTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCase
+use _PhpScoper88fe6e0ad041\RingCentral\Psr7\ServerRequest;
+class ServerRequestTest extends \_PhpScoper88fe6e0ad041\PHPUnit_Framework_TestCase
 {
     private $request;
     public function setUp()
     {
-        $this->request = new \_PhpScoperbd5d0c5f7638\RingCentral\Psr7\ServerRequest('GET', 'http://localhost');
+        $this->request = new \_PhpScoper88fe6e0ad041\RingCentral\Psr7\ServerRequest('GET', 'http://localhost');
     }
     public function testGetNoAttributes()
     {
@@ -65,4 +65,4 @@ class ServerRequestTest extends \_PhpScoperbd5d0c5f7638\PHPUnit_Framework_TestCa
         $this->assertEquals(array('test' => 'world'), $request->getParsedBody());
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\ServerRequestTest', 'ServerRequestTest', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\ServerRequestTest', 'ServerRequestTest', \false);

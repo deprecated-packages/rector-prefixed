@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Command\ErrorFormatter;
 
-use _PhpScoperbd5d0c5f7638\Nette\Neon\Neon;
+use _PhpScoper88fe6e0ad041\Nette\Neon\Neon;
 use PHPStan\Analyser\Error;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\File\SimpleRelativePathHelper;
@@ -30,20 +30,20 @@ class BaselineNeonErrorFormatterTest extends \PHPStan\Testing\ErrorFormatterTest
     {
         $formatter = new \PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter(new \PHPStan\File\SimpleRelativePathHelper(self::DIRECTORY_PATH));
         $this->assertSame($exitCode, $formatter->formatErrors($this->getAnalysisResult($numFileErrors, $numGenericErrors), $this->getOutput()), \sprintf('%s: response code do not match', $message));
-        $this->assertSame(\trim(\_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $expected]], \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::BLOCK)), \trim($this->getOutputContent()), \sprintf('%s: output do not match', $message));
+        $this->assertSame(\trim(\_PhpScoper88fe6e0ad041\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $expected]], \_PhpScoper88fe6e0ad041\Nette\Neon\Neon::BLOCK)), \trim($this->getOutputContent()), \sprintf('%s: output do not match', $message));
     }
     public function testFormatErrorMessagesRegexEscape() : void
     {
         $formatter = new \PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter(new \PHPStan\File\SimpleRelativePathHelper(self::DIRECTORY_PATH));
         $result = new \PHPStan\Command\AnalysisResult([new \PHPStan\Analyser\Error('Escape Regex with file # ~ \' ()', 'Testfile')], ['Escape Regex without file # ~ <> \' ()'], [], [], \false, null, \true);
         $formatter->formatErrors($result, $this->getOutput());
-        self::assertSame(\trim(\_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => [['message' => "#^Escape Regex with file \\# ~ ' \\(\\)\$#", 'count' => 1, 'path' => 'Testfile']]]], \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::BLOCK)), \trim($this->getOutputContent()));
+        self::assertSame(\trim(\_PhpScoper88fe6e0ad041\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => [['message' => "#^Escape Regex with file \\# ~ ' \\(\\)\$#", 'count' => 1, 'path' => 'Testfile']]]], \_PhpScoper88fe6e0ad041\Nette\Neon\Neon::BLOCK)), \trim($this->getOutputContent()));
     }
     public function testEscapeDiNeon() : void
     {
         $formatter = new \PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter(new \PHPStan\File\SimpleRelativePathHelper(self::DIRECTORY_PATH));
         $result = new \PHPStan\Command\AnalysisResult([new \PHPStan\Analyser\Error('Test %value%', 'Testfile')], [], [], [], \false, null, \true);
         $formatter->formatErrors($result, $this->getOutput());
-        self::assertSame(\trim(\_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => [['message' => '#^Test %%value%%$#', 'count' => 1, 'path' => 'Testfile']]]], \_PhpScoperbd5d0c5f7638\Nette\Neon\Neon::BLOCK)), \trim($this->getOutputContent()));
+        self::assertSame(\trim(\_PhpScoper88fe6e0ad041\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => [['message' => '#^Test %%value%%$#', 'count' => 1, 'path' => 'Testfile']]]], \_PhpScoper88fe6e0ad041\Nette\Neon\Neon::BLOCK)), \trim($this->getOutputContent()));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\LoopVariables;
+namespace _PhpScoper88fe6e0ad041\LoopVariables;
 
 class ForeachFoo
 {
@@ -22,7 +22,7 @@ class ForeachFoo
         $falseOrObject = \false;
         foreach ($iterableArray as $key => $val) {
             'begin';
-            $foo = new \_PhpScoperbd5d0c5f7638\LoopVariables\Foo();
+            $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Foo();
             'afterAssign';
             if ($nullableVal === null) {
                 'nullableValIf';
@@ -32,7 +32,7 @@ class ForeachFoo
                 'nullableValElse';
             }
             if ($falseOrObject === \false) {
-                $falseOrObject = new \_PhpScoperbd5d0c5f7638\LoopVariables\Foo();
+                $falseOrObject = new \_PhpScoper88fe6e0ad041\LoopVariables\Foo();
             }
             $foo && $i++;
             $nullableInt = $val;
@@ -40,15 +40,15 @@ class ForeachFoo
                 $nullableInt = null;
             }
             if (something()) {
-                $foo = new \_PhpScoperbd5d0c5f7638\LoopVariables\Bar();
+                $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Bar();
                 break;
             }
             if (something()) {
-                $foo = new \_PhpScoperbd5d0c5f7638\LoopVariables\Baz();
+                $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Baz();
                 return;
             }
             if (something()) {
-                $foo = new \_PhpScoperbd5d0c5f7638\LoopVariables\Lorem();
+                $foo = new \_PhpScoper88fe6e0ad041\LoopVariables\Lorem();
                 continue;
             }
             if ($nullableInt === null) {

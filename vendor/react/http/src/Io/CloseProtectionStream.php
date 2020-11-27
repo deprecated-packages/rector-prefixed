@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\React\Http\Io;
+namespace _PhpScoper88fe6e0ad041\React\Http\Io;
 
-use _PhpScoperbd5d0c5f7638\Evenement\EventEmitter;
-use _PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface;
-use _PhpScoperbd5d0c5f7638\React\Stream\Util;
-use _PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface;
+use _PhpScoper88fe6e0ad041\Evenement\EventEmitter;
+use _PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface;
+use _PhpScoper88fe6e0ad041\React\Stream\Util;
+use _PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Protects a given stream from actually closing and only discards its incoming data instead.
  *
@@ -14,7 +14,7 @@ use _PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface;
  *
  * @internal
  * */
-class CloseProtectionStream extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitter implements \_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface
+class CloseProtectionStream extends \_PhpScoper88fe6e0ad041\Evenement\EventEmitter implements \_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
@@ -22,7 +22,7 @@ class CloseProtectionStream extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitt
     /**
      * @param ReadableStreamInterface $input stream that will be discarded instead of closing it on an 'close' event.
      */
-    public function __construct(\_PhpScoperbd5d0c5f7638\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_PhpScoper88fe6e0ad041\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -50,9 +50,9 @@ class CloseProtectionStream extends \_PhpScoperbd5d0c5f7638\Evenement\EventEmitt
         $this->paused = \false;
         $this->input->resume();
     }
-    public function pipe(\_PhpScoperbd5d0c5f7638\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper88fe6e0ad041\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoperbd5d0c5f7638\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoper88fe6e0ad041\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

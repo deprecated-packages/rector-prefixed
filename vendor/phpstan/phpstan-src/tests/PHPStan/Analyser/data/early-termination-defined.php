@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638\EarlyTermination;
+namespace _PhpScoper88fe6e0ad041\EarlyTermination;
 
 class Foo
 {
@@ -27,7 +27,7 @@ class Foo
         throw new \Exception();
     }
 }
-class Bar extends \_PhpScoperbd5d0c5f7638\EarlyTermination\Foo
+class Bar extends \_PhpScoper88fe6e0ad041\EarlyTermination\Foo
 {
 }
 function baz()

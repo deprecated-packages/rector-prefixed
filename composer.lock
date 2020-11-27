@@ -2708,7 +2708,7 @@
             "version": "0.12.57",
             "source": {
                 "type": "git",
-                "url": "git@github.com:phpstan/phpstan-src.git",
+                "url": "https://github.com/phpstan/phpstan-src.git",
                 "reference": "b5a2fe2120e58bba9b28b8b3cc8fd3b823691344"
             },
             "dist": {
@@ -2798,6 +2798,9 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
+            "support": {
+                "source": "https://github.com/phpstan/phpstan-src/tree/0.12.57"
+            },
             "time": "2020-11-21T12:41:43+00:00"
         },
         {

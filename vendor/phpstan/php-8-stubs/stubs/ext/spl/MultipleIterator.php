@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 class MultipleIterator implements \Iterator
 {
@@ -59,4 +59,4 @@ class MultipleIterator implements \Iterator
     {
     }
 }
-\class_alias('_PhpScoperbd5d0c5f7638\\MultipleIterator', 'MultipleIterator', \false);
+\class_alias('_PhpScoper88fe6e0ad041\\MultipleIterator', 'MultipleIterator', \false);

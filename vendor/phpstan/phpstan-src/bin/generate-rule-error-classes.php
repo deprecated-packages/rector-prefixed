@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace _PhpScoperbd5d0c5f7638;
+namespace _PhpScoper88fe6e0ad041;
 
 (function () {
     require_once __DIR__ . '/../vendor/autoload.php';
