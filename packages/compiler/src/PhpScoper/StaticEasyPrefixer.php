@@ -27,7 +27,6 @@ final class StaticEasyPrefixer
         'PHPStan\*',
         'Rector\*',
         'Symplify\*',
-        'Migrify\*',
         // doctrine annotations to autocomplete
         'Doctrine\ORM\Mapping\*',
     ];
