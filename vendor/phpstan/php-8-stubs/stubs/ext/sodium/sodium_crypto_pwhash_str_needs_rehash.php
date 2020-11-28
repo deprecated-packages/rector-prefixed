@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #endif
 #if SODIUM_LIBRARY_VERSION_MAJOR > 9 || (SODIUM_LIBRARY_VERSION_MAJOR == 9 && SODIUM_LIBRARY_VERSION_MINOR >= 6)

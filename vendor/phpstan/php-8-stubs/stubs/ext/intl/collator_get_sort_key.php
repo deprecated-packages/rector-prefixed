@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function collator_get_sort_key(\Collator $object, string $string) : string|false
 {

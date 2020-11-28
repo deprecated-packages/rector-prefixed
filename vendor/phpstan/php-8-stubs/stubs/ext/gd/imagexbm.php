@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #endif
-function imagexbm(\_PhpScoper26e51eeacccf\GdImage $image, ?string $filename, ?int $foreground_color = null) : bool
+function imagexbm(\_PhpScoperabd03f0baf05\GdImage $image, ?string $filename, ?int $foreground_color = null) : bool
 {
 }

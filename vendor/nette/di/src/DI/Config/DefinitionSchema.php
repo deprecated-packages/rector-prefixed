@@ -5,36 +5,36 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI\Config;
+namespace _PhpScoperabd03f0baf05\Nette\DI\Config;
 
-use _PhpScoper26e51eeacccf\Nette;
-use _PhpScoper26e51eeacccf\Nette\DI\Definitions;
-use _PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement;
-use _PhpScoper26e51eeacccf\Nette\Schema\Context;
-use _PhpScoper26e51eeacccf\Nette\Schema\Expect;
-use _PhpScoper26e51eeacccf\Nette\Schema\Schema;
+use _PhpScoperabd03f0baf05\Nette;
+use _PhpScoperabd03f0baf05\Nette\DI\Definitions;
+use _PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement;
+use _PhpScoperabd03f0baf05\Nette\Schema\Context;
+use _PhpScoperabd03f0baf05\Nette\Schema\Expect;
+use _PhpScoperabd03f0baf05\Nette\Schema\Schema;
 /**
  * Service configuration schema.
  */
-class DefinitionSchema implements \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+class DefinitionSchema implements \_PhpScoperabd03f0baf05\Nette\Schema\Schema
 {
     use Nette\SmartObject;
     /** @var Nette\DI\ContainerBuilder */
     private $builder;
-    public function __construct(\_PhpScoper26e51eeacccf\Nette\DI\ContainerBuilder $builder)
+    public function __construct(\_PhpScoperabd03f0baf05\Nette\DI\ContainerBuilder $builder)
     {
         $this->builder = $builder;
     }
-    public function complete($def, \_PhpScoper26e51eeacccf\Nette\Schema\Context $context)
+    public function complete($def, \_PhpScoperabd03f0baf05\Nette\Schema\Context $context)
     {
         if ($def === [\false]) {
             return (object) $def;
         }
-        if (\_PhpScoper26e51eeacccf\Nette\DI\Config\Helpers::takeParent($def)) {
+        if (\_PhpScoperabd03f0baf05\Nette\DI\Config\Helpers::takeParent($def)) {
             $def['reset']['all'] = \true;
         }
         foreach (['arguments', 'setup', 'tags'] as $k) {
-            if (isset($def[$k]) && \_PhpScoper26e51eeacccf\Nette\DI\Config\Helpers::takeParent($def[$k])) {
+            if (isset($def[$k]) && \_PhpScoperabd03f0baf05\Nette\DI\Config\Helpers::takeParent($def[$k])) {
                 $def['reset'][$k] = \true;
             }
         }
@@ -51,18 +51,18 @@ class DefinitionSchema implements \_PhpScoper26e51eeacccf\Nette\Schema\Schema
         if (!empty($def['alteration'])) {
             unset($def['alteration']);
         }
-        return \_PhpScoper26e51eeacccf\Nette\Schema\Helpers::merge($def, $base);
+        return \_PhpScoperabd03f0baf05\Nette\Schema\Helpers::merge($def, $base);
     }
     /**
      * Normalizes configuration of service definitions.
      */
-    public function normalize($def, \_PhpScoper26e51eeacccf\Nette\Schema\Context $context)
+    public function normalize($def, \_PhpScoperabd03f0baf05\Nette\Schema\Context $context)
     {
         if ($def === null || $def === \false) {
             return (array) $def;
         } elseif (\is_string($def) && \interface_exists($def)) {
             return ['implement' => $def];
-        } elseif ($def instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement && \is_string($def->getEntity()) && \interface_exists($def->getEntity())) {
+        } elseif ($def instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement && \is_string($def->getEntity()) && \interface_exists($def->getEntity())) {
             $res = ['implement' => $def->getEntity()];
             if (\array_keys($def->arguments) === ['tagged']) {
                 $res += $def->arguments;
@@ -76,7 +76,7 @@ class DefinitionSchema implements \_PhpScoper26e51eeacccf\Nette\Schema\Schema
             return ['factory' => $def];
         } elseif (\is_array($def)) {
             if (isset($def['class']) && !isset($def['type'])) {
-                if ($def['class'] instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement) {
+                if ($def['class'] instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement) {
                     $key = \end($context->path);
                     \trigger_error("Service '{$key}': option 'class' should be changed to 'factory'.", \E_USER_DEPRECATED);
                     $def['factory'] = $def['class'];
@@ -89,7 +89,7 @@ class DefinitionSchema implements \_PhpScoper26e51eeacccf\Nette\Schema\Schema
             foreach (['class' => 'type', 'dynamic' => 'imported'] as $alias => $original) {
                 if (\array_key_exists($alias, $def)) {
                     if (\array_key_exists($original, $def)) {
-                        throw new \_PhpScoper26e51eeacccf\Nette\DI\InvalidConfigurationException("Options '{$alias}' and '{$original}' are aliases, use only '{$original}'.");
+                        throw new \_PhpScoperabd03f0baf05\Nette\DI\InvalidConfigurationException("Options '{$alias}' and '{$original}' are aliases, use only '{$original}'.");
                     }
                     $def[$original] = $def[$alias];
                     unset($def[$alias]);
@@ -97,10 +97,10 @@ class DefinitionSchema implements \_PhpScoper26e51eeacccf\Nette\Schema\Schema
             }
             return $def;
         } else {
-            throw new \_PhpScoper26e51eeacccf\Nette\DI\InvalidConfigurationException('Unexpected format of service definition');
+            throw new \_PhpScoperabd03f0baf05\Nette\DI\InvalidConfigurationException('Unexpected format of service definition');
         }
     }
-    public function completeDefault(\_PhpScoper26e51eeacccf\Nette\Schema\Context $context)
+    public function completeDefault(\_PhpScoperabd03f0baf05\Nette\Schema\Context $context)
     {
     }
     private function sniffType($key, array $def) : string
@@ -112,13 +112,13 @@ class DefinitionSchema implements \_PhpScoper26e51eeacccf\Nette\Schema\Schema
             }
         }
         if (isset($def['implement'], $def['references']) || isset($def['implement'], $def['tagged'])) {
-            return \_PhpScoper26e51eeacccf\Nette\DI\Definitions\LocatorDefinition::class;
+            return \_PhpScoperabd03f0baf05\Nette\DI\Definitions\LocatorDefinition::class;
         } elseif (isset($def['implement'])) {
-            return \method_exists($def['implement'], 'create') ? \_PhpScoper26e51eeacccf\Nette\DI\Definitions\FactoryDefinition::class : \_PhpScoper26e51eeacccf\Nette\DI\Definitions\AccessorDefinition::class;
+            return \method_exists($def['implement'], 'create') ? \_PhpScoperabd03f0baf05\Nette\DI\Definitions\FactoryDefinition::class : \_PhpScoperabd03f0baf05\Nette\DI\Definitions\AccessorDefinition::class;
         } elseif (isset($def['imported'])) {
-            return \_PhpScoper26e51eeacccf\Nette\DI\Definitions\ImportedDefinition::class;
+            return \_PhpScoperabd03f0baf05\Nette\DI\Definitions\ImportedDefinition::class;
         } else {
-            return \_PhpScoper26e51eeacccf\Nette\DI\Definitions\ServiceDefinition::class;
+            return \_PhpScoperabd03f0baf05\Nette\DI\Definitions\ServiceDefinition::class;
         }
     }
     private function expandParameters(array $config) : array
@@ -130,32 +130,32 @@ class DefinitionSchema implements \_PhpScoper26e51eeacccf\Nette\Schema\Schema
                 $params[\end($v)] = $this->builder::literal('$' . \end($v));
             }
         }
-        return \_PhpScoper26e51eeacccf\Nette\DI\Helpers::expand($config, $params);
+        return \_PhpScoperabd03f0baf05\Nette\DI\Helpers::expand($config, $params);
     }
-    private static function getSchema(string $type) : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    private static function getSchema(string $type) : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
         static $cache;
-        $cache = $cache ?: [\_PhpScoper26e51eeacccf\Nette\DI\Definitions\ServiceDefinition::class => self::getServiceSchema(), \_PhpScoper26e51eeacccf\Nette\DI\Definitions\AccessorDefinition::class => self::getAccessorSchema(), \_PhpScoper26e51eeacccf\Nette\DI\Definitions\FactoryDefinition::class => self::getFactorySchema(), \_PhpScoper26e51eeacccf\Nette\DI\Definitions\LocatorDefinition::class => self::getLocatorSchema(), \_PhpScoper26e51eeacccf\Nette\DI\Definitions\ImportedDefinition::class => self::getImportedSchema()];
+        $cache = $cache ?: [\_PhpScoperabd03f0baf05\Nette\DI\Definitions\ServiceDefinition::class => self::getServiceSchema(), \_PhpScoperabd03f0baf05\Nette\DI\Definitions\AccessorDefinition::class => self::getAccessorSchema(), \_PhpScoperabd03f0baf05\Nette\DI\Definitions\FactoryDefinition::class => self::getFactorySchema(), \_PhpScoperabd03f0baf05\Nette\DI\Definitions\LocatorDefinition::class => self::getLocatorSchema(), \_PhpScoperabd03f0baf05\Nette\DI\Definitions\ImportedDefinition::class => self::getImportedSchema()];
         return $cache[$type];
     }
-    private static function getServiceSchema() : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    private static function getServiceSchema() : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
-        return \_PhpScoper26e51eeacccf\Nette\Schema\Expect::structure(['type' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('string'), 'factory' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('callable|_PhpScoper26e51eeacccf\\Nette\\DI\\Definitions\\Statement'), 'arguments' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array(), 'setup' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::listOf('callable|_PhpScoper26e51eeacccf\\Nette\\DI\\Definitions\\Statement|array:1'), 'inject' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array(), 'reset' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array(), 'alteration' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::bool()]);
+        return \_PhpScoperabd03f0baf05\Nette\Schema\Expect::structure(['type' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('string'), 'factory' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('callable|_PhpScoperabd03f0baf05\\Nette\\DI\\Definitions\\Statement'), 'arguments' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array(), 'setup' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::listOf('callable|_PhpScoperabd03f0baf05\\Nette\\DI\\Definitions\\Statement|array:1'), 'inject' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array(), 'reset' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array(), 'alteration' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::bool()]);
     }
-    private static function getAccessorSchema() : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    private static function getAccessorSchema() : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
-        return \_PhpScoper26e51eeacccf\Nette\Schema\Expect::structure(['type' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::string(), 'implement' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::string(), 'factory' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('callable|_PhpScoper26e51eeacccf\\Nette\\DI\\Definitions\\Statement'), 'autowired' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array()]);
+        return \_PhpScoperabd03f0baf05\Nette\Schema\Expect::structure(['type' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::string(), 'implement' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::string(), 'factory' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('callable|_PhpScoperabd03f0baf05\\Nette\\DI\\Definitions\\Statement'), 'autowired' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array()]);
     }
-    private static function getFactorySchema() : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    private static function getFactorySchema() : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
-        return \_PhpScoper26e51eeacccf\Nette\Schema\Expect::structure(['type' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::string(), 'factory' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('callable|_PhpScoper26e51eeacccf\\Nette\\DI\\Definitions\\Statement'), 'implement' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::string(), 'arguments' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array(), 'setup' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::listOf('callable|_PhpScoper26e51eeacccf\\Nette\\DI\\Definitions\\Statement|array:1'), 'parameters' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array(), 'references' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array(), 'tagged' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::string(), 'inject' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array(), 'reset' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array()]);
+        return \_PhpScoperabd03f0baf05\Nette\Schema\Expect::structure(['type' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::string(), 'factory' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('callable|_PhpScoperabd03f0baf05\\Nette\\DI\\Definitions\\Statement'), 'implement' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::string(), 'arguments' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array(), 'setup' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::listOf('callable|_PhpScoperabd03f0baf05\\Nette\\DI\\Definitions\\Statement|array:1'), 'parameters' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array(), 'references' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array(), 'tagged' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::string(), 'inject' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array(), 'reset' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array()]);
     }
-    private static function getLocatorSchema() : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    private static function getLocatorSchema() : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
-        return \_PhpScoper26e51eeacccf\Nette\Schema\Expect::structure(['implement' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::string(), 'references' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array(), 'tagged' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::string(), 'autowired' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array()]);
+        return \_PhpScoperabd03f0baf05\Nette\Schema\Expect::structure(['implement' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::string(), 'references' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array(), 'tagged' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::string(), 'autowired' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array()]);
     }
-    private static function getImportedSchema() : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    private static function getImportedSchema() : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
-        return \_PhpScoper26e51eeacccf\Nette\Schema\Expect::structure(['type' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::string(), 'imported' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper26e51eeacccf\Nette\Schema\Expect::array()]);
+        return \_PhpScoperabd03f0baf05\Nette\Schema\Expect::structure(['type' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::string(), 'imported' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperabd03f0baf05\Nette\Schema\Expect::array()]);
     }
 }

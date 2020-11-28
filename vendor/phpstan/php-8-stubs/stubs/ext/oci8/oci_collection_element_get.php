@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function oci_collection_element_get(\_PhpScoper26e51eeacccf\OCICollection $collection, int $index) : string|float|null|false
+function oci_collection_element_get(\_PhpScoperabd03f0baf05\OCICollection $collection, int $index) : string|float|null|false
 {
 }

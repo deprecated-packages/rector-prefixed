@@ -89,15 +89,24 @@ CODE_SAMPLE
         $lastIfStmtKey = \array_key_last($node->stmts);
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($node->stmts);
-        $node->stmts[$lastIfStmtKey] = new \PhpParser\Node\Stmt\Return_($assign->expr);
+        $return = new \PhpParser\Node\Stmt\Return_($assign->expr);
+        $this->copyCommentIfExists($assign, $return);
+        $node->stmts[$lastIfStmtKey] = $return;
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($node->else->stmts);
         $lastElseStmtKey = \array_key_last($node->else->stmts);
         $elseStmts = $node->else->stmts;
-        $elseStmts[$lastElseStmtKey] = new \PhpParser\Node\Stmt\Return_($assign->expr);
+        $return = new \PhpParser\Node\Stmt\Return_($assign->expr);
+        $this->copyCommentIfExists($assign, $return);
+        $elseStmts[$lastElseStmtKey] = $return;
         $node->else = null;
         $this->addNodesAfterNode($elseStmts, $node);
         $this->removeNode($nextNode);
         return $node;
+    }
+    private function copyCommentIfExists(\PhpParser\Node $from, \PhpParser\Node $to) : void
+    {
+        $nodeComments = $from->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS);
+        $to->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $nodeComments);
     }
 }

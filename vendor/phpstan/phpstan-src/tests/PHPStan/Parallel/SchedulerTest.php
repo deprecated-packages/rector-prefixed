@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Parallel;
 
-use _PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase;
-class SchedulerTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
+use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
+class SchedulerTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
 {
     public function dataSchedule() : array
     {

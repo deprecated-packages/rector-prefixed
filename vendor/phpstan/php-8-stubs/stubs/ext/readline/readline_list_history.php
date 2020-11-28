@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #ifdef HAVE_HISTORY_LIST
 function readline_list_history() : array

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\OffsetAccessAssignment;
+namespace _PhpScoperabd03f0baf05\OffsetAccessAssignment;
 
 class Test1
 {
@@ -52,11 +52,11 @@ class Test1
         $key = [1, 2, 3];
         $storage = new \SplObjectStorage();
         $storage[$key] = 'test';
-        $obj1 = new \_PhpScoper26e51eeacccf\OffsetAccessAssignment\ObjectWithOffsetAccess();
+        $obj1 = new \_PhpScoperabd03f0baf05\OffsetAccessAssignment\ObjectWithOffsetAccess();
         $obj1[\false] = 'invalid key, valid value';
-        $obj2 = new \_PhpScoper26e51eeacccf\OffsetAccessAssignment\ObjectWithOffsetAccess();
+        $obj2 = new \_PhpScoperabd03f0baf05\OffsetAccessAssignment\ObjectWithOffsetAccess();
         $obj2['valid key'] = ['invalid value'];
-        $obj3 = new \_PhpScoper26e51eeacccf\OffsetAccessAssignment\ObjectWithOffsetAccess();
+        $obj3 = new \_PhpScoperabd03f0baf05\OffsetAccessAssignment\ObjectWithOffsetAccess();
         $obj3[] = 'null key';
     }
 }

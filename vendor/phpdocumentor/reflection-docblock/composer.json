@@ -17,14 +17,14 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\": [
+            "_PhpScoperabd03f0baf05\\phpDocumentor\\Reflection\\": [
                 "src\/"
             ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\": [
+            "_PhpScoperabd03f0baf05\\phpDocumentor\\Reflection\\": [
                 "tests\/unit"
             ]
         }

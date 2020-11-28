@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Tests\Dependency;
+namespace _PhpScoperabd03f0baf05\Tests\Dependency;
 
 abstract class ParentClass
 {

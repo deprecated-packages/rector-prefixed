@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\AppendedArrayItem;
+namespace _PhpScoperabd03f0baf05\AppendedArrayItem;
 
 class Foo
 {
@@ -49,12 +49,12 @@ class Baz
     /** @var array<static> */
     public $staticProperty;
 }
-class Lorem extends \_PhpScoper26e51eeacccf\AppendedArrayItem\Baz
+class Lorem extends \_PhpScoperabd03f0baf05\AppendedArrayItem\Baz
 {
 }
-function (\_PhpScoper26e51eeacccf\AppendedArrayItem\Lorem $lorem) {
-    $lorem->staticProperty[] = new \_PhpScoper26e51eeacccf\AppendedArrayItem\Lorem();
+function (\_PhpScoperabd03f0baf05\AppendedArrayItem\Lorem $lorem) {
+    $lorem->staticProperty[] = new \_PhpScoperabd03f0baf05\AppendedArrayItem\Lorem();
 };
-function (\_PhpScoper26e51eeacccf\AppendedArrayItem\Lorem $lorem) {
-    $lorem->staticProperty[] = new \_PhpScoper26e51eeacccf\AppendedArrayItem\Baz();
+function (\_PhpScoperabd03f0baf05\AppendedArrayItem\Lorem $lorem) {
+    $lorem->staticProperty[] = new \_PhpScoperabd03f0baf05\AppendedArrayItem\Baz();
 };

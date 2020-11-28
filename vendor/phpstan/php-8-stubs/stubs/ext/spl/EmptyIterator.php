@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class EmptyIterator implements \Iterator
@@ -27,4 +27,4 @@ class EmptyIterator implements \Iterator
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\EmptyIterator', 'EmptyIterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\EmptyIterator', 'EmptyIterator', \false);

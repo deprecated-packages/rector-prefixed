@@ -9,8 +9,8 @@ use PHPStan\Command\ErrorsConsoleStyle;
 use PHPStan\Command\Output;
 use PHPStan\Command\Symfony\SymfonyOutput;
 use PHPStan\Command\Symfony\SymfonyStyle;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\StringInput;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\StreamOutput;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\StringInput;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\StreamOutput;
 abstract class ErrorFormatterTestCase extends \PHPStan\Testing\TestCase
 {
     protected const DIRECTORY_PATH = '/data/folder/with space/and unicode 😃/project';
@@ -22,9 +22,9 @@ abstract class ErrorFormatterTestCase extends \PHPStan\Testing\TestCase
      * @var \PHPStan\Command\Output|null
      */
     private $output = null;
-    private function getOutputStream() : \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\StreamOutput
+    private function getOutputStream() : \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\StreamOutput
     {
-        if (\PHP_VERSION_ID >= 80000 && \DIRECTORY_SEPARATOR === '\\') {
+        if (\PHP_VERSION_ID >= 70400 && \DIRECTORY_SEPARATOR === '\\') {
             $this->markTestSkipped('Skipped because of https://github.com/symfony/symfony/issues/37508');
         }
         if ($this->outputStream === null) {
@@ -32,14 +32,14 @@ abstract class ErrorFormatterTestCase extends \PHPStan\Testing\TestCase
             if ($resource === \false) {
                 throw new \PHPStan\ShouldNotHappenException();
             }
-            $this->outputStream = new \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\StreamOutput($resource);
+            $this->outputStream = new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\StreamOutput($resource);
         }
         return $this->outputStream;
     }
     protected function getOutput() : \PHPStan\Command\Output
     {
         if ($this->output === null) {
-            $errorConsoleStyle = new \PHPStan\Command\ErrorsConsoleStyle(new \_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\StringInput(''), $this->getOutputStream());
+            $errorConsoleStyle = new \PHPStan\Command\ErrorsConsoleStyle(new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\StringInput(''), $this->getOutputStream());
             $this->output = new \PHPStan\Command\Symfony\SymfonyOutput($this->getOutputStream(), new \PHPStan\Command\Symfony\SymfonyStyle($errorConsoleStyle));
         }
         return $this->output;

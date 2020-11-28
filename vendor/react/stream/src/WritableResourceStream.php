@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Stream;
+namespace _PhpScoperabd03f0baf05\React\Stream;
 
-use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
-use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
-final class WritableResourceStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface
+use _PhpScoperabd03f0baf05\Evenement\EventEmitter;
+use _PhpScoperabd03f0baf05\React\EventLoop\LoopInterface;
+final class WritableResourceStream extends \_PhpScoperabd03f0baf05\Evenement\EventEmitter implements \_PhpScoperabd03f0baf05\React\Stream\WritableStreamInterface
 {
     private $stream;
     private $loop;
@@ -20,7 +20,7 @@ final class WritableResourceStream extends \_PhpScoper26e51eeacccf\Evenement\Eve
     private $writable = \true;
     private $closed = \false;
     private $data = '';
-    public function __construct($stream, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, $writeBufferSoftLimit = null, $writeChunkSize = null)
+    public function __construct($stream, \_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface $loop, $writeBufferSoftLimit = null, $writeChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');

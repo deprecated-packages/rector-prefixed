@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TestMethodTypehints;
+namespace _PhpScoperabd03f0baf05\TestMethodTypehints;
 
 class FooMethodTypehints
 {
-    function foo(\_PhpScoper26e51eeacccf\TestMethodTypehints\FooMethodTypehints $foo, $bar, array $lorem) : \_PhpScoper26e51eeacccf\TestMethodTypehints\NonexistentClass
+    function foo(\_PhpScoperabd03f0baf05\TestMethodTypehints\FooMethodTypehints $foo, $bar, array $lorem) : \_PhpScoperabd03f0baf05\TestMethodTypehints\NonexistentClass
     {
     }
-    function bar(\_PhpScoper26e51eeacccf\TestMethodTypehints\BarMethodTypehints $bar) : array
+    function bar(\_PhpScoperabd03f0baf05\TestMethodTypehints\BarMethodTypehints $bar) : array
     {
     }
-    function baz(...$bar) : \_PhpScoper26e51eeacccf\TestMethodTypehints\FooMethodTypehints
+    function baz(...$bar) : \_PhpScoperabd03f0baf05\TestMethodTypehints\FooMethodTypehints
     {
     }
     /**
@@ -37,7 +37,7 @@ class FooMethodTypehints
     function dolor(array $foos, array $bars) : array
     {
     }
-    function parentWithoutParent(parent $parent) : \_PhpScoper26e51eeacccf\parent
+    function parentWithoutParent(parent $parent) : \_PhpScoperabd03f0baf05\parent
     {
     }
     /**
@@ -47,7 +47,7 @@ class FooMethodTypehints
     function phpDocParentWithoutParent($parent)
     {
     }
-    function badCaseTypehints(\_PhpScoper26e51eeacccf\TestMethodTypehints\fOOMethodTypehints $foo) : \_PhpScoper26e51eeacccf\TestMethodTypehints\fOOMethodTypehintS
+    function badCaseTypehints(\_PhpScoperabd03f0baf05\TestMethodTypehints\fOOMethodTypehints $foo) : \_PhpScoperabd03f0baf05\TestMethodTypehints\fOOMethodTypehintS
     {
     }
     /**
@@ -61,14 +61,14 @@ class FooMethodTypehints
      * @param FOOMethodTypehints $foo
      * @return FOOMethodTypehints
      */
-    function badCaseInNativeAndPhpDoc(\_PhpScoper26e51eeacccf\TestMethodTypehints\FooMethodTypehints $foo) : \_PhpScoper26e51eeacccf\TestMethodTypehints\FooMethodTypehints
+    function badCaseInNativeAndPhpDoc(\_PhpScoperabd03f0baf05\TestMethodTypehints\FooMethodTypehints $foo) : \_PhpScoperabd03f0baf05\TestMethodTypehints\FooMethodTypehints
     {
     }
     /**
      * @param FooMethodTypehints $foo
      * @return FooMethodTypehints
      */
-    function anotherBadCaseInNativeAndPhpDoc(\_PhpScoper26e51eeacccf\TestMethodTypehints\FOOMethodTypehints $foo) : \_PhpScoper26e51eeacccf\TestMethodTypehints\FOOMethodTypehints
+    function anotherBadCaseInNativeAndPhpDoc(\_PhpScoperabd03f0baf05\TestMethodTypehints\FOOMethodTypehints $foo) : \_PhpScoperabd03f0baf05\TestMethodTypehints\FOOMethodTypehints
     {
     }
     /**

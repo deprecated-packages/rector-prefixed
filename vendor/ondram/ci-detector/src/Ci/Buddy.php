@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\OndraM\CiDetector\Ci;
+namespace _PhpScoperabd03f0baf05\OndraM\CiDetector\Ci;
 
-use _PhpScoper26e51eeacccf\OndraM\CiDetector\CiDetector;
-use _PhpScoper26e51eeacccf\OndraM\CiDetector\Env;
-use _PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic;
-class Buddy extends \_PhpScoper26e51eeacccf\OndraM\CiDetector\Ci\AbstractCi
+use _PhpScoperabd03f0baf05\OndraM\CiDetector\CiDetector;
+use _PhpScoperabd03f0baf05\OndraM\CiDetector\Env;
+use _PhpScoperabd03f0baf05\OndraM\CiDetector\TrinaryLogic;
+class Buddy extends \_PhpScoperabd03f0baf05\OndraM\CiDetector\Ci\AbstractCi
 {
-    public static function isDetected(\_PhpScoper26e51eeacccf\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_PhpScoperabd03f0baf05\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('BUDDY') !== \false;
     }
     public function getCiName() : string
     {
-        return \_PhpScoper26e51eeacccf\OndraM\CiDetector\CiDetector::CI_BUDDY;
+        return \_PhpScoperabd03f0baf05\OndraM\CiDetector\CiDetector::CI_BUDDY;
     }
-    public function isPullRequest() : \_PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_PhpScoperabd03f0baf05\OndraM\CiDetector\TrinaryLogic
     {
-        return \_PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('BUDDY_EXECUTION_PULL_REQUEST_ID') !== '');
+        return \_PhpScoperabd03f0baf05\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('BUDDY_EXECUTION_PULL_REQUEST_ID') !== '');
     }
     public function getBuildNumber() : string
     {

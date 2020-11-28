@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function mhash(int $algo, string $data, ?string $key = null) : string|false
 {

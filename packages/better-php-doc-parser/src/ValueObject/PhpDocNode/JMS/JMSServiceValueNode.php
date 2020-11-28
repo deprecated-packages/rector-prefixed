@@ -9,6 +9,6 @@ final class JMSServiceValueNode extends \Rector\BetterPhpDocParser\ValueObject\P
 {
     public function getShortName() : string
     {
-        return '_PhpScoper26e51eeacccf\\@DI\\Service';
+        return '_PhpScoperabd03f0baf05\\@DI\\Service';
     }
 }

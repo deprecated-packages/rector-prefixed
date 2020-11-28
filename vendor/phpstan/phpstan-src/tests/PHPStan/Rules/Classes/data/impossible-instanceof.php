@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ImpossibleInstanceOf;
+namespace _PhpScoperabd03f0baf05\ImpossibleInstanceOf;
 
 interface Foo
 {
@@ -8,53 +8,53 @@ interface Foo
 interface Bar
 {
 }
-interface BarChild extends \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Bar
+interface BarChild extends \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Bar
 {
 }
 class Lorem
 {
 }
-class Ipsum extends \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem
+class Ipsum extends \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem
 {
 }
 class Dolor
 {
 }
-class FooImpl implements \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo
+class FooImpl implements \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo
 {
 }
 class Test
 {
-    public function doTest(\_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo $foo, \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Bar $bar, \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem $lorem, \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Ipsum $ipsum, \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Dolor $dolor, \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\FooImpl $fooImpl, \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\BarChild $barChild)
+    public function doTest(\_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo $foo, \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Bar $bar, \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem $lorem, \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Ipsum $ipsum, \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Dolor $dolor, \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\FooImpl $fooImpl, \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\BarChild $barChild)
     {
-        if ($foo instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Bar) {
+        if ($foo instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Bar) {
         }
-        if ($bar instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+        if ($bar instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
         }
-        if ($lorem instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem) {
+        if ($lorem instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem) {
         }
-        if ($lorem instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Ipsum) {
+        if ($lorem instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Ipsum) {
         }
-        if ($ipsum instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem) {
+        if ($ipsum instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem) {
         }
-        if ($ipsum instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Ipsum) {
+        if ($ipsum instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Ipsum) {
         }
-        if ($dolor instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem) {
+        if ($dolor instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem) {
         }
-        if ($fooImpl instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+        if ($fooImpl instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
         }
-        if ($barChild instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Bar) {
+        if ($barChild instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Bar) {
         }
         /** @var Collection|mixed[] $collection */
         $collection = doFoo();
-        if ($collection instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+        if ($collection instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
         }
         /** @var object $object */
         $object = doFoo();
-        if ($object instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+        if ($object instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
         }
         $str = 'str';
-        if ($str instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+        if ($str instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
         }
         if ($str instanceof $str) {
         }
@@ -70,7 +70,7 @@ class Test
         foreach ([] as $val) {
             if ($foo instanceof self) {
             }
-            if ($foo instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem) {
+            if ($foo instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem) {
             }
             $foo = new self();
             if ($foo instanceof self) {
@@ -83,7 +83,7 @@ class Test
         while (fetch()) {
             if ($foo instanceof self) {
             }
-            if ($foo instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem) {
+            if ($foo instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem) {
             }
             $foo = new self();
             if ($foo instanceof self) {
@@ -96,7 +96,7 @@ class Test
         for (;;) {
             if ($foo instanceof self) {
             }
-            if ($foo instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem) {
+            if ($foo instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem) {
             }
             $foo = new self();
             if ($foo instanceof self) {
@@ -121,17 +121,17 @@ class ClassWithInvoke
     public function __invoke()
     {
     }
-    public function doFoo(callable $callable, \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo $foo)
+    public function doFoo(callable $callable, \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo $foo)
     {
         if ($callable instanceof self) {
         }
-        if ($callable instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\FinalClassWithInvoke) {
+        if ($callable instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\FinalClassWithInvoke) {
         }
-        if ($callable instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\FinalClassWithoutInvoke) {
+        if ($callable instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\FinalClassWithoutInvoke) {
         }
-        if ($callable instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+        if ($callable instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
         }
-        if ($callable instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem) {
+        if ($callable instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem) {
         }
     }
 }
@@ -143,14 +143,14 @@ class EliminateCompoundTypes
      */
     public function doFoo($union, $intersection)
     {
-        if ($union instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem || $union instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Dolor) {
-        } elseif ($union instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Lorem) {
+        if ($union instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem || $union instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Dolor) {
+        } elseif ($union instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Lorem) {
         }
-        if ($intersection instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo && $intersection instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Bar) {
-        } elseif ($intersection instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+        if ($intersection instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo && $intersection instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Bar) {
+        } elseif ($intersection instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
         }
-        if ($intersection instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
-        } elseif ($intersection instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Bar) {
+        if ($intersection instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
+        } elseif ($intersection instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Bar) {
         }
     }
 }
@@ -174,17 +174,17 @@ trait TraitWithInstanceOfThis
 {
     public function doFoo()
     {
-        if ($this instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+        if ($this instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
         }
     }
 }
-class ClassUsingTrait implements \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo
+class ClassUsingTrait implements \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo
 {
     use TraitWithInstanceOfThis;
 }
 function (\Iterator $arg) {
     foreach ($arg as $key => $value) {
-        \assert($key instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo);
+        \assert($key instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo);
     }
 };
 class ObjectSubtracted
@@ -202,18 +202,18 @@ class ObjectSubtracted
         if ($object instanceof \InvalidArgumentException) {
         }
     }
-    public function doBaz(\_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Bar $bar)
+    public function doBaz(\_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Bar $bar)
     {
-        if ($bar instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\BarChild) {
+        if ($bar instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\BarChild) {
             return;
         }
-        if ($bar instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\BarChild) {
+        if ($bar instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\BarChild) {
         }
-        if ($bar instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\BarGrandChild) {
+        if ($bar instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\BarGrandChild) {
         }
     }
 }
-class BarGrandChild implements \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\BarChild
+class BarGrandChild implements \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\BarChild
 {
 }
 class InvalidTypeTest
@@ -261,7 +261,7 @@ class CheckInstanceofInIterableForeach
     public function test(iterable $items) : void
     {
         foreach ($items as $item) {
-            if (!$item instanceof \_PhpScoper26e51eeacccf\ImpossibleInstanceOf\Foo) {
+            if (!$item instanceof \_PhpScoperabd03f0baf05\ImpossibleInstanceOf\Foo) {
                 throw new \Exception('Unsupported');
             }
         }

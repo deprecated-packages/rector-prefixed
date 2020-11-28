@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 use PhpParser\Node\Name\FullyQualified;
-return new \PhpParser\Node\Name\FullyQualified('_PhpScoper26e51eeacccf\\SomeNamespace\\ShortName');
+return new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\SomeNamespace\\ShortName');

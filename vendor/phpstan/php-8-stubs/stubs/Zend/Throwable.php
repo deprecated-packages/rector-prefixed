@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 interface Throwable extends \Stringable
@@ -14,4 +14,4 @@ interface Throwable extends \Stringable
     public function getTraceAsString() : string;
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\Throwable', 'Throwable', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Throwable', 'Throwable', \false);

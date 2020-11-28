@@ -26,9 +26,9 @@ final class SpecificAssertContainsWithoutIdentityRector extends \Rector\Core\Rec
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertContains()/assertNotContains() with non-strict comparison to new specific alternatives', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-final class SomeTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
+final class SomeTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
 {
     public function test()
     {
@@ -37,14 +37,14 @@ final class SomeTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
         $this->assertNotContains(new \stdClass(), $objects, 'message', \false, \false);
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeTest', 'SomeTest', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SomeTest', 'SomeTest', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-final class SomeTest extends \_PhpScoper26e51eeacccf\TestCase
+final class SomeTest extends \_PhpScoperabd03f0baf05\TestCase
 {
     public function test()
     {
@@ -53,7 +53,7 @@ final class SomeTest extends \_PhpScoper26e51eeacccf\TestCase
         $this->assertNotContainsEquals(new \stdClass(), $objects, 'message');
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeTest', 'SomeTest', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SomeTest', 'SomeTest', \false);
 CODE_SAMPLE
 )]);
     }

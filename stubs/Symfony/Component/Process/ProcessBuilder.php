@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Process;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Process;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Process\\ProcessBuilder')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Process\\ProcessBuilder')) {
     return;
 }
 class ProcessBuilder

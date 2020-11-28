@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\NonClassAttributeClass;
+namespace _PhpScoperabd03f0baf05\NonClassAttributeClass;
 
 #[\Attribute]
 interface Foo

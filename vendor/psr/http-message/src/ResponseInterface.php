@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Psr\Http\Message;
+namespace _PhpScoperabd03f0baf05\Psr\Http\Message;
 
 /**
  * Representation of an outgoing, server-side response.
@@ -17,7 +17,7 @@ namespace _PhpScoper26e51eeacccf\Psr\Http\Message;
  * be implemented such that they retain the internal state of the current
  * message and return an instance that contains the changed state.
  */
-interface ResponseInterface extends \_PhpScoper26e51eeacccf\Psr\Http\Message\MessageInterface
+interface ResponseInterface extends \_PhpScoperabd03f0baf05\Psr\Http\Message\MessageInterface
 {
     /**
      * Gets the response status code.

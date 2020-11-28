@@ -1,39 +1,39 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\CallClosureBind;
+namespace _PhpScoperabd03f0baf05\CallClosureBind;
 
 class Bar
 {
-    public function fooMethod() : \_PhpScoper26e51eeacccf\CallClosureBind\Foo
+    public function fooMethod() : \_PhpScoperabd03f0baf05\CallClosureBind\Foo
     {
-        \Closure::bind(function (\_PhpScoper26e51eeacccf\CallClosureBind\Foo $foo) {
+        \Closure::bind(function (\_PhpScoperabd03f0baf05\CallClosureBind\Foo $foo) {
             $foo->privateMethod();
             $foo->nonexistentMethod();
-        }, null, \_PhpScoper26e51eeacccf\CallClosureBind\Foo::class);
+        }, null, \_PhpScoperabd03f0baf05\CallClosureBind\Foo::class);
         $this->fooMethod();
         $this->barMethod();
-        $foo = new \_PhpScoper26e51eeacccf\CallClosureBind\Foo();
+        $foo = new \_PhpScoperabd03f0baf05\CallClosureBind\Foo();
         $foo->privateMethod();
         $foo->nonexistentMethod();
         \Closure::bind(function () {
             $this->fooMethod();
             $this->barMethod();
         }, $nonexistent, self::class);
-        \Closure::bind(function (\_PhpScoper26e51eeacccf\CallClosureBind\Foo $foo) {
+        \Closure::bind(function (\_PhpScoperabd03f0baf05\CallClosureBind\Foo $foo) {
             $foo->privateMethod();
             $foo->nonexistentMethod();
-        }, null, '_PhpScoper26e51eeacccf\\CallClosureBind\\Foo');
-        \Closure::bind(function (\_PhpScoper26e51eeacccf\CallClosureBind\Foo $foo) {
+        }, null, '_PhpScoperabd03f0baf05\\CallClosureBind\\Foo');
+        \Closure::bind(function (\_PhpScoperabd03f0baf05\CallClosureBind\Foo $foo) {
             $foo->privateMethod();
             $foo->nonexistentMethod();
-        }, null, new \_PhpScoper26e51eeacccf\CallClosureBind\Foo());
+        }, null, new \_PhpScoperabd03f0baf05\CallClosureBind\Foo());
         \Closure::bind(function () {
             // $this is Foo
             $this->privateMethod();
             $this->nonexistentMethod();
-        }, $this->fooMethod(), \_PhpScoper26e51eeacccf\CallClosureBind\Foo::class);
+        }, $this->fooMethod(), \_PhpScoperabd03f0baf05\CallClosureBind\Foo::class);
         (function () {
             $this->publicMethod();
-        })->call(new \_PhpScoper26e51eeacccf\CallClosureBind\Foo());
+        })->call(new \_PhpScoperabd03f0baf05\CallClosureBind\Foo());
     }
 }

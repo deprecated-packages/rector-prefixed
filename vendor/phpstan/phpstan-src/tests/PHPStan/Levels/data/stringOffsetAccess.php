@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Levels\OffsetAccess;
+namespace _PhpScoperabd03f0baf05\Levels\OffsetAccess;
 
 function () {
     /** @var int|object $maybeInt */

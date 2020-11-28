@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ForeachWithGenericsPhpDoc;
+namespace _PhpScoperabd03f0baf05\ForeachWithGenericsPhpDoc;
 
 class Foo
 {

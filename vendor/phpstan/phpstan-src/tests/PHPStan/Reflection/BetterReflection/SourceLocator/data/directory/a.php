@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TestDirectorySourceLocator;
+namespace _PhpScoperabd03f0baf05\TestDirectorySourceLocator;
 
 class AFoo
 {

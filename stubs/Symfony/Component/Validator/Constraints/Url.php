@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraints;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Validator\\Constraints\\Url')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Validator\\Constraints\\Url')) {
     return;
 }
-use _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint;
+use _PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class Url extends \_PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint
+class Url extends \_PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraint
 {
     public $message = 'This value is not a valid URL.';
     public $protocols = ['http', 'https'];

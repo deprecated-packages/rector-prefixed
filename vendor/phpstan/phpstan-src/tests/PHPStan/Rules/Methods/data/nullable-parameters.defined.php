@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\NullableParameters;
+namespace _PhpScoperabd03f0baf05\NullableParameters;
 
 class Foo
 {

@@ -5,11 +5,11 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI\Definitions;
+namespace _PhpScoperabd03f0baf05\Nette\DI\Definitions;
 
-use _PhpScoper26e51eeacccf\Nette;
-use _PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException;
-use _PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers as PhpHelpers;
+use _PhpScoperabd03f0baf05\Nette;
+use _PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException;
+use _PhpScoperabd03f0baf05\Nette\PhpGenerator\Helpers as PhpHelpers;
 /**
  * Definition of standard service.
  *
@@ -17,7 +17,7 @@ use _PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers as PhpHelpers;
  * @property Statement $factory
  * @property Statement[] $setup
  */
-final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition
+final class ServiceDefinition extends \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition
 {
     /** @var Statement */
     private $factory;
@@ -25,7 +25,7 @@ final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
     private $setup = [];
     public function __construct()
     {
-        $this->factory = new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement(null);
+        $this->factory = new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement(null);
     }
     /** @deprecated Use setType() */
     public function setClass(?string $type)
@@ -50,10 +50,10 @@ final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
      */
     public function setFactory($factory, array $args = [])
     {
-        $this->factory = $factory instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement ? $factory : new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement($factory, $args);
+        $this->factory = $factory instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement ? $factory : new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement($factory, $args);
         return $this;
     }
-    public function getFactory() : \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement
+    public function getFactory() : \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement
     {
         return $this->factory;
     }
@@ -81,8 +81,8 @@ final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
     public function setSetup(array $setup)
     {
         foreach ($setup as $v) {
-            if (!$v instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement) {
-                throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException('Argument must be Nette\\DI\\Definitions\\Statement[].');
+            if (!$v instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement) {
+                throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException('Argument must be Nette\\DI\\Definitions\\Statement[].');
             }
         }
         $this->setup = $setup;
@@ -99,13 +99,13 @@ final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
      */
     public function addSetup($entity, array $args = [])
     {
-        $this->setup[] = $entity instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement ? $entity : new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement($entity, $args);
+        $this->setup[] = $entity instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement ? $entity : new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement($entity, $args);
         return $this;
     }
     /** @deprecated */
     public function setParameters(array $params)
     {
-        throw new \_PhpScoper26e51eeacccf\Nette\DeprecatedException(\sprintf('Service %s: %s() is deprecated.', $this->getName(), __METHOD__));
+        throw new \_PhpScoperabd03f0baf05\Nette\DeprecatedException(\sprintf('Service %s: %s() is deprecated.', $this->getName(), __METHOD__));
     }
     /** @deprecated */
     public function getParameters() : array
@@ -116,56 +116,56 @@ final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
     /** @deprecated use $builder->addImportedDefinition(...) */
     public function setDynamic() : void
     {
-        throw new \_PhpScoper26e51eeacccf\Nette\DeprecatedException(\sprintf('Service %s: %s() is deprecated, use $builder->addImportedDefinition(...)', $this->getName(), __METHOD__));
+        throw new \_PhpScoperabd03f0baf05\Nette\DeprecatedException(\sprintf('Service %s: %s() is deprecated, use $builder->addImportedDefinition(...)', $this->getName(), __METHOD__));
     }
     /** @deprecated use $builder->addFactoryDefinition(...) or addAccessorDefinition(...) */
     public function setImplement() : void
     {
-        throw new \_PhpScoper26e51eeacccf\Nette\DeprecatedException(\sprintf('Service %s: %s() is deprecated, use $builder->addFactoryDefinition(...)', $this->getName(), __METHOD__));
+        throw new \_PhpScoperabd03f0baf05\Nette\DeprecatedException(\sprintf('Service %s: %s() is deprecated, use $builder->addFactoryDefinition(...)', $this->getName(), __METHOD__));
     }
     /** @deprecated use addTag('nette.inject') */
     public function setInject(bool $state = \true)
     {
         \trigger_error(\sprintf('Service %s: %s() is deprecated, use addTag(Nette\\DI\\Extensions\\InjectExtension::TAG_INJECT)', $this->getName(), __METHOD__), \E_USER_DEPRECATED);
-        return $this->addTag(\_PhpScoper26e51eeacccf\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $state);
+        return $this->addTag(\_PhpScoperabd03f0baf05\Nette\DI\Extensions\InjectExtension::TAG_INJECT, $state);
     }
-    public function resolveType(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
+    public function resolveType(\_PhpScoperabd03f0baf05\Nette\DI\Resolver $resolver) : void
     {
         if (!$this->getEntity()) {
             if (!$this->getType()) {
-                throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException('Factory and type are missing in definition of service.');
+                throw new \_PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException('Factory and type are missing in definition of service.');
             }
             $this->setFactory($this->getType(), $this->factory->arguments ?? []);
         } elseif (!$this->getType()) {
             $type = $resolver->resolveEntityType($this->factory);
             if (!$type) {
-                throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException('Unknown service type, specify it or declare return type of factory.');
+                throw new \_PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException('Unknown service type, specify it or declare return type of factory.');
             }
             $this->setType($type);
             $resolver->addDependency(new \ReflectionClass($type));
         }
         // auto-disable autowiring for aliases
-        if ($this->getAutowired() === \true && $this->getEntity() instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference) {
+        if ($this->getAutowired() === \true && $this->getEntity() instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference) {
             $this->setAutowired(\false);
         }
     }
-    public function complete(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
+    public function complete(\_PhpScoperabd03f0baf05\Nette\DI\Resolver $resolver) : void
     {
         $entity = $this->factory->getEntity();
-        if ($entity instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference && !$this->factory->arguments && !$this->setup) {
+        if ($entity instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference && !$this->factory->arguments && !$this->setup) {
             $ref = $resolver->normalizeReference($entity);
-            $this->setFactory([new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference(\_PhpScoper26e51eeacccf\Nette\DI\ContainerBuilder::THIS_CONTAINER), 'getService'], [$ref->getValue()]);
+            $this->setFactory([new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference(\_PhpScoperabd03f0baf05\Nette\DI\ContainerBuilder::THIS_CONTAINER), 'getService'], [$ref->getValue()]);
         }
         $this->factory = $resolver->completeStatement($this->factory);
         foreach ($this->setup as &$setup) {
             if (\is_string($setup->getEntity()) && \strpbrk($setup->getEntity(), ':@?\\') === \false) {
                 // auto-prepend @self
-                $setup = new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement([new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference(\_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference::SELF), $setup->getEntity()], $setup->arguments);
+                $setup = new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement([new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference(\_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference::SELF), $setup->getEntity()], $setup->arguments);
             }
             $setup = $resolver->completeStatement($setup, \true);
         }
     }
-    public function generateMethod(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Method $method, \_PhpScoper26e51eeacccf\Nette\DI\PhpGenerator $generator) : void
+    public function generateMethod(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Method $method, \_PhpScoperabd03f0baf05\Nette\DI\PhpGenerator $generator) : void
     {
         $entity = $this->factory->getEntity();
         $code = $generator->formatStatement($this->factory) . ";\n";
@@ -175,8 +175,8 @@ final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
         }
         $code = '$service = ' . $code;
         $type = $this->getType();
-        if ($type !== $entity && !(\is_array($entity) && $entity[0] instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference && $entity[0]->getValue() === \_PhpScoper26e51eeacccf\Nette\DI\ContainerBuilder::THIS_CONTAINER) && !(\is_string($entity) && \preg_match('#^[\\w\\\\]+$#D', $entity) && \is_subclass_of($entity, $type))) {
-            $code .= \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::formatArgs("if (!\$service instanceof {$type}) {\n" . "\tthrow new Nette\\UnexpectedValueException(?);\n}\n", ["Unable to create service '{$this->getName()}', value returned by factory is not {$type} type."]);
+        if ($type !== $entity && !(\is_array($entity) && $entity[0] instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference && $entity[0]->getValue() === \_PhpScoperabd03f0baf05\Nette\DI\ContainerBuilder::THIS_CONTAINER) && !(\is_string($entity) && \preg_match('#^[\\w\\\\]+$#D', $entity) && \is_subclass_of($entity, $type))) {
+            $code .= \_PhpScoperabd03f0baf05\Nette\PhpGenerator\Helpers::formatArgs("if (!\$service instanceof {$type}) {\n" . "\tthrow new Nette\\UnexpectedValueException(?);\n}\n", ["Unable to create service '{$this->getName()}', value returned by factory is not {$type} type."]);
         }
         foreach ($this->setup as $setup) {
             $code .= $generator->formatStatement($setup) . ";\n";
@@ -191,4 +191,4 @@ final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
         $this->setup = \unserialize(\serialize($this->setup));
     }
 }
-\class_exists(\_PhpScoper26e51eeacccf\Nette\DI\ServiceDefinition::class);
+\class_exists(\_PhpScoperabd03f0baf05\Nette\DI\ServiceDefinition::class);

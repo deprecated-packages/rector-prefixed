@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class IntlCalendar
@@ -328,4 +328,4 @@ class IntlCalendar
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\IntlCalendar', 'IntlCalendar', \false);
+\class_alias('_PhpScoperabd03f0baf05\\IntlCalendar', 'IntlCalendar', \false);

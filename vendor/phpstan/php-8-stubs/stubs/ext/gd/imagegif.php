@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @param resource|string|null $file */
-function imagegif(\_PhpScoper26e51eeacccf\GdImage $image, $file = null) : bool
+function imagegif(\_PhpScoperabd03f0baf05\GdImage $image, $file = null) : bool
 {
 }

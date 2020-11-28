@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function () {
-    if (\_PhpScoper26e51eeacccf\foo()) {
+    if (\_PhpScoperabd03f0baf05\foo()) {
         $ifVar = 1;
-        $issetFoo = new \_PhpScoper26e51eeacccf\Foo();
+        $issetFoo = new \_PhpScoperabd03f0baf05\Foo();
         $maybeDefinedButLaterCertainlyDefined = 1;
         if ($test) {
             $ifNestedVar = 1;
             $ifNotNestedVar = 1;
-        } elseif (\_PhpScoper26e51eeacccf\fooBar()) {
+        } elseif (\_PhpScoperabd03f0baf05\fooBar()) {
             $ifNotNestedVar = 2;
             $variableOnlyInEarlyTerminatingElse = 1;
             throw $e;
@@ -18,7 +18,7 @@ function () {
             $ifNestedVar = 2;
         }
         $ifNotVar = 1;
-    } elseif (\_PhpScoper26e51eeacccf\bar()) {
+    } elseif (\_PhpScoperabd03f0baf05\bar()) {
         $ifVar = 2;
         $issetFoo = null;
         $ifNestedVar = 2;
@@ -31,7 +31,7 @@ function () {
         $variableOnlyInEarlyTerminatingElse = 1;
         return;
     }
-    if (\_PhpScoper26e51eeacccf\foo()) {
+    if (\_PhpScoperabd03f0baf05\foo()) {
         $maybeDefinedButLaterCertainlyDefined = 2;
     } else {
         $maybeDefinedButLaterCertainlyDefined = 3;
@@ -40,14 +40,14 @@ function () {
     try {
         $inTry = 1;
         $inTryNotInCatch = 1;
-        $fooObjectFromTryCatch = new \_PhpScoper26e51eeacccf\InTryCatchFoo();
+        $fooObjectFromTryCatch = new \_PhpScoperabd03f0baf05\InTryCatchFoo();
         $mixedVarFromTryCatch = 1;
         $nullableIntegerFromTryCatch = 1;
         $anotherNullableIntegerFromTryCatch = null;
         $someVariableThatWillGetOverrideInFinally = 1;
-    } catch (\_PhpScoper26e51eeacccf\SomeConcreteException $e) {
+    } catch (\_PhpScoperabd03f0baf05\SomeConcreteException $e) {
         $inTry = 1;
-        $fooObjectFromTryCatch = new \_PhpScoper26e51eeacccf\InTryCatchFoo();
+        $fooObjectFromTryCatch = new \_PhpScoperabd03f0baf05\InTryCatchFoo();
         $mixedVarFromTryCatch = 1.0;
         $nullableIntegerFromTryCatch = null;
         $anotherNullableIntegerFromTryCatch = 1;
@@ -59,28 +59,28 @@ function () {
     }
     $exceptionFromTryCatch = null;
     try {
-    } catch (\_PhpScoper26e51eeacccf\SomeConcreteException $exceptionFromTryCatch) {
+    } catch (\_PhpScoperabd03f0baf05\SomeConcreteException $exceptionFromTryCatch) {
         return;
-    } catch (\_PhpScoper26e51eeacccf\AnotherException $exceptionFromTryCatch) {
-    } catch (\_PhpScoper26e51eeacccf\YetAnotherException $exceptionFromTryCatch) {
-        \_PhpScoper26e51eeacccf\doFoo();
+    } catch (\_PhpScoperabd03f0baf05\AnotherException $exceptionFromTryCatch) {
+    } catch (\_PhpScoperabd03f0baf05\YetAnotherException $exceptionFromTryCatch) {
+        \_PhpScoperabd03f0baf05\doFoo();
     }
     $lorem = 1;
     $arrOne[] = 'one';
     $arrTwo['test'] = 'two';
     $anotherArray['test'][] = 'another';
-    \_PhpScoper26e51eeacccf\doSomething($one, $callParameter = 3);
-    $arrTwo[] = new \_PhpScoper26e51eeacccf\Foo([$inArray = 1]);
+    \_PhpScoperabd03f0baf05\doSomething($one, $callParameter = 3);
+    $arrTwo[] = new \_PhpScoperabd03f0baf05\Foo([$inArray = 1]);
     $arrThree = null;
     $arrThree[] = 'three';
     \preg_match('#.*#', 'foo', $matches);
     if ((bool) \preg_match('#.*#', 'foo', $matches3)) {
-        \_PhpScoper26e51eeacccf\foo();
+        \_PhpScoperabd03f0baf05\foo();
     } elseif (\preg_match('#.*#', 'foo', $matches4)) {
-        \_PhpScoper26e51eeacccf\foo();
+        \_PhpScoperabd03f0baf05\foo();
     }
     $trueOrFalseFromSwitch = \true;
-    switch (\_PhpScoper26e51eeacccf\foo()) {
+    switch (\_PhpScoperabd03f0baf05\foo()) {
         case 1:
             $switchVar = 1;
             $noSwitchVar = 1;
@@ -97,7 +97,7 @@ function () {
         case 4:
         default:
             $switchVar = 3;
-            if (\_PhpScoper26e51eeacccf\doFoo()) {
+            if (\_PhpScoperabd03f0baf05\doFoo()) {
                 $switchVar = 4;
                 break;
             }
@@ -191,7 +191,7 @@ function () {
         case 'b':
             $anotherVariableDefinedInSwitchWithoutEarlyTermination = \false;
     }
-    switch (\_PhpScoper26e51eeacccf\doFoo()) {
+    switch (\_PhpScoperabd03f0baf05\doFoo()) {
         case 1:
         case 2:
         case 3:
@@ -201,9 +201,9 @@ function () {
             $alwaysDefinedFromSwitch = null;
     }
     $nullOverwrittenInSwitchToOne = null;
-    switch (\_PhpScoper26e51eeacccf\doFoo()) {
+    switch (\_PhpScoperabd03f0baf05\doFoo()) {
         case 1:
-            if (\_PhpScoper26e51eeacccf\doFoo()) {
+            if (\_PhpScoperabd03f0baf05\doFoo()) {
                 throw new \Exception();
             }
             $nullOverwrittenInSwitchToOne = 1;
@@ -211,7 +211,7 @@ function () {
         default:
             throw new \Exception();
     }
-    switch (\_PhpScoper26e51eeacccf\doFoo()) {
+    switch (\_PhpScoperabd03f0baf05\doFoo()) {
         case 1:
             if (\rand(0, 1)) {
                 $variableFromSwitchShouldBeBool = \true;
@@ -222,7 +222,7 @@ function () {
     }
     do {
         $doWhileVar = 1;
-    } while (\_PhpScoper26e51eeacccf\something());
+    } while (\_PhpScoperabd03f0baf05\something());
     $integerOrNullFromFor = null;
     for ($previousI = 0, $previousJ = 0; $previousI < 1; $previousI++) {
         $integerOrNullFromFor = 1;
@@ -234,7 +234,7 @@ function () {
         $nonexistentVariableOutsideWhile = 1;
     }
     /** @var array $someArray */
-    $someArray = \_PhpScoper26e51eeacccf\doFoo();
+    $someArray = \_PhpScoperabd03f0baf05\doFoo();
     $integerOrNullFromForeach = null;
     foreach ($someArray as $someValue) {
         $integerOrNullFromForeach = 1;
@@ -249,7 +249,7 @@ function () {
     $falseOrTrue = \false;
     $true = \true;
     $false = \false;
-    if (\_PhpScoper26e51eeacccf\doFoo()) {
+    if (\_PhpScoperabd03f0baf05\doFoo()) {
         $trueOrFalse = \false;
         $falseOrTrue = \true;
         $true = \true;
@@ -268,9 +268,9 @@ function () {
         return;
     }
     /** @var Foo|null $notNullableObject */
-    $notNullableObject = \_PhpScoper26e51eeacccf\doFoo();
+    $notNullableObject = \_PhpScoperabd03f0baf05\doFoo();
     if ($notNullableObject === null) {
-        $notNullableObject = new \_PhpScoper26e51eeacccf\Foo();
+        $notNullableObject = new \_PhpScoperabd03f0baf05\Foo();
     }
     /** @var string|null $nullableString */
     $nullableString = 'foo';
@@ -293,30 +293,30 @@ function () {
         $nullableIntegerAfterNeverCondition = 1;
     }
     $arrayOfIntegers = [1, 2, 3];
-    $arrayAccessObject = new \_PhpScoper26e51eeacccf\ObjectWithArrayAccess\Foo();
+    $arrayAccessObject = new \_PhpScoperabd03f0baf05\ObjectWithArrayAccess\Foo();
     $arrayAccessObject[] = 1;
     $arrayAccessObject[] = 2;
     $width = 1;
     $scale = 2.0;
     $width *= $scale;
     /** @var mixed $mixed */
-    $mixed = \_PhpScoper26e51eeacccf\doFoo();
+    $mixed = \_PhpScoperabd03f0baf05\doFoo();
     if (\is_bool($mixed)) {
         $mixed = 1;
     }
     if (\rand(0, 1)) {
         /** @var mixed $issetBar */
-        $issetBar = \_PhpScoper26e51eeacccf\doFoo();
+        $issetBar = \_PhpScoperabd03f0baf05\doFoo();
         /** @var mixed $issetBaz */
-        $issetBaz = \_PhpScoper26e51eeacccf\doFoo();
+        $issetBaz = \_PhpScoperabd03f0baf05\doFoo();
     }
     try {
         $inTryTwo = 1;
     } catch (\Exception $e) {
         $exception = $e;
-        if (\_PhpScoper26e51eeacccf\something()) {
-            \_PhpScoper26e51eeacccf\bar();
-        } elseif (\_PhpScoper26e51eeacccf\foo() || ($foo = \_PhpScoper26e51eeacccf\exists() || \preg_match('#.*#', $subject, $matches2))) {
+        if (\_PhpScoperabd03f0baf05\something()) {
+            \_PhpScoperabd03f0baf05\bar();
+        } elseif (\_PhpScoperabd03f0baf05\foo() || ($foo = \_PhpScoperabd03f0baf05\exists() || \preg_match('#.*#', $subject, $matches2))) {
             if (isset($issetFoo, $issetBar) && isset($issetBaz)) {
                 $anotherF = 1;
                 for ($i = 0; $i < 5; $i++, $f = $i, $anotherF = $i) {

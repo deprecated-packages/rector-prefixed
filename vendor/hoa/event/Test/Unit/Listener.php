@@ -50,48 +50,48 @@ class Listener extends \Hoa\Test\Unit\Suite
 {
     public function case_constructor()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $ids = ['foo', 'bar', 'baz'])->when($result = new \Hoa\Event\Listener($source, $ids))->then->object($result)->isInstanceOf('Hoa\\Event\\Listener')->boolean($result->listenerExists('foo'))->isTrue()->boolean($result->listenerExists('bar'))->isTrue()->boolean($result->listenerExists('baz'))->isTrue();
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $ids = ['foo', 'bar', 'baz'])->when($result = new \Hoa\Event\Listener($source, $ids))->then->object($result)->isInstanceOf('Hoa\\Event\\Listener')->boolean($result->listenerExists('foo'))->isTrue()->boolean($result->listenerExists('bar'))->isTrue()->boolean($result->listenerExists('baz'))->isTrue();
     }
     public function case_attach()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $listenerId = 'foo', $listener = new \Hoa\Event\Listener($source, ['foo', 'bar']), $callable = function () {
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $listenerId = 'foo', $listener = new \Hoa\Event\Listener($source, ['foo', 'bar']), $callable = function () {
             return 42;
         })->when($result = $listener->attach($listenerId, $callable))->then->object($result)->isIdenticalTo($listener)->array($listener->fire($listenerId, new \Hoa\Event\Bucket()))->isEqualTo([42]);
     }
     public function case_attach_to_an_undefined_listener()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $listenerId = 'bar', $listener = new \Hoa\Event\Listener($source, ['foo', 'baz']), $callable = function () {
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $listenerId = 'bar', $listener = new \Hoa\Event\Listener($source, ['foo', 'baz']), $callable = function () {
         })->exception(function () use($listener, $listenerId, $callable) {
             $listener->attach($listenerId, $callable);
         })->isInstanceOf('Hoa\\Event\\Exception');
     }
     public function case_detach()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $listenerId = 'foo', $listener = new \Hoa\Event\Listener($source, ['foo', 'bar']), $callable = function () {
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $listenerId = 'foo', $listener = new \Hoa\Event\Listener($source, ['foo', 'bar']), $callable = function () {
             return 42;
         }, $listener->attach($listenerId, $callable))->when($result = $listener->detach($listenerId, $callable))->then->object($result)->isIdenticalTo($listener)->array($listener->fire($listenerId, new \Hoa\Event\Bucket()))->isEmpty();
     }
     public function case_detach_an_undefined_listener()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $listenerId = 'bar', $listener = new \Hoa\Event\Listener($source, ['foo', 'baz']), $callable = function () {
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $listenerId = 'bar', $listener = new \Hoa\Event\Listener($source, ['foo', 'baz']), $callable = function () {
         })->when($result = $listener->detach($listenerId, $callable))->then->object($result)->isIdenticalTo($listener);
     }
     public function case_detach_all()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $listenerId = 'foo', $listener = new \Hoa\Event\Listener($source, ['foo', 'bar']))->when($result = $listener->detachAll($listenerId))->then->object($result)->isIdenticalTo($listener)->boolean($listener->listenerExists($listenerId))->isFalse();
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $listenerId = 'foo', $listener = new \Hoa\Event\Listener($source, ['foo', 'bar']))->when($result = $listener->detachAll($listenerId))->then->object($result)->isIdenticalTo($listener)->boolean($listener->listenerExists($listenerId))->isFalse();
     }
     public function case_detach_all_with_an_undefined_listener()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $listenerId = 'bar', $listener = new \Hoa\Event\Listener($source, ['foo', 'baz']))->when($result = $listener->detachAll($listenerId))->then->object($result)->isIdenticalTo($listener);
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $listenerId = 'bar', $listener = new \Hoa\Event\Listener($source, ['foo', 'baz']))->when($result = $listener->detachAll($listenerId))->then->object($result)->isIdenticalTo($listener);
     }
     public function case_listener_exists()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $ids = [], $listener = new \Hoa\Event\Listener($source, $ids))->when($listener->addIds(['foo']))->then->boolean($listener->listenerExists('foo'))->isTrue()->boolean($listener->listenerExists('bar'))->isFalse()->when($listener->addIds(['bar']))->then->boolean($listener->listenerExists('bar'))->isTrue();
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $ids = [], $listener = new \Hoa\Event\Listener($source, $ids))->when($listener->addIds(['foo']))->then->boolean($listener->listenerExists('foo'))->isTrue()->boolean($listener->listenerExists('bar'))->isFalse()->when($listener->addIds(['bar']))->then->boolean($listener->listenerExists('bar'))->isTrue();
     }
     public function case_fire()
     {
         $self = $this;
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $ids = ['foo', 'bar'], $listener = new \Hoa\Event\Listener($source, $ids), $listenerId = 'foo', $bucket = new \Hoa\Event\Bucket(), $listener->attach($listenerId, function (\Hoa\Event\Bucket $receivedBucket) use($self, $bucket, $source, &$called) {
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $ids = ['foo', 'bar'], $listener = new \Hoa\Event\Listener($source, $ids), $listenerId = 'foo', $bucket = new \Hoa\Event\Bucket(), $listener->attach($listenerId, function (\Hoa\Event\Bucket $receivedBucket) use($self, $bucket, $source, &$called) {
             $called = \true;
             $self->object($receivedBucket)->isIdenticalTo($bucket)->object($receivedBucket->getSource())->isIdenticalTo($source);
             return 42;
@@ -99,7 +99,7 @@ class Listener extends \Hoa\Test\Unit\Suite
     }
     public function case_fire_an_undefined_listenerId()
     {
-        $this->given($source = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Listenable(), $ids = [], $listener = new \Hoa\Event\Listener($source, $ids))->exception(function () use($listener) {
+        $this->given($source = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Listenable(), $ids = [], $listener = new \Hoa\Event\Listener($source, $ids))->exception(function () use($listener) {
             $listener->fire('foo', new \Hoa\Event\Bucket());
         })->isInstanceOf('Hoa\\Event\\Exception');
     }

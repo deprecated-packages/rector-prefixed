@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Form\Extension\Core\Type;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Form\Extension\Core\Type;
 
-use _PhpScoper26e51eeacccf\Symfony\Component\Form\FormBuilderInterface;
-use _PhpScoper26e51eeacccf\Symfony\Component\Form\FormTypeInterface;
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType')) {
+use _PhpScoperabd03f0baf05\Symfony\Component\Form\FormBuilderInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Form\FormTypeInterface;
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType')) {
     return;
 }
-class TextType implements \_PhpScoper26e51eeacccf\Symfony\Component\Form\FormTypeInterface, \_PhpScoper26e51eeacccf\Symfony\Component\Form\FormBuilderInterface
+class TextType implements \_PhpScoperabd03f0baf05\Symfony\Component\Form\FormTypeInterface, \_PhpScoperabd03f0baf05\Symfony\Component\Form\FormBuilderInterface
 {
 }

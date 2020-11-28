@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\UnusedPrivateMethod;
+namespace _PhpScoperabd03f0baf05\UnusedPrivateMethod;
 
 class Foo
 {

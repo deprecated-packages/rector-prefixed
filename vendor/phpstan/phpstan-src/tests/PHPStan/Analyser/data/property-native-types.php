@@ -1,12 +1,12 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScoper26e51eeacccf\PropertyNativeTypes;
+namespace _PhpScoperabd03f0baf05\PropertyNativeTypes;
 
 class Foo
 {
     private string $stringProp;
-    private \_PhpScoper26e51eeacccf\self $selfProp;
+    private \_PhpScoperabd03f0baf05\self $selfProp;
     /** @var int[] */
     private array $integersProp;
     public function doFoo()

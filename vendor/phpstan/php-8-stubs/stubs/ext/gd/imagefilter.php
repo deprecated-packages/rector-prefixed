@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #endif
 /** @param array|int|float|bool $args */
-function imagefilter(\_PhpScoper26e51eeacccf\GdImage $image, int $filter, ...$args) : bool
+function imagefilter(\_PhpScoperabd03f0baf05\GdImage $image, int $filter, ...$args) : bool
 {
 }

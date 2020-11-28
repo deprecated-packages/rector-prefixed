@@ -1,12 +1,12 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper26e51eeacccf\NativeStaticReturnType;
+namespace _PhpScoperabd03f0baf05\NativeStaticReturnType;
 
 use function PHPStan\Analyser\assertType;
 class Foo
 {
-    public function doFoo() : \_PhpScoper26e51eeacccf\static
+    public function doFoo() : \_PhpScoperabd03f0baf05\static
     {
         return new static();
     }
@@ -26,18 +26,18 @@ class Foo
         return $f;
     }
 }
-class Bar extends \_PhpScoper26e51eeacccf\NativeStaticReturnType\Foo
+class Bar extends \_PhpScoperabd03f0baf05\NativeStaticReturnType\Foo
 {
 }
-function (\_PhpScoper26e51eeacccf\NativeStaticReturnType\Foo $foo) : void {
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\NativeStaticReturnType\\Foo', $foo->doFoo());
+function (\_PhpScoperabd03f0baf05\NativeStaticReturnType\Foo $foo) : void {
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\NativeStaticReturnType\\Foo', $foo->doFoo());
     $callable = $foo->doBaz();
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\callable(): NativeStaticReturnType\\Foo', $callable);
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\NativeStaticReturnType\\Foo', $callable());
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\callable(): NativeStaticReturnType\\Foo', $callable);
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\NativeStaticReturnType\\Foo', $callable());
 };
-function (\_PhpScoper26e51eeacccf\NativeStaticReturnType\Bar $bar) : void {
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\NativeStaticReturnType\\Bar', $bar->doFoo());
+function (\_PhpScoperabd03f0baf05\NativeStaticReturnType\Bar $bar) : void {
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\NativeStaticReturnType\\Bar', $bar->doFoo());
     $callable = $bar->doBaz();
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\callable(): NativeStaticReturnType\\Bar', $callable);
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\NativeStaticReturnType\\Bar', $callable());
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\callable(): NativeStaticReturnType\\Bar', $callable);
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\NativeStaticReturnType\\Bar', $callable());
 };

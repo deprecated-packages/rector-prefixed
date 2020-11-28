@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\PrivatePropertyWithTags;
+namespace _PhpScoperabd03f0baf05\PrivatePropertyWithTags;
 
-use _PhpScoper26e51eeacccf\Doctrine\ORM\Mapping as ORM;
+use _PhpScoperabd03f0baf05\Doctrine\ORM\Mapping as ORM;
 class Foo
 {
     /**

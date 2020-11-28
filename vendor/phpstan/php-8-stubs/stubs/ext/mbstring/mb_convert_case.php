@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function mb_convert_case(string $string, int $mode, ?string $encoding = null) : string
 {

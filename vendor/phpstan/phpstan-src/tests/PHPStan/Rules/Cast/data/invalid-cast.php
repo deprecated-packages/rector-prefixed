@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function (string $str) {
     (string) $str;
     (string) new \stdClass();
-    (string) new \_PhpScoper26e51eeacccf\Test\ClassWithToString();
+    (string) new \_PhpScoperabd03f0baf05\Test\ClassWithToString();
     (object) new \stdClass();
     (float) 1.2;
     (int) $str;
@@ -25,9 +25,9 @@ function (string $str) {
     (string) \fopen('php://memory', 'r');
     (int) \fopen('php://memory', 'r');
 };
-function (\_PhpScoper26e51eeacccf\Test\Foo $foo) {
+function (\_PhpScoperabd03f0baf05\Test\Foo $foo) {
     /** @var object $object */
-    $object = \_PhpScoper26e51eeacccf\doFoo();
+    $object = \_PhpScoperabd03f0baf05\doFoo();
     (string) $object;
     if (\method_exists($object, '__toString')) {
         (string) $object;
@@ -37,7 +37,7 @@ function (\_PhpScoper26e51eeacccf\Test\Foo $foo) {
         (string) $foo;
     }
     /** @var array|float|int $arrayOrFloatOrInt */
-    $arrayOrFloatOrInt = \_PhpScoper26e51eeacccf\doFoo();
+    $arrayOrFloatOrInt = \_PhpScoperabd03f0baf05\doFoo();
     (string) $arrayOrFloatOrInt;
 };
 function (\SimpleXMLElement $xml) {

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Config\Definition\Builder;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Config\Definition\Builder;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder')) {
     return;
 }
 class TreeBuilder

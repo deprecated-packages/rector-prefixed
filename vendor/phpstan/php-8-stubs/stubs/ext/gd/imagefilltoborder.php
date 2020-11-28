@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imagefilltoborder(\_PhpScoper26e51eeacccf\GdImage $image, int $x, int $y, int $border_color, int $color) : bool
+function imagefilltoborder(\_PhpScoperabd03f0baf05\GdImage $image, int $x, int $y, int $border_color, int $color) : bool
 {
 }

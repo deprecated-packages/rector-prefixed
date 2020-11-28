@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ReturnTypes;
+namespace _PhpScoperabd03f0baf05\ReturnTypes;
 
-class FooPhp70 extends \_PhpScoper26e51eeacccf\ReturnTypes\FooParent implements \_PhpScoper26e51eeacccf\ReturnTypes\FooInterface
+class FooPhp70 extends \_PhpScoperabd03f0baf05\ReturnTypes\FooParent implements \_PhpScoperabd03f0baf05\ReturnTypes\FooInterface
 {
     public function returnInteger() : int
     {

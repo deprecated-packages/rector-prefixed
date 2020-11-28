@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\MixinMethods;
+namespace _PhpScoperabd03f0baf05\MixinMethods;
 
 class Foo
 {
@@ -17,14 +17,14 @@ class Bar
     {
     }
 }
-function (\_PhpScoper26e51eeacccf\MixinMethods\Bar $bar) : void {
+function (\_PhpScoperabd03f0baf05\MixinMethods\Bar $bar) : void {
     $bar->doFoo();
     $bar->doFoo(1);
 };
-class Baz extends \_PhpScoper26e51eeacccf\MixinMethods\Bar
+class Baz extends \_PhpScoperabd03f0baf05\MixinMethods\Bar
 {
 }
-function (\_PhpScoper26e51eeacccf\MixinMethods\Baz $baz) : void {
+function (\_PhpScoperabd03f0baf05\MixinMethods\Baz $baz) : void {
     $baz->doFoo();
     $baz->doFoo(1);
 };
@@ -40,7 +40,7 @@ class Test
     /**
      * @param GenericFoo<\Exception> $foo
      */
-    public function doFoo(\_PhpScoper26e51eeacccf\MixinMethods\GenericFoo $foo) : void
+    public function doFoo(\_PhpScoperabd03f0baf05\MixinMethods\GenericFoo $foo) : void
     {
         echo $foo->getMessage();
         echo $foo->getMessage(1);

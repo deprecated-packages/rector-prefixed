@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraints;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Validator\\Constraints\\NotBlank')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Validator\\Constraints\\NotBlank')) {
     return;
 }
 use InvalidArgumentException;
-use _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint;
+use _PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class NotBlank extends \_PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint
+class NotBlank extends \_PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraint
 {
     const IS_BLANK_ERROR = 'c1051bb4-d103-4f74-8988-acbcafc7fdc3';
     protected static $errorNames = [self::IS_BLANK_ERROR => 'IS_BLANK_ERROR'];

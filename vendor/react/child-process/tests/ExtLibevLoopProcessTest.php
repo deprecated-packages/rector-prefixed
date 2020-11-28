@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Tests\ChildProcess;
+namespace _PhpScoperabd03f0baf05\React\Tests\ChildProcess;
 
-use _PhpScoper26e51eeacccf\React\EventLoop\ExtLibevLoop;
-use _PhpScoper26e51eeacccf\React\EventLoop\LibEvLoop;
-class ExtLibevLoopProcessTest extends \_PhpScoper26e51eeacccf\React\Tests\ChildProcess\AbstractProcessTest
+use _PhpScoperabd03f0baf05\React\EventLoop\ExtLibevLoop;
+use _PhpScoperabd03f0baf05\React\EventLoop\LibEvLoop;
+class ExtLibevLoopProcessTest extends \_PhpScoperabd03f0baf05\React\Tests\ChildProcess\AbstractProcessTest
 {
     public function createLoop()
     {
-        if (!\class_exists('_PhpScoper26e51eeacccf\\libev\\EventLoop')) {
+        if (!\class_exists('_PhpScoperabd03f0baf05\\libev\\EventLoop')) {
             $this->markTestSkipped('ext-libev is not installed.');
         }
-        return \class_exists('_PhpScoper26e51eeacccf\\React\\EventLoop\\ExtLibevLoop') ? new \_PhpScoper26e51eeacccf\React\EventLoop\ExtLibevLoop() : new \_PhpScoper26e51eeacccf\React\EventLoop\LibEvLoop();
+        return \class_exists('_PhpScoperabd03f0baf05\\React\\EventLoop\\ExtLibevLoop') ? new \_PhpScoperabd03f0baf05\React\EventLoop\ExtLibevLoop() : new \_PhpScoperabd03f0baf05\React\EventLoop\LibEvLoop();
     }
 }

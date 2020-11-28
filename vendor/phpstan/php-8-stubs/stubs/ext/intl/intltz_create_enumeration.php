@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /**
  * @param IntlTimeZone|string|int|float|null $countryOrRawOffset

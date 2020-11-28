@@ -57,7 +57,7 @@ final class AddMockPropertiesRector extends \Rector\PhpSpecToPHPUnit\Rector\Abst
             }
             $this->phpSpecMockCollector->addPropertyMock($class, $name);
             $variableType = $this->phpSpecMockCollector->getTypeForClassAndVariable($node, $name);
-            $unionType = new \PHPStan\Type\UnionType([new \PHPStan\Type\ObjectType($variableType), new \PHPStan\Type\ObjectType('_PhpScoper26e51eeacccf\\PHPUnit\\Framework\\MockObject\\MockObject')]);
+            $unionType = new \PHPStan\Type\UnionType([new \PHPStan\Type\ObjectType($variableType), new \PHPStan\Type\ObjectType('_PhpScoperabd03f0baf05\\PHPUnit\\Framework\\MockObject\\MockObject')]);
             $this->classInsertManipulator->addPropertyToClass($node, $name, $unionType);
         }
         return null;

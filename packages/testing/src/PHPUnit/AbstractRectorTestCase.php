@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Testing\PHPUnit;
 
 use Iterator;
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PHPStan\Analyser\NodeScopeResolver;
-use _PhpScoper26e51eeacccf\PHPUnit\Framework\ExpectationFailedException;
+use _PhpScoperabd03f0baf05\PHPUnit\Framework\ExpectationFailedException;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
@@ -29,10 +29,10 @@ use Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
 use Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
 use Rector\Testing\PHPUnit\Behavior\RunnableTestTrait;
 use Rector\Testing\ValueObject\InputFilePathWithExpectedFile;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\Container;
-use _PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\KernelInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Container;
+use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelInterface;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use Symplify\EasyTesting\StaticFixtureSplitter;
@@ -131,7 +131,7 @@ abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\A
         $stubLoader->loadStubs();
         // disable any output
         $symfonyStyle = static::$container->get(\Symfony\Component\Console\Style\SymfonyStyle::class);
-        $symfonyStyle->setVerbosity(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
+        $symfonyStyle->setVerbosity(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         $this->fileProcessor = static::$container->get(\Rector\Core\Application\FileProcessor::class);
         $this->nonPhpFileProcessor = static::$container->get(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
         $this->parameterProvider = static::$container->get(\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
@@ -209,7 +209,7 @@ abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\A
      * @deprecated Will be supported in Symplify 9
      * @param SmartFileInfo[] $configFileInfos
      */
-    protected function bootKernelWithConfigInfos(string $class, array $configFileInfos) : \_PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\KernelInterface
+    protected function bootKernelWithConfigInfos(string $class, array $configFileInfos) : \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelInterface
     {
         $configFiles = [];
         foreach ($configFileInfos as $configFileInfo) {
@@ -254,7 +254,7 @@ abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\A
         if (!\file_exists($inputFileInfo->getPathname())) {
             return;
         }
-        if (!\_PhpScoper26e51eeacccf\Nette\Utils\Strings::contains($inputFileInfo->getContents(), \Rector\Testing\Contract\RunnableInterface::class)) {
+        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($inputFileInfo->getContents(), \Rector\Testing\Contract\RunnableInterface::class)) {
             return;
         }
         $this->assertOriginalAndFixedFileResultEquals($inputFileInfo, $expectedFileInfo);
@@ -337,7 +337,7 @@ abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\A
     private function doTestFileMatchesExpectedContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
     {
         $this->setParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
-        if (!\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
+        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
             if ($extraFiles === []) {
                 $this->fileProcessor->parseFileInfoToLocalCache($originalFileInfo);
                 $this->fileProcessor->refactor($originalFileInfo);
@@ -362,7 +362,7 @@ abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\A
             $changedContent = $this->fileProcessor->printToString($originalFileInfo);
             $removedAndAddedFilesProcessor = self::$container->get(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor::class);
             $removedAndAddedFilesProcessor->run();
-        } elseif (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
+        } elseif (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
             $changedContent = $this->nonPhpFileProcessor->processFileInfo($originalFileInfo);
         } else {
             $message = \sprintf('Suffix "%s" is not supported yet', $originalFileInfo->getSuffix());
@@ -371,9 +371,11 @@ abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\A
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
         try {
             $this->assertStringEqualsFile($expectedFileInfo->getRealPath(), $changedContent, $relativeFilePathFromCwd);
-        } catch (\_PhpScoper26e51eeacccf\PHPUnit\Framework\ExpectationFailedException $expectationFailedException) {
+        } catch (\_PhpScoperabd03f0baf05\PHPUnit\Framework\ExpectationFailedException $expectationFailedException) {
             \Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateFixtureContent($originalFileInfo, $changedContent, $fixtureFileInfo);
             $contents = $expectedFileInfo->getContents();
+            // make sure we don't get a diff in which every line is different (because of differences in EOL)
+            $contents = $this->normalizeNewlines($contents);
             // if not exact match, check the regex version (useful for generated hashes/uuids in the code)
             $this->assertStringMatchesFormat($contents, $changedContent, $relativeFilePathFromCwd);
         }
@@ -402,5 +404,9 @@ abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\A
         $smartPhpConfigPrinter = $phpConfigPrinterFactory->create();
         $fileContent = $smartPhpConfigPrinter->printConfiguredServices($rectorClassesWithConfiguration);
         $this->smartFileSystem->dumpFile($filePath, $fileContent);
+    }
+    private function normalizeNewlines(string $string) : string
+    {
+        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($string, '#\\r\\n|\\r|\\n#', "\n");
     }
 }

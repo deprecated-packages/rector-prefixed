@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SessionHandler implements \SessionHandlerInterface, \SessionIdInterface
 {
@@ -33,4 +33,4 @@ class SessionHandler implements \SessionHandlerInterface, \SessionIdInterface
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SessionHandler', 'SessionHandler', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SessionHandler', 'SessionHandler', \false);

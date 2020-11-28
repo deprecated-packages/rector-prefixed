@@ -39,7 +39,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper26e51eeacccf\\Symfony\\Component\\Process\\ProcessBuilder')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperabd03f0baf05\\Symfony\\Component\\Process\\ProcessBuilder')) {
             return null;
         }
         if (!$this->isName($node->name, 'getProcess')) {

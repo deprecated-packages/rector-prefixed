@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class Normalizer
@@ -30,4 +30,4 @@ class Normalizer
     #endif
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\Normalizer', 'Normalizer', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Normalizer', 'Normalizer', \false);

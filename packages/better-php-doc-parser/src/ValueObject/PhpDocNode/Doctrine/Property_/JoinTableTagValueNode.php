@@ -63,7 +63,7 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     }
     public function getShortName() : string
     {
-        return '_PhpScoper26e51eeacccf\\@ORM\\JoinTable';
+        return '_PhpScoperabd03f0baf05\\@ORM\\JoinTable';
     }
     /**
      * @return mixed[]

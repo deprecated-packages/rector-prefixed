@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function oci_collection_assign(\_PhpScoper26e51eeacccf\OCICollection $to, \_PhpScoper26e51eeacccf\OCICollection $from) : bool
+function oci_collection_assign(\_PhpScoperabd03f0baf05\OCICollection $to, \_PhpScoperabd03f0baf05\OCICollection $from) : bool
 {
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Factory\Exception;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Type\Composer\Factory\Exception;
 
 use UnexpectedValueException;
 use function sprintf;
-final class MissingComposerJson extends \UnexpectedValueException implements \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Factory\Exception\Exception
+final class MissingComposerJson extends \UnexpectedValueException implements \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Type\Composer\Factory\Exception\Exception
 {
     public static function inProjectPath(string $path) : self
     {

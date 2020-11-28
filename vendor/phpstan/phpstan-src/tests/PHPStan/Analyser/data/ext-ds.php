@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ExtDs;
+namespace _PhpScoperabd03f0baf05\ExtDs;
 
 use Ds\Map;
 use Ds\Set;
@@ -45,36 +45,36 @@ class Foo
     }
     public function mapMerge() : void
     {
-        $a = new \Ds\Map([1 => new \_PhpScoper26e51eeacccf\ExtDs\A()]);
-        \PHPStan\Analyser\assertType('Ds\\Map<int|string, ExtDs\\A|ExtDs\\B>', $a->merge(['a' => new \_PhpScoper26e51eeacccf\ExtDs\B()]));
+        $a = new \Ds\Map([1 => new \_PhpScoperabd03f0baf05\ExtDs\A()]);
+        \PHPStan\Analyser\assertType('Ds\\Map<int|string, ExtDs\\A|ExtDs\\B>', $a->merge(['a' => new \_PhpScoperabd03f0baf05\ExtDs\B()]));
     }
     public function mapUnion() : void
     {
-        $a = new \Ds\Map([1 => new \_PhpScoper26e51eeacccf\ExtDs\A()]);
-        $b = new \Ds\Map(['a' => new \_PhpScoper26e51eeacccf\ExtDs\B()]);
+        $a = new \Ds\Map([1 => new \_PhpScoperabd03f0baf05\ExtDs\A()]);
+        $b = new \Ds\Map(['a' => new \_PhpScoperabd03f0baf05\ExtDs\B()]);
         \PHPStan\Analyser\assertType('Ds\\Map<int|string, ExtDs\\A|ExtDs\\B>', $a->union($b));
     }
     public function mapXor() : void
     {
-        $a = new \Ds\Map([1 => new \_PhpScoper26e51eeacccf\ExtDs\A()]);
-        $b = new \Ds\Map(['a' => new \_PhpScoper26e51eeacccf\ExtDs\B()]);
+        $a = new \Ds\Map([1 => new \_PhpScoperabd03f0baf05\ExtDs\A()]);
+        $b = new \Ds\Map(['a' => new \_PhpScoperabd03f0baf05\ExtDs\B()]);
         \PHPStan\Analyser\assertType('Ds\\Map<int|string, ExtDs\\A|ExtDs\\B>', $a->xor($b));
     }
     public function setMerge() : void
     {
-        $a = new \Ds\Set([new \_PhpScoper26e51eeacccf\ExtDs\A()]);
-        \PHPStan\Analyser\assertType('Ds\\Set<ExtDs\\A|ExtDs\\B>', $a->merge([new \_PhpScoper26e51eeacccf\ExtDs\B()]));
+        $a = new \Ds\Set([new \_PhpScoperabd03f0baf05\ExtDs\A()]);
+        \PHPStan\Analyser\assertType('Ds\\Set<ExtDs\\A|ExtDs\\B>', $a->merge([new \_PhpScoperabd03f0baf05\ExtDs\B()]));
     }
     public function setUnion() : void
     {
-        $a = new \Ds\Set([new \_PhpScoper26e51eeacccf\ExtDs\A()]);
-        $b = new \Ds\Set([new \_PhpScoper26e51eeacccf\ExtDs\B()]);
+        $a = new \Ds\Set([new \_PhpScoperabd03f0baf05\ExtDs\A()]);
+        $b = new \Ds\Set([new \_PhpScoperabd03f0baf05\ExtDs\B()]);
         \PHPStan\Analyser\assertType('Ds\\Set<ExtDs\\A|ExtDs\\B>', $a->union($b));
     }
     public function setXor() : void
     {
-        $a = new \Ds\Set([new \_PhpScoper26e51eeacccf\ExtDs\A()]);
-        $b = new \Ds\Set([new \_PhpScoper26e51eeacccf\ExtDs\B()]);
+        $a = new \Ds\Set([new \_PhpScoperabd03f0baf05\ExtDs\A()]);
+        $b = new \Ds\Set([new \_PhpScoperabd03f0baf05\ExtDs\B()]);
         \PHPStan\Analyser\assertType('Ds\\Set<ExtDs\\A|ExtDs\\B>', $a->xor($b));
     }
 }

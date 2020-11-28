@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\HttpFoundation;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\HttpFoundation\\Request')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\HttpFoundation\\Request')) {
     return;
 }
 final class Request

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Twig_Filter_Method')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Twig_Filter_Method')) {
     return;
 }
 class Twig_Filter_Method
 {
 }
-\class_alias('_PhpScoper26e51eeacccf\\Twig_Filter_Method', 'Twig_Filter_Method', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Twig_Filter_Method', 'Twig_Filter_Method', \false);

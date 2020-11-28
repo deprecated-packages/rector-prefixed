@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\ChangesReporting\Output;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
@@ -123,8 +123,8 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     }
     private function normalizePathsToRelativeWithLine(string $errorMessage) : string
     {
-        $errorMessage = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($errorMessage, '#' . \preg_quote(\getcwd(), '#') . '/#');
-        return $errorMessage = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
+        $errorMessage = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($errorMessage, '#' . \preg_quote(\getcwd(), '#') . '/#');
+        return $errorMessage = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
     private function reportRemovedNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
@@ -142,7 +142,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
                 $this->symfonyStyle->writeln($message);
                 $printedNode = $this->betterStandardPrinter->print($removedNode);
                 // color red + prefix with "-" to visually demonstrate removal
-                $printedNode = '-' . \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($printedNode, '#\\n#', "\n-");
+                $printedNode = '-' . \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($printedNode, '#\\n#', "\n-");
                 $printedNode = $this->colorTextToRed($printedNode);
                 $this->symfonyStyle->writeln($printedNode);
                 $this->symfonyStyle->newLine(1);

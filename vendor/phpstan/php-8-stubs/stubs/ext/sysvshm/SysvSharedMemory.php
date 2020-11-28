@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 final class SysvSharedMemory
 {
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\SysvSharedMemory', 'SysvSharedMemory', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SysvSharedMemory', 'SysvSharedMemory', \false);

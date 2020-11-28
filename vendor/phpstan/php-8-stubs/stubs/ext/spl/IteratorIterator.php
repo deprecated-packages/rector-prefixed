@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class IteratorIterator implements \OuterIterator
 {
@@ -32,4 +32,4 @@ class IteratorIterator implements \OuterIterator
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\IteratorIterator', 'IteratorIterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\IteratorIterator', 'IteratorIterator', \false);

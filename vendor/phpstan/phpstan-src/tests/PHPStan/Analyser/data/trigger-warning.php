@@ -1,5 +1,5 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 \trigger_error('This should not be seen in Analyser output', \E_WARNING);

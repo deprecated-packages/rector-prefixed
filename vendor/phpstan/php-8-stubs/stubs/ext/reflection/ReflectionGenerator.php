@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 final class ReflectionGenerator
 {
@@ -32,4 +32,4 @@ final class ReflectionGenerator
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ReflectionGenerator', 'ReflectionGenerator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ReflectionGenerator', 'ReflectionGenerator', \false);

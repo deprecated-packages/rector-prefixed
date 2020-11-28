@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types;
 
 use function strlen;
 use function substr;

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Bundle\FrameworkBundle\Test;
+namespace _PhpScoperabd03f0baf05\Symfony\Bundle\FrameworkBundle\Test;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase')) {
     return;
 }
-class WebTestCase extends \_PhpScoper26e51eeacccf\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+class WebTestCase extends \_PhpScoperabd03f0baf05\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 {
 }

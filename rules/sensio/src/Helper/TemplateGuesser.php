@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Sensio\Helper;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -75,7 +75,7 @@ final class TemplateGuesser
     {
         $bundle = $this->resolveBundle($class, $namespace);
         $controller = $this->resolveController($class);
-        $action = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($method, self::ACTION_MATCH_REGEX);
+        $action = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($method, self::ACTION_MATCH_REGEX);
         $fullPath = '';
         if ($bundle !== '') {
             $fullPath .= $bundle . '/';
@@ -91,17 +91,17 @@ final class TemplateGuesser
         if ($shortBundleClass !== null) {
             return '@' . $shortBundleClass;
         }
-        $bundle = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($namespace, self::BUNDLE_NAME_MATCHING_REGEX)['bundle'] ?? '';
-        $bundle = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($bundle, self::BUNDLE_SUFFIX_REGEX);
+        $bundle = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($namespace, self::BUNDLE_NAME_MATCHING_REGEX)['bundle'] ?? '';
+        $bundle = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($bundle, self::BUNDLE_SUFFIX_REGEX);
         return $bundle !== '' ? '@' . $bundle : '';
     }
     private function resolveController(string $class) : string
     {
-        $match = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($class, self::CONTROLLER_NAME_MATCH_REGEX);
+        $match = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($class, self::CONTROLLER_NAME_MATCH_REGEX);
         if (!$match) {
             return '';
         }
-        $controller = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($match[1], self::SMALL_LETTER_BIG_LETTER_REGEX, '_PhpScoper26e51eeacccf\\1_\\2');
+        $controller = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($match[1], self::SMALL_LETTER_BIG_LETTER_REGEX, '_PhpScoperabd03f0baf05\\1_\\2');
         return \str_replace('\\', '/', $controller);
     }
 }

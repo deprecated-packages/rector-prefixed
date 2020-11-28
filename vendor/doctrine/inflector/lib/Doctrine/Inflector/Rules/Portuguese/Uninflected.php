@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Portuguese;
+namespace _PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Portuguese;
 
-use _PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Pattern;
+use _PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -25,10 +25,10 @@ final class Uninflected
      */
     private static function getDefault() : iterable
     {
-        (yield new \_PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Pattern('tórax'));
-        (yield new \_PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Pattern('tênis'));
-        (yield new \_PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Pattern('ônibus'));
-        (yield new \_PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Pattern('lápis'));
-        (yield new \_PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Pattern('fênix'));
+        (yield new \_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Pattern('tórax'));
+        (yield new \_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Pattern('tênis'));
+        (yield new \_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Pattern('ônibus'));
+        (yield new \_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Pattern('lápis'));
+        (yield new \_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Pattern('fênix'));
     }
 }

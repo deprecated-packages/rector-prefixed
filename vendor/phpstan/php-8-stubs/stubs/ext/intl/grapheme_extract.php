@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @param int $next */
 function grapheme_extract(string $haystack, int $size, int $type = \GRAPHEME_EXTR_COUNT, int $offset = 0, &$next = null) : string|false

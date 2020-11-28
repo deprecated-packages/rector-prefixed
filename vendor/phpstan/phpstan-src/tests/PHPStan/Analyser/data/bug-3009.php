@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug3009;
+namespace _PhpScoperabd03f0baf05\Bug3009;
 
 use function PHPStan\Analyser\assertType;
 class HelloWorld

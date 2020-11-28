@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Dns\Query;
+namespace _PhpScoperabd03f0baf05\React\Dns\Query;
 
-use _PhpScoper26e51eeacccf\React\Cache\CacheInterface;
-use _PhpScoper26e51eeacccf\React\Dns\Model\Message;
-use _PhpScoper26e51eeacccf\React\Promise\Promise;
-final class CachingExecutor implements \_PhpScoper26e51eeacccf\React\Dns\Query\ExecutorInterface
+use _PhpScoperabd03f0baf05\React\Cache\CacheInterface;
+use _PhpScoperabd03f0baf05\React\Dns\Model\Message;
+use _PhpScoperabd03f0baf05\React\Promise\Promise;
+final class CachingExecutor implements \_PhpScoperabd03f0baf05\React\Dns\Query\ExecutorInterface
 {
     /**
      * Default TTL for negative responses (NXDOMAIN etc.).
@@ -15,26 +15,26 @@ final class CachingExecutor implements \_PhpScoper26e51eeacccf\React\Dns\Query\E
     const TTL = 60;
     private $executor;
     private $cache;
-    public function __construct(\_PhpScoper26e51eeacccf\React\Dns\Query\ExecutorInterface $executor, \_PhpScoper26e51eeacccf\React\Cache\CacheInterface $cache)
+    public function __construct(\_PhpScoperabd03f0baf05\React\Dns\Query\ExecutorInterface $executor, \_PhpScoperabd03f0baf05\React\Cache\CacheInterface $cache)
     {
         $this->executor = $executor;
         $this->cache = $cache;
     }
-    public function query(\_PhpScoper26e51eeacccf\React\Dns\Query\Query $query)
+    public function query(\_PhpScoperabd03f0baf05\React\Dns\Query\Query $query)
     {
         $id = $query->name . ':' . $query->type . ':' . $query->class;
         $cache = $this->cache;
         $that = $this;
         $executor = $this->executor;
         $pending = $cache->get($id);
-        return new \_PhpScoper26e51eeacccf\React\Promise\Promise(function ($resolve, $reject) use($query, $id, $cache, $executor, &$pending, $that) {
+        return new \_PhpScoperabd03f0baf05\React\Promise\Promise(function ($resolve, $reject) use($query, $id, $cache, $executor, &$pending, $that) {
             $pending->then(function ($message) use($query, $id, $cache, $executor, &$pending, $that) {
                 // return cached response message on cache hit
                 if ($message !== null) {
                     return $message;
                 }
                 // perform DNS lookup if not already cached
-                return $pending = $executor->query($query)->then(function (\_PhpScoper26e51eeacccf\React\Dns\Model\Message $message) use($cache, $id, $that) {
+                return $pending = $executor->query($query)->then(function (\_PhpScoperabd03f0baf05\React\Dns\Model\Message $message) use($cache, $id, $that) {
                     // DNS response message received => store in cache when not truncated and return
                     if (!$message->tc) {
                         $cache->set($id, $message, $that->ttl($message));
@@ -56,7 +56,7 @@ final class CachingExecutor implements \_PhpScoper26e51eeacccf\React\Dns\Query\E
      * @return int
      * @internal
      */
-    public function ttl(\_PhpScoper26e51eeacccf\React\Dns\Model\Message $message)
+    public function ttl(\_PhpScoperabd03f0baf05\React\Dns\Model\Message $message)
     {
         // select TTL from answers (should all be the same), use smallest value if available
         // @link https://tools.ietf.org/html/rfc2181#section-5.2

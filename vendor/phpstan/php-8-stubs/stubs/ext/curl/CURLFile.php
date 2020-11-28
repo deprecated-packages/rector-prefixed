@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class CURLFile
@@ -30,4 +30,4 @@ class CURLFile
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\CURLFile', 'CURLFile', \false);
+\class_alias('_PhpScoperabd03f0baf05\\CURLFile', 'CURLFile', \false);

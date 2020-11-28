@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InterfaceAncestorsExtends;
+namespace _PhpScoperabd03f0baf05\InterfaceAncestorsExtends;
 
 /**
  * @template T
@@ -33,104 +33,104 @@ interface FooDoesNotImplementAnything
  * @extends FooGeneric<int, \InvalidArgumentException>
  * @extends FooGeneric2<int, \InvalidArgumentException>
  */
-interface FooInvalidImplementsTags extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooInvalidImplementsTags extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric2<int, \InvalidArgumentException>
  */
-interface FooWrongClassImplemented extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric, \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric3
+interface FooWrongClassImplemented extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric, \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric3
 {
 }
 /**
  * @extends class-string<T>
  */
-interface FooWrongTypeInImplementsTag extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooWrongTypeInImplementsTag extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int, \InvalidArgumentException>
  */
-interface FooCorrect extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooCorrect extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int>
  */
-interface FooNotEnough extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooNotEnough extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int, \InvalidArgumentException, string>
  */
-interface FooExtraTypes extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooExtraTypes extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int, \Throwable>
  */
-interface FooNotSubtype extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooNotSubtype extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<int, \stdClass>
  */
-interface FooAlsoNotSubtype extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooAlsoNotSubtype extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @extends FooGeneric<Zazzuuuu, \Exception>
  */
-interface FooUnknowninterface extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooUnknowninterface extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T
  * @extends FooGeneric<int, T>
  */
-interface FooGenericGeneric extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooGenericGeneric extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \Throwable
  * @extends FooGeneric<int, T>
  */
-interface FooGenericGeneric2 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooGenericGeneric2 extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \Exception
  * @extends FooGeneric<int, T>
  */
-interface FooGenericGeneric3 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooGenericGeneric3 extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \InvalidArgumentException
  * @extends FooGeneric<int, T>
  */
-interface FooGenericGeneric4 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooGenericGeneric4 extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T
  * @extends FooGeneric<T, \Exception>
  */
-interface FooGenericGeneric5 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooGenericGeneric5 extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \stdClass
  * @extends FooGeneric<T, \Exception>
  */
-interface FooGenericGeneric6 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooGenericGeneric6 extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
  * @template T of \stdClass
  * @extends FooGeneric<int, T>
  */
-interface FooGenericGeneric7 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface FooGenericGeneric7 extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
@@ -138,16 +138,16 @@ interface FooGenericGeneric7 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsE
  * @extends FooGeneric<int, T>
  * @extends FooGeneric2<int, T>
  */
-interface FooGenericGeneric8 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric, \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric2
+interface FooGenericGeneric8 extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric, \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric2
 {
 }
 interface NonGenericInterface
 {
 }
-interface ExtendsNonGenericInterface extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\NonGenericInterface
+interface ExtendsNonGenericInterface extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\NonGenericInterface
 {
 }
-interface ExtendsGenericInterface extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric
+interface ExtendsGenericInterface extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric
 {
 }
 /**
@@ -161,6 +161,6 @@ interface FooGeneric9
  * @template-covariant T
  * @extends FooGeneric9<T, T>
  */
-interface FooGeneric10 extends \_PhpScoper26e51eeacccf\InterfaceAncestorsExtends\FooGeneric9
+interface FooGeneric10 extends \_PhpScoperabd03f0baf05\InterfaceAncestorsExtends\FooGeneric9
 {
 }

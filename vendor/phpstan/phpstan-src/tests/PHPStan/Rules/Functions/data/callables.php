@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\CallCallables;
+namespace _PhpScoperabd03f0baf05\CallCallables;
 
 class Foo
 {
@@ -23,8 +23,8 @@ class Foo
     }
     public static function doStaticBaz()
     {
-        ['_PhpScoper26e51eeacccf\\CallCallables\\Foo', 'doStaticBaz']();
-        ['_PhpScoper26e51eeacccf\\CallCallables\\Foo', 'doStaticBaz']('foo');
+        ['_PhpScoperabd03f0baf05\\CallCallables\\Foo', 'doStaticBaz']();
+        ['_PhpScoperabd03f0baf05\\CallCallables\\Foo', 'doStaticBaz']('foo');
         ('CallCallables\\Foo::doStaticBaz')();
         ('CallCallables\\Foo::doStaticBaz')('foo');
     }
@@ -33,7 +33,7 @@ class Foo
     }
 }
 function (\Closure $closure) {
-    [new \_PhpScoper26e51eeacccf\CallCallables\Foo(), 'privateFooMethod']();
+    [new \_PhpScoperabd03f0baf05\CallCallables\Foo(), 'privateFooMethod']();
     $closure(1, 2, 3);
     $literalClosure = function (int $i, int $j = 1) : void {
     };
@@ -62,7 +62,7 @@ function () {
     $emptyString = '';
     $emptyString(1, 2, 3);
 };
-function (\_PhpScoper26e51eeacccf\CallCallables\Bar $bar) {
+function (\_PhpScoperabd03f0baf05\CallCallables\Bar $bar) {
     $bar();
 };
 class Baz
@@ -72,14 +72,14 @@ class Baz
      */
     public function doFoo(array $foos)
     {
-        $f = function (\_PhpScoper26e51eeacccf\CallCallables\Foo ...$foo) {
+        $f = function (\_PhpScoperabd03f0baf05\CallCallables\Foo ...$foo) {
         };
         $f($foos);
         $f(...$foos);
     }
     public function doBar()
     {
-        $baz = new \_PhpScoper26e51eeacccf\CallCallables\Baz();
+        $baz = new \_PhpScoperabd03f0baf05\CallCallables\Baz();
         $baz();
         if (\method_exists($baz, '__invoke')) {
             $baz();

@@ -29,6 +29,10 @@ final class VisibilityManipulator
      */
     private const ABSTRACT = 'abstract';
     /**
+     * @var string[]
+     */
+    private const ALLOWED_VISIBILITIES = ['public', 'protected', 'private', 'static'];
+    /**
      * @param ClassMethod|Property|ClassConst $node
      */
     public function makeStatic(\PhpParser\Node $node) : void
@@ -60,17 +64,6 @@ final class VisibilityManipulator
         $this->addVisibilityFlag($node, self::FINAL);
     }
     /**
-     * @param ClassMethod|Property|ClassConst $node
-     */
-    public function replaceVisibilityFlag(\PhpParser\Node $node, string $visibility) : void
-    {
-        $visibility = \strtolower($visibility);
-        if ($visibility !== self::STATIC && $visibility !== self::ABSTRACT && $visibility !== self::FINAL) {
-            $this->removeOriginalVisibilityFromFlags($node);
-        }
-        $this->addVisibilityFlag($node, $visibility);
-    }
-    /**
      * This way "abstract", "static", "final" are kept
      *
      * @param ClassMethod|Property|ClassConst $node
@@ -95,6 +88,13 @@ final class VisibilityManipulator
     /**
      * @param ClassMethod|Property|ClassConst $node
      */
+    public function makePublic(\PhpParser\Node $node) : void
+    {
+        $this->replaceVisibilityFlag($node, 'public');
+    }
+    /**
+     * @param ClassMethod|Property|ClassConst $node
+     */
     public function changeNodeVisibility(\PhpParser\Node $node, string $visibility) : void
     {
         if ($visibility === 'public') {
@@ -106,16 +106,8 @@ final class VisibilityManipulator
         } elseif ($visibility === 'static') {
             $this->makeStatic($node);
         } else {
-            $allowedVisibilities = ['public', 'protected', 'private', 'static'];
-            throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Visibility "%s" is not valid. Use one of: ', \implode('", "', $allowedVisibilities)));
+            throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Visibility "%s" is not valid. Use one of: ', \implode('", "', self::ALLOWED_VISIBILITIES)));
         }
-    }
-    /**
-     * @param ClassMethod|Property|ClassConst $node
-     */
-    public function makePublic(\PhpParser\Node $node) : void
-    {
-        $this->replaceVisibilityFlag($node, 'public');
     }
     /**
      * @param ClassMethod|Property|ClassConst $node
@@ -130,6 +122,17 @@ final class VisibilityManipulator
     public function makePrivate(\PhpParser\Node $node) : void
     {
         $this->replaceVisibilityFlag($node, 'private');
+    }
+    /**
+     * @param ClassMethod|Property|ClassConst $node
+     */
+    private function replaceVisibilityFlag(\PhpParser\Node $node, string $visibility) : void
+    {
+        $visibility = \strtolower($visibility);
+        if ($visibility !== self::STATIC && $visibility !== self::ABSTRACT && $visibility !== self::FINAL) {
+            $this->removeOriginalVisibilityFromFlags($node);
+        }
+        $this->addVisibilityFlag($node, $visibility);
     }
     /**
      * @param Class_|ClassMethod|Property|ClassConst $node

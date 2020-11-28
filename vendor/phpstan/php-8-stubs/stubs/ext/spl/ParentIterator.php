@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class ParentIterator extends \RecursiveFilterIterator
 {
@@ -15,4 +15,4 @@ class ParentIterator extends \RecursiveFilterIterator
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ParentIterator', 'ParentIterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ParentIterator', 'ParentIterator', \false);

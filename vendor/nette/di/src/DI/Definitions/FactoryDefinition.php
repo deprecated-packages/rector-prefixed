@@ -5,15 +5,15 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI\Definitions;
+namespace _PhpScoperabd03f0baf05\Nette\DI\Definitions;
 
-use _PhpScoper26e51eeacccf\Nette;
-use _PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException;
-use _PhpScoper26e51eeacccf\Nette\Utils\Reflection;
+use _PhpScoperabd03f0baf05\Nette;
+use _PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException;
+use _PhpScoperabd03f0baf05\Nette\Utils\Reflection;
 /**
  * Definition of standard service.
  */
-final class FactoryDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition
+final class FactoryDefinition extends \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition
 {
     private const METHOD_CREATE = 'create';
     /** @var array */
@@ -22,18 +22,18 @@ final class FactoryDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
     private $resultDefinition;
     public function __construct()
     {
-        $this->resultDefinition = new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\ServiceDefinition();
+        $this->resultDefinition = new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\ServiceDefinition();
     }
     /** @return static */
     public function setImplement(string $type)
     {
         if (!\interface_exists($type)) {
-            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
+            throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
         }
         $rc = new \ReflectionClass($type);
         $method = $rc->getMethods()[0] ?? null;
         if (!$method || $method->isStatic() || $method->name !== self::METHOD_CREATE || \count($rc->getMethods()) > 1) {
-            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method create().");
+            throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method create().");
         }
         return parent::setType($type);
     }
@@ -46,13 +46,13 @@ final class FactoryDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
         return $this->resultDefinition->getType();
     }
     /** @return static */
-    public function setResultDefinition(\_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition $definition)
+    public function setResultDefinition(\_PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition $definition)
     {
         $this->resultDefinition = $definition;
         return $this;
     }
     /** @return ServiceDefinition */
-    public function getResultDefinition() : \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition
+    public function getResultDefinition() : \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition
     {
         return $this->resultDefinition;
     }
@@ -67,7 +67,7 @@ final class FactoryDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
         return $this;
     }
     /** @deprecated use ->getResultDefinition()->getFactory() */
-    public function getFactory() : ?\_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement
+    public function getFactory() : ?\_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement
     {
         \trigger_error(\sprintf('Service %s: %s() is deprecated, use ->getResultDefinition()->getFactory()', $this->getName(), __METHOD__), \E_USER_DEPRECATED);
         return $this->resultDefinition->getFactory();
@@ -127,48 +127,48 @@ final class FactoryDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
     {
         return $this->parameters;
     }
-    public function resolveType(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
+    public function resolveType(\_PhpScoperabd03f0baf05\Nette\DI\Resolver $resolver) : void
     {
         $resultDef = $this->resultDefinition;
         try {
             $resolver->resolveDefinition($resultDef);
             return;
-        } catch (\_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException $e) {
+        } catch (\_PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException $e) {
         }
         if (!$resultDef->getType()) {
             $interface = $this->getType();
             if (!$interface) {
-                throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException('Type is missing in definition of service.');
+                throw new \_PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException('Type is missing in definition of service.');
             }
             $method = new \ReflectionMethod($interface, self::METHOD_CREATE);
-            $returnType = \_PhpScoper26e51eeacccf\Nette\DI\Helpers::getReturnType($method);
+            $returnType = \_PhpScoperabd03f0baf05\Nette\DI\Helpers::getReturnType($method);
             if (!$returnType) {
-                throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException("Method {$interface}::create() has not return type hint or annotation @return.");
+                throw new \_PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException("Method {$interface}::create() has not return type hint or annotation @return.");
             } elseif (!\class_exists($returnType) && !\interface_exists($returnType)) {
-                throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::create() method, class '{$returnType}' cannot be found.");
+                throw new \_PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::create() method, class '{$returnType}' cannot be found.");
             }
             $resultDef->setType($returnType);
         }
         $resolver->resolveDefinition($resultDef);
     }
-    public function complete(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
+    public function complete(\_PhpScoperabd03f0baf05\Nette\DI\Resolver $resolver) : void
     {
         $resultDef = $this->resultDefinition;
-        if ($resultDef instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\ServiceDefinition) {
+        if ($resultDef instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\ServiceDefinition) {
             if (!$this->parameters) {
                 $this->completeParameters($resolver);
             }
-            if ($resultDef->getEntity() instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference && !$resultDef->getFactory()->arguments) {
+            if ($resultDef->getEntity() instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference && !$resultDef->getFactory()->arguments) {
                 $resultDef->setFactory([
                     // render as $container->createMethod()
-                    new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference(\_PhpScoper26e51eeacccf\Nette\DI\ContainerBuilder::THIS_CONTAINER),
-                    \_PhpScoper26e51eeacccf\Nette\DI\Container::getMethodName($resultDef->getEntity()->getValue()),
+                    new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference(\_PhpScoperabd03f0baf05\Nette\DI\ContainerBuilder::THIS_CONTAINER),
+                    \_PhpScoperabd03f0baf05\Nette\DI\Container::getMethodName($resultDef->getEntity()->getValue()),
                 ]);
             }
         }
         $resolver->completeDefinition($resultDef);
     }
-    private function completeParameters(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
+    private function completeParameters(\_PhpScoperabd03f0baf05\Nette\DI\Resolver $resolver) : void
     {
         $interface = $this->getType();
         $method = new \ReflectionMethod($interface, self::METHOD_CREATE);
@@ -179,30 +179,30 @@ final class FactoryDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
             }
         }
         foreach ($method->getParameters() as $param) {
-            $methodHint = \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getParameterTypes($param);
+            $methodHint = \_PhpScoperabd03f0baf05\Nette\Utils\Reflection::getParameterTypes($param);
             if (isset($ctorParams[$param->name])) {
                 $ctorParam = $ctorParams[$param->name];
-                $ctorHint = \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getParameterTypes($ctorParam);
+                $ctorHint = \_PhpScoperabd03f0baf05\Nette\Utils\Reflection::getParameterTypes($ctorParam);
                 if ($methodHint !== $ctorHint && !\is_a((string) \reset($methodHint), (string) \reset($ctorHint), \true)) {
-                    throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException("Type hint for \${$param->name} in {$interface}::create() doesn't match type hint in {$class} constructor.");
+                    throw new \_PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException("Type hint for \${$param->name} in {$interface}::create() doesn't match type hint in {$class} constructor.");
                 }
-                $this->resultDefinition->getFactory()->arguments[$ctorParam->getPosition()] = \_PhpScoper26e51eeacccf\Nette\DI\ContainerBuilder::literal('$' . $ctorParam->name);
+                $this->resultDefinition->getFactory()->arguments[$ctorParam->getPosition()] = \_PhpScoperabd03f0baf05\Nette\DI\ContainerBuilder::literal('$' . $ctorParam->name);
             } elseif (!$this->resultDefinition->getSetup()) {
-                $hint = \_PhpScoper26e51eeacccf\Nette\Utils\Helpers::getSuggestion(\array_keys($ctorParams), $param->name);
-                throw new \_PhpScoper26e51eeacccf\Nette\DI\ServiceCreationException("Unused parameter \${$param->name} when implementing method {$interface}::create()" . ($hint ? ", did you mean \${$hint}?" : '.'));
+                $hint = \_PhpScoperabd03f0baf05\Nette\Utils\Helpers::getSuggestion(\array_keys($ctorParams), $param->name);
+                throw new \_PhpScoperabd03f0baf05\Nette\DI\ServiceCreationException("Unused parameter \${$param->name} when implementing method {$interface}::create()" . ($hint ? ", did you mean \${$hint}?" : '.'));
             }
             $paramDef = \PHP_VERSION_ID < 80000 ? ($methodHint && $param->allowsNull() ? '?' : '') . \reset($methodHint) : \implode('|', $methodHint);
             $paramDef .= ' ' . $param->name;
             if ($param->isDefaultValueAvailable()) {
-                $this->parameters[$paramDef] = \_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getParameterDefaultValue($param);
+                $this->parameters[$paramDef] = \_PhpScoperabd03f0baf05\Nette\Utils\Reflection::getParameterDefaultValue($param);
             } else {
                 $this->parameters[] = $paramDef;
             }
         }
     }
-    public function generateMethod(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Method $method, \_PhpScoper26e51eeacccf\Nette\DI\PhpGenerator $generator) : void
+    public function generateMethod(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Method $method, \_PhpScoperabd03f0baf05\Nette\DI\PhpGenerator $generator) : void
     {
-        $class = (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
+        $class = (new \_PhpScoperabd03f0baf05\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
         $class->addProperty('container')->setPrivate();
         $class->addMethod('__construct')->addBody('$this->container = $container;')->addParameter('container')->setType($generator->getClassName());
         $methodCreate = $class->addMethod(self::METHOD_CREATE);
@@ -211,7 +211,7 @@ final class FactoryDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
         $body = \str_replace('$this', '$this->container', $body);
         $body = \str_replace('$this->container->container', '$this->container', $body);
         $rm = new \ReflectionMethod($this->getType(), self::METHOD_CREATE);
-        $methodCreate->setParameters($generator->convertParameters($this->parameters))->setReturnType(\_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getReturnType($rm) ?: $this->getResultType())->setBody($body);
+        $methodCreate->setParameters($generator->convertParameters($this->parameters))->setReturnType(\_PhpScoperabd03f0baf05\Nette\Utils\Reflection::getReturnType($rm) ?: $this->getResultType())->setBody($body);
         $method->setBody('return new class ($this) ' . $class . ';');
     }
     public function __clone()

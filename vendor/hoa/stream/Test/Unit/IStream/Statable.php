@@ -50,7 +50,7 @@ class Statable extends \Hoa\Test\Unit\Suite
 {
     public function case_is_a_valid_interface()
     {
-        $this->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\IStream\Statable())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\Statable::class)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
+        $this->when($result = new \_PhpScoperabd03f0baf05\Mock\Hoa\Stream\IStream\Statable())->then->object($result)->isInstanceOf(\Hoa\Stream\IStream\Statable::class)->isInstanceOf(\Hoa\Stream\IStream\Stream::class);
     }
     public function case_constants()
     {

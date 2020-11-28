@@ -43,9 +43,9 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
             \exec(\sprintf('%s %s analyse --no-progress --error-format=prettyJson --level=%d %s %s %s', \escapeshellarg(\PHP_BINARY), $command, $level, $configPath !== null ? '--configuration ' . \escapeshellarg($configPath) : '', $this->shouldAutoloadAnalysedFile() ? \sprintf('--autoload-file %s', \escapeshellarg($file)) : '', \escapeshellarg($file)), $outputLines);
             $output = \implode("\n", $outputLines);
             try {
-                $actualJson = \_PhpScoper26e51eeacccf\Nette\Utils\Json::decode($output, \_PhpScoper26e51eeacccf\Nette\Utils\Json::FORCE_ARRAY);
-            } catch (\_PhpScoper26e51eeacccf\Nette\Utils\JsonException $e) {
-                throw new \_PhpScoper26e51eeacccf\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
+                $actualJson = \_PhpScoperabd03f0baf05\Nette\Utils\Json::decode($output, \_PhpScoperabd03f0baf05\Nette\Utils\Json::FORCE_ARRAY);
+            } catch (\_PhpScoperabd03f0baf05\Nette\Utils\JsonException $e) {
+                throw new \_PhpScoperabd03f0baf05\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
             }
             if (\count($actualJson['files']) > 0) {
                 $normalizedFilePath = $fileHelper->normalizePath($file);
@@ -122,7 +122,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
                 return $e;
             }
         }
-        $actualOutput = \_PhpScoper26e51eeacccf\Nette\Utils\Json::encode($expectedMessages, \_PhpScoper26e51eeacccf\Nette\Utils\Json::PRETTY);
+        $actualOutput = \_PhpScoperabd03f0baf05\Nette\Utils\Json::encode($expectedMessages, \_PhpScoperabd03f0baf05\Nette\Utils\Json::PRETTY);
         try {
             $this->assertJsonStringEqualsJsonFile($expectedJsonFile, $actualOutput);
         } catch (\PHPUnit\Framework\AssertionFailedError $e) {

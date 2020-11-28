@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Located;
 
-class InternalLocatedSource extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+class InternalLocatedSource extends \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Located\LocatedSource
 {
     /** @var string */
     private $extensionName;

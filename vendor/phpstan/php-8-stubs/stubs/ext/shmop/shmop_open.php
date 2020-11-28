@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function shmop_open(int $key, string $mode, int $permissions, int $size) : \Shmop|false
 {

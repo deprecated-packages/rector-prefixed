@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /**
  * @alias oci_collection_element_assign
  * @deprecated
  */
-function ocicollassignelem(\_PhpScoper26e51eeacccf\OCICollection $collection, int $index, string $value) : bool
+function ocicollassignelem(\_PhpScoperabd03f0baf05\OCICollection $collection, int $index, string $value) : bool
 {
 }

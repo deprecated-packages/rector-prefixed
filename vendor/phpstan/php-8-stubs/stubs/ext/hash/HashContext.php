@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #endif
 final class HashContext
@@ -16,4 +16,4 @@ final class HashContext
     }
 }
 #endif
-\class_alias('_PhpScoper26e51eeacccf\\HashContext', 'HashContext', \false);
+\class_alias('_PhpScoperabd03f0baf05\\HashContext', 'HashContext', \false);

@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function () {
     /** @var int|string $s */
-    $s = \_PhpScoper26e51eeacccf\doFoo();
+    $s = \_PhpScoperabd03f0baf05\doFoo();
     if (!\is_numeric($s)) {
         \PHPStan\Analyser\assertType('string', $s);
     }

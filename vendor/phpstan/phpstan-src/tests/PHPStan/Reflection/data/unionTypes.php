@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper26e51eeacccf\NativeUnionTypes;
+namespace _PhpScoperabd03f0baf05\NativeUnionTypes;
 
 use function PHPStan\Analyser\assertNativeType;
 use function PHPStan\Analyser\assertType;
@@ -23,16 +23,16 @@ function doFoo(int|bool $foo) : Foo|Bar
     \PHPStan\Analyser\assertType('bool|int', $foo);
     \PHPStan\Analyser\assertNativeType('bool|int', $foo);
 }
-function (\_PhpScoper26e51eeacccf\NativeUnionTypes\Foo $foo) : void {
+function (\_PhpScoperabd03f0baf05\NativeUnionTypes\Foo $foo) : void {
     \PHPStan\Analyser\assertType('bool|int', $foo->fooProp);
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\NativeUnionTypes\\Bar|NativeUnionTypes\\Foo', $foo->doFoo(1));
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\NativeUnionTypes\\Bar|NativeUnionTypes\\Foo', doFoo(1));
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\NativeUnionTypes\\Bar|NativeUnionTypes\\Foo', $foo->doFoo(1));
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\NativeUnionTypes\\Bar|NativeUnionTypes\\Foo', doFoo(1));
 };
 function () : void {
     $f = function (int|bool $foo) : Foo|Bar {
         \PHPStan\Analyser\assertType('bool|int', $foo);
     };
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\NativeUnionTypes\\Bar|NativeUnionTypes\\Foo', $f(1));
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\NativeUnionTypes\\Bar|NativeUnionTypes\\Foo', $f(1));
 };
 class Baz
 {

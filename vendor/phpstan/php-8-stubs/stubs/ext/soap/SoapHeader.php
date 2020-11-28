@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SoapHeader
 {
@@ -8,4 +8,4 @@ class SoapHeader
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SoapHeader', 'SoapHeader', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SoapHeader', 'SoapHeader', \false);

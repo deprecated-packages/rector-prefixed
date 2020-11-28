@@ -8,8 +8,12 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Continue_;
+use PhpParser\Node\Stmt\For_;
+use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
+use PhpParser\Node\Stmt\While_;
 use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
 use Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator;
 use Rector\Core\Rector\AbstractRector;
@@ -96,13 +100,13 @@ CODE_SAMPLE
         /** @var BooleanAnd $expr */
         $expr = $node->cond;
         $conditions = $this->getBooleanAndConditions($expr);
-        $ifs = $this->createInvertedIfNodesFromConditions($conditions);
+        $ifs = $this->createInvertedIfNodesFromConditions($node, $conditions);
         $this->keepCommentIfExists($node, $ifs);
         $this->addNodesAfterNode($ifs, $node);
         $this->addNodeAfterNode($ifReturn, $node);
-        $ifParentReturn = $this->getIfParentReturn($node);
-        if ($ifParentReturn !== null) {
-            $this->removeNode($ifParentReturn);
+        $ifNextReturn = $this->getIfNextReturn($node);
+        if ($ifNextReturn !== null && !$this->isIfInLoop($node)) {
+            $this->removeNode($ifNextReturn);
         }
         $this->removeNode($node);
         return null;
@@ -161,13 +165,18 @@ CODE_SAMPLE
      * @param Expr[] $conditions
      * @return If_[]
      */
-    private function createInvertedIfNodesFromConditions(array $conditions) : array
+    private function createInvertedIfNodesFromConditions(\PhpParser\Node\Stmt\If_ $node, array $conditions) : array
     {
+        $isIfInLoop = $this->isIfInLoop($node);
         $ifs = [];
         foreach ($conditions as $condition) {
             $invertedCondition = $this->conditionInverter->createInvertedCondition($condition);
             $if = new \PhpParser\Node\Stmt\If_($invertedCondition);
-            $if->stmts = [new \PhpParser\Node\Stmt\Return_()];
+            if ($isIfInLoop && $this->getIfNextReturn($node) === null) {
+                $if->stmts = [new \PhpParser\Node\Stmt\Continue_()];
+            } else {
+                $if->stmts = [new \PhpParser\Node\Stmt\Return_()];
+            }
             $ifs[] = $if;
         }
         return $ifs;
@@ -180,13 +189,18 @@ CODE_SAMPLE
         $nodeComments = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS);
         $ifs[0]->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $nodeComments);
     }
-    private function getIfParentReturn(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\Return_
+    private function getIfNextReturn(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\Return_
     {
         $nextNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
             return null;
         }
         return $nextNode;
+    }
+    private function isIfInLoop(\PhpParser\Node\Stmt\If_ $if) : bool
+    {
+        $parentLoop = $this->betterNodeFinder->findFirstParentInstanceOf($if, [\PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\While_::class]);
+        return $parentLoop !== null;
     }
     private function isIfReturnsVoid(\PhpParser\Node\Stmt\If_ $if) : bool
     {

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\OndraM\CiDetector\Ci;
+namespace _PhpScoperabd03f0baf05\OndraM\CiDetector\Ci;
 
-use _PhpScoper26e51eeacccf\OndraM\CiDetector\Env;
+use _PhpScoperabd03f0baf05\OndraM\CiDetector\Env;
 /**
  * Unified adapter to retrieve environment variables from current continuous integration server
  */
-abstract class AbstractCi implements \_PhpScoper26e51eeacccf\OndraM\CiDetector\Ci\CiInterface
+abstract class AbstractCi implements \_PhpScoperabd03f0baf05\OndraM\CiDetector\Ci\CiInterface
 {
     /** @var Env */
     protected $env;
-    public function __construct(\_PhpScoper26e51eeacccf\OndraM\CiDetector\Env $env)
+    public function __construct(\_PhpScoperabd03f0baf05\OndraM\CiDetector\Env $env)
     {
         $this->env = $env;
     }

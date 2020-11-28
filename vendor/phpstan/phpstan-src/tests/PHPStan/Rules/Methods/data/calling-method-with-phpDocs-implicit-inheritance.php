@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance;
+namespace _PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance;
 
 interface FooInterface
 {
@@ -9,7 +9,7 @@ interface FooInterface
      */
     public function doBar($str);
 }
-class Foo implements \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\FooInterface
+class Foo implements \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\FooInterface
 {
     /**
      * @param int $i
@@ -21,20 +21,20 @@ class Foo implements \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritanc
     {
     }
 }
-class Bar extends \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\Foo
+class Bar extends \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\Foo
 {
     public function doFoo($i)
     {
     }
 }
-class Baz extends \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\Bar
+class Baz extends \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\Bar
 {
     public function doFoo($i)
     {
     }
 }
 function () {
-    $baz = new \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\Baz();
+    $baz = new \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\Baz();
     $baz->doFoo(1);
     $baz->doFoo('1');
     $baz->doBar('1');
@@ -52,23 +52,23 @@ class Lorem
     {
     }
 }
-class Ipsum extends \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\Lorem
+class Ipsum extends \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\Lorem
 {
     public function doLorem($x, $y, $z, $d)
     {
     }
 }
-function (\_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\Ipsum $ipsum, \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\A $a, \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\B $b, \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\C $c, \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\D $d) : void {
+function (\_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\Ipsum $ipsum, \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\A $a, \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\B $b, \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\C $c, \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\D $d) : void {
     $ipsum->doLorem($a, $b, $c, $d);
     $ipsum->doLorem(1, 1, 1, 1);
 };
-class Dolor extends \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\Ipsum
+class Dolor extends \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\Ipsum
 {
     public function doLorem($g, $h, $i, $d)
     {
     }
 }
-function (\_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\Dolor $ipsum, \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\A $a, \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\B $b, \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\C $c, \_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\D $d) : void {
+function (\_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\Dolor $ipsum, \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\A $a, \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\B $b, \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\C $c, \_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\D $d) : void {
     $ipsum->doLorem($a, $b, $c, $d);
     $ipsum->doLorem(1, 1, 1, 1);
 };
@@ -88,7 +88,7 @@ class TestArrayObject
 class TestArrayObject2 extends \ArrayObject
 {
 }
-function (\_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\TestArrayObject2 $arrayObject2) : void {
+function (\_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\TestArrayObject2 $arrayObject2) : void {
     $arrayObject2->append(new \Exception());
 };
 /**
@@ -101,6 +101,6 @@ class TestArrayObject3 extends \ArrayObject
         return parent::append($someValue);
     }
 }
-function (\_PhpScoper26e51eeacccf\MethodWithPhpDocsImplicitInheritance\TestArrayObject3 $arrayObject3) : void {
+function (\_PhpScoperabd03f0baf05\MethodWithPhpDocsImplicitInheritance\TestArrayObject3 $arrayObject3) : void {
     $arrayObject3->append(new \Exception());
 };

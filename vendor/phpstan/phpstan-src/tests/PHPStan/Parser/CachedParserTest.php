@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Parser;
 
-class CachedParserTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
+class CachedParserTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider dataParseFileClearCache

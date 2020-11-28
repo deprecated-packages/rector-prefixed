@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class XMLWriter
 {
@@ -301,4 +301,4 @@ class XMLWriter
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\XMLWriter', 'XMLWriter', \false);
+\class_alias('_PhpScoperabd03f0baf05\\XMLWriter', 'XMLWriter', \false);

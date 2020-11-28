@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imagedashedline(\_PhpScoper26e51eeacccf\GdImage $image, int $x1, int $y1, int $x2, int $y2, int $color) : bool
+function imagedashedline(\_PhpScoperabd03f0baf05\GdImage $image, int $x1, int $y1, int $x2, int $y2, int $color) : bool
 {
 }

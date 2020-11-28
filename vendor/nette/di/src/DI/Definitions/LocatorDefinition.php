@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI\Definitions;
+namespace _PhpScoperabd03f0baf05\Nette\DI\Definitions;
 
-use _PhpScoper26e51eeacccf\Nette;
-use _PhpScoper26e51eeacccf\Nette\Utils\Reflection;
+use _PhpScoperabd03f0baf05\Nette;
+use _PhpScoperabd03f0baf05\Nette\Utils\Reflection;
 /**
  * Multi accessor/factory definition.
  */
-final class LocatorDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition
+final class LocatorDefinition extends \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition
 {
     /** @var Reference[] */
     private $references = [];
@@ -22,15 +22,15 @@ final class LocatorDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
     public function setImplement(string $type)
     {
         if (!\interface_exists($type)) {
-            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException(\sprintf("Service '%s': Interface '%s' not found.", $this->getName(), $type));
+            throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException(\sprintf("Service '%s': Interface '%s' not found.", $this->getName(), $type));
         }
         $methods = (new \ReflectionClass($type))->getMethods();
         if (!$methods) {
-            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException(\sprintf("Service '%s': Interface %s must have at least one method.", $this->getName(), $type));
+            throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException(\sprintf("Service '%s': Interface %s must have at least one method.", $this->getName(), $type));
         }
         foreach ($methods as $method) {
             if ($method->isStatic() || !(\preg_match('#^(get|create)$#', $method->name) && $method->getNumberOfParameters() === 1 || \preg_match('#^(get|create)[A-Z]#', $method->name) && $method->getNumberOfParameters() === 0)) {
-                throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException(\sprintf("Service '%s': Method %s::%s() does not meet the requirements: is create(\$name), get(\$name), create*() or get*() and is non-static.", $this->getName(), $type, $method->name));
+                throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException(\sprintf("Service '%s': Method %s::%s() does not meet the requirements: is create(\$name), get(\$name), create*() or get*() and is non-static.", $this->getName(), $type, $method->name));
             }
         }
         return parent::setType($type);
@@ -44,7 +44,7 @@ final class LocatorDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
     {
         $this->references = [];
         foreach ($references as $name => $ref) {
-            $this->references[$name] = \substr($ref, 0, 1) === '@' ? new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference(\substr($ref, 1)) : \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference::fromType($ref);
+            $this->references[$name] = \substr($ref, 0, 1) === '@' ? new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference(\substr($ref, 1)) : \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference::fromType($ref);
         }
         return $this;
     }
@@ -63,10 +63,10 @@ final class LocatorDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
     {
         return $this->tagged;
     }
-    public function resolveType(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
+    public function resolveType(\_PhpScoperabd03f0baf05\Nette\DI\Resolver $resolver) : void
     {
     }
-    public function complete(\_PhpScoper26e51eeacccf\Nette\DI\Resolver $resolver) : void
+    public function complete(\_PhpScoperabd03f0baf05\Nette\DI\Resolver $resolver) : void
     {
         if ($this->tagged !== null) {
             $this->references = [];
@@ -74,23 +74,23 @@ final class LocatorDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitio
                 if (isset($this->references[$tag])) {
                     \trigger_error("Service '{$this->getName()}': duplicated tag '{$this->tagged}' with value '{$tag}'.", \E_USER_NOTICE);
                 }
-                $this->references[$tag] = new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Reference($name);
+                $this->references[$tag] = new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Reference($name);
             }
         }
         foreach ($this->references as $name => $ref) {
             $this->references[$name] = $resolver->normalizeReference($ref);
         }
     }
-    public function generateMethod(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Method $method, \_PhpScoper26e51eeacccf\Nette\DI\PhpGenerator $generator) : void
+    public function generateMethod(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Method $method, \_PhpScoperabd03f0baf05\Nette\DI\PhpGenerator $generator) : void
     {
-        $class = (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
+        $class = (new \_PhpScoperabd03f0baf05\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
         $class->addProperty('container')->setPrivate();
         $class->addMethod('__construct')->addBody('$this->container = $container;')->addParameter('container')->setType($generator->getClassName());
         foreach ((new \ReflectionClass($this->getType()))->getMethods() as $rm) {
             \preg_match('#^(get|create)(.*)#', $rm->name, $m);
             $name = \lcfirst($m[2]);
             $nullable = $rm->getReturnType()->allowsNull();
-            $methodInner = $class->addMethod($rm->name)->setReturnType(\_PhpScoper26e51eeacccf\Nette\Utils\Reflection::getReturnType($rm))->setReturnNullable($nullable);
+            $methodInner = $class->addMethod($rm->name)->setReturnType(\_PhpScoperabd03f0baf05\Nette\Utils\Reflection::getReturnType($rm))->setReturnNullable($nullable);
             if (!$name) {
                 $class->addProperty('mapping', \array_map(function ($item) {
                     return $item->getValue();
@@ -104,7 +104,7 @@ return $this->container->' . $m[1] . 'Service($this->mapping[$name]);')->addPara
                 if ($m[1] === 'get') {
                     $methodInner->setBody('return $this->container->getService(?);', [$ref]);
                 } else {
-                    $methodInner->setBody('return $this->container->?();', [\_PhpScoper26e51eeacccf\Nette\DI\Container::getMethodName($ref)]);
+                    $methodInner->setBody('return $this->container->?();', [\_PhpScoperabd03f0baf05\Nette\DI\Container::getMethodName($ref)]);
                 }
             } else {
                 $methodInner->setBody($nullable ? 'return null;' : 'throw new Nette\\DI\\MissingServiceException("Service is not defined.");');

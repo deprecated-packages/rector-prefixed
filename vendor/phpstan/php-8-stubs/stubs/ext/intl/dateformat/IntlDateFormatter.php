@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class IntlDateFormatter
@@ -161,4 +161,4 @@ class IntlDateFormatter
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\IntlDateFormatter', 'IntlDateFormatter', \false);
+\class_alias('_PhpScoperabd03f0baf05\\IntlDateFormatter', 'IntlDateFormatter', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ReusingSpecifiedVariableInForeach;
+namespace _PhpScoperabd03f0baf05\ReusingSpecifiedVariableInForeach;
 
 /** @var string|null $business */
 $business = doFoo();

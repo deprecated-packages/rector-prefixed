@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug3336;
+namespace _PhpScoperabd03f0baf05\Bug3336;
 
 function (array $arr, string $str, $mixed) : void {
     \PHPStan\Analyser\assertType('array<int, string>', \mb_convert_encoding($arr));

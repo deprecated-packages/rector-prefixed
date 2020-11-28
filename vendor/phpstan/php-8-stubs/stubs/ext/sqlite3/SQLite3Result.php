@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SQLite3Result
 {
@@ -32,4 +32,4 @@ class SQLite3Result
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SQLite3Result', 'SQLite3Result', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SQLite3Result', 'SQLite3Result', \false);

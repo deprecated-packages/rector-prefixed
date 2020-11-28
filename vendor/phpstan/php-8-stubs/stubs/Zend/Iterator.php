@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 interface Iterator extends \Traversable
 {
@@ -15,4 +15,4 @@ interface Iterator extends \Traversable
     /** @return void */
     public function rewind();
 }
-\class_alias('_PhpScoper26e51eeacccf\\Iterator', 'Iterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Iterator', 'Iterator', \false);

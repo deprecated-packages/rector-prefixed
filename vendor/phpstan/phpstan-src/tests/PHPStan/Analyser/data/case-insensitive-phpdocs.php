@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\CaseInsensitivePhpDocs;
+namespace _PhpScoperabd03f0baf05\CaseInsensitivePhpDocs;
 
-use _PhpScoper26e51eeacccf\Foo\Bar;
-use _PhpScoper26e51eeacccf\Foo\Baz as Lorem;
+use _PhpScoperabd03f0baf05\Foo\Bar;
+use _PhpScoperabd03f0baf05\Foo\Baz as Lorem;
 class Test
 {
     /** @var bar */

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TraitPhpDocsTwo;
+namespace _PhpScoperabd03f0baf05\TraitPhpDocsTwo;
 
 trait FooTrait
 {

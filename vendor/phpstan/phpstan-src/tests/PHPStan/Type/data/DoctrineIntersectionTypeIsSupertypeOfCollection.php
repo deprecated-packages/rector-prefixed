@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\DoctrineIntersectionTypeIsSupertypeOf;
+namespace _PhpScoperabd03f0baf05\DoctrineIntersectionTypeIsSupertypeOf;
 
 use ArrayAccess;
 use Countable;

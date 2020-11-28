@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imageresolution(\_PhpScoper26e51eeacccf\GdImage $image, ?int $resolution_x = null, ?int $resolution_y = null) : array|bool
+function imageresolution(\_PhpScoperabd03f0baf05\GdImage $image, ?int $resolution_x = null, ?int $resolution_y = null) : array|bool
 {
 }

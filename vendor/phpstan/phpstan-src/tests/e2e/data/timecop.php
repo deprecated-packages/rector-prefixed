@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\TimecopRegressionTest;
+namespace _PhpScoperabd03f0baf05\TimecopRegressionTest;
 
 use DateTimeImmutable;
 class TimecopRegression

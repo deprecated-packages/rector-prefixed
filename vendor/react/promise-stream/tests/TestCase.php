@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Tests\Promise\Stream;
+namespace _PhpScoperabd03f0baf05\React\Tests\Promise\Stream;
 
-use _PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase as BaseTestCase;
-class TestCase extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
+use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase as BaseTestCase;
+class TestCase extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
 {
     protected function expectCallableOnce()
     {
@@ -34,23 +34,23 @@ class TestCase extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
      */
     protected function createCallableMock()
     {
-        return $this->getMockBuilder('_PhpScoper26e51eeacccf\\React\\Tests\\Promise\\Stream\\CallableStub')->getMock();
+        return $this->getMockBuilder('_PhpScoperabd03f0baf05\\React\\Tests\\Promise\\Stream\\CallableStub')->getMock();
     }
     protected function expectPromiseResolve($promise)
     {
-        $this->assertInstanceOf('_PhpScoper26e51eeacccf\\React\\Promise\\PromiseInterface', $promise);
+        $this->assertInstanceOf('_PhpScoperabd03f0baf05\\React\\Promise\\PromiseInterface', $promise);
         $promise->then($this->expectCallableOnce(), $this->expectCallableNever());
         return $promise;
     }
     protected function expectPromiseResolveWith($with, $promise)
     {
-        $this->assertInstanceOf('_PhpScoper26e51eeacccf\\React\\Promise\\PromiseInterface', $promise);
+        $this->assertInstanceOf('_PhpScoperabd03f0baf05\\React\\Promise\\PromiseInterface', $promise);
         $promise->then($this->expectCallableOnce($with), $this->expectCallableNever());
         return $promise;
     }
     protected function expectPromiseReject($promise)
     {
-        $this->assertInstanceOf('_PhpScoper26e51eeacccf\\React\\Promise\\PromiseInterface', $promise);
+        $this->assertInstanceOf('_PhpScoperabd03f0baf05\\React\\Promise\\PromiseInterface', $promise);
         $promise->then($this->expectCallableNever(), $this->expectCallableOnce());
         return $promise;
     }

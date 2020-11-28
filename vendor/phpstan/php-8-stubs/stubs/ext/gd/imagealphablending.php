@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imagealphablending(\_PhpScoper26e51eeacccf\GdImage $image, bool $enable) : bool
+function imagealphablending(\_PhpScoperabd03f0baf05\GdImage $image, bool $enable) : bool
 {
 }

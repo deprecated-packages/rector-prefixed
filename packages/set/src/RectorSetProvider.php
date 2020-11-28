@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Set;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Set\ValueObject\DowngradeSetList;
@@ -30,8 +30,8 @@ final class RectorSetProvider extends \Symplify\SetConfigResolver\Provider\Abstr
     private $sets = [];
     public function __construct()
     {
-        foreach (self::SET_CLASSES as $setClass) {
-            $setListReflectionClass = new \ReflectionClass($setClass);
+        foreach (self::SET_CLASSES as $setListClass) {
+            $setListReflectionClass = new \ReflectionClass($setListClass);
             $this->hydrateSetsFromConstants($setListReflectionClass);
         }
     }
@@ -72,7 +72,7 @@ final class RectorSetProvider extends \Symplify\SetConfigResolver\Provider\Abstr
             }
             $setName = \Rector\Core\Util\StaticRectorStrings::constantToDashes($name);
             // remove `-` before numbers
-            $setName = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
+            $setName = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
             $this->sets[] = new \Symplify\SetConfigResolver\ValueObject\Set($setName, new \Symplify\SmartFileSystem\SmartFileInfo($setPath));
         }
     }

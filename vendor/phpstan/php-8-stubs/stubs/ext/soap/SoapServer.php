@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SoapServer
 {
@@ -43,4 +43,4 @@ class SoapServer
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SoapServer', 'SoapServer', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SoapServer', 'SoapServer', \false);

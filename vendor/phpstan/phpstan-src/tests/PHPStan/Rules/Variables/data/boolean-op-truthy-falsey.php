@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\DefinedVariablesBooleanOperatorTruthyFalsey;
+namespace _PhpScoperabd03f0baf05\DefinedVariablesBooleanOperatorTruthyFalsey;
 
 function (bool $a, string $subject) {
     if ($a && \preg_match('#a#', $subject, $matches)) {

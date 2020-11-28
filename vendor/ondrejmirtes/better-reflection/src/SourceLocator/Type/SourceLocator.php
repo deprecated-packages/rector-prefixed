@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Type;
 
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector;
 interface SourceLocator
 {
     /**
@@ -19,11 +19,11 @@ interface SourceLocator
      * locate the identifier, it should simply return null. If an exception is
      * thrown, it will break the Generic Reflector.
      */
-    public function locateIdentifier(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection;
+    public function locateIdentifier(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Reflection;
     /**
      * Find all identifiers of a type
      *
      * @return Reflection[]
      */
-    public function locateIdentifiersByType(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array;
+    public function locateIdentifiersByType(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array;
 }

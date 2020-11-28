@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper26e51eeacccf\Symfony\Component\EventDispatcher;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher;
 
 /**
  * An EventSubscriber knows itself what events it is interested in.
@@ -57,4 +57,4 @@ interface EventSubscriberInterface
  * @author Roman Borschel <roman@code-factory.org>
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-\class_alias('_PhpScoper26e51eeacccf\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', \false);

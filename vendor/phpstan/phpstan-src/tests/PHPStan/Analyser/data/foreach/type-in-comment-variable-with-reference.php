@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TypeInCommentOnForeach;
+namespace _PhpScoperabd03f0baf05\TypeInCommentOnForeach;
 
 /** @var mixed[] $values */
 $values = [];

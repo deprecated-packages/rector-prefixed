@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function parse_ini_file(string $filename, bool $process_sections = \false, int $scanner_mode = \INI_SCANNER_NORMAL) : array|false
 {

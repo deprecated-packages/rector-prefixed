@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function variant_cast(\_PhpScoper26e51eeacccf\variant $variant, int $type) : \_PhpScoper26e51eeacccf\variant
+function variant_cast(\_PhpScoperabd03f0baf05\variant $variant, int $type) : \_PhpScoperabd03f0baf05\variant
 {
 }

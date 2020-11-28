@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper26e51eeacccf\NativeUnionTypesSupport;
+namespace _PhpScoperabd03f0baf05\NativeUnionTypesSupport;
 
 class Foo
 {

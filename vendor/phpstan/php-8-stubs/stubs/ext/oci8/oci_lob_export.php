@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function oci_lob_export(\_PhpScoper26e51eeacccf\OCILob $lob, string $filename, ?int $offset = null, ?int $length = null) : bool
+function oci_lob_export(\_PhpScoperabd03f0baf05\OCILob $lob, string $filename, ?int $offset = null, ?int $length = null) : bool
 {
 }

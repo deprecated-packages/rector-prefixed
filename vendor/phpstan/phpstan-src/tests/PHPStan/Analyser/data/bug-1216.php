@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug1216;
+namespace _PhpScoperabd03f0baf05\Bug1216;
 
 use function PHPStan\Analyser\assertType;
 abstract class Foo
@@ -23,7 +23,7 @@ trait Bar
  * @property string $bar
  * @property string $untypedBar
  */
-class Baz extends \_PhpScoper26e51eeacccf\Bug1216\Foo
+class Baz extends \_PhpScoperabd03f0baf05\Bug1216\Foo
 {
     public function __construct()
     {
@@ -32,7 +32,7 @@ class Baz extends \_PhpScoper26e51eeacccf\Bug1216\Foo
         \PHPStan\Analyser\assertType('string', $this->untypedBar);
     }
 }
-function (\_PhpScoper26e51eeacccf\Bug1216\Baz $baz) : void {
+function (\_PhpScoperabd03f0baf05\Bug1216\Baz $baz) : void {
     \PHPStan\Analyser\assertType('string', $baz->foo);
     \PHPStan\Analyser\assertType('string', $baz->bar);
     \PHPStan\Analyser\assertType('string', $baz->untypedBar);

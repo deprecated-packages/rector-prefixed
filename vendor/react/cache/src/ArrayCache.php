@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Cache;
+namespace _PhpScoperabd03f0baf05\React\Cache;
 
-use _PhpScoper26e51eeacccf\React\Promise;
-use _PhpScoper26e51eeacccf\React\Promise\PromiseInterface;
-class ArrayCache implements \_PhpScoper26e51eeacccf\React\Cache\CacheInterface
+use _PhpScoperabd03f0baf05\React\Promise;
+use _PhpScoperabd03f0baf05\React\Promise\PromiseInterface;
+class ArrayCache implements \_PhpScoperabd03f0baf05\React\Cache\CacheInterface
 {
     private $limit;
     private $data = array();
@@ -60,13 +60,13 @@ class ArrayCache implements \_PhpScoper26e51eeacccf\React\Cache\CacheInterface
             unset($this->data[$key], $this->expires[$key]);
         }
         if (!\array_key_exists($key, $this->data)) {
-            return \_PhpScoper26e51eeacccf\React\Promise\resolve($default);
+            return \_PhpScoperabd03f0baf05\React\Promise\resolve($default);
         }
         // remove and append to end of array to keep track of LRU info
         $value = $this->data[$key];
         unset($this->data[$key]);
         $this->data[$key] = $value;
-        return \_PhpScoper26e51eeacccf\React\Promise\resolve($value);
+        return \_PhpScoperabd03f0baf05\React\Promise\resolve($value);
     }
     public function set($key, $value, $ttl = null)
     {
@@ -93,12 +93,12 @@ class ArrayCache implements \_PhpScoper26e51eeacccf\React\Cache\CacheInterface
             }
             unset($this->data[$key], $this->expires[$key]);
         }
-        return \_PhpScoper26e51eeacccf\React\Promise\resolve(\true);
+        return \_PhpScoperabd03f0baf05\React\Promise\resolve(\true);
     }
     public function delete($key)
     {
         unset($this->data[$key], $this->expires[$key]);
-        return \_PhpScoper26e51eeacccf\React\Promise\resolve(\true);
+        return \_PhpScoperabd03f0baf05\React\Promise\resolve(\true);
     }
     public function getMultiple(array $keys, $default = null)
     {
@@ -106,27 +106,27 @@ class ArrayCache implements \_PhpScoper26e51eeacccf\React\Cache\CacheInterface
         foreach ($keys as $key) {
             $values[$key] = $this->get($key, $default);
         }
-        return \_PhpScoper26e51eeacccf\React\Promise\all($values);
+        return \_PhpScoperabd03f0baf05\React\Promise\all($values);
     }
     public function setMultiple(array $values, $ttl = null)
     {
         foreach ($values as $key => $value) {
             $this->set($key, $value, $ttl);
         }
-        return \_PhpScoper26e51eeacccf\React\Promise\resolve(\true);
+        return \_PhpScoperabd03f0baf05\React\Promise\resolve(\true);
     }
     public function deleteMultiple(array $keys)
     {
         foreach ($keys as $key) {
             unset($this->data[$key], $this->expires[$key]);
         }
-        return \_PhpScoper26e51eeacccf\React\Promise\resolve(\true);
+        return \_PhpScoperabd03f0baf05\React\Promise\resolve(\true);
     }
     public function clear()
     {
         $this->data = array();
         $this->expires = array();
-        return \_PhpScoper26e51eeacccf\React\Promise\resolve(\true);
+        return \_PhpScoperabd03f0baf05\React\Promise\resolve(\true);
     }
     public function has($key)
     {
@@ -135,13 +135,13 @@ class ArrayCache implements \_PhpScoper26e51eeacccf\React\Cache\CacheInterface
             unset($this->data[$key], $this->expires[$key]);
         }
         if (!\array_key_exists($key, $this->data)) {
-            return \_PhpScoper26e51eeacccf\React\Promise\resolve(\false);
+            return \_PhpScoperabd03f0baf05\React\Promise\resolve(\false);
         }
         // remove and append to end of array to keep track of LRU info
         $value = $this->data[$key];
         unset($this->data[$key]);
         $this->data[$key] = $value;
-        return \_PhpScoper26e51eeacccf\React\Promise\resolve(\true);
+        return \_PhpScoperabd03f0baf05\React\Promise\resolve(\true);
     }
     /**
      * @return float

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\IncompatibleDefaultParameter;
+namespace _PhpScoperabd03f0baf05\IncompatibleDefaultParameter;
 
 /**
  * @param int $int

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 final class mysqli_warning
 {
@@ -11,4 +11,4 @@ final class mysqli_warning
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\mysqli_warning', 'mysqli_warning', \false);
+\class_alias('_PhpScoperabd03f0baf05\\mysqli_warning', 'mysqli_warning', \false);

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
@@ -23,10 +23,11 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \_PhpScoper26e51eeacccf\AutoloadIncluder();
-$autoloadIncluder->includeCwdVendorAutoloadIfExists();
-$autoloadIncluder->autoloadProjectAutoloaderFile();
+$autoloadIncluder = new \_PhpScoperabd03f0baf05\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
+$autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
+$autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
+$autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
@@ -68,40 +69,22 @@ final class AutoloadIncluder
      * @var string[]
      */
     private $alreadyLoadedAutoloadFiles = [];
-    public function includeCwdVendorAutoloadIfExists() : void
-    {
-        // needed for php-scoper
-        $scoperAutoload = __DIR__ . '/../vendor/scoper-autoload.php';
-        if (\file_exists($scoperAutoload)) {
-            require_once $scoperAutoload;
-        }
-        $cwdVendorAutoload = \getcwd() . '/vendor/autoload.php';
-        if (!\is_file($cwdVendorAutoload)) {
-            return;
-        }
-        $this->loadIfNotLoadedYet($cwdVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
-    }
     public function includeDependencyOrRepositoryVendorAutoloadIfExists() : void
     {
         // Rector's vendor is already loaded
         if (\class_exists(\Rector\Core\HttpKernel\RectorKernel::class)) {
             return;
         }
-        $devVendorAutoload = __DIR__ . '/../vendor/autoload.php';
-        if (!\is_file($devVendorAutoload)) {
-            return;
-        }
-        $this->loadIfNotLoadedYet($devVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
+        // in Rector develop repository
+        $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/autoload.php');
     }
     /**
-     * Inspired by https://github.com/phpstan/phpstan-src/blob/e2308ecaf49a9960510c47f5a992ce7b27f6dba2/bin/phpstan#L19
+     * In case Rector is installed as vendor dependency,
+     * this autoloads the project vendor/autoload.php, including Rector
      */
     public function autoloadProjectAutoloaderFile() : void
     {
-        $path = \dirname(__DIR__) . '/../../autoload.php';
-        if (\is_file($path)) {
-            $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
-        }
+        $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../../autoload.php');
     }
     public function autoloadFromCommandLine() : void
     {
@@ -115,22 +98,18 @@ final class AutoloadIncluder
         if ($fileToAutoload === null) {
             return;
         }
-        $this->loadIfNotLoadedYet($fileToAutoload, __METHOD__);
+        $this->loadIfExistsAndNotLoadedYet($fileToAutoload);
     }
-    private function loadIfNotLoadedYet(string $file, string $location) : void
+    public function loadIfExistsAndNotLoadedYet(string $filePath) : void
     {
-        if (\in_array($file, $this->alreadyLoadedAutoloadFiles, \true)) {
+        if (!\file_exists($filePath)) {
             return;
         }
-        if ($this->isDebugOption()) {
-            echo \sprintf(\sprintf('File "%s" is about to be loaded in "%s"' . \PHP_EOL, $file, $location));
+        if (\in_array($filePath, $this->alreadyLoadedAutoloadFiles, \true)) {
+            return;
         }
-        $this->alreadyLoadedAutoloadFiles[] = \realpath($file);
-        require_once $file;
-    }
-    private function isDebugOption() : bool
-    {
-        return \in_array('--debug', $_SERVER['argv'], \true);
+        $this->alreadyLoadedAutoloadFiles[] = \realpath($filePath);
+        require_once $filePath;
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('_PhpScoperabd03f0baf05\\AutoloadIncluder', 'AutoloadIncluder', \false);

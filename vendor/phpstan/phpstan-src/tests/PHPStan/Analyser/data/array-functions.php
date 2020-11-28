@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 $integers = [1, 2, 3];
 $mixedValues = ['abc', 123];
@@ -30,7 +30,7 @@ $filledIntegersWithKeys = \array_fill_keys([0], 1);
 $integerKeys = [1 => 'foo', 2 => new \stdClass()];
 $stringKeys = ['foo' => 'foo', 'bar' => new \stdClass()];
 /** @var \stdClass[] $stdClassesWithIsset */
-$stdClassesWithIsset = \_PhpScoper26e51eeacccf\doFoo();
+$stdClassesWithIsset = \_PhpScoperabd03f0baf05\doFoo();
 if (\rand(0, 1) === 0) {
     $stdClassesWithIsset[] = new \stdClass();
 }
@@ -41,56 +41,56 @@ $stringOrIntegerKeys = ['foo' => new \stdClass(), 1 => new \stdClass()];
 $constantArrayWithFalseyValues = [null, '', 1];
 $constantTruthyValues = \array_filter($constantArrayWithFalseyValues);
 /** @var array<int, false|null> $falsey */
-$falsey = \_PhpScoper26e51eeacccf\doFoo();
+$falsey = \_PhpScoperabd03f0baf05\doFoo();
 /** @var array<int, bool|null> $withFalsey */
-$withFalsey = \_PhpScoper26e51eeacccf\doFoo();
+$withFalsey = \_PhpScoperabd03f0baf05\doFoo();
 $union = ['a' => 1];
 if (\rand(0, 1) === 1) {
     $union['b'] = \false;
 }
 /** @var bool $bool */
-$bool = \_PhpScoper26e51eeacccf\doFoo();
+$bool = \_PhpScoperabd03f0baf05\doFoo();
 /** @var int $integer */
-$integer = \_PhpScoper26e51eeacccf\doFoo();
+$integer = \_PhpScoperabd03f0baf05\doFoo();
 $withPossiblyFalsey = [$bool, $integer, '', 'a' => 0];
 /** @var array<string, int> $generalStringKeys */
-$generalStringKeys = \_PhpScoper26e51eeacccf\doFoo();
+$generalStringKeys = \_PhpScoperabd03f0baf05\doFoo();
 /** @var array<int, int> $generalIntegerKeys */
-$generalIntegerKeys = \_PhpScoper26e51eeacccf\doFoo();
+$generalIntegerKeys = \_PhpScoperabd03f0baf05\doFoo();
 /** @var array<int, \DateTimeImmutable> $generalDateTimeValues */
-$generalDateTimeValues = \_PhpScoper26e51eeacccf\doFoo();
+$generalDateTimeValues = \_PhpScoperabd03f0baf05\doFoo();
 /** @var int $integer */
-$integer = \_PhpScoper26e51eeacccf\doFoo();
+$integer = \_PhpScoperabd03f0baf05\doFoo();
 /** @var string $string */
-$string = \_PhpScoper26e51eeacccf\doFoo();
+$string = \_PhpScoperabd03f0baf05\doFoo();
 /** @var int[] $generalIntegers */
-$generalIntegers = \_PhpScoper26e51eeacccf\doFoo();
+$generalIntegers = \_PhpScoperabd03f0baf05\doFoo();
 /** @var int[][] $generalIntegersInAnotherArray */
-$generalIntegersInAnotherArray = \_PhpScoper26e51eeacccf\doFoo();
+$generalIntegersInAnotherArray = \_PhpScoperabd03f0baf05\doFoo();
 $mappedStringKeys = \array_map(function () : \stdClass {
 }, $generalStringKeys);
 /** @var callable $callable */
-$callable = \_PhpScoper26e51eeacccf\doFoo();
+$callable = \_PhpScoperabd03f0baf05\doFoo();
 $mappedStringKeysWithUnknownClosureType = \array_map($callable, $generalStringKeys);
 $mappedWrongArray = \array_map(function () : string {
 }, 1);
 $unknownArray = \array_map($callable, 1);
 $conditionalArray = ['foo', 'bar'];
 $conditionalKeysArray = ['foo' => 1, 'bar' => 1];
-if (\_PhpScoper26e51eeacccf\doFoo()) {
+if (\_PhpScoperabd03f0baf05\doFoo()) {
     $conditionalArray[] = 'baz';
     $conditionalArray[] = 'lorem';
     $conditionalKeysArray['baz'] = 1;
     $conditionalKeysArray['lorem'] = 1;
 }
 /** @var int|string $generalIntegerOrString */
-$generalIntegerOrString = \_PhpScoper26e51eeacccf\doFoo();
+$generalIntegerOrString = \_PhpScoperabd03f0baf05\doFoo();
 /** @var array<int, int|string> $generalArrayOfIntegersOrStrings */
-$generalArrayOfIntegersOrStrings = \_PhpScoper26e51eeacccf\doFoo();
+$generalArrayOfIntegersOrStrings = \_PhpScoperabd03f0baf05\doFoo();
 /** @var array<int|string, int> $generalIntegerOrStringKeys */
-$generalIntegerOrStringKeys = \_PhpScoper26e51eeacccf\doFoo();
+$generalIntegerOrStringKeys = \_PhpScoperabd03f0baf05\doFoo();
 /** @var array<int|string, mixed> $generalIntegerOrStringKeysMixedValues */
-$generalIntegerOrStringKeysMixedValues = \_PhpScoper26e51eeacccf\doFoo();
+$generalIntegerOrStringKeysMixedValues = \_PhpScoperabd03f0baf05\doFoo();
 $clonedConditionalArray = $conditionalArray;
 $clonedConditionalArray[(int) $generalIntegerOrString] = $generalIntegerOrString;
 if (\random_int(0, 1)) {
@@ -99,9 +99,9 @@ if (\random_int(0, 1)) {
     $unionArrays = ['foo' => 'bar', 'baz' => 'qux'];
 }
 /** @var mixed $mixed */
-$mixed = \_PhpScoper26e51eeacccf\doFoo();
+$mixed = \_PhpScoperabd03f0baf05\doFoo();
 /** @var array $array */
-$array = \_PhpScoper26e51eeacccf\doFoo();
+$array = \_PhpScoperabd03f0baf05\doFoo();
 $slicedOffset = \array_slice(['4' => 'foo', 1 => 'bar', 'baz' => 'qux', 0 => 'quux', 'quuz' => 'corge'], 0, null, \false);
 $slicedOffsetWithKeys = \array_slice(['4' => 'foo', 1 => 'bar', 'baz' => 'qux', 0 => 'quux', 'quuz' => 'corge'], 0, null, \true);
 $slicedOffset[] = 'grault';

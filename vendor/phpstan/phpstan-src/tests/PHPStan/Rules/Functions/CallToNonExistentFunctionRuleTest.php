@@ -32,7 +32,7 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Testing\RuleTestCase
     public function testCallToIncorrectCaseFunctionName() : void
     {
         require_once __DIR__ . '/data/incorrect-function-case-definition.php';
-        $this->analyse([__DIR__ . '/data/incorrect-function-case.php'], [['Call to function IncorrectFunctionCase\\fooBar() with incorrect case: foobar', 5], ['_PhpScoper26e51eeacccf\\Call to function IncorrectFunctionCase\\fooBar() with incorrect case: IncorrectFunctionCase\\foobar', 7], ['Call to function htmlspecialchars() with incorrect case: htmlSpecialChars', 10]]);
+        $this->analyse([__DIR__ . '/data/incorrect-function-case.php'], [['Call to function IncorrectFunctionCase\\fooBar() with incorrect case: foobar', 5], ['_PhpScoperabd03f0baf05\\Call to function IncorrectFunctionCase\\fooBar() with incorrect case: IncorrectFunctionCase\\foobar', 7], ['Call to function htmlspecialchars() with incorrect case: htmlSpecialChars', 10]]);
     }
     public function testMatchExprAnalysis() : void
     {

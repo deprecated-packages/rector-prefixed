@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\RingCentral\Tests\Psr7;
+namespace _PhpScoperabd03f0baf05\RingCentral\Tests\Psr7;
 
-use _PhpScoper26e51eeacccf\RingCentral\Psr7\LazyOpenStream;
-class LazyOpenStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
+use _PhpScoperabd03f0baf05\RingCentral\Psr7\LazyOpenStream;
+class LazyOpenStreamTest extends \_PhpScoperabd03f0baf05\PHPUnit_Framework_TestCase
 {
     private $fname;
     public function setup()
@@ -21,7 +21,7 @@ class LazyOpenStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestC
     }
     public function testOpensLazily()
     {
-        $l = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\LazyOpenStream($this->fname, 'w+');
+        $l = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\LazyOpenStream($this->fname, 'w+');
         $l->write('foo');
         $this->assertInternalType('array', $l->getMetadata());
         $this->assertFileExists($this->fname);
@@ -31,7 +31,7 @@ class LazyOpenStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestC
     public function testProxiesToFile()
     {
         \file_put_contents($this->fname, 'foo');
-        $l = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\LazyOpenStream($this->fname, 'r');
+        $l = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\LazyOpenStream($this->fname, 'r');
         $this->assertEquals('foo', $l->read(4));
         $this->assertTrue($l->eof());
         $this->assertEquals(3, $l->tell());
@@ -48,7 +48,7 @@ class LazyOpenStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestC
     public function testDetachesUnderlyingStream()
     {
         \file_put_contents($this->fname, 'foo');
-        $l = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\LazyOpenStream($this->fname, 'r');
+        $l = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\LazyOpenStream($this->fname, 'r');
         $r = $l->detach();
         $this->assertInternalType('resource', $r);
         \fseek($r, 0);

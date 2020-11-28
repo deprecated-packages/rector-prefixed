@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\DependentPhpDocs;
+namespace _PhpScoperabd03f0baf05\DependentPhpDocs;
 
 interface Foo extends \IteratorAggregate
 {

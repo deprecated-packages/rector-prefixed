@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\SiblingMethodPrototype;
+namespace _PhpScoperabd03f0baf05\SiblingMethodPrototype;
 
 class Base
 {
@@ -8,26 +8,26 @@ class Base
     {
     }
 }
-class Other extends \_PhpScoper26e51eeacccf\SiblingMethodPrototype\Base
+class Other extends \_PhpScoperabd03f0baf05\SiblingMethodPrototype\Base
 {
     protected function foo()
     {
     }
 }
-class Child extends \_PhpScoper26e51eeacccf\SiblingMethodPrototype\Base
+class Child extends \_PhpScoperabd03f0baf05\SiblingMethodPrototype\Base
 {
     public function bar()
     {
-        $other = new \_PhpScoper26e51eeacccf\SiblingMethodPrototype\Other();
+        $other = new \_PhpScoperabd03f0baf05\SiblingMethodPrototype\Other();
         $other->foo();
     }
 }
 function () {
-    new class extends \_PhpScoper26e51eeacccf\SiblingMethodPrototype\Base
+    new class extends \_PhpScoperabd03f0baf05\SiblingMethodPrototype\Base
     {
         public function bar()
         {
-            $other = new \_PhpScoper26e51eeacccf\SiblingMethodPrototype\Other();
+            $other = new \_PhpScoperabd03f0baf05\SiblingMethodPrototype\Other();
             $other->foo();
         }
     };

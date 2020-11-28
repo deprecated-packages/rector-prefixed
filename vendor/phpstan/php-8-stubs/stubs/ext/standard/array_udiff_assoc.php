@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @param array|callable $rest */
 function array_udiff_assoc(array $array, ...$rest) : array

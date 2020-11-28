@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\MissingClosureNativeReturnTypehint;
+namespace _PhpScoperabd03f0baf05\MissingClosureNativeReturnTypehint;
 
 class Foo
 {

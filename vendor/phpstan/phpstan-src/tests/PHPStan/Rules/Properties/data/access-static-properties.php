@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 // lint < 8.0
 class FooAccessStaticProperties
@@ -10,22 +10,22 @@ class FooAccessStaticProperties
     public $loremIpsum;
 }
 // lint < 8.0
-\class_alias('_PhpScoper26e51eeacccf\\FooAccessStaticProperties', 'FooAccessStaticProperties', \false);
-class BarAccessStaticProperties extends \_PhpScoper26e51eeacccf\FooAccessStaticProperties
+\class_alias('_PhpScoperabd03f0baf05\\FooAccessStaticProperties', 'FooAccessStaticProperties', \false);
+class BarAccessStaticProperties extends \_PhpScoperabd03f0baf05\FooAccessStaticProperties
 {
     public static function test()
     {
-        \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$test;
-        \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$foo;
+        \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$test;
+        \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$foo;
         parent::$test;
         parent::$foo;
-        \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$bar;
+        \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$bar;
         // nonexistent
         self::$bar;
         // nonexistent
         parent::$bar;
         // nonexistent
-        \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$loremIpsum;
+        \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$loremIpsum;
         // instance
         static::$foo;
     }
@@ -34,19 +34,19 @@ class BarAccessStaticProperties extends \_PhpScoper26e51eeacccf\FooAccessStaticP
         parent::$loremIpsum;
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\BarAccessStaticProperties', 'BarAccessStaticProperties', \false);
+\class_alias('_PhpScoperabd03f0baf05\\BarAccessStaticProperties', 'BarAccessStaticProperties', \false);
 class IpsumAccessStaticProperties
 {
     public static function ipsum()
     {
         parent::$lorem;
         // does not have a parent
-        \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$test;
-        \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$foo;
+        \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$test;
+        \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$foo;
         // protected and not from a parent
-        \_PhpScoper26e51eeacccf\FooAccessStaticProperties::${$foo};
+        \_PhpScoperabd03f0baf05\FooAccessStaticProperties::${$foo};
         $class::$property;
-        \_PhpScoper26e51eeacccf\UnknownStaticProperties::$test;
+        \_PhpScoperabd03f0baf05\UnknownStaticProperties::$test;
         if (isset(static::$baz)) {
             static::$baz;
         }
@@ -76,40 +76,40 @@ class IpsumAccessStaticProperties
         !empty(static::$anotherEmptyNonexistent) ? null : static::$anotherEmptyNonexistent;
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\IpsumAccessStaticProperties', 'IpsumAccessStaticProperties', \false);
+\class_alias('_PhpScoperabd03f0baf05\\IpsumAccessStaticProperties', 'IpsumAccessStaticProperties', \false);
 function () {
     self::$staticFooProperty;
     static::$staticFooProperty;
     parent::$staticFooProperty;
-    \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$test;
-    \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$foo;
-    \_PhpScoper26e51eeacccf\FooAccessStaticProperties::$loremIpsum;
-    $foo = new \_PhpScoper26e51eeacccf\FooAccessStaticProperties();
+    \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$test;
+    \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$foo;
+    \_PhpScoperabd03f0baf05\FooAccessStaticProperties::$loremIpsum;
+    $foo = new \_PhpScoperabd03f0baf05\FooAccessStaticProperties();
     $foo::$test;
     $foo::$nonexistent;
-    $bar = new \_PhpScoper26e51eeacccf\NonexistentClass();
+    $bar = new \_PhpScoperabd03f0baf05\NonexistentClass();
     $bar::$test;
 };
 interface SomeInterface
 {
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeInterface', 'SomeInterface', \false);
-function (\_PhpScoper26e51eeacccf\FooAccessStaticProperties $foo) {
-    if ($foo instanceof \_PhpScoper26e51eeacccf\SomeInterface) {
+\class_alias('_PhpScoperabd03f0baf05\\SomeInterface', 'SomeInterface', \false);
+function (\_PhpScoperabd03f0baf05\FooAccessStaticProperties $foo) {
+    if ($foo instanceof \_PhpScoperabd03f0baf05\SomeInterface) {
         $foo::$test;
         $foo::$nonexistent;
     }
     /** @var string|int $stringOrInt */
-    $stringOrInt = \_PhpScoper26e51eeacccf\doFoo();
+    $stringOrInt = \_PhpScoperabd03f0baf05\doFoo();
     $stringOrInt::$foo;
 };
-function (\_PhpScoper26e51eeacccf\FOOAccessStaticPropertieS $foo) {
+function (\_PhpScoperabd03f0baf05\FOOAccessStaticPropertieS $foo) {
     $foo::$test;
     // do not report case mismatch
-    \_PhpScoper26e51eeacccf\FOOAccessStaticPropertieS::$unknownProperties;
-    \_PhpScoper26e51eeacccf\FOOAccessStaticPropertieS::$loremIpsum;
-    \_PhpScoper26e51eeacccf\FOOAccessStaticPropertieS::$foo;
-    \_PhpScoper26e51eeacccf\FOOAccessStaticPropertieS::$test;
+    \_PhpScoperabd03f0baf05\FOOAccessStaticPropertieS::$unknownProperties;
+    \_PhpScoperabd03f0baf05\FOOAccessStaticPropertieS::$loremIpsum;
+    \_PhpScoperabd03f0baf05\FOOAccessStaticPropertieS::$foo;
+    \_PhpScoperabd03f0baf05\FOOAccessStaticPropertieS::$test;
 };
 function (string $className) {
     $className::$fooProperty;
@@ -121,22 +121,22 @@ class ClassOrString
     public function doFoo()
     {
         /** @var self|string $class */
-        $class = \_PhpScoper26e51eeacccf\doFoo();
+        $class = \_PhpScoperabd03f0baf05\doFoo();
         $class::$accessedProperty;
         $class::$unknownProperty;
-        \_PhpScoper26e51eeacccf\Self::$accessedProperty;
+        \_PhpScoperabd03f0baf05\Self::$accessedProperty;
     }
     public function doBar()
     {
         /** @var self|false $class */
-        $class = \_PhpScoper26e51eeacccf\doFoo();
+        $class = \_PhpScoperabd03f0baf05\doFoo();
         if (isset($class::$anotherProperty)) {
             echo $class::$anotherProperty;
             echo $class::$instanceProperty;
         }
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ClassOrString', 'ClassOrString', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ClassOrString', 'ClassOrString', \false);
 class AccessPropertyWithDimFetch
 {
     public function doFoo()
@@ -149,7 +149,7 @@ class AccessPropertyWithDimFetch
         // reported by a separate rule
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\AccessPropertyWithDimFetch', 'AccessPropertyWithDimFetch', \false);
+\class_alias('_PhpScoperabd03f0baf05\\AccessPropertyWithDimFetch', 'AccessPropertyWithDimFetch', \false);
 class AccessInIsset
 {
     public function doFoo()
@@ -163,7 +163,7 @@ class AccessInIsset
         }
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\AccessInIsset', 'AccessInIsset', \false);
+\class_alias('_PhpScoperabd03f0baf05\\AccessInIsset', 'AccessInIsset', \false);
 trait TraitWithStaticProperty
 {
     public static $foo;
@@ -172,11 +172,11 @@ class MethodAccessingTraitProperty
 {
     public function doFoo() : void
     {
-        echo \_PhpScoper26e51eeacccf\TraitWithStaticProperty::$foo;
+        echo \_PhpScoperabd03f0baf05\TraitWithStaticProperty::$foo;
     }
-    public function doBar(\_PhpScoper26e51eeacccf\TraitWithStaticProperty $a) : void
+    public function doBar(\_PhpScoperabd03f0baf05\TraitWithStaticProperty $a) : void
     {
         echo $a::$foo;
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\MethodAccessingTraitProperty', 'MethodAccessingTraitProperty', \false);
+\class_alias('_PhpScoperabd03f0baf05\\MethodAccessingTraitProperty', 'MethodAccessingTraitProperty', \false);

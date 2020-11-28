@@ -12,6 +12,7 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Throw_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -72,6 +73,7 @@ CODE_SAMPLE
             $firstElseIf = \array_shift($node->elseifs);
             $node->cond = $firstElseIf->cond;
             $node->stmts = $firstElseIf->stmts;
+            $this->copyCommentIfExists($firstElseIf, $node);
             return $node;
         }
         if ($node->else !== null) {
@@ -85,5 +87,10 @@ CODE_SAMPLE
     {
         $lastStmt = \end($node->stmts);
         return !($lastStmt instanceof \PhpParser\Node\Stmt\Return_ || $lastStmt instanceof \PhpParser\Node\Stmt\Throw_ || $lastStmt instanceof \PhpParser\Node\Stmt\Continue_ || $lastStmt instanceof \PhpParser\Node\Stmt\Expression && $lastStmt->expr instanceof \PhpParser\Node\Expr\Exit_);
+    }
+    private function copyCommentIfExists(\PhpParser\Node $from, \PhpParser\Node $to) : void
+    {
+        $nodeComments = $from->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS);
+        $to->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $nodeComments);
     }
 }

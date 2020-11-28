@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\DuplicateKeys;
+namespace _PhpScoperabd03f0baf05\DuplicateKeys;
 
 class Foo
 {

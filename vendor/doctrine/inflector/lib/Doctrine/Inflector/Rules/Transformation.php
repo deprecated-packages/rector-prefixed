@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Doctrine\Inflector\Rules;
+namespace _PhpScoperabd03f0baf05\Doctrine\Inflector\Rules;
 
-use _PhpScoper26e51eeacccf\Doctrine\Inflector\WordInflector;
+use _PhpScoperabd03f0baf05\Doctrine\Inflector\WordInflector;
 use function preg_replace;
-final class Transformation implements \_PhpScoper26e51eeacccf\Doctrine\Inflector\WordInflector
+final class Transformation implements \_PhpScoperabd03f0baf05\Doctrine\Inflector\WordInflector
 {
     /** @var Pattern */
     private $pattern;
     /** @var string */
     private $replacement;
-    public function __construct(\_PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Pattern $pattern, string $replacement)
+    public function __construct(\_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Pattern $pattern, string $replacement)
     {
         $this->pattern = $pattern;
         $this->replacement = $replacement;
     }
-    public function getPattern() : \_PhpScoper26e51eeacccf\Doctrine\Inflector\Rules\Pattern
+    public function getPattern() : \_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Pattern
     {
         return $this->pattern;
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\EventLoop;
+namespace _PhpScoperabd03f0baf05\React\EventLoop;
 
 use BadMethodCallException;
 use Event;
 use EventBase;
-use _PhpScoper26e51eeacccf\React\EventLoop\Tick\FutureTickQueue;
-use _PhpScoper26e51eeacccf\React\EventLoop\Timer\Timer;
+use _PhpScoperabd03f0baf05\React\EventLoop\Tick\FutureTickQueue;
+use _PhpScoperabd03f0baf05\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-event` based event loop.
@@ -18,7 +18,7 @@ use SplObjectStorage;
  *
  * @link https://pecl.php.net/package/event
  */
-final class ExtEventLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface
+final class ExtEventLoop implements \_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface
 {
     private $eventBase;
     private $futureTickQueue;
@@ -47,9 +47,9 @@ final class ExtEventLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
             $config->requireFeatures(\EventConfig::FEATURE_FDS);
         }
         $this->eventBase = new \EventBase($config);
-        $this->futureTickQueue = new \_PhpScoper26e51eeacccf\React\EventLoop\Tick\FutureTickQueue();
+        $this->futureTickQueue = new \_PhpScoperabd03f0baf05\React\EventLoop\Tick\FutureTickQueue();
         $this->timerEvents = new \SplObjectStorage();
-        $this->signals = new \_PhpScoper26e51eeacccf\React\EventLoop\SignalsHandler();
+        $this->signals = new \_PhpScoperabd03f0baf05\React\EventLoop\SignalsHandler();
         $this->createTimerCallback();
         $this->createStreamCallback();
     }
@@ -112,17 +112,17 @@ final class ExtEventLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper26e51eeacccf\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \_PhpScoperabd03f0baf05\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $this->scheduleTimer($timer);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper26e51eeacccf\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \_PhpScoperabd03f0baf05\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $this->scheduleTimer($timer);
         return $timer;
     }
-    public function cancelTimer(\_PhpScoper26e51eeacccf\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\_PhpScoperabd03f0baf05\React\EventLoop\TimerInterface $timer)
     {
         if ($this->timerEvents->contains($timer)) {
             $this->timerEvents[$timer]->free();
@@ -172,7 +172,7 @@ final class ExtEventLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
      *
      * @param TimerInterface $timer
      */
-    private function scheduleTimer(\_PhpScoper26e51eeacccf\React\EventLoop\TimerInterface $timer)
+    private function scheduleTimer(\_PhpScoperabd03f0baf05\React\EventLoop\TimerInterface $timer)
     {
         $flags = \Event::TIMEOUT;
         if ($timer->isPeriodic()) {

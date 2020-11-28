@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\PhpGenerator;
+namespace _PhpScoperabd03f0baf05\Nette\PhpGenerator;
 
-use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoperabd03f0baf05\Nette;
 /**
  * Instance of PHP file.
  *
@@ -24,27 +24,27 @@ final class PhpFile
     private $namespaces = [];
     /** @var bool */
     private $strictTypes = \false;
-    public function addClass(string $name) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType
+    public function addClass(string $name) : \_PhpScoperabd03f0baf05\Nette\PhpGenerator\ClassType
     {
-        return $this->addNamespace(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::extractNamespace($name))->addClass(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::extractShortName($name));
+        return $this->addNamespace(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Helpers::extractNamespace($name))->addClass(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Helpers::extractShortName($name));
     }
-    public function addInterface(string $name) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType
+    public function addInterface(string $name) : \_PhpScoperabd03f0baf05\Nette\PhpGenerator\ClassType
     {
-        return $this->addNamespace(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::extractNamespace($name))->addInterface(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::extractShortName($name));
+        return $this->addNamespace(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Helpers::extractNamespace($name))->addInterface(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Helpers::extractShortName($name));
     }
-    public function addTrait(string $name) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\ClassType
+    public function addTrait(string $name) : \_PhpScoperabd03f0baf05\Nette\PhpGenerator\ClassType
     {
-        return $this->addNamespace(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::extractNamespace($name))->addTrait(\_PhpScoper26e51eeacccf\Nette\PhpGenerator\Helpers::extractShortName($name));
+        return $this->addNamespace(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Helpers::extractNamespace($name))->addTrait(\_PhpScoperabd03f0baf05\Nette\PhpGenerator\Helpers::extractShortName($name));
     }
     /** @param  string|PhpNamespace  $namespace */
-    public function addNamespace($namespace) : \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace
+    public function addNamespace($namespace) : \_PhpScoperabd03f0baf05\Nette\PhpGenerator\PhpNamespace
     {
-        if ($namespace instanceof \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace) {
+        if ($namespace instanceof \_PhpScoperabd03f0baf05\Nette\PhpGenerator\PhpNamespace) {
             $res = $this->namespaces[$namespace->getName()] = $namespace;
         } elseif (\is_string($namespace)) {
-            $res = $this->namespaces[$namespace] = $this->namespaces[$namespace] ?? new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\PhpNamespace($namespace);
+            $res = $this->namespaces[$namespace] = $this->namespaces[$namespace] ?? new \_PhpScoperabd03f0baf05\Nette\PhpGenerator\PhpNamespace($namespace);
         } else {
-            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException('Argument must be string|PhpNamespace.');
+            throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException('Argument must be string|PhpNamespace.');
         }
         foreach ($this->namespaces as $namespace) {
             $namespace->setBracketedSyntax(\count($this->namespaces) > 1 && isset($this->namespaces['']));
@@ -83,7 +83,7 @@ final class PhpFile
     public function __toString() : string
     {
         try {
-            return (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Printer())->printFile($this);
+            return (new \_PhpScoperabd03f0baf05\Nette\PhpGenerator\Printer())->printFile($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;

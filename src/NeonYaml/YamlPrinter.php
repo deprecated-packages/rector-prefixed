@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\NeonYaml;
 
-use _PhpScoper26e51eeacccf\Symfony\Component\Yaml\Yaml;
+use _PhpScoperabd03f0baf05\Symfony\Component\Yaml\Yaml;
 final class YamlPrinter
 {
     /**
@@ -11,6 +11,6 @@ final class YamlPrinter
      */
     public function printYamlToString(array $yaml) : string
     {
-        return \_PhpScoper26e51eeacccf\Symfony\Component\Yaml\Yaml::dump($yaml, 10, 4, \_PhpScoper26e51eeacccf\Symfony\Component\Yaml\Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
+        return \_PhpScoperabd03f0baf05\Symfony\Component\Yaml\Yaml::dump($yaml, 10, 4, \_PhpScoperabd03f0baf05\Symfony\Component\Yaml\Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
     }
 }

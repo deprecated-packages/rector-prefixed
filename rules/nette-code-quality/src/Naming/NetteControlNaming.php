@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Naming;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use Rector\Core\Util\StaticRectorStrings;
 final class NetteControlNaming
 {
     public function createVariableName(string $shortName) : string
     {
         $variableName = \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($shortName);
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($variableName, 'Form')) {
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($variableName, 'Form')) {
             return $variableName;
         }
         return $variableName . 'Control';

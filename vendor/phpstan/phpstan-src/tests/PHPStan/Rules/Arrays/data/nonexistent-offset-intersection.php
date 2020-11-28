@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class Foo
 {
@@ -21,4 +21,4 @@ class Foo
         $d = $this->fooD['bar'];
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\Foo', 'Foo', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Foo', 'Foo', \false);

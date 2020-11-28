@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ReturnTypes;
+namespace _PhpScoperabd03f0baf05\ReturnTypes;
 
 function returnNothing()
 {
@@ -18,28 +18,28 @@ function returnInteger() : int
         return 'bar';
     };
 }
-function returnObject() : \_PhpScoper26e51eeacccf\ReturnTypes\Bar
+function returnObject() : \_PhpScoperabd03f0baf05\ReturnTypes\Bar
 {
     if (\rand(0, 1)) {
         return 1;
     }
     if (\rand(0, 1)) {
-        return new \_PhpScoper26e51eeacccf\ReturnTypes\Foo();
+        return new \_PhpScoperabd03f0baf05\ReturnTypes\Foo();
     }
     if (\rand(0, 1)) {
-        return new \_PhpScoper26e51eeacccf\ReturnTypes\Bar();
+        return new \_PhpScoperabd03f0baf05\ReturnTypes\Bar();
     }
 }
-function returnChild() : \_PhpScoper26e51eeacccf\ReturnTypes\Foo
+function returnChild() : \_PhpScoperabd03f0baf05\ReturnTypes\Foo
 {
     if (\rand(0, 1)) {
-        return new \_PhpScoper26e51eeacccf\ReturnTypes\Foo();
+        return new \_PhpScoperabd03f0baf05\ReturnTypes\Foo();
     }
     if (\rand(0, 1)) {
-        return new \_PhpScoper26e51eeacccf\ReturnTypes\FooChild();
+        return new \_PhpScoperabd03f0baf05\ReturnTypes\FooChild();
     }
     if (\rand(0, 1)) {
-        return new \_PhpScoper26e51eeacccf\ReturnTypes\OtherInterfaceImpl();
+        return new \_PhpScoperabd03f0baf05\ReturnTypes\OtherInterfaceImpl();
     }
 }
 /**
@@ -54,9 +54,9 @@ function returnNullable()
         return null;
     }
 }
-function returnInterface() : \_PhpScoper26e51eeacccf\ReturnTypes\FooInterface
+function returnInterface() : \_PhpScoperabd03f0baf05\ReturnTypes\FooInterface
 {
-    return new \_PhpScoper26e51eeacccf\ReturnTypes\Foo();
+    return new \_PhpScoperabd03f0baf05\ReturnTypes\Foo();
 }
 /**
  * @return void
@@ -73,13 +73,13 @@ function returnVoid()
         return 1;
     }
 }
-function returnAlias() : \_PhpScoper26e51eeacccf\ReturnTypes\Foo
+function returnAlias() : \_PhpScoperabd03f0baf05\ReturnTypes\Foo
 {
-    return new \_PhpScoper26e51eeacccf\ReturnTypes\FooAlias();
+    return new \_PhpScoperabd03f0baf05\ReturnTypes\FooAlias();
 }
-function returnAnotherAlias() : \_PhpScoper26e51eeacccf\ReturnTypes\FooAlias
+function returnAnotherAlias() : \_PhpScoperabd03f0baf05\ReturnTypes\FooAlias
 {
-    return new \_PhpScoper26e51eeacccf\ReturnTypes\Foo();
+    return new \_PhpScoperabd03f0baf05\ReturnTypes\Foo();
 }
 /**
  * @return int

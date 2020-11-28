@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Gedmo\Mapping\Annotation;
+namespace _PhpScoperabd03f0baf05\Gedmo\Mapping\Annotation;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Gedmo\\Mapping\\Annotation\\TreeRoot')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Gedmo\\Mapping\\Annotation\\TreeRoot')) {
     return;
 }
 /**

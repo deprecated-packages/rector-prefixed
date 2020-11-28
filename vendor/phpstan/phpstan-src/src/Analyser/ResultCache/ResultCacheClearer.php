@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Analyser\ResultCache;
 
-use _PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder;
+use _PhpScoperabd03f0baf05\Symfony\Component\Finder\Finder;
 class ResultCacheClearer
 {
     /**
@@ -30,7 +30,7 @@ class ResultCacheClearer
     }
     public function clearTemporaryCaches() : void
     {
-        $finder = new \_PhpScoper26e51eeacccf\Symfony\Component\Finder\Finder();
+        $finder = new \_PhpScoperabd03f0baf05\Symfony\Component\Finder\Finder();
         foreach ($finder->files()->name('*.php')->in($this->tempResultCachePath) as $tmpResultCacheFile) {
             @\unlink($tmpResultCacheFile->getPathname());
         }

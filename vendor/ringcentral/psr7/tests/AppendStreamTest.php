@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\RingCentral\Tests\Psr7;
+namespace _PhpScoperabd03f0baf05\RingCentral\Tests\Psr7;
 
-use _PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream;
-use _PhpScoper26e51eeacccf\RingCentral\Psr7;
-class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
+use _PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7;
+class AppendStreamTest extends \_PhpScoperabd03f0baf05\PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \InvalidArgumentException
@@ -12,8 +12,8 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
      */
     public function testValidatesStreamsAreReadable()
     {
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream();
-        $s = $this->getMockBuilder('_PhpScoper26e51eeacccf\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isReadable'))->getMockForAbstractClass();
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream();
+        $s = $this->getMockBuilder('_PhpScoperabd03f0baf05\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isReadable'))->getMockForAbstractClass();
         $s->expects($this->once())->method('isReadable')->will($this->returnValue(\false));
         $a->addStream($s);
     }
@@ -23,7 +23,7 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
      */
     public function testValidatesSeekType()
     {
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream();
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream();
         $a->seek(100, \SEEK_CUR);
     }
     /**
@@ -32,8 +32,8 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
      */
     public function testTriesToRewindOnSeek()
     {
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream();
-        $s = $this->getMockBuilder('_PhpScoper26e51eeacccf\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isReadable', 'rewind', 'isSeekable'))->getMockForAbstractClass();
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream();
+        $s = $this->getMockBuilder('_PhpScoperabd03f0baf05\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isReadable', 'rewind', 'isSeekable'))->getMockForAbstractClass();
         $s->expects($this->once())->method('isReadable')->will($this->returnValue(\true));
         $s->expects($this->once())->method('isSeekable')->will($this->returnValue(\true));
         $s->expects($this->once())->method('rewind')->will($this->throwException(new \RuntimeException()));
@@ -42,7 +42,7 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
     }
     public function testSeeksToPositionByReading()
     {
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream(array(\_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo'), \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('bar'), \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('baz')));
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream(array(\_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo'), \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('bar'), \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('baz')));
         $a->seek(3);
         $this->assertEquals(3, $a->tell());
         $this->assertEquals('bar', $a->read(3));
@@ -52,9 +52,9 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
     }
     public function testDetachesEachStream()
     {
-        $s1 = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo');
-        $s2 = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('bar');
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream(array($s1, $s2));
+        $s1 = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo');
+        $s2 = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('bar');
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream(array($s1, $s2));
         $this->assertSame('foobar', (string) $a);
         $a->detach();
         $this->assertSame('', (string) $a);
@@ -62,8 +62,8 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
     }
     public function testClosesEachStream()
     {
-        $s1 = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo');
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream(array($s1));
+        $s1 = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo');
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream(array($s1));
         $a->close();
         $this->assertSame('', (string) $a);
     }
@@ -73,7 +73,7 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
      */
     public function testIsNotWritable()
     {
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream(array(\_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo')));
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream(array(\_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo')));
         $this->assertFalse($a->isWritable());
         $this->assertTrue($a->isSeekable());
         $this->assertTrue($a->isReadable());
@@ -81,12 +81,12 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
     }
     public function testDoesNotNeedStreams()
     {
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream();
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream();
         $this->assertEquals('', (string) $a);
     }
     public function testCanReadFromMultipleStreams()
     {
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream(array(\_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo'), \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('bar'), \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('baz')));
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream(array(\_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo'), \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('bar'), \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('baz')));
         $this->assertFalse($a->eof());
         $this->assertSame(0, $a->tell());
         $this->assertEquals('foo', $a->read(3));
@@ -99,9 +99,9 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
     }
     public function testCanDetermineSizeFromMultipleStreams()
     {
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream(array(\_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo'), \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('bar')));
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream(array(\_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo'), \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('bar')));
         $this->assertEquals(6, $a->getSize());
-        $s = $this->getMockBuilder('_PhpScoper26e51eeacccf\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isSeekable', 'isReadable'))->getMockForAbstractClass();
+        $s = $this->getMockBuilder('_PhpScoperabd03f0baf05\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isSeekable', 'isReadable'))->getMockForAbstractClass();
         $s->expects($this->once())->method('isSeekable')->will($this->returnValue(null));
         $s->expects($this->once())->method('isReadable')->will($this->returnValue(\true));
         $a->addStream($s);
@@ -109,23 +109,23 @@ class AppendStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCas
     }
     public function testCatchesExceptionsWhenCastingToString()
     {
-        $s = $this->getMockBuilder('_PhpScoper26e51eeacccf\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isSeekable', 'read', 'isReadable', 'eof'))->getMockForAbstractClass();
+        $s = $this->getMockBuilder('_PhpScoperabd03f0baf05\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isSeekable', 'read', 'isReadable', 'eof'))->getMockForAbstractClass();
         $s->expects($this->once())->method('isSeekable')->will($this->returnValue(\true));
         $s->expects($this->once())->method('read')->will($this->throwException(new \RuntimeException('foo')));
         $s->expects($this->once())->method('isReadable')->will($this->returnValue(\true));
         $s->expects($this->any())->method('eof')->will($this->returnValue(\false));
-        $a = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream(array($s));
+        $a = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream(array($s));
         $this->assertFalse($a->eof());
         $this->assertSame('', (string) $a);
     }
     public function testCanDetach()
     {
-        $s = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream();
+        $s = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream();
         $s->detach();
     }
     public function testReturnsEmptyMetadata()
     {
-        $s = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\AppendStream();
+        $s = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\AppendStream();
         $this->assertEquals(array(), $s->getMetadata());
         $this->assertNull($s->getMetadata('foo'));
     }

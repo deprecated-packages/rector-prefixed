@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InstantiationClassExists;
+namespace _PhpScoperabd03f0baf05\InstantiationClassExists;
 
 class Foo
 {
     public function doFoo() : void
     {
-        if (\class_exists(\_PhpScoper26e51eeacccf\InstantiationClassExists\Bar::class)) {
-            $bar = new \_PhpScoper26e51eeacccf\InstantiationClassExists\Bar();
+        if (\class_exists(\_PhpScoperabd03f0baf05\InstantiationClassExists\Bar::class)) {
+            $bar = new \_PhpScoperabd03f0baf05\InstantiationClassExists\Bar();
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\AbstractMethod;
+namespace _PhpScoperabd03f0baf05\AbstractMethod;
 
 abstract class Foo
 {

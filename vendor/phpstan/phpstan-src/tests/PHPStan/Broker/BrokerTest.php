@@ -20,7 +20,7 @@ use PHPStan\Reflection\ReflectionProvider\SetterReflectionProviderProvider;
 use PHPStan\Reflection\Runtime\RuntimeReflectionProvider;
 use PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider;
 use PHPStan\Type\FileTypeMapper;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 class BrokerTest extends \PHPStan\Testing\TestCase
 {
     /** @var \PHPStan\Broker\Broker */
@@ -37,7 +37,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
         $dynamicReturnTypeExtensionRegistryProvider = new \PHPStan\DependencyInjection\Type\DirectDynamicReturnTypeExtensionRegistryProvider([], [], []);
         $operatorTypeSpecifyingExtensionRegistryProvider = new \PHPStan\DependencyInjection\Type\DirectOperatorTypeSpecifyingExtensionRegistryProvider([]);
         $setterReflectionProviderProvider = new \PHPStan\Reflection\ReflectionProvider\SetterReflectionProviderProvider();
-        $reflectionProvider = new \PHPStan\Reflection\Runtime\RuntimeReflectionProvider($setterReflectionProviderProvider, $classReflectionExtensionRegistryProvider, $this->createMock(\PHPStan\Reflection\FunctionReflectionFactory::class), new \PHPStan\Type\FileTypeMapper($setterReflectionProviderProvider, $this->getParser(), $phpDocStringResolver, $phpDocNodeResolver, $this->createMock(\PHPStan\Cache\Cache::class), $anonymousClassNameHelper), self::getContainer()->getByType(\PHPStan\Php\PhpVersion::class), self::getContainer()->getByType(\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider::class), self::getContainer()->getByType(\PHPStan\PhpDoc\StubPhpDocProvider::class), self::getContainer()->getByType(\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class));
+        $reflectionProvider = new \PHPStan\Reflection\Runtime\RuntimeReflectionProvider($setterReflectionProviderProvider, $classReflectionExtensionRegistryProvider, $this->createMock(\PHPStan\Reflection\FunctionReflectionFactory::class), new \PHPStan\Type\FileTypeMapper($setterReflectionProviderProvider, $this->getParser(), $phpDocStringResolver, $phpDocNodeResolver, $this->createMock(\PHPStan\Cache\Cache::class), $anonymousClassNameHelper), self::getContainer()->getByType(\PHPStan\Php\PhpVersion::class), self::getContainer()->getByType(\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider::class), self::getContainer()->getByType(\PHPStan\PhpDoc\StubPhpDocProvider::class), self::getContainer()->getByType(\_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class));
         $setterReflectionProviderProvider->setReflectionProvider($reflectionProvider);
         $this->broker = new \PHPStan\Broker\Broker($reflectionProvider, $dynamicReturnTypeExtensionRegistryProvider, $operatorTypeSpecifyingExtensionRegistryProvider, []);
         $classReflectionExtensionRegistryProvider->setBroker($this->broker);

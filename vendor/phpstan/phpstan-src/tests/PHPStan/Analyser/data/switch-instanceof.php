@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\SwitchInstanceOf;
+namespace _PhpScoperabd03f0baf05\SwitchInstanceOf;
 
 $foo = doFoo();
 $bar = doBar();
 $baz = doBaz();
 switch (\true) {
-    case $foo instanceof \_PhpScoper26e51eeacccf\SwitchInstanceOf\Foo:
+    case $foo instanceof \_PhpScoperabd03f0baf05\SwitchInstanceOf\Foo:
         break;
-    case $bar instanceof \_PhpScoper26e51eeacccf\SwitchInstanceOf\Bar:
+    case $bar instanceof \_PhpScoperabd03f0baf05\SwitchInstanceOf\Bar:
         break;
-    case $baz instanceof \_PhpScoper26e51eeacccf\SwitchInstanceOf\Baz:
+    case $baz instanceof \_PhpScoperabd03f0baf05\SwitchInstanceOf\Baz:
         die;
         break;
 }

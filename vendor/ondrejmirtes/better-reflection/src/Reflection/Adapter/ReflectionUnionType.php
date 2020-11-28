@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter;
 
 use ReflectionUnionType as CoreReflectionUnionType;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionUnionType as BetterReflectionType;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionUnionType as BetterReflectionType;
 use function array_map;
 class ReflectionUnionType extends \ReflectionUnionType
 {
     /** @var BetterReflectionType */
     private $betterReflectionType;
-    public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionUnionType $betterReflectionType)
+    public function __construct(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionUnionType $betterReflectionType)
     {
         $this->betterReflectionType = $betterReflectionType;
     }
@@ -27,8 +27,8 @@ class ReflectionUnionType extends \ReflectionUnionType
      */
     public function getTypes() : array
     {
-        return \array_map(static function (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionType $type) : \ReflectionType {
-            return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($type);
+        return \array_map(static function (\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionType $type) : \ReflectionType {
+            return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($type);
         }, $this->betterReflectionType->getTypes());
     }
 }

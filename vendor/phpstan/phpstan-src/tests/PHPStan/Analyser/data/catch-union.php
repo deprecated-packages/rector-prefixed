@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\CatchUnion;
+namespace _PhpScoperabd03f0baf05\CatchUnion;
 
 class FooException extends \Exception
 {
@@ -10,7 +10,7 @@ class BarException extends \Exception
 }
 function () {
     try {
-    } catch (\_PhpScoper26e51eeacccf\CatchUnion\FooException|\_PhpScoper26e51eeacccf\CatchUnion\BarException $e) {
+    } catch (\_PhpScoperabd03f0baf05\CatchUnion\FooException|\_PhpScoperabd03f0baf05\CatchUnion\BarException $e) {
         die;
     }
 };

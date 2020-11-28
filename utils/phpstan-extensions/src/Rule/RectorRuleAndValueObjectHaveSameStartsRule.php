@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStanExtensions\Rule;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -65,7 +65,7 @@ final class RectorRuleAndValueObjectHaveSameStartsRule implements \PHPStan\Rules
         if ($valueObjectShortClass === null) {
             return [];
         }
-        $expectedValueObjectShortClass = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($rectorShortClass, self::RECTOR_SUFFIX_REGEX, '');
+        $expectedValueObjectShortClass = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($rectorShortClass, self::RECTOR_SUFFIX_REGEX, '');
         if ($expectedValueObjectShortClass === $valueObjectShortClass) {
             return [];
         }
@@ -74,11 +74,11 @@ final class RectorRuleAndValueObjectHaveSameStartsRule implements \PHPStan\Rules
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall, \PHPStan\Analyser\Scope $scope) : bool
     {
-        return !$this->typeAndNameAnalyzer->isMethodCallTypeAndName($methodCall, $scope, '_PhpScoper26e51eeacccf\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ServicesConfigurator', 'set');
+        return !$this->typeAndNameAnalyzer->isMethodCallTypeAndName($methodCall, $scope, '_PhpScoperabd03f0baf05\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ServicesConfigurator', 'set');
     }
     private function resolveShortClass(string $class) : string
     {
-        return (string) \_PhpScoper26e51eeacccf\Nette\Utils\Strings::after($class, '\\', -1);
+        return (string) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after($class, '\\', -1);
     }
     private function resolveRectorShortClass(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {

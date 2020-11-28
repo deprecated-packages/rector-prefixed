@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Dns\Config;
+namespace _PhpScoperabd03f0baf05\React\Dns\Config;
 
 use RuntimeException;
 final class Config

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InvokeMagicInvokeMethod;
+namespace _PhpScoperabd03f0baf05\InvokeMagicInvokeMethod;
 
 class ClassForCallable
 {
@@ -15,7 +15,7 @@ class ClassWithInvoke
     }
 }
 function () {
-    $foo = new \_PhpScoper26e51eeacccf\InvokeMagicInvokeMethod\ClassForCallable();
-    $foo->doFoo(new \_PhpScoper26e51eeacccf\InvokeMagicInvokeMethod\ClassWithInvoke());
+    $foo = new \_PhpScoperabd03f0baf05\InvokeMagicInvokeMethod\ClassForCallable();
+    $foo->doFoo(new \_PhpScoperabd03f0baf05\InvokeMagicInvokeMethod\ClassWithInvoke());
     $foo->doFoo($foo);
 };

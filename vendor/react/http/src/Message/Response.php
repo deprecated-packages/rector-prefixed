@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Http\Message;
+namespace _PhpScoperabd03f0baf05\React\Http\Message;
 
-use _PhpScoper26e51eeacccf\React\Http\Io\HttpBodyStream;
-use _PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface;
-use _PhpScoper26e51eeacccf\RingCentral\Psr7\Response as Psr7Response;
-use _PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface;
+use _PhpScoperabd03f0baf05\React\Http\Io\HttpBodyStream;
+use _PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7\Response as Psr7Response;
+use _PhpScoperabd03f0baf05\Psr\Http\Message\StreamInterface;
 /**
  * Represents an outgoing server response message.
  *
@@ -30,7 +30,7 @@ use _PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface;
  *
  * @see \Psr\Http\Message\ResponseInterface
  */
-final class Response extends \_PhpScoper26e51eeacccf\RingCentral\Psr7\Response
+final class Response extends \_PhpScoperabd03f0baf05\RingCentral\Psr7\Response
 {
     /**
      * @param int                                            $status  HTTP status code (e.g. 200/404)
@@ -42,9 +42,9 @@ final class Response extends \_PhpScoper26e51eeacccf\RingCentral\Psr7\Response
      */
     public function __construct($status = 200, array $headers = array(), $body = '', $version = '1.1', $reason = null)
     {
-        if ($body instanceof \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface && !$body instanceof \_PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface) {
-            $body = new \_PhpScoper26e51eeacccf\React\Http\Io\HttpBodyStream($body, null);
-        } elseif (!\is_string($body) && !$body instanceof \_PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface) {
+        if ($body instanceof \_PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface && !$body instanceof \_PhpScoperabd03f0baf05\Psr\Http\Message\StreamInterface) {
+            $body = new \_PhpScoperabd03f0baf05\React\Http\Io\HttpBodyStream($body, null);
+        } elseif (!\is_string($body) && !$body instanceof \_PhpScoperabd03f0baf05\Psr\Http\Message\StreamInterface) {
             throw new \InvalidArgumentException('Invalid response body given');
         }
         parent::__construct($status, $headers, $body, $version, $reason);

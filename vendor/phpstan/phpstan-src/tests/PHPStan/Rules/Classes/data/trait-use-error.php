@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TraitUseError;
+namespace _PhpScoperabd03f0baf05\TraitUseError;
 
 class Foo
 {

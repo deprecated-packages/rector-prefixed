@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class ReflectionZendExtension implements \Reflector
 {
@@ -35,4 +35,4 @@ class ReflectionZendExtension implements \Reflector
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ReflectionZendExtension', 'ReflectionZendExtension', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ReflectionZendExtension', 'ReflectionZendExtension', \false);

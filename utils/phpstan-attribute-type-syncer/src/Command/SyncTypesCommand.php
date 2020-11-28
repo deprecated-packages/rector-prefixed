@@ -8,8 +8,8 @@ use Rector\Core\Console\Command\AbstractCommand;
 use Rector\Utils\PHPStanAttributeTypeSyncer\Finder\NodeClassFinder;
 use Rector\Utils\PHPStanAttributeTypeSyncer\Generator\AttributeAwareNodeFactoryGenerator;
 use Rector\Utils\PHPStanAttributeTypeSyncer\Generator\AttributeAwareNodeGenerator;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 final class SyncTypesCommand extends \Rector\Core\Console\Command\AbstractCommand
@@ -47,7 +47,7 @@ final class SyncTypesCommand extends \Rector\Core\Console\Command\AbstractComman
     {
         $this->setDescription('[DEV] Synchronize PHPStan types to attribute aware types in Rectors');
     }
-    protected function execute(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $missingNodeClasses = $this->getMissingNodeClasses();
         if ($missingNodeClasses === []) {

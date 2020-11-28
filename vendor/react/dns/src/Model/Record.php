@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Dns\Model;
+namespace _PhpScoperabd03f0baf05\React\Dns\Model;
 
 /**
  * This class represents a single resulting record in a response message

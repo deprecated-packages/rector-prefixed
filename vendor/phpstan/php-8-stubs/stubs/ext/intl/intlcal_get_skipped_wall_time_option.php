@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function intlcal_get_skipped_wall_time_option(\IntlCalendar $calendar) : int
 {

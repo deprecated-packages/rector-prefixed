@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ListType;
+namespace _PhpScoperabd03f0baf05\ListType;
 
 use function PHPStan\Analyser\assertType;
 class Foo

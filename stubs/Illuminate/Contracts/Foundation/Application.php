@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Illuminate\Contracts\Foundation;
+namespace _PhpScoperabd03f0baf05\Illuminate\Contracts\Foundation;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Illuminate\\Contracts\\Foundation\\Application')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Foundation\\Application')) {
     return;
 }
 final class Application

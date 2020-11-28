@@ -10,7 +10,7 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 {
     public function dataInternalAnnotations() : array
     {
-        return [[\false, \_PhpScoper26e51eeacccf\InternalAnnotations\Foo::class, ['constant' => ['FOO'], 'method' => ['foo', 'staticFoo'], 'property' => ['foo', 'staticFoo']]], [\true, \_PhpScoper26e51eeacccf\InternalAnnotations\InternalFoo::class, ['constant' => ['INTERNAL_FOO'], 'method' => ['internalFoo', 'internalStaticFoo'], 'property' => ['internalFoo', 'internalStaticFoo']]], [\false, \_PhpScoper26e51eeacccf\InternalAnnotations\FooInterface::class, ['constant' => ['FOO'], 'method' => ['foo', 'staticFoo']]], [\true, \_PhpScoper26e51eeacccf\InternalAnnotations\InternalFooInterface::class, ['constant' => ['INTERNAL_FOO'], 'method' => ['internalFoo', 'internalStaticFoo']]], [\false, \_PhpScoper26e51eeacccf\InternalAnnotations\FooTrait::class, ['method' => ['foo', 'staticFoo'], 'property' => ['foo', 'staticFoo']]], [\true, \_PhpScoper26e51eeacccf\InternalAnnotations\InternalFooTrait::class, ['method' => ['internalFoo', 'internalStaticFoo'], 'property' => ['internalFoo', 'internalStaticFoo']]]];
+        return [[\false, \_PhpScoperabd03f0baf05\InternalAnnotations\Foo::class, ['constant' => ['FOO'], 'method' => ['foo', 'staticFoo'], 'property' => ['foo', 'staticFoo']]], [\true, \_PhpScoperabd03f0baf05\InternalAnnotations\InternalFoo::class, ['constant' => ['INTERNAL_FOO'], 'method' => ['internalFoo', 'internalStaticFoo'], 'property' => ['internalFoo', 'internalStaticFoo']]], [\false, \_PhpScoperabd03f0baf05\InternalAnnotations\FooInterface::class, ['constant' => ['FOO'], 'method' => ['foo', 'staticFoo']]], [\true, \_PhpScoperabd03f0baf05\InternalAnnotations\InternalFooInterface::class, ['constant' => ['INTERNAL_FOO'], 'method' => ['internalFoo', 'internalStaticFoo']]], [\false, \_PhpScoperabd03f0baf05\InternalAnnotations\FooTrait::class, ['method' => ['foo', 'staticFoo'], 'property' => ['foo', 'staticFoo']]], [\true, \_PhpScoperabd03f0baf05\InternalAnnotations\InternalFooTrait::class, ['method' => ['internalFoo', 'internalStaticFoo'], 'property' => ['internalFoo', 'internalStaticFoo']]]];
     }
     /**
      * @dataProvider dataInternalAnnotations
@@ -46,7 +46,7 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
         require_once __DIR__ . '/data/annotations-internal.php';
         /** @var Broker $broker */
         $broker = self::getContainer()->getByType(\PHPStan\Broker\Broker::class);
-        $this->assertFalse($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoper26e51eeacccf\\InternalAnnotations\\foo'), null)->isInternal()->yes());
-        $this->assertTrue($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoper26e51eeacccf\\InternalAnnotations\\internalFoo'), null)->isInternal()->yes());
+        $this->assertFalse($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\InternalAnnotations\\foo'), null)->isInternal()->yes());
+        $this->assertTrue($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\InternalAnnotations\\internalFoo'), null)->isInternal()->yes());
     }
 }

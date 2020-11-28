@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited;
+namespace _PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited;
 
 class A
 {
 }
-class B extends \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\A
+class B extends \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\A
 {
 }
-class C extends \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\B
+class C extends \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\B
 {
 }
-class D extends \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\A
+class D extends \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\A
 {
 }
 class GrandparentClass
@@ -19,7 +19,7 @@ class GrandparentClass
     /** @return B */
     public function method()
     {
-        return new \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\B();
+        return new \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\B();
     }
 }
 interface InterfaceC
@@ -32,28 +32,28 @@ interface InterfaceA
     /** @return A */
     public function method();
 }
-class ParentClass extends \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\GrandparentClass implements \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\InterfaceC, \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\InterfaceA
+class ParentClass extends \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\GrandparentClass implements \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\InterfaceC, \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\InterfaceA
 {
     /** Some comment */
     public function method()
     {
-        return new \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\A();
+        return new \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\A();
     }
 }
-class ChildClass extends \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\ParentClass
+class ChildClass extends \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\ParentClass
 {
     public function method()
     {
-        return new \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\A();
+        return new \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\A();
     }
 }
-class ChildClass2 extends \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\ParentClass
+class ChildClass2 extends \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\ParentClass
 {
     /**
      * @return D
      */
     public function method()
     {
-        return new \_PhpScoper26e51eeacccf\ReturnTypePhpDocMergeReturnInherited\B();
+        return new \_PhpScoperabd03f0baf05\ReturnTypePhpDocMergeReturnInherited\B();
     }
 }

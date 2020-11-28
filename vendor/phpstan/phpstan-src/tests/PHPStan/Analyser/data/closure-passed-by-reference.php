@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ClosurePassedByReference;
+namespace _PhpScoperabd03f0baf05\ClosurePassedByReference;
 
 function () {
     $progressStarted = \false;
@@ -21,7 +21,7 @@ function () {
             $anotherVariable = \true;
         }
         if ($fooOrNull === null) {
-            $fooOrNull = new \_PhpScoper26e51eeacccf\ClosurePassedByReference\Foo();
+            $fooOrNull = new \_PhpScoperabd03f0baf05\ClosurePassedByReference\Foo();
         }
         $incrementedInside++;
         'inCallbackAfterAssign';

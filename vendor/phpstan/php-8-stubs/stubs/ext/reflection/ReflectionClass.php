@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class ReflectionClass implements \Reflector
 {
@@ -221,4 +221,4 @@ class ReflectionClass implements \Reflector
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ReflectionClass', 'ReflectionClass', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ReflectionClass', 'ReflectionClass', \false);

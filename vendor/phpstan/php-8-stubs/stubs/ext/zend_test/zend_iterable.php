@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function zend_iterable(iterable $arg1, ?iterable $arg2 = null) : void
 {

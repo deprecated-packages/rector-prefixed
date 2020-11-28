@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI\Definitions;
+namespace _PhpScoperabd03f0baf05\Nette\DI\Definitions;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Nette\\DI\\Definitions\\ServiceDefinition')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Nette\\DI\\Definitions\\ServiceDefinition')) {
     return;
 }
-final class ServiceDefinition extends \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition
+final class ServiceDefinition extends \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition
 {
 }

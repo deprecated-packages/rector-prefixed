@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-class ExtendsClassWithUnknownPropertyType extends \_PhpScoper26e51eeacccf\ClassWithUnknownPropertyType
+class ExtendsClassWithUnknownPropertyType extends \_PhpScoperabd03f0baf05\ClassWithUnknownPropertyType
 {
     /** @var self */
     private $foo;
@@ -11,4 +11,4 @@ class ExtendsClassWithUnknownPropertyType extends \_PhpScoper26e51eeacccf\ClassW
         $this->foo->foo();
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ExtendsClassWithUnknownPropertyType', 'ExtendsClassWithUnknownPropertyType', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ExtendsClassWithUnknownPropertyType', 'ExtendsClassWithUnknownPropertyType', \false);

@@ -1,26 +1,26 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\RingCentral\Tests\Psr7;
+namespace _PhpScoperabd03f0baf05\RingCentral\Tests\Psr7;
 
-use _PhpScoper26e51eeacccf\RingCentral\Psr7\NoSeekStream;
-use _PhpScoper26e51eeacccf\RingCentral\Psr7\Stream;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7\NoSeekStream;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7\Stream;
 /**
  * @covers RingCentral\Psr7\Stream
  */
-class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
+class StreamTest extends \_PhpScoperabd03f0baf05\PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \InvalidArgumentException
      */
     public function testConstructorThrowsExceptionOnInvalidArgument()
     {
-        new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream(\true);
+        new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream(\true);
     }
     public function testConstructorInitializesProperties()
     {
         $handle = \fopen('php://temp', 'r+');
         \fwrite($handle, 'data');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($handle);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($handle);
         $this->assertTrue($stream->isReadable());
         $this->assertTrue($stream->isWritable());
         $this->assertTrue($stream->isSeekable());
@@ -33,7 +33,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     public function testStreamClosesHandleOnDestruct()
     {
         $handle = \fopen('php://temp', 'r');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($handle);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($handle);
         unset($stream);
         $this->assertFalse(\is_resource($handle));
     }
@@ -41,7 +41,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     {
         $handle = \fopen('php://temp', 'w+');
         \fwrite($handle, 'data');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($handle);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($handle);
         $this->assertEquals('data', (string) $stream);
         $this->assertEquals('data', (string) $stream);
         $stream->close();
@@ -50,7 +50,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     {
         $handle = \fopen('php://temp', 'w+');
         \fwrite($handle, 'data');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($handle);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($handle);
         $this->assertEquals('', $stream->getContents());
         $stream->seek(0);
         $this->assertEquals('data', $stream->getContents());
@@ -60,7 +60,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     {
         $handle = \fopen('php://temp', 'w+');
         \fwrite($handle, 'data');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($handle);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($handle);
         $this->assertFalse($stream->eof());
         $stream->read(4);
         $this->assertTrue($stream->eof());
@@ -70,7 +70,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     {
         $size = \filesize(__FILE__);
         $handle = \fopen(__FILE__, 'r');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($handle);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($handle);
         $this->assertEquals($size, $stream->getSize());
         // Load from cache
         $this->assertEquals($size, $stream->getSize());
@@ -80,7 +80,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     {
         $h = \fopen('php://temp', 'w+');
         $this->assertEquals(3, \fwrite($h, 'foo'));
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($h);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($h);
         $this->assertEquals(3, $stream->getSize());
         $this->assertEquals(4, $stream->write('test'));
         $this->assertEquals(7, $stream->getSize());
@@ -90,7 +90,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     public function testProvidesStreamPosition()
     {
         $handle = \fopen('php://temp', 'w+');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($handle);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($handle);
         $this->assertEquals(0, $stream->tell());
         $stream->write('foo');
         $this->assertEquals(3, $stream->tell());
@@ -102,7 +102,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     public function testCanDetachStream()
     {
         $r = \fopen('php://temp', 'w+');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($r);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($r);
         $stream->write('foo');
         $this->assertTrue($stream->isReadable());
         $this->assertSame($r, $stream->detach());
@@ -145,7 +145,7 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     public function testCloseClearProperties()
     {
         $handle = \fopen('php://temp', 'r+');
-        $stream = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\Stream($handle);
+        $stream = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\Stream($handle);
         $stream->close();
         $this->assertFalse($stream->isSeekable());
         $this->assertFalse($stream->isReadable());
@@ -155,8 +155,8 @@ class StreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
     }
     public function testDoesNotThrowInToString()
     {
-        $s = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo');
-        $s = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\NoSeekStream($s);
+        $s = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo');
+        $s = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\NoSeekStream($s);
         $this->assertEquals('foo', (string) $s);
     }
 }

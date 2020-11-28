@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\IncompatibleDefaultParameterTypeTraitCrash;
+namespace _PhpScoperabd03f0baf05\IncompatibleDefaultParameterTypeTraitCrash;
 
 trait ConstructorWithoutArgumentsTrait
 {

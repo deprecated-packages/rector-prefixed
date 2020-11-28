@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ClosureCall;
+namespace _PhpScoperabd03f0baf05\ClosureCall;
 
 $newThis = new class
 {

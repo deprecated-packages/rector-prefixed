@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\AccessPropertiesDateIntervalChild;
+namespace _PhpScoperabd03f0baf05\AccessPropertiesDateIntervalChild;
 
 class DateIntervalChild extends \DateInterval
 {

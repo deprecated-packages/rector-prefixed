@@ -9,11 +9,11 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types;
 
 use InvalidArgumentException;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Fqsen;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Type;
 use function strpos;
 /**
  * Value Object representing an object.
@@ -24,7 +24,7 @@ use function strpos;
  *
  * @psalm-immutable
  */
-final class Object_ implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
+final class Object_ implements \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Type
 {
     /** @var Fqsen|null */
     private $fqsen;
@@ -33,7 +33,7 @@ final class Object_ implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\
      *
      * @throws InvalidArgumentException When provided $fqsen is not a valid type.
      */
-    public function __construct(?\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen $fqsen = null)
+    public function __construct(?\_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Fqsen $fqsen = null)
     {
         if (\strpos((string) $fqsen, '::') !== \false || \strpos((string) $fqsen, '()') !== \false) {
             throw new \InvalidArgumentException('Object types can only refer to a class, interface or trait but a method, function, constant or ' . 'property was received: ' . (string) $fqsen);
@@ -43,7 +43,7 @@ final class Object_ implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\
     /**
      * Returns the FQSEN associated with this object.
      */
-    public function getFqsen() : ?\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen
+    public function getFqsen() : ?\_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Fqsen
     {
         return $this->fqsen;
     }

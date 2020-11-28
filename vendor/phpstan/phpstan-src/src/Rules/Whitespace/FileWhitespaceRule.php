@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Rules\Whitespace;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PHPStan\Analyser\Scope;
@@ -68,7 +68,7 @@ class FileWhitespaceRule implements \PHPStan\Rules\Rule
         $lastNodes = $visitor->getLastNodes();
         $lastNodes[] = $nodes[\count($nodes) - 1];
         foreach ($lastNodes as $lastNode) {
-            if (!$lastNode instanceof \PhpParser\Node\Stmt\InlineHTML || \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($lastNode->value, '#^(\\s+)$#') === null) {
+            if (!$lastNode instanceof \PhpParser\Node\Stmt\InlineHTML || \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($lastNode->value, '#^(\\s+)$#') === null) {
                 continue;
             }
             $messages[] = \PHPStan\Rules\RuleErrorBuilder::message('File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.')->line($lastNode->getStartLine())->build();

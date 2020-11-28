@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Http\Io;
+namespace _PhpScoperabd03f0baf05\React\Http\Io;
 
-use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
-use _PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface;
-use _PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface;
-use _PhpScoper26e51eeacccf\React\Stream\Util;
-use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
+use _PhpScoperabd03f0baf05\Evenement\EventEmitter;
+use _PhpScoperabd03f0baf05\Psr\Http\Message\StreamInterface;
+use _PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface;
+use _PhpScoperabd03f0baf05\React\Stream\Util;
+use _PhpScoperabd03f0baf05\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Bridge between an empty StreamInterface from PSR-7 and ReadableStreamInterface from ReactPHP
  *
@@ -24,7 +24,7 @@ use _PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface;
  * @see ReadableStreamInterface
  * @internal
  */
-class EmptyBodyStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\Psr\Http\Message\StreamInterface, \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface
+class EmptyBodyStream extends \_PhpScoperabd03f0baf05\Evenement\EventEmitter implements \_PhpScoperabd03f0baf05\Psr\Http\Message\StreamInterface, \_PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface
 {
     private $closed = \false;
     public function isReadable()
@@ -39,9 +39,9 @@ class EmptyBodyStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter imp
     {
         // NOOP
     }
-    public function pipe(\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoperabd03f0baf05\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper26e51eeacccf\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoperabd03f0baf05\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

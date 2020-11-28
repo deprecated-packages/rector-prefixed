@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper26e51eeacccf\\phpDocumentor\\Reflection\\": "src\/"
+            "_PhpScoperabd03f0baf05\\phpDocumentor\\Reflection\\": "src\/"
         }
     },
     "require-dev": {},

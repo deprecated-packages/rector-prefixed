@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\FFI;
+namespace _PhpScoperabd03f0baf05\FFI;
 
 final class CType
 {

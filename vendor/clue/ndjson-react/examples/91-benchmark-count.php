@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 // simple usage:
 // $ php examples/91-benchmark-count.php < examples/users.ndjson
@@ -15,15 +15,15 @@ namespace _PhpScoper26e51eeacccf;
 //
 // 3) pipe NDJSON into benchmark script:
 // $ php examples/91-benchmark-count.php < title.ratings.ndjson
-use _PhpScoper26e51eeacccf\Clue\React\NDJson\Decoder;
-use _PhpScoper26e51eeacccf\React\EventLoop\Factory;
-use _PhpScoper26e51eeacccf\React\Stream\ReadableResourceStream;
+use _PhpScoperabd03f0baf05\Clue\React\NDJson\Decoder;
+use _PhpScoperabd03f0baf05\React\EventLoop\Factory;
+use _PhpScoperabd03f0baf05\React\Stream\ReadableResourceStream;
 require __DIR__ . '/../vendor/autoload.php';
 if (\extension_loaded('xdebug')) {
     echo 'NOTICE: The "xdebug" extension is loaded, this has a major impact on performance.' . \PHP_EOL;
 }
-$loop = \_PhpScoper26e51eeacccf\React\EventLoop\Factory::create();
-$decoder = new \_PhpScoper26e51eeacccf\Clue\React\NDJson\Decoder(new \_PhpScoper26e51eeacccf\React\Stream\ReadableResourceStream(\STDIN, $loop), \true);
+$loop = \_PhpScoperabd03f0baf05\React\EventLoop\Factory::create();
+$decoder = new \_PhpScoperabd03f0baf05\Clue\React\NDJson\Decoder(new \_PhpScoperabd03f0baf05\React\Stream\ReadableResourceStream(\STDIN, $loop), \true);
 $count = 0;
 $decoder->on('data', function () use(&$count) {
     ++$count;

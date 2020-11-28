@@ -5,9 +5,9 @@ namespace PHPStan\Reflection\BetterReflection\SourceStubber;
 
 use PHPStan\File\FileReader;
 use PHPStan\Php8StubsMap;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
-class Php8StubsSourceStubber implements \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+class Php8StubsSourceStubber implements \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
 {
     private const DIRECTORY = __DIR__ . '/../../../../vendor/phpstan/php-8-stubs';
     public function hasClass(string $className) : bool
@@ -15,7 +15,7 @@ class Php8StubsSourceStubber implements \_PhpScoper26e51eeacccf\Roave\BetterRefl
         $className = \strtolower($className);
         return \array_key_exists($className, \PHPStan\Php8StubsMap::CLASSES);
     }
-    public function generateClassStub(string $className) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateClassStub(string $className) : ?\_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowerClassName = \strtolower($className);
         if (!\array_key_exists($lowerClassName, \PHPStan\Php8StubsMap::CLASSES)) {
@@ -23,9 +23,9 @@ class Php8StubsSourceStubber implements \_PhpScoper26e51eeacccf\Roave\BetterRefl
         }
         $relativeFilePath = \PHPStan\Php8StubsMap::CLASSES[$lowerClassName];
         $file = self::DIRECTORY . '/' . $relativeFilePath;
-        return new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData(\PHPStan\File\FileReader::read($file), $this->getExtensionFromFilePath($relativeFilePath), $file);
+        return new \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData(\PHPStan\File\FileReader::read($file), $this->getExtensionFromFilePath($relativeFilePath), $file);
     }
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateFunctionStub(string $functionName) : ?\_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowerFunctionName = \strtolower($functionName);
         if (!\array_key_exists($lowerFunctionName, \PHPStan\Php8StubsMap::FUNCTIONS)) {
@@ -33,9 +33,9 @@ class Php8StubsSourceStubber implements \_PhpScoper26e51eeacccf\Roave\BetterRefl
         }
         $relativeFilePath = \PHPStan\Php8StubsMap::FUNCTIONS[$lowerFunctionName];
         $file = self::DIRECTORY . '/' . $relativeFilePath;
-        return new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData(\PHPStan\File\FileReader::read($file), $this->getExtensionFromFilePath($relativeFilePath), $file);
+        return new \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData(\PHPStan\File\FileReader::read($file), $this->getExtensionFromFilePath($relativeFilePath), $file);
     }
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateConstantStub(string $constantName) : ?\_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         return null;
     }

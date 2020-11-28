@@ -77,7 +77,7 @@ class TraitsCachingIssueIntegrationTest extends \PHPStan\Testing\TestCase
         }
         \exec(\sprintf('%s %s analyse --no-progress --level 8 --configuration %s --error-format json %s', \escapeshellarg(\PHP_BINARY), $phpstanBinPath, \escapeshellarg(__DIR__ . '/phpstan.neon'), \escapeshellarg(__DIR__ . '/data')), $output, $statusCode);
         $stringOutput = \implode("\n", $output);
-        $json = \_PhpScoper26e51eeacccf\Nette\Utils\Json::decode($stringOutput, \_PhpScoper26e51eeacccf\Nette\Utils\Json::FORCE_ARRAY);
+        $json = \_PhpScoperabd03f0baf05\Nette\Utils\Json::decode($stringOutput, \_PhpScoperabd03f0baf05\Nette\Utils\Json::FORCE_ARRAY);
         return [$statusCode, $json['files']];
     }
     private function deleteCache() : void

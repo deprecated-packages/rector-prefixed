@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Socket;
+namespace _PhpScoperabd03f0baf05\React\Socket;
 
-use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
-use _PhpScoper26e51eeacccf\React\Promise\Timer;
-use _PhpScoper26e51eeacccf\React\Promise\Timer\TimeoutException;
-final class TimeoutConnector implements \_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface
+use _PhpScoperabd03f0baf05\React\EventLoop\LoopInterface;
+use _PhpScoperabd03f0baf05\React\Promise\Timer;
+use _PhpScoperabd03f0baf05\React\Promise\Timer\TimeoutException;
+final class TimeoutConnector implements \_PhpScoperabd03f0baf05\React\Socket\ConnectorInterface
 {
     private $connector;
     private $timeout;
     private $loop;
-    public function __construct(\_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface $connector, $timeout, \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop)
+    public function __construct(\_PhpScoperabd03f0baf05\React\Socket\ConnectorInterface $connector, $timeout, \_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface $loop)
     {
         $this->connector = $connector;
         $this->timeout = $timeout;
@@ -18,7 +18,7 @@ final class TimeoutConnector implements \_PhpScoper26e51eeacccf\React\Socket\Con
     }
     public function connect($uri)
     {
-        return \_PhpScoper26e51eeacccf\React\Promise\Timer\timeout($this->connector->connect($uri), $this->timeout, $this->loop)->then(null, self::handler($uri));
+        return \_PhpScoperabd03f0baf05\React\Promise\Timer\timeout($this->connector->connect($uri), $this->timeout, $this->loop)->then(null, self::handler($uri));
     }
     /**
      * Creates a static rejection handler that reports a proper error message in case of a timeout.
@@ -33,7 +33,7 @@ final class TimeoutConnector implements \_PhpScoper26e51eeacccf\React\Socket\Con
     private static function handler($uri)
     {
         return function (\Exception $e) use($uri) {
-            if ($e instanceof \_PhpScoper26e51eeacccf\React\Promise\Timer\TimeoutException) {
+            if ($e instanceof \_PhpScoperabd03f0baf05\React\Promise\Timer\TimeoutException) {
                 throw new \RuntimeException('Connection to ' . $uri . ' timed out after ' . $e->getTimeout() . ' seconds', \defined('SOCKET_ETIMEDOUT') ? \SOCKET_ETIMEDOUT : 0);
             }
             throw $e;

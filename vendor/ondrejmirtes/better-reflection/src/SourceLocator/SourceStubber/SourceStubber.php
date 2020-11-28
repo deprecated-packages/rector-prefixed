@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber;
 
 /**
  * @internal
@@ -12,13 +12,13 @@ interface SourceStubber
     /**
      * Generates stub for given class. Returns null when it cannot generate the stub.
      */
-    public function generateClassStub(string $className) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+    public function generateClassStub(string $className) : ?\_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
     /**
      * Generates stub for given function. Returns null when it cannot generate the stub.
      */
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+    public function generateFunctionStub(string $functionName) : ?\_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
     /**
      * Generates stub for given constant. Returns null when it cannot generate the stub.
      */
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+    public function generateConstantStub(string $constantName) : ?\_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ConstantCondition;
+namespace _PhpScoperabd03f0baf05\ConstantCondition;
 
 class ElseIfCondition
 {
@@ -18,11 +18,11 @@ class ElseIfCondition
         if ($i) {
         } elseif (!$std) {
         }
-        if ($union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Foo || $union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Bar) {
-        } elseif ($union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Foo && \true) {
+        if ($union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Foo || $union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Bar) {
+        } elseif ($union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Foo && \true) {
         }
-        if ($intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Lorem && $intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Ipsum) {
-        } elseif ($intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Lorem && \true) {
+        if ($intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Lorem && $intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Ipsum) {
+        } elseif ($intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Lorem && \true) {
         }
     }
 }

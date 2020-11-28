@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\TypesFinder;
 
 use LogicException;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Param;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlockFactory;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\Param;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlockFactory;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Type;
 use PhpParser\Node\Expr\Error;
 use PhpParser\Node\Param as ParamNode;
 use PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
 use function explode;
 class FindParameterType
 {
@@ -23,16 +23,16 @@ class FindParameterType
     private $makeContext;
     public function __construct()
     {
-        $this->resolveTypes = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\ResolveTypes();
-        $this->docBlockFactory = \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlockFactory::createInstance();
-        $this->makeContext = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
+        $this->resolveTypes = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\TypesFinder\ResolveTypes();
+        $this->docBlockFactory = \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlockFactory::createInstance();
+        $this->makeContext = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
     }
     /**
      * Given a function and parameter, attempt to find the type of the parameter.
      *
      * @return Type[]
      */
-    public function __invoke(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, ?\PhpParser\Node\Stmt\Namespace_ $namespace, \PhpParser\Node\Param $node) : array
+    public function __invoke(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, ?\PhpParser\Node\Stmt\Namespace_ $namespace, \PhpParser\Node\Param $node) : array
     {
         $docComment = $function->getDocComment();
         if ($docComment === '') {

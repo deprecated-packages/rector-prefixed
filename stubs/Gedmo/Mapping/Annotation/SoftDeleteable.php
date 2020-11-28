@@ -2,9 +2,9 @@
 
 // mirrors: https://github.com/Atlantic18/DoctrineExtensions/blob/v2.4.x/lib/Gedmo/Mapping/Annotation/SoftDeleteable.php
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Gedmo\Mapping\Annotation;
+namespace _PhpScoperabd03f0baf05\Gedmo\Mapping\Annotation;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Gedmo\\Mapping\\Annotation\\SoftDeleteable')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Gedmo\\Mapping\\Annotation\\SoftDeleteable')) {
     return;
 }
 /**

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imagecolorset(\_PhpScoper26e51eeacccf\GdImage $image, int $color, int $red, int $green, int $blue, int $alpha = 0) : ?bool
+function imagecolorset(\_PhpScoperabd03f0baf05\GdImage $image, int $color, int $red, int $green, int $blue, int $alpha = 0) : ?bool
 {
 }

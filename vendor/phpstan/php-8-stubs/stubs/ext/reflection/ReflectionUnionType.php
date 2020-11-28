@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class ReflectionUnionType extends \ReflectionType
 {
@@ -8,4 +8,4 @@ class ReflectionUnionType extends \ReflectionType
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ReflectionUnionType', 'ReflectionUnionType', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ReflectionUnionType', 'ReflectionUnionType', \false);

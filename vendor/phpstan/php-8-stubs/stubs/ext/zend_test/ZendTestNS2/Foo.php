@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ZendTestNS2;
+namespace _PhpScoperabd03f0baf05\ZendTestNS2;
 
 class Foo
 {

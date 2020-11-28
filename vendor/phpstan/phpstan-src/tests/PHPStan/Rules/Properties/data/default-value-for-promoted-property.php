@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper26e51eeacccf\DefaultValueForPromotedProperty;
+namespace _PhpScoperabd03f0baf05\DefaultValueForPromotedProperty;
 
 class Foo
 {

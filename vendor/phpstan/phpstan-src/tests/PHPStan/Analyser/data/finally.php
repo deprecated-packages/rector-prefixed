@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\FinallyNamespace;
+namespace _PhpScoperabd03f0baf05\FinallyNamespace;
 
 class FooException extends \Exception
 {
@@ -12,10 +12,10 @@ function () {
     try {
         $integerOrString = 1;
         $fooOrBarException = null;
-    } catch (\_PhpScoper26e51eeacccf\FinallyNamespace\FooException $e) {
+    } catch (\_PhpScoperabd03f0baf05\FinallyNamespace\FooException $e) {
         $integerOrString = 1;
         $fooOrBarException = $e;
-    } catch (\_PhpScoper26e51eeacccf\FinallyNamespace\BarException $e) {
+    } catch (\_PhpScoperabd03f0baf05\FinallyNamespace\BarException $e) {
         $integerOrString = 'foo';
         $fooOrBarException = $e;
     } finally {

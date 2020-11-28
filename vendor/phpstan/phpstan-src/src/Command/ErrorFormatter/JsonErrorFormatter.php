@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Json;
+use _PhpScoperabd03f0baf05\Nette\Utils\Json;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\Output;
 class JsonErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
@@ -30,7 +30,7 @@ class JsonErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatt
         foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
             $errorsArray['errors'][] = $notFileSpecificError;
         }
-        $json = \_PhpScoper26e51eeacccf\Nette\Utils\Json::encode($errorsArray, $this->pretty ? \_PhpScoper26e51eeacccf\Nette\Utils\Json::PRETTY : 0);
+        $json = \_PhpScoperabd03f0baf05\Nette\Utils\Json::encode($errorsArray, $this->pretty ? \_PhpScoperabd03f0baf05\Nette\Utils\Json::PRETTY : 0);
         $output->writeRaw($json);
         return $analysisResult->hasErrors() ? 1 : 0;
     }

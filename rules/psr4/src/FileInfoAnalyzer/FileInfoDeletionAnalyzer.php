@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PSR4\FileInfoAnalyzer;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\ClassLike;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -42,6 +42,6 @@ final class FileInfoDeletionAnalyzer
     }
     public function clearNameFromTestingPrefix(string $name) : string
     {
-        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($name, self::TESTING_PREFIX_REGEX);
+        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($name, self::TESTING_PREFIX_REGEX);
     }
 }

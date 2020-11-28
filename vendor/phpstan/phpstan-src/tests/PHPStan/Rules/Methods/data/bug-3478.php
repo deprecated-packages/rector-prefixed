@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug3478;
+namespace _PhpScoperabd03f0baf05\Bug3478;
 
 class ExtendedDocument extends \DOMDocument
 {

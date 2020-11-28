@@ -132,7 +132,7 @@ class FunctionSignatureMapProvider implements \PHPStan\Reflection\SignatureMap\S
                 }
                 $signatureMap = $this->computeSignatureMap($signatureMap, $php74MapDelta);
             }
-            if ($this->phpVersion->getVersionId() >= 80000) {
+            if ($this->phpVersion->getVersionId() >= 70400) {
                 $php80MapDelta = (require __DIR__ . '/../../../resources/functionMap_php80delta.php');
                 if (!\is_array($php80MapDelta)) {
                     throw new \PHPStan\ShouldNotHappenException('Signature map could not be loaded.');

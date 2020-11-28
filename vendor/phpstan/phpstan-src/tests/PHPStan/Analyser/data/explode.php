@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ExplodeFunction;
+namespace _PhpScoperabd03f0baf05\ExplodeFunction;
 
 function (string $delimiter, $mixed) {
     /** @var string $str */

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug3406;
+namespace _PhpScoperabd03f0baf05\Bug3406;
 
 abstract class AbstractFoo
 {
@@ -18,7 +18,7 @@ trait TraitFoo
     {
     }
 }
-final class ClassFoo extends \_PhpScoper26e51eeacccf\Bug3406\AbstractFoo
+final class ClassFoo extends \_PhpScoperabd03f0baf05\Bug3406\AbstractFoo
 {
     use TraitFoo;
 }

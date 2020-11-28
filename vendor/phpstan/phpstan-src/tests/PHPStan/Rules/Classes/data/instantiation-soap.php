@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TestInstantiation;
+namespace _PhpScoperabd03f0baf05\TestInstantiation;
 
 function () {
     throw new \SoapFault('Server', 123);

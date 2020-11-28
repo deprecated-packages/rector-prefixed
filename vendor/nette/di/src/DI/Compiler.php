@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI;
+namespace _PhpScoperabd03f0baf05\Nette\DI;
 
-use _PhpScoper26e51eeacccf\Nette;
-use _PhpScoper26e51eeacccf\Nette\Schema;
+use _PhpScoperabd03f0baf05\Nette;
+use _PhpScoperabd03f0baf05\Nette\Schema;
 /**
  * DI container compiler.
  */
@@ -30,28 +30,28 @@ class Compiler
     private $dependencies;
     /** @var string */
     private $className = 'Container';
-    public function __construct(\_PhpScoper26e51eeacccf\Nette\DI\ContainerBuilder $builder = null)
+    public function __construct(\_PhpScoperabd03f0baf05\Nette\DI\ContainerBuilder $builder = null)
     {
-        $this->builder = $builder ?: new \_PhpScoper26e51eeacccf\Nette\DI\ContainerBuilder();
-        $this->dependencies = new \_PhpScoper26e51eeacccf\Nette\DI\DependencyChecker();
-        $this->addExtension(self::SERVICES, new \_PhpScoper26e51eeacccf\Nette\DI\Extensions\ServicesExtension());
-        $this->addExtension(self::PARAMETERS, new \_PhpScoper26e51eeacccf\Nette\DI\Extensions\ParametersExtension($this->configs));
+        $this->builder = $builder ?: new \_PhpScoperabd03f0baf05\Nette\DI\ContainerBuilder();
+        $this->dependencies = new \_PhpScoperabd03f0baf05\Nette\DI\DependencyChecker();
+        $this->addExtension(self::SERVICES, new \_PhpScoperabd03f0baf05\Nette\DI\Extensions\ServicesExtension());
+        $this->addExtension(self::PARAMETERS, new \_PhpScoperabd03f0baf05\Nette\DI\Extensions\ParametersExtension($this->configs));
     }
     /**
      * Add custom configurator extension.
      * @return static
      */
-    public function addExtension(?string $name, \_PhpScoper26e51eeacccf\Nette\DI\CompilerExtension $extension)
+    public function addExtension(?string $name, \_PhpScoperabd03f0baf05\Nette\DI\CompilerExtension $extension)
     {
         if ($name === null) {
             $name = '_' . \count($this->extensions);
         } elseif (isset($this->extensions[$name])) {
-            throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException("Name '{$name}' is already used or reserved.");
+            throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException("Name '{$name}' is already used or reserved.");
         }
         $lname = \strtolower($name);
         foreach (\array_keys($this->extensions) as $nm) {
             if ($lname === \strtolower((string) $nm)) {
-                throw new \_PhpScoper26e51eeacccf\Nette\InvalidArgumentException("Name of extension '{$name}' has the same name as '{$nm}' in a case-insensitive manner.");
+                throw new \_PhpScoperabd03f0baf05\Nette\InvalidArgumentException("Name of extension '{$name}' has the same name as '{$nm}' in a case-insensitive manner.");
             }
         }
         $this->extensions[$name] = $extension->setCompiler($this, $name);
@@ -63,7 +63,7 @@ class Compiler
             return $item instanceof $type;
         }) : $this->extensions;
     }
-    public function getContainerBuilder() : \_PhpScoper26e51eeacccf\Nette\DI\ContainerBuilder
+    public function getContainerBuilder() : \_PhpScoperabd03f0baf05\Nette\DI\ContainerBuilder
     {
         return $this->builder;
     }
@@ -89,10 +89,10 @@ class Compiler
      * Adds new configuration from file.
      * @return static
      */
-    public function loadConfig(string $file, \_PhpScoper26e51eeacccf\Nette\DI\Config\Loader $loader = null)
+    public function loadConfig(string $file, \_PhpScoperabd03f0baf05\Nette\DI\Config\Loader $loader = null)
     {
         $sources = $this->sources . "// source: {$file}\n";
-        $loader = $loader ?: new \_PhpScoper26e51eeacccf\Nette\DI\Config\Loader();
+        $loader = $loader ?: new \_PhpScoperabd03f0baf05\Nette\DI\Config\Loader();
         foreach ($loader->load($file, \false) as $data) {
             $this->addConfig($data);
         }
@@ -114,7 +114,7 @@ class Compiler
      */
     public function setDynamicParameterNames(array $names)
     {
-        \assert($this->extensions[self::PARAMETERS] instanceof \_PhpScoper26e51eeacccf\Nette\DI\Extensions\ParametersExtension);
+        \assert($this->extensions[self::PARAMETERS] instanceof \_PhpScoperabd03f0baf05\Nette\DI\Extensions\ParametersExtension);
         $this->extensions[self::PARAMETERS]->dynamicParams = $names;
         return $this;
     }
@@ -139,7 +139,7 @@ class Compiler
     public function addExportedTag(string $tag)
     {
         if (isset($this->extensions[self::DI])) {
-            \assert($this->extensions[self::DI] instanceof \_PhpScoper26e51eeacccf\Nette\DI\Extensions\DIExtension);
+            \assert($this->extensions[self::DI] instanceof \_PhpScoperabd03f0baf05\Nette\DI\Extensions\DIExtension);
             $this->extensions[self::DI]->exportedTags[$tag] = \true;
         }
         return $this;
@@ -148,7 +148,7 @@ class Compiler
     public function addExportedType(string $type)
     {
         if (isset($this->extensions[self::DI])) {
-            \assert($this->extensions[self::DI] instanceof \_PhpScoper26e51eeacccf\Nette\DI\Extensions\DIExtension);
+            \assert($this->extensions[self::DI] instanceof \_PhpScoperabd03f0baf05\Nette\DI\Extensions\DIExtension);
             $this->extensions[self::DI]->exportedTypes[$type] = \true;
         }
         return $this;
@@ -162,16 +162,16 @@ class Compiler
     /** @internal */
     public function processExtensions() : void
     {
-        $first = $this->getExtensions(\_PhpScoper26e51eeacccf\Nette\DI\Extensions\ParametersExtension::class) + $this->getExtensions(\_PhpScoper26e51eeacccf\Nette\DI\Extensions\ExtensionsExtension::class);
+        $first = $this->getExtensions(\_PhpScoperabd03f0baf05\Nette\DI\Extensions\ParametersExtension::class) + $this->getExtensions(\_PhpScoperabd03f0baf05\Nette\DI\Extensions\ExtensionsExtension::class);
         foreach ($first as $name => $extension) {
             $config = $this->processSchema($extension->getConfigSchema(), $this->configs[$name] ?? [], $name);
             $extension->setConfig($this->config[$name] = $config);
             $extension->loadConfiguration();
         }
-        $last = $this->getExtensions(\_PhpScoper26e51eeacccf\Nette\DI\Extensions\InjectExtension::class);
+        $last = $this->getExtensions(\_PhpScoperabd03f0baf05\Nette\DI\Extensions\InjectExtension::class);
         $this->extensions = \array_merge(\array_diff_key($this->extensions, $last), $last);
-        if ($decorator = $this->getExtensions(\_PhpScoper26e51eeacccf\Nette\DI\Extensions\DecoratorExtension::class)) {
-            \_PhpScoper26e51eeacccf\Nette\Utils\Arrays::insertBefore($this->extensions, \key($decorator), $this->getExtensions(\_PhpScoper26e51eeacccf\Nette\DI\Extensions\SearchExtension::class));
+        if ($decorator = $this->getExtensions(\_PhpScoperabd03f0baf05\Nette\DI\Extensions\DecoratorExtension::class)) {
+            \_PhpScoperabd03f0baf05\Nette\Utils\Arrays::insertBefore($this->extensions, \key($decorator), $this->getExtensions(\_PhpScoperabd03f0baf05\Nette\DI\Extensions\SearchExtension::class));
         }
         $extensions = \array_diff_key($this->extensions, $first, [self::SERVICES => 1]);
         foreach ($extensions as $name => $extension) {
@@ -181,17 +181,17 @@ class Compiler
         foreach ($extensions as $extension) {
             $extension->loadConfiguration();
         }
-        foreach ($this->getExtensions(\_PhpScoper26e51eeacccf\Nette\DI\Extensions\ServicesExtension::class) as $name => $extension) {
+        foreach ($this->getExtensions(\_PhpScoperabd03f0baf05\Nette\DI\Extensions\ServicesExtension::class) as $name => $extension) {
             $config = $this->processSchema($extension->getConfigSchema(), $this->configs[$name] ?? [], $name);
             $extension->setConfig($this->config[$name] = $config);
             $extension->loadConfiguration();
         }
         if ($extra = \array_diff_key($this->extensions, $extensions, $first, [self::SERVICES => 1])) {
             $extra = \implode("', '", \array_keys($extra));
-            throw new \_PhpScoper26e51eeacccf\Nette\DeprecatedException("Extensions '{$extra}' were added while container was being compiled.");
+            throw new \_PhpScoperabd03f0baf05\Nette\DeprecatedException("Extensions '{$extra}' were added while container was being compiled.");
         } elseif ($extra = \key(\array_diff_key($this->configs, $this->extensions))) {
-            $hint = \_PhpScoper26e51eeacccf\Nette\Utils\Helpers::getSuggestion(\array_keys($this->extensions), $extra);
-            throw new \_PhpScoper26e51eeacccf\Nette\DI\InvalidConfigurationException("Found section '{$extra}' in configuration, but corresponding extension is missing" . ($hint ? ", did you mean '{$hint}'?" : '.'));
+            $hint = \_PhpScoperabd03f0baf05\Nette\Utils\Helpers::getSuggestion(\array_keys($this->extensions), $extra);
+            throw new \_PhpScoperabd03f0baf05\Nette\DI\InvalidConfigurationException("Found section '{$extra}' in configuration, but corresponding extension is missing" . ($hint ? ", did you mean '{$hint}'?" : '.'));
         }
     }
     private function processBeforeCompile() : void
@@ -207,17 +207,17 @@ class Compiler
      * Merges and validates configurations against scheme.
      * @return array|object
      */
-    private function processSchema(\_PhpScoper26e51eeacccf\Nette\Schema\Schema $schema, array $configs, $name = null)
+    private function processSchema(\_PhpScoperabd03f0baf05\Nette\Schema\Schema $schema, array $configs, $name = null)
     {
-        $processor = new \_PhpScoper26e51eeacccf\Nette\Schema\Processor();
-        $processor->onNewContext[] = function (\_PhpScoper26e51eeacccf\Nette\Schema\Context $context) use($name) {
+        $processor = new \_PhpScoperabd03f0baf05\Nette\Schema\Processor();
+        $processor->onNewContext[] = function (\_PhpScoperabd03f0baf05\Nette\Schema\Context $context) use($name) {
             $context->path = $name ? [$name] : [];
             $context->dynamics =& $this->extensions[self::PARAMETERS]->dynamicValidators;
         };
         try {
             return $processor->processMultiple($schema, $configs);
-        } catch (\_PhpScoper26e51eeacccf\Nette\Schema\ValidationException $e) {
-            throw new \_PhpScoper26e51eeacccf\Nette\DI\InvalidConfigurationException($e->getMessage());
+        } catch (\_PhpScoperabd03f0baf05\Nette\Schema\ValidationException $e) {
+            throw new \_PhpScoperabd03f0baf05\Nette\DI\InvalidConfigurationException($e->getMessage());
         }
     }
     /** @internal */
@@ -238,21 +238,21 @@ class Compiler
     public function loadDefinitionsFromConfig(array $configList) : void
     {
         $extension = $this->extensions[self::SERVICES];
-        \assert($extension instanceof \_PhpScoper26e51eeacccf\Nette\DI\Extensions\ServicesExtension);
+        \assert($extension instanceof \_PhpScoperabd03f0baf05\Nette\DI\Extensions\ServicesExtension);
         $extension->loadDefinitions($this->processSchema($extension->getConfigSchema(), [$configList]));
     }
-    protected function createPhpGenerator() : \_PhpScoper26e51eeacccf\Nette\DI\PhpGenerator
+    protected function createPhpGenerator() : \_PhpScoperabd03f0baf05\Nette\DI\PhpGenerator
     {
-        return new \_PhpScoper26e51eeacccf\Nette\DI\PhpGenerator($this->builder);
+        return new \_PhpScoperabd03f0baf05\Nette\DI\PhpGenerator($this->builder);
     }
     /** @deprecated use non-static Compiler::loadDefinitionsFromConfig() */
     public static function loadDefinitions() : void
     {
-        throw new \_PhpScoper26e51eeacccf\Nette\DeprecatedException(__METHOD__ . '() is deprecated, use non-static Compiler::loadDefinitionsFromConfig(array $configList).');
+        throw new \_PhpScoperabd03f0baf05\Nette\DeprecatedException(__METHOD__ . '() is deprecated, use non-static Compiler::loadDefinitionsFromConfig(array $configList).');
     }
     /** @deprecated use non-static Compiler::loadDefinitionsFromConfig() */
     public static function loadDefinition() : void
     {
-        throw new \_PhpScoper26e51eeacccf\Nette\DeprecatedException(__METHOD__ . '() is deprecated, use non-static Compiler::loadDefinitionsFromConfig(array $configList).');
+        throw new \_PhpScoperabd03f0baf05\Nette\DeprecatedException(__METHOD__ . '() is deprecated, use non-static Compiler::loadDefinitionsFromConfig(array $configList).');
     }
 }

@@ -9,15 +9,15 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types;
 
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing a Boolean type.
  *
  * @psalm-immutable
  */
-class Boolean implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type
+class Boolean implements \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Type
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.

@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection;
 
 /**
  * Interface for Api Elements
@@ -19,7 +19,7 @@ interface Element
     /**
      * Returns the Fqsen of the element.
      */
-    public function getFqsen() : \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen;
+    public function getFqsen() : \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Fqsen;
     /**
      * Returns the name of the element.
      */

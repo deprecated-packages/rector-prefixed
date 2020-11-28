@@ -3,28 +3,28 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use _PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement;
-use _PhpScoper26e51eeacccf\Nette\Schema\Expect;
-use _PhpScoper26e51eeacccf\Nette\Schema\Schema;
-class ParametersSchemaExtension extends \_PhpScoper26e51eeacccf\Nette\DI\CompilerExtension
+use _PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement;
+use _PhpScoperabd03f0baf05\Nette\Schema\Expect;
+use _PhpScoperabd03f0baf05\Nette\Schema\Schema;
+class ParametersSchemaExtension extends \_PhpScoperabd03f0baf05\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
-        return \_PhpScoper26e51eeacccf\Nette\Schema\Expect::arrayOf(\_PhpScoper26e51eeacccf\Nette\Schema\Expect::type(\_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement::class))->min(1);
+        return \_PhpScoperabd03f0baf05\Nette\Schema\Expect::arrayOf(\_PhpScoperabd03f0baf05\Nette\Schema\Expect::type(\_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement::class))->min(1);
     }
     public function loadConfiguration() : void
     {
         /** @var mixed[] $config */
         $config = $this->config;
-        $config['__parametersSchema'] = new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement(\_PhpScoper26e51eeacccf\Nette\Schema\Schema::class);
+        $config['__parametersSchema'] = new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement(\_PhpScoperabd03f0baf05\Nette\Schema\Schema::class);
         $builder = $this->getContainerBuilder();
-        $builder->parameters['__parametersSchema'] = $this->processArgument(new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement('schema', [new \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement('structure', [$config])]));
+        $builder->parameters['__parametersSchema'] = $this->processArgument(new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement('schema', [new \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement('structure', [$config])]));
     }
     /**
      * @param Statement[] $statements
      * @return \Nette\Schema\Schema
      */
-    private function processSchema(array $statements) : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    private function processSchema(array $statements) : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
         if (\count($statements) === 0) {
             throw new \PHPStan\ShouldNotHappenException();
@@ -36,7 +36,7 @@ class ParametersSchemaExtension extends \_PhpScoper26e51eeacccf\Nette\DI\Compile
             }, $statement->arguments);
             if ($parameterSchema === null) {
                 /** @var \Nette\Schema\Elements\Type|\Nette\Schema\Elements\AnyOf|\Nette\Schema\Elements\Structure $parameterSchema */
-                $parameterSchema = \_PhpScoper26e51eeacccf\Nette\Schema\Expect::{$statement->getEntity()}(...$processedArguments);
+                $parameterSchema = \_PhpScoperabd03f0baf05\Nette\Schema\Expect::{$statement->getEntity()}(...$processedArguments);
             } else {
                 $parameterSchema->{$statement->getEntity()}(...$processedArguments);
             }
@@ -50,11 +50,11 @@ class ParametersSchemaExtension extends \_PhpScoper26e51eeacccf\Nette\DI\Compile
      */
     private function processArgument($argument)
     {
-        if ($argument instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement) {
+        if ($argument instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement) {
             if ($argument->entity === 'schema') {
                 $arguments = [];
                 foreach ($argument->arguments as $schemaArgument) {
-                    if (!$schemaArgument instanceof \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement) {
+                    if (!$schemaArgument instanceof \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement) {
                         throw new \PHPStan\ShouldNotHappenException('schema() should contain another statement().');
                     }
                     $arguments[] = $schemaArgument;

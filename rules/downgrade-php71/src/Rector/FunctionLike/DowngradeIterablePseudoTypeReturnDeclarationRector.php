@@ -18,7 +18,7 @@ final class DowngradeIterablePseudoTypeReturnDeclarationRector extends \Rector\D
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove returning iterable pseud type, add a @return tag instead', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SomeClass
 {
@@ -27,12 +27,12 @@ class SomeClass
         // do something
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SomeClass
 {
@@ -44,7 +44,7 @@ class SomeClass
         // do something
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , [self::ADD_DOC_BLOCK => \true])]);
     }

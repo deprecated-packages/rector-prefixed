@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Form;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Form;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Form\\AbstractType')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Form\\AbstractType')) {
     return;
 }
 abstract class AbstractType

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ReturnStaticStaticMethod;
+namespace _PhpScoperabd03f0baf05\ReturnStaticStaticMethod;
 
 class Foo
 {
@@ -12,7 +12,7 @@ class Foo
         return new static();
     }
 }
-class Bar extends \_PhpScoper26e51eeacccf\ReturnStaticStaticMethod\Foo
+class Bar extends \_PhpScoperabd03f0baf05\ReturnStaticStaticMethod\Foo
 {
     public function doBar()
     {

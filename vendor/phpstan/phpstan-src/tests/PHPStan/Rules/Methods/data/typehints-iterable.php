@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TestMethodTypehints;
+namespace _PhpScoperabd03f0baf05\TestMethodTypehints;
 
 class IterableTypehints
 {

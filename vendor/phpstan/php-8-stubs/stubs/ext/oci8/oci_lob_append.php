@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function oci_lob_append(\_PhpScoper26e51eeacccf\OCILob $to, \_PhpScoper26e51eeacccf\OCILob $from) : bool
+function oci_lob_append(\_PhpScoperabd03f0baf05\OCILob $to, \_PhpScoperabd03f0baf05\OCILob $from) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Stream;
+namespace _PhpScoperabd03f0baf05\React\Stream;
 
 final class Util
 {
@@ -13,7 +13,7 @@ final class Util
      * @return WritableStreamInterface $dest stream as-is
      * @see ReadableStreamInterface::pipe() for more details
      */
-    public static function pipe(\_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface $source, \_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public static function pipe(\_PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface $source, \_PhpScoperabd03f0baf05\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
         // source not readable => NO-OP
         if (!$source->isReadable()) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug3997Type;
+namespace _PhpScoperabd03f0baf05\Bug3997Type;
 
 use function PHPStan\Analyser\assertType;
 function (\Countable $c) : void {

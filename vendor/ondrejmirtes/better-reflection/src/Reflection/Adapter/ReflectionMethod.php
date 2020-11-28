@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionException as CoreReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\FileHelper;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NotAnObject;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\FileHelper;
 use Throwable;
 use function func_get_args;
 class ReflectionMethod extends \ReflectionMethod
@@ -19,11 +19,11 @@ class ReflectionMethod extends \ReflectionMethod
     private $betterReflectionMethod;
     /** @var bool */
     private $accessible = \false;
-    public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod $betterReflectionMethod)
+    public function __construct(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionMethod $betterReflectionMethod)
     {
         $this->betterReflectionMethod = $betterReflectionMethod;
     }
-    public function getBetterReflection() : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionMethod
+    public function getBetterReflection() : \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionMethod
     {
         return $this->betterReflectionMethod;
     }
@@ -83,14 +83,14 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getClosureThis()
     {
-        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
      */
     public function getClosureScopeClass()
     {
-        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -111,7 +111,7 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getExtension()
     {
-        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -126,7 +126,7 @@ class ReflectionMethod extends \ReflectionMethod
     public function getFileName()
     {
         $fileName = $this->betterReflectionMethod->getFileName();
-        return $fileName !== null ? \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
+        return $fileName !== null ? \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
     }
     /**
      * {@inheritDoc}
@@ -164,7 +164,7 @@ class ReflectionMethod extends \ReflectionMethod
         $parameters = $this->betterReflectionMethod->getParameters();
         $wrappedParameters = [];
         foreach ($parameters as $key => $parameter) {
-            $wrappedParameters[$key] = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\ReflectionParameter($parameter);
+            $wrappedParameters[$key] = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\ReflectionParameter($parameter);
         }
         return $wrappedParameters;
     }
@@ -173,7 +173,7 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getReturnType()
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionMethod->getReturnType());
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionMethod->getReturnType());
     }
     /**
      * {@inheritDoc}
@@ -194,7 +194,7 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getStaticVariables()
     {
-        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -280,7 +280,7 @@ class ReflectionMethod extends \ReflectionMethod
     {
         try {
             return $this->betterReflectionMethod->getClosure($object);
-        } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return null;
         } catch (\Throwable $e) {
             throw new \ReflectionException($e->getMessage(), 0, $e);
@@ -303,7 +303,7 @@ class ReflectionMethod extends \ReflectionMethod
         }
         try {
             return $this->betterReflectionMethod->invoke(...\func_get_args());
-        } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return null;
         } catch (\Throwable $e) {
             throw new \ReflectionException($e->getMessage(), 0, $e);
@@ -319,7 +319,7 @@ class ReflectionMethod extends \ReflectionMethod
         }
         try {
             return $this->betterReflectionMethod->invokeArgs($object, $args);
-        } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return null;
         } catch (\Throwable $e) {
             throw new \ReflectionException($e->getMessage(), 0, $e);
@@ -330,7 +330,7 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getDeclaringClass()
     {
-        return new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterReflectionMethod->getImplementingClass());
+        return new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterReflectionMethod->getImplementingClass());
     }
     /**
      * {@inheritDoc}

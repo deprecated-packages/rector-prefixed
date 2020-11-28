@@ -1,18 +1,18 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\RingCentral\Tests\Psr7;
+namespace _PhpScoperabd03f0baf05\RingCentral\Tests\Psr7;
 
-use _PhpScoper26e51eeacccf\RingCentral\Psr7\StreamWrapper;
-use _PhpScoper26e51eeacccf\RingCentral\Psr7;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7\StreamWrapper;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7;
 /**
  * @covers RingCentral\Psr7\StreamWrapper
  */
-class StreamWrapperTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
+class StreamWrapperTest extends \_PhpScoperabd03f0baf05\PHPUnit_Framework_TestCase
 {
     public function testResource()
     {
-        $stream = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo');
-        $handle = \_PhpScoper26e51eeacccf\RingCentral\Psr7\StreamWrapper::getResource($stream);
+        $stream = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo');
+        $handle = \_PhpScoperabd03f0baf05\RingCentral\Psr7\StreamWrapper::getResource($stream);
         $this->assertSame('foo', \fread($handle, 3));
         $this->assertSame(3, \ftell($handle));
         $this->assertSame(3, \fwrite($handle, 'bar'));
@@ -32,10 +32,10 @@ class StreamWrapperTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCa
      */
     public function testValidatesStream()
     {
-        $stream = $this->getMockBuilder('_PhpScoper26e51eeacccf\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isReadable', 'isWritable'))->getMockForAbstractClass();
+        $stream = $this->getMockBuilder('_PhpScoperabd03f0baf05\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isReadable', 'isWritable'))->getMockForAbstractClass();
         $stream->expects($this->once())->method('isReadable')->will($this->returnValue(\false));
         $stream->expects($this->once())->method('isWritable')->will($this->returnValue(\false));
-        \_PhpScoper26e51eeacccf\RingCentral\Psr7\StreamWrapper::getResource($stream);
+        \_PhpScoperabd03f0baf05\RingCentral\Psr7\StreamWrapper::getResource($stream);
     }
     /**
      * @expectedException \PHPUnit_Framework_Error_Warning
@@ -46,10 +46,10 @@ class StreamWrapperTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCa
     }
     public function testCanOpenReadonlyStream()
     {
-        $stream = $this->getMockBuilder('_PhpScoper26e51eeacccf\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isReadable', 'isWritable'))->getMockForAbstractClass();
+        $stream = $this->getMockBuilder('_PhpScoperabd03f0baf05\\Psr\\Http\\Message\\StreamInterface')->setMethods(array('isReadable', 'isWritable'))->getMockForAbstractClass();
         $stream->expects($this->once())->method('isReadable')->will($this->returnValue(\false));
         $stream->expects($this->once())->method('isWritable')->will($this->returnValue(\true));
-        $r = \_PhpScoper26e51eeacccf\RingCentral\Psr7\StreamWrapper::getResource($stream);
+        $r = \_PhpScoperabd03f0baf05\RingCentral\Psr7\StreamWrapper::getResource($stream);
         $this->assertInternalType('resource', $r);
         \fclose($r);
     }

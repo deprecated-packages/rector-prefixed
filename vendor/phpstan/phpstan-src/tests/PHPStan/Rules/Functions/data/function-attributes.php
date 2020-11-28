@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\FunctionAttributes;
+namespace _PhpScoperabd03f0baf05\FunctionAttributes;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
 class Foo

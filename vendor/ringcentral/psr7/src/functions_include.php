@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 // Don't redefine the functions if included multiple times.
-if (!\function_exists('_PhpScoper26e51eeacccf\\RingCentral\\Psr7\\str')) {
+if (!\function_exists('_PhpScoperabd03f0baf05\\RingCentral\\Psr7\\str')) {
     require __DIR__ . '/functions.php';
 }

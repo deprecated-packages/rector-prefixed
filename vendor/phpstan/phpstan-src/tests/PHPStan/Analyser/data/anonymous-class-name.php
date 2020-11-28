@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\AnonymousClassName;
+namespace _PhpScoperabd03f0baf05\AnonymousClassName;
 
 function () {
     $foo = new class

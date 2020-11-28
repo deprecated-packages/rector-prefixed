@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /**
  * @alias oci_collection_max
  * @deprecated
  */
-function ocicollmax(\_PhpScoper26e51eeacccf\OCICollection $collection) : int|false
+function ocicollmax(\_PhpScoperabd03f0baf05\OCICollection $collection) : int|false
 {
 }

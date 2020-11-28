@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TraitsReturnThis;
+namespace _PhpScoperabd03f0baf05\TraitsReturnThis;
 
-class Bar extends \_PhpScoper26e51eeacccf\TraitsReturnThis\Foo
+class Bar extends \_PhpScoperabd03f0baf05\TraitsReturnThis\Foo
 {
     public function doFoo() : void
     {
-        (new \_PhpScoper26e51eeacccf\TraitsReturnThis\Foo())->returnsThisWithSelf()->doFoo();
-        (new \_PhpScoper26e51eeacccf\TraitsReturnThis\Foo())->returnsThisWithFoo()->doFoo();
-        (new \_PhpScoper26e51eeacccf\TraitsReturnThis\Bar())->returnsThisWithSelf()->doFoo();
-        (new \_PhpScoper26e51eeacccf\TraitsReturnThis\Bar())->returnsThisWithFoo()->doFoo();
+        (new \_PhpScoperabd03f0baf05\TraitsReturnThis\Foo())->returnsThisWithSelf()->doFoo();
+        (new \_PhpScoperabd03f0baf05\TraitsReturnThis\Foo())->returnsThisWithFoo()->doFoo();
+        (new \_PhpScoperabd03f0baf05\TraitsReturnThis\Bar())->returnsThisWithSelf()->doFoo();
+        (new \_PhpScoperabd03f0baf05\TraitsReturnThis\Bar())->returnsThisWithFoo()->doFoo();
     }
 }

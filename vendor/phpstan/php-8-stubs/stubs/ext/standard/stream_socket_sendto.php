@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @param resource $socket */
 function stream_socket_sendto($socket, string $data, int $flags = 0, string $address = "") : int|false

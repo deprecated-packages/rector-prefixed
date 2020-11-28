@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 require_once __DIR__ . '/PHPStan/Analyser/functions.php';
-\class_alias(\_PhpScoper26e51eeacccf\ReturnTypes\Foo::class, \_PhpScoper26e51eeacccf\ReturnTypes\FooAlias::class, \true);
-\class_alias(\_PhpScoper26e51eeacccf\TestAccessProperties\FooAccessProperties::class, \_PhpScoper26e51eeacccf\TestAccessProperties\FooAccessPropertiesAlias::class, \true);
+\class_alias(\_PhpScoperabd03f0baf05\ReturnTypes\Foo::class, \_PhpScoperabd03f0baf05\ReturnTypes\FooAlias::class, \true);
+\class_alias(\_PhpScoperabd03f0baf05\TestAccessProperties\FooAccessProperties::class, \_PhpScoperabd03f0baf05\TestAccessProperties\FooAccessPropertiesAlias::class, \true);

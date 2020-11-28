@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\ClassLoaderMethod;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\ClassLoaderMethod;
 
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass;
 interface LoaderMethodInterface
 {
-    public function __invoke(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $classInfo) : void;
+    public function __invoke(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass $classInfo) : void;
 }

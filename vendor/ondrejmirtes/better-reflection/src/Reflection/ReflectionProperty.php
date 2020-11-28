@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection;
 
 use Closure;
 use InvalidArgumentException;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Type;
 use PhpParser\Node;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\Class_;
@@ -13,19 +13,19 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property as PropertyNode;
 use ReflectionException;
 use ReflectionProperty as CoreReflectionProperty;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\FindPropertyType;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\CalculateReflectionColum;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\GetLastDocComment;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompilerContext;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NotAnObject;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\Uncloneable;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\TypesFinder\FindPropertyType;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\CalculateReflectionColum;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\GetLastDocComment;
 use function class_exists;
 use function func_num_args;
 use function get_class;
@@ -56,7 +56,7 @@ class ReflectionProperty
      */
     public static function createFromName(string $className, string $propertyName) : self
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($className)->getProperty($propertyName);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($className)->getProperty($propertyName);
     }
     /**
      * Create a reflection of an instance's property by its name
@@ -69,18 +69,18 @@ class ReflectionProperty
      */
     public static function createFromInstance($instance, string $propertyName) : self
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass::createFromInstance($instance)->getProperty($propertyName);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass::createFromInstance($instance)->getProperty($propertyName);
     }
     public function __toString() : string
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast::toString($this);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast::toString($this);
     }
     /**
      * @internal
      *
      * @param PropertyNode $node Node has to be processed by the PhpParser\NodeVisitor\NameResolver
      */
-    public static function createFromNode(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\Property $node, int $positionInNode, ?\PhpParser\Node\Stmt\Namespace_ $declaringNamespace, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $declaringClass, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $implementingClass, bool $declaredAtCompileTime = \true, bool $promoted = \false) : self
+    public static function createFromNode(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\Property $node, int $positionInNode, ?\PhpParser\Node\Stmt\Namespace_ $declaringNamespace, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass $declaringClass, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass $implementingClass, bool $declaredAtCompileTime = \true, bool $promoted = \false) : self
     {
         $prop = new self();
         $prop->reflector = $reflector;
@@ -200,19 +200,19 @@ class ReflectionProperty
      */
     public function getDocBlockTypes() : array
     {
-        return (new \_PhpScoper26e51eeacccf\Roave\BetterReflection\TypesFinder\FindPropertyType())->__invoke($this, $this->declaringNamespace);
+        return (new \_PhpScoperabd03f0baf05\Roave\BetterReflection\TypesFinder\FindPropertyType())->__invoke($this, $this->declaringNamespace);
     }
-    public function getDeclaringClass() : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getDeclaringClass() : \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->declaringClass;
     }
-    public function getImplementingClass() : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getImplementingClass() : \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->implementingClass;
     }
     public function getDocComment() : string
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->node);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->node);
     }
     /**
      * Get the default value of the property (as defined before constructor is
@@ -226,7 +226,7 @@ class ReflectionProperty
         if ($defaultValueNode === null) {
             return null;
         }
-        return (new \_PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompileNodeToValue())->__invoke($defaultValueNode, new \_PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->getDeclaringClass()->getFileName(), $this->getDeclaringClass(), $this->getDeclaringClass()->getNamespaceName(), null));
+        return (new \_PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompileNodeToValue())->__invoke($defaultValueNode, new \_PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->getDeclaringClass()->getFileName(), $this->getDeclaringClass(), $this->getDeclaringClass()->getNamespaceName(), null));
     }
     /**
      * Get the line number that this property starts on.
@@ -244,11 +244,11 @@ class ReflectionProperty
     }
     public function getStartColumn() : int
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->declaringClass->getLocatedSource()->getSource(), $this->node);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->declaringClass->getLocatedSource()->getSource(), $this->node);
     }
     public function getEndColumn() : int
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->declaringClass->getLocatedSource()->getSource(), $this->node);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->declaringClass->getLocatedSource()->getSource(), $this->node);
     }
     public function getAst() : \PhpParser\Node\Stmt\Property
     {
@@ -265,7 +265,7 @@ class ReflectionProperty
      */
     public function __clone()
     {
-        throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\Uncloneable::fromClass(self::class);
+        throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\Uncloneable::fromClass(self::class);
     }
     /**
      * @param object|null $object
@@ -331,13 +331,13 @@ class ReflectionProperty
      *
      * (note: this has nothing to do with DocBlocks).
      */
-    public function getType() : ?\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionType
+    public function getType() : ?\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionType
     {
         $type = $this->node->type;
         if ($type === null) {
             return null;
         }
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($type);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($type);
     }
     /**
      * Does this property have a type declaration?
@@ -370,7 +370,7 @@ class ReflectionProperty
     private function assertClassExist(string $className) : void
     {
         if (!\class_exists($className, \false)) {
-            throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist('Property cannot be retrieved as the class is not loaded');
+            throw new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist('Property cannot be retrieved as the class is not loaded');
         }
     }
     /**
@@ -387,14 +387,14 @@ class ReflectionProperty
     private function assertObject($object)
     {
         if ($object === null) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NoObjectProvided::create();
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NoObjectProvided::create();
         }
         if (!\is_object($object)) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NotAnObject::fromNonObject($object);
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NotAnObject::fromNonObject($object);
         }
         $declaringClassName = $this->getDeclaringClass()->getName();
         if (\get_class($object) !== $declaringClassName) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass::fromClassName($declaringClassName);
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass::fromClassName($declaringClassName);
         }
         return $object;
     }

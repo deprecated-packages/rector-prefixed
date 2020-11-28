@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Static_;

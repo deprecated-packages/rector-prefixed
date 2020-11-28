@@ -113,7 +113,7 @@ class Xcallable extends \Hoa\Test\Unit\Suite
     }
     protected function _get_valid_callback_stream_xxx($argument, $method)
     {
-        $this->given($stream = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\IStream\Out(), $arguments = [$argument], $xcallable = new \Hoa\Consistency\Xcallable($stream))->when($result = $xcallable->getValidCallback($arguments))->then->array($result)->isEqualTo([$stream, $method]);
+        $this->given($stream = new \_PhpScoperabd03f0baf05\Mock\Hoa\Stream\IStream\Out(), $arguments = [$argument], $xcallable = new \Hoa\Consistency\Xcallable($stream))->when($result = $xcallable->getValidCallback($arguments))->then->array($result)->isEqualTo([$stream, $method]);
     }
     public function case_get_valid_callback_stream_character()
     {

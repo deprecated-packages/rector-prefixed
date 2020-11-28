@@ -1,21 +1,21 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\RingCentral\Tests\Psr7;
+namespace _PhpScoperabd03f0baf05\RingCentral\Tests\Psr7;
 
-use _PhpScoper26e51eeacccf\RingCentral\Psr7;
-use _PhpScoper26e51eeacccf\RingCentral\Psr7\CachingStream;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7\CachingStream;
 /**
  * @covers RingCentral\Psr7\CachingStream
  */
-class CachingStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCase
+class CachingStreamTest extends \_PhpScoperabd03f0baf05\PHPUnit_Framework_TestCase
 {
     /** @var CachingStream */
     protected $body;
     protected $decorated;
     public function setUp()
     {
-        $this->decorated = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('testing');
-        $this->body = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\CachingStream($this->decorated);
+        $this->decorated = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('testing');
+        $this->body = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\CachingStream($this->decorated);
     }
     public function tearDown()
     {
@@ -24,8 +24,8 @@ class CachingStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCa
     }
     public function testUsesRemoteSizeIfPossible()
     {
-        $body = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('test');
-        $caching = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\CachingStream($body);
+        $body = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('test');
+        $caching = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\CachingStream($body);
         $this->assertEquals(4, $caching->getSize());
     }
     public function testReadsUntilCachedToByte()
@@ -37,8 +37,8 @@ class CachingStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCa
     }
     public function testCanSeekNearEndWithSeekEnd()
     {
-        $baseStream = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for(\implode('', \range('a', 'z')));
-        $cached = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\CachingStream($baseStream);
+        $baseStream = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for(\implode('', \range('a', 'z')));
+        $cached = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\CachingStream($baseStream);
         $cached->seek(1, \SEEK_END);
         $this->assertEquals(24, $baseStream->tell());
         $this->assertEquals('y', $cached->read(1));
@@ -46,8 +46,8 @@ class CachingStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCa
     }
     public function testCanSeekToEndWithSeekEnd()
     {
-        $baseStream = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for(\implode('', \range('a', 'z')));
-        $cached = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\CachingStream($baseStream);
+        $baseStream = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for(\implode('', \range('a', 'z')));
+        $cached = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\CachingStream($baseStream);
         $cached->seek(0, \SEEK_END);
         $this->assertEquals(25, $baseStream->tell());
         $this->assertEquals('z', $cached->read(1));
@@ -55,18 +55,18 @@ class CachingStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCa
     }
     public function testCanUseSeekEndWithUnknownSize()
     {
-        $baseStream = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('testing');
-        $decorated = \_PhpScoper26e51eeacccf\RingCentral\Psr7\FnStream::decorate($baseStream, array('getSize' => function () {
+        $baseStream = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('testing');
+        $decorated = \_PhpScoperabd03f0baf05\RingCentral\Psr7\FnStream::decorate($baseStream, array('getSize' => function () {
             return null;
         }));
-        $cached = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\CachingStream($decorated);
+        $cached = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\CachingStream($decorated);
         $cached->seek(1, \SEEK_END);
         $this->assertEquals('ng', $cached->read(2));
     }
     public function testRewindUsesSeek()
     {
-        $a = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for('foo');
-        $d = $this->getMockBuilder('_PhpScoper26e51eeacccf\\RingCentral\\Psr7\\CachingStream')->setMethods(array('seek'))->setConstructorArgs(array($a))->getMock();
+        $a = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for('foo');
+        $d = $this->getMockBuilder('_PhpScoperabd03f0baf05\\RingCentral\\Psr7\\CachingStream')->setMethods(array('seek'))->setConstructorArgs(array($a))->getMock();
         $d->expects($this->once())->method('seek')->with(0)->will($this->returnValue(\true));
         $d->seek(0);
     }
@@ -91,29 +91,29 @@ class CachingStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCa
     }
     public function testSkipsOverwrittenBytes()
     {
-        $decorated = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for(\implode("\n", \array_map(function ($n) {
+        $decorated = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for(\implode("\n", \array_map(function ($n) {
             return \str_pad($n, 4, '0', \STR_PAD_LEFT);
         }, \range(0, 25))));
-        $body = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\CachingStream($decorated);
-        $this->assertEquals("0000\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
-        $this->assertEquals("0001\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
+        $body = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\CachingStream($decorated);
+        $this->assertEquals("0000\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
+        $this->assertEquals("0001\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
         // Write over part of the body yet to be read, so skip some bytes
         $this->assertEquals(5, $body->write("TEST\n"));
         $this->assertEquals(5, $this->readAttribute($body, 'skipReadBytes'));
         // Read, which skips bytes, then reads
-        $this->assertEquals("0003\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
+        $this->assertEquals("0003\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
         $this->assertEquals(0, $this->readAttribute($body, 'skipReadBytes'));
-        $this->assertEquals("0004\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
-        $this->assertEquals("0005\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
+        $this->assertEquals("0004\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
+        $this->assertEquals("0005\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
         // Overwrite part of the cached body (so don't skip any bytes)
         $body->seek(5);
         $this->assertEquals(5, $body->write("ABCD\n"));
         $this->assertEquals(0, $this->readAttribute($body, 'skipReadBytes'));
-        $this->assertEquals("TEST\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
-        $this->assertEquals("0003\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
-        $this->assertEquals("0004\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
-        $this->assertEquals("0005\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
-        $this->assertEquals("0006\n", \_PhpScoper26e51eeacccf\RingCentral\Psr7\readline($body));
+        $this->assertEquals("TEST\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
+        $this->assertEquals("0003\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
+        $this->assertEquals("0004\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
+        $this->assertEquals("0005\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
+        $this->assertEquals("0006\n", \_PhpScoperabd03f0baf05\RingCentral\Psr7\readline($body));
         $this->assertEquals(5, $body->write("1234\n"));
         $this->assertEquals(5, $this->readAttribute($body, 'skipReadBytes'));
         // Seek to 0 and ensure the overwritten bit is replaced
@@ -125,8 +125,8 @@ class CachingStreamTest extends \_PhpScoper26e51eeacccf\PHPUnit_Framework_TestCa
     public function testClosesBothStreams()
     {
         $s = \fopen('php://temp', 'r');
-        $a = \_PhpScoper26e51eeacccf\RingCentral\Psr7\stream_for($s);
-        $d = new \_PhpScoper26e51eeacccf\RingCentral\Psr7\CachingStream($a);
+        $a = \_PhpScoperabd03f0baf05\RingCentral\Psr7\stream_for($s);
+        $d = new \_PhpScoperabd03f0baf05\RingCentral\Psr7\CachingStream($a);
         $d->close();
         $this->assertFalse(\is_resource($s));
     }

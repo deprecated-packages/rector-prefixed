@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @param int $count */
 function preg_filter(string|array $pattern, string|array $replacement, string|array $subject, int $limit = -1, &$count = null) : string|array|null

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-if (!\function_exists('_PhpScoper26e51eeacccf\\React\\Promise\\resolve')) {
+if (!\function_exists('_PhpScoperabd03f0baf05\\React\\Promise\\resolve')) {
     require __DIR__ . '/functions.php';
 }

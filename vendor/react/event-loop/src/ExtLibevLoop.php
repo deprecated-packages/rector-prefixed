@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\EventLoop;
+namespace _PhpScoperabd03f0baf05\React\EventLoop;
 
 use BadMethodCallException;
-use _PhpScoper26e51eeacccf\libev\EventLoop;
-use _PhpScoper26e51eeacccf\libev\IOEvent;
-use _PhpScoper26e51eeacccf\libev\SignalEvent;
-use _PhpScoper26e51eeacccf\libev\TimerEvent;
-use _PhpScoper26e51eeacccf\React\EventLoop\Tick\FutureTickQueue;
-use _PhpScoper26e51eeacccf\React\EventLoop\Timer\Timer;
+use _PhpScoperabd03f0baf05\libev\EventLoop;
+use _PhpScoperabd03f0baf05\libev\IOEvent;
+use _PhpScoperabd03f0baf05\libev\SignalEvent;
+use _PhpScoperabd03f0baf05\libev\TimerEvent;
+use _PhpScoperabd03f0baf05\React\EventLoop\Tick\FutureTickQueue;
+use _PhpScoperabd03f0baf05\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-libev` based event loop.
@@ -23,7 +23,7 @@ use SplObjectStorage;
  * @see https://github.com/m4rw3r/php-libev
  * @see https://gist.github.com/1688204
  */
-final class ExtLibevLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface
+final class ExtLibevLoop implements \_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface
 {
     private $loop;
     private $futureTickQueue;
@@ -35,13 +35,13 @@ final class ExtLibevLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
     private $signalEvents = array();
     public function __construct()
     {
-        if (!\class_exists('_PhpScoper26e51eeacccf\\libev\\EventLoop', \false)) {
+        if (!\class_exists('_PhpScoperabd03f0baf05\\libev\\EventLoop', \false)) {
             throw new \BadMethodCallException('Cannot create ExtLibevLoop, ext-libev extension missing');
         }
-        $this->loop = new \_PhpScoper26e51eeacccf\libev\EventLoop();
-        $this->futureTickQueue = new \_PhpScoper26e51eeacccf\React\EventLoop\Tick\FutureTickQueue();
+        $this->loop = new \_PhpScoperabd03f0baf05\libev\EventLoop();
+        $this->futureTickQueue = new \_PhpScoperabd03f0baf05\React\EventLoop\Tick\FutureTickQueue();
         $this->timerEvents = new \SplObjectStorage();
-        $this->signals = new \_PhpScoper26e51eeacccf\React\EventLoop\SignalsHandler();
+        $this->signals = new \_PhpScoperabd03f0baf05\React\EventLoop\SignalsHandler();
     }
     public function addReadStream($stream, $listener)
     {
@@ -51,7 +51,7 @@ final class ExtLibevLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
         $callback = function () use($stream, $listener) {
             \call_user_func($listener, $stream);
         };
-        $event = new \_PhpScoper26e51eeacccf\libev\IOEvent($callback, $stream, \_PhpScoper26e51eeacccf\libev\IOEvent::READ);
+        $event = new \_PhpScoperabd03f0baf05\libev\IOEvent($callback, $stream, \_PhpScoperabd03f0baf05\libev\IOEvent::READ);
         $this->loop->add($event);
         $this->readEvents[(int) $stream] = $event;
     }
@@ -63,7 +63,7 @@ final class ExtLibevLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
         $callback = function () use($stream, $listener) {
             \call_user_func($listener, $stream);
         };
-        $event = new \_PhpScoper26e51eeacccf\libev\IOEvent($callback, $stream, \_PhpScoper26e51eeacccf\libev\IOEvent::WRITE);
+        $event = new \_PhpScoperabd03f0baf05\libev\IOEvent($callback, $stream, \_PhpScoperabd03f0baf05\libev\IOEvent::WRITE);
         $this->loop->add($event);
         $this->writeEvents[(int) $stream] = $event;
     }
@@ -87,7 +87,7 @@ final class ExtLibevLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper26e51eeacccf\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \_PhpScoperabd03f0baf05\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $that = $this;
         $timers = $this->timerEvents;
         $callback = function () use($timer, $timers, $that) {
@@ -96,23 +96,23 @@ final class ExtLibevLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
                 $that->cancelTimer($timer);
             }
         };
-        $event = new \_PhpScoper26e51eeacccf\libev\TimerEvent($callback, $timer->getInterval());
+        $event = new \_PhpScoperabd03f0baf05\libev\TimerEvent($callback, $timer->getInterval());
         $this->timerEvents->attach($timer, $event);
         $this->loop->add($event);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper26e51eeacccf\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \_PhpScoperabd03f0baf05\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $callback = function () use($timer) {
             \call_user_func($timer->getCallback(), $timer);
         };
-        $event = new \_PhpScoper26e51eeacccf\libev\TimerEvent($callback, $interval, $interval);
+        $event = new \_PhpScoperabd03f0baf05\libev\TimerEvent($callback, $interval, $interval);
         $this->timerEvents->attach($timer, $event);
         $this->loop->add($event);
         return $timer;
     }
-    public function cancelTimer(\_PhpScoper26e51eeacccf\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\_PhpScoperabd03f0baf05\React\EventLoop\TimerInterface $timer)
     {
         if (isset($this->timerEvents[$timer])) {
             $this->loop->remove($this->timerEvents[$timer]);
@@ -128,7 +128,7 @@ final class ExtLibevLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
         $this->signals->add($signal, $listener);
         if (!isset($this->signalEvents[$signal])) {
             $signals = $this->signals;
-            $this->signalEvents[$signal] = new \_PhpScoper26e51eeacccf\libev\SignalEvent(function () use($signals, $signal) {
+            $this->signalEvents[$signal] = new \_PhpScoperabd03f0baf05\libev\SignalEvent(function () use($signals, $signal) {
                 $signals->call($signal);
             }, $signal);
             $this->loop->add($this->signalEvents[$signal]);
@@ -148,9 +148,9 @@ final class ExtLibevLoop implements \_PhpScoper26e51eeacccf\React\EventLoop\Loop
         $this->running = \true;
         while ($this->running) {
             $this->futureTickQueue->tick();
-            $flags = \_PhpScoper26e51eeacccf\libev\EventLoop::RUN_ONCE;
+            $flags = \_PhpScoperabd03f0baf05\libev\EventLoop::RUN_ONCE;
             if (!$this->running || !$this->futureTickQueue->isEmpty()) {
-                $flags |= \_PhpScoper26e51eeacccf\libev\EventLoop::RUN_NOWAIT;
+                $flags |= \_PhpScoperabd03f0baf05\libev\EventLoop::RUN_NOWAIT;
             } elseif (!$this->readEvents && !$this->writeEvents && !$this->timerEvents->count() && $this->signals->isEmpty()) {
                 break;
             }

@@ -18,7 +18,7 @@ final class DowngradeUnionTypeParamDeclarationRector extends \Rector\DowngradePh
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove the union type params, add @param tags instead', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SomeClass
 {
@@ -27,12 +27,12 @@ class SomeClass
         echo $input;
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SomeClass
 {
@@ -44,7 +44,7 @@ class SomeClass
         echo $input;
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , [self::ADD_DOC_BLOCK => \true])]);
     }

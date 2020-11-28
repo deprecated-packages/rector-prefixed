@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\MissingMethodReturnTypehint;
+namespace _PhpScoperabd03f0baf05\MissingMethodReturnTypehint;
 
 interface FooInterface
 {
@@ -12,7 +12,7 @@ class FooParent
     {
     }
 }
-class Foo extends \_PhpScoper26e51eeacccf\MissingMethodReturnTypehint\FooParent implements \_PhpScoper26e51eeacccf\MissingMethodReturnTypehint\FooInterface
+class Foo extends \_PhpScoperabd03f0baf05\MissingMethodReturnTypehint\FooParent implements \_PhpScoperabd03f0baf05\MissingMethodReturnTypehint\FooInterface
 {
     public function getFoo($p1)
     {
@@ -53,13 +53,13 @@ class GenericClass
 }
 class Bar
 {
-    public function returnsGenericInterface() : \_PhpScoper26e51eeacccf\MissingMethodReturnTypehint\GenericInterface
+    public function returnsGenericInterface() : \_PhpScoperabd03f0baf05\MissingMethodReturnTypehint\GenericInterface
     {
     }
-    public function returnsNonGenericClass() : \_PhpScoper26e51eeacccf\MissingMethodReturnTypehint\NonGenericClass
+    public function returnsNonGenericClass() : \_PhpScoperabd03f0baf05\MissingMethodReturnTypehint\NonGenericClass
     {
     }
-    public function returnsGenericClass() : \_PhpScoper26e51eeacccf\MissingMethodReturnTypehint\GenericClass
+    public function returnsGenericClass() : \_PhpScoperabd03f0baf05\MissingMethodReturnTypehint\GenericClass
     {
     }
 }

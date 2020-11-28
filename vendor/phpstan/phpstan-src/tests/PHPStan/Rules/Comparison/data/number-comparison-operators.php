@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\NumberComparisonOperators;
+namespace _PhpScoperabd03f0baf05\NumberComparisonOperators;
 
 function (int $i, int $j) : void {
     if ($i > 5) {

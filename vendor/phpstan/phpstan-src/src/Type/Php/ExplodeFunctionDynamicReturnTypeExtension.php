@@ -42,7 +42,7 @@ class ExplodeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynamic
         $delimiterType = $scope->getType($functionCall->args[0]->value);
         $isSuperset = (new \PHPStan\Type\Constant\ConstantStringType(''))->isSuperTypeOf($delimiterType);
         if ($isSuperset->yes()) {
-            if ($this->phpVersion->getVersionId() >= 80000) {
+            if ($this->phpVersion->getVersionId() >= 70400) {
                 return new \PHPStan\Type\NeverType();
             }
             return new \PHPStan\Type\Constant\ConstantBooleanType(\false);

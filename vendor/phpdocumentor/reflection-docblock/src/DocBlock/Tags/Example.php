@@ -10,15 +10,15 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tag;
-use _PhpScoper26e51eeacccf\Webmozart\Assert\Assert;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tag;
+use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}example tag in a Docblock.
  */
-final class Example extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Example extends \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /**
      * @var string Path to a file to use as an example. May also be an absolute URI.
@@ -39,9 +39,9 @@ final class Example extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Doc
     private $lineCount;
     public function __construct($filePath, $isURI, $startingLine, $lineCount, $description)
     {
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::notEmpty($filePath);
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::integer($startingLine);
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::greaterThanEq($startingLine, 0);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::notEmpty($filePath);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::integer($startingLine);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::greaterThanEq($startingLine, 0);
         $this->filePath = $filePath;
         $this->startingLine = $startingLine;
         $this->lineCount = $lineCount;

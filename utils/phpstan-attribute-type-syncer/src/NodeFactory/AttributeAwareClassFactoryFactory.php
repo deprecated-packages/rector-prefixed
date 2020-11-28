@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Utils\PHPStanAttributeTypeSyncer\NodeFactory;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
@@ -42,7 +42,7 @@ final class AttributeAwareClassFactoryFactory
     }
     public function createFromPhpDocParserNodeClass(string $nodeClass) : \PhpParser\Node\Stmt\Namespace_
     {
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::contains($nodeClass, '\\Type\\')) {
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($nodeClass, '\\Type\\')) {
             $namespace = \Rector\Utils\PHPStanAttributeTypeSyncer\ValueObject\Paths::NAMESPACE_TYPE_NODE_FACTORY;
         } else {
             $namespace = \Rector\Utils\PHPStanAttributeTypeSyncer\ValueObject\Paths::NAMESPACE_PHPDOC_NODE_FACTORY;

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug2611;
+namespace _PhpScoperabd03f0baf05\Bug2611;
 
 use function PHPStan\Analyser\assertType;
 /**

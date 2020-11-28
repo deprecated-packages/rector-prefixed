@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imagesetthickness(\_PhpScoper26e51eeacccf\GdImage $image, int $thickness) : bool
+function imagesetthickness(\_PhpScoperabd03f0baf05\GdImage $image, int $thickness) : bool
 {
 }

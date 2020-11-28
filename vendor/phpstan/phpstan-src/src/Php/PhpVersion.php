@@ -38,27 +38,27 @@ class PhpVersion
     }
     public function supportsNativeUnionTypes() : bool
     {
-        return $this->versionId >= 80000;
+        return $this->versionId >= 70400;
     }
     public function deprecatesRequiredParameterAfterOptional() : bool
     {
-        return $this->versionId >= 80000;
+        return $this->versionId >= 70400;
     }
     public function supportsLessOverridenParametersWithVariadic() : bool
     {
-        return $this->versionId >= 80000;
+        return $this->versionId >= 70400;
     }
     public function requiresParenthesesForNestedTernaries() : bool
     {
-        return $this->versionId >= 80000;
+        return $this->versionId >= 70400;
     }
     public function supportsThrowExpression() : bool
     {
-        return $this->versionId >= 80000;
+        return $this->versionId >= 70400;
     }
     public function supportsClassConstantOnExpression() : bool
     {
-        return $this->versionId >= 80000;
+        return $this->versionId >= 70400;
     }
     public function supportsLegacyConstructor() : bool
     {
@@ -66,11 +66,11 @@ class PhpVersion
     }
     public function supportsPromotedProperties() : bool
     {
-        return $this->versionId >= 80000;
+        return $this->versionId >= 70400;
     }
     public function supportsParameterTypeWidening() : bool
     {
-        return $this->versionId >= 70200;
+        return $this->versionId >= 70400;
     }
     public function supportsUnsetCast() : bool
     {
@@ -78,6 +78,6 @@ class PhpVersion
     }
     public function supportsNamedArguments() : bool
     {
-        return $this->versionId >= 80000;
+        return $this->versionId >= 70400;
     }
 }

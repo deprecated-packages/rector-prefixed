@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class DOMDocumentType
 {
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\DOMDocumentType', 'DOMDocumentType', \false);
+\class_alias('_PhpScoperabd03f0baf05\\DOMDocumentType', 'DOMDocumentType', \false);

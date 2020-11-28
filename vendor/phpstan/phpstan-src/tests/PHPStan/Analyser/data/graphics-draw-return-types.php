@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 use function PHPStan\Analyser\assertType;
 $image = \imagecreatetruecolor(1, 1);

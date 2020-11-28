@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class UConverter
@@ -88,4 +88,4 @@ class UConverter
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\UConverter', 'UConverter', \false);
+\class_alias('_PhpScoperabd03f0baf05\\UConverter', 'UConverter', \false);

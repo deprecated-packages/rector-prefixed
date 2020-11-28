@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug4011;
+namespace _PhpScoperabd03f0baf05\Bug4011;
 
 class Foo extends \FilterIterator
 {
@@ -13,5 +13,5 @@ class Foo extends \FilterIterator
     }
 }
 function (\Traversable $t) {
-    new \_PhpScoper26e51eeacccf\Bug4011\Foo($t);
+    new \_PhpScoperabd03f0baf05\Bug4011\Foo($t);
 };

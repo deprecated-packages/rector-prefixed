@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class RecursiveCachingIterator extends \CachingIterator implements \RecursiveIterator
 {
@@ -16,4 +16,4 @@ class RecursiveCachingIterator extends \CachingIterator implements \RecursiveIte
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\RecursiveCachingIterator', 'RecursiveCachingIterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\RecursiveCachingIterator', 'RecursiveCachingIterator', \false);

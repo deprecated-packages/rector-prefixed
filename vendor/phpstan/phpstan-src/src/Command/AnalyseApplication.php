@@ -8,7 +8,7 @@ use PHPStan\Analyser\IgnoredErrorHelper;
 use PHPStan\Analyser\ResultCache\ResultCacheManagerFactory;
 use PHPStan\Internal\BytesHelper;
 use PHPStan\PhpDoc\StubValidator;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
 class AnalyseApplication
 {
     /**
@@ -55,7 +55,7 @@ class AnalyseApplication
      * @param mixed[]|null $projectConfigArray
      * @return AnalysisResult
      */
-    public function analyse(array $files, bool $onlyFiles, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, ?string $projectConfigFile, ?array $projectConfigArray, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Command\AnalysisResult
+    public function analyse(array $files, bool $onlyFiles, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, ?string $projectConfigFile, ?array $projectConfigArray, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Command\AnalysisResult
     {
         $this->updateMemoryLimitFile();
         $stubErrors = $this->stubValidator->validate();
@@ -112,7 +112,7 @@ class AnalyseApplication
      * @param string[] $files
      * @param string[] $allAnalysedFiles
      */
-    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, ?string $projectConfigFile, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
+    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, ?string $projectConfigFile, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
     {
         $filesCount = \count($files);
         $allAnalysedFilesCount = \count($allAnalysedFiles);

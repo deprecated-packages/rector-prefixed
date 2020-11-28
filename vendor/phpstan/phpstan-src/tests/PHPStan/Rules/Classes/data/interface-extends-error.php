@@ -1,19 +1,19 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InterfaceExtendsError;
+namespace _PhpScoperabd03f0baf05\InterfaceExtendsError;
 
-interface Foo extends \_PhpScoper26e51eeacccf\InterfaceExtendsError\Bar
+interface Foo extends \_PhpScoperabd03f0baf05\InterfaceExtendsError\Bar
 {
 }
 class BazClass
 {
 }
-interface Lorem extends \_PhpScoper26e51eeacccf\InterfaceExtendsError\BazClass
+interface Lorem extends \_PhpScoperabd03f0baf05\InterfaceExtendsError\BazClass
 {
 }
 trait DolorTrait
 {
 }
-interface Ipsum extends \_PhpScoper26e51eeacccf\InterfaceExtendsError\DolorTrait
+interface Ipsum extends \_PhpScoperabd03f0baf05\InterfaceExtendsError\DolorTrait
 {
 }

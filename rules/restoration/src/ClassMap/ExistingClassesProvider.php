@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Restoration\ClassMap;
 
-use _PhpScoper26e51eeacccf\Nette\Loaders\RobotLoader;
-use _PhpScoper26e51eeacccf\Nette\Utils\Arrays;
+use _PhpScoperabd03f0baf05\Nette\Loaders\RobotLoader;
+use _PhpScoperabd03f0baf05\Nette\Utils\Arrays;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 final class ExistingClassesProvider
 {
@@ -42,7 +42,7 @@ final class ExistingClassesProvider
         $composerJsonFilePath = \getcwd() . '/composer.json';
         $composerJson = $this->composerJsonFactory->createFromFilePath($composerJsonFilePath);
         $psr4AndClassmapDirectories = $composerJson->getPsr4AndClassmapDirectories();
-        return \_PhpScoper26e51eeacccf\Nette\Utils\Arrays::flatten($psr4AndClassmapDirectories);
+        return \_PhpScoperabd03f0baf05\Nette\Utils\Arrays::flatten($psr4AndClassmapDirectories);
     }
     /**
      * @param string[] $directories
@@ -50,7 +50,7 @@ final class ExistingClassesProvider
      */
     private function findClassesInDirectories(array $directories) : array
     {
-        $robotLoader = new \_PhpScoper26e51eeacccf\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoperabd03f0baf05\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector_restore');
         foreach ($directories as $path) {
             $robotLoader->addDirectory(\getcwd() . '/' . $path);

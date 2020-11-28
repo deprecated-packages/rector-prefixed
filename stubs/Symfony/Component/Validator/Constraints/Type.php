@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraints;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Validator\\Constraints\\Type')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Validator\\Constraints\\Type')) {
     return;
 }
-use _PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint;
+use _PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class Type extends \_PhpScoper26e51eeacccf\Symfony\Component\Validator\Constraint
+class Type extends \_PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraint
 {
     const INVALID_TYPE_ERROR = 'ba785a8c-82cb-4283-967c-3cf342181b40';
     protected static $errorNames = [self::INVALID_TYPE_ERROR => 'INVALID_TYPE_ERROR'];

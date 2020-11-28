@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Php;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Json;
+use _PhpScoperabd03f0baf05\Nette\Utils\Json;
 use PHPStan\File\FileReader;
 class PhpVersionFactoryFactory
 {
@@ -35,12 +35,12 @@ class PhpVersionFactoryFactory
             if (\is_file($composerJsonPath)) {
                 try {
                     $composerJsonContents = \PHPStan\File\FileReader::read($composerJsonPath);
-                    $composer = \_PhpScoper26e51eeacccf\Nette\Utils\Json::decode($composerJsonContents, \_PhpScoper26e51eeacccf\Nette\Utils\Json::FORCE_ARRAY);
+                    $composer = \_PhpScoperabd03f0baf05\Nette\Utils\Json::decode($composerJsonContents, \_PhpScoperabd03f0baf05\Nette\Utils\Json::FORCE_ARRAY);
                     $platformVersion = $composer['config']['platform']['php'] ?? null;
                     if (\is_string($platformVersion)) {
                         $composerPhpVersion = $platformVersion;
                     }
-                } catch (\PHPStan\File\CouldNotReadFileException|\_PhpScoper26e51eeacccf\Nette\Utils\JsonException $e) {
+                } catch (\PHPStan\File\CouldNotReadFileException|\_PhpScoperabd03f0baf05\Nette\Utils\JsonException $e) {
                     // pass
                 }
             }

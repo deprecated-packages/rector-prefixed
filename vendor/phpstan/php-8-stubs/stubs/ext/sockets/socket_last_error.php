@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #endif
-function socket_last_error(?\_PhpScoper26e51eeacccf\Socket $socket = null) : int
+function socket_last_error(?\_PhpScoperabd03f0baf05\Socket $socket = null) : int
 {
 }

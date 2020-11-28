@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 final class DeflateContext
 {
 }
-\class_alias('_PhpScoper26e51eeacccf\\DeflateContext', 'DeflateContext', \false);
+\class_alias('_PhpScoperabd03f0baf05\\DeflateContext', 'DeflateContext', \false);

@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 function foo()
 {
     /** @var string|null $alwaysDefinedNullable */
-    $alwaysDefinedNullable = \_PhpScoper26e51eeacccf\doFoo();
+    $alwaysDefinedNullable = \_PhpScoperabd03f0baf05\doFoo();
     if (isset($alwaysDefinedNullable)) {
         // fine, checking for nullability
     }
@@ -13,13 +13,13 @@ function foo()
     if (isset($alwaysDefinedNotNullable)) {
         // always true
     }
-    if (\_PhpScoper26e51eeacccf\doFoo()) {
+    if (\_PhpScoperabd03f0baf05\doFoo()) {
         $sometimesDefinedVariable = 1;
     }
     if (isset($sometimesDefinedVariable, $neverDefinedVariable)) {
     }
     /** @var string|null $anotherAlwaysDefinedNullable */
-    $anotherAlwaysDefinedNullable = \_PhpScoper26e51eeacccf\doFoo();
+    $anotherAlwaysDefinedNullable = \_PhpScoperabd03f0baf05\doFoo();
     if (isset($anotherAlwaysDefinedNullable['test']['test'])) {
         // fine, checking for nullability
     }
@@ -36,36 +36,36 @@ function foo()
     if (isset($_COOKIE['test'])) {
         // fine
     }
-    if (\_PhpScoper26e51eeacccf\something()) {
+    if (\_PhpScoperabd03f0baf05\something()) {
     } elseif (isset($yetYetAnotherNeverDefinedVariableInIsset)) {
         // always false
     }
-    if (\_PhpScoper26e51eeacccf\doFoo()) {
+    if (\_PhpScoperabd03f0baf05\doFoo()) {
         $yetAnotherVariableThatSometimesExists = 1;
     }
-    if (\_PhpScoper26e51eeacccf\something()) {
+    if (\_PhpScoperabd03f0baf05\something()) {
     } elseif (isset($yetAnotherVariableThatSometimesExists)) {
         // fine
     }
     /** @var string|null $nullableVariableUsedInTernary */
-    $nullableVariableUsedInTernary = \_PhpScoper26e51eeacccf\doFoo();
+    $nullableVariableUsedInTernary = \_PhpScoperabd03f0baf05\doFoo();
     echo isset($nullableVariableUsedInTernary) ? 'foo' : 'bar';
     // fine
     /** @var int|null $forVariableInit */
-    $forVariableInit = \_PhpScoper26e51eeacccf\doFoo();
+    $forVariableInit = \_PhpScoperabd03f0baf05\doFoo();
     /** @var int|null $forVariableCond */
-    $forVariableCond = \_PhpScoper26e51eeacccf\doFoo();
+    $forVariableCond = \_PhpScoperabd03f0baf05\doFoo();
     /** @var int|null $forVariableLoop */
-    $forVariableLoop = \_PhpScoper26e51eeacccf\doFoo();
+    $forVariableLoop = \_PhpScoperabd03f0baf05\doFoo();
     for ($i = 0, $init = isset($forVariableInit); $i < 10 && isset($forVariableCond); $i++, $loop = isset($forVariableLoop)) {
     }
-    if (\_PhpScoper26e51eeacccf\something()) {
+    if (\_PhpScoperabd03f0baf05\something()) {
         $variableInWhile = 1;
     }
     while (isset($variableInWhile)) {
         unset($variableInWhile);
     }
-    if (\_PhpScoper26e51eeacccf\something()) {
+    if (\_PhpScoperabd03f0baf05\something()) {
         $variableInDoWhile = 1;
     }
     do {
@@ -82,7 +82,7 @@ function foo()
             // always defined
             $variableAssignedInSecondCase = \true;
             break;
-        case \_PhpScoper26e51eeacccf\whatever():
+        case \_PhpScoperabd03f0baf05\whatever():
             isset($variableInFirstCase);
             // always defined
             isset($variableInSecondCase);
@@ -90,12 +90,12 @@ function foo()
             $variableInFallthroughCase = \true;
             isset($variableAssignedInSecondCase);
         // surely undefined
-        case \_PhpScoper26e51eeacccf\foo():
+        case \_PhpScoperabd03f0baf05\foo():
             isset($variableInFallthroughCase);
         // fine
         default:
     }
-    if (\_PhpScoper26e51eeacccf\foo()) {
+    if (\_PhpScoperabd03f0baf05\foo()) {
         $mightBeUndefinedForSwitchCondition = 1;
         $mightBeUndefinedForCaseNodeCondition = 1;
     }
@@ -114,7 +114,7 @@ function foo()
 }
 function () {
     $alwaysDefinedNotNullable = 'string';
-    if (\_PhpScoper26e51eeacccf\doFoo()) {
+    if (\_PhpScoperabd03f0baf05\doFoo()) {
         $sometimesDefinedVariable = 1;
     }
     if (isset($alwaysDefinedNotNullable, $sometimesDefinedVariable, $neverDefinedVariable)) {
@@ -122,7 +122,7 @@ function () {
 };
 function () {
     try {
-        if (\_PhpScoper26e51eeacccf\something()) {
+        if (\_PhpScoperabd03f0baf05\something()) {
             throw new \Exception();
         }
         $test = 'fooo';
@@ -133,7 +133,7 @@ function () {
 };
 function () {
     /** @var string[] $strings */
-    $strings = \_PhpScoper26e51eeacccf\doFoo();
+    $strings = \_PhpScoperabd03f0baf05\doFoo();
     foreach ($strings as $string) {
     }
     if (isset($string)) {

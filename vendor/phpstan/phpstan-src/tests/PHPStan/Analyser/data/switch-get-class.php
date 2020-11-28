@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\SwitchGetClass;
+namespace _PhpScoperabd03f0baf05\SwitchGetClass;
 
 class Foo
 {
@@ -8,9 +8,9 @@ class Foo
     {
         $lorem = doFoo();
         switch (\get_class($lorem)) {
-            case \_PhpScoper26e51eeacccf\SwitchGetClass\Ipsum::class:
+            case \_PhpScoperabd03f0baf05\SwitchGetClass\Ipsum::class:
                 break;
-            case \_PhpScoper26e51eeacccf\SwitchGetClass\Lorem::class:
+            case \_PhpScoperabd03f0baf05\SwitchGetClass\Lorem::class:
                 'normalName';
                 break;
             case self::class:

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ComparisonOperators;
+namespace _PhpScoperabd03f0baf05\ComparisonOperators;
 
 use function PHPStan\Analyser\assertType;
 class ComparisonOperators

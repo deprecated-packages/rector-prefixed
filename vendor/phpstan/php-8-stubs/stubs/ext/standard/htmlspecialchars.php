@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /* {{{ html.c */
 function htmlspecialchars(string $string, int $flags = \ENT_COMPAT, ?string $encoding = null, bool $double_encode = \true) : string

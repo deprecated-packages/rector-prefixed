@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 interface Traversable
 {
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\Traversable', 'Traversable', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Traversable', 'Traversable', \false);

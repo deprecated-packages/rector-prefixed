@@ -9895,12 +9895,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/phpstan-rules.git",
-                "reference": "6b98a389b80d1ffd6fb69cebbca1fcf5a1e5878b"
+                "reference": "c72055028afb27d6bae90c9274e9ff3141b616ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/phpstan-rules/zipball/6b98a389b80d1ffd6fb69cebbca1fcf5a1e5878b",
-                "reference": "6b98a389b80d1ffd6fb69cebbca1fcf5a1e5878b",
+                "url": "https://api.github.com/repos/symplify/phpstan-rules/zipball/c72055028afb27d6bae90c9274e9ff3141b616ed",
+                "reference": "c72055028afb27d6bae90c9274e9ff3141b616ed",
                 "shasum": ""
             },
             "require": {
@@ -9955,7 +9955,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-27T11:30:30+00:00"
+            "time": "2020-11-27T14:03:14+00:00"
         },
         {
             "name": "symplify/symfony-php-config",

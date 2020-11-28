@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ObjectWithArrayAccess;
+namespace _PhpScoperabd03f0baf05\ObjectWithArrayAccess;
 
 class Foo implements \ArrayAccess
 {

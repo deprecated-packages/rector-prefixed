@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Stream;
+namespace _PhpScoperabd03f0baf05\React\Stream;
 
-use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoperabd03f0baf05\Evenement\EventEmitter;
 use InvalidArgumentException;
 /**
  * The `ThroughStream` implements the
@@ -72,7 +72,7 @@ use InvalidArgumentException;
  * @see DuplexStreamInterface::close()
  * @see WritableStreamInterface::pipe()
  */
-final class ThroughStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter implements \_PhpScoper26e51eeacccf\React\Stream\DuplexStreamInterface
+final class ThroughStream extends \_PhpScoperabd03f0baf05\Evenement\EventEmitter implements \_PhpScoperabd03f0baf05\React\Stream\DuplexStreamInterface
 {
     private $readable = \true;
     private $writable = \true;
@@ -99,9 +99,9 @@ final class ThroughStream extends \_PhpScoper26e51eeacccf\Evenement\EventEmitter
         }
         $this->paused = \false;
     }
-    public function pipe(\_PhpScoper26e51eeacccf\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoperabd03f0baf05\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScoper26e51eeacccf\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScoperabd03f0baf05\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isReadable()
     {

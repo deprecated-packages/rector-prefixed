@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Socket;
+namespace _PhpScoperabd03f0baf05\React\Socket;
 
-use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
-use _PhpScoper26e51eeacccf\React\Promise;
+use _PhpScoperabd03f0baf05\React\EventLoop\LoopInterface;
+use _PhpScoperabd03f0baf05\React\Promise;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -12,10 +12,10 @@ use RuntimeException;
  * Unix domain sockets use atomic operations, so we can as well emulate
  * async behavior.
  */
-final class UnixConnector implements \_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface
+final class UnixConnector implements \_PhpScoperabd03f0baf05\React\Socket\ConnectorInterface
 {
     private $loop;
-    public function __construct(\_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop)
+    public function __construct(\_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface $loop)
     {
         $this->loop = $loop;
     }
@@ -24,14 +24,14 @@ final class UnixConnector implements \_PhpScoper26e51eeacccf\React\Socket\Connec
         if (\strpos($path, '://') === \false) {
             $path = 'unix://' . $path;
         } elseif (\substr($path, 0, 7) !== 'unix://') {
-            return \_PhpScoper26e51eeacccf\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $path . '" is invalid'));
+            return \_PhpScoperabd03f0baf05\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $path . '" is invalid'));
         }
         $resource = @\stream_socket_client($path, $errno, $errstr, 1.0);
         if (!$resource) {
-            return \_PhpScoper26e51eeacccf\React\Promise\reject(new \RuntimeException('Unable to connect to unix domain socket "' . $path . '": ' . $errstr, $errno));
+            return \_PhpScoperabd03f0baf05\React\Promise\reject(new \RuntimeException('Unable to connect to unix domain socket "' . $path . '": ' . $errstr, $errno));
         }
-        $connection = new \_PhpScoper26e51eeacccf\React\Socket\Connection($resource, $this->loop);
+        $connection = new \_PhpScoperabd03f0baf05\React\Socket\Connection($resource, $this->loop);
         $connection->unix = \true;
-        return \_PhpScoper26e51eeacccf\React\Promise\resolve($connection);
+        return \_PhpScoperabd03f0baf05\React\Promise\resolve($connection);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 use Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector;
 use Rector\CakePHP\ValueObject\ArrayToFluentCall;
@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::class)->call('configure', [[\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::ARRAYS_TO_FLUENT_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\CakePHP\ValueObject\ArrayToFluentCall('_PhpScoper26e51eeacccf\\Cake\\ORM\\Association', [
+    $services->set(\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::class)->call('configure', [[\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::ARRAYS_TO_FLUENT_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\CakePHP\ValueObject\ArrayToFluentCall('_PhpScoperabd03f0baf05\\Cake\\ORM\\Association', [
         'bindingKey' => 'setBindingKey',
         'cascadeCallbacks' => 'setCascadeCallbacks',
         'className' => 'setClassName',
@@ -29,7 +29,7 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
         # BelongsToMany only
         'targetForeignKey' => 'setTargetForeignKey',
         'through' => 'setThrough',
-    ]), new \Rector\CakePHP\ValueObject\ArrayToFluentCall('_PhpScoper26e51eeacccf\\Cake\\ORM\\Query', ['fields' => 'select', 'conditions' => 'where', 'join' => 'join', 'order' => 'order', 'limit' => 'limit', 'offset' => 'offset', 'group' => 'group', 'having' => 'having', 'contain' => 'contain', 'page' => 'page']), new \Rector\CakePHP\ValueObject\ArrayToFluentCall('_PhpScoper26e51eeacccf\\Cake\\ORM\\Association', [
+    ]), new \Rector\CakePHP\ValueObject\ArrayToFluentCall('_PhpScoperabd03f0baf05\\Cake\\ORM\\Query', ['fields' => 'select', 'conditions' => 'where', 'join' => 'join', 'order' => 'order', 'limit' => 'limit', 'offset' => 'offset', 'group' => 'group', 'having' => 'having', 'contain' => 'contain', 'page' => 'page']), new \Rector\CakePHP\ValueObject\ArrayToFluentCall('_PhpScoperabd03f0baf05\\Cake\\ORM\\Association', [
         'bindingKey' => 'setBindingKey',
         'cascadeCallbacks' => 'setCascadeCallbacks',
         'className' => 'setClassName',
@@ -48,5 +48,5 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
         # BelongsToMany only
         'targetForeignKey' => 'setTargetForeignKey',
         'through' => 'setThrough',
-    ]), new \Rector\CakePHP\ValueObject\ArrayToFluentCall('_PhpScoper26e51eeacccf\\Cake\\ORM\\Query', ['fields' => 'select', 'conditions' => 'where', 'join' => 'join', 'order' => 'order', 'limit' => 'limit', 'offset' => 'offset', 'group' => 'group', 'having' => 'having', 'contain' => 'contain', 'page' => 'page'])]), \Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::FACTORY_METHODS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoper26e51eeacccf\\Cake\\ORM\\Table', 'belongsTo', '_PhpScoper26e51eeacccf\\Cake\\ORM\\Association', 2), new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoper26e51eeacccf\\Cake\\ORM\\Table', 'belongsToMany', '_PhpScoper26e51eeacccf\\Cake\\ORM\\Association', 2), new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoper26e51eeacccf\\Cake\\ORM\\Table', 'hasMany', '_PhpScoper26e51eeacccf\\Cake\\ORM\\Association', 2), new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoper26e51eeacccf\\Cake\\ORM\\Table', 'hasOne', '_PhpScoper26e51eeacccf\\Cake\\ORM\\Association', 2), new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoper26e51eeacccf\\Cake\\ORM\\Table', 'find', '_PhpScoper26e51eeacccf\\Cake\\ORM\\Query', 2)])]]);
+    ]), new \Rector\CakePHP\ValueObject\ArrayToFluentCall('_PhpScoperabd03f0baf05\\Cake\\ORM\\Query', ['fields' => 'select', 'conditions' => 'where', 'join' => 'join', 'order' => 'order', 'limit' => 'limit', 'offset' => 'offset', 'group' => 'group', 'having' => 'having', 'contain' => 'contain', 'page' => 'page'])]), \Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::FACTORY_METHODS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoperabd03f0baf05\\Cake\\ORM\\Table', 'belongsTo', '_PhpScoperabd03f0baf05\\Cake\\ORM\\Association', 2), new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoperabd03f0baf05\\Cake\\ORM\\Table', 'belongsToMany', '_PhpScoperabd03f0baf05\\Cake\\ORM\\Association', 2), new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoperabd03f0baf05\\Cake\\ORM\\Table', 'hasMany', '_PhpScoperabd03f0baf05\\Cake\\ORM\\Association', 2), new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoperabd03f0baf05\\Cake\\ORM\\Table', 'hasOne', '_PhpScoperabd03f0baf05\\Cake\\ORM\\Association', 2), new \Rector\CakePHP\ValueObject\FactoryMethod('_PhpScoperabd03f0baf05\\Cake\\ORM\\Table', 'find', '_PhpScoperabd03f0baf05\\Cake\\ORM\\Query', 2)])]]);
 };

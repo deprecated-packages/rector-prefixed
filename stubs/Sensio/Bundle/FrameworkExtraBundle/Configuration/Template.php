@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace _PhpScoperabd03f0baf05\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template')) {
     return;
 }
 // mimics https://github.com/sensiolabs/SensioFrameworkExtraBundle/blob/master/Configuration/Template.php, is missing localy
@@ -13,7 +13,7 @@ if (\class_exists('_PhpScoper26e51eeacccf\\Sensio\\Bundle\\FrameworkExtraBundle\
  * @author Fabien Potencier <fabien@symfony.com>
  * @Annotation
  */
-class Template extends \_PhpScoper26e51eeacccf\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
+class Template extends \_PhpScoperabd03f0baf05\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
 {
     /**
      * The template.

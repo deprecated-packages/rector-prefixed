@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug2648Rule;
+namespace _PhpScoperabd03f0baf05\Bug2648Rule;
 
 /** @var array<string> $foo */
 $foo = $_GET['bar'];

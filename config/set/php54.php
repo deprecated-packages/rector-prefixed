@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 use Rector\Php54\Rector\Break_\RemoveZeroBreakContinueRector;
 use Rector\Php54\Rector\FuncCall\RemoveReferenceFromCallRector;

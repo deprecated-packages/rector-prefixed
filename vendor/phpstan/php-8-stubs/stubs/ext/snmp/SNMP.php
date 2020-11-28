@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SNMP
 {
@@ -40,4 +40,4 @@ class SNMP
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SNMP', 'SNMP', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SNMP', 'SNMP', \false);

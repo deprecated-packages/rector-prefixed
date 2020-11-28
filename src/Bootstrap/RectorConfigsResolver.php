@@ -5,8 +5,8 @@ namespace Rector\Core\Bootstrap;
 
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Set\RectorSetProvider;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\ArgvInput;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\ArgvInput;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
 use Symplify\SetConfigResolver\ConfigResolver;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -47,7 +47,7 @@ final class RectorConfigsResolver
     public function provide() : array
     {
         $configFileInfos = [];
-        $argvInput = new \_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\ArgvInput();
+        $argvInput = new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\ArgvInput();
         $this->guardDeprecatedSetOption($argvInput);
         // And from --config or default one
         $inputOrFallbackConfigFileInfo = $this->configResolver->resolveFromInputWithFallback($argvInput, ['rector.php']);
@@ -64,7 +64,7 @@ final class RectorConfigsResolver
         }
         return \array_merge($configFileInfos, $setFileInfos);
     }
-    private function guardDeprecatedSetOption(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input) : void
+    private function guardDeprecatedSetOption(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input) : void
     {
         $setOption = $input->getParameterOption(['-s', '--set']);
         if ($setOption === \false) {

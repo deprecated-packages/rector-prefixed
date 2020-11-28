@@ -4,15 +4,15 @@ declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
 use PHPStan\Testing\TestCase;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScoper26e51eeacccf\TestDirectorySourceLocator\AFoo;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoperabd03f0baf05\TestDirectorySourceLocator\AFoo;
 class OptimizedDirectorySourceLocatorTest extends \PHPStan\Testing\TestCase
 {
     public function dataClass() : array
     {
-        return [[\_PhpScoper26e51eeacccf\TestDirectorySourceLocator\AFoo::class, \_PhpScoper26e51eeacccf\TestDirectorySourceLocator\AFoo::class, 'a.php'], ['_PhpScoper26e51eeacccf\\testdirectorySourceLocator\\aFoo', \_PhpScoper26e51eeacccf\TestDirectorySourceLocator\AFoo::class, 'a.php'], [\_PhpScoper26e51eeacccf\BFoo::class, \_PhpScoper26e51eeacccf\BFoo::class, 'b.php'], ['bfOO', \_PhpScoper26e51eeacccf\BFoo::class, 'b.php']];
+        return [[\_PhpScoperabd03f0baf05\TestDirectorySourceLocator\AFoo::class, \_PhpScoperabd03f0baf05\TestDirectorySourceLocator\AFoo::class, 'a.php'], ['_PhpScoperabd03f0baf05\\testdirectorySourceLocator\\aFoo', \_PhpScoperabd03f0baf05\TestDirectorySourceLocator\AFoo::class, 'a.php'], [\_PhpScoperabd03f0baf05\BFoo::class, \_PhpScoperabd03f0baf05\BFoo::class, 'b.php'], ['bfOO', \_PhpScoperabd03f0baf05\BFoo::class, 'b.php']];
     }
     /**
      * @dataProvider dataClass
@@ -23,7 +23,7 @@ class OptimizedDirectorySourceLocatorTest extends \PHPStan\Testing\TestCase
     {
         $factory = self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedDirectorySourceLocatorFactory::class);
         $locator = $factory->create(__DIR__ . '/data/directory');
-        $classReflector = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ClassReflector($locator);
+        $classReflector = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\ClassReflector($locator);
         $classReflection = $classReflector->reflect($className);
         $this->assertSame($expectedClassName, $classReflection->getName());
         $this->assertNotNull($classReflection->getFileName());
@@ -31,7 +31,7 @@ class OptimizedDirectorySourceLocatorTest extends \PHPStan\Testing\TestCase
     }
     public function dataFunctionExists() : array
     {
-        return [['_PhpScoper26e51eeacccf\\TestDirectorySourceLocator\\doLorem', '_PhpScoper26e51eeacccf\\TestDirectorySourceLocator\\doLorem', 'a.php'], ['_PhpScoper26e51eeacccf\\testdirectorysourcelocator\\doLorem', '_PhpScoper26e51eeacccf\\TestDirectorySourceLocator\\doLorem', 'a.php'], ['doBar', 'doBar', 'b.php'], ['doBaz', 'doBaz', 'b.php'], ['dobaz', 'doBaz', 'b.php']];
+        return [['_PhpScoperabd03f0baf05\\TestDirectorySourceLocator\\doLorem', '_PhpScoperabd03f0baf05\\TestDirectorySourceLocator\\doLorem', 'a.php'], ['_PhpScoperabd03f0baf05\\testdirectorysourcelocator\\doLorem', '_PhpScoperabd03f0baf05\\TestDirectorySourceLocator\\doLorem', 'a.php'], ['doBar', 'doBar', 'b.php'], ['doBaz', 'doBaz', 'b.php'], ['dobaz', 'doBaz', 'b.php']];
     }
     /**
      * @dataProvider dataFunctionExists
@@ -43,8 +43,8 @@ class OptimizedDirectorySourceLocatorTest extends \PHPStan\Testing\TestCase
     {
         $factory = self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedDirectorySourceLocatorFactory::class);
         $locator = $factory->create(__DIR__ . '/data/directory');
-        $classReflector = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ClassReflector($locator);
-        $functionReflector = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector($locator, $classReflector);
+        $classReflector = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\ClassReflector($locator);
+        $functionReflector = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\FunctionReflector($locator, $classReflector);
         $functionReflection = $functionReflector->reflect($functionName);
         $this->assertSame($expectedFunctionName, $functionReflection->getName());
         $this->assertNotNull($functionReflection->getFileName());
@@ -52,7 +52,7 @@ class OptimizedDirectorySourceLocatorTest extends \PHPStan\Testing\TestCase
     }
     public function dataFunctionDoesNotExist() : array
     {
-        return [['doFoo'], ['_PhpScoper26e51eeacccf\\TestDirectorySourceLocator\\doFoo']];
+        return [['doFoo'], ['_PhpScoperabd03f0baf05\\TestDirectorySourceLocator\\doFoo']];
     }
     /**
      * @dataProvider dataFunctionDoesNotExist
@@ -62,9 +62,9 @@ class OptimizedDirectorySourceLocatorTest extends \PHPStan\Testing\TestCase
     {
         $factory = self::getContainer()->getByType(\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedDirectorySourceLocatorFactory::class);
         $locator = $factory->create(__DIR__ . '/data/directory');
-        $classReflector = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ClassReflector($locator);
-        $functionReflector = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector($locator, $classReflector);
-        $this->expectException(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::class);
+        $classReflector = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\ClassReflector($locator);
+        $functionReflector = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\FunctionReflector($locator, $classReflector);
+        $this->expectException(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::class);
         $functionReflector->reflect($functionName);
     }
 }

@@ -22,21 +22,21 @@ final class ContributeEventClassResolver
      */
     private const CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE = [
         // application
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Application\\Application' => 'getApplication'],
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper26e51eeacccf\\Nette\\Application\\IPresenter' => 'getPresenter'],
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper26e51eeacccf\\Nette\\Application\\Request' => 'getRequest'],
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper26e51eeacccf\\Nette\\Application\\IResponse' => 'getResponse'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Application\\Application' => 'getApplication'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Application\\Application' => 'getApplication', '_PhpScoperabd03f0baf05\\Nette\\Application\\IPresenter' => 'getPresenter'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Application\\Application' => 'getApplication', '_PhpScoperabd03f0baf05\\Nette\\Application\\Request' => 'getRequest'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Application\\Application' => 'getApplication', '_PhpScoperabd03f0baf05\\Nette\\Application\\IResponse' => 'getResponse'],
         // presenter
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Application\\IPresenter' => 'getPresenter', '_PhpScoper26e51eeacccf\\Nette\\Application\\IResponse' => 'getResponse'],
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Application\\UI\\Presenter' => 'getPresenter'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Application\\IPresenter' => 'getPresenter', '_PhpScoperabd03f0baf05\\Nette\\Application\\IResponse' => 'getResponse'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Application\\UI\\Presenter' => 'getPresenter'],
         // nette/security
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Security\\User' => 'getUser'],
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Security\\User' => 'getUser'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Security\\User' => 'getUser'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Security\\User' => 'getUser'],
         // latte
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent' => ['_PhpScoper26e51eeacccf\\Latte\\Engine' => 'getEngine'],
-        '_PhpScoper26e51eeacccf\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent' => ['_PhpScoper26e51eeacccf\\Nette\\Bridges\\ApplicationLatte\\Template' => 'getTemplate'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent' => ['_PhpScoperabd03f0baf05\\Latte\\Engine' => 'getEngine'],
+        '_PhpScoperabd03f0baf05\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent' => ['_PhpScoperabd03f0baf05\\Nette\\Bridges\\ApplicationLatte\\Template' => 'getTemplate'],
     ];
     /**
      * @var NodeNameResolver

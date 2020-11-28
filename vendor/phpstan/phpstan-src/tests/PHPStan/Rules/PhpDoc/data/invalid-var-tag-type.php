@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InvalidVarTagType;
+namespace _PhpScoperabd03f0baf05\InvalidVarTagType;
 
 class Foo
 {

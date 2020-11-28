@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\AnonymousTraitClass;
+namespace _PhpScoperabd03f0baf05\AnonymousTraitClass;
 
-new class implements \_PhpScoper26e51eeacccf\AnonymousTraitClass\FooInterface
+new class implements \_PhpScoperabd03f0baf05\AnonymousTraitClass\FooInterface
 {
     use TraitWithTypeSpecification;
 };

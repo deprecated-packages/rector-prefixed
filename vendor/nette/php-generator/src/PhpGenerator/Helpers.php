@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\PhpGenerator;
+namespace _PhpScoperabd03f0baf05\Nette\PhpGenerator;
 
-use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoperabd03f0baf05\Nette;
 /**
  * @internal
  */
@@ -18,17 +18,17 @@ final class Helpers
     /** @deprecated  use Nette\PhpGenerator\Dumper::dump() */
     public static function dump($var) : string
     {
-        return (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->dump($var);
+        return (new \_PhpScoperabd03f0baf05\Nette\PhpGenerator\Dumper())->dump($var);
     }
     /** @deprecated  use Nette\PhpGenerator\Dumper::format() */
     public static function format(string $statement, ...$args) : string
     {
-        return (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->format($statement, ...$args);
+        return (new \_PhpScoperabd03f0baf05\Nette\PhpGenerator\Dumper())->format($statement, ...$args);
     }
     /** @deprecated  use Nette\PhpGenerator\Dumper::format() */
     public static function formatArgs(string $statement, array $args) : string
     {
-        return (new \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper())->format($statement, ...$args);
+        return (new \_PhpScoperabd03f0baf05\Nette\PhpGenerator\Dumper())->format($statement, ...$args);
     }
     public static function formatDocComment(string $content) : string
     {
@@ -72,6 +72,6 @@ final class Helpers
     /** @internal */
     public static function createObject(string $class, array $props)
     {
-        return \_PhpScoper26e51eeacccf\Nette\PhpGenerator\Dumper::createObject($class, $props);
+        return \_PhpScoperabd03f0baf05\Nette\PhpGenerator\Dumper::createObject($class, $props);
     }
 }

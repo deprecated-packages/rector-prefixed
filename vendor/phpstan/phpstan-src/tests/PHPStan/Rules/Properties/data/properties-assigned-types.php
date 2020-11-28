@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\PropertiesAssignedTypes;
+namespace _PhpScoperabd03f0baf05\PropertiesAssignedTypes;
 
-class Foo extends \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Ipsum
+class Foo extends \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Ipsum
 {
     /** @var string */
     private $stringProperty;
@@ -24,20 +24,20 @@ class Foo extends \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Ipsum
         $this->intProperty = 1;
         $this->intProperty = 'foo';
         $this->fooProperty = new self();
-        $this->fooProperty = new \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Bar();
+        $this->fooProperty = new \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Bar();
         self::$staticStringProperty = 'foo';
         self::$staticStringProperty = 1;
-        \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Foo::$staticStringProperty = 'foo';
-        \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Foo::$staticStringProperty = 1;
+        \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Foo::$staticStringProperty = 'foo';
+        \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Foo::$staticStringProperty = 1;
         parent::$parentStringProperty = 'foo';
         parent::$parentStringProperty = 1;
         $this->nonexistentProperty = 'foo';
         $this->nonexistentProperty = 1;
         $this->unionPropertySelf = [new self()];
-        $this->unionPropertySelf = new \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Collection();
+        $this->unionPropertySelf = new \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Collection();
         $this->unionPropertySelf = new self();
-        $this->unionPropertySelf = [new \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Bar()];
-        $this->unionPropertySelf = new \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Bar();
+        $this->unionPropertySelf = [new \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Bar()];
+        $this->unionPropertySelf = new \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Bar();
         $this->parentStringProperty = 'foo';
         $this->parentStringProperty = 1;
         self::$parentStaticStringProperty = 'foo';
@@ -110,9 +110,9 @@ class Ipsum
     }
     public function doIntersection()
     {
-        if ($this->foo instanceof \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\SomeInterface) {
-            $this->foo->foo = new \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Bar();
-            self::$fooStatic::$fooStatic = new \_PhpScoper26e51eeacccf\PropertiesAssignedTypes\Bar();
+        if ($this->foo instanceof \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\SomeInterface) {
+            $this->foo->foo = new \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Bar();
+            self::$fooStatic::$fooStatic = new \_PhpScoperabd03f0baf05\PropertiesAssignedTypes\Bar();
         }
     }
 }

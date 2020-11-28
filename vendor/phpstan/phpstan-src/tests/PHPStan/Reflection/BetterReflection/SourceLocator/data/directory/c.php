@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class CFoo
 {
@@ -8,4 +8,4 @@ class CFoo
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\CFoo', 'CFoo', \false);
+\class_alias('_PhpScoperabd03f0baf05\\CFoo', 'CFoo', \false);

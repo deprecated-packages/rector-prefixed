@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\OptionsResolver;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\OptionsResolver;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\OptionsResolver\\OptionsResolver')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\OptionsResolver\\OptionsResolver')) {
     return;
 }
 class OptionsResolver

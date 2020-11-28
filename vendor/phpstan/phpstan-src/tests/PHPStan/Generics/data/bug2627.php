@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Generics\Bug2627;
+namespace _PhpScoperabd03f0baf05\Generics\Bug2627;
 
 /**
  * @template-covariant TValue

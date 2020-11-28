@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 use PHPStan\TrinaryLogic;
 \PHPStan\Analyser\assertType('mixed', $foo);

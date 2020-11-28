@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class ReflectionExtension implements \Reflector
 {
@@ -59,4 +59,4 @@ class ReflectionExtension implements \Reflector
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ReflectionExtension', 'ReflectionExtension', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ReflectionExtension', 'ReflectionExtension', \false);

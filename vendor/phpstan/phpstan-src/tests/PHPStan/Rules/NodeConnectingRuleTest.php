@@ -15,6 +15,6 @@ class NodeConnectingRuleTest extends \PHPStan\Testing\RuleTestCase
     }
     public function testRule() : void
     {
-        $this->analyse([__DIR__ . '/data/node-connecting.php'], [['_PhpScoper26e51eeacccf\\Parent: PhpParser\\Node\\Stmt\\If_, previous: PhpParser\\Node\\Stmt\\Switch_, next: PhpParser\\Node\\Stmt\\Foreach_', 11]]);
+        $this->analyse([__DIR__ . '/data/node-connecting.php'], [['_PhpScoperabd03f0baf05\\Parent: PhpParser\\Node\\Stmt\\If_, previous: PhpParser\\Node\\Stmt\\Switch_, next: PhpParser\\Node\\Stmt\\Foreach_', 11]]);
     }
 }

@@ -10,19 +10,19 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\TypeResolver;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Void_;
-use _PhpScoper26e51eeacccf\Webmozart\Assert\Assert;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Type;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\TypeResolver;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Void_;
+use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
 /**
  * Reflection class for an {@}method in a Docblock.
  */
-final class Method extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Method extends \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'method';
     /** @var string */
@@ -33,12 +33,12 @@ final class Method extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocB
     private $isStatic = \false;
     /** @var Type */
     private $returnType;
-    public function __construct($methodName, array $arguments = [], \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Type $returnType = null, $static = \false, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($methodName, array $arguments = [], \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Type $returnType = null, $static = \false, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::stringNotEmpty($methodName);
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::boolean($static);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::stringNotEmpty($methodName);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::boolean($static);
         if ($returnType === null) {
-            $returnType = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Void_();
+            $returnType = new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Void_();
         }
         $this->methodName = $methodName;
         $this->arguments = $this->filterArguments($arguments);
@@ -49,10 +49,10 @@ final class Method extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocB
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::stringNotEmpty($body);
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::stringNotEmpty($body);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
         // 1. none or more whitespace
         // 2. optionally the keyword "static" followed by whitespace
         // 3. optionally a word with underscores followed by whitespace : as
@@ -107,7 +107,7 @@ final class Method extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocB
                 $argument = \explode(' ', self::stripRestArg(\trim($argument)), 2);
                 if ($argument[0][0] === '$') {
                     $argumentName = \substr($argument[0], 1);
-                    $argumentType = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Void_();
+                    $argumentType = new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Void_();
                 } else {
                     $argumentType = $typeResolver->resolve($argument[0], $context);
                     $argumentName = '';
@@ -170,7 +170,7 @@ final class Method extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocB
                 $argument = ['name' => $argument];
             }
             if (!isset($argument['type'])) {
-                $argument['type'] = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Void_();
+                $argument['type'] = new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Void_();
             }
             $keys = \array_keys($argument);
             \sort($keys);

@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Levels\Typehints;
+namespace _PhpScoperabd03f0baf05\Levels\Typehints;
 
 class Foo
 {
-    public function doFoo(\_PhpScoper26e51eeacccf\Levels\Typehints\Lorem $lorem) : \_PhpScoper26e51eeacccf\Levels\Typehints\Ipsum
+    public function doFoo(\_PhpScoperabd03f0baf05\Levels\Typehints\Lorem $lorem) : \_PhpScoperabd03f0baf05\Levels\Typehints\Ipsum
     {
-        return new \_PhpScoper26e51eeacccf\Levels\Typehints\Ipsum();
+        return new \_PhpScoperabd03f0baf05\Levels\Typehints\Ipsum();
     }
     /**
      * @param Lorem $lorem
@@ -14,6 +14,6 @@ class Foo
      */
     public function doBar($lorem)
     {
-        return new \_PhpScoper26e51eeacccf\Levels\Typehints\Ipsum();
+        return new \_PhpScoperabd03f0baf05\Levels\Typehints\Ipsum();
     }
 }

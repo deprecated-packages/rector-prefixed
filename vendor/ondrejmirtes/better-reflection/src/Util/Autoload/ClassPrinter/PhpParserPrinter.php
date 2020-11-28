@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\ClassPrinter;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\ClassPrinter;
 
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\PrettyPrinter\Standard as CodePrinter;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass;
-final class PhpParserPrinter implements \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass;
+final class PhpParserPrinter implements \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface
 {
-    public function __invoke(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $classInfo) : string
+    public function __invoke(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass $classInfo) : string
     {
         $nodes = [];
         if ($classInfo->inNamespace()) {

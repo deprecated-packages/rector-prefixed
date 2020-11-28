@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class OCILob
 {
@@ -85,7 +85,7 @@ class OCILob
      * @alias oci_lob_append
      * @return bool
      */
-    public function append(\_PhpScoper26e51eeacccf\OCILob $from)
+    public function append(\_PhpScoperabd03f0baf05\OCILob $from)
     {
     }
     /**
@@ -153,4 +153,4 @@ class OCILob
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\OCILob', 'OCILob', \false);
+\class_alias('_PhpScoperabd03f0baf05\\OCILob', 'OCILob', \false);

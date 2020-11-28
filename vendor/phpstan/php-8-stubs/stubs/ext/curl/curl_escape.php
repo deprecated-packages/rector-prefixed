@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #if LIBCURL_VERSION_NUM >= 0x070f04 /* 7.15.4 */
 function curl_escape(\CurlHandle $handle, string $string) : string|false

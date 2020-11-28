@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\DefinedVariables;
+namespace _PhpScoperabd03f0baf05\DefinedVariables;
 
 function () {
     if ($definedLater) {
@@ -53,7 +53,7 @@ function () {
     $refObject->foo;
     funcWithSpecialParameter(1, 2, $variableDefinedInsideTheFunction);
     echo $variableDefinedInsideTheFunction;
-    $fooObject = new \_PhpScoper26e51eeacccf\DefinedVariables\Foo();
+    $fooObject = new \_PhpScoperabd03f0baf05\DefinedVariables\Foo();
     $fooObject->doFoo(1, 2, $anotherVariableDefinedInsideTheFunction);
     echo $anotherVariableDefinedInsideTheFunction;
     if ($fooInCondition = doFoo()) {
@@ -87,7 +87,7 @@ function () {
     \sscanf($str, '%d%d', $sscanfArgument, $anotherSscanfArgument);
     \fscanf($resource, '%d%d', $fscanfArgument, $anotherFscanfArgument);
     doFoo($sscanfArgument, $anotherSscanfArgument, $fscanfArgument, $anotherFscanfArgument);
-    \_PhpScoper26e51eeacccf\DefinedVariables\Foo::doStaticFoo(1, 2, $variableDefinedInStaticMethodPassedByReference);
+    \_PhpScoperabd03f0baf05\DefinedVariables\Foo::doStaticFoo(1, 2, $variableDefinedInStaticMethodPassedByReference);
     echo $variableDefinedInStaticMethodPassedByReference;
     echo $echoedVariable = 1;
     echo $echoedVariable;
@@ -162,7 +162,7 @@ function () {
     echo $parameterValue;
     $arrayWithAssignmentInKey = [$assignedInKey => 'baz', 'baz' => $assignedInKey, $assignedInKey = 'foo' => $assignedInKey . 'bar' . ($assignedInValue = 'foo'), $assignedInKey . $assignedInValue => $assignedInKey . $assignedInValue];
     echo $assignedInKey;
-    if (($isInstanceOf = $fooObject) instanceof \_PhpScoper26e51eeacccf\DefinedVariables\Foo && $isInstanceOf) {
+    if (($isInstanceOf = $fooObject) instanceof \_PhpScoperabd03f0baf05\DefinedVariables\Foo && $isInstanceOf) {
     }
     echo $isInstanceOf;
     isset($nonexistentVariableInIsset);
@@ -180,7 +180,7 @@ function () {
     echo $definedInIfWithElseIfElse;
     try {
         $definedInTryCatchIfElse = 'foo';
-    } catch (\_PhpScoper26e51eeacccf\DefinedVariables\Exception $e) {
+    } catch (\_PhpScoperabd03f0baf05\DefinedVariables\Exception $e) {
         if (doFoo()) {
             throw $e;
         } else {
@@ -198,12 +198,12 @@ function () {
     try {
         $variableDefinedInTry = 1;
         $variableDefinedInTryAndAllCatches = 1;
-    } catch (\_PhpScoper26e51eeacccf\FooException $e) {
+    } catch (\_PhpScoperabd03f0baf05\FooException $e) {
         $variableDefinedInTryAndAllCatches = 1;
         $variableAvailableInAllCatches = 1;
         $variableDefinedOnlyInOneCatch = 'foo';
         echo $variableDefinedInTry;
-    } catch (\_PhpScoper26e51eeacccf\BarException $e) {
+    } catch (\_PhpScoperabd03f0baf05\BarException $e) {
         $variableDefinedInTryAndAllCatches = 1;
         $variableAvailableInAllCatches = 2;
     } finally {
@@ -337,7 +337,7 @@ function () {
             }
         }
     };
-    if (!\_PhpScoper26e51eeacccf\DefinedVariables\Foo::doStaticFoo(1, 2, $variableDefinedInBooleaNotByReference)) {
+    if (!\_PhpScoperabd03f0baf05\DefinedVariables\Foo::doStaticFoo(1, 2, $variableDefinedInBooleaNotByReference)) {
     }
     echo $variableDefinedInBooleaNotByReference;
 };

@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\HasTraitUse;
+namespace _PhpScoperabd03f0baf05\HasTraitUse;
 
-class Bar extends \_PhpScoper26e51eeacccf\HasTraitUse\Foo
+class Bar extends \_PhpScoperabd03f0baf05\HasTraitUse\Foo
 {
 }

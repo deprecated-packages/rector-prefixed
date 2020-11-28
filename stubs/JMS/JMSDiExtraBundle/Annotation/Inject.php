@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\JMS\DiExtraBundle\Annotation;
+namespace _PhpScoperabd03f0baf05\JMS\DiExtraBundle\Annotation;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\JMS\\DiExtraBundle\\Annotation\\Inject')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\JMS\\DiExtraBundle\\Annotation\\Inject')) {
     return;
 }
 /**
  * @Annotation
  * @Target({"PROPERTY", "ANNOTATION"})
  */
-class Inject extends \_PhpScoper26e51eeacccf\JMS\DiExtraBundle\Annotation\Reference
+class Inject extends \_PhpScoperabd03f0baf05\JMS\DiExtraBundle\Annotation\Reference
 {
 }

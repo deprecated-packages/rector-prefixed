@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Illuminate\Support;
+namespace _PhpScoperabd03f0baf05\Illuminate\Support;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Illuminate\\Support\\ServiceProvider')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Illuminate\\Support\\ServiceProvider')) {
     return;
 }
 abstract class ServiceProvider

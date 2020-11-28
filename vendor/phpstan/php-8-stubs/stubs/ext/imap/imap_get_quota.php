@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #if defined(HAVE_IMAP2000) || defined(HAVE_IMAP2001)
 /** @param resource $imap */

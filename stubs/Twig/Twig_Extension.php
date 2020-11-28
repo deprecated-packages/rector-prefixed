@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Twig_Extension')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Twig_Extension')) {
     return;
 }
 class Twig_Extension
 {
 }
-\class_alias('_PhpScoper26e51eeacccf\\Twig_Extension', 'Twig_Extension', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Twig_Extension', 'Twig_Extension', \false);

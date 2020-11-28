@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace _PhpScoperabd03f0baf05\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Method')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Method')) {
     return;
 }
 /**
  * @Annotation
  */
-class Method extends \_PhpScoper26e51eeacccf\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
+class Method extends \_PhpScoperabd03f0baf05\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
 {
     /**
      * An array of restricted HTTP methods.

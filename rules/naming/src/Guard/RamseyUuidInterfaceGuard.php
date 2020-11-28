@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Guard;
 
-use _PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface;
+use _PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface;
 use Rector\Naming\Contract\Guard\GuardInterface;
 use Rector\Naming\Contract\RenameValueObjectInterface;
 use Rector\Naming\ValueObject\PropertyRename;
@@ -23,6 +23,6 @@ final class RamseyUuidInterfaceGuard implements \Rector\Naming\Contract\Guard\Gu
      */
     public function check(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($renameValueObject->getProperty(), \_PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface::class);
+        return $this->nodeTypeResolver->isObjectType($renameValueObject->getProperty(), \_PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface::class);
     }
 }

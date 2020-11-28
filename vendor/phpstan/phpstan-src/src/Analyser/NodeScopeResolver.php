@@ -110,10 +110,10 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeTraverser;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class NodeScopeResolver
 {
     private const LOOP_SCOPE_ITERATIONS = 3;
@@ -186,7 +186,7 @@ class NodeScopeResolver
      * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
      * @param array<int, string> $earlyTerminatingFunctionCalls
      */
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \PHPStan\Parser\Parser $parser, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\PhpDoc\PhpDocInheritanceResolver $phpDocInheritanceResolver, \PHPStan\File\FileHelper $fileHelper, \PHPStan\Analyser\TypeSpecifier $typeSpecifier, bool $polluteScopeWithLoopInitialAssignments, bool $polluteCatchScopeWithTryAssignments, bool $polluteScopeWithAlwaysIterableForeach, array $earlyTerminatingMethodCalls, array $earlyTerminatingFunctionCalls)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \PHPStan\Parser\Parser $parser, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\PhpDoc\PhpDocInheritanceResolver $phpDocInheritanceResolver, \PHPStan\File\FileHelper $fileHelper, \PHPStan\Analyser\TypeSpecifier $typeSpecifier, bool $polluteScopeWithLoopInitialAssignments, bool $polluteCatchScopeWithTryAssignments, bool $polluteScopeWithAlwaysIterableForeach, array $earlyTerminatingMethodCalls, array $earlyTerminatingFunctionCalls)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->classReflector = $classReflector;
@@ -448,12 +448,12 @@ class NodeScopeResolver
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\ClassLike) {
             $hasYield = \false;
             if (isset($stmt->namespacedName)) {
-                $nodeToReflection = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
-                $betterReflectionClass = $nodeToReflection->__invoke($this->classReflector, $stmt, new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource(\PHPStan\File\FileReader::read($scope->getFile()), $scope->getFile()), $scope->getNamespace() !== null ? new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($scope->getNamespace())) : null, null);
-                if (!$betterReflectionClass instanceof \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass) {
+                $nodeToReflection = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+                $betterReflectionClass = $nodeToReflection->__invoke($this->classReflector, $stmt, new \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Located\LocatedSource(\PHPStan\File\FileReader::read($scope->getFile()), $scope->getFile()), $scope->getNamespace() !== null ? new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($scope->getNamespace())) : null, null);
+                if (!$betterReflectionClass instanceof \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass) {
                     throw new \PHPStan\ShouldNotHappenException();
                 }
-                $classReflection = new \PHPStan\Reflection\ClassReflection($this->reflectionProvider, $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $betterReflectionClass->getName(), new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($betterReflectionClass), null, null, null, \sprintf('%s:%d', $scope->getFile(), $stmt->getStartLine()));
+                $classReflection = new \PHPStan\Reflection\ClassReflection($this->reflectionProvider, $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $betterReflectionClass->getName(), new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($betterReflectionClass), null, null, null, \sprintf('%s:%d', $scope->getFile(), $stmt->getStartLine()));
                 $this->reflectionProvider->hasClass($classReflection->getName());
                 $classScope = $scope->enterClass($classReflection);
                 $nodeCallback(new \PHPStan\Node\InClassNode($stmt, $classReflection), $classScope);

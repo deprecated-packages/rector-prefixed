@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace PHPStan\Parallel;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Json;
+use _PhpScoperabd03f0baf05\Nette\Utils\Json;
 use PHPStan\File\FileHelper;
-use _PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase;
+use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
 /**
  * @group exec
  */
-class ParallelAnalyserIntegrationTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
+class ParallelAnalyserIntegrationTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
 {
     public function dataRun() : array
     {
@@ -31,7 +31,7 @@ class ParallelAnalyserIntegrationTest extends \_PhpScoper26e51eeacccf\PHPUnit\Fr
         $output = \implode("\n", $outputLines);
         $fileHelper = new \PHPStan\File\FileHelper(__DIR__);
         $filePath = $fileHelper->normalizePath(__DIR__ . '/data/trait-definition.php');
-        $this->assertJsonStringEqualsJsonString(\_PhpScoper26e51eeacccf\Nette\Utils\Json::encode(['totals' => ['errors' => 0, 'file_errors' => 3], 'files' => [\sprintf('%s (in context of class ParallelAnalyserIntegrationTest\\Bar)', $filePath) => ['errors' => 1, 'messages' => [['message' => 'Method ParallelAnalyserIntegrationTest\\Bar::doFoo() has no return typehint specified.', 'line' => 8, 'ignorable' => \true]]], \sprintf('%s (in context of class ParallelAnalyserIntegrationTest\\Foo)', $filePath) => ['errors' => 2, 'messages' => [['message' => 'Method ParallelAnalyserIntegrationTest\\Foo::doFoo() has no return typehint specified.', 'line' => 8, 'ignorable' => \true], ['message' => 'Access to an undefined property ParallelAnalyserIntegrationTest\\Foo::$test.', 'line' => 10, 'ignorable' => \true]]]], 'errors' => []]), $output);
+        $this->assertJsonStringEqualsJsonString(\_PhpScoperabd03f0baf05\Nette\Utils\Json::encode(['totals' => ['errors' => 0, 'file_errors' => 3], 'files' => [\sprintf('%s (in context of class ParallelAnalyserIntegrationTest\\Bar)', $filePath) => ['errors' => 1, 'messages' => [['message' => 'Method ParallelAnalyserIntegrationTest\\Bar::doFoo() has no return typehint specified.', 'line' => 8, 'ignorable' => \true]]], \sprintf('%s (in context of class ParallelAnalyserIntegrationTest\\Foo)', $filePath) => ['errors' => 2, 'messages' => [['message' => 'Method ParallelAnalyserIntegrationTest\\Foo::doFoo() has no return typehint specified.', 'line' => 8, 'ignorable' => \true], ['message' => 'Access to an undefined property ParallelAnalyserIntegrationTest\\Foo::$test.', 'line' => 10, 'ignorable' => \true]]]], 'errors' => []]), $output);
         $this->assertSame(1, $exitCode);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function socket_set_block(\_PhpScoper26e51eeacccf\Socket $socket) : bool
+function socket_set_block(\_PhpScoperabd03f0baf05\Socket $socket) : bool
 {
 }

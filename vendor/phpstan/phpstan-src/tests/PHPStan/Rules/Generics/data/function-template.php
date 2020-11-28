@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\FunctionTemplateType;
+namespace _PhpScoperabd03f0baf05\FunctionTemplateType;
 
 /**
  * @template stdClass

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug4070Two;
+namespace _PhpScoperabd03f0baf05\Bug4070Two;
 
 function () {
     \array_shift($argv);

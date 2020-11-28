@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class XSLTProcessor
@@ -67,4 +67,4 @@ class XSLTProcessor
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\XSLTProcessor', 'XSLTProcessor', \false);
+\class_alias('_PhpScoperabd03f0baf05\\XSLTProcessor', 'XSLTProcessor', \false);

@@ -8,8 +8,8 @@ use PHPStan\Type\ParserNodeTypeToPHPStanType;
 use Rector\Core\Console\Command\AbstractCommand;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\Utils\PHPStanStaticTypeMapperChecker\Finder\PHPStanTypeClassFinder;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 final class CheckStaticTypeMappersCommand extends \Rector\Core\Console\Command\AbstractCommand
@@ -40,7 +40,7 @@ final class CheckStaticTypeMappersCommand extends \Rector\Core\Console\Command\A
     {
         $this->setDescription('[DEV] check PHPStan types to TypeMappers');
     }
-    protected function execute(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $missingNodeClasses = $this->getMissingNodeClasses();
         if ($missingNodeClasses === []) {

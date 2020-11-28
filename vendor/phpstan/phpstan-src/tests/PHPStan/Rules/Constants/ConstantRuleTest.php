@@ -15,8 +15,8 @@ class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
     public function testConstants() : void
     {
         \define('FOO_CONSTANT', 'foo');
-        \define('_PhpScoper26e51eeacccf\\Constants\\BAR_CONSTANT', 'bar');
-        \define('_PhpScoper26e51eeacccf\\OtherConstants\\BAZ_CONSTANT', 'baz');
+        \define('_PhpScoperabd03f0baf05\\Constants\\BAR_CONSTANT', 'bar');
+        \define('_PhpScoperabd03f0baf05\\OtherConstants\\BAZ_CONSTANT', 'baz');
         $this->analyse([__DIR__ . '/data/constants.php'], [['Constant NONEXISTENT_CONSTANT not found.', 10, 'Learn more at https://phpstan.org/user-guide/discovering-symbols'], ['Constant DEFINED_CONSTANT not found.', 13, 'Learn more at https://phpstan.org/user-guide/discovering-symbols']]);
     }
     public function testCompilerHaltOffsetConstantFalseDetection() : void

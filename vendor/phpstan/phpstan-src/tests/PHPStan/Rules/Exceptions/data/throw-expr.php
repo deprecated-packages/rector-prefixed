@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 8.0
-namespace _PhpScoper26e51eeacccf\ThrowExpr;
+namespace _PhpScoperabd03f0baf05\ThrowExpr;
 
 class Bar
 {

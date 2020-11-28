@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @param string|int $value */
 function mysqli_options(\mysqli $mysql, int $option, $value) : bool

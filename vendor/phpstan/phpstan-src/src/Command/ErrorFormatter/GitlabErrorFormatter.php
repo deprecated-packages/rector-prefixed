@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Json;
+use _PhpScoperabd03f0baf05\Nette\Utils\Json;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\Output;
 use PHPStan\File\RelativePathHelper;
@@ -33,7 +33,7 @@ class GitlabErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorForma
         foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
             $errorsArray[] = ['description' => $notFileSpecificError, 'fingerprint' => \hash('sha256', $notFileSpecificError), 'location' => ['path' => '', 'lines' => ['begin' => 0]]];
         }
-        $json = \_PhpScoper26e51eeacccf\Nette\Utils\Json::encode($errorsArray, \_PhpScoper26e51eeacccf\Nette\Utils\Json::PRETTY);
+        $json = \_PhpScoperabd03f0baf05\Nette\Utils\Json::encode($errorsArray, \_PhpScoperabd03f0baf05\Nette\Utils\Json::PRETTY);
         $output->writeRaw($json);
         return $analysisResult->hasErrors() ? 1 : 0;
     }

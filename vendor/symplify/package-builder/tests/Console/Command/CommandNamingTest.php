@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Symplify\PackageBuilder\Tests\Console\Command;
 
 use Iterator;
-use _PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase;
+use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-final class CommandNamingTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
+final class CommandNamingTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider provideDataForClassToName()
@@ -18,8 +18,8 @@ final class CommandNamingTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\
     public function provideDataForClassToName() : \Iterator
     {
         (yield ['SomeNameCommand', 'some-name']);
-        (yield ['_PhpScoper26e51eeacccf\\AlsoNamespace\\SomeNameCommand', 'some-name']);
-        (yield ['_PhpScoper26e51eeacccf\\AlsoNamespace\\ECSCommand', 'ecs']);
-        (yield ['_PhpScoper26e51eeacccf\\AlsoNamespace\\PHPStanCommand', 'php-stan']);
+        (yield ['_PhpScoperabd03f0baf05\\AlsoNamespace\\SomeNameCommand', 'some-name']);
+        (yield ['_PhpScoperabd03f0baf05\\AlsoNamespace\\ECSCommand', 'ecs']);
+        (yield ['_PhpScoperabd03f0baf05\\AlsoNamespace\\PHPStanCommand', 'php-stan']);
     }
 }

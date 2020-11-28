@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #if HAVE_MSCOREE_H
 class dotnet
@@ -10,4 +10,4 @@ class dotnet
     }
 }
 #if HAVE_MSCOREE_H
-\class_alias('_PhpScoper26e51eeacccf\\dotnet', 'dotnet', \false);
+\class_alias('_PhpScoperabd03f0baf05\\dotnet', 'dotnet', \false);

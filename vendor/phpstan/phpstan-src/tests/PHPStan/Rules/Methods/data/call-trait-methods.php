@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\CallTraitMethods;
+namespace _PhpScoperabd03f0baf05\CallTraitMethods;
 
 trait Foo
 {
@@ -12,7 +12,7 @@ class Bar
 {
     use Foo;
 }
-class Baz extends \_PhpScoper26e51eeacccf\CallTraitMethods\Bar
+class Baz extends \_PhpScoperabd03f0baf05\CallTraitMethods\Bar
 {
     public function bazMethod()
     {

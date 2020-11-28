@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\EventSubscriber;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Json;
+use _PhpScoperabd03f0baf05\Nette\Utils\Json;
 use Rector\Core\EventDispatcher\Event\AfterProcessEvent;
 use Rector\Doctrine\Collector\UuidMigrationDataCollector;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -49,7 +49,7 @@ final class ReportEntitiesWithAddedPropertiesEventSubscriber implements \Symfony
         if ($data === []) {
             return;
         }
-        $jsonContent = \_PhpScoper26e51eeacccf\Nette\Utils\Json::encode(['new_columns_by_class' => $data], \_PhpScoper26e51eeacccf\Nette\Utils\Json::PRETTY);
+        $jsonContent = \_PhpScoperabd03f0baf05\Nette\Utils\Json::encode(['new_columns_by_class' => $data], \_PhpScoperabd03f0baf05\Nette\Utils\Json::PRETTY);
         $filePath = \getcwd() . '/' . $fileName;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
         $message = \sprintf('See freshly created "%s" file for changes on entities', $fileName);

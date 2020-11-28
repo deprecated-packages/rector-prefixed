@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Naming;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Return_;
@@ -77,7 +77,7 @@ final class PropertyNaming
     }
     public function getExpectedNameFromMethodName(string $methodName) : ?\Rector\Naming\ValueObject\ExpectedName
     {
-        $matches = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($methodName, self::GET_PREFIX_REGEX);
+        $matches = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($methodName, self::GET_PREFIX_REGEX);
         if ($matches === null) {
             return null;
         }
@@ -100,7 +100,7 @@ final class PropertyNaming
         }
         $className = $this->getClassName($type);
         foreach (self::EXCLUDED_CLASSES as $excludedClass) {
-            if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($className, $excludedClass)) {
+            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($className, $excludedClass)) {
                 return null;
             }
         }
@@ -111,7 +111,7 @@ final class PropertyNaming
             $shortClassName = \strtolower($shortClassName);
         }
         // remove "_"
-        $shortClassName = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($shortClassName, '#_#', '');
+        $shortClassName = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($shortClassName, '#_#', '');
         $shortClassName = $this->normalizeUpperCase($shortClassName);
         // prolong too short generic names with one namespace up
         $originalName = $this->prolongIfTooShort($shortClassName, $className);
@@ -158,24 +158,24 @@ final class PropertyNaming
     }
     private function resolveShortClassName(string $className) : string
     {
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::contains($className, '\\')) {
-            return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::after($className, '\\', -1);
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($className, '\\')) {
+            return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after($className, '\\', -1);
         }
         return $className;
     }
     private function removePrefixesAndSuffixes(string $shortClassName) : string
     {
         // is SomeInterface
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($shortClassName, self::INTERFACE)) {
-            $shortClassName = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen(self::INTERFACE));
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($shortClassName, self::INTERFACE)) {
+            $shortClassName = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen(self::INTERFACE));
         }
         // is ISomeClass
         if ($this->isPrefixedInterface($shortClassName)) {
-            $shortClassName = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::substring($shortClassName, 1);
+            $shortClassName = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($shortClassName, 1);
         }
         // is AbstractClass
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::startsWith($shortClassName, 'Abstract')) {
-            $shortClassName = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::substring($shortClassName, \strlen('Abstract'));
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::startsWith($shortClassName, 'Abstract')) {
+            $shortClassName = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($shortClassName, \strlen('Abstract'));
         }
         return $shortClassName;
     }
@@ -195,9 +195,9 @@ final class PropertyNaming
     {
         if (\in_array($shortClassName, ['Factory', 'Repository'], \true)) {
             /** @var string $namespaceAbove */
-            $namespaceAbove = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::after($className, '\\', -2);
+            $namespaceAbove = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after($className, '\\', -2);
             /** @var string $namespaceAbove */
-            $namespaceAbove = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::before($namespaceAbove, '\\');
+            $namespaceAbove = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::before($namespaceAbove, '\\');
             return \lcfirst($namespaceAbove) . $shortClassName;
         }
         return \lcfirst($shortClassName);
@@ -214,13 +214,13 @@ final class PropertyNaming
     }
     private function fqnToShortName(string $fqn) : string
     {
-        if (!\_PhpScoper26e51eeacccf\Nette\Utils\Strings::contains($fqn, '\\')) {
+        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($fqn, '\\')) {
             return $fqn;
         }
         /** @var string $lastNamePart */
-        $lastNamePart = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::after($fqn, '\\', -1);
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($lastNamePart, self::INTERFACE)) {
-            return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::substring($lastNamePart, 0, -\strlen(self::INTERFACE));
+        $lastNamePart = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after($fqn, '\\', -1);
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($lastNamePart, self::INTERFACE)) {
+            return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($lastNamePart, 0, -\strlen(self::INTERFACE));
         }
         return $lastNamePart;
     }
@@ -231,11 +231,11 @@ final class PropertyNaming
             return $shortName;
         }
         // starts with "I\W+"?
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($shortName, self::I_PREFIX_REGEX)) {
-            return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::substring($shortName, 1);
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($shortName, self::I_PREFIX_REGEX)) {
+            return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($shortName, 1);
         }
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($shortName, self::INTERFACE)) {
-            return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::substring($shortName, -\strlen(self::INTERFACE));
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($shortName, self::INTERFACE)) {
+            return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($shortName, -\strlen(self::INTERFACE));
         }
         return $shortName;
     }
@@ -255,7 +255,7 @@ final class PropertyNaming
         $classMethods = $this->betterNodeFinder->findInstanceOf($classLike, \PhpParser\Node\Stmt\ClassMethod::class);
         return \array_filter($classMethods, function (\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool {
             $classMethodName = $this->nodeNameResolver->getName($classMethod);
-            return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($classMethodName, self::PREFIXED_CLASS_METHODS_REGEX) !== null;
+            return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($classMethodName, self::PREFIXED_CLASS_METHODS_REGEX) !== null;
         });
     }
     /**
@@ -292,7 +292,7 @@ final class PropertyNaming
         if (\strlen($shortClassName) <= 3) {
             return \false;
         }
-        if (!\_PhpScoper26e51eeacccf\Nette\Utils\Strings::startsWith($shortClassName, 'I')) {
+        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::startsWith($shortClassName, 'I')) {
             return \false;
         }
         return \ctype_upper($shortClassName[1]) && \ctype_lower($shortClassName[2]);

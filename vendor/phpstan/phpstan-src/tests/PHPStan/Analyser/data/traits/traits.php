@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TraitPhpDocs;
+namespace _PhpScoperabd03f0baf05\TraitPhpDocs;
 
-class Foo extends \_PhpScoper26e51eeacccf\TraitPhpDocs\Bar
+class Foo extends \_PhpScoperabd03f0baf05\TraitPhpDocs\Bar
 {
     use \TraitPhpDocsTwo\FooTrait, \TraitPhpDocsThree\BarTrait {
         \TraitPhpDocsTwo\FooTrait::methodInMoreTraits insteadof \TraitPhpDocsThree\BarTrait;

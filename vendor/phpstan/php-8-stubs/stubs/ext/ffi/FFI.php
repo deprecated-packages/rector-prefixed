@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 final class FFI
 {
@@ -79,4 +79,4 @@ final class FFI
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\FFI', 'FFI', \false);
+\class_alias('_PhpScoperabd03f0baf05\\FFI', 'FFI', \false);

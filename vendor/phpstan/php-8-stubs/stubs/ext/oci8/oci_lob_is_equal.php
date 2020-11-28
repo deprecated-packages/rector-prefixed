@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function oci_lob_is_equal(\_PhpScoper26e51eeacccf\OCILob $lob1, \_PhpScoper26e51eeacccf\OCILob $lob2) : bool
+function oci_lob_is_equal(\_PhpScoperabd03f0baf05\OCILob $lob1, \_PhpScoperabd03f0baf05\OCILob $lob2) : bool
 {
 }

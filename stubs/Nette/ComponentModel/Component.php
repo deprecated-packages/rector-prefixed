@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\ComponentModel;
+namespace _PhpScoperabd03f0baf05\Nette\ComponentModel;
 
-class Component extends \_PhpScoper26e51eeacccf\Nette\ComponentModel\Container implements \ArrayAccess
+class Component extends \_PhpScoperabd03f0baf05\Nette\ComponentModel\Container implements \ArrayAccess
 {
     public function offsetExists($offset)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\IncDecInConditions;
+namespace _PhpScoperabd03f0baf05\IncDecInConditions;
 
 use function PHPStan\Analyser\assertType;
 function incLeft(int $a, int $b, int $c, int $d) : void

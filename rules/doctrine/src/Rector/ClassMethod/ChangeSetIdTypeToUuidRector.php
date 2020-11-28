@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface;
+use _PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -76,11 +76,11 @@ CODE_SAMPLE
         // is already set?
         if ($node->params[0]->type !== null) {
             $currentType = $this->getName($node->params[0]->type);
-            if ($currentType === \_PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface::class) {
+            if ($currentType === \_PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface::class) {
                 return null;
             }
         }
-        $node->params[0]->type = new \PhpParser\Node\Name\FullyQualified(\_PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface::class);
+        $node->params[0]->type = new \PhpParser\Node\Name\FullyQualified(\_PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface::class);
         return $node;
     }
     private function renameUuidVariableToId(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Ast;
 
 use Closure;
 use PhpParser\Parser;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\FunctionReflector;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\FunctionReflector;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use Throwable;
 use function strtolower;
 /**
@@ -29,14 +29,14 @@ class Locator
      */
     public function __construct(\PhpParser\Parser $parser, \Closure $functionReflectorGetter)
     {
-        $this->findReflectionsInTree = new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\FindReflectionsInTree(new \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection(), $functionReflectorGetter);
+        $this->findReflectionsInTree = new \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Ast\FindReflectionsInTree(new \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection(), $functionReflectorGetter);
         $this->parser = $parser;
     }
     /**
      * @throws IdentifierNotFound
      * @throws Exception\ParseToAstFailure
      */
-    public function findReflection(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection
+    public function findReflection(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier $identifier) : \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Reflection
     {
         return $this->findInArray($this->findReflectionsOfType($reflector, $locatedSource, $identifier->getType()), $identifier);
     }
@@ -47,12 +47,12 @@ class Locator
      *
      * @throws Exception\ParseToAstFailure
      */
-    public function findReflectionsOfType(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function findReflectionsOfType(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         try {
             return $this->findReflectionsInTree->__invoke($reflector, $this->parser->parse($locatedSource->getSource()), $identifierType, $locatedSource);
         } catch (\Throwable $exception) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure::fromLocatedSource($locatedSource, $exception);
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure::fromLocatedSource($locatedSource, $exception);
         }
     }
     /**
@@ -62,7 +62,7 @@ class Locator
      *
      * @throws IdentifierNotFound
      */
-    private function findInArray(array $reflections, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Reflection
+    private function findInArray(array $reflections, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier $identifier) : \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Reflection
     {
         $identifierName = \strtolower($identifier->getName());
         foreach ($reflections as $reflection) {
@@ -70,6 +70,6 @@ class Locator
                 return $reflection;
             }
         }
-        throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
+        throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
     }
 }

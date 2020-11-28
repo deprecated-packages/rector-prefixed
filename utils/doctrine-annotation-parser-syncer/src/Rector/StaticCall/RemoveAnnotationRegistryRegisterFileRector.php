@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Utils\DoctrineAnnotationParserSyncer\Rector\StaticCall;
 
-use _PhpScoper26e51eeacccf\Doctrine\Common\Annotations\AnnotationReader;
-use _PhpScoper26e51eeacccf\Doctrine\Common\Annotations\AnnotationRegistry;
-use _PhpScoper26e51eeacccf\Doctrine\Common\Annotations\DocParser;
+use _PhpScoperabd03f0baf05\Doctrine\Common\Annotations\AnnotationReader;
+use _PhpScoperabd03f0baf05\Doctrine\Common\Annotations\AnnotationRegistry;
+use _PhpScoperabd03f0baf05\Doctrine\Common\Annotations\DocParser;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
@@ -35,10 +35,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isInClassesNamed($node, [\_PhpScoper26e51eeacccf\Doctrine\Common\Annotations\DocParser::class, \_PhpScoper26e51eeacccf\Doctrine\Common\Annotations\AnnotationReader::class])) {
+        if (!$this->isInClassesNamed($node, [\_PhpScoperabd03f0baf05\Doctrine\Common\Annotations\DocParser::class, \_PhpScoperabd03f0baf05\Doctrine\Common\Annotations\AnnotationReader::class])) {
             return null;
         }
-        if (!$this->isStaticCallNamed($node, \_PhpScoper26e51eeacccf\Doctrine\Common\Annotations\AnnotationRegistry::class, 'registerFile')) {
+        if (!$this->isStaticCallNamed($node, \_PhpScoperabd03f0baf05\Doctrine\Common\Annotations\AnnotationRegistry::class, 'registerFile')) {
             return null;
         }
         $this->removeNode($node);

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Levels\Echo_;
+namespace _PhpScoperabd03f0baf05\Levels\Echo_;
 
 class Foo
 {

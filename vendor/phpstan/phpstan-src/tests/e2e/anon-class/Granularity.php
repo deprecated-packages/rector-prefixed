@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class Granularity
 {
@@ -10,10 +10,10 @@ class Granularity
      */
     protected static function provideInstances() : array
     {
-        $myclass = new class extends \_PhpScoper26e51eeacccf\Granularity
+        $myclass = new class extends \_PhpScoperabd03f0baf05\Granularity
         {
         };
         return [];
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\Granularity', 'Granularity', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Granularity', 'Granularity', \false);

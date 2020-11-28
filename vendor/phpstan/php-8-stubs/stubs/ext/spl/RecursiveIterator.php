@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 interface RecursiveIterator extends \Iterator
 {
@@ -9,4 +9,4 @@ interface RecursiveIterator extends \Iterator
     /** @return RecursiveIterator */
     public function getChildren();
 }
-\class_alias('_PhpScoper26e51eeacccf\\RecursiveIterator', 'RecursiveIterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\RecursiveIterator', 'RecursiveIterator', \false);

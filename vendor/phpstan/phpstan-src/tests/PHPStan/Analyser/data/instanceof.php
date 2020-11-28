@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InstanceOfNamespace;
+namespace _PhpScoperabd03f0baf05\InstanceOfNamespace;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -11,37 +11,37 @@ interface BarInterface
 abstract class BarParent
 {
 }
-class Foo extends \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarParent
+class Foo extends \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarParent
 {
     public function someMethod(\PhpParser\Node\Expr $foo)
     {
         $bar = $foo;
         $baz = doFoo();
-        $intersected = new \_PhpScoper26e51eeacccf\InstanceOfNamespace\Foo();
+        $intersected = new \_PhpScoperabd03f0baf05\InstanceOfNamespace\Foo();
         $parent = doFoo();
-        if ($baz instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Foo) {
+        if ($baz instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Foo) {
             // ...
         } else {
             while ($foo instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
-                \assert($lorem instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Lorem);
-                if ($dolor instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Dolor && $sit instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Sit) {
+                \assert($lorem instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Lorem);
+                if ($dolor instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Dolor && $sit instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Sit) {
                     if ($static instanceof static) {
                         if ($self instanceof self) {
-                            if ($intersected instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarInterface) {
-                                if ($this instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarInterface) {
+                            if ($intersected instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarInterface) {
+                                if ($this instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarInterface) {
                                     if ($parent instanceof parent) {
                                         \PHPStan\Analyser\assertType('PhpParser\\Node\\Expr\\ArrayDimFetch', $foo);
                                         \PHPStan\Analyser\assertType('PhpParser\\Node\\Expr', $bar);
                                         \PHPStan\Analyser\assertType('*ERROR*', $baz);
-                                        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\Lorem', $lorem);
-                                        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\Dolor', $dolor);
-                                        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\Sit', $sit);
-                                        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\Foo', $self);
+                                        \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\Lorem', $lorem);
+                                        \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\Dolor', $dolor);
+                                        \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\Sit', $sit);
+                                        \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\Foo', $self);
                                         \PHPStan\Analyser\assertType('static(InstanceOfNamespace\\Foo)', $static);
                                         \PHPStan\Analyser\assertType('static(InstanceOfNamespace\\Foo)', clone $static);
-                                        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface&InstanceOfNamespace\\Foo', $intersected);
-                                        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\$this(InstanceOfNamespace\\Foo)&InstanceOfNamespace\\BarInterface', $this);
-                                        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarParent', $parent);
+                                        \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface&InstanceOfNamespace\\Foo', $intersected);
+                                        \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\$this(InstanceOfNamespace\\Foo)&InstanceOfNamespace\\BarInterface', $this);
+                                        \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarParent', $parent);
                                     }
                                 }
                             }
@@ -68,43 +68,43 @@ class Foo extends \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarParent
     {
         \PHPStan\Analyser\assertType('bool', $subject instanceof $classString);
         if ($subject instanceof $classString) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\Foo', $subject);
-            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Foo);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\Foo', $subject);
+            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Foo);
             \PHPStan\Analyser\assertType('bool', $subject instanceof $classString);
         } else {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\mixed~InstanceOfNamespace\\Foo', $subject);
-            \PHPStan\Analyser\assertType('false', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Foo);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\mixed~InstanceOfNamespace\\Foo', $subject);
+            \PHPStan\Analyser\assertType('false', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Foo);
             \PHPStan\Analyser\assertType('false', $subject instanceof $classString);
         }
-        $constantString = '_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarParent';
+        $constantString = '_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarParent';
         \PHPStan\Analyser\assertType('bool', $subject instanceof $constantString);
         if ($subject instanceof $constantString) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarParent', $subject);
-            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarParent);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarParent', $subject);
+            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarParent);
             \PHPStan\Analyser\assertType('true', $subject instanceof $constantString);
         } else {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\mixed~InstanceOfNamespace\\BarParent', $subject);
-            \PHPStan\Analyser\assertType('false', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarParent);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\mixed~InstanceOfNamespace\\BarParent', $subject);
+            \PHPStan\Analyser\assertType('false', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarParent);
             \PHPStan\Analyser\assertType('false', $subject instanceof $constantString);
         }
         \PHPStan\Analyser\assertType('bool', $subject instanceof $union);
         if ($subject instanceof $union) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface|InstanceOfNamespace\\Foo', $subject);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface|InstanceOfNamespace\\Foo', $subject);
             \PHPStan\Analyser\assertType('bool', $subject instanceof $union);
-            \PHPStan\Analyser\assertType('bool', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarInterface);
-            \PHPStan\Analyser\assertType('bool', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Foo);
-            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Foo || $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarInterface);
+            \PHPStan\Analyser\assertType('bool', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarInterface);
+            \PHPStan\Analyser\assertType('bool', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Foo);
+            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Foo || $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarInterface);
         }
         if ($subject instanceof $intersection) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface&InstanceOfNamespace\\Foo', $subject);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface&InstanceOfNamespace\\Foo', $subject);
             \PHPStan\Analyser\assertType('bool', $subject instanceof $intersection);
-            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarInterface);
-            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\Foo);
+            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarInterface);
+            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\Foo);
         }
         if ($subject instanceof $instance) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface', $subject);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface', $subject);
             \PHPStan\Analyser\assertType('bool', $subject instanceof $instance);
-            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarInterface);
+            \PHPStan\Analyser\assertType('true', $subject instanceof \_PhpScoperabd03f0baf05\InstanceOfNamespace\BarInterface);
         }
         if ($subject instanceof $other) {
             \PHPStan\Analyser\assertType('object', $subject);
@@ -156,31 +156,31 @@ class Foo extends \_PhpScoper26e51eeacccf\InstanceOfNamespace\BarParent
             \PHPStan\Analyser\assertType('bool', $object instanceof $object);
         }
         if ($object instanceof $classString) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\Foo', $object);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\Foo', $object);
             \PHPStan\Analyser\assertType('bool', $object instanceof $classString);
         } else {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\object~InstanceOfNamespace\\Foo', $object);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\object~InstanceOfNamespace\\Foo', $object);
             \PHPStan\Analyser\assertType('false', $object instanceof $classString);
         }
         if ($instance instanceof $string) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface', $instance);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface', $instance);
             \PHPStan\Analyser\assertType('bool', $instance instanceof $string);
         } else {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface', $instance);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface', $instance);
             \PHPStan\Analyser\assertType('bool', $instance instanceof $string);
         }
         if ($instance instanceof $object) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface', $instance);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface', $instance);
             \PHPStan\Analyser\assertType('bool', $instance instanceof $object);
         } else {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface', $instance);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface', $instance);
             \PHPStan\Analyser\assertType('bool', $object instanceof $object);
         }
         if ($instance instanceof $classString) {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface&InstanceOfNamespace\\Foo', $instance);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface&InstanceOfNamespace\\Foo', $instance);
             \PHPStan\Analyser\assertType('bool', $instance instanceof $classString);
         } else {
-            \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\InstanceOfNamespace\\BarInterface', $instance);
+            \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\InstanceOfNamespace\\BarInterface', $instance);
             \PHPStan\Analyser\assertType('bool', $instance instanceof $classString);
         }
     }

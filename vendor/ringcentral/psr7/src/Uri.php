@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\RingCentral\Psr7;
+namespace _PhpScoperabd03f0baf05\RingCentral\Psr7;
 
-use _PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface;
+use _PhpScoperabd03f0baf05\Psr\Http\Message\UriInterface;
 /**
  * Basic PSR-7 URI implementation.
  *
  * @link https://github.com/phly/http This class is based upon
  *     Matthew Weier O'Phinney's URI implementation in phly/http.
  */
-class Uri implements \_PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface
+class Uri implements \_PhpScoperabd03f0baf05\Psr\Http\Message\UriInterface
 {
     private static $schemes = array('http' => 80, 'https' => 443);
     private static $charUnreserved = 'a-zA-Z0-9_\\-\\.~';
@@ -89,12 +89,12 @@ class Uri implements \_PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface
      *
      * @return UriInterface
      */
-    public static function resolve(\_PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface $base, $rel)
+    public static function resolve(\_PhpScoperabd03f0baf05\Psr\Http\Message\UriInterface $base, $rel)
     {
         if ($rel === null || $rel === '') {
             return $base;
         }
-        if (!$rel instanceof \_PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface) {
+        if (!$rel instanceof \_PhpScoperabd03f0baf05\Psr\Http\Message\UriInterface) {
             $rel = new self($rel);
         }
         // Return the relative uri as-is if it has a scheme.
@@ -143,7 +143,7 @@ class Uri implements \_PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface
      *
      * @return UriInterface
      */
-    public static function withoutQueryValue(\_PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface $uri, $key)
+    public static function withoutQueryValue(\_PhpScoperabd03f0baf05\Psr\Http\Message\UriInterface $uri, $key)
     {
         $current = $uri->getQuery();
         if (!$current) {
@@ -172,7 +172,7 @@ class Uri implements \_PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface
      *
      * @return UriInterface
      */
-    public static function withQueryValue(\_PhpScoper26e51eeacccf\Psr\Http\Message\UriInterface $uri, $key, $value)
+    public static function withQueryValue(\_PhpScoperabd03f0baf05\Psr\Http\Message\UriInterface $uri, $key, $value)
     {
         $current = $uri->getQuery();
         $key = \strtr($key, self::$replaceQuery);

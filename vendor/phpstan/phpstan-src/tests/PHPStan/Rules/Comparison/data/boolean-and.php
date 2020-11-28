@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ConstantCondition;
+namespace _PhpScoperabd03f0baf05\ConstantCondition;
 
 class BooleanAnd
 {
@@ -33,15 +33,15 @@ class BooleanAnd
      */
     public function checkUnionAndIntersection($union, $intersection)
     {
-        if ($union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Foo && $union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Bar) {
+        if ($union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Foo && $union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Bar) {
         }
-        if ($intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Lorem && $intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Ipsum) {
+        if ($intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Lorem && $intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Ipsum) {
         }
-        if ($union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Foo || $union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Bar) {
-        } elseif ($union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Foo && doFoo()) {
+        if ($union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Foo || $union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Bar) {
+        } elseif ($union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Foo && doFoo()) {
         }
-        if ($intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Lorem && $intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Ipsum) {
-        } elseif ($intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Lorem && doFoo()) {
+        if ($intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Lorem && $intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Ipsum) {
+        } elseif ($intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Lorem && doFoo()) {
         }
     }
 }

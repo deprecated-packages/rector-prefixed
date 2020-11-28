@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\Exception;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\Exception;
 
 use LogicException;
 use PhpParser\Node;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompilerContext;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass;
 use function assert;
 use function get_class;
 use function sprintf;
@@ -18,23 +18,23 @@ class UnableToCompileNode extends \LogicException
     {
         return $this->constantName;
     }
-    public static function forUnRecognizedExpressionInContext(\PhpParser\Node\Expr $expression, \_PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext $context) : self
+    public static function forUnRecognizedExpressionInContext(\PhpParser\Node\Expr $expression, \_PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompilerContext $context) : self
     {
         return new self(\sprintf('Unable to compile expression in %s: unrecognized node type %s at line %d', self::compilerContextToContextDescription($context), \get_class($expression), $expression->getLine()));
     }
-    public static function becauseOfNotFoundClassConstantReference(\_PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext $fetchContext, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $targetClass, \PhpParser\Node\Expr\ClassConstFetch $constantFetch) : self
+    public static function becauseOfNotFoundClassConstantReference(\_PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompilerContext $fetchContext, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass $targetClass, \PhpParser\Node\Expr\ClassConstFetch $constantFetch) : self
     {
         \assert($constantFetch->name instanceof \PhpParser\Node\Identifier);
         return new self(\sprintf('Could not locate constant %s::%s while trying to evaluate constant expression in %s at line %s', $targetClass->getName(), $constantFetch->name->name, self::compilerContextToContextDescription($fetchContext), $constantFetch->getLine()));
     }
-    public static function becauseOfNotFoundConstantReference(\_PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext $fetchContext, \PhpParser\Node\Expr\ConstFetch $constantFetch) : self
+    public static function becauseOfNotFoundConstantReference(\_PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompilerContext $fetchContext, \PhpParser\Node\Expr\ConstFetch $constantFetch) : self
     {
         $constantName = $constantFetch->name->toString();
         $exception = new self(\sprintf('Could not locate constant "%s" while evaluating expression in %s at line %s', $constantName, self::compilerContextToContextDescription($fetchContext), $constantFetch->getLine()));
         $exception->constantName = $constantName;
         return $exception;
     }
-    private static function compilerContextToContextDescription(\_PhpScoper26e51eeacccf\Roave\BetterReflection\NodeCompiler\CompilerContext $fetchContext) : string
+    private static function compilerContextToContextDescription(\_PhpScoperabd03f0baf05\Roave\BetterReflection\NodeCompiler\CompilerContext $fetchContext) : string
     {
         // @todo improve in https://github.com/Roave/BetterReflection/issues/434
         return $fetchContext->hasSelf() ? $fetchContext->getSelf()->getName() : 'unknown context (probably a function)';

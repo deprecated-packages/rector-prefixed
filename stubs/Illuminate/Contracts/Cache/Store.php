@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Illuminate\Contracts\Cache;
+namespace _PhpScoperabd03f0baf05\Illuminate\Contracts\Cache;
 
-if (\interface_exists('_PhpScoper26e51eeacccf\\Illuminate\\Contracts\\Cache\\Store')) {
+if (\interface_exists('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Cache\\Store')) {
     return;
 }
 interface Store

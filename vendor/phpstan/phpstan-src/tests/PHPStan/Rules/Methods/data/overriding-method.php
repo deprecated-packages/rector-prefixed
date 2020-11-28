@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\OverridingFinalMethod;
+namespace _PhpScoperabd03f0baf05\OverridingFinalMethod;
 
 class Foo
 {
@@ -23,7 +23,7 @@ class Foo
     {
     }
 }
-class Bar extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Foo
+class Bar extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Foo
 {
     public function doFoo()
     {
@@ -50,7 +50,7 @@ class Baz
     {
     }
 }
-class Lorem extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Baz
+class Lorem extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Baz
 {
     public function __construct(string $s)
     {
@@ -63,7 +63,7 @@ abstract class Ipsum
     {
     }
 }
-class Dolor extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Ipsum
+class Dolor extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Ipsum
 {
     public function __construct(string $s)
     {
@@ -90,7 +90,7 @@ class Sit
     {
     }
 }
-class Amet extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Sit
+class Amet extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Sit
 {
     public function doFoo(int $i = null, int $j = null)
     {
@@ -102,7 +102,7 @@ class Amet extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Sit
     {
     }
 }
-class Consecteur extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Sit
+class Consecteur extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Sit
 {
     public function doFoo(int $i, ?int $j)
     {
@@ -114,31 +114,31 @@ class Etiam
     {
     }
 }
-class Lacus extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Etiam
+class Lacus extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Etiam
 {
     public function doFoo(int $i, int &$j)
     {
     }
 }
-class BazBaz extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Foo
+class BazBaz extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Foo
 {
     public function doBar(int $i)
     {
     }
 }
-class BazBazBaz extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Foo
+class BazBazBaz extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Foo
 {
     public function doBar(int $i = null)
     {
     }
 }
-class FooFoo extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Ipsum
+class FooFoo extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Ipsum
 {
     public function doFoo(int $i, int $j)
     {
     }
 }
-class FooFooFoo extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\Ipsum
+class FooFooFoo extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\Ipsum
 {
     public function doFoo(int $i, int $j = null)
     {
@@ -154,7 +154,7 @@ class SomeIterator implements \IteratorAggregate
      */
     public function getIterator()
     {
-        (yield new \_PhpScoper26e51eeacccf\OverridingFinalMethod\Foo());
+        (yield new \_PhpScoperabd03f0baf05\OverridingFinalMethod\Foo());
     }
 }
 class SomeException extends \Exception
@@ -169,7 +169,7 @@ class OtherException extends \Exception
     {
     }
 }
-class SomeOtherException extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\OtherException
+class SomeOtherException extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\OtherException
 {
     public function __construct()
     {
@@ -184,7 +184,7 @@ class FinalWithAnnotation
     {
     }
 }
-class ExtendsFinalWithAnnotation extends \_PhpScoper26e51eeacccf\OverridingFinalMethod\FinalWithAnnotation
+class ExtendsFinalWithAnnotation extends \_PhpScoperabd03f0baf05\OverridingFinalMethod\FinalWithAnnotation
 {
     public function doFoo()
     {

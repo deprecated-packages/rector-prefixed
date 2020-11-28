@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 #ifdef PHP_ODBC_HAVE_FETCH_HASH
 /** @param resource $statement */

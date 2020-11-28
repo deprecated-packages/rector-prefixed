@@ -1,32 +1,32 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Dns\Resolver;
+namespace _PhpScoperabd03f0baf05\React\Dns\Resolver;
 
-use _PhpScoper26e51eeacccf\React\Dns\Model\Message;
-use _PhpScoper26e51eeacccf\React\Dns\Query\ExecutorInterface;
-use _PhpScoper26e51eeacccf\React\Dns\Query\Query;
-use _PhpScoper26e51eeacccf\React\Dns\RecordNotFoundException;
+use _PhpScoperabd03f0baf05\React\Dns\Model\Message;
+use _PhpScoperabd03f0baf05\React\Dns\Query\ExecutorInterface;
+use _PhpScoperabd03f0baf05\React\Dns\Query\Query;
+use _PhpScoperabd03f0baf05\React\Dns\RecordNotFoundException;
 /**
  * @see ResolverInterface for the base interface
  */
-final class Resolver implements \_PhpScoper26e51eeacccf\React\Dns\Resolver\ResolverInterface
+final class Resolver implements \_PhpScoperabd03f0baf05\React\Dns\Resolver\ResolverInterface
 {
     private $executor;
-    public function __construct(\_PhpScoper26e51eeacccf\React\Dns\Query\ExecutorInterface $executor)
+    public function __construct(\_PhpScoperabd03f0baf05\React\Dns\Query\ExecutorInterface $executor)
     {
         $this->executor = $executor;
     }
     public function resolve($domain)
     {
-        return $this->resolveAll($domain, \_PhpScoper26e51eeacccf\React\Dns\Model\Message::TYPE_A)->then(function (array $ips) {
+        return $this->resolveAll($domain, \_PhpScoperabd03f0baf05\React\Dns\Model\Message::TYPE_A)->then(function (array $ips) {
             return $ips[\array_rand($ips)];
         });
     }
     public function resolveAll($domain, $type)
     {
-        $query = new \_PhpScoper26e51eeacccf\React\Dns\Query\Query($domain, $type, \_PhpScoper26e51eeacccf\React\Dns\Model\Message::CLASS_IN);
+        $query = new \_PhpScoperabd03f0baf05\React\Dns\Query\Query($domain, $type, \_PhpScoperabd03f0baf05\React\Dns\Model\Message::CLASS_IN);
         $that = $this;
-        return $this->executor->query($query)->then(function (\_PhpScoper26e51eeacccf\React\Dns\Model\Message $response) use($query, $that) {
+        return $this->executor->query($query)->then(function (\_PhpScoperabd03f0baf05\React\Dns\Model\Message $response) use($query, $that) {
             return $that->extractValues($query, $response);
         });
     }
@@ -39,37 +39,37 @@ final class Resolver implements \_PhpScoper26e51eeacccf\React\Dns\Resolver\Resol
      * @throws RecordNotFoundException when response indicates an error or contains no data
      * @internal
      */
-    public function extractValues(\_PhpScoper26e51eeacccf\React\Dns\Query\Query $query, \_PhpScoper26e51eeacccf\React\Dns\Model\Message $response)
+    public function extractValues(\_PhpScoperabd03f0baf05\React\Dns\Query\Query $query, \_PhpScoperabd03f0baf05\React\Dns\Model\Message $response)
     {
         // reject if response code indicates this is an error response message
         $code = $response->rcode;
-        if ($code !== \_PhpScoper26e51eeacccf\React\Dns\Model\Message::RCODE_OK) {
+        if ($code !== \_PhpScoperabd03f0baf05\React\Dns\Model\Message::RCODE_OK) {
             switch ($code) {
-                case \_PhpScoper26e51eeacccf\React\Dns\Model\Message::RCODE_FORMAT_ERROR:
+                case \_PhpScoperabd03f0baf05\React\Dns\Model\Message::RCODE_FORMAT_ERROR:
                     $message = 'Format Error';
                     break;
-                case \_PhpScoper26e51eeacccf\React\Dns\Model\Message::RCODE_SERVER_FAILURE:
+                case \_PhpScoperabd03f0baf05\React\Dns\Model\Message::RCODE_SERVER_FAILURE:
                     $message = 'Server Failure';
                     break;
-                case \_PhpScoper26e51eeacccf\React\Dns\Model\Message::RCODE_NAME_ERROR:
+                case \_PhpScoperabd03f0baf05\React\Dns\Model\Message::RCODE_NAME_ERROR:
                     $message = 'Non-Existent Domain / NXDOMAIN';
                     break;
-                case \_PhpScoper26e51eeacccf\React\Dns\Model\Message::RCODE_NOT_IMPLEMENTED:
+                case \_PhpScoperabd03f0baf05\React\Dns\Model\Message::RCODE_NOT_IMPLEMENTED:
                     $message = 'Not Implemented';
                     break;
-                case \_PhpScoper26e51eeacccf\React\Dns\Model\Message::RCODE_REFUSED:
+                case \_PhpScoperabd03f0baf05\React\Dns\Model\Message::RCODE_REFUSED:
                     $message = 'Refused';
                     break;
                 default:
                     $message = 'Unknown error response code ' . $code;
             }
-            throw new \_PhpScoper26e51eeacccf\React\Dns\RecordNotFoundException('DNS query for ' . $query->name . ' returned an error response (' . $message . ')', $code);
+            throw new \_PhpScoperabd03f0baf05\React\Dns\RecordNotFoundException('DNS query for ' . $query->name . ' returned an error response (' . $message . ')', $code);
         }
         $answers = $response->answers;
         $addresses = $this->valuesByNameAndType($answers, $query->name, $query->type);
         // reject if we did not receive a valid answer (domain is valid, but no record for this type could be found)
         if (0 === \count($addresses)) {
-            throw new \_PhpScoper26e51eeacccf\React\Dns\RecordNotFoundException('DNS query for ' . $query->name . ' did not return a valid answer (NOERROR / NODATA)');
+            throw new \_PhpScoperabd03f0baf05\React\Dns\RecordNotFoundException('DNS query for ' . $query->name . ' did not return a valid answer (NOERROR / NODATA)');
         }
         return \array_values($addresses);
     }
@@ -88,7 +88,7 @@ final class Resolver implements \_PhpScoper26e51eeacccf\React\Dns\Resolver\Resol
             return $this->mapRecordData($records);
         }
         // no matching records found? check if there are any matching CNAMEs instead
-        $cnameRecords = $this->filterByType($named, \_PhpScoper26e51eeacccf\React\Dns\Model\Message::TYPE_CNAME);
+        $cnameRecords = $this->filterByType($named, \_PhpScoperabd03f0baf05\React\Dns\Model\Message::TYPE_CNAME);
         if ($cnameRecords) {
             $cnames = $this->mapRecordData($cnameRecords);
             foreach ($cnames as $cname) {

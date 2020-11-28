@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _PhpScoper26e51eeacccf\Composer\XdebugHandler\XdebugHandler;
-use _PhpScoper26e51eeacccf\Nette\DI\Config\Adapters\PhpAdapter;
-use _PhpScoper26e51eeacccf\Nette\DI\Helpers;
-use _PhpScoper26e51eeacccf\Nette\Schema\Context as SchemaContext;
-use _PhpScoper26e51eeacccf\Nette\Schema\Processor;
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
-use _PhpScoper26e51eeacccf\Nette\Utils\Validators;
+use _PhpScoperabd03f0baf05\Composer\XdebugHandler\XdebugHandler;
+use _PhpScoperabd03f0baf05\Nette\DI\Config\Adapters\PhpAdapter;
+use _PhpScoperabd03f0baf05\Nette\DI\Helpers;
+use _PhpScoperabd03f0baf05\Nette\Schema\Context as SchemaContext;
+use _PhpScoperabd03f0baf05\Nette\Schema\Processor;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Validators;
 use PHPStan\Command\Symfony\SymfonyOutput;
 use PHPStan\Command\Symfony\SymfonyStyle;
 use PHPStan\DependencyInjection\Container;
@@ -19,9 +19,9 @@ use PHPStan\DependencyInjection\NeonAdapter;
 use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
 use PHPStan\File\FileReader;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
 class CommandHelper
 {
     public const DEFAULT_LEVEL = '0';
@@ -29,21 +29,21 @@ class CommandHelper
      * @param string[] $paths
      * @param string[] $composerAutoloaderProjectPaths
      */
-    public static function begin(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output, array $paths, ?string $pathsFile, ?string $memoryLimit, ?string $autoloadFile, array $composerAutoloaderProjectPaths, ?string $projectConfigFile, ?string $generateBaselineFile, ?string $level, bool $allowXdebug, bool $manageMemoryLimitFile = \true, bool $debugEnabled = \false, ?string $singleReflectionFile = null) : \PHPStan\Command\InceptionResult
+    public static function begin(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output, array $paths, ?string $pathsFile, ?string $memoryLimit, ?string $autoloadFile, array $composerAutoloaderProjectPaths, ?string $projectConfigFile, ?string $generateBaselineFile, ?string $level, bool $allowXdebug, bool $manageMemoryLimitFile = \true, bool $debugEnabled = \false, ?string $singleReflectionFile = null) : \PHPStan\Command\InceptionResult
     {
         if (!$allowXdebug) {
-            $xdebug = new \_PhpScoper26e51eeacccf\Composer\XdebugHandler\XdebugHandler('phpstan', '--ansi');
+            $xdebug = new \_PhpScoperabd03f0baf05\Composer\XdebugHandler\XdebugHandler('phpstan', '--ansi');
             $xdebug->check();
             unset($xdebug);
         }
         $stdOutput = new \PHPStan\Command\Symfony\SymfonyOutput($output, new \PHPStan\Command\Symfony\SymfonyStyle(new \PHPStan\Command\ErrorsConsoleStyle($input, $output)));
         /** @var \PHPStan\Command\Output $errorOutput */
         $errorOutput = (static function () use($input, $output) : Output {
-            $symfonyErrorOutput = $output instanceof \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+            $symfonyErrorOutput = $output instanceof \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : $output;
             return new \PHPStan\Command\Symfony\SymfonyOutput($symfonyErrorOutput, new \PHPStan\Command\Symfony\SymfonyStyle(new \PHPStan\Command\ErrorsConsoleStyle($input, $symfonyErrorOutput)));
         })();
         if ($memoryLimit !== null) {
-            if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($memoryLimit, '#^-?\\d+[kMG]?$#i') === null) {
+            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($memoryLimit, '#^-?\\d+[kMG]?$#i') === null) {
                 $errorOutput->writeLineFormatted(\sprintf('Invalid memory limit format "%s".', $memoryLimit));
                 throw new \PHPStan\Command\InceptionNotSuccessfulException();
             }
@@ -122,19 +122,19 @@ class CommandHelper
             $loader = (new \PHPStan\DependencyInjection\LoaderFactory($currentWorkingDirectoryFileHelper, $containerFactory->getRootDirectory(), $containerFactory->getCurrentWorkingDirectory(), $generateBaselineFile))->createLoader();
             try {
                 $projectConfig = $loader->load($projectConfigFile, null);
-            } catch (\_PhpScoper26e51eeacccf\Nette\InvalidStateException|\_PhpScoper26e51eeacccf\Nette\FileNotFoundException $e) {
+            } catch (\_PhpScoperabd03f0baf05\Nette\InvalidStateException|\_PhpScoperabd03f0baf05\Nette\FileNotFoundException $e) {
                 $errorOutput->writeLineFormatted($e->getMessage());
                 throw new \PHPStan\Command\InceptionNotSuccessfulException();
             }
             $defaultParameters = ['rootDir' => $containerFactory->getRootDirectory(), 'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory()];
             if (isset($projectConfig['parameters']['tmpDir'])) {
-                $tmpDir = \_PhpScoper26e51eeacccf\Nette\DI\Helpers::expand($projectConfig['parameters']['tmpDir'], $defaultParameters);
+                $tmpDir = \_PhpScoperabd03f0baf05\Nette\DI\Helpers::expand($projectConfig['parameters']['tmpDir'], $defaultParameters);
             }
             if ($level === null && isset($projectConfig['parameters']['level'])) {
                 $level = (string) $projectConfig['parameters']['level'];
             }
             if (\count($paths) === 0 && isset($projectConfig['parameters']['paths'])) {
-                $analysedPathsFromConfig = \_PhpScoper26e51eeacccf\Nette\DI\Helpers::expand($projectConfig['parameters']['paths'], $defaultParameters);
+                $analysedPathsFromConfig = \_PhpScoperabd03f0baf05\Nette\DI\Helpers::expand($projectConfig['parameters']['paths'], $defaultParameters);
                 $paths = $analysedPathsFromConfig;
             }
         }
@@ -180,7 +180,7 @@ class CommandHelper
         }
         try {
             $container = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths, $composerAutoloaderProjectPaths, $analysedPathsFromConfig, $level ?? self::DEFAULT_LEVEL, $generateBaselineFile, $autoloadFile, $singleReflectionFile);
-        } catch (\_PhpScoper26e51eeacccf\Nette\DI\InvalidConfigurationException|\_PhpScoper26e51eeacccf\Nette\Utils\AssertionException $e) {
+        } catch (\_PhpScoperabd03f0baf05\Nette\DI\InvalidConfigurationException|\_PhpScoperabd03f0baf05\Nette\Utils\AssertionException $e) {
             $errorOutput->writeLineFormatted('<error>Invalid configuration:</error>');
             $errorOutput->writeLineFormatted($e->getMessage());
             throw new \PHPStan\Command\InceptionNotSuccessfulException();
@@ -216,13 +216,13 @@ class CommandHelper
             $defaultLevelUsed = \false;
         }
         $schema = $container->getParameter('__parametersSchema');
-        $processor = new \_PhpScoper26e51eeacccf\Nette\Schema\Processor();
-        $processor->onNewContext[] = static function (\_PhpScoper26e51eeacccf\Nette\Schema\Context $context) : void {
+        $processor = new \_PhpScoperabd03f0baf05\Nette\Schema\Processor();
+        $processor->onNewContext[] = static function (\_PhpScoperabd03f0baf05\Nette\Schema\Context $context) : void {
             $context->path = ['parameters'];
         };
         try {
             $processor->process($schema, $container->getParameters());
-        } catch (\_PhpScoper26e51eeacccf\Nette\Schema\ValidationException $e) {
+        } catch (\_PhpScoperabd03f0baf05\Nette\Schema\ValidationException $e) {
             foreach ($e->getMessages() as $message) {
                 $errorOutput->writeLineFormatted('<error>Invalid configuration:</error>');
                 $errorOutput->writeLineFormatted($message);
@@ -357,7 +357,7 @@ class CommandHelper
     private static function detectDuplicateIncludedFiles(\PHPStan\Command\Output $output, \PHPStan\File\FileHelper $fileHelper, array $configFiles, array $loaderParameters) : void
     {
         $neonAdapter = new \PHPStan\DependencyInjection\NeonAdapter();
-        $phpAdapter = new \_PhpScoper26e51eeacccf\Nette\DI\Config\Adapters\PhpAdapter();
+        $phpAdapter = new \_PhpScoperabd03f0baf05\Nette\DI\Config\Adapters\PhpAdapter();
         $allConfigFiles = [];
         foreach ($configFiles as $configFile) {
             $allConfigFiles = \array_merge($allConfigFiles, self::getConfigFiles($fileHelper, $neonAdapter, $phpAdapter, $configFile, $loaderParameters, null));
@@ -389,7 +389,7 @@ class CommandHelper
      * @param string|null $generateBaselineFile
      * @return string[]
      */
-    private static function getConfigFiles(\PHPStan\File\FileHelper $fileHelper, \PHPStan\DependencyInjection\NeonAdapter $neonAdapter, \_PhpScoper26e51eeacccf\Nette\DI\Config\Adapters\PhpAdapter $phpAdapter, string $configFile, array $loaderParameters, ?string $generateBaselineFile) : array
+    private static function getConfigFiles(\PHPStan\File\FileHelper $fileHelper, \PHPStan\DependencyInjection\NeonAdapter $neonAdapter, \_PhpScoperabd03f0baf05\Nette\DI\Config\Adapters\PhpAdapter $phpAdapter, string $configFile, array $loaderParameters, ?string $generateBaselineFile) : array
     {
         if ($generateBaselineFile === $fileHelper->normalizePath($configFile)) {
             return [];
@@ -397,15 +397,15 @@ class CommandHelper
         if (!\is_file($configFile) || !\is_readable($configFile)) {
             return [];
         }
-        if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($configFile, '.php')) {
+        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($configFile, '.php')) {
             $data = $phpAdapter->load($configFile);
         } else {
             $data = $neonAdapter->load($configFile);
         }
         $allConfigFiles = [$configFile];
         if (isset($data['includes'])) {
-            \_PhpScoper26e51eeacccf\Nette\Utils\Validators::assert($data['includes'], 'list', \sprintf("section 'includes' in file '%s'", $configFile));
-            $includes = \_PhpScoper26e51eeacccf\Nette\DI\Helpers::expand($data['includes'], $loaderParameters);
+            \_PhpScoperabd03f0baf05\Nette\Utils\Validators::assert($data['includes'], 'list', \sprintf("section 'includes' in file '%s'", $configFile));
+            $includes = \_PhpScoperabd03f0baf05\Nette\DI\Helpers::expand($data['includes'], $loaderParameters);
             foreach ($includes as $include) {
                 $include = self::expandIncludedFile($include, $configFile);
                 $allConfigFiles = \array_merge($allConfigFiles, self::getConfigFiles($fileHelper, $neonAdapter, $phpAdapter, $include, $loaderParameters, $generateBaselineFile));
@@ -415,6 +415,6 @@ class CommandHelper
     }
     private static function expandIncludedFile(string $includedFile, string $mainFile) : string
     {
-        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($includedFile, '#([a-z]+:)?[/\\\\]#Ai') !== null ? $includedFile : \dirname($mainFile) . '/' . $includedFile;
+        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($includedFile, '#([a-z]+:)?[/\\\\]#Ai') !== null ? $includedFile : \dirname($mainFile) . '/' . $includedFile;
     }
 }

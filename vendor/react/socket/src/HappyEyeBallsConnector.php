@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Socket;
+namespace _PhpScoperabd03f0baf05\React\Socket;
 
-use _PhpScoper26e51eeacccf\React\Dns\Resolver\ResolverInterface;
-use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
-use _PhpScoper26e51eeacccf\React\Promise;
-final class HappyEyeBallsConnector implements \_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface
+use _PhpScoperabd03f0baf05\React\Dns\Resolver\ResolverInterface;
+use _PhpScoperabd03f0baf05\React\EventLoop\LoopInterface;
+use _PhpScoperabd03f0baf05\React\Promise;
+final class HappyEyeBallsConnector implements \_PhpScoperabd03f0baf05\React\Socket\ConnectorInterface
 {
     private $loop;
     private $connector;
     private $resolver;
-    public function __construct(\_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, \_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface $connector, \_PhpScoper26e51eeacccf\React\Dns\Resolver\ResolverInterface $resolver)
+    public function __construct(\_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface $loop, \_PhpScoperabd03f0baf05\React\Socket\ConnectorInterface $connector, \_PhpScoperabd03f0baf05\React\Dns\Resolver\ResolverInterface $resolver)
     {
         $this->loop = $loop;
         $this->connector = $connector;
@@ -25,14 +25,14 @@ final class HappyEyeBallsConnector implements \_PhpScoper26e51eeacccf\React\Sock
             $parts = \parse_url($uri);
         }
         if (!$parts || !isset($parts['host'])) {
-            return \_PhpScoper26e51eeacccf\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \_PhpScoperabd03f0baf05\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $host = \trim($parts['host'], '[]');
         // skip DNS lookup / URI manipulation if this URI already contains an IP
         if (\false !== \filter_var($host, \FILTER_VALIDATE_IP)) {
             return $this->connector->connect($uri);
         }
-        $builder = new \_PhpScoper26e51eeacccf\React\Socket\HappyEyeBallsConnectionBuilder($this->loop, $this->connector, $this->resolver, $uri, $host, $parts);
+        $builder = new \_PhpScoperabd03f0baf05\React\Socket\HappyEyeBallsConnectionBuilder($this->loop, $this->connector, $this->resolver, $uri, $host, $parts);
         return $builder->connect();
     }
 }

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Process\Runnable;
 
-use _PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface;
-use _PhpScoper26e51eeacccf\React\Promise\Deferred;
+use _PhpScoperabd03f0baf05\React\Promise\CancellablePromiseInterface;
+use _PhpScoperabd03f0baf05\React\Promise\Deferred;
 use SplObjectStorage;
 class RunnableQueue
 {
@@ -46,12 +46,12 @@ class RunnableQueue
         }
         return $allSize;
     }
-    public function queue(\PHPStan\Process\Runnable\Runnable $runnable, int $size) : \_PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface
+    public function queue(\PHPStan\Process\Runnable\Runnable $runnable, int $size) : \_PhpScoperabd03f0baf05\React\Promise\CancellablePromiseInterface
     {
         if ($size > $this->maxSize) {
             throw new \PHPStan\ShouldNotHappenException('Runnable size exceeds queue maxSize.');
         }
-        $deferred = new \_PhpScoper26e51eeacccf\React\Promise\Deferred(static function () use($runnable) : void {
+        $deferred = new \_PhpScoperabd03f0baf05\React\Promise\Deferred(static function () use($runnable) : void {
             $runnable->cancel();
         });
         $this->queue[] = [$runnable, $size, $deferred];

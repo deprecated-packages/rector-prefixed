@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\RingCentral\Tests\Psr7;
+namespace _PhpScoperabd03f0baf05\RingCentral\Tests\Psr7;
 
 \error_reporting(\E_ALL);
 require __DIR__ . '/../vendor/autoload.php';

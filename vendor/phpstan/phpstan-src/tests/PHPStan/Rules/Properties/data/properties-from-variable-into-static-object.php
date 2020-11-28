@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\PropertiesFromVariableIntoStaticObject;
+namespace _PhpScoperabd03f0baf05\PropertiesFromVariableIntoStaticObject;
 
 class Foo
 {

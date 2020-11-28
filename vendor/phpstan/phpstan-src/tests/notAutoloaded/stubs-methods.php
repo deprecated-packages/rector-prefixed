@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\StubsIntegrationTest;
+namespace _PhpScoperabd03f0baf05\StubsIntegrationTest;
 
-use _PhpScoper26e51eeacccf\RecursiveTemplateProblem\Collection;
+use _PhpScoperabd03f0baf05\RecursiveTemplateProblem\Collection;
 class Foo
 {
     /**
@@ -19,7 +19,7 @@ class Bar
     /**
      * @param \RecursiveTemplateProblem\Collection<int, Foo> $collection
      */
-    public function doFoo(\_PhpScoper26e51eeacccf\RecursiveTemplateProblem\Collection $collection) : void
+    public function doFoo(\_PhpScoperabd03f0baf05\RecursiveTemplateProblem\Collection $collection) : void
     {
         $collection->partition(function ($key, $value) : bool {
             return \true;
@@ -33,10 +33,10 @@ interface InterfaceWithStubPhpDoc
      */
     public function doFoo();
 }
-class ClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoper26e51eeacccf\StubsIntegrationTest\InterfaceWithStubPhpDoc
+class ClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoperabd03f0baf05\StubsIntegrationTest\InterfaceWithStubPhpDoc
 {
 }
-class AnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoper26e51eeacccf\StubsIntegrationTest\InterfaceWithStubPhpDoc
+class AnotherClassExtendingInterfaceWithStubPhpDoc implements \_PhpScoperabd03f0baf05\StubsIntegrationTest\InterfaceWithStubPhpDoc
 {
 }
 interface InterfaceWithStubPhpDoc2

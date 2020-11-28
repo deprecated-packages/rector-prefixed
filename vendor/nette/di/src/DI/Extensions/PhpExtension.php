@@ -5,17 +5,17 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI\Extensions;
+namespace _PhpScoperabd03f0baf05\Nette\DI\Extensions;
 
-use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoperabd03f0baf05\Nette;
 /**
  * PHP directives definition.
  */
-final class PhpExtension extends \_PhpScoper26e51eeacccf\Nette\DI\CompilerExtension
+final class PhpExtension extends \_PhpScoperabd03f0baf05\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScoper26e51eeacccf\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoperabd03f0baf05\Nette\Schema\Schema
     {
-        return \_PhpScoper26e51eeacccf\Nette\Schema\Expect::arrayOf('scalar');
+        return \_PhpScoperabd03f0baf05\Nette\Schema\Expect::arrayOf('scalar');
     }
     public function loadConfiguration()
     {
@@ -33,7 +33,7 @@ final class PhpExtension extends \_PhpScoper26e51eeacccf\Nette\DI\CompilerExtens
             } elseif (\function_exists('ini_set')) {
                 $this->initialization->addBody('ini_set(?, ?);', [$name, $value === \false ? '0' : (string) $value]);
             } elseif (\ini_get($name) !== (string) $value) {
-                throw new \_PhpScoper26e51eeacccf\Nette\NotSupportedException('Required function ini_set() is disabled.');
+                throw new \_PhpScoperabd03f0baf05\Nette\NotSupportedException('Required function ini_set() is disabled.');
             }
         }
     }

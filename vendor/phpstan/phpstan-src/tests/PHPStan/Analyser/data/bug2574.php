@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Analyser\Bug2574;
+namespace _PhpScoperabd03f0baf05\Analyser\Bug2574;
 
 use function PHPStan\Analyser\assertType;
 abstract class Model
@@ -11,7 +11,7 @@ abstract class Model
         return new static();
     }
 }
-class Model1 extends \_PhpScoper26e51eeacccf\Analyser\Bug2574\Model
+class Model1 extends \_PhpScoperabd03f0baf05\Analyser\Bug2574\Model
 {
 }
 /**
@@ -19,7 +19,7 @@ class Model1 extends \_PhpScoper26e51eeacccf\Analyser\Bug2574\Model
  * @param T $m
  * @return T
  */
-function foo(\_PhpScoper26e51eeacccf\Analyser\Bug2574\Model $m) : \_PhpScoper26e51eeacccf\Analyser\Bug2574\Model
+function foo(\_PhpScoperabd03f0baf05\Analyser\Bug2574\Model $m) : \_PhpScoperabd03f0baf05\Analyser\Bug2574\Model
 {
     \PHPStan\Analyser\assertType('T of Analyser\\Bug2574\\Model (function Analyser\\Bug2574\\foo(), argument)', $m);
     $instance = $m->newInstance();
@@ -28,5 +28,5 @@ function foo(\_PhpScoper26e51eeacccf\Analyser\Bug2574\Model $m) : \_PhpScoper26e
 }
 function test() : void
 {
-    \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\Analyser\\Bug2574\\Model1', foo(new \_PhpScoper26e51eeacccf\Analyser\Bug2574\Model1()));
+    \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\Analyser\\Bug2574\\Model1', foo(new \_PhpScoperabd03f0baf05\Analyser\Bug2574\Model1()));
 }

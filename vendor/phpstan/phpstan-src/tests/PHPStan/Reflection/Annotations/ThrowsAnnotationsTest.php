@@ -11,7 +11,7 @@ class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
 {
     public function dataThrowsAnnotations() : array
     {
-        return [[\_PhpScoper26e51eeacccf\ThrowsAnnotations\Foo::class, ['withoutThrows' => null, 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]], [\_PhpScoper26e51eeacccf\ThrowsAnnotations\PhpstanFoo::class, ['withoutThrows' => 'void', 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]], [\_PhpScoper26e51eeacccf\ThrowsAnnotations\FooInterface::class, ['withoutThrows' => null, 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]], [\_PhpScoper26e51eeacccf\ThrowsAnnotations\FooTrait::class, ['withoutThrows' => null, 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]], [\_PhpScoper26e51eeacccf\ThrowsAnnotations\BarTrait::class, ['withoutThrows' => null, 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]]];
+        return [[\_PhpScoperabd03f0baf05\ThrowsAnnotations\Foo::class, ['withoutThrows' => null, 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]], [\_PhpScoperabd03f0baf05\ThrowsAnnotations\PhpstanFoo::class, ['withoutThrows' => 'void', 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]], [\_PhpScoperabd03f0baf05\ThrowsAnnotations\FooInterface::class, ['withoutThrows' => null, 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]], [\_PhpScoperabd03f0baf05\ThrowsAnnotations\FooTrait::class, ['withoutThrows' => null, 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]], [\_PhpScoperabd03f0baf05\ThrowsAnnotations\BarTrait::class, ['withoutThrows' => null, 'throwsRuntime' => \RuntimeException::class, 'staticThrowsRuntime' => \RuntimeException::class]]];
     }
     /**
      * @dataProvider dataThrowsAnnotations
@@ -35,8 +35,8 @@ class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
         require_once __DIR__ . '/data/annotations-throws.php';
         /** @var Broker $broker */
         $broker = self::getContainer()->getByType(\PHPStan\Broker\Broker::class);
-        $this->assertNull($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoper26e51eeacccf\\ThrowsAnnotations\\withoutThrows'), null)->getThrowType());
-        $throwType = $broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoper26e51eeacccf\\ThrowsAnnotations\\throwsRuntime'), null)->getThrowType();
+        $this->assertNull($broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\ThrowsAnnotations\\withoutThrows'), null)->getThrowType());
+        $throwType = $broker->getFunction(new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\ThrowsAnnotations\\throwsRuntime'), null)->getThrowType();
         $this->assertNotNull($throwType);
         $this->assertSame(\RuntimeException::class, $throwType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()));
     }

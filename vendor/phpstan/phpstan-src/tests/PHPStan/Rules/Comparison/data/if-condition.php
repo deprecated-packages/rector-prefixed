@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ConstantCondition;
+namespace _PhpScoperabd03f0baf05\ConstantCondition;
 
 class Foo
 {
@@ -31,13 +31,13 @@ class IfCondition
         $zero = 0;
         if ($zero) {
         }
-        if ($union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Foo || $union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Bar) {
+        if ($union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Foo || $union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Bar) {
         }
-        if ($union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Foo && $union instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Bar) {
+        if ($union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Foo && $union instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Bar) {
         }
-        if ($intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Lorem && $intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Ipsum) {
+        if ($intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Lorem && $intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Ipsum) {
         }
-        if ($intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Lorem || $intersection instanceof \_PhpScoper26e51eeacccf\ConstantCondition\Ipsum) {
+        if ($intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Lorem || $intersection instanceof \_PhpScoperabd03f0baf05\ConstantCondition\Ipsum) {
         }
     }
     public function conditionalArray()

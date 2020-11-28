@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\NonexistentOffset;
+namespace _PhpScoperabd03f0baf05\NonexistentOffset;
 
 class Foo
 {
@@ -71,7 +71,7 @@ class Foo
             $cumulative[$val] = $cumulative[$val] + 1;
         }
     }
-    public function classDoesNotExist(\_PhpScoper26e51eeacccf\NonexistentOffset\Bar $foo)
+    public function classDoesNotExist(\_PhpScoperabd03f0baf05\NonexistentOffset\Bar $foo)
     {
         echo $foo['bar'];
         $foo[] = 'test';
@@ -237,7 +237,7 @@ class Foo
     {
         echo $xml['asdf'];
     }
-    public function simpleXMLElementSubclassArrayAccess(\_PhpScoper26e51eeacccf\NonexistentOffset\SubClassSimpleXMLElement $xml)
+    public function simpleXMLElementSubclassArrayAccess(\_PhpScoperabd03f0baf05\NonexistentOffset\SubClassSimpleXMLElement $xml)
     {
         echo $xml['asdf'];
     }

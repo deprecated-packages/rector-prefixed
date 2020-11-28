@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class DOMImplementation
 {
@@ -21,4 +21,4 @@ class DOMImplementation
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\DOMImplementation', 'DOMImplementation', \false);
+\class_alias('_PhpScoperabd03f0baf05\\DOMImplementation', 'DOMImplementation', \false);

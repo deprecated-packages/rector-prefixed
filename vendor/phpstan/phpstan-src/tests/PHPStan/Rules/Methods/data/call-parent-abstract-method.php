@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\CallParentAbstractMethod;
+namespace _PhpScoperabd03f0baf05\CallParentAbstractMethod;
 
 interface Baz
 {
     public function uninstall() : void;
 }
-abstract class Foo implements \_PhpScoper26e51eeacccf\CallParentAbstractMethod\Baz
+abstract class Foo implements \_PhpScoperabd03f0baf05\CallParentAbstractMethod\Baz
 {
 }
-class Bar extends \_PhpScoper26e51eeacccf\CallParentAbstractMethod\Foo
+class Bar extends \_PhpScoperabd03f0baf05\CallParentAbstractMethod\Foo
 {
     public function uninstall() : void
     {
@@ -20,14 +20,14 @@ abstract class Lorem
 {
     public abstract function doFoo() : void;
 }
-class Ipsum extends \_PhpScoper26e51eeacccf\CallParentAbstractMethod\Lorem
+class Ipsum extends \_PhpScoperabd03f0baf05\CallParentAbstractMethod\Lorem
 {
     public function doFoo() : void
     {
         parent::doFoo();
     }
 }
-abstract class Dolor extends \_PhpScoper26e51eeacccf\CallParentAbstractMethod\Lorem
+abstract class Dolor extends \_PhpScoperabd03f0baf05\CallParentAbstractMethod\Lorem
 {
     public function doBar() : void
     {
@@ -39,7 +39,7 @@ abstract class SitAmet
     static abstract function doFoo() : void;
 }
 function () : void {
-    \_PhpScoper26e51eeacccf\CallParentAbstractMethod\SitAmet::doFoo();
+    \_PhpScoperabd03f0baf05\CallParentAbstractMethod\SitAmet::doFoo();
 };
 abstract class Consecteur
 {

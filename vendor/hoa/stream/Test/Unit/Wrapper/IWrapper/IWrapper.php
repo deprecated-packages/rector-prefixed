@@ -50,6 +50,6 @@ class IWrapper extends \Hoa\Test\Unit\Suite
 {
     public function case_is_a_valid_interface()
     {
-        $this->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Wrapper\IWrapper\IWrapper())->then->object($result)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\IWrapper::class)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\File::class)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\Stream::class);
+        $this->when($result = new \_PhpScoperabd03f0baf05\Mock\Hoa\Stream\Wrapper\IWrapper\IWrapper())->then->object($result)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\IWrapper::class)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\File::class)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\Stream::class);
     }
 }

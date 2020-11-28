@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Psr;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Type\Composer\Psr;
 
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier;
 use function array_map;
 use function array_merge;
 use function array_unique;
@@ -11,7 +11,7 @@ use function array_values;
 use function rtrim;
 use function str_replace;
 use function strpos;
-final class Psr0Mapping implements \_PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping
+final class Psr0Mapping implements \_PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping
 {
     /** @var array<string, array<int, string>> */
     private $mappings = [];
@@ -30,7 +30,7 @@ final class Psr0Mapping implements \_PhpScoper26e51eeacccf\Roave\BetterReflectio
         return $instance;
     }
     /** {@inheritDoc} */
-    public function resolvePossibleFilePaths(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : array
+    public function resolvePossibleFilePaths(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier $identifier) : array
     {
         if (!$identifier->isClass()) {
             return [];

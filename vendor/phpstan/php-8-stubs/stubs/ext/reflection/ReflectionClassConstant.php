@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class ReflectionClassConstant implements \Reflector
 {
@@ -51,4 +51,4 @@ class ReflectionClassConstant implements \Reflector
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ReflectionClassConstant', 'ReflectionClassConstant', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ReflectionClassConstant', 'ReflectionClassConstant', \false);

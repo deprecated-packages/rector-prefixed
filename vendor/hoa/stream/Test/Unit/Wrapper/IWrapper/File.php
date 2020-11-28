@@ -49,6 +49,6 @@ class File extends \Hoa\Test\Unit\Suite
 {
     public function case_is_a_valid_interface()
     {
-        $this->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Stream\Wrapper\IWrapper\File())->then->object($result)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\File::class);
+        $this->when($result = new \_PhpScoperabd03f0baf05\Mock\Hoa\Stream\Wrapper\IWrapper\File())->then->object($result)->isInstanceOf(\Hoa\Stream\Wrapper\IWrapper\File::class);
     }
 }

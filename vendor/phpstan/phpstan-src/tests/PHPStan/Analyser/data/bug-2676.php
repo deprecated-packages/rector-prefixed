@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug2676;
+namespace _PhpScoperabd03f0baf05\Bug2676;
 
-use _PhpScoper26e51eeacccf\DoctrineIntersectionTypeIsSupertypeOf\Collection;
+use _PhpScoperabd03f0baf05\DoctrineIntersectionTypeIsSupertypeOf\Collection;
 use function PHPStan\Analyser\assertType;
 class BankAccount
 {
@@ -23,15 +23,15 @@ class Wallet
     /**
      * @return Collection<BankAccount>
      */
-    public function getBankAccountList() : \_PhpScoper26e51eeacccf\DoctrineIntersectionTypeIsSupertypeOf\Collection
+    public function getBankAccountList() : \_PhpScoperabd03f0baf05\DoctrineIntersectionTypeIsSupertypeOf\Collection
     {
         return $this->bankAccountList;
     }
 }
-function (\_PhpScoper26e51eeacccf\Bug2676\Wallet $wallet) : void {
+function (\_PhpScoperabd03f0baf05\Bug2676\Wallet $wallet) : void {
     $bankAccounts = $wallet->getBankAccountList();
     \PHPStan\Analyser\assertType('DoctrineIntersectionTypeIsSupertypeOf\\Collection&iterable<Bug2676\\BankAccount>', $bankAccounts);
     foreach ($bankAccounts as $bankAccount) {
-        \PHPStan\Analyser\assertType('_PhpScoper26e51eeacccf\\Bug2676\\BankAccount', $bankAccount);
+        \PHPStan\Analyser\assertType('_PhpScoperabd03f0baf05\\Bug2676\\BankAccount', $bankAccount);
     }
 };

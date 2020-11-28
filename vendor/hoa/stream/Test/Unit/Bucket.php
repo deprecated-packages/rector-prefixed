@@ -57,7 +57,7 @@ class Bucket extends \Hoa\Test\Unit\Suite
     }
     public function case_construct_a_stream()
     {
-        $this->given($stream = \fopen(__FILE__, 'r'), $buffer = 'bar')->when($result = new \Hoa\Stream\Bucket($stream, \Hoa\Stream\Bucket::IS_A_STREAM, $buffer))->then->boolean($result->getType())->isEqualTo(\Hoa\Stream\Bucket::IS_A_STREAM)->let($bucket = $this->invoke($result)->getBucket())->object($bucket)->isInstanceOf(\_PhpScoper26e51eeacccf\StdClass::class)->resource($bucket->bucket)->string($bucket->data)->isEqualTo($buffer)->integer($bucket->datalen)->isEqualTo(\strlen($buffer))->object($result->getBrigade())->isIdenticalTo($bucket);
+        $this->given($stream = \fopen(__FILE__, 'r'), $buffer = 'bar')->when($result = new \Hoa\Stream\Bucket($stream, \Hoa\Stream\Bucket::IS_A_STREAM, $buffer))->then->boolean($result->getType())->isEqualTo(\Hoa\Stream\Bucket::IS_A_STREAM)->let($bucket = $this->invoke($result)->getBucket())->object($bucket)->isInstanceOf(\_PhpScoperabd03f0baf05\StdClass::class)->resource($bucket->bucket)->string($bucket->data)->isEqualTo($buffer)->integer($bucket->datalen)->isEqualTo(\strlen($buffer))->object($result->getBrigade())->isIdenticalTo($bucket);
     }
     public function case_eob()
     {
@@ -65,7 +65,7 @@ class Bucket extends \Hoa\Test\Unit\Suite
     }
     public function case_set_data()
     {
-        $this->given($stream = \fopen(__FILE__, 'r'), $oldBuffer = 'bar', $bucket = new \Hoa\Stream\Bucket($stream, \Hoa\Stream\Bucket::IS_A_STREAM, $oldBuffer), $buffer = 'bazqux')->when($result = $bucket->setData('bazqux'))->then->string($result)->isEqualTo($oldBuffer)->let($_bucket = $this->invoke($bucket)->getBucket())->object($_bucket)->isInstanceOf(\_PhpScoper26e51eeacccf\StdClass::class)->resource($_bucket->bucket)->string($_bucket->data)->isEqualTo($buffer)->integer($_bucket->datalen)->isEqualTo(\strlen($buffer))->object($bucket->getBrigade())->isIdenticalTo($_bucket);
+        $this->given($stream = \fopen(__FILE__, 'r'), $oldBuffer = 'bar', $bucket = new \Hoa\Stream\Bucket($stream, \Hoa\Stream\Bucket::IS_A_STREAM, $oldBuffer), $buffer = 'bazqux')->when($result = $bucket->setData('bazqux'))->then->string($result)->isEqualTo($oldBuffer)->let($_bucket = $this->invoke($bucket)->getBucket())->object($_bucket)->isInstanceOf(\_PhpScoperabd03f0baf05\StdClass::class)->resource($_bucket->bucket)->string($_bucket->data)->isEqualTo($buffer)->integer($_bucket->datalen)->isEqualTo(\strlen($buffer))->object($bucket->getBrigade())->isIdenticalTo($_bucket);
     }
     public function case_get_data()
     {

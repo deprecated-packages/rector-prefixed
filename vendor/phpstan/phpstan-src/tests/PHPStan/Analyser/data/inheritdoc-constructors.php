@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InheritDocConstructors;
+namespace _PhpScoperabd03f0baf05\InheritDocConstructors;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -13,7 +13,7 @@ class Foo
         \PHPStan\Analyser\assertType('array<string>', $data);
     }
 }
-class Bar extends \_PhpScoper26e51eeacccf\InheritDocConstructors\Foo
+class Bar extends \_PhpScoperabd03f0baf05\InheritDocConstructors\Foo
 {
     public function __construct($name, $data)
     {

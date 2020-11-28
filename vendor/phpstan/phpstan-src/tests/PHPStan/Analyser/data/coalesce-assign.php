@@ -1,7 +1,7 @@
 <?php
 
 // lint >= 7.4
-namespace _PhpScoper26e51eeacccf\CoalesceAssign;
+namespace _PhpScoperabd03f0baf05\CoalesceAssign;
 
 class Foo
 {

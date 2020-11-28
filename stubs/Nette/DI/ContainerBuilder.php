@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI;
+namespace _PhpScoperabd03f0baf05\Nette\DI;
 
-use _PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition;
-if (\class_exists('_PhpScoper26e51eeacccf\\Nette\\DI\\ContainerBuilder')) {
+use _PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition;
+if (\class_exists('_PhpScoperabd03f0baf05\\Nette\\DI\\ContainerBuilder')) {
     return;
 }
 final class ContainerBuilder
@@ -12,7 +12,7 @@ final class ContainerBuilder
     /**
      * @return \Nette\DI\Definitions\ServiceDefinition
      */
-    public function addDefinition(?string $name, \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition $definition = null) : \_PhpScoper26e51eeacccf\Nette\DI\Definitions\Definition
+    public function addDefinition(?string $name, \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition $definition = null) : \_PhpScoperabd03f0baf05\Nette\DI\Definitions\Definition
     {
     }
 }

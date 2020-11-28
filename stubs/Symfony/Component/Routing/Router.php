@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Routing;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Routing;
 
-use _PhpScoper26e51eeacccf\Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-if (\class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Routing\\Router')) {
+use _PhpScoperabd03f0baf05\Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+if (\class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Routing\\Router')) {
     return;
 }
-class Router implements \_PhpScoper26e51eeacccf\Symfony\Component\Routing\RouterInterface
+class Router implements \_PhpScoperabd03f0baf05\Symfony\Component\Routing\RouterInterface
 {
     /**
      * {@inheritdoc}
@@ -16,7 +16,7 @@ class Router implements \_PhpScoper26e51eeacccf\Symfony\Component\Routing\Router
     {
         return $this->getGenerator()->generate($name, $parameters, $referenceType);
     }
-    private function getGenerator() : \_PhpScoper26e51eeacccf\Symfony\Component\Routing\Generator\UrlGeneratorInterface
+    private function getGenerator() : \_PhpScoperabd03f0baf05\Symfony\Component\Routing\Generator\UrlGeneratorInterface
     {
     }
 }

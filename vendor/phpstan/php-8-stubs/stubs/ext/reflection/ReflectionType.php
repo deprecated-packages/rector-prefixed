@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 abstract class ReflectionType implements \Stringable
 {
@@ -16,4 +16,4 @@ abstract class ReflectionType implements \Stringable
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\ReflectionType', 'ReflectionType', \false);
+\class_alias('_PhpScoperabd03f0baf05\\ReflectionType', 'ReflectionType', \false);

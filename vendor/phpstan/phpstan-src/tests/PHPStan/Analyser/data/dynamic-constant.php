@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\DynamicConstants;
+namespace _PhpScoperabd03f0baf05\DynamicConstants;
 
 \define('GLOBAL_PURE_CONSTANT', 123);
 \define('GLOBAL_DYNAMIC_CONSTANT', \false);

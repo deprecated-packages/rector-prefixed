@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InstanceOfNamespace;
+namespace _PhpScoperabd03f0baf05\InstanceOfNamespace;
 
 class Foo
 {

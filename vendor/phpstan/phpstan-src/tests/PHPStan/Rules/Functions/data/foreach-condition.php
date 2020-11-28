@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\CallToFunctionInForeachCondition;
+namespace _PhpScoperabd03f0baf05\CallToFunctionInForeachCondition;
 
 function takesInt(int $i) : void
 {

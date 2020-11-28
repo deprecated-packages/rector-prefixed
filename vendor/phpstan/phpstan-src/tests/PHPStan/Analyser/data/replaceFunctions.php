@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ReplaceFunctions;
+namespace _PhpScoperabd03f0baf05\ReplaceFunctions;
 
 function ($mixed) {
     $array = ['a' => 'a', 'b' => 'b'];

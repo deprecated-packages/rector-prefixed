@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imagecopymerge(\_PhpScoper26e51eeacccf\GdImage $dst_image, \_PhpScoper26e51eeacccf\GdImage $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_width, int $src_height, int $pct) : bool
+function imagecopymerge(\_PhpScoperabd03f0baf05\GdImage $dst_image, \_PhpScoperabd03f0baf05\GdImage $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_width, int $src_height, int $pct) : bool
 {
 }

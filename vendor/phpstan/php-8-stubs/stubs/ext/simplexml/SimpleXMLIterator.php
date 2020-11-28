@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SimpleXMLIterator extends \SimpleXMLElement
 {
 }
-\class_alias('_PhpScoper26e51eeacccf\\SimpleXMLIterator', 'SimpleXMLIterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SimpleXMLIterator', 'SimpleXMLIterator', \false);

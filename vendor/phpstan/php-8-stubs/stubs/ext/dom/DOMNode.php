@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class DOMNode
 {
@@ -73,4 +73,4 @@ class DOMNode
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\DOMNode', 'DOMNode', \false);
+\class_alias('_PhpScoperabd03f0baf05\\DOMNode', 'DOMNode', \false);

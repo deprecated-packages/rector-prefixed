@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\Schema;
+namespace _PhpScoperabd03f0baf05\Nette\Schema;
 
 interface Schema
 {
@@ -13,7 +13,7 @@ interface Schema
      * Normalization.
      * @return mixed
      */
-    function normalize($value, \_PhpScoper26e51eeacccf\Nette\Schema\Context $context);
+    function normalize($value, \_PhpScoperabd03f0baf05\Nette\Schema\Context $context);
     /**
      * Merging.
      * @return mixed
@@ -23,9 +23,9 @@ interface Schema
      * Validation and finalization.
      * @return mixed
      */
-    function complete($value, \_PhpScoper26e51eeacccf\Nette\Schema\Context $context);
+    function complete($value, \_PhpScoperabd03f0baf05\Nette\Schema\Context $context);
     /**
      * @return mixed
      */
-    function completeDefault(\_PhpScoper26e51eeacccf\Nette\Schema\Context $context);
+    function completeDefault(\_PhpScoperabd03f0baf05\Nette\Schema\Context $context);
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /**
  * @alias oci_free_descriptor
  * @deprecated
  */
-function ocifreedesc(\_PhpScoper26e51eeacccf\OCILob $lob) : bool
+function ocifreedesc(\_PhpScoperabd03f0baf05\OCILob $lob) : bool
 {
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 // These are extension methods for PDO. This is not a real class.
@@ -21,4 +21,4 @@ class PDO_SQLite_Ext
 }
 /** @generate-function-entries */
 // These are extension methods for PDO. This is not a real class.
-\class_alias('_PhpScoper26e51eeacccf\\PDO_SQLite_Ext', 'PDO_SQLite_Ext', \false);
+\class_alias('_PhpScoperabd03f0baf05\\PDO_SQLite_Ext', 'PDO_SQLite_Ext', \false);

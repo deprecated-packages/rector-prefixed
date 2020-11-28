@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Debug;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Debug;
 
-use _PhpScoper26e51eeacccf\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
-@\trigger_error(\sprintf('The "%s" class is deprecated since Symfony 4.4, use "%s" instead.', \_PhpScoper26e51eeacccf\Symfony\Component\Debug\DebugClassLoader::class, \_PhpScoper26e51eeacccf\Symfony\Component\ErrorHandler\DebugClassLoader::class), \E_USER_DEPRECATED);
+use _PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
+@\trigger_error(\sprintf('The "%s" class is deprecated since Symfony 4.4, use "%s" instead.', \_PhpScoperabd03f0baf05\Symfony\Component\Debug\DebugClassLoader::class, \_PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler\DebugClassLoader::class), \E_USER_DEPRECATED);
 /**
  * Autoloader checking if the class is really defined in the file found.
  *
@@ -82,8 +82,8 @@ class DebugClassLoader
     public static function enable()
     {
         // Ensures we don't hit https://bugs.php.net/42098
-        \class_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Debug\\ErrorHandler');
-        \class_exists('_PhpScoper26e51eeacccf\\Psr\\Log\\LogLevel');
+        \class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Debug\\ErrorHandler');
+        \class_exists('_PhpScoperabd03f0baf05\\Psr\\Log\\LogLevel');
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
         }
@@ -323,7 +323,7 @@ class DebugClassLoader
                     $finalOrInternal = \true;
                 }
             }
-            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \_PhpScoper26e51eeacccf\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
+            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \_PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
                 continue;
             }
             if (!\preg_match_all('#\\n\\s+\\* @param +((?(?!callable *\\().*?|callable *\\(.*\\).*?))(?<= )\\$([a-zA-Z0-9_\\x7f-\\xff]++)#', $doc, $matches, \PREG_SET_ORDER)) {

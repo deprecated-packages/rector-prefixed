@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InheritDocWithoutCurlyBracesFromTrait2;
+namespace _PhpScoperabd03f0baf05\InheritDocWithoutCurlyBracesFromTrait2;
 
-class Foo extends \_PhpScoper26e51eeacccf\InheritDocWithoutCurlyBracesFromTrait2\FooParent
+class Foo extends \_PhpScoperabd03f0baf05\InheritDocWithoutCurlyBracesFromTrait2\FooParent
 {
     /**
      * @inheritdoc

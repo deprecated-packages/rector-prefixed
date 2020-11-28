@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper26e51eeacccf\Symfony\Contracts\HttpClient\Exception;
+namespace _PhpScoperabd03f0baf05\Symfony\Contracts\HttpClient\Exception;
 
 /**
  * When a 3xx response is returned and the "max_redirects" option has been reached.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-interface RedirectionExceptionInterface extends \_PhpScoper26e51eeacccf\Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface
+interface RedirectionExceptionInterface extends \_PhpScoperabd03f0baf05\Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface
 {
 }

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\OndraM\CiDetector\Ci;
+namespace _PhpScoperabd03f0baf05\OndraM\CiDetector\Ci;
 
-use _PhpScoper26e51eeacccf\OndraM\CiDetector\CiDetector;
-use _PhpScoper26e51eeacccf\OndraM\CiDetector\Env;
-use _PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic;
-class Travis extends \_PhpScoper26e51eeacccf\OndraM\CiDetector\Ci\AbstractCi
+use _PhpScoperabd03f0baf05\OndraM\CiDetector\CiDetector;
+use _PhpScoperabd03f0baf05\OndraM\CiDetector\Env;
+use _PhpScoperabd03f0baf05\OndraM\CiDetector\TrinaryLogic;
+class Travis extends \_PhpScoperabd03f0baf05\OndraM\CiDetector\Ci\AbstractCi
 {
     public const TRAVIS_BASE_URL = 'https://travis-ci.org';
-    public static function isDetected(\_PhpScoper26e51eeacccf\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_PhpScoperabd03f0baf05\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('TRAVIS') !== \false;
     }
     public function getCiName() : string
     {
-        return \_PhpScoper26e51eeacccf\OndraM\CiDetector\CiDetector::CI_TRAVIS;
+        return \_PhpScoperabd03f0baf05\OndraM\CiDetector\CiDetector::CI_TRAVIS;
     }
-    public function isPullRequest() : \_PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_PhpScoperabd03f0baf05\OndraM\CiDetector\TrinaryLogic
     {
-        return \_PhpScoper26e51eeacccf\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('TRAVIS_PULL_REQUEST') !== 'false');
+        return \_PhpScoperabd03f0baf05\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('TRAVIS_PULL_REQUEST') !== 'false');
     }
     public function getBuildNumber() : string
     {

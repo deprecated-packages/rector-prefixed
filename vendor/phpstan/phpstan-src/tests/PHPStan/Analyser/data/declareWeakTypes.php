@@ -1,6 +1,6 @@
 <?php
 
 declare (strict_types=0);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 die;

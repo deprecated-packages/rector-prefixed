@@ -54,7 +54,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper26e51eeacccf\\Nette\\Http\\Request')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperabd03f0baf05\\Nette\\Http\\Request')) {
             return null;
         }
         if (!$this->isName($node->name, 'getCookie')) {

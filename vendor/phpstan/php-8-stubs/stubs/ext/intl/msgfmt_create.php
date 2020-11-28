@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /* msgformat */
 function msgfmt_create(string $locale, string $pattern) : ?\MessageFormatter

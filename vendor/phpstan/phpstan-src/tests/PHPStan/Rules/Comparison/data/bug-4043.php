@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug4043;
+namespace _PhpScoperabd03f0baf05\Bug4043;
 
 function number(int $diff, string $s) : string
 {

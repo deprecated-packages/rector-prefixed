@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\AnnotationsProperties;
+namespace _PhpScoperabd03f0baf05\AnnotationsProperties;
 
-use _PhpScoper26e51eeacccf\OtherNamespace\Test as OtherTest;
-use _PhpScoper26e51eeacccf\OtherNamespace\Ipsum;
+use _PhpScoperabd03f0baf05\OtherNamespace\Test as OtherTest;
+use _PhpScoperabd03f0baf05\OtherNamespace\Ipsum;
 /**
  * @property OtherTest $otherTest
  * @property-read Ipsum $otherTestReadOnly
@@ -11,7 +11,7 @@ use _PhpScoper26e51eeacccf\OtherNamespace\Ipsum;
  * @property Ipsum $conflictingProperty
  * @property Foo $overridenProperty
  */
-class Foo implements \_PhpScoper26e51eeacccf\AnnotationsProperties\FooInterface
+class Foo implements \_PhpScoperabd03f0baf05\AnnotationsProperties\FooInterface
 {
     /** @var Foo */
     public $overridenPropertyWithAnnotation;
@@ -20,7 +20,7 @@ class Foo implements \_PhpScoper26e51eeacccf\AnnotationsProperties\FooInterface
  * @property Bar $overridenPropertyWithAnnotation
  * @property Foo $conflictingAnnotationProperty
  */
-class Bar extends \_PhpScoper26e51eeacccf\AnnotationsProperties\Foo
+class Bar extends \_PhpScoperabd03f0baf05\AnnotationsProperties\Foo
 {
     /** @var Bar */
     public $overridenProperty;
@@ -32,14 +32,14 @@ class Bar extends \_PhpScoper26e51eeacccf\AnnotationsProperties\Foo
  * @property Dolor $conflictingProperty
  * @property-write ?Lorem $writeOnlyProperty
  */
-class Baz extends \_PhpScoper26e51eeacccf\AnnotationsProperties\Bar
+class Baz extends \_PhpScoperabd03f0baf05\AnnotationsProperties\Bar
 {
     use FooTrait;
 }
 /**
  * @property int | float $numericBazBazProperty
  */
-class BazBaz extends \_PhpScoper26e51eeacccf\AnnotationsProperties\Baz
+class BazBaz extends \_PhpScoperabd03f0baf05\AnnotationsProperties\Baz
 {
 }
 /**

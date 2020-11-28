@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _PhpScoper26e51eeacccf\Clue\React\NDJson\Decoder;
-use _PhpScoper26e51eeacccf\Clue\React\NDJson\Encoder;
-use _PhpScoper26e51eeacccf\Composer\CaBundle\CaBundle;
-use _PhpScoper26e51eeacccf\Nette\Utils\Json;
+use _PhpScoperabd03f0baf05\Clue\React\NDJson\Decoder;
+use _PhpScoperabd03f0baf05\Clue\React\NDJson\Encoder;
+use _PhpScoperabd03f0baf05\Composer\CaBundle\CaBundle;
+use _PhpScoperabd03f0baf05\Nette\Utils\Json;
 use Phar;
 use PHPStan\Analyser\AnalyserResult;
 use PHPStan\Analyser\IgnoredErrorHelper;
@@ -22,24 +22,24 @@ use PHPStan\Process\ProcessHelper;
 use PHPStan\Process\ProcessPromise;
 use PHPStan\Process\Runnable\RunnableQueue;
 use PHPStan\Process\Runnable\RunnableQueueLogger;
-use _PhpScoper26e51eeacccf\Psr\Http\Message\ResponseInterface;
-use _PhpScoper26e51eeacccf\React\ChildProcess\Process;
-use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
-use _PhpScoper26e51eeacccf\React\EventLoop\StreamSelectLoop;
-use _PhpScoper26e51eeacccf\React\Http\Browser;
-use _PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface;
-use _PhpScoper26e51eeacccf\React\Promise\ExtendedPromiseInterface;
-use _PhpScoper26e51eeacccf\React\Promise\PromiseInterface;
-use _PhpScoper26e51eeacccf\React\Socket\ConnectionInterface;
-use _PhpScoper26e51eeacccf\React\Socket\Connector;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Helper\ProgressBar;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperabd03f0baf05\Psr\Http\Message\ResponseInterface;
+use _PhpScoperabd03f0baf05\React\ChildProcess\Process;
+use _PhpScoperabd03f0baf05\React\EventLoop\LoopInterface;
+use _PhpScoperabd03f0baf05\React\EventLoop\StreamSelectLoop;
+use _PhpScoperabd03f0baf05\React\Http\Browser;
+use _PhpScoperabd03f0baf05\React\Promise\CancellablePromiseInterface;
+use _PhpScoperabd03f0baf05\React\Promise\ExtendedPromiseInterface;
+use _PhpScoperabd03f0baf05\React\Promise\PromiseInterface;
+use _PhpScoperabd03f0baf05\React\Socket\ConnectionInterface;
+use _PhpScoperabd03f0baf05\React\Socket\Connector;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Helper\ProgressBar;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
 use const PHP_BINARY;
-use function _PhpScoper26e51eeacccf\Clue\React\Block\await;
+use function _PhpScoperabd03f0baf05\Clue\React\Block\await;
 use function escapeshellarg;
 use function file_exists;
-use function _PhpScoper26e51eeacccf\React\Promise\resolve;
+use function _PhpScoperabd03f0baf05\React\Promise\resolve;
 class FixerApplication
 {
     /** @var FileMonitor */
@@ -92,10 +92,10 @@ class FixerApplication
      * @param string[] $notFileSpecificErrors
      * @return int
      */
-    public function run(?string $projectConfigFile, \PHPStan\Command\InceptionResult $inceptionResult, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output, array $fileSpecificErrors, array $notFileSpecificErrors, int $filesCount, string $mainScript) : int
+    public function run(?string $projectConfigFile, \PHPStan\Command\InceptionResult $inceptionResult, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output, array $fileSpecificErrors, array $notFileSpecificErrors, int $filesCount, string $mainScript) : int
     {
-        $loop = new \_PhpScoper26e51eeacccf\React\EventLoop\StreamSelectLoop();
-        $server = new \_PhpScoper26e51eeacccf\React\Socket\TcpServer('127.0.0.1:0', $loop);
+        $loop = new \_PhpScoperabd03f0baf05\React\EventLoop\StreamSelectLoop();
+        $server = new \_PhpScoperabd03f0baf05\React\Socket\TcpServer('127.0.0.1:0', $loop);
         /** @var string $serverAddress */
         $serverAddress = $server->getAddress();
         /** @var int $serverPort */
@@ -106,9 +106,9 @@ class FixerApplication
             {
             }
         }, \min($this->cpuCoreCounter->getNumberOfCpuCores(), $this->maximumNumberOfProcesses));
-        $server->on('connection', function (\_PhpScoper26e51eeacccf\React\Socket\ConnectionInterface $connection) use($loop, $projectConfigFile, $input, $output, $fileSpecificErrors, $notFileSpecificErrors, $mainScript, $filesCount, $reanalyseProcessQueue, $inceptionResult) : void {
-            $decoder = new \_PhpScoper26e51eeacccf\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, 128 * 1024 * 1024);
-            $encoder = new \_PhpScoper26e51eeacccf\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
+        $server->on('connection', function (\_PhpScoperabd03f0baf05\React\Socket\ConnectionInterface $connection) use($loop, $projectConfigFile, $input, $output, $fileSpecificErrors, $notFileSpecificErrors, $mainScript, $filesCount, $reanalyseProcessQueue, $inceptionResult) : void {
+            $decoder = new \_PhpScoperabd03f0baf05\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, 128 * 1024 * 1024);
+            $encoder = new \_PhpScoperabd03f0baf05\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
             $encoder->write(['action' => 'initialData', 'data' => ['fileSpecificErrors' => $fileSpecificErrors, 'notFileSpecificErrors' => $notFileSpecificErrors, 'currentWorkingDirectory' => $this->currentWorkingDirectory, 'analysedPaths' => $this->analysedPaths, 'projectConfigFile' => $projectConfigFile, 'filesCount' => $filesCount, 'phpstanVersion' => $this->getPhpstanVersion()]]);
             $decoder->on('data', function (array $data) use($loop, $encoder, $projectConfigFile, $input, $output, $mainScript, $reanalyseProcessQueue, $inceptionResult) : void {
                 if ($data['action'] === 'webPort') {
@@ -124,7 +124,7 @@ class FixerApplication
                 }
                 $id = $data['id'];
                 $this->reanalyseWithTmpFile($loop, $inceptionResult, $mainScript, $reanalyseProcessQueue, $projectConfigFile, $data['data']['tmpFile'], $data['data']['insteadOfFile'], $data['data']['fixerSuggestionId'], $input)->done(static function (string $output) use($encoder, $id) : void {
-                    $encoder->write(['id' => $id, 'response' => \_PhpScoper26e51eeacccf\Nette\Utils\Json::decode($output, \_PhpScoper26e51eeacccf\Nette\Utils\Json::FORCE_ARRAY)]);
+                    $encoder->write(['id' => $id, 'response' => \_PhpScoperabd03f0baf05\Nette\Utils\Json::decode($output, \_PhpScoperabd03f0baf05\Nette\Utils\Json::FORCE_ARRAY)]);
                 }, static function (\Throwable $e) use($encoder, $id, $output) : void {
                     if ($e instanceof \PHPStan\Process\ProcessCrashedException) {
                         $output->writeln('<error>Worker process exited: ' . $e->getMessage() . '</error>');
@@ -180,7 +180,7 @@ class FixerApplication
         $loop->run();
         return 0;
     }
-    private function getFixerProcess(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output, int $serverPort) : \_PhpScoper26e51eeacccf\React\ChildProcess\Process
+    private function getFixerProcess(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output, int $serverPort) : \_PhpScoperabd03f0baf05\React\ChildProcess\Process
     {
         if (!@\mkdir($this->fixerTmpDir, 0777) && !\is_dir($this->fixerTmpDir)) {
             $output->writeln(\sprintf('Cannot create a temp directory %s', $this->fixerTmpDir));
@@ -244,14 +244,14 @@ class FixerApplication
                 $output->writeln('');
             }
         }
-        return new \_PhpScoper26e51eeacccf\React\ChildProcess\Process(\sprintf('%s -d memory_limit=%s %s --port %d', \PHP_BINARY, \escapeshellarg(\ini_get('memory_limit')), \escapeshellarg($pharPath), $serverPort), null, $env, []);
+        return new \_PhpScoperabd03f0baf05\React\ChildProcess\Process(\sprintf('%s -d memory_limit=%s %s --port %d', \PHP_BINARY, \escapeshellarg(\ini_get('memory_limit')), \escapeshellarg($pharPath), $serverPort), null, $env, []);
     }
-    private function downloadPhar(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output, string $pharPath, string $infoPath) : void
+    private function downloadPhar(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output, string $pharPath, string $infoPath) : void
     {
         $currentVersion = null;
         if (\file_exists($pharPath) && \file_exists($infoPath)) {
             /** @var array{version: string, date: string} $currentInfo */
-            $currentInfo = \_PhpScoper26e51eeacccf\Nette\Utils\Json::decode(\PHPStan\File\FileReader::read($infoPath), \_PhpScoper26e51eeacccf\Nette\Utils\Json::FORCE_ARRAY);
+            $currentInfo = \_PhpScoperabd03f0baf05\Nette\Utils\Json::decode(\PHPStan\File\FileReader::read($infoPath), \_PhpScoperabd03f0baf05\Nette\Utils\Json::FORCE_ARRAY);
             $currentVersion = $currentInfo['version'];
             $currentDate = \DateTime::createFromFormat(\DateTime::ATOM, $currentInfo['date']);
             if ($currentDate === \false) {
@@ -262,10 +262,10 @@ class FixerApplication
             }
             $output->writeln('<fg=green>Checking if there\'s a new PHPStan Pro release...</>');
         }
-        $loop = new \_PhpScoper26e51eeacccf\React\EventLoop\StreamSelectLoop();
-        $client = new \_PhpScoper26e51eeacccf\React\Http\Browser($loop, new \_PhpScoper26e51eeacccf\React\Socket\Connector($loop, ['timeout' => 5, 'tls' => ['cafile' => \_PhpScoper26e51eeacccf\Composer\CaBundle\CaBundle::getBundledCaBundlePath()], 'dns' => '1.1.1.1']));
+        $loop = new \_PhpScoperabd03f0baf05\React\EventLoop\StreamSelectLoop();
+        $client = new \_PhpScoperabd03f0baf05\React\Http\Browser($loop, new \_PhpScoperabd03f0baf05\React\Socket\Connector($loop, ['timeout' => 5, 'tls' => ['cafile' => \_PhpScoperabd03f0baf05\Composer\CaBundle\CaBundle::getBundledCaBundlePath()], 'dns' => '1.1.1.1']));
         /** @var array{url: string, version: string} $latestInfo */
-        $latestInfo = \_PhpScoper26e51eeacccf\Nette\Utils\Json::decode((string) \_PhpScoper26e51eeacccf\Clue\React\Block\await($client->get('https://fixer-download-api.phpstan.com/latest'), $loop, 5)->getBody(), \_PhpScoper26e51eeacccf\Nette\Utils\Json::FORCE_ARRAY);
+        $latestInfo = \_PhpScoperabd03f0baf05\Nette\Utils\Json::decode((string) \_PhpScoperabd03f0baf05\Clue\React\Block\await($client->get('https://fixer-download-api.phpstan.com/latest'), $loop, 5)->getBody(), \_PhpScoperabd03f0baf05\Nette\Utils\Json::FORCE_ARRAY);
         if ($currentVersion !== null && $latestInfo['version'] === $currentVersion) {
             $this->writeInfoFile($infoPath, $latestInfo['version']);
             $output->writeln('<fg=green>You\'re running the latest PHPStan Pro!</>');
@@ -276,10 +276,10 @@ class FixerApplication
         if ($pharPathResource === \false) {
             throw new \PHPStan\ShouldNotHappenException(\sprintf('Could not open file %s for writing.', $pharPath));
         }
-        $progressBar = new \_PhpScoper26e51eeacccf\Symfony\Component\Console\Helper\ProgressBar($output);
-        $client->requestStreaming('GET', $latestInfo['url'])->done(static function (\_PhpScoper26e51eeacccf\Psr\Http\Message\ResponseInterface $response) use($progressBar, $pharPathResource) : void {
+        $progressBar = new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Helper\ProgressBar($output);
+        $client->requestStreaming('GET', $latestInfo['url'])->done(static function (\_PhpScoperabd03f0baf05\Psr\Http\Message\ResponseInterface $response) use($progressBar, $pharPathResource) : void {
             $body = $response->getBody();
-            if (!$body instanceof \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface) {
+            if (!$body instanceof \_PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface) {
                 throw new \PHPStan\ShouldNotHappenException();
             }
             $totalSize = (int) $response->getHeaderLine('Content-Length');
@@ -304,13 +304,13 @@ class FixerApplication
     }
     private function writeInfoFile(string $infoPath, string $version) : void
     {
-        \PHPStan\File\FileWriter::write($infoPath, \_PhpScoper26e51eeacccf\Nette\Utils\Json::encode(['version' => $version, 'date' => (new \DateTimeImmutable('', new \DateTimeZone('UTC')))->format(\DateTime::ATOM)]));
+        \PHPStan\File\FileWriter::write($infoPath, \_PhpScoperabd03f0baf05\Nette\Utils\Json::encode(['version' => $version, 'date' => (new \DateTimeImmutable('', new \DateTimeZone('UTC')))->format(\DateTime::ATOM)]));
     }
     /**
      * @param LoopInterface $loop
      * @param callable(FileMonitorResult): void $hasChangesCallback
      */
-    private function monitorFileChanges(\_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, callable $hasChangesCallback) : void
+    private function monitorFileChanges(\_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface $loop, callable $hasChangesCallback) : void
     {
         $callback = function () use(&$callback, $loop, $hasChangesCallback) : void {
             $changes = $this->fileMonitor->getChanges();
@@ -321,7 +321,7 @@ class FixerApplication
         };
         $loop->addTimer(1, $callback);
     }
-    private function reanalyseWithTmpFile(\_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, \PHPStan\Command\InceptionResult $inceptionResult, string $mainScript, \PHPStan\Process\Runnable\RunnableQueue $runnableQueue, ?string $projectConfigFile, string $tmpFile, string $insteadOfFile, string $fixerSuggestionId, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input) : \_PhpScoper26e51eeacccf\React\Promise\PromiseInterface
+    private function reanalyseWithTmpFile(\_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface $loop, \PHPStan\Command\InceptionResult $inceptionResult, string $mainScript, \PHPStan\Process\Runnable\RunnableQueue $runnableQueue, ?string $projectConfigFile, string $tmpFile, string $insteadOfFile, string $fixerSuggestionId, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input) : \_PhpScoperabd03f0baf05\React\Promise\PromiseInterface
     {
         $resultCacheManager = $this->resultCacheManagerFactory->create([$insteadOfFile => $tmpFile]);
         [$inceptionFiles] = $inceptionResult->getFiles();
@@ -330,7 +330,7 @@ class FixerApplication
         $process = new \PHPStan\Process\ProcessPromise($loop, $fixerSuggestionId, \PHPStan\Process\ProcessHelper::getWorkerCommand($mainScript, 'fixer:worker', $projectConfigFile, ['--tmp-file', \escapeshellarg($tmpFile), '--instead-of', \escapeshellarg($insteadOfFile), '--save-result-cache', \escapeshellarg($fixerSuggestionId), '--allow-parallel'], $input));
         return $runnableQueue->queue($process, $schedule->getNumberOfProcesses());
     }
-    private function reanalyseAfterFileChanges(\_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, \PHPStan\Command\InceptionResult $inceptionResult, string $mainScript, ?string $projectConfigFile, ?string $fixerSuggestionId, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input) : \_PhpScoper26e51eeacccf\React\Promise\PromiseInterface
+    private function reanalyseAfterFileChanges(\_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface $loop, \PHPStan\Command\InceptionResult $inceptionResult, string $mainScript, ?string $projectConfigFile, ?string $fixerSuggestionId, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input) : \_PhpScoperabd03f0baf05\React\Promise\PromiseInterface
     {
         $ignoredErrorHelperResult = $this->ignoredErrorHelper->initialize();
         if (\count($ignoredErrorHelperResult->getErrors()) > 0) {
@@ -352,7 +352,7 @@ class FixerApplication
                 }
                 $finalFileSpecificErrors[] = $intermediateError;
             }
-            return \_PhpScoper26e51eeacccf\React\Promise\resolve(['fileSpecificErrors' => $finalFileSpecificErrors, 'notFileSpecificErrors' => $finalNotFileSpecificErrors]);
+            return \_PhpScoperabd03f0baf05\React\Promise\resolve(['fileSpecificErrors' => $finalFileSpecificErrors, 'notFileSpecificErrors' => $finalNotFileSpecificErrors]);
         }
         $options = ['--save-result-cache', '--allow-parallel'];
         if ($fixerSuggestionId !== null) {
@@ -362,13 +362,13 @@ class FixerApplication
         $process = new \PHPStan\Process\ProcessPromise($loop, 'changedFileAnalysis', \PHPStan\Process\ProcessHelper::getWorkerCommand($mainScript, 'fixer:worker', $projectConfigFile, $options, $input));
         $this->processInProgress = $process->run();
         return $this->processInProgress->then(static function (string $output) : array {
-            return \_PhpScoper26e51eeacccf\Nette\Utils\Json::decode($output, \_PhpScoper26e51eeacccf\Nette\Utils\Json::FORCE_ARRAY);
+            return \_PhpScoperabd03f0baf05\Nette\Utils\Json::decode($output, \_PhpScoperabd03f0baf05\Nette\Utils\Json::FORCE_ARRAY);
         });
     }
     private function getPhpstanVersion() : string
     {
         try {
-            return \_PhpScoper26e51eeacccf\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+            return \_PhpScoperabd03f0baf05\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             return 'Version unknown';
         }

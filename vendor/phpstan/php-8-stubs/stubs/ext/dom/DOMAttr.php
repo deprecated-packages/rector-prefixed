@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class DOMAttr
 {
@@ -12,4 +12,4 @@ class DOMAttr
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\DOMAttr', 'DOMAttr', \false);
+\class_alias('_PhpScoperabd03f0baf05\\DOMAttr', 'DOMAttr', \false);

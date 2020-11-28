@@ -10,7 +10,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoper26e51eeacccf\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use _PhpScoperabd03f0baf05\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symplify\PhpConfigPrinter\ValueObject\VariableName;
 final class ConfiguratorClosureNodeFactory
 {
@@ -38,7 +38,7 @@ final class ConfiguratorClosureNodeFactory
     private function createRoutingConfiguratorParam() : \PhpParser\Node\Param
     {
         $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\Symplify\PhpConfigPrinter\ValueObject\VariableName::ROUTING_CONFIGURATOR);
-        return new \PhpParser\Node\Param($containerConfiguratorVariable, null, new \PhpParser\Node\Name\FullyQualified(\_PhpScoper26e51eeacccf\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator::class));
+        return new \PhpParser\Node\Param($containerConfiguratorVariable, null, new \PhpParser\Node\Name\FullyQualified(\_PhpScoperabd03f0baf05\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator::class));
     }
     private function createClosureFromParamAndStmts(\PhpParser\Node\Param $param, array $stmts) : \PhpParser\Node\Expr\Closure
     {

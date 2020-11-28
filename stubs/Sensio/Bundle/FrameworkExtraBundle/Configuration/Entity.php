@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace _PhpScoperabd03f0baf05\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Entity')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Entity')) {
     return;
 }
 /**
  * @Annotation
  */
-class Entity extends \_PhpScoper26e51eeacccf\Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter
+class Entity extends \_PhpScoperabd03f0baf05\Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter
 {
     public function setExpr($expr)
     {

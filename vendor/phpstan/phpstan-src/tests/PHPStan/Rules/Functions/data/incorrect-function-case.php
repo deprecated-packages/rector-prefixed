@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\IncorrectFunctionCase;
+namespace _PhpScoperabd03f0baf05\IncorrectFunctionCase;
 
 foobar();
 fooBar();
-\_PhpScoper26e51eeacccf\IncorrectFunctionCase\foobar();
-\_PhpScoper26e51eeacccf\IncorrectFunctionCase\fooBar();
+\_PhpScoperabd03f0baf05\IncorrectFunctionCase\foobar();
+\_PhpScoperabd03f0baf05\IncorrectFunctionCase\fooBar();
 \htmlspecialchars();
 \htmlSpecialChars();

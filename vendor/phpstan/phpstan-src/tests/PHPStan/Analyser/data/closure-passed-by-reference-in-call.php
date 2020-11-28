@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ClosurePassedByReference;
+namespace _PhpScoperabd03f0baf05\ClosurePassedByReference;
 
 class Foo
 {

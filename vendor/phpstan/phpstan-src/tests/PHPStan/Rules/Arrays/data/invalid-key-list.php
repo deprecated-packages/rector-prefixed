@@ -1,5 +1,5 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\InvalidKeyList;
+namespace _PhpScoperabd03f0baf05\InvalidKeyList;
 
 list('test' => $b, new \DateTimeImmutable() => $c, [] => $d, ) = $arr;

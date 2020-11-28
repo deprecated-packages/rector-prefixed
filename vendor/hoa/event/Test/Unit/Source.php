@@ -48,6 +48,6 @@ class Source extends \Hoa\Test\Unit\Suite
 {
     public function case_interface()
     {
-        $this->when($result = new \_PhpScoper26e51eeacccf\Mock\Hoa\Event\Source())->then->object($result)->isInstanceOf('Hoa\\Event\\Source');
+        $this->when($result = new \_PhpScoperabd03f0baf05\Mock\Hoa\Event\Source())->then->object($result)->isInstanceOf('Hoa\\Event\\Source');
     }
 }

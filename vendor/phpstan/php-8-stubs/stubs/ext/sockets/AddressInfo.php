@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 final class AddressInfo
 {
 }
-\class_alias('_PhpScoper26e51eeacccf\\AddressInfo', 'AddressInfo', \false);
+\class_alias('_PhpScoperabd03f0baf05\\AddressInfo', 'AddressInfo', \false);

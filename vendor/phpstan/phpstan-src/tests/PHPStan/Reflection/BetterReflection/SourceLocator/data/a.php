@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\TestSingleFileSourceLocator;
+namespace _PhpScoperabd03f0baf05\TestSingleFileSourceLocator;
 
 class AFoo
 {
@@ -8,14 +8,14 @@ class AFoo
 function doFoo()
 {
 }
-\define('_PhpScoper26e51eeacccf\\TestSingleFileSourceLocator\\SOME_CONSTANT', 1);
+\define('_PhpScoperabd03f0baf05\\TestSingleFileSourceLocator\\SOME_CONSTANT', 1);
 const ANOTHER_CONSTANT = 2;
 if (\false) {
     class InCondition
     {
     }
 } elseif (\true) {
-    class InCondition extends \_PhpScoper26e51eeacccf\TestSingleFileSourceLocator\AFoo
+    class InCondition extends \_PhpScoperabd03f0baf05\TestSingleFileSourceLocator\AFoo
     {
     }
 } else {

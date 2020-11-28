@@ -10,13 +10,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper26e51eeacccf\Webmozart\Assert\Assert;
+use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
 /**
  * Reflection class for an {@}author tag in a Docblock.
  */
-final class Author extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Author extends \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string register that this is the author tag. */
     protected $name = 'author';
@@ -32,8 +32,8 @@ final class Author extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocB
      */
     public function __construct($authorName, $authorEmail)
     {
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::string($authorName);
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::string($authorEmail);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::string($authorName);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::string($authorEmail);
         if ($authorEmail && !\filter_var($authorEmail, \FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException('The author tag does not have a valid e-mail address');
         }
@@ -76,7 +76,7 @@ final class Author extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocB
      */
     public static function create($body)
     {
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::string($body);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::string($body);
         $splitTagContent = \preg_match('/^([^\\<]*)(?:\\<([^\\>]*)\\>)?$/u', $body, $matches);
         if (!$splitTagContent) {
             return null;

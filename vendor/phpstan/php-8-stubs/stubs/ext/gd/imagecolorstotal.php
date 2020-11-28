@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imagecolorstotal(\_PhpScoper26e51eeacccf\GdImage $image) : int
+function imagecolorstotal(\_PhpScoperabd03f0baf05\GdImage $image) : int
 {
 }

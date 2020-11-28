@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Configuration\Option;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Descriptor\TextDescriptor;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Exception\RuntimeException;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Descriptor\TextDescriptor;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\RuntimeException;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\ShellCode;
-abstract class AbstractCommand extends \_PhpScoper26e51eeacccf\Symfony\Component\Console\Command\Command
+abstract class AbstractCommand extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command
 {
     /**
      * @var ChangedFilesDetector
@@ -25,18 +25,18 @@ abstract class AbstractCommand extends \_PhpScoper26e51eeacccf\Symfony\Component
     /**
      * @required
      */
-    public function autowireAbstractCommand(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Descriptor\TextDescriptor $textDescriptor, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector) : void
+    public function autowireAbstractCommand(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Descriptor\TextDescriptor $textDescriptor, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector) : void
     {
         $this->textDescriptor = $textDescriptor;
         $this->changedFilesDetector = $changedFilesDetector;
     }
-    public function run(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : int
+    public function run(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         // show help on arguments fail
         try {
             return parent::run($input, $output);
-        } catch (\_PhpScoper26e51eeacccf\Symfony\Component\Console\Exception\RuntimeException $runtimeException) {
-            if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::contains($runtimeException->getMessage(), 'Not enough arguments')) {
+        } catch (\_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\RuntimeException $runtimeException) {
+            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($runtimeException->getMessage(), 'Not enough arguments')) {
                 // sometimes there is "command" argument, not really needed on fail of chosen command and missing argument
                 $inputDefinition = $this->getDefinition();
                 $arguments = $inputDefinition->getArguments();
@@ -50,7 +50,7 @@ abstract class AbstractCommand extends \_PhpScoper26e51eeacccf\Symfony\Component
             throw $runtimeException;
         }
     }
-    protected function initialize(\_PhpScoper26e51eeacccf\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper26e51eeacccf\Symfony\Component\Console\Output\OutputInterface $output) : void
+    protected function initialize(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         $application = $this->getApplication();
         $optionDebug = $input->getOption(\Rector\Core\Configuration\Option::OPTION_DEBUG);

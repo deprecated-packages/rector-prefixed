@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\SourceLocator\Type\Composer\Psr;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\SourceLocator\Type\Composer\Psr;
 
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier;
 interface PsrAutoloaderMapping
 {
     /** @return list<string> */
-    public function resolvePossibleFilePaths(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Identifier\Identifier $identifier) : array;
+    public function resolvePossibleFilePaths(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Identifier\Identifier $identifier) : array;
     /** @return list<string> */
     public function directories() : array;
 }

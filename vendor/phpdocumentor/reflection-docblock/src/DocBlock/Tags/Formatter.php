@@ -10,9 +10,9 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tag;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tag;
 interface Formatter
 {
     /**
@@ -22,5 +22,5 @@ interface Formatter
      *
      * @return string
      */
-    public function format(\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tag $tag);
+    public function format(\_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tag $tag);
 }

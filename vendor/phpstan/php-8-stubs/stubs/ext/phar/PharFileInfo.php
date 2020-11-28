@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class PharFileInfo extends \SplFileInfo
 {
@@ -63,4 +63,4 @@ class PharFileInfo extends \SplFileInfo
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\PharFileInfo', 'PharFileInfo', \false);
+\class_alias('_PhpScoperabd03f0baf05\\PharFileInfo', 'PharFileInfo', \false);

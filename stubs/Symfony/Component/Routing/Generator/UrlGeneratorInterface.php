@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Routing\Generator;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Routing\Generator;
 
-if (\interface_exists('_PhpScoper26e51eeacccf\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface')) {
+if (\interface_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface')) {
     return;
 }
 interface UrlGeneratorInterface

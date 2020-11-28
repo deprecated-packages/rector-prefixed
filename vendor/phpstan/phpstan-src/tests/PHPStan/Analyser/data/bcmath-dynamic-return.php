@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 // Verification for constant types: https://3v4l.org/96GSj
 /** @var mixed $mixed */
-$mixed = \_PhpScoper26e51eeacccf\getMixed();
+$mixed = \_PhpScoperabd03f0baf05\getMixed();
 /** @var int $iUnknown */
-$iUnknown = \_PhpScoper26e51eeacccf\getInt();
+$iUnknown = \_PhpScoperabd03f0baf05\getInt();
 /** @var string $string */
-$string = \_PhpScoper26e51eeacccf\getString();
+$string = \_PhpScoperabd03f0baf05\getString();
 $iNeg = -5;
 $iPos = 5;
 $nonNumeric = 'foo';

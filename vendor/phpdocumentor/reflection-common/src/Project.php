@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection;
 
 /**
  * Interface for project. Since the definition of a project can be different per factory this interface will be small.

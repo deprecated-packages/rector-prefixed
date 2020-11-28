@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Symplify\PackageBuilder\Tests\Composer;
 
-use _PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase;
+use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
 use Symplify\PackageBuilder\Composer\VendorDirProvider;
-final class VendorDirProviderTest extends \_PhpScoper26e51eeacccf\PHPUnit\Framework\TestCase
+final class VendorDirProviderTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
 {
     public function testProvide() : void
     {

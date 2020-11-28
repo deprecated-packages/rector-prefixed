@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\VariableIsNotNullAfterConditions;
+namespace _PhpScoperabd03f0baf05\VariableIsNotNullAfterConditions;
 
 /**
  * @return string|null

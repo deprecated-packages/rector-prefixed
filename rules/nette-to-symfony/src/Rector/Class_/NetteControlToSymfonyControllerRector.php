@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\Class_;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -20,8 +20,8 @@ use Rector\Nette\NodeFactory\ActionRenderFactory;
 use Rector\Nette\TemplatePropertyAssignCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoper26e51eeacccf\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use _PhpScoper26e51eeacccf\Symfony\Component\HttpFoundation\Response;
+use _PhpScoperabd03f0baf05\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -92,14 +92,14 @@ CODE_SAMPLE
         if ($this->isName($node, '*Presenter')) {
             return null;
         }
-        if (!$this->isObjectType($node, '_PhpScoper26e51eeacccf\\Nette\\Application\\UI\\Control')) {
+        if (!$this->isObjectType($node, '_PhpScoperabd03f0baf05\\Nette\\Application\\UI\\Control')) {
             return null;
         }
         $className = (string) $node->name;
         $className = $this->removeSuffix($className, 'Control');
         $className .= 'Controller';
         $node->name = new \PhpParser\Node\Identifier($className);
-        $node->extends = new \PhpParser\Node\Name\FullyQualified(\_PhpScoper26e51eeacccf\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
+        $node->extends = new \PhpParser\Node\Name\FullyQualified(\_PhpScoperabd03f0baf05\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
         $classMethod = $node->getMethod('render');
         if ($classMethod !== null) {
             $this->processRenderMethod($classMethod);
@@ -108,10 +108,10 @@ CODE_SAMPLE
     }
     private function removeSuffix(string $content, string $suffix) : string
     {
-        if (!\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($content, $suffix)) {
+        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($content, $suffix)) {
             return $content;
         }
-        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::substring($content, 0, -\_PhpScoper26e51eeacccf\Nette\Utils\Strings::length($suffix));
+        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($content, 0, -\_PhpScoperabd03f0baf05\Nette\Utils\Strings::length($suffix));
     }
     private function processRenderMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
@@ -123,7 +123,7 @@ CODE_SAMPLE
         $return = new \PhpParser\Node\Stmt\Return_($methodCall);
         $classMethod->stmts[] = $return;
         if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
-            $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\_PhpScoper26e51eeacccf\Symfony\Component\HttpFoundation\Response::class);
+            $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response::class);
         }
         $this->removeNodes($magicTemplatePropertyCalls->getNodesToRemove());
     }
@@ -147,7 +147,7 @@ CODE_SAMPLE
             if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $this->addConstructorDependencyToClass($classLike, new \Rector\PHPStan\Type\FullyQualifiedObjectType('_PhpScoper26e51eeacccf\\Nette\\Http\\Session'), 'session');
+            $this->addConstructorDependencyToClass($classLike, new \Rector\PHPStan\Type\FullyQualifiedObjectType('_PhpScoperabd03f0baf05\\Nette\\Http\\Session'), 'session');
             return $node;
         });
     }

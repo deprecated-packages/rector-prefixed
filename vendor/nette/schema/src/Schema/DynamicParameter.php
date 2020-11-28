@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\Schema;
+namespace _PhpScoperabd03f0baf05\Nette\Schema;
 
 interface DynamicParameter
 {

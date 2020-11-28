@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI;
+namespace _PhpScoperabd03f0baf05\Nette\DI;
 
-use _PhpScoper26e51eeacccf\Nette;
+use _PhpScoperabd03f0baf05\Nette;
 /**
  * DI container loader.
  */
@@ -49,14 +49,14 @@ class ContainerLoader
             // @ file may not exist
             return;
         }
-        \_PhpScoper26e51eeacccf\Nette\Utils\FileSystem::createDir($this->tempDirectory);
+        \_PhpScoperabd03f0baf05\Nette\Utils\FileSystem::createDir($this->tempDirectory);
         $handle = @\fopen("{$file}.lock", 'c+');
         // @ is escalated to exception
         if (!$handle) {
-            throw new \_PhpScoper26e51eeacccf\Nette\IOException("Unable to create file '{$file}.lock'. " . \_PhpScoper26e51eeacccf\Nette\Utils\Helpers::getLastError());
+            throw new \_PhpScoperabd03f0baf05\Nette\IOException("Unable to create file '{$file}.lock'. " . \_PhpScoperabd03f0baf05\Nette\Utils\Helpers::getLastError());
         } elseif (!@\flock($handle, \LOCK_EX)) {
             // @ is escalated to exception
-            throw new \_PhpScoper26e51eeacccf\Nette\IOException("Unable to acquire exclusive lock on '{$file}.lock'. " . \_PhpScoper26e51eeacccf\Nette\Utils\Helpers::getLastError());
+            throw new \_PhpScoperabd03f0baf05\Nette\IOException("Unable to acquire exclusive lock on '{$file}.lock'. " . \_PhpScoperabd03f0baf05\Nette\Utils\Helpers::getLastError());
         }
         if (!\is_file($file) || $this->isExpired($file, $updatedMeta)) {
             if (isset($updatedMeta)) {
@@ -68,7 +68,7 @@ class ContainerLoader
                 if (\file_put_contents("{$name}.tmp", $content) !== \strlen($content) || !\rename("{$name}.tmp", $name)) {
                     @\unlink("{$name}.tmp");
                     // @ - file may not exist
-                    throw new \_PhpScoper26e51eeacccf\Nette\IOException("Unable to create file '{$name}'.");
+                    throw new \_PhpScoperabd03f0baf05\Nette\IOException("Unable to create file '{$name}'.");
                 } elseif (\function_exists('opcache_invalidate')) {
                     @\opcache_invalidate($name, \true);
                     // @ can be restricted
@@ -77,7 +77,7 @@ class ContainerLoader
         }
         if (@(include $file) === \false) {
             // @ - error escalated to exception
-            throw new \_PhpScoper26e51eeacccf\Nette\IOException("Unable to include '{$file}'.");
+            throw new \_PhpScoperabd03f0baf05\Nette\IOException("Unable to include '{$file}'.");
         }
         \flock($handle, \LOCK_UN);
     }
@@ -87,14 +87,14 @@ class ContainerLoader
             $meta = @\unserialize((string) \file_get_contents("{$file}.meta"));
             // @ - file may not exist
             $orig = $meta[2] ?? null;
-            return empty($meta[0]) || \_PhpScoper26e51eeacccf\Nette\DI\DependencyChecker::isExpired(...$meta) || $orig !== $meta[2] && ($updatedMeta = \serialize($meta));
+            return empty($meta[0]) || \_PhpScoperabd03f0baf05\Nette\DI\DependencyChecker::isExpired(...$meta) || $orig !== $meta[2] && ($updatedMeta = \serialize($meta));
         }
         return \false;
     }
     /** @return array of (code, file[]) */
     protected function generate(string $class, callable $generator) : array
     {
-        $compiler = new \_PhpScoper26e51eeacccf\Nette\DI\Compiler();
+        $compiler = new \_PhpScoperabd03f0baf05\Nette\DI\Compiler();
         $compiler->setClassName($class);
         $code = $generator(...[&$compiler]) ?: $compiler->compile();
         return ["<?php\n{$code}", \serialize($compiler->exportDependencies())];

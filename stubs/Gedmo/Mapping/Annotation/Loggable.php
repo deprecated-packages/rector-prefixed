@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Gedmo\Mapping\Annotation;
+namespace _PhpScoperabd03f0baf05\Gedmo\Mapping\Annotation;
 
-if (\class_exists('_PhpScoper26e51eeacccf\\Gedmo\\Mapping\\Annotation\\Loggable')) {
+if (\class_exists('_PhpScoperabd03f0baf05\\Gedmo\\Mapping\\Annotation\\Loggable')) {
     return;
 }
-use _PhpScoper26e51eeacccf\Doctrine\Common\Annotations\Annotation;
+use _PhpScoperabd03f0baf05\Doctrine\Common\Annotations\Annotation;
 /**
  * @Annotation
  */

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 final class JustTwoExceptionWithoutNamespace
 {
 }
-\class_alias('_PhpScoper26e51eeacccf\\JustTwoExceptionWithoutNamespace', 'JustTwoExceptionWithoutNamespace', \false);
+\class_alias('_PhpScoperabd03f0baf05\\JustTwoExceptionWithoutNamespace', 'JustTwoExceptionWithoutNamespace', \false);

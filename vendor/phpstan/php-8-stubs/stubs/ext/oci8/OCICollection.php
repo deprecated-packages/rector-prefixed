@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class OCICollection
 {
@@ -29,7 +29,7 @@ class OCICollection
      * @alias oci_collection_assign
      * @return bool
      */
-    public function assign(\_PhpScoper26e51eeacccf\OCICollection $from)
+    public function assign(\_PhpScoperabd03f0baf05\OCICollection $from)
     {
     }
     /**
@@ -61,4 +61,4 @@ class OCICollection
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\OCICollection', 'OCICollection', \false);
+\class_alias('_PhpScoperabd03f0baf05\\OCICollection', 'OCICollection', \false);

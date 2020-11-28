@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug2835;
+namespace _PhpScoperabd03f0baf05\Bug2835;
 
 class Foo
 {

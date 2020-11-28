@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class Spoofchecker
@@ -38,4 +38,4 @@ class Spoofchecker
     #endif
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\Spoofchecker', 'Spoofchecker', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Spoofchecker', 'Spoofchecker', \false);

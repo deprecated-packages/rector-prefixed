@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper26e51eeacccf\Symfony\Component\Process\Pipes;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\Process\Pipes;
 
-use _PhpScoper26e51eeacccf\Symfony\Component\Process\Process;
+use _PhpScoperabd03f0baf05\Symfony\Component\Process\Process;
 /**
  * UnixPipes implementation uses unix pipes as handles.
  *
@@ -18,7 +18,7 @@ use _PhpScoper26e51eeacccf\Symfony\Component\Process\Process;
  *
  * @internal
  */
-class UnixPipes extends \_PhpScoper26e51eeacccf\Symfony\Component\Process\Pipes\AbstractPipes
+class UnixPipes extends \_PhpScoperabd03f0baf05\Symfony\Component\Process\Pipes\AbstractPipes
 {
     private $ttyMode;
     private $ptyMode;
@@ -46,7 +46,7 @@ class UnixPipes extends \_PhpScoper26e51eeacccf\Symfony\Component\Process\Pipes\
         if ($this->ttyMode) {
             return [['file', '/dev/tty', 'r'], ['file', '/dev/tty', 'w'], ['file', '/dev/tty', 'w']];
         }
-        if ($this->ptyMode && \_PhpScoper26e51eeacccf\Symfony\Component\Process\Process::isPtySupported()) {
+        if ($this->ptyMode && \_PhpScoperabd03f0baf05\Symfony\Component\Process\Process::isPtySupported()) {
             return [['pty'], ['pty'], ['pty']];
         }
         return [
@@ -75,7 +75,7 @@ class UnixPipes extends \_PhpScoper26e51eeacccf\Symfony\Component\Process\Pipes\
         unset($r[0]);
         // let's have a look if something changed in streams
         \set_error_handler([$this, 'handleError']);
-        if (($r || $w) && \false === \stream_select($r, $w, $e, 0, $blocking ? \_PhpScoper26e51eeacccf\Symfony\Component\Process\Process::TIMEOUT_PRECISION * 1000000.0 : 0)) {
+        if (($r || $w) && \false === \stream_select($r, $w, $e, 0, $blocking ? \_PhpScoperabd03f0baf05\Symfony\Component\Process\Process::TIMEOUT_PRECISION * 1000000.0 : 0)) {
             \restore_error_handler();
             // if a system call has been interrupted, forget about it, let's try again
             // otherwise, an error occurred, let's reset pipes

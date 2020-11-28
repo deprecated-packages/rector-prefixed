@@ -56,7 +56,7 @@ CODE_SAMPLE
             if (!$this->isName($node, $function)) {
                 continue;
             }
-            return $this->createStaticCall('_PhpScoper26e51eeacccf\\Nette\\Utils\\Strings', $staticMethod, $node->args);
+            return $this->createStaticCall('_PhpScoperabd03f0baf05\\Nette\\Utils\\Strings', $staticMethod, $node->args);
         }
         return null;
     }

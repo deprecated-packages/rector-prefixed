@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /** @generate-function-entries */
 class Collator
@@ -101,4 +101,4 @@ class Collator
     }
 }
 /** @generate-function-entries */
-\class_alias('_PhpScoper26e51eeacccf\\Collator', 'Collator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\Collator', 'Collator', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class tidy
 {
@@ -130,4 +130,4 @@ class tidy
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\tidy', 'tidy', \false);
+\class_alias('_PhpScoperabd03f0baf05\\tidy', 'tidy', \false);

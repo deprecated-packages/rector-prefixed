@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 use function PHPStan\Analyser\assertType;
 \PHPStan\Analyser\assertType('array<int, string>|false', \preg_split('/-/', '1-2-3'));

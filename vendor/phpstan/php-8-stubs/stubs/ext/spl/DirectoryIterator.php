@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class DirectoryIterator extends \SplFileInfo implements \SeekableIterator
 {
@@ -52,4 +52,4 @@ class DirectoryIterator extends \SplFileInfo implements \SeekableIterator
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\DirectoryIterator', 'DirectoryIterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\DirectoryIterator', 'DirectoryIterator', \false);

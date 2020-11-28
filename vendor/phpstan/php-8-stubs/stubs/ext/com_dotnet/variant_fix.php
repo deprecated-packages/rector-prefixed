@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function variant_fix(mixed $value) : \_PhpScoper26e51eeacccf\variant
+function variant_fix(mixed $value) : \_PhpScoperabd03f0baf05\variant
 {
 }

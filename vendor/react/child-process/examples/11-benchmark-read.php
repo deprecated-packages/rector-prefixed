@@ -1,25 +1,25 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 // $ php examples/11-benchmark.php
 // $ php examples/11-benchmark.php echo test
 // $ php examples/11-benchmark.php dd if=/dev/zero bs=1M count=1000
-use _PhpScoper26e51eeacccf\React\EventLoop\Factory;
-use _PhpScoper26e51eeacccf\React\ChildProcess\Process;
+use _PhpScoperabd03f0baf05\React\EventLoop\Factory;
+use _PhpScoperabd03f0baf05\React\ChildProcess\Process;
 require __DIR__ . '/../vendor/autoload.php';
 if (\DIRECTORY_SEPARATOR === '\\') {
     exit('Process pipes not supported on Windows' . \PHP_EOL);
 }
 $cmd = isset($argv[1]) ? \implode(' ', \array_slice($argv, 1)) : 'dd if=/dev/zero bs=1M count=1000';
-$loop = \_PhpScoper26e51eeacccf\React\EventLoop\Factory::create();
-$info = new \_PhpScoper26e51eeacccf\React\Stream\WritableResourceStream(\STDERR, $loop);
+$loop = \_PhpScoperabd03f0baf05\React\EventLoop\Factory::create();
+$info = new \_PhpScoperabd03f0baf05\React\Stream\WritableResourceStream(\STDERR, $loop);
 $info->write('Counts number of chunks/bytes received from process STDOUT' . \PHP_EOL);
 $info->write('Command: ' . $cmd . \PHP_EOL);
 if (\extension_loaded('xdebug')) {
     $info->write('NOTICE: The "xdebug" extension is loaded, this has a major impact on performance.' . \PHP_EOL);
 }
-$process = new \_PhpScoper26e51eeacccf\React\ChildProcess\Process($cmd);
+$process = new \_PhpScoperabd03f0baf05\React\ChildProcess\Process($cmd);
 $process->start($loop);
 $start = \microtime(\true);
 $chunks = 0;

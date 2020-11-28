@@ -6,8 +6,8 @@ namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeVisitorAbstract;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\ConstantNodeChecker;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\ConstantNodeChecker;
 class CachingVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /**
@@ -49,8 +49,8 @@ class CachingVisitor extends \PhpParser\NodeVisitorAbstract
         }
         if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             try {
-                \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
-            } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
+                \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+            } catch (\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
                 return null;
             }
             /** @var \PhpParser\Node\Scalar\String_ $nameNode */

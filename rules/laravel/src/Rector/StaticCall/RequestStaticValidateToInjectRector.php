@@ -24,7 +24,7 @@ final class RequestStaticValidateToInjectRector extends \Rector\Core\Rector\Abst
     /**
      * @var string[]
      */
-    private const REQUEST_TYPES = ['_PhpScoper26e51eeacccf\\Illuminate\\Http\\Request', 'Request'];
+    private const REQUEST_TYPES = ['_PhpScoperabd03f0baf05\\Illuminate\\Http\\Request', 'Request'];
     /**
      * @var ClassMethodManipulator
      */
@@ -74,7 +74,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, '_PhpScoper26e51eeacccf\\Illuminate\\Http\\Request', ['request', 'httpRequest']);
+        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, '_PhpScoperabd03f0baf05\\Illuminate\\Http\\Request', ['request', 'httpRequest']);
         $variable = new \PhpParser\Node\Expr\Variable($requestName);
         $methodName = $this->getName($node->name);
         if ($methodName === null) {

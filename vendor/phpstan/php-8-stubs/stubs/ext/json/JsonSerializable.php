@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 interface JsonSerializable
 {
     /** @return mixed */
     public function jsonSerialize();
 }
-\class_alias('_PhpScoper26e51eeacccf\\JsonSerializable', 'JsonSerializable', \false);
+\class_alias('_PhpScoperabd03f0baf05\\JsonSerializable', 'JsonSerializable', \false);

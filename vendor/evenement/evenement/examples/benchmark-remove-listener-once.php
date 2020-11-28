@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 /*
  * This file is part of Evenement.
@@ -13,9 +13,9 @@ namespace _PhpScoper26e51eeacccf;
  */
 \ini_set('memory_limit', '512M');
 const ITERATIONS = 100000;
-use _PhpScoper26e51eeacccf\Evenement\EventEmitter;
+use _PhpScoperabd03f0baf05\Evenement\EventEmitter;
 require __DIR__ . '/../vendor/autoload.php';
-$emitter = new \_PhpScoper26e51eeacccf\Evenement\EventEmitter();
+$emitter = new \_PhpScoperabd03f0baf05\Evenement\EventEmitter();
 $listeners = [];
 for ($i = 0; $i < \ITERATIONS; $i++) {
     $listeners[] = function ($a, $b, $c) {

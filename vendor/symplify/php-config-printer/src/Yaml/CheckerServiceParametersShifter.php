@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\PhpConfigPrinter\Yaml;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
-use _PhpScoper26e51eeacccf\PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use ReflectionClass;
-use _PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symplify\PackageBuilder\Strings\StringFormatConverter;
 /**
  * @copy of https://github.com/symplify/symplify/blob/d4beda1b1af847599aa035ead755e03db81c7247/packages/easy-coding-standard/src/Yaml/CheckerServiceParametersShifter.php
@@ -54,7 +54,7 @@ final class CheckerServiceParametersShifter
     public function __construct()
     {
         $this->stringFormatConverter = new \Symplify\PackageBuilder\Strings\StringFormatConverter();
-        $reflectionClass = new \ReflectionClass(\_PhpScoper26e51eeacccf\Symfony\Component\DependencyInjection\Loader\YamlFileLoader::class);
+        $reflectionClass = new \ReflectionClass(\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\YamlFileLoader::class);
         /** @var string[] $serviceKeywordsProperty */
         $serviceKeywordsProperty = $reflectionClass->getStaticProperties()['serviceKeywords'];
         $this->serviceKeywords = $serviceKeywordsProperty;
@@ -81,10 +81,10 @@ final class CheckerServiceParametersShifter
             if (!$this->isCheckerClass($serviceName) || $serviceDefinition === null || $serviceDefinition === []) {
                 continue;
             }
-            if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($serviceName, 'Fixer')) {
+            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($serviceName, 'Fixer')) {
                 $services = $this->processFixer($services, $serviceName, $serviceDefinition);
             }
-            if (\_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($serviceName, 'Sniff')) {
+            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($serviceName, 'Sniff')) {
                 $services = $this->processSniff($services, $serviceName, $serviceDefinition);
             }
             // cleanup parameters
@@ -94,7 +94,7 @@ final class CheckerServiceParametersShifter
     }
     private function isCheckerClass(string $checker) : bool
     {
-        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($checker, 'Fixer') || \_PhpScoper26e51eeacccf\Nette\Utils\Strings::endsWith($checker, 'Sniff');
+        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($checker, 'Fixer') || \_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($checker, 'Sniff');
     }
     /**
      * @param mixed[] $services
@@ -162,7 +162,7 @@ final class CheckerServiceParametersShifter
     private function correctHeader(string $checker, array $serviceDefinition) : array
     {
         // fixes comment extra bottom space
-        if ($checker !== \_PhpScoper26e51eeacccf\PhpCsFixer\Fixer\Comment\HeaderCommentFixer::class) {
+        if ($checker !== \_PhpScoperabd03f0baf05\PhpCsFixer\Fixer\Comment\HeaderCommentFixer::class) {
             return $serviceDefinition;
         }
         if (isset($serviceDefinition[self::HEADER])) {
@@ -181,6 +181,6 @@ final class CheckerServiceParametersShifter
             }
             return $value;
         }
-        return \_PhpScoper26e51eeacccf\Nette\Utils\Strings::replace($value, '#^@#', '@@');
+        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($value, '#^@#', '@@');
     }
 }

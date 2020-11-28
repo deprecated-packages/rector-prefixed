@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\Bug2850;
+namespace _PhpScoperabd03f0baf05\Bug2850;
 
 use function PHPStan\Analyser\assertType;
 class Foo
@@ -13,15 +13,15 @@ class Bar
 {
     /** @var Foo|null */
     private $x;
-    public function getFoo() : \_PhpScoper26e51eeacccf\Bug2850\Foo
+    public function getFoo() : \_PhpScoperabd03f0baf05\Bug2850\Foo
     {
         if ($this->x === null) {
-            $this->x = new \_PhpScoper26e51eeacccf\Bug2850\Foo();
-            \PHPStan\Analyser\assertType(\_PhpScoper26e51eeacccf\Bug2850\Foo::class, $this->x);
+            $this->x = new \_PhpScoperabd03f0baf05\Bug2850\Foo();
+            \PHPStan\Analyser\assertType(\_PhpScoperabd03f0baf05\Bug2850\Foo::class, $this->x);
             $this->x->y();
-            \PHPStan\Analyser\assertType(\_PhpScoper26e51eeacccf\Bug2850\Foo::class, $this->x);
+            \PHPStan\Analyser\assertType(\_PhpScoperabd03f0baf05\Bug2850\Foo::class, $this->x);
             $this->y();
-            \PHPStan\Analyser\assertType(\_PhpScoper26e51eeacccf\Bug2850\Foo::class . '|null', $this->x);
+            \PHPStan\Analyser\assertType(\_PhpScoperabd03f0baf05\Bug2850\Foo::class . '|null', $this->x);
         }
         return $this->x;
     }

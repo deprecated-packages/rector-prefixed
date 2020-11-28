@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Promise\Stream;
+namespace _PhpScoperabd03f0baf05\React\Promise\Stream;
 
-if (!\function_exists('_PhpScoper26e51eeacccf\\React\\Promise\\Stream\\buffer')) {
+if (!\function_exists('_PhpScoperabd03f0baf05\\React\\Promise\\Stream\\buffer')) {
     require __DIR__ . '/functions.php';
 }

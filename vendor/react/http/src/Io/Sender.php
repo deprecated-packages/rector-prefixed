@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\React\Http\Io;
+namespace _PhpScoperabd03f0baf05\React\Http\Io;
 
-use _PhpScoper26e51eeacccf\Psr\Http\Message\RequestInterface;
-use _PhpScoper26e51eeacccf\Psr\Http\Message\ResponseInterface;
-use _PhpScoper26e51eeacccf\React\EventLoop\LoopInterface;
-use _PhpScoper26e51eeacccf\React\Http\Client\Client as HttpClient;
-use _PhpScoper26e51eeacccf\React\Promise\PromiseInterface;
-use _PhpScoper26e51eeacccf\React\Promise\Deferred;
-use _PhpScoper26e51eeacccf\React\Socket\ConnectorInterface;
-use _PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface;
+use _PhpScoperabd03f0baf05\Psr\Http\Message\RequestInterface;
+use _PhpScoperabd03f0baf05\Psr\Http\Message\ResponseInterface;
+use _PhpScoperabd03f0baf05\React\EventLoop\LoopInterface;
+use _PhpScoperabd03f0baf05\React\Http\Client\Client as HttpClient;
+use _PhpScoperabd03f0baf05\React\Promise\PromiseInterface;
+use _PhpScoperabd03f0baf05\React\Promise\Deferred;
+use _PhpScoperabd03f0baf05\React\Socket\ConnectorInterface;
+use _PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface;
 /**
  * [Internal] Sends requests and receives responses
  *
@@ -46,9 +46,9 @@ class Sender
      * @param ConnectorInterface|null $connector
      * @return self
      */
-    public static function createFromLoop(\_PhpScoper26e51eeacccf\React\EventLoop\LoopInterface $loop, \_PhpScoper26e51eeacccf\React\Socket\ConnectorInterface $connector = null)
+    public static function createFromLoop(\_PhpScoperabd03f0baf05\React\EventLoop\LoopInterface $loop, \_PhpScoperabd03f0baf05\React\Socket\ConnectorInterface $connector = null)
     {
-        return new self(new \_PhpScoper26e51eeacccf\React\Http\Client\Client($loop, $connector));
+        return new self(new \_PhpScoperabd03f0baf05\React\Http\Client\Client($loop, $connector));
     }
     private $http;
     /**
@@ -57,7 +57,7 @@ class Sender
      * @param HttpClient $http
      * @internal
      */
-    public function __construct(\_PhpScoper26e51eeacccf\React\Http\Client\Client $http)
+    public function __construct(\_PhpScoperabd03f0baf05\React\Http\Client\Client $http)
     {
         $this->http = $http;
     }
@@ -67,7 +67,7 @@ class Sender
      * @param RequestInterface $request
      * @return PromiseInterface Promise<ResponseInterface, Exception>
      */
-    public function send(\_PhpScoper26e51eeacccf\Psr\Http\Message\RequestInterface $request)
+    public function send(\_PhpScoperabd03f0baf05\Psr\Http\Message\RequestInterface $request)
     {
         $body = $request->getBody();
         $size = $body->getSize();
@@ -77,7 +77,7 @@ class Sender
         } elseif ($size === 0 && \in_array($request->getMethod(), array('POST', 'PUT', 'PATCH'))) {
             // only assign a "Content-Length: 0" request header if the body is expected for certain methods
             $request = $request->withHeader('Content-Length', '0');
-        } elseif ($body instanceof \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface && $body->isReadable() && !$request->hasHeader('Content-Length')) {
+        } elseif ($body instanceof \_PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface && $body->isReadable() && !$request->hasHeader('Content-Length')) {
             // use "Transfer-Encoding: chunked" when this is a streaming body and body size is unknown
             $request = $request->withHeader('Transfer-Encoding', 'chunked');
         } else {
@@ -89,7 +89,7 @@ class Sender
             $headers[$name] = \implode(', ', $values);
         }
         $requestStream = $this->http->request($request->getMethod(), (string) $request->getUri(), $headers, $request->getProtocolVersion());
-        $deferred = new \_PhpScoper26e51eeacccf\React\Promise\Deferred(function ($_, $reject) use($requestStream) {
+        $deferred = new \_PhpScoperabd03f0baf05\React\Promise\Deferred(function ($_, $reject) use($requestStream) {
             // close request stream if request is cancelled
             $reject(new \RuntimeException('Request cancelled'));
             $requestStream->close();
@@ -97,23 +97,23 @@ class Sender
         $requestStream->on('error', function ($error) use($deferred) {
             $deferred->reject($error);
         });
-        $requestStream->on('response', function (\_PhpScoper26e51eeacccf\Psr\Http\Message\ResponseInterface $response, \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface $body) use($deferred, $request) {
+        $requestStream->on('response', function (\_PhpScoperabd03f0baf05\Psr\Http\Message\ResponseInterface $response, \_PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface $body) use($deferred, $request) {
             $length = null;
             $code = $response->getStatusCode();
             if ($request->getMethod() === 'HEAD' || $code >= 100 && $code < 200 || $code == 204 || $code == 304) {
                 $length = 0;
             } elseif (\strtolower($response->getHeaderLine('Transfer-Encoding')) === 'chunked') {
-                $body = new \_PhpScoper26e51eeacccf\React\Http\Io\ChunkedDecoder($body);
+                $body = new \_PhpScoperabd03f0baf05\React\Http\Io\ChunkedDecoder($body);
             } elseif ($response->hasHeader('Content-Length')) {
                 $length = (int) $response->getHeaderLine('Content-Length');
             }
-            $deferred->resolve($response->withBody(new \_PhpScoper26e51eeacccf\React\Http\Io\ReadableBodyStream($body, $length)));
+            $deferred->resolve($response->withBody(new \_PhpScoperabd03f0baf05\React\Http\Io\ReadableBodyStream($body, $length)));
         });
-        if ($body instanceof \_PhpScoper26e51eeacccf\React\Stream\ReadableStreamInterface) {
+        if ($body instanceof \_PhpScoperabd03f0baf05\React\Stream\ReadableStreamInterface) {
             if ($body->isReadable()) {
                 // length unknown => apply chunked transfer-encoding
                 if ($size === null) {
-                    $body = new \_PhpScoper26e51eeacccf\React\Http\Io\ChunkedEncoder($body);
+                    $body = new \_PhpScoperabd03f0baf05\React\Http\Io\ChunkedEncoder($body);
                 }
                 // pipe body into request stream
                 // add dummy write to immediately start request even if body does not emit any data yet

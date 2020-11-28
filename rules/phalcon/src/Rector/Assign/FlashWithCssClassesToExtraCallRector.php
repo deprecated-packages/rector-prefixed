@@ -57,7 +57,7 @@ CODE_SAMPLE
         if (!$node->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
         }
-        if (!$this->isName($node->expr->class, '_PhpScoper26e51eeacccf\\Phalcon\\Flash')) {
+        if (!$this->isName($node->expr->class, '_PhpScoperabd03f0baf05\\Phalcon\\Flash')) {
             return null;
         }
         if (!isset($node->expr->args[0])) {

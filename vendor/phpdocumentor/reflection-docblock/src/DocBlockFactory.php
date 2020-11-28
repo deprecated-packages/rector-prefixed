@@ -10,14 +10,14 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection;
 
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\StandardTagFactory;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tag;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\TagFactory;
-use _PhpScoper26e51eeacccf\Webmozart\Assert\Assert;
-final class DocBlockFactory implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlockFactoryInterface
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\StandardTagFactory;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tag;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\TagFactory;
+use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
+final class DocBlockFactory implements \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlockFactoryInterface
 {
     /** @var DocBlock\DescriptionFactory */
     private $descriptionFactory;
@@ -29,7 +29,7 @@ final class DocBlockFactory implements \_PhpScoper26e51eeacccf\phpDocumentor\Ref
      * @param DescriptionFactory $descriptionFactory
      * @param TagFactory         $tagFactory
      */
-    public function __construct(\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
+    public function __construct(\_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
     {
         $this->descriptionFactory = $descriptionFactory;
         $this->tagFactory = $tagFactory;
@@ -43,11 +43,11 @@ final class DocBlockFactory implements \_PhpScoper26e51eeacccf\phpDocumentor\Ref
      */
     public static function createInstance(array $additionalTags = [])
     {
-        $fqsenResolver = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\FqsenResolver();
-        $tagFactory = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\StandardTagFactory($fqsenResolver);
-        $descriptionFactory = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory($tagFactory);
+        $fqsenResolver = new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\FqsenResolver();
+        $tagFactory = new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\StandardTagFactory($fqsenResolver);
+        $descriptionFactory = new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\DescriptionFactory($tagFactory);
         $tagFactory->addService($descriptionFactory);
-        $tagFactory->addService(new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\TypeResolver($fqsenResolver));
+        $tagFactory->addService(new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\TypeResolver($fqsenResolver));
         $docBlockFactory = new self($descriptionFactory, $tagFactory);
         foreach ($additionalTags as $tagName => $tagHandler) {
             $docBlockFactory->registerTagHandler($tagName, $tagHandler);
@@ -62,7 +62,7 @@ final class DocBlockFactory implements \_PhpScoper26e51eeacccf\phpDocumentor\Ref
      *
      * @return DocBlock
      */
-    public function create($docblock, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context = null, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Location $location = null)
+    public function create($docblock, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Context $context = null, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Location $location = null)
     {
         if (\is_object($docblock)) {
             if (!\method_exists($docblock, 'getDocComment')) {
@@ -71,14 +71,14 @@ final class DocBlockFactory implements \_PhpScoper26e51eeacccf\phpDocumentor\Ref
             }
             $docblock = $docblock->getDocComment();
         }
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::stringNotEmpty($docblock);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::stringNotEmpty($docblock);
         if ($context === null) {
-            $context = new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context('');
+            $context = new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Context('');
         }
         $parts = $this->splitDocBlock($this->stripDocComment($docblock));
         list($templateMarker, $summary, $description, $tags) = $parts;
-        return new \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock($summary, $description ? $this->descriptionFactory->create($description, $context) : null, \array_filter($this->parseTagBlock($tags, $context), function ($tag) {
-            return $tag instanceof \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tag;
+        return new \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock($summary, $description ? $this->descriptionFactory->create($description, $context) : null, \array_filter($this->parseTagBlock($tags, $context), function ($tag) {
+            return $tag instanceof \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tag;
         }), $context, $location, $templateMarker === '#@+', $templateMarker === '#@-');
     }
     public function registerTagHandler($tagName, $handler)
@@ -184,7 +184,7 @@ final class DocBlockFactory implements \_PhpScoper26e51eeacccf\phpDocumentor\Ref
      *
      * @return DocBlock\Tag[]
      */
-    private function parseTagBlock($tags, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context)
+    private function parseTagBlock($tags, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Context $context)
     {
         $tags = $this->filterTagBlock($tags);
         if (!$tags) {

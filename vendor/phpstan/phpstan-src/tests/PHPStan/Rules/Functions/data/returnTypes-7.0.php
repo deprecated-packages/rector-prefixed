@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ReturnTypes\Php70;
+namespace _PhpScoperabd03f0baf05\ReturnTypes\Php70;
 
 function returnInteger() : int
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class AppendIterator extends \IteratorIterator
 {
@@ -36,4 +36,4 @@ class AppendIterator extends \IteratorIterator
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\AppendIterator', 'AppendIterator', \false);
+\class_alias('_PhpScoperabd03f0baf05\\AppendIterator', 'AppendIterator', \false);

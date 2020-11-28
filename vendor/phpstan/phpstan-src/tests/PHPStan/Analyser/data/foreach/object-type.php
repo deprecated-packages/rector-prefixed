@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ObjectType;
+namespace _PhpScoperabd03f0baf05\ObjectType;
 
 interface MyKey
 {
@@ -10,18 +10,18 @@ interface MyValue
 }
 interface MyIterator extends \Iterator
 {
-    public function key() : \_PhpScoper26e51eeacccf\ObjectType\MyKey;
-    public function current() : \_PhpScoper26e51eeacccf\ObjectType\MyValue;
+    public function key() : \_PhpScoperabd03f0baf05\ObjectType\MyKey;
+    public function current() : \_PhpScoperabd03f0baf05\ObjectType\MyValue;
 }
 interface MyIteratorAggregate extends \IteratorAggregate
 {
-    public function getIterator() : \_PhpScoper26e51eeacccf\ObjectType\MyIterator;
+    public function getIterator() : \_PhpScoperabd03f0baf05\ObjectType\MyIterator;
 }
 interface MyIteratorAggregateRecursive extends \IteratorAggregate
 {
-    public function getIterator() : \_PhpScoper26e51eeacccf\ObjectType\MyIteratorAggregateRecursive;
+    public function getIterator() : \_PhpScoperabd03f0baf05\ObjectType\MyIteratorAggregateRecursive;
 }
-function test(\_PhpScoper26e51eeacccf\ObjectType\MyIterator $iterator, \_PhpScoper26e51eeacccf\ObjectType\MyIteratorAggregate $iteratorAggregate, \_PhpScoper26e51eeacccf\ObjectType\MyIteratorAggregateRecursive $iteratorAggregateRecursive)
+function test(\_PhpScoperabd03f0baf05\ObjectType\MyIterator $iterator, \_PhpScoperabd03f0baf05\ObjectType\MyIteratorAggregate $iteratorAggregate, \_PhpScoperabd03f0baf05\ObjectType\MyIteratorAggregateRecursive $iteratorAggregateRecursive)
 {
     foreach ($iterator as $keyFromIterator => $valueFromIterator) {
         'insideFirstForeach';

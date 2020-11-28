@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\NewStatic;
+namespace _PhpScoperabd03f0baf05\NewStatic;
 
 class NoConstructor
 {
@@ -50,7 +50,7 @@ interface InterfaceWithConstructor
 {
     public function __construct(int $i);
 }
-class ConstructorComingFromAnInterface implements \_PhpScoper26e51eeacccf\NewStatic\InterfaceWithConstructor
+class ConstructorComingFromAnInterface implements \_PhpScoperabd03f0baf05\NewStatic\InterfaceWithConstructor
 {
     public function __construct(int $i)
     {
@@ -68,7 +68,7 @@ abstract class AbstractConstructor
         new static('foo');
     }
 }
-class ClassExtendingAbstractConstructor extends \_PhpScoper26e51eeacccf\NewStatic\AbstractConstructor
+class ClassExtendingAbstractConstructor extends \_PhpScoperabd03f0baf05\NewStatic\AbstractConstructor
 {
     public function __construct(string $s)
     {

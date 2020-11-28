@@ -10,18 +10,18 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\FqsenResolver;
-use _PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoper26e51eeacccf\Webmozart\Assert\Assert;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Fqsen;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\FqsenResolver;
+use _PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}uses tag in a Docblock.
  */
-final class Uses extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Uses extends \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'uses';
     /** @var Fqsen */
@@ -32,7 +32,7 @@ final class Uses extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlo
      * @param Fqsen       $refers
      * @param Description $description
      */
-    public function __construct(\_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Fqsen $refers, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct(\_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Fqsen $refers, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
         $this->refers = $refers;
         $this->description = $description;
@@ -40,10 +40,10 @@ final class Uses extends \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlo
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper26e51eeacccf\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoperabd03f0baf05\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::string($body);
-        \_PhpScoper26e51eeacccf\Webmozart\Assert\Assert::allNotNull([$resolver, $descriptionFactory]);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::string($body);
+        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allNotNull([$resolver, $descriptionFactory]);
         $parts = \preg_split('/\\s+/Su', $body, 2);
         return new static($resolver->resolve($parts[0], $context), $descriptionFactory->create(isset($parts[1]) ? $parts[1] : '', $context));
     }

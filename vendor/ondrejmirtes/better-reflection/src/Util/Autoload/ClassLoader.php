@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload;
 
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\LoaderMethodInterface;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyRegistered;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\Exception\FailedToLoadClass;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\LoaderMethodInterface;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyRegistered;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\Exception\FailedToLoadClass;
 use function array_key_exists;
 use function class_exists;
 use function interface_exists;
@@ -19,7 +19,7 @@ final class ClassLoader
     private $reflections = [];
     /** @var LoaderMethodInterface */
     private $loaderMethod;
-    public function __construct(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\LoaderMethodInterface $loaderMethod)
+    public function __construct(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\LoaderMethodInterface $loaderMethod)
     {
         $this->loaderMethod = $loaderMethod;
         \spl_autoload_register($this, \true, \true);
@@ -28,13 +28,13 @@ final class ClassLoader
      * @throws ClassAlreadyLoaded
      * @throws ClassAlreadyRegistered
      */
-    public function addClass(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $reflectionClass) : void
+    public function addClass(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass $reflectionClass) : void
     {
         if (\array_key_exists($reflectionClass->getName(), $this->reflections)) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyRegistered::fromReflectionClass($reflectionClass);
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyRegistered::fromReflectionClass($reflectionClass);
         }
         if (\class_exists($reflectionClass->getName(), \false)) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded::fromReflectionClass($reflectionClass);
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded::fromReflectionClass($reflectionClass);
         }
         $this->reflections[$reflectionClass->getName()] = $reflectionClass;
     }
@@ -48,7 +48,7 @@ final class ClassLoader
         }
         $this->loaderMethod->__invoke($this->reflections[$classToLoad]);
         if (!(\class_exists($classToLoad, \false) || \interface_exists($classToLoad, \false) || \trait_exists($classToLoad, \false))) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Util\Autoload\Exception\FailedToLoadClass::fromClassName($classToLoad);
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Util\Autoload\Exception\FailedToLoadClass::fromClassName($classToLoad);
         }
         return \true;
     }

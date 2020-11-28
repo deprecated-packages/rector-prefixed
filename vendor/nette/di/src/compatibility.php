@@ -5,31 +5,31 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Nette\DI\Config;
+namespace _PhpScoperabd03f0baf05\Nette\DI\Config;
 
 if (\false) {
     /** @deprecated use Nette\DI\Config\Adapter */
     interface IAdapter
     {
     }
-} elseif (!\interface_exists(\_PhpScoper26e51eeacccf\Nette\DI\Config\IAdapter::class)) {
-    \class_alias(\_PhpScoper26e51eeacccf\Nette\DI\Config\Adapter::class, \_PhpScoper26e51eeacccf\Nette\DI\Config\IAdapter::class);
+} elseif (!\interface_exists(\_PhpScoperabd03f0baf05\Nette\DI\Config\IAdapter::class)) {
+    \class_alias(\_PhpScoperabd03f0baf05\Nette\DI\Config\Adapter::class, \_PhpScoperabd03f0baf05\Nette\DI\Config\IAdapter::class);
 }
-namespace _PhpScoper26e51eeacccf\Nette\DI;
+namespace _PhpScoperabd03f0baf05\Nette\DI;
 
 if (\false) {
     /** @deprecated use Nette\DI\Definitions\ServiceDefinition */
     class ServiceDefinition
     {
     }
-} elseif (!\class_exists(\_PhpScoper26e51eeacccf\Nette\DI\ServiceDefinition::class)) {
-    \class_alias(\_PhpScoper26e51eeacccf\Nette\DI\Definitions\ServiceDefinition::class, \_PhpScoper26e51eeacccf\Nette\DI\ServiceDefinition::class);
+} elseif (!\class_exists(\_PhpScoperabd03f0baf05\Nette\DI\ServiceDefinition::class)) {
+    \class_alias(\_PhpScoperabd03f0baf05\Nette\DI\Definitions\ServiceDefinition::class, \_PhpScoperabd03f0baf05\Nette\DI\ServiceDefinition::class);
 }
 if (\false) {
     /** @deprecated use Nette\DI\Definitions\Statement */
     class Statement
     {
     }
-} elseif (!\class_exists(\_PhpScoper26e51eeacccf\Nette\DI\Statement::class)) {
-    \class_alias(\_PhpScoper26e51eeacccf\Nette\DI\Definitions\Statement::class, \_PhpScoper26e51eeacccf\Nette\DI\Statement::class);
+} elseif (!\class_exists(\_PhpScoperabd03f0baf05\Nette\DI\Statement::class)) {
+    \class_alias(\_PhpScoperabd03f0baf05\Nette\DI\Definitions\Statement::class, \_PhpScoperabd03f0baf05\Nette\DI\Statement::class);
 }

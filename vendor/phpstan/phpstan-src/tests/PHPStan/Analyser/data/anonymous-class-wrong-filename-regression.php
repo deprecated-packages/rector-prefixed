@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\AnonymousClassWrongFilename;
+namespace _PhpScoperabd03f0baf05\AnonymousClassWrongFilename;
 
 class Foo
 {
@@ -12,9 +12,9 @@ class Foo
              * @param self $test
              * @return Bar
              */
-            public function doBar($test) : \_PhpScoper26e51eeacccf\AnonymousClassWrongFilename\Bar
+            public function doBar($test) : \_PhpScoperabd03f0baf05\AnonymousClassWrongFilename\Bar
             {
-                return new \_PhpScoper26e51eeacccf\AnonymousClassWrongFilename\Bar();
+                return new \_PhpScoperabd03f0baf05\AnonymousClassWrongFilename\Bar();
             }
         };
         $bar = $foo->doBar($this);

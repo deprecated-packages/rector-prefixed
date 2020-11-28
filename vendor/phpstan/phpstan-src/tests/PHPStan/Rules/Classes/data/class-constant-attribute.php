@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\ClassConstantAttribute;
+namespace _PhpScoperabd03f0baf05\ClassConstantAttribute;
 
 #[MyAttr(self::FOO), MyAttr(self::BAR)]
 class Foo

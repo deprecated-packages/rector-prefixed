@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\IterablesInForeach;
+namespace _PhpScoperabd03f0baf05\IterablesInForeach;
 
 foreach ([1, 2, 3] as $x) {
 }
@@ -29,5 +29,5 @@ if (empty($arrayOrNull)) {
 $mixed = doFoo();
 foreach ($mixed as $val) {
 }
-foreach (new \_PhpScoper26e51eeacccf\IterablesInForeach\Bar() as $val) {
+foreach (new \_PhpScoperabd03f0baf05\IterablesInForeach\Bar() as $val) {
 }

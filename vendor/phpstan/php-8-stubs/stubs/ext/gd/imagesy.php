@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
-function imagesy(\_PhpScoper26e51eeacccf\GdImage $image) : int
+function imagesy(\_PhpScoperabd03f0baf05\GdImage $image) : int
 {
 }

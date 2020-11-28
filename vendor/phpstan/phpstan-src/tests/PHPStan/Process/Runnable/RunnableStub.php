@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Process\Runnable;
 
-use _PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface;
-use _PhpScoper26e51eeacccf\React\Promise\Deferred;
+use _PhpScoperabd03f0baf05\React\Promise\CancellablePromiseInterface;
+use _PhpScoperabd03f0baf05\React\Promise\Deferred;
 class RunnableStub implements \PHPStan\Process\Runnable\Runnable
 {
     /** @var string */
@@ -14,7 +14,7 @@ class RunnableStub implements \PHPStan\Process\Runnable\Runnable
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->deferred = new \_PhpScoper26e51eeacccf\React\Promise\Deferred();
+        $this->deferred = new \_PhpScoperabd03f0baf05\React\Promise\Deferred();
     }
     public function getName() : string
     {
@@ -24,7 +24,7 @@ class RunnableStub implements \PHPStan\Process\Runnable\Runnable
     {
         $this->deferred->resolve();
     }
-    public function run() : \_PhpScoper26e51eeacccf\React\Promise\CancellablePromiseInterface
+    public function run() : \_PhpScoperabd03f0baf05\React\Promise\CancellablePromiseInterface
     {
         /** @var CancellablePromiseInterface */
         return $this->deferred->promise();

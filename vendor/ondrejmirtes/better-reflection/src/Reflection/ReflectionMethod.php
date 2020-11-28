@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection;
+namespace _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection;
 
 use Closure;
 use InvalidArgumentException;
@@ -10,20 +10,20 @@ use PhpParser\Node\Stmt\ClassMethod as MethodNode;
 use PhpParser\Node\Stmt\Namespace_;
 use ReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NotAnObject;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector;
 use function class_exists;
 use function get_class;
 use function is_object;
 use function sprintf;
 use function strtolower;
-class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract
+class ReflectionMethod extends \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract
 {
     /** @var ReflectionClass */
     private $declaringClass;
@@ -40,7 +40,7 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
      *
      * @throws InvalidAbstractFunctionNodeType
      */
-    public static function createFromNode(\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\ClassMethod $node, ?\PhpParser\Node\Stmt\Namespace_ $namespace, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $declaringClass, \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass $implementingClass, ?string $aliasName = null) : self
+    public static function createFromNode(\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\ClassMethod $node, ?\PhpParser\Node\Stmt\Namespace_ $namespace, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass $declaringClass, \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass $implementingClass, ?string $aliasName = null) : self
     {
         $method = new self();
         $method->declaringClass = $declaringClass;
@@ -58,7 +58,7 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
      */
     public static function createFromName(string $className, string $methodName) : self
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($className)->getMethod($methodName);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($className)->getMethod($methodName);
     }
     /**
      * Create a reflection of a method by it's name using an instance
@@ -72,7 +72,7 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
      */
     public static function createFromInstance($instance, string $methodName) : self
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass::createFromInstance($instance)->getMethod($methodName);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass::createFromInstance($instance)->getMethod($methodName);
     }
     public function getShortName() : string
     {
@@ -112,7 +112,7 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
                 return $prototype;
             }
         }
-        throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound(\sprintf('Method %s::%s does not have a prototype', $this->getDeclaringClass()->getName(), $this->getName()));
+        throw new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound(\sprintf('Method %s::%s does not have a prototype', $this->getDeclaringClass()->getName(), $this->getName()));
     }
     private function findPrototype() : ?self
     {
@@ -124,7 +124,7 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
         }
         try {
             return $this->getPrototype();
-        } catch (\_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound $e) {
+        } catch (\_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound $e) {
             return $this;
         }
     }
@@ -144,7 +144,7 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
     }
     public function __toString() : string
     {
-        return \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast::toString($this);
+        return \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast::toString($this);
     }
     public function inNamespace() : bool
     {
@@ -216,11 +216,11 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
     /**
      * Get the class that declares this method.
      */
-    public function getDeclaringClass() : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getDeclaringClass() : \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->declaringClass;
     }
-    public function getImplementingClass() : \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getImplementingClass() : \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->implementingClass;
     }
@@ -315,7 +315,7 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
     private function assertClassExist(string $className) : void
     {
         if (!\class_exists($className, \false)) {
-            throw new \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist(\sprintf('Method of class %s cannot be used as the class is not loaded', $className));
+            throw new \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist(\sprintf('Method of class %s cannot be used as the class is not loaded', $className));
         }
     }
     /**
@@ -330,14 +330,14 @@ class ReflectionMethod extends \_PhpScoper26e51eeacccf\Roave\BetterReflection\Re
     private function assertObject($object)
     {
         if ($object === null) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NoObjectProvided::create();
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NoObjectProvided::create();
         }
         if (!\is_object($object)) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\NotAnObject::fromNonObject($object);
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\NotAnObject::fromNonObject($object);
         }
         $declaringClassName = $this->getDeclaringClass()->getName();
         if (\get_class($object) !== $declaringClassName) {
-            throw \_PhpScoper26e51eeacccf\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass::fromClassName($declaringClassName);
+            throw \_PhpScoperabd03f0baf05\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass::fromClassName($declaringClassName);
         }
         return $object;
     }

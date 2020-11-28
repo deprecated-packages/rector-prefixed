@@ -7,8 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PHPStan\Type\ObjectType;
-use _PhpScoper26e51eeacccf\Ramsey\Uuid\Uuid;
-use _PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface;
+use _PhpScoperabd03f0baf05\Ramsey\Uuid\Uuid;
+use _PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
 use Rector\Php71\ValueObject\TwoNodeMatch;
@@ -71,7 +71,7 @@ CODE_SAMPLE
         }
         $entityMethodCall = $twoNodeMatch->getFirstExpr();
         $comparedVariable = $twoNodeMatch->getSecondExpr();
-        $staticCall = $this->createStaticCall(\_PhpScoper26e51eeacccf\Ramsey\Uuid\Uuid::class, 'fromString', [$comparedVariable]);
+        $staticCall = $this->createStaticCall(\_PhpScoperabd03f0baf05\Ramsey\Uuid\Uuid::class, 'fromString', [$comparedVariable]);
         return $this->createMethodCall($entityMethodCall, 'equals', [$staticCall]);
     }
     private function matchEntityCallAndComparedVariable(\PhpParser\Node $node) : ?\Rector\Php71\ValueObject\TwoNodeMatch
@@ -96,6 +96,6 @@ CODE_SAMPLE
         if (!$comparedValueObjectType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
-        return $comparedValueObjectType->getClassName() === \_PhpScoper26e51eeacccf\Ramsey\Uuid\UuidInterface::class;
+        return $comparedValueObjectType->getClassName() === \_PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface::class;
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\RingCentral\Psr7;
+namespace _PhpScoperabd03f0baf05\RingCentral\Psr7;
 
-use _PhpScoper26e51eeacccf\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoper26e51eeacccf\RingCentral\Psr7\Request;
+use _PhpScoperabd03f0baf05\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoperabd03f0baf05\RingCentral\Psr7\Request;
 /**
  * PSR-7 server-side request implementation.
  */
-class ServerRequest extends \_PhpScoper26e51eeacccf\RingCentral\Psr7\Request implements \_PhpScoper26e51eeacccf\Psr\Http\Message\ServerRequestInterface
+class ServerRequest extends \_PhpScoperabd03f0baf05\RingCentral\Psr7\Request implements \_PhpScoperabd03f0baf05\Psr\Http\Message\ServerRequestInterface
 {
     private $attributes = array();
     private $serverParams = array();

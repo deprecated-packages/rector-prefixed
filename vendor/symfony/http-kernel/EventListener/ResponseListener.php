@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\EventListener;
+namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use _PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use _PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\KernelEvents;
+use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * ResponseListener fixes the Response headers based on the Request.
  *
@@ -30,7 +30,7 @@ class ResponseListener implements \Symfony\Component\EventDispatcher\EventSubscr
     /**
      * Filters the Response.
      */
-    public function onKernelResponse(\_PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\Event\FilterResponseEvent $event)
+    public function onKernelResponse(\_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Event\FilterResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -43,6 +43,6 @@ class ResponseListener implements \Symfony\Component\EventDispatcher\EventSubscr
     }
     public static function getSubscribedEvents()
     {
-        return [\_PhpScoper26e51eeacccf\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
+        return [\_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
     }
 }

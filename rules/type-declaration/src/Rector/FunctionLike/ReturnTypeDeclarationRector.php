@@ -75,7 +75,7 @@ final class ReturnTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\F
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change @return types and type from static analysis to type declarations if not a BC-break', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SomeClass
 {
@@ -86,12 +86,12 @@ class SomeClass
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper26e51eeacccf;
+namespace _PhpScoperabd03f0baf05;
 
 class SomeClass
 {
@@ -99,7 +99,7 @@ class SomeClass
     {
     }
 }
-\class_alias('_PhpScoper26e51eeacccf\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 )]);
     }

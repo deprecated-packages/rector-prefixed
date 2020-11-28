@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper26e51eeacccf\StubsIntegrationTest;
+namespace _PhpScoperabd03f0baf05\StubsIntegrationTest;
 
 /**
  * @param int $i

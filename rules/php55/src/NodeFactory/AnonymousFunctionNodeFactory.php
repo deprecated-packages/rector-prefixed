@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php55\NodeFactory;
 
-use _PhpScoper26e51eeacccf\Nette\Utils\Strings;
+use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -54,7 +54,7 @@ final class AnonymousFunctionNodeFactory
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return $node;
             }
-            $match = \_PhpScoper26e51eeacccf\Nette\Utils\Strings::match($node->value, self::DIM_FETCH_REGEX);
+            $match = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($node->value, self::DIM_FETCH_REGEX);
             if (!$match) {
                 return $node;
             }
