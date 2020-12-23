@@ -23,21 +23,21 @@
         }
     ],
     "require": {
-        "php": ">=7.1.3"
+        "php": ">=7.2.5",
+        "psr\/event-dispatcher": "^1"
     },
     "suggest": {
-        "psr\/event-dispatcher": "",
         "symfony\/event-dispatcher-implementation": ""
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperabd03f0baf05\\Symfony\\Contracts\\EventDispatcher\\": ""
+            "_PhpScoper0a2ac50786fa\\Symfony\\Contracts\\EventDispatcher\\": ""
         }
     },
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1-dev"
+            "dev-master": "2.2-dev"
         },
         "thanks": {
             "name": "symfony\/contracts",

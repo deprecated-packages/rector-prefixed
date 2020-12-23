@@ -1,8 +1,0 @@
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
-/** @param resource $imap */
-function imap_fetchmime($imap, int $message_num, string $section, int $flags = 0) : string|false
-{
-}

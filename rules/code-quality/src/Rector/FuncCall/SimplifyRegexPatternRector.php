@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\FuncCall;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\StaticCall;
-use Rector\Core\Php\Regex\RegexPatternArgumentManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\Rector\Core\Php\Regex\RegexPatternArgumentManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see http://php.net/manual/en/function.preg-match.php#105924
  *
  * @see \Rector\CodeQuality\Tests\Rector\FuncCall\SimplifyRegexPatternRector\SimplifyRegexPatternRectorTest
  */
-final class SimplifyRegexPatternRector extends \Rector\Core\Rector\AbstractRector
+final class SimplifyRegexPatternRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
@@ -26,13 +26,13 @@ final class SimplifyRegexPatternRector extends \Rector\Core\Rector\AbstractRecto
      * @var RegexPatternArgumentManipulator
      */
     private $regexPatternArgumentManipulator;
-    public function __construct(\Rector\Core\Php\Regex\RegexPatternArgumentManipulator $regexPatternArgumentManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Php\Regex\RegexPatternArgumentManipulator $regexPatternArgumentManipulator)
     {
         $this->regexPatternArgumentManipulator = $regexPatternArgumentManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify regex pattern to known ranges', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify regex pattern to known ranges', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -57,12 +57,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param FuncCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $patterns = $this->regexPatternArgumentManipulator->matchCallArgumentWithRegexPattern($node);
         if ($patterns === []) {
@@ -70,7 +70,7 @@ CODE_SAMPLE
         }
         foreach ($patterns as $pattern) {
             foreach (self::COMPLEX_PATTERN_TO_SIMPLE as $complexPattern => $simple) {
-                $pattern->value = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($pattern->value, '#' . \preg_quote($complexPattern, '#') . '#', $simple);
+                $pattern->value = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($pattern->value, '#' . \preg_quote($complexPattern, '#') . '#', $simple);
             }
         }
         return $node;

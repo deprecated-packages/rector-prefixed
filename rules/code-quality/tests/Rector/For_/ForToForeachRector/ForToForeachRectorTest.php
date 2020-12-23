@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Tests\Rector\For_\ForToForeachRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Tests\Rector\For_\ForToForeachRector;
 
 use Iterator;
-use Rector\CodeQuality\Rector\For_\ForToForeachRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ForToForeachRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\For_\ForToForeachRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ForToForeachRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ForToForeachRectorTest extends \Rector\Testing\PHPUnit\AbstractRecto
     }
     protected function getRectorClass() : string
     {
-        return \Rector\CodeQuality\Rector\For_\ForToForeachRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\For_\ForToForeachRector::class;
     }
 }

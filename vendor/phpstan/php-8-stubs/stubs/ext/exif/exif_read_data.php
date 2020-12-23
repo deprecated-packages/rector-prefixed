@@ -1,8 +1,0 @@
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
-/** @param resource|string $file */
-function exif_read_data($file, ?string $required_sections = null, bool $as_arrays = \false, bool $read_thumbnail = \false) : array|false
-{
-}

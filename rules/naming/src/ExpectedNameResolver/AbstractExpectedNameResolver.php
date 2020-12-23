@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\ExpectedNameResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Property;
-use Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-abstract class AbstractExpectedNameResolver implements \Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+abstract class AbstractExpectedNameResolver implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface
 {
     /**
      * @var NodeTypeResolver
@@ -20,7 +20,7 @@ abstract class AbstractExpectedNameResolver implements \Rector\Naming\Contract\E
      * @var NodeNameResolver
      */
     protected $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -28,7 +28,7 @@ abstract class AbstractExpectedNameResolver implements \Rector\Naming\Contract\E
     /**
      * @param Param|Property $node
      */
-    public function resolveIfNotYet(\PhpParser\Node $node) : ?string
+    public function resolveIfNotYet(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
         $expectedName = $this->resolve($node);
         if ($expectedName === null) {
@@ -51,6 +51,6 @@ abstract class AbstractExpectedNameResolver implements \Rector\Naming\Contract\E
     protected function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
+        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
 }

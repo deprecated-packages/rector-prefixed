@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\ComposerJsonManipulator\Json;
+namespace _PhpScoper0a2ac50786fa\Symplify\ComposerJsonManipulator\Json;
 
 final class JsonCleaner
 {

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\LogicalAnd;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\LogicalAnd;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\BinaryOp\LogicalAnd;
-use PhpParser\Node\Stmt\Expression;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\LogicalAnd;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/ji8bX
  * @see \Rector\CodeQuality\Tests\Rector\LogicalAnd\AndAssignsToSeparateLinesRector\AndAssignsToSeparateLinesRectorTest
  */
-final class AndAssignsToSeparateLinesRector extends \Rector\Core\Rector\AbstractRector
+final class AndAssignsToSeparateLinesRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Split 2 assigns ands to separate line', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Split 2 assigns ands to separate line', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -47,18 +47,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\LogicalAnd::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\LogicalAnd::class];
     }
     /**
      * @param LogicalAnd $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$node->left instanceof \PhpParser\Node\Expr\Assign || !$node->right instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$node->left instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign || !$node->right instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return null;
         }
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \PhpParser\Node\Stmt\Expression) {
+        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
             return null;
         }
         $this->addNodeAfterNode($node->right, $node);

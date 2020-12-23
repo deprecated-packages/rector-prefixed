@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\VendorLocker\NodeVendorLocker;
+namespace _PhpScoper0a2ac50786fa\Rector\VendorLocker\NodeVendorLocker;
 
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Interface_;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-final class ClassMethodReturnVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Interface_;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+final class ClassMethodReturnVendorLockResolver extends \_PhpScoper0a2ac50786fa\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
-    public function isVendorLocked(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isVendorLocked(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $classNode = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classNode = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classNode === null) {
             return \false;
         }
@@ -21,12 +21,12 @@ final class ClassMethodReturnVendorLockResolver extends \Rector\VendorLocker\Nod
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
         /** @var string|null $parentClassName */
-        $parentClassName = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if ($parentClassName !== null) {
             return $this->isVendorLockedByParentClass($parentClassName, $methodName);
         }
-        $classNode = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classNode instanceof \PhpParser\Node\Stmt\Class_ && !$classNode instanceof \PhpParser\Node\Stmt\Interface_) {
+        $classNode = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ && !$classNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Interface_) {
             return \false;
         }
         return $this->isMethodVendorLockedByInterface($classNode, $methodName);

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PSR4\FileInfoAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\PSR4\FileInfoAnalyzer;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node\Stmt\ClassLike;
-use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoDeletionAnalyzer
 {
     /**
@@ -23,25 +23,25 @@ final class FileInfoDeletionAnalyzer
      * @var ClassNaming
      */
     private $classNaming;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\CodingStyle\Naming\ClassNaming $classNaming)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming $classNaming)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->classNaming = $classNaming;
     }
-    public function matchesClassLikeAndFileInfo(\PhpParser\Node\Stmt\ClassLike $classLike) : bool
+    public function isClassLikeAndFileInfoMatch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : bool
     {
         $className = $this->nodeNameResolver->getName($classLike);
         if ($className === null) {
             return \false;
         }
         /** @var SmartFileInfo $smartFileInfo */
-        $smartFileInfo = $classLike->getAttribute(\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $classLike->getAttribute(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo::class);
         $baseFileName = $this->clearNameFromTestingPrefix($smartFileInfo->getBasenameWithoutSuffix());
         $classShortName = $this->classNaming->getShortName($className);
         return $baseFileName === $classShortName;
     }
     public function clearNameFromTestingPrefix(string $name) : string
     {
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($name, self::TESTING_PREFIX_REGEX);
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($name, self::TESTING_PREFIX_REGEX, '');
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject;
 
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
-use Rector\Naming\Contract\RenameParamValueObjectInterface;
-final class ParamRename implements \Rector\Naming\Contract\RenameParamValueObjectInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameParamValueObjectInterface;
+final class ParamRename implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameParamValueObjectInterface
 {
     /**
      * @var string
@@ -35,7 +35,7 @@ final class ParamRename implements \Rector\Naming\Contract\RenameParamValueObjec
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function __construct(string $currentName, string $expectedName, \PhpParser\Node\Param $param, \PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\FunctionLike $functionLike)
+    public function __construct(string $currentName, string $expectedName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, \_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike)
     {
         $this->param = $param;
         $this->variable = $variable;
@@ -54,15 +54,15 @@ final class ParamRename implements \Rector\Naming\Contract\RenameParamValueObjec
     /**
      * @return ClassMethod|Function_|Closure
      */
-    public function getFunctionLike() : \PhpParser\Node\FunctionLike
+    public function getFunctionLike() : \_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike
     {
         return $this->functionLike;
     }
-    public function getParam() : \PhpParser\Node\Param
+    public function getParam() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Param
     {
         return $this->param;
     }
-    public function getVariable() : \PhpParser\Node\Expr\Variable
+    public function getVariable() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable
     {
         return $this->variable;
     }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory;
 
-use PHPStan\PhpDocParser\Ast\Node;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Node;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 interface AttributeNodeAwareFactoryInterface
 {
     public function getOriginalNodeClass() : string;
-    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool;
-    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+    public function isMatch(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Node $node) : bool;
+    public function create(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 }

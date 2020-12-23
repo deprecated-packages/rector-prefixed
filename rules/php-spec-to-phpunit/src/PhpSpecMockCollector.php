@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PhpSpecToPHPUnit;
+namespace _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class PhpSpecMockCollector
 {
     /**
@@ -34,7 +34,7 @@ final class PhpSpecMockCollector
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -42,14 +42,14 @@ final class PhpSpecMockCollector
     /**
      * @return mixed[]
      */
-    public function resolveClassMocksFromParam(\PhpParser\Node\Stmt\Class_ $class) : array
+    public function resolveClassMocksFromParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $className = $this->nodeNameResolver->getName($class);
         if (isset($this->mocks[$className])) {
             return $this->mocks[$className];
         }
-        $this->callableNodeTraverser->traverseNodesWithCallable($class, function (\PhpParser\Node $node) : void {
-            if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($class, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
                 return;
             }
             if (!$node->isPublic()) {
@@ -65,17 +65,17 @@ final class PhpSpecMockCollector
         }
         return $this->mocks[$className];
     }
-    public function isVariableMockInProperty(\PhpParser\Node\Expr\Variable $variable) : bool
+    public function isVariableMockInProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : bool
     {
         $variableName = $this->nodeNameResolver->getName($variable);
-        $className = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $variable->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         return \in_array($variableName, $this->propertyMocksByClass[$className] ?? [], \true);
     }
-    public function getTypeForClassAndVariable(\PhpParser\Node\Stmt\Class_ $class, string $variable) : string
+    public function getTypeForClassAndVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $variable) : string
     {
         $className = $this->nodeNameResolver->getName($class);
         if (!isset($this->mocksWithsTypes[$className][$variable])) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $this->mocksWithsTypes[$className][$variable];
     }
@@ -83,16 +83,16 @@ final class PhpSpecMockCollector
     {
         $this->propertyMocksByClass[$class][] = $property;
     }
-    private function addMockFromParam(\PhpParser\Node\Param $param) : void
+    private function addMockFromParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : void
     {
         $variable = $this->nodeNameResolver->getName($param->var);
         /** @var string $class */
-        $class = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        $this->mocks[$class][$variable][] = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        $class = $param->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $this->mocks[$class][$variable][] = $param->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
         if ($param->type === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $paramType = (string) ($param->type->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME) ?: $param->type);
+        $paramType = (string) ($param->type->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME) ?: $param->type);
         $this->mocksWithsTypes[$class][$variable] = $paramType;
     }
 }

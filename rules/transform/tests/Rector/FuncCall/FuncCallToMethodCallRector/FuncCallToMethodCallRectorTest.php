@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\FuncCall\FuncCallToMethodCallRector;
-use Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\Source\SomeTranslator;
-use Rector\Transform\ValueObject\FuncNameToMethodCallName;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class FuncCallToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Rector\Transform\Rector\FuncCall\FuncCallToMethodCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\Source\SomeTranslator;
+use _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\FuncNameToMethodCallName;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class FuncCallToMethodCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class FuncCallToMethodCallRectorTest extends \Rector\Testing\PHPUnit\Abstr
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Transform\Rector\FuncCall\FuncCallToMethodCallRector::class => [\Rector\Transform\Rector\FuncCall\FuncCallToMethodCallRector::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \Rector\Transform\ValueObject\FuncNameToMethodCallName('view', '_PhpScoperabd03f0baf05\\Namespaced\\SomeRenderer', 'render'), new \Rector\Transform\ValueObject\FuncNameToMethodCallName('translate', \Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\Source\SomeTranslator::class, 'translateMethod'), new \Rector\Transform\ValueObject\FuncNameToMethodCallName('Rector\\Generic\\Tests\\Rector\\Function_\\FuncCallToMethodCallRector\\Source\\some_view_function', '_PhpScoperabd03f0baf05\\Namespaced\\SomeRenderer', 'render')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Transform\Rector\FuncCall\FuncCallToMethodCallRector::class => [\_PhpScoper0a2ac50786fa\Rector\Transform\Rector\FuncCall\FuncCallToMethodCallRector::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\FuncNameToMethodCallName('view', '_PhpScoper0a2ac50786fa\\Namespaced\\SomeRenderer', 'render'), new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\FuncNameToMethodCallName('translate', \_PhpScoper0a2ac50786fa\Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\Source\SomeTranslator::class, 'translateMethod'), new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\FuncNameToMethodCallName('_PhpScoper0a2ac50786fa\\Rector\\Generic\\Tests\\Rector\\Function_\\FuncCallToMethodCallRector\\Source\\some_view_function', '_PhpScoper0a2ac50786fa\\Namespaced\\SomeRenderer', 'render')]]];
     }
 }

@@ -1,28 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Naming;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Naming;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Foreach_;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\UnionType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper;
 final class ExpectedNameResolver
 {
     /**
@@ -41,15 +42,18 @@ final class ExpectedNameResolver
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->propertyNaming = $propertyNaming;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function resolveForParamIfNotYet(\PhpParser\Node\Param $param) : ?string
+    public function resolveForParamIfNotYet(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : ?string
     {
+        if ($param->type instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\UnionType) {
+            return null;
+        }
         $expectedName = $this->resolveForParam($param);
         if ($expectedName === null) {
             return null;
@@ -64,7 +68,7 @@ final class ExpectedNameResolver
         }
         return $expectedName;
     }
-    public function resolveForParam(\PhpParser\Node\Param $param) : ?string
+    public function resolveForParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : ?string
     {
         // nothing to verify
         if ($param->type === null) {
@@ -77,36 +81,33 @@ final class ExpectedNameResolver
         }
         return $expectedName->getName();
     }
-    public function resolveForAssignNonNew(\PhpParser\Node\Expr\Assign $assign) : ?string
+    public function resolveForAssignNonNew(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : ?string
     {
-        if ($assign->expr instanceof \PhpParser\Node\Expr\New_) {
+        if ($assign->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_) {
             return null;
         }
-        if (!$assign->var instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$assign->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return null;
         }
         /** @var Variable $variable */
         $variable = $assign->var;
         return $this->nodeNameResolver->getName($variable);
     }
-    public function resolveForAssignNew(\PhpParser\Node\Expr\Assign $assign) : ?string
+    public function resolveForAssignNew(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : ?string
     {
-        if (!$assign->expr instanceof \PhpParser\Node\Expr\New_) {
+        if (!$assign->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_) {
             return null;
         }
-        if (!$assign->var instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$assign->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return null;
         }
         /** @var New_ $new */
         $new = $assign->expr;
-        if (!$new->class instanceof \PhpParser\Node\Name) {
+        if (!$new->class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
             return null;
         }
         $className = $this->nodeNameResolver->getName($new->class);
-        if ($className === null) {
-            return null;
-        }
-        $fullyQualifiedObjectType = new \Rector\PHPStan\Type\FullyQualifiedObjectType($className);
+        $fullyQualifiedObjectType = new \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType($className);
         $expectedName = $this->propertyNaming->getExpectedNameFromType($fullyQualifiedObjectType);
         if ($expectedName === null) {
             return null;
@@ -116,7 +117,7 @@ final class ExpectedNameResolver
     /**
      * @param MethodCall|StaticCall|FuncCall $expr
      */
-    public function resolveForCall(\PhpParser\Node\Expr $expr) : ?string
+    public function resolveForCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?string
     {
         if ($this->isDynamicNameCall($expr)) {
             return null;
@@ -126,10 +127,10 @@ final class ExpectedNameResolver
             return null;
         }
         $returnedType = $this->nodeTypeResolver->getStaticType($expr);
-        if ($returnedType instanceof \PHPStan\Type\ArrayType) {
+        if ($returnedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
             return null;
         }
-        if ($returnedType instanceof \PHPStan\Type\MixedType) {
+        if ($returnedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
             return null;
         }
         $expectedName = $this->propertyNaming->getExpectedNameFromType($returnedType);
@@ -149,7 +150,7 @@ final class ExpectedNameResolver
     /**
      * @param MethodCall|StaticCall|FuncCall $expr
      */
-    public function resolveForForeach(\PhpParser\Node\Expr $expr) : ?string
+    public function resolveForForeach(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?string
     {
         if ($this->isDynamicNameCall($expr)) {
             return null;
@@ -162,7 +163,7 @@ final class ExpectedNameResolver
         if ($returnedType->isIterable()->no()) {
             return null;
         }
-        if ($returnedType instanceof \PHPStan\Type\ArrayType) {
+        if ($returnedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
             $returnedType = $this->resolveReturnTypeFromArrayType($expr, $returnedType);
             if ($returnedType === null) {
                 return null;
@@ -188,28 +189,28 @@ final class ExpectedNameResolver
     private function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
+        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
     /**
      * @param MethodCall|StaticCall|FuncCall $expr
      */
-    private function isDynamicNameCall(\PhpParser\Node\Expr $expr) : bool
+    private function isDynamicNameCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
     {
-        if ($expr->name instanceof \PhpParser\Node\Expr\StaticCall) {
+        if ($expr->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
             return \true;
         }
-        if ($expr->name instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($expr->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return \true;
         }
-        return $expr->name instanceof \PhpParser\Node\Expr\FuncCall;
+        return $expr->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
     }
-    private function resolveReturnTypeFromArrayType(\PhpParser\Node\Expr $expr, \PHPStan\Type\ArrayType $arrayType) : ?\PHPStan\Type\Type
+    private function resolveReturnTypeFromArrayType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr, \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $arrayType) : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
-        $parentNode = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \PhpParser\Node\Stmt\Foreach_) {
+        $parentNode = $expr->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_) {
             return null;
         }
-        if (!$arrayType->getItemType() instanceof \PHPStan\Type\ObjectType) {
+        if (!$arrayType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType) {
             return null;
         }
         return $arrayType->getItemType();

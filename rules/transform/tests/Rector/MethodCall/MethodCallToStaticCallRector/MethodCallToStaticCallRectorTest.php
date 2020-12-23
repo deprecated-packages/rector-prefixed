@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Transform\Tests\Rector\MethodCall\MethodCallToStaticCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Transform\Tests\Rector\MethodCall\MethodCallToStaticCallRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
-use Rector\Transform\ValueObject\MethodCallToStaticCall;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class MethodCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\MethodCallToStaticCall;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class MethodCallToStaticCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class MethodCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\Abs
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector::class => [\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\MethodCallToStaticCall(\Rector\Transform\Tests\Rector\MethodCall\MethodCallToStaticCallRector\AnotherDependency::class, 'process', 'StaticCaller', 'anotherMethod')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector::class => [\_PhpScoper0a2ac50786fa\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => [new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\MethodCallToStaticCall(\_PhpScoper0a2ac50786fa\Rector\Transform\Tests\Rector\MethodCall\MethodCallToStaticCallRector\AnotherDependency::class, 'process', 'StaticCaller', 'anotherMethod')]]];
     }
 }

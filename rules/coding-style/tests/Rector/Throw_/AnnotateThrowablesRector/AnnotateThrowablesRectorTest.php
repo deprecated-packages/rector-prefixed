@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector;
 
 use Iterator;
-use Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AnnotateThrowablesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AnnotateThrowablesRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideDataForTest()
+     * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
-    public function provideDataForTest() : \Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
     protected function getRectorClass() : string
     {
-        return \Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class;
     }
 }

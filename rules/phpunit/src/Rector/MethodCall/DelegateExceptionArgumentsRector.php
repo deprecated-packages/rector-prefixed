@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Identifier;
-use Rector\Core\Rector\AbstractPHPUnitRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\DelegateExceptionArgumentsRector\DelegateExceptionArgumentsRectorTest
  */
-final class DelegateExceptionArgumentsRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class DelegateExceptionArgumentsRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, string>
      */
     private const OLD_TO_NEW_METHOD = ['setExpectedException' => 'expectExceptionMessage', 'setExpectedExceptionRegExp' => 'expectExceptionMessageRegExp'];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Takes `setExpectedException()` 2nd and next arguments to own methods in PHPUnit.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->setExpectedException(Exception::class, "Message", "CODE");', <<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Takes `setExpectedException()` 2nd and next arguments to own methods in PHPUnit.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->setExpectedException(Exception::class, "Message", "CODE");', <<<'CODE_SAMPLE'
 $this->setExpectedException(Exception::class);
 $this->expectExceptionMessage('Message');
 $this->expectExceptionCode('CODE');
@@ -33,12 +33,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $oldMethodNames = \array_keys(self::OLD_TO_NEW_METHOD);
         if (!$this->isPHPUnitMethodNames($node, $oldMethodNames)) {
@@ -60,7 +60,7 @@ CODE_SAMPLE
                 unset($node->args[2]);
             }
         }
-        $node->name = new \PhpParser\Node\Identifier('expectException');
+        $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('expectException');
         return $node;
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Comments;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Comments;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * Resolve nearest node, where we can add comment
  */
 final class CommentableNodeResolver
 {
-    public function resolve(\PhpParser\Node $node) : \PhpParser\Node
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $currentNode = $node;
         $previousNode = $node;
-        while (!$currentNode instanceof \PhpParser\Node\Stmt) {
-            $currentNode = $currentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        while (!$currentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt) {
+            $currentNode = $currentNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($currentNode === null) {
                 return $previousNode;
             }

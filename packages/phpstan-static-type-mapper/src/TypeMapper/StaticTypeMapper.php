@@ -1,62 +1,62 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use PhpParser\Node;
-use PhpParser\Node\Name;
-use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use PHPStan\Type\StaticType;
-use PHPStan\Type\ThisType;
-use PHPStan\Type\Type;
-use PHPStan\Type\VerbosityLevel;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareThisTypeNode;
-use Rector\Core\Php\PhpVersionProvider;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\StaticType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ThisType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
+use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareThisTypeNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\Php\PhpVersionProvider;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 /**
  * @see \Rector\NodeTypeResolver\Tests\StaticTypeMapper\StaticTypeMapperTest
  */
-final class StaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+final class StaticTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
     public function getNodeClass() : string
     {
-        return \PHPStan\Type\StaticType::class;
+        return \_PhpScoper0a2ac50786fa\PHPStan\Type\StaticType::class;
     }
     /**
      * @param StaticType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareThisTypeNode();
+        return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareThisTypeNode();
     }
     /**
      * @param StaticType $type
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($type instanceof \PHPStan\Type\ThisType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ThisType) {
             // @todo wait for PHPStan to differentiate between self/static
-            if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::STATIC_RETURN_TYPE)) {
-                return new \PhpParser\Node\Name('static');
+            if ($this->phpVersionProvider->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::STATIC_RETURN_TYPE)) {
+                return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('static');
             }
-            return new \PhpParser\Node\Name('self');
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('self');
         }
         return null;
     }
     /**
      * @param StaticType $type
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $parentType = null) : string
     {
-        return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
+        return $type->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::typeOnly());
     }
 }

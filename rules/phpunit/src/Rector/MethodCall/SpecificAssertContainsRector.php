@@ -1,37 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Identifier;
-use PHPStan\Type\StringType;
-use PHPStan\Type\UnionType;
-use Rector\Core\Rector\AbstractPHPUnitRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\StringType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-8.0.md
  *
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\SpecificAssertContainsRector\SpecificAssertContainsRectorTest
  */
-final class SpecificAssertContainsRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class SpecificAssertContainsRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, string>
      */
     private const OLD_TO_NEW_METHOD_NAMES = ['assertContains' => 'assertStringContainsString', 'assertNotContains' => 'assertStringNotContainsString'];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertContains()/assertNotContains() method to new string and iterable alternatives', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
-final class SomeTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertContains()/assertNotContains() method to new string and iterable alternatives', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
     {
@@ -39,14 +35,9 @@ final class SomeTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
         $this->assertNotContains('foo', 'foo bar');
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeTest', 'SomeTest', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
-final class SomeTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
+final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
     {
@@ -54,7 +45,6 @@ final class SomeTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
         $this->assertStringNotContainsString('foo', 'foo bar');
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeTest', 'SomeTest', \false);
 CODE_SAMPLE
 )]);
     }
@@ -63,12 +53,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isPHPUnitMethodNames($node, ['assertContains', 'assertNotContains'])) {
             return null;
@@ -78,19 +68,19 @@ CODE_SAMPLE
         }
         $methodName = $this->getName($node->name);
         $newMethodName = self::OLD_TO_NEW_METHOD_NAMES[$methodName];
-        $node->name = new \PhpParser\Node\Identifier($newMethodName);
+        $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($newMethodName);
         return $node;
     }
-    private function isPossiblyStringType(\PhpParser\Node\Expr $expr) : bool
+    private function isPossiblyStringType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
     {
         $exprType = $this->getStaticType($expr);
-        if ($exprType instanceof \PHPStan\Type\UnionType) {
+        if ($exprType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
             foreach ($exprType->getTypes() as $unionedType) {
-                if ($unionedType instanceof \PHPStan\Type\StringType) {
+                if ($unionedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\StringType) {
                     return \true;
                 }
             }
         }
-        return $exprType instanceof \PHPStan\Type\StringType;
+        return $exprType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\StringType;
     }
 }

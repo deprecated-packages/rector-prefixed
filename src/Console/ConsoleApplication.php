@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Console;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Console;
 
-use _PhpScoperabd03f0baf05\Composer\XdebugHandler\XdebugHandler;
+use _PhpScoper0a2ac50786fa\Composer\XdebugHandler\XdebugHandler;
 use OutOfBoundsException;
-use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
-use Rector\ChangesReporting\Output\JsonOutputFormatter;
-use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
-use Rector\Core\Configuration\Configuration;
-use Rector\Core\Configuration\Option;
-use Rector\Core\Exception\Configuration\InvalidConfigurationException;
-use Rector\Core\Exception\NoRectorsLoadedException;
-use Rector\Utils\NodeDocumentationGenerator\Command\DumpNodesCommand;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Application;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputDefinition;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
-use Symplify\PackageBuilder\Console\Command\CommandNaming;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Output\JsonOutputFormatter;
+use _PhpScoper0a2ac50786fa\Rector\Core\Bootstrap\NoRectorsLoadedReporter;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\Configuration\InvalidConfigurationException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\NoRectorsLoadedException;
+use _PhpScoper0a2ac50786fa\Rector\Utils\NodeDocumentationGenerator\Command\DumpNodesCommand;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Application;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputDefinition;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
-final class ConsoleApplication extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\Application
+final class ConsoleApplication extends \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Application
 {
     /**
      * @var string
@@ -39,7 +39,7 @@ final class ConsoleApplication extends \_PhpScoperabd03f0baf05\Symfony\Component
     /**
      * @param Command[] $commands
      */
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Bootstrap\NoRectorsLoadedReporter $noRectorsLoadedReporter, \Symplify\PackageBuilder\Console\Command\CommandNaming $commandNaming, array $commands = [])
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a2ac50786fa\Rector\Core\Bootstrap\NoRectorsLoadedReporter $noRectorsLoadedReporter, \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\Command\CommandNaming $commandNaming, array $commands = [])
     {
         try {
             $version = $configuration->getPrettyVersion();
@@ -55,12 +55,12 @@ final class ConsoleApplication extends \_PhpScoperabd03f0baf05\Symfony\Component
         $this->configuration = $configuration;
         $this->noRectorsLoadedReporter = $noRectorsLoadedReporter;
     }
-    public function doRun(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : int
+    public function doRun(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
         if (!$isXdebugAllowed) {
-            $xdebugHandler = new \_PhpScoperabd03f0baf05\Composer\XdebugHandler\XdebugHandler('rector', '--ansi');
+            $xdebugHandler = new \_PhpScoper0a2ac50786fa\Composer\XdebugHandler\XdebugHandler('rector', '--ansi');
             $xdebugHandler->check();
             unset($xdebugHandler);
         }
@@ -73,7 +73,7 @@ final class ConsoleApplication extends \_PhpScoperabd03f0baf05\Symfony\Component
             $output->isDebug() && $output->writeln('Changed CWD form ' . $oldWorkingDir . ' to ' . \getcwd());
         }
         // skip in this case, since generate content must be clear from meta-info
-        $dumpCommands = [\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Rector\Utils\NodeDocumentationGenerator\Command\DumpNodesCommand::class)];
+        $dumpCommands = [\_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\_PhpScoper0a2ac50786fa\Rector\Utils\NodeDocumentationGenerator\Command\DumpNodesCommand::class)];
         if (\in_array($input->getFirstArgument(), $dumpCommands, \true)) {
             return parent::doRun($input, $output);
         }
@@ -82,7 +82,7 @@ final class ConsoleApplication extends \_PhpScoperabd03f0baf05\Symfony\Component
             $shouldFollowByNewline = \true;
             $configFilePath = $this->configuration->getConfigFilePath();
             if ($configFilePath) {
-                $configFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($configFilePath);
+                $configFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($configFilePath);
                 $relativeConfigPath = $configFileInfo->getRelativeFilePathFromDirectory(\getcwd());
                 $output->writeln('Config file: ' . $relativeConfigPath);
                 $shouldFollowByNewline = \true;
@@ -93,30 +93,30 @@ final class ConsoleApplication extends \_PhpScoperabd03f0baf05\Symfony\Component
         }
         return parent::doRun($input, $output);
     }
-    public function renderThrowable(\Throwable $throwable, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : void
+    public function renderThrowable(\Throwable $throwable, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
-        if (\is_a($throwable, \Rector\Core\Exception\NoRectorsLoadedException::class)) {
+        if (\is_a($throwable, \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NoRectorsLoadedException::class)) {
             $this->noRectorsLoadedReporter->report();
             return;
         }
         parent::renderThrowable($throwable, $output);
     }
-    protected function getDefaultInputDefinition() : \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputDefinition
+    protected function getDefaultInputDefinition() : \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputDefinition
     {
         $defaultInputDefinition = parent::getDefaultInputDefinition();
         $this->removeUnusedOptions($defaultInputDefinition);
         $this->addCustomOptions($defaultInputDefinition);
         return $defaultInputDefinition;
     }
-    private function getNewWorkingDir(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input) : string
+    private function getNewWorkingDir(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input) : string
     {
         $workingDir = $input->getParameterOption(['--working-dir', '-d']);
         if ($workingDir !== \false && !\is_dir($workingDir)) {
-            throw new \Rector\Core\Exception\Configuration\InvalidConfigurationException('Invalid working directory specified, ' . $workingDir . ' does not exist.');
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\Configuration\InvalidConfigurationException('Invalid working directory specified, ' . $workingDir . ' does not exist.');
         }
         return (string) $workingDir;
     }
-    private function shouldPrintMetaInformation(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function shouldPrintMetaInformation(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $hasNoArguments = $input->getFirstArgument() === null;
         if ($hasNoArguments) {
@@ -127,21 +127,21 @@ final class ConsoleApplication extends \_PhpScoperabd03f0baf05\Symfony\Component
             return \false;
         }
         $outputFormat = $input->getParameterOption(['-o', '--output-format']);
-        return !\in_array($outputFormat, [\Rector\ChangesReporting\Output\JsonOutputFormatter::NAME, \Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME], \true);
+        return !\in_array($outputFormat, [\_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Output\JsonOutputFormatter::NAME, \_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME], \true);
     }
-    private function removeUnusedOptions(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputDefinition $inputDefinition) : void
+    private function removeUnusedOptions(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputDefinition $inputDefinition) : void
     {
         $options = $inputDefinition->getOptions();
         unset($options['quiet'], $options['no-interaction']);
         $inputDefinition->setOptions($options);
     }
-    private function addCustomOptions(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputDefinition $inputDefinition) : void
+    private function addCustomOptions(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputDefinition $inputDefinition) : void
     {
-        $inputDefinition->addOption(new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::OPTION_CONFIG, 'c', \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file', $this->getDefaultConfigPath()));
-        $inputDefinition->addOption(new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::OPTION_DEBUG, null, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Enable debug verbosity (-vvv)'));
-        $inputDefinition->addOption(new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::XDEBUG, null, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
-        $inputDefinition->addOption(new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE, null, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Clear cache'));
-        $inputDefinition->addOption(new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption('--working-dir', '-d', \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'If specified, use the given directory as working directory.'));
+        $inputDefinition->addOption(new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::OPTION_CONFIG, 'c', \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file', $this->getDefaultConfigPath()));
+        $inputDefinition->addOption(new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::OPTION_DEBUG, null, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Enable debug verbosity (-vvv)'));
+        $inputDefinition->addOption(new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::XDEBUG, null, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
+        $inputDefinition->addOption(new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE, null, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Clear cache'));
+        $inputDefinition->addOption(new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption('--working-dir', '-d', \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'If specified, use the given directory as working directory.'));
     }
     private function getDefaultConfigPath() : string
     {

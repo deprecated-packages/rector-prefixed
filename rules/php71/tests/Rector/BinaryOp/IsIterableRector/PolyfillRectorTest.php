@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php71\Tests\Rector\BinaryOp\IsIterableRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php71\Tests\Rector\BinaryOp\IsIterableRector;
 
 use Iterator;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\Php71\Rector\BinaryOp\IsIterableRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class PolyfillRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\Php71\Rector\BinaryOp\IsIterableRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class PolyfillRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,10 +23,10 @@ final class PolyfillRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTes
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php71\Rector\BinaryOp\IsIterableRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php71\Rector\BinaryOp\IsIterableRector::class;
     }
     protected function getPhpVersion() : int
     {
-        return \Rector\Core\ValueObject\PhpVersionFeature::ITERABLE_TYPE;
+        return \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::ITERABLE_TYPE;
     }
 }

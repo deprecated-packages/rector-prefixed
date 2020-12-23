@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector;
 
 use Iterator;
-use Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector;
-use Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\Source\SomeTrait;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AddEntityIdByConditionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\Source\SomeTrait;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddEntityIdByConditionRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class AddEntityIdByConditionRectorTest extends \Rector\Testing\PHPUnit\Abs
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::class => [\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::DETECTED_TRAITS => [\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\Source\SomeTrait::class]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::class => [\_PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::DETECTED_TRAITS => [\_PhpScoper0a2ac50786fa\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\Source\SomeTrait::class]]];
     }
 }

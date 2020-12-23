@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteTesterToPHPUnit;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteTesterToPHPUnit;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Cast\Bool_;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Type\BooleanType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
-use Rector\PostRector\Collector\NodesToAddCollector;
-use Rector\PostRector\Collector\NodesToRemoveCollector;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Cast\Bool_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToAddCollector;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToRemoveCollector;
 final class AssertManipulator
 {
     /**
@@ -72,7 +72,7 @@ final class AssertManipulator
      * @var NodesToAddCollector
      */
     private $nodesToAddCollector;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \_PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -84,7 +84,7 @@ final class AssertManipulator
     /**
      * @return StaticCall|MethodCall
      */
-    public function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node
+    public function processStaticCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->nodeNameResolver->isNames($staticCall->name, ['truthy', 'falsey'])) {
             return $this->processTruthyOrFalseyCall($staticCall);
@@ -103,52 +103,52 @@ final class AssertManipulator
         // self or class, depending on the context
         // prefer $this->assertSame() as more conventional and explicit in class-context
         if (!$this->sholdBeStaticCall($staticCall)) {
-            $methodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable(self::THIS), $staticCall->name);
+            $methodCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $staticCall->name);
             $methodCall->args = $staticCall->args;
             $methodCall->setAttributes($staticCall->getAttributes());
-            $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+            $methodCall->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
             return $methodCall;
         }
-        $staticCall->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\PHPUnit\\Framework\\Assert');
+        $staticCall->class = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified('_PhpScoper0a2ac50786fa\\PHPUnit\\Framework\\Assert');
         return $staticCall;
     }
     /**
      * @return StaticCall|MethodCall
      */
-    private function processTruthyOrFalseyCall(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node\Expr
+    private function processTruthyOrFalseyCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         $method = $this->nodeNameResolver->isName($staticCall->name, 'truthy') ? 'assertTrue' : 'assertFalse';
         if (!$this->sholdBeStaticCall($staticCall)) {
-            $call = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable(self::THIS), $method);
+            $call = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $method);
             $call->args = $staticCall->args;
             $call->setAttributes($staticCall->getAttributes());
-            $call->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+            $call->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         } else {
             $call = $staticCall;
-            $call->name = new \PhpParser\Node\Identifier($method);
+            $call->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($method);
         }
-        if (!$this->nodeTypeResolver->isStaticType($staticCall->args[0]->value, \PHPStan\Type\BooleanType::class)) {
-            $call->args[0]->value = new \PhpParser\Node\Expr\Cast\Bool_($staticCall->args[0]->value);
+        if (!$this->nodeTypeResolver->isStaticType($staticCall->args[0]->value, \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType::class)) {
+            $call->args[0]->value = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Cast\Bool_($staticCall->args[0]->value);
         }
         return $call;
     }
-    private function processContainsCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    private function processContainsCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         if ($this->stringTypeAnalyzer->isStringOrUnionStringOnlyType($staticCall->args[1]->value)) {
             $name = $this->nodeNameResolver->isName($staticCall->name, self::CONTAINS) ? 'assertStringContainsString' : 'assertStringNotContainsString';
         } else {
             $name = $this->nodeNameResolver->isName($staticCall->name, self::CONTAINS) ? 'assertContains' : 'assertNotContains';
         }
-        $staticCall->name = new \PhpParser\Node\Identifier($name);
+        $staticCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($name);
     }
-    private function processExceptionCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    private function processExceptionCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         $method = 'expectException';
         // expect exception
         if ($this->sholdBeStaticCall($staticCall)) {
-            $expectException = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name(self::SELF), $method);
+            $expectException = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name(self::SELF), $method);
         } else {
-            $expectException = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable(self::THIS), $method);
+            $expectException = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $method);
         }
         $expectException->args[] = $staticCall->args[1];
         $this->nodesToAddCollector->addNodeAfterNode($expectException, $staticCall);
@@ -165,68 +165,68 @@ final class AssertManipulator
         $this->nodesToAddCollector->addNodesAfterNode((array) $closure->stmts, $staticCall);
         $this->nodesToRemoveCollector->addNodeToRemove($staticCall);
     }
-    private function processTypeCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    private function processTypeCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         $value = $this->valueResolver->getValue($staticCall->args[0]->value);
         if (isset(self::TYPE_TO_METHOD[$value])) {
-            $staticCall->name = new \PhpParser\Node\Identifier(self::TYPE_TO_METHOD[$value]);
+            $staticCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier(self::TYPE_TO_METHOD[$value]);
             unset($staticCall->args[0]);
             $staticCall->args = \array_values($staticCall->args);
         } elseif ($value === 'null') {
-            $staticCall->name = new \PhpParser\Node\Identifier('assertNull');
+            $staticCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('assertNull');
             unset($staticCall->args[0]);
             $staticCall->args = \array_values($staticCall->args);
         } else {
-            $staticCall->name = new \PhpParser\Node\Identifier('assertInstanceOf');
+            $staticCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('assertInstanceOf');
         }
     }
-    private function processNoErrorCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    private function processNoErrorCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         /** @var Closure $closure */
         $closure = $staticCall->args[0]->value;
         $this->nodesToAddCollector->addNodesAfterNode((array) $closure->stmts, $staticCall);
         $this->nodesToRemoveCollector->addNodeToRemove($staticCall);
         /** @var ClassMethod|null $classMethod */
-        $classMethod = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        $classMethod = $staticCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod === null) {
             return;
         }
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $phpDocInfo->addBareTag('@doesNotPerformAssertions');
     }
-    private function renameAssertMethod(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    private function renameAssertMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         foreach (self::ASSERT_METHODS_REMAP as $oldMethod => $newMethod) {
             if (!$this->nodeNameResolver->isName($staticCall->name, $oldMethod)) {
                 continue;
             }
-            $staticCall->name = new \PhpParser\Node\Identifier($newMethod);
+            $staticCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($newMethod);
         }
     }
-    private function sholdBeStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    private function sholdBeStaticCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
-        return !(bool) $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        return !(bool) $staticCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
     }
-    private function refactorExpectException(\PhpParser\Node\Expr\StaticCall $staticCall) : string
+    private function refactorExpectException(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : string
     {
         $method = 'expectExceptionMessage';
         if ($this->sholdBeStaticCall($staticCall)) {
-            $expectExceptionMessage = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name(self::SELF), $method);
+            $expectExceptionMessage = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name(self::SELF), $method);
         } else {
-            $expectExceptionMessage = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable(self::THIS), $method);
+            $expectExceptionMessage = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $method);
         }
         $expectExceptionMessage->args[] = $staticCall->args[2];
         $this->nodesToAddCollector->addNodeAfterNode($expectExceptionMessage, $staticCall);
         return $method;
     }
-    private function refactorExpectExceptionCode(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    private function refactorExpectExceptionCode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         $method = 'expectExceptionCode';
         if ($this->sholdBeStaticCall($staticCall)) {
-            $expectExceptionCode = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name(self::SELF), $method);
+            $expectExceptionCode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name(self::SELF), $method);
         } else {
-            $expectExceptionCode = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable(self::THIS), $method);
+            $expectExceptionCode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $method);
         }
         $expectExceptionCode->args[] = $staticCall->args[3];
         $this->nodesToAddCollector->addNodeAfterNode($expectExceptionCode, $staticCall);

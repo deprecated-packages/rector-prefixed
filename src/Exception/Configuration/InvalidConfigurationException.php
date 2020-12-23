@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Exception\Configuration;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Exception\Configuration;
 
 use Exception;
 final class InvalidConfigurationException extends \Exception

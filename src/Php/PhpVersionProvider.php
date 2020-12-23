@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Php;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Php;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Json;
-use Rector\Core\Configuration\Option;
-use Rector\Core\Util\PhpVersionFactory;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Json;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\Core\Util\PhpVersionFactory;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
 final class PhpVersionProvider
 {
     /**
@@ -23,7 +23,7 @@ final class PhpVersionProvider
      * @var PhpVersionFactory
      */
     private $phpVersionFactory;
-    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Util\PhpVersionFactory $phpVersionFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper0a2ac50786fa\Rector\Core\Util\PhpVersionFactory $phpVersionFactory)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
@@ -32,12 +32,12 @@ final class PhpVersionProvider
     public function provide() : int
     {
         /** @var int|null $phpVersionFeatures */
-        $phpVersionFeatures = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES);
+        $phpVersionFeatures = $this->parameterProvider->provideParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES);
         if ($phpVersionFeatures !== null) {
             return (int) $phpVersionFeatures;
         }
         // for tests
-        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             // so we don't have to up
             return 100000;
         }
@@ -59,7 +59,7 @@ final class PhpVersionProvider
             return null;
         }
         $projectComposerContent = $this->smartFileSystem->readFile($projectComposerJson);
-        $projectComposerJson = \_PhpScoperabd03f0baf05\Nette\Utils\Json::decode($projectComposerContent, \_PhpScoperabd03f0baf05\Nette\Utils\Json::FORCE_ARRAY);
+        $projectComposerJson = \_PhpScoper0a2ac50786fa\Nette\Utils\Json::decode($projectComposerContent, \_PhpScoper0a2ac50786fa\Nette\Utils\Json::FORCE_ARRAY);
         // Rector's composer.json
         if (isset($projectComposerJson['name']) && $projectComposerJson['name'] === 'rector/rector') {
             return null;

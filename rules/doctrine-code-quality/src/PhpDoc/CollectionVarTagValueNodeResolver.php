@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DoctrineCodeQuality\PhpDoc;
+namespace _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\PhpDoc;
 
-use PhpParser\Node\Stmt\Property;
-use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrinePropertyAnalyzer;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrinePropertyAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class CollectionVarTagValueNodeResolver
 {
     /**
      * @var DoctrinePropertyAnalyzer
      */
     private $doctrinePropertyAnalyzer;
-    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrinePropertyAnalyzer $doctrinePropertyAnalyzer)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrinePropertyAnalyzer $doctrinePropertyAnalyzer)
     {
         $this->doctrinePropertyAnalyzer = $doctrinePropertyAnalyzer;
     }
-    public function resolve(\PhpParser\Node\Stmt\Property $property) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : ?\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode
     {
         $doctrineOneToManyTagValueNode = $this->doctrinePropertyAnalyzer->matchDoctrineOneToManyTagValueNode($property);
         if ($doctrineOneToManyTagValueNode === null) {
             return null;
         }
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
         return $phpDocInfo->getVarTagValueNode();

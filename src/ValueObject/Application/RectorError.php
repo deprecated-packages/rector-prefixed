@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\ValueObject\Application;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorError
 {
     /**
@@ -22,7 +22,7 @@ final class RectorError
      * @var string|null
      */
     private $rectorClass;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $message, ?int $line = null, ?string $rectorClass = null)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $message, ?int $line = null, ?string $rectorClass = null)
     {
         $this->fileInfo = $smartFileInfo;
         $this->message = $message;
@@ -33,7 +33,7 @@ final class RectorError
     {
         return $this->fileInfo->getRelativeFilePathFromCwd();
     }
-    public function getFileInfo() : \Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }

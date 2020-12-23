@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Dumper;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Dumper;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Cursor;
-use _PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Data;
+use _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Cursor;
+use _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Data;
 /**
  * HtmlDumper dumps variables as HTML.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class HtmlDumper extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Dumper\CliDumper
+class HtmlDumper extends \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Dumper\CliDumper
 {
     public static $defaultOutput = 'php://output';
     protected static $themes = ['dark' => ['default' => 'background-color:#18171B; color:#FF8400; line-height:1.2em; font:12px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: break-all', 'num' => 'font-weight:bold; color:#1299DA', 'const' => 'font-weight:bold', 'str' => 'font-weight:bold; color:#56DB3A', 'note' => 'color:#1299DA', 'ref' => 'color:#A0A0A0', 'public' => 'color:#FFFFFF', 'protected' => 'color:#FFFFFF', 'private' => 'color:#FFFFFF', 'meta' => 'color:#B729D9', 'key' => 'color:#56DB3A', 'index' => 'color:#1299DA', 'ellipsis' => 'color:#FF8400', 'ns' => 'user-select:none;'], 'light' => ['default' => 'background:none; color:#CC7832; line-height:1.2em; font:12px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: break-all', 'num' => 'font-weight:bold; color:#1299DA', 'const' => 'font-weight:bold', 'str' => 'font-weight:bold; color:#629755;', 'note' => 'color:#6897BB', 'ref' => 'color:#6E6E6E', 'public' => 'color:#262626', 'protected' => 'color:#262626', 'private' => 'color:#262626', 'meta' => 'color:#B729D9', 'key' => 'color:#789339', 'index' => 'color:#1299DA', 'ellipsis' => 'color:#CC7832', 'ns' => 'user-select:none;']];
@@ -36,7 +36,7 @@ class HtmlDumper extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Dum
      */
     public function __construct($output = null, string $charset = null, int $flags = 0)
     {
-        \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Dumper\AbstractDumper::__construct($output, $charset, $flags);
+        \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Dumper\AbstractDumper::__construct($output, $charset, $flags);
         $this->dumpId = 'sf-dump-' . \mt_rand();
         $this->displayOptions['fileLinkFormat'] = \ini_get('xdebug.file_link_format') ?: \get_cfg_var('xdebug.file_link_format');
         $this->styles = static::$themes['dark'] ?? self::$themes['dark'];
@@ -89,7 +89,7 @@ class HtmlDumper extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Dum
     /**
      * {@inheritdoc}
      */
-    public function dump(\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, array $extraDisplayOptions = [])
+    public function dump(\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, array $extraDisplayOptions = [])
     {
         $this->extraDisplayOptions = $extraDisplayOptions;
         $result = parent::dump($data, $output);
@@ -117,6 +117,9 @@ var refStyle = doc.createElement('style'),
         e.addEventListener(n, cb, false);
     };
 
+refStyle.innerHTML = 'pre.sf-dump .sf-dump-compact, .sf-dump-str-collapse .sf-dump-str-collapse, .sf-dump-str-expand .sf-dump-str-expand { display: none; }';
+(doc.documentElement.firstElementChild || doc.documentElement.children[0]).appendChild(refStyle);
+refStyle = doc.createElement('style');
 (doc.documentElement.firstElementChild || doc.documentElement.children[0]).appendChild(refStyle);
 
 if (!doc.addEventListener) {
@@ -370,18 +373,12 @@ return function (root, x) {
                 a.innerHTML += ' ';
             }
             a.title = (a.title ? a.title+'\n[' : '[')+keyHint+'+click] Expand all children';
-            a.innerHTML += '<span>▼</span>';
+            a.innerHTML += elt.className == 'sf-dump-compact' ? '<span>▶</span>' : '<span>▼</span>';
             a.className += ' sf-dump-toggle';
 
             x = 1;
             if ('sf-dump' != elt.parentNode.className) {
                 x += elt.parentNode.getAttribute('data-depth')/1;
-            }
-            elt.setAttribute('data-depth', x);
-            var className = elt.className;
-            elt.className = 'sf-dump-expanded';
-            if (className ? 'sf-dump-expanded' !== className : (x > options.maxDepth)) {
-                toggle(a);
             }
         } else if (/\bsf-dump-ref\b/.test(elt.className) && (a = elt.getAttribute('href'))) {
             a = a.substr(1);
@@ -617,9 +614,6 @@ pre.sf-dump:after {
 pre.sf-dump span {
     display: inline;
 }
-pre.sf-dump .sf-dump-compact {
-    display: none;
-}
 pre.sf-dump a {
     text-decoration: none;
     cursor: pointer;
@@ -650,12 +644,6 @@ pre.sf-dump code {
     display:inline;
     padding:0;
     background:none;
-}
-.sf-dump-str-collapse .sf-dump-str-collapse {
-    display: none;
-}
-.sf-dump-str-expand .sf-dump-str-expand {
-    display: none;
 }
 .sf-dump-public.sf-dump-highlight,
 .sf-dump-protected.sf-dump-highlight,
@@ -745,11 +733,12 @@ EOHTML
     /**
      * {@inheritdoc}
      */
-    public function dumpString(\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Cursor $cursor, string $str, bool $bin, int $cut)
+    public function dumpString(\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Cursor $cursor, string $str, bool $bin, int $cut)
     {
         if ('' === $str && isset($cursor->attr['img-data'], $cursor->attr['content-type'])) {
             $this->dumpKey($cursor);
-            $this->line .= $this->style('default', $cursor->attr['img-size'] ?? '', []) . ' <samp>';
+            $this->line .= $this->style('default', $cursor->attr['img-size'] ?? '', []);
+            $this->line .= $cursor->depth >= $this->displayOptions['maxDepth'] ? ' <samp class=sf-dump-compact>' : ' <samp class=sf-dump-expanded>';
             $this->endValue($cursor);
             $this->line .= $this->indentPad;
             $this->line .= \sprintf('<img src="data:%s;base64,%s" /></samp>', $cursor->attr['content-type'], \base64_encode($cursor->attr['img-data']));
@@ -761,25 +750,23 @@ EOHTML
     /**
      * {@inheritdoc}
      */
-    public function enterHash(\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Cursor $cursor, int $type, $class, bool $hasChild)
+    public function enterHash(\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Cursor $cursor, int $type, $class, bool $hasChild)
     {
-        if (\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT === $type) {
+        if (\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT === $type) {
             $cursor->attr['depth'] = $cursor->depth;
         }
         parent::enterHash($cursor, $type, $class, \false);
-        if ($cursor->skipChildren) {
+        if ($cursor->skipChildren || $cursor->depth >= $this->displayOptions['maxDepth']) {
             $cursor->skipChildren = \false;
             $eol = ' class=sf-dump-compact>';
-        } elseif ($this->expandNextHash) {
+        } else {
             $this->expandNextHash = \false;
             $eol = ' class=sf-dump-expanded>';
-        } else {
-            $eol = '>';
         }
         if ($hasChild) {
-            $this->line .= '<samp';
+            $this->line .= '<samp data-depth=' . ($cursor->depth + 1);
             if ($cursor->refIndex) {
-                $r = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT !== $type ? 1 - (\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Cursor::HASH_RESOURCE !== $type) : 2;
+                $r = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT !== $type ? 1 - (\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Cursor::HASH_RESOURCE !== $type) : 2;
                 $r .= $r && 0 < $cursor->softRefHandle ? $cursor->softRefHandle : $cursor->refIndex;
                 $this->line .= \sprintf(' id=%s-ref%s', $this->dumpId, $r);
             }
@@ -790,7 +777,7 @@ EOHTML
     /**
      * {@inheritdoc}
      */
-    public function leaveHash(\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Cursor $cursor, int $type, $class, bool $hasChild, int $cut)
+    public function leaveHash(\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Cursor $cursor, int $type, $class, bool $hasChild, int $cut)
     {
         $this->dumpEllipsis($cursor, $hasChild, $cut);
         if ($hasChild) {
@@ -899,9 +886,9 @@ EOHTML
         $this->lastDepth = $depth;
         $this->line = \mb_convert_encoding($this->line, 'HTML-ENTITIES', 'UTF-8');
         if (-1 === $depth) {
-            \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine(0);
+            \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine(0);
         }
-        \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine($depth);
+        \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine($depth);
     }
     private function getSourceLink(string $file, int $line)
     {

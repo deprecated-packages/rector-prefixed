@@ -8,21 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Config\Loader\LoaderInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\LoaderInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 /**
  * The Kernel is the heart of the Symfony system.
  *
  * It manages an environment made of application kernel and bundles.
  *
- * @author Fabien Potencier <fabien@symfony.com>
+ * @method string getBuildDir() Returns the build directory - not implementing it is deprecated since Symfony 5.2.
+ *                              This directory should be used to store build artifacts, and can be read-only at runtime.
+ *                              Caches written at runtime should be stored in the "cache directory" ({@see KernelInterface::getCacheDir()}).
  *
- * @method string getProjectDir() Gets the project dir (path of the project's composer file) - not defining it is deprecated since Symfony 4.2
+ * @author Fabien Potencier <fabien@symfony.com>
  */
-interface KernelInterface extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\HttpKernelInterface
+interface KernelInterface extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\HttpKernelInterface
 {
     /**
      * Returns an array of bundles to register.
@@ -33,7 +35,7 @@ interface KernelInterface extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
     /**
      * Loads the container configuration.
      */
-    public function registerContainerConfiguration(\_PhpScoperabd03f0baf05\Symfony\Component\Config\Loader\LoaderInterface $loader);
+    public function registerContainerConfiguration(\_PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\LoaderInterface $loader);
     /**
      * Boots the current kernel.
      */
@@ -53,13 +55,11 @@ interface KernelInterface extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
     /**
      * Returns a bundle.
      *
-     * @param string $name Bundle name
-     *
      * @return BundleInterface A BundleInterface instance
      *
      * @throws \InvalidArgumentException when the bundle is not enabled
      */
-    public function getBundle($name);
+    public function getBundle(string $name);
     /**
      * Returns the file path for a given bundle resource.
      *
@@ -72,22 +72,12 @@ interface KernelInterface extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
      * where BundleName is the name of the bundle
      * and the remaining part is the relative path in the bundle.
      *
-     * @param string $name A resource name to locate
-     *
-     * @return string|array The absolute path of the resource or an array if $first is false (array return value is deprecated)
+     * @return string The absolute path of the resource
      *
      * @throws \InvalidArgumentException if the file cannot be found or the name is not valid
      * @throws \RuntimeException         if the name contains invalid/unsafe characters
      */
-    public function locateResource($name);
-    /**
-     * Gets the name of the kernel.
-     *
-     * @return string The kernel name
-     *
-     * @deprecated since Symfony 4.2
-     */
-    public function getName();
+    public function locateResource(string $name);
     /**
      * Gets the environment.
      *
@@ -101,13 +91,11 @@ interface KernelInterface extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
      */
     public function isDebug();
     /**
-     * Gets the application root dir (path of the project's Kernel class).
+     * Gets the project dir (path of the project's composer file).
      *
-     * @return string The Kernel root dir
-     *
-     * @deprecated since Symfony 4.2
+     * @return string
      */
-    public function getRootDir();
+    public function getProjectDir();
     /**
      * Gets the current container.
      *
@@ -122,6 +110,10 @@ interface KernelInterface extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
     public function getStartTime();
     /**
      * Gets the cache directory.
+     *
+     * Since Symfony 5.2, the cache directory should be used for caches that are written at runtime.
+     * For caches and artifacts that can be warmed at compile-time and deployed as read-only,
+     * use the new "build directory" returned by the {@see getBuildDir()} method.
      *
      * @return string The cache directory
      */

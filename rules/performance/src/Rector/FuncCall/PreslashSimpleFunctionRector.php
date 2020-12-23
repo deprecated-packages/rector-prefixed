@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Performance\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Performance\Rector\FuncCall;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Name\FullyQualified;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://stackoverflow.com/questions/55419673/php7-adding-a-slash-to-all-standard-php-functions-php-cs-fixer-rule
  *
  * @see \Rector\Performance\Tests\Rector\FuncCall\PreslashSimpleFunctionRector\PreslashSimpleFunctionRectorTest
  */
-final class PreslashSimpleFunctionRector extends \Rector\Core\Rector\AbstractRector
+final class PreslashSimpleFunctionRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add pre-slash to short named functions to improve performance', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add pre-slash to short named functions to improve performance', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function shorten($value)
@@ -44,24 +44,24 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($node->name instanceof \PhpParser\Node\Name\FullyQualified) {
+        if ($node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified) {
             return null;
         }
         $functionName = $this->getName($node);
         if ($functionName === null) {
             return null;
         }
-        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($functionName, '\\')) {
+        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($functionName, '\\')) {
             return null;
         }
-        $node->name = new \PhpParser\Node\Name\FullyQualified($functionName);
+        $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($functionName);
         return $node;
     }
 }

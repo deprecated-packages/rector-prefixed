@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
-use Rector\Core\Rector\AbstractPHPUnitRector;
-use Rector\PHPUnit\ValueObject\ConstantWithAssertMethods;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper0a2ac50786fa\Rector\PHPUnit\ValueObject\ConstantWithAssertMethods;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector\AssertSameBoolNullToSpecificMethodRectorTest
  */
-final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertSameBoolNullToSpecificMethodRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var ConstantWithAssertMethods[]
@@ -25,32 +25,32 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
     {
         $this->identifierManipulator = $identifierManipulator;
-        $this->constantWithAssertMethods = [new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('null', 'assertNull', 'assertNotNull'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('true', 'assertTrue', 'assertNotTrue'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('false', 'assertFalse', 'assertNotFalse')];
+        $this->constantWithAssertMethods = [new \_PhpScoper0a2ac50786fa\Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('null', 'assertNull', 'assertNotNull'), new \_PhpScoper0a2ac50786fa\Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('true', 'assertTrue', 'assertNotTrue'), new \_PhpScoper0a2ac50786fa\Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('false', 'assertFalse', 'assertNotFalse')];
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns same bool and null comparisons to their method name alternatives in PHPUnit TestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertSame(null, $anything);', '$this->assertNull($anything);'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertNotSame(false, $anything);', '$this->assertNotFalse($anything);')]);
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns same bool and null comparisons to their method name alternatives in PHPUnit TestCase', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertSame(null, $anything);', '$this->assertNull($anything);'), new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertNotSame(false, $anything);', '$this->assertNotFalse($anything);')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isPHPUnitMethodNames($node, ['assertSame', 'assertNotSame'])) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
-        if (!$firstArgumentValue instanceof \PhpParser\Node\Expr\ConstFetch) {
+        if (!$firstArgumentValue instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch) {
             return null;
         }
         foreach ($this->constantWithAssertMethods as $constantWithAssertMethod) {
@@ -66,14 +66,14 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods $constantWithAssertMethods) : void
+    private function renameMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\Rector\PHPUnit\ValueObject\ConstantWithAssertMethods $constantWithAssertMethods) : void
     {
         $this->identifierManipulator->renameNodeWithMap($node, ['assertSame' => $constantWithAssertMethods->getAssetMethodName(), 'assertNotSame' => $constantWithAssertMethods->getNotAssertMethodName()]);
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function moveArguments(\PhpParser\Node $node) : void
+    private function moveArguments(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
     {
         $methodArguments = $node->args;
         \array_shift($methodArguments);

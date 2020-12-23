@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
+namespace _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
 
-use PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareMixinTagValueNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+final class AttributeAwareMixinTagValueNode extends \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode implements \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
 {
     use AttributeTrait;
 }

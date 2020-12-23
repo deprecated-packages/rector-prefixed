@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PSR4\Collector;
+namespace _PhpScoper0a2ac50786fa\Rector\PSR4\Collector;
 
-use Rector\Core\Configuration\ChangeConfiguration;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\RenamedClassesDataCollector;
 final class RenamedClassesCollector
 {
     /**
@@ -11,12 +11,12 @@ final class RenamedClassesCollector
      */
     private $oldToNewClass = [];
     /**
-     * @var ChangeConfiguration
+     * @var RenamedClassesDataCollector
      */
-    private $changeConfiguration;
-    public function __construct(\Rector\Core\Configuration\ChangeConfiguration $changeConfiguration)
+    private $renamedClassesDataCollector;
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector)
     {
-        $this->changeConfiguration = $changeConfiguration;
+        $this->renamedClassesDataCollector = $renamedClassesDataCollector;
     }
     public function addClassRename(string $oldClass, string $newClass) : void
     {
@@ -27,6 +27,6 @@ final class RenamedClassesCollector
      */
     public function getOldToNewClasses() : array
     {
-        return \array_merge($this->oldToNewClass, $this->changeConfiguration->getOldToNewClasses());
+        return \array_merge($this->oldToNewClass, $this->renamedClassesDataCollector->getOldToNewClasses());
     }
 }

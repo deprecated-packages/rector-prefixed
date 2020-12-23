@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Return_;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Generic\ValueObject\WrapReturn;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\WrapReturn;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\WrapReturnRector\WrapReturnRectorTest
  */
-final class WrapReturnRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class WrapReturnRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -27,9 +27,9 @@ final class WrapReturnRector extends \Rector\Core\Rector\AbstractRector implemen
      * @var WrapReturn[]
      */
     private $typeMethodWraps = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Wrap return value of specific method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Wrap return value of specific method', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function getItem()
@@ -47,19 +47,19 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::TYPE_METHOD_WRAPS => [new \Rector\Generic\ValueObject\WrapReturn('SomeClass', 'getItem', \true)]])]);
+, [self::TYPE_METHOD_WRAPS => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\WrapReturn('SomeClass', 'getItem', \true)]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         foreach ($this->typeMethodWraps as $typeMethodWrap) {
             if (!$this->isObjectType($node, $typeMethodWrap->getType())) {
@@ -78,18 +78,18 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $typeMethodWraps = $configuration[self::TYPE_METHOD_WRAPS] ?? [];
-        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allIsInstanceOf($typeMethodWraps, \Rector\Generic\ValueObject\WrapReturn::class);
+        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsInstanceOf($typeMethodWraps, \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\WrapReturn::class);
         $this->typeMethodWraps = $typeMethodWraps;
     }
-    private function wrap(\PhpParser\Node\Stmt\ClassMethod $classMethod, bool $isArrayWrap) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function wrap(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, bool $isArrayWrap) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod
     {
         if (!\is_iterable($classMethod->stmts)) {
             return null;
         }
         foreach ((array) $classMethod->stmts as $key => $stmt) {
-            if ($stmt instanceof \PhpParser\Node\Stmt\Return_ && $stmt->expr !== null) {
-                if ($isArrayWrap && !$stmt->expr instanceof \PhpParser\Node\Expr\Array_) {
-                    $stmt->expr = new \PhpParser\Node\Expr\Array_([new \PhpParser\Node\Expr\ArrayItem($stmt->expr)]);
+            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_ && $stmt->expr !== null) {
+                if ($isArrayWrap && !$stmt->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_) {
+                    $stmt->expr = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_([new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem($stmt->expr)]);
                 }
                 $classMethod->stmts[$key] = $stmt;
             }

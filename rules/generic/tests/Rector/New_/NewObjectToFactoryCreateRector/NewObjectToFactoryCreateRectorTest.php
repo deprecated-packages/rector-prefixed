@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector;
 
 use Iterator;
-use Rector\Generic\Rector\New_\NewObjectToFactoryCreateRector;
-use Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClass;
-use Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClassFactory;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class NewObjectToFactoryCreateRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\New_\NewObjectToFactoryCreateRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClass;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClassFactory;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class NewObjectToFactoryCreateRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class NewObjectToFactoryCreateRectorTest extends \Rector\Testing\PHPUnit\A
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\New_\NewObjectToFactoryCreateRector::class => [\Rector\Generic\Rector\New_\NewObjectToFactoryCreateRector::OBJECT_TO_FACTORY_METHOD => [\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClass::class => ['class' => \Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClassFactory::class, 'method' => 'create']]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\New_\NewObjectToFactoryCreateRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\New_\NewObjectToFactoryCreateRector::OBJECT_TO_FACTORY_METHOD => [\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClass::class => ['class' => \_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClassFactory::class, 'method' => 'create']]]];
     }
 }

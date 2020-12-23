@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\PhpDoc;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\PhpDoc;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Expression;
-use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class VarTagValueNodeRenamer
 {
-    public function renameAssignVarTagVariableName(\PhpParser\Node $node, string $originalName, string $expectedName) : void
+    public function renameAssignVarTagVariableName(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $originalName, string $expectedName) : void
     {
         $phpDocInfo = $this->resolvePhpDocInfo($node);
         if ($phpDocInfo === null) {
             return;
         }
-        $varTagValueNode = $phpDocInfo->getByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
+        $varTagValueNode = $phpDocInfo->getByType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
         if ($varTagValueNode === null) {
             return;
         }
@@ -28,12 +28,12 @@ final class VarTagValueNodeRenamer
     /**
      * Expression doc block has higher priority
      */
-    private function resolvePhpDocInfo(\PhpParser\Node $node) : ?\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    private function resolvePhpDocInfo(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $expression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
-        if ($expression instanceof \PhpParser\Node) {
-            $expressionPhpDocInfo = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $expression = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        if ($expression instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node) {
+            $expressionPhpDocInfo = $expression->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         }
         return $expressionPhpDocInfo ?? $phpDocInfo;
     }

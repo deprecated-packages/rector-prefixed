@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php80\Tests\Rector\Identical\StrStartsWithRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php80\Tests\Rector\Identical\StrStartsWithRector;
 
 use Iterator;
-use Rector\Php80\Rector\Identical\StrStartsWithRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class StrStartsWithRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Identical\StrStartsWithRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class StrStartsWithRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class StrStartsWithRectorTest extends \Rector\Testing\PHPUnit\AbstractRect
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php80\Rector\Identical\StrStartsWithRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Identical\StrStartsWithRector::class;
     }
 }

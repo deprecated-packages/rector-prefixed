@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Sensio\TypeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\Sensio\TypeAnalyzer;
 
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
-use PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
 final class ArrayUnionResponseTypeAnalyzer
 {
-    public function isArrayUnionResponseType(\PHPStan\Type\Type $type, string $className) : bool
+    public function isArrayUnionResponseType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, string $className) : bool
     {
-        if (!$type instanceof \PHPStan\Type\UnionType) {
+        if (!$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
             return \false;
         }
         $hasArrayType = \false;
         $hasResponseType = \false;
         foreach ($type->getTypes() as $unionedType) {
-            if ($unionedType instanceof \PHPStan\Type\ArrayType) {
+            if ($unionedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
                 $hasArrayType = \true;
                 continue;
             }
@@ -27,11 +27,14 @@ final class ArrayUnionResponseTypeAnalyzer
             }
             return \false;
         }
-        return $hasArrayType && $hasResponseType;
+        if (!$hasArrayType) {
+            return \false;
+        }
+        return $hasResponseType;
     }
-    private function isTypeOfClassName(\PHPStan\Type\Type $type, string $className) : bool
+    private function isTypeOfClassName(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, string $className) : bool
     {
-        if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
+        if (!$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         return \is_a($type->getClassName(), $className, \true);

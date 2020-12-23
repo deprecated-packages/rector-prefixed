@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector;
+namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector;
 
 use Iterator;
-use Rector\RemovingStatic\Rector\Class_\SingleStaticServiceToDynamicRector;
-use Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\ClassWithStaticProperties;
-use Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\FirstStaticClass;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class SingleStaticServiceToDynamicRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\SingleStaticServiceToDynamicRector;
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\ClassWithStaticProperties;
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\FirstStaticClass;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class SingleStaticServiceToDynamicRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class SingleStaticServiceToDynamicRectorTest extends \Rector\Testing\PHPUn
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\RemovingStatic\Rector\Class_\SingleStaticServiceToDynamicRector::class => [\Rector\RemovingStatic\Rector\Class_\SingleStaticServiceToDynamicRector::CLASS_TYPES => ['Rector\\RemovingStatic\\Tests\\Rector\\Class_\\SingleStaticServiceToDynamicRector\\Fixture\\SomeClass', 'Rector\\RemovingStatic\\Tests\\Rector\\Class_\\SingleStaticServiceToDynamicRector\\Fixture\\StaticProperties', \Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\FirstStaticClass::class, \Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\ClassWithStaticProperties::class]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\SingleStaticServiceToDynamicRector::class => [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\SingleStaticServiceToDynamicRector::CLASS_TYPES => ['_PhpScoper0a2ac50786fa\\Rector\\RemovingStatic\\Tests\\Rector\\Class_\\SingleStaticServiceToDynamicRector\\Fixture\\Fixture', '_PhpScoper0a2ac50786fa\\Rector\\RemovingStatic\\Tests\\Rector\\Class_\\SingleStaticServiceToDynamicRector\\Fixture\\StaticProperties', \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\FirstStaticClass::class, \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\ClassWithStaticProperties::class]]];
     }
 }

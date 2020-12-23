@@ -8,34 +8,39 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel;
 
-use _PhpScoperabd03f0baf05\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
-use _PhpScoperabd03f0baf05\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper;
-use _PhpScoperabd03f0baf05\Symfony\Component\Config\ConfigCache;
-use _PhpScoperabd03f0baf05\Symfony\Component\Config\Loader\DelegatingLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\Config\Loader\LoaderResolver;
-use _PhpScoperabd03f0baf05\Symfony\Component\Debug\DebugClassLoader as LegacyDebugClassLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler\PassConfig;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Dumper\PhpDumper;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\ClosureLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\IniFileLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler\DebugClassLoader;
-use _PhpScoperabd03f0baf05\Symfony\Component\Filesystem\Filesystem;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Config\FileLocator;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
+use _PhpScoper0a2ac50786fa\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
+use _PhpScoper0a2ac50786fa\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Config\ConfigCache;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\DelegatingLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\LoaderResolver;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Debug\DebugClassLoader as LegacyDebugClassLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Dumper\Preloader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\ClosureLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\IniFileLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\ErrorHandler\DebugClassLoader;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Filesystem\Filesystem;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Config\FileLocator;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
+// Help opcache.preload discover always-needed symbols
+\class_exists(\_PhpScoper0a2ac50786fa\Symfony\Component\Config\ConfigCache::class);
 /**
  * The Kernel is the heart of the Symfony system.
  *
@@ -46,44 +51,34 @@ use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\DependencyInjection\Merg
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelInterface, \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\RebootableInterface, \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\TerminableInterface
+abstract class Kernel implements \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelInterface, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\RebootableInterface, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\TerminableInterface
 {
     /**
      * @var BundleInterface[]
      */
     protected $bundles = [];
     protected $container;
-    /**
-     * @deprecated since Symfony 4.2
-     */
-    protected $rootDir;
     protected $environment;
     protected $debug;
     protected $booted = \false;
-    /**
-     * @deprecated since Symfony 4.2
-     */
-    protected $name;
     protected $startTime;
     private $projectDir;
     private $warmupDir;
     private $requestStackSize = 0;
     private $resetServices = \false;
     private static $freshCache = [];
-    const VERSION = '4.4.16';
-    const VERSION_ID = 40416;
-    const MAJOR_VERSION = 4;
-    const MINOR_VERSION = 4;
-    const RELEASE_VERSION = 16;
-    const EXTRA_VERSION = '';
-    const END_OF_MAINTENANCE = '11/2022';
-    const END_OF_LIFE = '11/2023';
+    public const VERSION = '5.2.1';
+    public const VERSION_ID = 50201;
+    public const MAJOR_VERSION = 5;
+    public const MINOR_VERSION = 2;
+    public const RELEASE_VERSION = 1;
+    public const EXTRA_VERSION = '';
+    public const END_OF_MAINTENANCE = '07/2021';
+    public const END_OF_LIFE = '07/2021';
     public function __construct(string $environment, bool $debug)
     {
         $this->environment = $environment;
         $this->debug = $debug;
-        $this->rootDir = $this->getRootDir(\false);
-        $this->name = $this->getName(\false);
     }
     public function __clone()
     {
@@ -109,18 +104,9 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
             }
             return;
         }
-        if ($this->debug) {
-            $this->startTime = \microtime(\true);
+        if (null === $this->container) {
+            $this->preBoot();
         }
-        if ($this->debug && !isset($_ENV['SHELL_VERBOSITY']) && !isset($_SERVER['SHELL_VERBOSITY'])) {
-            \putenv('SHELL_VERBOSITY=3');
-            $_ENV['SHELL_VERBOSITY'] = 3;
-            $_SERVER['SHELL_VERBOSITY'] = 3;
-        }
-        // init bundles
-        $this->initializeBundles();
-        // init container
-        $this->initializeContainer();
         foreach ($this->getBundles() as $bundle) {
             $bundle->setContainer($this->container);
             $bundle->boot();
@@ -130,7 +116,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     /**
      * {@inheritdoc}
      */
-    public function reboot($warmupDir)
+    public function reboot(?string $warmupDir)
     {
         $this->shutdown();
         $this->warmupDir = $warmupDir;
@@ -139,12 +125,12 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     /**
      * {@inheritdoc}
      */
-    public function terminate(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request, \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response $response)
+    public function terminate(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response $response)
     {
         if (\false === $this->booted) {
             return;
         }
-        if ($this->getHttpKernel() instanceof \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\TerminableInterface) {
+        if ($this->getHttpKernel() instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\TerminableInterface) {
             $this->getHttpKernel()->terminate($request, $response);
         }
     }
@@ -168,8 +154,14 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     /**
      * {@inheritdoc}
      */
-    public function handle(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request, $type = \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
+    public function handle(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request, int $type = \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true)
     {
+        if (!$this->booted) {
+            $container = $this->container ?? $this->preBoot();
+            if ($container->has('http_cache')) {
+                return $container->get('http_cache')->handle($request, $type, $catch);
+            }
+        }
         $this->boot();
         ++$this->requestStackSize;
         $this->resetServices = \true;
@@ -198,7 +190,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     /**
      * {@inheritdoc}
      */
-    public function getBundle($name)
+    public function getBundle(string $name)
     {
         if (!isset($this->bundles[$name])) {
             throw new \InvalidArgumentException(\sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the "registerBundles()" method of your "%s.php" file?', $name, \get_debug_type($this)));
@@ -208,18 +200,8 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     /**
      * {@inheritdoc}
      */
-    public function locateResource($name)
+    public function locateResource(string $name)
     {
-        if (2 <= \func_num_args()) {
-            $dir = \func_get_arg(1);
-            $first = 3 <= \func_num_args() ? \func_get_arg(2) : \true;
-            if (4 !== \func_num_args() || \func_get_arg(3)) {
-                @\trigger_error(\sprintf('Passing more than one argument to %s is deprecated since Symfony 4.4 and will be removed in 5.0.', __METHOD__), \E_USER_DEPRECATED);
-            }
-        } else {
-            $dir = null;
-            $first = \true;
-        }
         if ('@' !== $name[0]) {
             throw new \InvalidArgumentException(\sprintf('A resource name must start with @ ("%s" given).', $name));
         }
@@ -229,45 +211,13 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
         $bundleName = \substr($name, 1);
         $path = '';
         if (\false !== \strpos($bundleName, '/')) {
-            list($bundleName, $path) = \explode('/', $bundleName, 2);
+            [$bundleName, $path] = \explode('/', $bundleName, 2);
         }
-        $isResource = 0 === \strpos($path, 'Resources') && null !== $dir;
-        $overridePath = \substr($path, 9);
         $bundle = $this->getBundle($bundleName);
-        $files = [];
-        if ($isResource && \file_exists($file = $dir . '/' . $bundle->getName() . $overridePath)) {
-            $files[] = $file;
-            // see https://symfony.com/doc/current/bundles/override.html on how to overwrite parts of a bundle
-            @\trigger_error(\sprintf('Overwriting the resource "%s" with "%s" is deprecated since Symfony 4.4 and will be removed in 5.0.', $name, $file), \E_USER_DEPRECATED);
-        }
         if (\file_exists($file = $bundle->getPath() . '/' . $path)) {
-            if ($first && !$isResource) {
-                return $file;
-            }
-            $files[] = $file;
-        }
-        if (\count($files) > 0) {
-            return $first && $isResource ? $files[0] : $files;
+            return $file;
         }
         throw new \InvalidArgumentException(\sprintf('Unable to find file "%s".', $name));
-    }
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated since Symfony 4.2
-     */
-    public function getName()
-    {
-        if (0 === \func_num_args() || \func_get_arg(0)) {
-            @\trigger_error(\sprintf('The "%s()" method is deprecated since Symfony 4.2.', __METHOD__), \E_USER_DEPRECATED);
-        }
-        if (null === $this->name) {
-            $this->name = \preg_replace('/[^a-zA-Z0-9_]+/', '', \basename($this->rootDir));
-            if (\ctype_digit($this->name[0])) {
-                $this->name = '_' . $this->name;
-            }
-        }
-        return $this->name;
     }
     /**
      * {@inheritdoc}
@@ -284,22 +234,6 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
         return $this->debug;
     }
     /**
-     * {@inheritdoc}
-     *
-     * @deprecated since Symfony 4.2, use getProjectDir() instead
-     */
-    public function getRootDir()
-    {
-        if (0 === \func_num_args() || \func_get_arg(0)) {
-            @\trigger_error(\sprintf('The "%s()" method is deprecated since Symfony 4.2, use getProjectDir() instead.', __METHOD__), \E_USER_DEPRECATED);
-        }
-        if (null === $this->rootDir) {
-            $r = new \ReflectionObject($this);
-            $this->rootDir = \dirname($r->getFileName());
-        }
-        return $this->rootDir;
-    }
-    /**
      * Gets the application root dir (path of the project's composer file).
      *
      * @return string The project root dir
@@ -308,11 +242,11 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     {
         if (null === $this->projectDir) {
             $r = new \ReflectionObject($this);
-            if (!\file_exists($dir = $r->getFileName())) {
+            if (!\is_file($dir = $r->getFileName())) {
                 throw new \LogicException(\sprintf('Cannot auto-detect project dir for kernel of class "%s".', $r->name));
             }
             $dir = $rootDir = \dirname($dir);
-            while (!\file_exists($dir . '/composer.json')) {
+            while (!\is_file($dir . '/composer.json')) {
                 if ($dir === \dirname($dir)) {
                     return $this->projectDir = $rootDir;
                 }
@@ -328,7 +262,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     public function getContainer()
     {
         if (!$this->container) {
-            @\trigger_error('Getting the container from a non-booted kernel is deprecated since Symfony 4.4.', \E_USER_DEPRECATED);
+            throw new \LogicException('Cannot retrieve the container from a non-booted kernel.');
         }
         return $this->container;
     }
@@ -337,7 +271,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
      */
     public function setAnnotatedClassCache(array $annotatedClasses)
     {
-        \file_put_contents(($this->warmupDir ?: $this->getCacheDir()) . '/annotations.map', \sprintf('<?php return %s;', \var_export($annotatedClasses, \true)));
+        \file_put_contents(($this->warmupDir ?: $this->getBuildDir()) . '/annotations.map', \sprintf('<?php return %s;', \var_export($annotatedClasses, \true)));
     }
     /**
      * {@inheritdoc}
@@ -352,6 +286,14 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     public function getCacheDir()
     {
         return $this->getProjectDir() . '/var/cache/' . $this->environment;
+    }
+    /**
+     * {@inheritdoc}
+     */
+    public function getBuildDir() : string
+    {
+        // Returns $this->getCacheDir() for backward compatibility
+        return $this->getCacheDir();
     }
     /**
      * {@inheritdoc}
@@ -396,7 +338,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
      *
      * Use this method to register compiler passes and manipulate the container during the building process.
      */
-    protected function build(\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    protected function build(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
     }
     /**
@@ -409,8 +351,8 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     protected function getContainerClass()
     {
         $class = static::class;
-        $class = \false !== \strpos($class, "@anonymous\0") ? \get_parent_class($class) . \str_replace('.', '_', \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder::hash($class)) : $class;
-        $class = $this->name . \str_replace('\\', '_', $class) . \ucfirst($this->environment) . ($this->debug ? 'Debug' : '') . 'Container';
+        $class = \false !== \strpos($class, "@anonymous\0") ? \get_parent_class($class) . \str_replace('.', '_', \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder::hash($class)) : $class;
+        $class = \str_replace('\\', '_', $class) . \ucfirst($this->environment) . ($this->debug ? 'Debug' : '') . 'Container';
         if (!\preg_match('/^[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*$/', $class)) {
             throw new \InvalidArgumentException(\sprintf('The environment "%s" contains invalid characters, it can only contain characters allowed in PHP class names.', $this->environment));
         }
@@ -430,19 +372,19 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
     /**
      * Initializes the service container.
      *
-     * The cached version of the service container is used when fresh, otherwise the
+     * The built version of the service container is used when fresh, otherwise the
      * container is built.
      */
     protected function initializeContainer()
     {
         $class = $this->getContainerClass();
-        $cacheDir = $this->warmupDir ?: $this->getCacheDir();
-        $cache = new \_PhpScoperabd03f0baf05\Symfony\Component\Config\ConfigCache($cacheDir . '/' . $class . '.php', $this->debug);
+        $buildDir = $this->warmupDir ?: $this->getBuildDir();
+        $cache = new \_PhpScoper0a2ac50786fa\Symfony\Component\Config\ConfigCache($buildDir . '/' . $class . '.php', $this->debug);
         $cachePath = $cache->getPath();
         // Silence E_WARNING to ignore "include" failures - don't use "@" to prevent silencing fatal errors
         $errorLevel = \error_reporting(\E_ALL ^ \E_WARNING);
         try {
-            if (\file_exists($cachePath) && \is_object($this->container = (include $cachePath)) && (!$this->debug || (self::$freshCache[$cachePath] ?? $cache->isFresh()))) {
+            if (\is_file($cachePath) && \is_object($this->container = (include $cachePath)) && (!$this->debug || (self::$freshCache[$cachePath] ?? $cache->isFresh()))) {
                 self::$freshCache[$cachePath] = \true;
                 $this->container->set('kernel', $this);
                 \error_reporting($errorLevel);
@@ -452,7 +394,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
         }
         $oldContainer = \is_object($this->container) ? new \ReflectionClass($this->container) : ($this->container = null);
         try {
-            \is_dir($cacheDir) ?: \mkdir($cacheDir, 0777, \true);
+            \is_dir($buildDir) ?: \mkdir($buildDir, 0777, \true);
             if ($lock = \fopen($cachePath . '.lock', 'w')) {
                 \flock($lock, \LOCK_EX | \LOCK_NB, $wouldBlock);
                 if (!\flock($lock, $wouldBlock ? \LOCK_SH : \LOCK_EX)) {
@@ -489,9 +431,20 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
                         break;
                     }
                 }
+                for ($i = 0; isset($backtrace[$i]); ++$i) {
+                    if (!isset($backtrace[$i]['file'], $backtrace[$i]['line'], $backtrace[$i]['function'])) {
+                        continue;
+                    }
+                    if (!isset($backtrace[$i]['class']) && 'trigger_deprecation' === $backtrace[$i]['function']) {
+                        $file = $backtrace[$i]['file'];
+                        $line = $backtrace[$i]['line'];
+                        $backtrace = \array_slice($backtrace, 1 + $i);
+                        break;
+                    }
+                }
                 // Remove frames added by DebugClassLoader.
                 for ($i = \count($backtrace) - 2; 0 < $i; --$i) {
-                    if (\in_array($backtrace[$i]['class'] ?? null, [\_PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler\DebugClassLoader::class, \_PhpScoperabd03f0baf05\Symfony\Component\Debug\DebugClassLoader::class], \true)) {
+                    if (\in_array($backtrace[$i]['class'] ?? null, [\_PhpScoper0a2ac50786fa\Symfony\Component\ErrorHandler\DebugClassLoader::class, \_PhpScoper0a2ac50786fa\Symfony\Component\Debug\DebugClassLoader::class], \true)) {
                         $backtrace = [$backtrace[$i + 1]];
                         break;
                     }
@@ -507,8 +460,8 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
         } finally {
             if ($collectDeprecations) {
                 \restore_error_handler();
-                \file_put_contents($cacheDir . '/' . $class . 'Deprecations.log', \serialize(\array_values($collectedLogs)));
-                \file_put_contents($cacheDir . '/' . $class . 'Compiler.log', null !== $container ? \implode("\n", $container->getCompiler()->getLog()) : '');
+                \file_put_contents($buildDir . '/' . $class . 'Deprecations.log', \serialize(\array_values($collectedLogs)));
+                \file_put_contents($buildDir . '/' . $class . 'Compiler.log', null !== $container ? \implode("\n", $container->getCompiler()->getLog()) : '');
             }
         }
         $this->dumpContainer($cache, $container, $class, $this->getContainerBaseClass());
@@ -527,13 +480,17 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
             $legacyContainers[$oldContainerDir . '.legacy'] = \true;
             foreach (\glob(\dirname($oldContainerDir) . \DIRECTORY_SEPARATOR . '*.legacy', \GLOB_NOSORT) as $legacyContainer) {
                 if (!isset($legacyContainers[$legacyContainer]) && @\unlink($legacyContainer)) {
-                    (new \_PhpScoperabd03f0baf05\Symfony\Component\Filesystem\Filesystem())->remove(\substr($legacyContainer, 0, -7));
+                    (new \_PhpScoper0a2ac50786fa\Symfony\Component\Filesystem\Filesystem())->remove(\substr($legacyContainer, 0, -7));
                 }
             }
             \touch($oldContainerDir . '.legacy');
         }
+        $preload = $this instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface ? (array) $this->warmUp($this->container->getParameter('kernel.cache_dir')) : [];
         if ($this->container->has('cache_warmer')) {
-            $this->container->get('cache_warmer')->warmUp($this->container->getParameter('kernel.cache_dir'));
+            $preload = \array_merge($preload, (array) $this->container->get('cache_warmer')->warmUp($this->container->getParameter('kernel.cache_dir')));
+        }
+        if ($preload && \method_exists(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Dumper\Preloader::class, 'append') && \file_exists($preloadFile = $buildDir . '/' . $class . '.preload.php')) {
+            \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Dumper\Preloader::append($preloadFile, $preload);
         }
     }
     /**
@@ -549,25 +506,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
             $bundles[$name] = \get_class($bundle);
             $bundlesMetadata[$name] = ['path' => $bundle->getPath(), 'namespace' => $bundle->getNamespace()];
         }
-        return [
-            /*
-             * @deprecated since Symfony 4.2, use kernel.project_dir instead
-             */
-            'kernel.root_dir' => \realpath($this->rootDir) ?: $this->rootDir,
-            'kernel.project_dir' => \realpath($this->getProjectDir()) ?: $this->getProjectDir(),
-            'kernel.environment' => $this->environment,
-            'kernel.debug' => $this->debug,
-            /*
-             * @deprecated since Symfony 4.2
-             */
-            'kernel.name' => $this->name,
-            'kernel.cache_dir' => \realpath($cacheDir = $this->warmupDir ?: $this->getCacheDir()) ?: $cacheDir,
-            'kernel.logs_dir' => \realpath($this->getLogDir()) ?: $this->getLogDir(),
-            'kernel.bundles' => $bundles,
-            'kernel.bundles_metadata' => $bundlesMetadata,
-            'kernel.charset' => $this->getCharset(),
-            'kernel.container_class' => $this->getContainerClass(),
-        ];
+        return ['kernel.project_dir' => \realpath($this->getProjectDir()) ?: $this->getProjectDir(), 'kernel.environment' => $this->environment, 'kernel.runtime_environment' => '%env(default:kernel.environment:APP_RUNTIME_ENV)%', 'kernel.debug' => $this->debug, 'kernel.build_dir' => \realpath($buildDir = $this->warmupDir ?: $this->getBuildDir()) ?: $buildDir, 'kernel.cache_dir' => \realpath($cacheDir = $this->getCacheDir() === $this->getBuildDir() ? $this->warmupDir ?: $this->getCacheDir() : $this->getCacheDir()) ?: $cacheDir, 'kernel.logs_dir' => \realpath($this->getLogDir()) ?: $this->getLogDir(), 'kernel.bundles' => $bundles, 'kernel.bundles_metadata' => $bundlesMetadata, 'kernel.charset' => $this->getCharset(), 'kernel.container_class' => $this->getContainerClass()];
     }
     /**
      * Builds the service container.
@@ -578,7 +517,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
      */
     protected function buildContainer()
     {
-        foreach (['cache' => $this->warmupDir ?: $this->getCacheDir(), 'logs' => $this->getLogDir()] as $name => $dir) {
+        foreach (['cache' => $this->getCacheDir(), 'build' => $this->warmupDir ?: $this->getBuildDir(), 'logs' => $this->getLogDir()] as $name => $dir) {
             if (!\is_dir($dir)) {
                 if (\false === @\mkdir($dir, 0777, \true) && !\is_dir($dir)) {
                     throw new \RuntimeException(\sprintf('Unable to create the "%s" directory (%s).', $name, $dir));
@@ -593,13 +532,13 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
         if (null !== ($cont = $this->registerContainerConfiguration($this->getContainerLoader($container)))) {
             $container->merge($cont);
         }
-        $container->addCompilerPass(new \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass($this));
+        $container->addCompilerPass(new \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass($this));
         return $container;
     }
     /**
      * Prepares the ContainerBuilder before it is compiled.
      */
-    protected function prepareContainer(\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    protected function prepareContainer(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $extensions = [];
         foreach ($this->bundles as $bundle) {
@@ -618,7 +557,7 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
             $extensions[] = $extension->getAlias();
         }
         // ensure these extensions are implicitly loaded
-        $container->getCompilerPassConfig()->setMergePass(new \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass($extensions));
+        $container->getCompilerPassConfig()->setMergePass(new \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass($extensions));
     }
     /**
      * Gets a new ContainerBuilder instance used to build the service container.
@@ -627,13 +566,16 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
      */
     protected function getContainerBuilder()
     {
-        $container = new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $container = new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder();
         $container->getParameterBag()->add($this->getKernelParameters());
-        if ($this instanceof \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface) {
-            $container->addCompilerPass($this, \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, -10000);
+        if ($this instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Extension\ExtensionInterface) {
+            $container->registerExtension($this);
         }
-        if (\class_exists('_PhpScoperabd03f0baf05\\ProxyManager\\Configuration') && \class_exists('_PhpScoperabd03f0baf05\\Symfony\\Bridge\\ProxyManager\\LazyProxy\\Instantiator\\RuntimeInstantiator')) {
-            $container->setProxyInstantiator(new \_PhpScoperabd03f0baf05\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator());
+        if ($this instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface) {
+            $container->addCompilerPass($this, \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, -10000);
+        }
+        if (\class_exists('_PhpScoper0a2ac50786fa\\ProxyManager\\Configuration') && \class_exists('_PhpScoper0a2ac50786fa\\Symfony\\Bridge\\ProxyManager\\LazyProxy\\Instantiator\\RuntimeInstantiator')) {
+            $container->setProxyInstantiator(new \_PhpScoper0a2ac50786fa\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator());
         }
         return $container;
     }
@@ -643,23 +585,23 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
      * @param string $class     The name of the class to generate
      * @param string $baseClass The name of the container's base class
      */
-    protected function dumpContainer(\_PhpScoperabd03f0baf05\Symfony\Component\Config\ConfigCache $cache, \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder $container, $class, $baseClass)
+    protected function dumpContainer(\_PhpScoper0a2ac50786fa\Symfony\Component\Config\ConfigCache $cache, \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $class, string $baseClass)
     {
         // cache the container
-        $dumper = new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
-        if (\class_exists('_PhpScoperabd03f0baf05\\ProxyManager\\Configuration') && \class_exists('_PhpScoperabd03f0baf05\\Symfony\\Bridge\\ProxyManager\\LazyProxy\\PhpDumper\\ProxyDumper')) {
-            $dumper->setProxyDumper(new \_PhpScoperabd03f0baf05\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper());
+        $dumper = new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
+        if (\class_exists('_PhpScoper0a2ac50786fa\\ProxyManager\\Configuration') && \class_exists('_PhpScoper0a2ac50786fa\\Symfony\\Bridge\\ProxyManager\\LazyProxy\\PhpDumper\\ProxyDumper')) {
+            $dumper->setProxyDumper(new \_PhpScoper0a2ac50786fa\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper());
         }
         $content = $dumper->dump(['class' => $class, 'base_class' => $baseClass, 'file' => $cache->getPath(), 'as_files' => \true, 'debug' => $this->debug, 'build_time' => $container->hasParameter('kernel.container_build_time') ? $container->getParameter('kernel.container_build_time') : \time(), 'preload_classes' => \array_map('get_class', $this->bundles)]);
         $rootCode = \array_pop($content);
         $dir = \dirname($cache->getPath()) . '/';
-        $fs = new \_PhpScoperabd03f0baf05\Symfony\Component\Filesystem\Filesystem();
+        $fs = new \_PhpScoper0a2ac50786fa\Symfony\Component\Filesystem\Filesystem();
         foreach ($content as $file => $code) {
             $fs->dumpFile($dir . $file, $code);
             @\chmod($dir . $file, 0666 & ~\umask());
         }
         $legacyFile = \dirname($dir . \key($content)) . '.legacy';
-        if (\file_exists($legacyFile)) {
+        if (\is_file($legacyFile)) {
             @\unlink($legacyFile);
         }
         $cache->write($rootCode, $container->getResources());
@@ -669,11 +611,32 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
      *
      * @return DelegatingLoader The loader
      */
-    protected function getContainerLoader(\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    protected function getContainerLoader(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
-        $locator = new \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Config\FileLocator($this);
-        $resolver = new \_PhpScoperabd03f0baf05\Symfony\Component\Config\Loader\LoaderResolver([new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\XmlFileLoader($container, $locator), new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, $locator), new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\IniFileLoader($container, $locator), new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($container, $locator), new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($container, $locator), new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\DirectoryLoader($container, $locator), new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\ClosureLoader($container)]);
-        return new \_PhpScoperabd03f0baf05\Symfony\Component\Config\Loader\DelegatingLoader($resolver);
+        $locator = new \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Config\FileLocator($this);
+        $resolver = new \_PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\LoaderResolver([new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\XmlFileLoader($container, $locator), new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, $locator), new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\IniFileLoader($container, $locator), new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($container, $locator), new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($container, $locator), new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\DirectoryLoader($container, $locator), new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\ClosureLoader($container)]);
+        return new \_PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\DelegatingLoader($resolver);
+    }
+    private function preBoot() : \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerInterface
+    {
+        if ($this->debug) {
+            $this->startTime = \microtime(\true);
+        }
+        if ($this->debug && !isset($_ENV['SHELL_VERBOSITY']) && !isset($_SERVER['SHELL_VERBOSITY'])) {
+            \putenv('SHELL_VERBOSITY=3');
+            $_ENV['SHELL_VERBOSITY'] = 3;
+            $_SERVER['SHELL_VERBOSITY'] = 3;
+        }
+        $this->initializeBundles();
+        $this->initializeContainer();
+        $container = $this->container;
+        if ($container->hasParameter('kernel.trusted_hosts') && ($trustedHosts = $container->getParameter('kernel.trusted_hosts'))) {
+            \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request::setTrustedHosts($trustedHosts);
+        }
+        if ($container->hasParameter('kernel.trusted_proxies') && $container->hasParameter('kernel.trusted_headers') && ($trustedProxies = $container->getParameter('kernel.trusted_proxies'))) {
+            \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request::setTrustedProxies(\is_array($trustedProxies) ? $trustedProxies : \array_map('trim', \explode(',', $trustedProxies)), $container->getParameter('kernel.trusted_headers'));
+        }
+        return $container;
     }
     /**
      * Removes comments from a PHP source string.
@@ -681,11 +644,9 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
      * We don't use the PHP php_strip_whitespace() function
      * as we want the content to be readable and well-formatted.
      *
-     * @param string $source A PHP string
-     *
      * @return string The PHP string with the comments removed
      */
-    public static function stripComments($source)
+    public static function stripComments(string $source)
     {
         if (!\function_exists('token_get_all')) {
             return $source;
@@ -713,12 +674,17 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
                 // replace multiple new lines with a single newline
                 $rawChunk .= \preg_replace(['/\\n{2,}/S'], "\n", $token[1]);
             } elseif (\in_array($token[0], [\T_COMMENT, \T_DOC_COMMENT])) {
+                if (!\in_array($rawChunk[\strlen($rawChunk) - 1], [' ', "\n", "\r", "\t"], \true)) {
+                    $rawChunk .= ' ';
+                }
                 $ignoreSpace = \true;
             } else {
                 $rawChunk .= $token[1];
                 // The PHP-open tag already has a new-line
                 if (\T_OPEN_TAG === $token[0]) {
                     $ignoreSpace = \true;
+                } else {
+                    $ignoreSpace = \false;
                 }
             }
         }
@@ -728,42 +694,14 @@ abstract class Kernel implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpK
         return $output;
     }
     /**
-     * @deprecated since Symfony 4.3
-     */
-    public function serialize()
-    {
-        @\trigger_error(\sprintf('The "%s" method is deprecated since Symfony 4.3.', __METHOD__), \E_USER_DEPRECATED);
-        return \serialize([$this->environment, $this->debug]);
-    }
-    /**
-     * @deprecated since Symfony 4.3
-     */
-    public function unserialize($data)
-    {
-        @\trigger_error(\sprintf('The "%s" method is deprecated since Symfony 4.3.', __METHOD__), \E_USER_DEPRECATED);
-        list($environment, $debug) = \unserialize($data, ['allowed_classes' => \false]);
-        $this->__construct($environment, $debug);
-    }
-    /**
      * @return array
      */
     public function __sleep()
     {
-        if (__CLASS__ !== ($c = (new \ReflectionMethod($this, 'serialize'))->getDeclaringClass()->name)) {
-            @\trigger_error(\sprintf('Implementing the "%s::serialize()" method is deprecated since Symfony 4.3.', $c), \E_USER_DEPRECATED);
-            $this->serialized = $this->serialize();
-            return ['serialized'];
-        }
         return ['environment', 'debug'];
     }
     public function __wakeup()
     {
-        if (__CLASS__ !== ($c = (new \ReflectionMethod($this, 'serialize'))->getDeclaringClass()->name)) {
-            @\trigger_error(\sprintf('Implementing the "%s::serialize()" method is deprecated since Symfony 4.3.', $c), \E_USER_DEPRECATED);
-            $this->unserialize($this->serialized);
-            unset($this->serialized);
-            return;
-        }
         $this->__construct($this->environment, $this->debug);
     }
 }

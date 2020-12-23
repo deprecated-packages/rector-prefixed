@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
 /**
  * This definition extends another definition.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ChildDefinition extends \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Definition
+class ChildDefinition extends \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition
 {
     private $parent;
     /**
@@ -26,7 +26,6 @@ class ChildDefinition extends \_PhpScoperabd03f0baf05\Symfony\Component\Dependen
     public function __construct(string $parent)
     {
         $this->parent = $parent;
-        $this->setPrivate(\false);
     }
     /**
      * Returns the Definition to inherit from.
@@ -90,7 +89,7 @@ class ChildDefinition extends \_PhpScoperabd03f0baf05\Symfony\Component\Dependen
         } elseif (0 === \strpos($index, '$')) {
             $this->arguments[$index] = $value;
         } else {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');
         }
         return $this;
     }

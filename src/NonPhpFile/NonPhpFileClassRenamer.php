@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\NonPhpFile;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\NonPhpFile;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
 /**
  * @see \Rector\Core\Tests\NonPhpFile\NonPhpFileClassRenamer\NonPhpFileClassRenamerTest
  */
@@ -29,12 +29,12 @@ final class NonPhpFileClassRenamer
         $classRenames = $this->addDoubleSlahed($classRenames);
         foreach ($classRenames as $oldClass => $newClass) {
             // the old class is without slashes, it can make mess as similar to a word in the text, so we have to be more strict about it
-            if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($oldClass, '\\')) {
+            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($oldClass, '\\')) {
                 $oldClassRegex = self::STANDALONE_CLASS_PREFIX_REGEX . \preg_quote($oldClass, '#') . self::STANDALONE_CLASS_SUFFIX_REGEX;
             } else {
                 $oldClassRegex = '#' . \preg_quote($oldClass, '#') . '#';
             }
-            $newContent = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($newContent, $oldClassRegex, function (array $match) use($newClass) : string {
+            $newContent = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($newContent, $oldClassRegex, function (array $match) use($newClass) : string {
                 return ($match['extra_space'] ?? '') . $newClass;
             });
         }
@@ -50,7 +50,7 @@ final class NonPhpFileClassRenamer
     {
         foreach ($classRenames as $oldClass => $newClass) {
             // to prevent no slash override
-            if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($oldClass, '\\')) {
+            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($oldClass, '\\')) {
                 continue;
             }
             $doubleSlashOldClass = \str_replace('\\', '\\\\', $oldClass);

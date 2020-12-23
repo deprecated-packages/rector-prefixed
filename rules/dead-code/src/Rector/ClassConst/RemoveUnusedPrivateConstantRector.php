@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\ClassConst;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\ClassConst;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassConst;
-use Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\ClassConst\RemoveUnusedPrivateConstantRector\RemoveUnusedPrivateConstantRectorTest
  */
-final class RemoveUnusedPrivateConstantRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveUnusedPrivateConstantRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassConstManipulator
      */
     private $classConstManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator $classConstManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator $classConstManipulator)
     {
         $this->classConstManipulator = $classConstManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused private constant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused private constant', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeController
 {
     private const SOME_CONSTANT = 5;
@@ -50,17 +50,17 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassConst::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
      * @param ClassConst $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$node->isPrivate()) {
             return null;
         }
-        if (\count($node->consts) !== 1) {
+        if (\count((array) $node->consts) !== 1) {
             return null;
         }
         // never used

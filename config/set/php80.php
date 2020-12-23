@@ -1,33 +1,44 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector;
-use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
-use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
-use Rector\Php80\Rector\Class_\StringableForToStringRector;
-use Rector\Php80\Rector\FuncCall\ClassOnObjectRector;
-use Rector\Php80\Rector\FuncCall\TokenGetAllToObjectRector;
-use Rector\Php80\Rector\FunctionLike\UnionTypesRector;
-use Rector\Php80\Rector\Identical\StrEndsWithRector;
-use Rector\Php80\Rector\Identical\StrStartsWithRector;
-use Rector\Php80\Rector\NotIdentical\StrContainsRector;
-use Rector\Php80\Rector\Switch_\ChangeSwitchToMatchRector;
-use Rector\Php80\Rector\Ternary\GetDebugTypeRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ArgumentAdder;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Class_\StringableForToStringRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\ClassMethod\SetStateToStaticRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\FuncCall\ClassOnObjectRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\FuncCall\TokenGetAllToObjectRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\FunctionLike\UnionTypesRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Identical\StrEndsWithRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Identical\StrStartsWithRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\NotIdentical\StrContainsRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Switch_\ChangeSwitchToMatchRector;
+use _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Ternary\GetDebugTypeRector;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper0a2ac50786fa\Symplify\SymfonyPhpConfig\ValueObjectInliner;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Php80\Rector\FunctionLike\UnionTypesRector::class);
-    $services->set(\Rector\Php80\Rector\NotIdentical\StrContainsRector::class);
-    $services->set(\Rector\Php80\Rector\Identical\StrStartsWithRector::class);
-    $services->set(\Rector\Php80\Rector\Identical\StrEndsWithRector::class);
-    $services->set(\Rector\Php80\Rector\Class_\StringableForToStringRector::class);
-    $services->set(\Rector\Php80\Rector\Class_\AnnotationToAttributeRector::class);
-    $services->set(\Rector\Php80\Rector\FuncCall\ClassOnObjectRector::class);
-    $services->set(\Rector\Php80\Rector\Ternary\GetDebugTypeRector::class);
-    $services->set(\Rector\Php80\Rector\FuncCall\TokenGetAllToObjectRector::class);
-    $services->set(\Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector::class);
-    $services->set(\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class);
-    $services->set(\Rector\Php80\Rector\Switch_\ChangeSwitchToMatchRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\FunctionLike\UnionTypesRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\NotIdentical\StrContainsRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Identical\StrStartsWithRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Identical\StrEndsWithRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Class_\StringableForToStringRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Class_\AnnotationToAttributeRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\FuncCall\ClassOnObjectRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Ternary\GetDebugTypeRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\FuncCall\TokenGetAllToObjectRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\Switch_\ChangeSwitchToMatchRector::class);
+    // nette\utils and Strings::replace()
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \_PhpScoper0a2ac50786fa\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper0a2ac50786fa\\Nette\\Utils\\Strings', 'replace', 2, 'replacement', '')])]]);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\ClassMethod\SetStateToStaticRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector::class);
 };

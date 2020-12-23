@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Laravel\Tests\Rector\New_\AddGuardToLoginEventRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Laravel\Tests\Rector\New_\AddGuardToLoginEventRector;
 
 use Iterator;
-use Rector\Laravel\Rector\New_\AddGuardToLoginEventRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AddGuardToLoginEventRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Laravel\Rector\New_\AddGuardToLoginEventRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddGuardToLoginEventRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AddGuardToLoginEventRectorTest extends \Rector\Testing\PHPUnit\Abstr
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Laravel\Rector\New_\AddGuardToLoginEventRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Laravel\Rector\New_\AddGuardToLoginEventRector::class;
     }
 }

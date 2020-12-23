@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\FuncCall\RemoveFuncCallArgRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\FuncCall\RemoveFuncCallArgRector;
 
 use Iterator;
-use Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector;
-use Rector\Generic\ValueObject\RemoveFuncCallArg;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\RemoveFuncCallArg;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveFuncCallArgRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveFuncCallArgRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideDataForTest()
+     * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
     /**
      * @return Iterator<SplFileInfo>
      */
-    public function provideDataForTest() : \Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
@@ -30,6 +30,6 @@ final class RemoveFuncCallArgRectorTest extends \Rector\Testing\PHPUnit\Abstract
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::class => [\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => [new \Rector\Generic\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2)]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2)]]];
     }
 }

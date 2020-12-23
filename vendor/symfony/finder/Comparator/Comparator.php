@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Finder\Comparator;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Finder\Comparator;
 
 /**
  * Comparator.
@@ -28,12 +28,7 @@ class Comparator
     {
         return $this->target;
     }
-    /**
-     * Sets the target value.
-     *
-     * @param string $target The target value
-     */
-    public function setTarget($target)
+    public function setTarget(string $target)
     {
         $this->target = $target;
     }
@@ -49,13 +44,11 @@ class Comparator
     /**
      * Sets the comparison operator.
      *
-     * @param string $operator A valid operator
-     *
      * @throws \InvalidArgumentException
      */
-    public function setOperator($operator)
+    public function setOperator(string $operator)
     {
-        if (!$operator) {
+        if ('' === $operator) {
             $operator = '==';
         }
         if (!\in_array($operator, ['>', '<', '>=', '<=', '==', '!='])) {

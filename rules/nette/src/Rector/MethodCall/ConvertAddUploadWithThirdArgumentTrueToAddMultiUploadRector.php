@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Identifier;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Nette\Tests\Rector\MethodCall\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRectorTest
  */
-final class ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector extends \Rector\Core\Rector\AbstractRector
+final class ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('convert addUpload() with 3rd argument true to addMultiUpload()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('convert addUpload() with 3rd argument true to addMultiUpload()', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $form = new Nette\Forms\Form();
 $form->addUpload('...', '...', true);
 CODE_SAMPLE
@@ -31,14 +31,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoperabd03f0baf05\\Nette\\Forms\\Form')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper0a2ac50786fa\\Nette\\Forms\\Form')) {
             return null;
         }
         if (!$this->isName($node->name, 'addUpload')) {
@@ -49,7 +49,7 @@ CODE_SAMPLE
             return null;
         }
         if ($this->isTrue($node->args[2]->value)) {
-            $node->name = new \PhpParser\Node\Identifier('addMultiUpload');
+            $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('addMultiUpload');
             unset($node->args[2]);
             return $node;
         }

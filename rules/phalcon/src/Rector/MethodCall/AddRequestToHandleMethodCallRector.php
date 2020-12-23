@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Phalcon\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Phalcon\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/rectorphp/rector/issues/2408
  */
 /**
  * @see \Rector\Phalcon\Tests\Rector\MethodCall\AddRequestToHandleMethodCallRector\AddRequestToHandleMethodCallRectorTest
  */
-final class AddRequestToHandleMethodCallRector extends \Rector\Core\Rector\AbstractRector
+final class AddRequestToHandleMethodCallRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add $_SERVER REQUEST_URI to method call', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add $_SERVER REQUEST_URI to method call', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($di)
@@ -49,14 +49,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoperabd03f0baf05\\Phalcon\\Mvc\\Application')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper0a2ac50786fa\\Phalcon\\Mvc\\Application')) {
             return null;
         }
         if (!$this->isName($node->name, 'handle')) {
@@ -65,11 +65,11 @@ CODE_SAMPLE
         if ($node->args === null || $node->args !== []) {
             return null;
         }
-        $node->args[] = new \PhpParser\Node\Arg($this->createServerRequestUri());
+        $node->args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($this->createServerRequestUri());
         return $node;
     }
-    private function createServerRequestUri() : \PhpParser\Node\Expr\ArrayDimFetch
+    private function createServerRequestUri() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch
     {
-        return new \PhpParser\Node\Expr\ArrayDimFetch(new \PhpParser\Node\Expr\Variable('_SERVER'), new \PhpParser\Node\Scalar\String_('REQUEST_URI'));
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('_SERVER'), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_('REQUEST_URI'));
     }
 }

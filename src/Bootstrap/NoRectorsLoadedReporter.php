@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Bootstrap;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Bootstrap;
 
-use Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
 final class NoRectorsLoadedReporter
 {
     /**
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
     }
@@ -25,7 +25,7 @@ final class NoRectorsLoadedReporter
         $this->symfonyStyle->newLine(2);
         $this->symfonyStyle->title('Add set of rules to "rector.php"');
         $this->symfonyStyle->writeln('  $parameters = $containerConfigurator->parameters();');
-        $this->symfonyStyle->writeln('  $parameters->set(Option::SET, [...]);');
+        $this->symfonyStyle->writeln('  $parameters->set(Option::SETS, [...]);');
         $this->symfonyStyle->newLine(2);
         $this->symfonyStyle->title('Missing "rector.php" in your project? Let Rector create it for you');
         $this->symfonyStyle->writeln('  vendor/bin/rector init');

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\ClassMethod;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Rector\DeadCode\NodeManipulator\ControllerClassMethodManipulator;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\ControllerClassMethodManipulator;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\ClassMethod\RemoveEmptyClassMethodRector\RemoveEmptyClassMethodRectorTest
  */
-final class RemoveEmptyClassMethodRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveEmptyClassMethodRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassMethodManipulator
@@ -25,14 +25,14 @@ final class RemoveEmptyClassMethodRector extends \Rector\Core\Rector\AbstractRec
      * @var ControllerClassMethodManipulator
      */
     private $controllerClassMethodManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator, \Rector\DeadCode\NodeManipulator\ControllerClassMethodManipulator $controllerClassMethodManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator, \_PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\ControllerClassMethodManipulator $controllerClassMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
         $this->controllerClassMethodManipulator = $controllerClassMethodManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove empty method calls not required by parents', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove empty method calls not required by parents', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class OrphanClass
 {
     public function __construct()
@@ -52,15 +52,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             return null;
         }
         if ($node->stmts !== null && $node->stmts !== []) {
@@ -69,22 +69,19 @@ CODE_SAMPLE
         if ($node->isAbstract()) {
             return null;
         }
+        if ($node->isFinal() && !$classLike->isFinal()) {
+            return null;
+        }
         if ($this->shouldSkipNonFinalNonPrivateClassMethod($classLike, $node)) {
             return null;
         }
-        if ($this->classMethodManipulator->isNamedConstructor($node)) {
-            return null;
-        }
-        if ($this->classMethodManipulator->hasParentMethodOrInterfaceMethod($node)) {
-            return null;
-        }
-        if ($this->controllerClassMethodManipulator->isControllerClassMethodWithBehaviorAnnotation($node)) {
+        if ($this->shouldSkipClassMethod($node)) {
             return null;
         }
         $this->removeNode($node);
         return $node;
     }
-    private function shouldSkipNonFinalNonPrivateClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipNonFinalNonPrivateClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if ($class->isFinal()) {
             return \false;
@@ -96,5 +93,18 @@ CODE_SAMPLE
             return \true;
         }
         return $classMethod->isPublic();
+    }
+    private function shouldSkipClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    {
+        if ($this->classMethodManipulator->isNamedConstructor($classMethod)) {
+            return \true;
+        }
+        if ($this->classMethodManipulator->hasParentMethodOrInterfaceMethod($classMethod)) {
+            return \true;
+        }
+        if ($this->classMethodManipulator->isPropertyPromotion($classMethod)) {
+            return \true;
+        }
+        return $this->controllerClassMethodManipulator->isControllerClassMethodWithBehaviorAnnotation($classMethod);
     }
 }

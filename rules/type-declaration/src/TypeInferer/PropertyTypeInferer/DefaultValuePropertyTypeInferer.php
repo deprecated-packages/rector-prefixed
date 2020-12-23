@@ -1,32 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
-use PhpParser\Node\Stmt\Property;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 /**
  * Special case of type inferer - it is always added in the end of the resolved types
  */
-//implements PropertyTypeInfererInterface
 final class DefaultValuePropertyTypeInferer
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
+    public function inferProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $propertyProperty = $property->props[0];
         if ($propertyProperty->default === null) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         return $this->nodeTypeResolver->getStaticType($propertyProperty->default);
     }

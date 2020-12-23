@@ -8,21 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 class Alias
 {
     private $id;
     private $public;
-    private $private;
     private $deprecation = [];
     private static $defaultDeprecationTemplate = 'The "%alias_id%" service alias is deprecated. You should stop using it, as it will be removed in the future.';
-    public function __construct(string $id, bool $public = \true)
+    public function __construct(string $id, bool $public = \false)
     {
         $this->id = $id;
         $this->public = $public;
-        $this->private = 2 > \func_num_args();
     }
     /**
      * Checks if this DI Alias should be public or not.
@@ -41,23 +39,19 @@ class Alias
     public function setPublic(bool $boolean)
     {
         $this->public = $boolean;
-        $this->private = \false;
         return $this;
     }
     /**
      * Sets if this Alias is private.
      *
-     * When set, the "private" state has a higher precedence than "public".
-     * In version 3.4, a "private" alias always remains publicly accessible,
-     * but triggers a deprecation notice when accessed from the container,
-     * so that the alias can be made really private in 4.0.
-     *
      * @return $this
+     *
+     * @deprecated since Symfony 5.2, use setPublic() instead
      */
     public function setPrivate(bool $boolean)
     {
-        $this->private = $boolean;
-        return $this;
+        trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s()" method is deprecated, use "setPublic()" instead.', __METHOD__);
+        return $this->setPublic(!$boolean);
     }
     /**
      * Whether this alias is private.
@@ -66,7 +60,7 @@ class Alias
      */
     public function isPrivate()
     {
-        return $this->private;
+        return !$this->public;
     }
     /**
      * Whether this alias is deprecated, that means it should not be referenced
@@ -99,10 +93,10 @@ class Alias
         }
         if ('' !== $message) {
             if (\preg_match('#[\\r\\n]|\\*/#', $message)) {
-                throw new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Invalid characters found in deprecation template.');
+                throw new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Invalid characters found in deprecation template.');
             }
             if (\false === \strpos($message, '%alias_id%')) {
-                throw new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The deprecation template must contain the "%alias_id%" placeholder.');
+                throw new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The deprecation template must contain the "%alias_id%" placeholder.');
             }
         }
         $this->deprecation = $status ? ['package' => $package, 'version' => $version, 'message' => $message ?: self::$defaultDeprecationTemplate] : [];

@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\Stmt;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Stmt;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Else_;
-use PhpParser\Node\Stmt\If_;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\Nop;
-use PhpParser\Node\Stmt\While_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Else_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\While_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/phpstan/phpstan/blob/83078fe308a383c618b8c1caec299e5765d9ac82/src/Node/UnreachableStatementNode.php
  *
  * @see \Rector\DeadCode\Tests\Rector\Stmt\RemoveUnreachableStatementRector\RemoveUnreachableStatementRectorTest
  */
-final class RemoveUnreachableStatementRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveUnreachableStatementRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unreachable statements', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unreachable statements', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -55,74 +55,74 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt::class];
     }
     /**
      * @param Stmt $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->shouldSkipNode($node)) {
             return null;
         }
         // might be PHPStan false positive, better skip
-        $previousStatement = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
-        if ($previousStatement instanceof \PhpParser\Node\Stmt\If_) {
-            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE, $previousStatement->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE));
+        $previousStatement = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
+        if ($previousStatement instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_) {
+            $node->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE, $previousStatement->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE));
         }
-        if ($previousStatement instanceof \PhpParser\Node\Stmt\While_) {
-            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE, $previousStatement->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE));
+        if ($previousStatement instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\While_) {
+            $node->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE, $previousStatement->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE));
         }
         if (!$this->isUnreachable($node)) {
             return null;
         }
         if ($this->isAfterMarkTestSkippedMethodCall($node)) {
-            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE, \false);
+            $node->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE, \false);
             return null;
         }
         $this->removeNode($node);
         return null;
     }
-    private function shouldSkipNode(\PhpParser\Node\Stmt $stmt) : bool
+    private function shouldSkipNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt) : bool
     {
-        if ($stmt instanceof \PhpParser\Node\Stmt\Nop) {
+        if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop) {
             return \true;
         }
-        if ($stmt instanceof \PhpParser\Node\Stmt\ClassLike) {
+        if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike) {
             return \true;
         }
-        return $stmt instanceof \PhpParser\Node\FunctionLike;
+        return $stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
     }
-    private function isUnreachable(\PhpParser\Node $node) : bool
+    private function isUnreachable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt) : bool
     {
-        $isUnreachable = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE);
+        $isUnreachable = $stmt->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE);
         if ($isUnreachable === \true) {
             return \true;
         }
         // traverse up for unreachable node in the same scope
-        $previousNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
-        while ($previousNode instanceof \PhpParser\Node && !$this->isBreakingScopeNode($previousNode)) {
-            $isUnreachable = $previousNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE);
+        $previousNode = $stmt->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
+        while ($previousNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt && !$this->isBreakingScopeNode($previousNode)) {
+            $isUnreachable = $previousNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE);
             if ($isUnreachable === \true) {
                 return \true;
             }
-            $previousNode = $previousNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
+            $previousNode = $previousNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
         }
         return \false;
     }
     /**
      * Keep content after markTestSkipped(), intentional temporary
      */
-    private function isAfterMarkTestSkippedMethodCall(\PhpParser\Node $node) : bool
+    private function isAfterMarkTestSkippedMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirstPrevious($node, function (\PhpParser\Node $node) : bool {
-            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+        return (bool) $this->betterNodeFinder->findFirstPrevious($stmt, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
                 return \false;
             }
-            if ($node->name instanceof \PhpParser\Node\Expr\MethodCall) {
+            if ($node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
                 return \false;
             }
-            if ($node->name instanceof \PhpParser\Node\Expr\StaticCall) {
+            if ($node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
                 return \false;
             }
             return $this->isName($node->name, 'markTestSkipped');
@@ -131,17 +131,17 @@ CODE_SAMPLE
     /**
      * Check nodes that breaks scope while traversing up
      */
-    private function isBreakingScopeNode(\PhpParser\Node $node) : bool
+    private function isBreakingScopeNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt) : bool
     {
-        if ($node instanceof \PhpParser\Node\Stmt\ClassLike) {
+        if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike) {
             return \true;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
             return \true;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+        if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_) {
             return \true;
         }
-        return $node instanceof \PhpParser\Node\Stmt\Else_;
+        return $stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Else_;
     }
 }

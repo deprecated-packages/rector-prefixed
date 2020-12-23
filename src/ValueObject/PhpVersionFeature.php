@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\ValueObject;
 
 final class PhpVersionFeature
 {
@@ -13,6 +13,10 @@ final class PhpVersionFeature
      * @var int
      */
     public const ELVIS_OPERATOR = 50300;
+    /**
+     * @var int
+     */
+    public const DATE_TIME_INTERFACE = 50500;
     /**
      * @var int
      */
@@ -92,10 +96,6 @@ final class PhpVersionFeature
     /**
      * @var int
      */
-    public const LIST_REFERENCE_ASSIGNMENT = 70300;
-    /**
-     * @var int
-     */
     public const ARROW_FUNCTION = 70400;
     /**
      * @var int
@@ -129,10 +129,6 @@ final class PhpVersionFeature
     /**
      * @var int
      */
-    public const MIXED_TYPE = 80000;
-    /**
-     * @var int
-     */
     public const STATIC_RETURN_TYPE = 80000;
     /**
      * @var int
@@ -145,17 +141,14 @@ final class PhpVersionFeature
     /**
      * @var int
      */
-    public const VOID_RETURN_TYPE = 70100;
-    /**
-     * @var int
-     */
-    public const STRIP_TAGS_WITH_ARRAY = 70400;
-    /**
-     * @var int
-     */
     public const PARENT_VISIBILITY_OVERRIDE = 70200;
     /**
      * @var int
      */
     public const COUNT_ON_NULL = 70100;
+    /**
+     * @see https://wiki.php.net/rfc/constructor_promotion
+     * @var int
+     */
+    public const PROPERTY_PROMOTION = 80000;
 }

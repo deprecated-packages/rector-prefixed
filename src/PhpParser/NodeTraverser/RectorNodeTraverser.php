@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\NodeTraverser;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\NodeFinder;
-use PhpParser\NodeTraverser;
-use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
-use Rector\Core\Application\ActiveRectorsProvider;
-use Rector\Core\Configuration\Configuration;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
-use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
-use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Testing\Application\EnabledRectorsProvider;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-final class RectorNodeTraverser extends \PhpParser\NodeTraverser
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeFinder;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Application\ActiveRectorsProvider;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\Testing\Application\EnabledRectorsProvider;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+final class RectorNodeTraverser extends \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser
 {
     /**
      * @var PhpRectorInterface[]
@@ -37,14 +37,14 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      * @var CurrentFileInfoProvider
      */
     private $currentFileInfoProvider;
-    public function __construct(\Rector\Testing\Application\EnabledRectorsProvider $enabledRectorsProvider, \Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Testing\Application\EnabledRectorsProvider $enabledRectorsProvider, \_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a2ac50786fa\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \_PhpScoper0a2ac50786fa\PhpParser\NodeFinder $nodeFinder, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         /** @var PhpRectorInterface[] $phpRectors */
-        $phpRectors = $activeRectorsProvider->provideByType(\Rector\Core\Contract\Rector\PhpRectorInterface::class);
+        $phpRectors = $activeRectorsProvider->provideByType(\_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface::class);
         $this->allPhpRectors = $phpRectors;
         $this->enabledRectorsProvider = $enabledRectorsProvider;
         foreach ($phpRectors as $phpRector) {
-            if ($configuration->isCacheEnabled() && !$configuration->shouldClearCache() && $phpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface) {
+            if ($configuration->isCacheEnabled() && !$configuration->shouldClearCache() && $phpRector instanceof \_PhpScoper0a2ac50786fa\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface) {
                 continue;
             }
             $this->addVisitor($phpRector);
@@ -55,7 +55,7 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     /**
      * @return Node[]
      */
-    public function traverseFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : array
+    public function traverseFileNode(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : array
     {
         if ($this->enabledRectorsProvider->isConfigured()) {
             $this->configureEnabledRectorsOnly();
@@ -78,19 +78,19 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
         if ($this->enabledRectorsProvider->isConfigured()) {
             $this->configureEnabledRectorsOnly();
         }
-        $hasNamespace = (bool) $this->nodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
+        $hasNamespace = (bool) $this->nodeFinder->findFirstInstanceOf($nodes, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_::class);
         if (!$hasNamespace && $nodes !== []) {
-            $fileWithoutNamespace = new \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace($nodes);
-            $fileWithoutNamespace->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $this->currentFileInfoProvider->getSmartFileInfo());
+            $fileWithoutNamespace = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace($nodes);
+            $fileWithoutNamespace->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $this->currentFileInfoProvider->getSmartFileInfo());
             $firstNode = $nodes[0];
-            $fileWithoutNamespace->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES, $firstNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES));
+            $fileWithoutNamespace->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES, $firstNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES));
             return parent::traverse([$fileWithoutNamespace]);
         }
         return parent::traverse($nodes);
     }
     public function getPhpRectorCount() : int
     {
-        return \count($this->visitors);
+        return \count((array) $this->visitors);
     }
     public function hasZeroCacheRectors() : bool
     {
@@ -98,8 +98,8 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     }
     public function getZeroCacheRectorCount() : int
     {
-        $zeroCacheRectors = \array_filter($this->allPhpRectors, function (\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector) : bool {
-            return $phpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
+        $zeroCacheRectors = \array_filter($this->allPhpRectors, function (\_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector) : bool {
+            return $phpRector instanceof \_PhpScoper0a2ac50786fa\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
         });
         return \count($zeroCacheRectors);
     }
@@ -124,10 +124,10 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     private function hasFileNodeRectorsEnabled() : bool
     {
         foreach ($this->visitors as $visitor) {
-            if (!$visitor instanceof \Rector\Core\Contract\Rector\PhpRectorInterface) {
+            if (!$visitor instanceof \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface) {
                 continue;
             }
-            if (!\in_array(\Rector\Core\PhpParser\Node\CustomNode\FileNode::class, $visitor->getNodeTypes(), \true)) {
+            if (!\in_array(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode::class, $visitor->getNodeTypes(), \true)) {
                 continue;
             }
             return \true;
@@ -137,16 +137,20 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     /**
      * @param mixed[] $configuration
      */
-    private function configureTestedRector(\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, array $configuration) : void
+    private function configureTestedRector(\_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, array $configuration) : void
     {
-        if (!\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (!\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            if ($phpRector instanceof \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface && $configuration === []) {
+                $message = \sprintf('Rule "%s" is running without any configuration, is that on purpose?', \get_class($phpRector));
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException($message);
+            }
             return;
         }
-        if ($phpRector instanceof \Rector\Core\Contract\Rector\ConfigurableRectorInterface) {
+        if ($phpRector instanceof \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface) {
             $phpRector->configure($configuration);
         } elseif ($configuration !== []) {
-            $message = \sprintf('Rule "%s" with configuration must implement "%s"', \get_class($phpRector), \Rector\Core\Contract\Rector\ConfigurableRectorInterface::class);
-            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
+            $message = \sprintf('Rule "%s" with configuration must implement "%s"', \get_class($phpRector), \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface::class);
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException($message);
         }
     }
 }

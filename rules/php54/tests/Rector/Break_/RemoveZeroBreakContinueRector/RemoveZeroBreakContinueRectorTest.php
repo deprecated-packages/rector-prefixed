@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php54\Tests\Rector\Break_\RemoveZeroBreakContinueRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php54\Tests\Rector\Break_\RemoveZeroBreakContinueRector;
 
 use Iterator;
-use Rector\Php54\Rector\Break_\RemoveZeroBreakContinueRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveZeroBreakContinueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php54\Rector\Break_\RemoveZeroBreakContinueRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveZeroBreakContinueRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         // to prevent loading PHP 5.4+ invalid code
         $this->doTestFileInfoWithoutAutoload($fileInfo);
@@ -23,6 +23,6 @@ final class RemoveZeroBreakContinueRectorTest extends \Rector\Testing\PHPUnit\Ab
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php54\Rector\Break_\RemoveZeroBreakContinueRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php54\Rector\Break_\RemoveZeroBreakContinueRector::class;
     }
 }

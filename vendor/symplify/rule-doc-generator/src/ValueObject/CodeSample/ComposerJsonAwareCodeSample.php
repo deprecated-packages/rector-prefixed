@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ComposerJsonAwareCodeSample extends \Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class ComposerJsonAwareCodeSample extends \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
 {
     /**
      * @var string
      */
     private $composerJson;
-    public function __construct(string $goodCode, string $badCode, string $composerJson)
+    public function __construct(string $badCode, string $goodCode, string $composerJson)
     {
-        parent::__construct($goodCode, $badCode);
+        parent::__construct($badCode, $goodCode);
         $this->composerJson = $composerJson;
     }
     public function getComposerJson() : string

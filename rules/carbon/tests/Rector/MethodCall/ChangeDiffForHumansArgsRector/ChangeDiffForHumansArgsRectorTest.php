@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Carbon\Tests\Rector\MethodCall\ChangeDiffForHumansArgsRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Carbon\Tests\Rector\MethodCall\ChangeDiffForHumansArgsRector;
 
 use Iterator;
-use Rector\Carbon\Rector\MethodCall\ChangeDiffForHumansArgsRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeDiffForHumansArgsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Carbon\Rector\MethodCall\ChangeDiffForHumansArgsRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeDiffForHumansArgsRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeDiffForHumansArgsRectorTest extends \Rector\Testing\PHPUnit\Ab
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Carbon\Rector\MethodCall\ChangeDiffForHumansArgsRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Carbon\Rector\MethodCall\ChangeDiffForHumansArgsRector::class;
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PhpParser\Builder;
+namespace _PhpScoper0a2ac50786fa\PhpParser\Builder;
 
-use _PhpScoperabd03f0baf05\PhpParser;
-use PhpParser\BuilderHelpers;
-use PhpParser\Node;
-class Param implements \PhpParser\Builder
+use _PhpScoper0a2ac50786fa\PhpParser;
+use _PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+class Param implements \_PhpScoper0a2ac50786fa\PhpParser\Builder
 {
     protected $name;
     protected $default = null;
@@ -32,7 +32,7 @@ class Param implements \PhpParser\Builder
      */
     public function setDefault($value)
     {
-        $this->default = \PhpParser\BuilderHelpers::normalizeValue($value);
+        $this->default = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeValue($value);
         return $this;
     }
     /**
@@ -44,7 +44,7 @@ class Param implements \PhpParser\Builder
      */
     public function setType($type)
     {
-        $this->type = \PhpParser\BuilderHelpers::normalizeType($type);
+        $this->type = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeType($type);
         if ($this->type == 'void') {
             throw new \LogicException('Parameter type cannot be void');
         }
@@ -88,8 +88,8 @@ class Param implements \PhpParser\Builder
      *
      * @return Node\Param The built parameter node
      */
-    public function getNode() : \PhpParser\Node
+    public function getNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        return new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($this->name), $this->default, $this->type, $this->byRef, $this->variadic);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Param(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($this->name), $this->default, $this->type, $this->byRef, $this->variadic);
     }
 }

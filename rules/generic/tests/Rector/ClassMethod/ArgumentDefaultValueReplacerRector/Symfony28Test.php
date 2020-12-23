@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://github.com/symfony/symfony/commit/912fc4de8fd6de1e5397be4a94d39091423e5188
  */
-final class Symfony28Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class Symfony28Test extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,8 +22,8 @@ final class Symfony28Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureSymfony28');
     }
-    protected function provideConfigFileInfo() : ?\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../../../../config/set/symfony28.php');
+        return new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../../../../config/set/symfony28.php');
     }
 }

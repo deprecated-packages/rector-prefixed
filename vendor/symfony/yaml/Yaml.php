@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Yaml;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Yaml;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Yaml\Exception\ParseException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Yaml\Exception\ParseException;
 /**
  * Yaml offers convenience methods to load and dump YAML.
  *
@@ -20,18 +20,18 @@ use _PhpScoperabd03f0baf05\Symfony\Component\Yaml\Exception\ParseException;
  */
 class Yaml
 {
-    const DUMP_OBJECT = 1;
-    const PARSE_EXCEPTION_ON_INVALID_TYPE = 2;
-    const PARSE_OBJECT = 4;
-    const PARSE_OBJECT_FOR_MAP = 8;
-    const DUMP_EXCEPTION_ON_INVALID_TYPE = 16;
-    const PARSE_DATETIME = 32;
-    const DUMP_OBJECT_AS_MAP = 64;
-    const DUMP_MULTI_LINE_LITERAL_BLOCK = 128;
-    const PARSE_CONSTANT = 256;
-    const PARSE_CUSTOM_TAGS = 512;
-    const DUMP_EMPTY_ARRAY_AS_SEQUENCE = 1024;
-    const DUMP_NULL_AS_TILDE = 2048;
+    public const DUMP_OBJECT = 1;
+    public const PARSE_EXCEPTION_ON_INVALID_TYPE = 2;
+    public const PARSE_OBJECT = 4;
+    public const PARSE_OBJECT_FOR_MAP = 8;
+    public const DUMP_EXCEPTION_ON_INVALID_TYPE = 16;
+    public const PARSE_DATETIME = 32;
+    public const DUMP_OBJECT_AS_MAP = 64;
+    public const DUMP_MULTI_LINE_LITERAL_BLOCK = 128;
+    public const PARSE_CONSTANT = 256;
+    public const PARSE_CUSTOM_TAGS = 512;
+    public const DUMP_EMPTY_ARRAY_AS_SEQUENCE = 1024;
+    public const DUMP_NULL_AS_TILDE = 2048;
     /**
      * Parses a YAML file into a PHP value.
      *
@@ -49,7 +49,7 @@ class Yaml
      */
     public static function parseFile(string $filename, int $flags = 0)
     {
-        $yaml = new \_PhpScoperabd03f0baf05\Symfony\Component\Yaml\Parser();
+        $yaml = new \_PhpScoper0a2ac50786fa\Symfony\Component\Yaml\Parser();
         return $yaml->parseFile($filename, $flags);
     }
     /**
@@ -70,7 +70,7 @@ class Yaml
      */
     public static function parse(string $input, int $flags = 0)
     {
-        $yaml = new \_PhpScoperabd03f0baf05\Symfony\Component\Yaml\Parser();
+        $yaml = new \_PhpScoper0a2ac50786fa\Symfony\Component\Yaml\Parser();
         return $yaml->parse($input, $flags);
     }
     /**
@@ -88,7 +88,7 @@ class Yaml
      */
     public static function dump($input, int $inline = 2, int $indent = 4, int $flags = 0) : string
     {
-        $yaml = new \_PhpScoperabd03f0baf05\Symfony\Component\Yaml\Dumper($indent);
+        $yaml = new \_PhpScoper0a2ac50786fa\Symfony\Component\Yaml\Dumper($indent);
         return $yaml->dump($input, $inline, 0, $flags);
     }
 }

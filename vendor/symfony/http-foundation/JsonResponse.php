@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation;
 
 /**
  * Response represents an HTTP response in JSON format.
@@ -21,13 +21,13 @@ namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation;
  *
  * @author Igor Wiedler <igor@wiedler.ch>
  */
-class JsonResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response
+class JsonResponse extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response
 {
     protected $data;
     protected $callback;
     // Encode <, >, ', &, and " characters in the JSON, making it also safe to be embedded into HTML.
     // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
-    const DEFAULT_ENCODING_OPTIONS = 15;
+    public const DEFAULT_ENCODING_OPTIONS = 15;
     protected $encodingOptions = self::DEFAULT_ENCODING_OPTIONS;
     /**
      * @param mixed $data    The response data
@@ -38,6 +38,9 @@ class JsonResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundat
     public function __construct($data = null, int $status = 200, array $headers = [], bool $json = \false)
     {
         parent::__construct('', $status, $headers);
+        if ($json && !\is_string($data) && !\is_numeric($data) && !\is_callable([$data, '__toString'])) {
+            throw new \TypeError(\sprintf('"%s": If $json is set to true, argument $data must be a string or object implementing __toString(), "%s" given.', __METHOD__, \get_debug_type($data)));
+        }
         if (null === $data) {
             $data = new \ArrayObject();
         }
@@ -72,13 +75,13 @@ class JsonResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundat
      *     return JsonResponse::fromJsonString('{"key": "value"}')
      *         ->setSharedMaxAge(300);
      *
-     * @param string|null $data    The JSON response string
-     * @param int         $status  The response status code
-     * @param array       $headers An array of response headers
+     * @param string $data    The JSON response string
+     * @param int    $status  The response status code
+     * @param array  $headers An array of response headers
      *
      * @return static
      */
-    public static function fromJsonString(string $data = null, int $status = 200, array $headers = [])
+    public static function fromJsonString(string $data, int $status = 200, array $headers = [])
     {
         return new static($data, $status, $headers, \true);
     }
@@ -114,8 +117,6 @@ class JsonResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundat
      * Sets a raw string containing a JSON document to be sent.
      *
      * @return $this
-     *
-     * @throws \InvalidArgumentException
      */
     public function setJson(string $json)
     {

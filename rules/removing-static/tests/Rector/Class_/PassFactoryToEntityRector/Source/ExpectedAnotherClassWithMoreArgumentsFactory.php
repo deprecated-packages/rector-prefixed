@@ -1,6 +1,6 @@
 <?php
 
-namespace Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture;
+namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture;
 
 final class AnotherClassWithMoreArgumentsFactory
 {
@@ -8,12 +8,12 @@ final class AnotherClassWithMoreArgumentsFactory
      * @var \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService
      */
     private $turnMeToService;
-    public function __construct(\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService $turnMeToService)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService $turnMeToService)
     {
         $this->turnMeToService = $turnMeToService;
     }
-    public function create($number) : \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClassWithMoreArguments
+    public function create($number) : \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClassWithMoreArguments
     {
-        return new \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClassWithMoreArguments($number, $this->turnMeToService);
+        return new \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Fixture\AnotherClassWithMoreArguments($number, $this->turnMeToService);
     }
 }

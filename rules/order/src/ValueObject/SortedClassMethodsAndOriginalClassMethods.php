@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Order\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Order\ValueObject;
 
 final class SortedClassMethodsAndOriginalClassMethods
 {

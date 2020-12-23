@@ -1,59 +1,49 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp71\Rector\ClassConst;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp71\Rector\ClassConst;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassConst;
-use Rector\DowngradePhp71\Rector\FunctionLike\AbstractDowngradeRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DowngradePhp71\Tests\Rector\ClassConst\DowngradeClassConstantVisibilityRectorTest
  */
-final class DowngradeClassConstantVisibilityRector extends \Rector\DowngradePhp71\Rector\FunctionLike\AbstractDowngradeRector
+final class DowngradeClassConstantVisibilityRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade class constant visibility', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade class constant visibility', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
-    public const PUBLIC_CONST_B = 2;
-    protected const PROTECTED_CONST = 3;
-    private const PRIVATE_CONST = 4;
+   public const PUBLIC_CONST_B = 2;
+   protected const PROTECTED_CONST = 3;
+   private const PRIVATE_CONST = 4;
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
 class SomeClass
 {
-    const PUBLIC_CONST_B = 2;
-    const PROTECTED_CONST = 3;
-    const PRIVATE_CONST = 4;
+   const PUBLIC_CONST_B = 2;
+   const PROTECTED_CONST = 3;
+   const PRIVATE_CONST = 4;
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
-, [])]);
+)]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassConst::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
      * @param ClassConst $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $this->removeVisibility($node);
         return $node;

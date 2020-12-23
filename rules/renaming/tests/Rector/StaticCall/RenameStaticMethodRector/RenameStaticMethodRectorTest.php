@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector;
 
 use Iterator;
-use _PhpScoperabd03f0baf05\Nette\Utils\Html;
-use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
-use Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros;
-use Rector\Renaming\ValueObject\RenameStaticMethod;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameStaticMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Nette\Utils\Html;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameStaticMethod;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameStaticMethodRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -28,6 +28,6 @@ final class RenameStaticMethodRectorTest extends \Rector\Testing\PHPUnit\Abstrac
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::class => [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => [new \Rector\Renaming\ValueObject\RenameStaticMethod(\_PhpScoperabd03f0baf05\Nette\Utils\Html::class, 'add', \_PhpScoperabd03f0baf05\Nette\Utils\Html::class, 'addHtml'), new \Rector\Renaming\ValueObject\RenameStaticMethod(\Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros::class, 'renderFormBegin', '_PhpScoperabd03f0baf05\\Nette\\Bridges\\FormsLatte\\Runtime', 'renderFormBegin')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::class => [\_PhpScoper0a2ac50786fa\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => [new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameStaticMethod(\_PhpScoper0a2ac50786fa\Nette\Utils\Html::class, 'add', \_PhpScoper0a2ac50786fa\Nette\Utils\Html::class, 'addHtml'), new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameStaticMethod(\_PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros::class, 'renderFormBegin', '_PhpScoper0a2ac50786fa\\Nette\\Bridges\\FormsLatte\\Runtime', 'renderFormBegin')]]];
     }
 }

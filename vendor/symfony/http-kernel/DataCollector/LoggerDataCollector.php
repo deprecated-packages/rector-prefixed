@@ -8,29 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\DataCollector;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\DataCollector;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\RequestStack;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\RequestStack;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 /**
  * LogDataCollector.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  *
- * @final since Symfony 4.4
+ * @final
  */
-class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class LoggerDataCollector extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     private $logger;
     private $containerPathPrefix;
     private $currentRequest;
     private $requestStack;
-    public function __construct($logger = null, string $containerPathPrefix = null, \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    public function __construct($logger = null, string $containerPathPrefix = null, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
     {
-        if (null !== $logger && $logger instanceof \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
+        if (null !== $logger && $logger instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
             $this->logger = $logger;
         }
         $this->containerPathPrefix = $containerPathPrefix;
@@ -38,10 +38,8 @@ class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     *
-     * @param \Throwable|null $exception
      */
-    public function collect(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request, \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response $response)
+    public function collect(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $this->currentRequest = $this->requestStack && $this->requestStack->getMasterRequest() !== $request ? $request : null;
     }
@@ -50,7 +48,7 @@ class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
      */
     public function reset()
     {
-        if ($this->logger instanceof \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
+        if ($this->logger instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
             $this->logger->clear();
         }
         $this->data = [];
@@ -108,7 +106,7 @@ class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
     }
     private function getContainerDeprecationLogs() : array
     {
-        if (null === $this->containerPathPrefix || !\file_exists($file = $this->containerPathPrefix . 'Deprecations.log')) {
+        if (null === $this->containerPathPrefix || !\is_file($file = $this->containerPathPrefix . 'Deprecations.log')) {
             return [];
         }
         if ('' === ($logContent = \trim(\file_get_contents($file)))) {
@@ -117,7 +115,7 @@ class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
         $bootTime = \filemtime($file);
         $logs = [];
         foreach (\unserialize($logContent) as $log) {
-            $log['context'] = ['exception' => new \_PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext($log['type'], $log['file'], $log['line'], $log['trace'], $log['count'])];
+            $log['context'] = ['exception' => new \_PhpScoper0a2ac50786fa\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext($log['type'], $log['file'], $log['line'], $log['trace'], $log['count'])];
             $log['timestamp'] = $bootTime;
             $log['priority'] = 100;
             $log['priorityName'] = 'DEBUG';
@@ -130,7 +128,7 @@ class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
     }
     private function getContainerCompilerLogs(string $compilerLogsFilepath = null) : array
     {
-        if (!\file_exists($compilerLogsFilepath)) {
+        if (!\is_file($compilerLogsFilepath)) {
             return [];
         }
         $logs = [];
@@ -154,7 +152,7 @@ class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
             }
             $message = '_' . $log['message'];
             $exception = $log['context']['exception'];
-            if ($exception instanceof \_PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
+            if ($exception instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
                 if (isset($silencedLogs[$h = \spl_object_hash($exception)])) {
                     continue;
                 }
@@ -181,7 +179,7 @@ class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
             return \false;
         }
         $exception = $log['context']['exception'];
-        if ($exception instanceof \_PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
+        if ($exception instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
             return \true;
         }
         if ($exception instanceof \ErrorException && \in_array($exception->getSeverity(), [\E_DEPRECATED, \E_USER_DEPRECATED], \true)) {
@@ -204,7 +202,7 @@ class LoggerDataCollector extends \_PhpScoperabd03f0baf05\Symfony\Component\Http
             }
             if ($this->isSilencedOrDeprecationErrorLog($log)) {
                 $exception = $log['context']['exception'];
-                if ($exception instanceof \_PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
+                if ($exception instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
                     if (isset($silencedLogs[$h = \spl_object_hash($exception)])) {
                         continue;
                     }

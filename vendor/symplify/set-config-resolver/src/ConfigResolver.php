@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SetConfigResolver;
+namespace _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver;
 
 /**
  * @see \Symplify\SetConfigResolver\Tests\ConfigResolver\ConfigResolverTest
  */
-final class ConfigResolver extends \Symplify\SetConfigResolver\AbstractConfigResolver
+final class ConfigResolver extends \_PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\AbstractConfigResolver
 {
 }

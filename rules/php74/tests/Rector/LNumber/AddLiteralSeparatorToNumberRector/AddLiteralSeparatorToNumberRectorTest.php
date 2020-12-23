@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php74\Tests\Rector\LNumber\AddLiteralSeparatorToNumberRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php74\Tests\Rector\LNumber\AddLiteralSeparatorToNumberRector;
 
 use Iterator;
-use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AddLiteralSeparatorToNumberRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddLiteralSeparatorToNumberRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class AddLiteralSeparatorToNumberRectorTest extends \Rector\Testing\PHPUni
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector::class => [\Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector::LIMIT_VALUE => 1000000]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector::class => [\_PhpScoper0a2ac50786fa\Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector::LIMIT_VALUE => 1000000]];
     }
 }

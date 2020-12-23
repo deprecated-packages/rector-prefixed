@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\MysqlToMysqli\Tests\Rector\FuncCall\MysqlPConnectToMysqliConnectRector;
+namespace _PhpScoper0a2ac50786fa\Rector\MysqlToMysqli\Tests\Rector\FuncCall\MysqlPConnectToMysqliConnectRector;
 
 use Iterator;
-use Rector\MysqlToMysqli\Rector\FuncCall\MysqlPConnectToMysqliConnectRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class MysqlPConnectToMysqliConnectRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\MysqlToMysqli\Rector\FuncCall\MysqlPConnectToMysqliConnectRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class MysqlPConnectToMysqliConnectRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MysqlPConnectToMysqliConnectRectorTest extends \Rector\Testing\PHPUn
     }
     protected function getRectorClass() : string
     {
-        return \Rector\MysqlToMysqli\Rector\FuncCall\MysqlPConnectToMysqliConnectRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\MysqlToMysqli\Rector\FuncCall\MysqlPConnectToMysqliConnectRector::class;
     }
 }

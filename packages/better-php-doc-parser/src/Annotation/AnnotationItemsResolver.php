@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Annotation;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Annotation;
 
-use _PhpScoperabd03f0baf05\Doctrine\Common\Annotations\Annotation;
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Doctrine\Common\Annotations\Annotation;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
 final class AnnotationItemsResolver
 {
     /**
      * @var AnnotationVisibilityDetector
      */
     private $annotationVisibilityDetector;
-    public function __construct(\Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
     {
         $this->annotationVisibilityDetector = $annotationVisibilityDetector;
     }
@@ -24,14 +24,11 @@ final class AnnotationItemsResolver
         if (\is_array($annotationOrItems)) {
             return $annotationOrItems;
         }
-        if (\is_object($annotationOrItems)) {
-            // special case for private property annotations
-            if ($this->annotationVisibilityDetector->isPrivate($annotationOrItems)) {
-                return $this->resolvePrivatePropertyValues($annotationOrItems);
-            }
-            return \get_object_vars($annotationOrItems);
+        // special case for private property annotations
+        if ($this->annotationVisibilityDetector->isPrivate($annotationOrItems)) {
+            return $this->resolvePrivatePropertyValues($annotationOrItems);
         }
-        return [];
+        return \get_object_vars($annotationOrItems);
     }
     /**
      * @see https://ocramius.github.io/blog/fast-php-object-to-array-conversion/
@@ -41,7 +38,7 @@ final class AnnotationItemsResolver
     {
         $items = [];
         foreach ((array) $object as $messedPropertyName => $value) {
-            $propertyName = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after($messedPropertyName, "\0", -1);
+            $propertyName = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after($messedPropertyName, "\0", -1);
             $items[$propertyName] = $value;
         }
         return $items;

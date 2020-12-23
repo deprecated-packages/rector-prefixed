@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\FileSystemRector\Rector\FileNode;
+namespace _PhpScoper0a2ac50786fa\Rector\FileSystemRector\Rector\FileNode;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
 /**
  * @see \Rector\FileSystemRector\Tests\Rector\FileNode\RemoveProjectFileRector\RemoveProjectFileRectorTest
  */
-final class RemoveProjectFileRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RemoveProjectFileRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -26,9 +26,9 @@ final class RemoveProjectFileRector extends \Rector\Core\Rector\AbstractRector i
      * @var string[]
      */
     private $filePathsToRemove = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove file relative to project directory', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove file relative to project directory', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 // someFile/ToBeRemoved.txt
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -40,12 +40,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
      * @param FileNode $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->filePathsToRemove === []) {
             return null;
@@ -67,12 +67,12 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $filePathsToRemove = $configuration[self::FILE_PATHS_TO_REMOVE] ?? [];
-        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allString($filePathsToRemove);
+        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allString($filePathsToRemove);
         $this->filePathsToRemove = $filePathsToRemove;
     }
     private function isFilePathToRemove(string $relativePathInProject, string $filePathToRemove) : bool
     {
-        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun() && \_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($relativePathInProject, $filePathToRemove)) {
+        if (\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun() && \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($relativePathInProject, $filePathToRemove)) {
             // only for tests
             return \true;
         }

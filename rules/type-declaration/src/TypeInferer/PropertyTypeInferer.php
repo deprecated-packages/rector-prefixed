@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\TypeInferer;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer;
 
-use PhpParser\Node\Stmt\Property;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\NeverType;
-use PHPStan\Type\Type;
-use PHPStan\Type\VoidType;
-use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
-use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
-use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer;
-use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer;
-final class PropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\NeverType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\VoidType;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer;
+final class PropertyTypeInferer extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
 {
     /**
      * @var PropertyTypeInfererInterface[]
@@ -39,7 +39,7 @@ final class PropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abst
     /**
      * @param PropertyTypeInfererInterface[] $propertyTypeInferers
      */
-    public function __construct(array $propertyTypeInferers, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer $defaultValuePropertyTypeInferer, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer $varDocPropertyTypeInferer, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer)
+    public function __construct(array $propertyTypeInferers, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer $defaultValuePropertyTypeInferer, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer $varDocPropertyTypeInferer, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer)
     {
         $this->propertyTypeInferers = $this->sortTypeInferersByPriority($propertyTypeInferers);
         $this->defaultValuePropertyTypeInferer = $defaultValuePropertyTypeInferer;
@@ -47,12 +47,12 @@ final class PropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abst
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->varDocPropertyTypeInferer = $varDocPropertyTypeInferer;
     }
-    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
+    public function inferProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $resolvedTypes = [];
         foreach ($this->propertyTypeInferers as $propertyTypeInferer) {
             $type = $propertyTypeInferer->inferProperty($property);
-            if ($type instanceof \PHPStan\Type\VoidType || $type instanceof \PHPStan\Type\MixedType) {
+            if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\VoidType || $type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
                 continue;
             }
             $resolvedTypes[] = $type;
@@ -73,17 +73,17 @@ final class PropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abst
             }
         }
         if ($resolvedType === null) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         return $resolvedType;
     }
-    private function shouldUnionWithDefaultValue(\PHPStan\Type\Type $defaultValueType, ?\PHPStan\Type\Type $type = null) : bool
+    private function shouldUnionWithDefaultValue(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $defaultValueType, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type = null) : bool
     {
-        if ($defaultValueType instanceof \PHPStan\Type\MixedType) {
+        if ($defaultValueType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
             return \false;
         }
         // skip empty array type (mixed[])
-        if ($defaultValueType instanceof \PHPStan\Type\ArrayType && $defaultValueType->getItemType() instanceof \PHPStan\Type\NeverType && $type !== null) {
+        if ($defaultValueType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType && $defaultValueType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NeverType && $type !== null) {
             return \false;
         }
         if ($type === null) {
@@ -91,8 +91,9 @@ final class PropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abst
         }
         return !$this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($type);
     }
-    private function unionWithDefaultValueType(\PHPStan\Type\Type $defaultValueType, ?\PHPStan\Type\Type $resolvedType) : \PHPStan\Type\Type
+    private function unionWithDefaultValueType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $defaultValueType, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $resolvedType) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
+        $types = [];
         $types[] = $defaultValueType;
         if ($resolvedType !== null) {
             $types[] = $resolvedType;

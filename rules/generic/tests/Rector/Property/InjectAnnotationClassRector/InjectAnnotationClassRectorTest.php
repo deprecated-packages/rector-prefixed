@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\Property\InjectAnnotationClassRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Property\InjectAnnotationClassRector;
 
-use _PhpScoperabd03f0baf05\DI\Annotation\Inject as PHPDIInject;
+use _PhpScoper0a2ac50786fa\DI\Annotation\Inject as PHPDIInject;
 use Iterator;
-use _PhpScoperabd03f0baf05\JMS\DiExtraBundle\Annotation\Inject;
-use Rector\Core\Configuration\Option;
-use Rector\Generic\Rector\Property\InjectAnnotationClassRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class InjectAnnotationClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\JMS\DiExtraBundle\Annotation\Inject;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Property\InjectAnnotationClassRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class InjectAnnotationClassRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/../../../../../symfony/tests/Rector/MethodCall/GetToConstructorInjectionRector/xml/services.xml');
+        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/../../../../../symfony/tests/Rector/MethodCall/GetToConstructorInjectionRector/xml/services.xml');
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
@@ -29,6 +29,6 @@ final class InjectAnnotationClassRectorTest extends \Rector\Testing\PHPUnit\Abst
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::class => [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::ANNOTATION_CLASSES => [\_PhpScoperabd03f0baf05\JMS\DiExtraBundle\Annotation\Inject::class, \_PhpScoperabd03f0baf05\DI\Annotation\Inject::class]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Property\InjectAnnotationClassRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Property\InjectAnnotationClassRector::ANNOTATION_CLASSES => [\_PhpScoper0a2ac50786fa\JMS\DiExtraBundle\Annotation\Inject::class, \_PhpScoper0a2ac50786fa\DI\Annotation\Inject::class]]];
     }
 }

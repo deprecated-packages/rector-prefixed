@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteKdyby\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\Class_;
-use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoperabd03f0baf05\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a2ac50786fa\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\ReplaceMagicPropertyEventWithEventClassRectorTest
  */
-final class ReplaceMagicPropertyEventWithEventClassRector extends \Rector\Core\Rector\AbstractRector
+final class ReplaceMagicPropertyEventWithEventClassRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassNaming
@@ -33,14 +33,14 @@ final class ReplaceMagicPropertyEventWithEventClassRector extends \Rector\Core\R
      * @var EventAndListenerTreeProvider
      */
     private $eventAndListenerTreeProvider;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider)
     {
         $this->classNaming = $classNaming;
         $this->eventAndListenerTreeProvider = $eventAndListenerTreeProvider;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $onProperty magic call with event disptacher and class dispatch', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $onProperty magic call with event disptacher and class dispatch', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class FileManager
 {
     public $onUpload;
@@ -75,12 +75,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         // 1. is onProperty? call
         $eventAndListenerTree = $this->eventAndListenerTreeProvider->matchMethodCall($node);
@@ -99,21 +99,21 @@ CODE_SAMPLE
         // add event dispatcher dependency if needed
         $assign = $this->createEventInstanceAssign($eventClassName, $node);
         /** @var Class_ $classLike */
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        $this->addConstructorDependencyToClass($classLike, new \Rector\PHPStan\Type\FullyQualifiedObjectType(\_PhpScoperabd03f0baf05\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class), 'eventDispatcher');
+        $classLike = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $this->addConstructorDependencyToClass($classLike, new \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType(\_PhpScoper0a2ac50786fa\Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class), 'eventDispatcher');
         // 6. remove property
         if ($eventAndListenerTree->getOnMagicProperty() !== null) {
             $this->removeNode($eventAndListenerTree->getOnMagicProperty());
         }
         return $assign;
     }
-    private function createEventInstanceAssign(string $eventClassName, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\Assign
+    private function createEventInstanceAssign(string $eventClassName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign
     {
         $shortEventClassName = $this->classNaming->getVariableName($eventClassName);
-        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($eventClassName));
+        $new = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($eventClassName));
         if ($methodCall->args) {
             $new->args = $methodCall->args;
         }
-        return new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable($shortEventClassName), $new);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($shortEventClassName), $new);
     }
 }

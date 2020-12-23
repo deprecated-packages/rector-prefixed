@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\FamilyTree\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\FamilyTree\NodeAnalyzer;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Property;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
-use Rector\NodeCollector\NodeCollector\NodeRepository;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class PropertyUsageAnalyzer
 {
     /**
@@ -29,34 +29,31 @@ final class PropertyUsageAnalyzer
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
         $this->nodeRepository = $nodeRepository;
     }
-    public function isPropertyFetchedInChildClass(\PhpParser\Node\Stmt\Property $property) : bool
+    public function isPropertyFetchedInChildClass(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
     {
-        $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
-        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike instanceof \PhpParser\Node\Stmt\Class_ && $classLike->isFinal()) {
+        $classLike = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if ($classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ && $classLike->isFinal()) {
             return \false;
         }
         $propertyName = $this->nodeNameResolver->getName($property);
-        if ($propertyName === null) {
-            return \false;
-        }
         $childrenClassNames = $this->familyRelationsAnalyzer->getChildrenOfClass($className);
         foreach ($childrenClassNames as $childClassName) {
             $childClass = $this->nodeRepository->findClass($childClassName);
             if ($childClass === null) {
                 continue;
             }
-            $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst((array) $childClass->stmts, function (\PhpParser\Node $node) use($propertyName) : bool {
+            $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst((array) $childClass->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($propertyName) : bool {
                 return $this->nodeNameResolver->isLocalPropertyFetchNamed($node, $propertyName);
             });
             if ($isPropertyFetched) {

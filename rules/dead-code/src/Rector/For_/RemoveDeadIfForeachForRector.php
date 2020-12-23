@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\For_;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\For_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Scalar;
-use PhpParser\Node\Stmt\For_;
-use PhpParser\Node\Stmt\Foreach_;
-use PhpParser\Node\Stmt\If_;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\For_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\For_\RemoveDeadIfForeachForRector\RemoveDeadIfForeachForRectorTest
  */
-final class RemoveDeadIfForeachForRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDeadIfForeachForRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove if, foreach and for that does not do anything', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove if, foreach and for that does not do anything', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($someObject)
@@ -59,18 +59,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\Foreach_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\For_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param For_|If_|Foreach_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Stmt\If_) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_) {
             $this->processIf($node);
             return null;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\Foreach_) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_) {
             $this->processForeach($node);
             return null;
         }
@@ -81,7 +81,7 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    private function processIf(\PhpParser\Node\Stmt\If_ $if) : void
+    private function processIf(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_ $if) : void
     {
         if ($if->stmts !== []) {
             return;
@@ -97,7 +97,7 @@ CODE_SAMPLE
         }
         $this->removeNode($if);
     }
-    private function processForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
+    private function processForeach(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         if ($foreach->stmts !== []) {
             return;
@@ -107,12 +107,12 @@ CODE_SAMPLE
         }
         $this->removeNode($foreach);
     }
-    private function isNodeWithSideEffect(\PhpParser\Node\Expr $expr) : bool
+    private function isNodeWithSideEffect(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
     {
-        if ($expr instanceof \PhpParser\Node\Expr\Variable) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return \false;
         }
-        if ($expr instanceof \PhpParser\Node\Scalar) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar) {
             return \false;
         }
         return !$this->isBool($expr);

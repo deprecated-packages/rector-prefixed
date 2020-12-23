@@ -1,45 +1,45 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\NodeTypeResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Trait_;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
-use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use ReflectionClass;
 /**
  * @see \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\TraitTypeResolver\TraitTypeResolverTest
  */
-final class TraitTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+final class TraitTypeResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @return string[]
      */
     public function getNodeClasses() : array
     {
-        return [\PhpParser\Node\Stmt\Trait_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_::class];
     }
     /**
      * @param Trait_ $traitNode
      */
-    public function resolve(\PhpParser\Node $traitNode) : \PHPStan\Type\Type
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $traitNode) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $reflectionClass = new \ReflectionClass((string) $traitNode->namespacedName);
         $types = [];
-        $types[] = new \PHPStan\Type\ObjectType($reflectionClass->getName());
+        $types[] = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($reflectionClass->getName());
         foreach ($reflectionClass->getTraits() as $usedTraitReflection) {
-            $types[] = new \PHPStan\Type\ObjectType($usedTraitReflection->getName());
+            $types[] = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($usedTraitReflection->getName());
         }
         if (\count($types) === 1) {
             return $types[0];
         }
         if (\count($types) > 1) {
-            return new \PHPStan\Type\UnionType($types);
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType($types);
         }
-        return new \PHPStan\Type\MixedType();
+        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
     }
 }

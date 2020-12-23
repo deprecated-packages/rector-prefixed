@@ -1,33 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php74\Rector\Property;
+namespace _PhpScoper0a2ac50786fa\Rector\Php74\Rector\Property;
 
-use PhpParser\Node;
-use PhpParser\Node\Name;
-use PhpParser\Node\NullableType;
-use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\UnionType as PhpParserUnionType;
-use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
-use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\NullType;
-use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
-use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
-use Rector\VendorLocker\VendorLockResolver;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\UnionType as PhpParserUnionType;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\NullType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode;
+use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
+use _PhpScoper0a2ac50786fa\Rector\VendorLocker\VendorLockResolver;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @source https://wiki.php.net/rfc/typed_properties_v2#proposal
  *
@@ -37,7 +37,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see \Rector\Php74\Tests\Rector\Property\TypedPropertyRector\ImportedTest
  * @see \Rector\Php74\Tests\Rector\Property\TypedPropertyRector\UnionTypedPropertyRectorTest
  */
-final class TypedPropertyRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class TypedPropertyRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -60,15 +60,15 @@ final class TypedPropertyRector extends \Rector\Core\Rector\AbstractRector imple
      * @var DoctrineTypeAnalyzer
      */
     private $doctrineTypeAnalyzer;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \_PhpScoper0a2ac50786fa\Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer)
     {
         $this->propertyTypeInferer = $propertyTypeInferer;
         $this->vendorLockResolver = $vendorLockResolver;
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes property `@var` annotations from annotation to type.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes property `@var` annotations from annotation to type.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     /**
@@ -90,14 +90,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param Property $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
         }
         // type is already set → skip
@@ -105,10 +105,10 @@ CODE_SAMPLE
             return null;
         }
         $varType = $this->propertyTypeInferer->inferProperty($node);
-        if ($varType instanceof \PHPStan\Type\MixedType) {
+        if ($varType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
             return null;
         }
-        $propertyTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($varType, \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper::KIND_PROPERTY);
+        $propertyTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($varType, \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper::KIND_PROPERTY);
         if ($propertyTypeNode === null) {
             return null;
         }
@@ -117,7 +117,7 @@ CODE_SAMPLE
             return null;
         }
         // false positive
-        if ($propertyTypeNode instanceof \PhpParser\Node\Name && $this->isName($propertyTypeNode, 'mixed')) {
+        if ($propertyTypeNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name && $this->isName($propertyTypeNode, 'mixed')) {
             return null;
         }
         if ($this->vendorLockResolver->isPropertyTypeChangeVendorLockedIn($node)) {
@@ -136,10 +136,10 @@ CODE_SAMPLE
     /**
      * @param Name|NullableType|PhpParserUnionType $node
      */
-    private function shouldSkipNonClassLikeType(\PhpParser\Node $node) : bool
+    private function shouldSkipNonClassLikeType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
         // unwrap nullable type
-        if ($node instanceof \PhpParser\Node\NullableType) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\NullableType) {
             $node = $node->type;
         }
         $typeName = $this->getName($node);
@@ -152,20 +152,20 @@ CODE_SAMPLE
         if (!$this->classLikeTypeOnly) {
             return \false;
         }
-        return !\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($typeName);
+        return !\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($typeName);
     }
-    private function removeVarPhpTagValueNodeIfNotComment(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type) : void
+    private function removeVarPhpTagValueNodeIfNotComment(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : void
     {
         // keep doctrine collection narrow type
         if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($type)) {
             return;
         }
-        $propertyPhpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $propertyPhpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         // nothing to remove
         if ($propertyPhpDocInfo === null) {
             return;
         }
-        $varTagValueNode = $propertyPhpDocInfo->getByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
+        $varTagValueNode = $propertyPhpDocInfo->getByType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
         if ($varTagValueNode === null) {
             return;
         }
@@ -174,16 +174,16 @@ CODE_SAMPLE
             return;
         }
         // keep generic types
-        if ($varTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
+        if ($varTagValueNode->type instanceof \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
             return;
         }
         // keep string[] etc.
         if ($this->isNonBasicArrayType($property, $varTagValueNode)) {
             return;
         }
-        $propertyPhpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
+        $propertyPhpDocInfo->removeByType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
     }
-    private function removeDefaultValueForDoctrineCollection(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
+    private function removeDefaultValueForDoctrineCollection(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $propertyType) : void
     {
         if (!$this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($propertyType)) {
             return;
@@ -191,12 +191,12 @@ CODE_SAMPLE
         $onlyProperty = $property->props[0];
         $onlyProperty->default = null;
     }
-    private function addDefaultValueNullForNullableType(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
+    private function addDefaultValueNullForNullableType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $propertyType) : void
     {
-        if (!$propertyType instanceof \PHPStan\Type\UnionType) {
+        if (!$propertyType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
             return;
         }
-        if (!$propertyType->isSuperTypeOf(new \PHPStan\Type\NullType())->yes()) {
+        if (!$propertyType->isSuperTypeOf(new \_PhpScoper0a2ac50786fa\PHPStan\Type\NullType())->yes()) {
             return;
         }
         $onlyProperty = $property->props[0];
@@ -206,11 +206,11 @@ CODE_SAMPLE
         }
         $onlyProperty->default = $this->createNull();
     }
-    private function isNonBasicArrayType(\PhpParser\Node\Stmt\Property $property, \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode $varTagValueNode) : bool
+    private function isNonBasicArrayType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode $varTagValueNode) : bool
     {
-        if ($varTagValueNode->type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode) {
+        if ($varTagValueNode->type instanceof \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode) {
             foreach ($varTagValueNode->type->types as $type) {
-                if ($type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode && \class_exists((string) $type->type)) {
+                if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode && \class_exists((string) $type->type)) {
                     return \true;
                 }
             }
@@ -221,8 +221,8 @@ CODE_SAMPLE
         $varTypeDocString = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPhpDocString($varTagValueNode->type, $property);
         return $varTypeDocString !== 'array';
     }
-    private function isArrayTypeNode(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode $varTagValueNode) : bool
+    private function isArrayTypeNode(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode $varTagValueNode) : bool
     {
-        return $varTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
+        return $varTagValueNode->type instanceof \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
     }
 }

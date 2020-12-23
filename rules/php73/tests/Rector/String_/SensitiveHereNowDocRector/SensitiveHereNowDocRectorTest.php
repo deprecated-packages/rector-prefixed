@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php73\Tests\Rector\String_\SensitiveHereNowDocRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php73\Tests\Rector\String_\SensitiveHereNowDocRector;
 
 use Iterator;
-use Rector\Php73\Rector\String_\SensitiveHereNowDocRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class SensitiveHereNowDocRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php73\Rector\String_\SensitiveHereNowDocRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class SensitiveHereNowDocRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class SensitiveHereNowDocRectorTest extends \Rector\Testing\PHPUnit\Abstra
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php73\Rector\String_\SensitiveHereNowDocRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php73\Rector\String_\SensitiveHereNowDocRector::class;
     }
 }

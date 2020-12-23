@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject;
 
 final class Option
 {

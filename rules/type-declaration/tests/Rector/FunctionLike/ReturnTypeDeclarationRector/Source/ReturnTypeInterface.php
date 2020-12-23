@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\Tests\Rector\FunctionLike\ReturnTypeDeclarationRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Tests\Rector\FunctionLike\ReturnTypeDeclarationRector\Source;
 
-use PhpParser\Node;
-use PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
 interface ReturnTypeInterface
 {
     /**
      * @return String_|null
      */
-    public function getNode() : ?\PhpParser\Node;
+    public function getNode() : ?\_PhpScoper0a2ac50786fa\PhpParser\Node;
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\Skipper\Tests\Skipper\Only;
+namespace _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only;
 
 use Iterator;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\Skipper\HttpKernel\SkipperKernel;
-use Symplify\Skipper\Skipper\Skipper;
-use Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass;
-use Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
-use Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
-use Symplify\Skipper\Tests\Skipper\Only\Source\SkipThisClass;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class OnlySkipperTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\HttpKernel\SkipperKernel;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Skipper\Skipper;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipThisClass;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class OnlySkipperTest extends \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var Skipper
@@ -20,25 +20,25 @@ final class OnlySkipperTest extends \Symplify\PackageBuilder\Testing\AbstractKer
     private $skipper;
     protected function setUp() : void
     {
-        $this->bootKernelWithConfigs(\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
-        $this->skipper = self::$container->get(\Symplify\Skipper\Skipper\Skipper::class);
+        $this->bootKernelWithConfigs(\_PhpScoper0a2ac50786fa\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
+        $this->skipper = $this->getService(\_PhpScoper0a2ac50786fa\Symplify\Skipper\Skipper\Skipper::class);
     }
     /**
      * @dataProvider provideCheckerAndFile()
      */
     public function testCheckerAndFile(string $class, string $filePath, bool $expected) : void
     {
-        $resolvedSkip = $this->skipper->shouldSkipElementAndFileInfo($class, new \Symplify\SmartFileSystem\SmartFileInfo($filePath));
+        $resolvedSkip = $this->skipper->shouldSkipElementAndFileInfo($class, new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($filePath));
         $this->assertSame($expected, $resolvedSkip);
     }
     public function provideCheckerAndFile() : \Iterator
     {
-        (yield [\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class, __DIR__ . '/Fixture/SomeFileToOnlyInclude.php', \false]);
-        (yield [\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class, __DIR__ . '/Fixture/SomeFile.php', \true]);
+        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class, __DIR__ . '/Fixture/SomeFileToOnlyInclude.php', \false]);
+        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class, __DIR__ . '/Fixture/SomeFile.php', \true]);
         // no restrictions
-        (yield [\Symplify\Skipper\Tests\Skipper\Only\Source\SkipThisClass::class, __DIR__ . '/Fixture/SomeFileToOnlyInclude.php', \false]);
-        (yield [\Symplify\Skipper\Tests\Skipper\Only\Source\SkipThisClass::class, __DIR__ . '/Fixture/SomeFile.php', \false]);
-        (yield [\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely::class, __DIR__ . '/Fixture/SomeFile.php', \true]);
-        (yield [\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo::class, __DIR__ . '/Fixture/SomeFile.php', \true]);
+        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipThisClass::class, __DIR__ . '/Fixture/SomeFileToOnlyInclude.php', \false]);
+        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipThisClass::class, __DIR__ . '/Fixture/SomeFile.php', \false]);
+        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely::class, __DIR__ . '/Fixture/SomeFile.php', \true]);
+        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo::class, __DIR__ . '/Fixture/SomeFile.php', \true]);
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Tests\Rector\ClassConst\RemoveUnusedClassConstantRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Tests\Rector\ClassConst\RemoveUnusedClassConstantRector;
 
 use Iterator;
-use Rector\Core\Configuration\Option;
-use Rector\Core\ValueObject\ProjectType;
-use Rector\DeadCode\Rector\ClassConst\RemoveUnusedClassConstantRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class OpenSourceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\ProjectType;
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\ClassConst\RemoveUnusedClassConstantRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class OpenSourceRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\Rector\Core\Configuration\Option::PROJECT_TYPE, \Rector\Core\ValueObject\ProjectType::OPEN_SOURCE);
+        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::PROJECT_TYPE, \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\ProjectType::OPEN_SOURCE);
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
@@ -25,6 +25,6 @@ final class OpenSourceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorT
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DeadCode\Rector\ClassConst\RemoveUnusedClassConstantRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\ClassConst\RemoveUnusedClassConstantRector::class;
     }
 }

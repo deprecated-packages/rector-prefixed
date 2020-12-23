@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Defluent\Rector;
+namespace _PhpScoper0a2ac50786fa\Rector\Defluent\Rector;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Stmt\Return_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
-use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor;
-use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
-use Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory;
-use Rector\Defluent\Skipper\FluentMethodCallSkipper;
-use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-abstract class AbstractFluentChainMethodCallRector extends \Rector\Core\Rector\AbstractRector
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\Skipper\FluentMethodCallSkipper;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+abstract class AbstractFluentChainMethodCallRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var FluentChainMethodCallNodeAnalyzer
@@ -42,7 +42,7 @@ abstract class AbstractFluentChainMethodCallRector extends \Rector\Core\Rector\A
     /**
      * @required
      */
-    public function autowireAbstractFluentChainMethodCallRector(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor $fluentChainMethodCallRootExtractor, \Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory $nonFluentChainMethodCallFactory, \Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer, \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper) : void
+    public function autowireAbstractFluentChainMethodCallRector(\_PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor $fluentChainMethodCallRootExtractor, \_PhpScoper0a2ac50786fa\Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory $nonFluentChainMethodCallFactory, \_PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer, \_PhpScoper0a2ac50786fa\Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper) : void
     {
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
         $this->fluentChainMethodCallRootExtractor = $fluentChainMethodCallRootExtractor;
@@ -50,7 +50,7 @@ abstract class AbstractFluentChainMethodCallRector extends \Rector\Core\Rector\A
         $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
         $this->fluentMethodCallSkipper = $fluentMethodCallSkipper;
     }
-    protected function createStandaloneNodesToAddFromChainMethodCalls(\PhpParser\Node\Expr\MethodCall $methodCall, string $kind) : ?\Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd
+    protected function createStandaloneNodesToAddFromChainMethodCalls(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall, string $kind) : ?\_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd
     {
         $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($methodCall);
         if (!$this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {
@@ -64,48 +64,48 @@ abstract class AbstractFluentChainMethodCallRector extends \Rector\Core\Rector\A
             return null;
         }
         $nodesToAdd = $this->nonFluentChainMethodCallFactory->createFromAssignObjectAndMethodCalls($assignAndRootExpr, $chainMethodCalls, $kind);
-        return new \Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd($assignAndRootExpr, $nodesToAdd);
+        return new \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd($assignAndRootExpr, $nodesToAdd);
     }
     /**
      * @param MethodCall|Return_ $node
      */
-    protected function removeCurrentNode(\PhpParser\Node $node) : void
+    protected function removeCurrentNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
     {
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \PhpParser\Node\Expr\Assign) {
+        $parent = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             $this->removeNode($parent);
             return;
         }
         // part of method call
-        if ($parent instanceof \PhpParser\Node\Arg) {
-            $parentParent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentParent instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg) {
+            $parentParent = $parent->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentParent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
                 $this->removeNode($parentParent);
             }
             return;
         }
         $this->removeNode($node);
     }
-    protected function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    protected function shouldSkipMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         return $this->fluentMethodCallSkipper->shouldSkipRootMethodCall($methodCall);
     }
-    protected function matchReturnMethodCall(\PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr\MethodCall
+    protected function matchReturnMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_ $return) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
         if ($return->expr === null) {
             return null;
         }
-        if (!$return->expr instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (!$return->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         return $return->expr;
     }
-    protected function shouldSkipMethodCallIncludingNew(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    protected function shouldSkipMethodCallIncludingNew(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if ($this->shouldSkipMethodCall($methodCall)) {
             return \true;
         }
         $chainRootExpr = $this->fluentChainMethodCallNodeAnalyzer->resolveRootExpr($methodCall);
-        return $chainRootExpr instanceof \PhpParser\Node\Expr\New_;
+        return $chainRootExpr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
     }
 }

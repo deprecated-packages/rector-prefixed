@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPStan\Tests\Rector\Node\RemoveNonExistingVarAnnotationRector;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPStan\Tests\Rector\Node\RemoveNonExistingVarAnnotationRector;
 
 use Iterator;
-use Rector\PHPStan\Rector\Node\RemoveNonExistingVarAnnotationRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveNonExistingVarAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Rector\Node\RemoveNonExistingVarAnnotationRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveNonExistingVarAnnotationRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveNonExistingVarAnnotationRectorTest extends \Rector\Testing\PHP
     }
     protected function getRectorClass() : string
     {
-        return \Rector\PHPStan\Rector\Node\RemoveNonExistingVarAnnotationRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\PHPStan\Rector\Node\RemoveNonExistingVarAnnotationRector::class;
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector\Source;
 
-use Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
 abstract class ClassWithFileSystemMethod
 {
-    public function getSmartFileSystem() : \Symplify\SmartFileSystem\SmartFileSystem
+    public function getSmartFileSystem() : \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem
     {
-        return new \Symplify\SmartFileSystem\SmartFileSystem();
+        return new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem();
     }
 }

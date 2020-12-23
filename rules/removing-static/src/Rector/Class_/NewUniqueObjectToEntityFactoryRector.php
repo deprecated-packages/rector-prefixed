@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RemovingStatic\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\Class_;
-use PHPStan\Type\ObjectType;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Naming\Naming\PropertyNaming;
-use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use Rector\RemovingStatic\StaticTypesInClassResolver;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\StaticTypesInClassResolver;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Depends on @see PassFactoryToUniqueObjectRector
  *
  * @see \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\PassFactoryToEntityRectorTest
  */
-final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class NewUniqueObjectToEntityFactoryRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -54,34 +54,34 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
      * @var StaticTypesInClassResolver
      */
     private $staticTypesInClassResolver;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver)
     {
         $this->propertyNaming = $propertyNaming;
         $this->staticTypesInClassResolver = $staticTypesInClassResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X to new factories', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X to new factories', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
 class SomeClass
 {
     public function run()
     {
-        return new \_PhpScoperabd03f0baf05\AnotherClass();
+        return new \_PhpScoper0a2ac50786fa\AnotherClass();
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoper0a2ac50786fa\\SomeClass', 'SomeClass', \false);
 class AnotherClass
 {
     public function someFun()
     {
-        return \_PhpScoperabd03f0baf05\StaticClass::staticMethod();
+        return \_PhpScoper0a2ac50786fa\StaticClass::staticMethod();
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\AnotherClass', 'AnotherClass', \false);
+\class_alias('_PhpScoper0a2ac50786fa\\AnotherClass', 'AnotherClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass
@@ -112,18 +112,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $this->matchedObjectTypes = [];
         // collect classes with new to factory in all classes
         $classesUsingTypes = $this->resolveClassesUsingTypes();
-        $this->traverseNodesWithCallable($node->stmts, function (\PhpParser\Node $node) use($classesUsingTypes) : ?MethodCall {
-            if (!$node instanceof \PhpParser\Node\Expr\New_) {
+        $this->traverseNodesWithCallable($node->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($classesUsingTypes) : ?MethodCall {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_) {
                 return null;
             }
             $class = $this->getName($node->class);
@@ -133,15 +133,15 @@ CODE_SAMPLE
             if (!\in_array($class, $classesUsingTypes, \true)) {
                 return null;
             }
-            $objectType = new \Rector\PHPStan\Type\FullyQualifiedObjectType($class);
+            $objectType = new \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType($class);
             $this->matchedObjectTypes[] = $objectType;
             $propertyName = $this->propertyNaming->fqnToVariableName($objectType) . self::FACTORY;
-            $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
-            return new \PhpParser\Node\Expr\MethodCall($propertyFetch, 'create', $node->args);
+            $propertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('this'), $propertyName);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($propertyFetch, 'create', $node->args);
         });
         foreach ($this->matchedObjectTypes as $matchedObjectType) {
             $propertyName = $this->propertyNaming->fqnToVariableName($matchedObjectType) . self::FACTORY;
-            $propertyType = new \Rector\PHPStan\Type\FullyQualifiedObjectType($matchedObjectType->getClassName() . self::FACTORY);
+            $propertyType = new \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType($matchedObjectType->getClassName() . self::FACTORY);
             $this->addConstructorDependencyToClass($node, $propertyType, $propertyName);
         }
         return $node;
@@ -168,7 +168,7 @@ CODE_SAMPLE
             if ($hasTypes) {
                 $name = $this->getName($class);
                 if ($name === null) {
-                    throw new \Rector\Core\Exception\ShouldNotHappenException();
+                    throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
                 }
                 $this->classesUsingTypes[] = $name;
             }

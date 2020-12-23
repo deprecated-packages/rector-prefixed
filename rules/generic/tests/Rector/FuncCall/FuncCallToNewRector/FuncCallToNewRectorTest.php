@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\FuncCall\FuncCallToNewRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\FuncCall\FuncCallToNewRector;
 
 use Iterator;
-use Rector\Generic\Rector\FuncCall\FuncCallToNewRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class FuncCallToNewRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\FuncCallToNewRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class FuncCallToNewRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class FuncCallToNewRectorTest extends \Rector\Testing\PHPUnit\AbstractRect
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\FuncCall\FuncCallToNewRector::class => [\Rector\Generic\Rector\FuncCall\FuncCallToNewRector::FUNCTION_TO_NEW => ['collection' => ['Collection']]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\FuncCallToNewRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\FuncCallToNewRector::FUNCTION_TO_NEW => ['collection' => ['Collection']]]];
     }
 }

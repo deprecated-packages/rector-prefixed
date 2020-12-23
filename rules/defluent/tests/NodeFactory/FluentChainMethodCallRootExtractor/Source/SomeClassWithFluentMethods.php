@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Defluent\Tests\NodeFactory\FluentChainMethodCallRootExtractor\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Defluent\Tests\NodeFactory\FluentChainMethodCallRootExtractor\Source;
 
 final class SomeClassWithFluentMethods
 {

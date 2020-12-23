@@ -1,5 +1,0 @@
-parameters:
-    tmpDir: tmp
-    autoload_directories:
-        - data
-

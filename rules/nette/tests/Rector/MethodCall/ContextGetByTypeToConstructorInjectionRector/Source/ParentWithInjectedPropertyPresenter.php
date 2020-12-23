@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\Source;
 
-use _PhpScoperabd03f0baf05\Nette\Application\IPresenter;
-use _PhpScoperabd03f0baf05\Nette\Application\IResponse;
-use _PhpScoperabd03f0baf05\Nette\Application\Request;
-class ParentWithInjectedPropertyPresenter implements \_PhpScoperabd03f0baf05\Nette\Application\IPresenter
+use _PhpScoper0a2ac50786fa\Nette\Application\IPresenter;
+use _PhpScoper0a2ac50786fa\Nette\Application\IResponse;
+use _PhpScoper0a2ac50786fa\Nette\Application\Request;
+class ParentWithInjectedPropertyPresenter implements \_PhpScoper0a2ac50786fa\Nette\Application\IPresenter
 {
     /**
      * @inject
      * @var SomeTypeToInject
      */
     public $someTypeToInject;
-    function run(\_PhpScoperabd03f0baf05\Nette\Application\Request $request) : \_PhpScoperabd03f0baf05\Nette\Application\IResponse
+    function run(\_PhpScoper0a2ac50786fa\Nette\Application\Request $request) : \_PhpScoper0a2ac50786fa\Nette\Application\IResponse
     {
     }
 }

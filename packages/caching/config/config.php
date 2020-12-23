@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use PHPStan\Dependency\DependencyResolver;
-use PHPStan\File\FileHelper;
-use _PhpScoperabd03f0baf05\Psr\Cache\CacheItemPoolInterface;
-use _PhpScoperabd03f0baf05\Psr\SimpleCache\CacheInterface;
-use Rector\Caching\Cache\Adapter\FilesystemAdapterFactory;
-use Rector\Core\Configuration\Option;
-use Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\TagAwareAdapter;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Psr16Cache;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\Configurator\ref;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\PHPStan\Dependency\DependencyResolver;
+use _PhpScoper0a2ac50786fa\PHPStan\File\FileHelper;
+use _PhpScoper0a2ac50786fa\Psr\Cache\CacheItemPoolInterface;
+use _PhpScoper0a2ac50786fa\Psr\SimpleCache\CacheInterface;
+use _PhpScoper0a2ac50786fa\Rector\Caching\Cache\Adapter\FilesystemAdapterFactory;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Psr16Cache;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ref;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\Rector\Core\Configuration\Option::ENABLE_CACHE, \false);
-    $parameters->set(\Rector\Core\Configuration\Option::CACHE_DIR, \sys_get_temp_dir() . '/_rector_cached_files');
+    $parameters->set(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::ENABLE_CACHE, \false);
+    $parameters->set(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::CACHE_DIR, \sys_get_temp_dir() . '/_rector_cached_files');
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->public()->autoconfigure();
     $services->load('Rector\\Caching\\', __DIR__ . '/../src');
-    $services->set(\PHPStan\Dependency\DependencyResolver::class)->factory([\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createDependencyResolver']);
-    $services->set(\PHPStan\File\FileHelper::class)->factory([\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createFileHelper']);
-    $services->set(\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Psr16Cache::class);
-    $services->alias(\_PhpScoperabd03f0baf05\Psr\SimpleCache\CacheInterface::class, \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Psr16Cache::class);
-    $services->set(\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\FilesystemAdapter::class)->factory([\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\Caching\Cache\Adapter\FilesystemAdapterFactory::class), 'create']);
-    $services->set(\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\TagAwareAdapter::class)->arg('$itemsPool', \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\FilesystemAdapter::class));
-    $services->alias(\_PhpScoperabd03f0baf05\Psr\Cache\CacheItemPoolInterface::class, \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\FilesystemAdapter::class);
-    $services->alias(\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface::class, \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\TagAwareAdapter::class);
+    $services->set(\_PhpScoper0a2ac50786fa\PHPStan\Dependency\DependencyResolver::class)->factory([\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createDependencyResolver']);
+    $services->set(\_PhpScoper0a2ac50786fa\PHPStan\File\FileHelper::class)->factory([\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createFileHelper']);
+    $services->set(\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Psr16Cache::class);
+    $services->alias(\_PhpScoper0a2ac50786fa\Psr\SimpleCache\CacheInterface::class, \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Psr16Cache::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\FilesystemAdapter::class)->factory([\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\_PhpScoper0a2ac50786fa\Rector\Caching\Cache\Adapter\FilesystemAdapterFactory::class), 'create']);
+    $services->set(\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\TagAwareAdapter::class)->arg('$itemsPool', \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\FilesystemAdapter::class));
+    $services->alias(\_PhpScoper0a2ac50786fa\Psr\Cache\CacheItemPoolInterface::class, \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\FilesystemAdapter::class);
+    $services->alias(\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface::class, \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\TagAwareAdapter::class);
 };

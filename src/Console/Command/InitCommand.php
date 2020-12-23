@@ -1,42 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Console\Command;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Console\Command;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\PackageBuilder\Console\ShellCode;
-use Symplify\SmartFileSystem\SmartFileSystem;
-final class InitCommand extends \Rector\Core\Console\Command\AbstractCommand
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\TemplateInitializer;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode;
+final class InitCommand extends \_PhpScoper0a2ac50786fa\Rector\Core\Console\Command\AbstractCommand
 {
     /**
-     * @var SmartFileSystem
+     * @var TemplateInitializer
      */
-    private $smartFileSystem;
-    /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    private $templateInitializer;
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\RectorGenerator\TemplateInitializer $templateInitializer)
     {
         parent::__construct();
-        $this->smartFileSystem = $smartFileSystem;
-        $this->symfonyStyle = $symfonyStyle;
+        $this->templateInitializer = $templateInitializer;
     }
     protected function configure() : void
     {
         $this->setDescription('Generate rector.php configuration file');
     }
-    protected function execute(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
-        $rectorConfigFiles = $this->smartFileSystem->exists(\getcwd() . '/rector.php');
-        if (!$rectorConfigFiles) {
-            $this->smartFileSystem->copy(__DIR__ . '/../../../templates/rector.php.dist', \getcwd() . '/rector.php');
-            $this->symfonyStyle->success('"rector.php" config file has been generated successfully!');
-        } else {
-            $this->symfonyStyle->error('Config file not generated. A "rector.php" configuration file already exists');
-        }
-        return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        $this->templateInitializer->initialize(__DIR__ . '/../../../templates/rector.php.dist', 'rector.php');
+        return \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

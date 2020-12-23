@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\ValueObject;
 
 final class MethodName
 {
@@ -23,4 +23,8 @@ final class MethodName
      * @var string
      */
     public const TEAR_DOWN = 'tearDown';
+    /**
+     * @var string
+     */
+    public const SET_STATE = '__set_state';
 }

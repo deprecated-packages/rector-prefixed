@@ -1,30 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Guard;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Guard;
 
 use DateTimeInterface;
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Foreach_;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\If_;
-use PhpParser\Node\Stmt\Property;
-use PHPStan\Analyser\Scope;
-use PHPStan\Type\TypeWithClassName;
-use _PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Naming\Naming\ConflictingNameResolver;
-use Rector\Naming\Naming\OverridenExistingNamesResolver;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
+use _PhpScoper0a2ac50786fa\Ramsey\Uuid\UuidInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\ConflictingNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\OverridenExistingNamesResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
 /**
  * This class check if a variable name change breaks existing code in class method
  */
@@ -59,7 +57,7 @@ final class BreakingVariableRenameGuard
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Naming\Naming\ConflictingNameResolver $conflictingNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Naming\Naming\OverridenExistingNamesResolver $overridenExistingNamesResolver, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\ConflictingNameResolver $conflictingNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\OverridenExistingNamesResolver $overridenExistingNamesResolver, \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->conflictingNameResolver = $conflictingNameResolver;
@@ -71,10 +69,10 @@ final class BreakingVariableRenameGuard
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function shouldSkipVariable(string $currentName, string $expectedName, \PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr\Variable $variable) : bool
+    public function shouldSkipVariable(string $currentName, string $expectedName, \_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : bool
     {
         // is the suffix? → also accepted
-        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
+        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
             return \true;
         }
         if ($this->conflictingNameResolver->checkNameIsInFunctionLike($expectedName, $functionLike)) {
@@ -97,10 +95,10 @@ final class BreakingVariableRenameGuard
         }
         return $this->isUsedInIfAndOtherBranches($variable, $currentName);
     }
-    public function shouldSkipParam(string $currentName, string $expectedName, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : bool
+    public function shouldSkipParam(string $currentName, string $expectedName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : bool
     {
         // is the suffix? → also accepted
-        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
+        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
             return \true;
         }
         $conflictingNames = $this->conflictingNameResolver->resolveConflictingVariableNamesForParam($classMethod);
@@ -121,10 +119,10 @@ final class BreakingVariableRenameGuard
         }
         return $this->isDateTimeAtNamingConvention($param);
     }
-    private function isVariableAlreadyDefined(\PhpParser\Node\Expr\Variable $variable, string $currentVariableName) : bool
+    private function isVariableAlreadyDefined(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, string $currentVariableName) : bool
     {
-        $scope = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        $scope = $variable->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope) {
             return \false;
         }
         $trinaryLogic = $scope->hasVariableType($currentVariableName);
@@ -136,24 +134,24 @@ final class BreakingVariableRenameGuard
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    private function skipOnConflictOtherVariable(\PhpParser\Node\FunctionLike $functionLike, string $newName) : bool
+    private function skipOnConflictOtherVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike, string $newName) : bool
     {
-        return $this->betterNodeFinder->hasInstanceOfName((array) $functionLike->stmts, \PhpParser\Node\Expr\Variable::class, $newName);
+        return $this->betterNodeFinder->hasInstanceOfName((array) $functionLike->stmts, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable::class, $newName);
     }
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    private function isUsedInClosureUsesName(string $expectedName, \PhpParser\Node\FunctionLike $functionLike) : bool
+    private function isUsedInClosureUsesName(string $expectedName, \_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : bool
     {
-        if (!$functionLike instanceof \PhpParser\Node\Expr\Closure) {
+        if (!$functionLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure) {
             return \false;
         }
         return $this->betterNodeFinder->hasVariableOfName((array) $functionLike->uses, $expectedName);
     }
-    private function isUsedInForeachKeyValueVar(\PhpParser\Node\Expr\Variable $variable, string $currentName) : bool
+    private function isUsedInForeachKeyValueVar(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, string $currentName) : bool
     {
-        $previousForeach = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [\PhpParser\Node\Stmt\Foreach_::class]);
-        if ($previousForeach instanceof \PhpParser\Node\Stmt\Foreach_) {
+        $previousForeach = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_::class]);
+        if ($previousForeach instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_) {
             if ($previousForeach->keyVar === $variable) {
                 return \false;
             }
@@ -172,11 +170,11 @@ final class BreakingVariableRenameGuard
         }
         return \false;
     }
-    private function isUsedInIfAndOtherBranches(\PhpParser\Node\Expr\Variable $variable, string $currentVariableName) : bool
+    private function isUsedInIfAndOtherBranches(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, string $currentVariableName) : bool
     {
         // is in if branches?
-        $previousIf = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [\PhpParser\Node\Stmt\If_::class]);
-        if ($previousIf instanceof \PhpParser\Node\Stmt\If_) {
+        $previousIf = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_::class]);
+        if ($previousIf instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_) {
             $variableUses = [];
             $variableUses[] = $this->betterNodeFinder->findVariableOfName($previousIf->stmts, $currentVariableName);
             $previousStmts = $previousIf->else !== null ? $previousIf->else->stmts : [];
@@ -191,30 +189,26 @@ final class BreakingVariableRenameGuard
     }
     /**
      * @TODO Remove once ParamRenamer created
-     * @param Param|Property $node
      */
-    private function isRamseyUuidInterface(\PhpParser\Node $node) : bool
+    private function isRamseyUuidInterface(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($node, \_PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface::class);
+        return $this->nodeTypeResolver->isObjectType($param, \_PhpScoper0a2ac50786fa\Ramsey\Uuid\UuidInterface::class);
     }
     /**
      * @TODO Remove once ParamRenamer created
-     * @param Param|Property $node
      */
-    private function isDateTimeAtNamingConvention(\PhpParser\Node $node) : bool
+    private function isDateTimeAtNamingConvention(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : bool
     {
-        $type = $this->nodeTypeResolver->resolve($node);
+        $type = $this->nodeTypeResolver->resolve($param);
         $type = $this->typeUnwrapper->unwrapFirstObjectTypeFromUnionType($type);
-        if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
+        if (!$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         if (!\is_a($type->getClassName(), \DateTimeInterface::class, \true)) {
             return \false;
         }
-        $currentName = $this->nodeNameResolver->getName($node);
-        if ($currentName === null) {
-            return \false;
-        }
-        return (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($currentName, self::AT_NAMING_REGEX . '');
+        /** @var string $currentName */
+        $currentName = $this->nodeNameResolver->getName($param);
+        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($currentName, self::AT_NAMING_REGEX . '');
     }
 }

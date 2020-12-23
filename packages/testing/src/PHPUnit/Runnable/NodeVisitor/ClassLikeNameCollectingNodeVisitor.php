@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Testing\PHPUnit\Runnable\NodeVisitor;
+namespace _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\Runnable\NodeVisitor;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\NodeVisitorAbstract;
-final class ClassLikeNameCollectingNodeVisitor extends \PhpParser\NodeVisitorAbstract
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeVisitorAbstract;
+final class ClassLikeNameCollectingNodeVisitor extends \_PhpScoper0a2ac50786fa\PhpParser\NodeVisitorAbstract
 {
     /**
      * @var string[]
@@ -19,9 +19,9 @@ final class ClassLikeNameCollectingNodeVisitor extends \PhpParser\NodeVisitorAbs
     {
         return $this->classLikeNames;
     }
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node)
     {
-        if (!$node instanceof \PhpParser\Node\Stmt\ClassLike) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
         if ($node->name === null) {

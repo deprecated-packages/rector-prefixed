@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Php\TypeAnalyzer;
-use Rector\Core\Rector\AbstractPHPUnitRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Php\TypeAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-8.0.md
  * @see https://github.com/sebastianbergmann/phpunit/commit/a406c85c51edd76ace29119179d8c21f590c939e
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\SpecificAssertInternalTypeRector\SpecificAssertInternalTypeRectorTest
  */
-final class SpecificAssertInternalTypeRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class SpecificAssertInternalTypeRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var string[][]
@@ -27,13 +27,13 @@ final class SpecificAssertInternalTypeRector extends \Rector\Core\Rector\Abstrac
      * @var TypeAnalyzer
      */
     private $typeAnalyzer;
-    public function __construct(\Rector\Core\Php\TypeAnalyzer $typeAnalyzer)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Php\TypeAnalyzer $typeAnalyzer)
     {
         $this->typeAnalyzer = $typeAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertInternalType()/assertNotInternalType() method to new specific alternatives', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertInternalType()/assertNotInternalType() method to new specific alternatives', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
@@ -62,18 +62,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isPHPUnitMethodNames($node, ['assertInternalType', 'assertNotInternalType'])) {
             return null;
         }
         $typeNode = $node->args[0]->value;
-        if (!$typeNode instanceof \PhpParser\Node\Scalar\String_) {
+        if (!$typeNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return null;
         }
         $type = $this->typeAnalyzer->normalizeType($typeNode->value);
@@ -83,7 +83,7 @@ CODE_SAMPLE
         \array_shift($node->args);
         $position = $this->isName($node->name, 'assertInternalType') ? 0 : 1;
         $methodName = self::TYPE_TO_METHOD[$type][$position];
-        $node->name = new \PhpParser\Node\Identifier($methodName);
+        $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($methodName);
         return $node;
     }
 }

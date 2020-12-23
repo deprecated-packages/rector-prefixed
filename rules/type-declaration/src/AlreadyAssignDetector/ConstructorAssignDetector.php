@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\AlreadyAssignDetector;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\NodeTraverser;
-use Rector\Core\ValueObject\MethodName;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-final class ConstructorAssignDetector extends \Rector\TypeDeclaration\AlreadyAssignDetector\AbstractAssignDetector
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+final class ConstructorAssignDetector extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector\AbstractAssignDetector
 {
-    public function detect(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
+    public function isPropertyAssigned(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
     {
         $isAssignedInConstructor = \false;
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$isAssignedInConstructor) : ?int {
+        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($propertyName, &$isAssignedInConstructor) : ?int {
             $expr = $this->matchAssignExprToPropertyName($node, $propertyName);
             if ($expr === null) {
                 return null;
             }
             // is in constructor?
-            $methodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-            if ($methodName !== \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
+            $methodName = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+            if ($methodName !== \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 return null;
             }
             /** @var Assign $assign */
             $assign = $node;
-            $isFirstLevelStatement = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_FIRST_LEVEL_STATEMENT);
+            $isFirstLevelStatement = $assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::IS_FIRST_LEVEL_STATEMENT);
             // cannot be nested
             if ($isFirstLevelStatement !== \true) {
                 return null;
             }
             $isAssignedInConstructor = \true;
-            return \PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+            return \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
         });
         return $isAssignedInConstructor;
     }

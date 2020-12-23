@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
 
 use Iterator;
-use Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class DifferentBundleNameRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class DifferentBundleNameRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         // prepare bundle path
         $originalBundleFilePath = __DIR__ . '/FixtureDifferentBundleName/SomeActionBundle/DifferentNameBundle.php';
@@ -27,6 +27,6 @@ final class DifferentBundleNameRectorTest extends \Rector\Testing\PHPUnit\Abstra
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector::class;
     }
 }

@@ -8,28 +8,33 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * Formatter class for console output.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-class OutputFormatter implements \_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface
+class OutputFormatter implements \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface
 {
     private $decorated;
     private $styles = [];
     private $styleStack;
+    public function __clone()
+    {
+        $this->styleStack = clone $this->styleStack;
+        foreach ($this->styles as $key => $value) {
+            $this->styles[$key] = clone $value;
+        }
+    }
     /**
      * Escapes "<" special char in given text.
      *
-     * @param string $text Text to escape
-     *
      * @return string Escaped text
      */
-    public static function escape($text)
+    public static function escape(string $text)
     {
         $text = \preg_replace('/([^\\\\]?)</', '$1\\<', $text);
         return self::escapeTrailingBackslash($text);
@@ -57,21 +62,21 @@ class OutputFormatter implements \_PhpScoperabd03f0baf05\Symfony\Component\Conso
     public function __construct(bool $decorated = \false, array $styles = [])
     {
         $this->decorated = $decorated;
-        $this->setStyle('error', new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\OutputFormatterStyle('white', 'red'));
-        $this->setStyle('info', new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\OutputFormatterStyle('green'));
-        $this->setStyle('comment', new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\OutputFormatterStyle('yellow'));
-        $this->setStyle('question', new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\OutputFormatterStyle('black', 'cyan'));
+        $this->setStyle('error', new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\OutputFormatterStyle('white', 'red'));
+        $this->setStyle('info', new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\OutputFormatterStyle('green'));
+        $this->setStyle('comment', new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\OutputFormatterStyle('yellow'));
+        $this->setStyle('question', new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\OutputFormatterStyle('black', 'cyan'));
         foreach ($styles as $name => $style) {
             $this->setStyle($name, $style);
         }
-        $this->styleStack = new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\OutputFormatterStyleStack();
+        $this->styleStack = new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\OutputFormatterStyleStack();
     }
     /**
      * {@inheritdoc}
      */
-    public function setDecorated($decorated)
+    public function setDecorated(bool $decorated)
     {
-        $this->decorated = (bool) $decorated;
+        $this->decorated = $decorated;
     }
     /**
      * {@inheritdoc}
@@ -83,38 +88,38 @@ class OutputFormatter implements \_PhpScoperabd03f0baf05\Symfony\Component\Conso
     /**
      * {@inheritdoc}
      */
-    public function setStyle($name, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
+    public function setStyle(string $name, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
         $this->styles[\strtolower($name)] = $style;
     }
     /**
      * {@inheritdoc}
      */
-    public function hasStyle($name)
+    public function hasStyle(string $name)
     {
         return isset($this->styles[\strtolower($name)]);
     }
     /**
      * {@inheritdoc}
      */
-    public function getStyle($name)
+    public function getStyle(string $name)
     {
         if (!$this->hasStyle($name)) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
         }
         return $this->styles[\strtolower($name)];
     }
     /**
      * {@inheritdoc}
      */
-    public function format($message)
+    public function format(?string $message)
     {
-        return $this->formatAndWrap((string) $message, 0);
+        return $this->formatAndWrap($message, 0);
     }
     /**
      * {@inheritdoc}
      */
-    public function formatAndWrap(string $message, int $width)
+    public function formatAndWrap(?string $message, int $width)
     {
         $offset = 0;
         $output = '';
@@ -163,7 +168,7 @@ class OutputFormatter implements \_PhpScoperabd03f0baf05\Symfony\Component\Conso
     /**
      * Tries to create new style instance from string.
      */
-    private function createStyleFromString(string $string) : ?\_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    private function createStyleFromString(string $string) : ?\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
     {
         if (isset($this->styles[$string])) {
             return $this->styles[$string];
@@ -171,7 +176,7 @@ class OutputFormatter implements \_PhpScoperabd03f0baf05\Symfony\Component\Conso
         if (!\preg_match_all('/([^=]+)=([^;]+)(;|$)/', $string, $matches, \PREG_SET_ORDER)) {
             return null;
         }
-        $style = new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Formatter\OutputFormatterStyle();
+        $style = new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Formatter\OutputFormatterStyle();
         foreach ($matches as $match) {
             \array_shift($match);
             $match[0] = \strtolower($match[0]);

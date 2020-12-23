@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SymfonyPHPUnit;
+namespace _PhpScoper0a2ac50786fa\Rector\SymfonyPHPUnit;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\Class_;
-use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Session\SessionInterface;
 final class SelfContainerMethodCallCollector
 {
     /**
@@ -24,7 +24,7 @@ final class SelfContainerMethodCallCollector
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->kernelTestCaseNodeAnalyzer = $kernelTestCaseNodeAnalyzer;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -33,10 +33,13 @@ final class SelfContainerMethodCallCollector
     /**
      * @return string[]
      */
-    public function collectContainerGetServiceTypes(\PhpParser\Node\Stmt\Class_ $class, bool $skipSetUpMethod = \true) : array
+    public function collectContainerGetServiceTypes(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, bool $skipSetUpMethod = \true) : array
     {
         $serviceTypes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use(&$serviceTypes, $skipSetUpMethod) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use(&$serviceTypes, $skipSetUpMethod) : ?Node {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+                return null;
+            }
             if (!$this->kernelTestCaseNodeAnalyzer->isOnContainerGetMethodCall($node)) {
                 return null;
             }
@@ -52,11 +55,12 @@ final class SelfContainerMethodCallCollector
                 return null;
             }
             $serviceTypes[] = $serviceType;
+            return null;
         });
         return \array_unique($serviceTypes);
     }
     private function shouldSkipServiceType(string $serviceType) : bool
     {
-        return $serviceType === \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Session\SessionInterface::class;
+        return $serviceType === \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Session\SessionInterface::class;
     }
 }

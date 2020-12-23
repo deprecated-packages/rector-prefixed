@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php71\Tests\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php71\Tests\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRector;
 
 use Iterator;
-use Rector\Php71\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class BinaryOpBetweenNumberAndStringRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php71\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class BinaryOpBetweenNumberAndStringRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class BinaryOpBetweenNumberAndStringRectorTest extends \Rector\Testing\PHP
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php71\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php71\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRector::class;
     }
 }

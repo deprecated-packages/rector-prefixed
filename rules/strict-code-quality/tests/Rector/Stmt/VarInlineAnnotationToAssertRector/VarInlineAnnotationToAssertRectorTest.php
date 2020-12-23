@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\StrictCodeQuality\Tests\Rector\Stmt\VarInlineAnnotationToAssertRector;
+namespace _PhpScoper0a2ac50786fa\Rector\StrictCodeQuality\Tests\Rector\Stmt\VarInlineAnnotationToAssertRector;
 
 use Iterator;
-use Rector\StrictCodeQuality\Rector\Stmt\VarInlineAnnotationToAssertRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class VarInlineAnnotationToAssertRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\StrictCodeQuality\Rector\Stmt\VarInlineAnnotationToAssertRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class VarInlineAnnotationToAssertRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class VarInlineAnnotationToAssertRectorTest extends \Rector\Testing\PHPUni
     }
     protected function getRectorClass() : string
     {
-        return \Rector\StrictCodeQuality\Rector\Stmt\VarInlineAnnotationToAssertRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\StrictCodeQuality\Rector\Stmt\VarInlineAnnotationToAssertRector::class;
     }
 }

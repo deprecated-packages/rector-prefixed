@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php70\Tests\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php70\Tests\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector;
 
 use Iterator;
-use Rector\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class BreakNotInLoopOrSwitchToReturnRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class BreakNotInLoopOrSwitchToReturnRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfoWithoutAutoload($fileInfo);
     }
@@ -22,6 +22,6 @@ final class BreakNotInLoopOrSwitchToReturnRectorTest extends \Rector\Testing\PHP
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector::class;
     }
 }

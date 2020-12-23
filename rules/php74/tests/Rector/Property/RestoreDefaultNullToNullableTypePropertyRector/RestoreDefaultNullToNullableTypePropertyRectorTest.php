@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php74\Tests\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php74\Tests\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector;
 
 use Iterator;
-use Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RestoreDefaultNullToNullableTypePropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RestoreDefaultNullToNullableTypePropertyRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class RestoreDefaultNullToNullableTypePropertyRectorTest extends \Rector\T
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector::class;
     }
 }

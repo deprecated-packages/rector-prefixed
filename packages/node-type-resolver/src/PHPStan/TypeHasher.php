@@ -1,69 +1,69 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\PHPStan;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan;
 
-use PHPStan\ShouldNotHappenException;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\ConstantType;
-use PHPStan\Type\Generic\GenericObjectType;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
-use PHPStan\Type\UnionType;
-use Rector\PHPStan\Type\AliasedObjectType;
-use Rector\PHPStan\Type\ShortenedObjectType;
-use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use _PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ConstantType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Generic\GenericObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\AliasedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 final class TypeHasher
 {
     /**
      * @var PHPStanStaticTypeMapper
      */
     private $phpStanStaticTypeMapper;
-    public function __construct(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
-    public function createTypeHash(\PHPStan\Type\Type $type) : string
+    public function createTypeHash(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : string
     {
-        if ($type instanceof \PHPStan\Type\MixedType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
             return \serialize($type);
         }
-        if ($type instanceof \PHPStan\Type\ArrayType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
             return $this->createTypeHash($type->getItemType()) . '[]';
         }
-        if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\GenericObjectType) {
             return $this->phpStanStaticTypeMapper->mapToDocString($type);
         }
-        if ($type instanceof \PHPStan\Type\TypeWithClassName) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
             return $this->resolveUniqueTypeWithClassNameHash($type);
         }
-        if ($type instanceof \PHPStan\Type\ConstantType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ConstantType) {
             if (\method_exists($type, 'getValue')) {
                 return \get_class($type) . $type->getValue();
             }
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
         }
-        if ($type instanceof \PHPStan\Type\UnionType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
             return $this->createUnionTypeHash($type);
         }
         return $this->phpStanStaticTypeMapper->mapToDocString($type);
     }
-    public function areTypesEqual(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
+    public function areTypesEqual(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $firstType, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $secondType) : bool
     {
         return $this->createTypeHash($firstType) === $this->createTypeHash($secondType);
     }
-    private function resolveUniqueTypeWithClassNameHash(\PHPStan\Type\Type $type) : string
+    private function resolveUniqueTypeWithClassNameHash(\_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
     {
-        if ($type instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
-            return $type->getFullyQualifiedName();
+        if ($typeWithClassName instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType) {
+            return $typeWithClassName->getFullyQualifiedName();
         }
-        if ($type instanceof \Rector\PHPStan\Type\AliasedObjectType) {
-            return $type->getFullyQualifiedClass();
+        if ($typeWithClassName instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\AliasedObjectType) {
+            return $typeWithClassName->getFullyQualifiedClass();
         }
-        return $type->getClassName();
+        return $typeWithClassName->getClassName();
     }
-    private function createUnionTypeHash(\PHPStan\Type\UnionType $unionType) : string
+    private function createUnionTypeHash(\_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType $unionType) : string
     {
         $unionedTypesHashes = [];
         foreach ($unionType->getTypes() as $unionedType) {

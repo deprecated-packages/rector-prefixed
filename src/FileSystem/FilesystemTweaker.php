@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\FileSystem;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\FileSystem;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\Core\Exception\FileSystem\DirectoryNotFoundException;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\FileSystem\DirectoryNotFoundException;
 final class FilesystemTweaker
 {
     /**
@@ -18,8 +18,9 @@ final class FilesystemTweaker
         $absoluteDirectories = [];
         foreach ($directories as $directory) {
             // is fnmatch for directories
-            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($directory, '*')) {
-                $absoluteDirectories = \array_merge($absoluteDirectories, \glob($directory, \GLOB_ONLYDIR));
+            if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($directory, '*')) {
+                $foundDirectories = $this->foundDirectoriesInGlob($directory);
+                $absoluteDirectories = \array_merge($absoluteDirectories, $foundDirectories);
             } else {
                 // is classic directory
                 $this->ensureDirectoryExists($directory);
@@ -28,11 +29,25 @@ final class FilesystemTweaker
         }
         return $absoluteDirectories;
     }
+    /**
+     * @return string[]
+     */
+    private function foundDirectoriesInGlob(string $directory) : array
+    {
+        $foundDirectories = [];
+        foreach ((array) \glob($directory, \GLOB_ONLYDIR) as $foundDirectory) {
+            if (!\is_string($foundDirectory)) {
+                continue;
+            }
+            $foundDirectories[] = $foundDirectory;
+        }
+        return $foundDirectories;
+    }
     private function ensureDirectoryExists(string $directory) : void
     {
         if (\file_exists($directory)) {
             return;
         }
-        throw new \Rector\Core\Exception\FileSystem\DirectoryNotFoundException(\sprintf('Directory "%s" was not found.', $directory));
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\FileSystem\DirectoryNotFoundException(\sprintf('Directory "%s" was not found.', $directory));
     }
 }

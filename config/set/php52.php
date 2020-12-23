@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector;
-use Rector\Generic\ValueObject\RemoveFuncCallArg;
-use Rector\Php52\Rector\Property\VarToPublicPropertyRector;
-use Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\RemoveFuncCallArg;
+use _PhpScoper0a2ac50786fa\Rector\Php52\Rector\Property\VarToPublicPropertyRector;
+use _PhpScoper0a2ac50786fa\Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper0a2ac50786fa\Symplify\SymfonyPhpConfig\ValueObjectInliner;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Php52\Rector\Property\VarToPublicPropertyRector::class);
-    $services->set(\Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector::class);
-    $services->set(\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::class)->call('configure', [[\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php52\Rector\Property\VarToPublicPropertyRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::class)->call('configure', [[\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => \_PhpScoper0a2ac50786fa\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // see https://www.php.net/manual/en/function.ldap-first-attribute.php
-        new \Rector\Generic\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2),
+        new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2),
     ])]]);
 };

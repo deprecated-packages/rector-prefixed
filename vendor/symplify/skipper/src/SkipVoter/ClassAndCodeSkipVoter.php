@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\Skipper\SkipVoter;
+namespace _PhpScoper0a2ac50786fa\Symplify\Skipper\SkipVoter;
 
-use Symplify\Skipper\Contract\SkipVoterInterface;
-use Symplify\Skipper\Matcher\FileInfoMatcher;
-use Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Contract\SkipVoterInterface;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Matcher\FileInfoMatcher;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */
-final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVoterInterface
+final class ClassAndCodeSkipVoter implements \_PhpScoper0a2ac50786fa\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var SkippedClassAndCodesResolver
@@ -20,7 +20,7 @@ final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVote
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \_PhpScoper0a2ac50786fa\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedClassAndCodesResolver = $skippedClassAndCodesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
@@ -38,7 +38,7 @@ final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVote
     /**
      * @param string $element
      */
-    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {

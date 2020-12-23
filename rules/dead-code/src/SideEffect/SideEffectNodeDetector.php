@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\SideEffect;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\SideEffect;
 
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\BinaryOp\Concat;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Scalar\Encapsed;
-use PHPStan\Type\ConstantType;
-use Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\Encapsed;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ConstantType;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 final class SideEffectNodeDetector
 {
     /**
      * @var string[]
      */
-    private const SIDE_EFFECT_NODE_TYPES = [\PhpParser\Node\Scalar\Encapsed::class, \PhpParser\Node\Expr\New_::class, \PhpParser\Node\Expr\BinaryOp\Concat::class, \PhpParser\Node\Expr\PropertyFetch::class];
+    private const SIDE_EFFECT_NODE_TYPES = [\_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\Encapsed::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch::class];
     /**
      * @var PureFunctionDetector
      */
@@ -28,18 +28,18 @@ final class SideEffectNodeDetector
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\DeadCode\SideEffect\PureFunctionDetector $pureFunctionDetector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a2ac50786fa\Rector\DeadCode\SideEffect\PureFunctionDetector $pureFunctionDetector)
     {
         $this->pureFunctionDetector = $pureFunctionDetector;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function detect(\PhpParser\Node\Expr $expr) : bool
+    public function detect(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
     {
-        if ($expr instanceof \PhpParser\Node\Expr\Assign) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return \true;
         }
         $exprStaticType = $this->nodeTypeResolver->resolve($expr);
-        if ($exprStaticType instanceof \PHPStan\Type\ConstantType) {
+        if ($exprStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ConstantType) {
             return \false;
         }
         foreach (self::SIDE_EFFECT_NODE_TYPES as $sideEffectNodeType) {
@@ -47,22 +47,22 @@ final class SideEffectNodeDetector
                 return \false;
             }
         }
-        if ($expr instanceof \PhpParser\Node\Expr\FuncCall) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
             return !$this->pureFunctionDetector->detect($expr);
         }
-        if ($expr instanceof \PhpParser\Node\Expr\Variable || $expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable || $expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch) {
             $variable = $this->resolveVariable($expr);
             // variables don't have side effects
-            return !$variable instanceof \PhpParser\Node\Expr\Variable;
+            return !$variable instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
         }
         return \true;
     }
-    private function resolveVariable(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\Variable
+    private function resolveVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable
     {
-        while ($expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        while ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch) {
             $expr = $expr->var;
         }
-        if (!$expr instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return null;
         }
         return $expr;

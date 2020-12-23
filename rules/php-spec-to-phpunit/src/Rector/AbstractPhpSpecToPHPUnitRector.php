@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PhpSpecToPHPUnit\Rector;
+namespace _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector;
 
-use PhpParser\Node;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://gnugat.github.io/2015/09/23/phpunit-with-phpspec.html
  * @see http://www.phpspec.net/en/stable/cookbook/construction.html
  */
-abstract class AbstractPhpSpecToPHPUnitRector extends \Rector\Core\Rector\AbstractRector
+abstract class AbstractPhpSpecToPHPUnitRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate PhpSpec behavior to PHPUnit test', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate PhpSpec behavior to PHPUnit test', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 
 namespace spec\SomeNamespaceForThisTest;
 
@@ -53,12 +53,12 @@ class OrderSpec extends ObjectBehavior
 CODE_SAMPLE
 )]);
     }
-    public function isInPhpSpecBehavior(\PhpParser\Node $node) : bool
+    public function isInPhpSpecBehavior(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \false;
         }
-        return $this->isObjectType($classLike, '_PhpScoperabd03f0baf05\\PhpSpec\\ObjectBehavior');
+        return $this->isObjectType($classLike, '_PhpScoper0a2ac50786fa\\PhpSpec\\ObjectBehavior');
     }
 }

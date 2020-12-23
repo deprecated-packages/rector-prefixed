@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php55;
+namespace _PhpScoper0a2ac50786fa\Rector\Php55;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp\Concat;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver;
 final class RegexMatcher
 {
     /**
@@ -25,54 +25,54 @@ final class RegexMatcher
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->valueResolver = $valueResolver;
     }
-    public function resolvePatternExpressionWithoutEIfFound(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
+    public function resolvePatternExpressionWithoutEIfFound(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if ($expr instanceof \PhpParser\Node\Scalar\String_) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             $pattern = $this->valueResolver->getValue($expr);
             if (!\is_string($pattern)) {
                 return null;
             }
             $delimiter = $pattern[0];
             if (!\is_string($delimiter)) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
             }
             /** @var string $modifiers */
-            $modifiers = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after($pattern, $delimiter, -1);
-            if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($modifiers, 'e')) {
+            $modifiers = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after($pattern, $delimiter, -1);
+            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($modifiers, 'e')) {
                 return null;
             }
             $patternWithoutE = $this->createPatternWithoutE($pattern, $delimiter, $modifiers);
-            return new \PhpParser\Node\Scalar\String_($patternWithoutE);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($patternWithoutE);
         }
-        if ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat) {
             return $this->matchConcat($expr);
         }
         return null;
     }
     private function createPatternWithoutE(string $pattern, string $delimiter, string $modifiers) : string
     {
-        $modifiersWithoutE = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($modifiers, '#e#');
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::before($pattern, $delimiter, -1) . $delimiter . $modifiersWithoutE;
+        $modifiersWithoutE = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($modifiers, '#e#', '');
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::before($pattern, $delimiter, -1) . $delimiter . $modifiersWithoutE;
     }
-    private function matchConcat(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
+    private function matchConcat(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat $concat) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        $lastItem = $expr->right;
-        if (!$lastItem instanceof \PhpParser\Node\Scalar\String_) {
+        $lastItem = $concat->right;
+        if (!$lastItem instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return null;
         }
-        $matches = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($lastItem->value, self::LETTER_SUFFIX_REGEX);
+        $matches = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($lastItem->value, self::LETTER_SUFFIX_REGEX);
         if (!isset($matches['modifiers'])) {
             return null;
         }
-        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($matches['modifiers'], 'e')) {
+        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($matches['modifiers'], 'e')) {
             return null;
         }
         // replace last "e" in the code
-        $lastItem->value = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($lastItem->value, self::LAST_E_REGEX, '$1$2');
-        return $expr;
+        $lastItem->value = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($lastItem->value, self::LAST_E_REGEX, '$1$2');
+        return $concat;
     }
 }

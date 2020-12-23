@@ -8,25 +8,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection;
 
-use _PhpScoperabd03f0baf05\Psr\Container\ContainerInterface as PsrContainerInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use _PhpScoper0a2ac50786fa\Psr\Container\ContainerInterface as PsrContainerInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 /**
  * ContainerInterface is the interface implemented by service container classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-interface ContainerInterface extends \_PhpScoperabd03f0baf05\Psr\Container\ContainerInterface
+interface ContainerInterface extends \_PhpScoper0a2ac50786fa\Psr\Container\ContainerInterface
 {
-    const RUNTIME_EXCEPTION_ON_INVALID_REFERENCE = 0;
-    const EXCEPTION_ON_INVALID_REFERENCE = 1;
-    const NULL_ON_INVALID_REFERENCE = 2;
-    const IGNORE_ON_INVALID_REFERENCE = 3;
-    const IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
+    public const RUNTIME_EXCEPTION_ON_INVALID_REFERENCE = 0;
+    public const EXCEPTION_ON_INVALID_REFERENCE = 1;
+    public const NULL_ON_INVALID_REFERENCE = 2;
+    public const IGNORE_ON_INVALID_REFERENCE = 3;
+    public const IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
     /**
      * Sets a service.
      */

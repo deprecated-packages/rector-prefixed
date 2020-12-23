@@ -8,8 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console;
 
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleCommandEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleErrorEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleSignalEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleTerminateEvent;
 /**
  * Contains all events dispatched by an Application.
  *
@@ -24,14 +28,21 @@ final class ConsoleEvents
      *
      * @Event("Symfony\Component\Console\Event\ConsoleCommandEvent")
      */
-    const COMMAND = 'console.command';
+    public const COMMAND = 'console.command';
+    /**
+     * The SIGNAL event allows you to perform some actions
+     * after the command execution was interrupted.
+     *
+     * @Event("Symfony\Component\Console\Event\ConsoleSignalEvent")
+     */
+    public const SIGNAL = 'console.signal';
     /**
      * The TERMINATE event allows you to attach listeners after a command is
      * executed by the console.
      *
      * @Event("Symfony\Component\Console\Event\ConsoleTerminateEvent")
      */
-    const TERMINATE = 'console.terminate';
+    public const TERMINATE = 'console.terminate';
     /**
      * The ERROR event occurs when an uncaught exception or error appears.
      *
@@ -40,5 +51,11 @@ final class ConsoleEvents
      *
      * @Event("Symfony\Component\Console\Event\ConsoleErrorEvent")
      */
-    const ERROR = 'console.error';
+    public const ERROR = 'console.error';
+    /**
+     * Event aliases.
+     *
+     * These aliases can be consumed by RegisterListenersPass.
+     */
+    public const ALIASES = [\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleCommandEvent::class => self::COMMAND, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleErrorEvent::class => self::ERROR, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleSignalEvent::class => self::SIGNAL, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleTerminateEvent::class => self::TERMINATE];
 }

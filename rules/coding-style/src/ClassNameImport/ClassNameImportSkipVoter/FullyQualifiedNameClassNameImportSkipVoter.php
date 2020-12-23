@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\ClassNameImport\ClassNameImportSkipVoter;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipVoter;
 
-use PhpParser\Node;
-use Rector\CodingStyle\ClassNameImport\ShortNameResolver;
-use Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
-use Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\ClassNameImport\ShortNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
 /**
  * Prevents adding:
  *
@@ -16,17 +16,17 @@ use Rector\PHPStan\Type\FullyQualifiedObjectType;
  *
  * SomeClass::callThis();
  */
-final class FullyQualifiedNameClassNameImportSkipVoter implements \Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
+final class FullyQualifiedNameClassNameImportSkipVoter implements \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
 {
     /**
      * @var ShortNameResolver
      */
     private $shortNameResolver;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
     {
         $this->shortNameResolver = $shortNameResolver;
     }
-    public function shouldSkip(\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \PhpParser\Node $node) : bool
+    public function shouldSkip(\_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
         // "new X" or "X::static()"
         $shortNames = $this->shortNameResolver->resolveForNode($node);

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RectorGenerator\Command;
+namespace _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Command;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater;
-use Rector\RectorGenerator\Config\ConfigFilesystem;
-use Rector\RectorGenerator\Finder\TemplateFinder;
-use Rector\RectorGenerator\Generator\FileGenerator;
-use Rector\RectorGenerator\Guard\OverrideGuard;
-use Rector\RectorGenerator\Provider\RectorRecipeProvider;
-use Rector\RectorGenerator\TemplateVariablesFactory;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\PackageBuilder\Console\ShellCode;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class GenerateCommand extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Config\ConfigFilesystem;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Finder\TemplateFinder;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Generator\FileGenerator;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Guard\OverrideGuard;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Provider\RectorRecipeProvider;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\TemplateVariablesFactory;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class GenerateCommand extends \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command
 {
     /**
      * @var SymfonyStyle
@@ -52,7 +52,7 @@ final class GenerateCommand extends \_PhpScoperabd03f0baf05\Symfony\Component\Co
      * @var RectorRecipeProvider
      */
     private $rectorRecipeProvider;
-    public function __construct(\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater $composerPackageAutoloadUpdater, \Rector\RectorGenerator\Config\ConfigFilesystem $configFilesystem, \Rector\RectorGenerator\Generator\FileGenerator $fileGenerator, \Rector\RectorGenerator\Guard\OverrideGuard $overrideGuard, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\Finder\TemplateFinder $templateFinder, \Rector\RectorGenerator\TemplateVariablesFactory $templateVariablesFactory, \Rector\RectorGenerator\Provider\RectorRecipeProvider $rectorRecipeProvider)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater $composerPackageAutoloadUpdater, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Config\ConfigFilesystem $configFilesystem, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Generator\FileGenerator $fileGenerator, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Guard\OverrideGuard $overrideGuard, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Finder\TemplateFinder $templateFinder, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\TemplateVariablesFactory $templateVariablesFactory, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Provider\RectorRecipeProvider $rectorRecipeProvider)
     {
         parent::__construct();
         $this->symfonyStyle = $symfonyStyle;
@@ -69,7 +69,7 @@ final class GenerateCommand extends \_PhpScoperabd03f0baf05\Symfony\Component\Co
         $this->setAliases(['c', 'create', 'g']);
         $this->setDescription('[DEV] Create a new Rector, in a proper location, with new tests');
     }
-    protected function execute(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $rectorRecipe = $this->rectorRecipeProvider->provide();
         $templateVariables = $this->templateVariablesFactory->createFromRectorRecipe($rectorRecipe);
@@ -80,13 +80,13 @@ final class GenerateCommand extends \_PhpScoperabd03f0baf05\Symfony\Component\Co
         $isUnwantedOverride = $this->overrideGuard->isUnwantedOverride($templateFileInfos, $templateVariables, $rectorRecipe, $targetDirectory);
         if ($isUnwantedOverride) {
             $this->symfonyStyle->warning('No files were changed');
-            return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+            return \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
         $generatedFilePaths = $this->fileGenerator->generateFiles($templateFileInfos, $templateVariables, $rectorRecipe, $targetDirectory);
         $this->configFilesystem->appendRectorServiceToSet($rectorRecipe, $templateVariables);
         $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);
         $this->printSuccess($rectorRecipe->getName(), $generatedFilePaths, $testCaseDirectoryPath);
-        return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
     /**
      * @param string[] $generatedFilePaths
@@ -94,13 +94,13 @@ final class GenerateCommand extends \_PhpScoperabd03f0baf05\Symfony\Component\Co
     private function resolveTestCaseDirectoryPath(array $generatedFilePaths) : string
     {
         foreach ($generatedFilePaths as $generatedFilePath) {
-            if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
+            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
                 continue;
             }
-            $generatedFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);
+            $generatedFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);
             return \dirname($generatedFileInfo->getRelativeFilePathFromCwd());
         }
-        throw new \Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
     }
     /**
      * @param string[] $generatedFilePaths
@@ -111,7 +111,7 @@ final class GenerateCommand extends \_PhpScoperabd03f0baf05\Symfony\Component\Co
         $this->symfonyStyle->title($message);
         \sort($generatedFilePaths);
         foreach ($generatedFilePaths as $generatedFilePath) {
-            $fileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);
+            $fileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);
             $relativeFilePath = $fileInfo->getRelativeFilePathFromCwd();
             $this->symfonyStyle->writeln(' * ' . $relativeFilePath);
         }

@@ -1,12 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
 
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
-use Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+final class TableTagValueNode extends \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
 {
     /**
      * @var bool
@@ -25,19 +26,19 @@ final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
      */
     private $uniqueConstraints = [];
     /**
-     * @var OpeningAndClosingSpace
+     * @var AroundSpaces|null
      */
-    private $indexesOpeningAndClosingSpace;
+    private $indexesAroundSpaces;
     /**
-     * @var OpeningAndClosingSpace
+     * @var AroundSpaces|null
      */
-    private $uniqueConstraintsOpeningAndClosingSpace;
+    private $uniqueConstraintsAroundSpaces;
     /**
      * @param mixed[] $options
      * @param IndexTagValueNode[] $indexes
      * @param UniqueConstraintTagValueNode[] $uniqueConstraints
      */
-    public function __construct(?string $name, ?string $schema, array $indexes, array $uniqueConstraints, array $options, ?string $originalContent = null, bool $haveIndexesFinalComma = \false, bool $haveUniqueConstraintsFinalComma = \false, \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace $indexesOpeningAndClosingSpace, \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace $uniqueConstraintsOpeningAndClosingSpace)
+    public function __construct(?string $name, ?string $schema, array $indexes, array $uniqueConstraints, array $options, ?string $originalContent = null, bool $haveIndexesFinalComma = \false, bool $haveUniqueConstraintsFinalComma = \false, ?\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $indexesAroundSpaces = null, ?\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $uniqueConstraintsAroundSpaces = null)
     {
         $this->items['name'] = $name;
         $this->items['schema'] = $schema;
@@ -47,8 +48,8 @@ final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
         $this->resolveOriginalContentSpacingAndOrder($originalContent);
         $this->haveIndexesFinalComma = $haveIndexesFinalComma;
         $this->haveUniqueConstraintsFinalComma = $haveUniqueConstraintsFinalComma;
-        $this->indexesOpeningAndClosingSpace = $indexesOpeningAndClosingSpace;
-        $this->uniqueConstraintsOpeningAndClosingSpace = $uniqueConstraintsOpeningAndClosingSpace;
+        $this->indexesAroundSpaces = $indexesAroundSpaces;
+        $this->uniqueConstraintsAroundSpaces = $uniqueConstraintsAroundSpaces;
     }
     public function __toString() : string
     {
@@ -61,7 +62,7 @@ final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
     }
     public function getShortName() : string
     {
-        return '_PhpScoperabd03f0baf05\\@ORM\\Table';
+        return '_PhpScoper0a2ac50786fa\\@ORM\\Table';
     }
     public function getSilentKey() : string
     {
@@ -74,10 +75,16 @@ final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
     private function addCustomItems(array $items) : array
     {
         if ($this->indexes !== []) {
-            $items['indexes'] = $this->printNestedTag($this->indexes, $this->haveIndexesFinalComma, $this->indexesOpeningAndClosingSpace->getOpeningSpace(), $this->indexesOpeningAndClosingSpace->getClosingSpace());
+            if ($this->indexesAroundSpaces === null) {
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            }
+            $items['indexes'] = $this->printNestedTag($this->indexes, $this->haveIndexesFinalComma, $this->indexesAroundSpaces->getOpeningSpace(), $this->indexesAroundSpaces->getClosingSpace());
         }
         if ($this->uniqueConstraints !== []) {
-            $items['uniqueConstraints'] = $this->printNestedTag($this->uniqueConstraints, $this->haveUniqueConstraintsFinalComma, $this->uniqueConstraintsOpeningAndClosingSpace->getOpeningSpace(), $this->uniqueConstraintsOpeningAndClosingSpace->getClosingSpace());
+            if ($this->uniqueConstraintsAroundSpaces === null) {
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            }
+            $items['uniqueConstraints'] = $this->printNestedTag($this->uniqueConstraints, $this->haveUniqueConstraintsFinalComma, $this->uniqueConstraintsAroundSpaces->getOpeningSpace(), $this->uniqueConstraintsAroundSpaces->getClosingSpace());
         }
         return $items;
     }

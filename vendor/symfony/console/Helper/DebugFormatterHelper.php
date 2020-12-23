@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Helper;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console\Helper;
 
 /**
  * Helps outputting debug information when running an external program from a command.
@@ -17,7 +17,7 @@ namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Helper;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class DebugFormatterHelper extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\Helper\Helper
+class DebugFormatterHelper extends \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Helper\Helper
 {
     private $colors = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'default'];
     private $started = [];
@@ -25,13 +25,9 @@ class DebugFormatterHelper extends \_PhpScoperabd03f0baf05\Symfony\Component\Con
     /**
      * Starts a debug formatting session.
      *
-     * @param string $id      The id of the formatting session
-     * @param string $message The message to display
-     * @param string $prefix  The prefix to use
-     *
      * @return string
      */
-    public function start($id, $message, $prefix = 'RUN')
+    public function start(string $id, string $message, string $prefix = 'RUN')
     {
         $this->started[$id] = ['border' => ++$this->count % \count($this->colors)];
         return \sprintf("%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n", $this->getBorder($id), $prefix, $message);
@@ -39,15 +35,9 @@ class DebugFormatterHelper extends \_PhpScoperabd03f0baf05\Symfony\Component\Con
     /**
      * Adds progress to a formatting session.
      *
-     * @param string $id          The id of the formatting session
-     * @param string $buffer      The message to display
-     * @param bool   $error       Whether to consider the buffer as error
-     * @param string $prefix      The prefix for output
-     * @param string $errorPrefix The prefix for error output
-     *
      * @return string
      */
-    public function progress($id, $buffer, $error = \false, $prefix = 'OUT', $errorPrefix = 'ERR')
+    public function progress(string $id, string $buffer, bool $error = \false, string $prefix = 'OUT', string $errorPrefix = 'ERR')
     {
         $message = '';
         if ($error) {
@@ -76,14 +66,9 @@ class DebugFormatterHelper extends \_PhpScoperabd03f0baf05\Symfony\Component\Con
     /**
      * Stops a formatting session.
      *
-     * @param string $id         The id of the formatting session
-     * @param string $message    The message to display
-     * @param bool   $successful Whether to consider the result as success
-     * @param string $prefix     The prefix for the end output
-     *
      * @return string
      */
-    public function stop($id, $message, $successful, $prefix = 'RES')
+    public function stop(string $id, string $message, bool $successful, string $prefix = 'RES')
     {
         $trailingEOL = isset($this->started[$id]['out']) || isset($this->started[$id]['err']) ? "\n" : '';
         if ($successful) {

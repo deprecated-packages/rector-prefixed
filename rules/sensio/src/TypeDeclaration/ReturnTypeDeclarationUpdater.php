@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Sensio\TypeDeclaration;
+namespace _PhpScoper0a2ac50786fa\Rector\Sensio\TypeDeclaration;
 
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\UnionType;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareFullyQualifiedIdentifierTypeNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator;
-use Rector\Core\Php\PhpVersionProvider;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Php\PhpVersionProvider;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper;
 final class ReturnTypeDeclarationUpdater
 {
     /**
@@ -32,33 +32,33 @@ final class ReturnTypeDeclarationUpdater
      * @var PhpDocInfoManipulator
      */
     private $phpDocInfoManipulator;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator $phpDocInfoManipulator, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator $phpDocInfoManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->phpVersionProvider = $phpVersionProvider;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocInfoManipulator = $phpDocInfoManipulator;
     }
-    public function updateClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
+    public function updateClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
     {
         $this->updatePhpDoc($classMethod, $className);
         $this->updatePhp($classMethod, $className);
     }
-    private function updatePhpDoc(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
+    private function updatePhpDoc(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
     {
         /** @var ReturnTagValueNode|null $returnTagValueNode */
-        $returnTagValueNode = $this->phpDocInfoManipulator->getPhpDocTagValueNode($classMethod, \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
+        $returnTagValueNode = $this->phpDocInfoManipulator->getPhpDocTagValueNode($classMethod, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
         if ($returnTagValueNode === null) {
             return;
         }
         $returnStaticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($returnTagValueNode->type, $classMethod);
-        if ($returnStaticType instanceof \PHPStan\Type\ArrayType || $returnStaticType instanceof \PHPStan\Type\UnionType) {
-            $returnTagValueNode->type = new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareFullyQualifiedIdentifierTypeNode($className);
+        if ($returnStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType || $returnStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
+            $returnTagValueNode->type = new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode($className);
         }
     }
-    private function updatePhp(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
+    private function updatePhp(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
     {
-        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
+        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return;
         }
         // change return type
@@ -68,6 +68,6 @@ final class ReturnTypeDeclarationUpdater
                 return;
             }
         }
-        $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified($className);
+        $classMethod->returnType = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($className);
     }
 }

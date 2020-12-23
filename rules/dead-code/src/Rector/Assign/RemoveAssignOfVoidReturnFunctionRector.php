@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\Assign;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Assign;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PHPStan\Type\VoidType;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\VoidType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Assign\RemoveAssignOfVoidReturnFunctionRector\RemoveAssignOfVoidReturnFunctionRectorTest
  */
-final class RemoveAssignOfVoidReturnFunctionRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveAssignOfVoidReturnFunctionRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove assign of void function/method to variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove assign of void function/method to variable', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -52,19 +52,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall && !$node->expr instanceof \PhpParser\Node\Expr\MethodCall && !$node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
+        if (!$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall && !$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall && !$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
             return null;
         }
         $nodeStaticType = $this->getStaticType($node->expr);
         // void type
-        if (!$nodeStaticType instanceof \PHPStan\Type\VoidType) {
+        if (!$nodeStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\VoidType) {
             return null;
         }
         return $node->expr;

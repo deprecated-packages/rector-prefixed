@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\FlowControl;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\FlowControl;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Variable;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class VariableUseFinder
 {
     /**
@@ -24,7 +24,7 @@ final class VariableUseFinder
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -34,15 +34,15 @@ final class VariableUseFinder
      * @param Variable[] $assignedVariables
      * @return Variable[]
      */
-    public function resolveUsedVariables(\PhpParser\Node $node, array $assignedVariables) : array
+    public function resolveUsedVariables(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, array $assignedVariables) : array
     {
-        return $this->betterNodeFinder->find($node, function (\PhpParser\Node $node) use($assignedVariables) : bool {
-            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+        return $this->betterNodeFinder->find($node, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($assignedVariables) : bool {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
                 return \false;
             }
-            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             // is the left assign - not use of one
-            if ($parentNode instanceof \PhpParser\Node\Expr\Assign && ($parentNode->var instanceof \PhpParser\Node\Expr\Variable && $parentNode->var === $node)) {
+            if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign && ($parentNode->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable && $parentNode->var === $node)) {
                 return \false;
             }
             $nodeNameResolverGetName = $this->nodeNameResolver->getName($node);

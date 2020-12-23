@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\MethodCall;
 
-use _PhpScoperabd03f0baf05\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
-use _PhpScoperabd03f0baf05\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
-use _PhpScoperabd03f0baf05\Doctrine\ORM\EntityManagerInterface;
-use _PhpScoperabd03f0baf05\Doctrine\Persistence\ManagerRegistry;
-use _PhpScoperabd03f0baf05\Doctrine\Persistence\ObjectManager;
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
+use _PhpScoper0a2ac50786fa\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
+use _PhpScoper0a2ac50786fa\Doctrine\ORM\EntityManagerInterface;
+use _PhpScoper0a2ac50786fa\Doctrine\Persistence\ManagerRegistry;
+use _PhpScoper0a2ac50786fa\Doctrine\Persistence\ObjectManager;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Doctrine\Tests\Rector\MethodCall\EntityAliasToClassConstantReferenceRector\EntityAliasToClassConstantReferenceRectorTest
  */
-final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class EntityAliasToClassConstantReferenceRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -29,14 +29,14 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
     /**
      * @var string[]
      */
-    private const ALLOWED_OBJECT_TYPES = [\_PhpScoperabd03f0baf05\Doctrine\ORM\EntityManagerInterface::class, \_PhpScoperabd03f0baf05\Doctrine\Persistence\ObjectManager::class, \_PhpScoperabd03f0baf05\Doctrine\Common\Persistence\ObjectManager::class, \_PhpScoperabd03f0baf05\Doctrine\Persistence\ManagerRegistry::class, \_PhpScoperabd03f0baf05\Doctrine\Common\Persistence\ManagerRegistry::class];
+    private const ALLOWED_OBJECT_TYPES = [\_PhpScoper0a2ac50786fa\Doctrine\ORM\EntityManagerInterface::class, \_PhpScoper0a2ac50786fa\Doctrine\Persistence\ObjectManager::class, \_PhpScoper0a2ac50786fa\Doctrine\Common\Persistence\ObjectManager::class, \_PhpScoper0a2ac50786fa\Doctrine\Persistence\ManagerRegistry::class, \_PhpScoper0a2ac50786fa\Doctrine\Common\Persistence\ManagerRegistry::class];
     /**
      * @var string[]
      */
     private $aliasesToNamespaces = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces doctrine alias with class.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces doctrine alias with class.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $entityManager = new Doctrine\ORM\EntityManager();
 $entityManager->getRepository("AppBundle:Post");
 CODE_SAMPLE
@@ -44,19 +44,19 @@ CODE_SAMPLE
 $entityManager = new Doctrine\ORM\EntityManager();
 $entityManager->getRepository(\App\Entity\Post::class);
 CODE_SAMPLE
-, [self::ALIASES_TO_NAMESPACES => ['App' => '_PhpScoperabd03f0baf05\\App\\Entity']])]);
+, [self::ALIASES_TO_NAMESPACES => ['App' => '_PhpScoper0a2ac50786fa\\App\\Entity']])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isObjectTypes($node->var, self::ALLOWED_OBJECT_TYPES)) {
             return null;
@@ -67,7 +67,7 @@ CODE_SAMPLE
         if (!isset($node->args[0])) {
             return null;
         }
-        if (!$node->args[0]->value instanceof \PhpParser\Node\Scalar\String_) {
+        if (!$node->args[0]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return null;
         }
         /** @var String_ $stringNode */
@@ -84,7 +84,10 @@ CODE_SAMPLE
     }
     private function isAliasWithConfiguredEntity(string $name) : bool
     {
-        return $this->isAlias($name) && $this->hasAlias($name);
+        if (!$this->isAlias($name)) {
+            return \false;
+        }
+        return $this->hasAlias($name);
     }
     private function convertAliasToFqn(string $name) : string
     {
@@ -93,7 +96,7 @@ CODE_SAMPLE
     }
     private function isAlias(string $name) : bool
     {
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($name, ':');
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($name, ':');
     }
     private function hasAlias(string $name) : bool
     {

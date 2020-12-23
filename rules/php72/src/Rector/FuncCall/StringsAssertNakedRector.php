@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php72\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Php72\Rector\FuncCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Parser;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Parser;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/lB5fR
  * @see https://github.com/simplesamlphp/simplesamlphp/pull/708/files
  * @see \Rector\Php72\Tests\Rector\FuncCall\StringsAssertNakedRector\StringsAssertNakedRectorTest
  */
-final class StringsAssertNakedRector extends \Rector\Core\Rector\AbstractRector
+final class StringsAssertNakedRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var Parser
      */
     private $parser;
-    public function __construct(\PhpParser\Parser $parser)
+    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Parser $parser)
     {
         $this->parser = $parser;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('String asserts must be passed directly to assert()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('String asserts must be passed directly to assert()', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function nakedAssert()
 {
     assert('true === true');
@@ -50,17 +50,17 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isName($node, 'assert')) {
             return null;
         }
-        if (!$node->args[0]->value instanceof \PhpParser\Node\Scalar\String_) {
+        if (!$node->args[0]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return null;
         }
         /** @var String_ $stringNode */
@@ -70,10 +70,10 @@ CODE_SAMPLE
         if (!isset($contentNodes[0])) {
             return null;
         }
-        if (!$contentNodes[0] instanceof \PhpParser\Node\Stmt\Expression) {
+        if (!$contentNodes[0] instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        $node->args[0] = new \PhpParser\Node\Arg($contentNodes[0]->expr);
+        $node->args[0] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($contentNodes[0]->expr);
         return $node;
     }
 }

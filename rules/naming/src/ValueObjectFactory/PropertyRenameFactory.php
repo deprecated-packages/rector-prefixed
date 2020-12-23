@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\ValueObjectFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\ValueObjectFactory;
 
-use PhpParser\Node\Stmt\Property;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
-use Rector\Naming\ValueObject\PropertyRename;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\PropertyRename;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * @see \Rector\Naming\Tests\ValueObjectFactory\PropertyRenameFactory\PropertyRenameFactoryTest
  */
@@ -18,13 +18,13 @@ final class PropertyRenameFactory
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function create(\PhpParser\Node\Stmt\Property $property, \Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface $expectedNameResolver) : ?\Rector\Naming\ValueObject\PropertyRename
+    public function create(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface $expectedNameResolver) : ?\_PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\PropertyRename
     {
-        if (\count($property->props) !== 1) {
+        if (\count((array) $property->props) !== 1) {
             return null;
         }
         $expectedName = $expectedNameResolver->resolveIfNotYet($property);
@@ -32,14 +32,14 @@ final class PropertyRenameFactory
             return null;
         }
         $currentName = $this->nodeNameResolver->getName($property);
-        $propertyClassLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $propertyClassLike = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($propertyClassLike === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException("There shouldn't be a property without AttributeKey::CLASS_NODE");
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException("There shouldn't be a property without AttributeKey::CLASS_NODE");
         }
-        $propertyClassLikeName = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $propertyClassLikeName = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($propertyClassLikeName === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException("There shouldn't be a property without AttributeKey::CLASS_NAME");
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException("There shouldn't be a property without AttributeKey::CLASS_NAME");
         }
-        return new \Rector\Naming\ValueObject\PropertyRename($property, $expectedName, $currentName, $propertyClassLike, $propertyClassLikeName, $property->props[0]);
+        return new \_PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\PropertyRename($property, $expectedName, $currentName, $propertyClassLike, $propertyClassLikeName, $property->props[0]);
     }
 }

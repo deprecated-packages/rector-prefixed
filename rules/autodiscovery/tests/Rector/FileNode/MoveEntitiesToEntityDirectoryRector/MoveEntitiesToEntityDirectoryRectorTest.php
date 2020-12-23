@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Autodiscovery\Tests\Rector\FileNode\MoveEntitiesToEntityDirectoryRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Autodiscovery\Tests\Rector\FileNode\MoveEntitiesToEntityDirectoryRector;
 
 use Iterator;
-use Rector\Autodiscovery\Rector\FileNode\MoveEntitiesToEntityDirectoryRector;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
-final class MoveEntitiesToEntityDirectoryRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Autodiscovery\Rector\FileNode\MoveEntitiesToEntityDirectoryRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
+final class MoveEntitiesToEntityDirectoryRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \Rector\FileSystemRector\ValueObject\AddedFileWithContent $expectedAddedFileWithContent) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \_PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\AddedFileWithContent $expectedAddedFileWithContent) : void
     {
         $this->doTestFileInfo($originalFileInfo);
         $this->assertFileWithContentWasAdded($expectedAddedFileWithContent);
     }
     public function provideData() : \Iterator
     {
-        $smartFileSystem = new \Symplify\SmartFileSystem\SmartFileSystem();
-        (yield [new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Controller/RandomEntity.php'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/Entity/RandomEntity.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ExpectedRandomEntity.php'))]);
+        $smartFileSystem = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem();
+        (yield [new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Controller/RandomEntity.php'), new \_PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/Entity/RandomEntity.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ExpectedRandomEntity.php'))]);
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Autodiscovery\Rector\FileNode\MoveEntitiesToEntityDirectoryRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Autodiscovery\Rector\FileNode\MoveEntitiesToEntityDirectoryRector::class;
     }
     protected function getPhpVersion() : int
     {
-        return \Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES - 1;
+        return \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES - 1;
     }
 }

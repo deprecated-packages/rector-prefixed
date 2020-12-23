@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\PropertyProperty;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\PropertyProperty;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\NullableType;
-use PhpParser\Node\Stmt\PropertyProperty;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\PropertyProperty;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 use function strtolower;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\PropertyProperty\RemoveNullPropertyInitializationRector\RemoveNullPropertyInitializationRectorTest
  */
-final class RemoveNullPropertyInitializationRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveNullPropertyInitializationRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove initialization with null value from property declarations', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove initialization with null value from property declarations', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SunshineCommand extends ParentClassWithNewConstructor
 {
     private $myVar = null;
@@ -38,25 +38,25 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\PropertyProperty::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\PropertyProperty::class];
     }
     /**
      * @param PropertyProperty $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $defaultValueNode = $node->default;
         if ($defaultValueNode === null) {
             return null;
         }
-        if (!$defaultValueNode instanceof \PhpParser\Node\Expr\ConstFetch) {
+        if (!$defaultValueNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch) {
             return null;
         }
         if (\strtolower((string) $defaultValueNode->name) !== 'null') {
             return null;
         }
-        $nodeNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if ($nodeNode instanceof \PhpParser\Node\NullableType) {
+        $nodeNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
+        if ($nodeNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\NullableType) {
             return null;
         }
         $node->default = null;

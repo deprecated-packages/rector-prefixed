@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\VendorLocker\NodeVendorLocker;
+namespace _PhpScoper0a2ac50786fa\Rector\VendorLocker\NodeVendorLocker;
 
-use PhpParser\Node\Stmt\Property;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-final class PropertyVisibilityVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+final class PropertyVisibilityVendorLockResolver extends \_PhpScoper0a2ac50786fa\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     /**
      * Checks for:
@@ -14,25 +14,26 @@ final class PropertyVisibilityVendorLockResolver extends \Rector\VendorLocker\No
      * Prevents:
      * - changing visibility conflicting with children
      */
-    public function isParentLockedProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    public function isParentLockedProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var string $className */
-        $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
         return $this->hasParentProperty($className, $propertyName);
     }
-    public function isChildLockedProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    public function isChildLockedProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var string $className */
-        $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
         return $this->hasChildProperty($className, $propertyName);
     }
     private function hasParentProperty(string $className, string $propertyName) : bool
     {
-        $parentClasses = \class_parents($className);
+        /** @var string[] $parentClasses */
+        $parentClasses = (array) \class_parents($className);
         foreach ($parentClasses as $parentClass) {
             if (!\property_exists($parentClass, $propertyName)) {
                 continue;

@@ -1,0 +1,4 @@
+parameters:
+	featureToggles:
+		disableRuntimeReflectionProvider: true
+

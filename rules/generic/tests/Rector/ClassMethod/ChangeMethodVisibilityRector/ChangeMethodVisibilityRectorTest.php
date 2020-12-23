@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector;
 
 use Iterator;
-use Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector;
-use Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject;
-use Rector\Generic\ValueObject\ChangeMethodVisibility;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeMethodVisibilityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ChangeMethodVisibility;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeMethodVisibilityRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class ChangeMethodVisibilityRectorTest extends \Rector\Testing\PHPUnit\Abs
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class => [\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => [new \Rector\Generic\ValueObject\ChangeMethodVisibility(\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePublicMethod', 'public'), new \Rector\Generic\ValueObject\ChangeMethodVisibility(\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBeProtectedMethod', 'protected'), new \Rector\Generic\ValueObject\ChangeMethodVisibility(\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePrivateMethod', 'private'), new \Rector\Generic\ValueObject\ChangeMethodVisibility(\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePublicStaticMethod', 'public')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ChangeMethodVisibility(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePublicMethod', 'public'), new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ChangeMethodVisibility(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBeProtectedMethod', 'protected'), new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ChangeMethodVisibility(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePrivateMethod', 'private'), new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ChangeMethodVisibility(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePublicStaticMethod', 'public')]]];
     }
 }

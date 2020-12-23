@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\Rector\ClassMethod;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Nette\NodeFactory\ActionRenderFactory;
-use Rector\Nette\TemplatePropertyAssignCollector;
-use Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Nette\NodeFactory\ActionRenderFactory;
+use _PhpScoper0a2ac50786fa\Rector\Nette\TemplatePropertyAssignCollector;
+use _PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Nette\Tests\Rector\ClassMethod\TemplateMagicAssignToExplicitVariableArrayRector\TemplateMagicAssignToExplicitVariableArrayRectorTest
  */
-final class TemplateMagicAssignToExplicitVariableArrayRector extends \Rector\Core\Rector\AbstractRector
+final class TemplateMagicAssignToExplicitVariableArrayRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var TemplatePropertyAssignCollector
@@ -26,14 +26,14 @@ final class TemplateMagicAssignToExplicitVariableArrayRector extends \Rector\Cor
      * @var ActionRenderFactory
      */
     private $actionRenderFactory;
-    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \_PhpScoper0a2ac50786fa\Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector)
     {
         $this->templatePropertyAssignCollector = $templatePropertyAssignCollector;
         $this->actionRenderFactory = $actionRenderFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change `$this->templates->{magic}` to `$this->template->render(..., $values)`', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change `$this->templates->{magic}` to `$this->template->render(..., $values)`', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 class SomeControl extends Control
@@ -63,14 +63,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoperabd03f0baf05\\Nette\\Application\\UI\\Control')) {
+        if (!$this->isObjectType($node, '_PhpScoper0a2ac50786fa\\Nette\\Application\\UI\\Control')) {
             return null;
         }
         if (!$node->isPublic()) {
@@ -78,13 +78,13 @@ CODE_SAMPLE
         }
         $magicTemplatePropertyCalls = $this->templatePropertyAssignCollector->collectTemplateFileNameVariablesAndNodesToRemove($node);
         $renderMethodCall = $this->createRenderMethodCall($node, $magicTemplatePropertyCalls);
-        $node->stmts = \array_merge((array) $node->stmts, [new \PhpParser\Node\Stmt\Expression($renderMethodCall)]);
+        $node->stmts = \array_merge((array) $node->stmts, [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($renderMethodCall)]);
         $this->removeNodes($magicTemplatePropertyCalls->getNodesToRemove());
         return $node;
     }
-    private function createRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Nette\ValueObject\MagicTemplatePropertyCalls $magicTemplatePropertyCalls) : \PhpParser\Node\Expr\MethodCall
+    private function createRenderMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\MagicTemplatePropertyCalls $magicTemplatePropertyCalls) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
-        if ($this->isObjectType($classMethod, '_PhpScoperabd03f0baf05\\Nette\\Application\\UI\\Presenter')) {
+        if ($this->isObjectType($classMethod, '_PhpScoper0a2ac50786fa\\Nette\\Application\\UI\\Presenter')) {
             return $this->actionRenderFactory->createThisTemplateRenderMethodCall($magicTemplatePropertyCalls);
         }
         return $this->actionRenderFactory->createThisRenderMethodCall($magicTemplatePropertyCalls);

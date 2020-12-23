@@ -1,43 +1,43 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\FuncCall;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp\Greater;
-use PhpParser\Node\Expr\BinaryOp\GreaterOrEqual;
-use PhpParser\Node\Expr\BinaryOp\Identical;
-use PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use PhpParser\Node\Expr\BinaryOp\Smaller;
-use PhpParser\Node\Expr\BinaryOp\SmallerOrEqual;
-use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\LNumber;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Greater;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Smaller;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\FuncCall\VersionCompareFuncCallToConstantRector\VersionCompareFuncCallToConstantRectorTest
  */
-final class VersionCompareFuncCallToConstantRector extends \Rector\Core\Rector\AbstractRector
+final class VersionCompareFuncCallToConstantRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
-    private const OPERATOR_TO_COMPARISON = ['=' => \PhpParser\Node\Expr\BinaryOp\Identical::class, '==' => \PhpParser\Node\Expr\BinaryOp\Identical::class, 'eq' => \PhpParser\Node\Expr\BinaryOp\Identical::class, '!=' => \PhpParser\Node\Expr\BinaryOp\NotIdentical::class, '<>' => \PhpParser\Node\Expr\BinaryOp\NotIdentical::class, 'ne' => \PhpParser\Node\Expr\BinaryOp\NotIdentical::class, '>' => \PhpParser\Node\Expr\BinaryOp\Greater::class, 'gt' => \PhpParser\Node\Expr\BinaryOp\Greater::class, '<' => \PhpParser\Node\Expr\BinaryOp\Smaller::class, 'lt' => \PhpParser\Node\Expr\BinaryOp\Smaller::class, '>=' => \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class, 'ge' => \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class, '<=' => \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class, 'le' => \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class];
+    private const OPERATOR_TO_COMPARISON = ['=' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical::class, '==' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical::class, 'eq' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical::class, '!=' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical::class, '<>' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical::class, 'ne' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical::class, '>' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Greater::class, 'gt' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Greater::class, '<' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Smaller::class, 'lt' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Smaller::class, '>=' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class, 'ge' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class, '<=' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class, 'le' => \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class];
     /**
      * @var string
      * @see https://regex101.com/r/yl9g25/1
      */
     private const SEMANTIC_VERSION_REGEX = '#^\\d+\\.\\d+\\.\\d+$#';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes use of call to version compare function to use of PHP version constant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes use of call to version compare function to use of PHP version constant', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -62,17 +62,17 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isName($node, 'version_compare')) {
             return null;
         }
-        if (\count($node->args) !== 3) {
+        if (\count((array) $node->args) !== 3) {
             return null;
         }
         if (!$this->isPhpVersionConstant($node->args[0]->value) && !$this->isPhpVersionConstant($node->args[1]->value)) {
@@ -85,26 +85,29 @@ CODE_SAMPLE
         $comparisonClass = self::OPERATOR_TO_COMPARISON[$operator->value];
         return new $comparisonClass($left, $right);
     }
-    private function isPhpVersionConstant(\PhpParser\Node\Expr $expr) : bool
+    private function isPhpVersionConstant(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
     {
-        return $expr instanceof \PhpParser\Node\Expr\ConstFetch && $expr->name->toString() === 'PHP_VERSION';
+        if (!$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch) {
+            return \false;
+        }
+        return $expr->name->toString() === 'PHP_VERSION';
     }
-    private function getNewNodeForArg(\PhpParser\Node\Expr $expr) : \PhpParser\Node
+    private function getNewNodeForArg(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         if ($this->isPhpVersionConstant($expr)) {
-            return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PHP_VERSION_ID'));
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('PHP_VERSION_ID'));
         }
         return $this->getVersionNumberFormVersionString($expr);
     }
-    private function getVersionNumberFormVersionString(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Scalar\LNumber
+    private function getVersionNumberFormVersionString(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber
     {
-        if (!$expr instanceof \PhpParser\Node\Scalar\String_) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (!$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($expr->value, self::SEMANTIC_VERSION_REGEX)) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($expr->value, self::SEMANTIC_VERSION_REGEX)) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         $versionParts = \explode('.', $expr->value);
-        return new \PhpParser\Node\Scalar\LNumber((int) $versionParts[0] * 10000 + (int) $versionParts[1] * 100 + (int) $versionParts[2]);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber((int) $versionParts[0] * 10000 + (int) $versionParts[1] * 100 + (int) $versionParts[2]);
     }
 }

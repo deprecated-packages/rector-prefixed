@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Rector\ClassMethod;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Naming\Guard\BreakingVariableRenameGuard;
-use Rector\Naming\Naming\ExpectedNameResolver;
-use Rector\Naming\VariableRenamer;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Guard\BreakingVariableRenameGuard;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\ExpectedNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Naming\VariableRenamer;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\ClassMethod\RenameVariableToMatchNewTypeRector\RenameVariableToMatchNewTypeRectorTest
  */
-final class RenameVariableToMatchNewTypeRector extends \Rector\Core\Rector\AbstractRector
+final class RenameVariableToMatchNewTypeRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ExpectedNameResolver
@@ -31,15 +31,15 @@ final class RenameVariableToMatchNewTypeRector extends \Rector\Core\Rector\Abstr
      * @var VariableRenamer
      */
     private $variableRenamer;
-    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\VariableRenamer $variableRenamer)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\VariableRenamer $variableRenamer)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
         $this->variableRenamer = $variableRenamer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename variable to match new ClassType', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename variable to match new ClassType', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -66,12 +66,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $hasChanged = \false;
         $assignsOfNew = $this->getAssignsOfNew($node);
@@ -91,7 +91,7 @@ CODE_SAMPLE
             }
             $hasChanged = \true;
             // 1. rename assigned variable
-            $assign->var = new \PhpParser\Node\Expr\Variable($expectedName);
+            $assign->var = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($expectedName);
             // 2. rename variable in the
             $this->variableRenamer->renameVariableInFunctionLike($node, $assign, $currentName, $expectedName);
         }
@@ -103,12 +103,12 @@ CODE_SAMPLE
     /**
      * @return Assign[]
      */
-    private function getAssignsOfNew(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function getAssignsOfNew(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         /** @var Assign[] $assigns */
-        $assigns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Expr\Assign::class);
-        return \array_filter($assigns, function (\PhpParser\Node\Expr\Assign $assign) : bool {
-            return $assign->expr instanceof \PhpParser\Node\Expr\New_;
+        $assigns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class);
+        return \array_filter($assigns, function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool {
+            return $assign->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
         });
     }
 }

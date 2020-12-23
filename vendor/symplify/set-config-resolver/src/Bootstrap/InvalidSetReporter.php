@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SetConfigResolver\Bootstrap;
+namespace _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Bootstrap;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\ObjectHelpers;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use _PhpScoper0a2ac50786fa\Nette\Utils\ObjectHelpers;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Exception\SetNotFoundException;
 final class InvalidSetReporter
 {
     /**
@@ -15,13 +15,13 @@ final class InvalidSetReporter
     private $symfonyStyle;
     public function __construct()
     {
-        $symfonyStyleFactory = new \Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+        $symfonyStyleFactory = new \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
         $this->symfonyStyle = $symfonyStyleFactory->create();
     }
-    public function report(\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) : void
+    public function report(\_PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) : void
     {
         $message = $setNotFoundException->getMessage();
-        $suggestedSet = \_PhpScoperabd03f0baf05\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
+        $suggestedSet = \_PhpScoper0a2ac50786fa\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
         if ($suggestedSet !== null) {
             $message .= \sprintf('. Did you mean "%s"?', $suggestedSet);
             $this->symfonyStyle->error($message);

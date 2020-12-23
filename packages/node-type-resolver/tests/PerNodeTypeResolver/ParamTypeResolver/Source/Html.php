@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ParamTypeResolver\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ParamTypeResolver\Source;
 
 final class Html
 {

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory;
 
-use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
 interface AttributeAwareNodeFactoryAwareInterface
 {
-    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void;
+    public function setAttributeAwareNodeFactory(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void;
 }

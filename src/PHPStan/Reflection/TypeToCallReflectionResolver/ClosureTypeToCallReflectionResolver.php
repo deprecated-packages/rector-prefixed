@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\Native\NativeFunctionReflection;
-use PHPStan\TrinaryLogic;
-use PHPStan\Type\ClosureType;
-use PHPStan\Type\Type;
-use Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
-final class ClosureTypeToCallReflectionResolver implements \Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Native\NativeFunctionReflection;
+use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ClosureType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
+final class ClosureTypeToCallReflectionResolver implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface
 {
-    public function supports(\PHPStan\Type\Type $type) : bool
+    public function supports(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : bool
     {
-        return $type instanceof \PHPStan\Type\ClosureType;
+        return $type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ClosureType;
     }
     /**
      * @param ClosureType $type
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : \PHPStan\Reflection\Native\NativeFunctionReflection
+    public function resolve(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Native\NativeFunctionReflection
     {
-        return new \PHPStan\Reflection\Native\NativeFunctionReflection('{closure}', $type->getCallableParametersAcceptors($classMemberAccessAnswerer), null, \PHPStan\TrinaryLogic::createMaybe());
+        return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Native\NativeFunctionReflection('{closure}', $type->getCallableParametersAcceptors($classMemberAccessAnswerer), null, \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe());
     }
 }

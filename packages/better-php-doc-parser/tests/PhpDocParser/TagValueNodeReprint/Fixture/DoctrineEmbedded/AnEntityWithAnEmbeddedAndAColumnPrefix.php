@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\DoctrineEmbedded;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\DoctrineEmbedded;
 
-use _PhpScoperabd03f0baf05\Doctrine\ORM\Mapping as ORM;
-use Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Source\Embeddable;
+use _PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Source\Embeddable;
 final class AnEntityWithAnEmbeddedAndAColumnPrefix
 {
     /**

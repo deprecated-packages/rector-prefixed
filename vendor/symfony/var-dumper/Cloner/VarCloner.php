@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class VarCloner extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\AbstractCloner
+class VarCloner extends \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\AbstractCloner
 {
     private static $gid;
     private static $arrayCache = [];
@@ -60,8 +60,8 @@ class VarCloner extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Clon
             $gid = self::$gid = \md5(\random_bytes(6));
             // Unique string used to detect the special $GLOBALS variable
         }
-        $arrayStub = new \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub();
-        $arrayStub->type = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::TYPE_ARRAY;
+        $arrayStub = new \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub();
+        $arrayStub->type = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::TYPE_ARRAY;
         $fromObjCast = \false;
         for ($i = 0; $i < $len; ++$i) {
             // Detect when we move on to the next tree depth
@@ -86,15 +86,15 @@ class VarCloner extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Clon
                     // Break hard references to make $queue completely
                     unset($stub);
                     // independent from the original structure
-                    if ($v instanceof \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub && isset($hardRefs[\spl_object_id($v)])) {
+                    if ($v instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub && isset($hardRefs[\spl_object_id($v)])) {
                         $vals[$k] = $refs[$k] = $v;
-                        if ($v->value instanceof \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub && (\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT === $v->value->type || \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::TYPE_RESOURCE === $v->value->type)) {
+                        if ($v->value instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub && (\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT === $v->value->type || \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::TYPE_RESOURCE === $v->value->type)) {
                             ++$v->value->refCount;
                         }
                         ++$v->refCount;
                         continue;
                     }
-                    $refs[$k] = $vals[$k] = new \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub();
+                    $refs[$k] = $vals[$k] = new \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub();
                     $refs[$k]->value = $v;
                     $h = \spl_object_id($refs[$k]);
                     $hardRefs[$h] =& $refs[$k];
@@ -114,9 +114,9 @@ class VarCloner extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Clon
                             continue 2;
                         }
                         if (!\preg_match('//u', $v)) {
-                            $stub = new \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub();
-                            $stub->type = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::TYPE_STRING;
-                            $stub->class = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::STRING_BINARY;
+                            $stub = new \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub();
+                            $stub->type = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::TYPE_STRING;
+                            $stub->class = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::STRING_BINARY;
                             if (0 <= $maxString && 0 < ($cut = \strlen($v) - $maxString)) {
                                 $stub->cut = $cut;
                                 $stub->value = \substr($v, 0, -$cut);
@@ -124,9 +124,9 @@ class VarCloner extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Clon
                                 $stub->value = $v;
                             }
                         } elseif (0 <= $maxString && isset($v[1 + ($maxString >> 2)]) && 0 < ($cut = \mb_strlen($v, 'UTF-8') - $maxString)) {
-                            $stub = new \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub();
-                            $stub->type = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::TYPE_STRING;
-                            $stub->class = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::STRING_UTF8;
+                            $stub = new \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub();
+                            $stub->type = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::TYPE_STRING;
+                            $stub->class = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::STRING_UTF8;
                             $stub->cut = $cut;
                             $stub->value = \mb_substr($v, 0, $maxString, 'UTF-8');
                         } else {
@@ -139,16 +139,16 @@ class VarCloner extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Clon
                             continue 2;
                         }
                         $stub = $arrayStub;
-                        $stub->class = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_INDEXED;
+                        $stub->class = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_INDEXED;
                         $j = -1;
                         foreach ($v as $gk => $gv) {
                             if ($gk !== ++$j) {
-                                $stub->class = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_ASSOC;
+                                $stub->class = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_ASSOC;
                                 break;
                             }
                         }
                         $a = $v;
-                        if (\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_ASSOC === $stub->class) {
+                        if (\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_ASSOC === $stub->class) {
                             // Copies of $GLOBALS have very strange behavior,
                             // let's detect them with some black magic
                             $a[$gid] = \true;
@@ -168,14 +168,14 @@ class VarCloner extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Clon
                     case \is_object($v):
                     case $v instanceof \__PHP_Incomplete_Class:
                         if (empty($objRefs[$h = \spl_object_id($v)])) {
-                            $stub = new \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub();
-                            $stub->type = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT;
+                            $stub = new \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub();
+                            $stub->type = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT;
                             $stub->class = \get_class($v);
                             $stub->value = $v;
                             $stub->handle = $h;
                             $a = $this->castObject($stub, 0 < $i);
                             if ($v !== $stub->value) {
-                                if (\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT !== $stub->type || null === $stub->value) {
+                                if (\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT !== $stub->type || null === $stub->value) {
                                     break;
                                 }
                                 $stub->handle = $h = \spl_object_id($stub->value);
@@ -198,8 +198,8 @@ class VarCloner extends \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Clon
                     default:
                         // resource
                         if (empty($resRefs[$h = (int) $v])) {
-                            $stub = new \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub();
-                            $stub->type = \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub::TYPE_RESOURCE;
+                            $stub = new \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub();
+                            $stub->type = \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub::TYPE_RESOURCE;
                             if ('Unknown' === ($stub->class = @\get_resource_type($v))) {
                                 $stub->class = 'Closed';
                             }

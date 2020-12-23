@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php71\Tests\Rector\Name\ReservedObjectRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php71\Tests\Rector\Name\ReservedObjectRector;
 
 use Iterator;
-use Rector\Php71\Rector\Name\ReservedObjectRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ReservedObjectRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php71\Rector\Name\ReservedObjectRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ReservedObjectRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class ReservedObjectRectorTest extends \Rector\Testing\PHPUnit\AbstractRec
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Php71\Rector\Name\ReservedObjectRector::class => [\Rector\Php71\Rector\Name\ReservedObjectRector::RESERVED_KEYWORDS_TO_REPLACEMENTS => ['ReservedObject' => 'SmartObject', 'Object' => 'AnotherSmartObject']]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Php71\Rector\Name\ReservedObjectRector::class => [\_PhpScoper0a2ac50786fa\Rector\Php71\Rector\Name\ReservedObjectRector::RESERVED_KEYWORDS_TO_REPLACEMENTS => ['ReservedObject' => 'SmartObject', 'Object' => 'AnotherSmartObject']]];
     }
 }

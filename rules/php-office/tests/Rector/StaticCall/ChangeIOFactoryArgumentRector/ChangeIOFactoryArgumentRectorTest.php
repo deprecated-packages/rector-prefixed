@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPOffice\Tests\Rector\StaticCall\ChangeIOFactoryArgumentRector;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPOffice\Tests\Rector\StaticCall\ChangeIOFactoryArgumentRector;
 
 use Iterator;
-use Rector\PHPOffice\Rector\StaticCall\ChangeIOFactoryArgumentRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeIOFactoryArgumentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\PHPOffice\Rector\StaticCall\ChangeIOFactoryArgumentRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeIOFactoryArgumentRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeIOFactoryArgumentRectorTest extends \Rector\Testing\PHPUnit\Ab
     }
     protected function getRectorClass() : string
     {
-        return \Rector\PHPOffice\Rector\StaticCall\ChangeIOFactoryArgumentRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\PHPOffice\Rector\StaticCall\ChangeIOFactoryArgumentRector::class;
     }
 }

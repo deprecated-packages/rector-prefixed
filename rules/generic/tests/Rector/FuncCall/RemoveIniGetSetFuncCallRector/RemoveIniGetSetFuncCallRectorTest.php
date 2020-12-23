@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\FuncCall\RemoveIniGetSetFuncCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\FuncCall\RemoveIniGetSetFuncCallRector;
 
 use Iterator;
-use Rector\Generic\Rector\FuncCall\RemoveIniGetSetFuncCallRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveIniGetSetFuncCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveIniGetSetFuncCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveIniGetSetFuncCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideDataForTest()
+     * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
     /**
      * @return Iterator<SplFileInfo>
      */
-    public function provideDataForTest() : \Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
@@ -29,6 +29,6 @@ final class RemoveIniGetSetFuncCallRectorTest extends \Rector\Testing\PHPUnit\Ab
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\FuncCall\RemoveIniGetSetFuncCallRector::class => [\Rector\Generic\Rector\FuncCall\RemoveIniGetSetFuncCallRector::KEYS_TO_REMOVE => ['y2k_compliance', 'safe_mode', 'magic_quotes_runtime']]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveIniGetSetFuncCallRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall\RemoveIniGetSetFuncCallRector::KEYS_TO_REMOVE => ['y2k_compliance', 'safe_mode', 'magic_quotes_runtime']]];
     }
 }

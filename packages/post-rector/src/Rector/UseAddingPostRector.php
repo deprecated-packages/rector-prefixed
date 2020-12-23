@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PostRector\Rector;
+namespace _PhpScoper0a2ac50786fa\Rector\PostRector\Rector;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\Namespace_;
-use Rector\CodingStyle\Application\UseImportsAdder;
-use Rector\CodingStyle\Application\UseImportsRemover;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use Rector\PostRector\Collector\UseNodesToAddCollector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Application\UseImportsAdder;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Application\UseImportsRemover;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Collector\UseNodesToAddCollector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class UseAddingPostRector extends \_PhpScoper0a2ac50786fa\Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var UseImportsAdder
@@ -40,7 +40,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
      * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\CodingStyle\Application\UseImportsAdder $useImportsAdder, \Rector\CodingStyle\Application\UseImportsRemover $useImportsRemover, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Application\UseImportsAdder $useImportsAdder, \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Application\UseImportsRemover $useImportsRemover, \_PhpScoper0a2ac50786fa\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
     {
         $this->useImportsAdder = $useImportsAdder;
         $this->betterNodeFinder = $betterNodeFinder;
@@ -73,8 +73,8 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
         $useImportTypes = $this->typeFactory->uniquateTypes($useImportTypes);
         $this->useNodesToAddCollector->clear($smartFileInfo);
         // A. has namespace? add under it
-        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
-        if ($namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
+        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_::class);
+        if ($namespace instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_) {
             // first clean
             $this->useImportsRemover->removeImportsFromNamespace($namespace, $removedShortUses);
             // then add, to prevent adding + removing false positive of same short use
@@ -82,7 +82,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
             return $nodes;
         }
         $firstNode = $nodes[0];
-        if ($firstNode instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
+        if ($firstNode instanceof \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
             $nodes = $firstNode->stmts;
         }
         // B. no namespace? add in the top
@@ -97,9 +97,9 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
         // must be after name importing
         return 500;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds use statements', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds use statements', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $someClass = new SomeClass();
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -112,11 +112,11 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodes
      */
-    private function getSmartFileInfo(array $nodes) : ?\Symplify\SmartFileSystem\SmartFileInfo
+    private function getSmartFileInfo(array $nodes) : ?\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($nodes as $node) {
             /** @var SmartFileInfo|null $smartFileInfo */
-            $smartFileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+            $smartFileInfo = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
             if ($smartFileInfo !== null) {
                 return $smartFileInfo;
             }
@@ -132,7 +132,7 @@ CODE_SAMPLE
     {
         $namespacedUseImportTypes = [];
         foreach ($useImportTypes as $useImportType) {
-            if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
+            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
                 continue;
             }
             $namespacedUseImportTypes[] = $useImportType;

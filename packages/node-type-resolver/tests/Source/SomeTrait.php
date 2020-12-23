@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\Tests\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source;
 
 trait SomeTrait
 {
-    public function getSomeClass() : \Rector\NodeTypeResolver\Tests\Source\SomeClass
+    public function getSomeClass() : \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source\SomeClass
     {
-        return new \Rector\NodeTypeResolver\Tests\Source\SomeClass();
+        return new \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source\SomeClass();
     }
 }

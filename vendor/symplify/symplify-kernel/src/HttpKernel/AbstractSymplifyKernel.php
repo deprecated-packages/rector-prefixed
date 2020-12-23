@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SymplifyKernel\HttpKernel;
+namespace _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\HttpKernel;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Config\Loader\LoaderInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Kernel;
-use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use Symplify\SymplifyKernel\Strings\KernelUniqueHasher;
-abstract class AbstractSymplifyKernel extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Kernel implements \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+use _PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\LoaderInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Kernel;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Strings\KernelUniqueHasher;
+abstract class AbstractSymplifyKernel extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Kernel implements \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**
      * @var string[]
@@ -29,7 +29,7 @@ abstract class AbstractSymplifyKernel extends \_PhpScoperabd03f0baf05\Symfony\Co
      */
     public function registerBundles() : iterable
     {
-        return [new \Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
+        return [new \_PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }
     /**
      * @param string[]|SmartFileInfo[] $configs
@@ -37,13 +37,13 @@ abstract class AbstractSymplifyKernel extends \_PhpScoperabd03f0baf05\Symfony\Co
     public function setConfigs(array $configs) : void
     {
         foreach ($configs as $config) {
-            if ($config instanceof \Symplify\SmartFileSystem\SmartFileInfo) {
+            if ($config instanceof \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo) {
                 $config = $config->getRealPath();
             }
             $this->configs[] = $config;
         }
     }
-    public function registerContainerConfiguration(\_PhpScoperabd03f0baf05\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\_PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         foreach ($this->configs as $config) {
             $loader->load($config);
@@ -51,7 +51,7 @@ abstract class AbstractSymplifyKernel extends \_PhpScoperabd03f0baf05\Symfony\Co
     }
     private function getUniqueKernelHash() : string
     {
-        $kernelUniqueHasher = new \Symplify\SymplifyKernel\Strings\KernelUniqueHasher();
+        $kernelUniqueHasher = new \_PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Strings\KernelUniqueHasher();
         return $kernelUniqueHasher->hashKernelClass(static::class);
     }
 }

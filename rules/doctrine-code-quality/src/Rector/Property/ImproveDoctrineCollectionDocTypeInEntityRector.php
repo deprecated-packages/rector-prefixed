@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DoctrineCodeQuality\Rector\Property;
+namespace _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\Rector\Property;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Property;
-use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
-use Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory;
-use Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver;
-use Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory;
+use _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\Property\ImproveDoctrineCollectionDocTypeInEntityRector\ImproveDoctrineCollectionDocTypeInEntityRectorTest
  */
-final class ImproveDoctrineCollectionDocTypeInEntityRector extends \Rector\Core\Rector\AbstractRector
+final class ImproveDoctrineCollectionDocTypeInEntityRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var CollectionTypeFactory
@@ -40,16 +40,16 @@ final class ImproveDoctrineCollectionDocTypeInEntityRector extends \Rector\Core\
      * @var CollectionVarTagValueNodeResolver
      */
     private $collectionVarTagValueNodeResolver;
-    public function __construct(\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory $collectionTypeFactory, \Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver $collectionTypeResolver, \Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver $collectionVarTagValueNodeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory $collectionTypeFactory, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver $collectionTypeResolver, \_PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver $collectionVarTagValueNodeResolver)
     {
         $this->collectionTypeFactory = $collectionTypeFactory;
         $this->assignManipulator = $assignManipulator;
         $this->collectionTypeResolver = $collectionTypeResolver;
         $this->collectionVarTagValueNodeResolver = $collectionVarTagValueNodeResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Improve @var, @param and @return types for Doctrine collections to make them useful both for PHPStan and PHPStorm', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Improve @var, @param and @return types for Doctrine collections to make them useful both for PHPStan and PHPStorm', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -88,29 +88,26 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param Property|ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Stmt\Property) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property) {
             return $this->refactorProperty($node);
         }
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return $this->refactorClassMethod($node);
-        }
-        return null;
+        return $this->refactorClassMethod($node);
     }
-    private function refactorProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
+    private function refactorProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
     {
-        if (!$this->hasNodeTagValueNode($property, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
+        if (!$this->hasNodeTagValueNode($property, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
             return null;
         }
         // @todo make an own local property on enter node?
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $attributeAwareVarTagValueNode = $this->collectionVarTagValueNodeResolver->resolve($property);
         if ($attributeAwareVarTagValueNode !== null) {
             $collectionObjectType = $this->collectionTypeResolver->resolveFromTypeNode($attributeAwareVarTagValueNode->type, $property);
@@ -129,7 +126,7 @@ CODE_SAMPLE
         }
         return $property;
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function refactorClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->isInDoctrineEntityClass($classMethod)) {
             return null;
@@ -141,31 +138,31 @@ CODE_SAMPLE
         if ($collectionObjectType === null) {
             return null;
         }
-        if (\count($classMethod->params) !== 1) {
+        if (\count((array) $classMethod->params) !== 1) {
             return null;
         }
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $param = $classMethod->params[0];
         $parameterName = $this->getName($param);
         $phpDocInfo->changeParamType($collectionObjectType, $param, $parameterName);
         return $classMethod;
     }
-    private function hasNodeTagValueNode(\PhpParser\Node $node, string $tagValueNodeClass) : bool
+    private function hasNodeTagValueNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, string $tagValueNodeClass) : bool
     {
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return \false;
         }
         return $phpDocInfo->hasByType($tagValueNodeClass);
     }
-    private function resolveCollectionSetterAssignType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Type\Type
+    private function resolveCollectionSetterAssignType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $propertyFetches = $this->assignManipulator->resolveAssignsToLocalPropertyFetches($classMethod);
         if (\count($propertyFetches) !== 1) {
             return null;
         }
-        if (!$propertyFetches[0] instanceof \PhpParser\Node\Expr\PropertyFetch) {
+        if (!$propertyFetches[0] instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         $property = $this->matchPropertyFetchToClassProperty($propertyFetches[0]);
@@ -178,14 +175,14 @@ CODE_SAMPLE
         }
         return $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($varTagValueNode->type, $property);
     }
-    private function matchPropertyFetchToClassProperty(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node\Stmt\Property
+    private function matchPropertyFetchToClassProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
     {
         $propertyName = $this->getName($propertyFetch);
         if ($propertyName === null) {
             return null;
         }
-        $classLike = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $propertyFetch->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             return null;
         }
         return $classLike->getProperty($propertyName);

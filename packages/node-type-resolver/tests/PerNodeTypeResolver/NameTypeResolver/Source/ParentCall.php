@@ -1,9 +1,9 @@
 <?php
 
-namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\NameTypeResolver\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\NameTypeResolver\Source;
 
-use Rector\NodeTypeResolver\Tests\Source\AnotherClass;
-class ParentCall extends \Rector\NodeTypeResolver\Tests\Source\AnotherClass
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source\AnotherClass;
+class ParentCall extends \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source\AnotherClass
 {
     public function getParameters()
     {

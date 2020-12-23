@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\Tests\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\Tests\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector;
 
 use Iterator;
-use Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class PregMatchFunctionToNetteUtilsStringsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class PregMatchFunctionToNetteUtilsStringsRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class PregMatchFunctionToNetteUtilsStringsRectorTest extends \Rector\Testi
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector::class;
     }
 }

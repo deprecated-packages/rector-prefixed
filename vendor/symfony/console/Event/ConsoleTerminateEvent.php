@@ -8,41 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Event;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console\Event;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Allows to manipulate the exit code of a command after its execution.
  *
  * @author Francesco Levorato <git@flevour.net>
- *
- * @final since Symfony 4.4
  */
-class ConsoleTerminateEvent extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleTerminateEvent extends \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Event\ConsoleEvent
 {
     private $exitCode;
-    public function __construct(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command $command, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output, int $exitCode)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command $command, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface $output, int $exitCode)
     {
         parent::__construct($command, $input, $output);
         $this->setExitCode($exitCode);
     }
-    /**
-     * Sets the exit code.
-     *
-     * @param int $exitCode The command exit code
-     */
-    public function setExitCode($exitCode)
+    public function setExitCode(int $exitCode) : void
     {
-        $this->exitCode = (int) $exitCode;
+        $this->exitCode = $exitCode;
     }
-    /**
-     * Gets the exit code.
-     *
-     * @return int The command exit code
-     */
-    public function getExitCode()
+    public function getExitCode() : int
     {
         return $this->exitCode;
     }

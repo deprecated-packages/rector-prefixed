@@ -1,45 +1,45 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 
 use Iterator;
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Expr\Yield_;
-use PhpParser\Node\Expr\YieldFrom;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\NodeTraverser;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\IterableType;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use Rector\Core\Php\PhpVersionProvider;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
-use Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
-final class YieldNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Yield_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\YieldFrom;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\IterableType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\Core\Php\PhpVersionProvider;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
+final class YieldNodesReturnTypeInferer extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
+    public function inferFunctionLike(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $yieldNodes = $this->findCurrentScopeYieldNodes($functionLike);
         if ($yieldNodes === []) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         $types = [];
         foreach ($yieldNodes as $yieldNode) {
@@ -48,13 +48,13 @@ final class YieldNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeInfe
                 continue;
             }
             $yieldValueStaticType = $this->nodeTypeResolver->getStaticType($value);
-            $types[] = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $yieldValueStaticType);
+            $types[] = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType(new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(), $yieldValueStaticType);
         }
-        if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ITERABLE_TYPE)) {
+        if ($this->phpVersionProvider->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::ITERABLE_TYPE)) {
             // @see https://www.php.net/manual/en/language.types.iterable.php
-            $types[] = new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
+            $types[] = new \_PhpScoper0a2ac50786fa\PHPStan\Type\IterableType(new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(), new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType());
         } else {
-            $types[] = new \PHPStan\Type\ObjectType(\Iterator::class);
+            $types[] = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType(\Iterator::class);
         }
         return $this->typeFactory->createMixedPassedOrUnionType($types);
     }
@@ -65,15 +65,15 @@ final class YieldNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeInfe
     /**
      * @return Yield_[]|YieldFrom[]
      */
-    private function findCurrentScopeYieldNodes(\PhpParser\Node\FunctionLike $functionLike) : array
+    private function findCurrentScopeYieldNodes(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $yieldNodes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use(&$yieldNodes) : ?int {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use(&$yieldNodes) : ?int {
             // skip nested scope
-            if ($node instanceof \PhpParser\Node\FunctionLike) {
-                return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+            if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike) {
+                return \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
-            if (!$node instanceof \PhpParser\Node\Expr\Yield_ && !$node instanceof \PhpParser\Node\Expr\YieldFrom) {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Yield_ && !$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\YieldFrom) {
                 return null;
             }
             $yieldNodes[] = $node;
@@ -84,9 +84,9 @@ final class YieldNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeInfe
     /**
      * @param Yield_|YieldFrom $yieldExpr
      */
-    private function resolveYieldValue(\PhpParser\Node\Expr $yieldExpr) : ?\PhpParser\Node\Expr
+    private function resolveYieldValue(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $yieldExpr) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if ($yieldExpr instanceof \PhpParser\Node\Expr\Yield_) {
+        if ($yieldExpr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Yield_) {
             return $yieldExpr->value;
         }
         return $yieldExpr->expr;

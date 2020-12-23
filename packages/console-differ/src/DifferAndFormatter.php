@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\ConsoleDiffer;
+namespace _PhpScoper0a2ac50786fa\Rector\ConsoleDiffer;
 
-use _PhpScoperabd03f0baf05\SebastianBergmann\Diff\Differ;
-use Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
+use _PhpScoper0a2ac50786fa\SebastianBergmann\Diff\Differ;
+use _PhpScoper0a2ac50786fa\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
 /**
  * @deprecated Move to symplify
  */
@@ -18,7 +18,7 @@ final class DifferAndFormatter
      * @var ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter, \_PhpScoperabd03f0baf05\SebastianBergmann\Diff\Differ $differ)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter, \_PhpScoper0a2ac50786fa\SebastianBergmann\Diff\Differ $differ)
     {
         $this->differ = $differ;
         $this->colorConsoleDiffFormatter = $colorConsoleDiffFormatter;

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source;
 
-use _PhpScoperabd03f0baf05\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class Coconut implements \Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source\Fruit
+class Coconut implements \_PhpScoper0a2ac50786fa\Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source\Fruit
 {
     private $id;
-    public function getId() : \_PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface
+    public function getId() : \_PhpScoper0a2ac50786fa\Ramsey\Uuid\UuidInterface
     {
         return $this->id;
     }

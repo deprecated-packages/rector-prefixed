@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Tests\Rector\For_\RemoveDeadIfForeachForRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Tests\Rector\For_\RemoveDeadIfForeachForRector;
 
 use Iterator;
-use Rector\DeadCode\Rector\For_\RemoveDeadIfForeachForRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveDeadIfForeachForRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\For_\RemoveDeadIfForeachForRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveDeadIfForeachForRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveDeadIfForeachForRectorTest extends \Rector\Testing\PHPUnit\Abs
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DeadCode\Rector\For_\RemoveDeadIfForeachForRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\For_\RemoveDeadIfForeachForRector::class;
     }
 }

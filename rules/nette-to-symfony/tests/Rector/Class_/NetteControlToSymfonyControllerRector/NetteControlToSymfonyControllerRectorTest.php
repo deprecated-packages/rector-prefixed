@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteToSymfony\Tests\Rector\Class_\NetteControlToSymfonyControllerRector;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Tests\Rector\Class_\NetteControlToSymfonyControllerRector;
 
 use Iterator;
-use Rector\NetteToSymfony\Rector\Class_\NetteControlToSymfonyControllerRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class NetteControlToSymfonyControllerRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Rector\Class_\NetteControlToSymfonyControllerRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class NetteControlToSymfonyControllerRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class NetteControlToSymfonyControllerRectorTest extends \Rector\Testing\PH
     }
     protected function getRectorClass() : string
     {
-        return \Rector\NetteToSymfony\Rector\Class_\NetteControlToSymfonyControllerRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Rector\Class_\NetteControlToSymfonyControllerRector::class;
     }
 }

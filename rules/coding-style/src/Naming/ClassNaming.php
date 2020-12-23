@@ -1,17 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Naming;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\Function_;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Util\StaticRectorStrings;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassNaming
 {
     /**
@@ -23,7 +24,7 @@ final class ClassNaming
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -36,39 +37,45 @@ final class ClassNaming
         return \lcfirst($shortName);
     }
     /**
-     * @param string|Name|Identifier $name
+     * @param string|Name|Identifier|ClassLike $name
      */
     public function getShortName($name) : string
     {
-        if ($name instanceof \PhpParser\Node\Name || $name instanceof \PhpParser\Node\Identifier) {
+        if ($name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike) {
+            if ($name->name === null) {
+                return '';
+            }
+            return $this->getShortName($name->name);
+        }
+        if ($name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name || $name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier) {
             $name = $this->nodeNameResolver->getName($name);
             if ($name === null) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
             }
         }
         $name = \trim($name, '\\');
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after($name, '\\', -1) ?: $name;
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after($name, '\\', -1) ?: $name;
     }
     public function getNamespace(string $fullyQualifiedName) : ?string
     {
         $fullyQualifiedName = \trim($fullyQualifiedName, '\\');
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::before($fullyQualifiedName, '\\', -1) ?: null;
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::before($fullyQualifiedName, '\\', -1) ?: null;
     }
-    public function getNameFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function getNameFromFileInfo(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $basenameWithoutSuffix = $smartFileInfo->getBasenameWithoutSuffix();
         // remove PHPUnit fixture file prefix
-        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            $basenameWithoutSuffix = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($basenameWithoutSuffix, self::INPUT_HASH_NAMING_REGEX);
+        if (\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            $basenameWithoutSuffix = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($basenameWithoutSuffix, self::INPUT_HASH_NAMING_REGEX, '');
         }
-        return \Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($basenameWithoutSuffix);
+        return \_PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($basenameWithoutSuffix);
     }
     /**
      * "some_function" → "someFunction"
      */
-    public function createMethodNameFromFunction(\PhpParser\Node\Stmt\Function_ $function) : string
+    public function createMethodNameFromFunction(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_ $function) : string
     {
         $functionName = (string) $function->name;
-        return \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($functionName);
+        return \_PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($functionName);
     }
 }

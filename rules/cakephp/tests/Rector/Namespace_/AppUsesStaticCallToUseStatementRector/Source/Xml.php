@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05\Cake\Utility;
+namespace _PhpScoper0a2ac50786fa\Cake\Utility;
 
 final class Xml
 {

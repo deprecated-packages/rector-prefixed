@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteKdyby\DataProvider;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\DataProvider;
 
-use _PhpScoperabd03f0baf05\Nette\Application\UI\Control;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use Rector\NodeCollector\NodeCollector\NodeRepository;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a2ac50786fa\Nette\Application\UI\Control;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 final class OnPropertyMagicCallProvider
 {
     /**
@@ -24,7 +24,7 @@ final class OnPropertyMagicCallProvider
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeRepository = $nodeRepository;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -34,7 +34,7 @@ final class OnPropertyMagicCallProvider
      */
     public function provide() : array
     {
-        if ($this->onPropertyMagicCalls !== [] && !\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if ($this->onPropertyMagicCalls !== [] && !\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return $this->onPropertyMagicCalls;
         }
         foreach ($this->nodeRepository->getMethodsCalls() as $methodCall) {
@@ -49,12 +49,12 @@ final class OnPropertyMagicCallProvider
      * Detects method call on, e.g:
      * public $onSomeProperty;
      */
-    private function isLocalOnPropertyCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function isLocalOnPropertyCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if ($methodCall->var instanceof \PhpParser\Node\Expr\StaticCall) {
+        if ($methodCall->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
-        if ($methodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($methodCall->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($methodCall->var, 'this')) {
@@ -67,12 +67,12 @@ final class OnPropertyMagicCallProvider
         if ($methodName === null) {
             return \false;
         }
-        $className = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $methodCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
         // control event, inner only
-        if (\is_a($className, \_PhpScoperabd03f0baf05\Nette\Application\UI\Control::class, \true)) {
+        if (\is_a($className, \_PhpScoper0a2ac50786fa\Nette\Application\UI\Control::class, \true)) {
             return \false;
         }
         if (\method_exists($className, $methodName)) {

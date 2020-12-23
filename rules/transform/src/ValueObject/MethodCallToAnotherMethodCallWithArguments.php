@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Transform\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject;
 
 final class MethodCallToAnotherMethodCallWithArguments
 {

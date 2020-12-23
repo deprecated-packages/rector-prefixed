@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\AttributeAwarePhpDoc\Ast\Type;
+namespace _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type;
 
-use PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareThisTypeNode extends \PHPStan\PhpDocParser\Ast\Type\ThisTypeNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+final class AttributeAwareThisTypeNode extends \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\ThisTypeNode implements \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
 {
     use AttributeTrait;
 }

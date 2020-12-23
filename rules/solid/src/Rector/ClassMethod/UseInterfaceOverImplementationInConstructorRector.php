@@ -1,23 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SOLID\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\SOLID\Rector\ClassMethod;
 
-use PhpParser\Node;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\MethodName;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use ReflectionClass;
+use ReflectionMethod;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\UseInterfaceOverImplementationInConstructorRectorTest
  */
-final class UseInterfaceOverImplementationInConstructorRector extends \Rector\Core\Rector\AbstractRector
+final class UseInterfaceOverImplementationInConstructorRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use interface instead of specific class', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use interface instead of specific class', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(SomeImplementation $someImplementation)
@@ -56,14 +58,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$this->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if (!$this->isName($node, \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;
         }
         foreach ($node->params as $param) {
@@ -86,7 +88,10 @@ CODE_SAMPLE
             if (\count($interfaceNames) !== 1) {
                 continue;
             }
-            $param->type = new \PhpParser\Node\Name\FullyQualified($interfaceNames[0]);
+            if ($this->hasClassWiderPublicApiThanInterface($typeName, $interfaceNames[0])) {
+                continue;
+            }
+            $param->type = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($interfaceNames[0]);
         }
         return $node;
     }
@@ -95,7 +100,8 @@ CODE_SAMPLE
      */
     private function getClassDirectInterfaces(string $typeName) : array
     {
-        $interfaceNames = \class_implements($typeName);
+        /** @var string[] $interfaceNames */
+        $interfaceNames = (array) \class_implements($typeName);
         foreach ($interfaceNames as $possibleDirectInterfaceName) {
             foreach ($interfaceNames as $key => $interfaceName) {
                 if ($possibleDirectInterfaceName === $interfaceName) {
@@ -121,7 +127,7 @@ CODE_SAMPLE
         foreach ($interfaceNames as $key => $interfaceName) {
             $implementations = [];
             foreach ($classes as $class) {
-                $interfacesImplementedByClass = \class_implements($class);
+                $interfacesImplementedByClass = (array) \class_implements($class);
                 if (!\in_array($interfaceName, $interfacesImplementedByClass, \true)) {
                     continue;
                 }
@@ -132,5 +138,23 @@ CODE_SAMPLE
             }
         }
         return \array_values($interfaceNames);
+    }
+    private function hasClassWiderPublicApiThanInterface(string $className, string $interfaceName) : bool
+    {
+        $classMethods = $this->getPublicMethods($className);
+        $interfaceMethods = $this->getPublicMethods($interfaceName);
+        return \array_diff($classMethods, $interfaceMethods) !== [];
+    }
+    /**
+     * @param string $fqcn Fully qualified class/interface name
+     *
+     * @return string[]
+     */
+    private function getPublicMethods(string $fqcn) : array
+    {
+        $reflectionClass = new \ReflectionClass($fqcn);
+        return \array_map(static function (\ReflectionMethod $method) : string {
+            return $method->name;
+        }, $reflectionClass->getMethods(\ReflectionMethod::IS_PUBLIC));
     }
 }

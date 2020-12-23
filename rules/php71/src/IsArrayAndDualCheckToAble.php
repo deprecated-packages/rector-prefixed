@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php71;
+namespace _PhpScoper0a2ac50786fa\Rector\Php71;
 
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp\BooleanOr;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\Instanceof_;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name;
-use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
-use Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Instanceof_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 final class IsArrayAndDualCheckToAble
 {
     /**
@@ -22,14 +22,14 @@ final class IsArrayAndDualCheckToAble
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
-    public function processBooleanOr(\PhpParser\Node\Expr\BinaryOp\BooleanOr $booleanOr, string $type, string $newMethodName) : ?\PhpParser\Node\Expr\FuncCall
+    public function processBooleanOr(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanOr $booleanOr, string $type, string $newMethodName) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
     {
-        $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($booleanOr, \PhpParser\Node\Expr\Instanceof_::class, \PhpParser\Node\Expr\FuncCall::class);
+        $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($booleanOr, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Instanceof_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class);
         if ($twoNodeMatch === null) {
             return null;
         }
@@ -38,7 +38,7 @@ final class IsArrayAndDualCheckToAble
         /** @var FuncCall $funcCallNode */
         $funcCallNode = $twoNodeMatch->getSecondExpr();
         $instanceOfClass = $instanceOfNode->class;
-        if ($instanceOfClass instanceof \PhpParser\Node\Expr) {
+        if ($instanceOfClass instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr) {
             return null;
         }
         if ((string) $instanceOfClass !== $type) {
@@ -50,12 +50,12 @@ final class IsArrayAndDualCheckToAble
             return null;
         }
         // both use same var
-        if (!$funcCallNode->args[0]->value instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$funcCallNode->args[0]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return null;
         }
         /** @var Variable $firstVarNode */
         $firstVarNode = $funcCallNode->args[0]->value;
-        if (!$instanceOfNode->expr instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$instanceOfNode->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return null;
         }
         /** @var Variable $secondVarNode */
@@ -64,6 +64,6 @@ final class IsArrayAndDualCheckToAble
         if ($firstVarNode->name !== $secondVarNode->name) {
             return null;
         }
-        return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name($newMethodName), [new \PhpParser\Node\Arg($firstVarNode)]);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name($newMethodName), [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($firstVarNode)]);
     }
 }

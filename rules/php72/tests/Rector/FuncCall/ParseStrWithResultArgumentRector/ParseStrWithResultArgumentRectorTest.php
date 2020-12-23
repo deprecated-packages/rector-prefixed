@@ -1,18 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php72\Tests\Rector\FuncCall\ParseStrWithResultArgumentRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php72\Tests\Rector\FuncCall\ParseStrWithResultArgumentRector;
 
 use Iterator;
-use Rector\Php72\Rector\FuncCall\ParseStrWithResultArgumentRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ParseStrWithResultArgumentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php72\Rector\FuncCall\ParseStrWithResultArgumentRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+/**
+ * @requires PHP < 8.0
+ */
+final class ParseStrWithResultArgumentRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +25,6 @@ final class ParseStrWithResultArgumentRectorTest extends \Rector\Testing\PHPUnit
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php72\Rector\FuncCall\ParseStrWithResultArgumentRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php72\Rector\FuncCall\ParseStrWithResultArgumentRector::class;
     }
 }

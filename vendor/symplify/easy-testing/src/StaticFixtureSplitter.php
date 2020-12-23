@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyTesting;
+namespace _PhpScoper0a2ac50786fa\Symplify\EasyTesting;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Symplify\EasyTesting\ValueObject\InputAndExpected;
-use Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected;
-use Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo;
-use Symplify\EasyTesting\ValueObject\SplitLine;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputAndExpected;
+use _PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected;
+use _PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\SplitLine;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
 final class StaticFixtureSplitter
 {
     /**
      * @var string|null
      */
     public static $customTemporaryPath;
-    public static function splitFileInfoToInputAndExpected(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Symplify\EasyTesting\ValueObject\InputAndExpected
+    public static function splitFileInfoToInputAndExpected(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputAndExpected
     {
-        $splitLineCount = \count(\_PhpScoperabd03f0baf05\Nette\Utils\Strings::matchAll($smartFileInfo->getContents(), \Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX));
+        $splitLineCount = \count(\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::matchAll($smartFileInfo->getContents(), \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX));
         // if more or less, it could be a test cases for monorepo line in it
         if ($splitLineCount === 1) {
             // input → expected
-            [$input, $expected] = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::split($smartFileInfo->getContents(), \Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+            [$input, $expected] = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::split($smartFileInfo->getContents(), \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
             $expected = self::retypeExpected($expected);
-            return new \Symplify\EasyTesting\ValueObject\InputAndExpected($input, $expected);
+            return new \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputAndExpected($input, $expected);
         }
         // no changes
-        return new \Symplify\EasyTesting\ValueObject\InputAndExpected($smartFileInfo->getContents(), $smartFileInfo->getContents());
+        return new \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputAndExpected($smartFileInfo->getContents(), $smartFileInfo->getContents());
     }
-    public static function splitFileInfoToLocalInputAndExpectedFileInfos(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $autoloadTestFixture = \false) : \Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo
+    public static function splitFileInfoToLocalInputAndExpectedFileInfos(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $autoloadTestFixture = \false) : \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo
     {
         $inputAndExpected = self::splitFileInfoToInputAndExpected($smartFileInfo);
         $inputFileInfo = self::createTemporaryFileInfo($smartFileInfo, 'input', $inputAndExpected->getInput());
@@ -38,7 +38,7 @@ final class StaticFixtureSplitter
         if ($autoloadTestFixture) {
             require_once $inputFileInfo->getRealPath();
         }
-        return new \Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo($inputFileInfo, $expectedFileInfo);
+        return new \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo($inputFileInfo, $expectedFileInfo);
     }
     public static function getTemporaryPath() : string
     {
@@ -47,14 +47,14 @@ final class StaticFixtureSplitter
         }
         return \sys_get_temp_dir() . '/_temp_fixture_easy_testing';
     }
-    public static function createTemporaryFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, string $prefix, string $fileContent) : \Symplify\SmartFileSystem\SmartFileInfo
+    public static function createTemporaryFileInfo(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, string $prefix, string $fileContent) : \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
     {
         $temporaryFilePath = self::createTemporaryPathWithPrefix($fixtureSmartFileInfo, $prefix);
-        $smartFileSystem = new \Symplify\SmartFileSystem\SmartFileSystem();
+        $smartFileSystem = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem();
         $smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
-        return new \Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
+        return new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
     }
-    public static function splitFileInfoToLocalInputAndExpected(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $autoloadTestFixture = \false) : \Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected
+    public static function splitFileInfoToLocalInputAndExpected(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $autoloadTestFixture = \false) : \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected
     {
         $inputAndExpected = self::splitFileInfoToInputAndExpected($smartFileInfo);
         $inputFileInfo = self::createTemporaryFileInfo($smartFileInfo, 'input', $inputAndExpected->getInput());
@@ -62,11 +62,11 @@ final class StaticFixtureSplitter
         if ($autoloadTestFixture) {
             require_once $inputFileInfo->getRealPath();
         }
-        return new \Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected($inputFileInfo, $inputAndExpected->getExpected());
+        return new \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected($inputFileInfo, $inputAndExpected->getExpected());
     }
-    private static function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $prefix) : string
+    private static function createTemporaryPathWithPrefix(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $prefix) : string
     {
-        $hash = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -20);
+        $hash = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -20);
         $fileBaseName = $smartFileInfo->getBasename('.inc');
         return self::getTemporaryPath() . \sprintf('/%s_%s_%s', $prefix, $hash, $fileBaseName);
     }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Privatization\VisibilityGuard;
+namespace _PhpScoper0a2ac50786fa\Rector\Privatization\VisibilityGuard;
 
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 final class ClassMethodVisibilityGuard
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isClassMethodVisibilityGuardedByParent(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isClassMethodVisibilityGuardedByParent(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($class->extends === null) {
             return \false;
@@ -33,10 +33,12 @@ final class ClassMethodVisibilityGuard
     /**
      * @return class-string[]
      */
-    private function getParentClasses(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function getParentClasses(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
     {
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($class);
-        return \class_parents($className);
+        /** @var class-string[] $parents */
+        $parents = (array) \class_parents($className);
+        return $parents;
     }
 }

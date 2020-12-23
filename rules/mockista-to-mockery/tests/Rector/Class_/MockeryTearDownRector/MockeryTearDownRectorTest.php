@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\MockistaToMockery\Tests\Rector\Class_\MockeryTearDownRector;
+namespace _PhpScoper0a2ac50786fa\Rector\MockistaToMockery\Tests\Rector\Class_\MockeryTearDownRector;
 
 use Iterator;
-use Rector\MockistaToMockery\Rector\Class_\MockeryTearDownRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class MockeryTearDownRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\MockistaToMockery\Rector\Class_\MockeryTearDownRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class MockeryTearDownRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MockeryTearDownRectorTest extends \Rector\Testing\PHPUnit\AbstractRe
     }
     protected function getRectorClass() : string
     {
-        return \Rector\MockistaToMockery\Rector\Class_\MockeryTearDownRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\MockistaToMockery\Rector\Class_\MockeryTearDownRector::class;
     }
 }

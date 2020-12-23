@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Transform\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject;
 
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
 final class StaticCallToMethodCall
 {
     /**
@@ -39,16 +39,16 @@ final class StaticCallToMethodCall
     {
         return $this->methodName;
     }
-    public function matchStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    public function isStaticCallMatch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
-        if (!$staticCall->class instanceof \PhpParser\Node\Name) {
+        if (!$staticCall->class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
             return \false;
         }
         $staticCallClassName = $staticCall->class->toString();
         if ($staticCallClassName !== $this->staticClass) {
             return \false;
         }
-        if (!$staticCall->name instanceof \PhpParser\Node\Identifier) {
+        if (!$staticCall->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier) {
             return \false;
         }
         // all methods

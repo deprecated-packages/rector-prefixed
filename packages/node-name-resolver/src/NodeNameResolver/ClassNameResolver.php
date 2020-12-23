@@ -1,13 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeNameResolver\NodeNameResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use Rector\NodeNameResolver\NodeNameResolver;
-final class ClassNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+final class ClassNameResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     /**
      * @var NodeNameResolver
@@ -16,18 +17,18 @@ final class ClassNameResolver implements \Rector\NodeNameResolver\Contract\NodeN
     /**
      * @required
      */
-    public function autowireClassNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
+    public function autowireClassNameResolver(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     public function getNode() : string
     {
-        return \PhpParser\Node\Stmt\Class_::class;
+        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike::class;
     }
     /**
      * @param Class_ $node
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
         if (\property_exists($node, 'namespacedName')) {
             return $node->namespacedName->toString();

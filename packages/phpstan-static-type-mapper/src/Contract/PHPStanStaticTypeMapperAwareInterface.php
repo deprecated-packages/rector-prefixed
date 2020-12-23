@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPStanStaticTypeMapper\Contract;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract;
 
-use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 interface PHPStanStaticTypeMapperAwareInterface
 {
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void;
+    public function setPHPStanStaticTypeMapper(\_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void;
 }

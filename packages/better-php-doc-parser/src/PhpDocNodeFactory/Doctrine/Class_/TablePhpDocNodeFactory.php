@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
 
-use Doctrine\ORM\Mapping\Table;
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
-use Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
-use Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\TableTagValueNode;
-use Rector\Core\Exception\ShouldNotHappenException;
-final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface
+use _PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping\Table;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\TokenIterator;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\TableTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+final class TablePhpDocNodeFactory extends \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface
 {
     /**
      * @var string
@@ -28,7 +28,7 @@ final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
      * @var UniqueConstraintPhpDocNodeFactory
      */
     private $uniqueConstraintPhpDocNodeFactory;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_\IndexPhpDocNodeFactory $indexPhpDocNodeFactory, \Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_\UniqueConstraintPhpDocNodeFactory $uniqueConstraintPhpDocNodeFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_\IndexPhpDocNodeFactory $indexPhpDocNodeFactory, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_\UniqueConstraintPhpDocNodeFactory $uniqueConstraintPhpDocNodeFactory)
     {
         $this->indexPhpDocNodeFactory = $indexPhpDocNodeFactory;
         $this->uniqueConstraintPhpDocNodeFactory = $uniqueConstraintPhpDocNodeFactory;
@@ -38,12 +38,12 @@ final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
      */
     public function getClasses() : array
     {
-        return ['Doctrine\\ORM\\Mapping\\Table'];
+        return ['_PhpScoper0a2ac50786fa\\Doctrine\\ORM\\Mapping\\Table'];
     }
-    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    public function createFromNodeAndTokens(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
-        if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         /** @var Table|null $table */
         $table = $this->nodeAnnotationReader->readClassAnnotation($node, $annotationClass);
@@ -53,12 +53,12 @@ final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
         $annotationContent = $this->resolveContentFromTokenIterator($tokenIterator);
         $indexesContent = $this->annotationContentResolver->resolveNestedKey($annotationContent, 'indexes');
         $indexTagValueNodes = $this->indexPhpDocNodeFactory->createIndexTagValueNodes($table->indexes, $indexesContent);
-        $indexesOpeningAndClosingSpace = $this->matchCurlyBracketOpeningAndClosingSpace($indexesContent);
-        $haveIndexesFinalComma = (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($indexesContent, self::SPACE_BEFORE_CLOSING_BRACKET_REGEX);
+        $indexesAroundSpaces = $this->matchCurlyBracketAroundSpaces($indexesContent);
+        $haveIndexesFinalComma = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($indexesContent, self::SPACE_BEFORE_CLOSING_BRACKET_REGEX);
         $uniqueConstraintsContent = $this->annotationContentResolver->resolveNestedKey($annotationContent, 'uniqueConstraints');
-        $uniqueConstraintOpeningAndClosingSpace = $this->matchCurlyBracketOpeningAndClosingSpace($uniqueConstraintsContent);
+        $uniqueConstraintAroundSpaces = $this->matchCurlyBracketAroundSpaces($uniqueConstraintsContent);
         $uniqueConstraintTagValueNodes = $this->uniqueConstraintPhpDocNodeFactory->createUniqueConstraintTagValueNodes($table->uniqueConstraints, $uniqueConstraintsContent);
-        $haveUniqueConstraintsFinalComma = (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($uniqueConstraintsContent, self::SPACE_BEFORE_CLOSING_BRACKET_REGEX);
-        return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\TableTagValueNode($table->name, $table->schema, $indexTagValueNodes, $uniqueConstraintTagValueNodes, $table->options, $annotationContent, $haveIndexesFinalComma, $haveUniqueConstraintsFinalComma, $indexesOpeningAndClosingSpace, $uniqueConstraintOpeningAndClosingSpace);
+        $haveUniqueConstraintsFinalComma = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($uniqueConstraintsContent, self::SPACE_BEFORE_CLOSING_BRACKET_REGEX);
+        return new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\TableTagValueNode($table->name, $table->schema, $indexTagValueNodes, $uniqueConstraintTagValueNodes, $table->options, $annotationContent, $haveIndexesFinalComma, $haveUniqueConstraintsFinalComma, $indexesAroundSpaces, $uniqueConstraintAroundSpaces);
     }
 }

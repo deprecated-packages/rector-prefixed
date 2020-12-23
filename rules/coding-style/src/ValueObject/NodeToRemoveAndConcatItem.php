@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\ValueObject;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
 final class NodeToRemoveAndConcatItem
 {
     /**
@@ -15,16 +15,16 @@ final class NodeToRemoveAndConcatItem
      * @var Node
      */
     private $concatItemNode;
-    public function __construct(\PhpParser\Node\Expr $removedExpr, \PhpParser\Node $concatItemNode)
+    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $removedExpr, \_PhpScoper0a2ac50786fa\PhpParser\Node $concatItemNode)
     {
         $this->removedExpr = $removedExpr;
         $this->concatItemNode = $concatItemNode;
     }
-    public function getRemovedExpr() : \PhpParser\Node\Expr
+    public function getRemovedExpr() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         return $this->removedExpr;
     }
-    public function getConcatItemNode() : \PhpParser\Node
+    public function getConcatItemNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         return $this->concatItemNode;
     }

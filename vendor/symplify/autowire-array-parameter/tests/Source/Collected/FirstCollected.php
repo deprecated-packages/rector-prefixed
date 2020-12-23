@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\AutowireArrayParameter\Tests\Source\Collected;
+namespace _PhpScoper0a2ac50786fa\Symplify\AutowireArrayParameter\Tests\Source\Collected;
 
-use Symplify\AutowireArrayParameter\Tests\Source\Contract\CollectedInterface;
-final class FirstCollected implements \Symplify\AutowireArrayParameter\Tests\Source\Contract\CollectedInterface
+use _PhpScoper0a2ac50786fa\Symplify\AutowireArrayParameter\Tests\Source\Contract\CollectedInterface;
+final class FirstCollected implements \_PhpScoper0a2ac50786fa\Symplify\AutowireArrayParameter\Tests\Source\Contract\CollectedInterface
 {
 }

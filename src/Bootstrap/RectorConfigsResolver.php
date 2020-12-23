@@ -1,15 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Bootstrap;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Bootstrap;
 
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Set\RectorSetProvider;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\ArgvInput;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
-use Symplify\SetConfigResolver\ConfigResolver;
-use Symplify\SetConfigResolver\SetAwareConfigResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Rector\Set\RectorSetProvider;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\ArgvInput;
+use _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\ConfigResolver;
+use _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\SetAwareConfigResolver;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorConfigsResolver
 {
     /**
@@ -22,14 +20,14 @@ final class RectorConfigsResolver
     private $setAwareConfigResolver;
     public function __construct()
     {
-        $this->configResolver = new \Symplify\SetConfigResolver\ConfigResolver();
-        $rectorSetProvider = new \Rector\Set\RectorSetProvider();
-        $this->setAwareConfigResolver = new \Symplify\SetConfigResolver\SetAwareConfigResolver($rectorSetProvider);
+        $this->configResolver = new \_PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\ConfigResolver();
+        $rectorSetProvider = new \_PhpScoper0a2ac50786fa\Rector\Set\RectorSetProvider();
+        $this->setAwareConfigResolver = new \_PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\SetAwareConfigResolver($rectorSetProvider);
     }
     /**
      * @noRector
      */
-    public function getFirstResolvedConfig() : ?\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFirstResolvedConfig() : ?\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->configResolver->getFirstResolvedConfigFileInfo();
     }
@@ -47,9 +45,7 @@ final class RectorConfigsResolver
     public function provide() : array
     {
         $configFileInfos = [];
-        $argvInput = new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\ArgvInput();
-        $this->guardDeprecatedSetOption($argvInput);
-        // And from --config or default one
+        $argvInput = new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\ArgvInput();
         $inputOrFallbackConfigFileInfo = $this->configResolver->resolveFromInputWithFallback($argvInput, ['rector.php']);
         if ($inputOrFallbackConfigFileInfo !== null) {
             $configFileInfos[] = $inputOrFallbackConfigFileInfo;
@@ -59,17 +55,9 @@ final class RectorConfigsResolver
             // autoload rector recipe file if present, just for \Rector\RectorGenerator\Command\GenerateCommand
             $rectorRecipeFilePath = \getcwd() . '/rector-recipe.php';
             if (\file_exists($rectorRecipeFilePath)) {
-                $configFileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
+                $configFileInfos[] = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
             }
         }
         return \array_merge($configFileInfos, $setFileInfos);
-    }
-    private function guardDeprecatedSetOption(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input) : void
-    {
-        $setOption = $input->getParameterOption(['-s', '--set']);
-        if ($setOption === \false) {
-            return;
-        }
-        throw new \Rector\Core\Exception\ShouldNotHappenException('"-s/--set" option was deprecated and removed. Use rector.php config and SetList class with autocomplete instead');
     }
 }

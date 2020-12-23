@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeCollector;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeCollector;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\NodeCollector\NodeCollector\NodeRepository;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use ReflectionClass;
 final class StaticAnalyzer
 {
@@ -13,7 +13,7 @@ final class StaticAnalyzer
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeRepository = $nodeRepository;
     }
@@ -25,7 +25,7 @@ final class StaticAnalyzer
         }
         // could be static in doc type magic
         // @see https://regex101.com/r/tlvfTB/1
-        if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($className)) {
+        if (!\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($className)) {
             return \false;
         }
         $reflectionClass = new \ReflectionClass($className);
@@ -41,6 +41,6 @@ final class StaticAnalyzer
     }
     private function hasStaticAnnotation(string $methodName, \ReflectionClass $reflectionClass) : bool
     {
-        return (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match((string) $reflectionClass->getDocComment(), '#@method\\s*static\\s*(.*?)\\b' . $methodName . '\\b#');
+        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match((string) $reflectionClass->getDocComment(), '#@method\\s*static\\s*(.*?)\\b' . $methodName . '\\b#');
     }
 }

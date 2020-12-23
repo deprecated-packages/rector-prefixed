@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\Builder;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder;
 
-use PhpParser\Builder\Namespace_;
+use _PhpScoper0a2ac50786fa\PhpParser\Builder\Namespace_;
 /**
  * Fixed duplicated naming in php-parser and prevents confusion
  */
-final class NamespaceBuilder extends \PhpParser\Builder\Namespace_
+final class NamespaceBuilder extends \_PhpScoper0a2ac50786fa\PhpParser\Builder\Namespace_
 {
 }

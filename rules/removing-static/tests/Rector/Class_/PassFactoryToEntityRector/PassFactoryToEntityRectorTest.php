@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector;
+namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector;
 
 use Iterator;
-use Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector;
-use Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector;
-use Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class PassFactoryToEntityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector;
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector;
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\EasyTesting\StaticFixtureSplitter;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class PassFactoryToEntityRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
-        $expectedFactoryFilePath = \Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath() . '/AnotherClassWithMoreArgumentsFactory.php';
+        $expectedFactoryFilePath = \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath() . '/AnotherClassWithMoreArgumentsFactory.php';
         $this->assertFileExists($expectedFactoryFilePath);
         $this->assertFileEquals(__DIR__ . '/Source/ExpectedAnotherClassWithMoreArgumentsFactory.php', $expectedFactoryFilePath);
     }
@@ -31,7 +31,7 @@ final class PassFactoryToEntityRectorTest extends \Rector\Testing\PHPUnit\Abstra
      */
     protected function getRectorsWithConfiguration() : array
     {
-        $typesToServices = [\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService::class];
-        return [\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector::class => [\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector::TYPES_TO_SERVICES => $typesToServices], \Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector::class => [\Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector::TYPES_TO_SERVICES => $typesToServices]];
+        $typesToServices = [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService::class];
+        return [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector::class => [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector::TYPES_TO_SERVICES => $typesToServices], \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector::class => [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector::TYPES_TO_SERVICES => $typesToServices]];
     }
 }

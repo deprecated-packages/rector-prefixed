@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\Parser;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser;
 
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Parser;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\PhpParser\Parser;
 use ReflectionFunction;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
 final class FunctionParser
 {
     /**
@@ -17,12 +17,12 @@ final class FunctionParser
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\PhpParser\Parser $parser, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Parser $parser, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function parseFunction(\ReflectionFunction $reflectionFunction) : ?\PhpParser\Node\Stmt\Namespace_
+    public function parseFunction(\ReflectionFunction $reflectionFunction) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_
     {
         $fileName = $reflectionFunction->getFileName();
         if (!\is_string($fileName)) {
@@ -32,10 +32,11 @@ final class FunctionParser
         if (!\is_string($functionCode)) {
             return null;
         }
-        $ast = $this->parser->parse($functionCode)[0];
-        if (!$ast instanceof \PhpParser\Node\Stmt\Namespace_) {
+        $nodes = (array) $this->parser->parse($functionCode);
+        $firstNode = $nodes[0] ?? null;
+        if (!$firstNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_) {
             return null;
         }
-        return $ast;
+        return $firstNode;
     }
 }

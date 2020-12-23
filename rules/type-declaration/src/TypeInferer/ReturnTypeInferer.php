@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\TypeInferer;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer;
 
-use PhpParser\Node\FunctionLike;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
-use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
-use Rector\TypeDeclaration\TypeNormalizer;
-use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
-final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeNormalizer;
+use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
+final class ReturnTypeInferer extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
 {
     /**
      * @var ReturnTypeInfererInterface[]
@@ -22,44 +22,44 @@ final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abstra
     /**
      * @param ReturnTypeInfererInterface[] $returnTypeInferers
      */
-    public function __construct(array $returnTypeInferers, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer)
+    public function __construct(array $returnTypeInferers, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeNormalizer $typeNormalizer)
     {
         $this->returnTypeInferers = $this->sortTypeInferersByPriority($returnTypeInferers);
         $this->typeNormalizer = $typeNormalizer;
     }
-    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
+    public function inferFunctionLike(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         return $this->inferFunctionLikeWithExcludedInferers($functionLike, []);
     }
     /**
      * @param string[] $excludedInferers
      */
-    public function inferFunctionLikeWithExcludedInferers(\PhpParser\Node\FunctionLike $functionLike, array $excludedInferers) : \PHPStan\Type\Type
+    public function inferFunctionLikeWithExcludedInferers(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike, array $excludedInferers) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         foreach ($this->returnTypeInferers as $returnTypeInferer) {
             if ($this->shouldSkipExcludedTypeInferer($returnTypeInferer, $excludedInferers)) {
                 continue;
             }
             $originalType = $returnTypeInferer->inferFunctionLike($functionLike);
-            if ($originalType instanceof \PHPStan\Type\MixedType) {
+            if ($originalType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
                 continue;
             }
             $type = $this->typeNormalizer->normalizeArrayTypeAndArrayNever($originalType);
             $type = $this->typeNormalizer->uniqueateConstantArrayType($type);
             // in case of void, check return type of children methods
-            if ($type instanceof \PHPStan\Type\MixedType) {
+            if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
                 continue;
             }
             return $type;
         }
-        return new \PHPStan\Type\MixedType();
+        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
     }
     /**
      * @param string[] $excludedInferers
      */
-    private function shouldSkipExcludedTypeInferer(\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface $returnTypeInferer, array $excludedInferers) : bool
+    private function shouldSkipExcludedTypeInferer(\_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface $returnTypeInferer, array $excludedInferers) : bool
     {
-        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allIsAOf($excludedInferers, \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface::class);
+        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsAOf($excludedInferers, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface::class);
         foreach ($excludedInferers as $excludedInferer) {
             if (\is_a($returnTypeInferer, $excludedInferer)) {
                 return \true;

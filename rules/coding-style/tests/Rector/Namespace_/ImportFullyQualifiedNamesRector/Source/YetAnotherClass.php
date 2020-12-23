@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05\SomeAnother;
+namespace _PhpScoper0a2ac50786fa\SomeAnother;
 
 final class YetAnotherClass
 {

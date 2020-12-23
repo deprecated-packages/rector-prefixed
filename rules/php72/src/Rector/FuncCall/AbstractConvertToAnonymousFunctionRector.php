@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php72\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Php72\Rector\FuncCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Expr\ClosureUse;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Param;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Php72\Contract\ConvertToAnonymousFunctionRectorInterface;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClosureUse;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\Php72\Contract\ConvertToAnonymousFunctionRectorInterface;
 /**
  * @see https://www.php.net/functions.anonymous
  */
-abstract class AbstractConvertToAnonymousFunctionRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Php72\Contract\ConvertToAnonymousFunctionRectorInterface
+abstract class AbstractConvertToAnonymousFunctionRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Php72\Contract\ConvertToAnonymousFunctionRectorInterface
 {
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -25,10 +25,10 @@ abstract class AbstractConvertToAnonymousFunctionRector extends \Rector\Core\Rec
         $body = $this->getBody($node);
         $parameters = $this->getParameters($node);
         $useVariables = $this->resolveUseVariables($body, $parameters);
-        $anonymousFunctionNode = new \PhpParser\Node\Expr\Closure();
+        $anonymousFunctionNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure();
         $anonymousFunctionNode->params = $parameters;
         foreach ($useVariables as $useVariable) {
-            $anonymousFunctionNode->uses[] = new \PhpParser\Node\Expr\ClosureUse($useVariable);
+            $anonymousFunctionNode->uses[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClosureUse($useVariable);
         }
         $anonymousFunctionNode->returnType = $this->getReturnType($node);
         if ($body !== []) {
@@ -47,7 +47,7 @@ abstract class AbstractConvertToAnonymousFunctionRector extends \Rector\Core\Rec
         foreach ($paramNodes as $paramNode) {
             $paramNames[] = $this->getName($paramNode);
         }
-        $variableNodes = $this->betterNodeFinder->findInstanceOf($nodes, \PhpParser\Node\Expr\Variable::class);
+        $variableNodes = $this->betterNodeFinder->findInstanceOf($nodes, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable::class);
         /** @var Variable[] $filteredVariables */
         $filteredVariables = [];
         $alreadyAssignedVariables = [];
@@ -63,8 +63,8 @@ abstract class AbstractConvertToAnonymousFunctionRector extends \Rector\Core\Rec
             if (\in_array($variableName, $paramNames, \true)) {
                 continue;
             }
-            $parentNode = $variableNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentNode instanceof \PhpParser\Node\Expr\Assign) {
+            $parentNode = $variableNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
                 $alreadyAssignedVariables[] = $variableName;
             }
             if ($this->isNames($variableNode, $alreadyAssignedVariables)) {

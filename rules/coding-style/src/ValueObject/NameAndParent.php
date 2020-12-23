@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\ValueObject;
 
-use PhpParser\Node;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
 final class NameAndParent
 {
     /**
@@ -19,7 +19,7 @@ final class NameAndParent
     /**
      * @param Name|Identifier $nameNode
      */
-    public function __construct(\PhpParser\Node $nameNode, \PhpParser\Node $parentNode)
+    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node $nameNode, \_PhpScoper0a2ac50786fa\PhpParser\Node $parentNode)
     {
         $this->nameNode = $nameNode;
         $this->parentNode = $parentNode;
@@ -27,11 +27,11 @@ final class NameAndParent
     /**
      * @return Name|Identifier
      */
-    public function getNameNode() : \PhpParser\Node
+    public function getNameNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         return $this->nameNode;
     }
-    public function getParentNode() : \PhpParser\Node
+    public function getParentNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         return $this->parentNode;
     }

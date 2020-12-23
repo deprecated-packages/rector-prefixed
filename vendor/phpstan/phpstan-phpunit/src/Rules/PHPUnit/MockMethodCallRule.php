@@ -1,50 +1,50 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\PHPUnit;
+namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\PHPUnit;
 
-use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\Generic\GenericObjectType;
-use PHPStan\Type\IntersectionType;
-use PHPStan\Type\ObjectType;
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\MockObject;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Generic\GenericObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\IntersectionType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\MockObject;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\MethodCall>
  */
-class MockMethodCallRule implements \PHPStan\Rules\Rule
+class MockMethodCallRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \PhpParser\Node\Expr\MethodCall::class;
+        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
     {
         /** @var Node\Expr\MethodCall $node */
         $node = $node;
-        if (!$node->name instanceof \PhpParser\Node\Identifier || $node->name->name !== 'method') {
+        if (!$node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier || $node->name->name !== 'method') {
             return [];
         }
         if (\count($node->args) < 1) {
             return [];
         }
         $argType = $scope->getType($node->args[0]->value);
-        if (!$argType instanceof \PHPStan\Type\Constant\ConstantStringType) {
+        if (!$argType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType) {
             return [];
         }
         $method = $argType->getValue();
         $type = $scope->getType($node->var);
-        if ($type instanceof \PHPStan\Type\IntersectionType && \in_array(\_PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\MockObject::class, $type->getReferencedClasses(), \true) && !$type->hasMethod($method)->yes()) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\IntersectionType && \in_array(\_PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\MockObject::class, $type->getReferencedClasses(), \true) && !$type->hasMethod($method)->yes()) {
             $mockClass = \array_filter($type->getReferencedClasses(), function (string $class) : bool {
-                return $class !== \_PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\MockObject::class;
+                return $class !== \_PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\MockObject::class;
             });
             return [\sprintf('Trying to mock an undefined method %s() on class %s.', $method, \implode('&', $mockClass))];
         }
-        if ($type instanceof \PHPStan\Type\Generic\GenericObjectType && $type->getClassName() === \_PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class && \count($type->getTypes()) > 0) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\GenericObjectType && $type->getClassName() === \_PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class && \count($type->getTypes()) > 0) {
             $mockClass = $type->getTypes()[0];
-            if ($mockClass instanceof \PHPStan\Type\ObjectType && !$mockClass->hasMethod($method)->yes()) {
+            if ($mockClass instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType && !$mockClass->hasMethod($method)->yes()) {
                 return [\sprintf('Trying to mock an undefined method %s() on class %s.', $method, $mockClass->getClassName())];
             }
         }

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\ChangesReporting\Output;
+namespace _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Output;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
-use Rector\Core\Configuration\Configuration;
-use Rector\Core\Configuration\Option;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\Core\ValueObject\Application\RectorError;
-use Rector\Core\ValueObject\Reporting\FileDiff;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\RectorError;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Reporting\FileDiff;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ConsoleOutputFormatter implements \_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
     /**
      * @var string
@@ -37,16 +37,16 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      * @var Configuration
      */
     private $configuration;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->configuration = $configuration;
     }
-    public function report(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    public function report(\_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         if ($this->configuration->getOutputFile()) {
-            $message = \sprintf('Option "--%s" can be used only with "--%s %s"', \Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, \Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'json');
+            $message = \sprintf('Option "--%s" can be used only with "--%s %s"', \_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, \_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'json');
             $this->symfonyStyle->error($message);
         }
         $this->reportFileDiffs($errorAndDiffCollector->getFileDiffs());
@@ -109,7 +109,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             $this->symfonyStyle->error($message);
         }
     }
-    private function reportRemovedFilesAndNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    private function reportRemovedFilesAndNodes(\_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         if ($errorAndDiffCollector->getAddFilesCount() !== 0) {
             $message = \sprintf('%d files were added', $errorAndDiffCollector->getAddFilesCount());
@@ -123,10 +123,10 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     }
     private function normalizePathsToRelativeWithLine(string $errorMessage) : string
     {
-        $errorMessage = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($errorMessage, '#' . \preg_quote(\getcwd(), '#') . '/#');
-        return $errorMessage = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
+        $errorMessage = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($errorMessage, '#' . \preg_quote(\getcwd(), '#') . '/#', '');
+        return $errorMessage = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
-    private function reportRemovedNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    private function reportRemovedNodes(\_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         if ($errorAndDiffCollector->getRemovedNodeCount() === 0) {
             return;
@@ -137,12 +137,12 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             $i = 0;
             foreach ($errorAndDiffCollector->getRemovedNodes() as $removedNode) {
                 /** @var SmartFileInfo $fileInfo */
-                $fileInfo = $removedNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+                $fileInfo = $removedNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
                 $message = \sprintf('<options=bold>%d) %s:%d</>', ++$i, $fileInfo->getRelativeFilePath(), $removedNode->getStartLine());
                 $this->symfonyStyle->writeln($message);
                 $printedNode = $this->betterStandardPrinter->print($removedNode);
                 // color red + prefix with "-" to visually demonstrate removal
-                $printedNode = '-' . \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($printedNode, '#\\n#', "\n-");
+                $printedNode = '-' . \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($printedNode, '#\\n#', "\n-");
                 $printedNode = $this->colorTextToRed($printedNode);
                 $this->symfonyStyle->writeln($printedNode);
                 $this->symfonyStyle->newLine(1);

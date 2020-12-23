@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Generic\ValueObject\NormalToFluent;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\NormalToFluent;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector\NormalToFluentRectorTest
  */
-final class NormalToFluentRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class NormalToFluentRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -31,9 +31,9 @@ final class NormalToFluentRector extends \Rector\Core\Rector\AbstractRector impl
      * @var MethodCall[]
      */
     private $collectedMethodCalls = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fluent interface calls to classic ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fluent interface calls to classic ones.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $someObject = new SomeClass();
 $someObject->someFunction();
 $someObject->otherFunction();
@@ -43,27 +43,28 @@ $someObject = new SomeClass();
 $someObject->someFunction()
     ->otherFunction();
 CODE_SAMPLE
-, [self::CALLS_TO_FLUENT => [new \Rector\Generic\ValueObject\NormalToFluent('SomeClass', ['someFunction', 'otherFunction'])]])]);
+, [self::CALLS_TO_FLUENT => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\NormalToFluent('SomeClass', ['someFunction', 'otherFunction'])]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         // process only existing statements
         if ($node->stmts === null) {
             return null;
         }
-        $classMethodStatementCount = \count($node->stmts);
+        $classMethodStatementCount = \count((array) $node->stmts);
         // iterate from bottom to up, so we can merge
         for ($i = $classMethodStatementCount - 1; $i >= 0; --$i) {
+            /** @var Expression $stmt */
             $stmt = $node->stmts[$i];
             if ($this->shouldSkipPreviousStmt($node, $i, $stmt)) {
                 continue;
@@ -92,42 +93,42 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $callsToFluent = $configuration[self::CALLS_TO_FLUENT] ?? [];
-        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \Rector\Generic\ValueObject\NormalToFluent::class);
+        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\NormalToFluent::class);
         $this->callsToFluent = $callsToFluent;
     }
-    private function shouldSkipPreviousStmt(\PhpParser\Node $node, int $i, \PhpParser\Node\Stmt $stmt) : bool
+    private function shouldSkipPreviousStmt(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, int $i, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $expression) : bool
     {
         // we look only for 2+ stmts
-        if (!isset($node->stmts[$i - 1])) {
+        if (!isset($classMethod->stmts[$i - 1])) {
             return \true;
         }
         // we look for 2 methods calls in a row
-        if (!$stmt instanceof \PhpParser\Node\Stmt\Expression) {
+        if (!$expression instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
             return \true;
         }
-        $prevStmt = $node->stmts[$i - 1];
-        return !$prevStmt instanceof \PhpParser\Node\Stmt\Expression;
+        $prevStmt = $classMethod->stmts[$i - 1];
+        return !$prevStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
     }
-    private function isBothMethodCallMatch(\PhpParser\Node\Stmt\Expression $firstStmt, \PhpParser\Node\Stmt\Expression $secondStmt) : bool
+    private function isBothMethodCallMatch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $firstExpression, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $secondExpression) : bool
     {
-        if (!$firstStmt->expr instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (!$firstExpression->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if (!$secondStmt->expr instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (!$secondExpression->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        $firstMethodCallMatch = $this->matchMethodCall($firstStmt->expr);
+        $firstMethodCallMatch = $this->matchMethodCall($firstExpression->expr);
         if ($firstMethodCallMatch === null) {
             return \false;
         }
-        $secondMethodCallMatch = $this->matchMethodCall($secondStmt->expr);
+        $secondMethodCallMatch = $this->matchMethodCall($secondExpression->expr);
         if ($secondMethodCallMatch === null) {
             return \false;
         }
         // is the same type
         return $firstMethodCallMatch === $secondMethodCallMatch;
     }
-    private function fluentizeCollectedMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function fluentizeCollectedMethodCalls(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $i = 0;
         $fluentMethodCallIndex = null;
@@ -143,16 +144,20 @@ CODE_SAMPLE
             }
             ++$i;
         }
+        $stmt = $classMethod->stmts[$fluentMethodCallIndex];
+        if (!$stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+        }
         /** @var MethodCall $fluentMethodCall */
-        $fluentMethodCall = $classMethod->stmts[$fluentMethodCallIndex]->expr;
+        $fluentMethodCall = $stmt->expr;
         // they are added in reversed direction
         $methodCallsToAdd = \array_reverse($methodCallsToAdd);
         foreach ($methodCallsToAdd as $methodCallToAdd) {
             // make var a parent method call
-            $fluentMethodCall->var = new \PhpParser\Node\Expr\MethodCall($fluentMethodCall->var, $methodCallToAdd->name, $methodCallToAdd->args);
+            $fluentMethodCall->var = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($fluentMethodCall->var, $methodCallToAdd->name, $methodCallToAdd->args);
         }
     }
-    private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
+    private function matchMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {
         foreach ($this->callsToFluent as $callToFluent) {
             if (!$this->isObjectType($methodCall, $callToFluent->getClass())) {

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PSR4\Composer;
+namespace _PhpScoper0a2ac50786fa\Rector\PSR4\Composer;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
+use _PhpScoper0a2ac50786fa\Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class PSR4NamespaceMatcher implements \_PhpScoper0a2ac50786fa\Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface
 {
     /**
      * @var PSR4AutoloadPathsProvider
@@ -19,16 +19,16 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
      * @var CurrentFileInfoProvider
      */
     private $currentFileInfoProvider;
-    public function __construct(\Rector\PSR4\Composer\PSR4AutoloadPathsProvider $psr4AutoloadPathsProvider, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PSR4\Composer\PSR4AutoloadPathsProvider $psr4AutoloadPathsProvider, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         $this->psr4AutoloadPathsProvider = $psr4AutoloadPathsProvider;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
     }
-    public function getExpectedNamespace(\PhpParser\Node $node) : ?string
+    public function getExpectedNamespace(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
         $smartFileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
         if ($smartFileInfo === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         $psr4Autoloads = $this->psr4AutoloadPathsProvider->provide();
         foreach ($psr4Autoloads as $namespace => $path) {
@@ -37,7 +37,7 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
             $paths = \is_array($path) ? $path : [$path];
             foreach ($paths as $singlePath) {
                 $singlePath = \rtrim($singlePath, '/');
-                if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::startsWith($smartFileInfo->getRelativeDirectoryPath(), $singlePath)) {
+                if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::startsWith($smartFileInfo->getRelativeDirectoryPath(), $singlePath)) {
                     continue;
                 }
                 $expectedNamespace = $namespace . $this->resolveExtraNamespace($smartFileInfo, $singlePath);
@@ -49,10 +49,10 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
     /**
      * Get the extra path that is not included in root PSR-4 namespace
      */
-    private function resolveExtraNamespace(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $path) : string
+    private function resolveExtraNamespace(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $path) : string
     {
-        $extraNamespace = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($smartFileInfo->getRelativeDirectoryPath(), \_PhpScoperabd03f0baf05\Nette\Utils\Strings::length($path) + 1);
-        $extraNamespace = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($extraNamespace, '#/#', '\\');
+        $extraNamespace = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::substring($smartFileInfo->getRelativeDirectoryPath(), \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::length($path) + 1);
+        $extraNamespace = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($extraNamespace, '#/#', '\\');
         return \trim($extraNamespace);
     }
 }

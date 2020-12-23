@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Set\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Set\ValueObject;
 
 final class SetList
 {
@@ -85,6 +85,10 @@ final class SetList
      * @var string
      */
     public const DEAD_CODE = __DIR__ . '/../../../../config/set/dead-code.php';
+    /**
+     * @var string
+     */
+    public const DEAD_DOC_BLOCK = __DIR__ . '/../../../../config/set/dead-doc-block.php';
     /**
      * @var string
      */
@@ -513,6 +517,10 @@ final class SetList
      * @var string
      */
     public const SYMFONY_50_TYPES = __DIR__ . '/../../../../config/set/symfony50-types.php';
+    /**
+     * @var string
+     */
+    public const SYMFONY_52 = __DIR__ . '/../../../../config/set/symfony52.php';
     /**
      * @var string
      */

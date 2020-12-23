@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Rector\StaticCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Rector\StaticCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Generic\ValueObject\SwapClassMethodArguments;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\SwapClassMethodArguments;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\SwapClassMethodArgumentsRectorTest
  */
-final class SwapClassMethodArgumentsRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class SwapClassMethodArgumentsRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -27,9 +27,9 @@ final class SwapClassMethodArgumentsRector extends \Rector\Core\Rector\AbstractR
      * @var SwapClassMethodArguments[]
      */
     private $argumentSwaps = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Reorder class method arguments, including their calls', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Reorder class method arguments, including their calls', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public static function run($first, $second)
@@ -47,19 +47,19 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::ARGUMENT_SWAPS => [new \Rector\Generic\ValueObject\SwapClassMethodArguments('SomeClass', 'run', [1, 0])]])]);
+, [self::ARGUMENT_SWAPS => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\SwapClassMethodArguments('SomeClass', 'run', [1, 0])]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param StaticCall|MethodCall|ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         foreach ($this->argumentSwaps as $argumentSwap) {
             if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $argumentSwap->getClass())) {
@@ -72,18 +72,18 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $argumentSwaps = $configuration[self::ARGUMENT_SWAPS] ?? [];
-        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allIsInstanceOf($argumentSwaps, \Rector\Generic\ValueObject\SwapClassMethodArguments::class);
+        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsInstanceOf($argumentSwaps, \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\SwapClassMethodArguments::class);
         $this->argumentSwaps = $argumentSwaps;
     }
     /**
      * @param StaticCall|MethodCall|ClassMethod $node
      */
-    private function refactorArgumentPositions(\Rector\Generic\ValueObject\SwapClassMethodArguments $swapClassMethodArguments, \PhpParser\Node $node) : void
+    private function refactorArgumentPositions(\_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\SwapClassMethodArguments $swapClassMethodArguments, \_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
     {
         if (!$this->isMethodStaticCallOrClassMethodName($node, $swapClassMethodArguments->getMethod())) {
             return;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
             $this->swapParameters($node, $swapClassMethodArguments->getOrder());
         } else {
             $this->swapArguments($node, $swapClassMethodArguments->getOrder());
@@ -92,23 +92,20 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall|ClassMethod $node
      */
-    private function isMethodStaticCallOrClassMethodName(\PhpParser\Node $node, string $methodName) : bool
+    private function isMethodStaticCallOrClassMethodName(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $methodName) : bool
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
-            if ($node->name instanceof \PhpParser\Node\Expr) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
+            if ($node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr) {
                 return \false;
             }
             return $this->isName($node->name, $methodName);
         }
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return $this->isName($node->name, $methodName);
-        }
-        return \false;
+        return $this->isName($node->name, $methodName);
     }
     /**
      * @param array<int, int> $newParameterPositions
      */
-    private function swapParameters(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $newParameterPositions) : void
+    private function swapParameters(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, array $newParameterPositions) : void
     {
         $newArguments = [];
         foreach ($newParameterPositions as $oldPosition => $newPosition) {
@@ -125,7 +122,7 @@ CODE_SAMPLE
      * @param MethodCall|StaticCall $node
      * @param int[] $newArgumentPositions
      */
-    private function swapArguments(\PhpParser\Node $node, array $newArgumentPositions) : void
+    private function swapArguments(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, array $newArgumentPositions) : void
     {
         $newArguments = [];
         foreach ($newArgumentPositions as $oldPosition => $newPosition) {

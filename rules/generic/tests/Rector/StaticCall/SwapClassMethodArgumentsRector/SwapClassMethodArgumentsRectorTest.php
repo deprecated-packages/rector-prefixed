@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector;
 
 use Iterator;
-use Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector;
-use Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\Fixture\SomeClass;
-use Rector\Generic\ValueObject\SwapClassMethodArguments;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class SwapClassMethodArgumentsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\Fixture\SomeClass;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\SwapClassMethodArguments;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class SwapClassMethodArgumentsRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class SwapClassMethodArgumentsRectorTest extends \Rector\Testing\PHPUnit\A
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector::class => [\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector::ARGUMENT_SWAPS => [new \Rector\Generic\ValueObject\SwapClassMethodArguments(\Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\Fixture\SomeClass::class, 'run', [1, 0])]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector::ARGUMENT_SWAPS => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\SwapClassMethodArguments(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\Fixture\SomeClass::class, 'run', [1, 0])]]];
     }
 }

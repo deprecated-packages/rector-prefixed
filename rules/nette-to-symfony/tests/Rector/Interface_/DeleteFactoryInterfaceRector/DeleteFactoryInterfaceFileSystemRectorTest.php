@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteToSymfony\Tests\Rector\Interface_\DeleteFactoryInterfaceRector;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Tests\Rector\Interface_\DeleteFactoryInterfaceRector;
 
 use Iterator;
-use Rector\NetteToSymfony\Rector\Interface_\DeleteFactoryInterfaceRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class DeleteFactoryInterfaceFileSystemRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Rector\Interface_\DeleteFactoryInterfaceRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class DeleteFactoryInterfaceFileSystemRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
         $this->assertFileWasRemoved($this->originalTempFileInfo);
@@ -23,6 +23,6 @@ final class DeleteFactoryInterfaceFileSystemRectorTest extends \Rector\Testing\P
     }
     protected function getRectorClass() : string
     {
-        return \Rector\NetteToSymfony\Rector\Interface_\DeleteFactoryInterfaceRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Rector\Interface_\DeleteFactoryInterfaceRector::class;
     }
 }

@@ -1,32 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeCollector\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeAnalyzer;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Scalar\String_;
-use Rector\NodeCollector\ValueObject\ArrayCallable;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\ValueObject\ArrayCallable;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class ArrayCallableMethodReferenceAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     /**
      * Matches array like: "[$this, 'methodName']" → ['ClassName', 'methodName']
      */
-    public function match(\PhpParser\Node\Expr\Array_ $array) : ?\Rector\NodeCollector\ValueObject\ArrayCallable
+    public function match(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_ $array) : ?\_PhpScoper0a2ac50786fa\Rector\NodeCollector\ValueObject\ArrayCallable
     {
-        if (\count($array->items) !== 2) {
+        $arrayItems = (array) $array->items;
+        if (\count($arrayItems) !== 2) {
             return null;
         }
         if ($array->items[0] === null) {
@@ -39,38 +40,38 @@ final class ArrayCallableMethodReferenceAnalyzer
         if (!$this->isThisVariable($array->items[0]->value)) {
             return null;
         }
-        if (!$array->items[1]->value instanceof \PhpParser\Node\Scalar\String_) {
+        if (!$array->items[1]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return null;
         }
         /** @var String_ $string */
         $string = $array->items[1]->value;
         $methodName = $string->value;
-        $className = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $array->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return null;
         }
-        return new \Rector\NodeCollector\ValueObject\ArrayCallable($className, $methodName);
+        return new \_PhpScoper0a2ac50786fa\Rector\NodeCollector\ValueObject\ArrayCallable($className, $methodName);
     }
-    private function isThisVariable(\PhpParser\Node $node) : bool
+    private function isThisVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
     {
         // $this
-        if ($node instanceof \PhpParser\Node\Expr\Variable && $this->nodeNameResolver->isName($node, 'this')) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable && $this->nodeNameResolver->isName($expr, 'this')) {
             return \true;
         }
-        if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
-            if (!$this->nodeNameResolver->isName($node->name, 'class')) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch) {
+            if (!$this->nodeNameResolver->isName($expr->name, 'class')) {
                 return \false;
             }
             // self::class, static::class
-            if ($this->nodeNameResolver->isNames($node->class, ['self', 'static'])) {
+            if ($this->nodeNameResolver->isNames($expr->class, ['self', 'static'])) {
                 return \true;
             }
             /** @var string|null $className */
-            $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $className = $expr->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($className === null) {
                 return \false;
             }
-            return $this->nodeNameResolver->isName($node->class, $className);
+            return $this->nodeNameResolver->isName($expr->class, $className);
         }
         return \false;
     }

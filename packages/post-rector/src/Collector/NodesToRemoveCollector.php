@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PostRector\Collector;
+namespace _PhpScoper0a2ac50786fa\Rector\PostRector\Collector;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\Expression;
-use Rector\ChangesReporting\Collector\AffectedFilesCollector;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\NodeRemoval\BreakingRemovalGuard;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\AffectedFilesCollector;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\NodeRemoval\BreakingRemovalGuard;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Contract\Collector\NodeCollectorInterface;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class NodesToRemoveCollector implements \_PhpScoper0a2ac50786fa\Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
      * @var AffectedFilesCollector
@@ -27,31 +27,31 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
      * @var Stmt[]|Node[]
      */
     private $nodesToRemove = [];
-    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \_PhpScoper0a2ac50786fa\Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard)
     {
         $this->affectedFilesCollector = $affectedFilesCollector;
         $this->breakingRemovalGuard = $breakingRemovalGuard;
     }
-    public function addNodeToRemove(\PhpParser\Node $node) : void
+    public function addNodeToRemove(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
     {
         // chain call: "->method()->another()"
         $this->ensureIsNotPartOfChainMethodCall($node);
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$node instanceof \PhpParser\Node\Stmt\Expression && $parentNode instanceof \PhpParser\Node\Stmt\Expression) {
+        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression && $parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
             // only expressions can be removed
             $node = $parentNode;
         } else {
             $this->breakingRemovalGuard->ensureNodeCanBeRemove($node);
         }
         /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo !== null) {
             $this->affectedFilesCollector->addFile($fileInfo);
         }
         /** @var Stmt $node */
         $this->nodesToRemove[] = $node;
     }
-    public function isNodeRemoved(\PhpParser\Node $node) : bool
+    public function isNodeRemoved(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
         return \in_array($node, $this->nodesToRemove, \true);
     }
@@ -74,14 +74,14 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
     {
         unset($this->nodesToRemove[$key]);
     }
-    private function ensureIsNotPartOfChainMethodCall(\PhpParser\Node $node) : void
+    private function ensureIsNotPartOfChainMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
     {
-        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return;
         }
-        if (!$node->var instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (!$node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return;
         }
-        throw new \Rector\Core\Exception\ShouldNotHappenException('Chain method calls cannot be removed this way. It would remove the whole tree of calls. Remove them manually by creating new parent node with no following method.');
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException('Chain method calls cannot be removed this way. It would remove the whole tree of calls. Remove them manually by creating new parent node with no following method.');
     }
 }

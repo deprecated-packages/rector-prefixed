@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Tests\Rector\Use_\SplitGroupedUseImportsRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Tests\Rector\Use_\SplitGroupedUseImportsRector\Source;
 
 trait FirstTrait
 {

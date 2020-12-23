@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
+namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
 
-use Symplify\MarkdownDiff\Differ\MarkdownDiffer;
-use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use _PhpScoper0a2ac50786fa\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 final class DiffCodeSamplePrinter
 {
     /**
      * @var MarkdownDiffer
      */
     private $markdownDiffer;
-    public function __construct(\Symplify\MarkdownDiff\Differ\MarkdownDiffer $markdownDiffer)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\MarkdownDiff\Differ\MarkdownDiffer $markdownDiffer)
     {
         $this->markdownDiffer = $markdownDiffer;
     }
     /**
      * @return string[]
      */
-    public function print(\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample) : array
+    public function print(\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample) : array
     {
         $lines = [];
-        $lines[] = $this->markdownDiffer->diff($codeSample->getGoodCode(), $codeSample->getBadCode());
+        $lines[] = $this->markdownDiffer->diff($codeSample->getBadCode(), $codeSample->getGoodCode());
         return $lines;
     }
 }

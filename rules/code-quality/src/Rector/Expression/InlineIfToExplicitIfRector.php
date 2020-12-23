@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\Expression;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Expression;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\If_;
-use PHPStan\Type\BooleanType;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/dmHCC
  *
  * @see \Rector\CodeQuality\Tests\Rector\Expression\InlineIfToExplicitIfRector\InlineIfToExplicitIfRectorTest
  */
-final class InlineIfToExplicitIfRector extends \Rector\Core\Rector\AbstractRector
+final class InlineIfToExplicitIfRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change inline if to explicit if', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change inline if to explicit if', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -52,26 +52,26 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Expression::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression::class];
     }
     /**
      * @param Expression $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        if (!$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return null;
         }
         $booleanAnd = $node->expr;
         $leftStaticType = $this->getStaticType($booleanAnd->left);
-        if (!$leftStaticType instanceof \PHPStan\Type\BooleanType) {
+        if (!$leftStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType) {
             return null;
         }
-        if (!$booleanAnd->right instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$booleanAnd->right instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return null;
         }
-        $if = new \PhpParser\Node\Stmt\If_($booleanAnd->left);
-        $if->stmts[] = new \PhpParser\Node\Stmt\Expression($booleanAnd->right);
+        $if = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_($booleanAnd->left);
+        $if->stmts[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($booleanAnd->right);
         return $if;
     }
 }

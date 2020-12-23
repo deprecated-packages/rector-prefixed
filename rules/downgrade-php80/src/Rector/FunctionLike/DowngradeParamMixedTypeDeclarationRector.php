@@ -1,36 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp80\Rector\FunctionLike;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Rector\FunctionLike;
 
-use Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeParamTypeDeclarationRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeParamTypeDeclarationRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DowngradePhp80\Tests\Rector\FunctionLike\DowngradeParamMixedTypeDeclarationRector\DowngradeParamMixedTypeDeclarationRectorTest
  */
-final class DowngradeParamMixedTypeDeclarationRector extends \Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeParamTypeDeclarationRector
+final class DowngradeParamMixedTypeDeclarationRector extends \_PhpScoper0a2ac50786fa\Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeParamTypeDeclarationRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition($this->getRectorDefinitionDescription(), [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition($this->getRectorDefinitionDescription(), [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function someFunction(mixed $anything)
     {
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
 class SomeClass
 {
     /**
@@ -40,12 +32,11 @@ class SomeClass
     {
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
-, [self::ADD_DOC_BLOCK => \true])]);
+)]);
     }
-    public function getTypeNameToRemove() : string
+    public function getTypeToRemove() : string
     {
-        return 'mixed';
+        return \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType::class;
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Class_;
 
-use _PhpScoperabd03f0baf05\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(name="amenity_building", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="building_id_amenity_id", columns={"building_id", "amenity_id"})

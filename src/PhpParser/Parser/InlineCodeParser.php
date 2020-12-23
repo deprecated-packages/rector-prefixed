@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\Parser;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr\BinaryOp\Concat;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Scalar\Encapsed;
-use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt;
-use PhpParser\Parser;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\Encapsed;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Parser;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 final class InlineCodeParser
 {
     /**
@@ -40,7 +40,7 @@ final class InlineCodeParser
      * @var NodeScopeAndMetadataDecorator
      */
     private $nodeScopeAndMetadataDecorator;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \PhpParser\Parser $parser)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \_PhpScoper0a2ac50786fa\PhpParser\Parser $parser)
     {
         $this->parser = $parser;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -52,8 +52,8 @@ final class InlineCodeParser
     public function parse(string $content) : array
     {
         // wrap code so php-parser can interpret it
-        $content = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::startsWith($content, '<?php ') ? $content : '<?php ' . $content;
-        $content = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($content, ';') ? $content : $content . ';';
+        $content = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::startsWith($content, '<?php ') ? $content : '<?php ' . $content;
+        $content = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($content, ';') ? $content : $content . ';';
         $nodes = (array) $this->parser->parse($content);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromString($nodes);
     }
@@ -65,23 +65,23 @@ final class InlineCodeParser
         if (\is_string($content)) {
             return $content;
         }
-        if ($content instanceof \PhpParser\Node\Scalar\String_) {
+        if ($content instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return $content->value;
         }
-        if ($content instanceof \PhpParser\Node\Scalar\Encapsed) {
+        if ($content instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\Encapsed) {
             // remove "
             $content = \trim($this->betterStandardPrinter->print($content), '""');
             // use \$ → $
-            $content = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($content, self::PRESLASHED_DOLLAR_REGEX, '$');
+            $content = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($content, self::PRESLASHED_DOLLAR_REGEX, '$');
             // use \'{$...}\' → $...
-            return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($content, self::CURLY_BRACKET_WRAPPER_REGEX, '$1');
+            return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($content, self::CURLY_BRACKET_WRAPPER_REGEX, '$1');
         }
-        if ($content instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
+        if ($content instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat) {
             return $this->stringify($content->left) . $this->stringify($content->right);
         }
-        if ($content instanceof \PhpParser\Node\Expr\Variable || $content instanceof \PhpParser\Node\Expr\PropertyFetch || $content instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
+        if ($content instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable || $content instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch || $content instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
             return $this->betterStandardPrinter->print($content);
         }
-        throw new \Rector\Core\Exception\ShouldNotHappenException(\get_class($content) . ' ' . __METHOD__);
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException(\get_class($content) . ' ' . __METHOD__);
     }
 }

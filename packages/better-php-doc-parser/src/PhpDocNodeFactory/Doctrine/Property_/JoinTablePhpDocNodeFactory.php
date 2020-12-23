@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Property_;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Property_;
 
-use Doctrine\ORM\Mapping\JoinTable;
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Property;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
-use Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
-use Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinTableTagValueNode;
-use Rector\Core\Exception\ShouldNotHappenException;
-final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface
+use _PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping\JoinTable;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\TokenIterator;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinTableTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+final class JoinTablePhpDocNodeFactory extends \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface
 {
     /**
      * @var string
@@ -34,15 +34,15 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
      */
     public function getClasses() : array
     {
-        return ['Doctrine\\ORM\\Mapping\\JoinTable'];
+        return ['_PhpScoper0a2ac50786fa\\Doctrine\\ORM\\Mapping\\JoinTable'];
     }
     /**
      * @return JoinTableTagValueNode|null
      */
-    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    public function createFromNodeAndTokens(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
-        if (!$node instanceof \PhpParser\Node\Stmt\Property) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         /** @var JoinTable|null $joinTable */
         $joinTable = $this->nodeAnnotationReader->readPropertyAnnotation($node, $annotationClass);
@@ -52,28 +52,28 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
         $annotationContent = $this->resolveContentFromTokenIterator($tokenIterator);
         $joinColumnsAnnotationContent = $this->annotationContentResolver->resolveNestedKey($annotationContent, self::JOIN_COLUMNS);
         $joinColumnValuesTags = $this->createJoinColumnTagValues($joinColumnsAnnotationContent, $joinTable, self::JOIN_COLUMNS);
-        $joinColumnsOpeningAndClosingSpace = $this->matchCurlyBracketOpeningAndClosingSpace($joinColumnsAnnotationContent);
+        $joinColumnsAroundSpaces = $this->matchCurlyBracketAroundSpaces($joinColumnsAnnotationContent);
         // inversed join columns
         $inverseJoinColumnsAnnotationContent = $this->annotationContentResolver->resolveNestedKey($annotationContent, self::INVERSE_JOIN_COLUMNS);
         $inverseJoinColumnValuesTags = $this->createJoinColumnTagValues($inverseJoinColumnsAnnotationContent, $joinTable, self::INVERSE_JOIN_COLUMNS);
-        $inverseJoinColumnOpeningAndClosingSpace = $this->matchCurlyBracketOpeningAndClosingSpace($inverseJoinColumnsAnnotationContent);
-        return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinTableTagValueNode($joinTable->name, $joinTable->schema, $joinColumnValuesTags, $inverseJoinColumnValuesTags, $annotationContent, $joinColumnsOpeningAndClosingSpace, $inverseJoinColumnOpeningAndClosingSpace);
+        $inverseJoinColumnAroundSpaces = $this->matchCurlyBracketAroundSpaces($inverseJoinColumnsAnnotationContent);
+        return new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinTableTagValueNode($joinTable->name, $joinTable->schema, $joinColumnValuesTags, $inverseJoinColumnValuesTags, $annotationContent, $joinColumnsAroundSpaces, $inverseJoinColumnAroundSpaces);
     }
     /**
      * @return JoinColumnTagValueNode[]
      */
-    private function createJoinColumnTagValues(string $annotationContent, \Doctrine\ORM\Mapping\JoinTable $joinTable, string $type) : array
+    private function createJoinColumnTagValues(string $annotationContent, \_PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping\JoinTable $joinTable, string $type) : array
     {
         $joinColumnContents = $this->matchJoinColumnContents($annotationContent);
         $joinColumnValuesTags = [];
         if (!\in_array($type, [self::JOIN_COLUMNS, self::INVERSE_JOIN_COLUMNS], \true)) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         $joinColumns = $type === self::JOIN_COLUMNS ? $joinTable->joinColumns : $joinTable->inverseJoinColumns;
         foreach ($joinColumns as $key => $joinColumn) {
             $subAnnotation = $joinColumnContents[$key];
             $items = $this->annotationItemsResolver->resolve($joinColumn);
-            $joinColumnValuesTags[] = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode($items, $subAnnotation['content'], $subAnnotation['tag']);
+            $joinColumnValuesTags[] = new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode($items, $subAnnotation['content'], $subAnnotation['tag']);
         }
         return $joinColumnValuesTags;
     }
@@ -82,6 +82,6 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
      */
     private function matchJoinColumnContents(string $annotationContent) : array
     {
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::matchAll($annotationContent, self::JOIN_COLUMN_REGEX);
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::matchAll($annotationContent, self::JOIN_COLUMN_REGEX);
     }
 }

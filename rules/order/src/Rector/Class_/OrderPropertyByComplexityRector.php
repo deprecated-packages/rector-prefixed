@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Order\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\Order\Rector\Class_;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\Trait_;
-use Rector\Order\PropertyRanker;
-use Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
-use Rector\Order\ValueObject\PropertyNameRankAndPosition;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a2ac50786fa\Rector\Order\PropertyRanker;
+use _PhpScoper0a2ac50786fa\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
+use _PhpScoper0a2ac50786fa\Rector\Order\ValueObject\PropertyNameRankAndPosition;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Order\Tests\Rector\Class_\OrderPropertyByComplexityRector\OrderPropertyByComplexityRectorTest
  */
-final class OrderPropertyByComplexityRector extends \Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
+final class OrderPropertyByComplexityRector extends \_PhpScoper0a2ac50786fa\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
 {
     /**
      * @var PropertyRanker
      */
     private $propertyRanker;
-    public function __construct(\Rector\Order\PropertyRanker $propertyRanker)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Order\PropertyRanker $propertyRanker)
     {
         $this->propertyRanker = $propertyRanker;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order properties by complexity, from the simplest like scalars to the most complex, like union or collections', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order properties by complexity, from the simplest like scalars to the most complex, like union or collections', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -73,12 +73,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class, \PhpParser\Node\Stmt\Trait_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_::class];
     }
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $propertyByVisibilityByPosition = $this->resolvePropertyByVisibilityByPosition($node);
         $hasChanged = \false;
@@ -90,7 +90,7 @@ CODE_SAMPLE
                 $propertyName = $this->getName($property);
                 $propertyPositionByName[$position] = $propertyName;
                 $rank = $this->propertyRanker->rank($property);
-                $propertyNamesRanksAndPositions[] = new \Rector\Order\ValueObject\PropertyNameRankAndPosition($propertyName, $rank, $position);
+                $propertyNamesRanksAndPositions[] = new \_PhpScoper0a2ac50786fa\Rector\Order\ValueObject\PropertyNameRankAndPosition($propertyName, $rank, $position);
             }
             $sortedPropertyByRank = $this->getSortedPropertiesByRankAndPosition($propertyNamesRanksAndPositions);
             $oldToNewKeys = $this->stmtOrder->createOldToNewKeys($sortedPropertyByRank, $propertyPositionByName);
@@ -110,11 +110,11 @@ CODE_SAMPLE
      * @param Class_|Trait_ $classLike
      * @return array<string, Property[]>
      */
-    private function resolvePropertyByVisibilityByPosition(\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    private function resolvePropertyByVisibilityByPosition(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $propertyByVisibilityByPosition = [];
         foreach ((array) $classLike->stmts as $position => $classStmt) {
-            if (!$classStmt instanceof \PhpParser\Node\Stmt\Property) {
+            if (!$classStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property) {
                 continue;
             }
             $visibility = $this->getVisibilityAsString($classStmt);
@@ -128,7 +128,7 @@ CODE_SAMPLE
      */
     private function getSortedPropertiesByRankAndPosition(array $propertyNamesRanksAndPositions) : array
     {
-        \uasort($propertyNamesRanksAndPositions, function (\Rector\Order\ValueObject\PropertyNameRankAndPosition $firstArray, \Rector\Order\ValueObject\PropertyNameRankAndPosition $secondArray) : int {
+        \uasort($propertyNamesRanksAndPositions, function (\_PhpScoper0a2ac50786fa\Rector\Order\ValueObject\PropertyNameRankAndPosition $firstArray, \_PhpScoper0a2ac50786fa\Rector\Order\ValueObject\PropertyNameRankAndPosition $secondArray) : int {
             return [$firstArray->getRank(), $firstArray->getPosition()] <=> [$secondArray->getRank(), $secondArray->getPosition()];
         });
         $propertyNames = [];
@@ -137,7 +137,7 @@ CODE_SAMPLE
         }
         return $propertyNames;
     }
-    private function getVisibilityAsString(\PhpParser\Node\Stmt\Property $property) : string
+    private function getVisibilityAsString(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : string
     {
         if ($property->isPrivate()) {
             return 'private';

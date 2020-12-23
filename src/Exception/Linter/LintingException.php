@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Exception\Linter;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Exception\Linter;
 
 use Exception;
 final class LintingException extends \Exception

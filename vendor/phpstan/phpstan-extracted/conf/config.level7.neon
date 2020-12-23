@@ -1,0 +1,7 @@
+includes:
+	- config.level6.neon
+
+parameters:
+	checkUnionTypes: true
+	reportMaybes: true
+

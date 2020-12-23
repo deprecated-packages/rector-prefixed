@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Autodiscovery\Tests\Rector\FileNode\MoveServicesBySuffixToDirectoryRector\Source\Controller;
+namespace _PhpScoper0a2ac50786fa\Rector\Autodiscovery\Tests\Rector\FileNode\MoveServicesBySuffixToDirectoryRector\Source\Controller;
 
 final class BananaCommand
 {
     public function run()
     {
-        return new \Rector\Autodiscovery\Tests\Rector\FileNode\MoveServicesBySuffixToDirectoryRector\Source\Controller\Orange();
+        return new \_PhpScoper0a2ac50786fa\Rector\Autodiscovery\Tests\Rector\FileNode\MoveServicesBySuffixToDirectoryRector\Source\Controller\Orange();
     }
 }

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector;
+namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector;
 
 use Iterator;
-use Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector;
-use Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory;
-use Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class StaticTypeToSetterInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector;
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory;
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class StaticTypeToSetterInjectionRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,10 +27,10 @@ final class StaticTypeToSetterInjectionRectorTest extends \Rector\Testing\PHPUni
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::class => [\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::STATIC_TYPES => [
-            \Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory::class,
+        return [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::class => [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::STATIC_TYPES => [
+            \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory::class,
             // with adding a parent interface to the class
-            'ParentSetterEnforcingInterface' => \Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface::class,
+            'ParentSetterEnforcingInterface' => \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface::class,
         ]]];
     }
 }

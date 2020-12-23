@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\CacheException;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\PruneableInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Traits\FilesystemCommonTrait;
-use _PhpScoperabd03f0baf05\Symfony\Component\VarExporter\VarExporter;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\CacheException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\PruneableInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Traits\FilesystemCommonTrait;
+use _PhpScoper0a2ac50786fa\Symfony\Component\VarExporter\VarExporter;
 /**
  * @author Piotr Stankowski <git@trakos.pl>
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Rob Frawley 2nd <rmf@src.run>
  */
-class PhpFilesAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\AbstractAdapter implements \_PhpScoperabd03f0baf05\Symfony\Component\Cache\PruneableInterface
+class PhpFilesAdapter extends \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\AbstractAdapter implements \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\PruneableInterface
 {
     use FilesystemCommonTrait {
         doClear as private doCommonClear;
@@ -103,7 +103,7 @@ class PhpFilesAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Ad
                 $values[$id] = null;
             } elseif (!\is_object($value)) {
                 $values[$id] = $value;
-            } elseif (!$value instanceof \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\LazyValue) {
+            } elseif (!$value instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\LazyValue) {
                 $values[$id] = $value();
             } elseif (\false === ($values[$id] = (include $value->file))) {
                 unset($values[$id], $this->values[$id]);
@@ -130,7 +130,7 @@ class PhpFilesAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Ad
                         }
                         [$expiresAt, $this->values[$id]] = $expiresAt;
                     } elseif ($now < $expiresAt) {
-                        $this->values[$id] = new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\LazyValue($file);
+                        $this->values[$id] = new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\LazyValue($file);
                     }
                     if ($now >= $expiresAt) {
                         unset($this->values[$id], $missingIds[$k], self::$valuesCache[$file]);
@@ -166,7 +166,7 @@ class PhpFilesAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Ad
                 }
                 [$expiresAt, $value] = $expiresAt;
             } elseif ($this->appendOnly) {
-                $value = new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\LazyValue($file);
+                $value = new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\LazyValue($file);
             }
         } catch (\ErrorException $e) {
             return \false;
@@ -196,9 +196,9 @@ class PhpFilesAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Ad
                 $value = "'N;'";
             } elseif (\is_object($value) || \is_array($value)) {
                 try {
-                    $value = \_PhpScoperabd03f0baf05\Symfony\Component\VarExporter\VarExporter::export($value, $isStaticValue);
+                    $value = \_PhpScoper0a2ac50786fa\Symfony\Component\VarExporter\VarExporter::export($value, $isStaticValue);
                 } catch (\Exception $e) {
-                    throw new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)), 0, $e);
+                    throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)), 0, $e);
                 }
             } elseif (\is_string($value)) {
                 // Wrap "N;" in a closure to not confuse it with an encoded `null`
@@ -207,7 +207,7 @@ class PhpFilesAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Ad
                 }
                 $value = \var_export($value, \true);
             } elseif (!\is_scalar($value)) {
-                throw new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)));
+                throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)));
             } else {
                 $value = \var_export($value, \true);
             }
@@ -231,7 +231,7 @@ class PhpFilesAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Ad
             unset(self::$valuesCache[$file]);
         }
         if (!$ok && !\is_writable($this->directory)) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\CacheException(\sprintf('Cache directory is not writable (%s).', $this->directory));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\CacheException(\sprintf('Cache directory is not writable (%s).', $this->directory));
         }
         return $ok;
     }

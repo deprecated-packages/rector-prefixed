@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\StaticTypeMapper\Mapper;
+namespace _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Mapper;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Scalar\String_;
-use PHPStan\Type\Type;
-use Rector\Core\Exception\NotImplementedException;
-use Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
 final class PhpParserNodeMapper
 {
     /**
@@ -22,7 +22,7 @@ final class PhpParserNodeMapper
     {
         $this->phpParserNodeMappers = $phpParserNodeMappers;
     }
-    public function mapToPHPStanType(\PhpParser\Node $node) : \PHPStan\Type\Type
+    public function mapToPHPStanType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         foreach ($this->phpParserNodeMappers as $phpParserNodeMapper) {
             if (!\is_a($node, $phpParserNodeMapper->getNodeType())) {
@@ -30,11 +30,11 @@ final class PhpParserNodeMapper
             }
             // do not let Expr collect all the types
             // note: can be solve later with priorities on mapper interface, making this last
-            if ($phpParserNodeMapper->getNodeType() === \PhpParser\Node\Expr::class && \is_a($node, \PhpParser\Node\Scalar\String_::class)) {
+            if ($phpParserNodeMapper->getNodeType() === \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr::class && \is_a($node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_::class)) {
                 continue;
             }
             return $phpParserNodeMapper->mapToPHPStan($node);
         }
-        throw new \Rector\Core\Exception\NotImplementedException();
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException(\get_class($node));
     }
 }

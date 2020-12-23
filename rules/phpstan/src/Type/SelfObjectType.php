@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPStan\Type;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPStan\Type;
 
-use PHPStan\Type\ObjectType;
-final class SelfObjectType extends \PHPStan\Type\ObjectType
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+final class SelfObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType
 {
 }

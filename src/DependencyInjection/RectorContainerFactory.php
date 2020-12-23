@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\DependencyInjection;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\DependencyInjection;
 
-use _PhpScoperabd03f0baf05\Psr\Container\ContainerInterface;
-use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Core\Stubs\StubLoader;
-use Symplify\PackageBuilder\Console\Input\InputDetector;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Psr\Container\ContainerInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScoper0a2ac50786fa\Rector\Core\Stubs\StubLoader;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorContainerFactory
 {
     /**
      * @param SmartFileInfo[] $configFileInfos
      * @api
      */
-    public function createFromConfigs(array $configFileInfos) : \_PhpScoperabd03f0baf05\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFileInfos) : \_PhpScoper0a2ac50786fa\Psr\Container\ContainerInterface
     {
         // to override the configs without clearing cache
         $environment = 'prod' . \random_int(1, 10000000);
-        $isDebug = \Symplify\PackageBuilder\Console\Input\InputDetector::isDebug();
-        $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment, $isDebug);
+        $isDebug = \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug();
+        $rectorKernel = new \_PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel($environment, $isDebug);
         if ($configFileInfos !== []) {
             $configFilePaths = $this->unpackRealPathsFromFileInfos($configFileInfos);
             $rectorKernel->setConfigs($configFilePaths);
         }
-        $stubLoader = new \Rector\Core\Stubs\StubLoader();
+        $stubLoader = new \_PhpScoper0a2ac50786fa\Rector\Core\Stubs\StubLoader();
         $stubLoader->loadStubs();
         $rectorKernel->boot();
         return $rectorKernel->getContainer();

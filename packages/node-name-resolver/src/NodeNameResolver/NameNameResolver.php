@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeNameResolver\NodeNameResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 
-use PhpParser\Node;
-use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
-use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-final class NameNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+final class NameNameResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     public function getNode() : string
     {
-        return \PhpParser\Node\Name::class;
+        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Name::class;
     }
     /**
      * @param Name $node
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
-        $resolvedName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME);
-        if ($resolvedName instanceof \PhpParser\Node\Name\FullyQualified) {
+        $resolvedName = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME);
+        if ($resolvedName instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified) {
             return $resolvedName->toString();
         }
         return $node->toString();

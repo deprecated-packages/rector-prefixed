@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Contract\Doctrine;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine;
 
-interface ToOneTagNodeInterface extends \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
+interface ToOneTagNodeInterface extends \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
 {
 }

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Caster;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Caster;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub;
+use _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Helper for filtering out properties in casters.
  *
@@ -20,19 +20,19 @@ use _PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class Caster
 {
-    const EXCLUDE_VERBOSE = 1;
-    const EXCLUDE_VIRTUAL = 2;
-    const EXCLUDE_DYNAMIC = 4;
-    const EXCLUDE_PUBLIC = 8;
-    const EXCLUDE_PROTECTED = 16;
-    const EXCLUDE_PRIVATE = 32;
-    const EXCLUDE_NULL = 64;
-    const EXCLUDE_EMPTY = 128;
-    const EXCLUDE_NOT_IMPORTANT = 256;
-    const EXCLUDE_STRICT = 512;
-    const PREFIX_VIRTUAL = "\0~\0";
-    const PREFIX_DYNAMIC = "\0+\0";
-    const PREFIX_PROTECTED = "\0*\0";
+    public const EXCLUDE_VERBOSE = 1;
+    public const EXCLUDE_VIRTUAL = 2;
+    public const EXCLUDE_DYNAMIC = 4;
+    public const EXCLUDE_PUBLIC = 8;
+    public const EXCLUDE_PROTECTED = 16;
+    public const EXCLUDE_PRIVATE = 32;
+    public const EXCLUDE_NULL = 64;
+    public const EXCLUDE_EMPTY = 128;
+    public const EXCLUDE_NOT_IMPORTANT = 256;
+    public const EXCLUDE_STRICT = 512;
+    public const PREFIX_VIRTUAL = "\0~\0";
+    public const PREFIX_DYNAMIC = "\0+\0";
+    public const PREFIX_PROTECTED = "\0*\0";
     /**
      * Casts objects to arrays and adds the dynamic property prefix.
      *
@@ -144,7 +144,7 @@ class Caster
         }
         return $a;
     }
-    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested) : array
+    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested) : array
     {
         if (isset($a['__PHP_Incomplete_Class_Name'])) {
             $stub->class .= '(' . $a['__PHP_Incomplete_Class_Name'] . ')';

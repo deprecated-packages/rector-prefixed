@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php56\Tests\Rector\FuncCall\PowToExpRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php56\Tests\Rector\FuncCall\PowToExpRector;
 
 use Iterator;
-use Rector\Php56\Rector\FuncCall\PowToExpRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Rector\Php56\Rector\FuncCall\PowToExpRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Some tests copied from:
  * - https://github.com/FriendsOfPHP/PHP-CS-Fixer/commit/14660432d9d0b66bf65135d793b52872cc6eccbc#diff-b412676c923661ef450f4a0903c5442a
  */
-final class PowToExpRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class PowToExpRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class PowToExpRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTes
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php56\Rector\FuncCall\PowToExpRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php56\Rector\FuncCall\PowToExpRector::class;
     }
 }

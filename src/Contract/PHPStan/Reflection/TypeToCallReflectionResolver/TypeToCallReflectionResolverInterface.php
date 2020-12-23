@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
 interface TypeToCallReflectionResolverInterface
 {
-    public function supports(\PHPStan\Type\Type $type) : bool;
+    public function supports(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : bool;
     /**
      * @return FunctionReflection|MethodReflection|null
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer);
+    public function resolve(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer);
 }

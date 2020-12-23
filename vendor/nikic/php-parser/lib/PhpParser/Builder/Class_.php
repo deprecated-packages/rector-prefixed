@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace PhpParser\Builder;
+namespace _PhpScoper0a2ac50786fa\PhpParser\Builder;
 
-use _PhpScoperabd03f0baf05\PhpParser;
-use PhpParser\BuilderHelpers;
-use PhpParser\Node\Name;
-use PhpParser\Node\Stmt;
-class Class_ extends \PhpParser\Builder\Declaration
+use _PhpScoper0a2ac50786fa\PhpParser;
+use _PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+class Class_ extends \_PhpScoper0a2ac50786fa\PhpParser\Builder\Declaration
 {
     protected $name;
     protected $extends = null;
@@ -35,7 +35,7 @@ class Class_ extends \PhpParser\Builder\Declaration
      */
     public function extend($class)
     {
-        $this->extends = \PhpParser\BuilderHelpers::normalizeName($class);
+        $this->extends = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeName($class);
         return $this;
     }
     /**
@@ -48,7 +48,7 @@ class Class_ extends \PhpParser\Builder\Declaration
     public function implement(...$interfaces)
     {
         foreach ($interfaces as $interface) {
-            $this->implements[] = \PhpParser\BuilderHelpers::normalizeName($interface);
+            $this->implements[] = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeName($interface);
         }
         return $this;
     }
@@ -59,7 +59,7 @@ class Class_ extends \PhpParser\Builder\Declaration
      */
     public function makeAbstract()
     {
-        $this->flags = \PhpParser\BuilderHelpers::addModifier($this->flags, \PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT);
+        $this->flags = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::addModifier($this->flags, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT);
         return $this;
     }
     /**
@@ -69,7 +69,7 @@ class Class_ extends \PhpParser\Builder\Declaration
      */
     public function makeFinal()
     {
-        $this->flags = \PhpParser\BuilderHelpers::addModifier($this->flags, \PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
+        $this->flags = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::addModifier($this->flags, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
         return $this;
     }
     /**
@@ -81,8 +81,8 @@ class Class_ extends \PhpParser\Builder\Declaration
      */
     public function addStmt($stmt)
     {
-        $stmt = \PhpParser\BuilderHelpers::normalizeNode($stmt);
-        $targets = [\PhpParser\Node\Stmt\TraitUse::class => &$this->uses, \PhpParser\Node\Stmt\ClassConst::class => &$this->constants, \PhpParser\Node\Stmt\Property::class => &$this->properties, \PhpParser\Node\Stmt\ClassMethod::class => &$this->methods];
+        $stmt = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeNode($stmt);
+        $targets = [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\TraitUse::class => &$this->uses, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst::class => &$this->constants, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class => &$this->properties, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class => &$this->methods];
         $class = \get_class($stmt);
         if (!isset($targets[$class])) {
             throw new \LogicException(\sprintf('Unexpected node of type "%s"', $stmt->getType()));
@@ -95,8 +95,8 @@ class Class_ extends \PhpParser\Builder\Declaration
      *
      * @return Stmt\Class_ The built class node
      */
-    public function getNode() : \PhpParser\Node
+    public function getNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        return new \PhpParser\Node\Stmt\Class_($this->name, ['flags' => $this->flags, 'extends' => $this->extends, 'implements' => $this->implements, 'stmts' => \array_merge($this->uses, $this->constants, $this->properties, $this->methods)], $this->attributes);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_($this->name, ['flags' => $this->flags, 'extends' => $this->extends, 'implements' => $this->implements, 'stmts' => \array_merge($this->uses, $this->constants, $this->properties, $this->methods)], $this->attributes);
     }
 }

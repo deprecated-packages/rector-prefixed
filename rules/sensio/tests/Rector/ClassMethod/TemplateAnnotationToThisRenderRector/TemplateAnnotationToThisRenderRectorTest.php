@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
 
 use Iterator;
-use Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class TemplateAnnotationToThisRenderRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class TemplateAnnotationToThisRenderRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class TemplateAnnotationToThisRenderRectorTest extends \Rector\Testing\PHP
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector::class;
     }
 }

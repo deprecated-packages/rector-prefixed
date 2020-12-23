@@ -1,8 +1,10 @@
 <?php
 
-namespace Rector\CodeQuality\Tests\Rector\CombinedAssignRector\Fixture;
+namespace Rector\CodeQuality\Tests\Rector\Assign\CombinedAssignRector\Fixture;
 
-class Whatever
+use Rector\CodeQuality\Tests\Rector\Assign\CombinedAssignRector\Source\AbstractSomeClassSoParentCanBeUsed;
+
+class Whatever extends AbstractSomeClassSoParentCanBeUsed
 {
     public function __construct($parameter)
     {
@@ -28,9 +30,11 @@ class Whatever
 -----
 <?php
 
-namespace Rector\CodeQuality\Tests\Rector\CombinedAssignRector\Fixture;
+namespace Rector\CodeQuality\Tests\Rector\Assign\CombinedAssignRector\Fixture;
 
-class Whatever
+use Rector\CodeQuality\Tests\Rector\Assign\CombinedAssignRector\Source\AbstractSomeClassSoParentCanBeUsed;
+
+class Whatever extends AbstractSomeClassSoParentCanBeUsed
 {
     public function __construct($parameter)
     {

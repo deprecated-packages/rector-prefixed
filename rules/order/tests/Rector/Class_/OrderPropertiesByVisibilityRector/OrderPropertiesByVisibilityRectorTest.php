@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Order\Tests\Rector\Class_\OrderPropertiesByVisibilityRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Order\Tests\Rector\Class_\OrderPropertiesByVisibilityRector;
 
 use Iterator;
-use Rector\Order\Rector\Class_\OrderPropertiesByVisibilityRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class OrderPropertiesByVisibilityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Order\Rector\Class_\OrderPropertiesByVisibilityRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class OrderPropertiesByVisibilityRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class OrderPropertiesByVisibilityRectorTest extends \Rector\Testing\PHPUni
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Order\Rector\Class_\OrderPropertiesByVisibilityRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Order\Rector\Class_\OrderPropertiesByVisibilityRector::class;
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector;
 
 use Iterator;
-use Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector;
-use Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\ConfigurableClass;
-use Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\FactoryClass;
-use Rector\CakePHP\ValueObject\ArrayToFluentCall;
-use Rector\CakePHP\ValueObject\FactoryMethod;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ArrayToFluentCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector;
+use _PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\ConfigurableClass;
+use _PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\FactoryClass;
+use _PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\ArrayToFluentCall;
+use _PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\FactoryMethod;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ArrayToFluentCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -29,6 +29,6 @@ final class ArrayToFluentCallRectorTest extends \Rector\Testing\PHPUnit\Abstract
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::class => [\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::ARRAYS_TO_FLUENT_CALLS => [new \Rector\CakePHP\ValueObject\ArrayToFluentCall(\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\ConfigurableClass::class, ['name' => 'setName', 'size' => 'setSize'])], \Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::FACTORY_METHODS => [new \Rector\CakePHP\ValueObject\FactoryMethod(\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\FactoryClass::class, 'buildClass', \Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\ConfigurableClass::class, 2)]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::class => [\_PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::ARRAYS_TO_FLUENT_CALLS => [new \_PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\ArrayToFluentCall(\_PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\ConfigurableClass::class, ['name' => 'setName', 'size' => 'setSize'])], \_PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\MethodCall\ArrayToFluentCallRector::FACTORY_METHODS => [new \_PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\FactoryMethod(\_PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\FactoryClass::class, 'buildClass', \_PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source\ConfigurableClass::class, 2)]]];
     }
 }

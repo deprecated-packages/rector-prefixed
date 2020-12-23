@@ -1,25 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteKdyby\NodeFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeFactory;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Namespace_;
-use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Builder\ClassBuilder;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
-use Rector\Core\PhpParser\Builder\NamespaceBuilder;
-use Rector\Core\PhpParser\Node\NodeFactory;
-use Rector\Core\ValueObject\MethodName;
-use Rector\NetteKdyby\BlueprintFactory\VariableWithTypesFactory;
-use Rector\NetteKdyby\ValueObject\VariableWithType;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ClassBuilder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\MethodBuilder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\NamespaceBuilder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\BlueprintFactory\VariableWithTypesFactory;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\ValueObject\VariableWithType;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 /**
  * @todo decouple to generic object factory for better re-use, e.g. this is just value object pattern
  */
@@ -37,34 +38,39 @@ final class EventValueObjectClassFactory
      * @var NodeFactory
      */
     private $nodeFactory;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NetteKdyby\BlueprintFactory\VariableWithTypesFactory $variableWithTypesFactory)
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\BlueprintFactory\VariableWithTypesFactory $variableWithTypesFactory)
     {
         $this->classNaming = $classNaming;
         $this->variableWithTypesFactory = $variableWithTypesFactory;
         $this->nodeFactory = $nodeFactory;
+        $this->nodeNameResolver = $nodeNameResolver;
     }
     /**
      * @param Arg[] $args
      */
-    public function create(string $className, array $args) : \PhpParser\Node\Stmt\Namespace_
+    public function create(string $className, array $args) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_
     {
         $classBuilder = $this->createEventClassBuilder($className);
         $this->decorateWithConstructorIfHasArgs($classBuilder, $args);
         $class = $classBuilder->getNode();
         return $this->wrapClassToNamespace($className, $class);
     }
-    private function createEventClassBuilder(string $className) : \Rector\Core\PhpParser\Builder\ClassBuilder
+    private function createEventClassBuilder(string $className) : \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ClassBuilder
     {
         $shortClassName = $this->classNaming->getShortName($className);
-        $classBuilder = new \Rector\Core\PhpParser\Builder\ClassBuilder($shortClassName);
+        $classBuilder = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ClassBuilder($shortClassName);
         $classBuilder->makeFinal();
-        $classBuilder->extend(new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\Symfony\\Contracts\\EventDispatcher\\Event'));
+        $classBuilder->extend(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified('_PhpScoper0a2ac50786fa\\Symfony\\Contracts\\EventDispatcher\\Event'));
         return $classBuilder;
     }
     /**
      * @param Arg[] $args
      */
-    private function decorateWithConstructorIfHasArgs(\Rector\Core\PhpParser\Builder\ClassBuilder $classBuilder, array $args) : void
+    private function decorateWithConstructorIfHasArgs(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ClassBuilder $classBuilder, array $args) : void
     {
         if ($args === []) {
             return;
@@ -84,24 +90,24 @@ final class EventValueObjectClassFactory
             $classBuilder->addStmt($getterClassMethod);
         }
     }
-    private function wrapClassToNamespace(string $className, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Namespace_
+    private function wrapClassToNamespace(string $className, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_
     {
-        $namespace = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::before($className, '\\', -1);
-        $namespaceBuilder = new \Rector\Core\PhpParser\Builder\NamespaceBuilder($namespace);
+        $namespace = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::before($className, '\\', -1);
+        $namespaceBuilder = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\NamespaceBuilder($namespace);
         $namespaceBuilder->addStmt($class);
         return $namespaceBuilder->getNode();
     }
     /**
      * @param VariableWithType[] $variablesWithTypes
      */
-    private function ensureVariablesAreUnique(array $variablesWithTypes, \Rector\Core\PhpParser\Builder\ClassBuilder $classBuilder) : void
+    private function ensureVariablesAreUnique(array $variablesWithTypes, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ClassBuilder $classBuilder) : void
     {
         $usedVariableNames = [];
-        $className = $classBuilder->getNode()->name;
         foreach ($variablesWithTypes as $variablesWithType) {
             if (\in_array($variablesWithType->getName(), $usedVariableNames, \true)) {
+                $className = $this->nodeNameResolver->getName($classBuilder->getNode());
                 $message = \sprintf('Variable "$%s" is duplicated in to be created "%s" class', $variablesWithType->getName(), $className);
-                throw new \Rector\Core\Exception\ShouldNotHappenException($message);
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException($message);
             }
             $usedVariableNames[] = $variablesWithType->getName();
         }
@@ -109,12 +115,12 @@ final class EventValueObjectClassFactory
     /**
      * @param VariableWithType[] $variableWithTypes
      */
-    private function createConstructClassMethod(array $variableWithTypes) : \PhpParser\Node\Stmt\ClassMethod
+    private function createConstructClassMethod(array $variableWithTypes) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $methodBuilder = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\MethodBuilder(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $methodBuilder->makePublic();
         foreach ($variableWithTypes as $variableWithType) {
-            $param = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($variableWithType->getName()));
+            $param = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Param(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($variableWithType->getName()));
             if ($variableWithType->getPhpParserTypeNode() !== null) {
                 $param->type = $variableWithType->getPhpParserTypeNode();
             }

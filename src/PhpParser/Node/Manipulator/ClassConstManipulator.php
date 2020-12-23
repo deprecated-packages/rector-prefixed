@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassConst;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class ClassConstManipulator
 {
     /**
@@ -34,7 +34,7 @@ final class ClassConstManipulator
      * @var ClassManipulator
      */
     private $classManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
@@ -45,10 +45,10 @@ final class ClassConstManipulator
     /**
      * @return ClassConstFetch[]
      */
-    public function getAllClassConstFetch(\PhpParser\Node\Stmt\ClassConst $classConst) : array
+    public function getAllClassConstFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst $classConst) : array
     {
         /** @var Class_|null $classLike */
-        $classLike = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $classConst->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return [];
         }
@@ -61,13 +61,13 @@ final class ClassConstManipulator
             }
             $searchInNodes[] = $name;
         }
-        return $this->betterNodeFinder->find($searchInNodes, function (\PhpParser\Node $node) use($classConst) : bool {
+        return $this->betterNodeFinder->find($searchInNodes, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($classConst) : bool {
             // itself
             if ($this->betterStandardPrinter->areNodesEqual($node, $classConst)) {
                 return \false;
             }
             // property + static fetch
-            if (!$node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch) {
                 return \false;
             }
             return $this->isNameMatch($node, $classConst);
@@ -76,10 +76,10 @@ final class ClassConstManipulator
     /**
      * @see https://github.com/myclabs/php-enum#declaration
      */
-    public function isEnum(\PhpParser\Node\Stmt\ClassConst $classConst) : bool
+    public function isEnum(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst $classConst) : bool
     {
-        $classLike = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $classConst->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         if ($classLike->extends === null) {
@@ -87,8 +87,10 @@ final class ClassConstManipulator
         }
         return $this->nodeNameResolver->isName($classLike->extends, '*Enum');
     }
-    private function isNameMatch(\PhpParser\Node $node, \PhpParser\Node\Stmt\ClassConst $classConst) : bool
+    private function isNameMatch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst $classConst) : bool
     {
-        return $this->nodeNameResolver->getName($node) === 'self::' . $this->nodeNameResolver->getName($classConst) || $this->nodeNameResolver->getName($node) === 'static::' . $this->nodeNameResolver->getName($classConst);
+        $selfConstantName = 'self::' . $this->nodeNameResolver->getName($classConst);
+        $staticConstantName = 'static::' . $this->nodeNameResolver->getName($classConst);
+        return $this->nodeNameResolver->isNames($classConstFetch, [$selfConstantName, $staticConstantName]);
     }
 }

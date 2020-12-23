@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass;
-use Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
-use Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
-use Symplify\Skipper\ValueObject\Option;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
+use _PhpScoper0a2ac50786fa\Symplify\Skipper\ValueObject\Option;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\Symplify\Skipper\ValueObject\Option::ONLY, [
-        \Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class => ['SomeFileToOnlyInclude.php'],
+    $parameters->set(\_PhpScoper0a2ac50786fa\Symplify\Skipper\ValueObject\Option::ONLY, [
+        \_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class => ['SomeFileToOnlyInclude.php'],
         // these 2 lines should be identical
-        \Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely::class => null,
-        \Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo::class,
+        \_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely::class => null,
+        \_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo::class,
     ]);
 };

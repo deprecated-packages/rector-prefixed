@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05\Doctrine\Inflector;
+namespace _PhpScoper0a2ac50786fa\Doctrine\Inflector;
 
-use _PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Ruleset;
+use _PhpScoper0a2ac50786fa\Doctrine\Inflector\Rules\Ruleset;
 interface LanguageInflectorFactory
 {
     /**
@@ -13,7 +13,7 @@ interface LanguageInflectorFactory
      *
      * @return $this
      */
-    public function withSingularRules(?\_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Ruleset $singularRules, bool $reset = \false) : self;
+    public function withSingularRules(?\_PhpScoper0a2ac50786fa\Doctrine\Inflector\Rules\Ruleset $singularRules, bool $reset = \false) : self;
     /**
      * Applies custom rules for pluralisation
      *
@@ -21,9 +21,9 @@ interface LanguageInflectorFactory
      *
      * @return $this
      */
-    public function withPluralRules(?\_PhpScoperabd03f0baf05\Doctrine\Inflector\Rules\Ruleset $pluralRules, bool $reset = \false) : self;
+    public function withPluralRules(?\_PhpScoper0a2ac50786fa\Doctrine\Inflector\Rules\Ruleset $pluralRules, bool $reset = \false) : self;
     /**
      * Builds the inflector instance with all applicable rules
      */
-    public function build() : \Doctrine\Inflector\Inflector;
+    public function build() : \_PhpScoper0a2ac50786fa\Doctrine\Inflector\Inflector;
 }

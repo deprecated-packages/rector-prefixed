@@ -1,42 +1,42 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\StrictCodeQuality\Rector\Stmt;
+namespace _PhpScoper0a2ac50786fa\Rector\StrictCodeQuality\Rector\Stmt;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\Instanceof_;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Property;
-use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\FloatType;
-use PHPStan\Type\IntegerType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\StringType;
-use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Instanceof_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\FloatType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\IntegerType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\StringType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\StrictCodeQuality\Tests\Rector\Stmt\VarInlineAnnotationToAssertRector\VarInlineAnnotationToAssertRectorTest
  */
-final class VarInlineAnnotationToAssertRector extends \Rector\Core\Rector\AbstractRector
+final class VarInlineAnnotationToAssertRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
     private const ASSERT = 'assert';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @var inline checks above code to assert() of the type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @var inline checks above code to assert() of the type', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -64,18 +64,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt::class];
     }
     /**
      * @param Stmt $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         // skip properties
-        if ($node instanceof \PhpParser\Node\Stmt\Property) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property) {
             return null;
         }
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
@@ -84,7 +84,7 @@ CODE_SAMPLE
             return null;
         }
         $variable = $this->findVariableByName($node, $docVariableName);
-        if (!$variable instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$variable instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return null;
         }
         $isVariableJustCreated = $this->isVariableJustCreated($node, $docVariableName);
@@ -93,7 +93,7 @@ CODE_SAMPLE
         }
         return $this->refactorAlreadyCreatedNode($node, $phpDocInfo, $variable);
     }
-    private function getVarDocVariableName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?string
+    private function getVarDocVariableName(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?string
     {
         $attributeAwareVarTagValueNode = $phpDocInfo->getVarTagValueNode();
         if ($attributeAwareVarTagValueNode === null) {
@@ -106,69 +106,69 @@ CODE_SAMPLE
         }
         return \ltrim($variableName, '$');
     }
-    private function findVariableByName(\PhpParser\Node\Stmt $stmt, string $docVariableName) : ?\PhpParser\Node
+    private function findVariableByName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt, string $docVariableName) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        return $this->betterNodeFinder->findFirst($stmt, function (\PhpParser\Node $stmt) use($docVariableName) : bool {
+        return $this->betterNodeFinder->findFirst($stmt, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $stmt) use($docVariableName) : bool {
             return $this->isVariableName($stmt, $docVariableName);
         });
     }
-    private function isVariableJustCreated(\PhpParser\Node $node, string $docVariableName) : bool
+    private function isVariableJustCreated(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt, string $docVariableName) : bool
     {
-        if (!$node instanceof \PhpParser\Node\Stmt\Expression) {
+        if (!$stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
             return \false;
         }
-        if (!$node->expr instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$stmt->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return \false;
         }
-        $assign = $node->expr;
+        $assign = $stmt->expr;
         // the variable is on the left side = just created
         return $this->isVariableName($assign->var, $docVariableName);
     }
-    private function refactorFreshlyCreatedNode(\PhpParser\Node $node, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
+    private function refactorFreshlyCreatedNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
+        $stmt->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
         $type = $phpDocInfo->getVarType();
         $assertFuncCall = $this->createFuncCallBasedOnType($type, $variable);
         if ($assertFuncCall === null) {
             return null;
         }
-        $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
-        $this->addNodeBeforeNode($assertFuncCall, $node);
-        return $node;
+        $phpDocInfo->removeByType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
+        $this->addNodeBeforeNode($assertFuncCall, $stmt);
+        return $stmt;
     }
-    private function refactorAlreadyCreatedNode(\PhpParser\Node $node, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
+    private function refactorAlreadyCreatedNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $varTagValue = $phpDocInfo->getVarTagValueNode();
         if ($varTagValue === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($varTagValue->type, $variable);
         $assertFuncCall = $this->createFuncCallBasedOnType($phpStanType, $variable);
         if ($assertFuncCall === null) {
             return null;
         }
-        $this->addNodeAfterNode($assertFuncCall, $node);
-        return $node;
+        $this->addNodeAfterNode($assertFuncCall, $stmt);
+        return $stmt;
     }
-    private function createFuncCallBasedOnType(\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\FuncCall
+    private function createFuncCallBasedOnType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
     {
-        if ($type instanceof \PHPStan\Type\ObjectType) {
-            $instanceOf = new \PhpParser\Node\Expr\Instanceof_($variable, new \PhpParser\Node\Name\FullyQualified($type->getClassName()));
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType) {
+            $instanceOf = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Instanceof_($variable, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($type->getClassName()));
             return $this->createFuncCall(self::ASSERT, [$instanceOf]);
         }
-        if ($type instanceof \PHPStan\Type\IntegerType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\IntegerType) {
             $isInt = $this->createFuncCall('is_int', [$variable]);
             return $this->createFuncCall(self::ASSERT, [$isInt]);
         }
-        if ($type instanceof \PHPStan\Type\FloatType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\FloatType) {
             $funcCall = $this->createFuncCall('is_float', [$variable]);
             return $this->createFuncCall(self::ASSERT, [$funcCall]);
         }
-        if ($type instanceof \PHPStan\Type\StringType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\StringType) {
             $isString = $this->createFuncCall('is_string', [$variable]);
             return $this->createFuncCall(self::ASSERT, [$isString]);
         }
-        if ($type instanceof \PHPStan\Type\BooleanType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType) {
             $isInt = $this->createFuncCall('is_bool', [$variable]);
             return $this->createFuncCall(self::ASSERT, [$isInt]);
         }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Tests\Rector\Foreach_\RemoveUnusedForeachKeyRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Tests\Rector\Foreach_\RemoveUnusedForeachKeyRector;
 
 use Iterator;
-use Rector\DeadCode\Rector\Foreach_\RemoveUnusedForeachKeyRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveUnusedForeachKeyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Foreach_\RemoveUnusedForeachKeyRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveUnusedForeachKeyRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveUnusedForeachKeyRectorTest extends \Rector\Testing\PHPUnit\Abs
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DeadCode\Rector\Foreach_\RemoveUnusedForeachKeyRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Foreach_\RemoveUnusedForeachKeyRector::class;
     }
 }

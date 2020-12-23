@@ -1,45 +1,45 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SmartFileSystem\Tests\SmartFileInfo;
+namespace _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Tests\SmartFileInfo;
 
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
-use Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
-use Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class SmartFileInfoTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class SmartFileInfoTest extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase
 {
     public function testInvalidPath() : void
     {
-        $this->expectException(\Symplify\SmartFileSystem\Exception\FileNotFoundException::class);
-        new \Symplify\SmartFileSystem\SmartFileInfo('random');
+        $this->expectException(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Exception\FileNotFoundException::class);
+        new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo('random');
     }
     public function testRelatives() : void
     {
-        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
+        $smartFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         $this->assertNotSame($smartFileInfo->getRelativePath(), $smartFileInfo->getRealPath());
         $this->assertStringEndsWith($this->normalizePath($smartFileInfo->getRelativePath()), $this->normalizePath(__DIR__));
         $this->assertStringEndsWith($this->normalizePath($smartFileInfo->getRelativePathname()), $this->normalizePath(__FILE__));
     }
     public function testRealPathWithoutSuffix() : void
     {
-        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
+        $smartFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         $this->assertStringEndsWith('tests/SmartFileInfo/Source/AnotherFile', $smartFileInfo->getRealPathWithoutSuffix());
     }
     public function testRelativeToDir() : void
     {
-        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
+        $smartFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         $this->assertSame('Source/AnotherFile.txt', $smartFileInfo->getRelativeFilePathFromDirectory(__DIR__));
     }
     public function testRelativeToDirException() : void
     {
-        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
-        $this->expectException(\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException::class);
+        $smartFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
+        $this->expectException(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException::class);
         $smartFileInfo->getRelativeFilePathFromDirectory('non-existing-path');
     }
     public function testDoesFnmatch() : void
     {
-        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
+        $smartFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         // Test param
         $this->assertStringEndsWith($this->normalizePath('tests\\SmartFileInfo\\Source\\AnotherFile.txt'), $smartFileInfo->getRelativePathname());
         $this->assertStringEndsWith($this->normalizePath('tests/SmartFileInfo/Source/AnotherFile.txt'), $smartFileInfo->getRelativePathname());

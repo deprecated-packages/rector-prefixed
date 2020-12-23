@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Finder\Iterator;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Finder\Iterator;
 
 /**
  * PathFilterIterator filters files by path patterns (e.g. some/special/dir).
@@ -16,7 +16,7 @@ namespace _PhpScoperabd03f0baf05\Symfony\Component\Finder\Iterator;
  * @author Fabien Potencier  <fabien@symfony.com>
  * @author Włodzimierz Gajda <gajdaw@gajdaw.pl>
  */
-class PathFilterIterator extends \_PhpScoperabd03f0baf05\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator
+class PathFilterIterator extends \_PhpScoper0a2ac50786fa\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator
 {
     /**
      * Filters the iterator values.
@@ -45,7 +45,7 @@ class PathFilterIterator extends \_PhpScoperabd03f0baf05\Symfony\Component\Finde
      *
      * @return string regexp corresponding to a given string or regexp
      */
-    protected function toRegex($str)
+    protected function toRegex(string $str)
     {
         return $this->isRegex($str) ? $str : '/' . \preg_quote($str, '/') . '/';
     }

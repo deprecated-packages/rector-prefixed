@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\EventDispatcher;
 
 /**
  * An EventSubscriber knows itself what events it is interested in.
@@ -46,15 +46,3 @@ interface EventSubscriberInterface
      */
     public static function getSubscribedEvents();
 }
-/**
- * An EventSubscriber knows itself what events it is interested in.
- * If an EventSubscriber is added to an EventDispatcherInterface, the manager invokes
- * {@link getSubscribedEvents} and registers the subscriber as a listener for all
- * returned events.
- *
- * @author Guilherme Blanco <guilhermeblanco@hotmail.com>
- * @author Jonathan Wage <jonwage@gmail.com>
- * @author Roman Borschel <roman@code-factory.org>
- * @author Bernhard Schussek <bschussek@gmail.com>
- */
-\class_alias('_PhpScoperabd03f0baf05\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', \false);

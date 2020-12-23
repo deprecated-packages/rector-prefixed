@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RemovingStatic\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\NodeAnalyzer;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\ValueObject\MethodName;
-use Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 final class StaticCallPresenceAnalyzer
 {
     /**
@@ -20,25 +20,25 @@ final class StaticCallPresenceAnalyzer
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function hasMethodStaticCallOnType(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $type) : bool
+    public function hasMethodStaticCallOnType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $type) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) use($type) : bool {
-            if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
+        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($type) : bool {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
                 return \false;
             }
             return $this->nodeTypeResolver->isObjectType($node->class, $type);
         });
     }
-    public function hasClassAnyMethodWithStaticCallOnType(\PhpParser\Node\Stmt\Class_ $class, string $type) : bool
+    public function hasClassAnyMethodWithStaticCallOnType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $type) : bool
     {
         foreach ($class->getMethods() as $classMethod) {
             // handled else where
-            if ((string) $classMethod->name === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
+            if ((string) $classMethod->name === \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 continue;
             }
             $hasStaticCall = $this->hasMethodStaticCallOnType($classMethod, $type);

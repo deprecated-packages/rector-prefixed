@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\Source;
 
 final class ChoiceControl
 {

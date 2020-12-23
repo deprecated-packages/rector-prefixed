@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PostRector\Rector;
+namespace _PhpScoper0a2ac50786fa\Rector\PostRector\Rector;
 
-use PhpParser\Node;
-use Rector\PSR4\Collector\RenamedClassesCollector;
-use Rector\Renaming\NodeManipulator\ClassRenamer;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\PSR4\Collector\RenamedClassesCollector;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\NodeManipulator\ClassRenamer;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class ClassRenamingPostRector extends \_PhpScoper0a2ac50786fa\Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var RenamedClassesCollector
@@ -18,7 +18,7 @@ final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPo
      * @var ClassRenamer
      */
     private $classRenamer;
-    public function __construct(\Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer, \_PhpScoper0a2ac50786fa\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector)
     {
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->classRenamer = $classRenamer;
@@ -28,7 +28,7 @@ final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPo
         // must be run before name importing, so new names are imported
         return 650;
     }
-    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function enterNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $oldToNewClasses = $this->renamedClassesCollector->getOldToNewClasses();
         if ($oldToNewClasses === []) {
@@ -36,9 +36,9 @@ final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPo
         }
         return $this->classRenamer->renameNode($node, $oldToNewClasses);
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that renames classes', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that renames classes', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $someClass = new SomeClass();
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'

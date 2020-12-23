@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source;
 
-use Rector\NodeTypeResolver\Tests\Source\AnotherClass;
-class ThisClass extends \Rector\NodeTypeResolver\Tests\Source\AnotherClass
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source\AnotherClass;
+class ThisClass extends \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source\AnotherClass
 {
     public function getThis()
     {

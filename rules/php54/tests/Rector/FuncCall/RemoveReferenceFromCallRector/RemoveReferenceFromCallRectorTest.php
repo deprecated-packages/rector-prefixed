@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php54\Tests\Rector\FuncCall\RemoveReferenceFromCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php54\Tests\Rector\FuncCall\RemoveReferenceFromCallRector;
 
 use Iterator;
-use Rector\Php54\Rector\FuncCall\RemoveReferenceFromCallRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveReferenceFromCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php54\Rector\FuncCall\RemoveReferenceFromCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveReferenceFromCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfoWithoutAutoload($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveReferenceFromCallRectorTest extends \Rector\Testing\PHPUnit\Ab
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php54\Rector\FuncCall\RemoveReferenceFromCallRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php54\Rector\FuncCall\RemoveReferenceFromCallRector::class;
     }
 }

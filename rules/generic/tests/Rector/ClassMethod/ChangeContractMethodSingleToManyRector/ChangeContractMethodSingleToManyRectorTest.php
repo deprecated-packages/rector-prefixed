@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\ClassMethod\ChangeContractMethodSingleToManyRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeContractMethodSingleToManyRector;
 
 use Iterator;
-use Rector\Generic\Rector\ClassMethod\ChangeContractMethodSingleToManyRector;
-use Rector\Generic\Tests\Rector\ClassMethod\ChangeContractMethodSingleToManyRector\Source\OneToManyInterface;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeContractMethodSingleToManyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ChangeContractMethodSingleToManyRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeContractMethodSingleToManyRector\Source\OneToManyInterface;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeContractMethodSingleToManyRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class ChangeContractMethodSingleToManyRectorTest extends \Rector\Testing\P
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\ClassMethod\ChangeContractMethodSingleToManyRector::class => [\Rector\Generic\Rector\ClassMethod\ChangeContractMethodSingleToManyRector::OLD_TO_NEW_METHOD_BY_TYPE => [\Rector\Generic\Tests\Rector\ClassMethod\ChangeContractMethodSingleToManyRector\Source\OneToManyInterface::class => ['getNode' => 'getNodes']]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ChangeContractMethodSingleToManyRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\ChangeContractMethodSingleToManyRector::OLD_TO_NEW_METHOD_BY_TYPE => [\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\ChangeContractMethodSingleToManyRector\Source\OneToManyInterface::class => ['getNode' => 'getNodes']]]];
     }
 }

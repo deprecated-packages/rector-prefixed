@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\RenameGuard;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\RenameGuard;
 
-use Rector\Naming\Contract\Guard\GuardInterface;
-use Rector\Naming\Contract\RenameGuard\RenameGuardInterface;
-use Rector\Naming\Contract\RenameValueObjectInterface;
-final class PropertyRenameGuard implements \Rector\Naming\Contract\RenameGuard\RenameGuardInterface
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\Guard\ConflictingGuardInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameGuard\RenameGuardInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameValueObjectInterface;
+final class PropertyRenameGuard implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameGuard\RenameGuardInterface
 {
     /**
-     * @param GuardInterface[] $guards
+     * @param ConflictingGuardInterface[] $guards
      */
-    public function shouldSkip(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject, array $guards) : bool
+    public function shouldSkip(\_PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject, array $guards) : bool
     {
         foreach ($guards as $guard) {
             if ($guard->check($renameValueObject)) {

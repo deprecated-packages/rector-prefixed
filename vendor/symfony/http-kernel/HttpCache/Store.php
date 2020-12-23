@@ -11,16 +11,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\HttpCache;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\HttpCache;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response;
 /**
  * Store implements all the logic for storing cache metadata (Request and Response headers).
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\HttpCache\StoreInterface
+class Store implements \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\HttpCache\StoreInterface
 {
     protected $root;
     private $keyCache;
@@ -31,7 +31,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
     public function __construct(string $root)
     {
         $this->root = $root;
-        if (!\file_exists($this->root) && !@\mkdir($this->root, 0777, \true) && !\is_dir($this->root)) {
+        if (!\is_dir($this->root) && !@\mkdir($this->root, 0777, \true) && !\is_dir($this->root)) {
             throw new \RuntimeException(\sprintf('Unable to create the store directory (%s).', $this->root));
         }
         $this->keyCache = new \SplObjectStorage();
@@ -54,12 +54,12 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      *
      * @return bool|string true if the lock is acquired, the path to the current lock otherwise
      */
-    public function lock(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request)
+    public function lock(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request)
     {
         $key = $this->getCacheKey($request);
         if (!isset($this->locks[$key])) {
             $path = $this->getPath($key);
-            if (!\file_exists(\dirname($path)) && \false === @\mkdir(\dirname($path), 0777, \true) && !\is_dir(\dirname($path))) {
+            if (!\is_dir(\dirname($path)) && \false === @\mkdir(\dirname($path), 0777, \true) && !\is_dir(\dirname($path))) {
                 return $path;
             }
             $h = \fopen($path, 'cb');
@@ -76,7 +76,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      *
      * @return bool False if the lock file does not exist or cannot be unlocked, true otherwise
      */
-    public function unlock(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request)
+    public function unlock(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request)
     {
         $key = $this->getCacheKey($request);
         if (isset($this->locks[$key])) {
@@ -87,14 +87,14 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
         }
         return \false;
     }
-    public function isLocked(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request)
+    public function isLocked(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request)
     {
         $key = $this->getCacheKey($request);
         if (isset($this->locks[$key])) {
             return \true;
             // shortcut if lock held by this process
         }
-        if (!\file_exists($path = $this->getPath($key))) {
+        if (!\is_file($path = $this->getPath($key))) {
             return \false;
         }
         $h = \fopen($path, 'rb');
@@ -109,7 +109,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      *
      * @return Response|null A Response instance, or null if no cache entry was found
      */
-    public function lookup(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request)
+    public function lookup(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request)
     {
         $key = $this->getCacheKey($request);
         if (!($entries = $this->getMetadata($key))) {
@@ -145,7 +145,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      *
      * @throws \RuntimeException
      */
-    public function write(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request, \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response $response)
+    public function write(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response $response)
     {
         $key = $this->getCacheKey($request);
         $storedEnv = $this->persistRequest($request);
@@ -176,7 +176,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
             if (!isset($entry[1]['vary'][0])) {
                 $entry[1]['vary'] = [''];
             }
-            if ($entry[1]['vary'][0] != $vary || !$this->requestsMatch($vary, $entry[0], $storedEnv)) {
+            if ($entry[1]['vary'][0] != $vary || !$this->requestsMatch($vary ?? '', $entry[0], $storedEnv)) {
                 $entries[] = $entry;
             }
         }
@@ -193,7 +193,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      *
      * @return string
      */
-    protected function generateContentDigest(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response $response)
+    protected function generateContentDigest(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response $response)
     {
         return 'en' . \hash('sha256', $response->getContent());
     }
@@ -202,7 +202,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      *
      * @throws \RuntimeException
      */
-    public function invalidate(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request)
+    public function invalidate(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request)
     {
         $modified = \false;
         $key = $this->getCacheKey($request);
@@ -225,9 +225,9 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      * Determines whether two Request HTTP header sets are non-varying based on
      * the vary response header value provided.
      *
-     * @param string $vary A Response vary header
-     * @param array  $env1 A Request HTTP header array
-     * @param array  $env2 A Request HTTP header array
+     * @param string|null $vary A Response vary header
+     * @param array       $env1 A Request HTTP header array
+     * @param array       $env2 A Request HTTP header array
      */
     private function requestsMatch(?string $vary, array $env1, array $env2) : bool
     {
@@ -261,11 +261,9 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      *
      * This method purges both the HTTP and the HTTPS version of the cache entry.
      *
-     * @param string $url A URL
-     *
      * @return bool true if the URL exists with either HTTP or HTTPS scheme and has been purged, false otherwise
      */
-    public function purge($url)
+    public function purge(string $url)
     {
         $http = \preg_replace('#^https:#', 'http:', $url);
         $https = \preg_replace('#^http:#', 'https:', $url);
@@ -278,13 +276,13 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      */
     private function doPurge(string $url) : bool
     {
-        $key = $this->getCacheKey(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request::create($url));
+        $key = $this->getCacheKey(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request::create($url));
         if (isset($this->locks[$key])) {
             \flock($this->locks[$key], \LOCK_UN);
             \fclose($this->locks[$key]);
             unset($this->locks[$key]);
         }
-        if (\file_exists($path = $this->getPath($key))) {
+        if (\is_file($path = $this->getPath($key))) {
             \unlink($path);
             return \true;
         }
@@ -296,7 +294,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
     private function load(string $key) : ?string
     {
         $path = $this->getPath($key);
-        return \file_exists($path) && \false !== ($contents = \file_get_contents($path)) ? $contents : null;
+        return \is_file($path) && \false !== ($contents = \file_get_contents($path)) ? $contents : null;
     }
     /**
      * Save data for the given key.
@@ -317,7 +315,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
                 return \false;
             }
         } else {
-            if (!\file_exists(\dirname($path)) && \false === @\mkdir(\dirname($path), 0777, \true) && !\is_dir(\dirname($path))) {
+            if (!\is_dir(\dirname($path)) && \false === @\mkdir(\dirname($path), 0777, \true) && !\is_dir(\dirname($path))) {
                 return \false;
             }
             $tmpFile = \tempnam(\dirname($path), \basename($path));
@@ -339,7 +337,7 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
         @\chmod($path, 0666 & ~\umask());
         return \true;
     }
-    public function getPath($key)
+    public function getPath(string $key)
     {
         return $this->root . \DIRECTORY_SEPARATOR . \substr($key, 0, 2) . \DIRECTORY_SEPARATOR . \substr($key, 2, 2) . \DIRECTORY_SEPARATOR . \substr($key, 4, 2) . \DIRECTORY_SEPARATOR . \substr($key, 6);
     }
@@ -355,14 +353,14 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
      *
      * @return string A key for the given Request
      */
-    protected function generateCacheKey(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request)
+    protected function generateCacheKey(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request)
     {
         return 'md' . \hash('sha256', $request->getUri());
     }
     /**
      * Returns a cache key for the given Request.
      */
-    private function getCacheKey(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request) : string
+    private function getCacheKey(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request) : string
     {
         if (isset($this->keyCache[$request])) {
             return $this->keyCache[$request];
@@ -372,14 +370,14 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
     /**
      * Persists the Request HTTP headers.
      */
-    private function persistRequest(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request) : array
+    private function persistRequest(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request) : array
     {
         return $request->headers->all();
     }
     /**
      * Persists the Response HTTP headers.
      */
-    private function persistResponse(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response $response) : array
+    private function persistResponse(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response $response) : array
     {
         $headers = $response->headers->all();
         $headers['X-Status'] = [$response->getStatusCode()];
@@ -388,13 +386,13 @@ class Store implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Http
     /**
      * Restores a Response from the HTTP headers and body.
      */
-    private function restoreResponse(array $headers, string $path = null) : \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response
+    private function restoreResponse(array $headers, string $path = null) : \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response
     {
         $status = $headers['X-Status'][0];
         unset($headers['X-Status']);
         if (null !== $path) {
             $headers['X-Body-File'] = [$path];
         }
-        return new \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response($path, $status, $headers);
+        return new \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response($path, $status, $headers);
     }
 }

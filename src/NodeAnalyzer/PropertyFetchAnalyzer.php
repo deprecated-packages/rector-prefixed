@@ -1,33 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\NodeAnalyzer;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 final class PropertyFetchAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isLocalPropertyFetch(\PhpParser\Node $node) : bool
+    public function isLocalPropertyFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \PhpParser\Node\Expr\PropertyFetch) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
             return $this->nodeNameResolver->isName($node->var, 'this');
         }
-        if ($node instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
             return $this->nodeNameResolver->isName($node->class, 'self');
         }
         return \false;
     }
-    public function isLocalPropertyFetchName(\PhpParser\Node $node, string $desiredPropertyName) : bool
+    public function isLocalPropertyFetchName(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $desiredPropertyName) : bool
     {
         if (!$this->isLocalPropertyFetch($node)) {
             return \false;

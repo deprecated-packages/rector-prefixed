@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PhpSpecToPHPUnit\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\ClassMethod;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\ValueObject\MethodName;
-use Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming;
-use Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator;
-use Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming;
+use _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator;
+use _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
 /**
  * @see \Rector\PhpSpecToPHPUnit\Tests\Rector\Variable\PhpSpecToPHPUnitRector\PhpSpecToPHPUnitRectorTest
  */
-final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
+final class PhpSpecMethodToPHPUnitMethodRector extends \_PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
 {
     /**
      * @var PhpSpecRenaming
@@ -24,7 +24,7 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
      * @var PHPUnitTypeDeclarationDecorator
      */
     private $phpUnitTypeDeclarationDecorator;
-    public function __construct(\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator, \_PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming)
     {
         $this->phpSpecRenaming = $phpSpecRenaming;
         $this->phpUnitTypeDeclarationDecorator = $phpUnitTypeDeclarationDecorator;
@@ -34,22 +34,22 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
         }
         if ($this->isName($node, 'letGo')) {
-            $node->name = new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
+            $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
             $this->makeProtected($node);
             $this->phpUnitTypeDeclarationDecorator->decorate($node);
         } elseif ($this->isName($node, 'let')) {
-            $node->name = new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::SET_UP);
+            $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::SET_UP);
             $this->makeProtected($node);
             $this->phpUnitTypeDeclarationDecorator->decorate($node);
         } else {
@@ -57,7 +57,7 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
         }
         return $node;
     }
-    private function processTestMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function processTestMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // special case, @see https://johannespichler.com/writing-custom-phpspec-matchers/
         if ($this->isName($classMethod, 'getMatchers')) {
@@ -68,7 +68,7 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
         // reorder instantiation + expected exception
         $previousStmt = null;
         foreach ((array) $classMethod->stmts as $key => $stmt) {
-            if ($previousStmt && \_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($this->print($stmt), 'duringInstantiation') && \_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($this->print($previousStmt), 'beConstructedThrough')) {
+            if ($previousStmt && \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($this->print($stmt), 'duringInstantiation') && \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($this->print($previousStmt), 'beConstructedThrough')) {
                 $classMethod->stmts[$key - 1] = $stmt;
                 $classMethod->stmts[$key] = $previousStmt;
             }

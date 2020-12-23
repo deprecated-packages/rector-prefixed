@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Input;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException;
 /**
  * Represents a command line option.
  *
@@ -19,10 +19,10 @@ use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException;
  */
 class InputOption
 {
-    const VALUE_NONE = 1;
-    const VALUE_REQUIRED = 2;
-    const VALUE_OPTIONAL = 4;
-    const VALUE_IS_ARRAY = 8;
+    public const VALUE_NONE = 1;
+    public const VALUE_REQUIRED = 2;
+    public const VALUE_OPTIONAL = 4;
+    public const VALUE_IS_ARRAY = 8;
     private $name;
     private $shortcut;
     private $mode;
@@ -43,7 +43,7 @@ class InputOption
             $name = \substr($name, 2);
         }
         if (empty($name)) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException('An option name cannot be empty.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException('An option name cannot be empty.');
         }
         if (empty($shortcut)) {
             $shortcut = null;
@@ -56,20 +56,20 @@ class InputOption
             $shortcuts = \array_filter($shortcuts);
             $shortcut = \implode('|', $shortcuts);
             if (empty($shortcut)) {
-                throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException('An option shortcut cannot be empty.');
+                throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException('An option shortcut cannot be empty.');
             }
         }
         if (null === $mode) {
             $mode = self::VALUE_NONE;
         } elseif ($mode > 15 || $mode < 1) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Option mode "%s" is not valid.', $mode));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Option mode "%s" is not valid.', $mode));
         }
         $this->name = $name;
         $this->shortcut = $shortcut;
         $this->mode = $mode;
         $this->description = $description;
         if ($this->isArray() && !$this->acceptValue()) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException('Impossible to have an option mode VALUE_IS_ARRAY if the option does not accept a value.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException('Impossible to have an option mode VALUE_IS_ARRAY if the option does not accept a value.');
         }
         $this->setDefault($default);
     }
@@ -137,13 +137,13 @@ class InputOption
     public function setDefault($default = null)
     {
         if (self::VALUE_NONE === (self::VALUE_NONE & $this->mode) && null !== $default) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException('Cannot set a default value when using InputOption::VALUE_NONE mode.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException('Cannot set a default value when using InputOption::VALUE_NONE mode.');
         }
         if ($this->isArray()) {
             if (null === $default) {
                 $default = [];
             } elseif (!\is_array($default)) {
-                throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException('A default value for an array option must be an array.');
+                throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException('A default value for an array option must be an array.');
             }
         }
         $this->default = $this->acceptValue() ? $default : \false;

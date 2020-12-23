@@ -8,18 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder;
+trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s" class is deprecated.', \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\ResolvePrivatesPass::class);
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
+ *
+ * @deprecated since Symfony 5.2
  */
-class ResolvePrivatesPass implements \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class ResolvePrivatesPass implements \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function process(\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->getDefinitions() as $id => $definition) {
             if ($definition->isPrivate()) {

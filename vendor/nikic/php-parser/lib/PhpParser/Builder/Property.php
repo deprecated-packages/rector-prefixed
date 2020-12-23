@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace PhpParser\Builder;
+namespace _PhpScoper0a2ac50786fa\PhpParser\Builder;
 
-use _PhpScoperabd03f0baf05\PhpParser;
-use PhpParser\BuilderHelpers;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\NullableType;
-use PhpParser\Node\Stmt;
-class Property implements \PhpParser\Builder
+use _PhpScoper0a2ac50786fa\PhpParser;
+use _PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+class Property implements \_PhpScoper0a2ac50786fa\PhpParser\Builder
 {
     protected $name;
     protected $flags = 0;
@@ -33,7 +33,7 @@ class Property implements \PhpParser\Builder
      */
     public function makePublic()
     {
-        $this->flags = \PhpParser\BuilderHelpers::addModifier($this->flags, \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC);
+        $this->flags = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::addModifier($this->flags, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC);
         return $this;
     }
     /**
@@ -43,7 +43,7 @@ class Property implements \PhpParser\Builder
      */
     public function makeProtected()
     {
-        $this->flags = \PhpParser\BuilderHelpers::addModifier($this->flags, \PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
+        $this->flags = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::addModifier($this->flags, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
         return $this;
     }
     /**
@@ -53,7 +53,7 @@ class Property implements \PhpParser\Builder
      */
     public function makePrivate()
     {
-        $this->flags = \PhpParser\BuilderHelpers::addModifier($this->flags, \PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
+        $this->flags = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::addModifier($this->flags, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
         return $this;
     }
     /**
@@ -63,7 +63,7 @@ class Property implements \PhpParser\Builder
      */
     public function makeStatic()
     {
-        $this->flags = \PhpParser\BuilderHelpers::addModifier($this->flags, \PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
+        $this->flags = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::addModifier($this->flags, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
         return $this;
     }
     /**
@@ -75,7 +75,7 @@ class Property implements \PhpParser\Builder
      */
     public function setDefault($value)
     {
-        $this->default = \PhpParser\BuilderHelpers::normalizeValue($value);
+        $this->default = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeValue($value);
         return $this;
     }
     /**
@@ -87,7 +87,7 @@ class Property implements \PhpParser\Builder
      */
     public function setDocComment($docComment)
     {
-        $this->attributes = ['comments' => [\PhpParser\BuilderHelpers::normalizeDocComment($docComment)]];
+        $this->attributes = ['comments' => [\_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeDocComment($docComment)]];
         return $this;
     }
     /**
@@ -99,7 +99,7 @@ class Property implements \PhpParser\Builder
      */
     public function setType($type)
     {
-        $this->type = \PhpParser\BuilderHelpers::normalizeType($type);
+        $this->type = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeType($type);
         return $this;
     }
     /**
@@ -107,8 +107,8 @@ class Property implements \PhpParser\Builder
      *
      * @return Stmt\Property The built property node
      */
-    public function getNode() : \PhpParser\Node
+    public function getNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        return new \PhpParser\Node\Stmt\Property($this->flags !== 0 ? $this->flags : \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, [new \PhpParser\Node\Stmt\PropertyProperty($this->name, $this->default)], $this->attributes, $this->type);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property($this->flags !== 0 ? $this->flags : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\PropertyProperty($this->name, $this->default)], $this->attributes, $this->type);
     }
 }

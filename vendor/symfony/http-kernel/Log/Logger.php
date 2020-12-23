@@ -8,50 +8,50 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Log;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Log;
 
-use _PhpScoperabd03f0baf05\Psr\Log\AbstractLogger;
-use _PhpScoperabd03f0baf05\Psr\Log\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Psr\Log\LogLevel;
+use _PhpScoper0a2ac50786fa\Psr\Log\AbstractLogger;
+use _PhpScoper0a2ac50786fa\Psr\Log\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Psr\Log\LogLevel;
 /**
  * Minimalist PSR-3 logger designed to write in stderr or any other stream.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class Logger extends \_PhpScoperabd03f0baf05\Psr\Log\AbstractLogger
+class Logger extends \_PhpScoper0a2ac50786fa\Psr\Log\AbstractLogger
 {
-    private static $levels = [\_PhpScoperabd03f0baf05\Psr\Log\LogLevel::DEBUG => 0, \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::INFO => 1, \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::NOTICE => 2, \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::WARNING => 3, \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::ERROR => 4, \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::CRITICAL => 5, \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::ALERT => 6, \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::EMERGENCY => 7];
+    private static $levels = [\_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::DEBUG => 0, \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::INFO => 1, \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::NOTICE => 2, \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::WARNING => 3, \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::ERROR => 4, \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::CRITICAL => 5, \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::ALERT => 6, \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::EMERGENCY => 7];
     private $minLevelIndex;
     private $formatter;
     private $handle;
     public function __construct(string $minLevel = null, $output = null, callable $formatter = null)
     {
         if (null === $minLevel) {
-            $minLevel = null === $output || 'php://stdout' === $output || 'php://stderr' === $output ? \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::ERROR : \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::WARNING;
+            $minLevel = null === $output || 'php://stdout' === $output || 'php://stderr' === $output ? \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::ERROR : \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::WARNING;
             if (isset($_ENV['SHELL_VERBOSITY']) || isset($_SERVER['SHELL_VERBOSITY'])) {
                 switch ((int) (isset($_ENV['SHELL_VERBOSITY']) ? $_ENV['SHELL_VERBOSITY'] : $_SERVER['SHELL_VERBOSITY'])) {
                     case -1:
-                        $minLevel = \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::ERROR;
+                        $minLevel = \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::ERROR;
                         break;
                     case 1:
-                        $minLevel = \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::NOTICE;
+                        $minLevel = \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::NOTICE;
                         break;
                     case 2:
-                        $minLevel = \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::INFO;
+                        $minLevel = \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::INFO;
                         break;
                     case 3:
-                        $minLevel = \_PhpScoperabd03f0baf05\Psr\Log\LogLevel::DEBUG;
+                        $minLevel = \_PhpScoper0a2ac50786fa\Psr\Log\LogLevel::DEBUG;
                         break;
                 }
             }
         }
         if (!isset(self::$levels[$minLevel])) {
-            throw new \_PhpScoperabd03f0baf05\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $minLevel));
+            throw new \_PhpScoper0a2ac50786fa\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $minLevel));
         }
         $this->minLevelIndex = self::$levels[$minLevel];
         $this->formatter = $formatter ?: [$this, 'format'];
         if ($output && \false === ($this->handle = \is_resource($output) ? $output : @\fopen($output, 'a'))) {
-            throw new \_PhpScoperabd03f0baf05\Psr\Log\InvalidArgumentException(\sprintf('Unable to open "%s".', $output));
+            throw new \_PhpScoper0a2ac50786fa\Psr\Log\InvalidArgumentException(\sprintf('Unable to open "%s".', $output));
         }
     }
     /**
@@ -62,7 +62,7 @@ class Logger extends \_PhpScoperabd03f0baf05\Psr\Log\AbstractLogger
     public function log($level, $message, array $context = [])
     {
         if (!isset(self::$levels[$level])) {
-            throw new \_PhpScoperabd03f0baf05\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
+            throw new \_PhpScoper0a2ac50786fa\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
         }
         if (self::$levels[$level] < $this->minLevelIndex) {
             return;

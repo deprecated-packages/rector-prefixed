@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Testing\Finder;
+namespace _PhpScoper0a2ac50786fa\Rector\Testing\Finder;
 
-use _PhpScoperabd03f0baf05\Nette\Loaders\RobotLoader;
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\Core\Contract\Rector\RectorInterface;
-use Rector\Core\Error\ExceptionCorrector;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\PostRector\Contract\Rector\PostRectorInterface;
+use _PhpScoper0a2ac50786fa\Nette\Loaders\RobotLoader;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\RectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Error\ExceptionCorrector;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Contract\Rector\PostRectorInterface;
 use ReflectionClass;
 final class RectorsFinder
 {
@@ -23,7 +23,7 @@ final class RectorsFinder
     public function findCoreRectorClasses() : array
     {
         $allRectors = $this->findInDirectoriesAndCreate(self::RECTOR_PATHS);
-        $rectorClasses = \array_map(function (\Rector\Core\Contract\Rector\RectorInterface $rector) : string {
+        $rectorClasses = \array_map(function (\_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\RectorInterface $rector) : string {
             return \get_class($rector);
         }, $allRectors);
         // for consistency
@@ -44,12 +44,12 @@ final class RectorsFinder
             }
             $reflectionClass = new \ReflectionClass($class);
             $rector = $reflectionClass->newInstanceWithoutConstructor();
-            if (!$rector instanceof \Rector\Core\Contract\Rector\RectorInterface) {
+            if (!$rector instanceof \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\RectorInterface) {
                 // lowercase letter bug in RobotLoader
-                if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($class, 'rector')) {
+                if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($class, 'rector')) {
                     continue;
                 }
-                throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('"%s" found something that looks like Rector but does not implements "%s" interface.', __METHOD__, \Rector\Core\Contract\Rector\RectorInterface::class));
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException(\sprintf('"%s" found something that looks like Rector but does not implements "%s" interface.', __METHOD__, \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\RectorInterface::class));
             }
             /** @var RectorInterface[] $rectors */
             $rectors[] = $rector;
@@ -62,8 +62,8 @@ final class RectorsFinder
     public function findAndCreatePhpRectors() : array
     {
         $coreRectors = $this->findInDirectoriesAndCreate(self::RECTOR_PATHS);
-        return \array_filter($coreRectors, function (\Rector\Core\Contract\Rector\RectorInterface $rector) : bool {
-            return $rector instanceof \Rector\Core\Contract\Rector\PhpRectorInterface;
+        return \array_filter($coreRectors, function (\_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\RectorInterface $rector) : bool {
+            return $rector instanceof \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface;
         });
     }
     /**
@@ -72,7 +72,7 @@ final class RectorsFinder
      */
     private function findClassesInDirectoriesByName(array $directories, string $name) : array
     {
-        $robotLoader = new \_PhpScoperabd03f0baf05\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoper0a2ac50786fa\Nette\Loaders\RobotLoader();
         $robotLoader->addDirectory(...$directories);
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/_rector_finder');
         $robotLoader->acceptFiles = [$name];
@@ -88,11 +88,11 @@ final class RectorsFinder
     private function shouldSkipClass(string $class) : bool
     {
         // not relevant for documentation
-        if (\is_a($class, \Rector\PostRector\Contract\Rector\PostRectorInterface::class, \true)) {
+        if (\is_a($class, \_PhpScoper0a2ac50786fa\Rector\PostRector\Contract\Rector\PostRectorInterface::class, \true)) {
             return \true;
         }
         // special case, because robot loader is case insensitive
-        if ($class === \Rector\Core\Error\ExceptionCorrector::class) {
+        if ($class === \_PhpScoper0a2ac50786fa\Rector\Core\Error\ExceptionCorrector::class) {
             return \true;
         }
         // test fixture class
@@ -103,7 +103,7 @@ final class RectorsFinder
             return \true;
         }
         if (!\class_exists($class)) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException($class);
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException($class);
         }
         $reflectionClass = new \ReflectionClass($class);
         return $reflectionClass->isAbstract();
@@ -115,8 +115,8 @@ final class RectorsFinder
     private function sortRectorObjectsByShortClassName(array $objects) : array
     {
         \usort($objects, function (object $firstObject, object $secondObject) : int {
-            $firstRectorShortClass = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after(\get_class($firstObject), '\\', -1);
-            $secondRectorShortClass = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after(\get_class($secondObject), '\\', -1);
+            $firstRectorShortClass = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after(\get_class($firstObject), '\\', -1);
+            $secondRectorShortClass = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after(\get_class($secondObject), '\\', -1);
             return $firstRectorShortClass <=> $secondRectorShortClass;
         });
         return $objects;

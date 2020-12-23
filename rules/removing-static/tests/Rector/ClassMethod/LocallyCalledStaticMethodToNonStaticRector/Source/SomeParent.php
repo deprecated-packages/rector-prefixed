@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RemovingStatic\Tests\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRector\Source;
 
 abstract class SomeParent
 {

@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnitSymfony\Rector\StaticCall;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnitSymfony\Rector\StaticCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnitSymfony\Tests\Rector\StaticCall\AddMessageToEqualsResponseCodeRector\AddMessageToEqualsResponseCodeRectorTest
  */
-final class AddMessageToEqualsResponseCodeRector extends \Rector\Core\Rector\AbstractRector
+final class AddMessageToEqualsResponseCodeRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add response content to response code assert, so it is easier to debug', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add response content to response code assert, so it is easier to debug', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -58,12 +58,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param StaticCall|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isName($node->name, 'assertEquals')) {
             return null;
@@ -79,27 +79,27 @@ CODE_SAMPLE
         if ($parentVariable === null) {
             return null;
         }
-        $getContentMethodCall = new \PhpParser\Node\Expr\MethodCall($parentVariable, 'getContent');
-        $node->args[2] = new \PhpParser\Node\Arg($getContentMethodCall);
+        $getContentMethodCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($parentVariable, 'getContent');
+        $node->args[2] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($getContentMethodCall);
         return $node;
     }
     /**
      * $this->assertX(Response::SOME_STATUS)
      */
-    private function isHttpRequestArgument(\PhpParser\Node $node) : bool
+    private function isHttpRequestArgument(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
     {
-        if (!$node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+        if (!$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch) {
             return \false;
         }
-        return $this->isObjectType($node->class, '_PhpScoperabd03f0baf05\\Symfony\\Component\\HttpFoundation\\Response');
+        return $this->isObjectType($expr->class, '_PhpScoper0a2ac50786fa\\Symfony\\Component\\HttpFoundation\\Response');
     }
     /**
      * @return Variable|MethodCall|Expr|null
      */
-    private function getParentOfGetStatusCode(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function getParentOfGetStatusCode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $currentNode = $node;
-        while ($currentNode instanceof \PhpParser\Node\Expr\MethodCall) {
+        $currentNode = $expr;
+        while ($currentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             if ($this->isName($currentNode->name, 'getStatusCode')) {
                 return $currentNode->var;
             }

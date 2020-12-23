@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Order\Rector;
+namespace _PhpScoper0a2ac50786fa\Rector\Order\Rector;
 
-use Rector\Core\Rector\AbstractRector;
-use Rector\Order\StmtOrder;
-use Rector\Order\StmtVisibilitySorter;
-abstract class AbstractConstantPropertyMethodOrderRector extends \Rector\Core\Rector\AbstractRector
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Order\StmtOrder;
+use _PhpScoper0a2ac50786fa\Rector\Order\StmtVisibilitySorter;
+abstract class AbstractConstantPropertyMethodOrderRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var StmtOrder
@@ -19,7 +19,7 @@ abstract class AbstractConstantPropertyMethodOrderRector extends \Rector\Core\Re
     /**
      * @required
      */
-    public function autowireAbstractConstantPropertyMethodOrderRector(\Rector\Order\StmtOrder $stmtOrder, \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter) : void
+    public function autowireAbstractConstantPropertyMethodOrderRector(\_PhpScoper0a2ac50786fa\Rector\Order\StmtOrder $stmtOrder, \_PhpScoper0a2ac50786fa\Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter) : void
     {
         $this->stmtOrder = $stmtOrder;
         $this->stmtVisibilitySorter = $stmtVisibilitySorter;

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\NodeTypeResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\Type;
-use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-final class ArrayDimFetchTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+final class ArrayDimFetchTypeResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @var NodeTypeResolver
@@ -18,7 +18,7 @@ final class ArrayDimFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
     /**
      * @required
      */
-    public function autowireArrayDimFetchTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireArrayDimFetchTypeResolver(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -27,15 +27,15 @@ final class ArrayDimFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
      */
     public function getNodeClasses() : array
     {
-        return [\PhpParser\Node\Expr\ArrayDimFetch::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch::class];
     }
     /**
      * @param ArrayDimFetch $node
      */
-    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $arrayDimFetchType = $this->nodeTypeResolver->resolve($node->var);
-        if ($arrayDimFetchType instanceof \PHPStan\Type\ArrayType) {
+        if ($arrayDimFetchType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
             return $arrayDimFetchType->getItemType();
         }
         return $arrayDimFetchType;

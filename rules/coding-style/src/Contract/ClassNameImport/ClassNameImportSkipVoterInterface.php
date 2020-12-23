@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Contract\ClassNameImport;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Contract\ClassNameImport;
 
-use PhpParser\Node;
-use Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
 interface ClassNameImportSkipVoterInterface
 {
-    public function shouldSkip(\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \PhpParser\Node $node) : bool;
+    public function shouldSkip(\_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool;
 }

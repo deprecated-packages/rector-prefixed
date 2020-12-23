@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Input;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException;
 /**
  * A InputDefinition represents a set of valid command line arguments and options.
  *
@@ -47,7 +47,7 @@ class InputDefinition
         $arguments = [];
         $options = [];
         foreach ($definition as $item) {
-            if ($item instanceof \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption) {
+            if ($item instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption) {
                 $options[] = $item;
             } else {
                 $arguments[] = $item;
@@ -61,7 +61,7 @@ class InputDefinition
      *
      * @param InputArgument[] $arguments An array of InputArgument objects
      */
-    public function setArguments($arguments = [])
+    public function setArguments(array $arguments = [])
     {
         $this->arguments = [];
         $this->requiredCount = 0;
@@ -74,7 +74,7 @@ class InputDefinition
      *
      * @param InputArgument[] $arguments An array of InputArgument objects
      */
-    public function addArguments($arguments = [])
+    public function addArguments(?array $arguments = [])
     {
         if (null !== $arguments) {
             foreach ($arguments as $argument) {
@@ -85,16 +85,16 @@ class InputDefinition
     /**
      * @throws LogicException When incorrect argument is given
      */
-    public function addArgument(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputArgument $argument)
+    public function addArgument(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputArgument $argument)
     {
         if (isset($this->arguments[$argument->getName()])) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException(\sprintf('An argument with name "%s" already exists.', $argument->getName()));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException(\sprintf('An argument with name "%s" already exists.', $argument->getName()));
         }
         if ($this->hasAnArrayArgument) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException('Cannot add an argument after an array argument.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException('Cannot add an argument after an array argument.');
         }
         if ($argument->isRequired() && $this->hasOptional) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException('Cannot add a required argument after an optional one.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException('Cannot add a required argument after an optional one.');
         }
         if ($argument->isArray()) {
             $this->hasAnArrayArgument = \true;
@@ -118,7 +118,7 @@ class InputDefinition
     public function getArgument($name)
     {
         if (!$this->hasArgument($name)) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
         $arguments = \is_int($name) ? \array_values($this->arguments) : $this->arguments;
         return $arguments[$name];
@@ -180,7 +180,7 @@ class InputDefinition
      *
      * @param InputOption[] $options An array of InputOption objects
      */
-    public function setOptions($options = [])
+    public function setOptions(array $options = [])
     {
         $this->options = [];
         $this->shortcuts = [];
@@ -191,7 +191,7 @@ class InputDefinition
      *
      * @param InputOption[] $options An array of InputOption objects
      */
-    public function addOptions($options = [])
+    public function addOptions(array $options = [])
     {
         foreach ($options as $option) {
             $this->addOption($option);
@@ -200,15 +200,15 @@ class InputDefinition
     /**
      * @throws LogicException When option given already exist
      */
-    public function addOption(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption $option)
+    public function addOption(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption $option)
     {
         if (isset($this->options[$option->getName()]) && !$option->equals($this->options[$option->getName()])) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException(\sprintf('An option named "%s" already exists.', $option->getName()));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException(\sprintf('An option named "%s" already exists.', $option->getName()));
         }
         if ($option->getShortcut()) {
             foreach (\explode('|', $option->getShortcut()) as $shortcut) {
                 if (isset($this->shortcuts[$shortcut]) && !$option->equals($this->options[$this->shortcuts[$shortcut]])) {
-                    throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException(\sprintf('An option with shortcut "%s" already exists.', $shortcut));
+                    throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException(\sprintf('An option with shortcut "%s" already exists.', $shortcut));
                 }
             }
         }
@@ -222,16 +222,14 @@ class InputDefinition
     /**
      * Returns an InputOption by name.
      *
-     * @param string $name The InputOption name
-     *
      * @return InputOption A InputOption object
      *
      * @throws InvalidArgumentException When option given doesn't exist
      */
-    public function getOption($name)
+    public function getOption(string $name)
     {
         if (!$this->hasOption($name)) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $name));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $name));
         }
         return $this->options[$name];
     }
@@ -241,11 +239,9 @@ class InputDefinition
      * This method can't be used to check if the user included the option when
      * executing the command (use getOption() instead).
      *
-     * @param string $name The InputOption name
-     *
      * @return bool true if the InputOption object exists, false otherwise
      */
-    public function hasOption($name)
+    public function hasOption(string $name)
     {
         return isset($this->options[$name]);
     }
@@ -261,22 +257,18 @@ class InputDefinition
     /**
      * Returns true if an InputOption object exists by shortcut.
      *
-     * @param string $name The InputOption shortcut
-     *
      * @return bool true if the InputOption object exists, false otherwise
      */
-    public function hasShortcut($name)
+    public function hasShortcut(string $name)
     {
         return isset($this->shortcuts[$name]);
     }
     /**
      * Gets an InputOption by shortcut.
      *
-     * @param string $shortcut The Shortcut name
-     *
      * @return InputOption An InputOption object
      */
-    public function getOptionForShortcut($shortcut)
+    public function getOptionForShortcut(string $shortcut)
     {
         return $this->getOption($this->shortcutToName($shortcut));
     }
@@ -303,18 +295,16 @@ class InputDefinition
     public function shortcutToName(string $shortcut) : string
     {
         if (!isset($this->shortcuts[$shortcut])) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "-%s" option does not exist.', $shortcut));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "-%s" option does not exist.', $shortcut));
         }
         return $this->shortcuts[$shortcut];
     }
     /**
      * Gets the synopsis.
      *
-     * @param bool $short Whether to return the short version (with options folded) or not
-     *
      * @return string The synopsis
      */
-    public function getSynopsis($short = \false)
+    public function getSynopsis(bool $short = \false)
     {
         $elements = [];
         if ($short && $this->getOptions()) {

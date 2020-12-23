@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Tests\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Tests\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector;
 
 use Iterator;
-use Rector\CodingStyle\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class CamelCaseFunctionNamingToUnderscoreRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class CamelCaseFunctionNamingToUnderscoreRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class CamelCaseFunctionNamingToUnderscoreRectorTest extends \Rector\Testin
     }
     protected function getRectorClass() : string
     {
-        return \Rector\CodingStyle\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector::class;
     }
 }

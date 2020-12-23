@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PhpSpecToPHPUnit\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\Class_;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\UnionType;
-use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpSpecToPHPUnit\PhpSpecMockCollector;
-use Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector;
+use _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
 /**
  * @see \Rector\PhpSpecToPHPUnit\Tests\Rector\Variable\PhpSpecToPHPUnitRector\PhpSpecToPHPUnitRectorTest
  */
-final class AddMockPropertiesRector extends \Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
+final class AddMockPropertiesRector extends \_PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
 {
     /**
      * @var PhpSpecMockCollector
@@ -24,7 +24,7 @@ final class AddMockPropertiesRector extends \Rector\PhpSpecToPHPUnit\Rector\Abst
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector)
     {
         $this->phpSpecMockCollector = $phpSpecMockCollector;
         $this->classInsertManipulator = $classInsertManipulator;
@@ -34,21 +34,21 @@ final class AddMockPropertiesRector extends \Rector\PhpSpecToPHPUnit\Rector\Abst
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
         }
         $classMocks = $this->phpSpecMockCollector->resolveClassMocksFromParam($node);
         /** @var string $class */
-        $class = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $class = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         foreach ($classMocks as $name => $methods) {
-            if (\count($methods) <= 1) {
+            if ((\is_countable($methods) ? \count($methods) : 0) <= 1) {
                 continue;
             }
             // non-ctor used mocks are probably local only
@@ -57,7 +57,7 @@ final class AddMockPropertiesRector extends \Rector\PhpSpecToPHPUnit\Rector\Abst
             }
             $this->phpSpecMockCollector->addPropertyMock($class, $name);
             $variableType = $this->phpSpecMockCollector->getTypeForClassAndVariable($node, $name);
-            $unionType = new \PHPStan\Type\UnionType([new \PHPStan\Type\ObjectType($variableType), new \PHPStan\Type\ObjectType('_PhpScoperabd03f0baf05\\PHPUnit\\Framework\\MockObject\\MockObject')]);
+            $unionType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType([new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($variableType), new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType('_PhpScoper0a2ac50786fa\\PHPUnit\\Framework\\MockObject\\MockObject')]);
             $this->classInsertManipulator->addPropertyToClass($node, $name, $unionType);
         }
         return null;

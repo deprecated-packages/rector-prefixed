@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\ComposerJsonManipulator\Sorter;
+namespace _PhpScoper0a2ac50786fa\Symplify\ComposerJsonManipulator\Sorter;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
 /**
  * Mostly inspired by https://github.com/composer/composer/blob/master/src/Composer/Json/JsonManipulator.php
  * @see \Symplify\ComposerJsonManipulator\Tests\Sorter\ComposerPackageSorterTest
@@ -37,7 +37,7 @@ final class ComposerPackageSorter
     private function createNameWithPriority(string $requirementName) : string
     {
         if ($this->isPlatformPackage($requirementName)) {
-            return (string) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($requirementName, self::REQUIREMENT_TYPE_REGEX, function (array $match) : string {
+            return (string) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($requirementName, self::REQUIREMENT_TYPE_REGEX, function (array $match) : string {
                 $name = $match['name'];
                 if ($name === 'php' || $name === 'hhvm') {
                     return '0-' . $name;
@@ -55,6 +55,6 @@ final class ComposerPackageSorter
     }
     private function isPlatformPackage(string $name) : bool
     {
-        return (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($name, self::PLATFORM_PACKAGE_REGEX);
+        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($name, self::PLATFORM_PACKAGE_REGEX);
     }
 }

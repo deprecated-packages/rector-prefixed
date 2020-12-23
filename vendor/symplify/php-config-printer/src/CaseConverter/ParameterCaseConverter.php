@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\CaseConverter;
+namespace _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\CaseConverter;
 
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\Expression;
-use Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
-use Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider;
-use Symplify\PhpConfigPrinter\ValueObject\MethodName;
-use Symplify\PhpConfigPrinter\ValueObject\VariableName;
-use Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 /**
  * Handles this part:
  *
  * parameters: <---
  */
-final class ParameterCaseConverter implements \Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+final class ParameterCaseConverter implements \_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @var ArgsNodeFactory
@@ -33,7 +33,7 @@ final class ParameterCaseConverter implements \Symplify\PhpConfigPrinter\Contrac
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    public function __construct(\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider $currentFilePathProvider, \Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider $currentFilePathProvider, \_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->currentFilePathProvider = $currentFilePathProvider;
@@ -41,13 +41,13 @@ final class ParameterCaseConverter implements \Symplify\PhpConfigPrinter\Contrac
     }
     public function getKey() : string
     {
-        return \Symplify\PhpConfigPrinter\ValueObject\YamlKey::PARAMETERS;
+        return \_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\YamlKey::PARAMETERS;
     }
     public function match(string $rootKey, $key, $values) : bool
     {
-        return $rootKey === \Symplify\PhpConfigPrinter\ValueObject\YamlKey::PARAMETERS;
+        return $rootKey === \_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\YamlKey::PARAMETERS;
     }
-    public function convertToMethodCall($key, $values) : \PhpParser\Node\Stmt\Expression
+    public function convertToMethodCall($key, $values) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression
     {
         if (\is_string($values)) {
             $values = $this->prefixWithDirConstantIfExistingPath($values);
@@ -61,9 +61,9 @@ final class ParameterCaseConverter implements \Symplify\PhpConfigPrinter\Contrac
             }
         }
         $args = $this->argsNodeFactory->createFromValues([$key, $values]);
-        $parametersVariable = new \PhpParser\Node\Expr\Variable(\Symplify\PhpConfigPrinter\ValueObject\VariableName::PARAMETERS);
-        $methodCall = new \PhpParser\Node\Expr\MethodCall($parametersVariable, \Symplify\PhpConfigPrinter\ValueObject\MethodName::SET, $args);
-        return new \PhpParser\Node\Stmt\Expression($methodCall);
+        $parametersVariable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(\_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\VariableName::PARAMETERS);
+        $methodCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($parametersVariable, \_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\MethodName::SET, $args);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($methodCall);
     }
     /**
      * @return Expr|string

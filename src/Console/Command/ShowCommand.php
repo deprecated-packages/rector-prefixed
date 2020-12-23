@@ -1,18 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Console\Command;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Console\Command;
 
-use Rector\Core\Application\ActiveRectorsProvider;
-use Rector\Core\Configuration\Option;
-use Rector\Core\Console\Output\RectorConfigurationFormatter;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\PackageBuilder\Console\ShellCode;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
+use _PhpScoper0a2ac50786fa\Rector\Core\Application\ActiveRectorsProvider;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ShowCommand extends \_PhpScoper0a2ac50786fa\Rector\Core\Console\Command\AbstractCommand
 {
     /**
      * @var SymfonyStyle
@@ -26,27 +25,22 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
      * @var ParameterProvider
      */
     private $parameterProvider;
-    /**
-     * @var RectorConfigurationFormatter
-     */
-    private $rectorConfigurationFormatter;
-    public function __construct(\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Console\Output\RectorConfigurationFormatter $rectorConfigurationFormatter)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a2ac50786fa\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->activeRectorsProvider = $activeRectorsProvider;
         $this->parameterProvider = $parameterProvider;
         parent::__construct();
-        $this->rectorConfigurationFormatter = $rectorConfigurationFormatter;
     }
     protected function configure() : void
     {
         $this->setDescription('Show loaded Rectors with their configuration');
     }
-    protected function execute(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->reportLoadedRectors();
         $this->reportLoadedSets();
-        return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
     private function reportLoadedRectors() : void
     {
@@ -56,7 +50,6 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
             $this->symfonyStyle->title('Loaded Rector rules');
             foreach ($activeRectors as $rector) {
                 $this->symfonyStyle->writeln(' * ' . \get_class($rector));
-                $this->rectorConfigurationFormatter->printRectorConfiguration($rector);
             }
             $message = \sprintf('%d loaded Rectors', $rectorCount);
             $this->symfonyStyle->success($message);
@@ -67,7 +60,7 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
     }
     private function reportLoadedSets() : void
     {
-        $sets = (array) $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::SETS);
+        $sets = (array) $this->parameterProvider->provideParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::SETS);
         if ($sets === []) {
             return;
         }
@@ -76,7 +69,7 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
         \sort($sets);
         $setFilePaths = [];
         foreach ($sets as $set) {
-            $setFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($set);
+            $setFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($set);
             $setFilePaths[] = $setFileInfo->getRelativeFilePathFromCwd();
         }
         $this->symfonyStyle->listing($setFilePaths);

@@ -1,46 +1,46 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\FuncCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Name;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\FuncCall\InArrayAndArrayKeysToArrayKeyExistsRector\InArrayAndArrayKeysToArrayKeyExistsRectorTest
  */
-final class InArrayAndArrayKeysToArrayKeyExistsRector extends \Rector\Core\Rector\AbstractRector
+final class InArrayAndArrayKeysToArrayKeyExistsRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify `in_array` and `array_keys` functions combination into `array_key_exists` when `array_keys` has one argument only', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('in_array("key", array_keys($array), true);', 'array_key_exists("key", $array);')]);
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify `in_array` and `array_keys` functions combination into `array_key_exists` when `array_keys` has one argument only', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('in_array("key", array_keys($array), true);', 'array_key_exists("key", $array);')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isName($node, 'in_array')) {
             return null;
         }
         $secondArgument = $node->args[1]->value;
-        if (!$secondArgument instanceof \PhpParser\Node\Expr\FuncCall) {
+        if (!$secondArgument instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         if (!$this->isName($secondArgument, 'array_keys')) {
             return null;
         }
-        if (\count($secondArgument->args) > 1) {
+        if (\count((array) $secondArgument->args) > 1) {
             return null;
         }
         $keyArg = $node->args[0];
@@ -48,7 +48,7 @@ final class InArrayAndArrayKeysToArrayKeyExistsRector extends \Rector\Core\Recto
         /** @var FuncCall $innerFuncCallNode */
         $innerFuncCallNode = $arrayArg->value;
         $arrayArg = $innerFuncCallNode->args[0];
-        $node->name = new \PhpParser\Node\Name('array_key_exists');
+        $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('array_key_exists');
         $node->args = [$keyArg, $arrayArg];
         return $node;
     }

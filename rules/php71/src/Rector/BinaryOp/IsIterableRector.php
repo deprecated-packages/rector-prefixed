@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php71\Rector\BinaryOp;
+namespace _PhpScoper0a2ac50786fa\Rector\Php71\Rector\BinaryOp;
 
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\Generic\Rector\AbstractIsAbleFunCallRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\AbstractIsAbleFunCallRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Php71\Tests\Rector\BinaryOp\IsIterableRector\IsIterableRectorTest
  */
-final class IsIterableRector extends \Rector\Generic\Rector\AbstractIsAbleFunCallRector
+final class IsIterableRector extends \_PhpScoper0a2ac50786fa\Rector\Generic\Rector\AbstractIsAbleFunCallRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes is_array + Traversable check to is_iterable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('is_array($foo) || $foo instanceof Traversable;', 'is_iterable($foo);')]);
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes is_array + Traversable check to is_iterable', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('is_array($foo) || $foo instanceof Traversable;', 'is_iterable($foo);')]);
     }
     public function getFuncName() : string
     {
@@ -22,7 +22,7 @@ final class IsIterableRector extends \Rector\Generic\Rector\AbstractIsAbleFunCal
     }
     public function getPhpVersion() : int
     {
-        return \Rector\Core\ValueObject\PhpVersionFeature::IS_ITERABLE;
+        return \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::IS_ITERABLE;
     }
     public function getType() : string
     {

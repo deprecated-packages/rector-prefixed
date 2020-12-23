@@ -1,20 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp74\Tests\Rector\Coalesce\DowngradeNullCoalescingOperatorRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp74\Tests\Rector\Coalesce\DowngradeNullCoalescingOperatorRector;
 
 use Iterator;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\DowngradePhp74\Rector\Coalesce\DowngradeNullCoalescingOperatorRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class DowngradeNullCoalescingOperatorRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\DowngradePhp74\Rector\Coalesce\DowngradeNullCoalescingOperatorRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class DowngradeNullCoalescingOperatorRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -24,10 +23,6 @@ final class DowngradeNullCoalescingOperatorRectorTest extends \Rector\Testing\PH
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DowngradePhp74\Rector\Coalesce\DowngradeNullCoalescingOperatorRector::class;
-    }
-    protected function getPhpVersion() : int
-    {
-        return \Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE_ASSIGN - 1;
+        return \_PhpScoper0a2ac50786fa\Rector\DowngradePhp74\Rector\Coalesce\DowngradeNullCoalescingOperatorRector::class;
     }
 }

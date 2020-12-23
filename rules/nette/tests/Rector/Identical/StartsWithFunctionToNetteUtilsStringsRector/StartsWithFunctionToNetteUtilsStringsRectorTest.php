@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\Tests\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\Tests\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector;
 
 use Iterator;
-use Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class StartsWithFunctionToNetteUtilsStringsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class StartsWithFunctionToNetteUtilsStringsRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class StartsWithFunctionToNetteUtilsStringsRectorTest extends \Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector::class;
     }
 }

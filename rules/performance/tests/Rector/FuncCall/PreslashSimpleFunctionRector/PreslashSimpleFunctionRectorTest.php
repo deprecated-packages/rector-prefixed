@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Performance\Tests\Rector\FuncCall\PreslashSimpleFunctionRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Performance\Tests\Rector\FuncCall\PreslashSimpleFunctionRector;
 
 use Iterator;
-use Rector\Performance\Rector\FuncCall\PreslashSimpleFunctionRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class PreslashSimpleFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Performance\Rector\FuncCall\PreslashSimpleFunctionRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class PreslashSimpleFunctionRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class PreslashSimpleFunctionRectorTest extends \Rector\Testing\PHPUnit\Abs
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Performance\Rector\FuncCall\PreslashSimpleFunctionRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Performance\Rector\FuncCall\PreslashSimpleFunctionRector::class;
     }
 }

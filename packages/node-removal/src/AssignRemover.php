@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeRemoval;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeRemoval;
 
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Stmt\Expression;
-use Rector\ChangesReporting\Collector\RectorChangeCollector;
-use Rector\DeadCode\NodeManipulator\LivingCodeManipulator;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PostRector\Collector\NodesToReplaceCollector;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\RectorChangeCollector;
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\LivingCodeManipulator;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToReplaceCollector;
 final class AssignRemover
 {
     /**
@@ -27,20 +27,20 @@ final class AssignRemover
      * @var LivingCodeManipulator
      */
     private $livingCodeManipulator;
-    public function __construct(\Rector\PostRector\Collector\NodesToReplaceCollector $nodesToReplaceCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\DeadCode\NodeManipulator\LivingCodeManipulator $livingCodeManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToReplaceCollector $nodesToReplaceCollector, \_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \_PhpScoper0a2ac50786fa\Rector\NodeRemoval\NodeRemover $nodeRemover, \_PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\LivingCodeManipulator $livingCodeManipulator)
     {
         $this->nodesToReplaceCollector = $nodesToReplaceCollector;
         $this->rectorChangeCollector = $rectorChangeCollector;
         $this->nodeRemover = $nodeRemover;
         $this->livingCodeManipulator = $livingCodeManipulator;
     }
-    public function removeAssignNode(\PhpParser\Node\Expr\Assign $assign) : void
+    public function removeAssignNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : void
     {
-        $currentStatement = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        $currentStatement = $assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         $this->livingCodeManipulator->addLivingCodeBeforeNode($assign->var, $currentStatement);
         /** @var Assign $assign */
-        $parent = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \PhpParser\Node\Stmt\Expression) {
+        $parent = $assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
             $this->livingCodeManipulator->addLivingCodeBeforeNode($assign->expr, $currentStatement);
             $this->nodeRemover->removeNode($assign);
         } else {

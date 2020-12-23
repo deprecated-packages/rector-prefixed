@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\String_\StringToClassConstantRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\String_\StringToClassConstantRector;
 
 use Iterator;
-use Rector\Generic\Rector\String_\StringToClassConstantRector;
-use Rector\Generic\ValueObject\StringToClassConstant;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class StringToClassConstantRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\String_\StringToClassConstantRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\StringToClassConstant;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class StringToClassConstantRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class StringToClassConstantRectorTest extends \Rector\Testing\PHPUnit\Abst
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\String_\StringToClassConstantRector::class => [\Rector\Generic\Rector\String_\StringToClassConstantRector::STRINGS_TO_CLASS_CONSTANTS => [new \Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScoperabd03f0baf05\\Yet\\AnotherClass', 'CONSTANT'), new \Rector\Generic\ValueObject\StringToClassConstant('compiler.to_class', '_PhpScoperabd03f0baf05\\Yet\\AnotherClass', 'class')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\String_\StringToClassConstantRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\String_\StringToClassConstantRector::STRINGS_TO_CLASS_CONSTANTS => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScoper0a2ac50786fa\\Yet\\AnotherClass', 'CONSTANT'), new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\StringToClassConstant('compiler.to_class', '_PhpScoper0a2ac50786fa\\Yet\\AnotherClass', 'class')]]];
     }
 }

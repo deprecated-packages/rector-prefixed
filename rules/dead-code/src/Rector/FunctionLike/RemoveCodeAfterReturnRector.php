@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\FunctionLike;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\FunctionLike;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\Nop;
-use PhpParser\Node\Stmt\Return_;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\FunctionLike\RemoveCodeAfterReturnRector\RemoveCodeAfterReturnRectorTest
  */
-final class RemoveCodeAfterReturnRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveCodeAfterReturnRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove dead code after return statement', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove dead code after return statement', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(int $a)
@@ -45,12 +45,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_::class];
     }
     /**
      * @param Closure|ClassMethod|Function_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($node->stmts === null) {
             return null;
@@ -59,12 +59,12 @@ CODE_SAMPLE
         foreach ($node->stmts as $key => $stmt) {
             if ($isDeadAfterReturn) {
                 // keep comment
-                if ($node->stmts[$key] instanceof \PhpParser\Node\Stmt\Nop) {
+                if ($node->stmts[$key] instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop) {
                     continue;
                 }
                 $this->removeStmt($node, $key);
             }
-            if ($stmt instanceof \PhpParser\Node\Stmt\Return_) {
+            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_) {
                 $isDeadAfterReturn = \true;
                 continue;
             }

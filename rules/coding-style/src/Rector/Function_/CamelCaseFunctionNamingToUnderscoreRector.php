@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Rector\Function_;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Function_;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\Function_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticRectorStrings;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector\CamelCaseFunctionNamingToUnderscoreRectorTest
  */
-final class CamelCaseFunctionNamingToUnderscoreRector extends \Rector\Core\Rector\AbstractRector
+final class CamelCaseFunctionNamingToUnderscoreRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change CamelCase naming of functions to under_score naming', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change CamelCase naming of functions to under_score naming', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function someCamelCaseFunction()
 {
 }
@@ -41,38 +41,38 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param Function_|FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $shortName = $this->resolveShortName($node);
         if ($shortName === null) {
             return null;
         }
-        $underscoredName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($shortName);
+        $underscoredName = \_PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($shortName);
         if ($underscoredName === $shortName) {
             return null;
         }
-        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
-            $node->name = new \PhpParser\Node\Name($underscoredName);
-        } elseif ($node instanceof \PhpParser\Node\Stmt\Function_) {
-            $node->name = new \PhpParser\Node\Identifier($underscoredName);
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
+            $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name($underscoredName);
+        } elseif ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_) {
+            $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($underscoredName);
         }
         return $node;
     }
     /**
      * @param Function_|FuncCall $node
      */
-    private function resolveShortName(\PhpParser\Node $node) : ?string
+    private function resolveShortName(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
         $functionOrFuncCallName = $this->getName($node);
         if ($functionOrFuncCallName === null) {
             return null;
         }
-        $shortName = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::after($functionOrFuncCallName, '\\', -1);
+        $shortName = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after($functionOrFuncCallName, '\\', -1);
         if ($shortName === null) {
             return $functionOrFuncCallName;
         }

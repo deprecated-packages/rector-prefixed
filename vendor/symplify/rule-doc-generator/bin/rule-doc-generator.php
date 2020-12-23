@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel;
-use Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel;
+use _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
 # 1. autoload
 $possibleAutoloadPaths = [
     // after split package
@@ -25,5 +25,5 @@ $extraConfig = \getcwd() . '/rule-doc-generator.php';
 if (\file_exists($extraConfig)) {
     $extraConfigs[] = $extraConfig;
 }
-$kernelBootAndApplicationRun = new \Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel::class, $extraConfigs);
+$kernelBootAndApplicationRun = new \_PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel::class, $extraConfigs);
 $kernelBootAndApplicationRun->run();

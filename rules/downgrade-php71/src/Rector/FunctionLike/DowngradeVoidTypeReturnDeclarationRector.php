@@ -1,37 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp71\Rector\FunctionLike;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp71\Rector\FunctionLike;
 
-use Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeReturnTypeDeclarationRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\VoidType;
+use _PhpScoper0a2ac50786fa\Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeReturnTypeDeclarationRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DowngradePhp71\Tests\Rector\FunctionLike\DowngradeVoidTypeReturnDeclarationRector\DowngradeVoidTypeReturnDeclarationRectorTest
  */
-final class DowngradeVoidTypeReturnDeclarationRector extends \Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeReturnTypeDeclarationRector
+final class DowngradeVoidTypeReturnDeclarationRector extends \_PhpScoper0a2ac50786fa\Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeReturnTypeDeclarationRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition($this->getRectorDefinitionDescription(), [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove "void" return type, add a "@return void" tag instead', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
-    public function run() : void
+    public function run(): void
     {
-        // do something
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
 class SomeClass
 {
     /**
@@ -39,15 +30,13 @@ class SomeClass
      */
     public function run()
     {
-        // do something
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
-, [self::ADD_DOC_BLOCK => \true])]);
+)]);
     }
-    public function getTypeNameToRemove() : string
+    public function getTypeToRemove() : string
     {
-        return 'void';
+        return \_PhpScoper0a2ac50786fa\PHPStan\Type\VoidType::class;
     }
 }

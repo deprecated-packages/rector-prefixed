@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\MysqlToMysqli\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\MysqlToMysqli\Rector\FuncCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp\Concat;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://stackoverflow.com/a/34041762/1348344
  * @see \Rector\MysqlToMysqli\Tests\Rector\FuncCall\MysqlPConnectToMysqliConnectRector\MysqlPConnectToMysqliConnectRectorTest
  */
-final class MysqlPConnectToMysqliConnectRector extends \Rector\Core\Rector\AbstractRector
+final class MysqlPConnectToMysqliConnectRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace mysql_pconnect() with mysqli_connect() with host p: prefix', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace mysql_pconnect() with mysqli_connect() with host p: prefix', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run($host, $username, $password)
@@ -45,25 +45,25 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isName($node, 'mysql_pconnect')) {
             return null;
         }
-        $node->name = new \PhpParser\Node\Name('mysqli_connect');
+        $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysqli_connect');
         $node->args[0]->value = $this->joinStringWithNode('p:', $node->args[0]->value);
         return $node;
     }
-    private function joinStringWithNode(string $string, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    private function joinStringWithNode(string $string, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if ($expr instanceof \PhpParser\Node\Scalar\String_) {
-            return new \PhpParser\Node\Scalar\String_($string . $expr->value);
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($string . $expr->value);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\String_($string), $expr);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($string), $expr);
     }
 }

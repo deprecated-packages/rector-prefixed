@@ -1,27 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Rector\Catch_;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Catch_;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Catch_;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Catch_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Catch_\CatchExceptionNameMatchingTypeRector\CatchExceptionNameMatchingTypeRectorTest
  */
-final class CatchExceptionNameMatchingTypeRector extends \Rector\Core\Rector\AbstractRector
+final class CatchExceptionNameMatchingTypeRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/xmfMAX/1
      */
     private const STARTS_WITH_ABBREVIATION_REGEX = '#^([A-Za-z]+?)([A-Z]{1}[a-z]{1})([A-Za-z]*)#';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Type and name of catch exception should match', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Type and name of catch exception should match', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -54,14 +55,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Catch_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Catch_::class];
     }
     /**
      * @param Catch_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (\count($node->types) !== 1) {
+        if (\count((array) $node->types) !== 1) {
             return null;
         }
         if ($node->var === null) {
@@ -73,7 +74,7 @@ CODE_SAMPLE
         }
         $type = $node->types[0];
         $typeShortName = $this->getShortName($type);
-        $newVariableName = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace(\lcfirst($typeShortName), self::STARTS_WITH_ABBREVIATION_REGEX, function (array $matches) : string {
+        $newVariableName = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace(\lcfirst($typeShortName), self::STARTS_WITH_ABBREVIATION_REGEX, function (array $matches) : string {
             $output = '';
             $output .= isset($matches[1]) ? \strtolower($matches[1]) : '';
             $output .= $matches[2] ?? '';
@@ -87,9 +88,12 @@ CODE_SAMPLE
         $this->renameVariableInStmts($node, $oldVariableName, $newVariableName);
         return $node;
     }
-    private function renameVariableInStmts(\PhpParser\Node\Stmt\Catch_ $catch, string $oldVariableName, string $newVariableName) : void
+    private function renameVariableInStmts(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Catch_ $catch, string $oldVariableName, string $newVariableName) : void
     {
-        $this->traverseNodesWithCallable($catch->stmts, function (\PhpParser\Node $node) use($oldVariableName, $newVariableName) : void {
+        $this->traverseNodesWithCallable($catch->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($oldVariableName, $newVariableName) : void {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+                return;
+            }
             if (!$this->isVariableName($node, $oldVariableName)) {
                 return;
             }

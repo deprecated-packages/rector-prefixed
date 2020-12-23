@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\AlreadyAssignDetector;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\NodeTraverser;
-use Rector\NodeNestingScope\ScopeNestingComparator;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\NodeNestingScope\ScopeNestingComparator;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
 /**
  * Should add extra null type
  */
-final class NullTypeAssignDetector extends \Rector\TypeDeclaration\AlreadyAssignDetector\AbstractAssignDetector
+final class NullTypeAssignDetector extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector\AbstractAssignDetector
 {
     /**
      * @var ScopeNestingComparator
@@ -26,29 +26,29 @@ final class NullTypeAssignDetector extends \Rector\TypeDeclaration\AlreadyAssign
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->scopeNestingComparator = $scopeNestingComparator;
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function detect(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : ?bool
+    public function detect(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : ?bool
     {
         $needsNullType = null;
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$needsNullType) : ?int {
+        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($propertyName, &$needsNullType) : ?int {
             $expr = $this->matchAssignExprToPropertyName($node, $propertyName);
             if ($expr === null) {
                 return null;
             }
             if ($this->scopeNestingComparator->isNodeConditionallyScoped($expr)) {
                 $needsNullType = \true;
-                return \PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+                return \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
             // not in doctrine property
             $staticType = $this->nodeTypeResolver->getStaticType($expr);
             if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($staticType)) {
                 $needsNullType = \false;
-                return \PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+                return \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
             return null;
         });

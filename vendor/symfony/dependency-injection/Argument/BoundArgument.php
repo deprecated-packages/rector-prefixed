@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Argument;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Argument;
 
 /**
  * @author Guilhem Niot <guilhem.niot@gmail.com>
  */
-final class BoundArgument implements \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
+final class BoundArgument implements \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
 {
-    const SERVICE_BINDING = 0;
-    const DEFAULTS_BINDING = 1;
-    const INSTANCEOF_BINDING = 2;
+    public const SERVICE_BINDING = 0;
+    public const DEFAULTS_BINDING = 1;
+    public const INSTANCEOF_BINDING = 2;
     private static $sequence = 0;
     private $value;
     private $identifier;
@@ -48,9 +48,9 @@ final class BoundArgument implements \_PhpScoperabd03f0baf05\Symfony\Component\D
     public function setValues(array $values)
     {
         if (5 === \count($values)) {
-            list($this->value, $this->identifier, $this->used, $this->type, $this->file) = $values;
+            [$this->value, $this->identifier, $this->used, $this->type, $this->file] = $values;
         } else {
-            list($this->value, $this->identifier, $this->used) = $values;
+            [$this->value, $this->identifier, $this->used] = $values;
         }
     }
 }

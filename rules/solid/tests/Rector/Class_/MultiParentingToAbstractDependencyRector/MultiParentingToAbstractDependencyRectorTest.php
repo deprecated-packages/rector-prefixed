@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SOLID\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector;
+namespace _PhpScoper0a2ac50786fa\Rector\SOLID\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector;
 
 use Iterator;
-use Rector\SOLID\Rector\Class_\MultiParentingToAbstractDependencyRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class MultiParentingToAbstractDependencyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\SOLID\Rector\Class_\MultiParentingToAbstractDependencyRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class MultiParentingToAbstractDependencyRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class MultiParentingToAbstractDependencyRectorTest extends \Rector\Testing
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\SOLID\Rector\Class_\MultiParentingToAbstractDependencyRector::class => [\Rector\SOLID\Rector\Class_\MultiParentingToAbstractDependencyRector::FRAMEWORK => 'nette']];
+        return [\_PhpScoper0a2ac50786fa\Rector\SOLID\Rector\Class_\MultiParentingToAbstractDependencyRector::class => [\_PhpScoper0a2ac50786fa\Rector\SOLID\Rector\Class_\MultiParentingToAbstractDependencyRector::FRAMEWORK => 'nette']];
     }
 }

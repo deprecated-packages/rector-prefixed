@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\ReadWrite\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\ReadWrite\NodeAnalyzer;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\PostDec;
-use PhpParser\Node\Expr\PostInc;
-use PhpParser\Node\Expr\PreDec;
-use PhpParser\Node\Expr\PreInc;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use Rector\Core\Exception\Node\MissingParentNodeException;
-use Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\SOLID\Guard\VariableToConstantGuard;
-use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PostDec;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PostInc;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PreDec;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PreInc;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\Node\MissingParentNodeException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\SOLID\Guard\VariableToConstantGuard;
+use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
 final class ReadWritePropertyAnalyzer
 {
     /**
@@ -31,7 +31,7 @@ final class ReadWritePropertyAnalyzer
      * @var ReadExprAnalyzer
      */
     private $readExprAnalyzer;
-    public function __construct(\Rector\SOLID\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\ReadWrite\NodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\SOLID\Guard\VariableToConstantGuard $variableToConstantGuard, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScoper0a2ac50786fa\Rector\ReadWrite\NodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer)
     {
         $this->variableToConstantGuard = $variableToConstantGuard;
         $this->assignManipulator = $assignManipulator;
@@ -40,40 +40,40 @@ final class ReadWritePropertyAnalyzer
     /**
      * @param PropertyFetch|StaticPropertyFetch $node
      */
-    public function isRead(\PhpParser\Node $node) : bool
+    public function isRead(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
-        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class]);
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::isAnyOf($node, [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch::class]);
+        $parent = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent === null) {
-            throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\Node\MissingParentNodeException();
         }
         $parent = $this->unwrapPostPreIncDec($parent);
-        if ($parent instanceof \PhpParser\Node\Arg) {
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg) {
             $readArg = $this->variableToConstantGuard->isReadArg($parent);
             if ($readArg) {
                 return \true;
             }
         }
-        if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch && $parent->dim === $node) {
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch && $parent->dim === $node) {
             return $this->isArrayDimFetchRead($parent);
         }
         return !$this->assignManipulator->isLeftPartOfAssign($node);
     }
-    private function unwrapPostPreIncDec(\PhpParser\Node $node) : \PhpParser\Node
+    private function unwrapPostPreIncDec(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PreDec || $node instanceof \PhpParser\Node\Expr\PostInc || $node instanceof \PhpParser\Node\Expr\PostDec) {
-            $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PreInc || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PreDec || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PostInc || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PostDec) {
+            $node = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($node === null) {
-                throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\Node\MissingParentNodeException();
             }
         }
         return $node;
     }
-    private function isArrayDimFetchRead(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    private function isArrayDimFetchRead(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
-        $parentParent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentParent = $arrayDimFetch->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentParent === null) {
-            throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\Node\MissingParentNodeException();
         }
         if (!$this->assignManipulator->isLeftPartOfAssign($arrayDimFetch)) {
             return \false;

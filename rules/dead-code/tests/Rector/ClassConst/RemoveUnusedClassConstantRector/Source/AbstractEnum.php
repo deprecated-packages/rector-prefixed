@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Tests\Rector\ClassConst\RemoveUnusedClassConstantRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Tests\Rector\ClassConst\RemoveUnusedClassConstantRector\Source;
 
 abstract class AbstractEnum
 {

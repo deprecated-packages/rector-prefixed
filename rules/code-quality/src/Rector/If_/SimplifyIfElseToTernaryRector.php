@@ -1,31 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\If_;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\If_;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Ternary;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\If_;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Ternary;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\If_\SimplifyIfElseToTernaryRector\SimplifyIfElseToTernaryRectorTest
  */
-final class SimplifyIfElseToTernaryRector extends \Rector\Core\Rector\AbstractRector
+final class SimplifyIfElseToTernaryRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
      */
     private const LINE_LENGHT_LIMIT = 120;
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes if/else for same value as assign to ternary', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes if/else for same value as assign to ternary', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -54,12 +53,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\If_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($node->else === null) {
             return null;
@@ -84,8 +83,8 @@ CODE_SAMPLE
         if ($this->haveNestedTernary([$node->cond, $ternaryIf, $ternaryElse])) {
             return null;
         }
-        $ternary = new \PhpParser\Node\Expr\Ternary($node->cond, $ternaryIf, $ternaryElse);
-        $assign = new \PhpParser\Node\Expr\Assign($ifAssignVar, $ternary);
+        $ternary = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Ternary($node->cond, $ternaryIf, $ternaryElse);
+        $assign = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($ifAssignVar, $ternary);
         // do not create super long lines
         if ($this->isNodeTooLong($assign)) {
             return null;
@@ -95,13 +94,13 @@ CODE_SAMPLE
     /**
      * @param Stmt[] $stmts
      */
-    private function resolveOnlyStmtAssignVar(array $stmts) : ?\PhpParser\Node\Expr
+    private function resolveOnlyStmtAssignVar(array $stmts) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         if (\count($stmts) !== 1) {
             return null;
         }
         $onlyStmt = $this->unwrapExpression($stmts[0]);
-        if (!$onlyStmt instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$onlyStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return null;
         }
         return $onlyStmt->var;
@@ -109,13 +108,13 @@ CODE_SAMPLE
     /**
      * @param Stmt[] $stmts
      */
-    private function resolveOnlyStmtAssignExpr(array $stmts) : ?\PhpParser\Node\Expr
+    private function resolveOnlyStmtAssignExpr(array $stmts) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         if (\count($stmts) !== 1) {
             return null;
         }
         $onlyStmt = $this->unwrapExpression($stmts[0]);
-        if (!$onlyStmt instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$onlyStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return null;
         }
         return $onlyStmt->expr;
@@ -126,19 +125,15 @@ CODE_SAMPLE
     private function haveNestedTernary(array $nodes) : bool
     {
         foreach ($nodes as $node) {
-            $betterNodeFinderFindInstanceOf = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Expr\Ternary::class);
+            $betterNodeFinderFindInstanceOf = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Ternary::class);
             if ($betterNodeFinderFindInstanceOf !== []) {
                 return \true;
             }
         }
         return \false;
     }
-    private function isNodeTooLong(\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isNodeTooLong(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGHT_LIMIT;
-    }
-    private function unwrapExpression(\PhpParser\Node $node) : \PhpParser\Node
-    {
-        return $node instanceof \PhpParser\Node\Stmt\Expression ? $node->expr : $node;
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGHT_LIMIT;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\Tests\Rector\Property\AddUuidAnnotationsToIdPropertyRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Doctrine\Tests\Rector\Property\AddUuidAnnotationsToIdPropertyRector;
 
 use Iterator;
-use Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AddUuidAnnotationsToIdPropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddUuidAnnotationsToIdPropertyRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AddUuidAnnotationsToIdPropertyRectorTest extends \Rector\Testing\PHP
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector::class;
     }
 }

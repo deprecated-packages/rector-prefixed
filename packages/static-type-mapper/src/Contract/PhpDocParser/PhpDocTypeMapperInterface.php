@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\StaticTypeMapper\Contract\PhpDocParser;
+namespace _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpDocParser;
 
-use PhpParser\Node;
-use PHPStan\Analyser\NameScope;
-use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PHPStan\Analyser\NameScope;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
 interface PhpDocTypeMapperInterface
 {
     public function getNodeType() : string;
-    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type;
+    public function mapToPHPStanType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\NameScope $nameScope) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type;
 }

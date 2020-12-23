@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Tests\Rector\ClassMethod\RemoveEmptyClassMethodRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveEmptyClassMethodRector;
 
 use Iterator;
-use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveEmptyClassMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveEmptyClassMethodRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveEmptyClassMethodRectorTest extends \Rector\Testing\PHPUnit\Abs
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector::class;
     }
 }

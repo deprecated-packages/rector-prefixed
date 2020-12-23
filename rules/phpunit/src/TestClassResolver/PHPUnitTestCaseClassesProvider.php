@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\TestClassResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\TestClassResolver;
 
-use _PhpScoperabd03f0baf05\Nette\Loaders\RobotLoader;
-use Rector\PHPUnit\Composer\ComposerAutoloadedDirectoryProvider;
+use _PhpScoper0a2ac50786fa\Nette\Loaders\RobotLoader;
+use _PhpScoper0a2ac50786fa\Rector\PHPUnit\Composer\ComposerAutoloadedDirectoryProvider;
 final class PHPUnitTestCaseClassesProvider
 {
     /**
@@ -15,7 +15,7 @@ final class PHPUnitTestCaseClassesProvider
      * @var ComposerAutoloadedDirectoryProvider
      */
     private $composerAutoloadedDirectoryProvider;
-    public function __construct(\Rector\PHPUnit\Composer\ComposerAutoloadedDirectoryProvider $composerAutoloadedDirectoryProvider)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PHPUnit\Composer\ComposerAutoloadedDirectoryProvider $composerAutoloadedDirectoryProvider)
     {
         $this->composerAutoloadedDirectoryProvider = $composerAutoloadedDirectoryProvider;
     }
@@ -34,9 +34,9 @@ final class PHPUnitTestCaseClassesProvider
         }
         return $this->phpUnitTestCaseClasses;
     }
-    private function createRobotLoadForDirectories() : \_PhpScoperabd03f0baf05\Nette\Loaders\RobotLoader
+    private function createRobotLoadForDirectories() : \_PhpScoper0a2ac50786fa\Nette\Loaders\RobotLoader
     {
-        $robotLoader = new \_PhpScoperabd03f0baf05\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoper0a2ac50786fa\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/tests_add_see_rector_tests');
         $directories = $this->composerAutoloadedDirectoryProvider->provide();
         $robotLoader->addDirectory(...$directories);

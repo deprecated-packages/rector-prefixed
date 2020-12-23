@@ -1,8 +1,0 @@
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
-/** @generate-function-entries */
-function cal_days_in_month(int $calendar, int $month, int $year) : int
-{
-}

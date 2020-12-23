@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SOLID\Tests\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector;
+namespace _PhpScoper0a2ac50786fa\Rector\SOLID\Tests\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector;
 
 use Iterator;
-use Rector\SOLID\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class MakeUnusedClassesWithChildrenAbstractRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\SOLID\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class MakeUnusedClassesWithChildrenAbstractRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MakeUnusedClassesWithChildrenAbstractRectorTest extends \Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \Rector\SOLID\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\SOLID\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector::class;
     }
 }

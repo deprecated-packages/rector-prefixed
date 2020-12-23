@@ -8,8 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\ControllerMetadata;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\ControllerMetadata;
 
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
 /**
  * Responsible for storing metadata of an argument.
  *
@@ -23,7 +24,8 @@ class ArgumentMetadata
     private $hasDefaultValue;
     private $defaultValue;
     private $isNullable;
-    public function __construct(string $name, ?string $type, bool $isVariadic, bool $hasDefaultValue, $defaultValue, bool $isNullable = \false)
+    private $attribute;
+    public function __construct(string $name, ?string $type, bool $isVariadic, bool $hasDefaultValue, $defaultValue, bool $isNullable = \false, ?\_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Attribute\ArgumentInterface $attribute = null)
     {
         $this->name = $name;
         $this->type = $type;
@@ -31,6 +33,7 @@ class ArgumentMetadata
         $this->hasDefaultValue = $hasDefaultValue;
         $this->defaultValue = $defaultValue;
         $this->isNullable = $isNullable || null === $type || $hasDefaultValue && null === $defaultValue;
+        $this->attribute = $attribute;
     }
     /**
      * Returns the name as given in PHP, $foo would yield "foo".
@@ -94,5 +97,12 @@ class ArgumentMetadata
             throw new \LogicException(\sprintf('Argument $%s does not have a default value. Use "%s::hasDefaultValue()" to avoid this exception.', $this->name, __CLASS__));
         }
         return $this->defaultValue;
+    }
+    /**
+     * Returns the attribute (if any) that was set on the argument.
+     */
+    public function getAttribute() : ?\_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Attribute\ArgumentInterface
+    {
+        return $this->attribute;
     }
 }

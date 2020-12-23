@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\Tests\Rector\Class_\SelfContainerGetMethodCallFromTestToInjectPropertyRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Tests\Rector\Class_\SelfContainerGetMethodCallFromTestToInjectPropertyRector\Source;
 
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerInterface;
-abstract class TestCaseWithGetContainer extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerInterface;
+abstract class TestCaseWithGetContainer extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase
 {
-    public function getContainer() : \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerInterface
+    public function getContainer() : \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerInterface
     {
     }
 }

@@ -1,54 +1,48 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\If_;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\If_;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp;
-use PhpParser\Node\Expr\BinaryOp\Identical;
-use PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use PhpParser\Node\Expr\BooleanNot;
-use PhpParser\Node\Expr\Cast\Bool_;
-use PhpParser\Node\Stmt\If_;
-use PhpParser\Node\Stmt\Return_;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
-use Rector\BetterPhpDocParser\Comment\MergedNodeCommentPreserver;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer;
-use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Cast\Bool_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Comment\CommentsMerger;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\If_\SimplifyIfReturnBoolRector\SimplifyIfReturnBoolRectorTest
  */
-final class SimplifyIfReturnBoolRector extends \Rector\Core\Rector\AbstractRector
+final class SimplifyIfReturnBoolRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var StaticTypeAnalyzer
      */
     private $staticTypeAnalyzer;
     /**
-     * @var MergedNodeCommentPreserver
+     * @var CommentsMerger
      */
-    private $mergedNodeCommentPreserver;
-    /**
-     * @var TypeUnwrapper
-     */
-    private $typeUnwrapper;
-    public function __construct(\Rector\BetterPhpDocParser\Comment\MergedNodeCommentPreserver $mergedNodeCommentPreserver, \Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer $staticTypeAnalyzer, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
+    private $commentsMerger;
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer $staticTypeAnalyzer)
     {
-        $this->mergedNodeCommentPreserver = $mergedNodeCommentPreserver;
-        $this->typeUnwrapper = $typeUnwrapper;
         $this->staticTypeAnalyzer = $staticTypeAnalyzer;
+        $this->commentsMerger = $commentsMerger;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Shortens if return false/true to direct return', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Shortens if return false/true to direct return', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 if (strpos($docToken->getContent(), "\n") === false) {
     return true;
 }
@@ -62,12 +56,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\If_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -75,7 +69,7 @@ CODE_SAMPLE
         /** @var Return_ $ifInnerNode */
         $ifInnerNode = $node->stmts[0];
         /** @var Return_ $nextNode */
-        $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $nextNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         /** @var Node $innerIfInnerNode */
         $innerIfInnerNode = $ifInnerNode->expr;
         if ($this->isTrue($innerIfInnerNode)) {
@@ -88,11 +82,11 @@ CODE_SAMPLE
         if ($newReturnNode === null) {
             return null;
         }
-        $this->mergedNodeCommentPreserver->keepComments($newReturnNode, [$node, $ifInnerNode, $nextNode, $newReturnNode]);
+        $this->commentsMerger->keepComments($newReturnNode, [$node, $ifInnerNode, $nextNode, $newReturnNode]);
         $this->removeNode($nextNode);
         return $newReturnNode;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
+    private function shouldSkip(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if ($if->elseifs !== []) {
             return \true;
@@ -110,27 +104,27 @@ CODE_SAMPLE
         if (!$this->isBool($returnedExpr)) {
             return \true;
         }
-        $nextNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_ || $nextNode->expr === null) {
+        $nextNode = $if->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        if (!$nextNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_ || $nextNode->expr === null) {
             return \true;
         }
         // negate + negate → skip for now
-        if ($this->isFalse($returnedExpr) && \_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
+        if ($this->isFalse($returnedExpr) && \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
             return \true;
         }
         return !$this->isBool($nextNode->expr);
     }
-    private function processReturnTrue(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $nextReturnNode) : \PhpParser\Node\Stmt\Return_
+    private function processReturnTrue(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_ $if, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_ $nextReturnNode) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_
     {
-        if ($if->cond instanceof \PhpParser\Node\Expr\BooleanNot && $nextReturnNode->expr !== null && $this->isTrue($nextReturnNode->expr)) {
-            return new \PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded($if->cond->expr));
+        if ($if->cond instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot && $nextReturnNode->expr !== null && $this->isTrue($nextReturnNode->expr)) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded($if->cond->expr));
         }
-        return new \PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded($if->cond));
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded($if->cond));
     }
-    private function processReturnFalse(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $nextReturnNode) : ?\PhpParser\Node\Stmt\Return_
+    private function processReturnFalse(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_ $if, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_ $nextReturnNode) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_
     {
-        if ($if->cond instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
-            return new \PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded(new \PhpParser\Node\Expr\BinaryOp\NotIdentical($if->cond->left, $if->cond->right)));
+        if ($if->cond instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical($if->cond->left, $if->cond->right)));
         }
         if ($nextReturnNode->expr === null) {
             return null;
@@ -138,67 +132,67 @@ CODE_SAMPLE
         if (!$this->isTrue($nextReturnNode->expr)) {
             return null;
         }
-        if ($if->cond instanceof \PhpParser\Node\Expr\BooleanNot) {
-            return new \PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded($if->cond->expr));
+        if ($if->cond instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded($if->cond->expr));
         }
-        return new \PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded(new \PhpParser\Node\Expr\BooleanNot($if->cond)));
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_($this->boolCastOrNullCompareIfNeeded(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot($if->cond)));
     }
     /**
      * Matches: "else if"
      */
-    private function isElseSeparatedThenIf(\PhpParser\Node\Stmt\If_ $if) : bool
+    private function isElseSeparatedThenIf(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if ($if->else === null) {
             return \false;
         }
-        if (\count($if->else->stmts) !== 1) {
+        if (\count((array) $if->else->stmts) !== 1) {
             return \false;
         }
         $onlyStmt = $if->else->stmts[0];
-        return $onlyStmt instanceof \PhpParser\Node\Stmt\If_;
+        return $onlyStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
     }
-    private function isIfWithSingleReturnExpr(\PhpParser\Node\Stmt\If_ $if) : bool
+    private function isIfWithSingleReturnExpr(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_ $if) : bool
     {
-        if (\count($if->stmts) !== 1) {
+        if (\count((array) $if->stmts) !== 1) {
             return \false;
         }
         if ($if->elseifs !== []) {
             return \false;
         }
         $ifInnerNode = $if->stmts[0];
-        if (!$ifInnerNode instanceof \PhpParser\Node\Stmt\Return_) {
+        if (!$ifInnerNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_) {
             return \false;
         }
         // return must have value
         return $ifInnerNode->expr !== null;
     }
-    private function boolCastOrNullCompareIfNeeded(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    private function boolCastOrNullCompareIfNeeded(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         if ($this->isNullableType($expr)) {
             $exprStaticType = $this->getStaticType($expr);
             // if we remove null type, still has to be trueable
-            if ($exprStaticType instanceof \PHPStan\Type\UnionType) {
+            if ($exprStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
                 $unionTypeWithoutNullType = $this->typeUnwrapper->removeNullTypeFromUnionType($exprStaticType);
                 if ($this->staticTypeAnalyzer->isAlwaysTruableType($unionTypeWithoutNullType)) {
-                    return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->createNull());
+                    return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->createNull());
                 }
             } elseif ($this->staticTypeAnalyzer->isAlwaysTruableType($exprStaticType)) {
-                return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->createNull());
+                return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->createNull());
             }
         }
         if (!$this->isBoolCastNeeded($expr)) {
             return $expr;
         }
-        return new \PhpParser\Node\Expr\Cast\Bool_($expr);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Cast\Bool_($expr);
     }
-    private function isBoolCastNeeded(\PhpParser\Node\Expr $expr) : bool
+    private function isBoolCastNeeded(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
     {
-        if ($expr instanceof \PhpParser\Node\Expr\BooleanNot) {
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot) {
             return \false;
         }
-        if ($this->isStaticType($expr, \PHPStan\Type\BooleanType::class)) {
+        if ($this->isStaticType($expr, \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType::class)) {
             return \false;
         }
-        return !$expr instanceof \PhpParser\Node\Expr\BinaryOp;
+        return !$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp;
     }
 }

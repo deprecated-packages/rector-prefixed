@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Rector\AbstractRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
 
-use PhpParser\Node;
-use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\FileSystemRector\Contract\MovedFileInterface;
-use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
-use Rector\PSR4\Collector\RenamedClassesCollector;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\FileSystemRector\Contract\MovedFileInterface;
+use _PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use _PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
+use _PhpScoper0a2ac50786fa\Rector\PSR4\Collector\RenamedClassesCollector;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -30,7 +30,7 @@ trait RemovedAndAddedFilesTrait
     /**
      * @required
      */
-    public function autowireRemovedAndAddedFilesTrait(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector) : void
+    public function autowireRemovedAndAddedFilesTrait(\_PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \_PhpScoper0a2ac50786fa\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector) : void
     {
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->renamedClassesCollector = $renamedClassesCollector;
@@ -41,20 +41,20 @@ trait RemovedAndAddedFilesTrait
     protected function printNodesToFilePath(array $nodes, string $fileLocation) : void
     {
         $fileContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
-        $this->removedAndAddedFilesCollector->addAddedFile(new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($fileLocation, $fileContent));
+        $this->removedAndAddedFilesCollector->addAddedFile(new \_PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\AddedFileWithContent($fileLocation, $fileContent));
     }
-    protected function addMovedFile(\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : void
+    protected function addMovedFile(\_PhpScoper0a2ac50786fa\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : void
     {
-        if ($movedFile instanceof \Rector\FileSystemRector\ValueObject\MovedFileWithNodes && $movedFile->hasClassRename()) {
+        if ($movedFile instanceof \_PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\MovedFileWithNodes && $movedFile->hasClassRename()) {
             $this->renamedClassesCollector->addClassRename($movedFile->getOldClassName(), $movedFile->getNewClassName());
         }
         $this->removedAndAddedFilesCollector->addMovedFile($movedFile);
     }
-    protected function removeFile(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    protected function removeFile(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
     }
-    private function addFile(\Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent) : void
+    private function addFile(\_PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent) : void
     {
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithContent);
     }

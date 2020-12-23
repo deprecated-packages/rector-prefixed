@@ -1,18 +1,18 @@
 <?php
 
-namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Fixture\Event;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Fixture\Event;
 
-final class FileManagerUploadEvent extends \_PhpScoperabd03f0baf05\Symfony\Contracts\EventDispatcher\Event
+final class FileManagerUploadEvent extends \_PhpScoper0a2ac50786fa\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * @var \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Source\SomeUser
      */
     private $user;
-    public function __construct(\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Source\SomeUser $user)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Source\SomeUser $user)
     {
         $this->user = $user;
     }
-    public function getUser() : \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Source\SomeUser
+    public function getUser() : \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Source\SomeUser
     {
         return $this->user;
     }

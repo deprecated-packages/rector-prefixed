@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Legacy\Rector\FileWithoutNamespace;
+namespace _PhpScoper0a2ac50786fa\Rector\Legacy\Rector\FileWithoutNamespace;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\Namespace_;
-use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Legacy\Naming\FullyQualifiedNameResolver;
-use Rector\Legacy\NodeFactory\StaticMethodClassFactory;
-use Rector\Legacy\ValueObject\FunctionToStaticCall;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Legacy\Naming\FullyQualifiedNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Legacy\NodeFactory\StaticMethodClassFactory;
+use _PhpScoper0a2ac50786fa\Rector\Legacy\ValueObject\FunctionToStaticCall;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector\FunctionToStaticMethodRectorTest
  */
-final class FunctionToStaticMethodRector extends \Rector\Core\Rector\AbstractRector
+final class FunctionToStaticMethodRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassNaming
@@ -35,15 +35,15 @@ final class FunctionToStaticMethodRector extends \Rector\Core\Rector\AbstractRec
      * @var FullyQualifiedNameResolver
      */
     private $fullyQualifiedNameResolver;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Legacy\NodeFactory\StaticMethodClassFactory $staticMethodClassFactory, \Rector\Legacy\Naming\FullyQualifiedNameResolver $fullyQualifiedNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoper0a2ac50786fa\Rector\Legacy\NodeFactory\StaticMethodClassFactory $staticMethodClassFactory, \_PhpScoper0a2ac50786fa\Rector\Legacy\Naming\FullyQualifiedNameResolver $fullyQualifiedNameResolver)
     {
         $this->classNaming = $classNaming;
         $this->staticMethodClassFactory = $staticMethodClassFactory;
         $this->fullyQualifiedNameResolver = $fullyQualifiedNameResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change functions to static calls, so composer can autoload them', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change functions to static calls, so composer can autoload them', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function some_function()
 {
 }
@@ -67,19 +67,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \PhpParser\Node\Stmt\Namespace_::class];
+        return [\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_::class];
     }
     /**
      * @param FileWithoutNamespace|Namespace_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         /** @var Function_[] $functions */
-        $functions = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Stmt\Function_::class);
+        $functions = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_::class);
         if ($functions === []) {
             return null;
         }
-        $smartFileInfo = $node->getAttribute(\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }
@@ -108,7 +108,7 @@ CODE_SAMPLE
                 continue;
             }
             $methodName = $this->classNaming->createMethodNameFromFunction($function);
-            $functionsToStaticCalls[] = new \Rector\Legacy\ValueObject\FunctionToStaticCall($functionName, $className, $methodName);
+            $functionsToStaticCalls[] = new \_PhpScoper0a2ac50786fa\Rector\Legacy\ValueObject\FunctionToStaticCall($functionName, $className, $methodName);
         }
         return $functionsToStaticCalls;
     }
@@ -119,8 +119,8 @@ CODE_SAMPLE
      */
     private function replaceFuncCallsWithStaticCalls(array $stmts, array $functionsToStaticCalls) : array
     {
-        $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use($functionsToStaticCalls) : ?StaticCall {
-            if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+        $this->traverseNodesWithCallable($stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($functionsToStaticCalls) : ?StaticCall {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
                 return null;
             }
             foreach ($functionsToStaticCalls as $functionToStaticCall) {
@@ -138,7 +138,7 @@ CODE_SAMPLE
     /**
      * @param Namespace_|FileWithoutNamespace $node
      */
-    private function printStaticMethodClass(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : void
+    private function printStaticMethodClass(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $classFileDestination = $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . $shortClassName . '.php';
         $nodesToPrint = [$this->resolveNodeToPrint($node, $class)];
@@ -148,10 +148,10 @@ CODE_SAMPLE
      * @param Namespace_|FileWithoutNamespace $node
      * @return Namespace_|Class_
      */
-    private function resolveNodeToPrint(\PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node
+    private function resolveNodeToPrint(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
-            return new \PhpParser\Node\Stmt\Namespace_($node->name, [$class]);
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_($node->name, [$class]);
         }
         return $class;
     }

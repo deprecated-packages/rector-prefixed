@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Doctrine\Rector\ClassMethod\ChangeGetIdTypeToUuidRector;
-use Rector\Doctrine\Rector\ClassMethod\ChangeSetIdTypeToUuidRector;
-use Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector;
-use Rector\Doctrine\Rector\Property\RemoveTemporaryUuidColumnPropertyRector;
-use Rector\Doctrine\Rector\Property\RemoveTemporaryUuidRelationPropertyRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\ClassMethod\ChangeGetIdTypeToUuidRector;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\ClassMethod\ChangeSetIdTypeToUuidRector;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Property\RemoveTemporaryUuidColumnPropertyRector;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Property\RemoveTemporaryUuidRelationPropertyRector;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     # properties
-    $services->set(\Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector::class);
-    $services->set(\Rector\Doctrine\Rector\Property\RemoveTemporaryUuidColumnPropertyRector::class);
-    $services->set(\Rector\Doctrine\Rector\Property\RemoveTemporaryUuidRelationPropertyRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Property\RemoveTemporaryUuidColumnPropertyRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\Property\RemoveTemporaryUuidRelationPropertyRector::class);
     # methods
-    $services->set(\Rector\Doctrine\Rector\ClassMethod\ChangeGetIdTypeToUuidRector::class);
-    $services->set(\Rector\Doctrine\Rector\ClassMethod\ChangeSetIdTypeToUuidRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\ClassMethod\ChangeGetIdTypeToUuidRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Doctrine\Rector\ClassMethod\ChangeSetIdTypeToUuidRector::class);
 };

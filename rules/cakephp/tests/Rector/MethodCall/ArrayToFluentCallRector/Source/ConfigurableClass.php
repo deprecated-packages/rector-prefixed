@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\Source;
 
 class ConfigurableClass
 {

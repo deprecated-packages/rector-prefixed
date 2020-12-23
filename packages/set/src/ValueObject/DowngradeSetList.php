@@ -1,10 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Set\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Set\ValueObject;
 
 final class DowngradeSetList
 {
+    /**
+     * @var string
+     */
+    public const PHP_70 = __DIR__ . '/../../../../config/set/downgrade-php70.php';
     /**
      * @var string
      */

@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Architecture\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Architecture\Rector\MethodCall;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\Class_;
-use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\Bridge\RectorProviderException;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
-use Rector\Naming\Naming\PropertyNaming;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\Bridge\RectorProviderException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\DoctrineRepositoryAsServiceTest
  */
-final class ServiceLocatorToDIRector extends \Rector\Core\Rector\AbstractRector
+final class ServiceLocatorToDIRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var DoctrineEntityAndRepositoryMapperInterface
@@ -33,14 +33,14 @@ final class ServiceLocatorToDIRector extends \Rector\Core\Rector\AbstractRector
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface $doctrineEntityAndRepositoryMapper, \Rector\Naming\Naming\PropertyNaming $propertyNaming)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface $doctrineEntityAndRepositoryMapper, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->doctrineEntityAndRepositoryMapper = $doctrineEntityAndRepositoryMapper;
         $this->propertyNaming = $propertyNaming;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns $this->getRepository() in Symfony Controller to constructor injection and private property access.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns $this->getRepository() in Symfony Controller to constructor injection and private property access.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class ProductController extends Controller
 {
     public function someAction()
@@ -77,52 +77,52 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isName($node->name, 'getRepository')) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
         // possible mocking → skip
-        if ($firstArgumentValue instanceof \PhpParser\Node\Expr\StaticCall) {
+        if ($firstArgumentValue instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
             return null;
         }
         /** @var string|null $className */
-        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return null;
         }
         /** @var MethodCall $methodCallNode */
         $methodCallNode = $node;
-        if (\count($methodCallNode->args) !== 1) {
+        if (\count((array) $methodCallNode->args) !== 1) {
             return null;
         }
-        if ($methodCallNode->args[0]->value instanceof \PhpParser\Node\Scalar\String_) {
+        if ($methodCallNode->args[0]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             /** @var String_ $string */
             $string = $methodCallNode->args[0]->value;
             // is alias
-            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($string->value, ':')) {
+            if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($string->value, ':')) {
                 return null;
             }
         }
-        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($className, 'Repository')) {
+        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($className, 'Repository')) {
             return null;
         }
         $repositoryFqn = $this->resolveRepositoryFqnFromGetRepositoryMethodCall($node);
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        $repositoryObjectType = new \PHPStan\Type\ObjectType($repositoryFqn);
+        $repositoryObjectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($repositoryFqn);
         $this->addConstructorDependencyToClass($classLike, $repositoryObjectType, $this->propertyNaming->fqnToVariableName($repositoryObjectType));
         return $this->createPropertyFetch('this', $this->propertyNaming->fqnToVariableName($repositoryObjectType));
     }
-    private function resolveRepositoryFqnFromGetRepositoryMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    private function resolveRepositoryFqnFromGetRepositoryMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {
         $entityFqnOrAlias = $this->entityFqnOrAlias($methodCall);
         if ($entityFqnOrAlias !== null) {
@@ -131,17 +131,17 @@ CODE_SAMPLE
                 return $repositoryClassName;
             }
         }
-        throw new \Rector\Core\Exception\Bridge\RectorProviderException(\sprintf('A repository was not provided for "%s" entity by your "%s" class.', $entityFqnOrAlias, \get_class($this->doctrineEntityAndRepositoryMapper)));
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\Bridge\RectorProviderException(\sprintf('A repository was not provided for "%s" entity by your "%s" class.', $entityFqnOrAlias, \get_class($this->doctrineEntityAndRepositoryMapper)));
     }
-    private function entityFqnOrAlias(\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    private function entityFqnOrAlias(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {
         $repositoryArgument = $methodCall->args[0]->value;
-        if ($repositoryArgument instanceof \PhpParser\Node\Scalar\String_) {
+        if ($repositoryArgument instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return $repositoryArgument->value;
         }
-        if ($repositoryArgument instanceof \PhpParser\Node\Expr\ClassConstFetch && $repositoryArgument->class instanceof \PhpParser\Node\Name) {
+        if ($repositoryArgument instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch && $repositoryArgument->class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
             return $this->getName($repositoryArgument->class);
         }
-        throw new \Rector\Core\Exception\ShouldNotHappenException('Unable to resolve repository argument');
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException('Unable to resolve repository argument');
     }
 }

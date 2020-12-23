@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Restoration\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\Restoration\Rector\Class_;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Interface_;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Rector\AbstractRector;
-use Rector\PSR4\Collector\RenamedClassesCollector;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Interface_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\PSR4\Collector\RenamedClassesCollector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use ReflectionClass;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Restoration\Tests\Rector\Class_\RemoveUselessJustForSakeInterfaceRector\RemoveUselessJustForSakeInterfaceRectorTest
  */
-final class RemoveUselessJustForSakeInterfaceRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveUselessJustForSakeInterfaceRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -31,7 +31,7 @@ final class RemoveUselessJustForSakeInterfaceRector extends \Rector\Core\Rector\
      * @var RenamedClassesCollector
      */
     private $renamedClassesCollector;
-    public function __construct(\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, string $interfacePattern = '#(.*?)#')
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, string $interfacePattern = '#(.*?)#')
     {
         $this->interfacePattern = $interfacePattern;
         $this->renamedClassesCollector = $renamedClassesCollector;
@@ -41,27 +41,24 @@ final class RemoveUselessJustForSakeInterfaceRector extends \Rector\Core\Rector\
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ((array) $node->implements === []) {
             return null;
         }
         foreach ($node->implements as $key => $implement) {
             $implementedInterfaceName = $this->getName($implement);
-            if ($implementedInterfaceName === null) {
-                return null;
-            }
-            if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
+            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
                 continue;
             }
             // is interface in /vendor? probably useful
             $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
-            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
+            if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
                 continue;
             }
             $interfaceImplementers = $this->getInterfaceImplementers($implementedInterfaceName);
@@ -78,9 +75,9 @@ final class RemoveUselessJustForSakeInterfaceRector extends \Rector\Core\Rector\
         }
         return null;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove interface, that are added just for its sake, but nowhere useful', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove interface, that are added just for its sake, but nowhere useful', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass implements OnlyHereUsedInterface
 {
 }
@@ -115,7 +112,7 @@ CODE_SAMPLE
         $reflectionClass = new \ReflectionClass($implementedInterfaceName);
         $fileName = $reflectionClass->getFileName();
         if (!$fileName) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $fileName;
     }
@@ -125,31 +122,33 @@ CODE_SAMPLE
     private function getInterfaceImplementers(string $interfaceName) : array
     {
         return \array_filter(\get_declared_classes(), function (string $className) use($interfaceName) : bool {
-            return \in_array($interfaceName, \class_implements($className), \true);
+            /** @var string[] $classImplements */
+            $classImplements = (array) \class_implements($className);
+            return \in_array($interfaceName, $classImplements, \true);
         });
     }
-    private function removeOrReplaceImlementedInterface(string $implementedInterfaceName, \PhpParser\Node\Stmt\Class_ $class, int $key) : void
+    private function removeOrReplaceImlementedInterface(string $implementedInterfaceName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, int $key) : void
     {
         $parentInterface = $this->getParentInterfaceIfFound($implementedInterfaceName);
         if ($parentInterface !== null) {
-            $class->implements[$key] = new \PhpParser\Node\Name\FullyQualified($parentInterface);
+            $class->implements[$key] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($parentInterface);
         } else {
             unset($class->implements[$key]);
         }
     }
     private function removeInterfaceFile(string $interfaceName, string $classFileLocation) : void
     {
-        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $interface = $this->nodeRepository->findInterface($interfaceName);
-            if ($interface instanceof \PhpParser\Node\Stmt\Interface_) {
+            if ($interface instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Interface_) {
                 $this->removeNode($interface);
             }
         } else {
-            $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
+            $smartFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
             $this->removeFile($smartFileInfo);
         }
     }
-    private function replaceName(\PhpParser\Node\Stmt\Class_ $class, string $implementedInterfaceName) : void
+    private function replaceName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $implementedInterfaceName) : void
     {
         $className = $this->getName($class);
         if ($className === null) {

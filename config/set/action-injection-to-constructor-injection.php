@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector;
-use Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector::class);
-    $services->set(\Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector::class);
 };

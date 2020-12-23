@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\FileSystemRector\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject;
 
-use Rector\FileSystemRector\Contract\MovedFileInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class MovedFileWithContent implements \Rector\FileSystemRector\Contract\MovedFileInterface
+use _PhpScoper0a2ac50786fa\Rector\FileSystemRector\Contract\MovedFileInterface;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class MovedFileWithContent implements \_PhpScoper0a2ac50786fa\Rector\FileSystemRector\Contract\MovedFileInterface
 {
     /**
      * @var string
@@ -19,7 +19,7 @@ final class MovedFileWithContent implements \Rector\FileSystemRector\Contract\Mo
      * @var SmartFileInfo
      */
     private $oldFileInfo;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, string $newPathname)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, string $newPathname)
     {
         $this->oldFileInfo = $oldFileInfo;
         $this->newPathname = $newPathname;

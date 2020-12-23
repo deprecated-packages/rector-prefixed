@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\Builder;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder;
 
-use PhpParser\Builder\TraitUse;
+use _PhpScoper0a2ac50786fa\PhpParser\Builder\TraitUse;
 /**
  * Fixed duplicated naming in php-parser and prevents confusion
  */
-final class TraitUseBuilder extends \PhpParser\Builder\TraitUse
+final class TraitUseBuilder extends \_PhpScoper0a2ac50786fa\PhpParser\Builder\TraitUse
 {
 }

@@ -8,8 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel;
 
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ControllerEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\RequestEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\TerminateEvent;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ViewEvent;
 /**
  * Contains all events thrown in the HttpKernel component.
  *
@@ -26,7 +34,7 @@ final class KernelEvents
      *
      * @Event("Symfony\Component\HttpKernel\Event\RequestEvent")
      */
-    const REQUEST = 'kernel.request';
+    public const REQUEST = 'kernel.request';
     /**
      * The EXCEPTION event occurs when an uncaught exception appears.
      *
@@ -35,17 +43,7 @@ final class KernelEvents
      *
      * @Event("Symfony\Component\HttpKernel\Event\ExceptionEvent")
      */
-    const EXCEPTION = 'kernel.exception';
-    /**
-     * The VIEW event occurs when the return value of a controller
-     * is not a Response instance.
-     *
-     * This event allows you to create a response for the return value of the
-     * controller.
-     *
-     * @Event("Symfony\Component\HttpKernel\Event\ViewEvent")
-     */
-    const VIEW = 'kernel.view';
+    public const EXCEPTION = 'kernel.exception';
     /**
      * The CONTROLLER event occurs once a controller was found for
      * handling a request.
@@ -55,7 +53,7 @@ final class KernelEvents
      *
      * @Event("Symfony\Component\HttpKernel\Event\ControllerEvent")
      */
-    const CONTROLLER = 'kernel.controller';
+    public const CONTROLLER = 'kernel.controller';
     /**
      * The CONTROLLER_ARGUMENTS event occurs once controller arguments have been resolved.
      *
@@ -64,7 +62,17 @@ final class KernelEvents
      *
      * @Event("Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent")
      */
-    const CONTROLLER_ARGUMENTS = 'kernel.controller_arguments';
+    public const CONTROLLER_ARGUMENTS = 'kernel.controller_arguments';
+    /**
+     * The VIEW event occurs when the return value of a controller
+     * is not a Response instance.
+     *
+     * This event allows you to create a response for the return value of the
+     * controller.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\ViewEvent")
+     */
+    public const VIEW = 'kernel.view';
     /**
      * The RESPONSE event occurs once a response was created for
      * replying to a request.
@@ -74,15 +82,7 @@ final class KernelEvents
      *
      * @Event("Symfony\Component\HttpKernel\Event\ResponseEvent")
      */
-    const RESPONSE = 'kernel.response';
-    /**
-     * The TERMINATE event occurs once a response was sent.
-     *
-     * This event allows you to run expensive post-response jobs.
-     *
-     * @Event("Symfony\Component\HttpKernel\Event\TerminateEvent")
-     */
-    const TERMINATE = 'kernel.terminate';
+    public const RESPONSE = 'kernel.response';
     /**
      * The FINISH_REQUEST event occurs when a response was generated for a request.
      *
@@ -91,5 +91,19 @@ final class KernelEvents
      *
      * @Event("Symfony\Component\HttpKernel\Event\FinishRequestEvent")
      */
-    const FINISH_REQUEST = 'kernel.finish_request';
+    public const FINISH_REQUEST = 'kernel.finish_request';
+    /**
+     * The TERMINATE event occurs once a response was sent.
+     *
+     * This event allows you to run expensive post-response jobs.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\TerminateEvent")
+     */
+    public const TERMINATE = 'kernel.terminate';
+    /**
+     * Event aliases.
+     *
+     * These aliases can be consumed by RegisterListenersPass.
+     */
+    public const ALIASES = [\_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class => self::CONTROLLER_ARGUMENTS, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ControllerEvent::class => self::CONTROLLER, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ResponseEvent::class => self::RESPONSE, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class => self::FINISH_REQUEST, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\RequestEvent::class => self::REQUEST, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ViewEvent::class => self::VIEW, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\ExceptionEvent::class => self::EXCEPTION, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\TerminateEvent::class => self::TERMINATE];
 }

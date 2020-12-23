@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Defluent\Contract\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Defluent\Contract\ValueObject;
 
 interface FirstCallFactoryAwareInterface
 {

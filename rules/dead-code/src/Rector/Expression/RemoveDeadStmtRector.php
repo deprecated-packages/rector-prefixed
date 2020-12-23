@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\Expression;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Expression;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Nop;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Expression\RemoveDeadStmtRector\RemoveDeadStmtRectorTest
  */
-final class RemoveDeadStmtRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDeadStmtRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes dead code statements', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes dead code statements', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $value = 5;
 $value;
 CODE_SAMPLE
@@ -32,12 +32,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Expression::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression::class];
     }
     /**
      * @param Expression $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $livingCode = $this->livingCodeManipulator->keepLivingCodeFromExpr($node->expr);
         if ($livingCode === []) {
@@ -46,22 +46,22 @@ CODE_SAMPLE
         $firstExpr = \array_shift($livingCode);
         $node->expr = $firstExpr;
         foreach ($livingCode as $expr) {
-            $newNode = new \PhpParser\Node\Stmt\Expression($expr);
+            $newNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($expr);
             $this->addNodeAfterNode($newNode, $node);
         }
         return null;
     }
-    private function removeNodeAndKeepComments(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function removeNodeAndKeepComments(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $expression) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($node->getComments() !== []) {
-            $nop = new \PhpParser\Node\Stmt\Nop();
-            $nop->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
+        $phpDocInfo = $expression->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if ($expression->getComments() !== []) {
+            $nop = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop();
+            $nop->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
             $this->phpDocInfoFactory->createFromNode($nop);
             return $nop;
         }
-        $this->removeNode($node);
+        $this->removeNode($expression);
         return null;
     }
 }

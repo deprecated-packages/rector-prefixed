@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeCollector\NodeCollector;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use PHPStan\Type\TypeUtils;
-use PHPStan\Type\UnionType;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 use ReflectionClass;
 final class ParsedClassConstFetchNodeCollector
 {
@@ -27,7 +27,7 @@ final class ParsedClassConstFetchNodeCollector
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -35,13 +35,13 @@ final class ParsedClassConstFetchNodeCollector
      * To prevent circular reference
      * @required
      */
-    public function autowireParsedClassConstFetchNodeCollector(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireParsedClassConstFetchNodeCollector(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function collect(\PhpParser\Node $node) : void
+    public function collect(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
     {
-        if (!$node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch) {
             return;
         }
         $constantName = $this->nodeNameResolver->getName($node->name);
@@ -55,7 +55,7 @@ final class ParsedClassConstFetchNodeCollector
             return;
         }
         // current class
-        $classOfUse = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $classOfUse = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         $this->classConstantFetchByClassAndName[$className][$constantName][] = $classOfUse;
         $this->classConstantFetchByClassAndName[$className][$constantName] = \array_unique($this->classConstantFetchByClassAndName[$className][$constantName]);
     }
@@ -66,30 +66,30 @@ final class ParsedClassConstFetchNodeCollector
     {
         return $this->classConstantFetchByClassAndName;
     }
-    private function resolveClassTypeThatContainsConstantOrFirstUnioned(\PHPStan\Type\Type $resolvedClassType, string $constantName) : ?string
+    private function resolveClassTypeThatContainsConstantOrFirstUnioned(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $resolvedClassType, string $constantName) : ?string
     {
         $className = $this->matchClassTypeThatContainsConstant($resolvedClassType, $constantName);
         if ($className !== null) {
             return $className;
         }
         // we need at least one original user class
-        if (!$resolvedClassType instanceof \PHPStan\Type\UnionType) {
+        if (!$resolvedClassType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
             return null;
         }
         foreach ($resolvedClassType->getTypes() as $unionedType) {
-            if (!$unionedType instanceof \PHPStan\Type\ObjectType) {
+            if (!$unionedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType) {
                 continue;
             }
             return $unionedType->getClassName();
         }
         return null;
     }
-    private function matchClassTypeThatContainsConstant(\PHPStan\Type\Type $type, string $constant) : ?string
+    private function matchClassTypeThatContainsConstant(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, string $constant) : ?string
     {
-        if ($type instanceof \PHPStan\Type\ObjectType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType) {
             return $type->getClassName();
         }
-        $classNames = \PHPStan\Type\TypeUtils::getDirectClassNames($type);
+        $classNames = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::getDirectClassNames($type);
         foreach ($classNames as $className) {
             $currentClassConstants = $this->getConstantsDefinedInClass($className);
             if (!\in_array($constant, $currentClassConstants, \true)) {
@@ -105,12 +105,13 @@ final class ParsedClassConstFetchNodeCollector
     private function getConstantsDefinedInClass(string $className) : array
     {
         $reflectionClass = new \ReflectionClass($className);
-        $currentClassConstants = \array_keys($reflectionClass->getConstants());
+        $constants = (array) $reflectionClass->getConstants();
+        $currentClassConstants = \array_keys($constants);
         $parentClassReflection = $reflectionClass->getParentClass();
         if (!$parentClassReflection) {
             return $currentClassConstants;
         }
-        $parentClassConstants = \array_keys($parentClassReflection->getConstants());
+        $parentClassConstants = \array_keys($constants);
         return \array_diff($currentClassConstants, $parentClassConstants);
     }
 }

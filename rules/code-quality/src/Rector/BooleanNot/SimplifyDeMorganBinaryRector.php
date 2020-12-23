@@ -1,47 +1,39 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\BooleanNot;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\BooleanNot;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\BinaryOp;
-use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use PhpParser\Node\Expr\BooleanNot;
-use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://robots.thoughtbot.com/clearer-conditionals-using-de-morgans-laws
  * @see https://stackoverflow.com/questions/20043664/de-morgans-law
  * @see \Rector\CodeQuality\Tests\Rector\BooleanNot\SimplifyDeMorganBinaryRector\SimplifyDeMorganBinaryRectorTest
  */
-final class SimplifyDeMorganBinaryRector extends \Rector\Core\Rector\AbstractRector
+final class SimplifyDeMorganBinaryRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify negated conditions with de Morgan theorem', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify negated conditions with de Morgan theorem', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $a = 5;
 $b = 10;
 $result = !($a > 20 || $b <= 50);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
 $a = 5;
 $b = 10;
 $result = $a <= 20 && $b > 50;
@@ -53,18 +45,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\BooleanNot::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot::class];
     }
     /**
      * @param BooleanNot $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp) {
+        if (!$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp) {
             return null;
         }
         // and is simpler to read → keep it
-        if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        if ($node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return null;
         }
         return $this->binaryOpManipulator->inverseBinaryOp($node->expr);

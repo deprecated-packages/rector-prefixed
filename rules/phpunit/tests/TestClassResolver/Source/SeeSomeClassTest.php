@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\Tests\TestClassResolver\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Tests\TestClassResolver\Source;
 
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
-final class SeeSomeClassTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
+final class SeeSomeClassTest extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase
 {
 }

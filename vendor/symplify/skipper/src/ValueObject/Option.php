@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\Skipper\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Symplify\Skipper\ValueObject;
 
 final class Option
 {

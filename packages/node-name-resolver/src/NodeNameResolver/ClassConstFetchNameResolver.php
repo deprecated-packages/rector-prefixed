@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeNameResolver\NodeNameResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\ClassConstFetch;
-use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use Rector\NodeNameResolver\NodeNameResolver;
-final class ClassConstFetchNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+final class ClassConstFetchNameResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     /**
      * @var NodeNameResolver
@@ -16,18 +16,18 @@ final class ClassConstFetchNameResolver implements \Rector\NodeNameResolver\Cont
     /**
      * @required
      */
-    public function autowireClassConstFetchNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
+    public function autowireClassConstFetchNameResolver(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     public function getNode() : string
     {
-        return \PhpParser\Node\Expr\ClassConstFetch::class;
+        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch::class;
     }
     /**
      * @param ClassConstFetch $node
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
         $class = $this->nodeNameResolver->getName($node->class);
         $name = $this->nodeNameResolver->getName($node->name);

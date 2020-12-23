@@ -8,65 +8,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Config;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Config;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Config\FileLocator as BaseFileLocator;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Config\FileLocator as BaseFileLocator;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelInterface;
 /**
  * FileLocator uses the KernelInterface to locate resources in bundles.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FileLocator extends \_PhpScoperabd03f0baf05\Symfony\Component\Config\FileLocator
+class FileLocator extends \_PhpScoper0a2ac50786fa\Symfony\Component\Config\FileLocator
 {
     private $kernel;
-    /**
-     * @deprecated since Symfony 4.4
-     */
-    private $path;
-    public function __construct(\_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelInterface $kernel)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
         $this->kernel = $kernel;
-        if (2 <= \func_num_args()) {
-            $this->path = \func_get_arg(1);
-            $paths = 3 <= \func_num_args() ? \func_get_arg(2) : [];
-            if (null !== $this->path) {
-                $paths[] = $this->path;
-            }
-            if (4 !== \func_num_args() || \func_get_arg(3)) {
-                @\trigger_error(\sprintf('Passing more than one argument to %s is deprecated since Symfony 4.4 and will be removed in 5.0.', __METHOD__), \E_USER_DEPRECATED);
-            }
-        } else {
-            $paths = [];
-        }
-        parent::__construct($paths);
+        parent::__construct();
     }
     /**
      * {@inheritdoc}
      */
-    public function locate($file, $currentPath = null, $first = \true)
+    public function locate(string $file, string $currentPath = null, bool $first = \true)
     {
         if (isset($file[0]) && '@' === $file[0]) {
-            return $this->kernel->locateResource($file, $this->path, $first, \false);
+            $resource = $this->kernel->locateResource($file);
+            return $first ? $resource : [$resource];
         }
-        $locations = parent::locate($file, $currentPath, $first);
-        if (isset($file[0]) && !('/' === $file[0] || '\\' === $file[0] || \strlen($file) > 3 && \ctype_alpha($file[0]) && ':' === $file[1] && ('\\' === $file[2] || '/' === $file[2]) || null !== \parse_url($file, \PHP_URL_SCHEME))) {
-            $deprecation = \false;
-            // no need to trigger deprecations when the loaded file is given as absolute path
-            foreach ($this->paths as $deprecatedPath) {
-                foreach ((array) $locations as $location) {
-                    if (null !== $currentPath && 0 === \strpos($location, $currentPath)) {
-                        return $locations;
-                    }
-                    if (0 === \strpos($location, $deprecatedPath) && (null === $currentPath || \false === \strpos($location, $currentPath))) {
-                        $deprecation = \sprintf('Loading the file "%s" from the global resource directory "%s" is deprecated since Symfony 4.4 and will be removed in 5.0.', $file, $deprecatedPath);
-                    }
-                }
-            }
-            if ($deprecation) {
-                @\trigger_error($deprecation, \E_USER_DEPRECATED);
-            }
-        }
-        return $locations;
+        return parent::locate($file, $currentPath, $first);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\FileSystem;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\FileSystem;
 
-use PhpParser\Node;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class CurrentFileInfoProvider
 {
     /**
@@ -15,11 +15,11 @@ final class CurrentFileInfoProvider
      * @var SmartFileInfo|null
      */
     private $smartFileInfo;
-    public function setCurrentFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function setCurrentFileInfo(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->smartFileInfo = $smartFileInfo;
     }
-    public function getSmartFileInfo() : ?\Symplify\SmartFileSystem\SmartFileInfo
+    public function getSmartFileInfo() : ?\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->smartFileInfo;
     }

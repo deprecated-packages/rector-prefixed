@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Unsafe usage of new static().",
-        "line": 8,
-        "ignorable": true
-    }
-]

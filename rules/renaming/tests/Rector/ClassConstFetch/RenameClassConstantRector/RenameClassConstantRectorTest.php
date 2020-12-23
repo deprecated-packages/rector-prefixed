@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector;
 
 use Iterator;
-use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector;
-use Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\DifferentClass;
-use Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents;
-use Rector\Renaming\ValueObject\RenameClassConstant;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameClassConstantRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\DifferentClass;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameClassConstantRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -28,6 +28,6 @@ final class RenameClassConstantRectorTest extends \Rector\Testing\PHPUnit\Abstra
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::class => [\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::CLASS_CONSTANT_RENAME => [new \Rector\Renaming\ValueObject\RenameClassConstant(\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents::class, 'PRE_BIND', 'PRE_SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant(\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents::class, 'BIND', 'SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant(\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents::class, 'POST_BIND', 'POST_SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant(\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents::class, 'OLD_CONSTANT', \Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\DifferentClass::class . '::NEW_CONSTANT')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::class => [\_PhpScoper0a2ac50786fa\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::CLASS_CONSTANT_RENAME => [new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant(\_PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents::class, 'PRE_BIND', 'PRE_SUBMIT'), new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant(\_PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents::class, 'BIND', 'SUBMIT'), new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant(\_PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents::class, 'POST_BIND', 'POST_SUBMIT'), new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant(\_PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\LocalFormEvents::class, 'OLD_CONSTANT', \_PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\Source\DifferentClass::class . '::NEW_CONSTANT')]]];
     }
 }

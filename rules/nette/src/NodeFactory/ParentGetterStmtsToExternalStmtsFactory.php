@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\NodeFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\NodeFactory;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Return_;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 final class ParentGetterStmtsToExternalStmtsFactory
 {
     /**
@@ -27,7 +27,7 @@ final class ParentGetterStmtsToExternalStmtsFactory
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -41,17 +41,17 @@ final class ParentGetterStmtsToExternalStmtsFactory
     {
         $userExpression = null;
         foreach ($getUserStmts as $key => $getUserStmt) {
-            if (!$getUserStmt instanceof \PhpParser\Node\Stmt\Expression) {
+            if (!$getUserStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
                 continue;
             }
             $getUserStmt = $getUserStmt->expr;
-            if (!$getUserStmt instanceof \PhpParser\Node\Expr\Assign) {
+            if (!$getUserStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
                 continue;
             }
-            if (!$getUserStmt->expr instanceof \PhpParser\Node\Expr\StaticCall) {
+            if (!$getUserStmt->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
                 continue;
             }
-            if (!$this->nodeTypeResolver->isObjectType($getUserStmt->expr, '_PhpScoperabd03f0baf05\\Nette\\Security\\User')) {
+            if (!$this->nodeTypeResolver->isObjectType($getUserStmt->expr, '_PhpScoper0a2ac50786fa\\Nette\\Security\\User')) {
                 continue;
             }
             $userExpression = $getUserStmt->var;
@@ -63,11 +63,11 @@ final class ParentGetterStmtsToExternalStmtsFactory
             return [];
         }
         // stmts without assign
-        $this->callableNodeTraverser->traverseNodesWithCallable($getUserStmts, function (\PhpParser\Node $node) use($userExpression) : ?MethodCall {
+        $this->callableNodeTraverser->traverseNodesWithCallable($getUserStmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($userExpression) : ?MethodCall {
             if (!$this->betterStandardPrinter->areNodesEqual($node, $userExpression)) {
                 return null;
             }
-            return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getUser');
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('this'), 'getUser');
         });
         return $getUserStmts;
     }
@@ -78,7 +78,7 @@ final class ParentGetterStmtsToExternalStmtsFactory
     private function removeReturn(array $stmts) : array
     {
         foreach ($stmts as $key => $stmt) {
-            if (!$stmt instanceof \PhpParser\Node\Stmt\Return_) {
+            if (!$stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_) {
                 continue;
             }
             unset($stmts[$key]);

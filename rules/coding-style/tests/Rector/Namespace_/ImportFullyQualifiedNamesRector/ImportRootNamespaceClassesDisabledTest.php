@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Tests\Rector\Namespace_\ImportFullyQualifiedNamesRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Tests\Rector\Namespace_\ImportFullyQualifiedNamesRector;
 
 use Iterator;
-use Rector\Core\Configuration\Option;
-use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\Rector\Name\RenameClassRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PostRector\Rector\NameImportingPostRector
  */
-final class ImportRootNamespaceClassesDisabledTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class ImportRootNamespaceClassesDisabledTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
-        $this->setParameter(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES, \false);
+        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
+        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES, \false);
         $this->doTestFileInfo($fileInfo);
     }
     /**
@@ -32,6 +32,6 @@ final class ImportRootNamespaceClassesDisabledTest extends \Rector\Testing\PHPUn
     protected function getRectorClass() : string
     {
         // the must be any rector class to run
-        return \Rector\Renaming\Rector\Name\RenameClassRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Renaming\Rector\Name\RenameClassRector::class;
     }
 }

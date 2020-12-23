@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Performance\Tests\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Performance\Tests\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
 
 use Iterator;
-use Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class CountArrayToEmptyArrayComparisonRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class CountArrayToEmptyArrayComparisonRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class CountArrayToEmptyArrayComparisonRectorTest extends \Rector\Testing\P
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector::class;
     }
 }

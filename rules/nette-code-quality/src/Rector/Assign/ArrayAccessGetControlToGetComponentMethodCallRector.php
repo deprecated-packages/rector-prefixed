@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteCodeQuality\Rector\Assign;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Rector\Assign;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\MethodCall;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -17,11 +17,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\NetteCodeQuality\Tests\Rector\Assign\ArrayAccessGetControlToGetComponentMethodCallRector\ArrayAccessGetControlToGetComponentMethodCallRectorTest
  */
-final class ArrayAccessGetControlToGetComponentMethodCallRector extends \Rector\Core\Rector\AbstractRector
+final class ArrayAccessGetControlToGetComponentMethodCallRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change magic arrays access get, to explicit $this->getComponent(...) method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change magic arrays access get, to explicit $this->getComponent(...) method', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Presenter;
 
 class SomeClass extends Presenter
@@ -50,12 +50,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isFetchOfControlFromPresenterDimFetch($node)) {
             return null;
@@ -63,14 +63,14 @@ CODE_SAMPLE
         /** @var ArrayDimFetch $arrayDimFetch */
         $arrayDimFetch = $node->expr;
         $args = $this->createArgs([$arrayDimFetch->dim]);
-        $node->expr = new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'getComponent', $args);
+        $node->expr = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'getComponent', $args);
         return $node;
     }
-    private function isFetchOfControlFromPresenterDimFetch(\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isFetchOfControlFromPresenterDimFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        if (!$assign->expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$assign->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;
         }
-        return $this->isObjectType($assign->expr, '_PhpScoperabd03f0baf05\\Nette\\Application\\UI\\Presenter');
+        return $this->isObjectType($assign->expr, '_PhpScoper0a2ac50786fa\\Nette\\Application\\UI\\Presenter');
     }
 }

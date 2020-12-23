@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\PhpDocNode;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNode;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 /**
  * @property TagValueNodeConfiguration $tagValueNodeConfiguration
  */
@@ -43,7 +43,7 @@ trait PrintTagValueNodeTrait
                 continue;
             }
             // do not quote constant references... unless twig template
-            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($item, '#\\w+::\\w+#') && !\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($item, '.twig')) {
+            if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($item, '#\\w+::\\w+#') && !\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($item, '.twig')) {
                 continue;
             }
             // no original quoting

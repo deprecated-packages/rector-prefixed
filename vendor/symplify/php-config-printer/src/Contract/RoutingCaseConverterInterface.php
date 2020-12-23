@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\Contract;
+namespace _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract;
 
-use PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
 interface RoutingCaseConverterInterface
 {
     public function match(string $key, $values) : bool;
-    public function convertToMethodCall(string $key, $values) : \PhpParser\Node\Stmt\Expression;
+    public function convertToMethodCall(string $key, $values) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
 }

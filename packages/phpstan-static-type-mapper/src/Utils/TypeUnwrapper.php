@@ -1,41 +1,44 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPStanStaticTypeMapper\Utils;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Utils;
 
-use PHPStan\Type\NullType;
-use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
-use PHPStan\Type\UnionType;
-use Rector\PHPStan\TypeFactoryStaticHelper;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\NullType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\TypeFactoryStaticHelper;
 final class TypeUnwrapper
 {
     /**
      * E.g. null|ClassType → ClassType
      */
-    public function unwrapNullableType(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\Type
+    public function unwrapNullableType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
-        if (\count($unionType->getTypes()) !== 2) {
-            return null;
+        if (!$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
+            return $type;
         }
-        if (!$unionType->isSuperTypeOf(new \PHPStan\Type\NullType())->yes()) {
-            return null;
+        if (\count($type->getTypes()) !== 2) {
+            return $type;
         }
-        foreach ($unionType->getTypes() as $unionedType) {
-            if ($unionedType instanceof \PHPStan\Type\NullType) {
+        if (!$type->isSuperTypeOf(new \_PhpScoper0a2ac50786fa\PHPStan\Type\NullType())->yes()) {
+            return $type;
+        }
+        foreach ($type->getTypes() as $unionedType) {
+            if ($unionedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NullType) {
                 continue;
             }
             return $unionedType;
         }
-        return null;
+        return $type;
     }
-    public function unwrapFirstObjectTypeFromUnionType(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
+    public function unwrapFirstObjectTypeFromUnionType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
-        if (!$type instanceof \PHPStan\Type\UnionType) {
+        if (!$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
             return $type;
         }
         foreach ($type->getTypes() as $unionedType) {
-            if (!$unionedType instanceof \PHPStan\Type\TypeWithClassName) {
+            if (!$unionedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
                 continue;
             }
             return $unionedType;
@@ -45,15 +48,15 @@ final class TypeUnwrapper
     /**
      * @return Type|UnionType
      */
-    public function removeNullTypeFromUnionType(\PHPStan\Type\UnionType $unionType) : \PHPStan\Type\Type
+    public function removeNullTypeFromUnionType(\_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType $unionType) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $unionedTypesWithoutNullType = [];
         foreach ($unionType->getTypes() as $type) {
-            if ($type instanceof \PHPStan\Type\UnionType) {
+            if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
                 continue;
             }
             $unionedTypesWithoutNullType[] = $type;
         }
-        return \Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($unionedTypesWithoutNullType);
+        return \_PhpScoper0a2ac50786fa\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($unionedTypesWithoutNullType);
     }
 }

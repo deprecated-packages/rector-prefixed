@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
-use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
-use Rector\BetterPhpDocParser\AnnotationReader\NodeAnnotationReader;
-use Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver;
-use Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PHPStan\Type\ShortenedObjectType;
-use Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\TokenIterator;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\AnnotationReader\NodeAnnotationReader;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
 abstract class AbstractPhpDocNodeFactory
 {
     /**
@@ -50,29 +50,29 @@ abstract class AbstractPhpDocNodeFactory
     /**
      * @required
      */
-    public function autowireAbstractPhpDocNodeFactory(\Rector\BetterPhpDocParser\AnnotationReader\NodeAnnotationReader $nodeAnnotationReader, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier) : void
+    public function autowireAbstractPhpDocNodeFactory(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\AnnotationReader\NodeAnnotationReader $nodeAnnotationReader, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier) : void
     {
         $this->nodeAnnotationReader = $nodeAnnotationReader;
         $this->annotationContentResolver = $annotationContentResolver;
         $this->annotationItemsResolver = $annotationItemsResolver;
         $this->objectTypeSpecifier = $objectTypeSpecifier;
     }
-    protected function resolveContentFromTokenIterator(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
+    protected function resolveContentFromTokenIterator(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
     {
         return $this->annotationContentResolver->resolveFromTokenIterator($tokenIterator);
     }
-    protected function resolveFqnTargetEntity(string $targetEntity, \PhpParser\Node $node) : string
+    protected function resolveFqnTargetEntity(string $targetEntity, \_PhpScoper0a2ac50786fa\PhpParser\Node $node) : string
     {
         $targetEntity = $this->getCleanedUpTargetEntity($targetEntity);
         if (\class_exists($targetEntity)) {
             return $targetEntity;
         }
-        $namespacedTargetEntity = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME) . '\\' . $targetEntity;
+        $namespacedTargetEntity = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME) . '\\' . $targetEntity;
         if (\class_exists($namespacedTargetEntity)) {
             return $namespacedTargetEntity;
         }
-        $resolvedType = $this->objectTypeSpecifier->narrowToFullyQualifiedOrAlaisedObjectType($node, new \PHPStan\Type\ObjectType($targetEntity));
-        if ($resolvedType instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
+        $resolvedType = $this->objectTypeSpecifier->narrowToFullyQualifiedOrAliasedObjectType($node, new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($targetEntity));
+        if ($resolvedType instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType) {
             return $resolvedType->getFullyQualifiedName();
         }
         // probably tested class
@@ -81,16 +81,16 @@ abstract class AbstractPhpDocNodeFactory
     /**
      * Covers spaces like https://github.com/rectorphp/rector/issues/2110
      */
-    protected function matchCurlyBracketOpeningAndClosingSpace(string $annotationContent) : \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace
+    protected function matchCurlyBracketAroundSpaces(string $annotationContent) : \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces
     {
-        $match = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
+        $match = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
         $openingSpace = $match['opening_space'] ?? '';
-        $match = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
+        $match = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
         $closingSpace = $match['closing_space'] ?? '';
-        return new \Rector\BetterPhpDocParser\ValueObject\OpeningAndClosingSpace($openingSpace, $closingSpace);
+        return new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces($openingSpace, $closingSpace);
     }
     private function getCleanedUpTargetEntity(string $targetEntity) : string
     {
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
     }
 }

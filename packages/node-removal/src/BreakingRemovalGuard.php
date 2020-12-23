@@ -1,55 +1,58 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeRemoval;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeRemoval;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\BooleanNot;
-use PhpParser\Node\Stmt\If_;
-use PhpParser\Node\Stmt\While_;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\While_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class BreakingRemovalGuard
 {
-    public function ensureNodeCanBeRemove(\PhpParser\Node $node) : void
+    public function ensureNodeCanBeRemove(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
     {
         if ($this->isLegalNodeRemoval($node)) {
             return;
         }
-        // validate the $parentNodenode can be removed
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf(
-            'Node "%s" on line %d is child of "%s", so it cannot be removed as it would break PHP code. Change or remove the parent node instead.',
-            \get_class($node),
-            $node->getLine(),
-            /** @var Node $parentNode */
-            \get_class($parentNode)
-        ));
+        // validate the node can be removed
+        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+        }
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException(\sprintf('Node "%s" on line %d is child of "%s", so it cannot be removed as it would break PHP code. Change or remove the parent node instead.', \get_class($node), $node->getLine(), \get_class($parentNode)));
     }
-    public function isLegalNodeRemoval(\PhpParser\Node $node) : bool
+    public function isLegalNodeRemoval(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \PhpParser\Node\Stmt\If_ && $parent->cond === $node) {
+        $parent = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_ && $parent->cond === $node) {
             return \false;
         }
-        if ($parent instanceof \PhpParser\Node\Expr\BooleanNot) {
-            $parent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot) {
+            $parent = $parent->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         }
-        return !$parent instanceof \PhpParser\Node\Expr\Assign && !$this->isIfCondition($node) && !$this->isWhileCondition($node);
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+            return \false;
+        }
+        if ($this->isIfCondition($node)) {
+            return \false;
+        }
+        return !$this->isWhileCondition($node);
     }
-    private function isIfCondition(\PhpParser\Node $node) : bool
+    private function isIfCondition(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \PhpParser\Node\Stmt\If_) {
+        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_) {
             return \false;
         }
         return $parentNode->cond === $node;
     }
-    private function isWhileCondition(\PhpParser\Node $node) : bool
+    private function isWhileCondition(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \PhpParser\Node\Stmt\While_) {
+        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\While_) {
             return \false;
         }
         return $parentNode->cond === $node;

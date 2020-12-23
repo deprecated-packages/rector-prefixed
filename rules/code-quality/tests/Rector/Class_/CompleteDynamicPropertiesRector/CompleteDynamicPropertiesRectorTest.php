@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Tests\Rector\Class_\CompleteDynamicPropertiesRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Tests\Rector\Class_\CompleteDynamicPropertiesRector;
 
 use Iterator;
-use Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class CompleteDynamicPropertiesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class CompleteDynamicPropertiesRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,10 +23,10 @@ final class CompleteDynamicPropertiesRectorTest extends \Rector\Testing\PHPUnit\
     }
     protected function getRectorClass() : string
     {
-        return \Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector::class;
     }
     protected function getPhpVersion() : int
     {
-        return \Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES - 1;
+        return \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES - 1;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Tests\Rector\Identical\GetClassToInstanceOfRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Tests\Rector\Identical\GetClassToInstanceOfRector;
 
 use Iterator;
-use Rector\CodeQuality\Rector\Identical\GetClassToInstanceOfRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class GetClassToInstanceOfRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Identical\GetClassToInstanceOfRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class GetClassToInstanceOfRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class GetClassToInstanceOfRectorTest extends \Rector\Testing\PHPUnit\Abstr
     }
     protected function getRectorClass() : string
     {
-        return \Rector\CodeQuality\Rector\Identical\GetClassToInstanceOfRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Identical\GetClassToInstanceOfRector::class;
     }
 }

@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Rector\Encapsed;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Encapsed;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp\Concat;
-use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\Encapsed;
-use PhpParser\Node\Scalar\EncapsedStringPart;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\Encapsed;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\EncapsedStringPart;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Encapsed\EncapsedStringsToSprintfRector\EncapsedStringsToSprintfRectorTest
  */
-final class EncapsedStringsToSprintfRector extends \Rector\Core\Rector\AbstractRector
+final class EncapsedStringsToSprintfRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -31,9 +31,9 @@ final class EncapsedStringsToSprintfRector extends \Rector\Core\Rector\AbstractR
      * @var Expr[]
      */
     private $argumentVariables = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert enscaped {$string} to more readable sprintf', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert enscaped {$string} to more readable sprintf', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(string $format)
@@ -58,39 +58,39 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Scalar\Encapsed::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\Encapsed::class];
     }
     /**
      * @param Encapsed $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $this->sprintfFormat = '';
         $this->argumentVariables = [];
         foreach ($node->parts as $part) {
-            if ($part instanceof \PhpParser\Node\Scalar\EncapsedStringPart) {
+            if ($part instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\EncapsedStringPart) {
                 $this->collectEncapsedStringPart($part);
-            } elseif ($part instanceof \PhpParser\Node\Expr) {
+            } elseif ($part instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr) {
                 $this->collectExpr($part);
             }
         }
         return $this->createSprintfFuncCallOrConcat($this->sprintfFormat, $this->argumentVariables);
     }
-    private function collectEncapsedStringPart(\PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart) : void
+    private function collectEncapsedStringPart(\_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart) : void
     {
         $stringValue = $encapsedStringPart->value;
         if ($stringValue === "\n") {
-            $this->argumentVariables[] = new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PHP_EOL'));
+            $this->argumentVariables[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('PHP_EOL'));
             return;
         }
         $this->sprintfFormat .= $stringValue;
     }
-    private function collectExpr(\PhpParser\Node\Expr $expr) : void
+    private function collectExpr(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : void
     {
         $this->sprintfFormat .= '%s';
         // remove: ${wrap} → $wrap
-        if ($expr instanceof \PhpParser\Node\Expr\Variable) {
-            $expr->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+            $expr->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         }
         $this->argumentVariables[] = $expr;
     }
@@ -98,16 +98,16 @@ CODE_SAMPLE
      * @param Expr[] $argumentVariables
      * @return Concat|FuncCall
      */
-    private function createSprintfFuncCallOrConcat(string $string, array $argumentVariables) : \PhpParser\Node
+    private function createSprintfFuncCallOrConcat(string $string, array $argumentVariables) : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         // special case for variable with PHP_EOL
         if ($string === '%s' && \count($argumentVariables) === 2) {
-            return new \PhpParser\Node\Expr\BinaryOp\Concat($argumentVariables[0], $argumentVariables[1]);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat($argumentVariables[0], $argumentVariables[1]);
         }
-        $arguments = [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($string))];
+        $arguments = [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($string))];
         foreach ($argumentVariables as $argumentVariable) {
-            $arguments[] = new \PhpParser\Node\Arg($argumentVariable);
+            $arguments[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($argumentVariable);
         }
-        return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('sprintf'), $arguments);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('sprintf'), $arguments);
     }
 }

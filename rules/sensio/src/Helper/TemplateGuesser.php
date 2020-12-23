@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Sensio\Helper;
+namespace _PhpScoper0a2ac50786fa\Rector\Sensio\Helper;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Sensio\BundleClassResolver;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\Sensio\BundleClassResolver;
 /**
  * @see \Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector\TemplateAnnotationToThisRenderRectorTest
  */
@@ -47,26 +47,23 @@ final class TemplateGuesser
      * @var BundleClassResolver
      */
     private $bundleClassResolver;
-    public function __construct(\Rector\Sensio\BundleClassResolver $bundleClassResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Sensio\BundleClassResolver $bundleClassResolver, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->bundleClassResolver = $bundleClassResolver;
     }
-    public function resolveFromClassMethodNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : string
+    public function resolveFromClassMethodNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : string
     {
-        $namespace = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
+        $namespace = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
         if (!\is_string($namespace)) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $class = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($class)) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $method = $this->nodeNameResolver->getName($classMethod);
-        if ($method === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        return $this->resolve($namespace, $class, $method);
+        $methodName = $this->nodeNameResolver->getName($classMethod);
+        return $this->resolve($namespace, $class, $methodName);
     }
     /**
      * Mimics https://github.com/sensiolabs/SensioFrameworkExtraBundle/blob/v5.0.0/Templating/TemplateGuesser.php
@@ -75,7 +72,7 @@ final class TemplateGuesser
     {
         $bundle = $this->resolveBundle($class, $namespace);
         $controller = $this->resolveController($class);
-        $action = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($method, self::ACTION_MATCH_REGEX);
+        $action = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($method, self::ACTION_MATCH_REGEX, '');
         $fullPath = '';
         if ($bundle !== '') {
             $fullPath .= $bundle . '/';
@@ -91,17 +88,17 @@ final class TemplateGuesser
         if ($shortBundleClass !== null) {
             return '@' . $shortBundleClass;
         }
-        $bundle = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($namespace, self::BUNDLE_NAME_MATCHING_REGEX)['bundle'] ?? '';
-        $bundle = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($bundle, self::BUNDLE_SUFFIX_REGEX);
+        $bundle = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($namespace, self::BUNDLE_NAME_MATCHING_REGEX)['bundle'] ?? '';
+        $bundle = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($bundle, self::BUNDLE_SUFFIX_REGEX, '');
         return $bundle !== '' ? '@' . $bundle : '';
     }
     private function resolveController(string $class) : string
     {
-        $match = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($class, self::CONTROLLER_NAME_MATCH_REGEX);
+        $match = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($class, self::CONTROLLER_NAME_MATCH_REGEX);
         if (!$match) {
             return '';
         }
-        $controller = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($match[1], self::SMALL_LETTER_BIG_LETTER_REGEX, '_PhpScoperabd03f0baf05\\1_\\2');
+        $controller = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($match[1], self::SMALL_LETTER_BIG_LETTER_REGEX, '_PhpScoper0a2ac50786fa\\1_\\2');
         return \str_replace('\\', '/', $controller);
     }
 }

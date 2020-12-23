@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard;
-use Rector\Testing\PhpConfigPrinter\YamlFileContentProvider;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
-use Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PhpConfigPrinter\YamlFileContentProvider;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->public()->autoconfigure();
-    $services->set(\Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
-    $services->alias(\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface::class, \Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
-    $services->set(\Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
-    $services->alias(\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface::class, \Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
+    $services->alias(\_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface::class, \_PhpScoper0a2ac50786fa\Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
+    $services->alias(\_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface::class, \_PhpScoper0a2ac50786fa\Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
 };

@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SymfonyPhpConfig\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\SymfonyPhpConfig\NodeAnalyzer;
 
-use PhpParser\Node\Expr\Closure;
-use Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 final class SymfonyPhpConfigClosureAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isPhpConfigClosure(\PhpParser\Node\Expr\Closure $closure) : bool
+    public function isPhpConfigClosure(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure $closure) : bool
     {
-        if (\count($closure->params) !== 1) {
+        if (\count((array) $closure->params) !== 1) {
             return \false;
         }
         $onlyParam = $closure->params[0];
         if ($onlyParam->type === null) {
             return \false;
         }
-        return $this->nodeNameResolver->isName($onlyParam->type, '_PhpScoperabd03f0baf05\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator');
+        return $this->nodeNameResolver->isName($onlyParam->type, '_PhpScoper0a2ac50786fa\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator');
     }
 }

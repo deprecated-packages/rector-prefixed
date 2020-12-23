@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Privatization\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\Privatization\NodeAnalyzer;
 
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Type\TypeWithClassName;
-use Rector\NodeCollector\NodeCollector\NodeRepository;
-use Rector\NodeCollector\ValueObject\ArrayCallable;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\ValueObject\ArrayCallable;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 use ReflectionMethod;
 final class ClassMethodExternalCallNodeAnalyzer
 {
@@ -32,14 +32,14 @@ final class ClassMethodExternalCallNodeAnalyzer
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\Privatization\NodeAnalyzer\EventSubscriberMethodNamesResolver $eventSubscriberMethodNamesResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Privatization\NodeAnalyzer\EventSubscriberMethodNamesResolver $eventSubscriberMethodNamesResolver, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->eventSubscriberMethodNamesResolver = $eventSubscriberMethodNamesResolver;
         $this->nodeRepository = $nodeRepository;
     }
-    public function hasExternalCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function hasExternalCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $methodCalls = $this->nodeRepository->findCallsByClassMethod($classMethod);
         /** @var string $methodName */
@@ -53,16 +53,16 @@ final class ClassMethodExternalCallNodeAnalyzer
         // remove static calls and [$this, 'call']
         /** @var MethodCall[] $methodCalls */
         $methodCalls = \array_filter($methodCalls, function (object $node) : bool {
-            return $node instanceof \PhpParser\Node\Expr\MethodCall;
+            return $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
         });
         foreach ($methodCalls as $methodCall) {
             $callerType = $this->nodeTypeResolver->resolve($methodCall->var);
-            if (!$callerType instanceof \PHPStan\Type\TypeWithClassName) {
+            if (!$callerType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
                 // unable to handle reliably
                 return \true;
             }
             // external call
-            $nodeClassName = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $nodeClassName = $methodCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($nodeClassName !== $callerType->getClassName()) {
                 return \true;
             }
@@ -80,27 +80,27 @@ final class ClassMethodExternalCallNodeAnalyzer
     /**
      * @param StaticCall[]|MethodCall[]|ArrayCallable[] $methodCalls
      */
-    private function isArrayCallable(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $methodCalls, string $methodName) : bool
+    private function isArrayCallable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, array $methodCalls, string $methodName) : bool
     {
         /** @var ArrayCallable[] $arrayCallables */
         $arrayCallables = \array_filter($methodCalls, function (object $node) : bool {
-            return $node instanceof \Rector\NodeCollector\ValueObject\ArrayCallable;
+            return $node instanceof \_PhpScoper0a2ac50786fa\Rector\NodeCollector\ValueObject\ArrayCallable;
         });
         foreach ($arrayCallables as $arrayCallable) {
-            $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $className = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($className === $arrayCallable->getClass() && $methodName === $arrayCallable->getMethod()) {
                 return \true;
             }
         }
         return \false;
     }
-    private function isEventSubscriberMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $methodName) : bool
+    private function isEventSubscriberMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $methodName) : bool
     {
-        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        if (!$this->nodeTypeResolver->isObjectType($classLike, '_PhpScoperabd03f0baf05\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+        if (!$this->nodeTypeResolver->isObjectType($classLike, '_PhpScoper0a2ac50786fa\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
             return \false;
         }
         $getSubscribedEventsClassMethod = $classLike->getMethod('getSubscribedEvents');

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Order\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\Order\ValueObject;
 
-use Rector\Order\Contract\RankeableInterface;
-final class ClassConstRankeable implements \Rector\Order\Contract\RankeableInterface
+use _PhpScoper0a2ac50786fa\Rector\Order\Contract\RankeableInterface;
+final class ClassConstRankeable implements \_PhpScoper0a2ac50786fa\Rector\Order\Contract\RankeableInterface
 {
     /**
      * @var string

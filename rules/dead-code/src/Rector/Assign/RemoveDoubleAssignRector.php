@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\Assign;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Assign;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\Expression;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeNestingScope\ScopeNestingComparator;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeNestingScope\ScopeNestingComparator;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Assign\RemoveDoubleAssignRector\RemoveDoubleAssignRectorTest
  */
-final class RemoveDoubleAssignRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDoubleAssignRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ScopeNestingComparator
      */
     private $scopeNestingComparator;
-    public function __construct(\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator)
     {
         $this->scopeNestingComparator = $scopeNestingComparator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify useless double assigns', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify useless double assigns', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $value = 1;
 $value = 1;
 CODE_SAMPLE
@@ -43,27 +43,27 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$node->var instanceof \PhpParser\Node\Expr\Variable && !$node->var instanceof \PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
+        if (!$node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable && !$node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
             return null;
         }
-        $previousStatement = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
-        if (!$previousStatement instanceof \PhpParser\Node\Stmt\Expression) {
+        $previousStatement = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
+        if (!$previousStatement instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        if (!$previousStatement->expr instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$previousStatement->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return null;
         }
         if (!$this->areNodesEqual($previousStatement->expr->var, $node->var)) {
             return null;
         }
-        if ($node->expr instanceof \PhpParser\Node\Expr\FuncCall || $node->expr instanceof \PhpParser\Node\Expr\StaticCall || $node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall || $node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall || $node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         if ($this->shouldSkipForDifferentScope($node, $previousStatement)) {
@@ -76,21 +76,21 @@ CODE_SAMPLE
         $this->removeNode($previousStatement);
         return $node;
     }
-    private function shouldSkipForDifferentScope(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node $anotherNode) : bool
+    private function shouldSkipForDifferentScope(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $expression) : bool
     {
-        if (!$this->areInSameClassMethod($assign, $anotherNode)) {
+        if (!$this->areInSameClassMethod($assign, $expression)) {
             return \true;
         }
-        return !$this->scopeNestingComparator->areScopeNestingEqual($assign, $anotherNode);
+        return !$this->scopeNestingComparator->areScopeNestingEqual($assign, $expression);
     }
-    private function isSelfReferencing(\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isSelfReferencing(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst($assign->expr, function (\PhpParser\Node $subNode) use($assign) : bool {
+        return (bool) $this->betterNodeFinder->findFirst($assign->expr, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $subNode) use($assign) : bool {
             return $this->areNodesEqual($assign->var, $subNode);
         });
     }
-    private function areInSameClassMethod(\PhpParser\Node $node, \PhpParser\Node $previousExpression) : bool
+    private function areInSameClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $previousExpression) : bool
     {
-        return $this->areNodesEqual($node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE), $previousExpression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE));
+        return $this->areNodesEqual($assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE), $previousExpression->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE));
     }
 }

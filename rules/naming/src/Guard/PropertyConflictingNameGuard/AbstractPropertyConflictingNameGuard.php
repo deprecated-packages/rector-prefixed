@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Guard\PropertyConflictingNameGuard;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Guard\PropertyConflictingNameGuard;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassLike;
-use Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
-use Rector\Naming\Contract\Guard\GuardInterface;
-use Rector\Naming\Contract\RenameValueObjectInterface;
-use Rector\Naming\PhpArray\ArrayFilter;
-use Rector\Naming\ValueObject\PropertyRename;
-use Rector\NodeNameResolver\NodeNameResolver;
-abstract class AbstractPropertyConflictingNameGuard implements \Rector\Naming\Contract\Guard\GuardInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\Guard\ConflictingGuardInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameValueObjectInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\PhpArray\ArrayFilter;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\PropertyRename;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+abstract class AbstractPropertyConflictingNameGuard implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contract\Guard\ConflictingGuardInterface
 {
     /**
      * @var ExpectedNameResolverInterface
@@ -25,7 +25,7 @@ abstract class AbstractPropertyConflictingNameGuard implements \Rector\Naming\Co
      * @var ArrayFilter
      */
     private $arrayFilter;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\PhpArray\ArrayFilter $arrayFilter)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\PhpArray\ArrayFilter $arrayFilter)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->arrayFilter = $arrayFilter;
@@ -33,7 +33,7 @@ abstract class AbstractPropertyConflictingNameGuard implements \Rector\Naming\Co
     /**
      * @param PropertyRename $renameValueObject
      */
-    public function check(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool
+    public function check(\_PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool
     {
         $conflictingPropertyNames = $this->resolve($renameValueObject->getClassLike());
         return \in_array($renameValueObject->getExpectedName(), $conflictingPropertyNames, \true);
@@ -42,7 +42,7 @@ abstract class AbstractPropertyConflictingNameGuard implements \Rector\Naming\Co
      * @param ClassLike $node
      * @return string[]
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : array
     {
         $expectedNames = [];
         foreach ($node->getProperties() as $property) {

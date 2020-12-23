@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Matcher;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Matcher;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Foreach_;
-use PhpParser\Node\Stmt\Function_;
-use Rector\Naming\Contract\Matcher\MatcherInterface;
-use Rector\Naming\ValueObject\VariableAndCallAssign;
-use Rector\Naming\ValueObject\VariableAndCallForeach;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-abstract class AbstractMatcher implements \Rector\Naming\Contract\Matcher\MatcherInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\Matcher\MatcherInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallAssign;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallForeach;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+abstract class AbstractMatcher implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contract\Matcher\MatcherInterface
 {
     /**
      * @var NodeNameResolver
      */
     protected $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -32,7 +32,7 @@ abstract class AbstractMatcher implements \Rector\Naming\Contract\Matcher\Matche
      * @param Assign|Foreach_ $node
      * @return VariableAndCallAssign|VariableAndCallForeach|null
      */
-    public function match(\PhpParser\Node $node)
+    public function match(\_PhpScoper0a2ac50786fa\PhpParser\Node $node)
     {
         $call = $this->matchCall($node);
         if ($call === null) {
@@ -47,26 +47,24 @@ abstract class AbstractMatcher implements \Rector\Naming\Contract\Matcher\Matche
             return null;
         }
         $variable = $this->getVariable($node);
-        if ($node instanceof \PhpParser\Node\Stmt\Foreach_) {
-            return new \Rector\Naming\ValueObject\VariableAndCallForeach($variable, $call, $variableName, $functionLike);
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_) {
+            return new \_PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallForeach($variable, $call, $variableName, $functionLike);
         }
-        if ($node instanceof \PhpParser\Node\Expr\Assign) {
-            return new \Rector\Naming\ValueObject\VariableAndCallAssign($variable, $call, $node, $variableName, $functionLike);
-        }
-        return null;
+        return new \_PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallAssign($variable, $call, $node, $variableName, $functionLike);
     }
     /**
+     * @param Assign|Foreach_ $node
      * @return FuncCall|StaticCall|MethodCall|null
      */
-    protected function matchCall(\PhpParser\Node $node) : ?\PhpParser\Node
+    protected function matchCall(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return $node->expr;
         }
-        if ($node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
+        if ($node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
             return $node->expr;
         }
-        if ($node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+        if ($node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
             return $node->expr;
         }
         return null;
@@ -74,8 +72,8 @@ abstract class AbstractMatcher implements \Rector\Naming\Contract\Matcher\Matche
     /**
      * @return ClassMethod|Function_|Closure|null
      */
-    protected function getFunctionLike(\PhpParser\Node $node) : ?\PhpParser\Node\FunctionLike
+    protected function getFunctionLike(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike
     {
-        return $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE) ?? $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?? $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
+        return $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE) ?? $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?? $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
     }
 }

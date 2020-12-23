@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\Collector;
+namespace _PhpScoper0a2ac50786fa\Rector\Doctrine\Collector;
 
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
-use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
 final class UuidMigrationDataCollector
 {
     /**
@@ -19,7 +19,7 @@ final class UuidMigrationDataCollector
     {
         $this->columnPropertiesByClass[$class]['properties'][] = $propertyName;
     }
-    public function addClassToManyRelationProperty(string $class, string $oldPropertyName, string $uuidPropertyName, \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode) : void
+    public function addClassToManyRelationProperty(string $class, string $oldPropertyName, string $uuidPropertyName, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode) : void
     {
         $kind = $this->resolveKind($doctrineRelationTagValueNode);
         $this->relationPropertiesByClass[$class][$kind][] = ['property_name' => $oldPropertyName, 'uuid_property_name' => $uuidPropertyName];
@@ -38,8 +38,8 @@ final class UuidMigrationDataCollector
     {
         return $this->relationPropertiesByClass;
     }
-    private function resolveKind(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode) : string
+    private function resolveKind(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode) : string
     {
-        return $doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface ? 'to_many_relations' : 'to_one_relations';
+        return $doctrineRelationTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface ? 'to_many_relations' : 'to_one_relations';
     }
 }

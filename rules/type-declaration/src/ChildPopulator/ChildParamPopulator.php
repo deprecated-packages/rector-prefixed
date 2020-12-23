@@ -1,34 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\ChildPopulator;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\ChildPopulator;
 
-use PhpParser\Node;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Name;
-use PhpParser\Node\NullableType;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\UnionType;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\StaticType;
-use PHPStan\Type\Type;
-use Rector\ChangesReporting\Collector\RectorChangeCollector;
-use Rector\NodeCollector\NodeCollector\NodeRepository;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PHPStan\Type\SelfObjectType;
-use Rector\StaticTypeMapper\StaticTypeMapper;
-use Rector\TypeDeclaration\ValueObject\NewType;
-final class ChildParamPopulator
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\RectorChangeCollector;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\ValueObject\NewType;
+final class ChildParamPopulator extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\ChildPopulator\AbstractChildPopulator
 {
-    /**
-     * @var StaticTypeMapper
-     */
-    private $staticTypeMapper;
     /**
      * @var NodeNameResolver
      */
@@ -41,9 +28,8 @@ final class ChildParamPopulator
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
-        $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->rectorChangeCollector = $rectorChangeCollector;
         $this->nodeRepository = $nodeRepository;
@@ -52,13 +38,13 @@ final class ChildParamPopulator
      * Add typehint to all children
      * @param ClassMethod|Function_ $functionLike
      */
-    public function populateChildClassMethod(\PhpParser\Node\FunctionLike $functionLike, int $position, \PHPStan\Type\Type $paramType) : void
+    public function populateChildClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike, int $position, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $paramType) : void
     {
-        if (!$functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if (!$functionLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
         /** @var string|null $className */
-        $className = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $functionLike->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // anonymous class
         if ($className === null) {
             return;
@@ -66,7 +52,7 @@ final class ChildParamPopulator
         $childrenClassLikes = $this->nodeRepository->findClassesAndInterfacesByType($className);
         // update their methods as well
         foreach ($childrenClassLikes as $childClassLike) {
-            if ($childClassLike instanceof \PhpParser\Node\Stmt\Class_) {
+            if ($childClassLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
                 $usedTraits = $this->nodeRepository->findUsedTraitsInClass($childClassLike);
                 foreach ($usedTraits as $trait) {
                     $this->addParamTypeToMethod($trait, $position, $functionLike, $paramType);
@@ -75,12 +61,9 @@ final class ChildParamPopulator
             $this->addParamTypeToMethod($childClassLike, $position, $functionLike, $paramType);
         }
     }
-    private function addParamTypeToMethod(\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $paramType) : void
+    private function addParamTypeToMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $paramType) : void
     {
         $methodName = $this->nodeNameResolver->getName($classMethod);
-        if ($methodName === null) {
-            return;
-        }
         $currentClassMethod = $classLike->getMethod($methodName);
         if ($currentClassMethod === null) {
             return;
@@ -99,20 +82,7 @@ final class ChildParamPopulator
         }
         // let the method know it was changed now
         $paramNode->type = $resolvedChildType;
-        $paramNode->type->setAttribute(\Rector\TypeDeclaration\ValueObject\NewType::HAS_NEW_INHERITED_TYPE, \true);
+        $paramNode->type->setAttribute(\_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\ValueObject\NewType::HAS_NEW_INHERITED_TYPE, \true);
         $this->rectorChangeCollector->notifyNodeFileInfo($paramNode);
-    }
-    /**
-     * @return Name|NullableType|UnionType|null
-     */
-    private function resolveChildTypeNode(\PHPStan\Type\Type $type) : ?\PhpParser\Node
-    {
-        if ($type instanceof \PHPStan\Type\MixedType) {
-            return null;
-        }
-        if ($type instanceof \Rector\PHPStan\Type\SelfObjectType || $type instanceof \PHPStan\Type\StaticType) {
-            $type = new \PHPStan\Type\ObjectType($type->getClassName());
-        }
-        return $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($type);
     }
 }

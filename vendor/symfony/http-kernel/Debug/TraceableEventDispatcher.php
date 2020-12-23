@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Debug;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Debug;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher as BaseTraceableEventDispatcher;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents;
+use _PhpScoper0a2ac50786fa\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher as BaseTraceableEventDispatcher;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Collects some data about event listeners.
  *
@@ -19,25 +19,25 @@ use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TraceableEventDispatcher extends \_PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher
+class TraceableEventDispatcher extends \_PhpScoper0a2ac50786fa\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher
 {
     /**
      * {@inheritdoc}
      */
-    protected function beforeDispatch(string $eventName, $event)
+    protected function beforeDispatch(string $eventName, object $event)
     {
         switch ($eventName) {
-            case \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents::REQUEST:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelEvents::REQUEST:
                 $this->stopwatch->openSection();
                 break;
-            case \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents::VIEW:
-            case \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelEvents::VIEW:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
                 // stop only if a controller has been executed
                 if ($this->stopwatch->isStarted('controller')) {
                     $this->stopwatch->stop('controller');
                 }
                 break;
-            case \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
                 $token = $event->getResponse()->headers->get('X-Debug-Token');
                 if (null === $token) {
                     break;
@@ -57,20 +57,20 @@ class TraceableEventDispatcher extends \_PhpScoperabd03f0baf05\Symfony\Component
     /**
      * {@inheritdoc}
      */
-    protected function afterDispatch(string $eventName, $event)
+    protected function afterDispatch(string $eventName, object $event)
     {
         switch ($eventName) {
-            case \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS:
                 $this->stopwatch->start('controller', 'section');
                 break;
-            case \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
                 $token = $event->getResponse()->headers->get('X-Debug-Token');
                 if (null === $token) {
                     break;
                 }
                 $this->stopwatch->stopSection($token);
                 break;
-            case \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
                 // In the special case described in the `preDispatch` method above, the `$token` section
                 // does not exist, then closing it throws an exception which must be caught.
                 $token = $event->getResponse()->headers->get('X-Debug-Token');

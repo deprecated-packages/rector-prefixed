@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class CodeSample extends \Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class CodeSample extends \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
 {
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\Tests\Rector\Class_\AddProphecyTraitRector;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Tests\Rector\Class_\AddProphecyTraitRector;
 
 use Iterator;
-use Rector\PHPUnit\Rector\Class_\AddProphecyTraitRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AddProphecyTraitRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\Class_\AddProphecyTraitRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddProphecyTraitRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AddProphecyTraitRectorTest extends \Rector\Testing\PHPUnit\AbstractR
     }
     protected function getRectorClass() : string
     {
-        return \Rector\PHPUnit\Rector\Class_\AddProphecyTraitRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\Class_\AddProphecyTraitRector::class;
     }
 }

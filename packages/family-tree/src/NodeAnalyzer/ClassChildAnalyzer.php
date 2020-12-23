@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\FamilyTree\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\FamilyTree\NodeAnalyzer;
 
-use PhpParser\Node\Stmt\Class_;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
 final class ClassChildAnalyzer
 {
-    public function hasChildClassConstructor(\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function hasChildClassConstructor(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         $childClasses = $this->getChildClasses($class);
         foreach ($childClasses as $childClass) {
@@ -27,13 +27,14 @@ final class ClassChildAnalyzer
         }
         return \false;
     }
-    public function hasParentClassConstructor(\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function hasParentClassConstructor(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
-        $classParents = \class_parents($className);
+        /** @var string[] $classParents */
+        $classParents = (array) \class_parents($className);
         foreach ($classParents as $classParent) {
             $parentReflectionClass = new \ReflectionClass($classParent);
             $constructMethodReflection = $parentReflectionClass->getConstructor();
@@ -50,9 +51,9 @@ final class ClassChildAnalyzer
     /**
      * @return class-string[]
      */
-    private function getChildClasses(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function getChildClasses(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return [];
         }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddParamTypeDeclarationRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddParamTypeDeclarationRector\Source;
 
 interface ParserInterface
 {
-    public function parse($code, \PhpParser\ErrorHandler $errorHandler = null);
+    public function parse($code, \_PhpScoper0a2ac50786fa\PhpParser\ErrorHandler $errorHandler = null);
 }

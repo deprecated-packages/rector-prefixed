@@ -1,61 +1,61 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php80\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Class_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Property;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\MethodName;
-use Rector\Php80\ValueObject\PromotionCandidate;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\Naming\VariableRenamer;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\Php80\NodeResolver\PromotedPropertyResolver;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/constructor_promotion
  * @see https://github.com/php/php-src/pull/5291
  *
  * @see \Rector\Php80\Tests\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector\ClassPropertyAssignToConstructorPromotionRectorTest
  */
-final class ClassPropertyAssignToConstructorPromotionRector extends \Rector\Core\Rector\AbstractRector
+final class ClassPropertyAssignToConstructorPromotionRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var PromotionCandidate[]
+     * @var PromotedPropertyResolver
      */
-    private $promotionCandidates = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    private $promotedPropertyResolver;
+    /**
+     * @var VariableRenamer
+     */
+    private $variableRenamer;
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Php80\NodeResolver\PromotedPropertyResolver $promotedPropertyResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\VariableRenamer $variableRenamer)
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change simple property init and assign to constructor promotion', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        $this->promotedPropertyResolver = $promotedPropertyResolver;
+        $this->variableRenamer = $variableRenamer;
+    }
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    {
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change simple property init and assign to constructor promotion', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
-    public float $x;
-    public float $y;
-    public float $z;
+    public float $someVariable;
 
-    public function __construct(
-        float $x = 0.0,
-        float $y = 0.0,
-        float $z = 0.0
-    ) {
-        $this->x = $x;
-        $this->y = $y;
-        $this->z = $z;
+    public function __construct(float $someVariable = 0.0)
+    {
+        $this->someVariable = $someVariable;
     }
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass
 {
-    public function __construct(
-        public float $x = 0.0,
-        public float $y = 0.0,
-        public float $z = 0.0,
-    ) {}
+    public function __construct(private float $someVariable = 0.0)
+    {
+    }
 }
 CODE_SAMPLE
 )]);
@@ -65,81 +65,58 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $promotionCandidates = $this->collectPromotionCandidatesFromClass($node);
+        $promotionCandidates = $this->promotedPropertyResolver->resolveFromClass($node);
         if ($promotionCandidates === []) {
             return null;
         }
-        foreach ($this->promotionCandidates as $promotionCandidate) {
-            $this->removeNode($promotionCandidate->getProperty());
+        /** @var ClassMethod $constructClassMethod */
+        $constructClassMethod = $node->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        foreach ($promotionCandidates as $promotionCandidate) {
+            // does property have some useful annotations?
+            $property = $promotionCandidate->getProperty();
+            $this->removeNode($property);
             $this->removeNode($promotionCandidate->getAssign());
             $property = $promotionCandidate->getProperty();
             $param = $promotionCandidate->getParam();
+            $this->decorateParamWithPropertyPhpDocInfo($property, $param);
+            /** @var string $oldName */
+            $oldName = $this->getName($param->var);
             // property name has higher priority
             $param->var->name = $property->props[0]->name;
-            // @todo add visibility - needs https://github.com/nikic/PHP-Parser/pull/667
             $param->flags = $property->flags;
+            // rename also following calls
+            $propertyName = $this->getName($property->props[0]);
+            $this->variableRenamer->renameVariableInFunctionLike($constructClassMethod, null, $oldName, $propertyName);
+            $this->removeClassMethodParam($constructClassMethod, $oldName);
         }
         return $node;
     }
-    /**
-     * @return PromotionCandidate[]
-     */
-    private function collectPromotionCandidatesFromClass(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function decorateParamWithPropertyPhpDocInfo(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : void
     {
-        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod === null) {
-            return [];
+        $propertyPhpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$propertyPhpDocInfo instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+            return;
         }
-        $this->promotionCandidates = [];
-        foreach ($class->getProperties() as $property) {
-            if (\count($property->props) !== 1) {
-                continue;
-            }
-            $this->collectPromotionCandidate($property, $constructClassMethod);
-        }
-        return $this->promotionCandidates;
+        // make sure the docblock is useful
+        $param->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $propertyPhpDocInfo);
     }
-    private function collectPromotionCandidate(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\ClassMethod $constructClassMethod) : void
+    private function removeClassMethodParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName) : void
     {
-        $onlyProperty = $property->props[0];
-        $propertyName = $this->getName($onlyProperty);
-        // match property name to assign in constructor
-        foreach ((array) $constructClassMethod->stmts as $stmt) {
-            if ($stmt instanceof \PhpParser\Node\Stmt\Expression) {
-                $stmt = $stmt->expr;
-            }
-            if (!$stmt instanceof \PhpParser\Node\Expr\Assign) {
-                continue;
-            }
-            $assign = $stmt;
-            if (!$this->isLocalPropertyFetchNamed($assign->var, $propertyName)) {
-                continue;
-            }
-            // 1. is param
-            // @todo 2. is default value
-            $assignedExpr = $assign->expr;
-            $matchedParam = $this->matchClassMethodParamByAssignedVariable($constructClassMethod, $assignedExpr);
-            if ($matchedParam === null) {
-                continue;
-            }
-            $this->promotionCandidates[] = new \Rector\Php80\ValueObject\PromotionCandidate($property, $assign, $matchedParam);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+            return;
         }
-    }
-    private function matchClassMethodParamByAssignedVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr $assignedExpr) : ?\PhpParser\Node\Param
-    {
-        foreach ($classMethod->params as $param) {
-            if (!$this->areNodesEqual($assignedExpr, $param->var)) {
-                continue;
-            }
-            return $param;
+        $attributeAwareParamTagValueNode = $phpDocInfo->getParamTagValueByName($paramName);
+        if ($attributeAwareParamTagValueNode === null) {
+            return;
         }
-        return null;
+        $phpDocInfo->removeTagValueNodeFromNode($attributeAwareParamTagValueNode);
     }
 }

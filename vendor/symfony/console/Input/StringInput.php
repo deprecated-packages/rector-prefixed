@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Input;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * StringInput represents an input provided as a string.
  *
@@ -20,10 +20,10 @@ use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentEx
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class StringInput extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\ArgvInput
+class StringInput extends \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\ArgvInput
 {
-    const REGEX_STRING = '([^\\s]+?)(?:\\s|(?<!\\\\)"|(?<!\\\\)\'|$)';
-    const REGEX_QUOTED_STRING = '(?:"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\')';
+    public const REGEX_STRING = '([^\\s]+?)(?:\\s|(?<!\\\\)"|(?<!\\\\)\'|$)';
+    public const REGEX_QUOTED_STRING = '(?:"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\')';
     /**
      * @param string $input A string representing the parameters from the CLI
      */
@@ -52,7 +52,7 @@ class StringInput extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\Inpu
                 $tokens[] = \stripcslashes($match[1]);
             } else {
                 // should never happen
-                throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Unable to parse input near "... %s ...".', \substr($input, $cursor, 10)));
+                throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Unable to parse input near "... %s ...".', \substr($input, $cursor, 10)));
             }
             $cursor += \strlen($match[0]);
         }

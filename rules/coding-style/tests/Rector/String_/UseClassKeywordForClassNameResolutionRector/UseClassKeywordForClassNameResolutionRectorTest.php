@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Tests\Rector\String_\UseClassKeywordForClassNameResolutionRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Tests\Rector\String_\UseClassKeywordForClassNameResolutionRector;
 
 use Iterator;
-use Rector\CodingStyle\Rector\String_\UseClassKeywordForClassNameResolutionRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class UseClassKeywordForClassNameResolutionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\String_\UseClassKeywordForClassNameResolutionRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class UseClassKeywordForClassNameResolutionRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $file) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $file) : void
     {
         $this->doTestFileInfo($file);
     }
@@ -22,6 +22,6 @@ final class UseClassKeywordForClassNameResolutionRectorTest extends \Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \Rector\CodingStyle\Rector\String_\UseClassKeywordForClassNameResolutionRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\String_\UseClassKeywordForClassNameResolutionRector::class;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Autodiscovery\Rector\FileNode;
+namespace _PhpScoper0a2ac50786fa\Rector\Autodiscovery\Rector\FileNode;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
@@ -21,7 +21,7 @@ use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
  * @see \Rector\Autodiscovery\Tests\Rector\FileNode\MoveServicesBySuffixToDirectoryRector\MoveServicesBySuffixToDirectoryRectorTest
  * @see \Rector\Autodiscovery\Tests\Rector\FileNode\MoveServicesBySuffixToDirectoryRector\MutualRenameTest
  */
-final class MoveServicesBySuffixToDirectoryRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class MoveServicesBySuffixToDirectoryRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -35,13 +35,13 @@ final class MoveServicesBySuffixToDirectoryRector extends \Rector\Core\Rector\Ab
      * @var ExpectedFileLocationResolver
      */
     private $expectedFileLocationResolver;
-    public function __construct(\Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver $expectedFileLocationResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver $expectedFileLocationResolver)
     {
         $this->expectedFileLocationResolver = $expectedFileLocationResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move classes by their suffix to their own group/directory', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move classes by their suffix to their own group/directory', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 // file: app/Entity/ProductRepository.php
 
 namespace App/Entity;
@@ -64,7 +64,7 @@ CODE_SAMPLE
     /**
      * @param FileNode $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $classLikes = $this->betterNodeFinder->findClassLikes($node);
         if ($classLikes === []) {
@@ -76,7 +76,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $groupNamesBySuffix = $configuration[self::GROUP_NAMES_BY_SUFFIX] ?? [];
-        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allString($groupNamesBySuffix);
+        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allString($groupNamesBySuffix);
         $this->groupNamesBySuffix = $groupNamesBySuffix;
     }
     /**
@@ -84,7 +84,7 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
      * A. Match classes by suffix and move them to group namespace
@@ -95,31 +95,31 @@ CODE_SAMPLE
      *
      * @param string[] $groupNamesBySuffix
      */
-    private function processGroupNamesBySuffix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode, array $groupNamesBySuffix) : void
+    private function processGroupNamesBySuffix(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode, array $groupNamesBySuffix) : void
     {
         foreach ($groupNamesBySuffix as $groupName) {
             // has class suffix
             $suffixPattern = '\\w+' . $groupName . '(Test)?\\.php$';
-            if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
+            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
                 continue;
             }
             if ($this->isLocatedInExpectedLocation($groupName, $suffixPattern, $smartFileInfo)) {
                 continue;
             }
             // file is already in the group
-            if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupName . '$#')) {
+            if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupName . '$#')) {
                 continue;
             }
             $this->moveFileToGroupName($smartFileInfo, $fileNode, $groupName);
             return;
         }
     }
-    private function isLocatedInExpectedLocation(string $groupName, string $suffixPattern, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    private function isLocatedInExpectedLocation(string $groupName, string $suffixPattern, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $expectedLocationFilePattern = $this->expectedFileLocationResolver->resolve($groupName, $suffixPattern);
-        return (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
+        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
     }
-    private function moveFileToGroupName(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode, string $desiredGroupName) : void
+    private function moveFileToGroupName(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode, string $desiredGroupName) : void
     {
         $movedFileWithNodes = $this->movedFileWithNodesFactory->createWithDesiredGroup($fileInfo, $fileNode->stmts, $desiredGroupName);
         if ($movedFileWithNodes === null) {

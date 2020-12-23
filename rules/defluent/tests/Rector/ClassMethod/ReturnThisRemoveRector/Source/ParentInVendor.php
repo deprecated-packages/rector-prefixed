@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Defluent\Tests\Rector\ClassMethod\ReturnThisRemoveRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Defluent\Tests\Rector\ClassMethod\ReturnThisRemoveRector\Source;
 
-use Rector\Defluent\Tests\Rector\ClassMethod\ReturnThisRemoveRector\Fixture\SkipParentInVendor;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\Tests\Rector\ClassMethod\ReturnThisRemoveRector\Fixture\SkipParentInVendor;
 class ParentInVendor
 {
     /**

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Helper;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console\Helper;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
  */
@@ -30,11 +30,10 @@ class ProgressIndicator
     private static $formatters;
     private static $formats;
     /**
-     * @param string|null $format                  Indicator format
-     * @param int         $indicatorChangeInterval Change interval in milliseconds
-     * @param array|null  $indicatorValues         Animated indicator characters
+     * @param int        $indicatorChangeInterval Change interval in milliseconds
+     * @param array|null $indicatorValues         Animated indicator characters
      */
-    public function __construct(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface $output, string $format = null, int $indicatorChangeInterval = 100, array $indicatorValues = null)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface $output, string $format = null, int $indicatorChangeInterval = 100, array $indicatorValues = null)
     {
         $this->output = $output;
         if (null === $format) {
@@ -45,7 +44,7 @@ class ProgressIndicator
         }
         $indicatorValues = \array_values($indicatorValues);
         if (2 > \count($indicatorValues)) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\InvalidArgumentException('Must have at least 2 indicator value characters.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\InvalidArgumentException('Must have at least 2 indicator value characters.');
         }
         $this->format = self::getFormatDefinition($format);
         $this->indicatorChangeInterval = $indicatorChangeInterval;
@@ -54,23 +53,19 @@ class ProgressIndicator
     }
     /**
      * Sets the current indicator message.
-     *
-     * @param string|null $message
      */
-    public function setMessage($message)
+    public function setMessage(?string $message)
     {
         $this->message = $message;
         $this->display();
     }
     /**
      * Starts the indicator output.
-     *
-     * @param $message
      */
-    public function start($message)
+    public function start(string $message)
     {
         if ($this->started) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException('Progress indicator already started.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException('Progress indicator already started.');
         }
         $this->message = $message;
         $this->started = \true;
@@ -85,7 +80,7 @@ class ProgressIndicator
     public function advance()
     {
         if (!$this->started) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException('Progress indicator has not yet been started.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException('Progress indicator has not yet been started.');
         }
         if (!$this->output->isDecorated()) {
             return;
@@ -103,10 +98,10 @@ class ProgressIndicator
      *
      * @param $message
      */
-    public function finish($message)
+    public function finish(string $message)
     {
         if (!$this->started) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Exception\LogicException('Progress indicator has not yet been started.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Exception\LogicException('Progress indicator has not yet been started.');
         }
         $this->message = $message;
         $this->display();
@@ -116,11 +111,9 @@ class ProgressIndicator
     /**
      * Gets the format for a given name.
      *
-     * @param string $name The format name
-     *
      * @return string|null A format string
      */
-    public static function getFormatDefinition($name)
+    public static function getFormatDefinition(string $name)
     {
         if (!self::$formats) {
             self::$formats = self::initFormats();
@@ -131,11 +124,8 @@ class ProgressIndicator
      * Sets a placeholder formatter for a given name.
      *
      * This method also allow you to override an existing placeholder.
-     *
-     * @param string   $name     The placeholder name (including the delimiter char like %)
-     * @param callable $callable A PHP callable
      */
-    public static function setPlaceholderFormatterDefinition($name, $callable)
+    public static function setPlaceholderFormatterDefinition(string $name, callable $callable)
     {
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
@@ -143,13 +133,11 @@ class ProgressIndicator
         self::$formatters[$name] = $callable;
     }
     /**
-     * Gets the placeholder formatter for a given name.
-     *
-     * @param string $name The placeholder name (including the delimiter char like %)
+     * Gets the placeholder formatter for a given name (including the delimiter char like %).
      *
      * @return callable|null A PHP callable
      */
-    public static function getPlaceholderFormatterDefinition($name)
+    public static function getPlaceholderFormatterDefinition(string $name)
     {
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
@@ -158,7 +146,7 @@ class ProgressIndicator
     }
     private function display()
     {
-        if (\_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET === $this->output->getVerbosity()) {
+        if (\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET === $this->output->getVerbosity()) {
             return;
         }
         $this->overwrite(\preg_replace_callback("{%([a-z\\-_]+)(?:\\:([^%]+))?%}i", function ($matches) {
@@ -172,10 +160,10 @@ class ProgressIndicator
     {
         switch ($this->output->getVerbosity()) {
             // OutputInterface::VERBOSITY_QUIET: display is disabled anyway
-            case \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE:
                 return $this->output->isDecorated() ? 'verbose' : 'verbose_no_ansi';
-            case \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE:
-            case \_PhpScoperabd03f0baf05\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE:
+            case \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG:
                 return $this->output->isDecorated() ? 'very_verbose' : 'very_verbose_no_ansi';
             default:
                 return $this->output->isDecorated() ? 'normal' : 'normal_no_ansi';
@@ -204,9 +192,9 @@ class ProgressIndicator
         }, 'message' => function (self $indicator) {
             return $indicator->message;
         }, 'elapsed' => function (self $indicator) {
-            return \_PhpScoperabd03f0baf05\Symfony\Component\Console\Helper\Helper::formatTime(\time() - $indicator->startTime);
+            return \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Helper\Helper::formatTime(\time() - $indicator->startTime);
         }, 'memory' => function () {
-            return \_PhpScoperabd03f0baf05\Symfony\Component\Console\Helper\Helper::formatMemory(\memory_get_usage(\true));
+            return \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Helper\Helper::formatMemory(\memory_get_usage(\true));
         }];
     }
     private static function initFormats() : array

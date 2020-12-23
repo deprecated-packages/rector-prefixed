@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RectorGenerator\Generator;
+namespace _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Generator;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\RectorGenerator\FileSystem\TemplateFileSystem;
-use Rector\RectorGenerator\TemplateFactory;
-use Rector\RectorGenerator\ValueObject\RectorRecipe;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\FileSystem\TemplateFileSystem;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\TemplateFactory;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
 final class FileGenerator
 {
     /**
@@ -28,7 +28,7 @@ final class FileGenerator
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\RectorGenerator\TemplateFactory $templateFactory, \Rector\RectorGenerator\FileSystem\TemplateFileSystem $templateFileSystem)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\TemplateFactory $templateFactory, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\FileSystem\TemplateFileSystem $templateFileSystem)
     {
         $this->templateFileSystem = $templateFileSystem;
         $this->templateFactory = $templateFactory;
@@ -39,7 +39,7 @@ final class FileGenerator
      * @param string[] $templateVariables
      * @return string[]
      */
-    public function generateFiles(array $templateFileInfos, array $templateVariables, \Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $destinationDirectory) : array
+    public function generateFiles(array $templateFileInfos, array $templateVariables, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $destinationDirectory) : array
     {
         $generatedFilePaths = [];
         foreach ($templateFileInfos as $fileInfo) {
@@ -50,13 +50,13 @@ final class FileGenerator
     /**
      * @param array<string, mixed> $templateVariables
      */
-    private function generateFileInfoWithTemplateVariables(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $templateVariables, \Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $targetDirectory) : string
+    private function generateFileInfoWithTemplateVariables(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $templateVariables, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $targetDirectory) : string
     {
         $targetFilePath = $this->templateFileSystem->resolveDestination($smartFileInfo, $templateVariables, $rectorRecipe, $targetDirectory);
         $content = $this->templateFactory->create($smartFileInfo->getContents(), $templateVariables);
         // replace "Rector\Utils\" with "Utils\Rector\" for 3rd party packages
         if (!$rectorRecipe->isRectorRepository()) {
-            $content = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($content, self::RECTOR_UTILS_REGEX, '_PhpScoperabd03f0baf05\\Utils\\Rector');
+            $content = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($content, self::RECTOR_UTILS_REGEX, '_PhpScoper0a2ac50786fa\\Utils\\Rector');
         }
         $this->smartFileSystem->dumpFile($targetFilePath, $content);
         return $targetFilePath;

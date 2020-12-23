@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector\FixtureDifferentBundleName\SomeActionBundle;
+namespace _PhpScoper0a2ac50786fa\Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector\FixtureDifferentBundleName\SomeActionBundle;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Bundle\Bundle;
-final class DifferentNameBundle extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Bundle\Bundle
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Bundle\Bundle;
+final class DifferentNameBundle extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Bundle\Bundle
 {
 }

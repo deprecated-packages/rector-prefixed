@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php80\Rector\Switch_;
+namespace _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Switch_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Match_;
-use PhpParser\Node\MatchArm;
-use PhpParser\Node\Stmt\Break_;
-use PhpParser\Node\Stmt\Case_;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Switch_;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Match_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\MatchArm;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Break_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Case_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/match_expression_v2
  *
  * @see \Rector\Php80\Tests\Rector\Switch_\ChangeSwitchToMatchRector\ChangeSwitchToMatchRectorTest
  */
-final class ChangeSwitchToMatchRector extends \Rector\Core\Rector\AbstractRector
+final class ChangeSwitchToMatchRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var Expr|null
      */
     private $assignExpr;
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change switch() to match()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change switch() to match()', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -75,12 +75,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Switch_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
      * @param Switch_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $this->assignExpr = null;
         if (!$this->hasEachCaseBreak($node)) {
@@ -93,17 +93,17 @@ CODE_SAMPLE
             return null;
         }
         $matchArms = $this->createMatchArmsFromCases($node->cases);
-        $match = new \PhpParser\Node\Expr\Match_($node->cond, $matchArms);
+        $match = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Match_($node->cond, $matchArms);
         if ($this->assignExpr) {
-            return new \PhpParser\Node\Expr\Assign($this->assignExpr, $match);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($this->assignExpr, $match);
         }
         return $match;
     }
-    private function hasEachCaseBreak(\PhpParser\Node\Stmt\Switch_ $switch) : bool
+    private function hasEachCaseBreak(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
         foreach ($switch->cases as $case) {
             foreach ($case->stmts as $caseStmt) {
-                if (!$caseStmt instanceof \PhpParser\Node\Stmt\Break_) {
+                if (!$caseStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Break_) {
                     continue;
                 }
                 return \true;
@@ -111,11 +111,11 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function hasSingleStmtCases(\PhpParser\Node\Stmt\Switch_ $switch) : bool
+    private function hasSingleStmtCases(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
         foreach ($switch->cases as $case) {
-            $stmtsWithoutBreak = \array_filter($case->stmts, function (\PhpParser\Node $node) : bool {
-                return !$node instanceof \PhpParser\Node\Stmt\Break_;
+            $stmtsWithoutBreak = \array_filter($case->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool {
+                return !$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Break_;
             });
             if (\count($stmtsWithoutBreak) !== 1) {
                 return \false;
@@ -123,14 +123,14 @@ CODE_SAMPLE
         }
         return \true;
     }
-    private function hasSingleAssignVariableInStmtCase(\PhpParser\Node\Stmt\Switch_ $switch) : bool
+    private function hasSingleAssignVariableInStmtCase(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
         $assignVariableNames = [];
         foreach ($switch->cases as $case) {
             /** @var Expression $onlyStmt */
             $onlyStmt = $case->stmts[0];
             $expr = $onlyStmt->expr;
-            if (!$expr instanceof \PhpParser\Node\Expr\Assign) {
+            if (!$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
                 continue;
             }
             $assignVariableNames[] = $this->getName($expr->var);
@@ -147,16 +147,16 @@ CODE_SAMPLE
         $matchArms = [];
         foreach ($cases as $case) {
             $stmt = $case->stmts[0];
-            if (!$stmt instanceof \PhpParser\Node\Stmt\Expression) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+            if (!$stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
             }
             $expr = $stmt->expr;
-            if ($expr instanceof \PhpParser\Node\Expr\Assign) {
+            if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
                 $this->assignExpr = $expr->var;
                 $expr = $expr->expr;
             }
             $condList = $case->cond === null ? null : [$case->cond];
-            $matchArms[] = new \PhpParser\Node\MatchArm($condList, $expr);
+            $matchArms[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\MatchArm($condList, $expr);
         }
         return $matchArms;
     }

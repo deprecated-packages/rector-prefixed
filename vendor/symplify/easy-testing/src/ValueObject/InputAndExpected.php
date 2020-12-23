@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyTesting\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Symplify\EasyTesting\ValueObject;
 
 final class InputAndExpected
 {

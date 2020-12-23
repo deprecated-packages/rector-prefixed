@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\AbstractRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Doctrine\AbstractRector;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
-use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 trait DoctrineTrait
 {
     /**
@@ -17,11 +17,11 @@ trait DoctrineTrait
     /**
      * @required
      */
-    public function autowireDoctrineTrait(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver) : void
+    public function autowireDoctrineTrait(\_PhpScoper0a2ac50786fa\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver) : void
     {
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
     }
-    protected function isDoctrineProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    protected function isDoctrineProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
     {
         return $this->doctrineDocBlockResolver->isDoctrineProperty($property);
     }
@@ -32,15 +32,15 @@ trait DoctrineTrait
     {
         return $this->doctrineDocBlockResolver->isDoctrineEntityClass($class);
     }
-    protected function isInDoctrineEntityClass(\PhpParser\Node $node) : bool
+    protected function isInDoctrineEntityClass(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
         return $this->doctrineDocBlockResolver->isInDoctrineEntityClass($node);
     }
-    protected function getTargetEntity(\PhpParser\Node\Stmt\Property $property) : ?string
+    protected function getTargetEntity(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : ?string
     {
         return $this->doctrineDocBlockResolver->getTargetEntity($property);
     }
-    protected function getDoctrineRelationTagValueNode(\PhpParser\Node\Stmt\Property $property) : ?\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
+    protected function getDoctrineRelationTagValueNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : ?\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
     {
         return $this->doctrineDocBlockResolver->getDoctrineRelationTagValueNode($property);
     }

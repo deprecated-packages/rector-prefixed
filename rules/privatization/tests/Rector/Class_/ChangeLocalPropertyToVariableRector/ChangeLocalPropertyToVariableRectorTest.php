@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Privatization\Tests\Rector\Class_\ChangeLocalPropertyToVariableRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Privatization\Tests\Rector\Class_\ChangeLocalPropertyToVariableRector;
 
 use Iterator;
-use Rector\Privatization\Rector\Class_\ChangeLocalPropertyToVariableRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeLocalPropertyToVariableRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Privatization\Rector\Class_\ChangeLocalPropertyToVariableRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeLocalPropertyToVariableRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeLocalPropertyToVariableRectorTest extends \Rector\Testing\PHPU
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Privatization\Rector\Class_\ChangeLocalPropertyToVariableRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Privatization\Rector\Class_\ChangeLocalPropertyToVariableRector::class;
     }
 }

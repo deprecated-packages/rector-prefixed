@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\AlreadyAssignDetector;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
 abstract class AbstractAssignDetector
 {
     /**
@@ -21,14 +21,14 @@ abstract class AbstractAssignDetector
     /**
      * @required
      */
-    public function autowireAbstractAssignDetector(\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser) : void
+    public function autowireAbstractAssignDetector(\_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser) : void
     {
         $this->propertyAssignMatcher = $propertyAssignMatcher;
         $this->callableNodeTraverser = $callableNodeTraverser;
     }
-    protected function matchAssignExprToPropertyName(\PhpParser\Node $node, string $propertyName) : ?\PhpParser\Node\Expr
+    protected function matchAssignExprToPropertyName(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $propertyName) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return null;
         }
         return $this->propertyAssignMatcher->matchPropertyAssignExpr($node, $propertyName);

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CakePHP\Tests\Rector\Namespace_\AppUsesStaticCallToUseStatementRector;
+namespace _PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\Namespace_\AppUsesStaticCallToUseStatementRector;
 
 use Iterator;
-use Rector\CakePHP\Rector\Namespace_\AppUsesStaticCallToUseStatementRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AppUsesStaticCallToUseStatementRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\Namespace_\AppUsesStaticCallToUseStatementRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AppUsesStaticCallToUseStatementRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AppUsesStaticCallToUseStatementRectorTest extends \Rector\Testing\PH
     }
     protected function getRectorClass() : string
     {
-        return \Rector\CakePHP\Rector\Namespace_\AppUsesStaticCallToUseStatementRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\Namespace_\AppUsesStaticCallToUseStatementRector::class;
     }
 }

@@ -1,39 +1,39 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RemovingStatic\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Property;
-use PHPStan\Type\ObjectType;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\MethodName;
-use Rector\Naming\Naming\PropertyNaming;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
-use Rector\RemovingStatic\ValueObject\PHPUnitClass;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
+use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\ValueObject\PHPUnitClass;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\RemovingStatic\Tests\Rector\Class_\PHPUnitStaticToKernelTestCaseGetRector\PHPUnitStaticToKernelTestCaseGetRectorTest
  */
-final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class PHPUnitStaticToKernelTestCaseGetRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -60,28 +60,28 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
      * @var SetUpClassMethodFactory
      */
     private $setUpClassMethodFactory;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScoper0a2ac50786fa\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory)
     {
         $this->propertyNaming = $propertyNaming;
         $this->classInsertManipulator = $classInsertManipulator;
         $this->setUpClassMethodFactory = $setUpClassMethodFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert static calls in PHPUnit test cases, to get() from the container of KernelTestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert static calls in PHPUnit test cases, to get() from the container of KernelTestCase', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
-final class SomeTestCase extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
+final class SomeTestCase extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase
 {
     public function test()
     {
-        $product = \_PhpScoperabd03f0baf05\EntityFactory::create('product');
+        $product = \_PhpScoper0a2ac50786fa\EntityFactory::create('product');
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeTestCase', 'SomeTestCase', \false);
+\class_alias('_PhpScoper0a2ac50786fa\\SomeTestCase', 'SomeTestCase', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -112,16 +112,16 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param StaticCall|Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         // skip yourself
         $this->newProperties = [];
-        if ($node instanceof \PhpParser\Node\Stmt\Class_) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             if ($this->isObjectTypes($node, $this->staticClassTypes)) {
                 return null;
             }
@@ -133,9 +133,9 @@ CODE_SAMPLE
     {
         $this->staticClassTypes = $configuration[self::STATIC_CLASS_TYPES] ?? [];
     }
-    private function processClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
+    private function processClass(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_
     {
-        if ($this->isObjectType($class, \Rector\RemovingStatic\ValueObject\PHPUnitClass::TEST_CASE)) {
+        if ($this->isObjectType($class, \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\ValueObject\PHPUnitClass::TEST_CASE)) {
             return $this->processPHPUnitClass($class);
         }
         // add property with the object
@@ -150,15 +150,15 @@ CODE_SAMPLE
         }
         return $class;
     }
-    private function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\MethodCall
+    private function processStaticCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
         /** @var Class_|null $classLike */
-        $classLike = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $staticCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return null;
         }
         foreach ($this->staticClassTypes as $type) {
-            $objectType = new \PHPStan\Type\ObjectType($type);
+            $objectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($type);
             if (!$this->isObjectType($staticCall->class, $objectType)) {
                 continue;
             }
@@ -166,7 +166,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processPHPUnitClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
+    private function processPHPUnitClass(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_
     {
         // add property with the object
         $newPropertyTypes = $this->collectNewPropertyObjectTypes($class);
@@ -179,7 +179,7 @@ CODE_SAMPLE
         foreach ($newPropertyTypes as $type) {
             // container fetch assign
             $assign = $this->createContainerGetTypeToPropertyAssign($type);
-            $setupClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);
+            $setupClassMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::SET_UP);
             // get setup or create a setup add add it there
             if ($setupClassMethod !== null) {
                 $this->updateSetUpMethod($setupClassMethod, $parentSetUpStaticCallExpression, $assign);
@@ -189,23 +189,23 @@ CODE_SAMPLE
             }
         }
         // update parent clsas if not already
-        if (!$this->isObjectType($class, '_PhpScoperabd03f0baf05\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
-            $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
+        if (!$this->isObjectType($class, '_PhpScoper0a2ac50786fa\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
+            $class->extends = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified('_PhpScoper0a2ac50786fa\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
         }
         return $class;
     }
     /**
      * @return ObjectType[]
      */
-    private function collectNewPropertyObjectTypes(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function collectNewPropertyObjectTypes(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $this->newProperties = [];
-        $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) : void {
-            if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
+        $this->traverseNodesWithCallable($class->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
                 return;
             }
             foreach ($this->staticClassTypes as $type) {
-                $objectType = new \PHPStan\Type\ObjectType($type);
+                $objectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($type);
                 if (!$this->isObjectType($node->class, $objectType)) {
                     continue;
                 }
@@ -215,20 +215,20 @@ CODE_SAMPLE
         $this->newProperties = \array_unique($this->newProperties);
         return $this->newProperties;
     }
-    private function convertStaticCallToPropertyMethodCall(\PhpParser\Node\Expr\StaticCall $staticCall, \PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Expr\MethodCall
+    private function convertStaticCallToPropertyMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall, \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType $objectType) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
         // create "$this->someService" instead
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-        $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
+        $propertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('this'), $propertyName);
         // turn static call to method on property call
-        $methodCall = new \PhpParser\Node\Expr\MethodCall($propertyFetch, $staticCall->name);
+        $methodCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($propertyFetch, $staticCall->name);
         $methodCall->args = $staticCall->args;
         return $methodCall;
     }
     /**
      * @param ObjectType[] $newProperties
      */
-    private function addNewPropertiesToClass(\PhpParser\Node\Stmt\Class_ $class, array $newProperties) : \PhpParser\Node\Stmt\Class_
+    private function addNewPropertiesToClass(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, array $newProperties) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_
     {
         $properties = [];
         foreach ($newProperties as $objectType) {
@@ -238,20 +238,20 @@ CODE_SAMPLE
         $class->stmts = \array_merge($properties, $class->stmts);
         return $class;
     }
-    private function createParentSetUpStaticCall() : \PhpParser\Node\Stmt\Expression
+    private function createParentSetUpStaticCall() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression
     {
-        $parentSetupStaticCall = $this->createStaticCall('parent', \Rector\Core\ValueObject\MethodName::SET_UP);
-        return new \PhpParser\Node\Stmt\Expression($parentSetupStaticCall);
+        $parentSetupStaticCall = $this->createStaticCall('parent', \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::SET_UP);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($parentSetupStaticCall);
     }
-    private function createContainerGetTypeToPropertyAssign(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Expression
+    private function createContainerGetTypeToPropertyAssign(\_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType $objectType) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression
     {
         $getMethodCall = $this->createContainerGetTypeMethodCall($objectType);
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-        $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
-        $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $getMethodCall);
-        return new \PhpParser\Node\Stmt\Expression($assign);
+        $propertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('this'), $propertyName);
+        $assign = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($propertyFetch, $getMethodCall);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($assign);
     }
-    private function updateSetUpMethod(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod, \PhpParser\Node\Stmt\Expression $parentSetupStaticCall, \PhpParser\Node\Stmt\Expression $assign) : void
+    private function updateSetUpMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $setupClassMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $parentSetupStaticCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $assign) : void
     {
         $parentSetUpStaticCallPosition = $this->getParentSetUpStaticCallPosition($setupClassMethod);
         if ($parentSetUpStaticCallPosition === null) {
@@ -261,29 +261,29 @@ CODE_SAMPLE
             \array_splice($setupClassMethod->stmts, $parentSetUpStaticCallPosition + 1, 0, [$assign]);
         }
     }
-    private function createPropertyFromType(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Property
+    private function createPropertyFromType(\_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType $objectType) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         return $this->nodeFactory->createPrivatePropertyFromNameAndType($propertyName, $objectType);
     }
-    private function createContainerGetTypeMethodCall(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Expr\MethodCall
+    private function createContainerGetTypeMethodCall(\_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType $objectType) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
-        $staticPropertyFetch = new \PhpParser\Node\Expr\StaticPropertyFetch(new \PhpParser\Node\Name('self'), 'container');
-        $getMethodCall = new \PhpParser\Node\Expr\MethodCall($staticPropertyFetch, 'get');
+        $staticPropertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('self'), 'container');
+        $getMethodCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($staticPropertyFetch, 'get');
         $className = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($objectType);
-        if (!$className instanceof \PhpParser\Node\Name) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (!$className instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $getMethodCall->args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ClassConstFetch($className, 'class'));
+        $getMethodCall->args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch($className, 'class'));
         return $getMethodCall;
     }
-    private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod) : ?int
+    private function getParentSetUpStaticCallPosition(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $setupClassMethod) : ?int
     {
         foreach ((array) $setupClassMethod->stmts as $position => $methodStmt) {
-            if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {
+            if ($methodStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
                 $methodStmt = $methodStmt->expr;
             }
-            if (!$this->isStaticCallNamed($methodStmt, 'parent', \Rector\Core\ValueObject\MethodName::SET_UP)) {
+            if (!$this->isStaticCallNamed($methodStmt, 'parent', \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::SET_UP)) {
                 continue;
             }
             return $position;

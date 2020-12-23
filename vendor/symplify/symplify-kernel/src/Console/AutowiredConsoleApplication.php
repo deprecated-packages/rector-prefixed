@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SymplifyKernel\Console;
+namespace _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Console;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command;
 /**
  * @see \Symplify\SymplifyKernel\Tests\Console\AbstractSymplifyConsoleApplication\AutowiredConsoleApplicationTest
  */
-final class AutowiredConsoleApplication extends \Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication
+final class AutowiredConsoleApplication extends \_PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication
 {
     /**
      * @param Command[] $commands

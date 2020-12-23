@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteCodeQuality\Naming;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Naming;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\Core\Util\StaticRectorStrings;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings;
 final class NetteControlNaming
 {
     public function createVariableName(string $shortName) : string
     {
-        $variableName = \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($shortName);
-        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($variableName, 'Form')) {
+        $variableName = \_PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($shortName);
+        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($variableName, 'Form')) {
             return $variableName;
         }
         return $variableName . 'Control';
     }
     public function createCreateComponentClassMethodName(string $shortName) : string
     {
-        return 'createComponent' . \Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($shortName);
+        return 'createComponent' . \_PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($shortName);
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ExtraFileCodeSample extends \Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class ExtraFileCodeSample extends \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
 {
     /**
      * @var string
      */
     private $extraFile;
-    public function __construct(string $goodCode, string $badCode, string $extraFile)
+    public function __construct(string $badCode, string $goodCode, string $extraFile)
     {
-        parent::__construct($goodCode, $badCode);
+        parent::__construct($badCode, $goodCode);
         $this->extraFile = $extraFile;
     }
     public function getExtraFile() : string

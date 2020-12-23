@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Testing\TestingParser;
+namespace _PhpScoper0a2ac50786fa\Rector\Testing\TestingParser;
 
-use PhpParser\Node;
-use Rector\Core\Configuration\Option;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Parser\Parser;
-use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser\Parser;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class TestingParser
 {
     /**
@@ -28,7 +28,7 @@ final class TestingParser
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\PhpParser\Parser\Parser $parser, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser\Parser $parser, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->parameterProvider = $parameterProvider;
         $this->parser = $parser;
@@ -42,8 +42,8 @@ final class TestingParser
     {
         // autoload file
         require_once $file;
-        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($file);
-        $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$file]);
+        $smartFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($file);
+        $this->parameterProvider->changeParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::SOURCE, [$file]);
         $nodes = $this->parser->parseFileInfo($smartFileInfo);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($nodes, $smartFileInfo);
     }

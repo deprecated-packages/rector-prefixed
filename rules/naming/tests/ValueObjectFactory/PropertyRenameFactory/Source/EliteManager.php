@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Tests\ValueObjectFactory\PropertyRenameFactory\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Tests\ValueObjectFactory\PropertyRenameFactory\Source;
 
 final class EliteManager
 {

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\If_;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\If_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp\Coalesce;
-use PhpParser\Node\Stmt\If_;
-use PhpParser\Node\Stmt\Return_;
-use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\If_\ConsecutiveNullCompareReturnsToNullCoalesceQueueRector\ConsecutiveNullCompareReturnsToNullCoalesceQueueRectorTest
  */
-final class ConsecutiveNullCompareReturnsToNullCoalesceQueueRector extends \Rector\Core\Rector\AbstractRector
+final class ConsecutiveNullCompareReturnsToNullCoalesceQueueRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var Node[]
@@ -31,13 +31,13 @@ final class ConsecutiveNullCompareReturnsToNullCoalesceQueueRector extends \Rect
      * @var IfManipulator
      */
     private $ifManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change multiple null compares to ?? queue', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change multiple null compares to ?? queue', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -70,25 +70,25 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\If_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
         }
         $this->reset();
         $currentNode = $node;
         while ($currentNode !== null) {
-            if ($currentNode instanceof \PhpParser\Node\Stmt\If_) {
+            if ($currentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_) {
                 $comparedNode = $this->ifManipulator->matchIfNotNullReturnValue($currentNode);
                 if ($comparedNode !== null) {
                     $this->coalescingNodes[] = $comparedNode;
                     $this->nodesToRemove[] = $currentNode;
-                    $currentNode = $currentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+                    $currentNode = $currentNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
                     continue;
                 }
                 return null;
@@ -111,9 +111,9 @@ CODE_SAMPLE
         $this->coalescingNodes = [];
         $this->nodesToRemove = [];
     }
-    private function isReturnNull(\PhpParser\Node $node) : bool
+    private function isReturnNull(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_) {
             return \false;
         }
         if ($node->expr === null) {
@@ -124,16 +124,16 @@ CODE_SAMPLE
     /**
      * @param Expr[] $coalescingNodes
      */
-    private function createReturnCoalesceNode(array $coalescingNodes) : \PhpParser\Node\Stmt\Return_
+    private function createReturnCoalesceNode(array $coalescingNodes) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_
     {
         /** @var Expr $left */
         $left = \array_shift($coalescingNodes);
         /** @var Expr $right */
         $right = \array_shift($coalescingNodes);
-        $coalesceNode = new \PhpParser\Node\Expr\BinaryOp\Coalesce($left, $right);
+        $coalesceNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce($left, $right);
         foreach ($coalescingNodes as $nextCoalescingNode) {
-            $coalesceNode = new \PhpParser\Node\Expr\BinaryOp\Coalesce($coalesceNode, $nextCoalescingNode);
+            $coalesceNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce($coalesceNode, $nextCoalescingNode);
         }
-        return new \PhpParser\Node\Stmt\Return_($coalesceNode);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_($coalesceNode);
     }
 }

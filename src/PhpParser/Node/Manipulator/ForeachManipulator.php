@@ -1,20 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
 final class ForeachManipulator
 {
-    public function matchOnlyStmt(\PhpParser\Node\Stmt\Foreach_ $foreach, callable $callable) : ?\PhpParser\Node
+    public function matchOnlyStmt(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreach, callable $callable) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (\count($foreach->stmts) !== 1) {
+        $stmts = (array) $foreach->stmts;
+        if (\count($stmts) !== 1) {
             return null;
         }
-        $innerNode = $foreach->stmts[0];
-        $innerNode = $innerNode instanceof \PhpParser\Node\Stmt\Expression ? $innerNode->expr : $innerNode;
+        $innerNode = $stmts[0];
+        $innerNode = $innerNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression ? $innerNode->expr : $innerNode;
         return $callable($innerNode, $foreach);
     }
 }

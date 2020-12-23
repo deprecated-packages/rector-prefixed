@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+final class SerializerTypeTagValueNode extends \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
 {
     /**
      * @var string
@@ -16,7 +16,7 @@ final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueO
     private const NAME = 'name';
     public function getShortName() : string
     {
-        return '_PhpScoperabd03f0baf05\\@Serializer\\Type';
+        return '_PhpScoper0a2ac50786fa\\@Serializer\\Type';
     }
     public function changeName(string $newName) : void
     {
@@ -29,7 +29,7 @@ final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueO
     public function replaceName(string $oldName, string $newName) : bool
     {
         $oldNamePattern = '#\\b' . \preg_quote($oldName, '#') . '\\b#';
-        $newNameValue = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($this->items[self::NAME], $oldNamePattern, $newName);
+        $newNameValue = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($this->items[self::NAME], $oldNamePattern, $newName);
         if ($newNameValue !== $this->items[self::NAME]) {
             $this->changeName($newNameValue);
             return \true;

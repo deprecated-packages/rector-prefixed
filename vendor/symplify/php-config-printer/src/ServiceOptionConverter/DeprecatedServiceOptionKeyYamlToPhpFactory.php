@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
-use PhpParser\Node\Expr\MethodCall;
-use Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class DeprecatedServiceOptionKeyYamlToPhpFactory implements \Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use _PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class DeprecatedServiceOptionKeyYamlToPhpFactory implements \_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }
-    public function decorateServiceMethodCall($key, $yaml, $values, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
+    public function decorateServiceMethodCall($key, $yaml, $values, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
         // the old, simple format
         if (!\is_array($yaml)) {
@@ -26,10 +26,10 @@ final class DeprecatedServiceOptionKeyYamlToPhpFactory implements \Symplify\PhpC
             $items = [$yaml['package'] ?? '', $yaml['version'] ?? '', $yaml['message'] ?? ''];
             $args = $this->argsNodeFactory->createFromValues($items);
         }
-        return new \PhpParser\Node\Expr\MethodCall($methodCall, 'deprecate', $args);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($methodCall, 'deprecate', $args);
     }
     public function isMatch($key, $values) : bool
     {
-        return $key === \Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::DEPRECATED;
+        return $key === \_PhpScoper0a2ac50786fa\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::DEPRECATED;
     }
 }

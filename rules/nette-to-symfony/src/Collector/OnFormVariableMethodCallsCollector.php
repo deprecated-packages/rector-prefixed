@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteToSymfony\Collector;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Collector;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\NodeTraverser;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 final class OnFormVariableMethodCallsCollector
 {
     /**
@@ -26,7 +26,7 @@ final class OnFormVariableMethodCallsCollector
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -35,7 +35,7 @@ final class OnFormVariableMethodCallsCollector
     /**
      * @return MethodCall[]
      */
-    public function collectFromClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    public function collectFromClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $newFormVariable = $this->resolveNewFormVariable($classMethod);
         if ($newFormVariable === null) {
@@ -47,29 +47,29 @@ final class OnFormVariableMethodCallsCollector
      * Matches:
      * $form = new Form;
      */
-    private function resolveNewFormVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr
+    private function resolveNewFormVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         $newFormVariable = null;
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use(&$newFormVariable) : ?int {
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use(&$newFormVariable) : ?int {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
                 return null;
             }
-            if (!$this->nodeTypeResolver->isObjectType($node->expr, '_PhpScoperabd03f0baf05\\Nette\\Application\\UI\\Form')) {
+            if (!$this->nodeTypeResolver->isObjectType($node->expr, '_PhpScoper0a2ac50786fa\\Nette\\Application\\UI\\Form')) {
                 return null;
             }
             $newFormVariable = $node->var;
-            return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
+            return \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
         return $newFormVariable;
     }
     /**
      * @return MethodCall[]
      */
-    private function collectOnFormVariableMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr $expr) : array
+    private function collectOnFormVariableMethodCalls(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : array
     {
         $onFormVariableMethodCalls = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use($expr, &$onFormVariableMethodCalls) {
-            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($expr, &$onFormVariableMethodCalls) {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             if (!$this->betterStandardPrinter->areNodesEqual($node->var, $expr)) {

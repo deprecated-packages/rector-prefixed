@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Application;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Application;
 
-use PhpParser\Lexer;
-use Rector\ChangesReporting\Collector\AffectedFilesCollector;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
-use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
-use Rector\Core\PhpParser\Parser\Parser;
-use Rector\Core\PhpParser\Printer\FormatPerservingPrinter;
-use Rector\Core\Stubs\StubLoader;
-use Rector\Core\ValueObject\Application\ParsedStmtsAndTokens;
-use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use Rector\PostRector\Application\PostFileProcessor;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\PhpParser\Lexer;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\AffectedFilesCollector;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser\Parser;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\FormatPerservingPrinter;
+use _PhpScoper0a2ac50786fa\Rector\Core\Stubs\StubLoader;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\ParsedStmtsAndTokens;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Application\PostFileProcessor;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileProcessor
 {
     /**
@@ -58,7 +58,7 @@ final class FileProcessor
      * @var TokensByFilePathStorage
      */
     private $tokensByFilePathStorage;
-    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \PhpParser\Lexer $lexer, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \Rector\Core\PhpParser\Parser\Parser $parser, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \Rector\Core\Stubs\StubLoader $stubLoader, \Rector\Core\Application\TokensByFilePathStorage $tokensByFilePathStorage)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \_PhpScoper0a2ac50786fa\PhpParser\Lexer $lexer, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser\Parser $parser, \_PhpScoper0a2ac50786fa\Rector\PostRector\Application\PostFileProcessor $postFileProcessor, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\Core\Stubs\StubLoader $stubLoader, \_PhpScoper0a2ac50786fa\Rector\Core\Application\TokensByFilePathStorage $tokensByFilePathStorage)
     {
         $this->formatPerservingPrinter = $formatPerservingPrinter;
         $this->parser = $parser;
@@ -71,7 +71,7 @@ final class FileProcessor
         $this->postFileProcessor = $postFileProcessor;
         $this->tokensByFilePathStorage = $tokensByFilePathStorage;
     }
-    public function parseFileInfoToLocalCache(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function parseFileInfoToLocalCache(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if ($this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
             return;
@@ -81,7 +81,7 @@ final class FileProcessor
         $parsedStmtsAndTokens = $this->parseAndTraverseFileInfoToNodes($smartFileInfo);
         $this->tokensByFilePathStorage->addForRealPath($smartFileInfo, $parsedStmtsAndTokens);
     }
-    public function printToFile(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function printToFile(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
         return $this->formatPerservingPrinter->printParsedStmstAndTokens($smartFileInfo, $parsedStmtsAndTokens);
@@ -89,13 +89,13 @@ final class FileProcessor
     /**
      * See https://github.com/nikic/PHP-Parser/issues/344#issuecomment-298162516.
      */
-    public function printToString(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function printToString(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $this->makeSureFileIsParsed($smartFileInfo);
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
         return $this->formatPerservingPrinter->printParsedStmstAndTokensToString($parsedStmtsAndTokens);
     }
-    public function refactor(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function refactor(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->stubLoader->loadStubs();
         $this->currentFileInfoProvider->setCurrentFileInfo($smartFileInfo);
@@ -103,7 +103,7 @@ final class FileProcessor
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
         $this->currentFileInfoProvider->setCurrentStmts($parsedStmtsAndTokens->getNewStmts());
         // run file node only if
-        $fileNode = new \Rector\Core\PhpParser\Node\CustomNode\FileNode($smartFileInfo, $parsedStmtsAndTokens->getNewStmts());
+        $fileNode = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileNode($smartFileInfo, $parsedStmtsAndTokens->getNewStmts());
         $result = $this->rectorNodeTraverser->traverseFileNode($fileNode);
         $newStmts = $this->rectorNodeTraverser->traverse($parsedStmtsAndTokens->getNewStmts());
         // this is needed for new tokens added in "afterTraverse()"
@@ -113,7 +113,7 @@ final class FileProcessor
             $this->refactor($otherTouchedFile);
         }
     }
-    public function postFileRefactor(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function postFileRefactor(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if (!$this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
             $this->parseFileInfoToLocalCache($smartFileInfo);
@@ -125,21 +125,21 @@ final class FileProcessor
         // this is needed for new tokens added in "afterTraverse()"
         $parsedStmtsAndTokens->updateNewStmts($newStmts);
     }
-    private function parseAndTraverseFileInfoToNodes(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Rector\Core\ValueObject\Application\ParsedStmtsAndTokens
+    private function parseAndTraverseFileInfoToNodes(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\ParsedStmtsAndTokens
     {
         $oldStmts = $this->parser->parseFileInfo($smartFileInfo);
         $oldTokens = $this->lexer->getTokens();
         // needed for \Rector\NodeTypeResolver\PHPStan\Scope\NodeScopeResolver
-        $parsedStmtsAndTokens = new \Rector\Core\ValueObject\Application\ParsedStmtsAndTokens($oldStmts, $oldStmts, $oldTokens);
+        $parsedStmtsAndTokens = new \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\ParsedStmtsAndTokens($oldStmts, $oldStmts, $oldTokens);
         $this->tokensByFilePathStorage->addForRealPath($smartFileInfo, $parsedStmtsAndTokens);
         $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($oldStmts, $smartFileInfo);
-        return new \Rector\Core\ValueObject\Application\ParsedStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
+        return new \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\ParsedStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
     }
-    private function makeSureFileIsParsed(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    private function makeSureFileIsParsed(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if ($this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
             return;
         }
-        throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('File "%s" was not preparsed, so it cannot be printed.%sCheck "%s" method.', $smartFileInfo->getRealPath(), \PHP_EOL, self::class . '::parseFileInfoToLocalCache()'));
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException(\sprintf('File "%s" was not preparsed, so it cannot be printed.%sCheck "%s" method.', $smartFileInfo->getRealPath(), \PHP_EOL, self::class . '::parseFileInfoToLocalCache()'));
     }
 }

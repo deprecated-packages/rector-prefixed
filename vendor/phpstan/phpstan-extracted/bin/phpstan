@@ -1,0 +1,77 @@
+<?php
+
+declare (strict_types=1);
+namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f;
+
+use _PhpScoper0a2ac50786fa\PHPStan\Command\AnalyseCommand;
+use _PhpScoper0a2ac50786fa\PHPStan\Command\ClearResultCacheCommand;
+use _PhpScoper0a2ac50786fa\PHPStan\Command\FixerWorkerCommand;
+use _PhpScoper0a2ac50786fa\PHPStan\Command\DumpDependenciesCommand;
+use _PhpScoper0a2ac50786fa\PHPStan\Command\WorkerCommand;
+use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar;
+(function () {
+    \error_reporting(\E_ALL);
+    \ini_set('display_errors', 'stderr');
+    \gc_disable();
+    // performance boost
+    \define('__PHPSTAN_RUNNING__', \true);
+    $devOrPharLoader = (require_once 'phar://phpstan.phar/vendor/autoload.php');
+    require_once 'phar://phpstan.phar/preload.php';
+    $devOrPharLoader->unregister();
+    $composerAutoloadFiles = $GLOBALS['__composer_autoload_files'];
+    if (!\array_key_exists('e88992873b7765f9b5710cab95ba5dd7', $composerAutoloadFiles) || !\array_key_exists('3e76f7f02b41af8cea96018933f6b7e3', $composerAutoloadFiles)) {
+        echo "Composer autoloader changed\n";
+        exit(1);
+    }
+    // empty the global variable so that unprefixed functions from user-space can be loaded
+    $GLOBALS['__composer_autoload_files'] = [
+        // fix unprefixed Hoa namespace - files already loaded
+        'e88992873b7765f9b5710cab95ba5dd7' => \true,
+        '3e76f7f02b41af8cea96018933f6b7e3' => \true,
+    ];
+    $autoloaderInWorkingDirectory = \getcwd() . '/vendor/autoload.php';
+    $composerAutoloaderProjectPaths = [];
+    if (\is_file($autoloaderInWorkingDirectory)) {
+        $composerAutoloaderProjectPaths[] = \dirname($autoloaderInWorkingDirectory, 2);
+        require_once $autoloaderInWorkingDirectory;
+    }
+    $autoloadProjectAutoloaderFile = function (string $file) use(&$composerAutoloaderProjectPaths) : void {
+        $path = \dirname(__DIR__) . $file;
+        if (!\extension_loaded('phar')) {
+            if (\is_file($path)) {
+                $composerAutoloaderProjectPaths[] = \dirname($path, 2);
+                require_once $path;
+            }
+        } else {
+            $pharPath = \Phar::running(\false);
+            if ($pharPath === '') {
+                if (\is_file($path)) {
+                    $composerAutoloaderProjectPaths[] = \dirname($path, 2);
+                    require_once $path;
+                }
+            } else {
+                $path = \dirname($pharPath) . $file;
+                if (\is_file($path)) {
+                    $composerAutoloaderProjectPaths[] = \dirname($path, 2);
+                    require_once $path;
+                }
+            }
+        }
+    };
+    $autoloadProjectAutoloaderFile('/../../autoload.php');
+    $devOrPharLoader->register(\true);
+    $version = 'Version unknown';
+    try {
+        $version = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+    } catch (\OutOfBoundsException $e) {
+    }
+    $application = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Application('PHPStan - PHP Static Analysis Tool', $version);
+    \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar::setFormatDefinition('file_download', ' [%bar%] %percent:3s%% %fileSize%');
+    $reversedComposerAutoloaderProjectPaths = \array_reverse($composerAutoloaderProjectPaths);
+    $application->add(new \_PhpScoper0a2ac50786fa\PHPStan\Command\AnalyseCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \_PhpScoper0a2ac50786fa\PHPStan\Command\DumpDependenciesCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \_PhpScoper0a2ac50786fa\PHPStan\Command\WorkerCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \_PhpScoper0a2ac50786fa\PHPStan\Command\ClearResultCacheCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \_PhpScoper0a2ac50786fa\PHPStan\Command\FixerWorkerCommand($reversedComposerAutoloaderProjectPaths));
+    $application->run();
+})();

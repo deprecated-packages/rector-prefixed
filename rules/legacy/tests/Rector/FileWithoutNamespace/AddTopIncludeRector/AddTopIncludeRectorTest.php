@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Legacy\Tests\Rector\FileWithoutNamespace\AddTopIncludeRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Legacy\Tests\Rector\FileWithoutNamespace\AddTopIncludeRector;
 
 use Iterator;
-use Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AddTopIncludeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddTopIncludeRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $this->doTestFileInfo($fixtureFileInfo);
     }
@@ -25,6 +25,6 @@ final class AddTopIncludeRectorTest extends \Rector\Testing\PHPUnit\AbstractRect
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector::class => [\Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector::AUTOLOAD_FILE_PATH => '/../autoloader.php']];
+        return [\_PhpScoper0a2ac50786fa\Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector::class => [\_PhpScoper0a2ac50786fa\Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector::AUTOLOAD_FILE_PATH => '/../autoloader.php']];
     }
 }

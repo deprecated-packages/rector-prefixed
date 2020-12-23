@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\NodeTypeResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\Nop;
-use PhpParser\Node\Stmt\Trait_;
-use PHPStan\Analyser\Scope;
-use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
-use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector;
-use Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper;
 use ReflectionProperty;
 /**
  * @see \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\NameTypeResolver\NameTypeResolverTest
  */
-final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+final class PropertyFetchTypeResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @var ParsedNodeCollector
@@ -51,7 +51,7 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
      * @var TraitNodeScopeCollector
      */
     private $traitNodeScopeCollector;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector)
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -62,7 +62,7 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
     /**
      * @required
      */
-    public function autowirePropertyFetchTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowirePropertyFetchTypeResolver(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -71,73 +71,73 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
      */
     public function getNodeClasses() : array
     {
-        return [\PhpParser\Node\Expr\PropertyFetch::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch::class];
     }
     /**
      * @param PropertyFetch $node
      */
-    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         // compensate 3rd party non-analysed property reflection
         $vendorPropertyType = $this->getVendorPropertyFetchType($node);
-        if (!$vendorPropertyType instanceof \PHPStan\Type\MixedType) {
+        if (!$vendorPropertyType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
             return $vendorPropertyType;
         }
         /** @var Scope|null $scope */
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
-            $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            if ($classNode instanceof \PhpParser\Node\Stmt\Trait_) {
+            $classNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+            if ($classNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_) {
                 /** @var string $traitName */
-                $traitName = $classNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+                $traitName = $classNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
                 /** @var Scope|null $scope */
                 $scope = $this->traitNodeScopeCollector->getScopeForTraitAndNode($traitName, $node);
             }
         }
         if ($scope === null) {
-            $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+            $classNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             // fallback to class, since property fetches are not scoped by PHPStan
-            if ($classNode instanceof \PhpParser\Node\Stmt\ClassLike) {
-                $scope = $classNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+            if ($classNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike) {
+                $scope = $classNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
             }
             if ($scope === null) {
-                return new \PHPStan\Type\MixedType();
+                return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
             }
         }
         return $scope->getType($node);
     }
-    private function getVendorPropertyFetchType(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \PHPStan\Type\Type
+    private function getVendorPropertyFetchType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $varObjectType = $this->nodeTypeResolver->resolve($propertyFetch->var);
-        if (!$varObjectType instanceof \PHPStan\Type\TypeWithClassName) {
-            return new \PHPStan\Type\MixedType();
+        if (!$varObjectType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         $class = $this->parsedNodeCollector->findClass($varObjectType->getClassName());
         if ($class !== null) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         // 3rd party code
         $propertyName = $this->nodeNameResolver->getName($propertyFetch->name);
         if ($propertyName === null) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         if (!\property_exists($varObjectType->getClassName(), $propertyName)) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         // property is used
         $reflectionProperty = new \ReflectionProperty($varObjectType->getClassName(), $propertyName);
         if (!$reflectionProperty->getDocComment()) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         $phpDocNode = $this->betterPhpDocParser->parseString((string) $reflectionProperty->getDocComment());
         $varTagValues = $phpDocNode->getVarTagValues();
         if (!isset($varTagValues[0])) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         $typeNode = $varTagValues[0]->type;
-        if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
-            return new \PHPStan\Type\MixedType();
+        if (!$typeNode instanceof \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode) {
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
-        return $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($typeNode, new \PhpParser\Node\Stmt\Nop());
+        return $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($typeNode, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop());
     }
 }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Finder\Iterator;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Finder\Iterator;
 
 /**
  * SortableIterator applies a sort on a given Iterator.
@@ -17,13 +17,13 @@ namespace _PhpScoperabd03f0baf05\Symfony\Component\Finder\Iterator;
  */
 class SortableIterator implements \IteratorAggregate
 {
-    const SORT_BY_NONE = 0;
-    const SORT_BY_NAME = 1;
-    const SORT_BY_TYPE = 2;
-    const SORT_BY_ACCESSED_TIME = 3;
-    const SORT_BY_CHANGED_TIME = 4;
-    const SORT_BY_MODIFIED_TIME = 5;
-    const SORT_BY_NAME_NATURAL = 6;
+    public const SORT_BY_NONE = 0;
+    public const SORT_BY_NAME = 1;
+    public const SORT_BY_TYPE = 2;
+    public const SORT_BY_ACCESSED_TIME = 3;
+    public const SORT_BY_CHANGED_TIME = 4;
+    public const SORT_BY_MODIFIED_TIME = 5;
+    public const SORT_BY_NAME_NATURAL = 6;
     private $iterator;
     private $sort;
     /**
@@ -37,15 +37,15 @@ class SortableIterator implements \IteratorAggregate
         $this->iterator = $iterator;
         $order = $reverseOrder ? -1 : 1;
         if (self::SORT_BY_NAME === $sort) {
-            $this->sort = static function ($a, $b) use($order) {
+            $this->sort = static function (\SplFileInfo $a, \SplFileInfo $b) use($order) {
                 return $order * \strcmp($a->getRealPath() ?: $a->getPathname(), $b->getRealPath() ?: $b->getPathname());
             };
         } elseif (self::SORT_BY_NAME_NATURAL === $sort) {
-            $this->sort = static function ($a, $b) use($order) {
+            $this->sort = static function (\SplFileInfo $a, \SplFileInfo $b) use($order) {
                 return $order * \strnatcmp($a->getRealPath() ?: $a->getPathname(), $b->getRealPath() ?: $b->getPathname());
             };
         } elseif (self::SORT_BY_TYPE === $sort) {
-            $this->sort = static function ($a, $b) use($order) {
+            $this->sort = static function (\SplFileInfo $a, \SplFileInfo $b) use($order) {
                 if ($a->isDir() && $b->isFile()) {
                     return -$order;
                 } elseif ($a->isFile() && $b->isDir()) {
@@ -54,21 +54,21 @@ class SortableIterator implements \IteratorAggregate
                 return $order * \strcmp($a->getRealPath() ?: $a->getPathname(), $b->getRealPath() ?: $b->getPathname());
             };
         } elseif (self::SORT_BY_ACCESSED_TIME === $sort) {
-            $this->sort = static function ($a, $b) use($order) {
+            $this->sort = static function (\SplFileInfo $a, \SplFileInfo $b) use($order) {
                 return $order * ($a->getATime() - $b->getATime());
             };
         } elseif (self::SORT_BY_CHANGED_TIME === $sort) {
-            $this->sort = static function ($a, $b) use($order) {
+            $this->sort = static function (\SplFileInfo $a, \SplFileInfo $b) use($order) {
                 return $order * ($a->getCTime() - $b->getCTime());
             };
         } elseif (self::SORT_BY_MODIFIED_TIME === $sort) {
-            $this->sort = static function ($a, $b) use($order) {
+            $this->sort = static function (\SplFileInfo $a, \SplFileInfo $b) use($order) {
                 return $order * ($a->getMTime() - $b->getMTime());
             };
         } elseif (self::SORT_BY_NONE === $sort) {
             $this->sort = $order;
         } elseif (\is_callable($sort)) {
-            $this->sort = $reverseOrder ? static function ($a, $b) use($sort) {
+            $this->sort = $reverseOrder ? static function (\SplFileInfo $a, \SplFileInfo $b) use($sort) {
                 return -$sort($a, $b);
             } : $sort;
         } else {

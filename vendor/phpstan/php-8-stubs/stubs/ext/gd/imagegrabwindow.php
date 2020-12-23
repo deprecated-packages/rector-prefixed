@@ -1,8 +1,0 @@
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
-#ifdef PHP_WIN32
-function imagegrabwindow(int $handle, bool $client_area = \false) : \GdImage|false
-{
-}

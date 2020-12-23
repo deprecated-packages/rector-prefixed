@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\StaticTypeMapper\PhpParser;
+namespace _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\PhpParser;
 
-use PhpParser\Node;
-use PhpParser\Node\NullableType;
-use PHPStan\Type\NullType;
-use PHPStan\Type\Type;
-use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
-use Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper;
-final class NullableTypeNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\NullType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper;
+final class NullableTypeNodeMapper implements \_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
 {
     /**
      * @var TypeFactory
@@ -20,29 +20,29 @@ final class NullableTypeNodeMapper implements \Rector\StaticTypeMapper\Contract\
      * @var PhpParserNodeMapper
      */
     private $phpParserNodeMapper;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
     /**
      * @required
      */
-    public function autowireNullableTypeNodeMapper(\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper $phpParserNodeMapper) : void
+    public function autowireNullableTypeNodeMapper(\_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper $phpParserNodeMapper) : void
     {
         $this->phpParserNodeMapper = $phpParserNodeMapper;
     }
     public function getNodeType() : string
     {
-        return \PhpParser\Node\NullableType::class;
+        return \_PhpScoper0a2ac50786fa\PhpParser\Node\NullableType::class;
     }
     /**
      * @param NullableType $node
      */
-    public function mapToPHPStan(\PhpParser\Node $node) : \PHPStan\Type\Type
+    public function mapToPHPStan(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $types = [];
         $types[] = $this->phpParserNodeMapper->mapToPHPStanType($node->type);
-        $types[] = new \PHPStan\Type\NullType();
+        $types[] = new \_PhpScoper0a2ac50786fa\PHPStan\Type\NullType();
         return $this->typeFactory->createMixedPassedOrUnionType($types);
     }
 }

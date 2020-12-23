@@ -1,23 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\Foreach_;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Foreach_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\Foreach_;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Foreach_\UnusedForeachValueToArrayKeysRector\UnusedForeachValueToArrayKeysRectorTest
  */
-final class UnusedForeachValueToArrayKeysRector extends \Rector\Core\Rector\AbstractRector
+final class UnusedForeachValueToArrayKeysRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change foreach with unused $value but only $key, to array_keys()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change foreach with unused $value but only $key, to array_keys()', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -48,37 +50,43 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Foreach_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param Foreach_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($node->keyVar === null) {
             return null;
         }
         // special case of nested array items
-        if ($node->valueVar instanceof \PhpParser\Node\Expr\Array_) {
+        if ($node->valueVar instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_) {
             $node->valueVar = $this->refactorArrayForeachValue($node->valueVar, $node);
             if ($node->valueVar->items !== []) {
                 return null;
             }
-        } elseif ($node->valueVar instanceof \PhpParser\Node\Expr\Variable) {
+        } elseif ($node->valueVar instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             if ($this->isVariableUsedInForeach($node->valueVar, $node)) {
                 return null;
             }
         } else {
             return null;
         }
+        if (\is_a($this->getStaticType($node->expr), \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType::class)) {
+            return null;
+        }
         $this->removeForeachValueAndUseArrayKeys($node);
         return $node;
     }
-    private function refactorArrayForeachValue(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Stmt\Foreach_ $foreach) : \PhpParser\Node\Expr\Array_
+    private function refactorArrayForeachValue(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_ $array, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreach) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_
     {
         foreach ($array->items as $key => $arrayItem) {
+            if (!$arrayItem instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem) {
+                continue;
+            }
             $value = $arrayItem->value;
-            if (!$value instanceof \PhpParser\Node\Expr\Variable) {
+            if (!$value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
                 return $array;
             }
             if ($this->isVariableUsedInForeach($value, $foreach)) {
@@ -88,13 +96,13 @@ CODE_SAMPLE
         }
         return $array;
     }
-    private function isVariableUsedInForeach(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Stmt\Foreach_ $foreach) : bool
+    private function isVariableUsedInForeach(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst($foreach->stmts, function (\PhpParser\Node $node) use($variable) : bool {
+        return (bool) $this->betterNodeFinder->findFirst($foreach->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($variable) : bool {
             return $this->areNodesEqual($node, $variable);
         });
     }
-    private function removeForeachValueAndUseArrayKeys(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
+    private function removeForeachValueAndUseArrayKeys(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         // remove key value
         $foreach->valueVar = $foreach->keyVar;

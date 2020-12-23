@@ -8,15 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoper0a2ac50786fa\Symfony\Contracts\Service\Attribute\Required;
 /**
  * Looks for definitions with autowiring enabled and registers their corresponding "@required" methods as setters.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class AutowireRequiredMethodsPass extends \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class AutowireRequiredMethodsPass extends \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     /**
      * {@inheritdoc}
@@ -24,7 +25,7 @@ class AutowireRequiredMethodsPass extends \_PhpScoperabd03f0baf05\Symfony\Compon
     protected function processValue($value, bool $isRoot = \false)
     {
         $value = parent::processValue($value, $isRoot);
-        if (!$value instanceof \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
+        if (!$value instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
             return $value;
         }
         if (!($reflectionClass = $this->container->getReflectionClass($value->getClass(), \false))) {
@@ -32,7 +33,7 @@ class AutowireRequiredMethodsPass extends \_PhpScoperabd03f0baf05\Symfony\Compon
         }
         $alreadyCalledMethods = [];
         $withers = [];
-        foreach ($value->getMethodCalls() as list($method)) {
+        foreach ($value->getMethodCalls() as [$method]) {
             $alreadyCalledMethods[\strtolower($method)] = \true;
         }
         foreach ($reflectionClass->getMethods() as $reflectionMethod) {
@@ -41,6 +42,14 @@ class AutowireRequiredMethodsPass extends \_PhpScoperabd03f0baf05\Symfony\Compon
                 continue;
             }
             while (\true) {
+                if (\PHP_VERSION_ID >= 80000 && $r->getAttributes(\_PhpScoper0a2ac50786fa\Symfony\Contracts\Service\Attribute\Required::class)) {
+                    if ($this->isWither($r, $r->getDocComment() ?: '')) {
+                        $withers[] = [$r->name, [], \true];
+                    } else {
+                        $value->addMethodCall($r->name, []);
+                    }
+                    break;
+                }
                 if (\false !== ($doc = $r->getDocComment())) {
                     if (\false !== \stripos($doc, '@required') && \preg_match('#(?:^/\\*\\*|\\n\\s*+\\*)\\s*+@required(?:\\s|\\*/$)#i', $doc)) {
                         if ($this->isWither($reflectionMethod, $doc)) {

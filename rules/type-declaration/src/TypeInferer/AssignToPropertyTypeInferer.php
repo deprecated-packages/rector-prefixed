@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\TypeInferer;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Stmt\ClassLike;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\NullType;
-use PHPStan\Type\Type;
-use Rector\TypeDeclaration\AlreadyAssignDetector\ConstructorAssignDetector;
-use Rector\TypeDeclaration\AlreadyAssignDetector\NullTypeAssignDetector;
-use Rector\TypeDeclaration\AlreadyAssignDetector\PropertyDefaultAssignDetector;
-use Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
-final class AssignToPropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\NullType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector\ConstructorAssignDetector;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector\NullTypeAssignDetector;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector\PropertyDefaultAssignDetector;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
+final class AssignToPropertyTypeInferer extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer
 {
     /**
      * @var ConstructorAssignDetector
@@ -33,18 +33,18 @@ final class AssignToPropertyTypeInferer extends \Rector\TypeDeclaration\TypeInfe
      * @var NullTypeAssignDetector
      */
     private $nullTypeAssignDetector;
-    public function __construct(\Rector\TypeDeclaration\AlreadyAssignDetector\ConstructorAssignDetector $constructorAssignDetector, \Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \Rector\TypeDeclaration\AlreadyAssignDetector\PropertyDefaultAssignDetector $propertyDefaultAssignDetector, \Rector\TypeDeclaration\AlreadyAssignDetector\NullTypeAssignDetector $nullTypeAssignDetector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector\ConstructorAssignDetector $constructorAssignDetector, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector\PropertyDefaultAssignDetector $propertyDefaultAssignDetector, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector\NullTypeAssignDetector $nullTypeAssignDetector)
     {
         $this->constructorAssignDetector = $constructorAssignDetector;
         $this->propertyAssignMatcher = $propertyAssignMatcher;
         $this->propertyDefaultAssignDetector = $propertyDefaultAssignDetector;
         $this->nullTypeAssignDetector = $nullTypeAssignDetector;
     }
-    public function inferPropertyInClassLike(string $propertyName, \PhpParser\Node\Stmt\ClassLike $classLike) : \PHPStan\Type\Type
+    public function inferPropertyInClassLike(string $propertyName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $assignedExprTypes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$assignedExprTypes) {
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($propertyName, &$assignedExprTypes) {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
                 return null;
             }
             $expr = $this->propertyAssignMatcher->matchPropertyAssignExpr($node, $propertyName);
@@ -59,35 +59,44 @@ final class AssignToPropertyTypeInferer extends \Rector\TypeDeclaration\TypeInfe
             return null;
         });
         if ($this->shouldAddNullType($classLike, $propertyName, $assignedExprTypes)) {
-            $assignedExprTypes[] = new \PHPStan\Type\NullType();
+            $assignedExprTypes[] = new \_PhpScoper0a2ac50786fa\PHPStan\Type\NullType();
         }
         return $this->typeFactory->createMixedPassedOrUnionType($assignedExprTypes);
     }
-    private function resolveExprStaticTypeIncludingDimFetch(\PhpParser\Node\Expr\Assign $assign) : ?\PHPStan\Type\Type
+    private function resolveExprStaticTypeIncludingDimFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $exprStaticType = $this->nodeTypeResolver->getStaticType($assign->expr);
-        if ($exprStaticType instanceof \PHPStan\Type\MixedType) {
+        if ($exprStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
             return null;
         }
-        if ($assign->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
-            return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $exprStaticType);
+        if ($assign->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch) {
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType(new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(), $exprStaticType);
         }
         return $exprStaticType;
     }
     /**
      * @param Type[] $assignedExprTypes
      */
-    private function shouldAddNullType(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName, array $assignedExprTypes) : bool
+    private function shouldAddNullType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName, array $assignedExprTypes) : bool
     {
         $hasPropertyDefaultValue = $this->propertyDefaultAssignDetector->detect($classLike, $propertyName);
-        $isAssignedInConstructor = $this->constructorAssignDetector->detect($classLike, $propertyName);
+        $isAssignedInConstructor = $this->constructorAssignDetector->isPropertyAssigned($classLike, $propertyName);
         $shouldAddNullType = $this->nullTypeAssignDetector->detect($classLike, $propertyName);
         if ($assignedExprTypes === [] && ($isAssignedInConstructor || $hasPropertyDefaultValue)) {
             return \false;
         }
         if ($shouldAddNullType === \true) {
-            return !$isAssignedInConstructor && !$hasPropertyDefaultValue;
+            if ($isAssignedInConstructor) {
+                return \false;
+            }
+            return !$hasPropertyDefaultValue;
         }
-        return $assignedExprTypes !== [] && (!$isAssignedInConstructor && !$hasPropertyDefaultValue);
+        if ($assignedExprTypes === []) {
+            return \false;
+        }
+        if ($isAssignedInConstructor) {
+            return \false;
+        }
+        return !$hasPropertyDefaultValue;
     }
 }

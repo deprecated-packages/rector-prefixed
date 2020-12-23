@@ -1,36 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp72\Rector\FunctionLike;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp72\Rector\FunctionLike;
 
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectWithoutClassType;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DowngradePhp72\Tests\Rector\FunctionLike\DowngradeReturnObjectTypeDeclarationRector\DowngradeReturnObjectTypeDeclarationRectorTest
  */
-final class DowngradeReturnObjectTypeDeclarationRector extends \Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeReturnTypeDeclarationRector
+final class DowngradeReturnObjectTypeDeclarationRector extends \_PhpScoper0a2ac50786fa\Rector\DowngradePhp72\Rector\FunctionLike\AbstractDowngradeReturnTypeDeclarationRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition($this->getRectorDefinitionDescription(), [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove "object" return type, add a "@return object" tag instead', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
-    public function getSomeObject() : object
+    public function getSomeObject(): object
     {
-        return new \_PhpScoperabd03f0baf05\SomeObject();
+        return new SomeObject();
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-<?php
-
-namespace _PhpScoperabd03f0baf05;
-
 class SomeClass
 {
     /**
@@ -38,15 +30,14 @@ class SomeClass
      */
     public function getSomeObject()
     {
-        return new \_PhpScoperabd03f0baf05\SomeObject();
+        return new SomeObject();
     }
 }
-\class_alias('_PhpScoperabd03f0baf05\\SomeClass', 'SomeClass', \false);
 CODE_SAMPLE
-, [self::ADD_DOC_BLOCK => \true])]);
+)]);
     }
-    public function getTypeNameToRemove() : string
+    public function getTypeToRemove() : string
     {
-        return 'object';
+        return \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectWithoutClassType::class;
     }
 }

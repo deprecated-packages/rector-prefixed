@@ -1,37 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\NodeFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\Doctrine\NodeFactory;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Comment\Doc;
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Property;
-use _PhpScoperabd03f0baf05\Ramsey\Uuid\Uuid;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
-use Rector\Core\PhpParser\Node\NodeFactory;
-use Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use _PhpScoper0a2ac50786fa\Ramsey\Uuid\Uuid;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class EntityUuidNodeFactory
 {
-    /**
-     * @var string
-     * @see https://regex101.com/r/vQ8f2v/1
-     */
-    private const SERIALIZER_SHORT_ANNOTATION_REGEX = '#(\\@Serializer\\\\Type\\(")(int)("\\))#';
-    /**
-     * @var string
-     * @see https://regex101.com/r/AkLsy1/1
-     */
-    private const ORM_VAR_DOC_LINE_REGEX = '#^(\\s+)\\*(\\s+)\\@(var|ORM)(.*?)$#ms';
     /**
      * @var PhpDocTagNodeFactory
      */
@@ -40,12 +28,12 @@ final class EntityUuidNodeFactory
      * @var NodeFactory
      */
     private $nodeFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper0a2ac50786fa\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory)
     {
         $this->phpDocTagNodeFactory = $phpDocTagNodeFactory;
         $this->nodeFactory = $nodeFactory;
     }
-    public function createTemporaryUuidProperty() : \PhpParser\Node\Stmt\Property
+    public function createTemporaryUuidProperty() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
     {
         $uuidProperty = $this->nodeFactory->createPrivateProperty('uuid');
         $this->decoratePropertyWithUuidAnnotations($uuidProperty, \true, \false);
@@ -55,52 +43,58 @@ final class EntityUuidNodeFactory
      * Creates:
      * $this->uid = \Ramsey\Uuid\Uuid::uuid4();
      */
-    public function createUuidPropertyDefaultValueAssign(string $uuidVariableName) : \PhpParser\Node\Stmt\Expression
+    public function createUuidPropertyDefaultValueAssign(string $uuidVariableName) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression
     {
-        $thisUuidPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $uuidVariableName);
-        $uuid4StaticCall = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name\FullyQualified(\_PhpScoperabd03f0baf05\Ramsey\Uuid\Uuid::class), 'uuid4');
-        $assign = new \PhpParser\Node\Expr\Assign($thisUuidPropertyFetch, $uuid4StaticCall);
-        return new \PhpParser\Node\Stmt\Expression($assign);
+        $thisUuidPropertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('this'), $uuidVariableName);
+        $uuid4StaticCall = $this->nodeFactory->createStaticCall(\_PhpScoper0a2ac50786fa\Ramsey\Uuid\Uuid::class, 'uuid4');
+        $assign = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($thisUuidPropertyFetch, $uuid4StaticCall);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($assign);
     }
-    private function decoratePropertyWithUuidAnnotations(\PhpParser\Node\Stmt\Property $property, bool $isNullable, bool $isId) : void
+    private function decoratePropertyWithUuidAnnotations(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, bool $isNullable, bool $isId) : void
     {
         $this->clearVarAndOrmAnnotations($property);
         $this->replaceIntSerializerTypeWithString($property);
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         // add @var
         $attributeAwareVarTagValueNode = $this->phpDocTagNodeFactory->createUuidInterfaceVarTagValueNode();
         $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);
         if ($isId) {
             // add @ORM\Id
-            $phpDocInfo->addTagValueNodeWithShortName(new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode([]));
+            $idTagValueNode = new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode([]);
+            $phpDocInfo->addTagValueNodeWithShortName($idTagValueNode);
         }
         $columnTagValueNode = $this->phpDocTagNodeFactory->createUuidColumnTagValueNode($isNullable);
         $phpDocInfo->addTagValueNodeWithShortName($columnTagValueNode);
-        if ($isId) {
-            $generatedValueTagValueNode = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode(['strategy' => 'CUSTOM']);
-            $phpDocInfo->addTagValueNodeWithShortName($generatedValueTagValueNode);
-        }
-    }
-    private function clearVarAndOrmAnnotations(\PhpParser\Node $node) : void
-    {
-        $docComment = $node->getDocComment();
-        if ($docComment === null) {
+        if (!$isId) {
             return;
         }
-        $clearedDocCommentText = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($docComment->getText(), self::ORM_VAR_DOC_LINE_REGEX);
-        $node->setDocComment(new \PhpParser\Comment\Doc($clearedDocCommentText));
+        $generatedValueTagValueNode = new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode(['strategy' => 'CUSTOM']);
+        $phpDocInfo->addTagValueNodeWithShortName($generatedValueTagValueNode);
+    }
+    private function clearVarAndOrmAnnotations(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : void
+    {
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+            return;
+        }
+        $phpDocInfo->removeByType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
+        $phpDocInfo->removeByType(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface::class);
     }
     /**
      * See https://github.com/ramsey/uuid-doctrine/issues/50#issuecomment-348123520.
      */
-    private function replaceIntSerializerTypeWithString(\PhpParser\Node $node) : void
+    private function replaceIntSerializerTypeWithString(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : void
     {
-        $docComment = $node->getDocComment();
-        if ($docComment === null) {
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return;
         }
-        $stringTypeText = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($docComment->getText(), self::SERIALIZER_SHORT_ANNOTATION_REGEX, '$1string$3');
-        $node->setDocComment(new \PhpParser\Comment\Doc($stringTypeText));
+        /** @var SerializerTypeTagValueNode|null $serializerTypeTagValueNode */
+        $serializerTypeTagValueNode = $phpDocInfo->getByType(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class);
+        if ($serializerTypeTagValueNode === null) {
+            return;
+        }
+        $serializerTypeTagValueNode->replaceName('int', 'string');
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\Contract\TypeInferer;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer;
 
-use PhpParser\Node\Stmt\Property;
-use PHPStan\Type\Type;
-interface PropertyTypeInfererInterface extends \Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+interface PropertyTypeInfererInterface extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface
 {
-    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type;
+    public function inferProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type;
 }

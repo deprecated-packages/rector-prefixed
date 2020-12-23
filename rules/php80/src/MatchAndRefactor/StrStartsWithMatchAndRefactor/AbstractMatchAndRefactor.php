@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php80\MatchAndRefactor\StrStartsWithMatchAndRefactor;
+namespace _PhpScoper0a2ac50786fa\Rector\Php80\MatchAndRefactor\StrStartsWithMatchAndRefactor;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\BooleanNot;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Name;
-use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\Php80\ValueObject\StrStartsWith;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Php80\ValueObject\StrStartsWith;
 abstract class AbstractMatchAndRefactor
 {
     /**
@@ -29,15 +29,15 @@ abstract class AbstractMatchAndRefactor
     /**
      * @required
      */
-    public function autowireAbstractMatchAndRefactor(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter) : void
+    public function autowireAbstractMatchAndRefactor(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-    protected function isFuncCallName(\PhpParser\Node $node, string $name) : bool
+    protected function isFuncCallName(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $name) : bool
     {
-        if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
         return $this->nodeNameResolver->isName($node, $name);
@@ -45,19 +45,19 @@ abstract class AbstractMatchAndRefactor
     /**
      * @return FuncCall|BooleanNot
      */
-    protected function createStrStartsWith(\Rector\Php80\ValueObject\StrStartsWith $strStartsWith) : \PhpParser\Node
+    protected function createStrStartsWith(\_PhpScoper0a2ac50786fa\Rector\Php80\ValueObject\StrStartsWith $strStartsWith) : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $args = [new \PhpParser\Node\Arg($strStartsWith->getHaystackExpr()), new \PhpParser\Node\Arg($strStartsWith->getNeedleExpr())];
-        $funcCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('str_starts_with'), $args);
+        $args = [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($strStartsWith->getHaystackExpr()), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($strStartsWith->getNeedleExpr())];
+        $funcCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('str_starts_with'), $args);
         if ($strStartsWith->isPositive()) {
             return $funcCall;
         }
-        return new \PhpParser\Node\Expr\BooleanNot($funcCall);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot($funcCall);
     }
-    protected function createStrStartsWithValueObjectFromFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall, bool $isPositive) : \Rector\Php80\ValueObject\StrStartsWith
+    protected function createStrStartsWithValueObjectFromFuncCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall, bool $isPositive) : \_PhpScoper0a2ac50786fa\Rector\Php80\ValueObject\StrStartsWith
     {
         $haystack = $funcCall->args[0]->value;
         $needle = $funcCall->args[1]->value;
-        return new \Rector\Php80\ValueObject\StrStartsWith($funcCall, $haystack, $needle, $isPositive);
+        return new \_PhpScoper0a2ac50786fa\Rector\Php80\ValueObject\StrStartsWith($funcCall, $haystack, $needle, $isPositive);
     }
 }

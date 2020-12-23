@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\UnusedNodeResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\UnusedNodeResolver;
 
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\NullableType;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Class_;
-use Rector\Core\Exception\NotImplementedException;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 final class UnusedClassResolver
 {
     /**
@@ -26,12 +26,12 @@ final class UnusedClassResolver
      * @var ParsedNodeCollector
      */
     private $parsedNodeCollector;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->parsedNodeCollector = $parsedNodeCollector;
     }
-    public function isClassWithoutInterfaceAndNotController(\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isClassWithoutInterfaceAndNotController(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($class->implements !== []) {
             return \false;
@@ -44,7 +44,7 @@ final class UnusedClassResolver
         }
         return !$this->nodeNameResolver->isName($class, '*Test');
     }
-    public function isClassUsed(\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isClassUsed(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         return $this->nodeNameResolver->isNames($class, $this->getUsedClassNames());
     }
@@ -53,7 +53,7 @@ final class UnusedClassResolver
      */
     private function getUsedClassNames() : array
     {
-        if (!\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun() && $this->cachedUsedClassNames !== []) {
+        if (!\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun() && $this->cachedUsedClassNames !== []) {
             return $this->cachedUsedClassNames;
         }
         $cachedUsedClassNames = \array_merge($this->getParamNodesClassNames(), $this->getNewNodesClassNames(), $this->getStaticCallClassNames(), $this->getClassConstantFetchNames());
@@ -72,18 +72,18 @@ final class UnusedClassResolver
             if ($param->type === null) {
                 continue;
             }
-            if ($param->type instanceof \PhpParser\Node\NullableType) {
+            if ($param->type instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\NullableType) {
                 $param = $param->type;
             }
-            if ($param->type instanceof \PhpParser\Node\Identifier) {
+            if ($param->type instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier) {
                 continue;
             }
-            if ($param->type instanceof \PhpParser\Node\Name) {
+            if ($param->type instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
                 /** @var string $paramTypeName */
                 $paramTypeName = $this->nodeNameResolver->getName($param->type);
                 $classNames[] = $paramTypeName;
             } else {
-                throw new \Rector\Core\Exception\NotImplementedException();
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException();
             }
         }
         return $classNames;

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector;
 
 use Iterator;
-use Rector\Generic\Rector\ClassConst\ChangeConstantVisibilityRector;
-use Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject;
-use Rector\Generic\ValueObject\ClassConstantVisibilityChange;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeConstantVisibilityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassConst\ChangeConstantVisibilityRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ClassConstantVisibilityChange;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeConstantVisibilityRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class ChangeConstantVisibilityRectorTest extends \Rector\Testing\PHPUnit\A
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\ClassConst\ChangeConstantVisibilityRector::class => [\Rector\Generic\Rector\ClassConst\ChangeConstantVisibilityRector::CLASS_CONSTANT_VISIBILITY_CHANGES => [new \Rector\Generic\ValueObject\ClassConstantVisibilityChange(\Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject::class, 'TO_BE_PUBLIC_CONSTANT', 'public'), new \Rector\Generic\ValueObject\ClassConstantVisibilityChange(\Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject::class, 'TO_BE_PROTECTED_CONSTANT', 'protected'), new \Rector\Generic\ValueObject\ClassConstantVisibilityChange(\Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject::class, 'TO_BE_PRIVATE_CONSTANT', 'private'), new \Rector\Generic\ValueObject\ClassConstantVisibilityChange('Rector\\Generic\\Tests\\Rector\\ClassConst\\ChangeConstantVisibilityRector\\Fixture\\AnotherClassWithInvalidConstants', 'TO_BE_PRIVATE_CONSTANT', 'private')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassConst\ChangeConstantVisibilityRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassConst\ChangeConstantVisibilityRector::CLASS_CONSTANT_VISIBILITY_CHANGES => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ClassConstantVisibilityChange(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject::class, 'TO_BE_PUBLIC_CONSTANT', 'public'), new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ClassConstantVisibilityChange(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject::class, 'TO_BE_PROTECTED_CONSTANT', 'protected'), new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ClassConstantVisibilityChange(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject::class, 'TO_BE_PRIVATE_CONSTANT', 'private'), new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\ClassConstantVisibilityChange('_PhpScoper0a2ac50786fa\\Rector\\Generic\\Tests\\Rector\\ClassConst\\ChangeConstantVisibilityRector\\Fixture\\Fixture2', 'TO_BE_PRIVATE_CONSTANT', 'private')]]];
     }
 }

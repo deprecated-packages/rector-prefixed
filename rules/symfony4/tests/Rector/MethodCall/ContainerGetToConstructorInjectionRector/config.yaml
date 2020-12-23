@@ -1,0 +1,7 @@
+parameters:
+    kernel_class: '_PhpScoper0a2ac50786fa\Rector\Symfony4\Tests\Rector\MethodCall\AbstractToConstructorInjectionRectorSource\SomeKernelClass'
+
+services:
+    _PhpScoper0a2ac50786fa\Rector\Symfony4\Rector\FrameworkBundle\ContainerGetToConstructorInjectionRector:
+        $containerAwareParentTypes:
+            - '_PhpScoper0a2ac50786fa\Rector\Symfony4\Tests\Rector\MethodCall\ContainerGetToConstructorInjectionRector\Source\ContainerAwareParentClass'

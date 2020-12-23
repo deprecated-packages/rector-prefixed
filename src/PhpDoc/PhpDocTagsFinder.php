@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpDoc;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpDoc;
 
-use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
-use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
-use Symplify\SimplePhpDocParser\SimplePhpDocParser;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
+use _PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser\SimplePhpDocParser;
 /**
  * @see \Rector\Core\Tests\PhpDoc\PhpDocTagsFinderTest
  */
@@ -17,7 +17,7 @@ final class PhpDocTagsFinder
      * @var SimplePhpDocParser
      */
     private $simplePhpDocParser;
-    public function __construct(\Symplify\SimplePhpDocParser\SimplePhpDocParser $simplePhpDocParser)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser\SimplePhpDocParser $simplePhpDocParser)
     {
         $this->simplePhpDocParser = $simplePhpDocParser;
     }
@@ -46,10 +46,10 @@ final class PhpDocTagsFinder
         $types = [];
         foreach ($tagValueNodes as $tagValueNode) {
             $typeNode = $tagValueNode->type;
-            if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+            if ($typeNode instanceof \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
                 $types[] = $typeNode->name;
             }
-            if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
+            if ($typeNode instanceof \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
                 $types = \array_merge($types, $this->resolveUnionType($typeNode));
             }
         }
@@ -58,11 +58,11 @@ final class PhpDocTagsFinder
     /**
      * @return string[]
      */
-    private function resolveUnionType(\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode $unionTypeNode) : array
+    private function resolveUnionType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode $unionTypeNode) : array
     {
         $types = [];
         foreach ($unionTypeNode->types as $unionedType) {
-            if ($unionedType instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+            if ($unionedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
                 $types[] = $unionedType->name;
             }
         }

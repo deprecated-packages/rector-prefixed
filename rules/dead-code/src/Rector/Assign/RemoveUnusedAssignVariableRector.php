@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\Assign;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Assign;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Variable;
-use PHPStan\Analyser\Scope;
-use Rector\Core\Rector\AbstractRector;
-use Rector\DeadCode\NodeFinder\NextVariableUsageNodeFinder;
-use Rector\DeadCode\NodeFinder\PreviousVariableAssignNodeFinder;
-use Rector\DeadCode\SideEffect\SideEffectNodeDetector;
-use Rector\NodeNestingScope\ScopeNestingComparator;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeFinder\NextVariableUsageNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeFinder\PreviousVariableAssignNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\SideEffect\SideEffectNodeDetector;
+use _PhpScoper0a2ac50786fa\Rector\NodeNestingScope\ScopeNestingComparator;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Assign\RemoveUnusedAssignVariableRector\RemoveUnusedAssignVariableRectorTest
  */
-final class RemoveUnusedAssignVariableRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveUnusedAssignVariableRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var SideEffectNodeDetector
@@ -36,7 +36,7 @@ final class RemoveUnusedAssignVariableRector extends \Rector\Core\Rector\Abstrac
      * @var NextVariableUsageNodeFinder
      */
     private $nextVariableUsageNodeFinder;
-    public function __construct(\Rector\DeadCode\NodeFinder\NextVariableUsageNodeFinder $nextVariableUsageNodeFinder, \Rector\DeadCode\NodeFinder\PreviousVariableAssignNodeFinder $previousVariableAssignNodeFinder, \Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \Rector\DeadCode\SideEffect\SideEffectNodeDetector $sideEffectNodeDetector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\DeadCode\NodeFinder\NextVariableUsageNodeFinder $nextVariableUsageNodeFinder, \_PhpScoper0a2ac50786fa\Rector\DeadCode\NodeFinder\PreviousVariableAssignNodeFinder $previousVariableAssignNodeFinder, \_PhpScoper0a2ac50786fa\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \_PhpScoper0a2ac50786fa\Rector\DeadCode\SideEffect\SideEffectNodeDetector $sideEffectNodeDetector)
     {
         $this->sideEffectNodeDetector = $sideEffectNodeDetector;
         $this->previousVariableAssignNodeFinder = $previousVariableAssignNodeFinder;
@@ -48,11 +48,11 @@ final class RemoveUnusedAssignVariableRector extends \Rector\Core\Rector\Abstrac
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class];
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove assigned unused variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove assigned unused variable', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -87,7 +87,7 @@ CODE_SAMPLE
     /**
      * @param Assign $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->shouldSkipAssign($node)) {
             return null;
@@ -102,9 +102,9 @@ CODE_SAMPLE
         }
         return $node->expr;
     }
-    private function shouldSkipAssign(\PhpParser\Node\Expr\Assign $assign) : bool
+    private function shouldSkipAssign(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        if (!$assign->var instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$assign->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return \true;
         }
         // unable to resolve name
@@ -118,18 +118,18 @@ CODE_SAMPLE
         $nextUsedVariable = $this->nextVariableUsageNodeFinder->find($assign);
         return $nextUsedVariable !== null;
     }
-    private function isVariableTypeInScope(\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isVariableTypeInScope(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool
     {
         /** @var Scope|null $scope */
-        $scope = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        $scope = $assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope) {
             return \false;
         }
         /** @var string $variableName */
         $variableName = $this->getName($assign->var);
         return !$scope->hasVariableType($variableName)->no();
     }
-    private function isPreviousVariablePartOfOverridingAssign(\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isPreviousVariablePartOfOverridingAssign(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool
     {
         // is previous variable node as part of assign?
         $previousVariableAssign = $this->previousVariableAssignNodeFinder->find($assign);
@@ -141,9 +141,9 @@ CODE_SAMPLE
     /**
      * Nested assign, e.g "$oldValues = <$values> = 5;"
      */
-    private function isNestedAssign(\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isNestedAssign(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        $parentNode = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        return $parentNode instanceof \PhpParser\Node\Expr\Assign;
+        $parentNode = $assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        return $parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
     }
 }

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Rector\Variable;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Rector\Variable;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Param;
-use Rector\Core\Php\ReservedKeywordAnalyzer;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticRectorStrings;
-use Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver;
-use Rector\Naming\ParamRenamer\UnderscoreCamelCaseParamRenamer;
-use Rector\Naming\ValueObjectFactory\ParamRenameFactory;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\Rector\Core\Php\ReservedKeywordAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ParamRenamer\ParamRenamer;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObjectFactory\ParamRenameFactory;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\Variable\UnderscoreToCamelCaseVariableNameRector\UnderscoreToCamelCaseVariableNameRectorTest
  */
-final class UnderscoreToCamelCaseVariableNameRector extends \Rector\Core\Rector\AbstractRector
+final class UnderscoreToCamelCaseVariableNameRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ReservedKeywordAnalyzer
@@ -34,19 +34,19 @@ final class UnderscoreToCamelCaseVariableNameRector extends \Rector\Core\Rector\
      */
     private $underscoreCamelCaseExpectedNameResolver;
     /**
-     * @var UnderscoreCamelCaseParamRenamer
+     * @var ParamRenamer
      */
-    private $underscoreCamelCaseParamRenamer;
-    public function __construct(\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \Rector\Naming\ValueObjectFactory\ParamRenameFactory $paramRenameFactory, \Rector\Naming\ParamRenamer\UnderscoreCamelCaseParamRenamer $underscoreCamelCaseParamRenamer, \Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver $underscoreCamelCaseExpectedNameResolver)
+    private $paramRenamer;
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \_PhpScoper0a2ac50786fa\Rector\Naming\ValueObjectFactory\ParamRenameFactory $paramRenameFactory, \_PhpScoper0a2ac50786fa\Rector\Naming\ParamRenamer\ParamRenamer $underscoreCamelCaseParamRenamer, \_PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver $underscoreCamelCaseExpectedNameResolver)
     {
         $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
         $this->paramRenameFactory = $paramRenameFactory;
         $this->underscoreCamelCaseExpectedNameResolver = $underscoreCamelCaseExpectedNameResolver;
-        $this->underscoreCamelCaseParamRenamer = $underscoreCamelCaseParamRenamer;
+        $this->paramRenamer = $underscoreCamelCaseParamRenamer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change under_score names to camelCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change under_score names to camelCase', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run($a_b)
@@ -71,42 +71,41 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\Variable::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable::class];
     }
     /**
      * @param Variable $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $nodeName = $this->getName($node);
         if ($nodeName === null) {
             return null;
         }
-        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($nodeName, '_')) {
+        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($nodeName, '_')) {
             return null;
         }
         if ($this->reservedKeywordAnalyzer->isNativeVariable($nodeName)) {
             return null;
         }
-        $camelCaseName = \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($nodeName);
+        $camelCaseName = \_PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($nodeName);
         if ($camelCaseName === 'this' || $camelCaseName === '' || \is_numeric($camelCaseName[0])) {
             return null;
         }
-        /** @var Param $parentNode */
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \PhpParser\Node\Param) {
-            return $this->renameParam($parentNode);
+        $parent = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Param) {
+            return $this->renameParam($parent);
         }
         $node->name = $camelCaseName;
         return $node;
     }
-    private function renameParam(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Expr\Variable
+    private function renameParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable
     {
         $paramRename = $this->paramRenameFactory->create($param, $this->underscoreCamelCaseExpectedNameResolver);
         if ($paramRename === null) {
             return null;
         }
-        $renamedParam = $this->underscoreCamelCaseParamRenamer->rename($paramRename);
+        $renamedParam = $this->paramRenamer->rename($paramRename);
         if ($renamedParam === null) {
             return null;
         }

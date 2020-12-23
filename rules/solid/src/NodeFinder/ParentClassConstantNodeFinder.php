@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SOLID\NodeFinder;
+namespace _PhpScoper0a2ac50786fa\Rector\SOLID\NodeFinder;
 
-use PhpParser\Node\Stmt\ClassConst;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class ParentClassConstantNodeFinder
 {
     /**
      * @var ParsedNodeCollector
      */
     private $parsedNodeCollector;
-    public function __construct(\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
     }
-    public function find(string $class, string $constant) : ?\PhpParser\Node\Stmt\ClassConst
+    public function find(string $class, string $constant) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst
     {
         $classNode = $this->parsedNodeCollector->findClass($class);
         if ($classNode === null) {
             return null;
         }
         /** @var string|null $parentClassName */
-        $parentClassName = $classNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $classNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if ($parentClassName === null) {
             return null;
         }

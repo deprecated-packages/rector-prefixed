@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Privatization\Tests\Rector\ClassConst\PrivatizeLocalClassConstantRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Privatization\Tests\Rector\ClassConst\PrivatizeLocalClassConstantRector;
 
 use Iterator;
-use Rector\Privatization\Rector\ClassConst\PrivatizeLocalClassConstantRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class PrivatizeLocalClassConstantRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Privatization\Rector\ClassConst\PrivatizeLocalClassConstantRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class PrivatizeLocalClassConstantRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class PrivatizeLocalClassConstantRectorTest extends \Rector\Testing\PHPUni
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Privatization\Rector\ClassConst\PrivatizeLocalClassConstantRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Privatization\Rector\ClassConst\PrivatizeLocalClassConstantRector::class;
     }
 }

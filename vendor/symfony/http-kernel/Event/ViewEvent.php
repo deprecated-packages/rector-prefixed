@@ -8,8 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Event;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event;
 
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to create a response for the return value of a controller.
  *
@@ -18,9 +20,36 @@ namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Event;
  * response is set.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
- *
- * @final since Symfony 4.4
  */
-class ViewEvent extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent
+final class ViewEvent extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Event\RequestEvent
 {
+    /**
+     * The return value of the controller.
+     *
+     * @var mixed
+     */
+    private $controllerResult;
+    public function __construct(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request, int $requestType, $controllerResult)
+    {
+        parent::__construct($kernel, $request, $requestType);
+        $this->controllerResult = $controllerResult;
+    }
+    /**
+     * Returns the return value of the controller.
+     *
+     * @return mixed The controller return value
+     */
+    public function getControllerResult()
+    {
+        return $this->controllerResult;
+    }
+    /**
+     * Assigns the return value of the controller.
+     *
+     * @param mixed $controllerResult The controller return value
+     */
+    public function setControllerResult($controllerResult) : void
+    {
+        $this->controllerResult = $controllerResult;
+    }
 }

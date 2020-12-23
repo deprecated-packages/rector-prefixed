@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\PHPUnit;
+namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\PHPUnit;
 
-use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\InClassMethodNode;
-use PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
+use _PhpScoper0a2ac50786fa\PHPStan\Node\InClassMethodNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
 /**
  * @implements \PHPStan\Rules\Rule<InClassMethodNode>
  */
-class ShouldCallParentMethodsRule implements \PHPStan\Rules\Rule
+class ShouldCallParentMethodsRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \PHPStan\Node\InClassMethodNode::class;
+        return \_PhpScoper0a2ac50786fa\PHPStan\Node\InClassMethodNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
     {
         $methodName = $node->getOriginalNode()->name->name;
         if (!\in_array(\strtolower($methodName), ['setup', 'teardown'], \true)) {
@@ -26,7 +26,7 @@ class ShouldCallParentMethodsRule implements \PHPStan\Rules\Rule
         if ($scope->getClassReflection() === null) {
             return [];
         }
-        if (!$scope->getClassReflection()->isSubclassOf(\_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase::class)) {
+        if (!$scope->getClassReflection()->isSubclassOf(\_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase::class)) {
             return [];
         }
         $parentClass = $scope->getClassReflection()->getParentClass();
@@ -37,12 +37,12 @@ class ShouldCallParentMethodsRule implements \PHPStan\Rules\Rule
             return [];
         }
         $parentMethod = $parentClass->getNativeMethod($methodName);
-        if ($parentMethod->getDeclaringClass()->getName() === \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase::class) {
+        if ($parentMethod->getDeclaringClass()->getName() === \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase::class) {
             return [];
         }
         $hasParentCall = $this->hasParentClassCall($node->getOriginalNode()->getStmts(), \strtolower($methodName));
         if (!$hasParentCall) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Missing call to parent::%s() method.', $methodName))->build()];
+            return [\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Missing call to parent::%s() method.', $methodName))->build()];
         }
         return [];
     }
@@ -58,20 +58,20 @@ class ShouldCallParentMethodsRule implements \PHPStan\Rules\Rule
             return \false;
         }
         foreach ($stmts as $stmt) {
-            if (!$stmt instanceof \PhpParser\Node\Stmt\Expression) {
+            if (!$stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
                 continue;
             }
-            if (!$stmt->expr instanceof \PhpParser\Node\Expr\StaticCall) {
+            if (!$stmt->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
                 continue;
             }
-            if (!$stmt->expr->class instanceof \PhpParser\Node\Name) {
+            if (!$stmt->expr->class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
                 continue;
             }
             $class = (string) $stmt->expr->class;
             if (\strtolower($class) !== 'parent') {
                 continue;
             }
-            if (!$stmt->expr->name instanceof \PhpParser\Node\Identifier) {
+            if (!$stmt->expr->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier) {
                 continue;
             }
             if (\strtolower($stmt->expr->name->name) === $methodName) {

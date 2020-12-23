@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\Class_\ActionInjectionToConstructorInjectionRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Class_\ActionInjectionToConstructorInjectionRector;
 
 use Iterator;
-use Rector\Core\Configuration\Option;
-use Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector;
-use Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ActionInjectionToConstructorInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ActionInjectionToConstructorInjectionRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/xml/services.xml');
+        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/xml/services.xml');
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
@@ -28,6 +28,6 @@ final class ActionInjectionToConstructorInjectionRectorTest extends \Rector\Test
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector::class => [], \Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector::class => []];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\ActionInjectionToConstructorInjectionRector::class => [], \_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Variable\ReplaceVariableByPropertyFetchRector::class => []];
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
 
 use Iterator;
-use Rector\Legacy\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class FunctionToStaticMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Legacy\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class FunctionToStaticMethodRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
         $expectedClassFilePath = $this->getFixtureTempDirectory() . '/StaticFunctions.php';
@@ -25,6 +25,6 @@ final class FunctionToStaticMethodRectorTest extends \Rector\Testing\PHPUnit\Abs
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Legacy\Rector\FileWithoutNamespace\FunctionToStaticMethodRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Legacy\Rector\FileWithoutNamespace\FunctionToStaticMethodRector::class;
     }
 }

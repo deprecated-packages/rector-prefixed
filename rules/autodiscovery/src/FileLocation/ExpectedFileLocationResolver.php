@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Autodiscovery\FileLocation;
+namespace _PhpScoper0a2ac50786fa\Rector\Autodiscovery\FileLocation;
 
 final class ExpectedFileLocationResolver
 {

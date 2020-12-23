@@ -1,18 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php70\Tests\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php70\Tests\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector;
 
 use Iterator;
-use Rector\Php70\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class StaticCallOnNonStaticToInstanceCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Php70\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class StaticCallOnNonStaticToInstanceCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
+     * @requires PHP < 8.0
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +23,6 @@ final class StaticCallOnNonStaticToInstanceCallRectorTest extends \Rector\Testin
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php70\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php70\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector::class;
     }
 }

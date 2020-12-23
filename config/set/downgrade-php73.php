@@ -1,15 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Downgrade\Rector\LNumber\ChangePhpVersionInPlatformCheckRector;
-use Rector\DowngradePhp73\Rector\List_\DowngradeListReferenceAssignmentRector;
-use Rector\DowngradePhp73\Rector\String_\DowngradeFlexibleHeredocSyntaxRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\FuncCall\DowngradeTrailingCommasInFunctionCallsRector;
+use _PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\FuncCall\SetCookieOptionsArrayToArgumentsRector;
+use _PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\List_\DowngradeListReferenceAssignmentRector;
+use _PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\String_\DowngradeFlexibleHeredocSyntaxRector;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\DowngradePhp73\Rector\String_\DowngradeFlexibleHeredocSyntaxRector::class);
-    $services->set(\Rector\DowngradePhp73\Rector\List_\DowngradeListReferenceAssignmentRector::class);
-    $services->set(\Rector\Downgrade\Rector\LNumber\ChangePhpVersionInPlatformCheckRector::class)->call('configure', [[\Rector\Downgrade\Rector\LNumber\ChangePhpVersionInPlatformCheckRector::TARGET_PHP_VERSION => 70300]]);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\String_\DowngradeFlexibleHeredocSyntaxRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\List_\DowngradeListReferenceAssignmentRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\FuncCall\DowngradeTrailingCommasInFunctionCallsRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\FuncCall\SetCookieOptionsArrayToArgumentsRector::class);
 };

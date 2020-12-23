@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Restoration\Rector\Namespace_;
+namespace _PhpScoper0a2ac50786fa\Rector\Restoration\Rector\Namespace_;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\Use_;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\PhpParser\Builder\UseBuilder;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Restoration\ValueObject\UseWithAlias;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\UseBuilder;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Restoration\Tests\Rector\Namespace_\CompleteImportForPartialAnnotationRector\CompleteImportForPartialAnnotationRectorTest
  */
-final class CompleteImportForPartialAnnotationRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class CompleteImportForPartialAnnotationRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -29,9 +29,9 @@ final class CompleteImportForPartialAnnotationRector extends \Rector\Core\Rector
      * @var UseWithAlias[]
      */
     private $useImportsToRestore = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('In case you have accidentally removed use imports but code still contains partial use statements, this will save you', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('In case you have accidentally removed use imports but code still contains partial use statements, this will save you', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -51,28 +51,28 @@ class SomeClass
     public $id;
 }
 CODE_SAMPLE
-, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperabd03f0baf05\\Doctrine\\ORM\\Mapping', 'ORM')]])]);
+, [self::USE_IMPORTS_TO_RESTORE => [new \_PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper0a2ac50786fa\\Doctrine\\ORM\\Mapping', 'ORM')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Namespace_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_::class];
     }
     /**
      * @param Namespace_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         /** @var Class_|null $class */
-        $class = $this->betterNodeFinder->findFirstInstanceOf((array) $node->stmts, \PhpParser\Node\Stmt\Class_::class);
+        $class = $this->betterNodeFinder->findFirstInstanceOf((array) $node->stmts, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class);
         if ($class === null) {
             return null;
         }
         foreach ($this->useImportsToRestore as $useImportToRestore) {
             $annotationToSeek = '#\\*\\s+\\@' . $useImportToRestore->getAlias() . '#';
-            if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($this->print($class), $annotationToSeek)) {
+            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($this->print($class), $annotationToSeek)) {
                 continue;
             }
             $node = $this->addImportToNamespaceIfMissing($node, $useImportToRestore);
@@ -84,13 +84,13 @@ CODE_SAMPLE
      */
     public function configure(array $configuration) : void
     {
-        $default = [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperabd03f0baf05\\Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperabd03f0baf05\\Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperabd03f0baf05\\JMS\\Serializer\\Annotation', 'Serializer')];
+        $default = [new \_PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper0a2ac50786fa\\Doctrine\\ORM\\Mapping', 'ORM'), new \_PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper0a2ac50786fa\\Symfony\\Component\\Validator\\Constraints', 'Assert'), new \_PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper0a2ac50786fa\\JMS\\Serializer\\Annotation', 'Serializer')];
         $this->useImportsToRestore = \array_merge($configuration[self::USE_IMPORTS_TO_RESTORE] ?? [], $default);
     }
-    private function addImportToNamespaceIfMissing(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \PhpParser\Node\Stmt\Namespace_
+    private function addImportToNamespaceIfMissing(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ $namespace, \_PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_
     {
         foreach ($namespace->stmts as $stmt) {
-            if (!$stmt instanceof \PhpParser\Node\Stmt\Use_) {
+            if (!$stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_) {
                 continue;
             }
             $useUse = $stmt->uses[0];
@@ -101,9 +101,9 @@ CODE_SAMPLE
         }
         return $this->addImportToNamespace($namespace, $useWithAlias);
     }
-    private function addImportToNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \PhpParser\Node\Stmt\Namespace_
+    private function addImportToNamespace(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ $namespace, \_PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_
     {
-        $useBuilder = new \Rector\Core\PhpParser\Builder\UseBuilder($useWithAlias->getUse());
+        $useBuilder = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\UseBuilder($useWithAlias->getUse());
         if ($useWithAlias->getAlias() !== '') {
             $useBuilder->as($useWithAlias->getAlias());
         }

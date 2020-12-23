@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Phalcon\Tests\Rector\MethodCall\AddRequestToHandleMethodCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Phalcon\Tests\Rector\MethodCall\AddRequestToHandleMethodCallRector;
 
 use Iterator;
-use Rector\Phalcon\Rector\MethodCall\AddRequestToHandleMethodCallRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AddRequestToHandleMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Phalcon\Rector\MethodCall\AddRequestToHandleMethodCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddRequestToHandleMethodCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AddRequestToHandleMethodCallRectorTest extends \Rector\Testing\PHPUn
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Phalcon\Rector\MethodCall\AddRequestToHandleMethodCallRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Phalcon\Rector\MethodCall\AddRequestToHandleMethodCallRector::class;
     }
 }

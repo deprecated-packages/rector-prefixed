@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeNameResolver\NodeNameResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 
-use PhpParser\Node;
-use PhpParser\Node\Param;
-use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use Rector\NodeNameResolver\NodeNameResolver;
-final class ParamNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+final class ParamNameResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     /**
      * @var NodeNameResolver
@@ -16,18 +16,18 @@ final class ParamNameResolver implements \Rector\NodeNameResolver\Contract\NodeN
     /**
      * @required
      */
-    public function autowireParamNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
+    public function autowireParamNameResolver(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     public function getNode() : string
     {
-        return \PhpParser\Node\Param::class;
+        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Param::class;
     }
     /**
      * @param Param $node
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
         return $this->nodeNameResolver->getName($node->var);
     }

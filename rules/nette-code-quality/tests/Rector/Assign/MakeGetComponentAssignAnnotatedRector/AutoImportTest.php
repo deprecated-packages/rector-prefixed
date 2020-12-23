@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteCodeQuality\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector;
 
 use Iterator;
-use Rector\Core\Configuration\Option;
-use Rector\NetteCodeQuality\Rector\Assign\MakeGetComponentAssignAnnotatedRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class AutoImportTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
+use _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Rector\Assign\MakeGetComponentAssignAnnotatedRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class AutoImportTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
-        $this->setParameter(\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS, \true);
+        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
+        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS, \true);
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
@@ -25,6 +25,6 @@ final class AutoImportTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCas
     }
     protected function getRectorClass() : string
     {
-        return \Rector\NetteCodeQuality\Rector\Assign\MakeGetComponentAssignAnnotatedRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Rector\Assign\MakeGetComponentAssignAnnotatedRector::class;
     }
 }

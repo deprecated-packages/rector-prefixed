@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use PhpParser\Node;
-use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
-use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use PHPStan\Type\Generic\GenericObjectType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use PHPStan\Type\VerbosityLevel;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
-use Rector\PHPStan\Type\AliasedObjectType;
-use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use Rector\PHPStan\Type\SelfObjectType;
-use Rector\PHPStan\Type\ShortenedObjectType;
-use Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
-use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface, \Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Generic\GenericObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
+use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
+use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\AliasedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\SelfObjectType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+final class ObjectTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface, \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface
 {
     /**
      * @var PHPStanStaticTypeMapper
@@ -30,76 +30,76 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     private $phpStanStaticTypeMapper;
     public function getNodeClass() : string
     {
-        return \PHPStan\Type\ObjectType::class;
+        return \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType::class;
     }
     /**
      * @param ObjectType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        if ($type instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
-            return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType) {
+            return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
         }
-        if ($type instanceof \Rector\PHPStan\Type\AliasedObjectType) {
-            return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\AliasedObjectType) {
+            return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
         }
-        if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
-            $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('\\' . $type->getClassName());
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\GenericObjectType) {
+            $identifierTypeNode = new \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('\\' . $type->getClassName());
             $genericTypeNodes = [];
             foreach ($type->getTypes() as $genericType) {
                 $typeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($genericType);
                 $genericTypeNodes[] = $typeNode;
             }
-            return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($identifierTypeNode, $genericTypeNodes);
+            return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($identifierTypeNode, $genericTypeNodes);
         }
-        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('\\' . $type->getClassName());
+        return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('\\' . $type->getClassName());
     }
     /**
      * @param ObjectType $type
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($type instanceof \Rector\PHPStan\Type\SelfObjectType) {
-            return new \PhpParser\Node\Name('self');
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\SelfObjectType) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('self');
         }
-        if ($type instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
-            return new \PhpParser\Node\Name\FullyQualified($type->getFullyQualifiedName());
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($type->getFullyQualifiedName());
         }
-        if ($type instanceof \Rector\PHPStan\Type\AliasedObjectType) {
-            return new \PhpParser\Node\Name($type->getClassName());
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\AliasedObjectType) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name($type->getClassName());
         }
-        if ($type instanceof \Rector\PHPStan\Type\FullyQualifiedObjectType) {
-            return new \PhpParser\Node\Name\FullyQualified($type->getClassName());
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType) {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($type->getClassName());
         }
-        if ($type instanceof \PHPStan\Type\Generic\GenericObjectType && $type->getClassName() === 'object') {
-            return new \PhpParser\Node\Name('object');
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\GenericObjectType && $type->getClassName() === 'object') {
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('object');
         }
         // fallback
-        return new \PhpParser\Node\Name\FullyQualified($type->getClassName());
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($type->getClassName());
     }
     /**
      * @param ObjectType $type
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $parentType = null) : string
     {
-        if ($type instanceof \Rector\PHPStan\Type\AliasedObjectType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\AliasedObjectType) {
             // no preslash for alias
             return $type->getClassName();
         }
-        if ($type instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType) {
             return '\\' . $type->getFullyQualifiedName();
         }
-        if ($type instanceof \Rector\PHPStan\Type\FullyQualifiedObjectType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType) {
             // always prefixed with \\
             return '\\' . $type->getClassName();
         }
-        if (\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($type->getClassName())) {
+        if (\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($type->getClassName())) {
             // FQN by default
-            return '\\' . $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
+            return '\\' . $type->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::typeOnly());
         }
         return $type->getClassName();
     }
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    public function setPHPStanStaticTypeMapper(\_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Defluent\Tests\Rector\Return_\DefluentReturnMethodCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Defluent\Tests\Rector\Return_\DefluentReturnMethodCallRector;
 
 use Iterator;
-use Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class DefluentReturnMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class DefluentReturnMethodCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class DefluentReturnMethodCallRectorTest extends \Rector\Testing\PHPUnit\A
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector::class;
     }
 }

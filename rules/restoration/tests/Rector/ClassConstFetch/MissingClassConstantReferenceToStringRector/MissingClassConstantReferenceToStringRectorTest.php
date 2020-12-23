@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Restoration\Tests\Rector\ClassConstFetch\MissingClassConstantReferenceToStringRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Restoration\Tests\Rector\ClassConstFetch\MissingClassConstantReferenceToStringRector;
 
 use Iterator;
-use Rector\Restoration\Rector\ClassConstFetch\MissingClassConstantReferenceToStringRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class MissingClassConstantReferenceToStringRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Restoration\Rector\ClassConstFetch\MissingClassConstantReferenceToStringRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class MissingClassConstantReferenceToStringRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MissingClassConstantReferenceToStringRectorTest extends \Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Restoration\Rector\ClassConstFetch\MissingClassConstantReferenceToStringRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Restoration\Rector\ClassConstFetch\MissingClassConstantReferenceToStringRector::class;
     }
 }

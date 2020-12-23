@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Caching;
+namespace _PhpScoper0a2ac50786fa\Rector\Caching;
 
-use Rector\Caching\Detector\ChangedFilesDetector;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Rector\Caching\Detector\ChangedFilesDetector;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class UnchangedFilesFilter
 {
     /**
      * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
-    public function __construct(\Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector)
     {
         $this->changedFilesDetector = $changedFilesDetector;
     }

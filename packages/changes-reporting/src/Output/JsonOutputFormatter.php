@@ -1,24 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\ChangesReporting\Output;
+namespace _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Output;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Json;
-use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
-use Rector\Core\Configuration\Configuration;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\SmartFileSystem\SmartFileSystem;
-final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
+use _PhpScoper0a2ac50786fa\Nette\Utils\Json;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
+final class JsonOutputFormatter implements \_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
     /**
      * @var string
      */
     public const NAME = 'json';
-    /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
     /**
      * @var Configuration
      */
@@ -27,9 +22,8 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->configuration = $configuration;
         $this->smartFileSystem = $smartFileSystem;
     }
@@ -37,7 +31,7 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
     {
         return self::NAME;
     }
-    public function report(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    public function report(\_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         $errorsArray = ['meta' => ['version' => $this->configuration->getPrettyVersion(), 'config' => $this->configuration->getConfigFilePath()], 'totals' => ['changed_files' => $errorAndDiffCollector->getFileDiffsCount(), 'removed_and_added_files_count' => $errorAndDiffCollector->getRemovedAndAddedFilesCount(), 'removed_node_count' => $errorAndDiffCollector->getRemovedNodeCount()]];
         $fileDiffs = $errorAndDiffCollector->getFileDiffs();
@@ -50,6 +44,25 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
         }
         $errors = $errorAndDiffCollector->getErrors();
         $errorsArray['totals']['errors'] = \count($errors);
+        $errorsData = $this->createErrorsData($errors);
+        if ($errorsData !== []) {
+            $errorsArray['errors'] = $errorsData;
+        }
+        $json = \_PhpScoper0a2ac50786fa\Nette\Utils\Json::encode($errorsArray, \_PhpScoper0a2ac50786fa\Nette\Utils\Json::PRETTY);
+        $outputFile = $this->configuration->getOutputFile();
+        if ($outputFile !== null) {
+            $this->smartFileSystem->dumpFile($outputFile, $json . \PHP_EOL);
+        } else {
+            echo $json . \PHP_EOL;
+        }
+    }
+    /**
+     * @param mixed[] $errors
+     * @return mixed[]
+     */
+    private function createErrorsData(array $errors) : array
+    {
+        $errorsData = [];
         foreach ($errors as $error) {
             $errorData = ['message' => $error->getMessage(), 'file' => $error->getRelativeFilePath()];
             if ($error->getRectorClass()) {
@@ -58,14 +71,8 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
             if ($error->getLine() !== null) {
                 $errorData['line'] = $error->getLine();
             }
-            $errorsArray['errors'][] = $errorData;
+            $errorsData[] = $errorData;
         }
-        $json = \_PhpScoperabd03f0baf05\Nette\Utils\Json::encode($errorsArray, \_PhpScoperabd03f0baf05\Nette\Utils\Json::PRETTY);
-        $outputFile = $this->configuration->getOutputFile();
-        if ($outputFile !== null) {
-            $this->smartFileSystem->dumpFile($outputFile, $json . \PHP_EOL);
-        } else {
-            $this->symfonyStyle->writeln($json);
-        }
+        return $errorsData;
     }
 }

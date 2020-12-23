@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php70\Tests;
+namespace _PhpScoper0a2ac50786fa\Rector\Php70\Tests;
 
 use Iterator;
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase;
-use Rector\Php70\EregToPcreTransformer;
-final class EregToPcreTransformerTest extends \_PhpScoperabd03f0baf05\PHPUnit\Framework\TestCase
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
+use _PhpScoper0a2ac50786fa\Rector\Php70\EregToPcreTransformer;
+final class EregToPcreTransformerTest extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase
 {
     /**
      * @var EregToPcreTransformer
@@ -14,7 +14,7 @@ final class EregToPcreTransformerTest extends \_PhpScoperabd03f0baf05\PHPUnit\Fr
     private $eregToPcreTransformer;
     protected function setUp() : void
     {
-        $this->eregToPcreTransformer = new \Rector\Php70\EregToPcreTransformer();
+        $this->eregToPcreTransformer = new \_PhpScoper0a2ac50786fa\Rector\Php70\EregToPcreTransformer();
     }
     /**
      * @dataProvider provideDataDropping()

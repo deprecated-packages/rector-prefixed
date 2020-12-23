@@ -8,30 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\CacheClearer;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\CacheClearer;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class Psr6CacheClearer implements \_PhpScoperabd03f0baf05\Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface
+class Psr6CacheClearer implements \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface
 {
     private $pools = [];
     public function __construct(array $pools = [])
     {
         $this->pools = $pools;
     }
-    public function hasPool($name)
+    public function hasPool(string $name)
     {
         return isset($this->pools[$name]);
     }
-    public function getPool($name)
+    public function getPool(string $name)
     {
         if (!$this->hasPool($name)) {
             throw new \InvalidArgumentException(\sprintf('Cache pool not found: "%s".', $name));
         }
         return $this->pools[$name];
     }
-    public function clearPool($name)
+    public function clearPool(string $name)
     {
         if (!isset($this->pools[$name])) {
             throw new \InvalidArgumentException(\sprintf('Cache pool not found: "%s".', $name));
@@ -41,7 +41,7 @@ class Psr6CacheClearer implements \_PhpScoperabd03f0baf05\Symfony\Component\Http
     /**
      * {@inheritdoc}
      */
-    public function clear($cacheDir)
+    public function clear(string $cacheDir)
     {
         foreach ($this->pools as $pool) {
             $pool->clear();

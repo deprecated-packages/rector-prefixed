@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Tests\Rector\ClassMethod\RenameVariableToMatchNewTypeRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Tests\Rector\ClassMethod\RenameVariableToMatchNewTypeRector;
 
 use Iterator;
-use Rector\Naming\Rector\ClassMethod\RenameVariableToMatchNewTypeRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameVariableToMatchNewTypeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Naming\Rector\ClassMethod\RenameVariableToMatchNewTypeRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameVariableToMatchNewTypeRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RenameVariableToMatchNewTypeRectorTest extends \Rector\Testing\PHPUn
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Naming\Rector\ClassMethod\RenameVariableToMatchNewTypeRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Naming\Rector\ClassMethod\RenameVariableToMatchNewTypeRector::class;
     }
 }

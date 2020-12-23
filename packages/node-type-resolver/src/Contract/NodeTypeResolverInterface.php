@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\Contract;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract;
 
-use PhpParser\Node;
-use PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
 interface NodeTypeResolverInterface
 {
     /**
      * @return class-string[]
      */
     public function getNodeClasses() : array;
-    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type;
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type;
 }

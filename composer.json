@@ -1,10 +1,13 @@
 {
     "name": "rector/rector-prefixed",
-    "description": "Prefixed scoped version of rector/rector package",
+    "description": "Prefixed scoped version of \"rector/rector\" package",
     "license": "MIT",
     "require": {
-        "php": "^7.2.4|^8.0"
+        "php": "^7.3|^8.0"
     },
+    "conflicting": [
+        "rector/rector"
+    ],
     "bin": [
         "bin/rector"
     ],

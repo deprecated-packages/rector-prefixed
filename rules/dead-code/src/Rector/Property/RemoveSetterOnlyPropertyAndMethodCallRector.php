@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\Property;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Property;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Interface_;
-use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\Trait_;
-use Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\MethodName;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\VendorLocker\VendorLockResolver;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Interface_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\VendorLocker\VendorLockResolver;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\DeadCode\Tests\Rector\Property\RemoveSetterOnlyPropertyAndMethodCallRector\RemoveSetterOnlyPropertyAndMethodCallRectorTest
  */
-final class RemoveSetterOnlyPropertyAndMethodCallRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveSetterOnlyPropertyAndMethodCallRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyManipulator
@@ -33,14 +33,14 @@ final class RemoveSetterOnlyPropertyAndMethodCallRector extends \Rector\Core\Rec
      * @var VendorLockResolver
      */
     private $vendorLockResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \_PhpScoper0a2ac50786fa\Rector\VendorLocker\VendorLockResolver $vendorLockResolver)
     {
         $this->propertyManipulator = $propertyManipulator;
         $this->vendorLockResolver = $vendorLockResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes method that set values that are never used', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes method that set values that are never used', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     private $name;
@@ -80,12 +80,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param Property $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
@@ -107,23 +107,23 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    private function shouldSkipProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
     {
-        if (\count($property->props) !== 1) {
+        if (\count((array) $property->props) !== 1) {
             return \true;
         }
         if (!$property->isPrivate()) {
             return \true;
         }
         /** @var Class_|Interface_|Trait_|null $classLike */
-        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \true;
         }
-        if ($classLike instanceof \PhpParser\Node\Stmt\Trait_) {
+        if ($classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_) {
             return \true;
         }
-        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+        if ($classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Interface_) {
             return \true;
         }
         return $this->propertyManipulator->isPropertyUsedInReadContext($property);
@@ -136,13 +136,13 @@ CODE_SAMPLE
     {
         $classMethodsToCheck = [];
         foreach ($propertyFetches as $propertyFetch) {
-            $methodName = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+            $methodName = $propertyFetch->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
             // this rector does not remove empty constructors
-            if ($methodName === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
+            if ($methodName === \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 continue;
             }
             /** @var ClassMethod|null $classMethod */
-            $classMethod = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+            $classMethod = $propertyFetch->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
             if ($classMethod === null) {
                 continue;
             }
@@ -165,7 +165,7 @@ CODE_SAMPLE
         }
         return $vendorLockedClassMethodsNames;
     }
-    private function hasMethodSomeStmtsLeft(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function hasMethodSomeStmtsLeft(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ((array) $classMethod->stmts as $stmt) {
             if (!$this->isNodeRemoved($stmt)) {

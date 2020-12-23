@@ -1,37 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\StaticTypeMapper\PhpParser;
+namespace _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\PhpParser;
 
-use PhpParser\Node;
-use PhpParser\Node\Identifier;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
-use Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
-use Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper;
-final class IdentifierNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper;
+final class IdentifierNodeMapper implements \_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
 {
     /**
      * @var ScalarStringToTypeMapper
      */
     private $scalarStringToTypeMapper;
-    public function __construct(\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
     {
         $this->scalarStringToTypeMapper = $scalarStringToTypeMapper;
     }
     public function getNodeType() : string
     {
-        return \PhpParser\Node\Identifier::class;
+        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier::class;
     }
     /**
      * @param Identifier $node
      */
-    public function mapToPHPStan(\PhpParser\Node $node) : \PHPStan\Type\Type
+    public function mapToPHPStan(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
-        $type = $this->scalarStringToTypeMapper->mapScalarStringToType($node->name);
-        if ($type !== null) {
-            return $type;
-        }
-        return new \PHPStan\Type\MixedType();
+        return $this->scalarStringToTypeMapper->mapScalarStringToType($node->name);
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector;
 
 use Iterator;
-use Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RenamePropertyToMatchTypeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RenamePropertyToMatchTypeRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RenamePropertyToMatchTypeRectorTest extends \Rector\Testing\PHPUnit\
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class;
     }
 }

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\NodeAnalyzer;
 
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Foreach_;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 final class ForeachNodeAnalyzer
 {
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
@@ -25,19 +25,19 @@ final class ForeachNodeAnalyzer
      *      <$assigns[]> = $value;
      * }
      */
-    public function matchAssignItemsOnlyForeachArrayVariable(\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\PhpParser\Node\Expr
+    public function matchAssignItemsOnlyForeachArrayVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if (\count($foreach->stmts) !== 1) {
+        if (\count((array) $foreach->stmts) !== 1) {
             return null;
         }
         $onlyStatement = $foreach->stmts[0];
-        if ($onlyStatement instanceof \PhpParser\Node\Stmt\Expression) {
+        if ($onlyStatement instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
             $onlyStatement = $onlyStatement->expr;
         }
-        if (!$onlyStatement instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$onlyStatement instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             return null;
         }
-        if (!$onlyStatement->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$onlyStatement->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
         if ($onlyStatement->var->dim !== null) {

@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Rector\AbstractRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Property;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\Core\ValueObject\MethodName;
-use Rector\DeadCode\NodeManipulator\LivingCodeManipulator;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use Rector\NodeRemoval\AssignRemover;
-use Rector\NodeRemoval\ClassMethodRemover;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PostRector\Collector\NodesToRemoveCollector;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\LivingCodeManipulator;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a2ac50786fa\Rector\NodeRemoval\AssignRemover;
+use _PhpScoper0a2ac50786fa\Rector\NodeRemoval\ClassMethodRemover;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToRemoveCollector;
 /**
  * Located in another trait ↓
  * @property NodesToRemoveCollector $nodesToRemoveCollector
@@ -54,7 +54,7 @@ trait ComplexRemovalTrait
     /**
      * @required
      */
-    public function autowireComplexRemovalTrait(\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\DeadCode\NodeManipulator\LivingCodeManipulator $livingCodeManipulator, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeRemoval\ClassMethodRemover $classMethodRemover, \Rector\NodeRemoval\AssignRemover $assignRemover) : void
+    public function autowireComplexRemovalTrait(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\LivingCodeManipulator $livingCodeManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a2ac50786fa\Rector\NodeRemoval\ClassMethodRemover $classMethodRemover, \_PhpScoper0a2ac50786fa\Rector\NodeRemoval\AssignRemover $assignRemover) : void
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->propertyManipulator = $propertyManipulator;
@@ -63,14 +63,14 @@ trait ComplexRemovalTrait
         $this->classMethodRemover = $classMethodRemover;
         $this->assignRemover = $assignRemover;
     }
-    protected function removeClassMethodAndUsages(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    protected function removeClassMethodAndUsages(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->classMethodRemover->removeClassMethodAndUsages($classMethod);
     }
     /**
      * @param string[] $classMethodNamesToSkip
      */
-    protected function removePropertyAndUsages(\PhpParser\Node\Stmt\Property $property, array $classMethodNamesToSkip = []) : void
+    protected function removePropertyAndUsages(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, array $classMethodNamesToSkip = []) : void
     {
         $shouldKeepProperty = \false;
         $propertyFetches = $this->propertyManipulator->getPrivatePropertyFetches($property);
@@ -102,51 +102,48 @@ trait ComplexRemovalTrait
      * @param StaticPropertyFetch|PropertyFetch $expr
      * @param string[] $classMethodNamesToSkip
      */
-    private function shouldSkipPropertyForClassMethod(\PhpParser\Node\Expr $expr, array $classMethodNamesToSkip) : bool
+    private function shouldSkipPropertyForClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr, array $classMethodNamesToSkip) : bool
     {
         /** @var ClassMethod|null $classMethodNode */
-        $classMethodNode = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        $classMethodNode = $expr->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethodNode === null) {
             return \false;
         }
         $classMethodName = $this->getName($classMethodNode);
-        if ($classMethodName === null) {
-            return \false;
-        }
         return \in_array($classMethodName, $classMethodNamesToSkip, \true);
     }
     /**
      * @param PropertyFetch|StaticPropertyFetch $expr
      */
-    private function resolveAssign(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\Assign
+    private function resolveAssign(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign
     {
-        $assign = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        while ($assign !== null && !$assign instanceof \PhpParser\Node\Expr\Assign) {
-            $assign = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $assign = $expr->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        while ($assign !== null && !$assign instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+            $assign = $assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         }
-        if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException("Can't handle this situation");
+        if (!$assign instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException("Can't handle this situation");
         }
         return $assign;
     }
-    private function removeConstructorDependency(\PhpParser\Node\Expr\Assign $assign) : void
+    private function removeConstructorDependency(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : void
     {
-        $methodName = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-        if ($methodName !== \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
+        $methodName = $assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        if ($methodName !== \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT) {
             return;
         }
-        $class = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
+        $class = $assign->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             return;
         }
         /** @var Class_|null $class */
-        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructClassMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
             return;
         }
         $constructClassMethodStmts = $constructClassMethod->stmts;
         foreach ($constructClassMethod->getParams() as $param) {
-            $variable = $this->betterNodeFinder->findFirst($constructClassMethodStmts, function (\PhpParser\Node $node) use($param) : bool {
+            $variable = $this->betterNodeFinder->findFirst($constructClassMethodStmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($param) : bool {
                 return $this->betterStandardPrinter->areNodesEqual($param->var, $node);
             });
             if ($variable === null) {
@@ -161,11 +158,11 @@ trait ComplexRemovalTrait
             $this->removeNode($param);
         }
     }
-    private function isExpressionVariableNotAssign(\PhpParser\Node $node) : bool
+    private function isExpressionVariableNotAssign(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
         if ($node !== null) {
-            $expressionVariable = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$expressionVariable instanceof \PhpParser\Node\Expr\Assign) {
+            $expressionVariable = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if (!$expressionVariable instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
                 return \true;
             }
         }

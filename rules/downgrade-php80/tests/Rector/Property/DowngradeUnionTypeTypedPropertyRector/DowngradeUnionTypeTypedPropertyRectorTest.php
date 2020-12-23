@@ -1,22 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp80\Tests\Rector\Property\DowngradeUnionTypeTypedPropertyRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Tests\Rector\Property\DowngradeUnionTypeTypedPropertyRector;
 
 use Iterator;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\DowngradePhp80\Rector\Property\DowngradeUnionTypeTypedPropertyRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Rector\Property\DowngradeUnionTypeTypedPropertyRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
- * @requires PHP >= 8.0
+ * @requires PHP 8.0
  */
-final class DowngradeUnionTypeTypedPropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class DowngradeUnionTypeTypedPropertyRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,10 +25,6 @@ final class DowngradeUnionTypeTypedPropertyRectorTest extends \Rector\Testing\PH
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DowngradePhp80\Rector\Property\DowngradeUnionTypeTypedPropertyRector::class;
-    }
-    protected function getPhpVersion() : int
-    {
-        return \Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES - 1;
+        return \_PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Rector\Property\DowngradeUnionTypeTypedPropertyRector::class;
     }
 }

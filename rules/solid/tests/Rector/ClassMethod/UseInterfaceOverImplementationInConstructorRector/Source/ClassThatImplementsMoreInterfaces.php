@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source;
 
-final class ClassThatImplementsMoreInterfaces implements \Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source\InterfaceThree, \Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source\InterfaceTwo
+final class ClassThatImplementsMoreInterfaces implements \_PhpScoper0a2ac50786fa\Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source\InterfaceThree, \_PhpScoper0a2ac50786fa\Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source\InterfaceTwo
 {
 }

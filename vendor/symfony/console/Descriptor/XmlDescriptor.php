@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Console\Descriptor;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Console\Descriptor;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Application;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputDefinition;
-use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Application;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputArgument;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputDefinition;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption;
 /**
  * XML descriptor.
  *
@@ -22,9 +22,9 @@ use _PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption;
  *
  * @internal
  */
-class XmlDescriptor extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\Descriptor\Descriptor
+class XmlDescriptor extends \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Descriptor\Descriptor
 {
-    public function getInputDefinitionDocument(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputDefinition $definition) : \DOMDocument
+    public function getInputDefinitionDocument(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputDefinition $definition) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($definitionXML = $dom->createElement('definition'));
@@ -38,11 +38,10 @@ class XmlDescriptor extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\De
         }
         return $dom;
     }
-    public function getCommandDocument(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command $command) : \DOMDocument
+    public function getCommandDocument(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command $command) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($commandXML = $dom->createElement('command'));
-        $command->getSynopsis();
         $command->mergeApplicationDefinition(\false);
         $commandXML->setAttribute('id', $command->getName());
         $commandXML->setAttribute('name', $command->getName());
@@ -55,11 +54,11 @@ class XmlDescriptor extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\De
         $descriptionXML->appendChild($dom->createTextNode(\str_replace("\n", "\n ", $command->getDescription())));
         $commandXML->appendChild($helpXML = $dom->createElement('help'));
         $helpXML->appendChild($dom->createTextNode(\str_replace("\n", "\n ", $command->getProcessedHelp())));
-        $definitionXML = $this->getInputDefinitionDocument($command->getNativeDefinition());
+        $definitionXML = $this->getInputDefinitionDocument($command->getDefinition());
         $this->appendDocument($commandXML, $definitionXML->getElementsByTagName('definition')->item(0));
         return $dom;
     }
-    public function getApplicationDocument(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Application $application, string $namespace = null) : \DOMDocument
+    public function getApplicationDocument(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Application $application, string $namespace = null) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($rootXml = $dom->createElement('symfony'));
@@ -70,7 +69,7 @@ class XmlDescriptor extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\De
             }
         }
         $rootXml->appendChild($commandsXML = $dom->createElement('commands'));
-        $description = new \_PhpScoperabd03f0baf05\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
+        $description = new \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
         if ($namespace) {
             $commandsXML->setAttribute('namespace', $namespace);
         }
@@ -93,35 +92,35 @@ class XmlDescriptor extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\De
     /**
      * {@inheritdoc}
      */
-    protected function describeInputArgument(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         $this->writeDocument($this->getInputArgumentDocument($argument));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeInputOption(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         $this->writeDocument($this->getInputOptionDocument($option));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeInputDefinition(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $this->writeDocument($this->getInputDefinitionDocument($definition));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeCommand(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
         $this->writeDocument($this->getCommandDocument($command));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeApplication(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Application $application, array $options = [])
     {
         $this->writeDocument($this->getApplicationDocument($application, isset($options['namespace']) ? $options['namespace'] : null));
     }
@@ -142,7 +141,7 @@ class XmlDescriptor extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\De
         $dom->formatOutput = \true;
         $this->write($dom->saveXML());
     }
-    private function getInputArgumentDocument(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
+    private function getInputArgumentDocument(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('argument'));
@@ -159,7 +158,7 @@ class XmlDescriptor extends \_PhpScoperabd03f0baf05\Symfony\Component\Console\De
         }
         return $dom;
     }
-    private function getInputOptionDocument(\_PhpScoperabd03f0baf05\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
+    private function getInputOptionDocument(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('option'));

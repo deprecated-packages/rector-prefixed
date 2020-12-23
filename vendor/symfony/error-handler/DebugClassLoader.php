@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\ErrorHandler;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\ErrorHandler;
 
-use _PhpScoperabd03f0baf05\Doctrine\Common\Persistence\Proxy as LegacyProxy;
-use _PhpScoperabd03f0baf05\Doctrine\Persistence\Proxy;
-use _PhpScoperabd03f0baf05\Mockery\MockInterface;
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
-use _PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\MockObject;
-use _PhpScoperabd03f0baf05\Prophecy\Prophecy\ProphecySubjectInterface;
-use _PhpScoperabd03f0baf05\ProxyManager\Proxy\ProxyInterface;
+use _PhpScoper0a2ac50786fa\Doctrine\Common\Persistence\Proxy as LegacyProxy;
+use _PhpScoper0a2ac50786fa\Doctrine\Persistence\Proxy;
+use _PhpScoper0a2ac50786fa\Mockery\MockInterface;
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
+use _PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\MockObject;
+use _PhpScoper0a2ac50786fa\Prophecy\Prophecy\ProphecySubjectInterface;
+use _PhpScoper0a2ac50786fa\ProxyManager\Proxy\ProxyInterface;
 /**
  * Autoloader checking if the class is really defined in the file found.
  *
@@ -75,7 +75,7 @@ class DebugClassLoader
         \parse_str(\getenv('SYMFONY_PATCH_TYPE_DECLARATIONS') ?: '', $this->patchTypes);
         $this->patchTypes += ['force' => null, 'php' => null, 'deprecations' => \false];
         if (!isset(self::$caseCheck)) {
-            $file = \file_exists(__FILE__) ? __FILE__ : \rtrim(\realpath('.'), \DIRECTORY_SEPARATOR);
+            $file = \is_file(__FILE__) ? __FILE__ : \rtrim(\realpath('.'), \DIRECTORY_SEPARATOR);
             $i = \strrpos($file, \DIRECTORY_SEPARATOR);
             $dir = \substr($file, 0, 1 + $i);
             $file = \substr($file, 1 + $i);
@@ -111,8 +111,8 @@ class DebugClassLoader
     public static function enable() : void
     {
         // Ensures we don't hit https://bugs.php.net/42098
-        \class_exists('_PhpScoperabd03f0baf05\\Symfony\\Component\\ErrorHandler\\ErrorHandler');
-        \class_exists('_PhpScoperabd03f0baf05\\Psr\\Log\\LogLevel');
+        \class_exists('_PhpScoper0a2ac50786fa\\Symfony\\Component\\ErrorHandler\\ErrorHandler');
+        \class_exists('_PhpScoper0a2ac50786fa\\Psr\\Log\\LogLevel');
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
         }
@@ -163,7 +163,7 @@ class DebugClassLoader
         foreach ($offsets as $getSymbols => $i) {
             $symbols = $getSymbols();
             for (; $i < \count($symbols); ++$i) {
-                if (!\is_subclass_of($symbols[$i], \_PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \_PhpScoperabd03f0baf05\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \_PhpScoperabd03f0baf05\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \_PhpScoperabd03f0baf05\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \_PhpScoperabd03f0baf05\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \_PhpScoperabd03f0baf05\Mockery\MockInterface::class)) {
+                if (!\is_subclass_of($symbols[$i], \_PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \_PhpScoper0a2ac50786fa\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \_PhpScoper0a2ac50786fa\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \_PhpScoper0a2ac50786fa\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \_PhpScoper0a2ac50786fa\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \_PhpScoper0a2ac50786fa\Mockery\MockInterface::class)) {
                     $loader->checkClass($symbols[$i]);
                 }
             }
@@ -242,7 +242,7 @@ class DebugClassLoader
     }
     public function checkAnnotations(\ReflectionClass $refl, string $class) : array
     {
-        if ('Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV7' === $class || 'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV6' === $class || 'Test\\Symfony\\Component\\Debug\\Tests' === $refl->getNamespaceName()) {
+        if ('Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV7' === $class || 'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV6' === $class) {
             return [];
         }
         $deprecations = [];
@@ -317,7 +317,7 @@ class DebugClassLoader
                     $hasCall = $refl->hasMethod('__call');
                     $hasStaticCall = $refl->hasMethod('__callStatic');
                     foreach (self::$method[$use] as $method) {
-                        list($interface, $name, $static, $description) = $method;
+                        [$interface, $name, $static, $description] = $method;
                         if ($static ? $hasStaticCall : $hasCall) {
                             continue;
                         }
@@ -371,11 +371,11 @@ class DebugClassLoader
                 $ns = \str_replace('_', '\\', \substr($ns, 0, $len));
             }
             if ($parent && isset(self::$finalMethods[$parent][$method->name])) {
-                list($declaringClass, $message) = self::$finalMethods[$parent][$method->name];
+                [$declaringClass, $message] = self::$finalMethods[$parent][$method->name];
                 $deprecations[] = \sprintf('The "%s::%s()" method is considered final%s. It may change without further notice as of its next major version. You should not extend it from "%s".', $declaringClass, $method->name, $message, $className);
             }
             if (isset(self::$internalMethods[$class][$method->name])) {
-                list($declaringClass, $message) = self::$internalMethods[$class][$method->name];
+                [$declaringClass, $message] = self::$internalMethods[$class][$method->name];
                 if (\strncmp($ns, $declaringClass, $len)) {
                     $deprecations[] = \sprintf('The "%s::%s()" method is considered internal%s. It may change without further notice. You should not extend it from "%s".', $declaringClass, $method->name, $message, $className);
                 }
@@ -401,7 +401,7 @@ class DebugClassLoader
                 $canAddReturnType = \false !== \strpos($refl->getFileName(), \DIRECTORY_SEPARATOR . 'Tests' . \DIRECTORY_SEPARATOR) || $refl->isFinal() || $method->isFinal() || $method->isPrivate() || '' === (self::$internal[$class] ?? null) && !$refl->isAbstract() || '' === (self::$final[$class] ?? null) || \preg_match('/@(final|internal)$/m', $doc);
             }
             if (null !== ($returnType = self::$returnTypes[$class][$method->name] ?? self::MAGIC_METHODS[$method->name] ?? null) && !$method->hasReturnType() && !($doc && \preg_match('/\\n\\s+\\* @return +(\\S+)/', $doc))) {
-                list($normalizedType, $returnType, $declaringClass, $declaringFile) = \is_string($returnType) ? [$returnType, $returnType, '', ''] : $returnType;
+                [$normalizedType, $returnType, $declaringClass, $declaringFile] = \is_string($returnType) ? [$returnType, $returnType, '', ''] : $returnType;
                 if ('void' === $normalizedType) {
                     $canAddReturnType = \false;
                 }
@@ -443,7 +443,7 @@ class DebugClassLoader
                     $finalOrInternal = \true;
                 }
             }
-            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \_PhpScoperabd03f0baf05\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
+            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \_PhpScoper0a2ac50786fa\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
                 continue;
             }
             if (!\preg_match_all('#\\n\\s+\\* @param +((?(?!callable *\\().*?|callable *\\(.*\\).*?))(?<= )\\$([a-zA-Z0-9_\\x7f-\\xff]++)#', $doc, $matches, \PREG_SET_ORDER)) {
@@ -455,7 +455,7 @@ class DebugClassLoader
                     $definedParameters[$parameter->name] = \true;
                 }
             }
-            foreach ($matches as list(, $parameterType, $parameterName)) {
+            foreach ($matches as [, $parameterType, $parameterName]) {
                 if (!isset($definedParameters[$parameterName])) {
                     $parameterType = \trim($parameterType);
                     self::$annotatedParameters[$class][$method->name][$parameterName] = \sprintf('The "%%s::%s()" method will require a new "%s$%s" argument in the next major version of its %s "%s", not defining it is deprecated.', $method->name, $parameterType ? $parameterType . ' ' : '', $parameterName, \interface_exists($className) ? 'interface' : 'parent class', $className);
@@ -529,7 +529,7 @@ class DebugClassLoader
             $file = \substr($file, 0, \strrpos($file, '(', -17));
         }
         if (isset($dirFiles[$file])) {
-            return $real .= $dirFiles[$file];
+            return $real . $dirFiles[$file];
         }
         $kFile = \strtolower($file);
         if (!isset($dirFiles[$kFile])) {
@@ -545,7 +545,7 @@ class DebugClassLoader
             }
             self::$darwinCache[$kDir][1] = $dirFiles;
         }
-        return $real .= $dirFiles[$kFile];
+        return $real . $dirFiles[$kFile];
     }
     /**
      * `class_implements` includes interfaces from the parents so we have to manually exclude them.
@@ -653,7 +653,7 @@ class DebugClassLoader
     {
         static $patchedMethods = [];
         static $useStatements = [];
-        if (!\file_exists($file = $method->getFileName()) || isset($patchedMethods[$file][$startLine = $method->getStartLine()])) {
+        if (!\is_file($file = $method->getFileName()) || isset($patchedMethods[$file][$startLine = $method->getStartLine()])) {
             return;
         }
         $patchedMethods[$file][$startLine] = \true;
@@ -676,9 +676,9 @@ class DebugClassLoader
             if (isset(self::SPECIAL_RETURN_TYPES[$type]) || '\\' === $type[0] && !($p = \strrpos($type, '\\', 1))) {
                 continue;
             }
-            list($namespace, $useOffset, $useMap) = $useStatements[$file] ?? ($useStatements[$file] = self::getUseStatements($file));
+            [$namespace, $useOffset, $useMap] = $useStatements[$file] ?? ($useStatements[$file] = self::getUseStatements($file));
             if ('\\' !== $type[0]) {
-                list($declaringNamespace, , $declaringUseMap) = $useStatements[$declaringFile] ?? ($useStatements[$declaringFile] = self::getUseStatements($declaringFile));
+                [$declaringNamespace, , $declaringUseMap] = $useStatements[$declaringFile] ?? ($useStatements[$declaringFile] = self::getUseStatements($declaringFile));
                 $p = \strpos($type, '\\', 1);
                 $alias = $p ? \substr($type, 0, $p) : $type;
                 if (isset($declaringUseMap[$alias])) {
@@ -731,7 +731,7 @@ EOTXT;
         $namespace = '';
         $useMap = [];
         $useOffset = 0;
-        if (!\file_exists($file)) {
+        if (!\is_file($file)) {
             return [$namespace, $useOffset, $useMap];
         }
         $file = \file($file);
@@ -764,7 +764,7 @@ EOTXT;
         if ('7.1' === $this->patchTypes['php'] && 'object' === \ltrim($returnType, '?') && 'docblock' !== $this->patchTypes['force']) {
             return;
         }
-        if (!\file_exists($file = $method->getFileName())) {
+        if (!\is_file($file = $method->getFileName())) {
             return;
         }
         $fixedCode = $code = \file($file);

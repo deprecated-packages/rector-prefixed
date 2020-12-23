@@ -1,18 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\Tests\Rector\Property\CompleteVarDocTypePropertyRector;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Tests\Rector\Property\CompleteVarDocTypePropertyRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\TypeDeclaration\Rector\Property\CompleteVarDocTypePropertyRector;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class CompleteVarDocTypePropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Rector\Property\CompleteVarDocTypePropertyRector;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+/**
+ * @requires PHP < 8.0
+ */
+final class CompleteVarDocTypePropertyRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +25,6 @@ final class CompleteVarDocTypePropertyRectorTest extends \Rector\Testing\PHPUnit
     }
     protected function getRectorClass() : string
     {
-        return \Rector\TypeDeclaration\Rector\Property\CompleteVarDocTypePropertyRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Rector\Property\CompleteVarDocTypePropertyRector::class;
     }
 }

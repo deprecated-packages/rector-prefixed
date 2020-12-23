@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\ClassMethod;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\Nop;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\ClassMethod\NewlineBeforeNewAssignSetRector\NewlineBeforeNewAssignSetRectorTest
  */
-final class NewlineBeforeNewAssignSetRector extends \Rector\Core\Rector\AbstractRector
+final class NewlineBeforeNewAssignSetRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string|null
@@ -28,9 +28,9 @@ final class NewlineBeforeNewAssignSetRector extends \Rector\Core\Rector\Abstract
      * @var string|null
      */
     private $previousPreviousStmtVariableName;
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add extra space before new assign set', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add extra space before new assign set', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -62,12 +62,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Expr\Closure::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure::class];
     }
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $this->reset();
         $hasChanged = \false;
@@ -76,7 +76,9 @@ CODE_SAMPLE
             if ($this->shouldAddEmptyLine($currentStmtVariableName, $node, $key)) {
                 $hasChanged = \true;
                 // insert newline before
-                \array_splice($node->stmts, $key, 0, [new \PhpParser\Node\Stmt\Nop()]);
+                $stmts = (array) $node->stmts;
+                \array_splice($stmts, $key, 0, [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop()]);
+                $node->stmts = $stmts;
             }
             $this->previousPreviousStmtVariableName = $this->previousStmtVariableName;
             $this->previousStmtVariableName = $currentStmtVariableName;
@@ -88,15 +90,15 @@ CODE_SAMPLE
         $this->previousStmtVariableName = null;
         $this->previousPreviousStmtVariableName = null;
     }
-    private function resolveCurrentStmtVariableName(\PhpParser\Node $node) : ?string
+    private function resolveCurrentStmtVariableName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt) : ?string
     {
-        $node = $this->unwrapExpression($node);
-        if ($node instanceof \PhpParser\Node\Expr\Assign || $node instanceof \PhpParser\Node\Expr\MethodCall) {
-            if ($this->shouldSkipLeftVariable($node)) {
+        $stmt = $this->unwrapExpression($stmt);
+        if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign || $stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+            if ($this->shouldSkipLeftVariable($stmt)) {
                 return null;
             }
-            if (!$node->var instanceof \PhpParser\Node\Expr\MethodCall && !$node->var instanceof \PhpParser\Node\Expr\StaticCall) {
-                return $this->getName($node->var);
+            if (!$stmt->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall && !$stmt->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
+                return $this->getName($stmt->var);
             }
         }
         return null;
@@ -104,7 +106,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    private function shouldAddEmptyLine(?string $currentStmtVariableName, \PhpParser\Node $node, int $key) : bool
+    private function shouldAddEmptyLine(?string $currentStmtVariableName, \_PhpScoper0a2ac50786fa\PhpParser\Node $node, int $key) : bool
     {
         if (!$this->isNewVariableThanBefore($currentStmtVariableName)) {
             return \false;
@@ -112,17 +114,10 @@ CODE_SAMPLE
         // this is already empty line before
         return !$this->isPreceededByEmptyLine($node, $key);
     }
-    private function unwrapExpression(\PhpParser\Node $node) : \PhpParser\Node
-    {
-        if ($node instanceof \PhpParser\Node\Stmt\Expression) {
-            return $node->expr;
-        }
-        return $node;
-    }
     /**
      * @param Assign|MethodCall $node
      */
-    private function shouldSkipLeftVariable(\PhpParser\Node $node) : bool
+    private function shouldSkipLeftVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
         // local method call
         return $this->isVariableName($node->var, 'this');
@@ -146,7 +141,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    private function isPreceededByEmptyLine(\PhpParser\Node $node, int $key) : bool
+    private function isPreceededByEmptyLine(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, int $key) : bool
     {
         if ($node->stmts === null) {
             return \false;

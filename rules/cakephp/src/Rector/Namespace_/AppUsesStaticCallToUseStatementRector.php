@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CakePHP\Rector\Namespace_;
+namespace _PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\Namespace_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Stmt\Declare_;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\Use_;
-use Rector\CakePHP\Naming\CakePHPFullyQualifiedClassNameResolver;
-use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Declare_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_;
+use _PhpScoper0a2ac50786fa\Rector\CakePHP\Naming\CakePHPFullyQualifiedClassNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/cakephp/upgrade/blob/756410c8b7d5aff9daec3fa1fe750a3858d422ac/src/Shell/Task/AppUsesTask.php
  * @see https://github.com/cakephp/upgrade/search?q=uses&unscoped_q=uses
  *
  * @see \Rector\CakePHP\Tests\Rector\Namespace_\AppUsesStaticCallToUseStatementRector\AppUsesStaticCallToUseStatementRectorTest
  */
-final class AppUsesStaticCallToUseStatementRector extends \Rector\Core\Rector\AbstractRector
+final class AppUsesStaticCallToUseStatementRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var CakePHPFullyQualifiedClassNameResolver
      */
     private $cakePHPFullyQualifiedClassNameResolver;
-    public function __construct(\Rector\CakePHP\Naming\CakePHPFullyQualifiedClassNameResolver $cakePHPFullyQualifiedClassNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\CakePHP\Naming\CakePHPFullyQualifiedClassNameResolver $cakePHPFullyQualifiedClassNameResolver)
     {
         $this->cakePHPFullyQualifiedClassNameResolver = $cakePHPFullyQualifiedClassNameResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change App::uses() to use imports', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change App::uses() to use imports', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 App::uses('NotificationListener', 'Event');
 
 CakeEventManager::instance()->attach(new NotificationListener());
@@ -48,12 +48,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \PhpParser\Node\Stmt\Namespace_::class];
+        return [\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_::class];
     }
     /**
      * @param FileWithoutNamespace|Namespace_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $appUsesStaticCalls = $this->collectAppUseStaticCalls($node);
         if ($appUsesStaticCalls === []) {
@@ -62,7 +62,7 @@ CODE_SAMPLE
         $this->removeNodes($appUsesStaticCalls);
         $names = $this->resolveNamesFromStaticCalls($appUsesStaticCalls);
         $uses = $this->nodeFactory->createUsesFromNames($names);
-        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_) {
             $node->stmts = \array_merge($uses, (array) $node->stmts);
             return $node;
         }
@@ -71,11 +71,11 @@ CODE_SAMPLE
     /**
      * @return StaticCall[]
      */
-    private function collectAppUseStaticCalls(\PhpParser\Node $node) : array
+    private function collectAppUseStaticCalls(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : array
     {
         /** @var StaticCall[] $appUsesStaticCalls */
-        $appUsesStaticCalls = $this->betterNodeFinder->find($node, function (\PhpParser\Node $node) : bool {
-            if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
+        $appUsesStaticCalls = $this->betterNodeFinder->find($node, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
                 return \false;
             }
             return $this->isStaticCallNamed($node, 'App', 'uses');
@@ -97,21 +97,21 @@ CODE_SAMPLE
     /**
      * @param Use_[] $uses
      */
-    private function refactorFile(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, array $uses) : ?\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
+    private function refactorFile(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, array $uses) : ?\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
-        $hasNamespace = $this->betterNodeFinder->findFirstInstanceOf($fileWithoutNamespace, \PhpParser\Node\Stmt\Namespace_::class);
+        $hasNamespace = $this->betterNodeFinder->findFirstInstanceOf($fileWithoutNamespace, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_::class);
         // already handled above
         if ($hasNamespace !== null) {
             return null;
         }
-        $hasDeclare = $this->betterNodeFinder->findFirstInstanceOf($fileWithoutNamespace, \PhpParser\Node\Stmt\Declare_::class);
+        $hasDeclare = $this->betterNodeFinder->findFirstInstanceOf($fileWithoutNamespace, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Declare_::class);
         if ($hasDeclare !== null) {
             return $this->refactorFileWithDeclare($fileWithoutNamespace, $uses);
         }
         $fileWithoutNamespace->stmts = \array_merge($uses, (array) $fileWithoutNamespace->stmts);
         return $fileWithoutNamespace;
     }
-    private function createFullyQualifiedNameFromAppUsesStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : string
+    private function createFullyQualifiedNameFromAppUsesStaticCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : string
     {
         /** @var string $shortClassName */
         $shortClassName = $this->getValue($staticCall->args[0]->value);
@@ -122,18 +122,18 @@ CODE_SAMPLE
     /**
      * @param Use_[] $uses
      */
-    private function refactorFileWithDeclare(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, array $uses) : \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
+    private function refactorFileWithDeclare(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, array $uses) : \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
         $newStmts = [];
         foreach ($fileWithoutNamespace->stmts as $stmt) {
             $newStmts[] = $stmt;
-            if ($stmt instanceof \PhpParser\Node\Stmt\Declare_) {
+            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Declare_) {
                 foreach ($uses as $use) {
                     $newStmts[] = $use;
                 }
                 continue;
             }
         }
-        return new \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace($newStmts);
+        return new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace($newStmts);
     }
 }

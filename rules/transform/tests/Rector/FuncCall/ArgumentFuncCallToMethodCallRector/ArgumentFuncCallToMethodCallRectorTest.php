@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Transform\Tests\Rector\FuncCall\ArgumentFuncCallToMethodCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Transform\Tests\Rector\FuncCall\ArgumentFuncCallToMethodCallRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector;
-use Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall;
-use Rector\Transform\ValueObject\ArrayFuncCallToMethodCall;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ArgumentFuncCallToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall;
+use _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ArgumentFuncCallToMethodCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class ArgumentFuncCallToMethodCallRectorTest extends \Rector\Testing\PHPUn
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::class => [\Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::FUNCTIONS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('view', '_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\View\\Factory', 'make'), new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('route', '_PhpScoperabd03f0baf05\\Illuminate\\Routing\\UrlGenerator', 'route'), new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('back', '_PhpScoperabd03f0baf05\\Illuminate\\Routing\\Redirector', 'back', 'back'), new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('broadcast', '_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Broadcasting\\Factory', 'event')], \Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::ARRAY_FUNCTIONS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall('config', '_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Config\\Repository', 'set', 'get'), new \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall('session', '_PhpScoperabd03f0baf05\\Illuminate\\Session\\SessionManager', 'put', 'get')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::class => [\_PhpScoper0a2ac50786fa\Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::FUNCTIONS_TO_METHOD_CALLS => [new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('view', '_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\View\\Factory', 'make'), new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('route', '_PhpScoper0a2ac50786fa\\Illuminate\\Routing\\UrlGenerator', 'route'), new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('back', '_PhpScoper0a2ac50786fa\\Illuminate\\Routing\\Redirector', 'back', 'back'), new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('broadcast', '_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Broadcasting\\Factory', 'event')], \_PhpScoper0a2ac50786fa\Rector\Transform\Rector\FuncCall\ArgumentFuncCallToMethodCallRector::ARRAY_FUNCTIONS_TO_METHOD_CALLS => [new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall('config', '_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Config\\Repository', 'set', 'get'), new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall('session', '_PhpScoper0a2ac50786fa\\Illuminate\\Session\\SessionManager', 'put', 'get')]]];
     }
 }

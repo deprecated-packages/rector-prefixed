@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\File\Exception\FileException;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\File\File;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\File\Exception\FileException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\File\File;
 /**
  * BinaryFileResponse represents an HTTP response delivering a file.
  *
@@ -21,7 +21,7 @@ use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\File\File;
  * @author Jordan Alliot <jordan.alliot@gmail.com>
  * @author Sergey Linnik <linniksa@gmail.com>
  */
-class BinaryFileResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response
+class BinaryFileResponse extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response
 {
     protected static $trustXSendfileTypeHeader = \false;
     /**
@@ -58,9 +58,12 @@ class BinaryFileResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpF
      * @param bool                $autoLastModified   Whether the Last-Modified header should be automatically set
      *
      * @return static
+     *
+     * @deprecated since Symfony 5.2, use __construct() instead.
      */
     public static function create($file = null, int $status = 200, array $headers = [], bool $public = \true, string $contentDisposition = null, bool $autoEtag = \false, bool $autoLastModified = \true)
     {
+        trigger_deprecation('symfony/http-foundation', '5.2', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($file, $status, $headers, $public, $contentDisposition, $autoEtag, $autoLastModified);
     }
     /**
@@ -74,15 +77,15 @@ class BinaryFileResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpF
      */
     public function setFile($file, string $contentDisposition = null, bool $autoEtag = \false, bool $autoLastModified = \true)
     {
-        if (!$file instanceof \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\File\File) {
+        if (!$file instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\File\File) {
             if ($file instanceof \SplFileInfo) {
-                $file = new \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\File\File($file->getPathname());
+                $file = new \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\File\File($file->getPathname());
             } else {
-                $file = new \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\File\File((string) $file);
+                $file = new \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\File\File((string) $file);
             }
         }
         if (!$file->isReadable()) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\File\Exception\FileException('File must be readable.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\File\Exception\FileException('File must be readable.');
         }
         $this->file = $file;
         if ($autoEtag) {
@@ -153,7 +156,7 @@ class BinaryFileResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpF
     /**
      * {@inheritdoc}
      */
-    public function prepare(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request)
+    public function prepare(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request)
     {
         if (!$this->headers->has('Content-Type')) {
             $this->headers->set('Content-Type', $this->file->getMimeType() ?: 'application/octet-stream');
@@ -183,9 +186,9 @@ class BinaryFileResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpF
             if ('x-accel-redirect' === \strtolower($type)) {
                 // Do X-Accel-Mapping substitutions.
                 // @link https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/#x-accel-redirect
-                $parts = \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
+                $parts = \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
                 foreach ($parts as $part) {
-                    list($pathPrefix, $location) = $part;
+                    [$pathPrefix, $location] = $part;
                     if (\substr($path, 0, \strlen($pathPrefix)) === $pathPrefix) {
                         $path = $location . \substr($path, \strlen($pathPrefix));
                         // Only set X-Accel-Redirect header if a valid URI can be produced
@@ -204,7 +207,7 @@ class BinaryFileResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpF
             if (!$request->headers->has('If-Range') || $this->hasValidIfRangeHeader($request->headers->get('If-Range'))) {
                 $range = $request->headers->get('Range');
                 if (0 === \strpos($range, 'bytes=')) {
-                    list($start, $end) = \explode('-', \substr($range, 6), 2) + [0];
+                    [$start, $end] = \explode('-', \substr($range, 6), 2) + [0];
                     $end = '' === $end ? $fileSize - 1 : (int) $end;
                     if ('' === $start) {
                         $start = $fileSize - $end;
@@ -258,7 +261,7 @@ class BinaryFileResponse extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpF
         \stream_copy_to_stream($file, $out, $this->maxlen, $this->offset);
         \fclose($out);
         \fclose($file);
-        if ($this->deleteFileAfterSend && \file_exists($this->file->getPathname())) {
+        if ($this->deleteFileAfterSend && \is_file($this->file->getPathname())) {
             \unlink($this->file->getPathname());
         }
         return $this;

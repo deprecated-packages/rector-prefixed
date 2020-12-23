@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Guard;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Guard;
 
-use _PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface;
-use Rector\Naming\Contract\Guard\GuardInterface;
-use Rector\Naming\Contract\RenameValueObjectInterface;
-use Rector\Naming\ValueObject\PropertyRename;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-final class RamseyUuidInterfaceGuard implements \Rector\Naming\Contract\Guard\GuardInterface
+use _PhpScoper0a2ac50786fa\Ramsey\Uuid\UuidInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\Guard\ConflictingGuardInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameValueObjectInterface;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\PropertyRename;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+final class RamseyUuidInterfaceGuard implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contract\Guard\ConflictingGuardInterface
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
      * @param PropertyRename $renameValueObject
      */
-    public function check(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool
+    public function check(\_PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($renameValueObject->getProperty(), \_PhpScoperabd03f0baf05\Ramsey\Uuid\UuidInterface::class);
+        return $this->nodeTypeResolver->isObjectType($renameValueObject->getProperty(), \_PhpScoper0a2ac50786fa\Ramsey\Uuid\UuidInterface::class);
     }
 }

@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\SOLID\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\SOLID\Rector\Class_;
 
-use PhpParser\Node;
-use PhpParser\Node\Const_;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassConst;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\Manipulator\ClassMethodAssignManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticRectorStrings;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Const_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodAssignManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\SOLID\Tests\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToConstantRector\ChangeReadOnlyVariableWithDefaultValueToConstantRectorTest
  */
-final class ChangeReadOnlyVariableWithDefaultValueToConstantRector extends \Rector\Core\Rector\AbstractRector
+final class ChangeReadOnlyVariableWithDefaultValueToConstantRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassMethodAssignManipulator
@@ -35,14 +35,14 @@ final class ChangeReadOnlyVariableWithDefaultValueToConstantRector extends \Rect
      * @var VarAnnotationManipulator
      */
     private $varAnnotationManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator)
     {
         $this->classMethodAssignManipulator = $classMethodAssignManipulator;
         $this->varAnnotationManipulator = $varAnnotationManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change variable with read only status with default value to constant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change variable with read only status with default value to constant', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -82,12 +82,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $readOnlyVariableAssigns = $this->collectReadOnlyVariableAssigns($node);
         $readOnlyVariableAssigns = $this->filterOutUniqueNames($readOnlyVariableAssigns);
@@ -95,13 +95,13 @@ CODE_SAMPLE
             return null;
         }
         foreach ($readOnlyVariableAssigns as $readOnlyVariable) {
-            $methodName = $readOnlyVariable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+            $methodName = $readOnlyVariable->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
             if (!\is_string($methodName)) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
             }
             $classMethod = $node->getMethod($methodName);
             if ($classMethod === null) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
             }
             $this->refactorClassMethod($classMethod, $node, $readOnlyVariableAssigns);
         }
@@ -110,7 +110,7 @@ CODE_SAMPLE
     /**
      * @return Assign[]
      */
-    private function collectReadOnlyVariableAssigns(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function collectReadOnlyVariableAssigns(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $readOnlyVariables = [];
         foreach ($class->getMethods() as $classMethod) {
@@ -143,14 +143,14 @@ CODE_SAMPLE
     /**
      * @param Assign[] $readOnlyVariableAssigns
      */
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class, array $readOnlyVariableAssigns) : void
+    private function refactorClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, array $readOnlyVariableAssigns) : void
     {
         foreach ($readOnlyVariableAssigns as $readOnlyVariableAssign) {
             $this->removeNode($readOnlyVariableAssign);
             /** @var Variable|ClassConstFetch $variable */
             $variable = $readOnlyVariableAssign->var;
             // already overridden
-            if (!$variable instanceof \PhpParser\Node\Expr\Variable) {
+            if (!$variable instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
                 continue;
             }
             $classConst = $this->createPrivateClassConst($variable, $readOnlyVariableAssign->expr);
@@ -158,46 +158,46 @@ CODE_SAMPLE
             $this->addConstantToClass($class, $classConst);
             $variableName = $this->getName($variable);
             if ($variableName === null) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
             }
             $this->replaceVariableWithClassConstFetch($classMethod, $variableName, $classConst);
         }
     }
-    private function createPrivateClassConst(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\ClassConst
+    private function createPrivateClassConst(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst
     {
         $constantName = $this->createConstantNameFromVariable($variable);
-        $const = new \PhpParser\Node\Const_($constantName, $expr);
-        $classConst = new \PhpParser\Node\Stmt\ClassConst([$const]);
-        $classConst->flags = \PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+        $const = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Const_($constantName, $expr);
+        $classConst = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst([$const]);
+        $classConst->flags = \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
         $this->mirrorComments($classConst, $variable);
         $constantType = $this->getStaticType($classConst->consts[0]->value);
         $this->varAnnotationManipulator->decorateNodeWithType($classConst, $constantType);
         return $classConst;
     }
-    private function replaceVariableWithClassConstFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $variableName, \PhpParser\Node\Stmt\ClassConst $classConst) : void
+    private function replaceVariableWithClassConstFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $variableName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
         $constantName = $this->getName($classConst);
         if ($constantName === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $this->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use($variableName, $constantName) : ?ClassConstFetch {
+        $this->traverseNodesWithCallable($classMethod, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($variableName, $constantName) : ?ClassConstFetch {
             if (!$this->isVariableName($node, $variableName)) {
                 return null;
             }
             // replace with constant fetch
-            $classConstFetch = new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name('self'), new \PhpParser\Node\Identifier($constantName));
+            $classConstFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('self'), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($constantName));
             // needed later
-            $classConstFetch->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME));
+            $classConstFetch->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME));
             return $classConstFetch;
         });
     }
-    private function createConstantNameFromVariable(\PhpParser\Node\Expr\Variable $variable) : string
+    private function createConstantNameFromVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : string
     {
         $variableName = $this->getName($variable);
         if ($variableName === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $constantName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($variableName);
+        $constantName = \_PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($variableName);
         return \strtoupper($constantName);
     }
 }

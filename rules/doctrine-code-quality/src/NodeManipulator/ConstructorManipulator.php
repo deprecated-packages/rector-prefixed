@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DoctrineCodeQuality\NodeManipulator;
+namespace _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\NodeManipulator;
 
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
-use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use Rector\Core\PhpParser\Node\NodeFactory;
-use Rector\Core\ValueObject\MethodName;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class ConstructorManipulator
 {
     /**
@@ -20,21 +20,21 @@ final class ConstructorManipulator
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->nodeFactory = $nodeFactory;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function addStmtToConstructor(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Expression $newExpression) : void
+    public function addStmtToConstructor(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression $newExpression) : void
     {
-        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        $constructClassMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        if ($constructClassMethod instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
             $constructClassMethod->stmts[] = $newExpression;
         } else {
-            $constructClassMethod = $this->nodeFactory->createPublicMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+            $constructClassMethod = $this->nodeFactory->createPublicMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             $constructClassMethod->stmts[] = $newExpression;
             $this->classInsertManipulator->addAsFirstMethod($class, $constructClassMethod);
-            $class->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+            $class->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         }
     }
 }

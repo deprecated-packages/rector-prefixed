@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\Tests\Source\NestedProperty;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source\NestedProperty;
 
 final class ClassWithPropertyLevel2
 {

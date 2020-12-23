@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface;
-use Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior\ArrayPartPhpDocTagPrinterTrait;
-use Rector\BetterPhpDocParser\PhpDocNode\PrintTagValueNodeTrait;
-use Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper;
-use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
-use Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
-use Rector\Core\Exception\ShouldNotHappenException;
-abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior\ArrayPartPhpDocTagPrinterTrait;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocNode\PrintTagValueNodeTrait;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+abstract class AbstractTagValueNode implements \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
 {
     use AttributeTrait;
     use PrintTagValueNodeTrait;
@@ -69,7 +69,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
         if ($this->tagValueNodeConfiguration->getOrderedVisibleItems() === null) {
             return $contentItems;
         }
-        return \Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper::filterAndSortVisibleItems($contentItems, $this->tagValueNodeConfiguration->getOrderedVisibleItems());
+        return \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper::filterAndSortVisibleItems($contentItems, $this->tagValueNodeConfiguration->getOrderedVisibleItems());
     }
     /**
      * @param mixed[] $items
@@ -123,20 +123,23 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     }
     protected function resolveOriginalContentSpacingAndOrder(?string $originalContent) : void
     {
-        $tagValueNodeConfigurationFactory = new \Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory();
+        $tagValueNodeConfigurationFactory = new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory();
         // prevent override
         if ($this->tagValueNodeConfiguration !== null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->tagValueNodeConfiguration = $tagValueNodeConfigurationFactory->createFromOriginalContent($originalContent, $this);
     }
     private function shouldPrintEmptyBrackets() : bool
     {
         // @todo decouple
-        if ($this->tagValueNodeConfiguration->getOriginalContent() !== null && \_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith($this->tagValueNodeConfiguration->getOriginalContent(), '()')) {
+        if ($this->tagValueNodeConfiguration->getOriginalContent() !== null && \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($this->tagValueNodeConfiguration->getOriginalContent(), '()')) {
             return \true;
         }
-        return $this->tagValueNodeConfiguration->hasOpeningBracket() && $this->tagValueNodeConfiguration->hasClosingBracket();
+        if (!$this->tagValueNodeConfiguration->hasOpeningBracket()) {
+            return \false;
+        }
+        return $this->tagValueNodeConfiguration->hasClosingBracket();
     }
     /**
      * @param mixed[] $value
@@ -171,7 +174,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
         $itemsAsStrings = [];
         foreach ($tagValueNodes as $tagValueNode) {
             $item = '';
-            if ($tagValueNode instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface) {
+            if ($tagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface) {
                 $item .= $tagValueNode->getTag();
             }
             $item .= (string) $tagValueNode;

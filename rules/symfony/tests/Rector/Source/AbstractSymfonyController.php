@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Symfony\Tests\Rector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Symfony\Tests\Rector\Source;
 
 abstract class AbstractSymfonyController
 {

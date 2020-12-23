@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Rector\ClassMethod;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Rector\ClassMethod;
 
-use PhpParser\Node;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver;
-use Rector\Naming\Guard\BreakingVariableRenameGuard;
-use Rector\Naming\Naming\ExpectedNameResolver;
-use Rector\Naming\ParamRenamer\MatchTypeParamRenamer;
-use Rector\Naming\ValueObjectFactory\ParamRenameFactory;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Guard\BreakingVariableRenameGuard;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\ExpectedNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ParamRenamer\ParamRenamer;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObjectFactory\ParamRenameFactory;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\ClassMethod\RenameParamToMatchTypeRector\RenameParamToMatchTypeRectorTest
  */
-final class RenameParamToMatchTypeRector extends \Rector\Core\Rector\AbstractRector
+final class RenameParamToMatchTypeRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var bool
@@ -32,9 +32,9 @@ final class RenameParamToMatchTypeRector extends \Rector\Core\Rector\AbstractRec
      */
     private $breakingVariableRenameGuard;
     /**
-     * @var MatchTypeParamRenamer
+     * @var ParamRenamer
      */
-    private $matchTypeParamRenamer;
+    private $paramRenamer;
     /**
      * @var ParamRenameFactory
      */
@@ -43,17 +43,17 @@ final class RenameParamToMatchTypeRector extends \Rector\Core\Rector\AbstractRec
      * @var MatchParamTypeExpectedNameResolver
      */
     private $matchParamTypeExpectedNameResolver;
-    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver, \Rector\Naming\ValueObjectFactory\ParamRenameFactory $paramRenameFactory, \Rector\Naming\ParamRenamer\MatchTypeParamRenamer $matchTypeParamRenamer)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\ValueObjectFactory\ParamRenameFactory $paramRenameFactory, \_PhpScoper0a2ac50786fa\Rector\Naming\ParamRenamer\ParamRenamer $paramRenamer)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
         $this->paramRenameFactory = $paramRenameFactory;
-        $this->matchTypeParamRenamer = $matchTypeParamRenamer;
+        $this->paramRenamer = $paramRenamer;
         $this->matchParamTypeExpectedNameResolver = $matchParamTypeExpectedNameResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename variable to match new ClassType', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename variable to match new ClassType', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(Apple $pie)
@@ -78,12 +78,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $this->hasChanged = \false;
         foreach ($node->params as $param) {
@@ -98,7 +98,7 @@ CODE_SAMPLE
             if ($paramRename === null) {
                 continue;
             }
-            $matchTypeParamRenamerRename = $this->matchTypeParamRenamer->rename($paramRename);
+            $matchTypeParamRenamerRename = $this->paramRenamer->rename($paramRename);
             if ($matchTypeParamRenamerRename === null) {
                 continue;
             }
@@ -109,7 +109,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipParam(\PhpParser\Node\Param $param, string $expectedName, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param, string $expectedName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $paramName */
         $paramName = $this->getName($param);

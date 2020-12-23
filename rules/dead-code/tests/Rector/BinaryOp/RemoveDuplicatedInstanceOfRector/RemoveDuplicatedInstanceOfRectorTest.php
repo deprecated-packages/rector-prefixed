@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Tests\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Tests\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector;
 
 use Iterator;
-use Rector\DeadCode\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveDuplicatedInstanceOfRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveDuplicatedInstanceOfRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveDuplicatedInstanceOfRectorTest extends \Rector\Testing\PHPUnit
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DeadCode\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector::class;
     }
 }

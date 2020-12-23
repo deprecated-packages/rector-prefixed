@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel;
 
 /**
  * Allows the Kernel to be rebooted using a temporary cache directory.
@@ -20,10 +20,10 @@ interface RebootableInterface
     /**
      * Reboots a kernel.
      *
-     * The getCacheDir() method of a rebootable kernel should not be called
-     * while building the container. Use the %kernel.cache_dir% parameter instead.
+     * The getBuildDir() method of a rebootable kernel should not be called
+     * while building the container. Use the %kernel.build_dir% parameter instead.
      *
-     * @param string|null $warmupDir pass null to reboot in the regular cache directory
+     * @param string|null $warmupDir pass null to reboot in the regular build directory
      */
-    public function reboot($warmupDir);
+    public function reboot(?string $warmupDir);
 }

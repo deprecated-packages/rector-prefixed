@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\CacheException;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Marshaller\DefaultMarshaller;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Marshaller\MarshallerInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\CacheException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Marshaller\DefaultMarshaller;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Marshaller\MarshallerInterface;
 /**
  * @author Antonio Jose Cerezo Aranda <aj.cerezo@gmail.com>
  */
-class CouchbaseBucketAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\AbstractAdapter
+class CouchbaseBucketAdapter extends \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\AbstractAdapter
 {
     private const THIRTY_DAYS_IN_SECONDS = 2592000;
     private const MAX_KEY_LENGTH = 250;
@@ -25,21 +25,21 @@ class CouchbaseBucketAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\C
     private const VALID_DSN_OPTIONS = ['operationTimeout', 'configTimeout', 'configNodeTimeout', 'n1qlTimeout', 'httpTimeout', 'configDelay', 'htconfigIdleTimeout', 'durabilityInterval', 'durabilityTimeout'];
     private $bucket;
     private $marshaller;
-    public function __construct(\_PhpScoperabd03f0baf05\CouchbaseBucket $bucket, string $namespace = '', int $defaultLifetime = 0, \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct(\_PhpScoper0a2ac50786fa\CouchbaseBucket $bucket, string $namespace = '', int $defaultLifetime = 0, \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         if (!static::isSupported()) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 is required.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 < 3.0.0 is required.');
         }
         $this->maxIdLength = static::MAX_KEY_LENGTH;
         $this->bucket = $bucket;
         parent::__construct($namespace, $defaultLifetime);
         $this->enableVersioning();
-        $this->marshaller = $marshaller ?? new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
+        $this->marshaller = $marshaller ?? new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
     }
     /**
      * @param array|string $servers
      */
-    public static function createConnection($servers, array $options = []) : \_PhpScoperabd03f0baf05\CouchbaseBucket
+    public static function createConnection($servers, array $options = []) : \_PhpScoper0a2ac50786fa\CouchbaseBucket
     {
         if (\is_string($servers)) {
             $servers = [$servers];
@@ -47,7 +47,7 @@ class CouchbaseBucketAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\C
             throw new \TypeError(\sprintf('Argument 1 passed to "%s()" must be array or string, "%s" given.', __METHOD__, \get_debug_type($servers)));
         }
         if (!static::isSupported()) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 is required.');
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 < 3.0.0 is required.');
         }
         \set_error_handler(function ($type, $msg, $file, $line) {
             throw new \ErrorException($msg, 0, $type, $file, $line);
@@ -61,7 +61,7 @@ class CouchbaseBucketAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\C
             $password = $options['password'];
             foreach ($servers as $dsn) {
                 if (0 !== \strpos($dsn, 'couchbase:')) {
-                    throw new \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Invalid Couchbase DSN: "%s" does not start with "couchbase:".', $dsn));
+                    throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Invalid Couchbase DSN: "%s" does not start with "couchbase:".', $dsn));
                 }
                 \preg_match($dsnPattern, $dsn, $matches);
                 $username = $matches['username'] ?: $username;
@@ -76,7 +76,7 @@ class CouchbaseBucketAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\C
                 $newServers[] = $matches['host'];
             }
             $connectionString = $protocol . '://' . \implode(',', $newServers);
-            $client = new \_PhpScoperabd03f0baf05\CouchbaseCluster($connectionString);
+            $client = new \_PhpScoper0a2ac50786fa\CouchbaseCluster($connectionString);
             $client->authenticateAs($username, $password);
             $bucket = $client->openBucket($matches['bucketName']);
             unset($options['username'], $options['password']);
@@ -92,14 +92,14 @@ class CouchbaseBucketAdapter extends \_PhpScoperabd03f0baf05\Symfony\Component\C
     }
     public static function isSupported() : bool
     {
-        return \extension_loaded('couchbase') && \version_compare(\phpversion('couchbase'), '2.6.0', '>=');
+        return \extension_loaded('couchbase') && \version_compare(\phpversion('couchbase'), '2.6.0', '>=') && \version_compare(\phpversion('couchbase'), '3.0', '<');
     }
     private static function getOptions(string $options) : array
     {
         $results = [];
         $optionsInArray = \explode('&', $options);
         foreach ($optionsInArray as $option) {
-            list($key, $value) = \explode('=', $option);
+            [$key, $value] = \explode('=', $option);
             if (\in_array($key, static::VALID_DSN_OPTIONS, \true)) {
                 $results[$key] = $value;
             }

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
-use Rector\Doctrine\Mapper\DefaultDoctrineEntityAndRepositoryMapper;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\Mapper\DefaultDoctrineEntityAndRepositoryMapper;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Rector\\Doctrine\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector']);
-    $services->alias(\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface::class, \Rector\Doctrine\Mapper\DefaultDoctrineEntityAndRepositoryMapper::class);
+    $services->alias(\_PhpScoper0a2ac50786fa\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface::class, \_PhpScoper0a2ac50786fa\Rector\Doctrine\Mapper\DefaultDoctrineEntityAndRepositoryMapper::class);
 };

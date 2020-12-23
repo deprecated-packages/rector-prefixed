@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php73\Rector\String_;
+namespace _PhpScoper0a2ac50786fa\Rector\Php73\Rector\String_;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/flexible_heredoc_nowdoc_syntaxes
  * @see \Rector\Php73\Tests\Rector\String_\SensitiveHereNowDocRector\SensitiveHereNowDocRectorTest
  */
-final class SensitiveHereNowDocRector extends \Rector\Core\Rector\AbstractRector
+final class SensitiveHereNowDocRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -24,9 +24,9 @@ final class SensitiveHereNowDocRector extends \Rector\Core\Rector\AbstractRector
      * @var string
      */
     private const ATTRIBUTE_DOC_LABEL = 'docLabel';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes heredoc/nowdoc that contains closing word to safe wrapper name', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes heredoc/nowdoc that contains closing word to safe wrapper name', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $value = <<<A
     A
 A
@@ -43,26 +43,26 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Scalar\String_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_::class];
     }
     /**
      * @param String_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $kind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
-        if (!\in_array($kind, [\PhpParser\Node\Scalar\String_::KIND_HEREDOC, \PhpParser\Node\Scalar\String_::KIND_NOWDOC], \true)) {
+        $kind = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
+        if (!\in_array($kind, [\_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_::KIND_HEREDOC, \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_::KIND_NOWDOC], \true)) {
             return null;
         }
         // the doc label is not in the string → ok
         /** @var string $docLabel */
         $docLabel = $node->getAttribute(self::ATTRIBUTE_DOC_LABEL);
-        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($node->value, $docLabel)) {
+        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($node->value, $docLabel)) {
             return null;
         }
         $node->setAttribute(self::ATTRIBUTE_DOC_LABEL, $this->uniquateDocLabel($node->value, $docLabel));
         // invoke redraw
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+        $node->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         return $node;
     }
     private function uniquateDocLabel(string $value, string $docLabel) : string
@@ -70,7 +70,7 @@ CODE_SAMPLE
         $docLabel .= self::WRAP_SUFFIX;
         $docLabelCounterTemplate = $docLabel . '_%d';
         $i = 0;
-        while (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($value, $docLabel)) {
+        while (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($value, $docLabel)) {
             $docLabel = \sprintf($docLabelCounterTemplate, ++$i);
         }
         return $docLabel;

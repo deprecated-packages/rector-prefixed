@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator;
+namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator;
 
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\Finder\ClassByTypeFinder;
-use Symplify\RuleDocGenerator\Printer\RuleDefinitionsPrinter;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Finder\ClassByTypeFinder;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Printer\RuleDefinitionsPrinter;
 /**
  * @see \Symplify\RuleDocGenerator\Tests\DirectoryToMarkdownPrinter\DirectoryToMarkdownPrinterTest
  */
@@ -28,7 +28,7 @@ final class DirectoryToMarkdownPrinter
      * @var RuleDefinitionsPrinter
      */
     private $ruleDefinitionsPrinter;
-    public function __construct(\Symplify\RuleDocGenerator\Finder\ClassByTypeFinder $classByTypeFinder, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\RuleDocGenerator\RuleDefinitionsResolver $ruleDefinitionsResolver, \Symplify\RuleDocGenerator\Printer\RuleDefinitionsPrinter $ruleDefinitionsPrinter)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Finder\ClassByTypeFinder $classByTypeFinder, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\RuleDefinitionsResolver $ruleDefinitionsResolver, \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Printer\RuleDefinitionsPrinter $ruleDefinitionsPrinter)
     {
         $this->classByTypeFinder = $classByTypeFinder;
         $this->symfonyStyle = $symfonyStyle;
@@ -41,7 +41,7 @@ final class DirectoryToMarkdownPrinter
     public function print(array $directories, bool $shouldCategorize = \false) : string
     {
         // 1. collect documented rules in provided path
-        $documentedRuleClasses = $this->classByTypeFinder->findByType($directories, \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface::class);
+        $documentedRuleClasses = $this->classByTypeFinder->findByType($directories, \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface::class);
         $message = \sprintf('Found %d documented rule classes', \count($documentedRuleClasses));
         $this->symfonyStyle->note($message);
         $this->symfonyStyle->listing($documentedRuleClasses);

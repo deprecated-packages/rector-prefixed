@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SymplifyKernel\Tests\HttpKernel;
+namespace _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Tests\HttpKernel;
 
-use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class PackageBuilderTestingKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class PackageBuilderTestingKernel extends \_PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
 }

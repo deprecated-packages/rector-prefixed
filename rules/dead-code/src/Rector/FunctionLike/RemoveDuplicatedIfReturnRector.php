@@ -1,24 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\FunctionLike;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\FunctionLike;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Stmt\If_;
-use PhpParser\NodeTraverser;
-use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/rectorphp/rector/issues/2945
  *
  * @see \Rector\DeadCode\Tests\Rector\FunctionLike\RemoveDuplicatedIfReturnRector\RemoveDuplicatedIfReturnRectorTest
  */
-final class RemoveDuplicatedIfReturnRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDuplicatedIfReturnRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var IfManipulator
@@ -28,14 +29,14 @@ final class RemoveDuplicatedIfReturnRector extends \Rector\Core\Rector\AbstractR
      * @var ModifiedVariableNamesCollector
      */
     private $modifiedVariableNamesCollector;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector $modifiedVariableNamesCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \_PhpScoper0a2ac50786fa\Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector $modifiedVariableNamesCollector)
     {
         $this->ifManipulator = $ifManipulator;
         $this->modifiedVariableNamesCollector = $modifiedVariableNamesCollector;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated if stmt with return in function/method body', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated if stmt with return in function/method body', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -72,12 +73,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\FunctionLike::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike::class];
     }
     /**
      * @param FunctionLike $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $ifWithOnlyReturnsByHash = $this->collectDuplicatedIfWithOnlyReturnByHash($node);
         if ($ifWithOnlyReturnsByHash === []) {
@@ -95,7 +96,7 @@ CODE_SAMPLE
     /**
      * @return If_[][]
      */
-    private function collectDuplicatedIfWithOnlyReturnByHash(\PhpParser\Node\FunctionLike $functionLike) : array
+    private function collectDuplicatedIfWithOnlyReturnByHash(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $ifWithOnlyReturnsByHash = [];
         $modifiedVariableNames = [];
@@ -117,21 +118,21 @@ CODE_SAMPLE
     /**
      * @param string[] $modifiedVariableNames
      */
-    private function containsVariableNames(\PhpParser\Node $node, array $modifiedVariableNames) : bool
+    private function containsVariableNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt $stmt, array $modifiedVariableNames) : bool
     {
         if ($modifiedVariableNames === []) {
             return \false;
         }
         $containsVariableNames = \false;
-        $this->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use($modifiedVariableNames, &$containsVariableNames) : ?int {
-            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+        $this->traverseNodesWithCallable($stmt, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($modifiedVariableNames, &$containsVariableNames) : ?int {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
                 return null;
             }
             if (!$this->isNames($node, $modifiedVariableNames)) {
                 return null;
             }
             $containsVariableNames = \true;
-            return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
+            return \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
         return $containsVariableNames;
     }

@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteToSymfony\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
-use Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
-use Rector\Core\Rector\AbstractRector;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://doc.nette.org/en/2.4/http-request-response
  * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpFoundation/Request.php
  * @see \Rector\NetteToSymfony\Tests\Rector\MethodCall\FromHttpRequestGetHeaderToHeadersGetRector\FromHttpRequestGetHeaderToHeadersGetRectorTest
  */
-final class FromHttpRequestGetHeaderToHeadersGetRector extends \Rector\Core\Rector\AbstractRector
+final class FromHttpRequestGetHeaderToHeadersGetRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes getHeader() to $request->headers->get()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes getHeader() to $request->headers->get()', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Request;
 
 final class SomeController
@@ -59,24 +59,24 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoperabd03f0baf05\\Nette\\Http\\Request')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper0a2ac50786fa\\Nette\\Http\\Request')) {
             return null;
         }
         if (!$this->isName($node->name, 'getHeader')) {
             return null;
         }
-        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request::class, ['request', 'symfonyRequest']);
-        $variable = new \PhpParser\Node\Expr\Variable($requestName);
-        $headersPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch($variable, 'headers');
+        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request::class, ['request', 'symfonyRequest']);
+        $variable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($requestName);
+        $headersPropertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch($variable, 'headers');
         $node->var = $headersPropertyFetch;
-        $node->name = new \PhpParser\Node\Identifier('get');
+        $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('get');
         return $node;
     }
 }

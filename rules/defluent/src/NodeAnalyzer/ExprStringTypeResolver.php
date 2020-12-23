@@ -1,14 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Defluent\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer;
 
-use PhpParser\Node\Expr;
-use PHPStan\Type\TypeWithClassName;
-use PHPStan\Type\UnionType;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\PHPStan\Type\AliasedObjectType;
-use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\AliasedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
 final class ExprStringTypeResolver
 {
     /**
@@ -19,22 +18,20 @@ final class ExprStringTypeResolver
      * @var TypeUnwrapper
      */
     private $typeUnwrapper;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->typeUnwrapper = $typeUnwrapper;
     }
-    public function resolve(\PhpParser\Node\Expr $expr) : ?string
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?string
     {
         $exprStaticType = $this->nodeTypeResolver->getStaticType($expr);
-        if ($exprStaticType instanceof \PHPStan\Type\UnionType) {
-            $exprStaticType = $this->typeUnwrapper->unwrapNullableType($exprStaticType);
-        }
-        if (!$exprStaticType instanceof \PHPStan\Type\TypeWithClassName) {
+        $exprStaticType = $this->typeUnwrapper->unwrapNullableType($exprStaticType);
+        if (!$exprStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
             // nothing we can do, unless
             return null;
         }
-        if ($exprStaticType instanceof \Rector\PHPStan\Type\AliasedObjectType) {
+        if ($exprStaticType instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\AliasedObjectType) {
             return $exprStaticType->getFullyQualifiedClass();
         }
         return $exprStaticType->getClassName();

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteKdyby\DataProvider;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\DataProvider;
 
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\Return_;
-use Rector\NetteKdyby\Naming\EventClassNaming;
-use Rector\NetteKdyby\NodeFactory\DispatchMethodCallFactory;
-use Rector\NetteKdyby\NodeFactory\EventValueObjectClassFactory;
-use Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector;
-use Rector\NetteKdyby\ValueObject\EventAndListenerTree;
-use Rector\NetteKdyby\ValueObject\GetterMethodBlueprint;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\Naming\EventClassNaming;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeFactory\DispatchMethodCallFactory;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeFactory\EventValueObjectClassFactory;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\ValueObject\EventAndListenerTree;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\ValueObject\GetterMethodBlueprint;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 final class EventAndListenerTreeProvider
 {
     /**
@@ -53,7 +53,7 @@ final class EventAndListenerTreeProvider
      * @var GetSubscribedEventsClassMethodProvider
      */
     private $getSubscribedEventsClassMethodProvider;
-    public function __construct(\Rector\NetteKdyby\NodeFactory\DispatchMethodCallFactory $dispatchMethodCallFactory, \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\NetteKdyby\NodeFactory\EventValueObjectClassFactory $eventValueObjectClassFactory, \Rector\NetteKdyby\DataProvider\GetSubscribedEventsClassMethodProvider $getSubscribedEventsClassMethodProvider, \Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector $listeningMethodsCollector, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NetteKdyby\DataProvider\OnPropertyMagicCallProvider $onPropertyMagicCallProvider)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeFactory\DispatchMethodCallFactory $dispatchMethodCallFactory, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeFactory\EventValueObjectClassFactory $eventValueObjectClassFactory, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\DataProvider\GetSubscribedEventsClassMethodProvider $getSubscribedEventsClassMethodProvider, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector $listeningMethodsCollector, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\DataProvider\OnPropertyMagicCallProvider $onPropertyMagicCallProvider)
     {
         $this->onPropertyMagicCallProvider = $onPropertyMagicCallProvider;
         $this->listeningMethodsCollector = $listeningMethodsCollector;
@@ -63,7 +63,7 @@ final class EventAndListenerTreeProvider
         $this->dispatchMethodCallFactory = $dispatchMethodCallFactory;
         $this->getSubscribedEventsClassMethodProvider = $getSubscribedEventsClassMethodProvider;
     }
-    public function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\NetteKdyby\ValueObject\EventAndListenerTree
+    public function matchMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a2ac50786fa\Rector\NetteKdyby\ValueObject\EventAndListenerTree
     {
         $this->initializeEventAndListenerTrees();
         foreach ($this->eventAndListenerTrees as $eventAndListenerTree) {
@@ -84,7 +84,7 @@ final class EventAndListenerTreeProvider
     }
     private function initializeEventAndListenerTrees() : void
     {
-        if ($this->eventAndListenerTrees !== [] && !\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if ($this->eventAndListenerTrees !== [] && !\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return;
         }
         $this->eventAndListenerTrees = [];
@@ -97,16 +97,16 @@ final class EventAndListenerTreeProvider
             $listeningClassMethodsByClass = $this->getListeningClassMethodsInEventSubscriberByClass($eventClassName);
             // getter names by variable name and type
             $getterMethodsBlueprints = $this->resolveGetterMethodBlueprint($eventClassInNamespace);
-            $eventAndListenerTree = new \Rector\NetteKdyby\ValueObject\EventAndListenerTree($methodCall, $magicProperty, $eventClassName, $eventFileLocation, $eventClassInNamespace, $dispatchMethodCall, $listeningClassMethodsByClass, $getterMethodsBlueprints);
+            $eventAndListenerTree = new \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\ValueObject\EventAndListenerTree($methodCall, $magicProperty, $eventClassName, $eventFileLocation, $eventClassInNamespace, $dispatchMethodCall, $listeningClassMethodsByClass, $getterMethodsBlueprints);
             $this->eventAndListenerTrees[] = $eventAndListenerTree;
         }
     }
-    private function resolveMagicProperty(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Stmt\Property
+    private function resolveMagicProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
     {
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($methodCall->name);
         /** @var Class_ $classLike */
-        $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $methodCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         return $classLike->getProperty($methodName);
     }
     /**
@@ -117,8 +117,8 @@ final class EventAndListenerTreeProvider
         $listeningClassMethodsByClass = [];
         foreach ($this->getSubscribedEventsClassMethodProvider->provide() as $getSubscribedClassMethod) {
             /** @var string $className */
-            $className = $getSubscribedClassMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-            $listeningClassMethods = $this->listeningMethodsCollector->classMethodsListeningToEventClass($getSubscribedClassMethod, \Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector::EVENT_TYPE_CUSTOM, $eventClassName);
+            $className = $getSubscribedClassMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $listeningClassMethods = $this->listeningMethodsCollector->classMethodsListeningToEventClass($getSubscribedClassMethod, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector::EVENT_TYPE_CUSTOM, $eventClassName);
             $listeningClassMethodsByClass[$className] = $listeningClassMethods;
         }
         return $listeningClassMethodsByClass;
@@ -126,7 +126,7 @@ final class EventAndListenerTreeProvider
     /**
      * @return GetterMethodBlueprint[]
      */
-    private function resolveGetterMethodBlueprint(\PhpParser\Node\Stmt\Namespace_ $eventClassInNamespace) : array
+    private function resolveGetterMethodBlueprint(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ $eventClassInNamespace) : array
     {
         /** @var Class_ $eventClass */
         $eventClass = $eventClassInNamespace->stmts[0];
@@ -135,14 +135,15 @@ final class EventAndListenerTreeProvider
             if (!$this->nodeNameResolver->isName($classMethod, 'get*')) {
                 continue;
             }
+            $stmts = (array) $classMethod->stmts;
             /** @var Return_ $return */
-            $return = $classMethod->stmts[0];
+            $return = $stmts[0];
             /** @var PropertyFetch $propertyFetch */
             $propertyFetch = $return->expr;
             $classMethodName = $this->nodeNameResolver->getName($classMethod);
             /** @var string $variableName */
             $variableName = $this->nodeNameResolver->getName($propertyFetch->name);
-            $getterMethodBlueprints[] = new \Rector\NetteKdyby\ValueObject\GetterMethodBlueprint($classMethodName, $classMethod->returnType, $variableName);
+            $getterMethodBlueprints[] = new \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\ValueObject\GetterMethodBlueprint($classMethodName, $classMethod->returnType, $variableName);
         }
         return $getterMethodBlueprints;
     }

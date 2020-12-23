@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\Rector\Identical;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\Rector\Identical;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\UnaryMinus;
-use PhpParser\Node\Expr\Variable;
-use Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\UnaryMinus;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/nette/utils/blob/master/src/Utils/Strings.php
  * @see \Rector\Nette\Tests\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector\EndsWithFunctionToNetteUtilsStringsRectorTest
  */
-final class EndsWithFunctionToNetteUtilsStringsRector extends \Rector\Nette\Rector\Identical\AbstractWithFunctionToNetteUtilsStringsRector
+final class EndsWithFunctionToNetteUtilsStringsRector extends \_PhpScoper0a2ac50786fa\Rector\Nette\Rector\Identical\AbstractWithFunctionToNetteUtilsStringsRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings::endsWith() over bare string-functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings::endsWith() over bare string-functions', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function end($needle)
@@ -46,13 +46,13 @@ CODE_SAMPLE
     {
         return 'endsWith';
     }
-    public function matchContentAndNeedleOfSubstrOfVariableLength(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : ?\Rector\Nette\ValueObject\ContentExprAndNeedleExpr
+    public function matchContentAndNeedleOfSubstrOfVariableLength(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\ContentExprAndNeedleExpr
     {
         if (!$this->isFuncCallName($node, 'substr')) {
             return null;
         }
         /** @var FuncCall $node */
-        if (!$node->args[1]->value instanceof \PhpParser\Node\Expr\UnaryMinus) {
+        if (!$node->args[1]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\UnaryMinus) {
             return null;
         }
         /** @var UnaryMinus $unaryMinus */
@@ -63,7 +63,7 @@ CODE_SAMPLE
         /** @var FuncCall $strlenFuncCall */
         $strlenFuncCall = $unaryMinus->expr;
         if ($this->areNodesEqual($strlenFuncCall->args[0]->value, $variable)) {
-            return new \Rector\Nette\ValueObject\ContentExprAndNeedleExpr($node->args[0]->value, $strlenFuncCall->args[0]->value);
+            return new \_PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\ContentExprAndNeedleExpr($node->args[0]->value, $strlenFuncCall->args[0]->value);
         }
         return null;
     }

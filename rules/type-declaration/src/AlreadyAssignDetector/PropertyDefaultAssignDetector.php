@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\AlreadyAssignDetector;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\AlreadyAssignDetector;
 
-use PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
 final class PropertyDefaultAssignDetector
 {
-    public function detect(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
+    public function detect(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
     {
         $property = $classLike->getProperty($propertyName);
         if ($property === null) {

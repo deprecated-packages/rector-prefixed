@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SimplePhpDocParser;
+namespace _PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser;
 
-use PHPStan\PhpDocParser\Lexer\Lexer;
-use PHPStan\PhpDocParser\Parser\PhpDocParser;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
-use Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Lexer\Lexer;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\PhpDocParser;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\TokenIterator;
+use _PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
 /**
  * @see \Symplify\SimplePhpDocParser\Tests\SimplePhpDocParser\SimplePhpDocParserTest
  */
@@ -20,16 +20,16 @@ final class SimplePhpDocParser
      * @var Lexer
      */
     private $lexer;
-    public function __construct(\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser, \PHPStan\PhpDocParser\Lexer\Lexer $lexer)
+    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Lexer\Lexer $lexer)
     {
         $this->phpDocParser = $phpDocParser;
         $this->lexer = $lexer;
     }
-    public function parseDocBlock(string $docBlock) : \Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode
+    public function parseDocBlock(string $docBlock) : \_PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode
     {
         $tokens = $this->lexer->tokenize($docBlock);
-        $tokenIterator = new \PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
+        $tokenIterator = new \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
         $phpDocNode = $this->phpDocParser->parse($tokenIterator);
-        return new \Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode($phpDocNode->children);
+        return new \_PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode($phpDocNode->children);
     }
 }

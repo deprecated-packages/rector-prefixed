@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Tests\Rector\BooleanAnd\RemoveAndTrueRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Tests\Rector\BooleanAnd\RemoveAndTrueRector;
 
 use Iterator;
-use Rector\DeadCode\Rector\BooleanAnd\RemoveAndTrueRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveAndTrueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\BooleanAnd\RemoveAndTrueRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveAndTrueRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveAndTrueRectorTest extends \Rector\Testing\PHPUnit\AbstractRect
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DeadCode\Rector\BooleanAnd\RemoveAndTrueRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\BooleanAnd\RemoveAndTrueRector::class;
     }
 }

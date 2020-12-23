@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Laravel\Rector\StaticCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Laravel\Rector\StaticCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp\Mul;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Scalar\LNumber;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Mul;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/laravel/framework/pull/27276
  * @see https://laravel.com/docs/5.8/upgrade#cache-ttl-in-seconds
  *
  * @see \Rector\Laravel\Tests\Rector\StaticCall\MinutesToSecondsInCacheRector\MinutesToSecondsInCacheRectorTest
  */
-final class MinutesToSecondsInCacheRector extends \Rector\Core\Rector\AbstractRector
+final class MinutesToSecondsInCacheRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -44,14 +44,14 @@ final class MinutesToSecondsInCacheRector extends \Rector\Core\Rector\AbstractRe
      * @var TypeToTimeMethodAndPosition[]
      */
     private $typeToTimeMethodsAndPositions = [];
-    public function __construct(\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
-        $this->typeToTimeMethodsAndPositions = [new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Support\\Facades\\Cache', self::PUT, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Cache\\Repository', self::PUT, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Cache\\Store', self::PUT, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Cache\\Repository', self::ADD, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Cache\\Store', self::ADD, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Support\\Facades\\Cache', self::ADD, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Cache\\Repository', self::REMEMBER, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Support\\Facades\\Cache', self::REMEMBER, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Cache\\Store', self::REMEMBER, 2), new \Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoperabd03f0baf05\\Illuminate\\Contracts\\Cache\\Store', 'putMany', 1)];
+        $this->typeToTimeMethodsAndPositions = [new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Support\\Facades\\Cache', self::PUT, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Cache\\Repository', self::PUT, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Cache\\Store', self::PUT, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Cache\\Repository', self::ADD, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Cache\\Store', self::ADD, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Support\\Facades\\Cache', self::ADD, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Cache\\Repository', self::REMEMBER, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Support\\Facades\\Cache', self::REMEMBER, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Cache\\Store', self::REMEMBER, 2), new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\TypeToTimeMethodAndPosition('_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Cache\\Store', 'putMany', 1)];
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoperabd03f0baf05\\Change minutes argument to seconds in Illuminate\\Contracts\\Cache\\Store and Illuminate\\Support\\Facades\\Cache', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoper0a2ac50786fa\\Change minutes argument to seconds in Illuminate\\Contracts\\Cache\\Store and Illuminate\\Support\\Facades\\Cache', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -76,12 +76,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param StaticCall|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         foreach ($this->typeToTimeMethodsAndPositions as $typeToTimeMethodAndPosition) {
             if (!$this->isObjectType($node, $typeToTimeMethodAndPosition->getType())) {
@@ -102,9 +102,9 @@ CODE_SAMPLE
      * @param StaticCall|MethodCall $node
      * @return StaticCall|MethodCall|null
      */
-    private function processArgumentOnPosition(\PhpParser\Node $node, \PhpParser\Node\Expr $argExpr, int $argumentPosition) : ?\PhpParser\Node\Expr
+    private function processArgumentOnPosition(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $argExpr, int $argumentPosition) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if ($argExpr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+        if ($argExpr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch) {
             $this->refactorClassConstFetch($argExpr);
             return null;
         }
@@ -112,10 +112,10 @@ CODE_SAMPLE
             return null;
         }
         $mul = $this->mulByNumber($argExpr, 60);
-        $node->args[$argumentPosition] = new \PhpParser\Node\Arg($mul);
+        $node->args[$argumentPosition] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($mul);
         return $node;
     }
-    private function refactorClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : void
+    private function refactorClassConstFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : void
     {
         $classConst = $this->nodeRepository->findClassConstByClassConstFetch($classConstFetch);
         if ($classConst === null) {
@@ -129,11 +129,11 @@ CODE_SAMPLE
         $onlyConst->value = $this->mulByNumber($onlyConst->value, 60);
         $onlyConst->setAttribute(self::ATTRIBUTE_KEY_ALREADY_MULTIPLIED, \true);
     }
-    private function mulByNumber(\PhpParser\Node\Expr $argExpr, int $value) : \PhpParser\Node\Expr
+    private function mulByNumber(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $argExpr, int $value) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         if ($this->isValue($argExpr, 1)) {
-            return new \PhpParser\Node\Scalar\LNumber($value);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber($value);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\Mul($argExpr, new \PhpParser\Node\Scalar\LNumber($value));
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Mul($argExpr, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber($value));
     }
 }

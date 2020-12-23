@@ -1,6 +1,6 @@
 <?php
 
-namespace Rector\DowngradePhp80\Tests\Rector\FunctionLike\DowngradeParamMixedTypeDeclarationRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Tests\Rector\FunctionLike\DowngradeParamMixedTypeDeclarationRector\Source;
 
 class AnotherClass
 {

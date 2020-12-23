@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfo;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfo;
 
-use PhpParser\Comment\Doc;
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Nop;
-use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
-use Rector\Core\HttpKernel\RectorKernel;
-use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\SmartFileSystem\SmartFileSystem;
-final class PhpDocInfoTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoper0a2ac50786fa\PhpParser\Comment\Doc;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
+use _PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
+final class PhpDocInfoTest extends \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PhpDocInfo
@@ -38,10 +38,10 @@ final class PhpDocInfoTest extends \Symplify\PackageBuilder\Testing\AbstractKern
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->phpDocInfoPrinter = self::$container->get(\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter::class);
-        $this->docBlockManipulator = self::$container->get(\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator::class);
-        $this->smartFileSystem = self::$container->get(\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->bootKernel(\_PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->phpDocInfoPrinter = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter::class);
+        $this->docBlockManipulator = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator::class);
+        $this->smartFileSystem = self::$container->get(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem::class);
         $this->phpDocInfo = $this->createPhpDocInfoFromFile(__DIR__ . '/Source/doc.txt');
     }
     public function testGetTagsByName() : void
@@ -51,12 +51,12 @@ final class PhpDocInfoTest extends \Symplify\PackageBuilder\Testing\AbstractKern
     }
     public function testGetVarType() : void
     {
-        $expectedObjectType = new \PHPStan\Type\ObjectType('SomeType');
+        $expectedObjectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType('SomeType');
         $this->assertEquals($expectedObjectType, $this->phpDocInfo->getVarType());
     }
     public function testGetReturnType() : void
     {
-        $expectedObjectType = new \PHPStan\Type\ObjectType('SomeType');
+        $expectedObjectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType('SomeType');
         $this->assertEquals($expectedObjectType, $this->phpDocInfo->getReturnType());
     }
     public function testReplaceTagByAnother() : void
@@ -65,12 +65,12 @@ final class PhpDocInfoTest extends \Symplify\PackageBuilder\Testing\AbstractKern
         $this->docBlockManipulator->replaceTagByAnother($phpDocInfo->getPhpDocNode(), 'test', 'flow');
         $this->assertStringEqualsFile(__DIR__ . '/Source/expected-replaced-tag.txt', $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo));
     }
-    private function createPhpDocInfoFromFile(string $path) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    private function createPhpDocInfoFromFile(string $path) : \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
-        $phpDocInfoFactory = self::$container->get(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory::class);
+        $phpDocInfoFactory = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory::class);
         $phpDocContent = $this->smartFileSystem->readFile($path);
-        $this->node = new \PhpParser\Node\Stmt\Nop();
-        $this->node->setDocComment(new \PhpParser\Comment\Doc($phpDocContent));
+        $this->node = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Nop();
+        $this->node->setDocComment(new \_PhpScoper0a2ac50786fa\PhpParser\Comment\Doc($phpDocContent));
         return $phpDocInfoFactory->createFromNode($this->node);
     }
 }

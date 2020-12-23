@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Rector\AbstractRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
 
-use PhpParser\Node\Expr;
-use Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -18,28 +18,28 @@ trait ValueResolverTrait
     /**
      * @required
      */
-    public function autowireValueResolverTrait(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver) : void
+    public function autowireValueResolverTrait(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver) : void
     {
         $this->valueResolver = $valueResolver;
     }
     /**
      * @return mixed|mixed[]
      */
-    protected function getValue(\PhpParser\Node\Expr $expr, bool $resolvedClassReference = \false)
+    protected function getValue(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr, bool $resolvedClassReference = \false)
     {
         return $this->valueResolver->getValue($expr, $resolvedClassReference);
     }
     /**
      * @param mixed $expectedValue
      */
-    protected function isValue(\PhpParser\Node\Expr $expr, $expectedValue) : bool
+    protected function isValue(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr, $expectedValue) : bool
     {
         return $this->getValue($expr) === $expectedValue;
     }
     /**
      * @param mixed[] $expectedValues
      */
-    protected function isValues(\PhpParser\Node\Expr $expr, array $expectedValues) : bool
+    protected function isValues(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr, array $expectedValues) : bool
     {
         foreach ($expectedValues as $expectedValue) {
             if ($this->isValue($expr, $expectedValue)) {

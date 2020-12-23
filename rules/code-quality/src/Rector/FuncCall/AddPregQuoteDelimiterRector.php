@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\FuncCall;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\BinaryOp\Concat;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\FuncCall\AddPregQuoteDelimiterRector\AddPregQuoteDelimiterRectorTest
  */
-final class AddPregQuoteDelimiterRector extends \Rector\Core\Rector\AbstractRector
+final class AddPregQuoteDelimiterRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php
      */
     private const ALL_MODIFIERS = 'imsxeADSUXJu';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add preg_quote delimiter when missing', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add preg_quote delimiter when missing', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 '#' . preg_quote('name') . '#';
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -38,12 +38,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isName($node, 'preg_quote')) {
             return null;
@@ -56,43 +56,43 @@ CODE_SAMPLE
         if ($delimiter === null) {
             return null;
         }
-        $node->args[1] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($delimiter));
+        $node->args[1] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($delimiter));
         return $node;
     }
-    private function determineDelimiter(\PhpParser\Node\Expr\FuncCall $funcCall) : ?string
+    private function determineDelimiter(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : ?string
     {
         $concat = $this->getUppermostConcat($funcCall);
         if ($concat === null) {
             return null;
         }
         $leftMostConcatNode = $concat->left;
-        while ($leftMostConcatNode instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
+        while ($leftMostConcatNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat) {
             $leftMostConcatNode = $leftMostConcatNode->left;
         }
         $rightMostConcatNode = $concat->right;
-        while ($rightMostConcatNode instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
+        while ($rightMostConcatNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat) {
             $rightMostConcatNode = $rightMostConcatNode->right;
         }
-        if (!$leftMostConcatNode instanceof \PhpParser\Node\Scalar\String_) {
+        if (!$leftMostConcatNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return null;
         }
-        $possibleLeftDelimiter = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring($leftMostConcatNode->value, 0, 1);
-        if (!$rightMostConcatNode instanceof \PhpParser\Node\Scalar\String_) {
+        $possibleLeftDelimiter = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::substring($leftMostConcatNode->value, 0, 1);
+        if (!$rightMostConcatNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
             return null;
         }
-        $possibleRightDelimiter = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::substring(\rtrim($rightMostConcatNode->value, self::ALL_MODIFIERS), -1, 1);
+        $possibleRightDelimiter = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::substring(\rtrim($rightMostConcatNode->value, self::ALL_MODIFIERS), -1, 1);
         if ($possibleLeftDelimiter === $possibleRightDelimiter) {
             return $possibleLeftDelimiter;
         }
         return null;
     }
-    private function getUppermostConcat(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\BinaryOp\Concat
+    private function getUppermostConcat(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat
     {
         $upperMostConcat = null;
-        $parent = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        while ($parent instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
+        $parent = $funcCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        while ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Concat) {
             $upperMostConcat = $parent;
-            $parent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parent = $parent->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         }
         return $upperMostConcat;
     }

@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodeQuality\Rector\For_;
+namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\For_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\For_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NetteKdyby\Naming\VariableNaming;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\For_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\Naming\VariableNaming;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\For_\ForRepeatedCountToOwnVariableRector\ForRepeatedCountToOwnVariableRectorTest
  */
-final class ForRepeatedCountToOwnVariableRector extends \Rector\Core\Rector\AbstractRector
+final class ForRepeatedCountToOwnVariableRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change count() in for function to own variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change count() in for function to own variable', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($items)
@@ -58,18 +58,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\For_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\For_::class];
     }
     /**
      * @param For_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $countInCond = null;
         $variableName = null;
-        $forScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        $this->traverseNodesWithCallable($node->cond, function (\PhpParser\Node $node) use(&$countInCond, &$variableName, $forScope) : ?Variable {
-            if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+        $forScope = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $this->traverseNodesWithCallable($node->cond, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use(&$countInCond, &$variableName, $forScope) : ?Variable {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
                 return null;
             }
             if (!$this->isName($node, 'count')) {
@@ -77,12 +77,12 @@ CODE_SAMPLE
             }
             $countInCond = $node;
             $variableName = $this->variableNaming->resolveFromFuncCallFirstArgumentWithSuffix($node, 'Count', 'itemsCount', $forScope);
-            return new \PhpParser\Node\Expr\Variable($variableName);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($variableName);
         });
         if ($countInCond === null || $variableName === null) {
             return null;
         }
-        $countAssign = new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable($variableName), $countInCond);
+        $countAssign = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($variableName), $countInCond);
         $this->addNodeBeforeNode($countAssign, $node);
         return $node;
     }

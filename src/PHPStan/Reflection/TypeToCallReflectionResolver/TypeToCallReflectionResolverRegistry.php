@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Type\Type;
-use Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
 final class TypeToCallReflectionResolverRegistry
 {
     /**
@@ -24,7 +24,7 @@ final class TypeToCallReflectionResolverRegistry
     /**
      * @return FunctionReflection|MethodReflection|null
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
+    public function resolve(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
     {
         foreach ($this->resolvers as $resolver) {
             if (!$resolver->supports($type)) {

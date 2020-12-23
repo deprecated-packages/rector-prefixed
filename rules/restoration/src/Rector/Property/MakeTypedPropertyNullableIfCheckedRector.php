@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Restoration\Rector\Property;
+namespace _PhpScoper0a2ac50786fa\Rector\Restoration\Rector\Property;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\BinaryOp\Identical;
-use PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use PhpParser\Node\Expr\BooleanNot;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\NullableType;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\PropertyProperty;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\PropertyProperty;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Restoration\Tests\Rector\Property\MakeTypedPropertyNullableIfCheckedRector\MakeTypedPropertyNullableIfCheckedRectorTest
  */
-final class MakeTypedPropertyNullableIfCheckedRector extends \Rector\Core\Rector\AbstractRector
+final class MakeTypedPropertyNullableIfCheckedRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make typed property nullable if checked', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make typed property nullable if checked', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     private AnotherClass $anotherClass;
@@ -56,12 +56,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param Property $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
@@ -76,24 +76,24 @@ CODE_SAMPLE
         if ($currentPropertyType === null) {
             return null;
         }
-        $node->type = new \PhpParser\Node\NullableType($currentPropertyType);
+        $node->type = new \_PhpScoper0a2ac50786fa\PhpParser\Node\NullableType($currentPropertyType);
         $onlyProperty->default = $this->createNull();
         return $node;
     }
-    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    private function shouldSkipProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
     {
-        if (\count($property->props) !== 1) {
+        if (\count((array) $property->props) !== 1) {
             return \true;
         }
         if ($property->type === null) {
             return \true;
         }
-        return $property->type instanceof \PhpParser\Node\NullableType;
+        return $property->type instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
     }
-    private function isPropertyNullChecked(\PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
+    private function isPropertyNullChecked(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
     {
-        $classLike = $onlyPropertyProperty->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $onlyPropertyProperty->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         if ($this->isIdenticalOrNotIdenticalToNull($classLike, $onlyPropertyProperty)) {
@@ -101,10 +101,10 @@ CODE_SAMPLE
         }
         return $this->isBooleanNot($classLike, $onlyPropertyProperty);
     }
-    private function isIdenticalOrNotIdenticalToNull(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
+    private function isIdenticalOrNotIdenticalToNull(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
     {
         $isIdenticalOrNotIdenticalToNull = \false;
-        $this->traverseNodesWithCallable((array) $class->stmts, function (\PhpParser\Node $node) use($onlyPropertyProperty, &$isIdenticalOrNotIdenticalToNull) {
+        $this->traverseNodesWithCallable((array) $class->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($onlyPropertyProperty, &$isIdenticalOrNotIdenticalToNull) {
             $matchedPropertyFetchName = $this->matchPropertyFetchNameComparedToNull($node);
             if ($matchedPropertyFetchName === null) {
                 return null;
@@ -116,14 +116,14 @@ CODE_SAMPLE
         });
         return $isIdenticalOrNotIdenticalToNull;
     }
-    private function isBooleanNot(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
+    private function isBooleanNot(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
     {
         $isBooleanNot = \false;
-        $this->traverseNodesWithCallable((array) $class->stmts, function (\PhpParser\Node $node) use($onlyPropertyProperty, &$isBooleanNot) {
-            if (!$node instanceof \PhpParser\Node\Expr\BooleanNot) {
+        $this->traverseNodesWithCallable((array) $class->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($onlyPropertyProperty, &$isBooleanNot) {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot) {
                 return null;
             }
-            if (!$node->expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
+            if (!$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
                 return null;
             }
             if (!$this->isName($node->expr->var, 'this')) {
@@ -142,14 +142,14 @@ CODE_SAMPLE
      * $this-><someProprety> === null
      * null === $this-><someProprety>
      */
-    private function matchPropertyFetchNameComparedToNull(\PhpParser\Node $node) : ?string
+    private function matchPropertyFetchNameComparedToNull(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
-        if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\Identical && !$node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical && !$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return null;
         }
-        if ($node->left instanceof \PhpParser\Node\Expr\PropertyFetch && $this->isNull($node->right)) {
+        if ($node->left instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch && $this->isNull($node->right)) {
             $propertyFetch = $node->left;
-        } elseif ($node->right instanceof \PhpParser\Node\Expr\PropertyFetch && $this->isNull($node->left)) {
+        } elseif ($node->right instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch && $this->isNull($node->left)) {
             $propertyFetch = $node->right;
         } else {
             return null;

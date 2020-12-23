@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\AssertType;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\AssertType;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Validator\Constraints as Assert;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Validator\Constraints as Assert;
 final class AssertStringQuotedType
 {
     /**

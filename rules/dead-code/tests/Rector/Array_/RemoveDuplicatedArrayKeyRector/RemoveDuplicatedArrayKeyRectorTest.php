@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Tests\Rector\Array_\RemoveDuplicatedArrayKeyRector;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Tests\Rector\Array_\RemoveDuplicatedArrayKeyRector;
 
 use Iterator;
-use Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveDuplicatedArrayKeyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveDuplicatedArrayKeyRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveDuplicatedArrayKeyRectorTest extends \Rector\Testing\PHPUnit\A
     }
     protected function getRectorClass() : string
     {
-        return \Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector::class;
     }
 }

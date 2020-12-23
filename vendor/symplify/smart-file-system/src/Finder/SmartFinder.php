@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SmartFileSystem\Finder;
+namespace _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Finder;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Finder\Finder;
-use Symplify\SmartFileSystem\FileSystemFilter;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Finder\Finder;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\FileSystemFilter;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SmartFileSystem\Tests\Finder\SmartFinder\SmartFinderTest
  */
@@ -19,7 +19,7 @@ final class SmartFinder
      * @var FileSystemFilter
      */
     private $fileSystemFilter;
-    public function __construct(\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter)
     {
         $this->finderSanitizer = $finderSanitizer;
         $this->fileSystemFilter = $fileSystemFilter;
@@ -33,7 +33,7 @@ final class SmartFinder
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if (\count($directories) > 0) {
-            $finder = new \_PhpScoperabd03f0baf05\Symfony\Component\Finder\Finder();
+            $finder = new \_PhpScoper0a2ac50786fa\Symfony\Component\Finder\Finder();
             $finder->name($name)->in($directories)->files()->sortByName();
             if ($excludedDirectories !== []) {
                 $finder->exclude($excludedDirectories);
@@ -42,7 +42,7 @@ final class SmartFinder
         }
         $files = $this->fileSystemFilter->filterFiles($directoriesOrFiles);
         foreach ($files as $file) {
-            $fileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($file);
+            $fileInfos[] = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($file);
         }
         return $fileInfos;
     }

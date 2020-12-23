@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php53\Tests\Rector\Variable\ReplaceHttpServerVarsByServerRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Php53\Tests\Rector\Variable\ReplaceHttpServerVarsByServerRector;
 
 use Iterator;
-use Rector\Php53\Rector\Variable\ReplaceHttpServerVarsByServerRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Rector\Php53\Rector\Variable\ReplaceHttpServerVarsByServerRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class ReplaceHttpServerVarsByServerRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class ReplaceHttpServerVarsByServerRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideDataForTest()
+     * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
     /**
      * @return Iterator<SplFileInfo>
      */
-    public function provideDataForTest() : \Iterator
+    public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php53\Rector\Variable\ReplaceHttpServerVarsByServerRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Php53\Rector\Variable\ReplaceHttpServerVarsByServerRector::class;
     }
 }

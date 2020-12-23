@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\ClassNameImport;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\ClassNameImport;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\UseUse;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
 final class AliasUsesResolver
 {
     /**
      * @var UseImportsTraverser
      */
     private $useImportsTraverser;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\UseImportsTraverser $useImportsTraverser)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\CodingStyle\ClassNameImport\UseImportsTraverser $useImportsTraverser)
     {
         $this->useImportsTraverser = $useImportsTraverser;
     }
     /**
      * @return string[]
      */
-    public function resolveForNode(\PhpParser\Node $node) : array
+    public function resolveForNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : array
     {
-        if (!$node instanceof \PhpParser\Node\Stmt\Namespace_) {
-            $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_) {
+            $node = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
         }
-        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_) {
             return $this->resolveForNamespace($node);
         }
         return [];
@@ -33,10 +33,10 @@ final class AliasUsesResolver
     /**
      * @return string[]
      */
-    private function resolveForNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace) : array
+    private function resolveForNamespace(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
         $aliasedUses = [];
-        $this->useImportsTraverser->traverserStmts($namespace->stmts, function (\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$aliasedUses) : void {
+        $this->useImportsTraverser->traverserStmts($namespace->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$aliasedUses) : void {
             if ($useUse->alias === null) {
                 return;
             }

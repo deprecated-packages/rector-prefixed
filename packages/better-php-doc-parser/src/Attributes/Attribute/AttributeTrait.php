@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Attributes\Attribute;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Attributes\Attribute;
 
 trait AttributeTrait
 {

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\Rector\Name\RenameClassRector;
+use _PhpScoper0a2ac50786fa\Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 # https://github.com/EasyCorp/EasyAdminBundle/blob/master/UPGRADE-2.0.md
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     # first replace ->get("...") by constructor injection in every child of "EasyCorp\Bundle\EasyAdminBundle\AdminController"
-    $services->set(\Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector::class)->call('configure', [[\Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector::GET_METHOD_AWARE_TYPES => ['_PhpScoperabd03f0baf05\\EasyCorp\\Bundle\\EasyAdminBundle\\AdminController']]]);
-    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector::class)->call('configure', [[\_PhpScoper0a2ac50786fa\Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector::GET_METHOD_AWARE_TYPES => ['_PhpScoper0a2ac50786fa\\EasyCorp\\Bundle\\EasyAdminBundle\\AdminController']]]);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\_PhpScoper0a2ac50786fa\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
         # then rename the "EasyCorp\Bundle\EasyAdminBundle\AdminController" class
-        '_PhpScoperabd03f0baf05\\EasyCorp\\Bundle\\EasyAdminBundle\\AdminController' => '_PhpScoperabd03f0baf05\\EasyCorp\\Bundle\\EasyAdminBundle\\EasyAdminController',
+        '_PhpScoper0a2ac50786fa\\EasyCorp\\Bundle\\EasyAdminBundle\\AdminController' => '_PhpScoper0a2ac50786fa\\EasyCorp\\Bundle\\EasyAdminBundle\\EasyAdminController',
     ]]]);
 };

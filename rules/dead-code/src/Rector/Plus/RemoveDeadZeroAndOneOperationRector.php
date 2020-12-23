@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\Plus;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Plus;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\AssignOp;
-use PhpParser\Node\Expr\AssignOp\Div as AssignDiv;
-use PhpParser\Node\Expr\AssignOp\Minus as AssignMinus;
-use PhpParser\Node\Expr\AssignOp\Mul as AssignMul;
-use PhpParser\Node\Expr\AssignOp\Plus as AssignPlus;
-use PhpParser\Node\Expr\BinaryOp;
-use PhpParser\Node\Expr\BinaryOp\Div;
-use PhpParser\Node\Expr\BinaryOp\Minus;
-use PhpParser\Node\Expr\BinaryOp\Mul;
-use PhpParser\Node\Expr\BinaryOp\Plus;
-use PhpParser\Node\Expr\UnaryMinus;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Div as AssignDiv;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Minus as AssignMinus;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Mul as AssignMul;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Plus as AssignPlus;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Div;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Minus;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Mul;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Plus;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\UnaryMinus;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/I0BGs
  *
  * @see \Rector\DeadCode\Tests\Rector\Plus\RemoveDeadZeroAndOneOperationRector\RemoveDeadZeroAndOneOperationRectorTest
  */
-final class RemoveDeadZeroAndOneOperationRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDeadZeroAndOneOperationRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove operation with 1 and 0, that have no effect on the value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove operation with 1 and 0, that have no effect on the value', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -55,26 +55,26 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\Plus::class, \PhpParser\Node\Expr\BinaryOp\Minus::class, \PhpParser\Node\Expr\BinaryOp\Mul::class, \PhpParser\Node\Expr\BinaryOp\Div::class, \PhpParser\Node\Expr\AssignOp\Plus::class, \PhpParser\Node\Expr\AssignOp\Minus::class, \PhpParser\Node\Expr\AssignOp\Mul::class, \PhpParser\Node\Expr\AssignOp\Div::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Plus::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Minus::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Mul::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Div::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Plus::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Minus::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Mul::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Div::class];
     }
     /**
      * @param Plus|Minus|Mul|Div|AssignPlus|AssignMinus|AssignMul|AssignDiv $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $changedNode = null;
         $previousNode = $node;
-        if ($node instanceof \PhpParser\Node\Expr\AssignOp) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp) {
             $changedNode = $this->processAssignOp($node);
         }
         // -, +
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp) {
             $changedNode = $this->processBinaryOp($node);
         }
         // recurse nested combinations
         while ($changedNode !== null && !$this->areNodesEqual($previousNode, $changedNode)) {
             $previousNode = $changedNode;
-            if ($changedNode instanceof \PhpParser\Node\Expr\BinaryOp || $changedNode instanceof \PhpParser\Node\Expr\AssignOp) {
+            if ($changedNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp || $changedNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp) {
                 $changedNode = $this->refactor($changedNode);
             }
             // nothing more to change, return last node
@@ -84,10 +84,10 @@ CODE_SAMPLE
         }
         return $changedNode;
     }
-    private function processAssignOp(\PhpParser\Node $node) : ?\PhpParser\Node\Expr
+    private function processAssignOp(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         // +=, -=
-        if ($node instanceof \PhpParser\Node\Expr\AssignOp\Plus || $node instanceof \PhpParser\Node\Expr\AssignOp\Minus) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Plus || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Minus) {
             if (!$this->isValue($node->expr, 0)) {
                 return null;
             }
@@ -96,7 +96,7 @@ CODE_SAMPLE
             }
         }
         // *, /
-        if ($node instanceof \PhpParser\Node\Expr\AssignOp\Mul || $node instanceof \PhpParser\Node\Expr\AssignOp\Div) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Mul || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Div) {
             if (!$this->isValue($node->expr, 1)) {
                 return null;
             }
@@ -106,13 +106,13 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processBinaryOp(\PhpParser\Node $node) : ?\PhpParser\Node\Expr
+    private function processBinaryOp(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Plus || $node instanceof \PhpParser\Node\Expr\BinaryOp\Minus) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Plus || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Minus) {
             return $this->processBinaryPlusAndMinus($node);
         }
         // *, /
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Mul || $node instanceof \PhpParser\Node\Expr\BinaryOp\Div) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Mul || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Div) {
             return $this->processBinaryMulAndDiv($node);
         }
         return null;
@@ -120,11 +120,11 @@ CODE_SAMPLE
     /**
      * @param Plus|Minus $binaryOp
      */
-    private function processBinaryPlusAndMinus(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr
+    private function processBinaryPlusAndMinus(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         if ($this->isValue($binaryOp->left, 0) && $this->isNumberType($binaryOp->right)) {
-            if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Minus) {
-                return new \PhpParser\Node\Expr\UnaryMinus($binaryOp->right);
+            if ($binaryOp instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Minus) {
+                return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\UnaryMinus($binaryOp->right);
             }
             return $binaryOp->right;
         }
@@ -136,9 +136,9 @@ CODE_SAMPLE
     /**
      * @param Mul|Div $binaryOp
      */
-    private function processBinaryMulAndDiv(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr
+    private function processBinaryMulAndDiv(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Mul && $this->isValue($binaryOp->left, 1) && $this->isNumberType($binaryOp->right)) {
+        if ($binaryOp instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Mul && $this->isValue($binaryOp->left, 1) && $this->isNumberType($binaryOp->right)) {
             return $binaryOp->right;
         }
         if ($this->isValue($binaryOp->right, 1) && $this->isNumberType($binaryOp->left)) {

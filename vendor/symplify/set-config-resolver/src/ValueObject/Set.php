@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SetConfigResolver\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\ValueObject;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class Set
 {
     /**
@@ -14,7 +14,7 @@ final class Set
      * @var SmartFileInfo
      */
     private $setFileInfo;
-    public function __construct(string $name, \Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
+    public function __construct(string $name, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
     {
         $this->name = $name;
         $this->setFileInfo = $setFileInfo;
@@ -23,7 +23,7 @@ final class Set
     {
         return $this->name;
     }
-    public function getSetFileInfo() : \Symplify\SmartFileSystem\SmartFileInfo
+    public function getSetFileInfo() : \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->setFileInfo;
     }

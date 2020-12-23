@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\ExpectedNameResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver;
 
-use PhpParser\Node;
-use PhpParser\Node\Param;
-use Rector\Naming\Naming\PropertyNaming;
-use Rector\StaticTypeMapper\StaticTypeMapper;
-final class MatchParamTypeExpectedNameResolver extends \Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper;
+final class MatchParamTypeExpectedNameResolver extends \_PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
 {
     /**
      * @var PropertyNaming
@@ -20,7 +20,7 @@ final class MatchParamTypeExpectedNameResolver extends \Rector\Naming\ExpectedNa
     /**
      * @required
      */
-    public function autowireMatchParamTypeExpectedNameResolver(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\Naming\Naming\PropertyNaming $propertyNaming) : void
+    public function autowireMatchParamTypeExpectedNameResolver(\_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming) : void
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->propertyNaming = $propertyNaming;
@@ -28,7 +28,7 @@ final class MatchParamTypeExpectedNameResolver extends \Rector\Naming\ExpectedNa
     /**
      * @param Param $node
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
     {
         // nothing to verify
         if ($node->type === null) {

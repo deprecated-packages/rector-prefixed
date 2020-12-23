@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteKdyby\DataProvider;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\DataProvider;
 
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository;
 final class GetSubscribedEventsClassMethodProvider
 {
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeRepository = $nodeRepository;
     }
@@ -20,6 +20,6 @@ final class GetSubscribedEventsClassMethodProvider
      */
     public function provide() : array
     {
-        return $this->nodeRepository->findClassMethodByTypeAndMethod('_PhpScoperabd03f0baf05\\Kdyby\\Events\\Subscriber', 'getSubscribedEvents');
+        return $this->nodeRepository->findClassMethodByTypeAndMethod('_PhpScoper0a2ac50786fa\\Kdyby\\Events\\Subscriber', 'getSubscribedEvents');
     }
 }

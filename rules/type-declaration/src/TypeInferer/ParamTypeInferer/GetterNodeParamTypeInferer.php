@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 
-use PhpParser\Node;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Return_;
-use PhpParser\NodeTraverser;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\Core\PhpParser\Node\Manipulator\PropertyFetchAssignManipulator;
-use Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
-use Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
-final class GetterNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchAssignManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
+use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
+final class GetterNodeParamTypeInferer extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
 {
     /**
      * @var PropertyFetchManipulator
@@ -27,30 +27,30 @@ final class GetterNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInfer
      * @var PropertyFetchAssignManipulator
      */
     private $propertyFetchAssignManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchAssignManipulator $propertyFetchAssignManipulator, \Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchAssignManipulator $propertyFetchAssignManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator)
     {
         $this->propertyFetchManipulator = $propertyFetchManipulator;
         $this->propertyFetchAssignManipulator = $propertyFetchAssignManipulator;
     }
-    public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
+    public function inferParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         /** @var Class_|null $classLike */
-        $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $param->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
         /** @var ClassMethod $classMethod */
-        $classMethod = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $classMethod = $param->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         /** @var string $paramName */
         $paramName = $this->nodeNameResolver->getName($param);
         $propertyNames = $this->propertyFetchAssignManipulator->getPropertyNamesOfAssignOfVariable($classMethod, $paramName);
         if ($propertyNames === []) {
-            return new \PHPStan\Type\MixedType();
+            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         }
-        $returnType = new \PHPStan\Type\MixedType();
+        $returnType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
         // resolve property assigns
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) use($propertyNames, &$returnType) : ?int {
-            if (!$node instanceof \PhpParser\Node\Stmt\Return_ || $node->expr === null) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($classLike, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($propertyNames, &$returnType) : ?int {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_ || $node->expr === null) {
                 return null;
             }
             $isMatch = $this->propertyFetchManipulator->isLocalPropertyOfNames($node->expr, $propertyNames);
@@ -59,18 +59,21 @@ final class GetterNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInfer
             }
             // what is return type?
             /** @var ClassMethod|null $classMethod */
-            $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            $classMethod = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+            if (!$classMethod instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
                 return null;
             }
-            /** @var PhpDocInfo $phpDocInfo */
-            $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            /** @var PhpDocInfo|null $phpDocInfo */
+            $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            if ($phpDocInfo === null) {
+                return null;
+            }
             $methodReturnType = $phpDocInfo->getReturnType();
-            if ($methodReturnType instanceof \PHPStan\Type\MixedType) {
+            if ($methodReturnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
                 return null;
             }
             $returnType = $methodReturnType;
-            return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
+            return \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
         return $returnType;
     }

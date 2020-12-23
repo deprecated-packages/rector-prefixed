@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Session handler using a PDO connection to read and write data.
@@ -37,7 +37,7 @@ namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Session\Storag
  * @author Michael Williams <michael.williams@funsational.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class PdoSessionHandler extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class PdoSessionHandler extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     /**
      * No locking is done. This means sessions are prone to loss of data due to
@@ -45,7 +45,7 @@ class PdoSessionHandler extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFo
      * write will win in this case. It might be useful when you implement your own
      * logic to deal with this like an optimistic approach.
      */
-    const LOCK_NONE = 0;
+    public const LOCK_NONE = 0;
     /**
      * Creates an application-level lock on a session. The disadvantage is that the
      * lock is not enforced by the database and thus other, unaware parts of the
@@ -53,14 +53,14 @@ class PdoSessionHandler extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFo
      * does not require a transaction.
      * This mode is not available for SQLite and not yet implemented for oci and sqlsrv.
      */
-    const LOCK_ADVISORY = 1;
+    public const LOCK_ADVISORY = 1;
     /**
      * Issues a real row lock. Since it uses a transaction between opening and
      * closing a session, you have to be careful when you use same database connection
      * that you also use for your application logic. This mode is the default because
      * it's the only reliable solution across DBMSs.
      */
-    const LOCK_TRANSACTIONAL = 2;
+    public const LOCK_TRANSACTIONAL = 2;
     private const MAX_LIFETIME = 315576000;
     /**
      * @var \PDO|null PDO instance or null when not connected yet

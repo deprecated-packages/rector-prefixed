@@ -1,13 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RectorGenerator\Composer;
+namespace _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Composer;
 
-use Rector\RectorGenerator\FileSystem\JsonFileSystem;
-use Rector\RectorGenerator\ValueObject\Package;
-use Rector\RectorGenerator\ValueObject\RectorRecipe;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoperabd03f0baf05\Symfony\Component\Process\Process;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\FileSystem\JsonFileSystem;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\Package;
+use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
 final class ComposerPackageAutoloadUpdater
 {
     /**
@@ -30,12 +29,12 @@ final class ComposerPackageAutoloadUpdater
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\Rector\RectorGenerator\FileSystem\JsonFileSystem $jsonFileSystem, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\RectorGenerator\FileSystem\JsonFileSystem $jsonFileSystem, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->jsonFileSystem = $jsonFileSystem;
         $this->symfonyStyle = $symfonyStyle;
     }
-    public function processComposerAutoload(\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : void
+    public function processComposerAutoload(\_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : void
     {
         $composerJsonFilePath = \getcwd() . '/composer.json';
         $composerJson = $this->jsonFileSystem->loadFileToJson($composerJsonFilePath);
@@ -55,17 +54,17 @@ final class ComposerPackageAutoloadUpdater
         $this->jsonFileSystem->saveJsonToFile($composerJsonFilePath, $composerJson);
         $this->rebuildAutoload();
     }
-    private function resolvePackage(\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : \Rector\RectorGenerator\ValueObject\Package
+    private function resolvePackage(\_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\Package
     {
         if (!$rectorRecipe->isRectorRepository()) {
-            return new \Rector\RectorGenerator\ValueObject\Package('Utils\\Rector\\', 'Utils\\Rector\\Tests\\', 'utils/rector/src', 'utils/rector/tests');
+            return new \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\Package('Utils\\Rector\\', 'Utils\\Rector\\Tests\\', 'utils/rector/src', 'utils/rector/tests');
         }
-        return new \Rector\RectorGenerator\ValueObject\Package('Rector\\' . $rectorRecipe->getPackage() . '\\', 'Rector\\' . $rectorRecipe->getPackage() . '\\Tests\\', 'rules/' . $rectorRecipe->getPackageDirectory() . '/src', 'rules/' . $rectorRecipe->getPackageDirectory() . '/tests');
+        return new \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\Package('Rector\\' . $rectorRecipe->getPackage() . '\\', 'Rector\\' . $rectorRecipe->getPackage() . '\\Tests\\', 'rules/' . $rectorRecipe->getPackageDirectory() . '/src', 'rules/' . $rectorRecipe->getPackageDirectory() . '/tests');
     }
     /**
      * @param mixed[] $composerJson
      */
-    private function isPackageAlreadyLoaded(array $composerJson, \Rector\RectorGenerator\ValueObject\Package $package) : bool
+    private function isPackageAlreadyLoaded(array $composerJson, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\Package $package) : bool
     {
         foreach (['autoload', self::AUTOLOAD_DEV] as $autoloadSection) {
             if (isset($composerJson[$autoloadSection][self::PSR_4][$package->getSrcNamespace()])) {
@@ -76,7 +75,7 @@ final class ComposerPackageAutoloadUpdater
     }
     private function rebuildAutoload() : void
     {
-        $composerDumpProcess = new \_PhpScoperabd03f0baf05\Symfony\Component\Process\Process(['composer', 'dump']);
-        $composerDumpProcess->run();
+        // note: do not use shell_exec, this is only effective solution for better DX
+        \shell_exec('composer dump');
     }
 }

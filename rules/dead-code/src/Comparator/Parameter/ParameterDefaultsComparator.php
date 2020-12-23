@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Comparator\Parameter;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Comparator\Parameter;
 
-use PhpParser\Node\Expr;
-use PhpParser\Node\Param;
-use PHPStan\Reflection\ParameterReflection;
-use PHPStan\Type\Constant\ConstantArrayType;
-use PHPStan\Type\Constant\ConstantBooleanType;
-use PHPStan\Type\Constant\ConstantFloatType;
-use PHPStan\Type\Constant\ConstantIntegerType;
-use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\ConstantType;
-use PHPStan\Type\NullType;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ParameterReflection;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantFloatType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ConstantType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\NullType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver;
 final class ParameterDefaultsComparator
 {
     /**
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->valueResolver = $valueResolver;
     }
-    public function areDefaultValuesDifferent(\PHPStan\Reflection\ParameterReflection $parameterReflection, \PhpParser\Node\Param $param) : bool
+    public function areDefaultValuesDifferent(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParameterReflection $parameterReflection, \_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : bool
     {
         if ($parameterReflection->getDefaultValue() === null && $param->default === null) {
             return \false;
@@ -39,23 +39,26 @@ final class ParameterDefaultsComparator
         $secondParameterValue = $this->valueResolver->getValue($paramDefault);
         return $firstParameterValue !== $secondParameterValue;
     }
-    private function isMutuallyExclusiveNull(\PHPStan\Reflection\ParameterReflection $parameterReflection, \PhpParser\Node\Param $param) : bool
+    private function isMutuallyExclusiveNull(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParameterReflection $parameterReflection, \_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : bool
     {
         if ($parameterReflection->getDefaultValue() === null && $param->default !== null) {
             return \true;
         }
-        return $parameterReflection->getDefaultValue() !== null && $param->default === null;
+        if ($parameterReflection->getDefaultValue() === null) {
+            return \false;
+        }
+        return $param->default === null;
     }
     /**
      * @return bool|float|int|string|mixed[]|null
      */
-    private function resolveParameterReflectionDefaultValue(\PHPStan\Reflection\ParameterReflection $parameterReflection)
+    private function resolveParameterReflectionDefaultValue(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParameterReflection $parameterReflection)
     {
         $defaultValue = $parameterReflection->getDefaultValue();
-        if (!$defaultValue instanceof \PHPStan\Type\ConstantType) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (!$defaultValue instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ConstantType) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        if ($defaultValue instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+        if ($defaultValue instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType) {
             return $defaultValue->getAllArrays();
         }
         /** @var ConstantStringType|ConstantIntegerType|ConstantFloatType|ConstantBooleanType|NullType $defaultValue */

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\Class_\RemoveInterfacesRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Class_\RemoveInterfacesRector;
 
 use Iterator;
-use Rector\Generic\Rector\Class_\RemoveInterfacesRector;
-use Rector\Generic\Tests\Rector\Class_\RemoveInterfacesRector\Source\SomeInterface;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveInterfacesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\RemoveInterfacesRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Class_\RemoveInterfacesRector\Source\SomeInterface;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveInterfacesRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class RemoveInterfacesRectorTest extends \Rector\Testing\PHPUnit\AbstractR
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\Class_\RemoveInterfacesRector::class => [\Rector\Generic\Rector\Class_\RemoveInterfacesRector::INTERFACES_TO_REMOVE => [\Rector\Generic\Tests\Rector\Class_\RemoveInterfacesRector\Source\SomeInterface::class]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\RemoveInterfacesRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\RemoveInterfacesRector::INTERFACES_TO_REMOVE => [\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Class_\RemoveInterfacesRector\Source\SomeInterface::class]]];
     }
 }

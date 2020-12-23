@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp74\Rector\Coalesce;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp74\Rector\Coalesce;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\AssignOp\Coalesce as AssignCoalesce;
-use PhpParser\Node\Expr\BinaryOp\Coalesce;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Coalesce as AssignCoalesce;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/null_coalesce_equal_operator
  * @see \Rector\DowngradePhp74\Tests\Rector\Coalesce\DowngradeNullCoalescingOperatorRector\DowngradeNullCoalescingOperatorRectorTest
  */
-final class DowngradeNullCoalescingOperatorRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeNullCoalescingOperatorRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove null coalescing operator ??=', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove null coalescing operator ??=', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $array = [];
 $array['user_id'] ??= 'value';
 CODE_SAMPLE
@@ -33,13 +33,13 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\AssignOp\Coalesce::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Coalesce::class];
     }
     /**
      * @param AssignCoalesce $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        return new \PhpParser\Node\Expr\Assign($node->var, new \PhpParser\Node\Expr\BinaryOp\Coalesce($node->var, $node->expr));
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($node->var, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce($node->var, $node->expr));
     }
 }

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Testing\PHPUnit\Runnable;
+namespace _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\Runnable;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\NodeFinder;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\NameResolver;
-use PhpParser\Parser;
-use PhpParser\ParserFactory;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Testing\Contract\RunnableInterface;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeFinder;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeVisitor\NameResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Parser;
+use _PhpScoper0a2ac50786fa\PhpParser\ParserFactory;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Testing\Contract\RunnableInterface;
 final class RunnableClassFinder
 {
     /**
@@ -22,9 +22,9 @@ final class RunnableClassFinder
      * @var NodeFinder
      */
     private $nodeFinder;
-    public function __construct(\PhpParser\NodeFinder $nodeFinder)
+    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\NodeFinder $nodeFinder)
     {
-        $this->parser = (new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::PREFER_PHP7);
+        $this->parser = (new \_PhpScoper0a2ac50786fa\PhpParser\ParserFactory())->create(\_PhpScoper0a2ac50786fa\PhpParser\ParserFactory::PREFER_PHP7);
         $this->nodeFinder = $nodeFinder;
     }
     public function find(string $content) : string
@@ -40,29 +40,29 @@ final class RunnableClassFinder
      */
     private function decorateNodesWithNames(array $nodes) : void
     {
-        $nodeTraverser = new \PhpParser\NodeTraverser();
-        $nodeTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver(null, ['preserveOriginalNames' => \true]));
+        $nodeTraverser = new \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser();
+        $nodeTraverser->addVisitor(new \_PhpScoper0a2ac50786fa\PhpParser\NodeVisitor\NameResolver(null, ['preserveOriginalNames' => \true]));
         $nodeTraverser->traverse($nodes);
     }
     /**
      * @param Node[] $nodes
      */
-    private function findClassThatImplementsRunnableInterface(array $nodes) : \PhpParser\Node\Stmt\Class_
+    private function findClassThatImplementsRunnableInterface(array $nodes) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_
     {
-        $class = $this->nodeFinder->findFirst($nodes, function (\PhpParser\Node $node) : bool {
-            if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
+        $class = $this->nodeFinder->findFirst($nodes, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
                 return \false;
             }
             foreach ((array) $node->implements as $implement) {
-                if ((string) $implement !== \Rector\Testing\Contract\RunnableInterface::class) {
+                if ((string) $implement !== \_PhpScoper0a2ac50786fa\Rector\Testing\Contract\RunnableInterface::class) {
                     continue;
                 }
                 return \true;
             }
             return \false;
         });
-        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (!$class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $class;
     }

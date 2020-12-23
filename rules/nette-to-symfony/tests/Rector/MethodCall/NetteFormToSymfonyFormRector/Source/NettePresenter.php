@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteToSymfony\Tests\Rector\MethodCall\NetteFormToSymfonyFormRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteToSymfony\Tests\Rector\MethodCall\NetteFormToSymfonyFormRector\Source;
 
-use _PhpScoperabd03f0baf05\Nette\Application\IPresenter;
-use _PhpScoperabd03f0baf05\Nette\Application\IResponse;
-use _PhpScoperabd03f0baf05\Nette\Application\Request;
-abstract class NettePresenter implements \_PhpScoperabd03f0baf05\Nette\Application\IPresenter
+use _PhpScoper0a2ac50786fa\Nette\Application\IPresenter;
+use _PhpScoper0a2ac50786fa\Nette\Application\IResponse;
+use _PhpScoper0a2ac50786fa\Nette\Application\Request;
+abstract class NettePresenter implements \_PhpScoper0a2ac50786fa\Nette\Application\IPresenter
 {
-    public function run(\_PhpScoperabd03f0baf05\Nette\Application\Request $request) : \_PhpScoperabd03f0baf05\Nette\Application\IResponse
+    public function run(\_PhpScoper0a2ac50786fa\Nette\Application\Request $request) : \_PhpScoper0a2ac50786fa\Nette\Application\IResponse
     {
     }
 }

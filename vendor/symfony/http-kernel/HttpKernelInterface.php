@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpKernel;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request;
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Response;
 /**
  * HttpKernelInterface handles a Request to convert it to a Response.
  *
@@ -19,8 +19,8 @@ use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Response;
  */
 interface HttpKernelInterface
 {
-    const MASTER_REQUEST = 1;
-    const SUB_REQUEST = 2;
+    public const MASTER_REQUEST = 1;
+    public const SUB_REQUEST = 2;
     /**
      * Handles a Request to convert it to a Response.
      *
@@ -35,5 +35,5 @@ interface HttpKernelInterface
      *
      * @throws \Exception When an Exception occurs during processing
      */
-    public function handle(\_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = \true);
+    public function handle(\_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Request $request, int $type = self::MASTER_REQUEST, bool $catch = \true);
 }

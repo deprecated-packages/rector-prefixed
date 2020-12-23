@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Transform\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Transform\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Identifier;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
-use Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperabd03f0baf05\Webmozart\Assert\Assert;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
+use _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\MethodCall\MethodCallToAnotherMethodCallWithArgumentsRector\MethodCallToAnotherMethodCallWithArgumentsRectorTest
  */
-final class MethodCallToAnotherMethodCallWithArgumentsRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class MethodCallToAnotherMethodCallWithArgumentsRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -26,9 +26,9 @@ final class MethodCallToAnotherMethodCallWithArgumentsRector extends \Rector\Cor
      * @var MethodCallToAnotherMethodCallWithArguments[]
      */
     private $methodCallRenamesWithAddedArguments = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns old method call with specific types to new one with arguments', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns old method call with specific types to new one with arguments', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $serviceDefinition = new Nette\DI\ServiceDefinition;
 $serviceDefinition->setInject();
 CODE_SAMPLE
@@ -36,19 +36,19 @@ CODE_SAMPLE
 $serviceDefinition = new Nette\DI\ServiceDefinition;
 $serviceDefinition->addTag('inject');
 CODE_SAMPLE
-, [self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS => [new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey('_PhpScoperabd03f0baf05\\Nette\\DI\\ServiceDefinition', 'setInject', 'addTag', 'inject')]])]);
+, [self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS => [new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey('_PhpScoper0a2ac50786fa\\Nette\\DI\\ServiceDefinition', 'setInject', 'addTag', 'inject')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         foreach ($this->methodCallRenamesWithAddedArguments as $methodCallRenamedWithAddedArgument) {
             if (!$this->isObjectType($node, $methodCallRenamedWithAddedArgument->getType())) {
@@ -57,7 +57,7 @@ CODE_SAMPLE
             if (!$this->isName($node->name, $methodCallRenamedWithAddedArgument->getOldMethod())) {
                 continue;
             }
-            $node->name = new \PhpParser\Node\Identifier($methodCallRenamedWithAddedArgument->getNewMethod());
+            $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($methodCallRenamedWithAddedArgument->getNewMethod());
             $node->args = $this->createArgs($methodCallRenamedWithAddedArgument->getNewArguments());
             return $node;
         }
@@ -66,7 +66,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodCallRenamesWithAddedArguments = $configuration[self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS] ?? [];
-        \_PhpScoperabd03f0baf05\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenamesWithAddedArguments, \Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments::class);
+        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenamesWithAddedArguments, \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments::class);
         $this->methodCallRenamesWithAddedArguments = $methodCallRenamesWithAddedArguments;
     }
 }

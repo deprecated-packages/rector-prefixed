@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Polyfill\Tests\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Polyfill\Tests\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector;
 
 use Iterator;
-use Rector\Polyfill\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class UnwrapFutureCompatibleIfFunctionExistsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Polyfill\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class UnwrapFutureCompatibleIfFunctionExistsRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class UnwrapFutureCompatibleIfFunctionExistsRectorTest extends \Rector\Tes
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Polyfill\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Polyfill\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector::class;
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\Tests\Rector\Identical\ChangeIdenticalUuidToEqualsMethodCallRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Doctrine\Tests\Rector\Identical\ChangeIdenticalUuidToEqualsMethodCallRector\Source;
 
-use _PhpScoperabd03f0baf05\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Exception\BadRequestException;
 /**
  * ParameterBag is a container for key/value pairs.
  *
@@ -40,7 +40,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
             return $this->parameters;
         }
         if (!\is_array($value = $this->parameters[$key] ?? [])) {
-            throw new \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Exception\BadRequestException(\sprintf('Unexpected value for parameter "%s": expecting "array", got "%s".', $key, \get_debug_type($value)));
+            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Exception\BadRequestException(\sprintf('Unexpected value for parameter "%s": expecting "array", got "%s".', $key, \get_debug_type($value)));
         }
         return $value;
     }
@@ -170,6 +170,10 @@ class ParameterBag implements \IteratorAggregate, \Countable
         // Add a convenience check for arrays.
         if (\is_array($value) && !isset($options['flags'])) {
             $options['flags'] = \FILTER_REQUIRE_ARRAY;
+        }
+        if (\FILTER_CALLBACK & $filter && !($options['options'] ?? null) instanceof \Closure) {
+            trigger_deprecation('symfony/http-foundation', '5.2', 'Not passing a Closure together with FILTER_CALLBACK to "%s()" is deprecated. Wrap your filter in a closure instead.', __METHOD__);
+            // throw new \InvalidArgumentException(sprintf('A Closure must be passed to "%s()" when FILTER_CALLBACK is used, "%s" given.', __METHOD__, get_debug_type($options['options'] ?? null)));
         }
         return \filter_var($value, $filter, $options);
     }

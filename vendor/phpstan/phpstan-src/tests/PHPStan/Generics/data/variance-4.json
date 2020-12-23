@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Property PHPStan\\Generics\\Variance\\ConstructorAndStatic::$data is never read, only written.",
-        "line": 134,
-        "ignorable": true
-    }
-]

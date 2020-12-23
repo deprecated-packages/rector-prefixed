@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\MockistaToMockery\Tests\Rector\ClassMethod\MockistaMockToMockeryMockRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\MockistaToMockery\Tests\Rector\ClassMethod\MockistaMockToMockeryMockRector\Source;
 
 final class User
 {

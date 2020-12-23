@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Rector\Property;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Rector\Property;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Property;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver;
-use Rector\Naming\PropertyRenamer\UnderscoreCamelCasePropertyRenamer;
-use Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\Naming\PropertyRenamer\UnderscoreCamelCasePropertyRenamer;
+use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\Property\UnderscoreToCamelCasePropertyNameRector\UnderscoreToCamelCasePropertyNameRectorTest
  */
-final class UnderscoreToCamelCasePropertyNameRector extends \Rector\Core\Rector\AbstractRector
+final class UnderscoreToCamelCasePropertyNameRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyRenameFactory
@@ -29,15 +29,15 @@ final class UnderscoreToCamelCasePropertyNameRector extends \Rector\Core\Rector\
      * @var UnderscoreCamelCaseExpectedNameResolver
      */
     private $underscoreCamelCaseExpectedNameResolver;
-    public function __construct(\Rector\Naming\PropertyRenamer\UnderscoreCamelCasePropertyRenamer $underscoreCamelCasePropertyRenamer, \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver $underscoreCamelCaseExpectedNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\PropertyRenamer\UnderscoreCamelCasePropertyRenamer $underscoreCamelCasePropertyRenamer, \_PhpScoper0a2ac50786fa\Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \_PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver $underscoreCamelCaseExpectedNameResolver)
     {
         $this->underscoreCamelCasePropertyRenamer = $underscoreCamelCasePropertyRenamer;
         $this->propertyRenameFactory = $propertyRenameFactory;
         $this->underscoreCamelCaseExpectedNameResolver = $underscoreCamelCaseExpectedNameResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change under_score names to camelCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change under_score names to camelCase', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public $property_name;
@@ -66,18 +66,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param Property $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $nodeName = $this->getName($node);
-        if ($nodeName === null) {
-            return null;
-        }
-        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($nodeName, '_')) {
+        $propertyName = $this->getName($node);
+        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($propertyName, '_')) {
             return null;
         }
         $propertyRename = $this->propertyRenameFactory->create($node, $this->underscoreCamelCaseExpectedNameResolver);

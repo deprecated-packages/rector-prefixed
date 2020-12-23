@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\Printer;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
 /**
  * @see \Rector\Core\Tests\PhpParser\Printer\CommentRemover\CommentRemoverTest
  */
@@ -27,12 +27,12 @@ final class CommentRemover
     public function remove(string $content) : string
     {
         // remove /** ... */
-        $content = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($content, self::START_COMMENT_REGEX);
+        $content = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($content, self::START_COMMENT_REGEX, '');
         // remove /* ... */
-        $content = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($content, self::START_COMMENT_REGEX);
+        $content = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($content, self::START_COMMENT_REGEX, '');
         // remove # ...
-        $content = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($content, self::START_GRID_COMMENT_REGEX);
+        $content = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($content, self::START_GRID_COMMENT_REGEX, '');
         // remove // ...
-        return \_PhpScoperabd03f0baf05\Nette\Utils\Strings::replace($content, self::START_DOUBLE_SLASH_COMMENT_REGEX);
+        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($content, self::START_DOUBLE_SLASH_COMMENT_REGEX, '');
     }
 }

@@ -1,34 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PhpSpecToPHPUnit\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Clone_;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\Class_;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpSpecToPHPUnit\MatchersManipulator;
-use Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming;
-use Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Clone_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\MatchersManipulator;
+use _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming;
+use _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
 /**
  * @see \Rector\PhpSpecToPHPUnit\Tests\Rector\Variable\PhpSpecToPHPUnitRector\PhpSpecToPHPUnitRectorTest
  */
-final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
+final class PhpSpecPromisesToPHPUnitAssertRector extends \_PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
 {
     /**
      * @see https://github.com/phpspec/phpspec/blob/master/src/PhpSpec/Wrapper/Subject.php
@@ -104,7 +105,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
      * @var MatchersManipulator
      */
     private $matchersManipulator;
-    public function __construct(\Rector\PhpSpecToPHPUnit\MatchersManipulator $matchersManipulator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\MatchersManipulator $matchersManipulator, \_PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming)
     {
         $this->phpSpecRenaming = $phpSpecRenaming;
         $this->matchersManipulator = $matchersManipulator;
@@ -114,12 +115,12 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $this->isPrepared = \false;
         $this->matchersKeys = [];
@@ -138,7 +139,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         if ($this->isName($node->name, 'getMatchers')) {
             return null;
         }
-        $this->prepare($node);
+        $this->prepareMethodCall($node);
         if ($this->isName($node->name, 'beConstructed*')) {
             return $this->processBeConstructed($node);
         }
@@ -151,16 +152,15 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         if ($this->shouldSkip($node)) {
             return null;
         }
-        // $this->clone() → clone $this->testedObject
         if ($this->isName($node->name, 'clone')) {
-            return new \PhpParser\Node\Expr\Clone_($this->testedObjectPropertyFetch);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Clone_($this->testedObjectPropertyFetch);
         }
         $methodName = $this->getName($node->name);
         if ($methodName === null) {
             return null;
         }
         /** @var Class_ $classLike */
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         $classMethod = $classLike->getMethod($methodName);
         // it's a method call, skip
         if ($classMethod !== null) {
@@ -169,92 +169,91 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         $node->var = $this->testedObjectPropertyFetch;
         return $node;
     }
-    private function processDuring(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
+    private function processDuring(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
         if (!isset($methodCall->args[0])) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
         $name = $this->getValue($methodCall->args[0]->value);
-        $thisObjectPropertyMethodCall = new \PhpParser\Node\Expr\MethodCall($this->testedObjectPropertyFetch, $name);
-        if (isset($methodCall->args[1]) && $methodCall->args[1]->value instanceof \PhpParser\Node\Expr\Array_) {
+        $thisObjectPropertyMethodCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($this->testedObjectPropertyFetch, $name);
+        if (isset($methodCall->args[1]) && $methodCall->args[1]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_) {
             /** @var Array_ $array */
             $array = $methodCall->args[1]->value;
             if (isset($array->items[0])) {
-                $thisObjectPropertyMethodCall->args[] = new \PhpParser\Node\Arg($array->items[0]->value);
+                $thisObjectPropertyMethodCall->args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($array->items[0]->value);
             }
         }
         /** @var MethodCall $parentMethodCall */
         $parentMethodCall = $methodCall->var;
-        $parentMethodCall->name = new \PhpParser\Node\Identifier('expectException');
+        $parentMethodCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('expectException');
         // add $this->object->someCall($withArgs)
         $this->addNodeAfterNode($thisObjectPropertyMethodCall, $methodCall);
         return $parentMethodCall;
     }
-    private function processDuringInstantiation(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
+    private function processDuringInstantiation(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
         /** @var MethodCall $parentMethodCall */
         $parentMethodCall = $methodCall->var;
-        $parentMethodCall->name = new \PhpParser\Node\Identifier('expectException');
+        $parentMethodCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('expectException');
         return $parentMethodCall;
     }
-    private function prepare(\PhpParser\Node $node) : void
+    private function prepareMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         if ($this->isPrepared) {
             return;
         }
         /** @var Class_ $classLike */
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $methodCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         $this->matchersKeys = $this->matchersManipulator->resolveMatcherNamesFromClass($classLike);
-        $this->testedClass = $this->phpSpecRenaming->resolveTestedClass($node);
+        $this->testedClass = $this->phpSpecRenaming->resolveTestedClass($methodCall);
         $this->testedObjectPropertyFetch = $this->createTestedObjectPropertyFetch($classLike);
         $this->isPrepared = \true;
     }
-    private function processBeConstructed(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    private function processBeConstructed(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->isName($methodCall->name, 'beConstructedWith')) {
-            $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($this->testedClass));
+            $new = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($this->testedClass));
             $new->args = $methodCall->args;
-            return new \PhpParser\Node\Expr\Assign($this->testedObjectPropertyFetch, $new);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($this->testedObjectPropertyFetch, $new);
         }
         if ($this->isName($methodCall->name, 'beConstructedThrough')) {
-            // static method
             $methodName = $this->getValue($methodCall->args[0]->value);
             $staticCall = $this->createStaticCall($this->testedClass, $methodName);
             $this->moveConstructorArguments($methodCall, $staticCall);
-            return new \PhpParser\Node\Expr\Assign($this->testedObjectPropertyFetch, $staticCall);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($this->testedObjectPropertyFetch, $staticCall);
         }
         return null;
     }
     /**
      * @see https://johannespichler.com/writing-custom-phpspec-matchers/
      */
-    private function processMatchersKeys(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    private function processMatchersKeys(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         foreach ($this->matchersKeys as $matcherKey) {
             if (!$this->isName($methodCall->name, 'should' . \ucfirst($matcherKey))) {
                 continue;
             }
-            if (!$methodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
+            if (!$methodCall->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
                 continue;
             }
             // 1. assign callable to variable
             $thisGetMatchers = $this->createMethodCall(self::THIS, 'getMatchers');
-            $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($thisGetMatchers, new \PhpParser\Node\Scalar\String_($matcherKey));
-            $matcherCallableVariable = new \PhpParser\Node\Expr\Variable('matcherCallable');
-            $assign = new \PhpParser\Node\Expr\Assign($matcherCallableVariable, $arrayDimFetch);
+            $arrayDimFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch($thisGetMatchers, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($matcherKey));
+            $matcherCallableVariable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('matcherCallable');
+            $assign = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($matcherCallableVariable, $arrayDimFetch);
             // 2. call it on result
-            $funcCall = new \PhpParser\Node\Expr\FuncCall($matcherCallableVariable);
+            $funcCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall($matcherCallableVariable);
             $funcCall->args = $methodCall->args;
             $methodCall->name = $methodCall->var->name;
             $methodCall->var = $this->testedObjectPropertyFetch;
             $methodCall->args = [];
-            $funcCall->args[] = new \PhpParser\Node\Arg($methodCall);
+            $funcCall->args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($methodCall);
             $this->addNodesAfterNode([$assign, $funcCall], $methodCall);
             $this->removeNode($methodCall);
             return;
         }
     }
-    private function createAssertMethod(string $name, \PhpParser\Node\Expr $value, ?\PhpParser\Node\Expr $expected) : \PhpParser\Node\Expr\MethodCall
+    private function createAssertMethod(string $name, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $value, ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expected) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
         $this->isBoolAssert = \false;
         // special case with bool!
@@ -263,12 +262,12 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         }
         $assetMethodCall = $this->createMethodCall(self::THIS, $name);
         if (!$this->isBoolAssert && $expected) {
-            $assetMethodCall->args[] = new \PhpParser\Node\Arg($this->thisToTestedObjectPropertyFetch($expected));
+            $assetMethodCall->args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($this->thisToTestedObjectPropertyFetch($expected));
         }
-        $assetMethodCall->args[] = new \PhpParser\Node\Arg($this->thisToTestedObjectPropertyFetch($value));
+        $assetMethodCall->args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($this->thisToTestedObjectPropertyFetch($value));
         return $assetMethodCall;
     }
-    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function shouldSkip(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->isVariableName($methodCall->var, self::THIS)) {
             return \true;
@@ -276,26 +275,29 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         // skip "createMock" method
         return $this->isName($methodCall->name, 'createMock');
     }
-    private function createTestedObjectPropertyFetch(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Expr\PropertyFetch
+    private function createTestedObjectPropertyFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch
     {
         $propertyName = $this->phpSpecRenaming->resolveObjectPropertyName($class);
-        return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
     }
-    private function moveConstructorArguments(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\StaticCall $staticCall) : void
+    private function moveConstructorArguments(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         if (!isset($methodCall->args[1])) {
             return;
         }
-        if (!$methodCall->args[1]->value instanceof \PhpParser\Node\Expr\Array_) {
+        if (!$methodCall->args[1]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_) {
             return;
         }
         /** @var Array_ $array */
         $array = $methodCall->args[1]->value;
         foreach ($array->items as $arrayItem) {
-            $staticCall->args[] = new \PhpParser\Node\Arg($arrayItem->value);
+            if (!$arrayItem instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem) {
+                continue;
+            }
+            $staticCall->args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($arrayItem->value);
         }
     }
-    private function resolveBoolMethodName(string $name, \PhpParser\Node\Expr $expr) : string
+    private function resolveBoolMethodName(string $name, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : string
     {
         if (!$this->isBool($expr)) {
             return $name;
@@ -310,7 +312,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         }
         return $name;
     }
-    private function thisToTestedObjectPropertyFetch(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    private function thisToTestedObjectPropertyFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         if (!$this->isVariableName($expr, self::THIS)) {
             return $expr;

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\SideEffect;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\SideEffect;
 
-use PhpParser\Node\Expr\FuncCall;
-use Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 final class PureFunctionDetector
 {
     /**
@@ -207,11 +207,11 @@ final class PureFunctionDetector
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function detect(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    public function detect(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         return !$this->nodeNameResolver->isNames($funcCall, self::IMPURE_FUNCTIONS);
     }

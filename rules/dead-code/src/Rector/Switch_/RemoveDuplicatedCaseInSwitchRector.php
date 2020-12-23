@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\Switch_;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\Switch_;
 
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Break_;
-use PhpParser\Node\Stmt\Case_;
-use PhpParser\Node\Stmt\Return_;
-use PhpParser\Node\Stmt\Switch_;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Break_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Case_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Switch_\RemoveDuplicatedCaseInSwitchRector\RemoveDuplicatedCaseInSwitchRectorTest
  */
-final class RemoveDuplicatedCaseInSwitchRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDuplicatedCaseInSwitchRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('2 following switch keys with identical  will be reduced to one result', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('2 following switch keys with identical  will be reduced to one result', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -60,14 +60,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Switch_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
      * @param Switch_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (\count($node->cases) < 2) {
+        if (\count((array) $node->cases) < 2) {
             return null;
         }
         /** @var Case_|null $previousCase */
@@ -80,16 +80,16 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function areSwitchStmtsEqualsAndWithBreak(\PhpParser\Node\Stmt\Case_ $currentCase, \PhpParser\Node\Stmt\Case_ $previousCase) : bool
+    private function areSwitchStmtsEqualsAndWithBreak(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Case_ $currentCase, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Case_ $previousCase) : bool
     {
         if (!$this->areNodesEqual($currentCase->stmts, $previousCase->stmts)) {
             return \false;
         }
         foreach ($currentCase->stmts as $stmt) {
-            if ($stmt instanceof \PhpParser\Node\Stmt\Break_) {
+            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Break_) {
                 return \true;
             }
-            if ($stmt instanceof \PhpParser\Node\Stmt\Return_) {
+            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_) {
                 return \true;
             }
         }

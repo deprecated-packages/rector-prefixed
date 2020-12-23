@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator;
 
-use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Interface_;
-use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\Trait_;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\PostRector\Collector\NodesToRemoveCollector;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Interface_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToRemoveCollector;
 final class ClassManipulator
 {
     /**
@@ -28,7 +28,7 @@ final class ClassManipulator
      * @var NodesToRemoveCollector
      */
     private $nodesToRemoveCollector;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -38,7 +38,7 @@ final class ClassManipulator
      * @param Class_|Trait_ $classLike
      * @return Name[]
      */
-    public function getUsedTraits(\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    public function getUsedTraits(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $usedTraits = [];
         foreach ($classLike->getTraitUses() as $traitUse) {
@@ -61,8 +61,9 @@ final class ClassManipulator
                 return \true;
             }
         }
-        $implementedInterfaces = \class_implements($class);
+        $implementedInterfaces = (array) \class_implements($class);
         foreach ($implementedInterfaces as $implementedInterface) {
+            /** @var string $implementedInterface */
             if (\method_exists($implementedInterface, $method)) {
                 return \true;
             }
@@ -72,9 +73,9 @@ final class ClassManipulator
     /**
      * @return string[]
      */
-    public function getPrivatePropertyNames(\PhpParser\Node\Stmt\Class_ $class) : array
+    public function getPrivatePropertyNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $privateProperties = \array_filter($class->getProperties(), function (\PhpParser\Node\Stmt\Property $property) : bool {
+        $privateProperties = \array_filter($class->getProperties(), function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool {
             return $property->isPrivate();
         });
         return $this->nodeNameResolver->getNames($privateProperties);
@@ -82,9 +83,9 @@ final class ClassManipulator
     /**
      * @return string[]
      */
-    public function getPublicMethodNames(\PhpParser\Node\Stmt\Class_ $class) : array
+    public function getPublicMethodNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $publicMethods = \array_filter($class->getMethods(), function (\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool {
+        $publicMethods = \array_filter($class->getMethods(), function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool {
             if ($classMethod->isAbstract()) {
                 return \false;
             }
@@ -92,7 +93,7 @@ final class ClassManipulator
         });
         return $this->nodeNameResolver->getNames($publicMethods);
     }
-    public function findPropertyByType(\PhpParser\Node\Stmt\Class_ $class, string $serviceType) : ?\PhpParser\Node\Stmt\Property
+    public function findPropertyByType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $serviceType) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->nodeTypeResolver->isObjectType($property, $serviceType)) {
@@ -105,15 +106,15 @@ final class ClassManipulator
     /**
      * @return string[]
      */
-    public function getImplementedInterfaceNames(\PhpParser\Node\Stmt\Class_ $class) : array
+    public function getImplementedInterfaceNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
     {
         return $this->nodeNameResolver->getNames($class->implements);
     }
-    public function hasInterface(\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface) : bool
+    public function hasInterface(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface) : bool
     {
         return $this->nodeNameResolver->haveName($class->implements, $desiredInterface);
     }
-    public function hasTrait(\PhpParser\Node\Stmt\Class_ $class, string $desiredTrait) : bool
+    public function hasTrait(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $desiredTrait) : bool
     {
         foreach ($class->getTraitUses() as $traitUse) {
             if (!$this->nodeNameResolver->haveName($traitUse->traits, $desiredTrait)) {
@@ -123,33 +124,30 @@ final class ClassManipulator
         }
         return \false;
     }
-    public function replaceTrait(\PhpParser\Node\Stmt\Class_ $class, string $oldTrait, string $newTrait) : void
+    public function replaceTrait(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $oldTrait, string $newTrait) : void
     {
         foreach ($class->getTraitUses() as $traitUse) {
             foreach ($traitUse->traits as $key => $traitTrait) {
                 if (!$this->nodeNameResolver->isName($traitTrait, $oldTrait)) {
                     continue;
                 }
-                $traitUse->traits[$key] = new \PhpParser\Node\Name\FullyQualified($newTrait);
+                $traitUse->traits[$key] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($newTrait);
                 break;
             }
         }
     }
     /**
      * @param Class_|Interface_ $classLike
-     * @return string[]|mixed
+     * @return string[]
      */
-    public function getClassLikeNodeParentInterfaceNames(\PhpParser\Node\Stmt\ClassLike $classLike)
+    public function getClassLikeNodeParentInterfaceNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
-        if ($classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        if ($classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
             return $this->nodeNameResolver->getNames($classLike->implements);
         }
-        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
-            return $this->nodeNameResolver->getNames($classLike->extends);
-        }
-        return [];
+        return $this->nodeNameResolver->getNames($classLike->extends);
     }
-    public function removeInterface(\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface) : void
+    public function removeInterface(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface) : void
     {
         foreach ($class->implements as $implement) {
             if (!$this->nodeNameResolver->isName($implement, $desiredInterface)) {

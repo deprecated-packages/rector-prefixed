@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPStan\Type;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPStan\Type;
 
-use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\Use_;
-use PhpParser\Node\Stmt\UseUse;
-use PHPStan\Type\ObjectType;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-final class AliasedObjectType extends \PHPStan\Type\ObjectType
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+final class AliasedObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType
 {
     /**
      * @var string
@@ -23,12 +23,12 @@ final class AliasedObjectType extends \PHPStan\Type\ObjectType
     {
         return $this->fullyQualifiedClass;
     }
-    public function getUseNode() : \PhpParser\Node\Stmt\Use_
+    public function getUseNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_
     {
-        $name = new \PhpParser\Node\Name($this->fullyQualifiedClass);
-        $useUse = new \PhpParser\Node\Stmt\UseUse($name, $this->getClassName());
-        $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $useUse);
-        return new \PhpParser\Node\Stmt\Use_([$useUse]);
+        $name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name($this->fullyQualifiedClass);
+        $useUse = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse($name, $this->getClassName());
+        $name->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $useUse);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_([$useUse]);
     }
     public function getShortName() : string
     {
@@ -37,7 +37,7 @@ final class AliasedObjectType extends \PHPStan\Type\ObjectType
     /**
      * @param AliasedObjectType|FullyQualifiedObjectType $comparedObjectType
      */
-    public function areShortNamesEqual(\PHPStan\Type\ObjectType $comparedObjectType) : bool
+    public function areShortNamesEqual(\_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType $comparedObjectType) : bool
     {
         return $this->getShortName() === $comparedObjectType->getShortName();
     }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception;
 
 /**
  * Thrown when trying to inject a parameter into a constructor/method with an incompatible type.
@@ -16,13 +16,13 @@ namespace _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Julien Maulny <jmaulny@darkmira.fr>
  */
-class InvalidParameterTypeException extends \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
+class InvalidParameterTypeException extends \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
 {
     public function __construct(string $serviceId, string $type, \ReflectionParameter $parameter)
     {
         $acceptedType = $parameter->getType();
         $acceptedType = $acceptedType instanceof \ReflectionNamedType ? $acceptedType->getName() : (string) $acceptedType;
         $this->code = $type;
-        parent::__construct(\sprintf('Invalid definition for service "%s": argument %d of "%s::%s" accepts "%s", "%s" passed.', $serviceId, 1 + $parameter->getPosition(), $parameter->getDeclaringClass()->getName(), $parameter->getDeclaringFunction()->getName(), $acceptedType, $type));
+        parent::__construct(\sprintf('Invalid definition for service "%s": argument %d of "%s::%s()" accepts "%s", "%s" passed.', $serviceId, 1 + $parameter->getPosition(), $parameter->getDeclaringClass()->getName(), $parameter->getDeclaringFunction()->getName(), $acceptedType, $type));
     }
 }

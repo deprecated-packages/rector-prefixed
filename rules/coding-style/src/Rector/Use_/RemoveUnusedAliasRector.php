@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Rector\Use_;
+namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Use_;
 
-use PhpParser\Node;
-use PhpParser\Node\Name;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Use_;
-use PhpParser\Node\Stmt\UseUse;
-use Rector\CodingStyle\Naming\NameRenamer;
-use Rector\CodingStyle\Node\DocAliasResolver;
-use Rector\CodingStyle\Node\UseManipulator;
-use Rector\CodingStyle\Node\UseNameAliasToNameResolver;
-use Rector\CodingStyle\ValueObject\NameAndParent;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\NameRenamer;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Node\DocAliasResolver;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Node\UseManipulator;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Node\UseNameAliasToNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\ValueObject\NameAndParent;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Use_\RemoveUnusedAliasRector\RemoveUnusedAliasRectorTest
  */
-final class RemoveUnusedAliasRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveUnusedAliasRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var NameAndParent[][]
@@ -50,16 +50,16 @@ final class RemoveUnusedAliasRector extends \Rector\Core\Rector\AbstractRector
      * @var NameRenamer
      */
     private $nameRenamer;
-    public function __construct(\Rector\CodingStyle\Node\DocAliasResolver $docAliasResolver, \Rector\CodingStyle\Node\UseManipulator $useManipulator, \Rector\CodingStyle\Node\UseNameAliasToNameResolver $useNameAliasToNameResolver, \Rector\CodingStyle\Naming\NameRenamer $nameRenamer)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\CodingStyle\Node\DocAliasResolver $docAliasResolver, \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Node\UseManipulator $useManipulator, \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Node\UseNameAliasToNameResolver $useNameAliasToNameResolver, \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\NameRenamer $nameRenamer)
     {
         $this->docAliasResolver = $docAliasResolver;
         $this->useNameAliasToNameResolver = $useNameAliasToNameResolver;
         $this->useManipulator = $useManipulator;
         $this->nameRenamer = $nameRenamer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes unused use aliases. Keep annotation aliases like "Doctrine\\ORM\\Mapping as ORM" to keep convention format', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes unused use aliases. Keep annotation aliases like "Doctrine\\ORM\\Mapping as ORM" to keep convention format', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Kernel as BaseKernel;
 
 class SomeClass extends BaseKernel
@@ -80,12 +80,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Use_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_::class];
     }
     /**
      * @param Use_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->shouldSkipUse($node)) {
             return null;
@@ -121,22 +121,22 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipUse(\PhpParser\Node\Stmt\Use_ $use) : bool
+    private function shouldSkipUse(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_ $use) : bool
     {
         // skip cases without namespace, problematic to analyse
-        $namespace = $use->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
+        $namespace = $use->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
         if ($namespace === null) {
             return \true;
         }
         return !$this->hasUseAlias($use);
     }
-    private function resolveSearchNode(\PhpParser\Node\Stmt\Use_ $use) : ?\PhpParser\Node
+    private function resolveSearchNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_ $use) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $searchNode = $use->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $searchNode = $use->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($searchNode !== null) {
             return $searchNode;
         }
-        return $use->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        return $use->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
     }
     /**
      * @param string[] $values
@@ -160,7 +160,7 @@ CODE_SAMPLE
         // part of some @Doc annotation
         return \in_array($loweredAliasName, $this->resolvedDocPossibleAliases, \true);
     }
-    private function refactorAliasName(string $aliasName, string $lastName, \PhpParser\Node\Stmt\UseUse $useUse) : void
+    private function refactorAliasName(string $aliasName, string $lastName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse $useUse) : void
     {
         // only alias name is used → use last name directly
         $lowerAliasName = \strtolower($aliasName);
@@ -175,7 +175,7 @@ CODE_SAMPLE
         $this->nameRenamer->renameNameNode($this->resolvedNodeNames[$lowerAliasName], $lastName);
         $useUse->alias = null;
     }
-    private function hasUseAlias(\PhpParser\Node\Stmt\Use_ $use) : bool
+    private function hasUseAlias(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_ $use) : bool
     {
         foreach ($use->uses as $useUse) {
             if ($useUse->alias !== null) {

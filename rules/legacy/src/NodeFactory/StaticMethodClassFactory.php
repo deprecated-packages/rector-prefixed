@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Legacy\NodeFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\Legacy\NodeFactory;
 
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
-use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\Core\PhpParser\Builder\ClassBuilder;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ClassBuilder;
 final class StaticMethodClassFactory
 {
     /**
@@ -18,7 +18,7 @@ final class StaticMethodClassFactory
      * @var ClassNaming
      */
     private $classNaming;
-    public function __construct(\Rector\Legacy\NodeFactory\ClassMethodFactory $classMethodFactory, \Rector\CodingStyle\Naming\ClassNaming $classNaming)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Legacy\NodeFactory\ClassMethodFactory $classMethodFactory, \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming $classNaming)
     {
         $this->classMethodFactory = $classMethodFactory;
         $this->classNaming = $classNaming;
@@ -26,9 +26,9 @@ final class StaticMethodClassFactory
     /**
      * @param Function_[] $functions
      */
-    public function createStaticMethodClass(string $shortClassName, array $functions) : \PhpParser\Node\Stmt\Class_
+    public function createStaticMethodClass(string $shortClassName, array $functions) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_
     {
-        $classBuilder = new \Rector\Core\PhpParser\Builder\ClassBuilder($shortClassName);
+        $classBuilder = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ClassBuilder($shortClassName);
         $classBuilder->makeFinal();
         foreach ($functions as $function) {
             $staticClassMethod = $this->createStaticMethod($function);
@@ -36,7 +36,7 @@ final class StaticMethodClassFactory
         }
         return $classBuilder->getNode();
     }
-    private function createStaticMethod(\PhpParser\Node\Stmt\Function_ $function) : \PhpParser\Node\Stmt\ClassMethod
+    private function createStaticMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_ $function) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod
     {
         $methodName = $this->classNaming->createMethodNameFromFunction($function);
         return $this->classMethodFactory->createClassMethodFromFunction($methodName, $function);

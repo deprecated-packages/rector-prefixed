@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector;
 
 use Iterator;
-use Rector\Generic\Rector\ClassMethod\NormalToFluentRector;
-use Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector\Source\FluentInterfaceClass;
-use Rector\Generic\ValueObject\NormalToFluent;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class NormalToFluentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\NormalToFluentRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector\Source\FluentInterfaceClass;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\NormalToFluent;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class NormalToFluentRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class NormalToFluentRectorTest extends \Rector\Testing\PHPUnit\AbstractRec
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::class => [\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::CALLS_TO_FLUENT => [new \Rector\Generic\ValueObject\NormalToFluent(\Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector\Source\FluentInterfaceClass::class, ['someFunction', 'otherFunction', 'joinThisAsWell'])]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::CALLS_TO_FLUENT => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\NormalToFluent(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector\Source\FluentInterfaceClass::class, ['someFunction', 'otherFunction', 'joinThisAsWell'])]]];
     }
 }

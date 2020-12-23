@@ -1,32 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\Rector\FuncCall;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\BinaryOp\BitwiseAnd;
-use PhpParser\Node\Expr\BinaryOp\Identical;
-use PhpParser\Node\Expr\BitwiseNot;
-use PhpParser\Node\Expr\Cast\Bool_;
-use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\LNumber;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BitwiseAnd;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BitwiseNot;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Cast\Bool_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.tomasvotruba.cz/blog/2019/02/07/what-i-learned-by-using-thecodingmachine-safe/#is-there-a-better-way
  *
  * @see \Rector\Nette\Tests\Rector\FuncCall\PregFunctionToNetteUtilsStringsRector\PregFunctionToNetteUtilsStringsRectorTest
  */
-final class PregFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\AbstractRector
+final class PregFunctionToNetteUtilsStringsRector extends \_PhpScoper0a2ac50786fa\Rector\Nette\Rector\FuncCall\AbstractPregToNetteUtilsStringsRector
 {
     /**
      * @var array<string, string>
@@ -37,9 +36,9 @@ final class PregFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\Ab
      * @var string
      */
     private const SLASH_REGEX = '#[^\\\\]\\(#';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare preg_split() and preg_replace() functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare preg_split() and preg_replace() functions', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -68,31 +67,31 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\BinaryOp\Identical::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical::class];
     }
     /**
      * @param FuncCall|Identical $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical) {
             return $this->refactorIdentical($node);
         }
         return $this->refactorFuncCall($node);
     }
-    private function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\Cast\Bool_
+    private function refactorIdentical(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Cast\Bool_
     {
-        $parentNode = $identical->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall) {
+        $parentNode = $identical->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($identical->left instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
             $refactoredFuncCall = $this->refactorFuncCall($identical->left);
             if ($refactoredFuncCall !== null && $this->isValue($identical->right, 1)) {
                 return $this->createBoolCast($parentNode, $refactoredFuncCall);
             }
         }
-        if ($identical->right instanceof \PhpParser\Node\Expr\FuncCall) {
+        if ($identical->right instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
             $refactoredFuncCall = $this->refactorFuncCall($identical->right);
             if ($refactoredFuncCall !== null && $this->isValue($identical->left, 1)) {
-                return new \PhpParser\Node\Expr\Cast\Bool_($refactoredFuncCall);
+                return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Cast\Bool_($refactoredFuncCall);
             }
         }
         return null;
@@ -100,18 +99,16 @@ CODE_SAMPLE
     /**
      * @return FuncCall|StaticCall|Assign|null
      */
-    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
+    private function refactorFuncCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        $oldFunctionNames = \array_keys(self::FUNCTION_NAME_TO_METHOD_NAME);
-        if (!$this->isNames($funcCall, $oldFunctionNames)) {
+        $methodName = $this->matchFuncCallRenameToMethod($funcCall, self::FUNCTION_NAME_TO_METHOD_NAME);
+        if ($methodName === null) {
             return null;
         }
-        $currentFunctionName = $this->getName($funcCall);
-        $methodName = self::FUNCTION_NAME_TO_METHOD_NAME[$currentFunctionName];
         $matchStaticCall = $this->createMatchStaticCall($funcCall, $methodName);
         // skip assigns, might be used with different return value
-        $parentNode = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \PhpParser\Node\Expr\Assign) {
+        $parentNode = $funcCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
             if ($methodName === 'split') {
                 return $this->processSplit($funcCall, $matchStaticCall);
             }
@@ -120,13 +117,14 @@ CODE_SAMPLE
             }
             return null;
         }
+        $currentFunctionName = $this->getName($funcCall);
         // assign
         if (isset($funcCall->args[2]) && $currentFunctionName !== 'preg_replace') {
-            return new \PhpParser\Node\Expr\Assign($funcCall->args[2]->value, $matchStaticCall);
+            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($funcCall->args[2]->value, $matchStaticCall);
         }
         return $matchStaticCall;
     }
-    private function createMatchStaticCall(\PhpParser\Node\Expr\FuncCall $funcCall, string $methodName) : \PhpParser\Node\Expr\StaticCall
+    private function createMatchStaticCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall, string $methodName) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall
     {
         $args = [];
         if ($methodName === 'replace') {
@@ -137,12 +135,12 @@ CODE_SAMPLE
             $args[] = $funcCall->args[1];
             $args[] = $funcCall->args[0];
         }
-        return $this->createStaticCall('_PhpScoperabd03f0baf05\\Nette\\Utils\\Strings', $methodName, $args);
+        return $this->createStaticCall('_PhpScoper0a2ac50786fa\\Nette\\Utils\\Strings', $methodName, $args);
     }
     /**
      * @return FuncCall|StaticCall
      */
-    private function processSplit(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\StaticCall $matchStaticCall) : \PhpParser\Node\Expr
+    private function processSplit(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $matchStaticCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
         $matchStaticCall = $this->compensateNetteUtilsSplitDelimCapture($matchStaticCall);
         if (!isset($funcCall->args[2])) {
@@ -159,19 +157,19 @@ CODE_SAMPLE
     /**
      * Handles https://github.com/rectorphp/rector/issues/2348
      */
-    private function compensateNetteUtilsSplitDelimCapture(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node\Expr\StaticCall
+    private function compensateNetteUtilsSplitDelimCapture(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall
     {
         $patternValue = $this->getValue($staticCall->args[1]->value);
         if (!\is_string($patternValue)) {
             return $staticCall;
         }
-        $match = \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($patternValue, self::SLASH_REGEX);
+        $match = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($patternValue, self::SLASH_REGEX);
         if ($match === null) {
             return $staticCall;
         }
-        $constFetch = new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PREG_SPLIT_DELIM_CAPTURE'));
-        $bitwiseAnd = new \PhpParser\Node\Expr\BinaryOp\BitwiseAnd(new \PhpParser\Node\Scalar\LNumber(0), new \PhpParser\Node\Expr\BitwiseNot($constFetch));
-        $staticCall->args[2] = new \PhpParser\Node\Arg($bitwiseAnd);
+        $constFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('PREG_SPLIT_DELIM_CAPTURE'));
+        $bitwiseAnd = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BitwiseAnd(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber(0), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BitwiseNot($constFetch));
+        $staticCall->args[2] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($bitwiseAnd);
         return $staticCall;
     }
 }

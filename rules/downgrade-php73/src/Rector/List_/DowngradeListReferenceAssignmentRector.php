@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp73\Rector\List_;
+namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp73\Rector\List_;
 
-use PhpParser\BuilderHelpers;
-use PhpParser\Node;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\AssignRef;
-use PhpParser\Node\Expr\List_;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Scalar\LNumber;
-use PhpParser\Node\Scalar\String_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignRef;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\List_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/list_reference_assignment
  * @see \Rector\DowngradePhp73\Tests\Rector\List_\DowngradeListReferenceAssignmentRector\DowngradeListReferenceAssignmentRectorTest
  */
-final class DowngradeListReferenceAssignmentRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeListReferenceAssignmentRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
@@ -32,9 +32,9 @@ final class DowngradeListReferenceAssignmentRector extends \Rector\Core\Rector\A
      * @var int
      */
     private const ANY = 1;
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert the list reference assignment to its equivalent PHP 7.2 code', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert the list reference assignment to its equivalent PHP 7.2 code', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($string)
@@ -73,19 +73,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\List_::class, \PhpParser\Node\Expr\Array_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\List_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_::class];
     }
     /**
      * @param List_|Array_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->shouldRefactor($node)) {
             return null;
         }
         // Get all the params passed by reference
         /** @var Assign */
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         /** @var Variable */
         $exprVariable = $parentNode->expr;
         // Count number of params by ref on the right side, to remove them later on
@@ -103,13 +103,13 @@ CODE_SAMPLE
      * @param List_|Array_ $node
      * @return List_|Array_|null
      */
-    public function removeStaleParams(\PhpParser\Node $node, int $rightSideRemovableParamsCount) : ?\PhpParser\Node
+    public function removeStaleParams(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, int $rightSideRemovableParamsCount) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $nodeItemsCount = \count($node->items);
+        $nodeItemsCount = \count((array) $node->items);
         if ($rightSideRemovableParamsCount === $nodeItemsCount) {
             // Remove the parent Assign node
             /** @var Assign */
-            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             $this->removeNode($parentNode);
             return null;
         }
@@ -121,11 +121,11 @@ CODE_SAMPLE
     /**
      * @param List_|Array_ $node
      */
-    private function shouldRefactor(\PhpParser\Node $node) : bool
+    private function shouldRefactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // Check it follows `list(...) = $foo`
-        if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $parentNode->var === $node && $parentNode->expr instanceof \PhpParser\Node\Expr\Variable) {
+        if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign && $parentNode->var === $node && $parentNode->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
             return $this->hasAnyItemByRef($node->items);
         }
         return \false;
@@ -141,20 +141,20 @@ CODE_SAMPLE
         $count = 0;
         $listItemsCount = \count($listItems);
         // Start from the end => right-side-most params
-        for ($i = $listItemsCount - 1; $i >= 0; $i--) {
+        for ($i = $listItemsCount - 1; $i >= 0; --$i) {
             $listItem = $listItems[$i];
             // Also include null items, since they can be removed
             if ($listItem === null || $listItem->byRef) {
-                $count++;
+                ++$count;
                 continue;
             }
             // If it is a nested list, check if all its items are by reference
-            $isNested = $listItem->value instanceof \PhpParser\Node\Expr\List_ || $listItem->value instanceof \PhpParser\Node\Expr\Array_;
+            $isNested = $listItem->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\List_ || $listItem->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
             if ($isNested) {
                 /** @var List_|Array_ */
                 $nestedList = $listItem->value;
                 if ($this->hasAllItemsByRef($nestedList->items)) {
-                    $count++;
+                    ++$count;
                     continue;
                 }
             }
@@ -168,7 +168,7 @@ CODE_SAMPLE
      * @param (int|string)[] $nestedArrayIndexes
      * @return AssignRef[]
      */
-    private function createAssignRefArrayFromListReferences(array $listItems, \PhpParser\Node\Expr\Variable $exprVariable, array $nestedArrayIndexes) : array
+    private function createAssignRefArrayFromListReferences(array $listItems, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $exprVariable, array $nestedArrayIndexes) : array
     {
         // After filtering, their original position is kept in the array
         $newNodes = [];
@@ -176,20 +176,19 @@ CODE_SAMPLE
             if ($listItem === null) {
                 continue;
             }
-            // If it's a variable by value, not by reference, then skip
-            if ($listItem->value instanceof \PhpParser\Node\Expr\Variable && !$listItem->byRef) {
+            if ($listItem->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable && !$listItem->byRef) {
                 continue;
             }
             // Access the key, if provided, or the position otherwise
             $key = $this->getArrayItemKey($listItem, $position);
             // Either the item is a variable, or a nested list
-            if ($listItem->value instanceof \PhpParser\Node\Expr\Variable) {
+            if ($listItem->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
                 /** @var Variable */
                 $itemVariable = $listItem->value;
                 // Remove the reference in the present node
                 $listItem->byRef = \false;
                 // In its place, assign the value by reference on a new node
-                $assignVariable = new \PhpParser\Node\Expr\Variable($itemVariable->name);
+                $assignVariable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($itemVariable->name);
                 $newNodes[] = $this->createAssignRefWithArrayDimFetch($assignVariable, $exprVariable, $nestedArrayIndexes, $key);
                 continue;
             }
@@ -228,9 +227,9 @@ CODE_SAMPLE
      * @param int|string $position
      * @return int|string
      */
-    private function getArrayItemKey(\PhpParser\Node\Expr\ArrayItem $arrayItem, $position)
+    private function getArrayItemKey(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem $arrayItem, $position)
     {
-        if ($arrayItem->key !== null && ($arrayItem->key instanceof \PhpParser\Node\Scalar\String_ || $arrayItem->key instanceof \PhpParser\Node\Scalar\LNumber)) {
+        if ($arrayItem->key !== null && ($arrayItem->key instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_ || $arrayItem->key instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber)) {
             return $arrayItem->key->value;
         }
         return $position;
@@ -240,16 +239,16 @@ CODE_SAMPLE
      * @param (string|int)[] $nestedArrayIndexes The path to build nested lists
      * @param string|int $arrayIndex
      */
-    private function createAssignRefWithArrayDimFetch(\PhpParser\Node\Expr\Variable $assignVariable, \PhpParser\Node\Expr\Variable $exprVariable, array $nestedArrayIndexes, $arrayIndex) : \PhpParser\Node\Expr\AssignRef
+    private function createAssignRefWithArrayDimFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $assignVariable, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $exprVariable, array $nestedArrayIndexes, $arrayIndex) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignRef
     {
         $nestedExprVariable = $exprVariable;
         foreach ($nestedArrayIndexes as $nestedArrayIndex) {
-            $nestedArrayIndexDim = \PhpParser\BuilderHelpers::normalizeValue($nestedArrayIndex);
-            $nestedExprVariable = new \PhpParser\Node\Expr\ArrayDimFetch($nestedExprVariable, $nestedArrayIndexDim);
+            $nestedArrayIndexDim = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeValue($nestedArrayIndex);
+            $nestedExprVariable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch($nestedExprVariable, $nestedArrayIndexDim);
         }
-        $dim = \PhpParser\BuilderHelpers::normalizeValue($arrayIndex);
-        $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($nestedExprVariable, $dim);
-        return new \PhpParser\Node\Expr\AssignRef($assignVariable, $arrayDimFetch);
+        $dim = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeValue($arrayIndex);
+        $arrayDimFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch($nestedExprVariable, $dim);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignRef($assignVariable, $arrayDimFetch);
     }
     /**
      * @param (ArrayItem|null)[] $items
@@ -258,7 +257,7 @@ CODE_SAMPLE
     private function getItemsByRef(array $items, int $condition) : array
     {
         /** @var ArrayItem[] */
-        return \array_filter(\array_map(function (?\PhpParser\Node\Expr\ArrayItem $item) use($condition) : ?ArrayItem {
+        return \array_filter(\array_map(function (?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem $item) use($condition) : ?ArrayItem {
             return $this->getItemByRefOrNull($item, $condition);
         }, $items));
     }
@@ -268,7 +267,7 @@ CODE_SAMPLE
      * return the same item.
      * Otherwise, return null
      */
-    private function getItemByRefOrNull(?\PhpParser\Node\Expr\ArrayItem $arrayItem, int $condition) : ?\PhpParser\Node\Expr\ArrayItem
+    private function getItemByRefOrNull(?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem $arrayItem, int $condition) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem
     {
         if ($this->isItemByRef($arrayItem, $condition)) {
             return $arrayItem;
@@ -279,13 +278,13 @@ CODE_SAMPLE
      * Indicate if the item is a variable by reference,
      * or a nested list containing variables by reference
      */
-    private function isItemByRef(?\PhpParser\Node\Expr\ArrayItem $arrayItem, int $condition) : bool
+    private function isItemByRef(?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem $arrayItem, int $condition) : bool
     {
         if ($arrayItem === null) {
             return \false;
         }
         // Check if the item is a nested list/nested array destructuring
-        $isNested = $arrayItem->value instanceof \PhpParser\Node\Expr\List_ || $arrayItem->value instanceof \PhpParser\Node\Expr\Array_;
+        $isNested = $arrayItem->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\List_ || $arrayItem->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
         if ($isNested) {
             // Recursive call
             /** @var List_|Array_ */
@@ -296,6 +295,9 @@ CODE_SAMPLE
             // $condition === self::ANY
             return $this->hasAnyItemByRef($nestedList->items);
         }
-        return $arrayItem->value instanceof \PhpParser\Node\Expr\Variable && $arrayItem->byRef;
+        if (!$arrayItem->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+            return \false;
+        }
+        return $arrayItem->byRef;
     }
 }

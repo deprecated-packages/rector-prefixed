@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
 
 use Iterator;
-use Rector\Generic\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class FormerNullableArgumentToScalarTypedRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class FormerNullableArgumentToScalarTypedRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class FormerNullableArgumentToScalarTypedRectorTest extends \Rector\Testin
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Generic\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Generic\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector::class;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Application\FileSystem;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem;
 
-use Rector\Core\Configuration\Configuration;
-use Rector\Core\Exception\NotImplementedYetException;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter;
-use Rector\FileSystemRector\Contract\MovedFileInterface;
-use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
-use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedYetException;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter;
+use _PhpScoper0a2ac50786fa\Rector\FileSystemRector\Contract\MovedFileInterface;
+use _PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\MovedFileWithContent;
+use _PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Adds and removes scheduled file
  */
@@ -42,7 +42,7 @@ final class RemovedAndAddedFilesProcessor
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter, \_PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->configuration = $configuration;
@@ -79,7 +79,7 @@ final class RemovedAndAddedFilesProcessor
     private function processMovedFiles() : void
     {
         foreach ($this->removedAndAddedFilesCollector->getMovedFiles() as $movedFile) {
-            if ($this->configuration->isDryRun() && !\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            if ($this->configuration->isDryRun() && !\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
                 $this->printFileMoveWarning($movedFile, 'will be');
             } else {
                 $this->printFileMoveWarning($movedFile, 'was');
@@ -116,19 +116,19 @@ final class RemovedAndAddedFilesProcessor
             }
         }
     }
-    private function printFileMoveWarning(\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile, string $verb) : void
+    private function printFileMoveWarning(\_PhpScoper0a2ac50786fa\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile, string $verb) : void
     {
         $message = \sprintf('File "%s" %s moved to "%s"', $movedFile->getOldPathname(), $verb, $movedFile->getNewPathname());
         $this->symfonyStyle->warning($message);
     }
-    private function resolveFileContentFromMovedFile(\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : string
+    private function resolveFileContentFromMovedFile(\_PhpScoper0a2ac50786fa\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : string
     {
-        if ($movedFile instanceof \Rector\FileSystemRector\ValueObject\MovedFileWithContent) {
+        if ($movedFile instanceof \_PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\MovedFileWithContent) {
             return $movedFile->getFileContent();
         }
-        if ($movedFile instanceof \Rector\FileSystemRector\ValueObject\MovedFileWithNodes) {
+        if ($movedFile instanceof \_PhpScoper0a2ac50786fa\Rector\FileSystemRector\ValueObject\MovedFileWithNodes) {
             return $this->betterStandardPrinter->prettyPrintFile($movedFile->getNodes());
         }
-        throw new \Rector\Core\Exception\NotImplementedYetException(\get_class($movedFile));
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedYetException(\get_class($movedFile));
     }
 }

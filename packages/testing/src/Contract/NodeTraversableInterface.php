@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Testing\Contract;
+namespace _PhpScoper0a2ac50786fa\Rector\Testing\Contract;
 
-use PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
 interface NodeTraversableInterface
 {
     /**

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Defluent\Tests\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Defluent\Tests\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector;
 
 use Iterator;
-use Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class FluentChainMethodCallToNormalMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class FluentChainMethodCallToNormalMethodCallRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class FluentChainMethodCallToNormalMethodCallRectorTest extends \Rector\Te
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector::class;
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source;
 
 final class MyClassFactory
 {
-    public function create(string $argument) : \Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClass
+    public function create(string $argument) : \_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClass
     {
-        return new \Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClass($argument);
+        return new \_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\Source\MyClass($argument);
     }
 }

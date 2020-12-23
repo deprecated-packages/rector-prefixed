@@ -8,21 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Cache\DependencyInjection;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Cache\DependencyInjection;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\AbstractAdapter;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\ArrayAdapter;
-use _PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\ChainAdapter;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ChildDefinition;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Reference;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\AbstractAdapter;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\ArrayAdapter;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\ChainAdapter;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\ParameterNormalizer;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Messenger\EarlyExpirationDispatcher;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ChildDefinition;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class CachePoolPass implements \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class CachePoolPass implements \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $cachePoolTag;
     private $kernelResetTag;
@@ -30,7 +32,10 @@ class CachePoolPass implements \_PhpScoperabd03f0baf05\Symfony\Component\Depende
     private $cachePoolClearerTag;
     private $cacheSystemClearerId;
     private $cacheSystemClearerTag;
-    public function __construct(string $cachePoolTag = 'cache.pool', string $kernelResetTag = 'kernel.reset', string $cacheClearerId = 'cache.global_clearer', string $cachePoolClearerTag = 'cache.pool.clearer', string $cacheSystemClearerId = 'cache.system_clearer', string $cacheSystemClearerTag = 'kernel.cache_clearer')
+    private $reverseContainerId;
+    private $reversibleTag;
+    private $messageHandlerId;
+    public function __construct(string $cachePoolTag = 'cache.pool', string $kernelResetTag = 'kernel.reset', string $cacheClearerId = 'cache.global_clearer', string $cachePoolClearerTag = 'cache.pool.clearer', string $cacheSystemClearerId = 'cache.system_clearer', string $cacheSystemClearerTag = 'kernel.cache_clearer', string $reverseContainerId = 'reverse_container', string $reversibleTag = 'container.reversible', string $messageHandlerId = 'cache.early_expiration_handler')
     {
         $this->cachePoolTag = $cachePoolTag;
         $this->kernelResetTag = $kernelResetTag;
@@ -38,28 +43,32 @@ class CachePoolPass implements \_PhpScoperabd03f0baf05\Symfony\Component\Depende
         $this->cachePoolClearerTag = $cachePoolClearerTag;
         $this->cacheSystemClearerId = $cacheSystemClearerId;
         $this->cacheSystemClearerTag = $cacheSystemClearerTag;
+        $this->reverseContainerId = $reverseContainerId;
+        $this->reversibleTag = $reversibleTag;
+        $this->messageHandlerId = $messageHandlerId;
     }
     /**
      * {@inheritdoc}
      */
-    public function process(\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if ($container->hasParameter('cache.prefix.seed')) {
-            $seed = '.' . $container->getParameterBag()->resolveValue($container->getParameter('cache.prefix.seed'));
+            $seed = $container->getParameterBag()->resolveValue($container->getParameter('cache.prefix.seed'));
         } else {
             $seed = '_' . $container->getParameter('kernel.project_dir');
+            $seed .= '.' . $container->getParameter('kernel.container_class');
         }
-        $seed .= '.' . $container->getParameter('kernel.container_class');
+        $needsMessageHandler = \false;
         $allPools = [];
         $clearers = [];
-        $attributes = ['provider', 'name', 'namespace', 'default_lifetime', 'reset'];
+        $attributes = ['provider', 'name', 'namespace', 'default_lifetime', 'early_expiration_message_bus', 'reset'];
         foreach ($container->findTaggedServiceIds($this->cachePoolTag) as $id => $tags) {
             $adapter = $pool = $container->getDefinition($id);
             if ($pool->isAbstract()) {
                 continue;
             }
             $class = $adapter->getClass();
-            while ($adapter instanceof \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ChildDefinition) {
+            while ($adapter instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ChildDefinition) {
                 $adapter = $container->findDefinition($adapter->getParent());
                 $class = $class ?: $adapter->getClass();
                 if ($t = $adapter->getTag($this->cachePoolTag)) {
@@ -84,33 +93,33 @@ class CachePoolPass implements \_PhpScoperabd03f0baf05\Symfony\Component\Depende
             }
             unset($tags[0]['clearer'], $tags[0]['name']);
             if (isset($tags[0]['provider'])) {
-                $tags[0]['provider'] = new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Reference(static::getServiceProvider($container, $tags[0]['provider']));
+                $tags[0]['provider'] = new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Reference(static::getServiceProvider($container, $tags[0]['provider']));
             }
-            if (\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\ChainAdapter::class === $class) {
+            if (\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\ChainAdapter::class === $class) {
                 $adapters = [];
                 foreach ($adapter->getArgument(0) as $provider => $adapter) {
-                    if ($adapter instanceof \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ChildDefinition) {
+                    if ($adapter instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ChildDefinition) {
                         $chainedPool = $adapter;
                     } else {
-                        $chainedPool = $adapter = new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ChildDefinition($adapter);
+                        $chainedPool = $adapter = new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ChildDefinition($adapter);
                     }
                     $chainedTags = [\is_int($provider) ? [] : ['provider' => $provider]];
                     $chainedClass = '';
-                    while ($adapter instanceof \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ChildDefinition) {
+                    while ($adapter instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ChildDefinition) {
                         $adapter = $container->findDefinition($adapter->getParent());
                         $chainedClass = $chainedClass ?: $adapter->getClass();
                         if ($t = $adapter->getTag($this->cachePoolTag)) {
                             $chainedTags[0] += $t[0];
                         }
                     }
-                    if (\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\ChainAdapter::class === $chainedClass) {
-                        throw new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": chain of adapters cannot reference another chain, found "%s".', $id, $chainedPool->getParent()));
+                    if (\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\ChainAdapter::class === $chainedClass) {
+                        throw new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": chain of adapters cannot reference another chain, found "%s".', $id, $chainedPool->getParent()));
                     }
                     $i = 0;
                     if (isset($chainedTags[0]['provider'])) {
-                        $chainedPool->replaceArgument($i++, new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Reference(static::getServiceProvider($container, $chainedTags[0]['provider'])));
+                        $chainedPool->replaceArgument($i++, new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Reference(static::getServiceProvider($container, $chainedTags[0]['provider'])));
                     }
-                    if (isset($tags[0]['namespace']) && \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\ArrayAdapter::class !== $adapter->getClass()) {
+                    if (isset($tags[0]['namespace']) && \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\ArrayAdapter::class !== $adapter->getClass()) {
                         $chainedPool->replaceArgument($i++, $tags[0]['namespace']);
                     }
                     if (isset($tags[0]['default_lifetime'])) {
@@ -131,18 +140,29 @@ class CachePoolPass implements \_PhpScoperabd03f0baf05\Symfony\Component\Depende
                     if ($tags[0][$attr]) {
                         $pool->addTag($this->kernelResetTag, ['method' => $tags[0][$attr]]);
                     }
-                } elseif ('namespace' !== $attr || \_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\ArrayAdapter::class !== $class) {
-                    $pool->replaceArgument($i++, $tags[0][$attr]);
+                } elseif ('early_expiration_message_bus' === $attr) {
+                    $needsMessageHandler = \true;
+                    $pool->addMethodCall('setCallbackWrapper', [(new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition(\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Messenger\EarlyExpirationDispatcher::class))->addArgument(new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Reference($tags[0]['early_expiration_message_bus']))->addArgument(new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Reference($this->reverseContainerId))->addArgument((new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition('callable'))->setFactory([new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Reference($id), 'setCallbackWrapper'])->addArgument(null))]);
+                    $pool->addTag($this->reversibleTag);
+                } elseif ('namespace' !== $attr || \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\ArrayAdapter::class !== $class) {
+                    $argument = $tags[0][$attr];
+                    if ('default_lifetime' === $attr && !\is_numeric($argument)) {
+                        $argument = (new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition('int', [$argument]))->setFactory([\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\ParameterNormalizer::class, 'normalizeDuration']);
+                    }
+                    $pool->replaceArgument($i++, $argument);
                 }
                 unset($tags[0][$attr]);
             }
             if (!empty($tags[0])) {
-                throw new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid "%s" tag for service "%s": accepted attributes are "clearer", "provider", "name", "namespace", "default_lifetime" and "reset", found "%s".', $this->cachePoolTag, $id, \implode('", "', \array_keys($tags[0]))));
+                throw new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid "%s" tag for service "%s": accepted attributes are "clearer", "provider", "name", "namespace", "default_lifetime", "early_expiration_message_bus" and "reset", found "%s".', $this->cachePoolTag, $id, \implode('", "', \array_keys($tags[0]))));
             }
             if (null !== $clearer) {
-                $clearers[$clearer][$name] = new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
+                $clearers[$clearer][$name] = new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
             }
-            $allPools[$name] = new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
+            $allPools[$name] = new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
+        }
+        if (!$needsMessageHandler) {
+            $container->removeDefinition($this->messageHandlerId);
         }
         $notAliasedCacheClearerId = $this->cacheClearerId;
         while ($container->hasAlias($this->cacheClearerId)) {
@@ -153,7 +173,7 @@ class CachePoolPass implements \_PhpScoperabd03f0baf05\Symfony\Component\Depende
         }
         foreach ($clearers as $id => $pools) {
             $clearer = $container->getDefinition($id);
-            if ($clearer instanceof \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ChildDefinition) {
+            if ($clearer instanceof \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ChildDefinition) {
                 $clearer->replaceArgument(0, $pools);
             } else {
                 $clearer->setArgument(0, $pools);
@@ -174,15 +194,15 @@ class CachePoolPass implements \_PhpScoperabd03f0baf05\Symfony\Component\Depende
     /**
      * @internal
      */
-    public static function getServiceProvider(\_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder $container, $name)
+    public static function getServiceProvider(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder $container, $name)
     {
         $container->resolveEnvPlaceholders($name, null, $usedEnvs);
         if ($usedEnvs || \preg_match('#^[a-z]++:#', $name)) {
             $dsn = $name;
-            if (!$container->hasDefinition($name = '.cache_connection.' . \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\ContainerBuilder::hash($dsn))) {
-                $definition = new \_PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Definition(\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\AbstractAdapter::class);
+            if (!$container->hasDefinition($name = '.cache_connection.' . \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder::hash($dsn))) {
+                $definition = new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition(\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\AbstractAdapter::class);
                 $definition->setPublic(\false);
-                $definition->setFactory([\_PhpScoperabd03f0baf05\Symfony\Component\Cache\Adapter\AbstractAdapter::class, 'createConnection']);
+                $definition->setFactory([\_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Adapter\AbstractAdapter::class, 'createConnection']);
                 $definition->setArguments([$dsn, ['lazy' => \true]]);
                 $container->setDefinition($name, $definition);
             }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\Tests\Rector\FuncCall\FilePutContentsToFileSystemWriteRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\Tests\Rector\FuncCall\FilePutContentsToFileSystemWriteRector;
 
 use Iterator;
-use Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class FilePutContentsToFileSystemWriteRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class FilePutContentsToFileSystemWriteRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class FilePutContentsToFileSystemWriteRectorTest extends \Rector\Testing\P
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector::class;
     }
 }

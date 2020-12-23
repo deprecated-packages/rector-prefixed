@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperabd03f0baf05;
+namespace _PhpScoper0a2ac50786fa;
 
-use Rector\Symfony\Rector\BinaryOp\ResponseStatusCodeRector;
-use Rector\Symfony\Rector\Class_\MakeCommandLazyRector;
-use Rector\SymfonyCodeQuality\Rector\Class_\EventListenerToEventSubscriberRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper0a2ac50786fa\Rector\Symfony\Rector\BinaryOp\ResponseStatusCodeRector;
+use _PhpScoper0a2ac50786fa\Rector\Symfony\Rector\Class_\MakeCommandLazyRector;
+use _PhpScoper0a2ac50786fa\Rector\SymfonyCodeQuality\Rector\Class_\EventListenerToEventSubscriberRector;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Symfony\Rector\BinaryOp\ResponseStatusCodeRector::class);
-    $services->set(\Rector\Symfony\Rector\Class_\MakeCommandLazyRector::class);
-    $services->set(\Rector\SymfonyCodeQuality\Rector\Class_\EventListenerToEventSubscriberRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Symfony\Rector\BinaryOp\ResponseStatusCodeRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\Symfony\Rector\Class_\MakeCommandLazyRector::class);
+    $services->set(\_PhpScoper0a2ac50786fa\Rector\SymfonyCodeQuality\Rector\Class_\EventListenerToEventSubscriberRector::class);
 };

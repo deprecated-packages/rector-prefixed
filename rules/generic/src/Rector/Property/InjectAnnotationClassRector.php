@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Rector\Property;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Property;
 
-use _PhpScoperabd03f0baf05\DI\Annotation\Inject as PHPDIInject;
-use _PhpScoperabd03f0baf05\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Property;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode;
-use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Exception\NotImplementedException;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Symfony\ServiceMapProvider;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\DI\Annotation\Inject as PHPDIInject;
+use _PhpScoper0a2ac50786fa\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\Symfony\ServiceMapProvider;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://jmsyst.com/bundles/JMSDiExtraBundle/master/annotations#inject
  *
  * @see \Rector\Generic\Tests\Rector\Property\InjectAnnotationClassRector\InjectAnnotationClassRectorTest
  */
-final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class InjectAnnotationClassRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -40,7 +40,7 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var array<string, string>
      */
-    private const ANNOTATION_TO_TAG_CLASS = [\_PhpScoperabd03f0baf05\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \_PhpScoperabd03f0baf05\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
+    private const ANNOTATION_TO_TAG_CLASS = [\_PhpScoper0a2ac50786fa\DI\Annotation\Inject::class => \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \_PhpScoper0a2ac50786fa\JMS\DiExtraBundle\Annotation\Inject::class => \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
     /**
      * @var string
      * @see https://regex101.com/r/pjusUN/1
@@ -58,14 +58,14 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
      * @var ServiceMapProvider
      */
     private $serviceMapProvider;
-    public function __construct(\Rector\Symfony\ServiceMapProvider $serviceMapProvider, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Symfony\ServiceMapProvider $serviceMapProvider, \_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
     {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->serviceMapProvider = $serviceMapProvider;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes properties with specified annotations class to constructor injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes properties with specified annotations class to constructor injection', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 use JMS\DiExtraBundle\Annotation as DI;
 
 class SomeController
@@ -92,22 +92,22 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, [self::ANNOTATION_CLASSES => [\_PhpScoperabd03f0baf05\DI\Annotation\Inject::class, \_PhpScoperabd03f0baf05\JMS\DiExtraBundle\Annotation\Inject::class]])]);
+, [self::ANNOTATION_CLASSES => [\_PhpScoper0a2ac50786fa\DI\Annotation\Inject::class, \_PhpScoper0a2ac50786fa\JMS\DiExtraBundle\Annotation\Inject::class]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param Property $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        $phpDocInfo = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
         foreach ($this->annotationClasses as $annotationClass) {
@@ -134,59 +134,56 @@ CODE_SAMPLE
         if (isset(self::ANNOTATION_TO_TAG_CLASS[$annotationClass])) {
             return;
         }
-        throw new \Rector\Core\Exception\NotImplementedException(\sprintf('Annotation class "%s" is not implemented yet. Use one of "%s" or add custom tag for it to Rector.', $annotationClass, \implode('", "', \array_keys(self::ANNOTATION_TO_TAG_CLASS))));
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException(\sprintf('Annotation class "%s" is not implemented yet. Use one of "%s" or add custom tag for it to Rector.', $annotationClass, \implode('", "', \array_keys(self::ANNOTATION_TO_TAG_CLASS))));
     }
-    private function isParameterInject(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : bool
+    private function isParameterInject(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : bool
     {
-        if (!$phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode) {
+        if (!$phpDocTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode) {
             return \false;
         }
         $serviceName = $phpDocTagValueNode->getServiceName();
         if ($serviceName === null) {
             return \false;
         }
-        return (bool) \_PhpScoperabd03f0baf05\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
+        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
     }
-    private function resolveType(\PhpParser\Node $node, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
+    private function resolveType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
-        if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode) {
-            return $this->resolveJMSDIInjectType($node, $phpDocTagValueNode);
+        if ($phpDocTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode) {
+            return $this->resolveJMSDIInjectType($property, $phpDocTagValueNode);
         }
-        if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode) {
+        if ($phpDocTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode) {
             /** @var PhpDocInfo $phpDocInfo */
-            $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             return $phpDocInfo->getVarType();
         }
-        throw new \Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
     }
-    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, string $tagClass) : ?\PhpParser\Node\Stmt\Property
+    private function refactorPropertyWithAnnotation(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, string $tagClass) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
     {
-        if ($type instanceof \PHPStan\Type\MixedType) {
+        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
             return null;
         }
-        $name = $this->getName($property);
-        if ($name === null) {
-            return null;
-        }
+        $propertyName = $this->getName($property);
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $phpDocInfo->changeVarType($type);
         $phpDocInfo->removeByType($tagClass);
-        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        $classLike = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
+            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $this->addConstructorDependencyToClass($classLike, $type, $name);
+        $this->addConstructorDependencyToClass($classLike, $type, $propertyName);
         return $property;
     }
-    private function resolveJMSDIInjectType(\PhpParser\Node $node, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode $jmsInjectTagValueNode) : \PHPStan\Type\Type
+    private function resolveJMSDIInjectType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode $jmsInjectTagValueNode) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         $serviceMap = $this->serviceMapProvider->provide();
         $serviceName = $jmsInjectTagValueNode->getServiceName();
         if ($serviceName) {
-            // 1. service class
             if (\class_exists($serviceName)) {
-                return new \PHPStan\Type\ObjectType($serviceName);
+                // single class service
+                return new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($serviceName);
             }
             // 2. service name
             if ($serviceMap->hasService($serviceName)) {
@@ -198,22 +195,22 @@ CODE_SAMPLE
         }
         // 3. service is in @var annotation
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $varType = $phpDocInfo->getVarType();
-        if (!$varType instanceof \PHPStan\Type\MixedType) {
+        if (!$varType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
             return $varType;
         }
         // the @var is missing and service name was not found → report it
-        $this->reportServiceNotFound($serviceName, $node);
-        return new \PHPStan\Type\MixedType();
+        $this->reportServiceNotFound($serviceName, $property);
+        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
     }
-    private function reportServiceNotFound(?string $serviceName, \PhpParser\Node $node) : void
+    private function reportServiceNotFound(?string $serviceName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : void
     {
         if ($serviceName !== null) {
             return;
         }
         /** @var SmartFileInfo $fileInfo */
-        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $fileInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         $errorMessage = \sprintf('Service "%s" was not found in DI Container of your Symfony App.', $serviceName);
         $this->errorAndDiffCollector->addErrorWithRectorClassMessageAndFileInfo(self::class, $errorMessage, $fileInfo);
     }

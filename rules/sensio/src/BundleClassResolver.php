@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Sensio;
+namespace _PhpScoper0a2ac50786fa\Rector\Sensio;
 
-use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\NameResolver;
-use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Parser\Parser;
-use Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeTraverser;
+use _PhpScoper0a2ac50786fa\PhpParser\NodeVisitor\NameResolver;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser\Parser;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 use ReflectionClass;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
 final class BundleClassResolver
 {
     /**
@@ -30,7 +30,7 @@ final class BundleClassResolver
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Parser\Parser $parser)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser\Parser $parser)
     {
         $this->parser = $parser;
         $this->betterNodeFinder = $betterNodeFinder;
@@ -66,7 +66,7 @@ final class BundleClassResolver
     }
     private function resolveClassNameFromFilePath(string $filePath) : ?string
     {
-        $fileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($filePath);
+        $fileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($filePath);
         $nodes = $this->parser->parseFileInfo($fileInfo);
         $this->addFullyQualifiedNamesToNodes($nodes);
         $class = $this->betterNodeFinder->findFirstNonAnonymousClass($nodes);
@@ -80,8 +80,8 @@ final class BundleClassResolver
      */
     private function addFullyQualifiedNamesToNodes(array $nodes) : void
     {
-        $nodeTraverser = new \PhpParser\NodeTraverser();
-        $nameResolver = new \PhpParser\NodeVisitor\NameResolver();
+        $nodeTraverser = new \_PhpScoper0a2ac50786fa\PhpParser\NodeTraverser();
+        $nameResolver = new \_PhpScoper0a2ac50786fa\PhpParser\NodeVisitor\NameResolver();
         $nodeTraverser->addVisitor($nameResolver);
         $nodeTraverser->traverse($nodes);
     }

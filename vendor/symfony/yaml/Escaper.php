@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\Yaml;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\Yaml;
 
 /**
  * Escaper encapsulates escaping rules for single and double-quoted
@@ -21,7 +21,7 @@ namespace _PhpScoperabd03f0baf05\Symfony\Component\Yaml;
 class Escaper
 {
     // Characters that would cause a dumped string to require double quoting.
-    const REGEX_CHARACTER_TO_ESCAPE = "[\\x00-\\x1f]||| | | ";
+    public const REGEX_CHARACTER_TO_ESCAPE = "[\\x00-\\x1f]||| | | ";
     // Mapping arrays for escaping a double quoted string. The backslash is
     // first to ensure proper escaping because str_replace operates iteratively
     // on the input arrays. This ordering of the characters avoids the use of strtr,

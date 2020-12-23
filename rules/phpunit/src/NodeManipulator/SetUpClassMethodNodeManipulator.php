@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\NodeManipulator;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\NodeManipulator;
 
-use PhpParser\Node\Expr;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\Class_;
-use Rector\Core\ValueObject\MethodName;
-use Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a2ac50786fa\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
 final class SetUpClassMethodNodeManipulator
 {
     /**
@@ -18,7 +18,7 @@ final class SetUpClassMethodNodeManipulator
      * @var StmtManipulator
      */
     private $stmtManipulator;
-    public function __construct(\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \Rector\PHPUnit\NodeManipulator\StmtManipulator $stmtManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \_PhpScoper0a2ac50786fa\Rector\PHPUnit\NodeManipulator\StmtManipulator $stmtManipulator)
     {
         $this->setUpClassMethodFactory = $setUpClassMethodFactory;
         $this->stmtManipulator = $stmtManipulator;
@@ -26,10 +26,10 @@ final class SetUpClassMethodNodeManipulator
     /**
      * @param Stmt[]|Expr[] $stmts
      */
-    public function decorateOrCreate(\PhpParser\Node\Stmt\Class_ $class, array $stmts) : void
+    public function decorateOrCreate(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, array $stmts) : void
     {
         $stmts = $this->stmtManipulator->normalizeStmts($stmts);
-        $setUpClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);
+        $setUpClassMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::SET_UP);
         if ($setUpClassMethod === null) {
             $setUpClassMethod = $this->setUpClassMethodFactory->createSetUpMethod($stmts);
             $class->stmts = \array_merge([$setUpClassMethod], (array) $class->stmts);

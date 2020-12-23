@@ -1,69 +1,78 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PhpAttribute;
+namespace _PhpScoper0a2ac50786fa\Rector\PhpAttribute;
 
-use PhpParser\Node;
-use PhpParser\Node\Attribute;
-use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\Expr\ArrowFunction;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\Property;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
-use Rector\PhpAttribute\Printer\PhpAttributteGroupFactory;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Attribute;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrowFunction;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\PhpAttribute\Printer\PhpAttributteGroupFactory;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 final class AnnotationToAttributeConverter
 {
     /**
      * @var PhpAttributteGroupFactory
      */
     private $phpAttributteGroupFactory;
-    public function __construct(\Rector\PhpAttribute\Printer\PhpAttributteGroupFactory $phpAttributteGroupFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Printer\PhpAttributteGroupFactory $phpAttributteGroupFactory)
     {
         $this->phpAttributteGroupFactory = $phpAttributteGroupFactory;
     }
     /**
      * @param Class_|Property|ClassMethod|Function_|Closure|ArrowFunction $node
      */
-    public function convertNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function convertNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
-        // special cases without tag value node
         $hasNewAttrGroups = \false;
-        if ($phpDocInfo->hasByName('required')) {
-            $phpDocInfo->removeByName('required');
-            $node->attrGroups[] = new \PhpParser\Node\AttributeGroup([new \PhpParser\Node\Attribute(new \PhpParser\Node\Name\FullyQualified('_PhpScoperabd03f0baf05\\Symfony\\Contracts\\Service\\Attribute\\Required'))]);
-            $hasNewAttrGroups = \true;
-        }
         // 0. has 0 nodes, nothing to change
-        /** @var PhpAttributableTagNodeInterface[]&PhpDocTagValueNode[] $phpAttributableTagNodes */
-        $phpAttributableTagNodes = $phpDocInfo->findAllByType(\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface::class);
-        if ($phpAttributableTagNodes === [] && !$hasNewAttrGroups) {
+        /** @var PhpAttributableTagNodeInterface[] $phpAttributableTagNodes */
+        $phpAttributableTagNodes = $phpDocInfo->findAllByType(\_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface::class);
+        if ($phpAttributableTagNodes === []) {
             return null;
         }
+        // 1. keep only those, whom's attribute class exists
+        $phpAttributableTagNodes = $this->filterOnlyExistingAttributes($phpAttributableTagNodes);
         if ($phpAttributableTagNodes !== []) {
             $hasNewAttrGroups = \true;
         }
-        // 1. remove tags
+        // 2. remove tags
         foreach ($phpAttributableTagNodes as $phpAttributableTagNode) {
+            /** @var PhpDocTagValueNode $phpAttributableTagNode */
             $phpDocInfo->removeTagValueNodeFromNode($phpAttributableTagNode);
         }
-        // 2. convert annotations to attributes
+        // 3. convert annotations to attributes
         $newAttrGroups = $this->phpAttributteGroupFactory->create($phpAttributableTagNodes);
         $node->attrGroups = \array_merge($node->attrGroups, $newAttrGroups);
         if ($hasNewAttrGroups) {
             return $node;
         }
         return null;
+    }
+    /**
+     * @param PhpAttributableTagNodeInterface[] $phpAttributableTagNodes
+     * @return PhpAttributableTagNodeInterface[]
+     */
+    private function filterOnlyExistingAttributes(array $phpAttributableTagNodes) : array
+    {
+        if (\_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            return $phpAttributableTagNodes;
+        }
+        return \array_filter($phpAttributableTagNodes, function (\_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : bool {
+            return \class_exists($phpAttributableTagNode->getAttributeClassName());
+        });
     }
 }

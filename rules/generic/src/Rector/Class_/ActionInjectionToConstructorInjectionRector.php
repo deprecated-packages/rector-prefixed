@@ -1,23 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node;
-use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Type\ObjectType;
-use Rector\Core\Configuration\Collector\VariablesToPropertyFetchCollection;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Symfony\ServiceMapProvider;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Collector\VariablesToPropertyFetchCollection;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\Symfony\ServiceMapProvider;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Generic\Tests\Rector\Class_\ActionInjectionToConstructorInjectionRector\ActionInjectionToConstructorInjectionRectorTest
  */
-final class ActionInjectionToConstructorInjectionRector extends \Rector\Core\Rector\AbstractRector
+final class ActionInjectionToConstructorInjectionRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var VariablesToPropertyFetchCollection
@@ -27,14 +26,14 @@ final class ActionInjectionToConstructorInjectionRector extends \Rector\Core\Rec
      * @var ServiceMapProvider
      */
     private $applicationServiceMapProvider;
-    public function __construct(\Rector\Symfony\ServiceMapProvider $applicationServiceMapProvider, \Rector\Core\Configuration\Collector\VariablesToPropertyFetchCollection $variablesToPropertyFetchCollection)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Symfony\ServiceMapProvider $applicationServiceMapProvider, \_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Collector\VariablesToPropertyFetchCollection $variablesToPropertyFetchCollection)
     {
         $this->variablesToPropertyFetchCollection = $variablesToPropertyFetchCollection;
         $this->applicationServiceMapProvider = $applicationServiceMapProvider;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns action injection in Controllers to constructor injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns action injection in Controllers to constructor injection', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeController
 {
     public function default(ProductRepository $productRepository)
@@ -68,14 +67,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!\_PhpScoperabd03f0baf05\Nette\Utils\Strings::endsWith((string) $node->name, 'Controller')) {
+        if (!$this->isName($node, '*Controller')) {
             return null;
         }
         foreach ($node->getMethods() as $classMethod) {
@@ -83,7 +82,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function processClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach ($classMethod->params as $key => $paramNode) {
             if (!$this->isActionInjectedParamNode($paramNode)) {
@@ -97,7 +96,7 @@ CODE_SAMPLE
             $this->variablesToPropertyFetchCollection->addVariableNameAndType($paramName, $paramNodeType);
         }
     }
-    private function isActionInjectedParamNode(\PhpParser\Node\Param $param) : bool
+    private function isActionInjectedParamNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : bool
     {
         if ($param->type === null) {
             return \false;
@@ -107,7 +106,7 @@ CODE_SAMPLE
             return \false;
         }
         $paramStaticType = $this->getObjectType($param);
-        if (!$paramStaticType instanceof \PHPStan\Type\ObjectType) {
+        if (!$paramStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType) {
             return \false;
         }
         $serviceMap = $this->applicationServiceMapProvider->provide();

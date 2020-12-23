@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector;
 
 use Iterator;
-use Rector\Generic\Rector\Expression\MethodCallToReturnRector;
-use Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny;
-use Rector\Generic\ValueObject\MethodCallToReturn;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class MethodCallToReturnRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Expression\MethodCallToReturnRector;
+use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny;
+use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\MethodCallToReturn;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class MethodCallToReturnRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class MethodCallToReturnRectorTest extends \Rector\Testing\PHPUnit\Abstrac
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\Expression\MethodCallToReturnRector::class => [\Rector\Generic\Rector\Expression\MethodCallToReturnRector::METHOD_CALL_WRAPS => [new \Rector\Generic\ValueObject\MethodCallToReturn(\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny::class, 'deny')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Expression\MethodCallToReturnRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Expression\MethodCallToReturnRector::METHOD_CALL_WRAPS => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\MethodCallToReturn(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny::class, 'deny')]]];
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Symfony\Tests\Rector\MethodCall\GetParameterToConstructorInjectionRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Symfony\Tests\Rector\MethodCall\GetParameterToConstructorInjectionRector;
 
 use Iterator;
-use Rector\Symfony\Rector\MethodCall\GetParameterToConstructorInjectionRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class GetParameterToConstructorInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Symfony\Rector\MethodCall\GetParameterToConstructorInjectionRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class GetParameterToConstructorInjectionRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class GetParameterToConstructorInjectionRectorTest extends \Rector\Testing
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Symfony\Rector\MethodCall\GetParameterToConstructorInjectionRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Symfony\Rector\MethodCall\GetParameterToConstructorInjectionRector::class;
     }
 }

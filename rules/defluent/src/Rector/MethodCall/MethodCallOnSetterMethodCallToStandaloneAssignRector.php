@@ -1,42 +1,40 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Defluent\Rector\MethodCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Defluent\Rector\MethodCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\Variable;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer;
-use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
-use Rector\NetteKdyby\Naming\VariableNaming;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\NodeFactory\VariableFromNewFactory;
+use _PhpScoper0a2ac50786fa\Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Defluent\Tests\Rector\MethodCall\MethodCallOnSetterMethodCallToStandaloneAssignRector\MethodCallOnSetterMethodCallToStandaloneAssignRectorTest
  */
-final class MethodCallOnSetterMethodCallToStandaloneAssignRector extends \Rector\Defluent\Rector\AbstractFluentChainMethodCallRector
+final class MethodCallOnSetterMethodCallToStandaloneAssignRector extends \_PhpScoper0a2ac50786fa\Rector\Defluent\Rector\AbstractFluentChainMethodCallRector
 {
-    /**
-     * @var VariableNaming
-     */
-    private $variableNaming;
     /**
      * @var NewFluentChainMethodCallNodeAnalyzer
      */
     private $newFluentChainMethodCallNodeAnalyzer;
-    public function __construct(\Rector\NetteKdyby\Naming\VariableNaming $variableNaming, \Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer)
+    /**
+     * @var VariableFromNewFactory
+     */
+    private $variableFromNewFactory;
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\Defluent\NodeFactory\VariableFromNewFactory $variableFromNewFactory)
     {
-        $this->variableNaming = $variableNaming;
         $this->newFluentChainMethodCallNodeAnalyzer = $newFluentChainMethodCallNodeAnalyzer;
+        $this->variableFromNewFactory = $variableFromNewFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change method call on setter to standalone assign before the setter', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change method call on setter to standalone assign before the setter', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function some()
@@ -72,12 +70,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->shouldSkipMethodCall($node)) {
             return null;
@@ -93,16 +91,8 @@ CODE_SAMPLE
         $newStmts = $this->nonFluentChainMethodCallFactory->createFromNewAndRootMethodCall($new, $node);
         $this->addNodesBeforeNode($newStmts, $node);
         // change new arg to root variable
-        $newVariable = $this->crateVariableFromNew($new);
-        $rootMethodCall->args = [new \PhpParser\Node\Arg($newVariable)];
+        $newVariable = $this->variableFromNewFactory->create($new);
+        $rootMethodCall->args = [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($newVariable)];
         return $rootMethodCall;
-    }
-    private function crateVariableFromNew(\PhpParser\Node\Expr\New_ $new) : \PhpParser\Node\Expr\Variable
-    {
-        $variableName = $this->variableNaming->resolveFromNode($new);
-        if ($variableName === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        return new \PhpParser\Node\Expr\Variable($variableName);
     }
 }

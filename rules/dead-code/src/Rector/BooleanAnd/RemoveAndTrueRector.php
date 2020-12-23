@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Rector\BooleanAnd;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\BooleanAnd;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\BooleanAnd\RemoveAndTrueRector\RemoveAndTrueRectorTest
  */
-final class RemoveAndTrueRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveAndTrueRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove and true that has no added value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove and true that has no added value', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -40,12 +40,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\BooleanAnd::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd::class];
     }
     /**
      * @param BooleanAnd $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if ($this->isTrueOrBooleanAndTrues($node->left)) {
             return $node->right;
@@ -55,12 +55,12 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function isTrueOrBooleanAndTrues(\PhpParser\Node $node) : bool
+    private function isTrueOrBooleanAndTrues(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
     {
         if ($this->isTrue($node)) {
             return \true;
         }
-        if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return \false;
         }
         if (!$this->isTrueOrBooleanAndTrues($node->left)) {

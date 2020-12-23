@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadCode\Doctrine;
+namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Doctrine;
 
-use Doctrine\ORM\Mapping\Entity;
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Property;
-use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
-use Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
-use Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode;
-use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
-use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping\Entity;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
 final class DoctrineEntityManipulator
 {
     /**
@@ -33,33 +33,33 @@ final class DoctrineEntityManipulator
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function resolveOtherProperty(\PhpParser\Node\Stmt\Property $property) : ?string
+    public function resolveOtherProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : ?string
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $relationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $relationTagValueNode = $phpDocInfo->getByType(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
         if ($relationTagValueNode === null) {
             return null;
         }
         $otherProperty = null;
-        if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface) {
+        if ($relationTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface) {
             $otherProperty = $relationTagValueNode->getMappedBy();
         }
         if ($otherProperty !== null) {
             return $otherProperty;
         }
-        if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface) {
+        if ($relationTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface) {
             return $relationTagValueNode->getInversedBy();
         }
         return null;
     }
-    public function isNonAbstractDoctrineEntityClass(\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isNonAbstractDoctrineEntityClass(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($class->isAnonymous()) {
             return \false;
@@ -68,27 +68,27 @@ final class DoctrineEntityManipulator
             return \false;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $class->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return \false;
         }
         // is parent entity
-        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode::class)) {
+        if ($phpDocInfo->hasByType(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode::class)) {
             return \false;
         }
-        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);
+        return $phpDocInfo->hasByType(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);
     }
-    public function removeMappedByOrInversedByFromProperty(\PhpParser\Node\Stmt\Property $property) : void
+    public function removeMappedByOrInversedByFromProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : void
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $relationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $relationTagValueNode = $phpDocInfo->getByType(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
         $shouldUpdate = \false;
-        if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface && $relationTagValueNode->getMappedBy()) {
+        if ($relationTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface && $relationTagValueNode->getMappedBy()) {
             $shouldUpdate = \true;
             $relationTagValueNode->removeMappedBy();
         }
-        if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface && $relationTagValueNode->getInversedBy()) {
+        if ($relationTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface && $relationTagValueNode->getInversedBy()) {
             $shouldUpdate = \true;
             $relationTagValueNode->removeInversedBy();
         }
@@ -96,16 +96,16 @@ final class DoctrineEntityManipulator
             return;
         }
     }
-    public function isMethodCallOnDoctrineEntity(\PhpParser\Node $node, string $methodName) : bool
+    public function isMethodCallOnDoctrineEntity(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $methodName) : bool
     {
-        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($node->name, $methodName)) {
             return \false;
         }
         $objectType = $this->nodeTypeResolver->resolve($node->var);
-        if (!$objectType instanceof \PHPStan\Type\ObjectType) {
+        if (!$objectType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType) {
             return \false;
         }
         return $this->doctrineDocBlockResolver->isDoctrineEntityClass($objectType->getClassName());

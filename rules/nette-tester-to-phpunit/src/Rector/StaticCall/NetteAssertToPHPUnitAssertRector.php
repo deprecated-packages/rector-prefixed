@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteTesterToPHPUnit\Rector\StaticCall;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteTesterToPHPUnit\Rector\StaticCall;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\StaticCall;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NetteTesterToPHPUnit\AssertManipulator;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NetteTesterToPHPUnit\AssertManipulator;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\NetteTesterPHPUnitRectorTest
  */
-final class NetteAssertToPHPUnitAssertRector extends \Rector\Core\Rector\AbstractRector
+final class NetteAssertToPHPUnitAssertRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var AssertManipulator
      */
     private $assertManipulator;
-    public function __construct(\Rector\NetteTesterToPHPUnit\AssertManipulator $assertManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NetteTesterToPHPUnit\AssertManipulator $assertManipulator)
     {
         $this->assertManipulator = $assertManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate Nette/Assert calls to PHPUnit', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate Nette/Assert calls to PHPUnit', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Tester\Assert;
 
 function someStaticFunctions()
@@ -47,14 +47,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoperabd03f0baf05\\Tester\\Assert')) {
+        if (!$this->isObjectType($node, '_PhpScoper0a2ac50786fa\\Tester\\Assert')) {
             return null;
         }
         return $this->assertManipulator->processStaticCall($node);

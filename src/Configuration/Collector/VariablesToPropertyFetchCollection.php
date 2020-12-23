@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Configuration\Collector;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Collector;
 
-use PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
 final class VariablesToPropertyFetchCollection
 {
     /**
      * @var Type[]
      */
     private $variableNameAndType = [];
-    public function addVariableNameAndType(string $name, \PHPStan\Type\Type $type) : void
+    public function addVariableNameAndType(string $name, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : void
     {
         $this->variableNameAndType[$name] = $type;
     }

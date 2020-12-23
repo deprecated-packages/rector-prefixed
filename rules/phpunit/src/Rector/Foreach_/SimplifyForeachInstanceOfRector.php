@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\Rector\Foreach_;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\Foreach_;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\Foreach_;
-use Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator;
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\Foreach_\SimplifyForeachInstanceOfRector\SimplifyForeachInstanceOfRectorTest
  */
-final class SimplifyForeachInstanceOfRector extends \Rector\Core\Rector\AbstractRector
+final class SimplifyForeachInstanceOfRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ForeachManipulator
      */
     private $foreachManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator $foreachManipulator)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator $foreachManipulator)
     {
         $this->foreachManipulator = $foreachManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify unnecessary foreach check of instances', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify unnecessary foreach check of instances', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 foreach ($foos as $foo) {
     $this->assertInstanceOf(SplFileInfo::class, $foo);
 }
@@ -40,16 +40,16 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Foreach_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param Foreach_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         /** @var MethodCall|StaticCall|null $matchedNode */
-        $matchedNode = $this->foreachManipulator->matchOnlyStmt($node, function (\PhpParser\Node $node, \PhpParser\Node\Stmt\Foreach_ $foreachNode) : ?Node {
-            if (!$node instanceof \PhpParser\Node\Expr\MethodCall && !$node instanceof \PhpParser\Node\Expr\StaticCall) {
+        $matchedNode = $this->foreachManipulator->matchOnlyStmt($node, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreachNode) : ?Node {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall && !$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
                 return null;
             }
             if (!$this->isName($node->name, 'assertInstanceOf')) {
@@ -65,14 +65,14 @@ CODE_SAMPLE
         }
         /** @var MethodCall|StaticCall $matchedNode */
         $callClass = \get_class($matchedNode);
-        return new $callClass($this->resolveVar($matchedNode), new \PhpParser\Node\Name('assertContainsOnlyInstancesOf'), [$matchedNode->args[0], new \PhpParser\Node\Arg($node->expr)]);
+        return new $callClass($this->resolveVar($matchedNode), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('assertContainsOnlyInstancesOf'), [$matchedNode->args[0], new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($node->expr)]);
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function resolveVar(\PhpParser\Node $node) : \PhpParser\Node
+    private function resolveVar(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
             return $node->var;
         }
         return $node->class;

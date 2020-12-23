@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Laravel\Tests\Rector\Class_\PropertyDeferToDeferrableProviderToRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Laravel\Tests\Rector\Class_\PropertyDeferToDeferrableProviderToRector;
 
 use Iterator;
-use Rector\Laravel\Rector\Class_\PropertyDeferToDeferrableProviderToRector;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class PropertyDeferToDeferrableProviderToRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Laravel\Rector\Class_\PropertyDeferToDeferrableProviderToRector;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class PropertyDeferToDeferrableProviderToRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class PropertyDeferToDeferrableProviderToRectorTest extends \Rector\Testin
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Laravel\Rector\Class_\PropertyDeferToDeferrableProviderToRector::class;
+        return \_PhpScoper0a2ac50786fa\Rector\Laravel\Rector\Class_\PropertyDeferToDeferrableProviderToRector::class;
     }
 }

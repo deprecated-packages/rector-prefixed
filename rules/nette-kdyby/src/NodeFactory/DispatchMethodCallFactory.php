@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteKdyby\NodeFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\NodeFactory;
 
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming;
 final class DispatchMethodCallFactory
 {
     /**
      * @var ClassNaming
      */
     private $classNaming;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\CodingStyle\Naming\ClassNaming $classNaming)
     {
         $this->classNaming = $classNaming;
     }
-    public function createFromEventClassName(string $eventClassName) : \PhpParser\Node\Expr\MethodCall
+    public function createFromEventClassName(string $eventClassName) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
     {
         $shortEventClassName = $this->classNaming->getVariableName($eventClassName);
-        $eventDispatcherPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), 'eventDispatcher');
-        $dispatchMethodCall = new \PhpParser\Node\Expr\MethodCall($eventDispatcherPropertyFetch, 'dispatch');
-        $dispatchMethodCall->args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable($shortEventClassName));
+        $eventDispatcherPropertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('this'), 'eventDispatcher');
+        $dispatchMethodCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($eventDispatcherPropertyFetch, 'dispatch');
+        $dispatchMethodCall->args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($shortEventClassName));
         return $dispatchMethodCall;
     }
 }

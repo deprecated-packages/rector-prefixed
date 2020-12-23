@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PostRector\Rector;
+namespace _PhpScoper0a2ac50786fa\Rector\PostRector\Rector;
 
-use PhpParser\Node;
-use Rector\PostRector\Collector\NodesToReplaceCollector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class NodeToReplacePostRector extends \Rector\PostRector\Rector\AbstractPostRector
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToReplaceCollector;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class NodeToReplacePostRector extends \_PhpScoper0a2ac50786fa\Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var NodesToReplaceCollector
      */
     private $nodesToReplaceCollector;
-    public function __construct(\Rector\PostRector\Collector\NodesToReplaceCollector $nodesToReplaceCollector)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToReplaceCollector $nodesToReplaceCollector)
     {
         $this->nodesToReplaceCollector = $nodesToReplaceCollector;
     }
@@ -21,7 +21,7 @@ final class NodeToReplacePostRector extends \Rector\PostRector\Rector\AbstractPo
     {
         return 1100;
     }
-    public function leaveNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function leaveNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         foreach ($this->nodesToReplaceCollector->getNodes() as [$nodeToFind, $replacement]) {
             if ($node === $nodeToFind) {
@@ -30,9 +30,9 @@ final class NodeToReplacePostRector extends \Rector\PostRector\Rector\AbstractPo
         }
         return null;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that replaces one nodes with another', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that replaces one nodes with another', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $string = new String_(...);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'

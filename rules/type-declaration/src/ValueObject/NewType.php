@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\ValueObject;
+namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\ValueObject;
 
 final class NewType
 {

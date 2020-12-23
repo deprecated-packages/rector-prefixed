@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Order\Rector\Class_;
+namespace _PhpScoper0a2ac50786fa\Rector\Order\Rector\Class_;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Trait_;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
-use Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a2ac50786fa\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
+use _PhpScoper0a2ac50786fa\Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Order\Tests\Rector\Class_\OrderPrivateMethodsByUseRector\OrderPrivateMethodsByUseRectorTest
  */
-final class OrderPrivateMethodsByUseRector extends \Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
+final class OrderPrivateMethodsByUseRector extends \_PhpScoper0a2ac50786fa\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
 {
     /**
      * @var int
      */
     private const MAX_ATTEMPTS = 5;
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order private methods in order of their use', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order private methods in order of their use', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -68,12 +68,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class, \PhpParser\Node\Stmt\Trait_::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_::class];
     }
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         $sortedAndOriginalClassMethods = $this->getSortedAndOriginalClassMethods($node);
         // order is correct, nothing to change
@@ -86,9 +86,9 @@ CODE_SAMPLE
         }
         $attempt = 0;
         while (!$sortedAndOriginalClassMethods->hasOrderSame()) {
-            $attempt++;
+            ++$attempt;
             if ($attempt >= self::MAX_ATTEMPTS) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException('Number of attempts to reorder the methods exceeded');
+                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException('Number of attempts to reorder the methods exceeded');
             }
             $oldToNewKeys = $this->stmtOrder->createOldToNewKeys($sortedAndOriginalClassMethods->getSortedClassMethods(), $sortedAndOriginalClassMethods->getOriginalClassMethods());
             /** @var Class_ $node */
@@ -100,18 +100,18 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $classLike
      */
-    private function getSortedAndOriginalClassMethods(\PhpParser\Node\Stmt\ClassLike $classLike) : \Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods
+    private function getSortedAndOriginalClassMethods(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : \_PhpScoper0a2ac50786fa\Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods
     {
-        return new \Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods($this->getLocalPrivateMethodCallOrder($classLike), $this->resolvePrivateClassMethods($classLike));
+        return new \_PhpScoper0a2ac50786fa\Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods($this->getLocalPrivateMethodCallOrder($classLike), $this->resolvePrivateClassMethods($classLike));
     }
     /**
      * @return array<int, string>
      */
-    private function getLocalPrivateMethodCallOrder(\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    private function getLocalPrivateMethodCallOrder(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $localPrivateMethodCallInOrder = [];
-        $this->traverseNodesWithCallable($classLike->getMethods(), function (\PhpParser\Node $node) use(&$localPrivateMethodCallInOrder, $classLike) {
-            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+        $this->traverseNodesWithCallable($classLike->getMethods(), function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use(&$localPrivateMethodCallInOrder, $classLike) {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             if (!$this->isVariableName($node->var, 'this')) {
@@ -135,11 +135,11 @@ CODE_SAMPLE
     /**
      * @return array<int, string>
      */
-    private function resolvePrivateClassMethods(\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    private function resolvePrivateClassMethods(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $privateClassMethods = [];
         foreach ($classLike->stmts as $key => $classStmt) {
-            if (!$classStmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            if (!$classStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             if (!$classStmt->isPrivate()) {

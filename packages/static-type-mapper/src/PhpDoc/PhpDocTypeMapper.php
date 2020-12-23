@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\StaticTypeMapper\PhpDoc;
+namespace _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\PhpDoc;
 
-use PhpParser\Node;
-use PHPStan\Analyser\NameScope;
-use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use PHPStan\Type\Type;
-use Rector\Core\Exception\NotImplementedException;
-use Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PHPStan\Analyser\NameScope;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
 final class PhpDocTypeMapper
 {
     /**
@@ -22,7 +22,7 @@ final class PhpDocTypeMapper
     {
         $this->phpDocTypeMappers = $phpDocTypeMappers;
     }
-    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    public function mapToPHPStanType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\NameScope $nameScope) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
     {
         foreach ($this->phpDocTypeMappers as $phpDocTypeMapper) {
             if (!\is_a($typeNode, $phpDocTypeMapper->getNodeType())) {
@@ -30,6 +30,6 @@ final class PhpDocTypeMapper
             }
             return $phpDocTypeMapper->mapToPHPStanType($typeNode, $node, $nameScope);
         }
-        throw new \Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($typeNode));
+        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($typeNode));
     }
 }

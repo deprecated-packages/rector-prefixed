@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PHPUnit\PhpDoc;
+namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\PhpDoc;
 
-use _PhpScoperabd03f0baf05\Nette\Utils\Strings;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Scalar\String_;
-use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use Rector\Core\PhpParser\Node\NodeFactory;
+use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory;
 final class PhpDocValueToNodeMapper
 {
     /**
      * @var NodeFactory
      */
     private $nodeFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory)
     {
         $this->nodeFactory = $nodeFactory;
     }
-    public function mapGenericTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode $genericTagValueNode) : \PhpParser\Node\Expr
+    public function mapGenericTagValueNode(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode $genericTagValueNode) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
     {
-        if (\_PhpScoperabd03f0baf05\Nette\Utils\Strings::contains($genericTagValueNode->value, '::')) {
+        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($genericTagValueNode->value, '::')) {
             [$class, $constant] = \explode('::', $genericTagValueNode->value);
             return $this->nodeFactory->createShortClassConstFetch($class, $constant);
         }
@@ -28,6 +28,6 @@ final class PhpDocValueToNodeMapper
         if (\class_exists($reference)) {
             return $this->nodeFactory->createClassConstReference($reference);
         }
-        return new \PhpParser\Node\Scalar\String_($reference);
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($reference);
     }
 }

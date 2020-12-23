@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Generic\Rector\FuncCall;
+namespace _PhpScoper0a2ac50786fa\Rector\Generic\Rector\FuncCall;
 
-use PhpParser\Comment;
-use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
-use Rector\Core\Comments\CommentableNodeResolver;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeRemoval\BreakingRemovalGuard;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a2ac50786fa\PhpParser\Comment;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a2ac50786fa\Rector\Core\Comments\CommentableNodeResolver;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a2ac50786fa\Rector\NodeRemoval\BreakingRemovalGuard;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://twitter.com/afilina & Zenika (CAN) for sponsoring this rule - visit them on https://zenika.ca/en/en
  *
  * @see \Rector\Generic\Tests\Rector\FuncCall\RemoveIniGetSetFuncCallRector\RemoveIniGetSetFuncCallRectorTest
  */
-final class RemoveIniGetSetFuncCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RemoveIniGetSetFuncCallRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -37,14 +37,14 @@ final class RemoveIniGetSetFuncCallRector extends \Rector\Core\Rector\AbstractRe
      * @var CommentableNodeResolver
      */
     private $commentableNodeResolver;
-    public function __construct(\Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard, \Rector\Core\Comments\CommentableNodeResolver $commentableNodeResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard, \_PhpScoper0a2ac50786fa\Rector\Core\Comments\CommentableNodeResolver $commentableNodeResolver)
     {
         $this->breakingRemovalGuard = $breakingRemovalGuard;
         $this->commentableNodeResolver = $commentableNodeResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove ini_get by configuration', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove ini_get by configuration', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 ini_get('y2k_compliance');
 ini_set('y2k_compliance', 1);
 CODE_SAMPLE
@@ -55,12 +55,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         if (!$this->isNames($node, ['ini_get', 'ini_set'])) {
             return null;
@@ -76,7 +76,7 @@ CODE_SAMPLE
             $this->removeNode($node);
         } else {
             $commentableNode = $this->commentableNodeResolver->resolve($node);
-            $commentableNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, [new \PhpParser\Comment('// @fixme')]);
+            $commentableNode->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, [new \_PhpScoper0a2ac50786fa\PhpParser\Comment('// @fixme')]);
         }
         return null;
     }

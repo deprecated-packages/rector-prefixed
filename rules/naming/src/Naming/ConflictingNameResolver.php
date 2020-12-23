@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Naming\Naming;
+namespace _PhpScoper0a2ac50786fa\Rector\Naming\Naming;
 
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Naming\PhpArray\ArrayFilter;
-use Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\Naming\PhpArray\ArrayFilter;
+use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
 final class ConflictingNameResolver
 {
     /**
@@ -33,7 +33,7 @@ final class ConflictingNameResolver
      * @var ArrayFilter
      */
     private $arrayFilter;
-    public function __construct(\Rector\Naming\PhpArray\ArrayFilter $arrayFilter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\PhpArray\ArrayFilter $arrayFilter, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -43,7 +43,7 @@ final class ConflictingNameResolver
     /**
      * @return string[]
      */
-    public function resolveConflictingVariableNamesForParam(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    public function resolveConflictingVariableNamesForParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $expectedNames = [];
         foreach ($classMethod->params as $param) {
@@ -58,7 +58,7 @@ final class ConflictingNameResolver
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function checkNameIsInFunctionLike(string $variableName, \PhpParser\Node\FunctionLike $functionLike) : bool
+    public function checkNameIsInFunctionLike(string $variableName, \_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         $conflictingVariableNames = $this->resolveConflictingVariableNamesForNew($functionLike);
         return \in_array($variableName, $conflictingVariableNames, \true);
@@ -67,7 +67,7 @@ final class ConflictingNameResolver
      * @param ClassMethod|Function_|Closure $functionLike
      * @return string[]
      */
-    private function resolveConflictingVariableNamesForNew(\PhpParser\Node\FunctionLike $functionLike) : array
+    private function resolveConflictingVariableNamesForNew(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : array
     {
         // cache it!
         $classMethodHash = \spl_object_hash($functionLike);
@@ -86,14 +86,12 @@ final class ConflictingNameResolver
      * @param ClassMethod|Function_|Closure $functionLike
      * @return string[]
      */
-    private function collectParamNames(\PhpParser\Node\FunctionLike $functionLike) : array
+    private function collectParamNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $paramNames = [];
         // params
         foreach ($functionLike->params as $param) {
-            /** @var string $paramName */
-            $paramName = $this->nodeNameResolver->getName($param);
-            $paramNames[] = $paramName;
+            $paramNames[] = $this->nodeNameResolver->getName($param);
         }
         return $paramNames;
     }
@@ -101,11 +99,11 @@ final class ConflictingNameResolver
      * @param ClassMethod|Function_|Closure $functionLike
      * @return string[]
      */
-    private function resolveForNewAssigns(\PhpParser\Node\FunctionLike $functionLike) : array
+    private function resolveForNewAssigns(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $names = [];
         /** @var Assign[] $assigns */
-        $assigns = $this->betterNodeFinder->findInstanceOf((array) $functionLike->stmts, \PhpParser\Node\Expr\Assign::class);
+        $assigns = $this->betterNodeFinder->findInstanceOf((array) $functionLike->stmts, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class);
         foreach ($assigns as $assign) {
             $name = $this->expectedNameResolver->resolveForAssignNew($assign);
             if ($name === null) {
@@ -119,11 +117,11 @@ final class ConflictingNameResolver
      * @param ClassMethod|Function_|Closure $functionLike
      * @return string[]
      */
-    private function resolveForNonNewAssigns(\PhpParser\Node\FunctionLike $functionLike) : array
+    private function resolveForNonNewAssigns(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $names = [];
         /** @var Assign[] $assigns */
-        $assigns = $this->betterNodeFinder->findInstanceOf((array) $functionLike->stmts, \PhpParser\Node\Expr\Assign::class);
+        $assigns = $this->betterNodeFinder->findInstanceOf((array) $functionLike->stmts, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class);
         foreach ($assigns as $assign) {
             $name = $this->expectedNameResolver->resolveForAssignNonNew($assign);
             if ($name === null) {

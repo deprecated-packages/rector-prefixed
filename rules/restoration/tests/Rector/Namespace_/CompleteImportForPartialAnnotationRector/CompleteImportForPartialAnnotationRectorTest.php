@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Restoration\Tests\Rector\Namespace_\CompleteImportForPartialAnnotationRector;
+namespace _PhpScoper0a2ac50786fa\Rector\Restoration\Tests\Rector\Namespace_\CompleteImportForPartialAnnotationRector;
 
 use Iterator;
-use Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector;
-use Rector\Restoration\ValueObject\UseWithAlias;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
-final class CompleteImportForPartialAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a2ac50786fa\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector;
+use _PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias;
+use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+final class CompleteImportForPartialAnnotationRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class CompleteImportForPartialAnnotationRectorTest extends \Rector\Testing
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector::class => [\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoperabd03f0baf05\\Doctrine\\ORM\\Mapping', 'ORM')]]];
+        return [\_PhpScoper0a2ac50786fa\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector::class => [\_PhpScoper0a2ac50786fa\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector::USE_IMPORTS_TO_RESTORE => [new \_PhpScoper0a2ac50786fa\Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper0a2ac50786fa\\Doctrine\\ORM\\Mapping', 'ORM')]]];
     }
 }

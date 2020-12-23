@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 
-use PhpParser\Node;
-use PHPStan\PhpDocParser\Ast\Node as PhpDocParserNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use Rector\PHPStan\Type\ShortenedObjectType;
-use Rector\StaticTypeMapper\StaticTypeMapper;
-use Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Node as PhpDocParserNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
+use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockClassRenamer
 {
     /**
@@ -26,7 +26,7 @@ final class DocBlockClassRenamer
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
-    public function __construct(\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
@@ -34,22 +34,22 @@ final class DocBlockClassRenamer
     /**
      * @param Type[] $oldTypes
      */
-    public function renamePhpDocTypes(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, array $oldTypes, \PHPStan\Type\Type $newType, \PhpParser\Node $phpParserNode) : void
+    public function renamePhpDocTypes(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, array $oldTypes, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $newType, \_PhpScoper0a2ac50786fa\PhpParser\Node $phpParserNode) : void
     {
         foreach ($oldTypes as $oldType) {
             $this->renamePhpDocType($phpDocNode, $oldType, $newType, $phpParserNode);
         }
     }
-    public function renamePhpDocType(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType, \PhpParser\Node $phpParserNode) : bool
+    public function renamePhpDocType(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $oldType, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $newType, \_PhpScoper0a2ac50786fa\PhpParser\Node $phpParserNode) : bool
     {
-        $this->phpDocNodeTraverser->traverseWithCallable($phpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($phpParserNode, $oldType, $newType) : PhpDocParserNode {
-            if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+        $this->phpDocNodeTraverser->traverseWithCallable($phpDocNode, '', function (\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Node $node) use($phpParserNode, $oldType, $newType) : PhpDocParserNode {
+            if (!$node instanceof \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
                 return $node;
             }
             $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($node, $phpParserNode);
             // make sure to compare FQNs
-            if ($staticType instanceof \Rector\PHPStan\Type\ShortenedObjectType) {
-                $staticType = new \PHPStan\Type\ObjectType($staticType->getFullyQualifiedName());
+            if ($staticType instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType) {
+                $staticType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($staticType->getFullyQualifiedName());
             }
             if (!$staticType->equals($oldType)) {
                 return $node;

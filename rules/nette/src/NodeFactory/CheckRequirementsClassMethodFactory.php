@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\NodeFactory;
+namespace _PhpScoper0a2ac50786fa\Rector\Nette\NodeFactory;
 
-use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
-use Rector\Core\PhpParser\Builder\ParamBuilder;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
+use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\MethodBuilder;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ParamBuilder;
 final class CheckRequirementsClassMethodFactory
 {
     /**
@@ -22,18 +22,18 @@ final class CheckRequirementsClassMethodFactory
      * @var ParentGetterStmtsToExternalStmtsFactory
      */
     private $parentGetterStmtsToExternalStmtsFactory;
-    public function __construct(\Rector\Nette\NodeFactory\ParentGetterStmtsToExternalStmtsFactory $parentGetterStmtsToExternalStmtsFactory)
+    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Nette\NodeFactory\ParentGetterStmtsToExternalStmtsFactory $parentGetterStmtsToExternalStmtsFactory)
     {
         $this->parentGetterStmtsToExternalStmtsFactory = $parentGetterStmtsToExternalStmtsFactory;
     }
     /**
      * @param Node[] $getUserStmts
      */
-    public function create(array $getUserStmts) : \PhpParser\Node\Stmt\ClassMethod
+    public function create(array $getUserStmts) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder(self::CHECK_REQUIREMENTS_METHOD_NAME);
+        $methodBuilder = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\MethodBuilder(self::CHECK_REQUIREMENTS_METHOD_NAME);
         $methodBuilder->makePublic();
-        $paramBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder('element');
+        $paramBuilder = new \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder\ParamBuilder('element');
         $methodBuilder->addParam($paramBuilder);
         $methodBuilder->setReturnType('void');
         $parentStaticCall = $this->creatParentStaticCall();
@@ -42,9 +42,9 @@ final class CheckRequirementsClassMethodFactory
         $methodBuilder->addStmt($parentStaticCall);
         return $methodBuilder->getNode();
     }
-    private function creatParentStaticCall() : \PhpParser\Node\Expr\StaticCall
+    private function creatParentStaticCall() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall
     {
-        $args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable('element'))];
-        return new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('parent'), new \PhpParser\Node\Identifier(self::CHECK_REQUIREMENTS_METHOD_NAME), $args);
+        $args = [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('element'))];
+        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('parent'), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier(self::CHECK_REQUIREMENTS_METHOD_NAME), $args);
     }
 }

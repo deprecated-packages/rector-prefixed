@@ -8,21 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\Debug;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\EventDispatcher\Debug;
 
-use _PhpScoperabd03f0baf05\Psr\EventDispatcher\StoppableEventInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\Event;
-use _PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\LegacyEventProxy;
-use _PhpScoperabd03f0baf05\Symfony\Component\Stopwatch\Stopwatch;
-use _PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Caster\ClassStub;
-use _PhpScoperabd03f0baf05\Symfony\Contracts\EventDispatcher\Event as ContractsEvent;
+use _PhpScoper0a2ac50786fa\Psr\EventDispatcher\StoppableEventInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\Stopwatch\Stopwatch;
+use _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Caster\ClassStub;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @final since Symfony 4.3: the "Event" type-hint on __invoke() will be replaced by "object" in 5.0
  */
-class WrappedListener
+final class WrappedListener
 {
     private $listener;
     private $optimizedListener;
@@ -35,7 +30,7 @@ class WrappedListener
     private $stub;
     private $priority;
     private static $hasClassStub;
-    public function __construct($listener, ?string $name, \_PhpScoperabd03f0baf05\Symfony\Component\Stopwatch\Stopwatch $stopwatch, \_PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher = null)
+    public function __construct($listener, ?string $name, \_PhpScoper0a2ac50786fa\Symfony\Component\Stopwatch\Stopwatch $stopwatch, \_PhpScoper0a2ac50786fa\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher = null)
     {
         $this->listener = $listener;
         $this->optimizedListener = $listener instanceof \Closure ? $listener : (\is_callable($listener) ? \Closure::fromCallable($listener) : null);
@@ -44,7 +39,7 @@ class WrappedListener
         $this->called = \false;
         $this->stoppedPropagation = \false;
         if (\is_array($listener)) {
-            $this->name = \is_object($listener[0]) ? \get_class($listener[0]) : $listener[0];
+            $this->name = \is_object($listener[0]) ? \get_debug_type($listener[0]) : $listener[0];
             $this->pretty = $this->name . '::' . $listener[1];
         } elseif ($listener instanceof \Closure) {
             $r = new \ReflectionFunction($listener);
@@ -59,44 +54,41 @@ class WrappedListener
         } elseif (\is_string($listener)) {
             $this->pretty = $this->name = $listener;
         } else {
-            $this->name = \get_class($listener);
+            $this->name = \get_debug_type($listener);
             $this->pretty = $this->name . '::__invoke';
         }
         if (null !== $name) {
             $this->name = $name;
         }
         if (null === self::$hasClassStub) {
-            self::$hasClassStub = \class_exists(\_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Caster\ClassStub::class);
+            self::$hasClassStub = \class_exists(\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Caster\ClassStub::class);
         }
     }
     public function getWrappedListener()
     {
         return $this->listener;
     }
-    public function wasCalled()
+    public function wasCalled() : bool
     {
         return $this->called;
     }
-    public function stoppedPropagation()
+    public function stoppedPropagation() : bool
     {
         return $this->stoppedPropagation;
     }
-    public function getPretty()
+    public function getPretty() : string
     {
         return $this->pretty;
     }
-    public function getInfo($eventName)
+    public function getInfo(string $eventName) : array
     {
         if (null === $this->stub) {
-            $this->stub = self::$hasClassStub ? new \_PhpScoperabd03f0baf05\Symfony\Component\VarDumper\Caster\ClassStub($this->pretty . '()', $this->listener) : $this->pretty . '()';
+            $this->stub = self::$hasClassStub ? new \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Caster\ClassStub($this->pretty . '()', $this->listener) : $this->pretty . '()';
         }
         return ['event' => $eventName, 'priority' => null !== $this->priority ? $this->priority : (null !== $this->dispatcher ? $this->dispatcher->getListenerPriority($eventName, $this->listener) : null), 'pretty' => $this->pretty, 'stub' => $this->stub];
     }
-    public function __invoke(\_PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\Event $event, $eventName, \_PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
+    public function __invoke(object $event, string $eventName, \_PhpScoper0a2ac50786fa\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher) : void
     {
-        if ($event instanceof \_PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\LegacyEventProxy) {
-            $event = $event->getEvent();
-        }
         $dispatcher = $this->dispatcher ?: $dispatcher;
         $this->called = \true;
         $this->priority = $dispatcher->getListenerPriority($eventName, $this->listener);
@@ -105,7 +97,7 @@ class WrappedListener
         if ($e->isStarted()) {
             $e->stop();
         }
-        if (($event instanceof \_PhpScoperabd03f0baf05\Symfony\Component\EventDispatcher\Event || $event instanceof \_PhpScoperabd03f0baf05\Symfony\Contracts\EventDispatcher\Event || $event instanceof \_PhpScoperabd03f0baf05\Psr\EventDispatcher\StoppableEventInterface) && $event->isPropagationStopped()) {
+        if ($event instanceof \_PhpScoper0a2ac50786fa\Psr\EventDispatcher\StoppableEventInterface && $event->isPropagationStopped()) {
             $this->stoppedPropagation = \true;
         }
     }

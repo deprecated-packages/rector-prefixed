@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver;
+namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver;
 
-use PhpParser\Node;
-use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\Testing\TestingParser\TestingParser;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-abstract class AbstractNodeTypeResolverTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a2ac50786fa\Rector\Testing\TestingParser\TestingParser;
+use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+abstract class AbstractNodeTypeResolverTest extends \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var NodeTypeResolver
@@ -25,10 +25,10 @@ abstract class AbstractNodeTypeResolverTest extends \Symplify\PackageBuilder\Tes
     private $testingParser;
     protected function setUp() : void
     {
-        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->betterNodeFinder = self::$container->get(\Rector\Core\PhpParser\Node\BetterNodeFinder::class);
-        $this->testingParser = self::$container->get(\Rector\Testing\TestingParser\TestingParser::class);
-        $this->nodeTypeResolver = self::$container->get(\Rector\NodeTypeResolver\NodeTypeResolver::class);
+        $this->bootKernel(\_PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->betterNodeFinder = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder::class);
+        $this->testingParser = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\Testing\TestingParser\TestingParser::class);
+        $this->nodeTypeResolver = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver::class);
     }
     /**
      * @return Node[]

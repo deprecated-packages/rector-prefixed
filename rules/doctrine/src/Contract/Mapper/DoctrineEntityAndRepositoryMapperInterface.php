@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\Contract\Mapper;
+namespace _PhpScoper0a2ac50786fa\Rector\Doctrine\Contract\Mapper;
 
 interface DoctrineEntityAndRepositoryMapperInterface
 {

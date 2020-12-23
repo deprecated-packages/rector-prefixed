@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\Gedmo\Slug;
+namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\Gedmo\Slug;
 
-use _PhpScoperabd03f0baf05\Gedmo\Mapping\Annotation as Gedmo;
+use _PhpScoper0a2ac50786fa\Gedmo\Mapping\Annotation as Gedmo;
 final class SomeClassMethod
 {
     /**

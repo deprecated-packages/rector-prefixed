@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Core\Configuration;
+namespace _PhpScoper0a2ac50786fa\Rector\Core\Configuration;
 
-use _PhpScoperabd03f0baf05\Psr\Container\ContainerInterface;
-use Rector\Core\Contract\Rector\RectorInterface;
-use _PhpScoperabd03f0baf05\Symfony\Component\DependencyInjection\Container;
+use _PhpScoper0a2ac50786fa\Psr\Container\ContainerInterface;
+use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\RectorInterface;
+use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Container;
 final class RectorClassesProvider
 {
     /**
@@ -18,7 +18,7 @@ final class RectorClassesProvider
      *
      * @param ContainerInterface&Container $container
      */
-    public function __construct(\_PhpScoperabd03f0baf05\Psr\Container\ContainerInterface $container)
+    public function __construct(\_PhpScoper0a2ac50786fa\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -32,7 +32,7 @@ final class RectorClassesProvider
             if (!\class_exists($class)) {
                 continue;
             }
-            if (!\is_a($class, \Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
+            if (!\is_a($class, \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
                 continue;
             }
             $rectorClasses[] = $class;

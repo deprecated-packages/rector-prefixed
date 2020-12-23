@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\ReadWrite\Contract;
+namespace _PhpScoper0a2ac50786fa\Rector\ReadWrite\Contract;
 
-use PhpParser\Node;
+use _PhpScoper0a2ac50786fa\PhpParser\Node;
 interface ReadNodeAnalyzerInterface
 {
-    public function supports(\PhpParser\Node $node) : bool;
-    public function isRead(\PhpParser\Node $node) : bool;
+    public function supports(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool;
+    public function isRead(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool;
 }

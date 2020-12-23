@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation;
+namespace _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation;
 
-use _PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Exception\BadRequestException;
 /**
  * InputBag is a container for user input values such as $_GET, $_POST, $_REQUEST, and $_COOKIE.
  *
  * @author Saif Eddin Gmati <saif.gmati@symfony.com>
  */
-final class InputBag extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\ParameterBag
+final class InputBag extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\ParameterBag
 {
     /**
      * Returns a string input value by name.
@@ -32,7 +32,7 @@ final class InputBag extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFound
         }
         $value = parent::get($key, $this);
         if (null !== $value && $this !== $value && !\is_scalar($value) && !(\is_object($value) && \method_exists($value, '__toString'))) {
-            trigger_deprecation('symfony/http-foundation', '5.1', 'Retrieving a non-string value from "%s()" is deprecated, and will throw a "%s" exception in Symfony 6.0, use "%s::all($key)" instead.', __METHOD__, \_PhpScoperabd03f0baf05\Symfony\Component\HttpFoundation\Exception\BadRequestException::class, __CLASS__);
+            trigger_deprecation('symfony/http-foundation', '5.1', 'Retrieving a non-string value from "%s()" is deprecated, and will throw a "%s" exception in Symfony 6.0, use "%s::all($key)" instead.', __METHOD__, \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Exception\BadRequestException::class, __CLASS__);
         }
         return $this === $value ? $default : $value;
     }
@@ -87,6 +87,10 @@ final class InputBag extends \_PhpScoperabd03f0baf05\Symfony\Component\HttpFound
             if (!isset($options['flags'])) {
                 $options['flags'] = \FILTER_REQUIRE_ARRAY;
             }
+        }
+        if (\FILTER_CALLBACK & $filter && !($options['options'] ?? null) instanceof \Closure) {
+            trigger_deprecation('symfony/http-foundation', '5.2', 'Not passing a Closure together with FILTER_CALLBACK to "%s()" is deprecated. Wrap your filter in a closure instead.', __METHOD__);
+            // throw new \InvalidArgumentException(sprintf('A Closure must be passed to "%s()" when FILTER_CALLBACK is used, "%s" given.', __METHOD__, get_debug_type($options['options'] ?? null)));
         }
         return \filter_var($value, $filter, $options);
     }
