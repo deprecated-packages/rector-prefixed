@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPOffice\Rector\MethodCall;
+namespace _PhpScopere8e811afab72\Rector\PHPOffice\Rector\MethodCall;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/migration-from-PHPExcel.md#conditionalgetcondition
  *
  * @see \Rector\PHPOffice\Tests\Rector\MethodCall\ChangeConditionalGetConditionRector\ChangeConditionalGetConditionRectorTest
  */
-final class ChangeConditionalGetConditionRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class ChangeConditionalGetConditionRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change argument PHPExcel_Style_Conditional->getCondition() to getConditions()', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change argument PHPExcel_Style_Conditional->getCondition() to getConditions()', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -49,18 +49,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if (!$this->isOnClassMethodCall($node, 'PHPExcel_Style_Conditional', 'getCondition')) {
             return null;
         }
-        $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('getConditions');
-        $arrayDimFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch($node, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber(0));
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce($arrayDimFetch, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_(''));
+        $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier('getConditions');
+        $arrayDimFetch = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch($node, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber(0));
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce($arrayDimFetch, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_(''));
     }
 }

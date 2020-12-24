@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa;
+namespace _PhpScopere8e811afab72;
 
 interface Controller
 {
 }
-\class_alias('_PhpScoper0a2ac50786fa\\Controller', 'Controller', \false);
+\class_alias('_PhpScopere8e811afab72\\Controller', 'Controller', \false);

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules;
+namespace _PhpScopere8e811afab72\PHPStan\Rules;
 
 class RuleErrorBuilder
 {
@@ -26,7 +26,7 @@ class RuleErrorBuilder
      */
     public static function getRuleErrorTypes() : array
     {
-        return [self::TYPE_MESSAGE => [\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleError::class, 'message', 'string', 'string'], self::TYPE_LINE => [\_PhpScoper0a2ac50786fa\PHPStan\Rules\LineRuleError::class, 'line', 'int', 'int'], self::TYPE_FILE => [\_PhpScoper0a2ac50786fa\PHPStan\Rules\FileRuleError::class, 'file', 'string', 'string'], self::TYPE_TIP => [\_PhpScoper0a2ac50786fa\PHPStan\Rules\TipRuleError::class, 'tip', 'string', 'string'], self::TYPE_IDENTIFIER => [\_PhpScoper0a2ac50786fa\PHPStan\Rules\IdentifierRuleError::class, 'identifier', 'string', 'string'], self::TYPE_METADATA => [\_PhpScoper0a2ac50786fa\PHPStan\Rules\MetadataRuleError::class, 'metadata', 'array', 'mixed[]'], self::TYPE_NON_IGNORABLE => [\_PhpScoper0a2ac50786fa\PHPStan\Rules\NonIgnorableRuleError::class, null, null, null]];
+        return [self::TYPE_MESSAGE => [\_PhpScopere8e811afab72\PHPStan\Rules\RuleError::class, 'message', 'string', 'string'], self::TYPE_LINE => [\_PhpScopere8e811afab72\PHPStan\Rules\LineRuleError::class, 'line', 'int', 'int'], self::TYPE_FILE => [\_PhpScopere8e811afab72\PHPStan\Rules\FileRuleError::class, 'file', 'string', 'string'], self::TYPE_TIP => [\_PhpScopere8e811afab72\PHPStan\Rules\TipRuleError::class, 'tip', 'string', 'string'], self::TYPE_IDENTIFIER => [\_PhpScopere8e811afab72\PHPStan\Rules\IdentifierRuleError::class, 'identifier', 'string', 'string'], self::TYPE_METADATA => [\_PhpScopere8e811afab72\PHPStan\Rules\MetadataRuleError::class, 'metadata', 'array', 'mixed[]'], self::TYPE_NON_IGNORABLE => [\_PhpScopere8e811afab72\PHPStan\Rules\NonIgnorableRuleError::class, null, null, null]];
     }
     public static function message(string $message) : self
     {
@@ -74,12 +74,12 @@ class RuleErrorBuilder
         $this->type |= self::TYPE_NON_IGNORABLE;
         return $this;
     }
-    public function build() : \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleError
+    public function build() : \_PhpScopere8e811afab72\PHPStan\Rules\RuleError
     {
         /** @var class-string<RuleError> $className */
         $className = \sprintf('PHPStan\\Rules\\RuleErrors\\RuleError%d', $this->type);
         if (!\class_exists($className)) {
-            throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException(\sprintf('Class %s does not exist.', $className));
+            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException(\sprintf('Class %s does not exist.', $className));
         }
         $ruleError = new $className();
         foreach ($this->properties as $propertyName => $value) {

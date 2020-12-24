@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php80\Contract;
+namespace _PhpScopere8e811afab72\Rector\Php80\Contract;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\Rector\Php80\ValueObject\StrStartsWith;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BooleanNot;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\Rector\Php80\ValueObject\StrStartsWith;
 interface StrStartWithMatchAndRefactorInterface
 {
-    public function match(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoper0a2ac50786fa\Rector\Php80\ValueObject\StrStartsWith;
+    public function match(\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScopere8e811afab72\Rector\Php80\ValueObject\StrStartsWith;
     /**
      * @return FuncCall|BooleanNot|null
      */
-    public function refactorStrStartsWith(\_PhpScoper0a2ac50786fa\Rector\Php80\ValueObject\StrStartsWith $strStartsWith) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node;
+    public function refactorStrStartsWith(\_PhpScopere8e811afab72\Rector\Php80\ValueObject\StrStartsWith $strStartsWith) : ?\_PhpScopere8e811afab72\PhpParser\Node;
 }

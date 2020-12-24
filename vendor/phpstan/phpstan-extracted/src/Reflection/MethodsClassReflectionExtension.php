@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection;
 
 interface MethodsClassReflectionExtension
 {
-    public function hasMethod(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool;
-    public function getMethod(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection;
+    public function hasMethod(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool;
+    public function getMethod(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
 }

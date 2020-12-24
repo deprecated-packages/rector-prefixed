@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Caster;
+namespace _PhpScopere8e811afab72\Symfony\Component\VarDumper\Caster;
 
-use _PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub;
+use _PhpScopere8e811afab72\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * @author Jan Schädlich <jan.schaedlich@sensiolabs.de>
  *
@@ -20,9 +20,9 @@ class MemcachedCaster
 {
     private static $optionConstants;
     private static $defaultOptions;
-    public static function castMemcached(\Memcached $c, array $a, \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
+    public static function castMemcached(\Memcached $c, array $a, \_PhpScopere8e811afab72\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $a += [\_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'servers' => $c->getServerList(), \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'options' => new \_PhpScoper0a2ac50786fa\Symfony\Component\VarDumper\Caster\EnumStub(self::getNonDefaultOptions($c))];
+        $a += [\_PhpScopere8e811afab72\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'servers' => $c->getServerList(), \_PhpScopere8e811afab72\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'options' => new \_PhpScopere8e811afab72\Symfony\Component\VarDumper\Caster\EnumStub(self::getNonDefaultOptions($c))];
         return $a;
     }
     private static function getNonDefaultOptions(\Memcached $c) : array

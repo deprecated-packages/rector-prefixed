@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer;
+namespace _PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr;
-use _PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\FluentCallsKind;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\Naming\VariableNaming;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr;
+use _PhpScopere8e811afab72\Rector\Defluent\ValueObject\FluentCallsKind;
+use _PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming;
+use _PhpScopere8e811afab72\Rector\NetteKdyby\Naming\VariableNaming;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType;
 /**
  * @see \Rector\Defluent\Tests\NodeFactory\FluentChainMethodCallRootExtractor\FluentChainMethodCallRootExtractorTest
  */
@@ -49,7 +49,7 @@ final class FluentChainMethodCallRootExtractor
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper0a2ac50786fa\Rector\NetteKdyby\Naming\VariableNaming $variableNaming, \_PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer\ExprStringTypeResolver $exprStringTypeResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScopere8e811afab72\Rector\NetteKdyby\Naming\VariableNaming $variableNaming, \_PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\ExprStringTypeResolver $exprStringTypeResolver, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->propertyNaming = $propertyNaming;
         $this->betterNodeFinder = $betterNodeFinder;
@@ -61,19 +61,19 @@ final class FluentChainMethodCallRootExtractor
     /**
      * @param MethodCall[] $methodCalls
      */
-    public function extractFromMethodCalls(array $methodCalls, string $kind) : ?\_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr
+    public function extractFromMethodCalls(array $methodCalls, string $kind) : ?\_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr
     {
         // we need at least 2 method call for fluent
         if (\count($methodCalls) < 2) {
             return null;
         }
         foreach ($methodCalls as $methodCall) {
-            if ($methodCall->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable || $methodCall->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
+            if ($methodCall->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable || $methodCall->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
                 return $this->createAssignAndRootExprForVariableOrPropertyFetch($methodCall);
             }
-            if ($methodCall->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_) {
+            if ($methodCall->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
                 // direct = no parent
-                if ($kind === \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\FluentCallsKind::IN_ARGS) {
+                if ($kind === \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\FluentCallsKind::IN_ARGS) {
                     return $this->resolveKindInArgs($methodCall);
                 }
                 return $this->matchMethodCallOnNew($methodCall);
@@ -86,13 +86,13 @@ final class FluentChainMethodCallRootExtractor
      * A. FLUENT: $cook->bake()->serve() // only "Cook"
      * B. FACTORY: $food = $cook->bake()->warmUp(); // only "Food"
      */
-    public function resolveIsFirstMethodCallFactory(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    public function resolveIsFirstMethodCallFactory(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $variableStaticType = $this->exprStringTypeResolver->resolve($methodCall->var);
         $calledMethodStaticType = $this->exprStringTypeResolver->resolve($methodCall);
         // get next method call
-        $nextMethodCall = $methodCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$nextMethodCall instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+        $nextMethodCall = $methodCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$nextMethodCall instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         $nestedCallStaticType = $this->exprStringTypeResolver->resolve($nextMethodCall);
@@ -104,50 +104,50 @@ final class FluentChainMethodCallRootExtractor
         }
         return $variableStaticType !== $calledMethodStaticType;
     }
-    private function createAssignAndRootExprForVariableOrPropertyFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr
+    private function createAssignAndRootExprForVariableOrPropertyFetch(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr
     {
         $isFirstCallFactory = $this->resolveIsFirstMethodCallFactory($methodCall);
         // the method call, does not belong to the
         $staticType = $this->nodeTypeResolver->getStaticType($methodCall);
-        $parentNode = $methodCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $methodCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // no assign
-        if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
+        if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
             $variableName = $this->propertyNaming->fqnToVariableName($staticType);
             // the assign expresison must be break
             // pesuero code bsaed on type
-            $variable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($variableName);
-            return new \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $variable, $isFirstCallFactory);
+            $variable = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($variableName);
+            return new \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $variable, $isFirstCallFactory);
         }
-        return new \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, null, $isFirstCallFactory);
+        return new \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, null, $isFirstCallFactory);
     }
-    private function resolveKindInArgs(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr
+    private function resolveKindInArgs(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr
     {
         $variableName = $this->variableNaming->resolveFromNode($methodCall->var);
         if ($variableName === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $silentVariable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($variableName);
-        return new \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $silentVariable);
+        $silentVariable = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($variableName);
+        return new \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $silentVariable);
     }
-    private function matchMethodCallOnNew(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr
+    private function matchMethodCallOnNew(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr
     {
         // we need assigned left variable here
-        $previousAssignOrReturn = $this->betterNodeFinder->findFirstPreviousOfTypes($methodCall->var, [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_::class]);
-        if ($previousAssignOrReturn instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
-            return new \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr($previousAssignOrReturn->var, $methodCall->var);
+        $previousAssignOrReturn = $this->betterNodeFinder->findFirstPreviousOfTypes($methodCall->var, [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign::class, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_::class]);
+        if ($previousAssignOrReturn instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
+            return new \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr($previousAssignOrReturn->var, $methodCall->var);
         }
-        if ($previousAssignOrReturn instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_) {
+        if ($previousAssignOrReturn instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
             $className = $this->nodeNameResolver->getName($methodCall->var->class);
             if ($className === null) {
                 return null;
             }
-            $fullyQualifiedObjectType = new \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType($className);
+            $fullyQualifiedObjectType = new \_PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType($className);
             $expectedName = $this->propertyNaming->getExpectedNameFromType($fullyQualifiedObjectType);
             if ($expectedName === null) {
                 return null;
             }
-            $variable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($expectedName->getName());
-            return new \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $variable);
+            $variable = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($expectedName->getName());
+            return new \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $variable);
         }
         // no assign, just standalone call
         return null;

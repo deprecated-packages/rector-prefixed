@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
 use function file_exists;
 use function restore_error_handler;
@@ -30,7 +30,7 @@ use function restore_error_handler;
  *
  * Modified code from Roave/BetterReflection, Copyright (c) 2017 Roave, LLC.
  */
-class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+class AutoloadSourceLocator implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var FileNodesFetcher */
     private $fileNodesFetcher;
@@ -44,7 +44,7 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
     private $constantNodes = [];
     /** @var array<string, \Roave\BetterReflection\SourceLocator\Located\LocatedSource> */
     private $locatedSourcesByFile = [];
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher)
     {
         $this->fileNodesFetcher = $fileNodesFetcher;
     }
@@ -53,13 +53,13 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifier(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         if ($identifier->isFunction()) {
             $functionName = $identifier->getName();
             $loweredFunctionName = \strtolower($functionName);
             if (\array_key_exists($loweredFunctionName, $this->functionNodes)) {
-                $nodeToReflection = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+                $nodeToReflection = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
                 return $nodeToReflection->__invoke($reflector, $this->functionNodes[$loweredFunctionName]->getNode(), $this->locatedSourcesByFile[$this->functionNodes[$loweredFunctionName]->getFileName()], $this->functionNodes[$loweredFunctionName]->getNamespace());
             }
             if (!\function_exists($functionName)) {
@@ -77,15 +77,15 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
         }
         if ($identifier->isConstant()) {
             $constantName = $identifier->getName();
-            $nodeToReflection = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+            $nodeToReflection = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
             foreach ($this->constantNodes as $stmtConst) {
-                if ($stmtConst->getNode() instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
+                if ($stmtConst->getNode() instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
                     $constantReflection = $nodeToReflection->__invoke($reflector, $stmtConst->getNode(), $this->locatedSourcesByFile[$stmtConst->getFileName()], $stmtConst->getNamespace());
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant) {
-                        throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+                    if (!$constantReflection instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                        throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
                         continue;
@@ -97,8 +97,8 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant) {
-                        throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+                    if (!$constantReflection instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                        throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
                         continue;
@@ -109,7 +109,7 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
             if (!\defined($constantName)) {
                 return null;
             }
-            $reflection = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant::createFromNode($reflector, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('define'), [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($constantName)), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_(''))]), new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource('', null), null, null);
+            $reflection = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant::createFromNode($reflector, new \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('define'), [new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_($constantName)), new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_(''))]), new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource('', null), null, null);
             $reflection->populateValue(\constant($constantName));
             return $reflection;
         }
@@ -124,16 +124,16 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
         if ($locateResult === null) {
             if (\array_key_exists($loweredClassName, $this->classNodes)) {
                 foreach ($this->classNodes[$loweredClassName] as $classNode) {
-                    $nodeToReflection = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+                    $nodeToReflection = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
                     return $this->classReflections[$loweredClassName] = $nodeToReflection->__invoke($reflector, $classNode->getNode(), $this->locatedSourcesByFile[$classNode->getFileName()], $classNode->getNamespace());
                 }
             }
             return null;
         }
         [$potentiallyLocatedFile, $className, $startLine] = $locateResult;
-        return $this->findReflection($reflector, $potentiallyLocatedFile, new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier($className, $identifier->getType()), $startLine);
+        return $this->findReflection($reflector, $potentiallyLocatedFile, new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier($className, $identifier->getType()), $startLine);
     }
-    private function findReflection(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, string $file, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier, ?int $startLine) : ?\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    private function findReflection(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, string $file, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier, ?int $startLine) : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         if (!\array_key_exists($file, $this->locatedSourcesByFile)) {
             $result = $this->fileNodesFetcher->fetchNodes($file);
@@ -153,7 +153,7 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
         } else {
             $locatedSource = $this->locatedSourcesByFile[$file];
         }
-        $nodeToReflection = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         if ($identifier->isClass()) {
             $identifierName = \strtolower($identifier->getName());
             if (\array_key_exists($identifierName, $this->classReflections)) {
@@ -184,7 +184,7 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
         }
         return null;
     }
-    public function locateIdentifiersByType(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
     }
@@ -220,7 +220,7 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
         $this->silenceErrors();
         try {
             /** @var array{string, string, null}|null */
-            return \_PhpScoper0a2ac50786fa\PHPStan\Reflection\BetterReflection\SourceLocator\FileReadTrapStreamWrapper::withStreamWrapperOverride(static function () use($className) : ?array {
+            return \_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FileReadTrapStreamWrapper::withStreamWrapperOverride(static function () use($className) : ?array {
                 $functions = \spl_autoload_functions();
                 if ($functions === \false) {
                     return null;
@@ -233,8 +233,8 @@ class AutoloadSourceLocator implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
                      *
                      * This will not be `null` when the autoloader tried to read a file.
                      */
-                    if (\_PhpScoper0a2ac50786fa\PHPStan\Reflection\BetterReflection\SourceLocator\FileReadTrapStreamWrapper::$autoloadLocatedFile !== null) {
-                        return [\_PhpScoper0a2ac50786fa\PHPStan\Reflection\BetterReflection\SourceLocator\FileReadTrapStreamWrapper::$autoloadLocatedFile, $className, null];
+                    if (\_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FileReadTrapStreamWrapper::$autoloadLocatedFile !== null) {
+                        return [\_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FileReadTrapStreamWrapper::$autoloadLocatedFile, $className, null];
                     }
                 }
                 return null;

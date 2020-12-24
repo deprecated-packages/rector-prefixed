@@ -5,7 +5,7 @@ declare (strict_types=1);
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-namespace _PhpScoper0a2ac50786fa\NettePostfixedToUniqueAutoload\Utils;
+namespace _PhpScopere8e811afab72\NettePostfixedToUniqueAutoload\Utils;
 
 /**
  * The exception that indicates error of the last Regexp execution.

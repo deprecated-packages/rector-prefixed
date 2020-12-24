@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Matcher;
+namespace _PhpScopere8e811afab72\Rector\TypeDeclaration\Matcher;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
 final class PropertyAssignMatcher
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -25,7 +25,7 @@ final class PropertyAssignMatcher
      * - $this->propertyName = $expr;
      * - $this->propertyName[] = $expr;
      */
-    public function matchPropertyAssignExpr(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, string $propertyName) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function matchPropertyAssignExpr(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, string $propertyName) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         if ($this->isPropertyFetch($assign->var)) {
             if (!$this->nodeNameResolver->isName($assign->var, $propertyName)) {
@@ -33,7 +33,7 @@ final class PropertyAssignMatcher
             }
             return $assign->expr;
         }
-        if ($assign->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch && $this->isPropertyFetch($assign->var->var)) {
+        if ($assign->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch && $this->isPropertyFetch($assign->var->var)) {
             if (!$this->nodeNameResolver->isName($assign->var->var, $propertyName)) {
                 return null;
             }
@@ -41,11 +41,11 @@ final class PropertyAssignMatcher
         }
         return null;
     }
-    private function isPropertyFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    private function isPropertyFetch(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
             return \true;
         }
-        return $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
+        return $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch;
     }
 }

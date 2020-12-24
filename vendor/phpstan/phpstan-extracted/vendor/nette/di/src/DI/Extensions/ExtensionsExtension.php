@@ -5,17 +5,17 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Enables registration of other extensions in $config file
  */
-final class ExtensionsExtension extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+final class ExtensionsExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf('_PhpScoper0a2ac50786fa\\string|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement');
+        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf('_PhpScopere8e811afab72\\string|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement');
     }
     public function loadConfiguration()
     {
@@ -24,11 +24,11 @@ final class ExtensionsExtension extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6
                 $name = null;
             }
             $args = [];
-            if ($class instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
+            if ($class instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
                 [$class, $args] = [$class->getEntity(), $class->arguments];
             }
-            if (!\is_a($class, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension::class, \true)) {
-                throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException("Extension '{$class}' not found or is not Nette\\DI\\CompilerExtension descendant.");
+            if (!\is_a($class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension::class, \true)) {
+                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException("Extension '{$class}' not found or is not Nette\\DI\\CompilerExtension descendant.");
             }
             $this->compiler->addExtension($name, (new \ReflectionClass($class))->newInstanceArgs($args));
         }

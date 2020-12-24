@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector;
+namespace _PhpScopere8e811afab72\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\RemoveTraitRector;
-use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveTraitRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\Generic\Rector\Class_\RemoveTraitRector;
+use _PhpScopere8e811afab72\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveTraitRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class RemoveTraitRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\RemoveTraitRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\Class_\RemoveTraitRector::TRAITS_TO_REMOVE => [\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved::class]]];
+        return [\_PhpScopere8e811afab72\Rector\Generic\Rector\Class_\RemoveTraitRector::class => [\_PhpScopere8e811afab72\Rector\Generic\Rector\Class_\RemoveTraitRector::TRAITS_TO_REMOVE => [\_PhpScopere8e811afab72\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved::class]]];
     }
 }

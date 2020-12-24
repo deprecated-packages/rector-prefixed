@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php80\Rector\Identical;
+namespace _PhpScopere8e811afab72\Rector\Php80\Rector\Identical;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\UnaryMinus;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\UnaryMinus;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/add_str_starts_with_and_ends_with_functions
  *
  * @see \Rector\Php80\Tests\Rector\Identical\StrEndsWithRector\StrEndsWithRectorTest
  */
-final class StrEndsWithRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class StrEndsWithRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change helper functions to str_ends_with()', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change helper functions to str_ends_with()', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -47,12 +47,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
     }
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         return $this->refactorSubstr($node) ?? $this->refactorSubstrCompare($node);
     }
@@ -60,7 +60,7 @@ CODE_SAMPLE
      * Covers:
      * $isMatch = substr($haystack, -strlen($needle)) === $needle;
      */
-    private function refactorSubstr(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
+    private function refactorSubstr(\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall
     {
         if ($this->isFuncCallName($binaryOp->left, 'substr')) {
             $substrFuncCall = $binaryOp->left;
@@ -78,7 +78,7 @@ CODE_SAMPLE
         }
         return $this->createFuncCall('str_ends_with', [$haystack, $needle]);
     }
-    private function refactorSubstrCompare(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
+    private function refactorSubstrCompare(\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall
     {
         if ($this->isFuncCallName($binaryOp->left, 'substr_compare')) {
             $substrCompareFuncCall = $binaryOp->left;
@@ -101,9 +101,9 @@ CODE_SAMPLE
         }
         return $this->createFuncCall('str_ends_with', [$haystack, $needle]);
     }
-    private function matchUnaryMinusStrlenFuncCallArgValue(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    private function matchUnaryMinusStrlenFuncCallArgValue(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
-        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\UnaryMinus) {
+        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\UnaryMinus) {
             return null;
         }
         if (!$this->isFuncCallName($node->expr, 'strlen')) {

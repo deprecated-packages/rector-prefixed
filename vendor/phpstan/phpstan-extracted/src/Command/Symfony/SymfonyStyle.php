@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Command\Symfony;
+namespace _PhpScopere8e811afab72\PHPStan\Command\Symfony;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Command\OutputStyle;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface;
+use _PhpScopere8e811afab72\PHPStan\Command\OutputStyle;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface;
 /**
  * @internal
  */
-class SymfonyStyle implements \_PhpScoper0a2ac50786fa\PHPStan\Command\OutputStyle
+class SymfonyStyle implements \_PhpScopere8e811afab72\PHPStan\Command\OutputStyle
 {
     /** @var \Symfony\Component\Console\Style\StyleInterface */
     private $symfonyStyle;
-    public function __construct(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface $symfonyStyle)
+    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
     }
-    public function getSymfonyStyle() : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface
+    public function getSymfonyStyle() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface
     {
         return $this->symfonyStyle;
     }

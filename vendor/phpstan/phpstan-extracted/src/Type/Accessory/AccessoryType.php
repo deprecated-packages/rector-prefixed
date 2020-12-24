@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type\Accessory;
+namespace _PhpScopere8e811afab72\PHPStan\Type\Accessory;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-interface AccessoryType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+interface AccessoryType extends \_PhpScopere8e811afab72\PHPStan\Type\Type
 {
 }

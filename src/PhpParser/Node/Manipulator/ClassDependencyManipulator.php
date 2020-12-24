@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\NodeFactory;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
 use ReflectionProperty;
 final class ClassDependencyManipulator
@@ -39,7 +39,7 @@ final class ClassDependencyManipulator
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ChildAndParentClassManipulator $childAndParentClassManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator $stmtsManipulator)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ChildAndParentClassManipulator $childAndParentClassManipulator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator $stmtsManipulator)
     {
         $this->classMethodAssignManipulator = $classMethodAssignManipulator;
         $this->nodeFactory = $nodeFactory;
@@ -47,7 +47,7 @@ final class ClassDependencyManipulator
         $this->stmtsManipulator = $stmtsManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function addConstructorDependency(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $name, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : void
+    public function addConstructorDependency(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, string $name, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : void
     {
         if ($this->isPropertyAlreadyAvailableInTheClassOrItsParents($class, $name)) {
             return;
@@ -56,15 +56,15 @@ final class ClassDependencyManipulator
         $assign = $this->nodeFactory->createPropertyAssignment($name);
         $this->addConstructorDependencyWithCustomAssign($class, $name, $type, $assign);
     }
-    public function addConstructorDependencyWithCustomAssign(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $name, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : void
+    public function addConstructorDependencyWithCustomAssign(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, string $name, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $type, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : void
     {
-        $constructorMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorMethod = $class->getMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         /** @var ClassMethod|null $constructorMethod */
         if ($constructorMethod !== null) {
             $this->classMethodAssignManipulator->addParameterAndAssignToMethod($constructorMethod, $name, $type, $assign);
             return;
         }
-        $constructorMethod = $this->nodeFactory->createPublicMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorMethod = $this->nodeFactory->createPublicMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $this->classMethodAssignManipulator->addParameterAndAssignToMethod($constructorMethod, $name, $type, $assign);
         $this->childAndParentClassManipulator->completeParentConstructor($class, $constructorMethod);
         $this->classInsertManipulator->addAsFirstMethod($class, $constructorMethod);
@@ -73,14 +73,14 @@ final class ClassDependencyManipulator
     /**
      * @param Stmt[] $stmts
      */
-    public function addStmtsToConstructorIfNotThereYet(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, array $stmts) : void
+    public function addStmtsToConstructorIfNotThereYet(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, array $stmts) : void
     {
-        $classMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $classMethod = $class->getMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($classMethod === null) {
-            $classMethod = $this->nodeFactory->createPublicMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+            $classMethod = $this->nodeFactory->createPublicMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             // keep parent constructor call
-            if ($this->hasClassParentClassMethod($class, \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
-                $classMethod->stmts[] = $this->createParentClassMethodCall(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+            if ($this->hasClassParentClassMethod($class, \_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+                $classMethod->stmts[] = $this->createParentClassMethodCall(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             }
             $classMethod->stmts = \array_merge((array) $classMethod->stmts, $stmts);
             $class->stmts = \array_merge((array) $class->stmts, [$classMethod]);
@@ -93,20 +93,20 @@ final class ClassDependencyManipulator
         }
         $classMethod->stmts = \array_merge($stmts, (array) $classMethod->stmts);
     }
-    public function addInjectProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $propertyName, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $propertyType) : void
+    public function addInjectProperty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, string $propertyName, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $propertyType) : void
     {
         if ($this->isPropertyAlreadyAvailableInTheClassOrItsParents($class, $propertyName)) {
             return;
         }
         $this->classInsertManipulator->addInjectPropertyToClass($class, $propertyName, $propertyType);
     }
-    private function isPropertyAlreadyAvailableInTheClassOrItsParents(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : bool
+    private function isPropertyAlreadyAvailableInTheClassOrItsParents(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : bool
     {
-        $className = $class->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
-        if (!\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($className)) {
+        if (!\_PhpScopere8e811afab72\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($className)) {
             return \false;
         }
         $availablePropertyReflections = $this->getParentClassPublicAndProtectedPropertyReflections($className);
@@ -118,18 +118,18 @@ final class ClassDependencyManipulator
         }
         return \false;
     }
-    private function hasClassParentClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $methodName) : bool
+    private function hasClassParentClassMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, string $methodName) : bool
     {
-        $parentClassName = $class->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $class->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if ($parentClassName === null) {
             return \false;
         }
         return \method_exists($parentClassName, $methodName);
     }
-    private function createParentClassMethodCall(string $methodName) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression
+    private function createParentClassMethodCall(string $methodName) : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression
     {
-        $staticCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('parent'), $methodName);
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($staticCall);
+        $staticCall = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('parent'), $methodName);
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression($staticCall);
     }
     /**
      * @return ReflectionProperty[]

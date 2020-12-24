@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\Encapsed;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\SOLID\Guard\VariableToConstantGuard;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\Encapsed;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\SOLID\Guard\VariableToConstantGuard;
 final class VariableManipulator
 {
     /**
@@ -48,7 +48,7 @@ final class VariableManipulator
      * @var VariableToConstantGuard
      */
     private $variableToConstantGuard;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator $arrayManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\SOLID\Guard\VariableToConstantGuard $variableToConstantGuard)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator $arrayManipulator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\SOLID\Guard\VariableToConstantGuard $variableToConstantGuard)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->assignManipulator = $assignManipulator;
@@ -61,23 +61,23 @@ final class VariableManipulator
     /**
      * @return Assign[]
      */
-    public function collectScalarOrArrayAssignsOfVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    public function collectScalarOrArrayAssignsOfVariable(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $assignsOfArrayToVariable = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use(&$assignsOfArrayToVariable) {
-            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\_PhpScopere8e811afab72\PhpParser\Node $node) use(&$assignsOfArrayToVariable) {
+            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
                 return null;
             }
-            if (!$node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+            if (!$node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
                 return null;
             }
-            if (!$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_ && !$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar) {
+            if (!$node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_ && !$node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar) {
                 return null;
             }
-            if ($node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\Encapsed) {
+            if ($node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\Encapsed) {
                 return null;
             }
-            if ($node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_ && !$this->arrayManipulator->isArrayOnlyScalarValues($node->expr)) {
+            if ($node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_ && !$this->arrayManipulator->isArrayOnlyScalarValues($node->expr)) {
                 return null;
             }
             if ($this->isTestCaseExpectedVariable($node->var)) {
@@ -91,19 +91,19 @@ final class VariableManipulator
      * @param Assign[] $assignsOfArrayToVariable
      * @return Assign[]
      */
-    public function filterOutChangedVariables(array $assignsOfArrayToVariable, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    public function filterOutChangedVariables(array $assignsOfArrayToVariable, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
-        return \array_filter($assignsOfArrayToVariable, function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) use($classMethod) : bool {
+        return \array_filter($assignsOfArrayToVariable, function (\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) use($classMethod) : bool {
             /** @var Variable $variable */
             $variable = $assign->var;
             return $this->isReadOnlyVariable($classMethod, $variable, $assign);
         });
     }
-    private function isTestCaseExpectedVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : bool
+    private function isTestCaseExpectedVariable(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable) : bool
     {
         /** @var string $className */
-        $className = $variable->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($className, 'Test')) {
+        $className = $variable->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if (!\_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($className, 'Test')) {
             return \false;
         }
         return $this->nodeNameResolver->isName($variable, 'expect*');
@@ -112,12 +112,12 @@ final class VariableManipulator
      * Inspiration
      * @see \Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator::isReadOnlyProperty()
      */
-    private function isReadOnlyVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isReadOnlyVariable(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : bool
     {
         $variableUsages = $this->collectVariableUsages($classMethod, $variable, $assign);
         foreach ($variableUsages as $variableUsage) {
-            $parent = $variableUsage->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg && !$this->variableToConstantGuard->isReadArg($parent)) {
+            $parent = $variableUsage->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parent instanceof \_PhpScopere8e811afab72\PhpParser\Node\Arg && !$this->variableToConstantGuard->isReadArg($parent)) {
                 return \false;
             }
             if (!$this->assignManipulator->isLeftPartOfAssign($variableUsage)) {
@@ -130,14 +130,14 @@ final class VariableManipulator
     /**
      * @return Variable[]
      */
-    private function collectVariableUsages(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : array
+    private function collectVariableUsages(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : array
     {
-        return $this->betterNodeFinder->find((array) $classMethod->getStmts(), function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($variable, $assign) : bool {
-            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+        return $this->betterNodeFinder->find((array) $classMethod->getStmts(), function (\_PhpScopere8e811afab72\PhpParser\Node $node) use($variable, $assign) : bool {
+            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
                 return \false;
             }
             // skip initialization
-            $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parentNode = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($parentNode === $assign) {
                 return \false;
             }

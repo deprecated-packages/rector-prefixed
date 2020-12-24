@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Tests\Rector\Assign\CombinedAssignRector;
+namespace _PhpScopere8e811afab72\Rector\CodeQuality\Tests\Rector\Assign\CombinedAssignRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Assign\CombinedAssignRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\Rector\CodeQuality\Rector\Assign\CombinedAssignRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Some tests used from:
  * - https://github.com/doctrine/coding-standard/pull/83/files
  * - https://github.com/slevomat/coding-standard/blob/master/tests/Sniffs/Operators/data/requireCombinedAssignmentOperatorErrors.php
  */
-final class CombinedAssignRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class CombinedAssignRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class CombinedAssignRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Assign\CombinedAssignRector::class;
+        return \_PhpScopere8e811afab72\Rector\CodeQuality\Rector\Assign\CombinedAssignRector::class;
     }
 }

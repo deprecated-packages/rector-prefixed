@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type;
+namespace _PhpScopere8e811afab72\PHPStan\Type;
 
 class RecursionGuard
 {
@@ -13,11 +13,11 @@ class RecursionGuard
      *
      * @return Type
      */
-    public static function run(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, callable $callback) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public static function run(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, callable $callback) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        $key = $type->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::value());
+        $key = $type->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::value());
         if (isset(self::$context[$key])) {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType();
+            return new \_PhpScopere8e811afab72\PHPStan\Type\ErrorType();
         }
         try {
             self::$context[$key] = \true;

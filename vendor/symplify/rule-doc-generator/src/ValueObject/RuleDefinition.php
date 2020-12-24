@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject;
+namespace _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScopere8e811afab72\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class RuleDefinition
 {
     /**
@@ -29,7 +29,7 @@ final class RuleDefinition
     {
         $this->description = $description;
         if ($codeSamples === []) {
-            throw new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Exception\PoorDocumentationException('Provide at least one code sample, so people can practically see what the rule does');
+            throw new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\Exception\PoorDocumentationException('Provide at least one code sample, so people can practically see what the rule does');
         }
         $this->codeSamples = $codeSamples;
     }
@@ -44,13 +44,13 @@ final class RuleDefinition
     public function getRuleClass() : string
     {
         if ($this->ruleClass === null) {
-            throw new \_PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->ruleClass;
     }
     public function getRuleShortClass() : string
     {
-        return (string) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
+        return (string) \_PhpScopere8e811afab72\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
     }
     /**
      * @return CodeSampleInterface[]
@@ -62,7 +62,7 @@ final class RuleDefinition
     public function isConfigurable() : bool
     {
         foreach ($this->codeSamples as $codeSample) {
-            if ($codeSample instanceof \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
+            if ($codeSample instanceof \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
                 return \true;
             }
         }

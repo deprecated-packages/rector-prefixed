@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
+namespace _PhpScopere8e811afab72\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
 
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ComposerJsonAwareCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class RectorRuleCodeSamplePrinter implements \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ComposerJsonAwareCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class RectorRuleCodeSamplePrinter implements \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
 {
     /**
      * @var DiffCodeSamplePrinter
@@ -25,7 +25,7 @@ final class RectorRuleCodeSamplePrinter implements \_PhpScoper0a2ac50786fa\Sympl
      * @var ConfiguredCodeSamplerPrinter
      */
     private $configuredCodeSamplerPrinter;
-    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter $diffCodeSamplePrinter, \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\RuleCodeSamplePrinter\ConfiguredCodeSamplerPrinter $configuredCodeSamplerPrinter)
+    public function __construct(\_PhpScopere8e811afab72\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter $diffCodeSamplePrinter, \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\RuleCodeSamplePrinter\ConfiguredCodeSamplerPrinter $configuredCodeSamplerPrinter)
     {
         $this->diffCodeSamplePrinter = $diffCodeSamplePrinter;
         $this->markdownCodeWrapper = $markdownCodeWrapper;
@@ -34,20 +34,20 @@ final class RectorRuleCodeSamplePrinter implements \_PhpScoper0a2ac50786fa\Sympl
     public function isMatch(string $class) : bool
     {
         /** @noRector */
-        return \is_a($class, '_PhpScoper0a2ac50786fa\\Rector\\Core\\Contract\\Rector\\RectorInterface', \true);
+        return \is_a($class, '_PhpScopere8e811afab72\\Rector\\Core\\Contract\\Rector\\RectorInterface', \true);
     }
     /**
      * @return string[]
      */
-    public function print(\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    public function print(\_PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
     {
-        if ($codeSample instanceof \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample) {
+        if ($codeSample instanceof \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample) {
             return $this->printExtraFileCodeSample($codeSample);
         }
-        if ($codeSample instanceof \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ComposerJsonAwareCodeSample) {
+        if ($codeSample instanceof \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ComposerJsonAwareCodeSample) {
             return $this->printComposerJsonAwareCodeSample($codeSample);
         }
-        if ($codeSample instanceof \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
+        if ($codeSample instanceof \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
             return $this->configuredCodeSamplerPrinter->printConfiguredCodeSample($ruleDefinition, $codeSample);
         }
         return $this->diffCodeSamplePrinter->print($codeSample);
@@ -55,7 +55,7 @@ final class RectorRuleCodeSamplePrinter implements \_PhpScoper0a2ac50786fa\Sympl
     /**
      * @return string[]
      */
-    private function printComposerJsonAwareCodeSample(\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ComposerJsonAwareCodeSample $composerJsonAwareCodeSample) : array
+    private function printComposerJsonAwareCodeSample(\_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ComposerJsonAwareCodeSample $composerJsonAwareCodeSample) : array
     {
         $lines = [];
         $lines[] = '- with `composer.json`:';
@@ -67,7 +67,7 @@ final class RectorRuleCodeSamplePrinter implements \_PhpScoper0a2ac50786fa\Sympl
     /**
      * @return string[]
      */
-    private function printExtraFileCodeSample(\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample $extraFileCodeSample) : array
+    private function printExtraFileCodeSample(\_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample $extraFileCodeSample) : array
     {
         $lines = $this->diffCodeSamplePrinter->print($extraFileCodeSample);
         $lines[] = 'Extra file:';

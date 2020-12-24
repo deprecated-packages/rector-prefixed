@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Event;
+namespace _PhpScopere8e811afab72\Hoa\Event;
 
-use _PhpScoper0a2ac50786fa\Hoa\Consistency;
+use _PhpScopere8e811afab72\Hoa\Consistency;
 /**
  * Class \Hoa\Event\Event.
  *
@@ -107,14 +107,14 @@ class Event
     public static function register($eventId, $source)
     {
         if (\true === self::eventExists($eventId)) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Event\Exception('Cannot redeclare an event with the same ID, i.e. the event ' . 'ID %s already exists.', 0, $eventId);
+            throw new \_PhpScopere8e811afab72\Hoa\Event\Exception('Cannot redeclare an event with the same ID, i.e. the event ' . 'ID %s already exists.', 0, $eventId);
         }
-        if (\is_object($source) && !$source instanceof \_PhpScoper0a2ac50786fa\Hoa\Event\Source) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Event\Exception('The source must implement \\Hoa\\Event\\Source ' . 'interface; given %s.', 1, \get_class($source));
+        if (\is_object($source) && !$source instanceof \_PhpScopere8e811afab72\Hoa\Event\Source) {
+            throw new \_PhpScopere8e811afab72\Hoa\Event\Exception('The source must implement \\Hoa\\Event\\Source ' . 'interface; given %s.', 1, \get_class($source));
         } else {
             $reflection = new \ReflectionClass($source);
-            if (\false === $reflection->implementsInterface('_PhpScoper0a2ac50786fa\\Hoa\\Event\\Source')) {
-                throw new \_PhpScoper0a2ac50786fa\Hoa\Event\Exception('The source must implement \\Hoa\\Event\\Source ' . 'interface; given %s.', 2, $source);
+            if (\false === $reflection->implementsInterface('_PhpScopere8e811afab72\\Hoa\\Event\\Source')) {
+                throw new \_PhpScopere8e811afab72\Hoa\Event\Exception('The source must implement \\Hoa\\Event\\Source ' . 'interface; given %s.', 2, $source);
             }
         }
         if (!isset(self::$_register[$eventId][self::KEY_EVENT])) {
@@ -184,10 +184,10 @@ class Event
      * @return  void
      * @throws  \Hoa\Event\Exception
      */
-    public static function notify($eventId, \_PhpScoper0a2ac50786fa\Hoa\Event\Source $source, \_PhpScoper0a2ac50786fa\Hoa\Event\Bucket $data)
+    public static function notify($eventId, \_PhpScopere8e811afab72\Hoa\Event\Source $source, \_PhpScopere8e811afab72\Hoa\Event\Bucket $data)
     {
         if (\false === self::eventExists($eventId)) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Event\Exception('Event ID %s does not exist, cannot send notification.', 3, $eventId);
+            throw new \_PhpScopere8e811afab72\Hoa\Event\Exception('Event ID %s does not exist, cannot send notification.', 3, $eventId);
         }
         $data->setSource($source);
         $event = self::getEvent($eventId);
@@ -210,4 +210,4 @@ class Event
 /**
  * Flex entity.
  */
-\_PhpScoper0a2ac50786fa\Hoa\Consistency::flexEntity('_PhpScoper0a2ac50786fa\\Hoa\\Event\\Event');
+\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Event\\Event');

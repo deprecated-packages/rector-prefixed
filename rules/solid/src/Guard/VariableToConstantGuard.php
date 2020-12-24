@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\SOLID\Guard;
+namespace _PhpScopere8e811afab72\Rector\SOLID\Guard;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionFunction;
 final class VariableToConstantGuard
 {
@@ -19,14 +19,14 @@ final class VariableToConstantGuard
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isReadArg(\_PhpScoper0a2ac50786fa\PhpParser\Node\Arg $arg) : bool
+    public function isReadArg(\_PhpScopere8e811afab72\PhpParser\Node\Arg $arg) : bool
     {
-        $parentParent = $arg->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentParent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
+        $parentParent = $arg->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentParent instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
             return \true;
         }
         $functionName = $this->nodeNameResolver->getName($parentParent);
@@ -64,7 +64,7 @@ final class VariableToConstantGuard
         $this->referencePositionsByFunctionName[$functionName] = $referencePositions;
         return $referencePositions;
     }
-    private function getArgumentPosition(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg $desiredArg) : int
+    private function getArgumentPosition(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScopere8e811afab72\PhpParser\Node\Arg $desiredArg) : int
     {
         foreach ($funcCall->args as $position => $arg) {
             if ($arg !== $desiredArg) {
@@ -72,6 +72,6 @@ final class VariableToConstantGuard
             }
             return $position;
         }
-        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
     }
 }

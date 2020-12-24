@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Tests\Normalizer;
+namespace _PhpScopere8e811afab72\Symplify\SmartFileSystem\Tests\Normalizer;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-final class PathNormalizerTest extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase
+use _PhpScopere8e811afab72\PHPUnit\Framework\TestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+final class PathNormalizerTest extends \_PhpScopere8e811afab72\PHPUnit\Framework\TestCase
 {
     /**
      * @var PathNormalizer
@@ -14,7 +14,7 @@ final class PathNormalizerTest extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework
     private $pathNormalizer;
     protected function setUp() : void
     {
-        $this->pathNormalizer = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Normalizer\PathNormalizer();
+        $this->pathNormalizer = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\Normalizer\PathNormalizer();
     }
     /**
      * @dataProvider provideData()
@@ -28,6 +28,6 @@ final class PathNormalizerTest extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework
     {
         // based on Linux
         (yield ['/any/path', '/any/path']);
-        (yield ['_PhpScoper0a2ac50786fa\\any\\path', '/any/path']);
+        (yield ['_PhpScopere8e811afab72\\any\\path', '/any/path']);
     }
 }

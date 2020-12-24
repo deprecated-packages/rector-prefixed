@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\Rector\ClassMethod;
+namespace _PhpScopere8e811afab72\Rector\DoctrineCodeQuality\Rector\ClassMethod;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer;
-use _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer;
+use _PhpScopere8e811afab72\Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://www.luzanky.cz/ for sponsoring this rule
  *
@@ -17,7 +17,7 @@ use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\ClassMethod\MakeEntityDateTimePropertyDateTimeInterfaceRector\MakeEntityDateTimePropertyDateTimeInterfaceRectorTest
  */
-final class MakeEntityDateTimePropertyDateTimeInterfaceRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class MakeEntityDateTimePropertyDateTimeInterfaceRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var SetterClassMethodAnalyzer
@@ -27,14 +27,14 @@ final class MakeEntityDateTimePropertyDateTimeInterfaceRector extends \_PhpScope
      * @var PropertyTypeManipulator
      */
     private $propertyTypeManipulator;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer, \_PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator $propertyTypeManipulator)
+    public function __construct(\_PhpScopere8e811afab72\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer, \_PhpScopere8e811afab72\Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator $propertyTypeManipulator)
     {
         $this->setterClassMethodAnalyzer = $setterClassMethodAnalyzer;
         $this->propertyTypeManipulator = $propertyTypeManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make maker bundle generate DateTime property accept DateTimeInterface too', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make maker bundle generate DateTime property accept DateTimeInterface too', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -79,12 +79,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         $property = $this->setterClassMethodAnalyzer->matchDateTimeSetterProperty($node);
         if ($property === null) {

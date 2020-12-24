@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\NamingConvention;
+namespace _PhpScopere8e811afab72\Rector\Naming\NamingConvention;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
 final class NamingConventionAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -28,7 +28,7 @@ final class NamingConventionAnalyzer
      *
      * @param FuncCall|StaticCall|MethodCall $expr
      */
-    public function isCallMatchingVariableName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr, string $currentName, string $expectedName) : bool
+    public function isCallMatchingVariableName(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr, string $currentName, string $expectedName) : bool
     {
         // skip "$call = $method->call();" based conventions
         $callName = $this->nodeNameResolver->getName($expr->name);
@@ -36,6 +36,6 @@ final class NamingConventionAnalyzer
             return \true;
         }
         // starts with or ends with
-        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($currentName, '#^(' . $expectedName . '|' . $expectedName . '$)#i');
+        return (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($currentName, '#^(' . $expectedName . '|' . $expectedName . '$)#i');
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\BetterReflection\Reflector;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\Reflector;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
-final class MemoizingFunctionReflector extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
+final class MemoizingFunctionReflector extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector
 {
     /** @var array<string, \Roave\BetterReflection\Reflection\ReflectionFunction|\Throwable> */
     private $reflections = [];
@@ -16,7 +16,7 @@ final class MemoizingFunctionReflector extends \_PhpScoper0a2ac50786fa\_HumbugBo
      *
      * @throws \Roave\BetterReflection\Reflector\Exception\IdentifierNotFound
      */
-    public function reflect(string $functionName) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $functionName) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         $lowerFunctionName = \strtolower($functionName);
         if (isset($this->reflections[$lowerFunctionName])) {

@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\NodeRenamer;
+namespace _PhpScopere8e811afab72\Rector\Naming\NodeRenamer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\NodeRepository;
 final class MethodCallRenamer
 {
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeRepository = $nodeRepository;
     }
-    public function updateClassMethodCalls(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $desiredMethodName) : void
+    public function updateClassMethodCalls(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, string $desiredMethodName) : void
     {
         /** @var MethodCall[] $methodCalls */
         $methodCalls = $this->nodeRepository->findCallsByClassMethod($classMethod);
         foreach ($methodCalls as $methodCall) {
-            $methodCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($desiredMethodName);
+            $methodCall->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($desiredMethodName);
         }
     }
 }

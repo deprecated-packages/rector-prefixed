@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector;
+namespace _PhpScopere8e811afab72\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector;
-use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory;
-use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class StaticTypeToSetterInjectionRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector;
+use _PhpScopere8e811afab72\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory;
+use _PhpScopere8e811afab72\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class StaticTypeToSetterInjectionRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,10 +27,10 @@ final class StaticTypeToSetterInjectionRectorTest extends \_PhpScoper0a2ac50786f
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::class => [\_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::STATIC_TYPES => [
-            \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory::class,
+        return [\_PhpScopere8e811afab72\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::class => [\_PhpScopere8e811afab72\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::STATIC_TYPES => [
+            \_PhpScopere8e811afab72\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory::class,
             // with adding a parent interface to the class
-            'ParentSetterEnforcingInterface' => \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface::class,
+            'ParentSetterEnforcingInterface' => \_PhpScopere8e811afab72\Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface::class,
         ]]];
     }
 }

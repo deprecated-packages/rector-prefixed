@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
+namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use _PhpScoper0a2ac50786fa\Symfony\Component\Routing\Annotation\Route;
+use _PhpScopere8e811afab72\Symfony\Component\Routing\Annotation\Route;
 class RoutePropertyClass
 {
     /**

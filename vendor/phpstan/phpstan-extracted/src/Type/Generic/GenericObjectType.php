@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type\Generic;
+namespace _PhpScopere8e811afab72\PHPStan\Type\Generic;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Broker\Broker;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ResolvedMethodReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ResolvedPropertyReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\IntersectionType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
-final class GenericObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType
+use _PhpScopere8e811afab72\PHPStan\Broker\Broker;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ResolvedMethodReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ResolvedPropertyReflection;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\CompoundType;
+use _PhpScopere8e811afab72\PHPStan\Type\ErrorType;
+use _PhpScopere8e811afab72\PHPStan\Type\IntersectionType;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName;
+use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
+use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
+final class GenericObjectType extends \_PhpScopere8e811afab72\PHPStan\Type\ObjectType
 {
     /** @var array<int, Type> */
     private $types;
@@ -28,19 +28,19 @@ final class GenericObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Objec
     /**
      * @param array<int, Type> $types
      */
-    public function __construct(string $mainType, array $types, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $subtractedType = null, ?\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection = null)
+    public function __construct(string $mainType, array $types, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $subtractedType = null, ?\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection = null)
     {
         parent::__construct($mainType, $subtractedType, $classReflection);
         $this->types = $types;
         $this->classReflection = $classReflection;
     }
-    public function describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel $level) : string
     {
-        return \sprintf('%s<%s>', parent::describe($level), \implode(', ', \array_map(static function (\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) use($level) : string {
+        return \sprintf('%s<%s>', parent::describe($level), \implode(', ', \array_map(static function (\_PhpScopere8e811afab72\PHPStan\Type\Type $type) use($level) : string {
             return $type->describe($level);
         }, $this->types)));
     }
-    public function equals(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : bool
+    public function equals(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : bool
     {
         if (!$type instanceof self) {
             return \false;
@@ -77,27 +77,27 @@ final class GenericObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Objec
     {
         return $this->types;
     }
-    public function accepts(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function accepts(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType) {
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\CompoundType) {
             return $type->isAcceptedBy($this, $strictTypes);
         }
         return $this->isSuperTypeOfInternal($type, \true);
     }
-    public function isSuperTypeOf(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $this->isSuperTypeOfInternal($type, \false);
     }
-    private function isSuperTypeOfInternal(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, bool $acceptsContext) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    private function isSuperTypeOfInternal(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, bool $acceptsContext) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType) {
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
         $nakedSuperTypeOf = parent::isSuperTypeOf($type);
         if ($nakedSuperTypeOf->no()) {
             return $nakedSuperTypeOf;
         }
-        if (!$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType) {
+        if (!$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType) {
             return $nakedSuperTypeOf;
         }
         $ancestor = $type->getAncestorWithClassName($this->getClassName());
@@ -108,10 +108,10 @@ final class GenericObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Objec
             if ($acceptsContext) {
                 return $nakedSuperTypeOf;
             }
-            return $nakedSuperTypeOf->and(\_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe());
+            return $nakedSuperTypeOf->and(\_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe());
         }
         if (\count($this->types) !== \count($ancestor->types)) {
-            return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
         }
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
@@ -125,60 +125,60 @@ final class GenericObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Objec
             if (!isset($this->types[$i])) {
                 continue;
             }
-            if ($templateType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType) {
+            if ($templateType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType) {
                 continue;
             }
-            if (!$templateType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateType) {
-                throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+            if (!$templateType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateType) {
+                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
             }
             if (!$templateType->isValidVariance($this->types[$i], $ancestor->types[$i])) {
-                return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+                return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
             }
         }
         return $nakedSuperTypeOf;
     }
-    public function getClassReflection() : ?\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getClassReflection() : ?\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
         if ($this->classReflection !== null) {
             return $this->classReflection;
         }
-        $broker = \_PhpScoper0a2ac50786fa\PHPStan\Broker\Broker::getInstance();
+        $broker = \_PhpScopere8e811afab72\PHPStan\Broker\Broker::getInstance();
         if (!$broker->hasClass($this->getClassName())) {
             return null;
         }
         return $this->classReflection = $broker->getClass($this->getClassName())->withTypes($this->types);
     }
-    public function getProperty(string $propertyName, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection
     {
         $reflection = parent::getProperty($propertyName, $scope);
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ResolvedPropertyReflection($reflection, $this->getClassReflection()->getActiveTemplateTypeMap());
+        return new \_PhpScopere8e811afab72\PHPStan\Reflection\ResolvedPropertyReflection($reflection, $this->getClassReflection()->getActiveTemplateTypeMap());
     }
-    public function getMethod(string $methodName, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
     {
         $reflection = parent::getMethod($methodName, $scope);
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ResolvedMethodReflection($reflection, $this->getClassReflection()->getActiveTemplateTypeMap());
+        return new \_PhpScopere8e811afab72\PHPStan\Reflection\ResolvedMethodReflection($reflection, $this->getClassReflection()->getActiveTemplateTypeMap());
     }
-    public function inferTemplateTypes(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $receivedType) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap
+    public function inferTemplateTypes(\_PhpScopere8e811afab72\PHPStan\Type\Type $receivedType) : \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap
     {
-        if ($receivedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType || $receivedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\IntersectionType) {
+        if ($receivedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType || $receivedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\IntersectionType) {
             return $receivedType->inferTemplateTypesOn($this);
         }
-        if (!$receivedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
-            return \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        if (!$receivedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
+            return \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         }
         $ancestor = $receivedType->getAncestorWithClassName($this->getClassName());
-        if ($ancestor === null || !$ancestor instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\GenericObjectType) {
-            return \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        if ($ancestor === null || !$ancestor instanceof \_PhpScopere8e811afab72\PHPStan\Type\Generic\GenericObjectType) {
+            return \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         }
         $otherTypes = $ancestor->getTypes();
-        $typeMap = \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        $typeMap = \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         foreach ($this->getTypes() as $i => $type) {
-            $other = $otherTypes[$i] ?? new \_PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType();
+            $other = $otherTypes[$i] ?? new \_PhpScopere8e811afab72\PHPStan\Type\ErrorType();
             $typeMap = $typeMap->union($type->inferTemplateTypes($other));
         }
         return $typeMap;
     }
-    public function getReferencedTemplateTypes(\_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance) : array
+    public function getReferencedTemplateTypes(\_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance) : array
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection !== null) {
@@ -188,14 +188,14 @@ final class GenericObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Objec
         }
         $references = [];
         foreach ($this->types as $i => $type) {
-            $variance = $positionVariance->compose(isset($typeList[$i]) && $typeList[$i] instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateType ? $typeList[$i]->getVariance() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeVariance::createInvariant());
+            $variance = $positionVariance->compose(isset($typeList[$i]) && $typeList[$i] instanceof \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateType ? $typeList[$i]->getVariance() : \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeVariance::createInvariant());
             foreach ($type->getReferencedTemplateTypes($variance) as $reference) {
                 $references[] = $reference;
             }
         }
         return $references;
     }
-    public function traverse(callable $cb) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function traverse(callable $cb) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         $subtractedType = $this->getSubtractedType() !== null ? $cb($this->getSubtractedType()) : null;
         $typesChanged = \false;
@@ -213,7 +213,7 @@ final class GenericObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Objec
         }
         return $this;
     }
-    public function changeSubtractedType(?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $subtractedType) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function changeSubtractedType(?\_PhpScopere8e811afab72\PHPStan\Type\Type $subtractedType) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return new self($this->getClassName(), $this->types, $subtractedType);
     }
@@ -221,7 +221,7 @@ final class GenericObjectType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Objec
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return new self($properties['className'], $properties['types'], $properties['subtractedType'] ?? null);
     }

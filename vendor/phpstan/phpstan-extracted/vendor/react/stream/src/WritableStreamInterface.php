@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface;
 /**
  * The `WritableStreamInterface` is responsible for providing an interface for
  * write-only streams and the writable side of duplex streams.
@@ -138,7 +138,7 @@ use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterfac
  * @see EventEmitterInterface
  * @see DuplexStreamInterface
  */
-interface WritableStreamInterface extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface
+interface WritableStreamInterface extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface
 {
     /**
      * Checks whether this stream is in a writable state (not closed already).

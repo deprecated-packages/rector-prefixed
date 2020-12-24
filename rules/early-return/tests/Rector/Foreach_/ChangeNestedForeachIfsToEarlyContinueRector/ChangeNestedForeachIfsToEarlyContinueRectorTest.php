@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\EarlyReturn\Tests\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector;
+namespace _PhpScopere8e811afab72\Rector\EarlyReturn\Tests\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\EarlyReturn\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeNestedForeachIfsToEarlyContinueRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\EarlyReturn\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeNestedForeachIfsToEarlyContinueRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeNestedForeachIfsToEarlyContinueRectorTest extends \_PhpScoper0
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\EarlyReturn\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class;
+        return \_PhpScopere8e811afab72\Rector\EarlyReturn\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class;
     }
 }

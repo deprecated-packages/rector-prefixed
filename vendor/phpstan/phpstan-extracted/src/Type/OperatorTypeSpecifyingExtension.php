@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type;
+namespace _PhpScopere8e811afab72\PHPStan\Type;
 
 interface OperatorTypeSpecifyingExtension
 {
-    public function isOperatorSupported(string $operatorSigil, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $leftSide, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $rightSide) : bool;
-    public function specifyType(string $operatorSigil, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $leftSide, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $rightSide) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+    public function isOperatorSupported(string $operatorSigil, \_PhpScopere8e811afab72\PHPStan\Type\Type $leftSide, \_PhpScopere8e811afab72\PHPStan\Type\Type $rightSide) : bool;
+    public function specifyType(string $operatorSigil, \_PhpScopere8e811afab72\PHPStan\Type\Type $leftSide, \_PhpScopere8e811afab72\PHPStan\Type\Type $rightSide) : \_PhpScopere8e811afab72\PHPStan\Type\Type;
 }

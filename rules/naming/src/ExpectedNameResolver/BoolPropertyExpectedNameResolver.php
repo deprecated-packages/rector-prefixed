@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver;
+namespace _PhpScopere8e811afab72\Rector\Naming\ExpectedNameResolver;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
-final class BoolPropertyExpectedNameResolver extends \_PhpScoper0a2ac50786fa\Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming;
+final class BoolPropertyExpectedNameResolver extends \_PhpScopere8e811afab72\Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
 {
     /**
      * @var PropertyNaming
@@ -15,14 +15,14 @@ final class BoolPropertyExpectedNameResolver extends \_PhpScoper0a2ac50786fa\Rec
     /**
      * @required
      */
-    public function autowireBoolPropertyExpectedNameResolver(\_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming) : void
+    public function autowireBoolPropertyExpectedNameResolver(\_PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming $propertyNaming) : void
     {
         $this->propertyNaming = $propertyNaming;
     }
     /**
      * @param Property $node
      */
-    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?string
     {
         if ($this->nodeTypeResolver->isPropertyBoolean($node)) {
             return $this->propertyNaming->getExpectedNameFromBooleanPropertyType($node);

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Iterator\Recursive;
+namespace _PhpScopere8e811afab72\Hoa\Iterator\Recursive;
 
-use _PhpScoper0a2ac50786fa\Hoa\Consistency;
+use _PhpScopere8e811afab72\Hoa\Consistency;
 /**
  * Class \Hoa\Iterator\Recursive.
  *
@@ -50,4 +50,4 @@ interface Recursive extends \RecursiveIterator
 /**
  * Flex entity.
  */
-\_PhpScoper0a2ac50786fa\Hoa\Consistency::flexEntity('_PhpScoper0a2ac50786fa\\Hoa\\Iterator\\Recursive\\Recursive');
+\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Iterator\\Recursive\\Recursive');

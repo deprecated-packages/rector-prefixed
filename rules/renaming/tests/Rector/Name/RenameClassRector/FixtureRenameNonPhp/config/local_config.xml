@@ -1,7 +1,7 @@
 <services>
-    <class name="_PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass"/>
+    <class name="_PhpScopere8e811afab72\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass"/>
 </services>
 -----
 <services>
-    <class name="_PhpScoper0a2ac50786fa\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass"/>
+    <class name="_PhpScopere8e811afab72\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass"/>
 </services>

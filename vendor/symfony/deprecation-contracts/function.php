@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa;
+namespace _PhpScopere8e811afab72;
 
 /*
  * This file is part of the Symfony package.
@@ -10,7 +10,7 @@ namespace _PhpScoper0a2ac50786fa;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-if (!\function_exists('_PhpScoper0a2ac50786fa\\trigger_deprecation')) {
+if (!\function_exists('_PhpScopere8e811afab72\\trigger_deprecation')) {
     /**
      * Triggers a silenced deprecation notice.
      *

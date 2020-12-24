@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\Rector\Foreach_;
+namespace _PhpScopere8e811afab72\Rector\Naming\Rector\Foreach_;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Guard\BreakingVariableRenameGuard;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Matcher\ForeachMatcher;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\ExpectedNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\Naming\NamingConvention\NamingConventionAnalyzer;
-use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallForeach;
-use _PhpScoper0a2ac50786fa\Rector\Naming\VariableRenamer;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Naming\Guard\BreakingVariableRenameGuard;
+use _PhpScopere8e811afab72\Rector\Naming\Matcher\ForeachMatcher;
+use _PhpScopere8e811afab72\Rector\Naming\Naming\ExpectedNameResolver;
+use _PhpScopere8e811afab72\Rector\Naming\NamingConvention\NamingConventionAnalyzer;
+use _PhpScopere8e811afab72\Rector\Naming\ValueObject\VariableAndCallForeach;
+use _PhpScopere8e811afab72\Rector\Naming\VariableRenamer;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\Foreach_\RenameForeachValueVariableToMatchMethodCallReturnTypeRector\RenameForeachValueVariableToMatchMethodCallReturnTypeRectorTest
  */
-final class RenameForeachValueVariableToMatchMethodCallReturnTypeRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class RenameForeachValueVariableToMatchMethodCallReturnTypeRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ExpectedNameResolver
@@ -39,7 +39,7 @@ final class RenameForeachValueVariableToMatchMethodCallReturnTypeRector extends 
      * @var NamingConventionAnalyzer
      */
     private $namingConventionAnalyzer;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \_PhpScoper0a2ac50786fa\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \_PhpScoper0a2ac50786fa\Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \_PhpScoper0a2ac50786fa\Rector\Naming\VariableRenamer $variableRenamer, \_PhpScoper0a2ac50786fa\Rector\Naming\Matcher\ForeachMatcher $foreachMatcher)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \_PhpScopere8e811afab72\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \_PhpScopere8e811afab72\Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \_PhpScopere8e811afab72\Rector\Naming\VariableRenamer $variableRenamer, \_PhpScopere8e811afab72\Rector\Naming\Matcher\ForeachMatcher $foreachMatcher)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->variableRenamer = $variableRenamer;
@@ -47,9 +47,9 @@ final class RenameForeachValueVariableToMatchMethodCallReturnTypeRector extends 
         $this->namingConventionAnalyzer = $namingConventionAnalyzer;
         $this->varValueAndCallForeachMatcher = $foreachMatcher;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Renames value variable name in foreach loop to match method type', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Renames value variable name in foreach loop to match method type', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -80,12 +80,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param Foreach_ $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         /** @var VariableAndCallForeach|null $variableAndCallAssign */
         $variableAndCallAssign = $this->varValueAndCallForeachMatcher->match($node);
@@ -102,14 +102,14 @@ CODE_SAMPLE
         $this->renameVariable($variableAndCallAssign, $expectedName);
         return $node;
     }
-    private function shouldSkip(\_PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName) : bool
+    private function shouldSkip(\_PhpScopere8e811afab72\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName) : bool
     {
         if ($this->namingConventionAnalyzer->isCallMatchingVariableName($variableAndCallForeach->getCall(), $variableAndCallForeach->getVariableName(), $expectedName)) {
             return \true;
         }
         return $this->breakingVariableRenameGuard->shouldSkipVariable($variableAndCallForeach->getVariableName(), $expectedName, $variableAndCallForeach->getFunctionLike(), $variableAndCallForeach->getVariable());
     }
-    private function renameVariable(\_PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName) : void
+    private function renameVariable(\_PhpScopere8e811afab72\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName) : void
     {
         $this->variableRenamer->renameVariableInFunctionLike($variableAndCallForeach->getFunctionLike(), null, $variableAndCallForeach->getVariableName(), $expectedName);
     }

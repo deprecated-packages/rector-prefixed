@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Global function.
  *
@@ -22,16 +22,16 @@ final class GlobalFunction
     use Traits\AttributeAware;
     public static function from(string $function) : self
     {
-        return (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($function));
+        return (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($function));
     }
     public static function withBodyFrom(string $function) : self
     {
-        return (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($function), \true);
+        return (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($function), \true);
     }
     public function __toString() : string
     {
         try {
-            return (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printFunction($this);
+            return (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printFunction($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;

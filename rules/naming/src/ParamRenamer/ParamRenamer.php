@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\ParamRenamer;
+namespace _PhpScopere8e811afab72\Rector\Naming\ParamRenamer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocManipulator\PropertyDocBlockManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenamerInterface;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameValueObjectInterface;
-use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\ParamRename;
-use _PhpScoper0a2ac50786fa\Rector\Naming\VariableRenamer;
-final class ParamRenamer implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenamerInterface
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocManipulator\PropertyDocBlockManipulator;
+use _PhpScopere8e811afab72\Rector\Naming\Contract\RenamerInterface;
+use _PhpScopere8e811afab72\Rector\Naming\Contract\RenameValueObjectInterface;
+use _PhpScopere8e811afab72\Rector\Naming\ValueObject\ParamRename;
+use _PhpScopere8e811afab72\Rector\Naming\VariableRenamer;
+final class ParamRenamer implements \_PhpScopere8e811afab72\Rector\Naming\Contract\RenamerInterface
 {
     /**
      * @var VariableRenamer
@@ -20,7 +20,7 @@ final class ParamRenamer implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contra
      * @var PropertyDocBlockManipulator
      */
     private $propertyDocBlockManipulator;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\VariableRenamer $variableRenamer, \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocManipulator\PropertyDocBlockManipulator $propertyDocBlockManipulator)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Naming\VariableRenamer $variableRenamer, \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocManipulator\PropertyDocBlockManipulator $propertyDocBlockManipulator)
     {
         $this->variableRenamer = $variableRenamer;
         $this->propertyDocBlockManipulator = $propertyDocBlockManipulator;
@@ -29,7 +29,7 @@ final class ParamRenamer implements \_PhpScoper0a2ac50786fa\Rector\Naming\Contra
      * @param ParamRename $renameValueObject
      * @return Param
      */
-    public function rename(\_PhpScoper0a2ac50786fa\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function rename(\_PhpScopere8e811afab72\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         // 1. rename param
         $renameValueObject->getVariable()->name = $renameValueObject->getExpectedName();

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Visitor;
+namespace _PhpScopere8e811afab72\Hoa\Visitor;
 
 /**
  * Interface \Hoa\Visitor\Visit.
@@ -53,5 +53,5 @@ interface Visit
      * @param   mixed                 $eldnah     Handle (not reference).
      * @return  mixed
      */
-    public function visit(\_PhpScoper0a2ac50786fa\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null);
+    public function visit(\_PhpScopere8e811afab72\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null);
 }

@@ -10,13 +10,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Reflection class for an {@}author tag in a Docblock.
  */
-final class Author extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Author extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string register that this is the author tag. */
     protected $name = 'author';
@@ -32,8 +32,8 @@ final class Author extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDoc
      */
     public function __construct($authorName, $authorEmail)
     {
-        \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($authorName);
-        \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($authorEmail);
+        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($authorName);
+        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($authorEmail);
         if ($authorEmail && !\filter_var($authorEmail, \FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException('The author tag does not have a valid e-mail address');
         }
@@ -76,7 +76,7 @@ final class Author extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDoc
      */
     public static function create($body)
     {
-        \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($body);
+        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($body);
         $splitTagContent = \preg_match('/^([^\\<]*)(?:\\<([^\\>]*)\\>)?$/u', $body, $matches);
         if (!$splitTagContent) {
             return null;

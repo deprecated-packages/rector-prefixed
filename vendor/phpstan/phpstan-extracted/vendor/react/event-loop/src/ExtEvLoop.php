@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop;
 
 use Ev;
 use EvIo;
 use EvLoop;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-ev` based event loop.
@@ -19,7 +19,7 @@ use SplObjectStorage;
  * @see http://php.net/manual/en/book.ev.php
  * @see https://bitbucket.org/osmanov/pecl-ev/overview
  */
-class ExtEvLoop implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface
+class ExtEvLoop implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface
 {
     /**
      * @var EvLoop
@@ -56,9 +56,9 @@ class ExtEvLoop implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\
     public function __construct()
     {
         $this->loop = new \EvLoop();
-        $this->futureTickQueue = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue();
+        $this->futureTickQueue = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue();
         $this->timers = new \SplObjectStorage();
-        $this->signals = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\SignalsHandler();
+        $this->signals = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\SignalsHandler();
     }
     public function addReadStream($stream, $listener)
     {
@@ -112,7 +112,7 @@ class ExtEvLoop implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $that = $this;
         $timers = $this->timers;
         $callback = function () use($timer, $timers, $that) {
@@ -127,7 +127,7 @@ class ExtEvLoop implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $callback = function () use($timer) {
             \call_user_func($timer->getCallback(), $timer);
         };
@@ -135,7 +135,7 @@ class ExtEvLoop implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\
         $this->timers->attach($timer, $event);
         return $timer;
     }
-    public function cancelTimer(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
     {
         if (!isset($this->timers[$timer])) {
             return;

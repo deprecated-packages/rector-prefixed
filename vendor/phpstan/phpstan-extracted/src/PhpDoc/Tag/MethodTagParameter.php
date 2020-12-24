@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\PhpDoc\Tag;
+namespace _PhpScopere8e811afab72\PHPStan\PhpDoc\Tag;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
 class MethodTagParameter
 {
     /** @var \PHPStan\Type\Type */
@@ -17,7 +17,7 @@ class MethodTagParameter
     private $isVariadic;
     /** @var \PHPStan\Type\Type|null */
     private $defaultValue;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $defaultValue)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, \_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $defaultValue)
     {
         $this->type = $type;
         $this->passedByReference = $passedByReference;
@@ -25,11 +25,11 @@ class MethodTagParameter
         $this->isVariadic = $isVariadic;
         $this->defaultValue = $defaultValue;
     }
-    public function getType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function passedByReference() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -41,7 +41,7 @@ class MethodTagParameter
     {
         return $this->isVariadic;
     }
-    public function getDefaultValue() : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getDefaultValue() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

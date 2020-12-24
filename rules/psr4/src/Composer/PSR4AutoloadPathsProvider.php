@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PSR4\Composer;
+namespace _PhpScopere8e811afab72\Rector\PSR4\Composer;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Json;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScopere8e811afab72\Nette\Utils\Json;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
 final class PSR4AutoloadPathsProvider
 {
     /**
@@ -15,7 +15,7 @@ final class PSR4AutoloadPathsProvider
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->smartFileSystem = $smartFileSystem;
     }
@@ -38,7 +38,7 @@ final class PSR4AutoloadPathsProvider
     private function readFileToJsonArray(string $composerJson) : array
     {
         $composerJsonContent = $this->smartFileSystem->readFile($composerJson);
-        return \_PhpScoper0a2ac50786fa\Nette\Utils\Json::decode($composerJsonContent, \_PhpScoper0a2ac50786fa\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScopere8e811afab72\Nette\Utils\Json::decode($composerJsonContent, \_PhpScopere8e811afab72\Nette\Utils\Json::FORCE_ARRAY);
     }
     private function getComposerJsonPath() : string
     {

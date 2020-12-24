@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DeadDocBlock;
+namespace _PhpScopere8e811afab72\Rector\DeadDocBlock;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\TypeComparator;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\TypeComparator;
 final class DeadParamTagValueNodeAnalyzer
 {
     /**
@@ -18,12 +18,12 @@ final class DeadParamTagValueNodeAnalyzer
      * @var TypeComparator
      */
     private $typeComparator;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->typeComparator = $typeComparator;
     }
-    public function isDead(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode $paramTagValueNode, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isDead(\_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode $paramTagValueNode, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $param = $this->matchParamByName($paramTagValueNode->parameterName, $classMethod);
         if ($param === null) {
@@ -37,7 +37,7 @@ final class DeadParamTagValueNodeAnalyzer
         }
         return $paramTagValueNode->description === '';
     }
-    private function matchParamByName(string $desiredParamName, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Param
+    private function matchParamByName(string $desiredParamName, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScopere8e811afab72\PhpParser\Node\Param
     {
         foreach ((array) $classMethod->params as $param) {
             $paramName = $this->nodeNameResolver->getName($param);

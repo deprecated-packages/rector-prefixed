@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Transform\Rector\MethodCall;
+namespace _PhpScopere8e811afab72\Rector\Transform\Rector\MethodCall;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ServiceGetterToConstructorInjection;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\Transform\ValueObject\ServiceGetterToConstructorInjection;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\ServiceGetterToConstructorInjectionRectorTest
  */
-final class ServiceGetterToConstructorInjectionRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ServiceGetterToConstructorInjectionRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -35,13 +35,13 @@ final class ServiceGetterToConstructorInjectionRector extends \_PhpScoper0a2ac50
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->propertyNaming = $propertyNaming;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Get service call to constructor injection', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Get service call to constructor injection', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     /**
@@ -105,21 +105,21 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::METHOD_CALL_TO_SERVICES => [new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ServiceGetterToConstructorInjection('FirstService', 'getAnotherService', 'AnotherService')]])]);
+, [self::METHOD_CALL_TO_SERVICES => [new \_PhpScopere8e811afab72\Rector\Transform\ValueObject\ServiceGetterToConstructorInjection('FirstService', 'getAnotherService', 'AnotherService')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        $classLike = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$this->isNonAnonymousClass($classLike)) {
             return null;
         }
@@ -130,18 +130,18 @@ CODE_SAMPLE
             if (!$this->isName($node->name, $methodCallToService->getOldMethod())) {
                 continue;
             }
-            $serviceObjectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($methodCallToService->getServiceType());
+            $serviceObjectType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($methodCallToService->getServiceType());
             $propertyName = $this->propertyNaming->fqnToVariableName($serviceObjectType);
             /** @var Class_ $classLike */
             $this->addConstructorDependencyToClass($classLike, $serviceObjectType, $propertyName);
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('this'), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($propertyName));
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable('this'), new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($propertyName));
         }
         return $node;
     }
     public function configure(array $configuration) : void
     {
         $methodCallToServices = $configuration[self::METHOD_CALL_TO_SERVICES] ?? [];
-        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsInstanceOf($methodCallToServices, \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ServiceGetterToConstructorInjection::class);
+        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($methodCallToServices, \_PhpScopere8e811afab72\Rector\Transform\ValueObject\ServiceGetterToConstructorInjection::class);
         $this->methodCallToServices = $methodCallToServices;
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Laravel\Rector\Assign;
+namespace _PhpScopere8e811afab72\Rector\Laravel\Rector\Assign;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Laravel\NodeFactory\AppAssignFactory;
-use _PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Laravel\NodeFactory\AppAssignFactory;
+use _PhpScopere8e811afab72\Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Laravel\Tests\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector\CallOnAppArrayAccessToStandaloneAssignRectorTest
  */
-final class CallOnAppArrayAccessToStandaloneAssignRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class CallOnAppArrayAccessToStandaloneAssignRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ServiceNameTypeAndVariableName[]
@@ -26,9 +26,9 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \_PhpScoper0a2a
      * @var AppAssignFactory
      */
     private $appAssignFactory;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory)
     {
-        $this->serviceNameTypeAndVariableNames[] = new \_PhpScoper0a2ac50786fa\Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', '_PhpScoper0a2ac50786fa\\Illuminate\\Validation\\Factory', 'validationFactory');
+        $this->serviceNameTypeAndVariableNames[] = new \_PhpScopere8e811afab72\Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', '_PhpScopere8e811afab72\\Illuminate\\Validation\\Factory', 'validationFactory');
         $this->appAssignFactory = $appAssignFactory;
     }
     /**
@@ -36,21 +36,21 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \_PhpScoper0a2a
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if (!$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+        if (!$node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         $methodCall = $node->expr;
-        if (!$this->isObjectType($methodCall->var, '_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\Foundation\\Application')) {
+        if (!$this->isObjectType($methodCall->var, '_PhpScopere8e811afab72\\Illuminate\\Contracts\\Foundation\\Application')) {
             return null;
         }
-        if (!$methodCall->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$methodCall->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
         $arrayDimFetchDim = $methodCall->var->dim;
@@ -63,14 +63,14 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \_PhpScoper0a2a
             }
             $assignExpression = $this->appAssignFactory->createAssignExpression($serviceNameTypeAndVariableName, $methodCall->var);
             $this->addNodeBeforeNode($assignExpression, $node);
-            $methodCall->var = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($serviceNameTypeAndVariableName->getVariableName());
+            $methodCall->var = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($serviceNameTypeAndVariableName->getVariableName());
             return $node;
         }
         return null;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace magical call on $this->app["something"] to standalone type assign variable', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace magical call on $this->app["something"] to standalone type assign variable', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**

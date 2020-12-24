@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Stream;
+namespace _PhpScopere8e811afab72\Hoa\Stream;
 
-use _PhpScoper0a2ac50786fa\Hoa\Consistency;
-use _PhpScoper0a2ac50786fa\Hoa\Event;
-use _PhpScoper0a2ac50786fa\Hoa\Protocol;
+use _PhpScopere8e811afab72\Hoa\Consistency;
+use _PhpScopere8e811afab72\Hoa\Event;
+use _PhpScopere8e811afab72\Hoa\Protocol;
 /**
  * Class \Hoa\Stream.
  *
@@ -46,7 +46,7 @@ use _PhpScoper0a2ac50786fa\Hoa\Protocol;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stream, \_PhpScoper0a2ac50786fa\Hoa\Event\Listenable
+abstract class Stream implements \_PhpScopere8e811afab72\Hoa\Stream\IStream\Stream, \_PhpScopere8e811afab72\Hoa\Event\Listenable
 {
     use Event\Listens;
     /**
@@ -136,7 +136,7 @@ abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stre
         $this->_streamName = $streamName;
         $this->_context = $context;
         $this->_hasBeenDeferred = $wait;
-        $this->setListener(new \_PhpScoper0a2ac50786fa\Hoa\Event\Listener($this, ['authrequire', 'authresult', 'complete', 'connect', 'failure', 'mimetype', 'progress', 'redirect', 'resolve', 'size']));
+        $this->setListener(new \_PhpScopere8e811afab72\Hoa\Event\Listener($this, ['authrequire', 'authresult', 'complete', 'connect', 'failure', 'mimetype', 'progress', 'redirect', 'resolve', 'size']));
         if (\true === $wait) {
             return;
         }
@@ -155,20 +155,20 @@ abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stre
      * @return  array
      * @throws  \Hoa\Stream\Exception
      */
-    private static function &_getStream($streamName, \_PhpScoper0a2ac50786fa\Hoa\Stream\Stream $handler, $context = null)
+    private static function &_getStream($streamName, \_PhpScopere8e811afab72\Hoa\Stream\Stream $handler, $context = null)
     {
         $name = \md5($streamName);
         if (null !== $context) {
-            if (\false === \_PhpScoper0a2ac50786fa\Hoa\Stream\Context::contextExists($context)) {
-                throw new \_PhpScoper0a2ac50786fa\Hoa\Stream\Exception('Context %s was not previously declared, cannot retrieve ' . 'this context.', 0, $context);
+            if (\false === \_PhpScopere8e811afab72\Hoa\Stream\Context::contextExists($context)) {
+                throw new \_PhpScopere8e811afab72\Hoa\Stream\Exception('Context %s was not previously declared, cannot retrieve ' . 'this context.', 0, $context);
             }
-            $context = \_PhpScoper0a2ac50786fa\Hoa\Stream\Context::getInstance($context);
+            $context = \_PhpScopere8e811afab72\Hoa\Stream\Context::getInstance($context);
         }
         if (!isset(self::$_register[$name])) {
             self::$_register[$name] = [self::NAME => $streamName, self::HANDLER => $handler, self::RESOURCE => $handler->_open($streamName, $context), self::CONTEXT => $context];
-            \_PhpScoper0a2ac50786fa\Hoa\Event::register('hoa://Event/Stream/' . $streamName, $handler);
+            \_PhpScopere8e811afab72\Hoa\Event::register('hoa://Event/Stream/' . $streamName, $handler);
             // Add :open-ready?
-            \_PhpScoper0a2ac50786fa\Hoa\Event::register('hoa://Event/Stream/' . $streamName . ':close-before', $handler);
+            \_PhpScopere8e811afab72\Hoa\Event::register('hoa://Event/Stream/' . $streamName . ':close-before', $handler);
         } else {
             $handler->_borrowing = \true;
         }
@@ -187,7 +187,7 @@ abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stre
      * @return  resource
      * @throws  \Hoa\Exception\Exception
      */
-    protected abstract function &_open($streamName, \_PhpScoper0a2ac50786fa\Hoa\Stream\Context $context = null);
+    protected abstract function &_open($streamName, \_PhpScopere8e811afab72\Hoa\Stream\Context $context = null);
     /**
      * Close the current stream.
      * Note: this method is protected, but do not forget that it could be
@@ -207,11 +207,11 @@ abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stre
         $context = $this->_context;
         if (\true === $this->hasBeenDeferred()) {
             if (null === $context) {
-                $handle = \_PhpScoper0a2ac50786fa\Hoa\Stream\Context::getInstance(\uniqid());
+                $handle = \_PhpScopere8e811afab72\Hoa\Stream\Context::getInstance(\uniqid());
                 $handle->setParameters(['notification' => [$this, '_notify']]);
                 $context = $handle->getId();
-            } elseif (\true === \_PhpScoper0a2ac50786fa\Hoa\Stream\Context::contextExists($context)) {
-                $handle = \_PhpScoper0a2ac50786fa\Hoa\Stream\Context::getInstance($context);
+            } elseif (\true === \_PhpScopere8e811afab72\Hoa\Stream\Context::contextExists($context)) {
+                $handle = \_PhpScopere8e811afab72\Hoa\Stream\Context::getInstance($context);
                 $parameters = $handle->getParameters();
                 if (!isset($parameters['notification'])) {
                     $handle->setParameters(['notification' => [$this, '_notify']]);
@@ -234,14 +234,14 @@ abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stre
         if (!isset(self::$_register[$name])) {
             return;
         }
-        \_PhpScoper0a2ac50786fa\Hoa\Event::notify('hoa://Event/Stream/' . $streamName . ':close-before', $this, new \_PhpScoper0a2ac50786fa\Hoa\Event\Bucket());
+        \_PhpScopere8e811afab72\Hoa\Event::notify('hoa://Event/Stream/' . $streamName . ':close-before', $this, new \_PhpScopere8e811afab72\Hoa\Event\Bucket());
         if (\false === $this->_close()) {
             return;
         }
         unset(self::$_register[$name]);
         $this->_bucket[self::HANDLER] = null;
-        \_PhpScoper0a2ac50786fa\Hoa\Event::unregister('hoa://Event/Stream/' . $streamName);
-        \_PhpScoper0a2ac50786fa\Hoa\Event::unregister('hoa://Event/Stream/' . $streamName . ':close-before');
+        \_PhpScopere8e811afab72\Hoa\Event::unregister('hoa://Event/Stream/' . $streamName);
+        \_PhpScopere8e811afab72\Hoa\Event::unregister('hoa://Event/Stream/' . $streamName . ':close-before');
         return;
     }
     /**
@@ -306,7 +306,7 @@ abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stre
     public function _setStream($stream)
     {
         if (\false === \is_resource($stream) && ('resource' !== \gettype($stream) || 'Unknown' !== \get_resource_type($stream))) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Stream\Exception('Try to change the stream resource with an invalid one; ' . 'given %s.', 1, \gettype($stream));
+            throw new \_PhpScopere8e811afab72\Hoa\Stream\Exception('Try to change the stream resource with an invalid one; ' . 'given %s.', 1, \gettype($stream));
         }
         $old = $this->_bucket[self::RESOURCE];
         $this->_bucket[self::RESOURCE] = $stream;
@@ -450,7 +450,7 @@ abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stre
     public function _notify($ncode, $severity, $message, $code, $transferred, $max)
     {
         static $_map = [\STREAM_NOTIFY_AUTH_REQUIRED => 'authrequire', \STREAM_NOTIFY_AUTH_RESULT => 'authresult', \STREAM_NOTIFY_COMPLETED => 'complete', \STREAM_NOTIFY_CONNECT => 'connect', \STREAM_NOTIFY_FAILURE => 'failure', \STREAM_NOTIFY_MIME_TYPE_IS => 'mimetype', \STREAM_NOTIFY_PROGRESS => 'progress', \STREAM_NOTIFY_REDIRECTED => 'redirect', \STREAM_NOTIFY_RESOLVE => 'resolve', \STREAM_NOTIFY_FILE_SIZE_IS => 'size'];
-        $this->getListener()->fire($_map[$ncode], new \_PhpScoper0a2ac50786fa\Hoa\Event\Bucket(['code' => $code, 'severity' => $severity, 'message' => $message, 'transferred' => $transferred, 'max' => $max]));
+        $this->getListener()->fire($_map[$ncode], new \_PhpScopere8e811afab72\Hoa\Event\Bucket(['code' => $code, 'severity' => $severity, 'message' => $message, 'transferred' => $transferred, 'max' => $max]));
         return;
     }
     /**
@@ -500,7 +500,7 @@ abstract class Stream implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stre
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class _Protocol extends \_PhpScoper0a2ac50786fa\Hoa\Protocol\Node
+class _Protocol extends \_PhpScopere8e811afab72\Hoa\Protocol\Node
 {
     /**
      * Component's name.
@@ -516,13 +516,13 @@ class _Protocol extends \_PhpScoper0a2ac50786fa\Hoa\Protocol\Node
      */
     public function reachId($id)
     {
-        return \_PhpScoper0a2ac50786fa\Hoa\Stream\Stream::getStreamHandler($id);
+        return \_PhpScopere8e811afab72\Hoa\Stream\Stream::getStreamHandler($id);
     }
 }
 /**
  * Flex entity.
  */
-\_PhpScoper0a2ac50786fa\Hoa\Consistency::flexEntity('_PhpScoper0a2ac50786fa\\Hoa\\Stream\\Stream');
+\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Stream\\Stream');
 /**
  * Shutdown method.
  */
@@ -530,5 +530,5 @@ class _Protocol extends \_PhpScoper0a2ac50786fa\Hoa\Protocol\Node
  * Add the `hoa://Library/Stream` node. Should be use to reach/get an entry
  * in the stream register.
  */
-$protocol = \_PhpScoper0a2ac50786fa\Hoa\Protocol::getInstance();
-$protocol['Library'][] = new \_PhpScoper0a2ac50786fa\Hoa\Stream\_Protocol();
+$protocol = \_PhpScopere8e811afab72\Hoa\Protocol::getInstance();
+$protocol['Library'][] = new \_PhpScopere8e811afab72\Hoa\Stream\_Protocol();

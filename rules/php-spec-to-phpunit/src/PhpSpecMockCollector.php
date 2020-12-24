@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PhpSpecToPHPUnit;
+namespace _PhpScopere8e811afab72\Rector\PhpSpecToPHPUnit;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
 final class PhpSpecMockCollector
 {
     /**
@@ -34,7 +34,7 @@ final class PhpSpecMockCollector
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -42,14 +42,14 @@ final class PhpSpecMockCollector
     /**
      * @return mixed[]
      */
-    public function resolveClassMocksFromParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
+    public function resolveClassMocksFromParam(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $className = $this->nodeNameResolver->getName($class);
         if (isset($this->mocks[$className])) {
             return $this->mocks[$className];
         }
-        $this->callableNodeTraverser->traverseNodesWithCallable($class, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void {
-            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($class, function (\_PhpScopere8e811afab72\PhpParser\Node $node) : void {
+            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod) {
                 return;
             }
             if (!$node->isPublic()) {
@@ -65,17 +65,17 @@ final class PhpSpecMockCollector
         }
         return $this->mocks[$className];
     }
-    public function isVariableMockInProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : bool
+    public function isVariableMockInProperty(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable) : bool
     {
         $variableName = $this->nodeNameResolver->getName($variable);
-        $className = $variable->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $variable->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         return \in_array($variableName, $this->propertyMocksByClass[$className] ?? [], \true);
     }
-    public function getTypeForClassAndVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $variable) : string
+    public function getTypeForClassAndVariable(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, string $variable) : string
     {
         $className = $this->nodeNameResolver->getName($class);
         if (!isset($this->mocksWithsTypes[$className][$variable])) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $this->mocksWithsTypes[$className][$variable];
     }
@@ -83,16 +83,16 @@ final class PhpSpecMockCollector
     {
         $this->propertyMocksByClass[$class][] = $property;
     }
-    private function addMockFromParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : void
+    private function addMockFromParam(\_PhpScopere8e811afab72\PhpParser\Node\Param $param) : void
     {
         $variable = $this->nodeNameResolver->getName($param->var);
         /** @var string $class */
-        $class = $param->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        $this->mocks[$class][$variable][] = $param->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        $class = $param->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $this->mocks[$class][$variable][] = $param->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
         if ($param->type === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $paramType = (string) ($param->type->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME) ?: $param->type);
+        $paramType = (string) ($param->type->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME) ?: $param->type);
         $this->mocksWithsTypes[$class][$variable] = $paramType;
     }
 }

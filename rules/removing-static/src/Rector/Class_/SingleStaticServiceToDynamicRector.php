@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Rector\Class_;
+namespace _PhpScopere8e811afab72\Rector\RemovingStatic\Rector\Class_;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
+use _PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\SingleStaticServiceToDynamicRectorTest
  */
-final class SingleStaticServiceToDynamicRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class SingleStaticServiceToDynamicRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -50,14 +50,14 @@ final class SingleStaticServiceToDynamicRector extends \_PhpScoper0a2ac50786fa\R
      * @var StaticCallPresenceAnalyzer
      */
     private $staticCallPresenceAnalyzer;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper0a2ac50786fa\Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScopere8e811afab72\Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer)
     {
         $this->propertyNaming = $propertyNaming;
         $this->staticCallPresenceAnalyzer = $staticCallPresenceAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change full static service, to dynamic one', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change full static service, to dynamic one', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class AnotherClass
 {
     public function run()
@@ -116,23 +116,23 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall::class, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch::class];
     }
     /**
      * @param Class_|ClassMethod|StaticCall|Property|StaticPropertyFetch $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
         }
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
             return $this->refactorStaticCall($node);
         }
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_) {
             return $this->refactorClass($node);
         }
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property) {
             return $this->refactorProperty($node);
         }
         return $this->refactorStaticPropertyFetch($node);
@@ -144,7 +144,7 @@ CODE_SAMPLE
     {
         $this->classTypes = $configuration[self::CLASS_TYPES] ?? [];
     }
-    private function refactorClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod
+    private function refactorClassMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod
     {
         foreach ($this->classTypes as $classType) {
             if (!$this->isInClassNamed($classMethod, $classType)) {
@@ -155,7 +155,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorStaticCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
+    private function refactorStaticCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall $staticCall) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall
     {
         foreach ($this->classTypes as $classType) {
             if (!$this->isObjectType($staticCall->class, $classType)) {
@@ -164,20 +164,20 @@ CODE_SAMPLE
             // is the same class or external call?
             $className = $this->getName($staticCall->class);
             if ($className === 'self') {
-                return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $staticCall->name, $staticCall->args);
+                return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable(self::THIS), $staticCall->name, $staticCall->args);
             }
             $propertyName = $this->propertyNaming->fqnToVariableName($classType);
-            $currentMethodName = $staticCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-            if ($currentMethodName === \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT) {
-                $propertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($propertyName);
+            $currentMethodName = $staticCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+            if ($currentMethodName === \_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT) {
+                $propertyFetch = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($propertyName);
             } else {
-                $propertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
+                $propertyFetch = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
             }
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($propertyFetch, $staticCall->name, $staticCall->args);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($propertyFetch, $staticCall->name, $staticCall->args);
         }
         return null;
     }
-    private function refactorClass(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_
+    private function refactorClass(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_
     {
         foreach ($this->classTypes as $classType) {
             // do not any dependencies to class itself
@@ -186,7 +186,7 @@ CODE_SAMPLE
             }
             $this->completeDependencyToConstructorOnly($class, $classType);
             if ($this->staticCallPresenceAnalyzer->hasClassAnyMethodWithStaticCallOnType($class, $classType)) {
-                $singleObjectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($classType);
+                $singleObjectType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($classType);
                 $propertyExpectedName = $this->propertyNaming->fqnToVariableName($classType);
                 $this->addConstructorDependencyToClass($class, $singleObjectType, $propertyExpectedName);
                 return $class;
@@ -194,7 +194,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
+    private function refactorProperty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property
     {
         if (!$property->isStatic()) {
             return null;
@@ -208,14 +208,14 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorStaticPropertyFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch $staticPropertyFetch) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch
+    private function refactorStaticPropertyFetch(\_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch $staticPropertyFetch) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch
     {
         // A. remove local fetch
         foreach ($this->classTypes as $classType) {
             if (!$this->isInClassNamed($staticPropertyFetch, $classType)) {
                 continue;
             }
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $staticPropertyFetch->name);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable(self::THIS), $staticPropertyFetch->name);
         }
         // B. external property fetch
         // A. remove local fetch
@@ -225,16 +225,16 @@ CODE_SAMPLE
             }
             $propertyName = $this->propertyNaming->fqnToVariableName($classType);
             /** @var Class_ $class */
-            $class = $staticPropertyFetch->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            $this->addConstructorDependencyToClass($class, new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($classType), $propertyName);
-            $objectPropertyFetch = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch($objectPropertyFetch, $staticPropertyFetch->name);
+            $class = $staticPropertyFetch->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+            $this->addConstructorDependencyToClass($class, new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($classType), $propertyName);
+            $objectPropertyFetch = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch($objectPropertyFetch, $staticPropertyFetch->name);
         }
         return null;
     }
-    private function completeDependencyToConstructorOnly(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, string $classType) : void
+    private function completeDependencyToConstructorOnly(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, string $classType) : void
     {
-        $constructClassMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructClassMethod = $class->getMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
             return;
         }
@@ -242,13 +242,13 @@ CODE_SAMPLE
         if (!$hasStaticCall) {
             return;
         }
-        $propertyExpectedName = $this->propertyNaming->fqnToVariableName(new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($classType));
+        $propertyExpectedName = $this->propertyNaming->fqnToVariableName(new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($classType));
         if ($this->isTypeAlreadyInParamMethod($constructClassMethod, $classType)) {
             return;
         }
-        $constructClassMethod->params[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Param(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($propertyExpectedName), null, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($classType));
+        $constructClassMethod->params[] = new \_PhpScopere8e811afab72\PhpParser\Node\Param(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($propertyExpectedName), null, new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified($classType));
     }
-    private function isTypeAlreadyInParamMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $classType) : bool
+    private function isTypeAlreadyInParamMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, string $classType) : bool
     {
         foreach ($classMethod->getParams() as $param) {
             if ($param->type === null) {

@@ -1,33 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
+namespace _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer;
-final class AllAssignNodePropertyTypeInferer extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer;
+final class AllAssignNodePropertyTypeInferer extends \_PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \_PhpScopere8e811afab72\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
 {
     /**
      * @var AssignToPropertyTypeInferer
      */
     private $assignToPropertyTypeInferer;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer)
+    public function __construct(\_PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer)
     {
         $this->assignToPropertyTypeInferer = $assignToPropertyTypeInferer;
     }
-    public function inferProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function inferProperty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         /** @var ClassLike|null $classLike */
-        $classLike = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $property->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             // anonymous class
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
+            return new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
         }
         $propertyName = $this->nodeNameResolver->getName($property);
         return $this->assignToPropertyTypeInferer->inferPropertyInClassLike($propertyName, $classLike);

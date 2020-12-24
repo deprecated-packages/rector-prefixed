@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Regex;
+namespace _PhpScopere8e811afab72\Rector\NodeNameResolver\Regex;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
 final class RegexPatternDetector
 {
     /**
@@ -14,7 +14,7 @@ final class RegexPatternDetector
     private const POSSIBLE_DELIMITERS = ['#', '~', '/'];
     public function isRegexPattern(string $name) : bool
     {
-        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::length($name) <= 2) {
+        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::length($name) <= 2) {
             return \false;
         }
         $firstChar = $name[0];

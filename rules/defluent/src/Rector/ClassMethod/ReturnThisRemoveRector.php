@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Defluent\Rector\ClassMethod;
+namespace _PhpScopere8e811afab72\Rector\Defluent\Rector\ClassMethod;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper0a2ac50786fa\Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScopere8e811afab72\Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Defluent\Tests\Rector\ClassMethod\ReturnThisRemoveRector\ReturnThisRemoveRectorTest
  */
-final class ReturnThisRemoveRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class ReturnThisRemoveRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ParentClassMethodTypeOverrideGuard
      */
     private $parentClassMethodTypeOverrideGuard;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard $parentClassMethodTypeOverrideGuard)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard $parentClassMethodTypeOverrideGuard)
     {
         $this->parentClassMethodTypeOverrideGuard = $parentClassMethodTypeOverrideGuard;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes "return $this;" from *fluent interfaces* for specified classes.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes "return $this;" from *fluent interfaces* for specified classes.', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeExampleClass
 {
     public function someFunction()
@@ -63,12 +63,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         $returnThis = $this->matchSingleReturnThis($node);
         if ($returnThis === null) {
@@ -78,23 +78,23 @@ CODE_SAMPLE
             return null;
         }
         $this->removeNode($returnThis);
-        $classMethod = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        $classMethod = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
-        if ($this->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
-            $classMethod->returnType = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('void');
+        if ($this->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
+            $classMethod->returnType = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier('void');
         }
-        $this->removePhpDocTagValueNode($classMethod, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
+        $this->removePhpDocTagValueNode($classMethod, \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
         return null;
     }
     /**
      * Matches only 1st level "return $this;"
      */
-    private function matchSingleReturnThis(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_
+    private function matchSingleReturnThis(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_
     {
         /** @var Return_[] $returns */
-        $returns = $this->betterNodeFinder->findInstanceOf($classMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_::class);
+        $returns = $this->betterNodeFinder->findInstanceOf($classMethod, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_::class);
         // can be only 1 return
         if (\count($returns) !== 1) {
             return null;
@@ -106,19 +106,19 @@ CODE_SAMPLE
         if (!$this->isVariableName($return->expr, 'this')) {
             return null;
         }
-        $parentNode = $return->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $return->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode !== $classMethod) {
             return null;
         }
         return $return;
     }
-    private function shouldSkip(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_ $return, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_ $return, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if (!$this->parentClassMethodTypeOverrideGuard->isReturnTypeChangeAllowed($classMethod)) {
             return \true;
         }
         if ($return->expr === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
         return \false;
     }

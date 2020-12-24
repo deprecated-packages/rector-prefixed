@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\File;
+namespace _PhpScopere8e811afab72\PHPStan\File;
 
-class FuzzyRelativePathHelper implements \_PhpScoper0a2ac50786fa\PHPStan\File\RelativePathHelper
+class FuzzyRelativePathHelper implements \_PhpScopere8e811afab72\PHPStan\File\RelativePathHelper
 {
     /** @var RelativePathHelper */
     private $fallbackRelativePathHelper;
@@ -17,7 +17,7 @@ class FuzzyRelativePathHelper implements \_PhpScoper0a2ac50786fa\PHPStan\File\Re
      * @param string[] $analysedPaths
      * @param string|null $directorySeparator
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\File\RelativePathHelper $fallbackRelativePathHelper, string $currentWorkingDirectory, array $analysedPaths, ?string $directorySeparator = null)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\File\RelativePathHelper $fallbackRelativePathHelper, string $currentWorkingDirectory, array $analysedPaths, ?string $directorySeparator = null)
     {
         $this->fallbackRelativePathHelper = $fallbackRelativePathHelper;
         if ($directorySeparator === null) {
@@ -45,7 +45,7 @@ class FuzzyRelativePathHelper implements \_PhpScoper0a2ac50786fa\PHPStan\File\Re
             $pathArray = \explode($directorySeparator, $path);
             $pathTempParts = [];
             foreach ($pathArray as $i => $pathPart) {
-                if (\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::endsWith($pathPart, '.php')) {
+                if (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::endsWith($pathPart, '.php')) {
                     continue;
                 }
                 if (!isset($pathToTrimArray[$i])) {

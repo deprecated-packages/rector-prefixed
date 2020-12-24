@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\Php;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\Php;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypehintHelper;
-class PhpPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypehintHelper;
+class PhpPropertyReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -33,7 +33,7 @@ class PhpPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflectio
     private $isInternal;
     /** @var string|null */
     private $stubPhpDocString;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $declaringClass, ?\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $declaringTrait, ?\ReflectionType $nativeType, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $phpDocType, \ReflectionProperty $reflection, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, ?string $stubPhpDocString)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $declaringClass, ?\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $declaringTrait, ?\ReflectionType $nativeType, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $phpDocType, \ReflectionProperty $reflection, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, ?string $stubPhpDocString)
     {
         $this->declaringClass = $declaringClass;
         $this->declaringTrait = $declaringTrait;
@@ -45,11 +45,11 @@ class PhpPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflectio
         $this->isInternal = $isInternal;
         $this->stubPhpDocString = $stubPhpDocString;
     }
-    public function getDeclaringClass() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
-    public function getDeclaringTrait() : ?\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getDeclaringTrait() : ?\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringTrait;
     }
@@ -76,14 +76,14 @@ class PhpPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflectio
     {
         return $this->reflection->isPublic();
     }
-    public function getReadableType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getReadableType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         if ($this->type === null) {
-            $this->type = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypehintHelper::decideTypeFromReflection($this->nativeType, $this->phpDocType, $this->declaringClass->getName());
+            $this->type = \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideTypeFromReflection($this->nativeType, $this->phpDocType, $this->declaringClass->getName());
         }
         return $this->type;
     }
-    public function getWritableType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getWritableType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->getReadableType();
     }
@@ -102,17 +102,17 @@ class PhpPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflectio
     {
         return $this->phpDocType !== null;
     }
-    public function getPhpDocType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getPhpDocType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         if ($this->phpDocType !== null) {
             return $this->phpDocType;
         }
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
+        return new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
     }
-    public function getNativeType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getNativeType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         if ($this->finalNativeType === null) {
-            $this->finalNativeType = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypehintHelper::decideTypeFromReflection($this->nativeType, null, $this->declaringClass->getName());
+            $this->finalNativeType = \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideTypeFromReflection($this->nativeType, null, $this->declaringClass->getName());
         }
         return $this->finalNativeType;
     }
@@ -131,12 +131,12 @@ class PhpPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflectio
         }
         return null;
     }
-    public function isDeprecated() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
     }
-    public function isInternal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
     }
 }

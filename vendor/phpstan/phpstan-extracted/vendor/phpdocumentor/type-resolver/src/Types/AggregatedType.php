@@ -9,11 +9,11 @@
  * @link      http://phpdoc.org
  */
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
 
 use ArrayIterator;
 use IteratorAggregate;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 use function array_key_exists;
 use function implode;
 /**
@@ -25,7 +25,7 @@ use function implode;
  * @psalm-immutable
  * @template-implements IteratorAggregate<int, Type>
  */
-abstract class AggregatedType implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type, \IteratorAggregate
+abstract class AggregatedType implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type, \IteratorAggregate
 {
     /**
      * @psalm-allow-private-mutation
@@ -47,7 +47,7 @@ abstract class AggregatedType implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad
     /**
      * Returns the type at the given index.
      */
-    public function get(int $index) : ?\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    public function get(int $index) : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         if (!$this->has($index)) {
             return null;
@@ -64,7 +64,7 @@ abstract class AggregatedType implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad
     /**
      * Tests if this compound type contains the given type.
      */
-    public function contains(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $type) : bool
+    public function contains(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $type) : bool
     {
         foreach ($this->types as $typePart) {
             // if the type is duplicate; do not add it
@@ -91,7 +91,7 @@ abstract class AggregatedType implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad
     /**
      * @psalm-suppress ImpureMethodCall
      */
-    private function add(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $type) : void
+    private function add(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $type) : void
     {
         if ($type instanceof self) {
             foreach ($type->getIterator() as $subType) {

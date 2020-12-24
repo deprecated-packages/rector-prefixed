@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Generic\ResolvedFunctionVariant;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Reflection\Generic\ResolvedFunctionVariant;
+use _PhpScopere8e811afab72\PHPStan\Type\ErrorType;
+use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
 class GenericParametersAcceptorResolver
 {
     /**
@@ -14,9 +14,9 @@ class GenericParametersAcceptorResolver
      *
      * @param \PHPStan\Type\Type[] $argTypes Unpacked arguments
      */
-    public static function resolve(array $argTypes, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptor
+    public static function resolve(array $argTypes, \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor
     {
-        $typeMap = \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        $typeMap = \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         foreach ($parametersAcceptor->getParameters() as $i => $param) {
             if (isset($argTypes[$i])) {
                 $argType = $argTypes[$i];
@@ -28,8 +28,8 @@ class GenericParametersAcceptorResolver
             $paramType = $param->getType();
             $typeMap = $typeMap->union($paramType->inferTemplateTypes($argType));
         }
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Generic\ResolvedFunctionVariant($parametersAcceptor, new \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap(\array_merge($parametersAcceptor->getTemplateTypeMap()->map(static function (string $name, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : Type {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType();
+        return new \_PhpScopere8e811afab72\PHPStan\Reflection\Generic\ResolvedFunctionVariant($parametersAcceptor, new \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap(\array_merge($parametersAcceptor->getTemplateTypeMap()->map(static function (string $name, \_PhpScopere8e811afab72\PHPStan\Type\Type $type) : Type {
+            return new \_PhpScopere8e811afab72\PHPStan\Type\ErrorType();
         })->getTypes(), $typeMap->getTypes())));
     }
 }

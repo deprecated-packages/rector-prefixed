@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Http\Middleware;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Middleware;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Http\Io\MultipartParser;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\MultipartParser;
 final class RequestBodyParserMiddleware
 {
     private $multipart;
@@ -13,9 +13,9 @@ final class RequestBodyParserMiddleware
      */
     public function __construct($uploadMaxFilesize = null, $maxFileUploads = null)
     {
-        $this->multipart = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Http\Io\MultipartParser($uploadMaxFilesize, $maxFileUploads);
+        $this->multipart = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\MultipartParser($uploadMaxFilesize, $maxFileUploads);
     }
-    public function __invoke(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $next)
+    public function __invoke(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $next)
     {
         $type = \strtolower($request->getHeaderLine('Content-Type'));
         list($type) = \explode(';', $type);
@@ -27,7 +27,7 @@ final class RequestBodyParserMiddleware
         }
         return $next($request);
     }
-    private function parseFormUrlencoded(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request)
+    private function parseFormUrlencoded(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request)
     {
         // parse string into array structure
         // ignore warnings due to excessive data structures (max_input_vars and max_input_nesting_level)

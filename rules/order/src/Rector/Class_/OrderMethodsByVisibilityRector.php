@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Order\Rector\Class_;
+namespace _PhpScopere8e811afab72\Rector\Order\Rector\Class_;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a2ac50786fa\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
+use _PhpScopere8e811afab72\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Order\Tests\Rector\Class_\OrderMethodsByVisibilityRector\OrderMethodsByVisibilityRectorTest
  */
-final class OrderMethodsByVisibilityRector extends \_PhpScoper0a2ac50786fa\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
+final class OrderMethodsByVisibilityRector extends \_PhpScopere8e811afab72\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
 {
     /**
      * @var string[]
      */
-    private const PREFERRED_ORDER = [\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT, \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::DESCTRUCT, '__call', '__callStatic', '__get', '__set', '__isset', '__unset', '__sleep', '__wakeup', '__serialize', '__unserialize', '__toString', '__invoke', \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::SET_STATE, '__clone', 'setUpBeforeClass', 'tearDownAfterClass', \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::SET_UP, \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::TEAR_DOWN];
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    private const PREFERRED_ORDER = [\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT, \_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::DESCTRUCT, '__call', '__callStatic', '__get', '__set', '__isset', '__unset', '__sleep', '__wakeup', '__serialize', '__unserialize', '__toString', '__invoke', \_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::SET_STATE, '__clone', 'setUpBeforeClass', 'tearDownAfterClass', \_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::SET_UP, \_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::TEAR_DOWN];
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Orders method by visibility', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Orders method by visibility', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     protected function protectedFunctionName();
@@ -46,14 +46,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Trait_::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_::class];
     }
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        $currentMethodsOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class);
+        $currentMethodsOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class);
         $methodsInDesiredOrder = $this->getMethodsInDesiredOrder($node);
         $oldToNewKeys = $this->stmtOrder->createOldToNewKeys($methodsInDesiredOrder, $currentMethodsOrder);
         // nothing to re-order
@@ -65,7 +65,7 @@ CODE_SAMPLE
     /**
      * @return string[]
      */
-    private function getMethodsInDesiredOrder(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    private function getMethodsInDesiredOrder(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $classMethodNames = $this->stmtVisibilitySorter->sortMethods($classLike);
         return $this->applyPreferredPosition($classMethodNames);

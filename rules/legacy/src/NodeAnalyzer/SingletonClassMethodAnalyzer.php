@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Legacy\NodeAnalyzer;
+namespace _PhpScopere8e811afab72\Rector\Legacy\NodeAnalyzer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BooleanNot;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\If_;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
 final class SingletonClassMethodAnalyzer
 {
     /**
@@ -30,7 +30,7 @@ final class SingletonClassMethodAnalyzer
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator $constFetchManipulator, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator $constFetchManipulator, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->constFetchManipulator = $constFetchManipulator;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -45,36 +45,36 @@ final class SingletonClassMethodAnalyzer
      *
      * Matches "static::$instance" on success
      */
-    public function matchStaticPropertyFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch
+    public function matchStaticPropertyFetch(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch
     {
         $stmts = (array) $classMethod->stmts;
         if (\count($stmts) !== 2) {
             return null;
         }
         $firstStmt = $stmts[0] ?? null;
-        if (!$firstStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_) {
+        if (!$firstStmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\If_) {
             return null;
         }
         $staticPropertyFetch = $this->matchStaticPropertyFetchInIfCond($firstStmt->cond);
         if (\count((array) $firstStmt->stmts) !== 1) {
             return null;
         }
-        if (!$firstStmt->stmts[0] instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
+        if (!$firstStmt->stmts[0] instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
             return null;
         }
         $stmt = $firstStmt->stmts[0]->expr;
         // create self and assign to static property
-        if (!$stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+        if (!$stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
             return null;
         }
         if (!$this->betterStandardPrinter->areNodesEqual($staticPropertyFetch, $stmt->var)) {
             return null;
         }
-        if (!$stmt->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_) {
+        if (!$stmt->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
             return null;
         }
         /** @var string $class */
-        $class = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $class = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // the "self" class is created
         if (!$this->nodeTypeResolver->isObjectType($stmt->expr->class, $class)) {
             return null;
@@ -82,19 +82,19 @@ final class SingletonClassMethodAnalyzer
         /** @var StaticPropertyFetch $staticPropertyFetch */
         return $staticPropertyFetch;
     }
-    private function matchStaticPropertyFetchInIfCond(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch
+    private function matchStaticPropertyFetchInIfCond(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch
     {
         // matching: "self::$static === null"
-        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical) {
-            if ($this->constFetchManipulator->isNull($expr->left) && $expr->right instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
+        if ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical) {
+            if ($this->constFetchManipulator->isNull($expr->left) && $expr->right instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch) {
                 return $expr->right;
             }
-            if ($this->constFetchManipulator->isNull($expr->right) && $expr->left instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
+            if ($this->constFetchManipulator->isNull($expr->right) && $expr->left instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch) {
                 return $expr->left;
             }
         }
         // matching: "! self::$static"
-        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot && $expr->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
+        if ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BooleanNot && $expr->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch) {
             return $expr->expr;
         }
         return null;

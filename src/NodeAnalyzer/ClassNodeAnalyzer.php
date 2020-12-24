@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\NodeAnalyzer;
+namespace _PhpScopere8e811afab72\Rector\Core\NodeAnalyzer;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
 final class ClassNodeAnalyzer
 {
     /**
@@ -18,13 +18,13 @@ final class ClassNodeAnalyzer
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isAnonymousClass(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    public function isAnonymousClass(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
+        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         $className = $this->nodeNameResolver->getName($node);
@@ -32,6 +32,6 @@ final class ClassNodeAnalyzer
             return \true;
         }
         // match PHPStan pattern for anonymous classes
-        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_REGEX);
+        return (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_REGEX);
     }
 }

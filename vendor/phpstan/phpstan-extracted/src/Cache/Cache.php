@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Cache;
+namespace _PhpScopere8e811afab72\PHPStan\Cache;
 
 class Cache
 {
     /** @var \PHPStan\Cache\CacheStorage */
     private $storage;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Cache\CacheStorage $storage)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Cache\CacheStorage $storage)
     {
         $this->storage = $storage;
     }

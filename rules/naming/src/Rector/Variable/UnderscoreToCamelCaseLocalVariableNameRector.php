@@ -1,39 +1,39 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\Rector\Variable;
+namespace _PhpScopere8e811afab72\Rector\Naming\Rector\Variable;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Php\ReservedKeywordAnalyzer;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_;
+use _PhpScopere8e811afab72\Rector\Core\Php\ReservedKeywordAnalyzer;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\Util\StaticRectorStrings;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector\UnderscoreToCamelCaseLocalVariableNameRectorTest
  */
-final class UnderscoreToCamelCaseLocalVariableNameRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class UnderscoreToCamelCaseLocalVariableNameRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer)
     {
         $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change under_score local variable names to camelCase', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change under_score local variable names to camelCase', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run($a_b)
@@ -58,32 +58,32 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable::class];
     }
     /**
      * @param Variable $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         $nodeName = $this->getName($node);
         if ($nodeName === null) {
             return null;
         }
-        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($nodeName, '_')) {
+        if (!\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($nodeName, '_')) {
             return null;
         }
         if ($this->reservedKeywordAnalyzer->isNativeVariable($nodeName)) {
             return null;
         }
-        $camelCaseName = \_PhpScoper0a2ac50786fa\Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($nodeName);
+        $camelCaseName = \_PhpScopere8e811afab72\Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($nodeName);
         if ($camelCaseName === 'this' || $camelCaseName === '' || \is_numeric($camelCaseName[0])) {
             return null;
         }
-        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr && $this->isFoundInParentNode($node)) {
+        $parentNode = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr && $this->isFoundInParentNode($node)) {
             return null;
         }
-        if (($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg || $parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Param || $parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt) && $this->isFoundInParentNode($node)) {
+        if (($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Arg || $parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Param || $parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt) && $this->isFoundInParentNode($node)) {
             return null;
         }
         if ($this->isFoundInPreviousNode($node)) {
@@ -92,10 +92,10 @@ CODE_SAMPLE
         $node->name = $camelCaseName;
         return $node;
     }
-    private function isFoundInParentNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : bool
+    private function isFoundInParentNode(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable) : bool
     {
         /** @var ClassMethod|Function_|null $classMethodOrFunction */
-        $classMethodOrFunction = $this->betterNodeFinder->findFirstParentInstanceOf($variable, [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_::class]);
+        $classMethodOrFunction = $this->betterNodeFinder->findFirstParentInstanceOf($variable, [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_::class]);
         if ($classMethodOrFunction === null) {
             return \false;
         }
@@ -108,10 +108,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function isFoundInPreviousNode(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : bool
+    private function isFoundInPreviousNode(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        $previousNode = $variable->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if (!$previousNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr) {
+        $previousNode = $variable->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
+        if (!$previousNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr) {
             return \false;
         }
         return $this->isFoundInParentNode($variable);

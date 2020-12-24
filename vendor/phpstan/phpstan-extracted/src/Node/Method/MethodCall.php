@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Node\Method;
+namespace _PhpScopere8e811afab72\PHPStan\Node\Method;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
 class MethodCall
 {
     /** @var \PhpParser\Node\Expr\MethodCall|StaticCall|Array_ */
@@ -16,7 +16,7 @@ class MethodCall
      * @param \PhpParser\Node\Expr\MethodCall|StaticCall|Array_ $node
      * @param Scope $scope
      */
-    public function __construct($node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope)
+    public function __construct($node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope)
     {
         $this->node = $node;
         $this->scope = $scope;
@@ -28,7 +28,7 @@ class MethodCall
     {
         return $this->node;
     }
-    public function getScope() : \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope
+    public function getScope() : \_PhpScopere8e811afab72\PHPStan\Analyser\Scope
     {
         return $this->scope;
     }

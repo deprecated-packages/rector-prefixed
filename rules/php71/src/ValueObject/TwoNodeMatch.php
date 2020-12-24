@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php71\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\Php71\ValueObject;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
 final class TwoNodeMatch
 {
     /**
@@ -14,16 +14,16 @@ final class TwoNodeMatch
      * @var Expr
      */
     private $secondExpr;
-    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $firstExpr, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $secondExpr)
+    public function __construct(\_PhpScopere8e811afab72\PhpParser\Node\Expr $firstExpr, \_PhpScopere8e811afab72\PhpParser\Node\Expr $secondExpr)
     {
         $this->firstExpr = $firstExpr;
         $this->secondExpr = $secondExpr;
     }
-    public function getFirstExpr() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function getFirstExpr() : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         return $this->firstExpr;
     }
-    public function getSecondExpr() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function getSecondExpr() : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         return $this->secondExpr;
     }

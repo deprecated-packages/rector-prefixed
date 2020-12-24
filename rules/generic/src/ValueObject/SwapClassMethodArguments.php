@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\Generic\ValueObject;
 
 final class SwapClassMethodArguments
 {

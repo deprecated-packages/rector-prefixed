@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Array_;
+namespace _PhpScopere8e811afab72\Rector\CodeQuality\Rector\Array_;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Array_\ArrayThisCallToThisMethodCallRector\ArrayThisCallToThisMethodCallRectorTest
  */
-final class ArrayThisCallToThisMethodCallRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class ArrayThisCallToThisMethodCallRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ArrayCallableMethodReferenceAnalyzer
      */
     private $arrayCallableMethodReferenceAnalyzer;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer $arrayCallableMethodReferenceAnalyzer)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer $arrayCallableMethodReferenceAnalyzer)
     {
         $this->arrayCallableMethodReferenceAnalyzer = $arrayCallableMethodReferenceAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change `[$this, someMethod]` without any args to $this->someMethod()', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change `[$this, someMethod]` without any args to $this->someMethod()', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -67,12 +67,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_::class];
     }
     /**
      * @param Array_ $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($node);
         if ($arrayCallable === null) {
@@ -81,9 +81,9 @@ CODE_SAMPLE
         if ($this->isAssignedToNetteMagicOnProperty($node) || $this->isInsideProperty($node)) {
             return null;
         }
-        $parentNode = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // skip if part of method
-        if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg) {
+        if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Arg) {
             return null;
         }
         if (!$arrayCallable->isExistingMethod()) {
@@ -97,27 +97,27 @@ CODE_SAMPLE
             }
             return null;
         }
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('this'), $arrayCallable->getMethod());
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable('this'), $arrayCallable->getMethod());
     }
-    private function isAssignedToNetteMagicOnProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_ $array) : bool
+    private function isAssignedToNetteMagicOnProperty(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_ $array) : bool
     {
-        $parent = $array->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parent instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+        $parent = $array->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
             return \false;
         }
-        if (!$parent->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$parent->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;
         }
-        if (!$parent->var->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$parent->var->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
         /** @var PropertyFetch $propertyFetch */
         $propertyFetch = $parent->var->var;
         return $this->isName($propertyFetch->name, 'on*');
     }
-    private function isInsideProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_ $array) : bool
+    private function isInsideProperty(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_ $array) : bool
     {
-        $parentProperty = $this->betterNodeFinder->findFirstParentInstanceOf($array, [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class]);
+        $parentProperty = $this->betterNodeFinder->findFirstParentInstanceOf($array, [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property::class]);
         return $parentProperty !== null;
     }
 }

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Stream\IStream;
+namespace _PhpScopere8e811afab72\Hoa\Stream\IStream;
 
 /**
  * Interface \Hoa\Stream\IStream\In.
@@ -43,7 +43,7 @@ namespace _PhpScoper0a2ac50786fa\Hoa\Stream\IStream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-interface In extends \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stream
+interface In extends \_PhpScopere8e811afab72\Hoa\Stream\IStream\Stream
 {
     /**
      * Test for end-of-stream.

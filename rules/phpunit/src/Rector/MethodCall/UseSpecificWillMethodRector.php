@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\MethodCall;
+namespace _PhpScopere8e811afab72\Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/4160
  * @see https://github.com/symfony/symfony/pull/29685/files
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\UseSpecificWillMethodRector\UseSpecificWillMethodRectorTest
  */
-final class UseSpecificWillMethodRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractPHPUnitRector
+final class UseSpecificWillMethodRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var string[]
      */
     private const NESTED_METHOD_TO_RENAME_MAP = ['returnArgument' => 'willReturnArgument', 'returnCallback' => 'willReturnCallback', 'returnSelf' => 'willReturnSelf', 'returnValue' => 'willReturn', 'returnValueMap' => 'willReturnMap', 'throwException' => 'willThrowException'];
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes ->will($this->xxx()) to one specific method', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes ->will($this->xxx()) to one specific method', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends PHPUnit\Framework\TestCase
 {
     public function test()
@@ -56,18 +56,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
         }
-        $callerNode = $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall ? $node->class : $node->var;
-        if (!$this->isObjectType($callerNode, '_PhpScoper0a2ac50786fa\\PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker')) {
+        $callerNode = $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall ? $node->class : $node->var;
+        if (!$this->isObjectType($callerNode, '_PhpScopere8e811afab72\\PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker')) {
             return null;
         }
         if ($this->isName($node->name, 'with')) {
@@ -82,10 +82,10 @@ CODE_SAMPLE
      * @param MethodCall|StaticCall $node
      * @return MethodCall|StaticCall
      */
-    private function processWithCall(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PhpParser\Node
+    private function processWithCall(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PhpParser\Node
     {
         foreach ($node->args as $i => $argNode) {
-            if (!$argNode->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+            if (!$argNode->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
                 continue;
             }
             $methodCall = $argNode->value;
@@ -100,9 +100,9 @@ CODE_SAMPLE
      * @param MethodCall|StaticCall $node
      * @return MethodCall|StaticCall|null
      */
-    private function processWillCall(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    private function processWillCall(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if (!$node->args[0]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+        if (!$node->args[0]->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         $nestedMethodCall = $node->args[0]->value;
@@ -110,7 +110,7 @@ CODE_SAMPLE
             if (!$this->isName($nestedMethodCall->name, $oldMethodName)) {
                 continue;
             }
-            $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($newParentMethodName);
+            $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($newParentMethodName);
             // move args up
             $node->args = $nestedMethodCall->args;
             return $node;

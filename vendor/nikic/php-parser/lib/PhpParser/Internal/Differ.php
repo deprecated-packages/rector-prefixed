@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PhpParser\Internal;
+namespace _PhpScopere8e811afab72\PhpParser\Internal;
 
 /**
  * Implements the Myers diff algorithm.
@@ -93,7 +93,7 @@ class Differ
             $prevX = $v[$prevK];
             $prevY = $prevX - $prevK;
             while ($x > $prevX && $y > $prevY) {
-                $result[] = new \_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem(\_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem::TYPE_KEEP, $a[$x - 1], $b[$y - 1]);
+                $result[] = new \_PhpScopere8e811afab72\PhpParser\Internal\DiffElem(\_PhpScopere8e811afab72\PhpParser\Internal\DiffElem::TYPE_KEEP, $a[$x - 1], $b[$y - 1]);
                 $x--;
                 $y--;
             }
@@ -101,11 +101,11 @@ class Differ
                 break;
             }
             while ($x > $prevX) {
-                $result[] = new \_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem(\_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem::TYPE_REMOVE, $a[$x - 1], null);
+                $result[] = new \_PhpScopere8e811afab72\PhpParser\Internal\DiffElem(\_PhpScopere8e811afab72\PhpParser\Internal\DiffElem::TYPE_REMOVE, $a[$x - 1], null);
                 $x--;
             }
             while ($y > $prevY) {
-                $result[] = new \_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem(\_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem::TYPE_ADD, null, $b[$y - 1]);
+                $result[] = new \_PhpScopere8e811afab72\PhpParser\Internal\DiffElem(\_PhpScopere8e811afab72\PhpParser\Internal\DiffElem::TYPE_ADD, null, $b[$y - 1]);
                 $y--;
             }
         }
@@ -123,22 +123,22 @@ class Differ
         $c = \count($diff);
         for ($i = 0; $i < $c; $i++) {
             $diffType = $diff[$i]->type;
-            if ($diffType !== \_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem::TYPE_REMOVE) {
+            if ($diffType !== \_PhpScopere8e811afab72\PhpParser\Internal\DiffElem::TYPE_REMOVE) {
                 $newDiff[] = $diff[$i];
                 continue;
             }
             $j = $i;
-            while ($j < $c && $diff[$j]->type === \_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem::TYPE_REMOVE) {
+            while ($j < $c && $diff[$j]->type === \_PhpScopere8e811afab72\PhpParser\Internal\DiffElem::TYPE_REMOVE) {
                 $j++;
             }
             $k = $j;
-            while ($k < $c && $diff[$k]->type === \_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem::TYPE_ADD) {
+            while ($k < $c && $diff[$k]->type === \_PhpScopere8e811afab72\PhpParser\Internal\DiffElem::TYPE_ADD) {
                 $k++;
             }
             if ($j - $i === $k - $j) {
                 $len = $j - $i;
                 for ($n = 0; $n < $len; $n++) {
-                    $newDiff[] = new \_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem(\_PhpScoper0a2ac50786fa\PhpParser\Internal\DiffElem::TYPE_REPLACE, $diff[$i + $n]->old, $diff[$j + $n]->new);
+                    $newDiff[] = new \_PhpScopere8e811afab72\PhpParser\Internal\DiffElem(\_PhpScopere8e811afab72\PhpParser\Internal\DiffElem::TYPE_REPLACE, $diff[$i + $n]->old, $diff[$j + $n]->new);
                 }
             } else {
                 for (; $i < $k; $i++) {

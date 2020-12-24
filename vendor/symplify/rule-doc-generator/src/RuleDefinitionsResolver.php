@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator;
+namespace _PhpScopere8e811afab72\Symplify\RuleDocGenerator;
 
 use ReflectionClass;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class RuleDefinitionsResolver
 {
     /**
@@ -19,8 +19,8 @@ final class RuleDefinitionsResolver
         foreach ($classNames as $className) {
             $reflectionClass = new \ReflectionClass($className);
             $documentedRule = $reflectionClass->newInstanceWithoutConstructor();
-            if (!$documentedRule instanceof \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface) {
-                throw new \_PhpScoper0a2ac50786fa\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            if (!$documentedRule instanceof \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface) {
+                throw new \_PhpScopere8e811afab72\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
             }
             $ruleDefinition = $documentedRule->getRuleDefinition();
             $ruleDefinition->setRuleClass($className);
@@ -34,7 +34,7 @@ final class RuleDefinitionsResolver
      */
     private function sortByClassName(array $ruleDefinitions) : array
     {
-        \usort($ruleDefinitions, function (\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $firstRuleDefinition, \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $secondRuleDefinition) : int {
+        \usort($ruleDefinitions, function (\_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $firstRuleDefinition, \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $secondRuleDefinition) : int {
             return $firstRuleDefinition->getRuleShortClass() <=> $secondRuleDefinition->getRuleShortClass();
         });
         return $ruleDefinitions;

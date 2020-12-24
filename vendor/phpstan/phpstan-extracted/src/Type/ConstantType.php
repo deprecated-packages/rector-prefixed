@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type;
+namespace _PhpScopere8e811afab72\PHPStan\Type;
 
-interface ConstantType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+interface ConstantType extends \_PhpScopere8e811afab72\PHPStan\Type\Type
 {
-    public function generalize() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+    public function generalize() : \_PhpScopere8e811afab72\PHPStan\Type\Type;
 }

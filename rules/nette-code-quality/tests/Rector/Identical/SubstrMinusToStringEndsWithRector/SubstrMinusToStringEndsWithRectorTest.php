@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Tests\Rector\Identical\SubstrMinusToStringEndsWithRector;
+namespace _PhpScopere8e811afab72\Rector\NetteCodeQuality\Tests\Rector\Identical\SubstrMinusToStringEndsWithRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Rector\Identical\SubstrMinusToStringEndsWithRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class SubstrMinusToStringEndsWithRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\NetteCodeQuality\Rector\Identical\SubstrMinusToStringEndsWithRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class SubstrMinusToStringEndsWithRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class SubstrMinusToStringEndsWithRectorTest extends \_PhpScoper0a2ac50786f
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Rector\Identical\SubstrMinusToStringEndsWithRector::class;
+        return \_PhpScopere8e811afab72\Rector\NetteCodeQuality\Rector\Identical\SubstrMinusToStringEndsWithRector::class;
     }
 }

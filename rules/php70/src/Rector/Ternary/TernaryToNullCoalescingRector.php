@@ -1,49 +1,49 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php70\Rector\Ternary;
+namespace _PhpScopere8e811afab72\Rector\Php70\Rector\Ternary;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Isset_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Ternary;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Isset_;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Php70\Tests\Rector\Ternary\TernaryToNullCoalescingRector\TernaryToNullCoalescingRectorTest
  */
-final class TernaryToNullCoalescingRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class TernaryToNullCoalescingRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes unneeded null check to ?? operator', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$value === null ? 10 : $value;', '$value ?? 10;'), new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('isset($value) ? $value : 10;', '$value ?? 10;')]);
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes unneeded null check to ?? operator', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$value === null ? 10 : $value;', '$value ?? 10;'), new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('isset($value) ? $value : 10;', '$value ?? 10;')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Ternary::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary::class];
     }
     /**
      * @param Ternary $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
         }
-        if ($node->cond instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Isset_) {
+        if ($node->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Isset_) {
             return $this->processTernaryWithIsset($node);
         }
-        if ($node->cond instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical) {
+        if ($node->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical) {
             $checkedNode = $node->else;
             $fallbackNode = $node->if;
-        } elseif ($node->cond instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotIdentical) {
+        } elseif ($node->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             $checkedNode = $node->if;
             $fallbackNode = $node->else;
         } else {
@@ -56,11 +56,11 @@ final class TernaryToNullCoalescingRector extends \_PhpScoper0a2ac50786fa\Rector
         /** @var Identical|NotIdentical $ternaryCompareNode */
         $ternaryCompareNode = $node->cond;
         if ($this->isNullMatch($ternaryCompareNode->left, $ternaryCompareNode->right, $checkedNode) || $this->isNullMatch($ternaryCompareNode->right, $ternaryCompareNode->left, $checkedNode)) {
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce($checkedNode, $fallbackNode);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce($checkedNode, $fallbackNode);
         }
         return null;
     }
-    private function processTernaryWithIsset(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Ternary $ternary) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce
+    private function processTernaryWithIsset(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary $ternary) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce
     {
         if ($ternary->if === null) {
             return null;
@@ -72,11 +72,11 @@ final class TernaryToNullCoalescingRector extends \_PhpScoper0a2ac50786fa\Rector
             return null;
         }
         if ($this->areNodesEqual($ternary->if, $issetNode->vars[0])) {
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce($ternary->if, $ternary->else);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce($ternary->if, $ternary->else);
         }
         return null;
     }
-    private function isNullMatch(\_PhpScoper0a2ac50786fa\PhpParser\Node $possibleNullNode, \_PhpScoper0a2ac50786fa\PhpParser\Node $firstNode, \_PhpScoper0a2ac50786fa\PhpParser\Node $secondNode) : bool
+    private function isNullMatch(\_PhpScopere8e811afab72\PhpParser\Node $possibleNullNode, \_PhpScopere8e811afab72\PhpParser\Node $firstNode, \_PhpScopere8e811afab72\PhpParser\Node $secondNode) : bool
     {
         if (!$this->isNull($possibleNullNode)) {
             return \false;

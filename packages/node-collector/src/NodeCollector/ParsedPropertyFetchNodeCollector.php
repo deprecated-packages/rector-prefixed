@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector;
+namespace _PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName;
+use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
 /**
  * All parsed nodes grouped type
  */
@@ -30,7 +30,7 @@ final class ParsedPropertyFetchNodeCollector
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -38,18 +38,18 @@ final class ParsedPropertyFetchNodeCollector
      * To prevent circular reference
      * @required
      */
-    public function autowireParsedPropertyFetchNodeCollector(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireParsedPropertyFetchNodeCollector(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function collect(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
+    public function collect(\_PhpScopere8e811afab72\PhpParser\Node $node) : void
     {
-        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch && !$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
+        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch && !$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch) {
             return;
         }
         $propertyType = $this->resolvePropertyCallerType($node);
         // make sure name is valid
-        if ($node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall || $node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+        if ($node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall || $node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
             return;
         }
         $propertyName = $this->nodeNameResolver->getName($node->name);
@@ -68,9 +68,9 @@ final class ParsedPropertyFetchNodeCollector
     /**
      * @param PropertyFetch|StaticPropertyFetch $node
      */
-    private function resolvePropertyCallerType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    private function resolvePropertyCallerType(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
             return $this->nodeTypeResolver->getStaticType($node->var);
         }
         return $this->nodeTypeResolver->getStaticType($node->class);
@@ -78,12 +78,12 @@ final class ParsedPropertyFetchNodeCollector
     /**
      * @param PropertyFetch|StaticPropertyFetch $propertyFetchNode
      */
-    private function addPropertyFetchWithTypeAndName(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $propertyType, \_PhpScoper0a2ac50786fa\PhpParser\Node $propertyFetchNode, string $propertyName) : void
+    private function addPropertyFetchWithTypeAndName(\_PhpScopere8e811afab72\PHPStan\Type\Type $propertyType, \_PhpScopere8e811afab72\PhpParser\Node $propertyFetchNode, string $propertyName) : void
     {
-        if ($propertyType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
+        if ($propertyType instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
             $this->propertyFetchesByTypeAndName[$propertyType->getClassName()][$propertyName][] = $propertyFetchNode;
         }
-        if ($propertyType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
+        if ($propertyType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
             foreach ($propertyType->getTypes() as $unionedType) {
                 $this->addPropertyFetchWithTypeAndName($unionedType, $propertyFetchNode, $propertyName);
             }

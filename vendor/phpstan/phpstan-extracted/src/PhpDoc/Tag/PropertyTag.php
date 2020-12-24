@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\PhpDoc\Tag;
+namespace _PhpScopere8e811afab72\PHPStan\PhpDoc\Tag;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
 class PropertyTag
 {
     /** @var \PHPStan\Type\Type */
@@ -12,13 +12,13 @@ class PropertyTag
     private $readable;
     /** @var bool */
     private $writable;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, bool $readable, bool $writable)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, bool $readable, bool $writable)
     {
         $this->type = $type;
         $this->readable = $readable;
         $this->writable = $writable;
     }
-    public function getType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->type;
     }

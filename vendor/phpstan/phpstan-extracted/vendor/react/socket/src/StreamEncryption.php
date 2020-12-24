@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
 use RuntimeException;
 use UnexpectedValueException;
 /**
@@ -17,7 +17,7 @@ class StreamEncryption
     private $loop;
     private $method;
     private $server;
-    public function __construct(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $server = \true)
+    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $server = \true)
     {
         $this->loop = $loop;
         $this->server = $server;
@@ -40,17 +40,17 @@ class StreamEncryption
             }
         }
     }
-    public function enable(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\Connection $stream)
+    public function enable(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\Connection $stream)
     {
         return $this->toggle($stream, \true);
     }
-    public function toggle(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\Connection $stream, $toggle)
+    public function toggle(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\Connection $stream, $toggle)
     {
         // pause actual stream instance to continue operation on raw stream socket
         $stream->pause();
         // TODO: add write() event to make sure we're not sending any excessive data
         // cancelling this leaves this stream in an inconsistent state…
-        $deferred = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\Deferred(function () {
+        $deferred = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Deferred(function () {
             throw new \RuntimeException();
         });
         // get actual stream socket from stream instance
@@ -81,7 +81,7 @@ class StreamEncryption
             throw $error;
         });
     }
-    public function toggleCrypto($socket, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\Deferred $deferred, $toggle, $method)
+    public function toggleCrypto($socket, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Deferred $deferred, $toggle, $method)
     {
         $error = null;
         \set_error_handler(function ($_, $errstr) use(&$error) {

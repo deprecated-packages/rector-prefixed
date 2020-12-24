@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-final class WritableResourceStream extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+final class WritableResourceStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
 {
     private $stream;
     private $loop;
@@ -20,7 +20,7 @@ final class WritableResourceStream extends \_PhpScoper0a2ac50786fa\_HumbugBox221
     private $writable = \true;
     private $closed = \false;
     private $data = '';
-    public function __construct($stream, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $writeBufferSoftLimit = null, $writeChunkSize = null)
+    public function __construct($stream, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $writeBufferSoftLimit = null, $writeChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');

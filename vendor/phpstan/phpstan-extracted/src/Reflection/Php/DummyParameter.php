@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\Php;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\Php;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ParameterReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-class DummyParameter implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParameterReflection
+use _PhpScopere8e811afab72\PHPStan\Reflection\ParameterReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+class DummyParameter implements \_PhpScopere8e811afab72\PHPStan\Reflection\ParameterReflection
 {
     /** @var string */
     private $name;
@@ -20,12 +20,12 @@ class DummyParameter implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Param
     private $variadic;
     /** @var ?\PHPStan\Type\Type */
     private $defaultValue;
-    public function __construct(string $name, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, bool $optional, ?\_PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $defaultValue)
+    public function __construct(string $name, \_PhpScopere8e811afab72\PHPStan\Type\Type $type, bool $optional, ?\_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $defaultValue)
     {
         $this->name = $name;
         $this->type = $type;
         $this->optional = $optional;
-        $this->passedByReference = $passedByReference ?? \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference::createNo();
+        $this->passedByReference = $passedByReference ?? \_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference::createNo();
         $this->variadic = $variadic;
         $this->defaultValue = $defaultValue;
     }
@@ -37,11 +37,11 @@ class DummyParameter implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Param
     {
         return $this->optional;
     }
-    public function getType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function passedByReference() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -49,7 +49,7 @@ class DummyParameter implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Param
     {
         return $this->variadic;
     }
-    public function getDefaultValue() : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getDefaultValue() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

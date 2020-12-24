@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Nette;
+namespace _PhpScopere8e811afab72\Rector\Nette;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScopere8e811afab72\Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
 final class TemplatePropertyAssignCollector
 {
     /**
@@ -35,27 +35,27 @@ final class TemplatePropertyAssignCollector
      * @var Expr|null
      */
     private $templateFileExpr;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function collectTemplateFileNameVariablesAndNodesToRemove(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : \_PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\MagicTemplatePropertyCalls
+    public function collectTemplateFileNameVariablesAndNodesToRemove(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : \_PhpScopere8e811afab72\Rector\Nette\ValueObject\MagicTemplatePropertyCalls
     {
         $this->templateFileExpr = null;
         $this->templateVariables = [];
         $this->nodesToRemove = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void {
-            if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScopere8e811afab72\PhpParser\Node $node) : void {
+            if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
                 $this->collectTemplateFileExpr($node);
             }
-            if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+            if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
                 $this->collectVariableFromAssign($node);
             }
         });
-        return new \_PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\MagicTemplatePropertyCalls($this->templateFileExpr, $this->templateVariables, $this->nodesToRemove);
+        return new \_PhpScopere8e811afab72\Rector\Nette\ValueObject\MagicTemplatePropertyCalls($this->templateFileExpr, $this->templateVariables, $this->nodesToRemove);
     }
-    private function collectTemplateFileExpr(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    private function collectTemplateFileExpr(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         if ($this->nodeNameResolver->isName($methodCall->name, 'render')) {
             if (isset($methodCall->args[0])) {
@@ -68,10 +68,10 @@ final class TemplatePropertyAssignCollector
             $this->nodesToRemove[] = $methodCall;
         }
     }
-    private function collectVariableFromAssign(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign) : void
+    private function collectVariableFromAssign(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : void
     {
         // $this->template = x
-        if ($assign->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
+        if ($assign->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
             if (!$this->nodeNameResolver->isName($assign->var->var, 'template')) {
                 return;
             }
@@ -80,7 +80,7 @@ final class TemplatePropertyAssignCollector
             $this->nodesToRemove[] = $assign;
         }
         // $x = $this->template
-        if (!$assign->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+        if (!$assign->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
             return;
         }
         if (!$this->isTemplatePropertyFetch($assign->expr)) {
@@ -92,12 +92,12 @@ final class TemplatePropertyAssignCollector
      * Looks for:
      * $this->template
      */
-    private function isTemplatePropertyFetch(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
+    private function isTemplatePropertyFetch(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : bool
     {
-        if (!$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
-        if (!$expr->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+        if (!$expr->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($expr->var, 'this')) {

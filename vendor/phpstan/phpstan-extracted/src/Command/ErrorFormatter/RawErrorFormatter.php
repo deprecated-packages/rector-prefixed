@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Command\ErrorFormatter;
+namespace _PhpScopere8e811afab72\PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Command\AnalysisResult;
-use _PhpScoper0a2ac50786fa\PHPStan\Command\Output;
-class RawErrorFormatter implements \_PhpScoper0a2ac50786fa\PHPStan\Command\ErrorFormatter\ErrorFormatter
+use _PhpScopere8e811afab72\PHPStan\Command\AnalysisResult;
+use _PhpScopere8e811afab72\PHPStan\Command\Output;
+class RawErrorFormatter implements \_PhpScopere8e811afab72\PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
-    public function formatErrors(\_PhpScoper0a2ac50786fa\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoper0a2ac50786fa\PHPStan\Command\Output $output) : int
+    public function formatErrors(\_PhpScopere8e811afab72\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScopere8e811afab72\PHPStan\Command\Output $output) : int
     {
         foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
             $output->writeRaw(\sprintf('?:?:%s', $notFileSpecificError));

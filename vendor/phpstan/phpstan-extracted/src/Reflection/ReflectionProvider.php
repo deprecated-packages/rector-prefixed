@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
 interface ReflectionProvider
 {
     public function hasClass(string $className) : bool;
-    public function getClass(string $className) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
+    public function getClass(string $className) : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
     public function getClassName(string $className) : string;
     public function supportsAnonymousClasses() : bool;
-    public function getAnonymousClassReflection(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $classNode, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-    public function hasFunction(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : bool;
-    public function getFunction(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection;
-    public function resolveFunctionName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : ?string;
-    public function hasConstant(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : bool;
-    public function getConstant(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\GlobalConstantReflection;
-    public function resolveConstantName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : ?string;
+    public function getAnonymousClassReflection(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $classNode, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+    public function hasFunction(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : bool;
+    public function getFunction(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection;
+    public function resolveFunctionName(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : ?string;
+    public function hasConstant(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : bool;
+    public function getConstant(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\GlobalConstantReflection;
+    public function resolveConstantName(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : ?string;
 }

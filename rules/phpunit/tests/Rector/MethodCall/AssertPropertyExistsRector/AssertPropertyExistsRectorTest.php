@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Tests\Rector\MethodCall\AssertPropertyExistsRector;
+namespace _PhpScopere8e811afab72\Rector\PHPUnit\Tests\Rector\MethodCall\AssertPropertyExistsRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\MethodCall\AssertPropertyExistsRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class AssertPropertyExistsRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\PHPUnit\Rector\MethodCall\AssertPropertyExistsRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class AssertPropertyExistsRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AssertPropertyExistsRectorTest extends \_PhpScoper0a2ac50786fa\Recto
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\PHPUnit\Rector\MethodCall\AssertPropertyExistsRector::class;
+        return \_PhpScopere8e811afab72\Rector\PHPUnit\Rector\MethodCall\AssertPropertyExistsRector::class;
     }
 }

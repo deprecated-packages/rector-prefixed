@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\UnusedNodeResolver;
+namespace _PhpScopere8e811afab72\Rector\DeadCode\UnusedNodeResolver;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
-use _PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use _PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
 use ReflectionMethod;
 final class ClassUnusedPrivateClassMethodResolver
 {
@@ -23,7 +23,7 @@ final class ClassUnusedPrivateClassMethodResolver
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->classManipulator = $classManipulator;
@@ -32,7 +32,7 @@ final class ClassUnusedPrivateClassMethodResolver
     /**
      * @return string[]
      */
-    public function getClassUnusedMethodNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
+    public function getClassUnusedMethodNames(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : array
     {
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($class);
@@ -46,7 +46,7 @@ final class ClassUnusedPrivateClassMethodResolver
      * @param string[] $usedMethodNames
      * @return string[]
      */
-    private function getUnusedMethodNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, array $classPublicMethodNames, array $usedMethodNames) : array
+    private function getUnusedMethodNames(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, array $classPublicMethodNames, array $usedMethodNames) : array
     {
         $unusedMethods = \array_diff($classPublicMethodNames, $usedMethodNames);
         $unusedMethods = $this->filterOutSystemMethods($unusedMethods);
@@ -65,7 +65,7 @@ final class ClassUnusedPrivateClassMethodResolver
                 unset($unusedMethods[$key]);
             }
             // skip magic methods
-            if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::startsWith($unusedMethod, '__')) {
+            if (\_PhpScopere8e811afab72\Nette\Utils\Strings::startsWith($unusedMethod, '__')) {
                 unset($unusedMethods[$key]);
             }
         }
@@ -75,7 +75,7 @@ final class ClassUnusedPrivateClassMethodResolver
      * @param string[] $unusedMethods
      * @return string[]
      */
-    private function filterOutInterfaceRequiredMethods(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, array $unusedMethods) : array
+    private function filterOutInterfaceRequiredMethods(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, array $unusedMethods) : array
     {
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($class);
@@ -91,7 +91,7 @@ final class ClassUnusedPrivateClassMethodResolver
      * @param string[] $unusedMethods
      * @return string[]
      */
-    private function filterOutParentAbstractMethods(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, array $unusedMethods) : array
+    private function filterOutParentAbstractMethods(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, array $unusedMethods) : array
     {
         if ($class->extends === null) {
             return $unusedMethods;

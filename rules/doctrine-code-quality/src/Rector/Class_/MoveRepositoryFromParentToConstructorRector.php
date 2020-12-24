@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DoctrineCodeQuality\Rector\Class_;
+namespace _PhpScopere8e811afab72\Rector\DoctrineCodeQuality\Rector\Class_;
 
-use _PhpScoper0a2ac50786fa\Doctrine\ORM\EntityManager;
-use _PhpScoper0a2ac50786fa\Doctrine\ORM\EntityRepository;
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\Bridge\RectorProviderException;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Doctrine\ORM\EntityManager;
+use _PhpScopere8e811afab72\Doctrine\ORM\EntityRepository;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\Rector\Core\Exception\Bridge\RectorProviderException;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\DoctrineRepositoryAsServiceTest
  */
-final class MoveRepositoryFromParentToConstructorRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class MoveRepositoryFromParentToConstructorRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var DoctrineEntityAndRepositoryMapperInterface
@@ -36,15 +36,15 @@ final class MoveRepositoryFromParentToConstructorRector extends \_PhpScoper0a2ac
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScoper0a2ac50786fa\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface $doctrineEntityAndRepositoryMapper)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScopere8e811afab72\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface $doctrineEntityAndRepositoryMapper)
     {
         $this->doctrineEntityAndRepositoryMapper = $doctrineEntityAndRepositoryMapper;
         $this->classDependencyManipulator = $classDependencyManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns parent EntityRepository class to constructor dependency', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns parent EntityRepository class to constructor dependency', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -78,50 +78,50 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if ($node->extends === null) {
             return null;
         }
-        $parentClassName = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \_PhpScoper0a2ac50786fa\Doctrine\ORM\EntityRepository::class) {
+        $parentClassName = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        if ($parentClassName !== \_PhpScopere8e811afab72\Doctrine\ORM\EntityRepository::class) {
             return null;
         }
         /** @var string|null $className */
-        $className = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return null;
         }
-        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($className, 'Repository')) {
+        if (!\_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($className, 'Repository')) {
             return null;
         }
         // remove parent class
         $node->extends = null;
         // add $repository property
-        $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType(\_PhpScoper0a2ac50786fa\Doctrine\ORM\EntityRepository::class));
+        $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType(\_PhpScopere8e811afab72\Doctrine\ORM\EntityRepository::class));
         // add $entityManager and assign to constuctor
-        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType(\_PhpScoper0a2ac50786fa\Doctrine\ORM\EntityManager::class), $this->createRepositoryAssign($node));
+        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType(\_PhpScopere8e811afab72\Doctrine\ORM\EntityManager::class), $this->createRepositoryAssign($node));
         return $node;
     }
     /**
      * Creates:
      * "$this->repository = $entityManager->getRepository()"
      */
-    private function createRepositoryAssign(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign
+    private function createRepositoryAssign(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign
     {
-        $repositoryClassName = (string) $class->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $repositoryClassName = (string) $class->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         $entityClassName = $this->doctrineEntityAndRepositoryMapper->mapRepositoryToEntity($repositoryClassName);
         if ($entityClassName === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\Bridge\RectorProviderException(\sprintf('An entity was not provided for "%s" repository by your "%s" class.', $repositoryClassName, \get_class($this->doctrineEntityAndRepositoryMapper)));
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\Bridge\RectorProviderException(\sprintf('An entity was not provided for "%s" repository by your "%s" class.', $repositoryClassName, \get_class($this->doctrineEntityAndRepositoryMapper)));
         }
         $classConstFetch = $this->createClassConstantReference($entityClassName);
-        $methodCall = $this->builderFactory->methodCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('entityManager'), 'getRepository', [$classConstFetch]);
-        $methodCall->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $class);
+        $methodCall = $this->builderFactory->methodCall(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable('entityManager'), 'getRepository', [$classConstFetch]);
+        $methodCall->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $class);
         return $this->createPropertyAssignmentWithExpr('repository', $methodCall);
     }
 }

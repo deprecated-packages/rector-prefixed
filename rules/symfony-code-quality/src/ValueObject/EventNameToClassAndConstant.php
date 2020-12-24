@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\SymfonyCodeQuality\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\SymfonyCodeQuality\ValueObject;
 
 final class EventNameToClassAndConstant
 {

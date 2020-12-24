@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\DI\Config;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Config;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Configuration helpers.
  * @deprecated
@@ -22,7 +22,7 @@ final class Helpers
      */
     public static function merge($left, $right)
     {
-        return \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($left, $right);
+        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($left, $right);
     }
     /**
      * Return true if array prevents merging and removes this information.

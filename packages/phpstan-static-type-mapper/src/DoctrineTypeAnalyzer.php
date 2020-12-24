@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper;
+namespace _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
+use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName;
+use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
 final class DoctrineTypeAnalyzer
 {
-    public function isDoctrineCollectionWithIterableUnionType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : bool
+    public function isDoctrineCollectionWithIterableUnionType(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : bool
     {
-        if (!$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
+        if (!$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
             return \false;
         }
         $arrayType = null;
@@ -20,7 +20,7 @@ final class DoctrineTypeAnalyzer
             if ($this->isCollectionObjectType($unionedType)) {
                 $hasDoctrineCollectionType = \true;
             }
-            if ($unionedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
+            if ($unionedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
                 $arrayType = $unionedType;
             }
         }
@@ -29,9 +29,9 @@ final class DoctrineTypeAnalyzer
         }
         return $arrayType !== null;
     }
-    private function isCollectionObjectType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : bool
+    private function isCollectionObjectType(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : bool
     {
-        if (!$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
+        if (!$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         return $type->getClassName() === 'Doctrine\\Common\\Collections\\Collection';

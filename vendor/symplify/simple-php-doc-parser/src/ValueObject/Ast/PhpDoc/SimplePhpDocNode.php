@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc;
+namespace _PhpScopere8e811afab72\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc;
 
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode;
 /**
  * @notfinal on purpose, so it can be extended by 3rd party
  */
-class SimplePhpDocNode extends \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
+class SimplePhpDocNode extends \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
 {
-    public function getParam(string $desiredParamName) : ?\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode
+    public function getParam(string $desiredParamName) : ?\_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode
     {
         $desiredParamNameWithDollar = '$' . \ltrim($desiredParamName, '$');
         foreach ($this->getParamTagValues() as $paramTagValueNode) {
@@ -22,7 +22,7 @@ class SimplePhpDocNode extends \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\
         }
         return null;
     }
-    public function getParamType(string $desiredParamName) : ?\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function getParamType(string $desiredParamName) : ?\_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $paramTagValueNode = $this->getParam($desiredParamName);
         if ($paramTagValueNode === null) {

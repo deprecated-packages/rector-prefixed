@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Provider;
+namespace _PhpScopere8e811afab72\Rector\RectorGenerator\Provider;
 
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Exception\ConfigurationException;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\Exception\ConfigurationException;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe;
 final class RectorRecipeProvider
 {
     /**
@@ -18,14 +18,14 @@ final class RectorRecipeProvider
     /**
      * Parameter must be configured in the rector config
      */
-    public function __construct(?\_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe = null)
+    public function __construct(?\_PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe = null)
     {
         $this->rectorRecipe = $rectorRecipe;
     }
-    public function provide() : \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe
+    public function provide() : \_PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe
     {
         if ($this->rectorRecipe === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Exception\ConfigurationException(self::MESSAGE);
+            throw new \_PhpScopere8e811afab72\Rector\RectorGenerator\Exception\ConfigurationException(self::MESSAGE);
         }
         return $this->rectorRecipe;
     }

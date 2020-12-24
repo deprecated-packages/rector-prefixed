@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\File;
+namespace _PhpScopere8e811afab72\Hoa\File;
 
-use _PhpScoper0a2ac50786fa\Hoa\Iterator;
+use _PhpScopere8e811afab72\Hoa\Iterator;
 /**
  * Class \Hoa\File\SplFileInfo.
  *
@@ -44,7 +44,7 @@ use _PhpScoper0a2ac50786fa\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class SplFileInfo extends \_PhpScoper0a2ac50786fa\Hoa\Iterator\SplFileInfo
+class SplFileInfo extends \_PhpScopere8e811afab72\Hoa\Iterator\SplFileInfo
 {
     /**
      * Current stream.
@@ -61,13 +61,13 @@ class SplFileInfo extends \_PhpScoper0a2ac50786fa\Hoa\Iterator\SplFileInfo
     public function open()
     {
         if (\true === $this->isFile()) {
-            return $this->_stream = new \_PhpScoper0a2ac50786fa\Hoa\File\ReadWrite($this->getPathname());
+            return $this->_stream = new \_PhpScopere8e811afab72\Hoa\File\ReadWrite($this->getPathname());
         } elseif (\true === $this->isDir()) {
-            return $this->_stream = new \_PhpScoper0a2ac50786fa\Hoa\File\Directory($this->getPathname());
+            return $this->_stream = new \_PhpScopere8e811afab72\Hoa\File\Directory($this->getPathname());
         } elseif (\true === $this->isLink()) {
-            return $this->_stream = new \_PhpScoper0a2ac50786fa\Hoa\File\Link\ReadWrite($this->getPathname());
+            return $this->_stream = new \_PhpScopere8e811afab72\Hoa\File\Link\ReadWrite($this->getPathname());
         }
-        throw new \_PhpScoper0a2ac50786fa\Hoa\File\Exception('%s has an unknown type.', 0, $this->getPathname());
+        throw new \_PhpScopere8e811afab72\Hoa\File\Exception('%s has an unknown type.', 0, $this->getPathname());
     }
     /**
      * Close the opened stream.

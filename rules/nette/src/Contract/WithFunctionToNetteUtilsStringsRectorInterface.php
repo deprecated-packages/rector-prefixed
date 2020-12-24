@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Nette\Contract;
+namespace _PhpScopere8e811afab72\Rector\Nette\Contract;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
 interface WithFunctionToNetteUtilsStringsRectorInterface
 {
     public function getMethodName() : string;
-    public function matchContentAndNeedleOfSubstrOfVariableLength(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoper0a2ac50786fa\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
+    public function matchContentAndNeedleOfSubstrOfVariableLength(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScopere8e811afab72\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
 }

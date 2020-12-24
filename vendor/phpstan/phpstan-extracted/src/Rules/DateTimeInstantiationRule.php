@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules;
+namespace _PhpScopere8e811afab72\PHPStan\Rules;
 
 use DateTime;
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\New_>
  */
-class DateTimeInstantiationRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+class DateTimeInstantiationRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_::class;
     }
     /**
      * @param New_ $node
      */
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name || \count($node->args) === 0 || !\in_array(\strtolower((string) $node->class), ['datetime', 'datetimeimmutable'], \true)) {
+        if (!$node->class instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name || \count($node->args) === 0 || !\in_array(\strtolower((string) $node->class), ['datetime', 'datetimeimmutable'], \true)) {
             return [];
         }
         $arg = $scope->getType($node->args[0]->value);
-        if (!$arg instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType) {
+        if (!$arg instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType) {
             return [];
         }
         $errors = [];
@@ -39,7 +39,7 @@ class DateTimeInstantiationRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules
         $lastErrors = \DateTime::getLastErrors();
         if ($lastErrors !== \false) {
             foreach ($lastErrors['errors'] as $error) {
-                $errors[] = \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instantiating %s with %s produces an error: %s', (string) $node->class, $dateString, $error))->build();
+                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instantiating %s with %s produces an error: %s', (string) $node->class, $dateString, $error))->build();
             }
         }
         return $errors;

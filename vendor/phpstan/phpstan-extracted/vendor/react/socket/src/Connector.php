@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Dns\Config\Config as DnsConfig;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Dns\Resolver\Factory as DnsFactory;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Dns\Resolver\ResolverInterface;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Config\Config as DnsConfig;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Resolver\Factory as DnsFactory;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Resolver\ResolverInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
 /**
  * The `Connector` class is the main class in this package that implements the
  * `ConnectorInterface` and allows you to create streaming connections.
@@ -21,60 +21,60 @@ use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
  *
  * @see ConnectorInterface for the base interface
  */
-final class Connector implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface
+final class Connector implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface
 {
     private $connectors = array();
-    public function __construct(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $options = array())
+    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $options = array())
     {
         // apply default options if not explicitly given
         $options += array('tcp' => \true, 'tls' => \true, 'unix' => \true, 'dns' => \true, 'timeout' => \true, 'happy_eyeballs' => \true);
         if ($options['timeout'] === \true) {
             $options['timeout'] = (float) \ini_get("default_socket_timeout");
         }
-        if ($options['tcp'] instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface) {
+        if ($options['tcp'] instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface) {
             $tcp = $options['tcp'];
         } else {
-            $tcp = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\TcpConnector($loop, \is_array($options['tcp']) ? $options['tcp'] : array());
+            $tcp = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\TcpConnector($loop, \is_array($options['tcp']) ? $options['tcp'] : array());
         }
         if ($options['dns'] !== \false) {
-            if ($options['dns'] instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Dns\Resolver\ResolverInterface) {
+            if ($options['dns'] instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Resolver\ResolverInterface) {
                 $resolver = $options['dns'];
             } else {
                 if ($options['dns'] !== \true) {
                     $server = $options['dns'];
                 } else {
                     // try to load nameservers from system config or default to Google's public DNS
-                    $config = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Dns\Config\Config::loadSystemConfigBlocking();
+                    $config = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Config\Config::loadSystemConfigBlocking();
                     $server = $config->nameservers ? \reset($config->nameservers) : '8.8.8.8';
                 }
-                $factory = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Dns\Resolver\Factory();
+                $factory = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Resolver\Factory();
                 $resolver = $factory->createCached($server, $loop);
             }
             if ($options['happy_eyeballs'] === \true) {
-                $tcp = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\HappyEyeBallsConnector($loop, $tcp, $resolver);
+                $tcp = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\HappyEyeBallsConnector($loop, $tcp, $resolver);
             } else {
-                $tcp = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\DnsConnector($tcp, $resolver);
+                $tcp = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\DnsConnector($tcp, $resolver);
             }
         }
         if ($options['tcp'] !== \false) {
             $options['tcp'] = $tcp;
             if ($options['timeout'] !== \false) {
-                $options['tcp'] = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\TimeoutConnector($options['tcp'], $options['timeout'], $loop);
+                $options['tcp'] = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\TimeoutConnector($options['tcp'], $options['timeout'], $loop);
             }
             $this->connectors['tcp'] = $options['tcp'];
         }
         if ($options['tls'] !== \false) {
-            if (!$options['tls'] instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface) {
-                $options['tls'] = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\SecureConnector($tcp, $loop, \is_array($options['tls']) ? $options['tls'] : array());
+            if (!$options['tls'] instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface) {
+                $options['tls'] = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\SecureConnector($tcp, $loop, \is_array($options['tls']) ? $options['tls'] : array());
             }
             if ($options['timeout'] !== \false) {
-                $options['tls'] = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\TimeoutConnector($options['tls'], $options['timeout'], $loop);
+                $options['tls'] = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\TimeoutConnector($options['tls'], $options['timeout'], $loop);
             }
             $this->connectors['tls'] = $options['tls'];
         }
         if ($options['unix'] !== \false) {
-            if (!$options['unix'] instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface) {
-                $options['unix'] = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\UnixConnector($loop);
+            if (!$options['unix'] instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface) {
+                $options['unix'] = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\UnixConnector($loop);
             }
             $this->connectors['unix'] = $options['unix'];
         }
@@ -86,7 +86,7 @@ final class Connector implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\
             $scheme = (string) \substr($uri, 0, \strpos($uri, '://'));
         }
         if (!isset($this->connectors[$scheme])) {
-            return \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('No connector available for URI scheme "' . $scheme . '"'));
+            return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('No connector available for URI scheme "' . $scheme . '"'));
         }
         return $this->connectors[$scheme]->connect($uri);
     }

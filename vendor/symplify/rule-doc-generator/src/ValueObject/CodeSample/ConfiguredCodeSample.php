@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\Configuration\InvalidConfigurationException;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ConfiguredCodeSample extends \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample implements \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+use _PhpScopere8e811afab72\Rector\Core\Exception\Configuration\InvalidConfigurationException;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class ConfiguredCodeSample extends \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample implements \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
 {
     /**
      * @var array<string, mixed>
@@ -18,7 +18,7 @@ final class ConfiguredCodeSample extends \_PhpScoper0a2ac50786fa\Symplify\RuleDo
     public function __construct(string $badCode, string $goodCode, array $configuration)
     {
         if ($configuration === []) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\Configuration\InvalidConfigurationException('Configuration cannot be empty');
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\Configuration\InvalidConfigurationException('Configuration cannot be empty');
         }
         $this->configuration = $configuration;
         parent::__construct($badCode, $goodCode);

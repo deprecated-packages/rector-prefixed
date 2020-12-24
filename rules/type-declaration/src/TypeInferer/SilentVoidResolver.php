@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer;
+namespace _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Function_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Throw_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\TryCatch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Closure;
+use _PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Switch_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Throw_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\TryCatch;
 final class SilentVoidResolver
 {
     /**
      * @param ClassMethod|Closure|Function_ $functionLike
      */
-    public function hasSilentVoid(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : bool
+    public function hasSilentVoid(\_PhpScopere8e811afab72\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($this->hasStmtsAlwaysReturn((array) $functionLike->stmts)) {
             return \false;
         }
         foreach ((array) $functionLike->stmts as $stmt) {
             // has switch with always return
-            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_ && $this->isSwitchWithAlwaysReturn($stmt)) {
+            if ($stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Switch_ && $this->isSwitchWithAlwaysReturn($stmt)) {
                 return \false;
             }
             // is part of try/catch
-            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\TryCatch && $this->isTryCatchAlwaysReturn($stmt)) {
+            if ($stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\TryCatch && $this->isTryCatchAlwaysReturn($stmt)) {
                 return \false;
             }
-            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Throw_) {
+            if ($stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Throw_) {
                 return \false;
             }
         }
@@ -44,22 +44,22 @@ final class SilentVoidResolver
     private function hasStmtsAlwaysReturn(array $stmts) : bool
     {
         foreach ($stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
+            if ($stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
                 $stmt = $stmt->expr;
             }
             // is 1st level return
-            if ($stmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_) {
+            if ($stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
                 return \true;
             }
         }
         return \false;
     }
-    private function isSwitchWithAlwaysReturn(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Switch_ $switch) : bool
+    private function isSwitchWithAlwaysReturn(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
         $casesWithReturn = 0;
         foreach ($switch->cases as $case) {
             foreach ($case->stmts as $caseStmt) {
-                if ($caseStmt instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_) {
+                if ($caseStmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
                     ++$casesWithReturn;
                     break;
                 }
@@ -68,7 +68,7 @@ final class SilentVoidResolver
         // has same amount of returns as switches
         return \count((array) $switch->cases) === $casesWithReturn;
     }
-    private function isTryCatchAlwaysReturn(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\TryCatch $tryCatch) : bool
+    private function isTryCatchAlwaysReturn(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\TryCatch $tryCatch) : bool
     {
         if (!$this->hasStmtsAlwaysReturn($tryCatch->stmts)) {
             return \false;

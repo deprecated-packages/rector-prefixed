@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\PhpMethodReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-class ResolvedMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection
+use _PhpScopere8e811afab72\PHPStan\Reflection\Php\PhpMethodReflection;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+class ResolvedMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
 {
     /** @var MethodReflection */
     private $reflection;
@@ -15,7 +15,7 @@ class ResolvedMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflec
     private $resolvedTemplateTypeMap;
     /** @var \PHPStan\Reflection\ParametersAcceptor[]|null */
     private $variants = null;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection $reflection, \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $reflection, \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap)
     {
         $this->reflection = $reflection;
         $this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
@@ -24,7 +24,7 @@ class ResolvedMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflec
     {
         return $this->reflection->getName();
     }
-    public function getPrototype() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection
     {
         return $this->reflection->getPrototype();
     }
@@ -39,18 +39,18 @@ class ResolvedMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflec
         }
         $variants = [];
         foreach ($this->reflection->getVariants() as $variant) {
-            $variants[] = new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ResolvedFunctionVariant($variant, $this->resolvedTemplateTypeMap);
+            $variants[] = new \_PhpScopere8e811afab72\PHPStan\Reflection\ResolvedFunctionVariant($variant, $this->resolvedTemplateTypeMap);
         }
         $this->variants = $variants;
         return $variants;
     }
-    public function getDeclaringClass() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
-    public function getDeclaringTrait() : ?\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getDeclaringTrait() : ?\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
-        if ($this->reflection instanceof \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\PhpMethodReflection) {
+        if ($this->reflection instanceof \_PhpScopere8e811afab72\PHPStan\Reflection\Php\PhpMethodReflection) {
             return $this->reflection->getDeclaringTrait();
         }
         return null;
@@ -71,7 +71,7 @@ class ResolvedMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflec
     {
         return $this->reflection->getDocComment();
     }
-    public function isDeprecated() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -79,19 +79,19 @@ class ResolvedMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflec
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isFinal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $this->reflection->isFinal();
     }
-    public function isInternal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }
-    public function getThrowType() : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->reflection->getThrowType();
     }
-    public function hasSideEffects() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $this->reflection->hasSideEffects();
     }

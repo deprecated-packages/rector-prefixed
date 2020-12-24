@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\NodeResolver;
+namespace _PhpScopere8e811afab72\Rector\NetteCodeQuality\NodeResolver;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
-use _PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
+use _PhpScopere8e811afab72\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
 final class MethodNamesByInputNamesResolver
 {
     /**
@@ -18,7 +18,7 @@ final class MethodNamesByInputNamesResolver
     public function __construct(array $formControlTypeResolvers)
     {
         foreach ($formControlTypeResolvers as $formControlTypeResolver) {
-            if ($formControlTypeResolver instanceof \_PhpScoper0a2ac50786fa\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface) {
+            if ($formControlTypeResolver instanceof \_PhpScopere8e811afab72\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface) {
                 $formControlTypeResolver->setResolver($this);
             }
             $this->formControlTypeResolvers[] = $formControlTypeResolver;
@@ -27,7 +27,7 @@ final class MethodNamesByInputNamesResolver
     /**
      * @return array<string, string>
      */
-    public function resolveExpr(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : array
+    public function resolveExpr(\_PhpScopere8e811afab72\PhpParser\Node $node) : array
     {
         $methodNamesByInputNames = [];
         foreach ($this->formControlTypeResolvers as $formControlTypeResolver) {

@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-final class CompositeStream extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\DuplexStreamInterface
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+final class CompositeStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\DuplexStreamInterface
 {
     private $readable;
     private $writable;
     private $closed = \false;
-    public function __construct(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $readable, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $writable)
+    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $readable, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $writable)
     {
         $this->readable = $readable;
         $this->writable = $writable;
@@ -16,8 +16,8 @@ final class CompositeStream extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b8
             $this->close();
             return;
         }
-        \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
-        \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
+        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
+        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
         $this->readable->on('close', array($this, 'close'));
         $this->writable->on('close', array($this, 'close'));
     }
@@ -36,9 +36,9 @@ final class CompositeStream extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b8
         }
         $this->readable->resume();
     }
-    public function pipe(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isWritable()
     {

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\SymfonyPHPUnit;
+namespace _PhpScopere8e811afab72\Rector\SymfonyPHPUnit;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper0a2ac50786fa\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
-use _PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScopere8e811afab72\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
+use _PhpScopere8e811afab72\Symfony\Component\HttpFoundation\Session\SessionInterface;
 final class SelfContainerMethodCallCollector
 {
     /**
@@ -24,7 +24,7 @@ final class SelfContainerMethodCallCollector
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a2ac50786fa\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScopere8e811afab72\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->kernelTestCaseNodeAnalyzer = $kernelTestCaseNodeAnalyzer;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -33,11 +33,11 @@ final class SelfContainerMethodCallCollector
     /**
      * @return string[]
      */
-    public function collectContainerGetServiceTypes(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, bool $skipSetUpMethod = \true) : array
+    public function collectContainerGetServiceTypes(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, bool $skipSetUpMethod = \true) : array
     {
         $serviceTypes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use(&$serviceTypes, $skipSetUpMethod) : ?Node {
-            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\_PhpScopere8e811afab72\PhpParser\Node $node) use(&$serviceTypes, $skipSetUpMethod) : ?Node {
+            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             if (!$this->kernelTestCaseNodeAnalyzer->isOnContainerGetMethodCall($node)) {
@@ -61,6 +61,6 @@ final class SelfContainerMethodCallCollector
     }
     private function shouldSkipServiceType(string $serviceType) : bool
     {
-        return $serviceType === \_PhpScoper0a2ac50786fa\Symfony\Component\HttpFoundation\Session\SessionInterface::class;
+        return $serviceType === \_PhpScopere8e811afab72\Symfony\Component\HttpFoundation\Session\SessionInterface::class;
     }
 }

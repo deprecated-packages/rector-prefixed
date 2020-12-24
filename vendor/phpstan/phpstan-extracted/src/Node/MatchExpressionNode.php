@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Node;
+namespace _PhpScopere8e811afab72\PHPStan\Node;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\NodeAbstract;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-class MatchExpressionNode extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract implements \_PhpScoper0a2ac50786fa\PHPStan\Node\VirtualNode
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\NodeAbstract;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+class MatchExpressionNode extends \_PhpScopere8e811afab72\PhpParser\NodeAbstract implements \_PhpScopere8e811afab72\PHPStan\Node\VirtualNode
 {
     /** @var Expr */
     private $condition;
@@ -18,14 +18,14 @@ class MatchExpressionNode extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract
      * @param Expr $condition
      * @param MatchExpressionArm[] $arms
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $condition, array $arms, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Match_ $originalNode, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $endScope)
+    public function __construct(\_PhpScopere8e811afab72\PhpParser\Node\Expr $condition, array $arms, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Match_ $originalNode, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $endScope)
     {
         parent::__construct($originalNode->getAttributes());
         $this->condition = $condition;
         $this->arms = $arms;
         $this->endScope = $endScope;
     }
-    public function getCondition() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function getCondition() : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         return $this->condition;
     }
@@ -36,7 +36,7 @@ class MatchExpressionNode extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract
     {
         return $this->arms;
     }
-    public function getEndScope() : \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope
+    public function getEndScope() : \_PhpScopere8e811afab72\PHPStan\Analyser\Scope
     {
         return $this->endScope;
     }

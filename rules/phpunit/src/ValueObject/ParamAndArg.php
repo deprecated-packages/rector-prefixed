@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\PHPUnit\ValueObject;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
 final class ParamAndArg
 {
     /**
@@ -15,16 +15,16 @@ final class ParamAndArg
      * @var Type|null
      */
     private $type;
-    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type)
+    public function __construct(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $type)
     {
         $this->variable = $variable;
         $this->type = $type;
     }
-    public function getVariable() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable
+    public function getVariable() : \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable
     {
         return $this->variable;
     }
-    public function getType() : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getType() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->type;
     }

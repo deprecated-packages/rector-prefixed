@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Rector\Identical;
+namespace _PhpScopere8e811afab72\Rector\CodeQuality\Rector\Identical;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Identical\StrlenZeroToIdenticalEmptyStringRector\StrlenZeroToIdenticalEmptyStringRectorTest
  */
-final class StrlenZeroToIdenticalEmptyStringRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class StrlenZeroToIdenticalEmptyStringRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes strlen comparison to 0 to direct empty string compare', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes strlen comparison to 0 to direct empty string compare', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -43,15 +43,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical::class];
     }
     /**
      * @param Identical $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         $variable = null;
-        if ($node->left instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
+        if ($node->left instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
             if (!$this->isName($node->left, 'strlen')) {
                 return null;
             }
@@ -59,7 +59,7 @@ CODE_SAMPLE
                 return null;
             }
             $variable = $node->left->args[0]->value;
-        } elseif ($node->right instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
+        } elseif ($node->right instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
             if (!$this->isName($node->right, 'strlen')) {
                 return null;
             }
@@ -71,6 +71,6 @@ CODE_SAMPLE
             return null;
         }
         /** @var Expr $variable */
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Identical($variable, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_(''));
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical($variable, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_(''));
     }
 }

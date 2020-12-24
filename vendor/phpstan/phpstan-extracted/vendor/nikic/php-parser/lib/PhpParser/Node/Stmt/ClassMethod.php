@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
+namespace _PhpScopere8e811afab72\PhpParser\Node\Stmt;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
-class ClassMethod extends \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt implements \_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
+class ClassMethod extends \_PhpScopere8e811afab72\PhpParser\Node\Stmt implements \_PhpScopere8e811afab72\PhpParser\Node\FunctionLike
 {
     /** @var int Flags */
     public $flags;
@@ -40,10 +40,10 @@ class ClassMethod extends \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt implements
         $this->attributes = $attributes;
         $this->flags = $subNodes['flags'] ?? $subNodes['type'] ?? 0;
         $this->byRef = $subNodes['byRef'] ?? \false;
-        $this->name = \is_string($name) ? new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($name) : $name;
+        $this->name = \is_string($name) ? new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($name) : $name;
         $this->params = $subNodes['params'] ?? [];
         $returnType = $subNodes['returnType'] ?? null;
-        $this->returnType = \is_string($returnType) ? new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($returnType) : $returnType;
+        $this->returnType = \is_string($returnType) ? new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($returnType) : $returnType;
         $this->stmts = \array_key_exists('stmts', $subNodes) ? $subNodes['stmts'] : [];
         $this->attrGroups = $subNodes['attrGroups'] ?? [];
     }
@@ -78,7 +78,7 @@ class ClassMethod extends \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt implements
      */
     public function isPublic() : bool
     {
-        return ($this->flags & \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC) !== 0 || ($this->flags & \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::VISIBILITY_MODIFIER_MASK) === 0;
+        return ($this->flags & \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC) !== 0 || ($this->flags & \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::VISIBILITY_MODIFIER_MASK) === 0;
     }
     /**
      * Whether the method is protected.
@@ -87,7 +87,7 @@ class ClassMethod extends \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt implements
      */
     public function isProtected() : bool
     {
-        return (bool) ($this->flags & \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
+        return (bool) ($this->flags & \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
     }
     /**
      * Whether the method is private.
@@ -96,7 +96,7 @@ class ClassMethod extends \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt implements
      */
     public function isPrivate() : bool
     {
-        return (bool) ($this->flags & \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
+        return (bool) ($this->flags & \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
     }
     /**
      * Whether the method is abstract.
@@ -105,7 +105,7 @@ class ClassMethod extends \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt implements
      */
     public function isAbstract() : bool
     {
-        return (bool) ($this->flags & \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT);
+        return (bool) ($this->flags & \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT);
     }
     /**
      * Whether the method is final.
@@ -114,7 +114,7 @@ class ClassMethod extends \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt implements
      */
     public function isFinal() : bool
     {
-        return (bool) ($this->flags & \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
+        return (bool) ($this->flags & \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
     }
     /**
      * Whether the method is static.
@@ -123,7 +123,7 @@ class ClassMethod extends \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt implements
      */
     public function isStatic() : bool
     {
-        return (bool) ($this->flags & \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
+        return (bool) ($this->flags & \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
     }
     /**
      * Whether the method is magic.

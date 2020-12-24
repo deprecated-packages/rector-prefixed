@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\PHPStan;
+namespace _PhpScopere8e811afab72\Rector\StaticTypeMapper\PHPStan;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\NameScope;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Use_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\UseUse;
+use _PhpScopere8e811afab72\PHPStan\Analyser\NameScope;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * @see https://github.com/phpstan/phpstan-src/blob/8376548f76e2c845ae047e3010e873015b796818/src/Analyser/NameScope.php#L32
  */
 final class NameScopeFactory
 {
-    public function createNameScopeFromNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Analyser\NameScope
+    public function createNameScopeFromNode(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PHPStan\Analyser\NameScope
     {
-        $namespace = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
+        $namespace = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
         /** @var Use_[] $useNodes */
-        $useNodes = (array) $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
+        $useNodes = (array) $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
         $uses = $this->resolveUseNamesByAlias($useNodes);
-        $className = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Analyser\NameScope($namespace, $uses, $className);
+        $className = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        return new \_PhpScopere8e811afab72\PHPStan\Analyser\NameScope($namespace, $uses, $className);
     }
     /**
      * @param Use_[] $useNodes
@@ -36,7 +36,7 @@ final class NameScopeFactory
                 $aliasName = $useUse->getAlias()->name;
                 $useName = $useUse->name->toString();
                 if (!\is_string($useName)) {
-                    throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+                    throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
                 }
                 // uses must be lowercase, as PHPStan lowercases it
                 $lowercasedAliasName = \strtolower($aliasName);

@@ -5,19 +5,19 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\DI;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Service not found exception.
  */
-class MissingServiceException extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidStateException
+class MissingServiceException extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
 }
 /**
  * Service creation exception.
  */
-class ServiceCreationException extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidStateException
+class ServiceCreationException extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
     public function setMessage(string $message) : self
     {
@@ -28,12 +28,12 @@ class ServiceCreationException extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
 /**
  * Not allowed when container is resolving.
  */
-class NotAllowedDuringResolvingException extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidStateException
+class NotAllowedDuringResolvingException extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
 }
 /**
  * Error in configuration.
  */
-class InvalidConfigurationException extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidStateException
+class InvalidConfigurationException extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
 }

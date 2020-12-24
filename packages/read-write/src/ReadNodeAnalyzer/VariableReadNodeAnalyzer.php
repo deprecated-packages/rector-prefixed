@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\ReadWrite\ReadNodeAnalyzer;
+namespace _PhpScopere8e811afab72\Rector\ReadWrite\ReadNodeAnalyzer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface;
-final class VariableReadNodeAnalyzer extends \_PhpScoper0a2ac50786fa\Rector\ReadWrite\ReadNodeAnalyzer\AbstractReadNodeAnalyzer implements \_PhpScoper0a2ac50786fa\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface;
+final class VariableReadNodeAnalyzer extends \_PhpScopere8e811afab72\Rector\ReadWrite\ReadNodeAnalyzer\AbstractReadNodeAnalyzer implements \_PhpScopere8e811afab72\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface
 {
-    public function supports(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    public function supports(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
-        return $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
+        return $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
     }
     /**
      * @param Variable $node
      */
-    public function isRead(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    public function isRead(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
         $parentScope = $this->parentScopeFinder->find($node);
         if ($parentScope === null) {

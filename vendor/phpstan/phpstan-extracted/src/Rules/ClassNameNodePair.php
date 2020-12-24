@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules;
+namespace _PhpScopere8e811afab72\PHPStan\Rules;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node;
 class ClassNameNodePair
 {
     /** @var string */
     private $className;
     /** @var Node */
     private $node;
-    public function __construct(string $className, \_PhpScoper0a2ac50786fa\PhpParser\Node $node)
+    public function __construct(string $className, \_PhpScopere8e811afab72\PhpParser\Node $node)
     {
         $this->className = $className;
         $this->node = $node;
@@ -19,7 +19,7 @@ class ClassNameNodePair
     {
         return $this->className;
     }
-    public function getNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function getNode() : \_PhpScopere8e811afab72\PhpParser\Node
     {
         return $this->node;
     }

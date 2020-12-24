@@ -10,14 +10,14 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\StandardTagFactory;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\TagFactory;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
-final class DocBlockFactory implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlockFactoryInterface
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\StandardTagFactory;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\TagFactory;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+final class DocBlockFactory implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlockFactoryInterface
 {
     /** @var DocBlock\DescriptionFactory */
     private $descriptionFactory;
@@ -29,7 +29,7 @@ final class DocBlockFactory implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
      * @param DescriptionFactory $descriptionFactory
      * @param TagFactory         $tagFactory
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
+    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
     {
         $this->descriptionFactory = $descriptionFactory;
         $this->tagFactory = $tagFactory;
@@ -43,11 +43,11 @@ final class DocBlockFactory implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
      */
     public static function createInstance(array $additionalTags = [])
     {
-        $fqsenResolver = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver();
-        $tagFactory = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\StandardTagFactory($fqsenResolver);
-        $descriptionFactory = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory($tagFactory);
+        $fqsenResolver = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver();
+        $tagFactory = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\StandardTagFactory($fqsenResolver);
+        $descriptionFactory = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory($tagFactory);
         $tagFactory->addService($descriptionFactory);
-        $tagFactory->addService(new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver($fqsenResolver));
+        $tagFactory->addService(new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver($fqsenResolver));
         $docBlockFactory = new self($descriptionFactory, $tagFactory);
         foreach ($additionalTags as $tagName => $tagHandler) {
             $docBlockFactory->registerTagHandler($tagName, $tagHandler);
@@ -62,7 +62,7 @@ final class DocBlockFactory implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
      *
      * @return DocBlock
      */
-    public function create($docblock, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Location $location = null)
+    public function create($docblock, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Location $location = null)
     {
         if (\is_object($docblock)) {
             if (!\method_exists($docblock, 'getDocComment')) {
@@ -71,14 +71,14 @@ final class DocBlockFactory implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
             }
             $docblock = $docblock->getDocComment();
         }
-        \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($docblock);
+        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($docblock);
         if ($context === null) {
-            $context = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context('');
+            $context = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context('');
         }
         $parts = $this->splitDocBlock($this->stripDocComment($docblock));
         list($templateMarker, $summary, $description, $tags) = $parts;
-        return new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock($summary, $description ? $this->descriptionFactory->create($description, $context) : null, \array_filter($this->parseTagBlock($tags, $context), function ($tag) {
-            return $tag instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag;
+        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock($summary, $description ? $this->descriptionFactory->create($description, $context) : null, \array_filter($this->parseTagBlock($tags, $context), function ($tag) {
+            return $tag instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag;
         }), $context, $location, $templateMarker === '#@+', $templateMarker === '#@-');
     }
     public function registerTagHandler($tagName, $handler)
@@ -184,7 +184,7 @@ final class DocBlockFactory implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f
      *
      * @return DocBlock\Tag[]
      */
-    private function parseTagBlock($tags, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context)
+    private function parseTagBlock($tags, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context)
     {
         $tags = $this->filterTagBlock($tags);
         if (!$tags) {

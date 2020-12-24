@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Stream\Filter;
+namespace _PhpScopere8e811afab72\Hoa\Stream\Filter;
 
-use _PhpScoper0a2ac50786fa\Hoa\Stream;
+use _PhpScopere8e811afab72\Hoa\Stream;
 /**
  * Class \Hoa\Stream\Filter\LateComputed.
  *
@@ -44,7 +44,7 @@ use _PhpScoper0a2ac50786fa\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class LateComputed extends \_PhpScoper0a2ac50786fa\Hoa\Stream\Filter\Basic
+abstract class LateComputed extends \_PhpScopere8e811afab72\Hoa\Stream\Filter\Basic
 {
     /**
      * Buffer.
@@ -76,7 +76,7 @@ abstract class LateComputed extends \_PhpScoper0a2ac50786fa\Hoa\Stream\Filter\Ba
     public function filter($in, $out, &$consumed, $closing)
     {
         $return = self::FEED_ME;
-        $iBucket = new \_PhpScoper0a2ac50786fa\Hoa\Stream\Bucket($in);
+        $iBucket = new \_PhpScopere8e811afab72\Hoa\Stream\Bucket($in);
         while (\false === $iBucket->eob()) {
             $this->_buffer .= $iBucket->getData();
             $consumed += $iBucket->getLength();
@@ -87,8 +87,8 @@ abstract class LateComputed extends \_PhpScoper0a2ac50786fa\Hoa\Stream\Filter\Ba
         if (\true === $closing) {
             $stream = $this->getStream();
             $this->compute();
-            $bucket = new \_PhpScoper0a2ac50786fa\Hoa\Stream\Bucket($stream, \_PhpScoper0a2ac50786fa\Hoa\Stream\Bucket::IS_A_STREAM, $this->_buffer);
-            $oBucket = new \_PhpScoper0a2ac50786fa\Hoa\Stream\Bucket($out);
+            $bucket = new \_PhpScopere8e811afab72\Hoa\Stream\Bucket($stream, \_PhpScopere8e811afab72\Hoa\Stream\Bucket::IS_A_STREAM, $this->_buffer);
+            $oBucket = new \_PhpScopere8e811afab72\Hoa\Stream\Bucket($out);
             $oBucket->append($bucket);
             $return = self::PASS_ON;
             $this->_buffer = null;

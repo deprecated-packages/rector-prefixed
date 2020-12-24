@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule;
+namespace _PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule;
 
-use _PhpScoper0a2ac50786fa\Hoa\Compiler;
-use _PhpScoper0a2ac50786fa\Hoa\File;
+use _PhpScopere8e811afab72\Hoa\Compiler;
+use _PhpScopere8e811afab72\Hoa\File;
 /**
  * Class \Hoa\Compiler\Llk\Rule\Token.
  *
@@ -45,7 +45,7 @@ use _PhpScoper0a2ac50786fa\Hoa\File;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Token extends \_PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule\Rule
+class Token extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Rule
 {
     /**
      * LL(k) compiler of hoa://Library/Regex/Grammar.pp.
@@ -171,9 +171,9 @@ class Token extends \_PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule\Rule
     public function getAST()
     {
         if (null === static::$_regexCompiler) {
-            $stream = new \_PhpScoper0a2ac50786fa\Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
+            $stream = new \_PhpScopere8e811afab72\Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
             $stream->rewind();
-            static::$_regexCompiler = \_PhpScoper0a2ac50786fa\Hoa\Compiler\Llk::load($stream);
+            static::$_regexCompiler = \_PhpScopere8e811afab72\Hoa\Compiler\Llk::load($stream);
         }
         if (null === $this->_ast) {
             $this->_ast = static::$_regexCompiler->parse($this->getRepresentation());

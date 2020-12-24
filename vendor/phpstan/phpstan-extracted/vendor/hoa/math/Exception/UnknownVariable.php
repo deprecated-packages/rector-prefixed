@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Math\Exception;
+namespace _PhpScopere8e811afab72\Hoa\Math\Exception;
 
 /**
  * Class \Hoa\Math\Exception\UnknownVariable.
@@ -43,6 +43,6 @@ namespace _PhpScoper0a2ac50786fa\Hoa\Math\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class UnknownVariable extends \_PhpScoper0a2ac50786fa\Hoa\Math\Exception\Exception
+class UnknownVariable extends \_PhpScopere8e811afab72\Hoa\Math\Exception\Exception
 {
 }

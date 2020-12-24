@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Methods;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Methods;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\FunctionCallParametersCheck;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleLevelHelper;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+use _PhpScopere8e811afab72\PHPStan\Rules\FunctionCallParametersCheck;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleLevelHelper;
+use _PhpScopere8e811afab72\PHPStan\Type\ErrorType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\MethodCall>
  */
-class CallMethodsRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+class CallMethodsRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -29,7 +29,7 @@ class CallMethodsRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
     private $checkFunctionNameCase;
     /** @var bool */
     private $reportMagicMethods;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper0a2ac50786fa\PHPStan\Rules\FunctionCallParametersCheck $check, \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, bool $checkFunctionNameCase, bool $reportMagicMethods)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScopere8e811afab72\PHPStan\Rules\FunctionCallParametersCheck $check, \_PhpScopere8e811afab72\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, bool $checkFunctionNameCase, bool $reportMagicMethods)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->check = $check;
@@ -39,23 +39,23 @@ class CallMethodsRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class;
     }
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier) {
+        if (!$node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
             return [];
         }
         $name = $node->name->name;
-        $typeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $node->var, \sprintf('Call to method %s() on an unknown class %%s.', $name), static function (\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) use($name) : bool {
+        $typeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $node->var, \sprintf('Call to method %s() on an unknown class %%s.', $name), static function (\_PhpScopere8e811afab72\PHPStan\Type\Type $type) use($name) : bool {
             return $type->canCallMethods()->yes() && $type->hasMethod($name)->yes();
         });
         $type = $typeResult->getType();
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType) {
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType) {
             return $typeResult->getUnknownClassErrors();
         }
         if (!$type->canCallMethods()->yes()) {
-            return [\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot call method %s() on %s.', $name, $type->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+            return [\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot call method %s() on %s.', $name, $type->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
         }
         if (!$type->hasMethod($name)->yes()) {
             $directClassNames = $typeResult->getReferencedClasses();
@@ -76,23 +76,23 @@ class CallMethodsRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
                 $parentClassReflection = $methodClassReflection->getParentClass();
                 while ($parentClassReflection !== \false) {
                     if ($parentClassReflection->hasMethod($name)) {
-                        return [\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to private method %s() of parent class %s.', $parentClassReflection->getMethod($name, $scope)->getName(), $parentClassReflection->getDisplayName()))->build()];
+                        return [\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to private method %s() of parent class %s.', $parentClassReflection->getMethod($name, $scope)->getName(), $parentClassReflection->getDisplayName()))->build()];
                     }
                     $parentClassReflection = $parentClassReflection->getParentClass();
                 }
             }
-            return [\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to an undefined method %s::%s().', $type->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::typeOnly()), $name))->build()];
+            return [\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to an undefined method %s::%s().', $type->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::typeOnly()), $name))->build()];
         }
         $methodReflection = $type->getMethod($name, $scope);
         $declaringClass = $methodReflection->getDeclaringClass();
         $messagesMethodName = $declaringClass->getDisplayName() . '::' . $methodReflection->getName() . '()';
         $errors = [];
         if (!$scope->canCallMethod($methodReflection)) {
-            $errors[] = \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to %s method %s() of class %s.', $methodReflection->isPrivate() ? 'private' : 'protected', $methodReflection->getName(), $declaringClass->getDisplayName()))->build();
+            $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to %s method %s() of class %s.', $methodReflection->isPrivate() ? 'private' : 'protected', $methodReflection->getName(), $declaringClass->getDisplayName()))->build();
         }
-        $errors = \array_merge($errors, $this->check->check(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $node->args, $methodReflection->getVariants()), $scope, $declaringClass->isBuiltin(), $node, ['Method ' . $messagesMethodName . ' invoked with %d parameter, %d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameters, %d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameter, at least %d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameters, at least %d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameter, %d-%d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameters, %d-%d required.', 'Parameter %s of method ' . $messagesMethodName . ' expects %s, %s given.', 'Result of method ' . $messagesMethodName . ' (void) is used.', 'Parameter %s of method ' . $messagesMethodName . ' is passed by reference, so it expects variables only.', 'Unable to resolve the template type %s in call to method ' . $messagesMethodName, 'Missing parameter $%s in call to method ' . $messagesMethodName . '.', 'Unknown parameter $%s in call to method ' . $messagesMethodName . '.']));
+        $errors = \array_merge($errors, $this->check->check(\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $node->args, $methodReflection->getVariants()), $scope, $declaringClass->isBuiltin(), $node, ['Method ' . $messagesMethodName . ' invoked with %d parameter, %d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameters, %d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameter, at least %d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameters, at least %d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameter, %d-%d required.', 'Method ' . $messagesMethodName . ' invoked with %d parameters, %d-%d required.', 'Parameter %s of method ' . $messagesMethodName . ' expects %s, %s given.', 'Result of method ' . $messagesMethodName . ' (void) is used.', 'Parameter %s of method ' . $messagesMethodName . ' is passed by reference, so it expects variables only.', 'Unable to resolve the template type %s in call to method ' . $messagesMethodName, 'Missing parameter $%s in call to method ' . $messagesMethodName . '.', 'Unknown parameter $%s in call to method ' . $messagesMethodName . '.']));
         if ($this->checkFunctionNameCase && \strtolower($methodReflection->getName()) === \strtolower($name) && $methodReflection->getName() !== $name) {
-            $errors[] = \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name))->build();
+            $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name))->build();
         }
         return $errors;
     }

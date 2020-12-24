@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\File\Link;
+namespace _PhpScopere8e811afab72\Hoa\File\Link;
 
-use _PhpScoper0a2ac50786fa\Hoa\Consistency;
-use _PhpScoper0a2ac50786fa\Hoa\File;
+use _PhpScopere8e811afab72\Hoa\Consistency;
+use _PhpScopere8e811afab72\Hoa\File;
 /**
  * Class \Hoa\File\Link.
  *
@@ -45,7 +45,7 @@ use _PhpScoper0a2ac50786fa\Hoa\File;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Link extends \_PhpScoper0a2ac50786fa\Hoa\File
+class Link extends \_PhpScopere8e811afab72\Hoa\File
 {
     /**
      * Open a link.
@@ -61,7 +61,7 @@ class Link extends \_PhpScoper0a2ac50786fa\Hoa\File
     public function __construct($streamName, $mode, $context = null, $wait = \false)
     {
         if (!\is_link($streamName)) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\File\Exception('File %s is not a link.', 0, $streamName);
+            throw new \_PhpScopere8e811afab72\Hoa\File\Exception('File %s is not a link.', 0, $streamName);
         }
         parent::__construct($streamName, $mode, $context, $wait);
         return;
@@ -116,13 +116,13 @@ class Link extends \_PhpScoper0a2ac50786fa\Hoa\File
         $target = \dirname($this->getStreamName()) . DS . $this->getTargetName();
         $context = null !== $this->getStreamContext() ? $this->getStreamContext()->getCurrentId() : null;
         if (\true === \is_link($target)) {
-            return new \_PhpScoper0a2ac50786fa\Hoa\File\Link\ReadWrite($target, \_PhpScoper0a2ac50786fa\Hoa\File::MODE_APPEND_READ_WRITE, $context);
+            return new \_PhpScopere8e811afab72\Hoa\File\Link\ReadWrite($target, \_PhpScopere8e811afab72\Hoa\File::MODE_APPEND_READ_WRITE, $context);
         } elseif (\true === \is_file($target)) {
-            return new \_PhpScoper0a2ac50786fa\Hoa\File\ReadWrite($target, \_PhpScoper0a2ac50786fa\Hoa\File::MODE_APPEND_READ_WRITE, $context);
+            return new \_PhpScopere8e811afab72\Hoa\File\ReadWrite($target, \_PhpScopere8e811afab72\Hoa\File::MODE_APPEND_READ_WRITE, $context);
         } elseif (\true === \is_dir($target)) {
-            return new \_PhpScoper0a2ac50786fa\Hoa\File\Directory($target, \_PhpScoper0a2ac50786fa\Hoa\File::MODE_READ, $context);
+            return new \_PhpScopere8e811afab72\Hoa\File\Directory($target, \_PhpScopere8e811afab72\Hoa\File::MODE_READ, $context);
         }
-        throw new \_PhpScoper0a2ac50786fa\Hoa\File\Exception('Cannot find an appropriated object that matches with ' . 'path %s when defining it.', 1, $target);
+        throw new \_PhpScopere8e811afab72\Hoa\File\Exception('Cannot find an appropriated object that matches with ' . 'path %s when defining it.', 1, $target);
     }
     /**
      * Get the target name of a symbolic link.
@@ -151,4 +151,4 @@ class Link extends \_PhpScoper0a2ac50786fa\Hoa\File
 /**
  * Flex entity.
  */
-\_PhpScoper0a2ac50786fa\Hoa\Consistency::flexEntity('_PhpScoper0a2ac50786fa\\Hoa\\File\\Link\\Link');
+\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\File\\Link\\Link');

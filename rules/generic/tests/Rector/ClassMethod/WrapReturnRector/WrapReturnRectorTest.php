@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\WrapReturnRector;
+namespace _PhpScopere8e811afab72\Rector\Generic\Tests\Rector\ClassMethod\WrapReturnRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\WrapReturnRector;
-use _PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\WrapReturnRector\Source\SomeReturnClass;
-use _PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\WrapReturn;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class WrapReturnRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\Generic\Rector\ClassMethod\WrapReturnRector;
+use _PhpScopere8e811afab72\Rector\Generic\Tests\Rector\ClassMethod\WrapReturnRector\Source\SomeReturnClass;
+use _PhpScopere8e811afab72\Rector\Generic\ValueObject\WrapReturn;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class WrapReturnRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class WrapReturnRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\WrapReturnRector::class => [\_PhpScoper0a2ac50786fa\Rector\Generic\Rector\ClassMethod\WrapReturnRector::TYPE_METHOD_WRAPS => [new \_PhpScoper0a2ac50786fa\Rector\Generic\ValueObject\WrapReturn(\_PhpScoper0a2ac50786fa\Rector\Generic\Tests\Rector\ClassMethod\WrapReturnRector\Source\SomeReturnClass::class, 'getItem', \true)]]];
+        return [\_PhpScopere8e811afab72\Rector\Generic\Rector\ClassMethod\WrapReturnRector::class => [\_PhpScopere8e811afab72\Rector\Generic\Rector\ClassMethod\WrapReturnRector::TYPE_METHOD_WRAPS => [new \_PhpScopere8e811afab72\Rector\Generic\ValueObject\WrapReturn(\_PhpScopere8e811afab72\Rector\Generic\Tests\Rector\ClassMethod\WrapReturnRector\Source\SomeReturnClass::class, 'getItem', \true)]]];
     }
 }

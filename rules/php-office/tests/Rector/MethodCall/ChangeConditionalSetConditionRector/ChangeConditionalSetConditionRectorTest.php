@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPOffice\Tests\Rector\MethodCall\ChangeConditionalSetConditionRector;
+namespace _PhpScopere8e811afab72\Rector\PHPOffice\Tests\Rector\MethodCall\ChangeConditionalSetConditionRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\PHPOffice\Rector\MethodCall\ChangeConditionalSetConditionRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeConditionalSetConditionRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\PHPOffice\Rector\MethodCall\ChangeConditionalSetConditionRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeConditionalSetConditionRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeConditionalSetConditionRectorTest extends \_PhpScoper0a2ac5078
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\PHPOffice\Rector\MethodCall\ChangeConditionalSetConditionRector::class;
+        return \_PhpScopere8e811afab72\Rector\PHPOffice\Rector\MethodCall\ChangeConditionalSetConditionRector::class;
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\File;
+namespace _PhpScopere8e811afab72\PHPStan\File;
 
-class SimpleRelativePathHelper implements \_PhpScoper0a2ac50786fa\PHPStan\File\RelativePathHelper
+class SimpleRelativePathHelper implements \_PhpScopere8e811afab72\PHPStan\File\RelativePathHelper
 {
     /** @var string */
     private $currentWorkingDirectory;

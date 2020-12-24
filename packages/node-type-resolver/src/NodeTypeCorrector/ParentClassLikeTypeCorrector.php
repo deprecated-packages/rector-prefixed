@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeCorrector;
+namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeCorrector;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Reflection\ClassReflectionTypesResolver;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeUtils;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Reflection\ClassReflectionTypesResolver;
 final class ParentClassLikeTypeCorrector
 {
     /**
@@ -24,25 +24,25 @@ final class ParentClassLikeTypeCorrector
      * @var ClassReflectionTypesResolver
      */
     private $classReflectionTypesResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Reflection\ClassReflectionTypesResolver $classReflectionTypesResolver, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Reflection\ClassReflectionTypesResolver $classReflectionTypesResolver, \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
         $this->reflectionProvider = $reflectionProvider;
         $this->classReflectionTypesResolver = $classReflectionTypesResolver;
     }
-    public function correct(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function correct(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
-            if (!\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($type->getClassName())) {
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
+            if (!\_PhpScopere8e811afab72\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($type->getClassName())) {
                 return $type;
             }
             $allTypes = $this->getClassLikeTypesByClassName($type->getClassName());
             return $this->typeFactory->createObjectTypeOrUnionType($allTypes);
         }
-        $classNames = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::getDirectClassNames($type);
+        $classNames = \_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getDirectClassNames($type);
         $allTypes = [];
         foreach ($classNames as $className) {
-            if (!\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($className)) {
+            if (!\_PhpScopere8e811afab72\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($className)) {
                 continue;
             }
             $allTypes = \array_merge($allTypes, $this->getClassLikeTypesByClassName($className));

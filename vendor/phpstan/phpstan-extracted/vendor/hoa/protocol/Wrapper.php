@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Protocol;
+namespace _PhpScopere8e811afab72\Hoa\Protocol;
 
 /**
  * Class \Hoa\Protocol\Wrapper.
@@ -73,7 +73,7 @@ class Wrapper
      */
     public static function realPath($path, $exists = \true)
     {
-        return \_PhpScoper0a2ac50786fa\Hoa\Protocol\Node::getRoot()->resolve($path, $exists);
+        return \_PhpScopere8e811afab72\Hoa\Protocol\Node::getRoot()->resolve($path, $exists);
     }
     /**
      * Retrieve the underlying resource.
@@ -223,7 +223,7 @@ class Wrapper
     public function stream_open($path, $mode, $options, &$openedPath)
     {
         $path = static::realPath($path, 'r' === $mode[0]);
-        if (\_PhpScoper0a2ac50786fa\Hoa\Protocol\Protocol::NO_RESOLUTION === $path) {
+        if (\_PhpScopere8e811afab72\Hoa\Protocol\Protocol::NO_RESOLUTION === $path) {
             return \false;
         }
         if (null === $this->context) {
@@ -463,7 +463,7 @@ class Wrapper
     public function url_stat($path, $flags)
     {
         $path = static::realPath($path);
-        if (\_PhpScoper0a2ac50786fa\Hoa\Protocol\Protocol::NO_RESOLUTION === $path) {
+        if (\_PhpScopere8e811afab72\Hoa\Protocol\Protocol::NO_RESOLUTION === $path) {
             if ($flags & \STREAM_URL_STAT_QUIET) {
                 return 0;
             } else {
@@ -497,4 +497,4 @@ class Wrapper
 /**
  * Register the `hoa://` protocol.
  */
-\stream_wrapper_register('hoa', \_PhpScoper0a2ac50786fa\Hoa\Protocol\Wrapper::class);
+\stream_wrapper_register('hoa', \_PhpScopere8e811afab72\Hoa\Protocol\Wrapper::class);

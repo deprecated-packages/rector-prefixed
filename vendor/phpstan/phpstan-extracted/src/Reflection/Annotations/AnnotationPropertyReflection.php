@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\Annotations;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\Annotations;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-class AnnotationPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+class AnnotationPropertyReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -17,14 +17,14 @@ class AnnotationPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Re
     private $readable;
     /** @var bool */
     private $writable;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, bool $readable = \true, bool $writable = \true)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScopere8e811afab72\PHPStan\Type\Type $type, bool $readable = \true, bool $writable = \true)
     {
         $this->declaringClass = $declaringClass;
         $this->type = $type;
         $this->readable = $readable;
         $this->writable = $writable;
     }
-    public function getDeclaringClass() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
@@ -40,11 +40,11 @@ class AnnotationPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Re
     {
         return \true;
     }
-    public function getReadableType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getReadableType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function getWritableType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getWritableType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->type;
     }
@@ -60,17 +60,17 @@ class AnnotationPropertyReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Re
     {
         return $this->writable;
     }
-    public function isDeprecated() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
     }
     public function getDocComment() : ?string
     {

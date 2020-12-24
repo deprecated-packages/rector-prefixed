@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\Contract\Matcher;
+namespace _PhpScopere8e811afab72\Rector\Naming\Contract\Matcher;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallAssign;
-use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\VariableAndCallForeach;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\Rector\Naming\ValueObject\VariableAndCallAssign;
+use _PhpScopere8e811afab72\Rector\Naming\ValueObject\VariableAndCallForeach;
 interface MatcherInterface
 {
-    public function getVariable(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-    public function getVariableName(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string;
+    public function getVariable(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+    public function getVariableName(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?string;
     /**
      * @return VariableAndCallAssign|VariableAndCallForeach
      */
-    public function match(\_PhpScoper0a2ac50786fa\PhpParser\Node $node);
+    public function match(\_PhpScopere8e811afab72\PhpParser\Node $node);
 }

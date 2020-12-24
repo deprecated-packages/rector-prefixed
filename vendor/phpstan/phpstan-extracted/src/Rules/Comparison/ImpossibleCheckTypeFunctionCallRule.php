@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Comparison;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Comparison;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-class ImpossibleCheckTypeFunctionCallRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+class ImpossibleCheckTypeFunctionCallRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper */
     private $impossibleCheckTypeHelper;
@@ -17,7 +17,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \_PhpScoper0a2ac50786fa\PHP
     private $checkAlwaysTrueCheckTypeFunctionCall;
     /** @var bool */
     private $treatPhpDocTypesAsCertain;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $checkAlwaysTrueCheckTypeFunctionCall, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $checkAlwaysTrueCheckTypeFunctionCall, bool $treatPhpDocTypesAsCertain)
     {
         $this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
         $this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
@@ -25,11 +25,11 @@ class ImpossibleCheckTypeFunctionCallRule implements \_PhpScoper0a2ac50786fa\PHP
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
+        if (!$node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
             return [];
         }
         $functionName = (string) $node->name;
@@ -40,7 +40,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \_PhpScoper0a2ac50786fa\PHP
         if ($isAlways === null) {
             return [];
         }
-        $addTip = function (\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
+        $addTip = function (\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
             if (!$this->treatPhpDocTypesAsCertain) {
                 return $ruleErrorBuilder;
             }
@@ -51,9 +51,9 @@ class ImpossibleCheckTypeFunctionCallRule implements \_PhpScoper0a2ac50786fa\PHP
             return $ruleErrorBuilder->tip('Because the type is coming from a PHPDoc, you can turn off this check by setting <fg=cyan>treatPhpDocTypesAsCertain: false</> in your <fg=cyan>%configurationFile%</>.');
         };
         if (!$isAlways) {
-            return [$addTip(\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s()%s will always evaluate to false.', $functionName, $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
+            return [$addTip(\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s()%s will always evaluate to false.', $functionName, $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
         } elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
-            return [$addTip(\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s()%s will always evaluate to true.', $functionName, $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
+            return [$addTip(\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s()%s will always evaluate to true.', $functionName, $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
         }
         return [];
     }

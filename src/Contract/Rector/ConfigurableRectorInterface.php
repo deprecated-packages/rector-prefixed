@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector;
+namespace _PhpScopere8e811afab72\Rector\Core\Contract\Rector;
 
 interface ConfigurableRectorInterface
 {

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
-class SetterReflectionProviderProvider implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+class SetterReflectionProviderProvider implements \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function setReflectionProvider(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
+    public function setReflectionProvider(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function getReflectionProvider() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider
+    public function getReflectionProvider() : \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider
     {
         return $this->reflectionProvider;
     }

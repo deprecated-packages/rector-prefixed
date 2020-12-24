@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Mapper;
+namespace _PhpScopere8e811afab72\Rector\StaticTypeMapper\Mapper;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\CallableType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\FloatType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\IntegerType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\IterableType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\NullType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ResourceType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\StringType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VoidType;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\BooleanType;
+use _PhpScopere8e811afab72\PHPStan\Type\CallableType;
+use _PhpScopere8e811afab72\PHPStan\Type\FloatType;
+use _PhpScopere8e811afab72\PHPStan\Type\IntegerType;
+use _PhpScopere8e811afab72\PHPStan\Type\IterableType;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\NullType;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectWithoutClassType;
+use _PhpScopere8e811afab72\PHPStan\Type\ResourceType;
+use _PhpScopere8e811afab72\PHPStan\Type\StringType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\VoidType;
 final class ScalarStringToTypeMapper
 {
     /**
      * @var string[][]
      */
-    private const SCALAR_NAME_BY_TYPE = [\_PhpScoper0a2ac50786fa\PHPStan\Type\StringType::class => ['string'], \_PhpScoper0a2ac50786fa\PHPStan\Type\FloatType::class => ['float', 'real', 'double'], \_PhpScoper0a2ac50786fa\PHPStan\Type\IntegerType::class => ['int', 'integer'], \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType::class => ['false', 'true', 'bool', 'boolean'], \_PhpScoper0a2ac50786fa\PHPStan\Type\NullType::class => ['null'], \_PhpScoper0a2ac50786fa\PHPStan\Type\VoidType::class => ['void'], \_PhpScoper0a2ac50786fa\PHPStan\Type\ResourceType::class => ['resource'], \_PhpScoper0a2ac50786fa\PHPStan\Type\CallableType::class => ['callback', 'callable'], \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectWithoutClassType::class => ['object']];
-    public function mapScalarStringToType(string $scalarName) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    private const SCALAR_NAME_BY_TYPE = [\_PhpScopere8e811afab72\PHPStan\Type\StringType::class => ['string'], \_PhpScopere8e811afab72\PHPStan\Type\FloatType::class => ['float', 'real', 'double'], \_PhpScopere8e811afab72\PHPStan\Type\IntegerType::class => ['int', 'integer'], \_PhpScopere8e811afab72\PHPStan\Type\BooleanType::class => ['false', 'true', 'bool', 'boolean'], \_PhpScopere8e811afab72\PHPStan\Type\NullType::class => ['null'], \_PhpScopere8e811afab72\PHPStan\Type\VoidType::class => ['void'], \_PhpScopere8e811afab72\PHPStan\Type\ResourceType::class => ['resource'], \_PhpScopere8e811afab72\PHPStan\Type\CallableType::class => ['callback', 'callable'], \_PhpScopere8e811afab72\PHPStan\Type\ObjectWithoutClassType::class => ['object']];
+    public function mapScalarStringToType(string $scalarName) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        $loweredScalarName = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::lower($scalarName);
+        $loweredScalarName = \_PhpScopere8e811afab72\Nette\Utils\Strings::lower($scalarName);
         foreach (self::SCALAR_NAME_BY_TYPE as $objectType => $scalarNames) {
             if (!\in_array($loweredScalarName, $scalarNames, \true)) {
                 continue;
@@ -33,14 +33,14 @@ final class ScalarStringToTypeMapper
             return new $objectType();
         }
         if ($loweredScalarName === 'array') {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType(new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(), new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType());
+            return new \_PhpScopere8e811afab72\PHPStan\Type\ArrayType(new \_PhpScopere8e811afab72\PHPStan\Type\MixedType(), new \_PhpScopere8e811afab72\PHPStan\Type\MixedType());
         }
         if ($loweredScalarName === 'iterable') {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\IterableType(new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(), new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType());
+            return new \_PhpScopere8e811afab72\PHPStan\Type\IterableType(new \_PhpScopere8e811afab72\PHPStan\Type\MixedType(), new \_PhpScopere8e811afab72\PHPStan\Type\MixedType());
         }
         if ($loweredScalarName === 'mixed') {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(\true);
+            return new \_PhpScopere8e811afab72\PHPStan\Type\MixedType(\true);
         }
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
+        return new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
     }
 }

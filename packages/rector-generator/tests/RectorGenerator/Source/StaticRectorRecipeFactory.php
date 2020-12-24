@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Tests\RectorGenerator\Source;
+namespace _PhpScopere8e811afab72\Rector\RectorGenerator\Tests\RectorGenerator\Source;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe;
-use _PhpScoper0a2ac50786fa\Rector\Set\ValueObject\SetList;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScopere8e811afab72\Rector\Set\ValueObject\SetList;
 final class StaticRectorRecipeFactory
 {
-    public static function createRectorRecipe(bool $isRectorRepository) : \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe
+    public static function createRectorRecipe(bool $isRectorRepository) : \_PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe
     {
-        $rectorRecipe = new \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe('Utils', 'WhateverRector', [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class], 'Change $service->arg(...) to $service->call(...)', <<<'CODE_SAMPLE'
+        $rectorRecipe = new \_PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe('Utils', 'WhateverRector', [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class], 'Change $service->arg(...) to $service->call(...)', <<<'CODE_SAMPLE'
 <?php
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -42,7 +42,7 @@ CODE_SAMPLE
         if ($isRectorRepository) {
             $rectorRecipe->setPackage('ModeratePackage');
         }
-        $rectorRecipe->setSet(\_PhpScoper0a2ac50786fa\Rector\Set\ValueObject\SetList::DEAD_CODE);
+        $rectorRecipe->setSet(\_PhpScopere8e811afab72\Rector\Set\ValueObject\SetList::DEAD_CODE);
         return $rectorRecipe;
     }
 }

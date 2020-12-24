@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Consistency;
+namespace _PhpScopere8e811afab72\Hoa\Consistency;
 
 /**
  * Class Hoa\Consistency\Autoloader.
@@ -100,7 +100,7 @@ class Autoloader
                 }
             }
         }
-        if (\true === $hasBaseDirectory && $entity === \_PhpScoper0a2ac50786fa\Hoa\Consistency\Consistency::getEntityShortestName($entity) && \false !== ($pos = \strrpos($entity, '\\'))) {
+        if (\true === $hasBaseDirectory && $entity === \_PhpScopere8e811afab72\Hoa\Consistency\Consistency::getEntityShortestName($entity) && \false !== ($pos = \strrpos($entity, '\\'))) {
             return $this->runAutoloaderStack($entity . '\\' . \substr($entity, $pos + 1));
         }
         return null;
@@ -200,7 +200,7 @@ class Autoloader
     public static function dnew($classname, array $arguments = [])
     {
         $classname = \ltrim($classname, '\\');
-        if (\false === \_PhpScoper0a2ac50786fa\Hoa\Consistency\Consistency::entityExists($classname, \false)) {
+        if (\false === \_PhpScopere8e811afab72\Hoa\Consistency\Consistency::entityExists($classname, \false)) {
             \spl_autoload_call($classname);
         }
         $class = new \ReflectionClass($classname);
@@ -213,6 +213,6 @@ class Autoloader
 /**
  * Autoloader.
  */
-$autoloader = new \_PhpScoper0a2ac50786fa\Hoa\Consistency\Autoloader();
+$autoloader = new \_PhpScopere8e811afab72\Hoa\Consistency\Autoloader();
 $autoloader->addNamespace('Hoa', \dirname(__DIR__));
 $autoloader->register();

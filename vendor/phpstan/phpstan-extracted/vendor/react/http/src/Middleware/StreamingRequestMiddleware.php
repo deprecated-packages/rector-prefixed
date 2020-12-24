@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Http\Middleware;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Middleware;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
 /**
  * Process incoming requests with a streaming request body (without buffering).
  *
@@ -61,7 +61,7 @@ use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequest
  */
 final class StreamingRequestMiddleware
 {
-    public function __invoke(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $next)
+    public function __invoke(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $next)
     {
         return $next($request);
     }

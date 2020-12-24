@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules;
+namespace _PhpScopere8e811afab72\PHPStan\Rules;
 
-interface MetadataRuleError extends \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleError
+interface MetadataRuleError extends \_PhpScopere8e811afab72\PHPStan\Rules\RuleError
 {
     /**
      * @return mixed[]

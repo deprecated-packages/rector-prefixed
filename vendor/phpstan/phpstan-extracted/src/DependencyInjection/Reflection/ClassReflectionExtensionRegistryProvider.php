@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\DependencyInjection\Reflection;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflectionExtensionRegistry;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflectionExtensionRegistry;
 interface ClassReflectionExtensionRegistryProvider
 {
-    public function getRegistry() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflectionExtensionRegistry;
+    public function getRegistry() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflectionExtensionRegistry;
 }

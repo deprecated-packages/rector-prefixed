@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa;
+namespace _PhpScopere8e811afab72;
 
 // phpcs:ignoreFile
 /**

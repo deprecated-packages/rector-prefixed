@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Class/Interface/Trait description.
  *
@@ -48,16 +48,16 @@ final class ClassType
      */
     public static function from($class) : self
     {
-        return (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromClassReflection(new \ReflectionClass($class));
+        return (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromClassReflection(new \ReflectionClass($class));
     }
     /**
      * @param  string|object  $class
      */
     public static function withBodiesFrom($class) : self
     {
-        return (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromClassReflection(new \ReflectionClass($class), \true);
+        return (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromClassReflection(new \ReflectionClass($class), \true);
     }
-    public function __construct(string $name = null, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\PhpNamespace $namespace = null)
+    public function __construct(string $name = null, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\PhpNamespace $namespace = null)
     {
         $this->setName($name);
         $this->namespace = $namespace;
@@ -65,7 +65,7 @@ final class ClassType
     public function __toString() : string
     {
         try {
-            return (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printClass($this, $this->namespace);
+            return (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printClass($this, $this->namespace);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -75,15 +75,15 @@ final class ClassType
         }
     }
     /** @deprecated  an object can be in multiple namespaces */
-    public function getNamespace() : ?\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\PhpNamespace
+    public function getNamespace() : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\PhpNamespace
     {
         return $this->namespace;
     }
     /** @return static */
     public function setName(?string $name) : self
     {
-        if ($name !== null && !\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Value '{$name}' is not valid class name.");
+        if ($name !== null && !\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Value '{$name}' is not valid class name.");
         }
         $this->name = $name;
         return $this;
@@ -126,7 +126,7 @@ final class ClassType
     public function setType(string $type) : self
     {
         if (!\in_array($type, [self::TYPE_CLASS, self::TYPE_INTERFACE, self::TYPE_TRAIT], \true)) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be class|interface|trait.');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be class|interface|trait.');
         }
         $this->type = $type;
         return $this;
@@ -162,7 +162,7 @@ final class ClassType
     public function setExtends($names) : self
     {
         if (!\is_string($names) && !\is_array($names)) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be string or string[].');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be string or string[].');
         }
         $this->validateNames((array) $names);
         $this->extends = $names;
@@ -251,17 +251,17 @@ final class ClassType
      */
     public function addMember($member) : self
     {
-        if ($member instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method) {
+        if ($member instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method) {
             if ($this->isInterface()) {
                 $member->setBody(null);
             }
             $this->methods[$member->getName()] = $member;
-        } elseif ($member instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property) {
+        } elseif ($member instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property) {
             $this->properties[$member->getName()] = $member;
-        } elseif ($member instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant) {
+        } elseif ($member instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant) {
             $this->consts[$member->getName()] = $member;
         } else {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be Method|Property|Constant.');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be Method|Property|Constant.');
         }
         return $this;
     }
@@ -273,7 +273,7 @@ final class ClassType
     {
         $this->consts = [];
         foreach ($consts as $k => $v) {
-            $const = $v instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant ? $v : (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant($k))->setValue($v);
+            $const = $v instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant ? $v : (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant($k))->setValue($v);
             $this->consts[$const->getName()] = $const;
         }
         return $this;
@@ -283,9 +283,9 @@ final class ClassType
     {
         return $this->consts;
     }
-    public function addConstant(string $name, $value) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant
+    public function addConstant(string $name, $value) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant
     {
-        return $this->consts[$name] = (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant($name))->setValue($value);
+        return $this->consts[$name] = (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Constant($name))->setValue($value);
     }
     /** @return static */
     public function removeConstant(string $name) : self
@@ -301,8 +301,8 @@ final class ClassType
     {
         $this->properties = [];
         foreach ($props as $v) {
-            if (!$v instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property) {
-                throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Property[].');
+            if (!$v instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property) {
+                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Property[].');
             }
             $this->properties[$v->getName()] = $v;
         }
@@ -313,19 +313,19 @@ final class ClassType
     {
         return $this->properties;
     }
-    public function getProperty(string $name) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property
+    public function getProperty(string $name) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property
     {
         if (!isset($this->properties[$name])) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Property '{$name}' not found.");
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Property '{$name}' not found.");
         }
         return $this->properties[$name];
     }
     /**
      * @param  string  $name  without $
      */
-    public function addProperty(string $name, $value = null) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property
+    public function addProperty(string $name, $value = null) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property
     {
-        return $this->properties[$name] = (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property($name))->setValue($value);
+        return $this->properties[$name] = (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Property($name))->setValue($value);
     }
     /**
      * @param  string  $name without $
@@ -348,8 +348,8 @@ final class ClassType
     {
         $this->methods = [];
         foreach ($methods as $v) {
-            if (!$v instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method) {
-                throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Method[].');
+            if (!$v instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method) {
+                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be Nette\\PhpGenerator\\Method[].');
             }
             $this->methods[$v->getName()] = $v;
         }
@@ -360,16 +360,16 @@ final class ClassType
     {
         return $this->methods;
     }
-    public function getMethod(string $name) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method
+    public function getMethod(string $name) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method
     {
         if (!isset($this->methods[$name])) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Method '{$name}' not found.");
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Method '{$name}' not found.");
         }
         return $this->methods[$name];
     }
-    public function addMethod(string $name) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method
+    public function addMethod(string $name) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method
     {
-        $method = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method($name);
+        $method = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method($name);
         if ($this->isInterface()) {
             $method->setBody(null);
         } else {
@@ -391,16 +391,16 @@ final class ClassType
     public function validate() : void
     {
         if ($this->abstract && $this->final) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Class cannot be abstract and final.');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Class cannot be abstract and final.');
         } elseif (!$this->name && ($this->abstract || $this->final)) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Anonymous class cannot be abstract or final.');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Anonymous class cannot be abstract or final.');
         }
     }
     private function validateNames(array $names) : void
     {
         foreach ($names as $name) {
-            if (!\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isNamespaceIdentifier($name, \true)) {
-                throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Value '{$name}' is not valid class name.");
+            if (!\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isNamespaceIdentifier($name, \true)) {
+                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Value '{$name}' is not valid class name.");
             }
         }
     }

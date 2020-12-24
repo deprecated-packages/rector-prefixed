@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa;
+namespace _PhpScopere8e811afab72;
 
 interface SomeInterface
 {
 }
-\class_alias('_PhpScoper0a2ac50786fa\\SomeInterface', 'SomeInterface', \false);
+\class_alias('_PhpScopere8e811afab72\\SomeInterface', 'SomeInterface', \false);

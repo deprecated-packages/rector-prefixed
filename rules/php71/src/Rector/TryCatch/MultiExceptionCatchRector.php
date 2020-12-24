@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php71\Rector\TryCatch;
+namespace _PhpScopere8e811afab72\Rector\Php71\Rector\TryCatch;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Catch_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\TryCatch;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Catch_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\TryCatch;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/multiple-catch
  * @see \Rector\Php71\Tests\Rector\TryCatch\MultiExceptionCatchRector\MultiExceptionCatchRectorTest
  */
-final class MultiExceptionCatchRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class MultiExceptionCatchRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes multi catch of same exception to single one | separated.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes multi catch of same exception to single one | separated.', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 try {
     // Some code...
 } catch (ExceptionType1 $exception) {
@@ -42,14 +42,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\TryCatch::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\TryCatch::class];
     }
     /**
      * @param TryCatch $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::MULTI_EXCEPTION_CATCH)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::MULTI_EXCEPTION_CATCH)) {
             return null;
         }
         if (\count((array) $node->catches) < 2) {
@@ -74,7 +74,7 @@ CODE_SAMPLE
     /**
      * @return array<string, Catch_[]>
      */
-    private function collectCatchKeysByContent(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\TryCatch $tryCatch) : array
+    private function collectCatchKeysByContent(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\TryCatch $tryCatch) : array
     {
         $catchKeysByContent = [];
         foreach ($tryCatch->catches as $catch) {
@@ -87,7 +87,7 @@ CODE_SAMPLE
      * @param Catch_[] $catches
      * @return Name[]
      */
-    private function collectTypesFromCatchedByIds(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\TryCatch $tryCatch, array $catches) : array
+    private function collectTypesFromCatchedByIds(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\TryCatch $tryCatch, array $catches) : array
     {
         $collectedTypes = [];
         foreach ($catches as $catch) {

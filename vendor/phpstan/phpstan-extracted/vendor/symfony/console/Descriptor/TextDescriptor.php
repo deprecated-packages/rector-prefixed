@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Application;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatter;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Application;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatter;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption;
 /**
  * Text descriptor.
  *
@@ -24,19 +24,19 @@ use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Inpu
  *
  * @internal
  */
-class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor\Descriptor
+class TextDescriptor extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor\Descriptor
 {
     /**
      * {@inheritdoc}
      */
-    protected function describeInputArgument(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         if (null !== $argument->getDefault() && (!\is_array($argument->getDefault()) || \count($argument->getDefault()))) {
             $default = \sprintf('<comment> [default: %s]</comment>', $this->formatDefaultValue($argument->getDefault()));
         } else {
             $default = '';
         }
-        $totalWidth = isset($options['total_width']) ? $options['total_width'] : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($argument->getName());
+        $totalWidth = isset($options['total_width']) ? $options['total_width'] : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($argument->getName());
         $spacingWidth = $totalWidth - \strlen($argument->getName());
         $this->writeText(\sprintf(
             '  <info>%s</info>  %s%s%s',
@@ -50,7 +50,7 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
     /**
      * {@inheritdoc}
      */
-    protected function describeInputOption(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         if ($option->acceptValue() && null !== $option->getDefault() && (!\is_array($option->getDefault()) || \count($option->getDefault()))) {
             $default = \sprintf('<comment> [default: %s]</comment>', $this->formatDefaultValue($option->getDefault()));
@@ -66,7 +66,7 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
         }
         $totalWidth = isset($options['total_width']) ? $options['total_width'] : $this->calculateTotalWidthForOptions([$option]);
         $synopsis = \sprintf('%s%s', $option->getShortcut() ? \sprintf('-%s, ', $option->getShortcut()) : '    ', \sprintf('--%s%s', $option->getName(), $value));
-        $spacingWidth = $totalWidth - \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($synopsis);
+        $spacingWidth = $totalWidth - \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($synopsis);
         $this->writeText(\sprintf(
             '  <info>%s</info>  %s%s%s%s',
             $synopsis,
@@ -80,11 +80,11 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
     /**
      * {@inheritdoc}
      */
-    protected function describeInputDefinition(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $totalWidth = $this->calculateTotalWidthForOptions($definition->getOptions());
         foreach ($definition->getArguments() as $argument) {
-            $totalWidth = \max($totalWidth, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($argument->getName()));
+            $totalWidth = \max($totalWidth, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($argument->getName()));
         }
         if ($definition->getArguments()) {
             $this->writeText('<comment>Arguments:</comment>', $options);
@@ -117,7 +117,7 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
     /**
      * {@inheritdoc}
      */
-    protected function describeCommand(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
         $command->getSynopsis(\true);
         $command->getSynopsis(\false);
@@ -131,7 +131,7 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
         $this->writeText('<comment>Usage:</comment>', $options);
         foreach (\array_merge([$command->getSynopsis(\true)], $command->getAliases(), $command->getUsages()) as $usage) {
             $this->writeText("\n");
-            $this->writeText('  ' . \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatter::escape($usage), $options);
+            $this->writeText('  ' . \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatter::escape($usage), $options);
         }
         $this->writeText("\n");
         $definition = $command->getNativeDefinition();
@@ -152,10 +152,10 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
     /**
      * {@inheritdoc}
      */
-    protected function describeApplication(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Application $application, array $options = [])
     {
         $describedNamespace = isset($options['namespace']) ? $options['namespace'] : null;
-        $description = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
+        $description = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
         if (isset($options['raw_text']) && $options['raw_text']) {
             $width = $this->getColumnWidth($description->getCommands());
             foreach ($description->getCommands() as $command) {
@@ -168,7 +168,7 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
             }
             $this->writeText("<comment>Usage:</comment>\n", $options);
             $this->writeText("  command [options] [arguments]\n\n", $options);
-            $this->describeInputDefinition(new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition($application->getDefinition()->getOptions()), $options);
+            $this->describeInputDefinition(new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition($application->getDefinition()->getOptions()), $options);
             $this->writeText("\n");
             $this->writeText("\n");
             $commands = $description->getCommands();
@@ -196,13 +196,13 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
                 if (!$namespace['commands']) {
                     continue;
                 }
-                if (!$describedNamespace && \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor\ApplicationDescription::GLOBAL_NAMESPACE !== $namespace['id']) {
+                if (!$describedNamespace && \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor\ApplicationDescription::GLOBAL_NAMESPACE !== $namespace['id']) {
                     $this->writeText("\n");
                     $this->writeText(' <comment>' . $namespace['id'] . '</comment>', $options);
                 }
                 foreach ($namespace['commands'] as $name) {
                     $this->writeText("\n");
-                    $spacingWidth = $width - \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($name);
+                    $spacingWidth = $width - \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($name);
                     $command = $commands[$name];
                     $commandAliases = $name === $command->getName() ? $this->getCommandAliasesText($command) : '';
                     $this->writeText(\sprintf('  <info>%s</info>%s%s', $name, \str_repeat(' ', $spacingWidth), $commandAliases . $command->getDescription()), $options);
@@ -221,7 +221,7 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
     /**
      * Formats command aliases to show them in the command description.
      */
-    private function getCommandAliasesText(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command $command) : string
+    private function getCommandAliasesText(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command $command) : string
     {
         $text = '';
         $aliases = $command->getAliases();
@@ -241,11 +241,11 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
             return 'INF';
         }
         if (\is_string($default)) {
-            $default = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatter::escape($default);
+            $default = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatter::escape($default);
         } elseif (\is_array($default)) {
             foreach ($default as $key => $value) {
                 if (\is_string($value)) {
-                    $default[$key] = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatter::escape($value);
+                    $default[$key] = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatter::escape($value);
                 }
             }
         }
@@ -258,13 +258,13 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
     {
         $widths = [];
         foreach ($commands as $command) {
-            if ($command instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command) {
-                $widths[] = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($command->getName());
+            if ($command instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command) {
+                $widths[] = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($command->getName());
                 foreach ($command->getAliases() as $alias) {
-                    $widths[] = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($alias);
+                    $widths[] = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($alias);
                 }
             } else {
-                $widths[] = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($command);
+                $widths[] = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($command);
             }
         }
         return $widths ? \max($widths) + 2 : 0;
@@ -277,9 +277,9 @@ class TextDescriptor extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symf
         $totalWidth = 0;
         foreach ($options as $option) {
             // "-" + shortcut + ", --" + name
-            $nameLength = 1 + \max(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($option->getShortcut()), 1) + 4 + \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($option->getName());
+            $nameLength = 1 + \max(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($option->getShortcut()), 1) + 4 + \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($option->getName());
             if ($option->acceptValue()) {
-                $valueLength = 1 + \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($option->getName());
+                $valueLength = 1 + \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\Helper::strlen($option->getName());
                 // = + value
                 $valueLength += $option->isValueOptional() ? 2 : 0;
                 // [ + ]

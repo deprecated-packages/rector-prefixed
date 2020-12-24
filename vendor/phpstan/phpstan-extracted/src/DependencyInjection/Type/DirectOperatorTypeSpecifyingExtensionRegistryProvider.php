@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type;
+namespace _PhpScopere8e811afab72\PHPStan\DependencyInjection\Type;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Broker\Broker;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\OperatorTypeSpecifyingExtension;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry;
-class DirectOperatorTypeSpecifyingExtensionRegistryProvider implements \_PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
+use _PhpScopere8e811afab72\PHPStan\Broker\Broker;
+use _PhpScopere8e811afab72\PHPStan\Type\OperatorTypeSpecifyingExtension;
+use _PhpScopere8e811afab72\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry;
+class DirectOperatorTypeSpecifyingExtensionRegistryProvider implements \_PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
 {
     /** @var OperatorTypeSpecifyingExtension[] */
     private $extensions;
@@ -19,12 +19,12 @@ class DirectOperatorTypeSpecifyingExtensionRegistryProvider implements \_PhpScop
     {
         $this->extensions = $extensions;
     }
-    public function setBroker(\_PhpScoper0a2ac50786fa\PHPStan\Broker\Broker $broker) : void
+    public function setBroker(\_PhpScopere8e811afab72\PHPStan\Broker\Broker $broker) : void
     {
         $this->broker = $broker;
     }
-    public function getRegistry() : \_PhpScoper0a2ac50786fa\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry
+    public function getRegistry() : \_PhpScopere8e811afab72\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry($this->broker, $this->extensions);
+        return new \_PhpScopere8e811afab72\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry($this->broker, $this->extensions);
     }
 }

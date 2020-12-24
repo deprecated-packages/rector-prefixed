@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php72\Contract;
+namespace _PhpScopere8e811afab72\Rector\Php72\Contract;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\UnionType;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\NullableType;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\PhpParser\Node\UnionType;
 interface ConvertToAnonymousFunctionRectorInterface
 {
-    public function shouldSkip(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool;
+    public function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool;
     /**
      * @return Param[]
      */
-    public function getParameters(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : array;
+    public function getParameters(\_PhpScopere8e811afab72\PhpParser\Node $node) : array;
     /**
      * @return Identifier|Name|NullableType|UnionType|null
      */
-    public function getReturnType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node;
+    public function getReturnType(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node;
     /**
      * @return Expression[]|Stmt[]
      */
-    public function getBody(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : array;
+    public function getBody(\_PhpScopere8e811afab72\PhpParser\Node $node) : array;
 }

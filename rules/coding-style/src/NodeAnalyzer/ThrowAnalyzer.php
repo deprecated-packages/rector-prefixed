@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\NodeAnalyzer;
+namespace _PhpScopere8e811afab72\Rector\CodingStyle\NodeAnalyzer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Throw_;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Throw_;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName;
+use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType;
 final class ThrowAnalyzer
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
      * @return string[]
      */
-    public function resolveThrownTypes(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Throw_ $throw) : array
+    public function resolveThrownTypes(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Throw_ $throw) : array
     {
         $thrownType = $this->nodeTypeResolver->getStaticType($throw->expr);
-        if ($thrownType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+        if ($thrownType instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
             return [];
         }
-        if ($thrownType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
+        if ($thrownType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
             $types = [];
             foreach ($thrownType->getTypes() as $unionedType) {
                 $types[] = $this->resolveClassFromType($unionedType);
@@ -40,14 +40,14 @@ final class ThrowAnalyzer
         $class = $this->resolveClassFromType($thrownType);
         return [$class];
     }
-    private function resolveClassFromType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $thrownType) : string
+    private function resolveClassFromType(\_PhpScopere8e811afab72\PHPStan\Type\Type $thrownType) : string
     {
-        if ($thrownType instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType) {
+        if ($thrownType instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType) {
             return $thrownType->getFullyQualifiedName();
         }
-        if ($thrownType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
+        if ($thrownType instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
             return $thrownType->getClassName();
         }
-        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
+namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
 
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface;
-use _PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
-final class JoinTableTagValueNode extends \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface, \_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\AroundSpaces;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface;
+use _PhpScopere8e811afab72\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+final class JoinTableTagValueNode extends \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \_PhpScopere8e811afab72\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface, \_PhpScopere8e811afab72\Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface
 {
     /**
      * @var string
@@ -46,7 +46,7 @@ final class JoinTableTagValueNode extends \_PhpScoper0a2ac50786fa\Rector\BetterP
      * @param JoinColumnTagValueNode[] $joinColumns
      * @param JoinColumnTagValueNode[] $inverseJoinColumns
      */
-    public function __construct(string $name, ?string $schema = null, array $joinColumns = [], array $inverseJoinColumns = [], ?string $originalContent = null, ?\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $joinColumnsAroundSpaces = null, ?\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $inverseJoinColumnsAroundSpaces = null)
+    public function __construct(string $name, ?string $schema = null, array $joinColumns = [], array $inverseJoinColumns = [], ?string $originalContent = null, ?\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $joinColumnsAroundSpaces = null, ?\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $inverseJoinColumnsAroundSpaces = null)
     {
         $this->name = $name;
         $this->schema = $schema;
@@ -64,7 +64,7 @@ final class JoinTableTagValueNode extends \_PhpScoper0a2ac50786fa\Rector\BetterP
     }
     public function getShortName() : string
     {
-        return '_PhpScoper0a2ac50786fa\\@ORM\\JoinTable';
+        return '_PhpScopere8e811afab72\\@ORM\\JoinTable';
     }
     /**
      * @return mixed[]
@@ -117,13 +117,13 @@ final class JoinTableTagValueNode extends \_PhpScoper0a2ac50786fa\Rector\BetterP
         $items = [];
         if ($this->joinColumns !== []) {
             if ($this->joinColumnsAroundSpaces === null) {
-                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
             }
             $items[$joinColumnsKey] = $this->printNestedTag($this->joinColumns, \false, $this->joinColumnsAroundSpaces->getOpeningSpace(), $this->joinColumnsAroundSpaces->getClosingSpace());
         }
         if ($this->inverseJoinColumns !== []) {
             if ($this->inverseJoinColumnsAroundSpaces === null) {
-                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
             }
             $items[$inverseJoinColumnsKey] = $this->printNestedTag($this->inverseJoinColumns, \false, $this->inverseJoinColumnsAroundSpaces->getOpeningSpace(), $this->inverseJoinColumnsAroundSpaces->getClosingSpace());
         }

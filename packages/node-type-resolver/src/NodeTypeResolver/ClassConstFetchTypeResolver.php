@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
-final class ClassConstFetchTypeResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
+final class ClassConstFetchTypeResolver implements \_PhpScopere8e811afab72\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @var NodeTypeResolver
@@ -17,7 +17,7 @@ final class ClassConstFetchTypeResolver implements \_PhpScoper0a2ac50786fa\Recto
     /**
      * @required
      */
-    public function autowireClassConstFetchTypeResolver(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireClassConstFetchTypeResolver(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -26,12 +26,12 @@ final class ClassConstFetchTypeResolver implements \_PhpScoper0a2ac50786fa\Recto
      */
     public function getNodeClasses() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch::class];
     }
     /**
      * @param ClassConstFetch $node
      */
-    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function resolve(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->nodeTypeResolver->resolve($node->class);
     }

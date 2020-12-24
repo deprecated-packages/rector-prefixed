@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Command;
+namespace _PhpScopere8e811afab72\Rector\RectorGenerator\Command;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Config\ConfigFilesystem;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Finder\TemplateFinder;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Generator\FileGenerator;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Guard\OverrideGuard;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Provider\RectorRecipeProvider;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\TemplateVariablesFactory;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class GenerateCommand extends \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Command\Command
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\Config\ConfigFilesystem;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\Finder\TemplateFinder;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\Generator\FileGenerator;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\Guard\OverrideGuard;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\Provider\RectorRecipeProvider;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\TemplateVariablesFactory;
+use _PhpScopere8e811afab72\Symfony\Component\Console\Command\Command;
+use _PhpScopere8e811afab72\Symfony\Component\Console\Input\InputInterface;
+use _PhpScopere8e811afab72\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScopere8e811afab72\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScopere8e811afab72\Symplify\PackageBuilder\Console\ShellCode;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class GenerateCommand extends \_PhpScopere8e811afab72\Symfony\Component\Console\Command\Command
 {
     /**
      * @var SymfonyStyle
@@ -52,7 +52,7 @@ final class GenerateCommand extends \_PhpScoper0a2ac50786fa\Symfony\Component\Co
      * @var RectorRecipeProvider
      */
     private $rectorRecipeProvider;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater $composerPackageAutoloadUpdater, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Config\ConfigFilesystem $configFilesystem, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Generator\FileGenerator $fileGenerator, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Guard\OverrideGuard $overrideGuard, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Finder\TemplateFinder $templateFinder, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\TemplateVariablesFactory $templateVariablesFactory, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Provider\RectorRecipeProvider $rectorRecipeProvider)
+    public function __construct(\_PhpScopere8e811afab72\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater $composerPackageAutoloadUpdater, \_PhpScopere8e811afab72\Rector\RectorGenerator\Config\ConfigFilesystem $configFilesystem, \_PhpScopere8e811afab72\Rector\RectorGenerator\Generator\FileGenerator $fileGenerator, \_PhpScopere8e811afab72\Rector\RectorGenerator\Guard\OverrideGuard $overrideGuard, \_PhpScopere8e811afab72\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScopere8e811afab72\Rector\RectorGenerator\Finder\TemplateFinder $templateFinder, \_PhpScopere8e811afab72\Rector\RectorGenerator\TemplateVariablesFactory $templateVariablesFactory, \_PhpScopere8e811afab72\Rector\RectorGenerator\Provider\RectorRecipeProvider $rectorRecipeProvider)
     {
         parent::__construct();
         $this->symfonyStyle = $symfonyStyle;
@@ -69,7 +69,7 @@ final class GenerateCommand extends \_PhpScoper0a2ac50786fa\Symfony\Component\Co
         $this->setAliases(['c', 'create', 'g']);
         $this->setDescription('[DEV] Create a new Rector, in a proper location, with new tests');
     }
-    protected function execute(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScopere8e811afab72\Symfony\Component\Console\Input\InputInterface $input, \_PhpScopere8e811afab72\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $rectorRecipe = $this->rectorRecipeProvider->provide();
         $templateVariables = $this->templateVariablesFactory->createFromRectorRecipe($rectorRecipe);
@@ -80,13 +80,13 @@ final class GenerateCommand extends \_PhpScoper0a2ac50786fa\Symfony\Component\Co
         $isUnwantedOverride = $this->overrideGuard->isUnwantedOverride($templateFileInfos, $templateVariables, $rectorRecipe, $targetDirectory);
         if ($isUnwantedOverride) {
             $this->symfonyStyle->warning('No files were changed');
-            return \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+            return \_PhpScopere8e811afab72\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
         $generatedFilePaths = $this->fileGenerator->generateFiles($templateFileInfos, $templateVariables, $rectorRecipe, $targetDirectory);
         $this->configFilesystem->appendRectorServiceToSet($rectorRecipe, $templateVariables);
         $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);
         $this->printSuccess($rectorRecipe->getName(), $generatedFilePaths, $testCaseDirectoryPath);
-        return \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \_PhpScopere8e811afab72\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
     /**
      * @param string[] $generatedFilePaths
@@ -94,13 +94,13 @@ final class GenerateCommand extends \_PhpScoper0a2ac50786fa\Symfony\Component\Co
     private function resolveTestCaseDirectoryPath(array $generatedFilePaths) : string
     {
         foreach ($generatedFilePaths as $generatedFilePath) {
-            if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
+            if (!\_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
                 continue;
             }
-            $generatedFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);
+            $generatedFileInfo = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);
             return \dirname($generatedFileInfo->getRelativeFilePathFromCwd());
         }
-        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
     }
     /**
      * @param string[] $generatedFilePaths
@@ -111,7 +111,7 @@ final class GenerateCommand extends \_PhpScoper0a2ac50786fa\Symfony\Component\Co
         $this->symfonyStyle->title($message);
         \sort($generatedFilePaths);
         foreach ($generatedFilePaths as $generatedFilePath) {
-            $fileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);
+            $fileInfo = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);
             $relativeFilePath = $fileInfo->getRelativeFilePathFromCwd();
             $this->symfonyStyle->writeln(' * ' . $relativeFilePath);
         }

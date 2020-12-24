@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Stream;
+namespace _PhpScopere8e811afab72\Hoa\Stream;
 
 /**
  * Class \Hoa\Stream\Bucket.
@@ -114,7 +114,7 @@ class Bucket
      * @param   \Hoa\Stream\Bucket  $bucket    Bucket to add.
      * @return  void
      */
-    public function append(\_PhpScoper0a2ac50786fa\Hoa\Stream\Bucket $bucket)
+    public function append(\_PhpScopere8e811afab72\Hoa\Stream\Bucket $bucket)
     {
         \stream_bucket_append($this->getBrigade(), $bucket->getBucket());
         return;
@@ -125,7 +125,7 @@ class Bucket
      * @param   \Hoa\Stream\Bucket  $bucket    Bucket to add.
      * @return  void
      */
-    public function prepend(\_PhpScoper0a2ac50786fa\Hoa\Stream\Bucket $bucket)
+    public function prepend(\_PhpScopere8e811afab72\Hoa\Stream\Bucket $bucket)
     {
         \stream_bucket_prepend($this->getBrigade(), $bucket->getBucket());
         return;

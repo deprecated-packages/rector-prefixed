@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Caching\FileSystem;
+namespace _PhpScopere8e811afab72\Rector\Caching\FileSystem;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Dependency\DependencyResolver as PHPStanDependencyResolver;
-use _PhpScoper0a2ac50786fa\PHPStan\File\FileHelper;
-use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Dependency\DependencyResolver as PHPStanDependencyResolver;
+use _PhpScopere8e811afab72\PHPStan\File\FileHelper;
+use _PhpScopere8e811afab72\Rector\Core\Configuration\Configuration;
 final class DependencyResolver
 {
     /**
@@ -22,7 +22,7 @@ final class DependencyResolver
      * @var PHPStanDependencyResolver
      */
     private $phpStanDependencyResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a2ac50786fa\PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \_PhpScoper0a2ac50786fa\PHPStan\File\FileHelper $fileHelper)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Configuration\Configuration $configuration, \_PhpScopere8e811afab72\PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \_PhpScopere8e811afab72\PHPStan\File\FileHelper $fileHelper)
     {
         $this->fileHelper = $fileHelper;
         $this->configuration = $configuration;
@@ -31,7 +31,7 @@ final class DependencyResolver
     /**
      * @return string[]
      */
-    public function resolveDependencies(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function resolveDependencies(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
         $fileInfos = $this->configuration->getFileInfos();
         $analysedFileAbsolutesPaths = [];

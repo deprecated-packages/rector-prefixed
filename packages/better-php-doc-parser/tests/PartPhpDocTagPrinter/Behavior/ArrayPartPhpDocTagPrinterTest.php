@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior;
+namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\Source\PhpDocTagNodeWithArrayPrinter;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
+use _PhpScopere8e811afab72\PHPUnit\Framework\TestCase;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\Source\PhpDocTagNodeWithArrayPrinter;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 /**
  * @see \Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior\ArrayPartPhpDocTagPrinterTrait
  */
-final class ArrayPartPhpDocTagPrinterTest extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase
+final class ArrayPartPhpDocTagPrinterTest extends \_PhpScopere8e811afab72\PHPUnit\Framework\TestCase
 {
     /**
      * @var PhpDocTagNodeWithArrayPrinter
@@ -18,7 +18,7 @@ final class ArrayPartPhpDocTagPrinterTest extends \_PhpScoper0a2ac50786fa\PHPUni
     private $phpDocTagNodeWithArrayPrinter;
     protected function setUp() : void
     {
-        $this->phpDocTagNodeWithArrayPrinter = new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\Source\PhpDocTagNodeWithArrayPrinter();
+        $this->phpDocTagNodeWithArrayPrinter = new \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\Source\PhpDocTagNodeWithArrayPrinter();
     }
     /**
      * @param mixed[] $items
@@ -26,7 +26,7 @@ final class ArrayPartPhpDocTagPrinterTest extends \_PhpScoper0a2ac50786fa\PHPUni
      */
     public function test(array $items, string $key, string $expectedContent) : void
     {
-        $tagValueNodeConfiguration = new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration();
+        $tagValueNodeConfiguration = new \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration();
         $output = $this->phpDocTagNodeWithArrayPrinter->printArrayItem($items, $key, $tagValueNodeConfiguration);
         $this->assertSame($expectedContent, $output);
     }

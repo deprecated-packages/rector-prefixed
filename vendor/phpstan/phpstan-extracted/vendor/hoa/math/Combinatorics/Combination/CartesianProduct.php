@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Math\Combinatorics\Combination;
+namespace _PhpScopere8e811afab72\Hoa\Math\Combinatorics\Combination;
 
-use _PhpScoper0a2ac50786fa\Hoa\Iterator;
+use _PhpScopere8e811afab72\Hoa\Iterator;
 /**
  * Class \Hoa\Math\Combinatorics\Combination\CartesianProduct.
  *
@@ -50,7 +50,7 @@ use _PhpScoper0a2ac50786fa\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class CartesianProduct implements \_PhpScoper0a2ac50786fa\Hoa\Iterator
+class CartesianProduct implements \_PhpScopere8e811afab72\Hoa\Iterator
 {
     /**
      * All sets.
@@ -92,9 +92,9 @@ class CartesianProduct implements \_PhpScoper0a2ac50786fa\Hoa\Iterator
     {
         foreach (\func_get_args() as $s) {
             if (\is_array($s)) {
-                $s = new \_PhpScoper0a2ac50786fa\Hoa\Iterator\Map($s);
+                $s = new \_PhpScopere8e811afab72\Hoa\Iterator\Map($s);
             } else {
-                $s = new \_PhpScoper0a2ac50786fa\Hoa\Iterator\IteratorIterator($s);
+                $s = new \_PhpScopere8e811afab72\Hoa\Iterator\IteratorIterator($s);
             }
             $this->_sets[] = $s;
         }

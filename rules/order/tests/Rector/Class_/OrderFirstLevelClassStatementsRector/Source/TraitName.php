@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\Rector\Order\Tests\Rector\Class_\OrderFirstLevelClassStatementsRector\Source;
+namespace _PhpScopere8e811afab72\Rector\Order\Tests\Rector\Class_\OrderFirstLevelClassStatementsRector\Source;
 
 trait TraitName
 {

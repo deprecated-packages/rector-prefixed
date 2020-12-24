@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Defluent\NodeAnalyzer;
+namespace _PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
 final class NewFluentChainMethodCallNodeAnalyzer
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function isNewMethodCallReturningSelf(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    public function isNewMethodCallReturningSelf(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $newStaticType = $this->nodeTypeResolver->getStaticType($methodCall->var);
         $methodCallStaticType = $this->nodeTypeResolver->getStaticType($methodCall);
@@ -29,17 +29,17 @@ final class NewFluentChainMethodCallNodeAnalyzer
      *
      * $this->setItem(new Item) // → returns "Item"
      */
-    public function matchNewInFluentSetterMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_
+    public function matchNewInFluentSetterMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\New_
     {
         if (\count((array) $methodCall->args) !== 1) {
             return null;
         }
         $onlyArgValue = $methodCall->args[0]->value;
-        if (!$onlyArgValue instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_) {
+        if (!$onlyArgValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
             return null;
         }
         $newType = $this->nodeTypeResolver->resolve($onlyArgValue);
-        if ($newType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+        if ($newType instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
             return null;
         }
         $parentMethodCallReturnType = $this->nodeTypeResolver->resolve($methodCall);

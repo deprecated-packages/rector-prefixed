@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php71\Tests\Rector\FuncCall\RemoveExtraParametersRector\Source;
+namespace _PhpScopere8e811afab72\Rector\Php71\Tests\Rector\FuncCall\RemoveExtraParametersRector\Source;
 
-use _PhpScoper0a2ac50786fa\Symfony\Component\EventDispatcher\Event;
-use _PhpScoper0a2ac50786fa\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use _PhpScopere8e811afab72\Symfony\Component\EventDispatcher\Event;
+use _PhpScopere8e811afab72\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 final class MagicEventDispatcher
 {
     /**

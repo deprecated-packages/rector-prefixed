@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Iterator;
+namespace _PhpScopere8e811afab72\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Directory.
@@ -84,7 +84,7 @@ class Directory extends \DirectoryIterator
         if (null !== $this->_splFileInfoClass && $out instanceof \SplFileInfo) {
             $out->setInfoClass($this->_splFileInfoClass);
             $out = $out->getFileInfo();
-            if ($out instanceof \_PhpScoper0a2ac50786fa\Hoa\Iterator\SplFileInfo) {
+            if ($out instanceof \_PhpScopere8e811afab72\Hoa\Iterator\SplFileInfo) {
                 $out->setRelativePath($this->getRelativePath());
             }
         }

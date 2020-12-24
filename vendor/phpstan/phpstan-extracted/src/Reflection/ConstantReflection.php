@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection;
 
-interface ConstantReflection extends \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberReflection, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\GlobalConstantReflection
+interface ConstantReflection extends \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection, \_PhpScopere8e811afab72\PHPStan\Reflection\GlobalConstantReflection
 {
     /**
      * @return mixed

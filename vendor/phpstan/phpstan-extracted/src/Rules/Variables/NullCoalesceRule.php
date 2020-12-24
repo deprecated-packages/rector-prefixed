@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Variables;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Variables;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\IssetCheck;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Rules\IssetCheck;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class NullCoalesceRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+class NullCoalesceRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     /** @var IssetCheck */
     private $issetCheck;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Rules\IssetCheck $issetCheck)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Rules\IssetCheck $issetCheck)
     {
         $this->issetCheck = $issetCheck;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Expr::class;
     }
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Coalesce) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce) {
             $error = $this->issetCheck->check($node->left, $scope, 'on left side of ??');
-        } elseif ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp\Coalesce) {
+        } elseif ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\AssignOp\Coalesce) {
             $error = $this->issetCheck->check($node->var, $scope, 'on left side of ??=');
         } else {
             return [];

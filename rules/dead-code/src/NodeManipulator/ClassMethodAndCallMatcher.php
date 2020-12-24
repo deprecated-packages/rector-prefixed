@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator;
+namespace _PhpScopere8e811afab72\Rector\DeadCode\NodeManipulator;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
 final class ClassMethodAndCallMatcher
 {
     /**
@@ -22,46 +22,46 @@ final class ClassMethodAndCallMatcher
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function isMethodLikeCallMatchingClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isMethodLikeCallMatchingClassMethod(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
             return $this->isMethodCallMatchingClassMethod($node, $classMethod);
         }
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
             return $this->isStaticCallMatchingClassMethod($node, $classMethod);
         }
         return \false;
     }
-    private function isMethodCallMatchingClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isMethodCallMatchingClassMethod(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $className */
-        $className = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $classMethodName */
         $classMethodName = $this->nodeNameResolver->getName($classMethod);
         if (!$this->nodeNameResolver->isName($methodCall->name, $classMethodName)) {
             return \false;
         }
-        $objectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($className);
+        $objectType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($className);
         $callerStaticType = $this->nodeTypeResolver->getStaticType($methodCall->var);
         return $objectType->isSuperTypeOf($callerStaticType)->yes();
     }
-    private function isStaticCallMatchingClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall $staticCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isStaticCallMatchingClassMethod(\_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall $staticCall, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $className */
-        $className = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
         if (!$this->nodeNameResolver->isName($staticCall->name, $methodName)) {
             return \false;
         }
-        $objectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($className);
+        $objectType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($className);
         $callerStaticType = $this->nodeTypeResolver->resolve($staticCall->class);
-        if ($callerStaticType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+        if ($callerStaticType instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
             return \false;
         }
         return $objectType->isSuperTypeOf($callerStaticType)->yes();

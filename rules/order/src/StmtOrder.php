@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Order;
+namespace _PhpScopere8e811afab72\Rector\Order;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
 /**
  * @see \Rector\Order\Tests\StmtOrderTest
  */
@@ -14,7 +14,7 @@ final class StmtOrder
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -42,7 +42,7 @@ final class StmtOrder
     /**
      * @param array<int, int> $oldToNewKeys
      */
-    public function reorderClassStmtsByOldToNewKeys(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewKeys) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike
+    public function reorderClassStmtsByOldToNewKeys(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewKeys) : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike
     {
         $reorderedStmts = [];
         $stmtCount = \count((array) $classLike->stmts);
@@ -66,7 +66,7 @@ final class StmtOrder
     /**
      * @return array<int,string>
      */
-    public function getStmtsOfTypeOrder(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike $classLike, string $type) : array
+    public function getStmtsOfTypeOrder(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike $classLike, string $type) : array
     {
         $stmtsByPosition = [];
         foreach ($classLike->stmts as $position => $classStmt) {

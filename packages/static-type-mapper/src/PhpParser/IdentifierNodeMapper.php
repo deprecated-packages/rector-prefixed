@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\PhpParser;
+namespace _PhpScopere8e811afab72\Rector\StaticTypeMapper\PhpParser;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
-use _PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper;
-final class IdentifierNodeMapper implements \_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
+use _PhpScopere8e811afab72\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper;
+final class IdentifierNodeMapper implements \_PhpScopere8e811afab72\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
 {
     /**
      * @var ScalarStringToTypeMapper
      */
     private $scalarStringToTypeMapper;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
+    public function __construct(\_PhpScopere8e811afab72\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
     {
         $this->scalarStringToTypeMapper = $scalarStringToTypeMapper;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Identifier::class;
     }
     /**
      * @param Identifier $node
      */
-    public function mapToPHPStan(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function mapToPHPStan(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->scalarStringToTypeMapper->mapScalarStringToType($node->name);
     }

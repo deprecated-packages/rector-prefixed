@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type;
+namespace _PhpScopere8e811afab72\PHPStan\DependencyInjection\Type;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry;
+use _PhpScopere8e811afab72\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry;
 interface OperatorTypeSpecifyingExtensionRegistryProvider
 {
-    public function getRegistry() : \_PhpScoper0a2ac50786fa\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry;
+    public function getRegistry() : \_PhpScopere8e811afab72\PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry;
 }

@@ -1,47 +1,47 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\Defluent\ValueObject;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
-use _PhpScoper0a2ac50786fa\Rector\Defluent\Contract\ValueObject\RootExprAwareInterface;
-final class AssignAndRootExpr extends \_PhpScoper0a2ac50786fa\Rector\Defluent\ValueObject\AbstractRootExpr implements \_PhpScoper0a2ac50786fa\Rector\Defluent\Contract\ValueObject\RootExprAwareInterface, \_PhpScoper0a2ac50786fa\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
+use _PhpScopere8e811afab72\Rector\Defluent\Contract\ValueObject\RootExprAwareInterface;
+final class AssignAndRootExpr extends \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AbstractRootExpr implements \_PhpScopere8e811afab72\Rector\Defluent\Contract\ValueObject\RootExprAwareInterface, \_PhpScopere8e811afab72\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface
 {
     /**
      * @var Variable|null
      */
     private $silentVariable;
-    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $assignExpr, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $rootExpr, ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $silentVariable = null, bool $isFirstCallFactory = \false)
+    public function __construct(\_PhpScopere8e811afab72\PhpParser\Node\Expr $assignExpr, \_PhpScopere8e811afab72\PhpParser\Node\Expr $rootExpr, ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $silentVariable = null, bool $isFirstCallFactory = \false)
     {
         $this->assignExpr = $assignExpr;
         $this->rootExpr = $rootExpr;
         $this->silentVariable = $silentVariable;
         $this->isFirstCallFactory = $isFirstCallFactory;
     }
-    public function getAssignExpr() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function getAssignExpr() : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         return $this->assignExpr;
     }
-    public function getRootExpr() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function getRootExpr() : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         return $this->rootExpr;
     }
-    public function getSilentVariable() : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable
+    public function getSilentVariable() : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable
     {
         return $this->silentVariable;
     }
-    public function getReturnSilentVariable() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_
+    public function getReturnSilentVariable() : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_
     {
         if ($this->silentVariable === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_($this->silentVariable);
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_($this->silentVariable);
     }
-    public function getCallerExpr() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function getCallerExpr() : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         if ($this->silentVariable !== null) {
             return $this->silentVariable;
@@ -52,7 +52,7 @@ final class AssignAndRootExpr extends \_PhpScoper0a2ac50786fa\Rector\Defluent\Va
     {
         return $this->isFirstCallFactory;
     }
-    public function getFactoryAssignVariable() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function getFactoryAssignVariable() : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         $firstAssign = $this->getFirstAssign();
         if ($firstAssign === null) {

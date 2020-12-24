@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\DeadCode\ValueObject;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
 final class VariableNodeUse
 {
     /**
@@ -37,7 +37,7 @@ final class VariableNodeUse
      * @var string|null
      */
     private $nestingHash;
-    public function __construct(int $startTokenPosition, string $variableName, string $type, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable $variable, ?string $nestingHash = null)
+    public function __construct(int $startTokenPosition, string $variableName, string $type, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable, ?string $nestingHash = null)
     {
         $this->startTokenPosition = $startTokenPosition;
         $this->variableName = $variableName;
@@ -57,15 +57,15 @@ final class VariableNodeUse
     {
         return $this->type === $type;
     }
-    public function getVariableNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function getVariableNode() : \_PhpScopere8e811afab72\PhpParser\Node
     {
         return $this->variable;
     }
-    public function getParentNode() : \_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function getParentNode() : \_PhpScopere8e811afab72\PhpParser\Node
     {
-        $parentNode = $this->variable->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $this->variable->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $parentNode;
     }

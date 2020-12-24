@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\DeadCode;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\DeadCode;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Node\ClassPropertiesNode;
-use _PhpScoper0a2ac50786fa\PHPStan\Node\Property\PropertyRead;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\Rule;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Node\ClassPropertiesNode;
+use _PhpScopere8e811afab72\PHPStan\Node\Property\PropertyRead;
+use _PhpScopere8e811afab72\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider;
+use _PhpScopere8e811afab72\PHPStan\Rules\Rule;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeUtils;
 /**
  * @implements Rule<ClassPropertiesNode>
  */
-class UnusedPrivatePropertyRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+class UnusedPrivatePropertyRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     /** @var ReadWritePropertiesExtensionProvider */
     private $extensionProvider;
@@ -32,7 +32,7 @@ class UnusedPrivatePropertyRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules
      * @param string[] $alwaysWrittenTags
      * @param string[] $alwaysReadTags
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider $extensionProvider, array $alwaysWrittenTags, array $alwaysReadTags, bool $checkUninitializedProperties)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider $extensionProvider, array $alwaysWrittenTags, array $alwaysReadTags, bool $checkUninitializedProperties)
     {
         $this->extensionProvider = $extensionProvider;
         $this->alwaysWrittenTags = $alwaysWrittenTags;
@@ -41,18 +41,18 @@ class UnusedPrivatePropertyRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\Node\ClassPropertiesNode::class;
+        return \_PhpScopere8e811afab72\PHPStan\Node\ClassPropertiesNode::class;
     }
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->getClass() instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
+        if (!$node->getClass() instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_) {
             return [];
         }
         if (!$scope->isInClass()) {
-            throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
-        $classType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($classReflection->getName());
+        $classType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($classReflection->getName());
         $properties = [];
         foreach ($node->getProperties() as $property) {
             if (!$property->isPrivate()) {
@@ -102,37 +102,37 @@ class UnusedPrivatePropertyRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules
         }
         foreach ($node->getPropertyUsages() as $usage) {
             $fetch = $usage->getFetch();
-            if ($fetch->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier) {
+            if ($fetch->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
                 $propertyNames = [$fetch->name->toString()];
             } else {
                 $propertyNameType = $usage->getScope()->getType($fetch->name);
-                $strings = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::getConstantStrings($propertyNameType);
+                $strings = \_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getConstantStrings($propertyNameType);
                 if (\count($strings) === 0) {
                     return [];
                 }
-                $propertyNames = \array_map(static function (\_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType $type) : string {
+                $propertyNames = \array_map(static function (\_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType $type) : string {
                     return $type->getValue();
                 }, $strings);
             }
-            if ($fetch instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
+            if ($fetch instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
                 $fetchedOnType = $usage->getScope()->getType($fetch->var);
             } else {
-                if (!$fetch->class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
+                if (!$fetch->class instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
                     continue;
                 }
-                $fetchedOnType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($usage->getScope()->resolveName($fetch->class));
+                $fetchedOnType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($usage->getScope()->resolveName($fetch->class));
             }
             if ($classType->isSuperTypeOf($fetchedOnType)->no()) {
                 continue;
             }
-            if ($fetchedOnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+            if ($fetchedOnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
                 continue;
             }
             foreach ($propertyNames as $propertyName) {
                 if (!\array_key_exists($propertyName, $properties)) {
                     continue;
                 }
-                if ($usage instanceof \_PhpScoper0a2ac50786fa\PHPStan\Node\Property\PropertyRead) {
+                if ($usage instanceof \_PhpScopere8e811afab72\PHPStan\Node\Property\PropertyRead) {
                     $properties[$propertyName]['read'] = \true;
                 } else {
                     $properties[$propertyName]['written'] = \true;
@@ -155,12 +155,12 @@ class UnusedPrivatePropertyRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules
             }
             if (!$data['read']) {
                 if (!$data['written']) {
-                    $errors[] = \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is unused.', $propertyName))->line($propertyNode->getStartLine())->identifier('deadCode.unusedProperty')->metadata(['classOrder' => $node->getClass()->getAttribute('statementOrder'), 'classDepth' => $node->getClass()->getAttribute('statementDepth'), 'classStartLine' => $node->getClass()->getStartLine(), 'propertyName' => $name])->build();
+                    $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is unused.', $propertyName))->line($propertyNode->getStartLine())->identifier('deadCode.unusedProperty')->metadata(['classOrder' => $node->getClass()->getAttribute('statementOrder'), 'classDepth' => $node->getClass()->getAttribute('statementDepth'), 'classStartLine' => $node->getClass()->getStartLine(), 'propertyName' => $name])->build();
                 } else {
-                    $errors[] = \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is never read, only written.', $propertyName))->line($propertyNode->getStartLine())->build();
+                    $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is never read, only written.', $propertyName))->line($propertyNode->getStartLine())->build();
                 }
             } elseif (!$data['written'] && (!\array_key_exists($name, $uninitializedProperties) || !$this->checkUninitializedProperties)) {
-                $errors[] = \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is never written, only read.', $propertyName))->line($propertyNode->getStartLine())->build();
+                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is never written, only read.', $propertyName))->line($propertyNode->getStartLine())->build();
             }
         }
         return $errors;

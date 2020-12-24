@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Analyser;
+namespace _PhpScopere8e811afab72\PHPStan\Analyser;
 
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeCombinator;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeCombinator;
 class VariableTypeHolder
 {
     /** @var \PHPStan\Type\Type */
     private $type;
     /** @var \PHPStan\TrinaryLogic */
     private $certainty;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic $certainty)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, \_PhpScopere8e811afab72\PHPStan\TrinaryLogic $certainty)
     {
         $this->type = $type;
         $this->certainty = $certainty;
     }
-    public static function createYes(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : self
+    public static function createYes(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : self
     {
-        return new self($type, \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createYes());
+        return new self($type, \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes());
     }
-    public static function createMaybe(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : self
+    public static function createMaybe(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : self
     {
-        return new self($type, \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe());
+        return new self($type, \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe());
     }
     public function equals(self $other) : bool
     {
@@ -37,15 +37,15 @@ class VariableTypeHolder
         if ($this->getType()->equals($other->getType())) {
             $type = $this->getType();
         } else {
-            $type = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeCombinator::union($this->getType(), $other->getType());
+            $type = \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::union($this->getType(), $other->getType());
         }
         return new self($type, $this->getCertainty()->and($other->getCertainty()));
     }
-    public function getType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function getCertainty() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function getCertainty() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $this->certainty;
     }

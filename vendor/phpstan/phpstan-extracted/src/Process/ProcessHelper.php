@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Process;
+namespace _PhpScopere8e811afab72\PHPStan\Process;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Command\AnalyseCommand;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use _PhpScopere8e811afab72\PHPStan\Command\AnalyseCommand;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
 class ProcessHelper
 {
     /**
@@ -15,7 +15,7 @@ class ProcessHelper
      * @param InputInterface $input
      * @return string
      */
-    public static function getWorkerCommand(string $mainScript, string $commandName, ?string $projectConfigFile, array $additionalItems, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : string
+    public static function getWorkerCommand(string $mainScript, string $commandName, ?string $projectConfigFile, array $additionalItems, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : string
     {
         $processCommandArray = [\escapeshellarg(\PHP_BINARY)];
         if ($input->getOption('memory-limit') === null) {
@@ -29,7 +29,7 @@ class ProcessHelper
             $processCommandArray[] = '--configuration';
             $processCommandArray[] = \escapeshellarg($projectConfigFile);
         }
-        $options = ['paths-file', \_PhpScoper0a2ac50786fa\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, 'autoload-file', 'memory-limit', 'xdebug'];
+        $options = ['paths-file', \_PhpScopere8e811afab72\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, 'autoload-file', 'memory-limit', 'xdebug'];
         foreach ($options as $optionName) {
             /** @var bool|string|null $optionValue */
             $optionValue = $input->getOption($optionName);

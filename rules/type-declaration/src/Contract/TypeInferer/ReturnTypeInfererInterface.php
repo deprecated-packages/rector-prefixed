@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer;
+namespace _PhpScopere8e811afab72\Rector\TypeDeclaration\Contract\TypeInferer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-interface ReturnTypeInfererInterface extends \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface
+use _PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+interface ReturnTypeInfererInterface extends \_PhpScopere8e811afab72\Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface
 {
-    public function inferFunctionLike(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+    public function inferFunctionLike(\_PhpScopere8e811afab72\PhpParser\Node\FunctionLike $functionLike) : \_PhpScopere8e811afab72\PHPStan\Type\Type;
 }

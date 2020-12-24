@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Dependency\ExportedNode;
+namespace _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use _PhpScoper0a2ac50786fa\PHPStan\Dependency\ExportedNode;
-class ExportedTraitUseAdaptation implements \_PhpScoper0a2ac50786fa\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode;
+class ExportedTraitUseAdaptation implements \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string|null */
     private $traitName;
@@ -46,7 +46,7 @@ class ExportedTraitUseAdaptation implements \_PhpScoper0a2ac50786fa\PHPStan\Depe
     {
         return new self($traitName, $method, null, null, $insteadOfs);
     }
-    public function equals(\_PhpScoper0a2ac50786fa\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -57,7 +57,7 @@ class ExportedTraitUseAdaptation implements \_PhpScoper0a2ac50786fa\PHPStan\Depe
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \_PhpScoper0a2ac50786fa\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode
     {
         return new self($properties['traitName'], $properties['method'], $properties['newModifier'], $properties['newName'], $properties['insteadOfs']);
     }
@@ -65,7 +65,7 @@ class ExportedTraitUseAdaptation implements \_PhpScoper0a2ac50786fa\PHPStan\Depe
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \_PhpScoper0a2ac50786fa\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode
     {
         return new self($data['traitName'], $data['method'], $data['newModifier'], $data['newName'], $data['insteadOfs']);
     }

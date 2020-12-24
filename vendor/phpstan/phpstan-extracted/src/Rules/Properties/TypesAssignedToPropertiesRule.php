@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Properties;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Properties;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleError;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleLevelHelper;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleError;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleLevelHelper;
+use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class TypesAssignedToPropertiesRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+class TypesAssignedToPropertiesRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
@@ -20,7 +20,7 @@ class TypesAssignedToPropertiesRule implements \_PhpScoper0a2ac50786fa\PHPStan\R
     private $propertyDescriptor;
     /** @var \PHPStan\Rules\Properties\PropertyReflectionFinder */
     private $propertyReflectionFinder;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \_PhpScoper0a2ac50786fa\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \_PhpScoper0a2ac50786fa\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \_PhpScopere8e811afab72\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \_PhpScopere8e811afab72\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
         $this->propertyDescriptor = $propertyDescriptor;
@@ -28,14 +28,14 @@ class TypesAssignedToPropertiesRule implements \_PhpScoper0a2ac50786fa\PHPStan\R
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Expr::class;
     }
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign && !$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignOp && !$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignRef) {
+        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign && !$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\AssignOp && !$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\AssignRef) {
             return [];
         }
-        if (!$node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
+        if (!$node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch) {
             return [];
         }
         /** @var \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch */
@@ -52,19 +52,19 @@ class TypesAssignedToPropertiesRule implements \_PhpScoper0a2ac50786fa\PHPStan\R
      * @param Node\Expr $node
      * @return RuleError[]
      */
-    private function processSingleProperty(\_PhpScoper0a2ac50786fa\PHPStan\Rules\Properties\FoundPropertyReflection $propertyReflection, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $node) : array
+    private function processSingleProperty(\_PhpScopere8e811afab72\PHPStan\Rules\Properties\FoundPropertyReflection $propertyReflection, \_PhpScopere8e811afab72\PhpParser\Node\Expr $node) : array
     {
         $propertyType = $propertyReflection->getWritableType();
         $scope = $propertyReflection->getScope();
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\AssignRef) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign || $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\AssignRef) {
             $assignedValueType = $scope->getType($node->expr);
         } else {
             $assignedValueType = $scope->getType($node);
         }
         if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType, $scope->isDeclareStrictTypes())) {
             $propertyDescription = $this->propertyDescriptor->describePropertyByName($propertyReflection, $propertyReflection->getName());
-            $verbosityLevel = \_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($propertyType);
-            return [\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s (%s) does not accept %s.', $propertyDescription, $propertyType->describe($verbosityLevel), $assignedValueType->describe($verbosityLevel)))->build()];
+            $verbosityLevel = \_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($propertyType);
+            return [\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s (%s) does not accept %s.', $propertyDescription, $propertyType->describe($verbosityLevel), $assignedValueType->describe($verbosityLevel)))->build()];
         }
         return [];
     }

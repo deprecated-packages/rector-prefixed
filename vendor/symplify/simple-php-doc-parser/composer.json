@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper0a2ac50786fa\\Symplify\\SimplePhpDocParser\\": "src"
+            "_PhpScopere8e811afab72\\Symplify\\SimplePhpDocParser\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper0a2ac50786fa\\Symplify\\SimplePhpDocParser\\Tests\\": "tests"
+            "_PhpScopere8e811afab72\\Symplify\\SimplePhpDocParser\\Tests\\": "tests"
         }
     },
     "extra": {

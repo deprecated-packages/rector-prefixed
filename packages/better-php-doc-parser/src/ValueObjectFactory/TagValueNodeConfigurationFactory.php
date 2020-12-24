@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObjectFactory;
+namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObjectFactory;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 /**
  * @see \Rector\BetterPhpDocParser\Tests\ValueObjectFactory\TagValueNodeConfigurationFactoryTest
  */
@@ -41,28 +41,28 @@ final class TagValueNodeConfigurationFactory
      * @see https://regex101.com/r/0KlSQv/1
      */
     public const ARRAY_COLON_SEPARATOR_REGEX = '#{([^{}]+)[:]([^{}]+)}#';
-    public function createFromOriginalContent(?string $originalContent, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration
+    public function createFromOriginalContent(?string $originalContent, \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration
     {
         if ($originalContent === null) {
-            return new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration();
+            return new \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration();
         }
         $silentKey = $this->resolveSilentKey($phpDocTagValueNode);
-        $orderedVisibleItems = \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper::resolveAnnotationItemsOrder($originalContent, $silentKey);
-        $hasNewlineAfterOpening = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($originalContent, self::NEWLINE_AFTER_OPENING_REGEX);
-        $hasNewlineBeforeClosing = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($originalContent, self::NEWLINE_BEFORE_CLOSING_REGEX);
-        $hasOpeningBracket = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($originalContent, self::OPENING_BRACKET_REGEX);
-        $hasClosingBracket = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($originalContent, self::CLOSING_BRACKET_REGEX);
+        $orderedVisibleItems = \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper::resolveAnnotationItemsOrder($originalContent, $silentKey);
+        $hasNewlineAfterOpening = (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($originalContent, self::NEWLINE_AFTER_OPENING_REGEX);
+        $hasNewlineBeforeClosing = (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($originalContent, self::NEWLINE_BEFORE_CLOSING_REGEX);
+        $hasOpeningBracket = (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($originalContent, self::OPENING_BRACKET_REGEX);
+        $hasClosingBracket = (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($originalContent, self::CLOSING_BRACKET_REGEX);
         $keysByQuotedStatus = [];
         foreach ($orderedVisibleItems as $orderedVisibleItem) {
             $keysByQuotedStatus[$orderedVisibleItem] = $this->isKeyQuoted($originalContent, $orderedVisibleItem, $silentKey);
         }
-        $isSilentKeyExplicit = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($originalContent, \sprintf('%s=', $silentKey));
+        $isSilentKeyExplicit = (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::contains($originalContent, \sprintf('%s=', $silentKey));
         $arrayEqualSign = $this->resolveArraySeparatorSign($originalContent, $phpDocTagValueNode);
-        return new \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration($originalContent, $orderedVisibleItems, $hasNewlineAfterOpening, $hasNewlineBeforeClosing, $hasOpeningBracket, $hasClosingBracket, $keysByQuotedStatus, $silentKey, $isSilentKeyExplicit, $arrayEqualSign);
+        return new \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration($originalContent, $orderedVisibleItems, $hasNewlineAfterOpening, $hasNewlineBeforeClosing, $hasOpeningBracket, $hasClosingBracket, $keysByQuotedStatus, $silentKey, $isSilentKeyExplicit, $arrayEqualSign);
     }
-    private function resolveSilentKey(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : ?string
+    private function resolveSilentKey(\_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : ?string
     {
-        if ($phpDocTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface) {
+        if ($phpDocTagValueNode instanceof \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface) {
             return $phpDocTagValueNode->getSilentKey();
         }
         return null;
@@ -71,16 +71,16 @@ final class TagValueNodeConfigurationFactory
     {
         $escapedKey = \preg_quote($key, '#');
         $quotedKeyPattern = $this->createQuotedKeyPattern($silentKey, $key, $escapedKey);
-        if ((bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern)) {
+        if ((bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern)) {
             return \true;
         }
         // @see https://regex101.com/r/VgvK8C/5/
         $quotedArrayPattern = \sprintf('#%s=\\{"(.*)"\\}|\\{"(.*)"\\}#', $escapedKey);
-        return (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($originalContent, $quotedArrayPattern);
+        return (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($originalContent, $quotedArrayPattern);
     }
-    private function resolveArraySeparatorSign(string $originalContent, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
+    private function resolveArraySeparatorSign(string $originalContent, \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
     {
-        $hasArrayColonSeparator = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($originalContent, self::ARRAY_COLON_SEPARATOR_REGEX);
+        $hasArrayColonSeparator = (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($originalContent, self::ARRAY_COLON_SEPARATOR_REGEX);
         if ($hasArrayColonSeparator) {
             return ':';
         }
@@ -107,15 +107,15 @@ final class TagValueNodeConfigurationFactory
      * @see https://github.com/rectorphp/rector/issues/3225
      * @see https://github.com/rectorphp/rector/pull/3241
      */
-    private function resolveArrayEqualSignByPhpNodeClass(\_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
+    private function resolveArrayEqualSignByPhpNodeClass(\_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
     {
-        if ($phpDocTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode) {
+        if ($phpDocTagValueNode instanceof \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode) {
             return '=';
         }
-        if ($phpDocTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface) {
+        if ($phpDocTagValueNode instanceof \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface) {
             return '=';
         }
-        if ($phpDocTagValueNode instanceof \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode) {
+        if ($phpDocTagValueNode instanceof \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode) {
             return '=';
         }
         return ':';

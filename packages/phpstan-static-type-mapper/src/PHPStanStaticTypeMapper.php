@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper;
+namespace _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\UnionType as PhpParserUnionType;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException;
-use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
-use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\NullableType;
+use _PhpScopere8e811afab72\PhpParser\Node\UnionType as PhpParserUnionType;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\Rector\Core\Exception\NotImplementedException;
+use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
+use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 final class PHPStanStaticTypeMapper
 {
     /**
@@ -36,13 +36,13 @@ final class PHPStanStaticTypeMapper
     public function __construct(array $typeMappers)
     {
         foreach ($typeMappers as $typeMapper) {
-            if ($typeMapper instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface) {
+            if ($typeMapper instanceof \_PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface) {
                 $typeMapper->setPHPStanStaticTypeMapper($this);
             }
         }
         $this->typeMappers = $typeMappers;
     }
-    public function mapToPHPStanPhpDocTypeNode(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         foreach ($this->typeMappers as $typeMapper) {
             if (!\is_a($type, $typeMapper->getNodeClass(), \true)) {
@@ -50,12 +50,12 @@ final class PHPStanStaticTypeMapper
             }
             return $typeMapper->mapToPHPStanPhpDocTypeNode($type);
         }
-        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
+        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
     }
     /**
      * @return Name|NullableType|PhpParserUnionType|null
      */
-    public function mapToPhpParserNode(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function mapToPhpParserNode(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         foreach ($this->typeMappers as $typeMapper) {
             if (!\is_a($type, $typeMapper->getNodeClass(), \true)) {
@@ -63,9 +63,9 @@ final class PHPStanStaticTypeMapper
             }
             return $typeMapper->mapToPhpParserNode($type, $kind);
         }
-        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
+        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
     }
-    public function mapToDocString(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $parentType = null) : string
     {
         foreach ($this->typeMappers as $typeMapper) {
             if (!\is_a($type, $typeMapper->getNodeClass(), \true)) {
@@ -73,6 +73,6 @@ final class PHPStanStaticTypeMapper
             }
             return $typeMapper->mapToDocString($type, $parentType);
         }
-        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
+        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
     }
 }

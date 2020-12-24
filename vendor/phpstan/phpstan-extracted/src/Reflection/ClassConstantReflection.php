@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection;
 
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ConstantTypeHelper;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-class ClassConstantReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ConstantReflection
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+class ClassConstantReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\ConstantReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -18,7 +18,7 @@ class ClassConstantReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflect
     private $isDeprecated;
     /** @var bool */
     private $isInternal;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $declaringClass, \ReflectionClassConstant $reflection, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $declaringClass, \ReflectionClassConstant $reflection, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal)
     {
         $this->declaringClass = $declaringClass;
         $this->reflection = $reflection;
@@ -45,11 +45,11 @@ class ClassConstantReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflect
     {
         return $this->reflection->getValue();
     }
-    public function getValueType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getValueType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\Type\ConstantTypeHelper::getTypeFromValue($this->getValue());
+        return \_PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper::getTypeFromValue($this->getValue());
     }
-    public function getDeclaringClass() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
@@ -65,9 +65,9 @@ class ClassConstantReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflect
     {
         return $this->reflection->isPublic();
     }
-    public function isDeprecated() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
     }
     public function getDeprecatedDescription() : ?string
     {
@@ -76,9 +76,9 @@ class ClassConstantReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflect
         }
         return null;
     }
-    public function isInternal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
     }
     public function getDocComment() : ?string
     {

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule;
+namespace _PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule;
 
-use _PhpScoper0a2ac50786fa\Hoa\Consistency;
+use _PhpScopere8e811afab72\Hoa\Consistency;
 /**
  * Class \Hoa\Compiler\Llk\Rule.
  *
@@ -258,4 +258,4 @@ abstract class Rule
 /**
  * Flex entity.
  */
-\_PhpScoper0a2ac50786fa\Hoa\Consistency::flexEntity('_PhpScoper0a2ac50786fa\\Hoa\\Compiler\\Llk\\Rule\\Rule');
+\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Compiler\\Llk\\Rule\\Rule');

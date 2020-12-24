@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php72\Rector\While_;
+namespace _PhpScopere8e811afab72\Rector\Php72\Rector\While_;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\List_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\While_;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\List_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\While_;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @source https://wiki.php.net/rfc/deprecations_php_7_2#each
  *
  * @see \Rector\Php72\Tests\Rector\While_\WhileEachToForeachRector\WhileEachToForeachRectorTest
  */
-final class WhileEachToForeachRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class WhileEachToForeachRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var AssignManipulator
      */
     private $assignManipulator;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator)
     {
         $this->assignManipulator = $assignManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('each() function is deprecated, use foreach() instead.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('each() function is deprecated, use foreach() instead.', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 while (list($key, $callback) = each($callbacks)) {
     // ...
 }
@@ -41,7 +41,7 @@ foreach ($callbacks as $key => $callback) {
     // ...
 }
 CODE_SAMPLE
-), new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+), new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 while (list($key) = each($callbacks)) {
     // ...
 }
@@ -58,14 +58,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\While_::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\While_::class];
     }
     /**
      * @param While_ $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if (!$node->cond instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+        if (!$node->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
             return null;
         }
         /** @var Assign $assignNode */
@@ -80,7 +80,7 @@ CODE_SAMPLE
         $foreachedExpr = \count((array) $listNode->items) === 1 ? $this->createFuncCall('array_keys', [$eachFuncCall->args[0]]) : $eachFuncCall->args[0]->value;
         /** @var ArrayItem $arrayItem */
         $arrayItem = \array_pop($listNode->items);
-        $foreach = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_($foreachedExpr, $arrayItem, ['stmts' => $node->stmts]);
+        $foreach = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_($foreachedExpr, $arrayItem, ['stmts' => $node->stmts]);
         $this->mirrorComments($foreach, $node);
         // is key included? add it to foreach
         if ($listNode->items !== []) {

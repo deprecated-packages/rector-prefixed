@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\Skipper\SkipCriteriaResolver;
+namespace _PhpScopere8e811afab72\Symplify\Skipper\SkipCriteriaResolver;
 
-use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use _PhpScoper0a2ac50786fa\Symplify\Skipper\ValueObject\Option;
+use _PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScopere8e811afab72\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use _PhpScopere8e811afab72\Symplify\Skipper\ValueObject\Option;
 final class SkippedClassResolver
 {
     /**
@@ -20,7 +20,7 @@ final class SkippedClassResolver
      * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
-    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    public function __construct(\_PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScopere8e811afab72\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->parameterProvider = $parameterProvider;
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
@@ -33,7 +33,7 @@ final class SkippedClassResolver
         if ($this->skippedClasses !== []) {
             return $this->skippedClasses;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\_PhpScoper0a2ac50786fa\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\_PhpScopere8e811afab72\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
             if (\is_int($key)) {

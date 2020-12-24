@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
+namespace _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Empty_;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-final class EmptyNameResolver implements \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Empty_;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+final class EmptyNameResolver implements \_PhpScopere8e811afab72\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     public function getNode() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Empty_::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Expr\Empty_::class;
     }
     /**
      * @param Empty_ $node
      */
-    public function resolve(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?string
     {
         return 'empty';
     }

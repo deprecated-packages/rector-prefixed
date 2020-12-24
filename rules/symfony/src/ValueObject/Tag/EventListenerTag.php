@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Symfony\ValueObject\Tag;
+namespace _PhpScopere8e811afab72\Rector\Symfony\ValueObject\Tag;
 
-use _PhpScoper0a2ac50786fa\Rector\Symfony\Contract\Tag\TagInterface;
-final class EventListenerTag implements \_PhpScoper0a2ac50786fa\Rector\Symfony\Contract\Tag\TagInterface
+use _PhpScopere8e811afab72\Rector\Symfony\Contract\Tag\TagInterface;
+final class EventListenerTag implements \_PhpScopere8e811afab72\Rector\Symfony\Contract\Tag\TagInterface
 {
     /**
      * @var string

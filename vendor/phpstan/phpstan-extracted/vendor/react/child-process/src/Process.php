@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\ChildProcess;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\ChildProcess;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\ReadableResourceStream;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableResourceStream;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * Process component.
  *
@@ -52,7 +52,7 @@ use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInt
  *     Accordingly, if either of these pipes is in a paused state (`pause()` method
  *     or internally due to a `pipe()` call), this detection may not trigger.
  */
-class Process extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter
+class Process extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter
 {
     /**
      * @var WritableStreamInterface|null|ReadableStreamInterface
@@ -142,7 +142,7 @@ class Process extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\E
      * @param float         $interval    Interval to periodically monitor process state (seconds)
      * @throws \RuntimeException If the process is already running or fails to start
      */
-    public function start(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $interval = 0.1)
+    public function start(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $interval = 0.1)
     {
         if ($this->isRunning()) {
             throw new \RuntimeException('Process is already running');
@@ -204,9 +204,9 @@ class Process extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\E
         }
         foreach ($pipes as $n => $fd) {
             if (\strpos($this->fds[$n][1], 'w') === \false) {
-                $stream = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream($fd, $loop);
+                $stream = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream($fd, $loop);
             } else {
-                $stream = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\ReadableResourceStream($fd, $loop);
+                $stream = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableResourceStream($fd, $loop);
                 $stream->on('close', $streamCloseHandler);
                 $closeCount++;
             }

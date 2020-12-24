@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector\Source;
+namespace _PhpScopere8e811afab72\Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector\Source;
 
 class AnotherClass
 {

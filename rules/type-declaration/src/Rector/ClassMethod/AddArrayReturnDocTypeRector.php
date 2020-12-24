@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Rector\ClassMethod;
+namespace _PhpScopere8e811afab72\Rector\TypeDeclaration\Rector\ClassMethod;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ClassStringType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\IterableType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\NeverType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\StringType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VoidType;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\OverrideGuard\ClassMethodReturnTypeOverrideGuard;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeNormalizer;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\ClassStringType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\IterableType;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\NeverType;
+use _PhpScopere8e811afab72\PHPStan\Type\StringType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
+use _PhpScopere8e811afab72\PHPStan\Type\VoidType;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\OverrideGuard\ClassMethodReturnTypeOverrideGuard;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeNormalizer;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddArrayReturnDocTypeRector\AddArrayReturnDocTypeRectorTest
  */
-final class AddArrayReturnDocTypeRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class AddArrayReturnDocTypeRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
@@ -47,15 +47,15 @@ final class AddArrayReturnDocTypeRector extends \_PhpScoper0a2ac50786fa\Rector\C
      * @var ClassMethodReturnTypeOverrideGuard
      */
     private $classMethodReturnTypeOverrideGuard;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\OverrideGuard\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard)
+    public function __construct(\_PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \_PhpScopere8e811afab72\Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \_PhpScopere8e811afab72\Rector\TypeDeclaration\OverrideGuard\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard)
     {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->typeNormalizer = $typeNormalizer;
         $this->classMethodReturnTypeOverrideGuard = $classMethodReturnTypeOverrideGuard;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds @return annotation to array parameters inferred from the rest of the code', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds @return annotation to array parameters inferred from the rest of the code', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -93,17 +93,17 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $inferedType = $this->returnTypeInferer->inferFunctionLikeWithExcludedInferers($node, [\_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer::class]);
+        $inferedType = $this->returnTypeInferer->inferFunctionLikeWithExcludedInferers($node, [\_PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer::class]);
         $currentReturnType = $this->getNodeReturnPhpDocType($node);
         if ($currentReturnType !== null && $this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethodOldTypeWithNewType($currentReturnType, $inferedType)) {
             return null;
@@ -112,28 +112,28 @@ CODE_SAMPLE
             return null;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
         $phpDocInfo->changeReturnType($inferedType);
         return $node;
     }
-    private function shouldSkip(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if ($this->shouldSkipClassMethod($classMethod)) {
             return \true;
         }
         $currentPhpDocReturnType = $this->getNodeReturnPhpDocType($classMethod);
-        if ($currentPhpDocReturnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType && $currentPhpDocReturnType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+        if ($currentPhpDocReturnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType && $currentPhpDocReturnType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
             return \true;
         }
-        return $currentPhpDocReturnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\IterableType;
+        return $currentPhpDocReturnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\IterableType;
     }
-    private function getNodeReturnPhpDocType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    private function getNodeReturnPhpDocType(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
@@ -144,27 +144,27 @@ CODE_SAMPLE
      * @todo merge to
      * @see \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker
      */
-    private function shouldSkipType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $newType, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipType(\_PhpScopere8e811afab72\PHPStan\Type\Type $newType, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if ($newType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType && $this->shouldSkipArrayType($newType, $classMethod)) {
+        if ($newType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType && $this->shouldSkipArrayType($newType, $classMethod)) {
             return \true;
         }
-        if ($newType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType && $this->shouldSkipUnionType($newType)) {
+        if ($newType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType && $this->shouldSkipUnionType($newType)) {
             return \true;
         }
         // not an array type
-        if ($newType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\VoidType) {
+        if ($newType instanceof \_PhpScopere8e811afab72\PHPStan\Type\VoidType) {
             return \true;
         }
         if ($this->isMoreSpecificArrayTypeOverride($newType, $classMethod)) {
             return \true;
         }
-        if (!$newType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType) {
+        if (!$newType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType) {
             return \false;
         }
         return \count($newType->getValueTypes()) > self::MAX_NUMBER_OF_TYPES;
     }
-    private function shouldSkipClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipClassMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if ($this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethod($classMethod)) {
             return \true;
@@ -174,7 +174,7 @@ CODE_SAMPLE
         }
         return !$this->isNames($classMethod->returnType, ['array', 'iterable']);
     }
-    private function shouldSkipArrayType(\_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $arrayType, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipArrayType(\_PhpScopere8e811afab72\PHPStan\Type\ArrayType $arrayType, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if ($this->isNewAndCurrentTypeBothCallable($arrayType, $classMethod)) {
             return \true;
@@ -184,28 +184,28 @@ CODE_SAMPLE
         }
         return $this->isMixedOfSpecificOverride($arrayType, $classMethod);
     }
-    private function shouldSkipUnionType(\_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType $unionType) : bool
+    private function shouldSkipUnionType(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : bool
     {
         return \count($unionType->getTypes()) > self::MAX_NUMBER_OF_TYPES;
     }
-    private function isMoreSpecificArrayTypeOverride(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $newType, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isMoreSpecificArrayTypeOverride(\_PhpScopere8e811afab72\PHPStan\Type\Type $newType, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$newType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType) {
+        if (!$newType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType) {
             return \false;
         }
-        if (!$newType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NeverType) {
+        if (!$newType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\NeverType) {
             return \false;
         }
         $phpDocReturnType = $this->getNodeReturnPhpDocType($classMethod);
-        if (!$phpDocReturnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
+        if (!$phpDocReturnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
             return \false;
         }
-        return !$phpDocReturnType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\VoidType;
+        return !$phpDocReturnType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\VoidType;
     }
-    private function isNewAndCurrentTypeBothCallable(\_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $newArrayType, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isNewAndCurrentTypeBothCallable(\_PhpScopere8e811afab72\PHPStan\Type\ArrayType $newArrayType, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $currentReturnType = $this->getNodeReturnPhpDocType($classMethod);
-        if (!$currentReturnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
+        if (!$currentReturnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
             return \false;
         }
         if (!$newArrayType->getItemType()->isCallable()->yes()) {
@@ -213,9 +213,9 @@ CODE_SAMPLE
         }
         return $currentReturnType->getItemType()->isCallable()->yes();
     }
-    private function isClassStringArrayByStringArrayOverride(\_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $arrayType, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isClassStringArrayByStringArrayOverride(\_PhpScopere8e811afab72\PHPStan\Type\ArrayType $arrayType, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$arrayType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType) {
+        if (!$arrayType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType) {
             return \false;
         }
         $arrayType = $this->typeNormalizer->convertConstantArrayTypeToArrayType($arrayType);
@@ -223,20 +223,20 @@ CODE_SAMPLE
             return \false;
         }
         $currentReturnType = $this->getNodeReturnPhpDocType($classMethod);
-        if (!$currentReturnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
+        if (!$currentReturnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
             return \false;
         }
-        if (!$currentReturnType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ClassStringType) {
+        if (!$currentReturnType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\ClassStringType) {
             return \false;
         }
-        return $arrayType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\StringType;
+        return $arrayType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\StringType;
     }
-    private function isMixedOfSpecificOverride(\_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $arrayType, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isMixedOfSpecificOverride(\_PhpScopere8e811afab72\PHPStan\Type\ArrayType $arrayType, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$arrayType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+        if (!$arrayType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
             return \false;
         }
         $currentReturnType = $this->getNodeReturnPhpDocType($classMethod);
-        return $currentReturnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+        return $currentReturnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType;
     }
 }

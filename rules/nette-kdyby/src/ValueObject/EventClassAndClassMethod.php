@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\NetteKdyby\ValueObject;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
 final class EventClassAndClassMethod
 {
     /**
@@ -14,7 +14,7 @@ final class EventClassAndClassMethod
      * @var ClassMethod
      */
     private $classMethod;
-    public function __construct(string $eventClass, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    public function __construct(string $eventClass, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->eventClass = $eventClass;
         $this->classMethod = $classMethod;
@@ -23,7 +23,7 @@ final class EventClassAndClassMethod
     {
         return $this->eventClass;
     }
-    public function getClassMethod() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod
+    public function getClassMethod() : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod
     {
         return $this->classMethod;
     }

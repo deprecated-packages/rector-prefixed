@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\NonPhpFile;
+namespace _PhpScopere8e811afab72\Rector\Core\NonPhpFile;
 
-use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration;
-use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\RenamedClassesDataCollector;
-use _PhpScoper0a2ac50786fa\Rector\PSR4\Collector\RenamedClassesCollector;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScopere8e811afab72\Rector\Core\Configuration\Configuration;
+use _PhpScopere8e811afab72\Rector\Core\Configuration\RenamedClassesDataCollector;
+use _PhpScopere8e811afab72\Rector\PSR4\Collector\RenamedClassesCollector;
+use _PhpScopere8e811afab72\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Rector\Renaming\Tests\Rector\Name\RenameClassRector\RenameNonPhpTest
  */
@@ -38,7 +38,7 @@ final class NonPhpFileProcessor
      * @var NonPhpFileClassRenamer
      */
     private $nonPhpFileClassRenamer;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a2ac50786fa\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a2ac50786fa\Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \_PhpScopere8e811afab72\Rector\Core\Configuration\Configuration $configuration, \_PhpScopere8e811afab72\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScopere8e811afab72\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScopere8e811afab72\Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer)
     {
         $this->configuration = $configuration;
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
@@ -56,7 +56,7 @@ final class NonPhpFileProcessor
             $this->processFileInfo($nonPhpFileInfo);
         }
     }
-    public function processFileInfo(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function processFileInfo(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $oldContents = $smartFileInfo->getContents();
         $classRenames = \array_merge($this->renamedClassesDataCollector->getOldToNewClasses(), $this->renamedClassesCollector->getOldToNewClasses());
@@ -68,7 +68,7 @@ final class NonPhpFileProcessor
         $this->reportFileContentChange($smartFileInfo, $newContents);
         return $newContents;
     }
-    private function reportFileContentChange(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent) : void
+    private function reportFileContentChange(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent) : void
     {
         $relativeFilePathFromCwd = $smartFileInfo->getRelativeFilePathFromCwd();
         if ($this->configuration->isDryRun()) {

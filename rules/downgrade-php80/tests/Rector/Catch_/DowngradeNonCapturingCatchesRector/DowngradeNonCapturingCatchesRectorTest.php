@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Tests\Rector\Catch_\DowngradeNonCapturingCatchesRector;
+namespace _PhpScopere8e811afab72\Rector\DowngradePhp80\Tests\Rector\Catch_\DowngradeNonCapturingCatchesRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Rector\Catch_\DowngradeNonCapturingCatchesRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class DowngradeNonCapturingCatchesRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\DowngradePhp80\Rector\Catch_\DowngradeNonCapturingCatchesRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class DowngradeNonCapturingCatchesRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 8.0
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class DowngradeNonCapturingCatchesRectorTest extends \_PhpScoper0a2ac50786
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Rector\Catch_\DowngradeNonCapturingCatchesRector::class;
+        return \_PhpScopere8e811afab72\Rector\DowngradePhp80\Rector\Catch_\DowngradeNonCapturingCatchesRector::class;
     }
 }

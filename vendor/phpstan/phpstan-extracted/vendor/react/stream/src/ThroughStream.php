@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
 use InvalidArgumentException;
 /**
  * The `ThroughStream` implements the
@@ -72,7 +72,7 @@ use InvalidArgumentException;
  * @see DuplexStreamInterface::close()
  * @see WritableStreamInterface::pipe()
  */
-final class ThroughStream extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\DuplexStreamInterface
+final class ThroughStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\DuplexStreamInterface
 {
     private $readable = \true;
     private $writable = \true;
@@ -99,9 +99,9 @@ final class ThroughStream extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f
         }
         $this->paused = \false;
     }
-    public function pipe(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isReadable()
     {

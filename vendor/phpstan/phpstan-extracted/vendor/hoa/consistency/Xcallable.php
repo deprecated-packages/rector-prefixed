@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Consistency;
+namespace _PhpScopere8e811afab72\Hoa\Consistency;
 
-use _PhpScoper0a2ac50786fa\Hoa\Event;
-use _PhpScoper0a2ac50786fa\Hoa\Stream;
+use _PhpScopere8e811afab72\Hoa\Event;
+use _PhpScopere8e811afab72\Hoa\Stream;
 /**
  * Class Hoa\Consistency\Xcallable.
  *
@@ -83,25 +83,25 @@ class Xcallable
             return;
         }
         if (!\is_string($able)) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Consistency\Exception('Bad callback form; the able part must be a string.', 0);
+            throw new \_PhpScopere8e811afab72\Hoa\Consistency\Exception('Bad callback form; the able part must be a string.', 0);
         }
         if ('' === $able) {
             if (\is_string($call)) {
                 if (\false === \strpos($call, '::')) {
                     if (!\function_exists($call)) {
-                        throw new \_PhpScoper0a2ac50786fa\Hoa\Consistency\Exception('Bad callback form; function %s does not exist.', 1, $call);
+                        throw new \_PhpScopere8e811afab72\Hoa\Consistency\Exception('Bad callback form; function %s does not exist.', 1, $call);
                     }
                     $this->_callback = $call;
                     return;
                 }
                 list($call, $able) = \explode('::', $call);
             } elseif (\is_object($call)) {
-                if ($call instanceof \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Out) {
+                if ($call instanceof \_PhpScopere8e811afab72\Hoa\Stream\IStream\Out) {
                     $able = null;
                 } elseif (\method_exists($call, '__invoke')) {
                     $able = '__invoke';
                 } else {
-                    throw new \_PhpScoper0a2ac50786fa\Hoa\Consistency\Exception('Bad callback form; an object but without a known ' . 'method.', 2);
+                    throw new \_PhpScopere8e811afab72\Hoa\Consistency\Exception('Bad callback form; an object but without a known ' . 'method.', 2);
                 }
             } elseif (\is_array($call) && isset($call[0])) {
                 if (!isset($call[1])) {
@@ -109,7 +109,7 @@ class Xcallable
                 }
                 return $this->__construct($call[0], $call[1]);
             } else {
-                throw new \_PhpScoper0a2ac50786fa\Hoa\Consistency\Exception('Bad callback form.', 3);
+                throw new \_PhpScopere8e811afab72\Hoa\Consistency\Exception('Bad callback form.', 3);
             }
         }
         $this->_callback = [$call, $able];
@@ -154,7 +154,7 @@ class Xcallable
         // If method is undetermined, we find it (we understand event bucket and
         // stream).
         if (null !== $head && \is_array($callback) && null === $callback[1]) {
-            if ($head instanceof \_PhpScoper0a2ac50786fa\Hoa\Event\Bucket) {
+            if ($head instanceof \_PhpScopere8e811afab72\Hoa\Event\Bucket) {
                 $head = $head->getData();
             }
             switch ($type = \gettype($head)) {

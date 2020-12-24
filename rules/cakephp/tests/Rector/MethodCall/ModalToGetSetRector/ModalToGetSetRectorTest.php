@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector;
+namespace _PhpScopere8e811afab72\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector;
-use _PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType;
-use _PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\ModalToGetSet;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class ModalToGetSetRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector;
+use _PhpScopere8e811afab72\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType;
+use _PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ModalToGetSet;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class ModalToGetSetRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class ModalToGetSetRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testi
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::class => [\_PhpScoper0a2ac50786fa\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => [new \_PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\ModalToGetSet(\_PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType::class, 'config', null, null, 2, 'array'), new \_PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\ModalToGetSet(\_PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType::class, 'customMethod', 'customMethodGetName', 'customMethodSetName', 2, 'array'), new \_PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\ModalToGetSet(\_PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType::class, 'makeEntity', 'createEntity', 'generateEntity'), new \_PhpScoper0a2ac50786fa\Rector\CakePHP\ValueObject\ModalToGetSet(\_PhpScoper0a2ac50786fa\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType::class, 'method')]]];
+        return [\_PhpScopere8e811afab72\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::class => [\_PhpScopere8e811afab72\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => [new \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ModalToGetSet(\_PhpScopere8e811afab72\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType::class, 'config', null, null, 2, 'array'), new \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ModalToGetSet(\_PhpScopere8e811afab72\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType::class, 'customMethod', 'customMethodGetName', 'customMethodSetName', 2, 'array'), new \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ModalToGetSet(\_PhpScopere8e811afab72\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType::class, 'makeEntity', 'createEntity', 'generateEntity'), new \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ModalToGetSet(\_PhpScopere8e811afab72\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\SomeModelType::class, 'method')]]];
     }
 }

@@ -1,39 +1,39 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type\Php;
+namespace _PhpScopere8e811afab72\PHPStan\Type\Php;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\NullType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeCombinator;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils;
-class ArrayReduceFunctionReturnTypeExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScopere8e811afab72\PHPStan\Type\NullType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeCombinator;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeUtils;
+class ArrayReduceFunctionReturnTypeExtension implements \_PhpScopere8e811afab72\PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'array_reduce';
     }
-    public function getTypeFromFunctionCall(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         if (!isset($functionCall->args[1])) {
-            return \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         }
         $callbackType = $scope->getType($functionCall->args[1]->value);
         if ($callbackType->isCallable()->no()) {
-            return \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         }
-        $callbackReturnType = \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $functionCall->args, $callbackType->getCallableParametersAcceptors($scope))->getReturnType();
+        $callbackReturnType = \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $functionCall->args, $callbackType->getCallableParametersAcceptors($scope))->getReturnType();
         if (isset($functionCall->args[2])) {
             $initialType = $scope->getType($functionCall->args[2]->value);
         } else {
-            $initialType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\NullType();
+            $initialType = new \_PhpScopere8e811afab72\PHPStan\Type\NullType();
         }
         $arraysType = $scope->getType($functionCall->args[0]->value);
-        $constantArrays = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::getConstantArrays($arraysType);
+        $constantArrays = \_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getConstantArrays($arraysType);
         if (\count($constantArrays) > 0) {
             $onlyEmpty = \true;
             $onlyNonEmpty = \true;
@@ -49,6 +49,6 @@ class ArrayReduceFunctionReturnTypeExtension implements \_PhpScoper0a2ac50786fa\
                 return $callbackReturnType;
             }
         }
-        return \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeCombinator::union($callbackReturnType, $initialType);
+        return \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::union($callbackReturnType, $initialType);
     }
 }

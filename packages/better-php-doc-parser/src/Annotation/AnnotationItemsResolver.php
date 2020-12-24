@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Annotation;
+namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Annotation;
 
-use _PhpScoper0a2ac50786fa\Doctrine\Common\Annotations\Annotation;
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\Doctrine\Common\Annotations\Annotation;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
 final class AnnotationItemsResolver
 {
     /**
      * @var AnnotationVisibilityDetector
      */
     private $annotationVisibilityDetector;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
+    public function __construct(\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
     {
         $this->annotationVisibilityDetector = $annotationVisibilityDetector;
     }
@@ -38,7 +38,7 @@ final class AnnotationItemsResolver
     {
         $items = [];
         foreach ((array) $object as $messedPropertyName => $value) {
-            $propertyName = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after($messedPropertyName, "\0", -1);
+            $propertyName = \_PhpScopere8e811afab72\Nette\Utils\Strings::after($messedPropertyName, "\0", -1);
             $items[$propertyName] = $value;
         }
         return $items;

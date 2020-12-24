@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class FetchedNodesResult
 {
     /** @var array<string, array<FetchedNode<\PhpParser\Node\Stmt\ClassLike>>> */
@@ -20,7 +20,7 @@ class FetchedNodesResult
      * @param array<int, FetchedNode<\PhpParser\Node\Stmt\Const_|\PhpParser\Node\Expr\FuncCall>> $constantNodes
      * @param \Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource
      */
-    public function __construct(array $classNodes, array $functionNodes, array $constantNodes, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource)
+    public function __construct(array $classNodes, array $functionNodes, array $constantNodes, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource)
     {
         $this->classNodes = $classNodes;
         $this->functionNodes = $functionNodes;
@@ -48,7 +48,7 @@ class FetchedNodesResult
     {
         return $this->constantNodes;
     }
-    public function getLocatedSource() : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    public function getLocatedSource() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         return $this->locatedSource;
     }

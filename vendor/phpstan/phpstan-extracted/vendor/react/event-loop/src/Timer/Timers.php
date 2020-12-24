@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\Timer;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\Timer;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface;
 /**
  * A scheduler implementation that can hold multiple timer instances
  *
@@ -31,18 +31,18 @@ final class Timers
     {
         return $this->time ?: $this->updateTime();
     }
-    public function add(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
+    public function add(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         $this->timers[$id] = $timer;
         $this->schedule[$id] = $timer->getInterval() + $this->updateTime();
         $this->sorted = \false;
     }
-    public function contains(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
+    public function contains(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
     {
         return isset($this->timers[\spl_object_hash($timer)]);
     }
-    public function cancel(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
+    public function cancel(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         unset($this->timers[$id], $this->schedule[$id]);

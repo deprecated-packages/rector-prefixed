@@ -1,21 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Assign;
+namespace _PhpScopere8e811afab72\Rector\CodingStyle\Rector\Assign;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Assign\SplitDoubleAssignRector\SplitDoubleAssignRectorTest
  */
-final class SplitDoubleAssignRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class SplitDoubleAssignRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Split multiple inline assigns to each own lines default value, to prevent undefined array issues', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Split multiple inline assigns to each own lines default value, to prevent undefined array issues', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -41,18 +48,40 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if (!$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+        $parent = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        $newAssign = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($node->var, $node->expr->expr);
-        $this->addNodeAfterNode($node->expr, $node);
-        return $newAssign;
+        if (!$node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
+            return null;
+        }
+        $newAssign = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($node->var, $node->expr->expr);
+        if (!$this->isExprCallOrNew($node->expr->expr)) {
+            $this->addNodeAfterNode($node->expr, $node);
+            return $newAssign;
+        }
+        $varAssign = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($node->expr->var, $node->var);
+        $this->addNodeBeforeNode(new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression($newAssign), $node);
+        return $varAssign;
+    }
+    private function isExprCallOrNew(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : bool
+    {
+        if ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+            return \true;
+        }
+        if ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
+            return \true;
+        }
+        if ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+            return \true;
+        }
+        return $expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
     }
 }

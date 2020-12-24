@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\Configuration;
+namespace _PhpScopere8e811afab72\Rector\Core\Configuration;
 
-use _PhpScoper0a2ac50786fa\Symplify\Skipper\ValueObject\Option as SkipperOption;
+use _PhpScopere8e811afab72\Symplify\Skipper\ValueObject\Option as SkipperOption;
 final class Option
 {
     /**
@@ -85,7 +85,7 @@ final class Option
     /**
      * @var string
      */
-    public const SKIP = \_PhpScoper0a2ac50786fa\Symplify\Skipper\ValueObject\Option::SKIP;
+    public const SKIP = \_PhpScopere8e811afab72\Symplify\Skipper\ValueObject\Option::SKIP;
     /**
      * @var string
      */

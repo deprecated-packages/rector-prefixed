@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\ConstExpr;
+namespace _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr;
 
-class ConstExprTrueNode implements \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode
+class ConstExprTrueNode implements \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode
 {
     public function __toString() : string
     {

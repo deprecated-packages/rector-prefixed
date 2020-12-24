@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\Php;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\Php;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\NullType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypehintHelper;
-class PhpParameterFromParserNodeReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParameterReflectionWithPhpDocs
+use _PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\NullType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypehintHelper;
+class PhpParameterFromParserNodeReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\ParameterReflectionWithPhpDocs
 {
     /** @var string */
     private $name;
@@ -26,7 +26,7 @@ class PhpParameterFromParserNodeReflection implements \_PhpScoper0a2ac50786fa\PH
     private $variadic;
     /** @var \PHPStan\Type\Type|null */
     private $type = null;
-    public function __construct(string $name, bool $optional, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $realType, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $phpDocType, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference $passedByReference, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $defaultValue, bool $variadic)
+    public function __construct(string $name, bool $optional, \_PhpScopere8e811afab72\PHPStan\Type\Type $realType, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $phpDocType, \_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference $passedByReference, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $defaultValue, bool $variadic)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -44,28 +44,28 @@ class PhpParameterFromParserNodeReflection implements \_PhpScoper0a2ac50786fa\PH
     {
         return $this->optional;
     }
-    public function getType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         if ($this->type === null) {
             $phpDocType = $this->phpDocType;
             if ($phpDocType !== null && $this->defaultValue !== null) {
-                if ($this->defaultValue instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NullType) {
-                    $phpDocType = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeCombinator::addNull($phpDocType);
+                if ($this->defaultValue instanceof \_PhpScopere8e811afab72\PHPStan\Type\NullType) {
+                    $phpDocType = \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::addNull($phpDocType);
                 }
             }
-            $this->type = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypehintHelper::decideType($this->realType, $phpDocType);
+            $this->type = \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideType($this->realType, $phpDocType);
         }
         return $this->type;
     }
-    public function getPhpDocType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getPhpDocType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        return $this->phpDocType ?? new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
+        return $this->phpDocType ?? new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
     }
-    public function getNativeType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getNativeType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->realType;
     }
-    public function passedByReference() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -73,7 +73,7 @@ class PhpParameterFromParserNodeReflection implements \_PhpScoper0a2ac50786fa\PH
     {
         return $this->variadic;
     }
-    public function getDefaultValue() : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getDefaultValue() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

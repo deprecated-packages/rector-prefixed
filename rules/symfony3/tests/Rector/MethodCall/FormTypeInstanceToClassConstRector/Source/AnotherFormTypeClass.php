@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Symfony3\Tests\Rector\MethodCall\FormTypeInstanceToClassConstRector\Source;
+namespace _PhpScopere8e811afab72\Rector\Symfony3\Tests\Rector\MethodCall\FormTypeInstanceToClassConstRector\Source;
 
-use _PhpScoper0a2ac50786fa\Symfony\Component\Form\FormTypeInterface;
-class AnotherFormTypeClass implements \_PhpScoper0a2ac50786fa\Symfony\Component\Form\FormTypeInterface
+use _PhpScopere8e811afab72\Symfony\Component\Form\FormTypeInterface;
+class AnotherFormTypeClass implements \_PhpScopere8e811afab72\Symfony\Component\Form\FormTypeInterface
 {
 }

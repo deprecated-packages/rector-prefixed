@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Polyfill\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\Polyfill\ValueObject;
 
-use _PhpScoper0a2ac50786fa\Rector\Polyfill\Contract\ConditionInterface;
-final class VersionCompareCondition implements \_PhpScoper0a2ac50786fa\Rector\Polyfill\Contract\ConditionInterface
+use _PhpScopere8e811afab72\Rector\Polyfill\Contract\ConditionInterface;
+final class VersionCompareCondition implements \_PhpScopere8e811afab72\Rector\Polyfill\Contract\ConditionInterface
 {
     /**
      * @var int

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\Source;
+namespace _PhpScopere8e811afab72\Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\Source;
 
-use _PhpScoper0a2ac50786fa\Tester\TestCase;
-abstract class ORMTestCase extends \_PhpScoper0a2ac50786fa\Tester\TestCase
+use _PhpScopere8e811afab72\Tester\TestCase;
+abstract class ORMTestCase extends \_PhpScopere8e811afab72\Tester\TestCase
 {
 }

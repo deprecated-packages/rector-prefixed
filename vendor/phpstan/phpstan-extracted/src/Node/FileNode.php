@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Node;
+namespace _PhpScopere8e811afab72\PHPStan\Node;
 
-use _PhpScoper0a2ac50786fa\PhpParser\NodeAbstract;
-class FileNode extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract implements \_PhpScoper0a2ac50786fa\PHPStan\Node\VirtualNode
+use _PhpScopere8e811afab72\PhpParser\NodeAbstract;
+class FileNode extends \_PhpScopere8e811afab72\PhpParser\NodeAbstract implements \_PhpScopere8e811afab72\PHPStan\Node\VirtualNode
 {
     /** @var \PhpParser\Node[] */
     private $nodes;

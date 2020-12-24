@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PhpAttribute\Printer;
+namespace _PhpScopere8e811afab72\Rector\PhpAttribute\Printer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Attribute;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\AttributeGroup;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface;
-use _PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+use _PhpScopere8e811afab72\PhpParser\BuilderHelpers;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Attribute;
+use _PhpScopere8e811afab72\PhpParser\Node\AttributeGroup;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
+use _PhpScopere8e811afab72\Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface;
+use _PhpScopere8e811afab72\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
 final class PhpAttributteGroupFactory
 {
     /**
@@ -34,7 +34,7 @@ final class PhpAttributteGroupFactory
     /**
      * @return Arg[]
      */
-    public function printItemsToAttributeArgs(\_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : array
+    public function printItemsToAttributeArgs(\_PhpScopere8e811afab72\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : array
     {
         $items = $phpAttributableTagNode->getAttributableItems();
         return $this->createArgsFromItems($items);
@@ -42,16 +42,16 @@ final class PhpAttributteGroupFactory
     /**
      * @return AttributeGroup[]
      */
-    private function printPhpAttributableTagNode(\_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : array
+    private function printPhpAttributableTagNode(\_PhpScopere8e811afab72\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : array
     {
         $args = $this->printItemsToAttributeArgs($phpAttributableTagNode);
         $attributeClassName = $this->resolveAttributeClassName($phpAttributableTagNode);
         $attributeGroups = [];
         $attributeGroups[] = $this->createAttributeGroupFromNameAndArgs($attributeClassName, $args);
-        if ($phpAttributableTagNode instanceof \_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface) {
+        if ($phpAttributableTagNode instanceof \_PhpScopere8e811afab72\Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface) {
             foreach ($phpAttributableTagNode->provide() as $shortName => $items) {
                 $args = $this->createArgsFromItems($items);
-                $name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name($shortName);
+                $name = new \_PhpScopere8e811afab72\PhpParser\Node\Name($shortName);
                 $attributeGroups[] = $this->createAttributeGroupFromNameAndArgs($name, $args);
             }
         }
@@ -65,38 +65,38 @@ final class PhpAttributteGroupFactory
     {
         $args = [];
         if ($silentKey !== null && isset($items[$silentKey])) {
-            $silentValue = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeValue($items[$silentKey]);
-            $args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($silentValue);
+            $silentValue = \_PhpScopere8e811afab72\PhpParser\BuilderHelpers::normalizeValue($items[$silentKey]);
+            $args[] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($silentValue);
             unset($items[$silentKey]);
         }
         if ($this->isArrayArguments($items)) {
             foreach ($items as $key => $value) {
-                $argumentName = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($key);
-                $value = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeValue($value);
-                $args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($value, \false, \false, [], $argumentName);
+                $argumentName = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($key);
+                $value = \_PhpScopere8e811afab72\PhpParser\BuilderHelpers::normalizeValue($value);
+                $args[] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($value, \false, \false, [], $argumentName);
             }
         } else {
             foreach ($items as $value) {
-                $value = \_PhpScoper0a2ac50786fa\PhpParser\BuilderHelpers::normalizeValue($value);
-                $args[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($value);
+                $value = \_PhpScopere8e811afab72\PhpParser\BuilderHelpers::normalizeValue($value);
+                $args[] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($value);
             }
         }
         return $args;
     }
-    private function resolveAttributeClassName(\_PhpScoper0a2ac50786fa\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Name
+    private function resolveAttributeClassName(\_PhpScopere8e811afab72\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : \_PhpScopere8e811afab72\PhpParser\Node\Name
     {
         if ($phpAttributableTagNode->getAttributeClassName() !== self::TBA) {
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($phpAttributableTagNode->getAttributeClassName());
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified($phpAttributableTagNode->getAttributeClassName());
         }
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name($phpAttributableTagNode->getShortName());
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Name($phpAttributableTagNode->getShortName());
     }
     /**
      * @param Arg[] $args
      */
-    private function createAttributeGroupFromNameAndArgs(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $name, array $args) : \_PhpScoper0a2ac50786fa\PhpParser\Node\AttributeGroup
+    private function createAttributeGroupFromNameAndArgs(\_PhpScopere8e811afab72\PhpParser\Node\Name $name, array $args) : \_PhpScopere8e811afab72\PhpParser\Node\AttributeGroup
     {
-        $attribute = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Attribute($name, $args);
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\AttributeGroup([$attribute]);
+        $attribute = new \_PhpScopere8e811afab72\PhpParser\Node\Attribute($name, $args);
+        return new \_PhpScopere8e811afab72\PhpParser\Node\AttributeGroup([$attribute]);
     }
     /**
      * @param mixed[] $items

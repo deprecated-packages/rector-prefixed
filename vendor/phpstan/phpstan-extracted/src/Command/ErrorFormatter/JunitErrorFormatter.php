@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Command\ErrorFormatter;
+namespace _PhpScopere8e811afab72\PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Command\AnalysisResult;
-use _PhpScoper0a2ac50786fa\PHPStan\Command\Output;
-use _PhpScoper0a2ac50786fa\PHPStan\File\RelativePathHelper;
+use _PhpScopere8e811afab72\PHPStan\Command\AnalysisResult;
+use _PhpScopere8e811afab72\PHPStan\Command\Output;
+use _PhpScopere8e811afab72\PHPStan\File\RelativePathHelper;
 use function sprintf;
-class JunitErrorFormatter implements \_PhpScoper0a2ac50786fa\PHPStan\Command\ErrorFormatter\ErrorFormatter
+class JunitErrorFormatter implements \_PhpScopere8e811afab72\PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var \PHPStan\File\RelativePathHelper */
     private $relativePathHelper;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\File\RelativePathHelper $relativePathHelper)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\File\RelativePathHelper $relativePathHelper)
     {
         $this->relativePathHelper = $relativePathHelper;
     }
-    public function formatErrors(\_PhpScoper0a2ac50786fa\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoper0a2ac50786fa\PHPStan\Command\Output $output) : int
+    public function formatErrors(\_PhpScopere8e811afab72\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScopere8e811afab72\PHPStan\Command\Output $output) : int
     {
         $result = '<?xml version="1.0" encoding="UTF-8"?>';
         $result .= \sprintf('<testsuite failures="%d" name="phpstan" tests="%d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/junit-team/junit5/r5.5.1/platform-tests/src/test/resources/jenkins-junit.xsd">', $analysisResult->getTotalErrorsCount(), $analysisResult->getTotalErrorsCount());

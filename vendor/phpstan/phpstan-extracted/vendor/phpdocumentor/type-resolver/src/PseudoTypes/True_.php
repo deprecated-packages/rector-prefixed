@@ -9,26 +9,26 @@ declare (strict_types=1);
  *
  * @link https://phpdoc.org
  */
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean;
 use function class_alias;
 /**
  * Value Object representing the PseudoType 'False', which is a Boolean type.
  *
  * @psalm-immutable
  */
-final class True_ extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType
+final class True_ extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType
 {
-    public function underlyingType() : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    public function underlyingType() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
-        return new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean();
+        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean();
     }
     public function __toString() : string
     {
         return 'true';
     }
 }
-\class_alias('_PhpScoper0a2ac50786fa\\_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\PseudoTypes\\True_', '_PhpScoper0a2ac50786fa\\_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\Types\\True_', \false);
+\class_alias('_PhpScopere8e811afab72\\_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\PseudoTypes\\True_', '_PhpScopere8e811afab72\\_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\Types\\True_', \false);

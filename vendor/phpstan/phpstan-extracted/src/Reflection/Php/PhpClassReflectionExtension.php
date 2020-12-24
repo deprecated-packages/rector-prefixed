@@ -1,49 +1,49 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\Php;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\Php;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Declare_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\NodeScopeResolver;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\ScopeContext;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\ScopeFactory;
-use _PhpScoper0a2ac50786fa\PHPStan\Parser\Parser;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDoc\PhpDocInheritanceResolver;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDoc\ResolvedPhpDocBlock;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDoc\StubPhpDocProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionVariantWithPhpDocs;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodsClassReflectionExtension;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Native\NativeMethodReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Native\NativeParameterWithPhpDocsReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertiesClassReflectionExtension;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\SignatureMap\FunctionSignature;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\SignatureMap\ParameterSignature;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\SignatureMap\SignatureMapProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\FileTypeMapper;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeHelper;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\NeverType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypehintHelper;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty;
-class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertiesClassReflectionExtension, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodsClassReflectionExtension
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Declare_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
+use _PhpScopere8e811afab72\PHPStan\Analyser\NodeScopeResolver;
+use _PhpScopere8e811afab72\PHPStan\Analyser\ScopeContext;
+use _PhpScopere8e811afab72\PHPStan\Analyser\ScopeFactory;
+use _PhpScopere8e811afab72\PHPStan\Parser\Parser;
+use _PhpScopere8e811afab72\PHPStan\PhpDoc\PhpDocInheritanceResolver;
+use _PhpScopere8e811afab72\PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use _PhpScopere8e811afab72\PHPStan\PhpDoc\StubPhpDocProvider;
+use _PhpScopere8e811afab72\PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
+use _PhpScopere8e811afab72\PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionVariantWithPhpDocs;
+use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\MethodsClassReflectionExtension;
+use _PhpScopere8e811afab72\PHPStan\Reflection\Native\NativeMethodReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\Native\NativeParameterWithPhpDocsReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PropertiesClassReflectionExtension;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+use _PhpScopere8e811afab72\PHPStan\Reflection\SignatureMap\FunctionSignature;
+use _PhpScopere8e811afab72\PHPStan\Reflection\SignatureMap\ParameterSignature;
+use _PhpScopere8e811afab72\PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\ErrorType;
+use _PhpScopere8e811afab72\PHPStan\Type\FileTypeMapper;
+use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper;
+use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\NeverType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypehintHelper;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeUtils;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty;
+class PhpClassReflectionExtension implements \_PhpScopere8e811afab72\PHPStan\Reflection\PropertiesClassReflectionExtension, \_PhpScopere8e811afab72\PHPStan\Reflection\MethodsClassReflectionExtension
 {
     /** @var ScopeFactory */
     private $scopeFactory;
@@ -98,7 +98,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
      * @param bool $inferPrivatePropertyTypeFromConstructor
      * @param string[] $universalObjectCratesClasses
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Analyser\ScopeFactory $scopeFactory, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\PhpMethodReflectionFactory $methodReflectionFactory, \_PhpScoper0a2ac50786fa\PHPStan\PhpDoc\PhpDocInheritanceResolver $phpDocInheritanceResolver, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider, \_PhpScoper0a2ac50786fa\PHPStan\Parser\Parser $parser, \_PhpScoper0a2ac50786fa\PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper0a2ac50786fa\PHPStan\Type\FileTypeMapper $fileTypeMapper, bool $inferPrivatePropertyTypeFromConstructor, array $universalObjectCratesClasses)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Analyser\ScopeFactory $scopeFactory, \_PhpScopere8e811afab72\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \_PhpScopere8e811afab72\PHPStan\Reflection\Php\PhpMethodReflectionFactory $methodReflectionFactory, \_PhpScopere8e811afab72\PHPStan\PhpDoc\PhpDocInheritanceResolver $phpDocInheritanceResolver, \_PhpScopere8e811afab72\PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension, \_PhpScopere8e811afab72\PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension, \_PhpScopere8e811afab72\PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider, \_PhpScopere8e811afab72\PHPStan\Parser\Parser $parser, \_PhpScopere8e811afab72\PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScopere8e811afab72\PHPStan\Type\FileTypeMapper $fileTypeMapper, bool $inferPrivatePropertyTypeFromConstructor, array $universalObjectCratesClasses)
     {
         $this->scopeFactory = $scopeFactory;
         $this->nodeScopeResolver = $nodeScopeResolver;
@@ -114,18 +114,18 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         $this->inferPrivatePropertyTypeFromConstructor = $inferPrivatePropertyTypeFromConstructor;
         $this->universalObjectCratesClasses = $universalObjectCratesClasses;
     }
-    public function hasProperty(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
+    public function hasProperty(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
     {
         return $classReflection->getNativeReflection()->hasProperty($propertyName);
     }
-    public function getProperty(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection
+    public function getProperty(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection
     {
         if (!isset($this->propertiesIncludingAnnotations[$classReflection->getCacheKey()][$propertyName])) {
             $this->propertiesIncludingAnnotations[$classReflection->getCacheKey()][$propertyName] = $this->createProperty($classReflection, $propertyName, \true);
         }
         return $this->propertiesIncludingAnnotations[$classReflection->getCacheKey()][$propertyName];
     }
-    public function getNativeProperty(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\PhpPropertyReflection
+    public function getNativeProperty(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScopere8e811afab72\PHPStan\Reflection\Php\PhpPropertyReflection
     {
         if (!isset($this->nativeProperties[$classReflection->getCacheKey()][$propertyName])) {
             /** @var \PHPStan\Reflection\Php\PhpPropertyReflection $property */
@@ -134,14 +134,14 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         }
         return $this->nativeProperties[$classReflection->getCacheKey()][$propertyName];
     }
-    private function createProperty(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName, bool $includingAnnotations) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection
+    private function createProperty(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName, bool $includingAnnotations) : \_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection
     {
         $propertyReflection = $classReflection->getNativeReflection()->getProperty($propertyName);
         $propertyName = $propertyReflection->getName();
         $declaringClassName = $propertyReflection->getDeclaringClass()->getName();
         $declaringClassReflection = $classReflection->getAncestorWithClassName($declaringClassName);
         if ($declaringClassReflection === null) {
-            throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException(\sprintf('Internal error: Expected to find an ancestor with class name %s on %s, but none was found.', $declaringClassName, $classReflection->getName()));
+            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException(\sprintf('Internal error: Expected to find an ancestor with class name %s on %s, but none was found.', $declaringClassName, $classReflection->getName()));
         }
         $deprecatedDescription = null;
         $isDeprecated = \false;
@@ -150,7 +150,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
             $hierarchyDistances = $classReflection->getClassHierarchyDistances();
             $annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty($classReflection, $propertyName);
             if (!isset($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()])) {
-                throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
             }
             $distanceDeclaringClass = $propertyReflection->getDeclaringClass()->getName();
             $propertyTrait = $this->findPropertyTrait($propertyReflection);
@@ -158,7 +158,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
                 $distanceDeclaringClass = $propertyTrait;
             }
             if (!isset($hierarchyDistances[$distanceDeclaringClass])) {
-                throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
             }
             if ($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()] < $hierarchyDistances[$distanceDeclaringClass]) {
                 return $annotationProperty;
@@ -216,9 +216,9 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         }
         if ($resolvedPhpDoc !== null) {
             if (!isset($phpDocBlockClassReflection)) {
-                throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
             }
-            $phpDocType = $phpDocType !== null ? \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($phpDocType, $phpDocBlockClassReflection->getActiveTemplateTypeMap()) : null;
+            $phpDocType = $phpDocType !== null ? \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($phpDocType, $phpDocBlockClassReflection->getActiveTemplateTypeMap()) : null;
             $deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
             $isDeprecated = $resolvedPhpDoc->isDeprecated();
             $isInternal = $resolvedPhpDoc->isInternal();
@@ -234,18 +234,18 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         if ($declaringTraitName !== null && $this->reflectionProvider->hasClass($declaringTraitName)) {
             $declaringTrait = $this->reflectionProvider->getClass($declaringTraitName);
         }
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\PhpPropertyReflection($declaringClassReflection, $declaringTrait, $nativeType, $phpDocType, $propertyReflection, $deprecatedDescription, $isDeprecated, $isInternal, $stubPhpDocString);
+        return new \_PhpScopere8e811afab72\PHPStan\Reflection\Php\PhpPropertyReflection($declaringClassReflection, $declaringTrait, $nativeType, $phpDocType, $propertyReflection, $deprecatedDescription, $isDeprecated, $isInternal, $stubPhpDocString);
     }
-    public function hasMethod(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
+    public function hasMethod(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
     {
         return $classReflection->getNativeReflection()->hasMethod($methodName);
     }
-    public function getMethod(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection
+    public function getMethod(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
     {
         if (isset($this->methodsIncludingAnnotations[$classReflection->getCacheKey()][$methodName])) {
             return $this->methodsIncludingAnnotations[$classReflection->getCacheKey()][$methodName];
         }
-        $nativeMethodReflection = new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\NativeBuiltinMethodReflection($classReflection->getNativeReflection()->getMethod($methodName));
+        $nativeMethodReflection = new \_PhpScopere8e811afab72\PHPStan\Reflection\Php\NativeBuiltinMethodReflection($classReflection->getNativeReflection()->getMethod($methodName));
         if (!isset($this->methodsIncludingAnnotations[$classReflection->getCacheKey()][$nativeMethodReflection->getName()])) {
             $method = $this->createMethod($classReflection, $nativeMethodReflection, \true);
             $this->methodsIncludingAnnotations[$classReflection->getCacheKey()][$nativeMethodReflection->getName()] = $method;
@@ -255,29 +255,29 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         }
         return $this->methodsIncludingAnnotations[$classReflection->getCacheKey()][$nativeMethodReflection->getName()];
     }
-    public function hasNativeMethod(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
+    public function hasNativeMethod(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
     {
         $hasMethod = $this->hasMethod($classReflection, $methodName);
         if ($hasMethod) {
             return \true;
         }
-        if ($methodName === '__get' && \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate($this->reflectionProvider, $this->universalObjectCratesClasses, $classReflection)) {
+        if ($methodName === '__get' && \_PhpScopere8e811afab72\PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate($this->reflectionProvider, $this->universalObjectCratesClasses, $classReflection)) {
             return \true;
         }
         return \false;
     }
-    public function getNativeMethod(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection
+    public function getNativeMethod(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
     {
         if (isset($this->nativeMethods[$classReflection->getCacheKey()][$methodName])) {
             return $this->nativeMethods[$classReflection->getCacheKey()][$methodName];
         }
         if ($classReflection->getNativeReflection()->hasMethod($methodName)) {
-            $nativeMethodReflection = new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\NativeBuiltinMethodReflection($classReflection->getNativeReflection()->getMethod($methodName));
+            $nativeMethodReflection = new \_PhpScopere8e811afab72\PHPStan\Reflection\Php\NativeBuiltinMethodReflection($classReflection->getNativeReflection()->getMethod($methodName));
         } else {
-            if ($methodName !== '__get' || !\_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate($this->reflectionProvider, $this->universalObjectCratesClasses, $classReflection)) {
-                throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+            if ($methodName !== '__get' || !\_PhpScopere8e811afab72\PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate($this->reflectionProvider, $this->universalObjectCratesClasses, $classReflection)) {
+                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
             }
-            $nativeMethodReflection = new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\FakeBuiltinMethodReflection($methodName, $classReflection->getNativeReflection());
+            $nativeMethodReflection = new \_PhpScopere8e811afab72\PHPStan\Reflection\Php\FakeBuiltinMethodReflection($methodName, $classReflection->getNativeReflection());
         }
         if (!isset($this->nativeMethods[$classReflection->getCacheKey()][$nativeMethodReflection->getName()])) {
             $method = $this->createMethod($classReflection, $nativeMethodReflection, \false);
@@ -285,13 +285,13 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         }
         return $this->nativeMethods[$classReflection->getCacheKey()][$nativeMethodReflection->getName()];
     }
-    private function createMethod(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\BuiltinMethodReflection $methodReflection, bool $includingAnnotations) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection
+    private function createMethod(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, \_PhpScopere8e811afab72\PHPStan\Reflection\Php\BuiltinMethodReflection $methodReflection, bool $includingAnnotations) : \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
     {
         if ($includingAnnotations && $this->annotationsMethodsClassReflectionExtension->hasMethod($classReflection, $methodReflection->getName())) {
             $hierarchyDistances = $classReflection->getClassHierarchyDistances();
             $annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($classReflection, $methodReflection->getName());
             if (!isset($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()])) {
-                throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
             }
             $distanceDeclaringClass = $methodReflection->getDeclaringClass()->getName();
             $methodTrait = $this->findMethodTrait($methodReflection);
@@ -299,7 +299,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
                 $distanceDeclaringClass = $methodTrait;
             }
             if (!isset($hierarchyDistances[$distanceDeclaringClass])) {
-                throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
             }
             if ($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()] < $hierarchyDistances[$distanceDeclaringClass]) {
                 return $annotationMethod;
@@ -308,7 +308,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         $declaringClassName = $methodReflection->getDeclaringClass()->getName();
         $declaringClass = $classReflection->getAncestorWithClassName($declaringClassName);
         if ($declaringClass === null) {
-            throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException(\sprintf('Internal error: Expected to find an ancestor with class name %s on %s, but none was found.', $declaringClassName, $classReflection->getName()));
+            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException(\sprintf('Internal error: Expected to find an ancestor with class name %s on %s, but none was found.', $declaringClassName, $classReflection->getName()));
         }
         if ($this->signatureMapProvider->hasMethodSignature($declaringClassName, $methodReflection->getName())) {
             $variantNumbers = [];
@@ -340,7 +340,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
                 $phpDocParameterTypes = [];
                 $phpDocReturnType = null;
                 if (\count($variantNumbers) === 1) {
-                    $stubPhpDocPair = $this->findMethodPhpDocIncludingAncestors($declaringClass, $methodReflection->getName(), \array_map(static function (\_PhpScoper0a2ac50786fa\PHPStan\Reflection\SignatureMap\ParameterSignature $parameterSignature) : string {
+                    $stubPhpDocPair = $this->findMethodPhpDocIncludingAncestors($declaringClass, $methodReflection->getName(), \array_map(static function (\_PhpScopere8e811afab72\PHPStan\Reflection\SignatureMap\ParameterSignature $parameterSignature) : string {
                         return $parameterSignature->getName();
                     }, $methodSignature->getParameters()));
                     if ($stubPhpDocPair !== null) {
@@ -349,10 +349,10 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
                         $templateTypeMap = $stubDeclaringClass->getActiveTemplateTypeMap();
                         $returnTag = $stubPhpDoc->getReturnTag();
                         if ($returnTag !== null) {
-                            $stubPhpDocReturnType = \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($returnTag->getType(), $templateTypeMap);
+                            $stubPhpDocReturnType = \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($returnTag->getType(), $templateTypeMap);
                         }
                         foreach ($stubPhpDoc->getParamTags() as $name => $paramTag) {
-                            $stubPhpDocParameterTypes[$name] = \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($paramTag->getType(), $templateTypeMap);
+                            $stubPhpDocParameterTypes[$name] = \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($paramTag->getType(), $templateTypeMap);
                             $stubPhpDocParameterVariadicity[$name] = $paramTag->isVariadic();
                         }
                     } elseif ($reflectionMethod !== null && $reflectionMethod->getDocComment() !== \false) {
@@ -379,11 +379,11 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
                 $variants[] = $this->createNativeMethodVariant($methodSignature, $stubPhpDocParameterTypes, $stubPhpDocParameterVariadicity, $stubPhpDocReturnType, $phpDocParameterTypes, $phpDocReturnType, $phpDocParameterNameMapping);
             }
             if ($this->signatureMapProvider->hasMethodMetadata($declaringClassName, $methodReflection->getName())) {
-                $hasSideEffects = \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createFromBoolean($this->signatureMapProvider->getMethodMetadata($declaringClassName, $methodReflection->getName())['hasSideEffects']);
+                $hasSideEffects = \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean($this->signatureMapProvider->getMethodMetadata($declaringClassName, $methodReflection->getName())['hasSideEffects']);
             } else {
-                $hasSideEffects = \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+                $hasSideEffects = \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
             }
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Native\NativeMethodReflection($this->reflectionProvider, $declaringClass, $methodReflection, $variants, $hasSideEffects, $stubPhpDocString);
+            return new \_PhpScopere8e811afab72\PHPStan\Reflection\Native\NativeMethodReflection($this->reflectionProvider, $declaringClass, $methodReflection, $variants, $hasSideEffects, $stubPhpDocString);
         }
         $declaringTraitName = $this->findMethodTrait($methodReflection);
         $resolvedPhpDoc = null;
@@ -411,7 +411,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         if ($declaringTraitName !== null && $this->reflectionProvider->hasClass($declaringTraitName)) {
             $declaringTrait = $this->reflectionProvider->getClass($declaringTraitName);
         }
-        $templateTypeMap = \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        $templateTypeMap = \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         $phpDocParameterTypes = [];
         $phpDocReturnType = null;
         $phpDocThrowType = null;
@@ -419,7 +419,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         $isDeprecated = \false;
         $isInternal = \false;
         $isFinal = \false;
-        if ($methodReflection instanceof \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\NativeBuiltinMethodReflection && $methodReflection->isConstructor() && $declaringClass->getFileName() !== \false) {
+        if ($methodReflection instanceof \_PhpScopere8e811afab72\PHPStan\Reflection\Php\NativeBuiltinMethodReflection && $methodReflection->isConstructor() && $declaringClass->getFileName() !== \false) {
             foreach ($methodReflection->getParameters() as $parameter) {
                 if (!\method_exists($parameter, 'isPromoted') || !$parameter->isPromoted()) {
                     continue;
@@ -455,9 +455,9 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
                 $phpDocParameterTypes[$paramName] = $paramTag->getType();
             }
             foreach ($phpDocParameterTypes as $paramName => $paramType) {
-                $phpDocParameterTypes[$paramName] = \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($paramType, $phpDocBlockClassReflection->getActiveTemplateTypeMap());
+                $phpDocParameterTypes[$paramName] = \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($paramType, $phpDocBlockClassReflection->getActiveTemplateTypeMap());
             }
-            $nativeReturnType = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypehintHelper::decideTypeFromReflection($methodReflection->getReturnType(), null, $declaringClass->getName());
+            $nativeReturnType = \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideTypeFromReflection($methodReflection->getReturnType(), null, $declaringClass->getName());
             $phpDocReturnType = $this->getPhpDocReturnType($phpDocBlockClassReflection, $resolvedPhpDoc, $nativeReturnType);
             $phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
             $deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
@@ -477,7 +477,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
      * @param array<string, string> $phpDocParameterNameMapping
      * @return FunctionVariantWithPhpDocs
      */
-    private function createNativeMethodVariant(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\SignatureMap\FunctionSignature $methodSignature, array $stubPhpDocParameterTypes, array $stubPhpDocParameterVariadicity, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $stubPhpDocReturnType, array $phpDocParameterTypes, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $phpDocReturnType, array $phpDocParameterNameMapping) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionVariantWithPhpDocs
+    private function createNativeMethodVariant(\_PhpScopere8e811afab72\PHPStan\Reflection\SignatureMap\FunctionSignature $methodSignature, array $stubPhpDocParameterTypes, array $stubPhpDocParameterVariadicity, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $stubPhpDocReturnType, array $phpDocParameterTypes, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $phpDocReturnType, array $phpDocParameterNameMapping) : \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionVariantWithPhpDocs
     {
         $parameters = [];
         foreach ($methodSignature->getParameters() as $parameterSignature) {
@@ -490,18 +490,18 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
             } elseif (isset($phpDocParameterTypes[$phpDocParameterName])) {
                 $phpDocType = $phpDocParameterTypes[$phpDocParameterName];
             }
-            $parameters[] = new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Native\NativeParameterWithPhpDocsReflection($parameterSignature->getName(), $parameterSignature->isOptional(), $type ?? $parameterSignature->getType(), $phpDocType ?? new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(), $parameterSignature->getNativeType(), $parameterSignature->passedByReference(), $stubPhpDocParameterVariadicity[$parameterSignature->getName()] ?? $parameterSignature->isVariadic(), null);
+            $parameters[] = new \_PhpScopere8e811afab72\PHPStan\Reflection\Native\NativeParameterWithPhpDocsReflection($parameterSignature->getName(), $parameterSignature->isOptional(), $type ?? $parameterSignature->getType(), $phpDocType ?? new \_PhpScopere8e811afab72\PHPStan\Type\MixedType(), $parameterSignature->getNativeType(), $parameterSignature->passedByReference(), $stubPhpDocParameterVariadicity[$parameterSignature->getName()] ?? $parameterSignature->isVariadic(), null);
         }
         $returnType = null;
         if ($stubPhpDocReturnType !== null) {
             $returnType = $stubPhpDocReturnType;
             $phpDocReturnType = $stubPhpDocReturnType;
         }
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionVariantWithPhpDocs(\_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $parameters, $methodSignature->isVariadic(), $returnType ?? $methodSignature->getReturnType(), $phpDocReturnType ?? new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(), $methodSignature->getNativeReturnType());
+        return new \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionVariantWithPhpDocs(\_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $parameters, $methodSignature->isVariadic(), $returnType ?? $methodSignature->getReturnType(), $phpDocReturnType ?? new \_PhpScopere8e811afab72\PHPStan\Type\MixedType(), $methodSignature->getNativeReturnType());
     }
     private function findPropertyTrait(\ReflectionProperty $propertyReflection) : ?string
     {
-        if ($propertyReflection instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty) {
+        if ($propertyReflection instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionProperty) {
             $declaringClass = $propertyReflection->getBetterReflection()->getDeclaringClass();
             if ($declaringClass->isTrait()) {
                 if ($propertyReflection->getDeclaringClass()->isTrait() && $propertyReflection->getDeclaringClass()->getName() === $declaringClass->getName()) {
@@ -540,9 +540,9 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         }
         return null;
     }
-    private function findMethodTrait(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\BuiltinMethodReflection $methodReflection) : ?string
+    private function findMethodTrait(\_PhpScopere8e811afab72\PHPStan\Reflection\Php\BuiltinMethodReflection $methodReflection) : ?string
     {
-        if ($methodReflection->getReflection() instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod) {
+        if ($methodReflection->getReflection() instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionMethod) {
             $declaringClass = $methodReflection->getReflection()->getBetterReflection()->getDeclaringClass();
             if ($declaringClass->isTrait()) {
                 if ($methodReflection->getDeclaringClass()->isTrait() && $declaringClass->getName() === $methodReflection->getDeclaringClass()->getName()) {
@@ -592,7 +592,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         }
         return $traits;
     }
-    private function inferPrivatePropertyType(string $propertyName, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection $constructor) : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    private function inferPrivatePropertyType(string $propertyName, \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $constructor) : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         $declaringClassName = $constructor->getDeclaringClass()->getName();
         if (isset($this->inferClassConstructorPropertyTypesInProcess[$declaringClassName])) {
@@ -610,7 +610,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
      * @param \PHPStan\Reflection\MethodReflection $constructor
      * @return array<string, Type>
      */
-    private function inferAndCachePropertyTypes(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection $constructor) : array
+    private function inferAndCachePropertyTypes(\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $constructor) : array
     {
         $declaringClass = $constructor->getDeclaringClass();
         if (isset($this->propertyTypesCache[$declaringClass->getName()])) {
@@ -634,32 +634,32 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         if (\count($classNameParts) > 1) {
             $namespace = \implode('\\', \array_slice($classNameParts, 0, -1));
         }
-        $classScope = $this->scopeFactory->create(\_PhpScoper0a2ac50786fa\PHPStan\Analyser\ScopeContext::create($fileName), \false, [], $constructor, $namespace)->enterClass($declaringClass);
+        $classScope = $this->scopeFactory->create(\_PhpScopere8e811afab72\PHPStan\Analyser\ScopeContext::create($fileName), \false, [], $constructor, $namespace)->enterClass($declaringClass);
         [$templateTypeMap, $phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal] = $this->nodeScopeResolver->getPhpDocs($classScope, $methodNode);
         $methodScope = $classScope->enterClassMethod($methodNode, $templateTypeMap, $phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal);
         $propertyTypes = [];
         foreach ($methodNode->stmts as $statement) {
-            if (!$statement instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
+            if (!$statement instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
                 continue;
             }
             $expr = $statement->expr;
-            if (!$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign) {
+            if (!$expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
                 continue;
             }
-            if (!$expr->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch) {
+            if (!$expr->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
                 continue;
             }
             $propertyFetch = $expr->var;
-            if (!$propertyFetch->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable || $propertyFetch->var->name !== 'this' || !$propertyFetch->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier) {
+            if (!$propertyFetch->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable || $propertyFetch->var->name !== 'this' || !$propertyFetch->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
                 continue;
             }
             $propertyType = $methodScope->getType($expr->expr);
-            if ($propertyType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ErrorType || $propertyType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NeverType) {
+            if ($propertyType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType || $propertyType instanceof \_PhpScopere8e811afab72\PHPStan\Type\NeverType) {
                 continue;
             }
-            $propertyType = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::generalizeType($propertyType);
-            if ($propertyType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType) {
-                $propertyType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType(new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(\true), new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType(\true));
+            $propertyType = \_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::generalizeType($propertyType);
+            if ($propertyType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType) {
+                $propertyType = new \_PhpScopere8e811afab72\PHPStan\Type\ArrayType(new \_PhpScopere8e811afab72\PHPStan\Type\MixedType(\true), new \_PhpScopere8e811afab72\PHPStan\Type\MixedType(\true));
             }
             $propertyTypes[$propertyFetch->name->toString()] = $propertyType;
         }
@@ -670,13 +670,13 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
      * @param \PhpParser\Node[] $nodes
      * @return \PhpParser\Node\Stmt\Class_|null
      */
-    private function findClassNode(string $className, array $nodes) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_
+    private function findClassNode(string $className, array $nodes) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_
     {
         foreach ($nodes as $node) {
-            if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ && $node->namespacedName->toString() === $className) {
+            if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ && $node->namespacedName->toString() === $className) {
                 return $node;
             }
-            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ && !$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Declare_) {
+            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_ && !$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Declare_) {
                 continue;
             }
             $subNodeNames = $node->getSubNodeNames();
@@ -699,23 +699,23 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
      * @param \PhpParser\Node\Stmt[] $classStatements
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function findConstructorNode(string $methodName, array $classStatements) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod
+    private function findConstructorNode(string $methodName, array $classStatements) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod
     {
         foreach ($classStatements as $statement) {
-            if ($statement instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod && $statement->name->toString() === $methodName) {
+            if ($statement instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod && $statement->name->toString() === $methodName) {
                 return $statement;
             }
         }
         return null;
     }
-    private function getPhpDocReturnType(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $phpDocBlockClassReflection, \_PhpScoper0a2ac50786fa\PHPStan\PhpDoc\ResolvedPhpDocBlock $resolvedPhpDoc, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $nativeReturnType) : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    private function getPhpDocReturnType(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $phpDocBlockClassReflection, \_PhpScopere8e811afab72\PHPStan\PhpDoc\ResolvedPhpDocBlock $resolvedPhpDoc, \_PhpScopere8e811afab72\PHPStan\Type\Type $nativeReturnType) : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         $returnTag = $resolvedPhpDoc->getReturnTag();
         if ($returnTag === null) {
             return null;
         }
         $phpDocReturnType = $returnTag->getType();
-        $phpDocReturnType = \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($phpDocReturnType, $phpDocBlockClassReflection->getActiveTemplateTypeMap());
+        $phpDocReturnType = \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($phpDocReturnType, $phpDocBlockClassReflection->getActiveTemplateTypeMap());
         if ($returnTag->isExplicit() || $nativeReturnType->isSuperTypeOf($phpDocReturnType)->yes()) {
             return $phpDocReturnType;
         }
@@ -727,7 +727,7 @@ class PhpClassReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
      * @param array<int, string> $positionalParameterNames
      * @return array{\PHPStan\PhpDoc\ResolvedPhpDocBlock, ClassReflection}|null
      */
-    private function findMethodPhpDocIncludingAncestors(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $declaringClass, string $methodName, array $positionalParameterNames) : ?array
+    private function findMethodPhpDocIncludingAncestors(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $declaringClass, string $methodName, array $positionalParameterNames) : ?array
     {
         $declaringClassName = $declaringClass->getName();
         $resolved = $this->stubPhpDocProvider->findMethodPhpDoc($declaringClassName, $methodName, $positionalParameterNames);

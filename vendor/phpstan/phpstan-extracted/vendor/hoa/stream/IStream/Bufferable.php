@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Stream\IStream;
+namespace _PhpScopere8e811afab72\Hoa\Stream\IStream;
 
 /**
  * Interface \Hoa\Stream\IStream\Bufferable.
@@ -45,7 +45,7 @@ namespace _PhpScoper0a2ac50786fa\Hoa\Stream\IStream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-interface Bufferable extends \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stream
+interface Bufferable extends \_PhpScopere8e811afab72\Hoa\Stream\IStream\Stream
 {
     /**
      * Start a new buffer.

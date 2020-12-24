@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\ClassMethod;
+namespace _PhpScopere8e811afab72\Rector\CodingStyle\Rector\ClassMethod;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Yield_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTransformer;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Yield_;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
+use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTransformer;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://medium.com/tech-tajawal/use-memory-gently-with-yield-in-php-7e62e2480b8d
  * @see https://3v4l.org/5PJid
  *
  * @see \Rector\CodingStyle\Tests\Rector\ClassMethod\YieldClassMethodToArrayClassMethodRector\YieldClassMethodToArrayClassMethodRectorTest
  */
-final class YieldClassMethodToArrayClassMethodRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class YieldClassMethodToArrayClassMethodRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -37,14 +37,14 @@ final class YieldClassMethodToArrayClassMethodRector extends \_PhpScoper0a2ac507
     /**
      * @param string[][] $methodsByType
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\NodeTransformer $nodeTransformer, array $methodsByType = [])
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTransformer $nodeTransformer, array $methodsByType = [])
     {
         $this->methodsByType = $methodsByType;
         $this->nodeTransformer = $nodeTransformer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns yield return to array return in specific type and method', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns yield return to array return in specific type and method', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeEventSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
@@ -69,12 +69,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         foreach ($this->methodsByType as $type => $methods) {
             if (!$this->isObjectType($node, $type)) {
@@ -90,8 +90,8 @@ CODE_SAMPLE
                 }
                 $arrayNode = $this->nodeTransformer->transformYieldsToArray($yieldNodes);
                 $this->removeNodes($yieldNodes);
-                $node->returnType = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier('array');
-                $returnExpression = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_($arrayNode);
+                $node->returnType = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier('array');
+                $returnExpression = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_($arrayNode);
                 $node->stmts = \array_merge((array) $node->stmts, [$returnExpression]);
             }
         }
@@ -104,17 +104,17 @@ CODE_SAMPLE
     /**
      * @return Yield_[]
      */
-    private function collectYieldNodesFromClassMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function collectYieldNodesFromClassMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $yieldNodes = [];
         if ($classMethod->stmts === null) {
             return [];
         }
         foreach ($classMethod->stmts as $statement) {
-            if (!$statement instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
+            if (!$statement instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
                 continue;
             }
-            if ($statement->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Yield_) {
+            if ($statement->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Yield_) {
                 $yieldNodes[] = $statement->expr;
             }
         }

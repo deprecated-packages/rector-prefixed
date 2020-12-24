@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\MysqlToMysqli\Rector\Assign;
+namespace _PhpScopere8e811afab72\Rector\MysqlToMysqli\Rector\Assign;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.phpclasses.org/blog/package/9199/post/3-Smoothly-Migrate-your-PHP-Code-using-the-Old-MySQL-extension-to-MySQLi.html
  * @see \Rector\MysqlToMysqli\Tests\Rector\Assign\MysqlAssignToMysqliRector\MysqlAssignToMysqliRectorTest
  */
-final class MysqlAssignToMysqliRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class MysqlAssignToMysqliRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
@@ -30,9 +30,9 @@ final class MysqlAssignToMysqliRector extends \_PhpScoper0a2ac50786fa\Rector\Cor
      * @var string
      */
     private const MYSQLI_DATA_SEEK = 'mysqli_data_seek';
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Converts more complex mysql functions to mysqli', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Converts more complex mysql functions to mysqli', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $data = mysql_db_name($result, $row);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -47,14 +47,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if (!$node->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
+        if (!$node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         /** @var FuncCall $funcCallNode */
@@ -76,68 +76,68 @@ CODE_SAMPLE
         }
         return $this->processFieldToFieldDirect($node, $funcCallNode);
     }
-    private function processMysqlTableName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
+    private function processMysqlTableName(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall
     {
-        $funcCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name(self::MYSQLI_DATA_SEEK);
-        $newFuncCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysql_fetch_array'), [$funcCall->args[0]]);
-        $newAssignNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($assign->var, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch($newFuncCall, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber(0)));
+        $funcCall->name = new \_PhpScopere8e811afab72\PhpParser\Node\Name(self::MYSQLI_DATA_SEEK);
+        $newFuncCall = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('mysql_fetch_array'), [$funcCall->args[0]]);
+        $newAssignNode = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($assign->var, new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch($newFuncCall, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber(0)));
         $this->addNodeAfterNode($newAssignNode, $assign);
         return $funcCall;
     }
-    private function processMysqlDbName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
+    private function processMysqlDbName(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall
     {
-        $funcCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name(self::MYSQLI_DATA_SEEK);
-        $mysqlFetchRowFuncCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysqli_fetch_row'), [$funcCall->args[0]]);
-        $fetchVariable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('fetch');
-        $newAssignNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($fetchVariable, $mysqlFetchRowFuncCall);
+        $funcCall->name = new \_PhpScopere8e811afab72\PhpParser\Node\Name(self::MYSQLI_DATA_SEEK);
+        $mysqlFetchRowFuncCall = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('mysqli_fetch_row'), [$funcCall->args[0]]);
+        $fetchVariable = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable('fetch');
+        $newAssignNode = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($fetchVariable, $mysqlFetchRowFuncCall);
         $this->addNodeAfterNode($newAssignNode, $assign);
-        $newAssignNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($assign->var, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch($fetchVariable, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber(0)));
+        $newAssignNode = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($assign->var, new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch($fetchVariable, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber(0)));
         $this->addNodeAfterNode($newAssignNode, $assign);
         return $funcCall;
     }
-    private function processMysqliSelectDb(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
+    private function processMysqliSelectDb(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall
     {
-        $funcCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysqli_select_db');
-        $newAssignNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($assign->var, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysqli_query'), [$funcCall->args[1]]));
+        $funcCall->name = new \_PhpScopere8e811afab72\PhpParser\Node\Name('mysqli_select_db');
+        $newAssignNode = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($assign->var, new \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('mysqli_query'), [$funcCall->args[1]]));
         $this->addNodeAfterNode($newAssignNode, $assign);
         unset($funcCall->args[1]);
         return $funcCall;
     }
-    private function processMysqlFetchField(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign
+    private function processMysqlFetchField(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign
     {
         if (isset($funcCall->args[1])) {
-            $funcCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysqli_fetch_field_direct');
+            $funcCall->name = new \_PhpScopere8e811afab72\PhpParser\Node\Name('mysqli_fetch_field_direct');
         } else {
-            $funcCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysqli_fetch_field');
+            $funcCall->name = new \_PhpScopere8e811afab72\PhpParser\Node\Name('mysqli_fetch_field');
         }
         return $assign;
     }
-    private function processMysqlResult(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
+    private function processMysqlResult(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall
     {
         $fetchField = null;
         if (isset($funcCall->args[2])) {
             $fetchField = $funcCall->args[2]->value;
             unset($funcCall->args[2]);
         }
-        $funcCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name(self::MYSQLI_DATA_SEEK);
-        $mysqlFetchArrayFuncCall = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysqli_fetch_array'), [$funcCall->args[0]]);
-        $fetchVariable = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable('fetch');
-        $newAssignNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($fetchVariable, $mysqlFetchArrayFuncCall);
+        $funcCall->name = new \_PhpScopere8e811afab72\PhpParser\Node\Name(self::MYSQLI_DATA_SEEK);
+        $mysqlFetchArrayFuncCall = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('mysqli_fetch_array'), [$funcCall->args[0]]);
+        $fetchVariable = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable('fetch');
+        $newAssignNode = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($fetchVariable, $mysqlFetchArrayFuncCall);
         $this->addNodeAfterNode($newAssignNode, $assign);
-        $newAssignNode = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign($assign->var, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayDimFetch($fetchVariable, $fetchField ?? new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber(0)));
+        $newAssignNode = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($assign->var, new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch($fetchVariable, $fetchField ?? new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber(0)));
         $this->addNodeAfterNode($newAssignNode, $assign);
         return $funcCall;
     }
-    private function processFieldToFieldDirect(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Assign
+    private function processFieldToFieldDirect(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign
     {
         foreach (self::FIELD_TO_FIELD_DIRECT as $funcName => $property) {
             if ($this->isName($funcCall, $funcName)) {
-                $parentNode = $funcCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-                if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch || $parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticPropertyFetch) {
+                $parentNode = $funcCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+                if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch || $parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch) {
                     continue;
                 }
-                $funcCall->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('mysqli_fetch_field_direct');
-                $assign->expr = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch($funcCall, $property);
+                $funcCall->name = new \_PhpScopere8e811afab72\PhpParser\Node\Name('mysqli_fetch_field_direct');
+                $assign->expr = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch($funcCall, $property);
                 return $assign;
             }
         }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodeQuality\Tests\Rector\Name\FixClassCaseSensitivityNameRector\Source;
+namespace _PhpScopere8e811afab72\Rector\CodeQuality\Tests\Rector\Name\FixClassCaseSensitivityNameRector\Source;
 
 final class MissCaseTypedClass
 {

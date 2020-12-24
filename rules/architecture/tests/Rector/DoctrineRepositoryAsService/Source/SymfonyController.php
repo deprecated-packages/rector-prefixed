@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source;
+namespace _PhpScopere8e811afab72\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source;
 
 class SymfonyController
 {

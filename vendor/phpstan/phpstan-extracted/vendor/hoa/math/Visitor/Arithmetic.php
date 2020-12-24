@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Math\Visitor;
+namespace _PhpScopere8e811afab72\Hoa\Math\Visitor;
 
-use _PhpScoper0a2ac50786fa\Hoa\Math;
-use _PhpScoper0a2ac50786fa\Hoa\Visitor;
+use _PhpScopere8e811afab72\Hoa\Math;
+use _PhpScopere8e811afab72\Hoa\Visitor;
 /**
  * Class \Hoa\Math\Visitor\Arithmetic.
  *
@@ -46,7 +46,7 @@ use _PhpScoper0a2ac50786fa\Hoa\Visitor;
  *             Ivan Enderlin, Cédric Dugat.
  * @license    New BSD License
  */
-class Arithmetic implements \_PhpScoper0a2ac50786fa\Hoa\Visitor\Visit
+class Arithmetic implements \_PhpScopere8e811afab72\Hoa\Visitor\Visit
 {
     /**
      * Visitor context containing the list of supported functions, constants and variables
@@ -69,7 +69,7 @@ class Arithmetic implements \_PhpScoper0a2ac50786fa\Hoa\Visitor\Visit
      * @param   \Hoa\Math\Context $context
      * @return  \Hoa\Math\Context
      */
-    public function setContext(\_PhpScoper0a2ac50786fa\Hoa\Math\Context $context)
+    public function setContext(\_PhpScopere8e811afab72\Hoa\Math\Context $context)
     {
         $old = $this->_context;
         $this->_context = $context;
@@ -92,7 +92,7 @@ class Arithmetic implements \_PhpScoper0a2ac50786fa\Hoa\Visitor\Visit
      * @param   mixed                 $eldnah     Handle (not reference).
      * @return  float
      */
-    public function visit(\_PhpScoper0a2ac50786fa\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
+    public function visit(\_PhpScopere8e811afab72\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
     {
         $type = $element->getId();
         $children = $element->getChildren();
@@ -270,7 +270,7 @@ class Arithmetic implements \_PhpScoper0a2ac50786fa\Hoa\Visitor\Visit
     protected function initializeContext()
     {
         if (null === $this->_context) {
-            $this->_context = new \_PhpScoper0a2ac50786fa\Hoa\Math\Context();
+            $this->_context = new \_PhpScopere8e811afab72\Hoa\Math\Context();
         }
         return;
     }

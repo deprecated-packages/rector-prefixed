@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Transform\Rector\FuncCall;
+namespace _PhpScopere8e811afab72\Rector\Transform\Rector\FuncCall;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall;
-use _PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScopere8e811afab72\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall;
+use _PhpScopere8e811afab72\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\FuncCall\ArgumentFuncCallToMethodCallRector\ArgumentFuncCallToMethodCallRectorTest
  */
-final class ArgumentFuncCallToMethodCallRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ArgumentFuncCallToMethodCallRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -45,13 +45,13 @@ final class ArgumentFuncCallToMethodCallRector extends \_PhpScoper0a2ac50786fa\R
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming $propertyNaming)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->propertyNaming = $propertyNaming;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move help facade-like function calls to constructor injection', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move help facade-like function calls to constructor injection', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeController
 {
     public function action()
@@ -81,25 +81,25 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, [self::FUNCTIONS_TO_METHOD_CALLS => [new \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('view', '_PhpScoper0a2ac50786fa\\Illuminate\\Contracts\\View\\Factory', 'make')]])]);
+, [self::FUNCTIONS_TO_METHOD_CALLS => [new \_PhpScopere8e811afab72\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('view', '_PhpScopere8e811afab72\\Illuminate\\Contracts\\View\\Factory', 'make')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if ($this->shouldSkipFuncCall($node)) {
             return null;
         }
         /** @var Class_ $classLike */
-        $classLike = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         foreach ($this->argumentFuncCallToMethodCalls as $functionToMethodCall) {
             if (!$this->isName($node, $functionToMethodCall->getFunction())) {
                 continue;
@@ -120,17 +120,17 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $functionToMethodCalls = $configuration[self::FUNCTIONS_TO_METHOD_CALLS] ?? [];
-        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsInstanceOf($functionToMethodCalls, \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall::class);
+        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($functionToMethodCalls, \_PhpScopere8e811afab72\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall::class);
         $this->argumentFuncCallToMethodCalls = $functionToMethodCalls;
         $arrayFunctionsToMethodCalls = $configuration[self::ARRAY_FUNCTIONS_TO_METHOD_CALLS] ?? [];
-        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsInstanceOf($arrayFunctionsToMethodCalls, \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall::class);
+        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($arrayFunctionsToMethodCalls, \_PhpScopere8e811afab72\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall::class);
         $this->arrayFunctionsToMethodCalls = $arrayFunctionsToMethodCalls;
     }
-    private function shouldSkipFuncCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    private function shouldSkipFuncCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         // we can inject only in injectable class method  context
         /** @var ClassMethod|null $classMethod */
-        $classMethod = $funcCall->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        $classMethod = $funcCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod === null) {
             return \true;
         }
@@ -139,12 +139,12 @@ CODE_SAMPLE
     /**
      * @return PropertyFetch|MethodCall
      */
-    private function refactorFuncCallToMethodCall(\_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    private function refactorFuncCallToMethodCall(\_PhpScopere8e811afab72\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        $fullyQualifiedObjectType = new \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType($argumentFuncCallToMethodCall->getClass());
+        $fullyQualifiedObjectType = new \_PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType($argumentFuncCallToMethodCall->getClass());
         $expectedName = $this->propertyNaming->getExpectedNameFromType($fullyQualifiedObjectType);
         if ($expectedName === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->addConstructorDependencyToClass($class, $fullyQualifiedObjectType, $expectedName->getName());
         $propertyFetchNode = $this->createPropertyFetch('this', $expectedName->getName());
@@ -154,38 +154,38 @@ CODE_SAMPLE
         if ($this->isFunctionToMethodCallWithArgs($funcCall, $argumentFuncCallToMethodCall)) {
             $methodName = $argumentFuncCallToMethodCall->getMethodIfArgs();
             if (!\is_string($methodName)) {
-                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
             }
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($propertyFetchNode, $methodName, $funcCall->args);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($propertyFetchNode, $methodName, $funcCall->args);
         }
         return null;
     }
     /**
      * @return PropertyFetch|MethodCall|null
      */
-    private function refactorArrayFunctionToMethodCall(\_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    private function refactorArrayFunctionToMethodCall(\_PhpScopere8e811afab72\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($arrayFuncCallToMethodCall->getClass());
         $propertyFetch = $this->createPropertyFetch('this', $propertyName);
-        $fullyQualifiedObjectType = new \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType($arrayFuncCallToMethodCall->getClass());
+        $fullyQualifiedObjectType = new \_PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType($arrayFuncCallToMethodCall->getClass());
         $this->addConstructorDependencyToClass($class, $fullyQualifiedObjectType, $propertyName);
         return $this->createMethodCallArrayFunctionToMethodCall($funcCall, $arrayFuncCallToMethodCall, $propertyFetch);
     }
     /**
      * @return PropertyFetch|MethodCall
      */
-    private function refactorEmptyFuncCallArgs(\_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScoper0a2ac50786fa\PhpParser\Node
+    private function refactorEmptyFuncCallArgs(\_PhpScopere8e811afab72\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall, \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScopere8e811afab72\PhpParser\Node
     {
         if ($argumentFuncCallToMethodCall->getMethodIfNoArgs()) {
             $methodName = $argumentFuncCallToMethodCall->getMethodIfNoArgs();
             if (!\is_string($methodName)) {
-                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
             }
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($propertyFetch, $methodName);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($propertyFetch, $methodName);
         }
         return $propertyFetch;
     }
-    private function isFunctionToMethodCallWithArgs(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall) : bool
+    private function isFunctionToMethodCallWithArgs(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScopere8e811afab72\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall) : bool
     {
         if ($argumentFuncCallToMethodCall->getMethodIfArgs() === null) {
             return \false;
@@ -195,16 +195,16 @@ CODE_SAMPLE
     /**
      * @return PropertyFetch|MethodCall|null
      */
-    private function createMethodCallArrayFunctionToMethodCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper0a2ac50786fa\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    private function createMethodCallArrayFunctionToMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScopere8e811afab72\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if ($funcCall->args === []) {
             return $propertyFetch;
         }
         if ($arrayFuncCallToMethodCall->getArrayMethod() && $this->isArrayType($funcCall->args[0]->value)) {
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($propertyFetch, $arrayFuncCallToMethodCall->getArrayMethod(), $funcCall->args);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($propertyFetch, $arrayFuncCallToMethodCall->getArrayMethod(), $funcCall->args);
         }
         if ($arrayFuncCallToMethodCall->getNonArrayMethod() && !$this->isArrayType($funcCall->args[0]->value)) {
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall($propertyFetch, $arrayFuncCallToMethodCall->getNonArrayMethod(), $funcCall->args);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($propertyFetch, $arrayFuncCallToMethodCall->getNonArrayMethod(), $funcCall->args);
         }
         return null;
     }

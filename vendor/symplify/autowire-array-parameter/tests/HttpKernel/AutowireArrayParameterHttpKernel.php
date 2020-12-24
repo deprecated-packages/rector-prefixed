@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\AutowireArrayParameter\Tests\HttpKernel;
+namespace _PhpScopere8e811afab72\Symplify\AutowireArrayParameter\Tests\HttpKernel;
 
-use _PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\LoaderInterface;
-use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Kernel;
-use _PhpScoper0a2ac50786fa\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-final class AutowireArrayParameterHttpKernel extends \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\Kernel
+use _PhpScopere8e811afab72\Symfony\Component\Config\Loader\LoaderInterface;
+use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScopere8e811afab72\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use _PhpScopere8e811afab72\Symfony\Component\HttpKernel\Kernel;
+use _PhpScopere8e811afab72\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+final class AutowireArrayParameterHttpKernel extends \_PhpScopere8e811afab72\Symfony\Component\HttpKernel\Kernel
 {
-    public function registerContainerConfiguration(\_PhpScoper0a2ac50786fa\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\_PhpScopere8e811afab72\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../config/autowire_array_parameter.php');
     }
@@ -29,8 +29,8 @@ final class AutowireArrayParameterHttpKernel extends \_PhpScoper0a2ac50786fa\Sym
     {
         return [];
     }
-    protected function build(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    protected function build(\_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
-        $containerBuilder->addCompilerPass(new \_PhpScoper0a2ac50786fa\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new \_PhpScopere8e811afab72\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
 }

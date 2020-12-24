@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\VendorLocker\NodeVendorLocker;
+namespace _PhpScopere8e811afab72\Rector\VendorLocker\NodeVendorLocker;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Interface_;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
-final class ClassMethodVendorLockResolver extends \_PhpScoper0a2ac50786fa\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+final class ClassMethodVendorLockResolver extends \_PhpScopere8e811afab72\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     /**
      * Checks for:
@@ -18,12 +18,12 @@ final class ClassMethodVendorLockResolver extends \_PhpScoper0a2ac50786fa\Rector
      * Prevent:
      * - removing class methods, that breaks the code
      */
-    public function isRemovalVendorLocked(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isRemovalVendorLocked(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $classMethodName */
         $classMethodName = $this->nodeNameResolver->getName($classMethod);
         /** @var Class_|Interface_|null $classLike */
-        $classLike = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \false;
         }
@@ -34,7 +34,7 @@ final class ClassMethodVendorLockResolver extends \_PhpScoper0a2ac50786fa\Rector
             return \false;
         }
         /** @var string $className */
-        $className = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string[] $classParents */
         $classParents = (array) \class_parents($className);
         foreach ($classParents as $classParent) {

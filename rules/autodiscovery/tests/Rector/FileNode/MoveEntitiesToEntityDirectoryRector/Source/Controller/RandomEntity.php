@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Autodiscovery\Tests\Rector\FileNode\MoveEntitiesToEntityDirectoryRector\Source\Controller;
+namespace _PhpScopere8e811afab72\Rector\Autodiscovery\Tests\Rector\FileNode\MoveEntitiesToEntityDirectoryRector\Source\Controller;
 
-use _PhpScoper0a2ac50786fa\Doctrine\ORM\Mapping as ORM;
+use _PhpScopere8e811afab72\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver;
+namespace _PhpScopere8e811afab72\Symplify\SetConfigResolver;
 
-use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Console\Option\OptionName;
-use _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Console\OptionValueResolver;
-use _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use _PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\Symfony\Component\Console\Input\InputInterface;
+use _PhpScopere8e811afab72\Symplify\SetConfigResolver\Console\Option\OptionName;
+use _PhpScopere8e811afab72\Symplify\SetConfigResolver\Console\OptionValueResolver;
+use _PhpScopere8e811afab72\Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use _PhpScopere8e811afab72\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetResolver
 {
     /**
@@ -19,20 +19,20 @@ final class SetResolver
      * @var SetProviderInterface
      */
     private $setProvider;
-    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+    public function __construct(\_PhpScopere8e811afab72\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
-        $this->optionValueResolver = new \_PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Console\OptionValueResolver();
+        $this->optionValueResolver = new \_PhpScopere8e811afab72\Symplify\SetConfigResolver\Console\OptionValueResolver();
         $this->setProvider = $setProvider;
     }
-    public function detectFromInput(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Input\InputInterface $input) : ?\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
+    public function detectFromInput(\_PhpScopere8e811afab72\Symfony\Component\Console\Input\InputInterface $input) : ?\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $setName = $this->optionValueResolver->getOptionValue($input, \_PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Console\Option\OptionName::SET);
+        $setName = $this->optionValueResolver->getOptionValue($input, \_PhpScopere8e811afab72\Symplify\SetConfigResolver\Console\Option\OptionName::SET);
         if ($setName === null) {
             return null;
         }
         return $this->detectFromName($setName);
     }
-    public function detectFromName(string $setName) : \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
+    public function detectFromName(string $setName) : \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo
     {
         $set = $this->setProvider->provideByName($setName);
         if ($set === null) {
@@ -43,6 +43,6 @@ final class SetResolver
     private function reportSetNotFound(string $setName) : void
     {
         $message = \sprintf('Set "%s" was not found', $setName);
-        throw new \_PhpScoper0a2ac50786fa\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
+        throw new \_PhpScopere8e811afab72\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
     }
 }

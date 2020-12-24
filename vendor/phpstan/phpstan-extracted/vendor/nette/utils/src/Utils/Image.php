@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Basic manipulation with images.
  *
@@ -125,16 +125,16 @@ class Image
     public static function fromFile(string $file, int &$detectedFormat = null)
     {
         if (!\extension_loaded('gd')) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('PHP extension GD is not loaded.');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
         $detectedFormat = @\getimagesize($file)[2];
         // @ - files smaller than 12 bytes causes read error
         if (!isset(self::FORMATS[$detectedFormat])) {
             $detectedFormat = null;
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\UnknownImageFileException(\is_file($file) ? "Unknown type of file '{$file}'." : "File '{$file}' not found.");
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\UnknownImageFileException(\is_file($file) ? "Unknown type of file '{$file}'." : "File '{$file}' not found.");
         }
-        return new static(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\Callback::invokeSafe('imagecreatefrom' . \image_type_to_extension($detectedFormat, \false), [$file], function (string $message) : void {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\ImageException($message);
+        return new static(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Callback::invokeSafe('imagecreatefrom' . \image_type_to_extension($detectedFormat, \false), [$file], function (string $message) : void {
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\ImageException($message);
         }));
     }
     /**
@@ -146,15 +146,15 @@ class Image
     public static function fromString(string $s, int &$detectedFormat = null)
     {
         if (!\extension_loaded('gd')) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('PHP extension GD is not loaded.');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
         if (\func_num_args() > 1) {
             $tmp = @\getimagesizefromstring($s)[2];
             // @ - strings smaller than 12 bytes causes read error
             $detectedFormat = isset(self::FORMATS[$tmp]) ? $tmp : null;
         }
-        return new static(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\Callback::invokeSafe('imagecreatefromstring', [$s], function (string $message) : void {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\ImageException($message);
+        return new static(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Callback::invokeSafe('imagecreatefromstring', [$s], function (string $message) : void {
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\ImageException($message);
         }));
     }
     /**
@@ -165,10 +165,10 @@ class Image
     public static function fromBlank(int $width, int $height, array $color = null)
     {
         if (!\extension_loaded('gd')) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('PHP extension GD is not loaded.');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
         if ($width < 1 || $height < 1) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Image width and height must be greater than zero.');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Image width and height must be greater than zero.');
         }
         $image = \imagecreatetruecolor($width, $height);
         if ($color) {
@@ -186,7 +186,7 @@ class Image
     public static function typeToExtension(int $type) : string
     {
         if (!isset(self::FORMATS[$type])) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
         }
         return self::FORMATS[$type];
     }
@@ -227,8 +227,8 @@ class Image
      */
     protected function setImageResource($image)
     {
-        if (!$image instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\GdImage && !(\is_resource($image) && \get_resource_type($image) === 'gd')) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Image is not valid.');
+        if (!$image instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\GdImage && !(\is_resource($image) && \get_resource_type($image) === 'gd')) {
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Image is not valid.');
         }
         $this->image = $image;
         return $this;
@@ -288,7 +288,7 @@ class Image
         if ($flags & self::STRETCH) {
             // non-proportional
             if (!$newWidth || !$newHeight) {
-                throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('For stretching must be both width and height specified.');
+                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('For stretching must be both width and height specified.');
             }
             if ($flags & self::SHRINK_ONLY) {
                 $newWidth = (int) \round($srcWidth * \min(1, $newWidth / $srcWidth));
@@ -297,7 +297,7 @@ class Image
         } else {
             // proportional
             if (!$newWidth && !$newHeight) {
-                throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('At least width or height must be specified.');
+                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('At least width or height must be specified.');
             }
             $scale = [];
             if ($newWidth > 0) {
@@ -444,7 +444,7 @@ class Image
             $extensions = \array_flip(self::FORMATS) + ['jpg' => self::JPEG];
             $ext = \strtolower(\pathinfo($file, \PATHINFO_EXTENSION));
             if (!isset($extensions[$ext])) {
-                throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Unsupported file extension '{$ext}'.");
+                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Unsupported file extension '{$ext}'.");
             }
             $type = $extensions[$ext];
         }
@@ -455,7 +455,7 @@ class Image
      */
     public function toString(int $type = self::JPEG, int $quality = null) : string
     {
-        return \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::capture(function () use($type, $quality) {
+        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::capture(function () use($type, $quality) {
             $this->output($type, $quality);
         });
     }
@@ -514,10 +514,10 @@ class Image
                 // @ is escalated to exception
                 break;
             default:
-                throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
+                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
         }
         if (!$success) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\ImageException(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::getLastError() ?: 'Unknown error');
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\ImageException(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::getLastError() ?: 'Unknown error');
         }
     }
     /**
@@ -529,7 +529,7 @@ class Image
     {
         $function = 'image' . $name;
         if (!\function_exists($function)) {
-            \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\Utils\ObjectHelpers::strictCall(\get_class($this), $name);
+            \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\ObjectHelpers::strictCall(\get_class($this), $name);
         }
         foreach ($args as $key => $value) {
             if ($value instanceof self) {
@@ -540,7 +540,7 @@ class Image
             }
         }
         $res = $function($this->image, ...$args);
-        return $res instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\GdImage || \is_resource($res) && \get_resource_type($res) === 'gd' ? $this->setImageResource($res) : $res;
+        return $res instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\GdImage || \is_resource($res) && \get_resource_type($res) === 'gd' ? $this->setImageResource($res) : $res;
     }
     public function __clone()
     {
@@ -561,13 +561,13 @@ class Image
             $num = (int) $num;
             return \false;
         }
-        throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Expected dimension in int|string, '{$num}' given.");
+        throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Expected dimension in int|string, '{$num}' given.");
     }
     /**
      * Prevents serialization.
      */
     public function __sleep() : array
     {
-        throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('You cannot serialize or unserialize ' . self::class . ' instances.');
+        throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('You cannot serialize or unserialize ' . self::class . ' instances.');
     }
 }

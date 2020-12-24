@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Order\Rector\ClassMethod;
+namespace _PhpScopere8e811afab72\Rector\Order\Rector\ClassMethod;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\NullableType;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\UnionType;
-use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\NullableType;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\UnionType;
+use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Order\Tests\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector\OrderConstructorDependenciesByTypeAlphabeticallyRectorTest
  */
-final class OrderConstructorDependenciesByTypeAlphabeticallyRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class OrderConstructorDependenciesByTypeAlphabeticallyRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -31,9 +31,9 @@ final class OrderConstructorDependenciesByTypeAlphabeticallyRector extends \_Php
      * @var string[]
      */
     private $skipPatterns = [];
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order __constructor dependencies by type A-Z', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order __constructor dependencies by type A-Z', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(
@@ -64,12 +64,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -81,13 +81,13 @@ CODE_SAMPLE
     {
         $this->skipPatterns = $configuration[self::SKIP_PATTERNS] ?? [];
     }
-    private function shouldSkip(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$this->isName($classMethod, \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if (!$this->isName($classMethod, \_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return \true;
         }
         /** @var SmartFileInfo $smartFileInfo */
-        $smartFileInfo = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $smartFileInfo = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($this->isFileInfoMatch($smartFileInfo)) {
             return \true;
         }
@@ -102,10 +102,10 @@ CODE_SAMPLE
     /**
      * @return Param[]
      */
-    private function getSortedParams(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function getSortedParams(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $params = $classMethod->getParams();
-        \usort($params, function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $firstParam, \_PhpScoper0a2ac50786fa\PhpParser\Node\Param $secondParam) : int {
+        \usort($params, function (\_PhpScopere8e811afab72\PhpParser\Node\Param $firstParam, \_PhpScopere8e811afab72\PhpParser\Node\Param $secondParam) : int {
             /** @var Name $firstParamType */
             $firstParamType = $this->getParamType($firstParam);
             /** @var Name $secondParamType */
@@ -117,7 +117,7 @@ CODE_SAMPLE
     /**
      * Match file against matches, no patterns provided, then it matches
      */
-    private function isFileInfoMatch(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    private function isFileInfoMatch(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         if ($this->skipPatterns === []) {
             return \true;
@@ -129,16 +129,16 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function hasPrimitiveDataTypeParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function hasPrimitiveDataTypeParam(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ($classMethod->params as $param) {
-            if ($param->type instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier) {
+            if ($param->type instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
                 return \true;
             }
         }
         return \false;
     }
-    private function hasParamWithNoType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function hasParamWithNoType(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ($classMethod->params as $param) {
             if ($param->type === null) {
@@ -150,8 +150,8 @@ CODE_SAMPLE
     /**
      * @return Identifier|Name|UnionType|null
      */
-    private function getParamType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param)
+    private function getParamType(\_PhpScopere8e811afab72\PhpParser\Node\Param $param)
     {
-        return $param->type instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\NullableType ? $param->type->type : $param->type;
+        return $param->type instanceof \_PhpScopere8e811afab72\PhpParser\Node\NullableType ? $param->type->type : $param->type;
     }
 }

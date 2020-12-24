@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type;
+namespace _PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareArrayShapeItemNode extends \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode implements \_PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+final class AttributeAwareArrayShapeItemNode extends \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode implements \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
 {
     use AttributeTrait;
     /**
@@ -21,12 +21,12 @@ final class AttributeAwareArrayShapeItemNode extends \_PhpScoper0a2ac50786fa\PHP
     /**
      * @param ConstExprIntegerNode|ConstExprStringNode|IdentifierTypeNode|null $keyName
      */
-    public function __construct($keyName, bool $optional, \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $docComment = '')
+    public function __construct($keyName, bool $optional, \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $docComment = '')
     {
         parent::__construct($keyName, $optional, $typeNode);
         // spaces after double colon
         $keyWithSpacePattern = $this->createKeyWithSpacePattern($keyName, $optional);
-        $this->hasSpaceAfterDoubleColon = (bool) \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::matchAll($docComment, $keyWithSpacePattern);
+        $this->hasSpaceAfterDoubleColon = (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::matchAll($docComment, $keyWithSpacePattern);
     }
     public function __toString() : string
     {

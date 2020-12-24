@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
+namespace _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\TypeAnalyzer\CountableTypeAnalyzer;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
-use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\TypeAnalyzer\CountableTypeAnalyzer;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
+use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -49,7 +49,7 @@ trait NodeTypeResolverTrait
     /**
      * @required
      */
-    public function autowireNodeTypeResolverTrait(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\TypeAnalyzer\CountableTypeAnalyzer $countableTypeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer, \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper) : void
+    public function autowireNodeTypeResolverTrait(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\TypeAnalyzer\CountableTypeAnalyzer $countableTypeAnalyzer, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer, \_PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
@@ -57,30 +57,30 @@ trait NodeTypeResolverTrait
         $this->stringTypeAnalyzer = $stringTypeAnalyzer;
         $this->typeUnwrapper = $typeUnwrapper;
     }
-    public function isInObjectType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $type) : bool
+    public function isInObjectType(\_PhpScopere8e811afab72\PhpParser\Node $node, string $type) : bool
     {
         $objectType = $this->nodeTypeResolver->resolve($node);
-        $desiredObjectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($type);
+        $desiredObjectType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($type);
         if ($objectType->isSuperTypeOf($desiredObjectType)->yes()) {
             return \true;
         }
         return $objectType->equals($desiredObjectType);
     }
-    public function isPropertyBoolean(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
+    public function isPropertyBoolean(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : bool
     {
         return $this->nodeTypeResolver->isPropertyBoolean($property);
     }
     /**
      * @param ObjectType|string $type
      */
-    protected function isObjectType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, $type) : bool
+    protected function isObjectType(\_PhpScopere8e811afab72\PhpParser\Node $node, $type) : bool
     {
         return $this->nodeTypeResolver->isObjectType($node, $type);
     }
     /**
      * @param string[]|ObjectType[] $requiredTypes
      */
-    protected function isObjectTypes(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, array $requiredTypes) : bool
+    protected function isObjectTypes(\_PhpScopere8e811afab72\PhpParser\Node $node, array $requiredTypes) : bool
     {
         foreach ($requiredTypes as $requiredType) {
             if ($this->isObjectType($node, $requiredType)) {
@@ -89,13 +89,13 @@ trait NodeTypeResolverTrait
         }
         return \false;
     }
-    protected function isReturnOfObjectType(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Return_ $return, string $objectType) : bool
+    protected function isReturnOfObjectType(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_ $return, string $objectType) : bool
     {
         if ($return->expr === null) {
             return \false;
         }
         $returnType = $this->getStaticType($return->expr);
-        if (!$returnType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
+        if (!$returnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         return \is_a($returnType->getClassName(), $objectType, \true);
@@ -103,7 +103,7 @@ trait NodeTypeResolverTrait
     /**
      * @param Type[] $desiredTypes
      */
-    protected function isSameObjectTypes(\_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType $objectType, array $desiredTypes) : bool
+    protected function isSameObjectTypes(\_PhpScopere8e811afab72\PHPStan\Type\ObjectType $objectType, array $desiredTypes) : bool
     {
         foreach ($desiredTypes as $abstractClassConstructorParamType) {
             if ($abstractClassConstructorParamType->equals($objectType)) {
@@ -112,64 +112,64 @@ trait NodeTypeResolverTrait
         }
         return \false;
     }
-    protected function isStringOrUnionStringOnlyType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    protected function isStringOrUnionStringOnlyType(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
         return $this->stringTypeAnalyzer->isStringOrUnionStringOnlyType($node);
     }
-    protected function isNumberType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    protected function isNumberType(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
         return $this->nodeTypeResolver->isNumberType($node);
     }
-    protected function isStaticType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $staticTypeClass) : bool
+    protected function isStaticType(\_PhpScopere8e811afab72\PhpParser\Node $node, string $staticTypeClass) : bool
     {
         return $this->nodeTypeResolver->isStaticType($node, $staticTypeClass);
     }
-    protected function getStaticType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    protected function getStaticType(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->nodeTypeResolver->getStaticType($node);
     }
-    protected function isNullableType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    protected function isNullableType(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
         return $this->nodeTypeResolver->isNullableType($node);
     }
-    protected function isNullableObjectType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    protected function isNullableObjectType(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
         return $this->nodeTypeResolver->isNullableObjectType($node);
     }
-    protected function isNullableArrayType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    protected function isNullableArrayType(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
         return $this->nodeTypeResolver->isNullableArrayType($node);
     }
-    protected function isCountableType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    protected function isCountableType(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
         return $this->countableTypeAnalyzer->isCountableType($node);
     }
-    protected function isArrayType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    protected function isArrayType(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
         return $this->arrayTypeAnalyzer->isArrayType($node);
     }
-    protected function getObjectType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    protected function getObjectType(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->nodeTypeResolver->resolve($node);
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
      */
-    protected function isMethodStaticCallOrClassMethodObjectType(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, string $type) : bool
+    protected function isMethodStaticCallOrClassMethodObjectType(\_PhpScopere8e811afab72\PhpParser\Node $node, string $type) : bool
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
-            if ($node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+            if ($node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
                 return $this->isObjectType($node->var, $type);
             }
             // method call is variable return
             return $this->isObjectType($node->var, $type);
         }
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
             return $this->isObjectType($node->class, $type);
         }
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod) {
             /** @var Class_|null $classLike */
-            $classLike = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+            $classLike = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             if ($classLike === null) {
                 return \false;
             }

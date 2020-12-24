@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type\Constant;
+namespace _PhpScopere8e811afab72\PHPStan\Type\Constant;
 
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ConstantScalarType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\FloatType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Traits\ConstantScalarTypeTrait;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
-class ConstantFloatType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\FloatType implements \_PhpScoper0a2ac50786fa\PHPStan\Type\ConstantScalarType
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\CompoundType;
+use _PhpScopere8e811afab72\PHPStan\Type\ConstantScalarType;
+use _PhpScopere8e811afab72\PHPStan\Type\FloatType;
+use _PhpScopere8e811afab72\PHPStan\Type\Traits\ConstantScalarTypeTrait;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
+class ConstantFloatType extends \_PhpScopere8e811afab72\PHPStan\Type\FloatType implements \_PhpScopere8e811afab72\PHPStan\Type\ConstantScalarType
 {
     use ConstantScalarTypeTrait;
     use ConstantScalarToBooleanTrait;
@@ -24,7 +24,7 @@ class ConstantFloatType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\FloatType i
     {
         return $this->value;
     }
-    public function describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel $level) : string
     {
         return $level->handle(static function () : string {
             return 'float';
@@ -36,38 +36,38 @@ class ConstantFloatType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\FloatType i
             return $formatted;
         });
     }
-    public function isSuperTypeOf(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             if (!$this->equals($type)) {
-                if ($this->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::value()) === $type->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::value())) {
-                    return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+                if ($this->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::value()) === $type->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::value())) {
+                    return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
                 }
-                return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+                return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
             }
-            return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createYes();
+            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof parent) {
-            return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
         }
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType) {
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
     }
-    public function toString() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function toString() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType((string) $this->value);
+        return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType((string) $this->value);
     }
-    public function toInteger() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function toInteger() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantIntegerType((int) $this->value);
+        return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType((int) $this->value);
     }
     /**
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return new self($properties['value']);
     }

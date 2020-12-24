@@ -1,16 +1,16 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise;
 
 /**
  * @deprecated 2.8.0 External usage of RejectedPromise is deprecated, use `reject()` instead.
  */
-class RejectedPromise implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
+class RejectedPromise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
 {
     private $reason;
     public function __construct($reason = null)
     {
-        if ($reason instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface) {
+        if ($reason instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface) {
             throw new \InvalidArgumentException('You cannot create React\\Promise\\RejectedPromise with a promise. Use React\\Promise\\reject($promiseOrValue) instead.');
         }
         $this->reason = $reason;
@@ -23,21 +23,21 @@ class RejectedPromise implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\
         try {
             return resolve($onRejected($this->reason));
         } catch (\Throwable $exception) {
-            return new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
+            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
         } catch (\Exception $exception) {
-            return new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
+            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
         }
     }
     public function done(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null)
     {
         if (null === $onRejected) {
-            throw \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\UnhandledRejectionException::resolve($this->reason);
+            throw \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\UnhandledRejectionException::resolve($this->reason);
         }
         $result = $onRejected($this->reason);
         if ($result instanceof self) {
-            throw \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\UnhandledRejectionException::resolve($result->reason);
+            throw \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\UnhandledRejectionException::resolve($result->reason);
         }
-        if ($result instanceof \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface) {
+        if ($result instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface) {
             $result->done();
         }
     }
@@ -52,7 +52,7 @@ class RejectedPromise implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\
     {
         return $this->then(null, function ($reason) use($onFulfilledOrRejected) {
             return resolve($onFulfilledOrRejected())->then(function () use($reason) {
-                return new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($reason);
+                return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($reason);
             });
         });
     }

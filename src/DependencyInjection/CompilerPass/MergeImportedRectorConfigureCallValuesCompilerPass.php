@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\DependencyInjection\CompilerPass;
+namespace _PhpScopere8e811afab72\Rector\Core\DependencyInjection\CompilerPass;
 
-use _PhpScoper0a2ac50786fa\Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
-use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition;
-final class MergeImportedRectorConfigureCallValuesCompilerPass implements \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use _PhpScopere8e811afab72\Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
+use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Definition;
+final class MergeImportedRectorConfigureCallValuesCompilerPass implements \_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string
@@ -17,17 +17,17 @@ final class MergeImportedRectorConfigureCallValuesCompilerPass implements \_PhpS
      * @var ConfigureCallValuesCollector
      */
     private $configureCallValuesCollector;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
     {
         $this->configureCallValuesCollector = $configureCallValuesCollector;
     }
-    public function process(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(\_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $id => $definition) {
             $this->completeCollectedArguments($id, $definition);
         }
     }
-    private function completeCollectedArguments(string $serviceClass, \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition $definition) : void
+    private function completeCollectedArguments(string $serviceClass, \_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $configureCallValues = $this->configureCallValuesCollector->getConfigureCallValues($serviceClass);
         if ($configureCallValues === []) {

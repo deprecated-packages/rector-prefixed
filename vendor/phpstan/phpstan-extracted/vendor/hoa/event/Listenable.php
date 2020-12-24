@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Event;
+namespace _PhpScopere8e811afab72\Hoa\Event;
 
 /**
  * Interface \Hoa\Event\Listenable.
@@ -43,7 +43,7 @@ namespace _PhpScoper0a2ac50786fa\Hoa\Event;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-interface Listenable extends \_PhpScoper0a2ac50786fa\Hoa\Event\Source
+interface Listenable extends \_PhpScopere8e811afab72\Hoa\Event\Source
 {
     /**
      * Attach a callable to a listenable component.

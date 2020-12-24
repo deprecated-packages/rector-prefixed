@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeInferer;
+namespace _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeInferer;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
 final class ParamTypeInferer
 {
     /**
@@ -20,15 +20,15 @@ final class ParamTypeInferer
     {
         $this->paramTypeInferers = $paramTypeInferers;
     }
-    public function inferParam(\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $param) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function inferParam(\_PhpScopere8e811afab72\PhpParser\Node\Param $param) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         foreach ($this->paramTypeInferers as $paramTypeInferer) {
             $type = $paramTypeInferer->inferParam($param);
-            if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+            if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
                 continue;
             }
             return $type;
         }
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
+        return new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
     }
 }

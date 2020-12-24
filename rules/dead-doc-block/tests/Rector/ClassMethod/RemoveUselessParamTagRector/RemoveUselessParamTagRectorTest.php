@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DeadDocBlock\Tests\Rector\ClassMethod\RemoveUselessParamTagRector;
+namespace _PhpScopere8e811afab72\Rector\DeadDocBlock\Tests\Rector\ClassMethod\RemoveUselessParamTagRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessParamTagRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessParamTagRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveUselessParamTagRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveUselessParamTagRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class RemoveUselessParamTagRectorTest extends \_PhpScoper0a2ac50786fa\Rect
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessParamTagRector::class;
+        return \_PhpScopere8e811afab72\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessParamTagRector::class;
     }
 }

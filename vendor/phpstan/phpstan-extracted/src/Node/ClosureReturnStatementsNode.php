@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Node;
+namespace _PhpScopere8e811afab72\PHPStan\Node;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure;
-use _PhpScoper0a2ac50786fa\PhpParser\NodeAbstract;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\StatementResult;
-class ClosureReturnStatementsNode extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract implements \_PhpScoper0a2ac50786fa\PHPStan\Node\ReturnStatementsNode
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Closure;
+use _PhpScopere8e811afab72\PhpParser\NodeAbstract;
+use _PhpScopere8e811afab72\PHPStan\Analyser\StatementResult;
+class ClosureReturnStatementsNode extends \_PhpScopere8e811afab72\PhpParser\NodeAbstract implements \_PhpScopere8e811afab72\PHPStan\Node\ReturnStatementsNode
 {
     /** @var \PhpParser\Node\Expr\Closure */
     private $closureExpr;
@@ -19,14 +19,14 @@ class ClosureReturnStatementsNode extends \_PhpScoper0a2ac50786fa\PhpParser\Node
      * @param \PHPStan\Node\ReturnStatement[] $returnStatements
      * @param \PHPStan\Analyser\StatementResult $statementResult
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure $closureExpr, array $returnStatements, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\StatementResult $statementResult)
+    public function __construct(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Closure $closureExpr, array $returnStatements, \_PhpScopere8e811afab72\PHPStan\Analyser\StatementResult $statementResult)
     {
         parent::__construct($closureExpr->getAttributes());
         $this->closureExpr = $closureExpr;
         $this->returnStatements = $returnStatements;
         $this->statementResult = $statementResult;
     }
-    public function getClosureExpr() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Closure
+    public function getClosureExpr() : \_PhpScopere8e811afab72\PhpParser\Node\Expr\Closure
     {
         return $this->closureExpr;
     }
@@ -37,7 +37,7 @@ class ClosureReturnStatementsNode extends \_PhpScoper0a2ac50786fa\PhpParser\Node
     {
         return $this->returnStatements;
     }
-    public function getStatementResult() : \_PhpScoper0a2ac50786fa\PHPStan\Analyser\StatementResult
+    public function getStatementResult() : \_PhpScopere8e811afab72\PHPStan\Analyser\StatementResult
     {
         return $this->statementResult;
     }

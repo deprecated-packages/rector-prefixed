@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\Tests\Naming;
+namespace _PhpScopere8e811afab72\Rector\Naming\Tests\Naming;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoper0a2ac50786fa\Rector\Naming\ValueObject\ExpectedName;
-use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class PropertyNamingTest extends \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScopere8e811afab72\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming;
+use _PhpScopere8e811afab72\Rector\Naming\ValueObject\ExpectedName;
+use _PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class PropertyNamingTest extends \_PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PropertyNaming
@@ -16,8 +16,8 @@ final class PropertyNamingTest extends \_PhpScoper0a2ac50786fa\Symplify\PackageB
     private $propertyNaming;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->propertyNaming = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\Naming\Naming\PropertyNaming::class);
+        $this->bootKernel(\_PhpScopere8e811afab72\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->propertyNaming = $this->getService(\_PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming::class);
     }
     /**
      * @dataProvider getExpectedNameFromMethodNameDataProvider

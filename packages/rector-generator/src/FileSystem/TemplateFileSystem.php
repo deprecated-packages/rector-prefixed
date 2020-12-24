@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\RectorGenerator\FileSystem;
+namespace _PhpScopere8e811afab72\Rector\RectorGenerator\FileSystem;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\Finder\TemplateFinder;
-use _PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\Finder\TemplateFinder;
+use _PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 final class TemplateFileSystem
 {
     /**
@@ -28,24 +28,24 @@ final class TemplateFileSystem
     /**
      * @param string[] $templateVariables
      */
-    public function resolveDestination(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $templateVariables, \_PhpScoper0a2ac50786fa\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $targetDirectory) : string
+    public function resolveDestination(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $templateVariables, \_PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $targetDirectory) : string
     {
-        $destination = $smartFileInfo->getRelativeFilePathFromDirectory(\_PhpScoper0a2ac50786fa\Rector\RectorGenerator\Finder\TemplateFinder::TEMPLATES_DIRECTORY);
+        $destination = $smartFileInfo->getRelativeFilePathFromDirectory(\_PhpScopere8e811afab72\Rector\RectorGenerator\Finder\TemplateFinder::TEMPLATES_DIRECTORY);
         // normalize core package
         if (!$rectorRecipe->isRectorRepository()) {
             // special keyword for 3rd party Rectors, not for core Github contribution
-            $destination = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($destination, self::PACKAGE_RULES_PATH_REGEX, 'utils/rector');
+            $destination = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($destination, self::PACKAGE_RULES_PATH_REGEX, 'utils/rector');
         }
         // remove _Configured|_Extra prefix
         $destination = $this->applyVariables($destination, $templateVariables);
-        $destination = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($destination, self::CONFIGURED_OR_EXTRA_REGEX, '');
+        $destination = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($destination, self::CONFIGURED_OR_EXTRA_REGEX, '');
         // remove ".inc" protection from PHPUnit if not a test case
         if ($this->isNonFixtureFileWithIncSuffix($destination)) {
-            $destination = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::before($destination, '.inc');
+            $destination = \_PhpScopere8e811afab72\Nette\Utils\Strings::before($destination, '.inc');
         }
         // special hack for tests, to PHPUnit doesn't load the generated file as test case
         /** @var string $destination */
-        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($destination, 'Test.php') && \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($destination, 'Test.php') && \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $destination .= '.inc';
         }
         return $targetDirectory . \DIRECTORY_SEPARATOR . $destination;
@@ -59,9 +59,9 @@ final class TemplateFileSystem
     }
     private function isNonFixtureFileWithIncSuffix(string $filePath) : bool
     {
-        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($filePath, self::FIXTURE_SHORT_REGEX)) {
+        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::match($filePath, self::FIXTURE_SHORT_REGEX)) {
             return \false;
         }
-        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($filePath, '.inc');
+        return \_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($filePath, '.inc');
     }
 }

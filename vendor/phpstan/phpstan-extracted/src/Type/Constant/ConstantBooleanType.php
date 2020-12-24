@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type\Constant;
+namespace _PhpScopere8e811afab72\PHPStan\Type\Constant;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ConstantScalarType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Traits\ConstantScalarTypeTrait;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
-class ConstantBooleanType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType implements \_PhpScoper0a2ac50786fa\PHPStan\Type\ConstantScalarType
+use _PhpScopere8e811afab72\PHPStan\Type\BooleanType;
+use _PhpScopere8e811afab72\PHPStan\Type\ConstantScalarType;
+use _PhpScopere8e811afab72\PHPStan\Type\Traits\ConstantScalarTypeTrait;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
+class ConstantBooleanType extends \_PhpScopere8e811afab72\PHPStan\Type\BooleanType implements \_PhpScopere8e811afab72\PHPStan\Type\ConstantScalarType
 {
     use ConstantScalarTypeTrait;
     /** @var bool */
@@ -21,35 +21,35 @@ class ConstantBooleanType extends \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanTy
     {
         return $this->value;
     }
-    public function describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel $level) : string
     {
         return $this->value ? 'true' : 'false';
     }
-    public function toBoolean() : \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType
+    public function toBoolean() : \_PhpScopere8e811afab72\PHPStan\Type\BooleanType
     {
         return $this;
     }
-    public function toNumber() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function toNumber() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantIntegerType((int) $this->value);
+        return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType((int) $this->value);
     }
-    public function toString() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function toString() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType((string) $this->value);
+        return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType((string) $this->value);
     }
-    public function toInteger() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function toInteger() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantIntegerType((int) $this->value);
+        return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType((int) $this->value);
     }
-    public function toFloat() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function toFloat() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantFloatType((float) $this->value);
+        return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantFloatType((float) $this->value);
     }
     /**
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return new self($properties['value']);
     }

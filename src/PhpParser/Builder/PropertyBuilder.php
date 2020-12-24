@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Builder;
+namespace _PhpScopere8e811afab72\Rector\Core\PhpParser\Builder;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Builder\Property;
+use _PhpScopere8e811afab72\PhpParser\Builder\Property;
 /**
  * Fixed duplicated naming in php-parser and prevents confusion
  */
-final class PropertyBuilder extends \_PhpScoper0a2ac50786fa\PhpParser\Builder\Property
+final class PropertyBuilder extends \_PhpScopere8e811afab72\PhpParser\Builder\Property
 {
 }

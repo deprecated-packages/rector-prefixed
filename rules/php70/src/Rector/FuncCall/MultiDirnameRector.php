@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php70\Rector\FuncCall;
+namespace _PhpScopere8e811afab72\Rector\Php70\Rector\FuncCall;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Php70\Tests\Rector\FuncCall\MultiDirnameRector\MultiDirnameRectorTest
  */
-final class MultiDirnameRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class MultiDirnameRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -24,23 +24,23 @@ final class MultiDirnameRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Recto
      * @var int
      */
     private $nestingLevel = 0;
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes multiple dirname() calls to one with nesting level', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('dirname(dirname($path));', 'dirname($path, 2);')]);
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes multiple dirname() calls to one with nesting level', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('dirname(dirname($path));', 'dirname($path, 2);')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersionFeature::DIRNAME_LEVELS)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::DIRNAME_LEVELS)) {
             return null;
         }
         $this->nestingLevel = 0;
@@ -57,10 +57,10 @@ final class MultiDirnameRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Recto
             return $activeFuncCallNode;
         }
         $node->args[0] = $lastFuncCallNode->args[0];
-        $node->args[1] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber($this->nestingLevel));
+        $node->args[1] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber($this->nestingLevel));
         return $node;
     }
-    private function matchNestedDirnameFuncCall(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall
+    private function matchNestedDirnameFuncCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall
     {
         if (!$this->isName($funcCall, self::DIRNAME)) {
             return null;
@@ -70,7 +70,7 @@ final class MultiDirnameRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Recto
         }
         // dirname($path, <LEVEL>);
         if (\count((array) $funcCall->args) === 2) {
-            if (!$funcCall->args[1]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\LNumber) {
+            if (!$funcCall->args[1]->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber) {
                 return null;
             }
             /** @var LNumber $levelNumber */
@@ -80,7 +80,7 @@ final class MultiDirnameRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Recto
             ++$this->nestingLevel;
         }
         $nestedFuncCallNode = $funcCall->args[0]->value;
-        if (!$nestedFuncCallNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall) {
+        if (!$nestedFuncCallNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         if ($this->isName($nestedFuncCallNode, self::DIRNAME)) {

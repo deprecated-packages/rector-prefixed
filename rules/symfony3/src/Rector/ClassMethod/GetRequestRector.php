@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Symfony3\Rector\ClassMethod;
+namespace _PhpScopere8e811afab72\Rector\Symfony3\Rector\ClassMethod;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Symfony3\Tests\Rector\ClassMethod\GetRequestRector\GetRequestRectorTest
  */
-final class GetRequestRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class GetRequestRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
-    private const REQUEST_CLASS = '_PhpScoper0a2ac50786fa\\Symfony\\Component\\HttpFoundation\\Request';
+    private const REQUEST_CLASS = '_PhpScopere8e811afab72\\Symfony\\Component\\HttpFoundation\\Request';
     /**
      * @var string
      */
@@ -32,13 +32,13 @@ final class GetRequestRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\
      * @var ControllerMethodAnalyzer
      */
     private $controllerMethodAnalyzer;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer $controllerMethodAnalyzer)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer $controllerMethodAnalyzer)
     {
         $this->controllerMethodAnalyzer = $controllerMethodAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeController
 {
     public function someAction()
@@ -65,27 +65,27 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param ClassMethod|MethodCall $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod) {
             $this->requestVariableAndParamName = $this->resolveUniqueName($node, 'request');
             if ($this->isActionWithGetRequestInBody($node)) {
-                $fullyQualified = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified(self::REQUEST_CLASS);
-                $node->params[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Param(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($this->requestVariableAndParamName), null, $fullyQualified);
+                $fullyQualified = new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified(self::REQUEST_CLASS);
+                $node->params[] = new \_PhpScopere8e811afab72\PhpParser\Node\Param(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($this->requestVariableAndParamName), null, $fullyQualified);
                 return $node;
             }
         }
         if ($this->isGetRequestInAction($node)) {
-            return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable($this->requestVariableAndParamName);
+            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($this->requestVariableAndParamName);
         }
         return null;
     }
-    private function resolveUniqueName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name) : string
+    private function resolveUniqueName(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name) : string
     {
         $candidateNames = [];
         foreach ($classMethod->params as $param) {
@@ -98,7 +98,7 @@ CODE_SAMPLE
         }
         return $name;
     }
-    private function isActionWithGetRequestInBody(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isActionWithGetRequestInBody(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if (!$this->controllerMethodAnalyzer->isAction($classMethod)) {
             return \false;
@@ -108,7 +108,7 @@ CODE_SAMPLE
             return \true;
         }
         /** @var MethodCall[] $getMethodCalls */
-        $getMethodCalls = $this->betterNodeFinder->find($classMethod, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool {
+        $getMethodCalls = $this->betterNodeFinder->find($classMethod, function (\_PhpScopere8e811afab72\PhpParser\Node $node) : bool {
             return $this->isLocalMethodCallNamed($node, 'get');
         });
         foreach ($getMethodCalls as $getMethodCall) {
@@ -118,12 +118,12 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function isGetRequestInAction(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool
+    private function isGetRequestInAction(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if (!$node->var instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+        if (!$node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
             return \false;
         }
         // must be $this->getRequest() in controller
@@ -133,19 +133,19 @@ CODE_SAMPLE
         if (!$this->isName($node->name, 'getRequest') && !$this->isGetMethodCallWithRequestParameters($node)) {
             return \false;
         }
-        $classMethod = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        $classMethod = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod === null) {
             return \false;
         }
         return $this->controllerMethodAnalyzer->isAction($classMethod);
     }
-    private function containsGetRequestMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function containsGetRequestMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        return (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool {
+        return (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (\_PhpScopere8e811afab72\PhpParser\Node $node) : bool {
             return $this->isLocalMethodCallNamed($node, 'getRequest');
         });
     }
-    private function isGetMethodCallWithRequestParameters(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function isGetMethodCallWithRequestParameters(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->isName($methodCall->name, 'get')) {
             return \false;
@@ -153,7 +153,7 @@ CODE_SAMPLE
         if (\count((array) $methodCall->args) !== 1) {
             return \false;
         }
-        if (!$methodCall->args[0]->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_) {
+        if (!$methodCall->args[0]->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
             return \false;
         }
         /** @var String_ $stringValue */

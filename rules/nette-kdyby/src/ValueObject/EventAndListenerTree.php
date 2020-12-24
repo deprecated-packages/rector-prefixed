@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NetteKdyby\ValueObject;
+namespace _PhpScopere8e811afab72\Rector\NetteKdyby\ValueObject;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
 final class EventAndListenerTree
 {
     /**
@@ -45,7 +45,7 @@ final class EventAndListenerTree
      * @param ClassMethod[][] $listenerMethodsByEventSubscriberClass
      * @param GetterMethodBlueprint[] $getterMethodsBlueprints
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $magicDispatchMethodCall, ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $onMagicProperty, string $eventClassName, string $eventFileLocation, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ $eventClassInNamespace, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $eventDispatcherDispatchMethodCall, array $listenerMethodsByEventSubscriberClass, array $getterMethodsBlueprints)
+    public function __construct(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $magicDispatchMethodCall, ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $onMagicProperty, string $eventClassName, string $eventFileLocation, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_ $eventClassInNamespace, \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $eventDispatcherDispatchMethodCall, array $listenerMethodsByEventSubscriberClass, array $getterMethodsBlueprints)
     {
         $this->magicDispatchMethodCall = $magicDispatchMethodCall;
         $this->onMagicProperty = $onMagicProperty;
@@ -67,7 +67,7 @@ final class EventAndListenerTree
     {
         return $this->listenerMethodsByEventSubscriberClass[$className] ?? [];
     }
-    public function getOnMagicProperty() : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
+    public function getOnMagicProperty() : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property
     {
         return $this->onMagicProperty;
     }
@@ -75,15 +75,15 @@ final class EventAndListenerTree
     {
         return $this->eventFileLocation;
     }
-    public function getMagicDispatchMethodCall() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
+    public function getMagicDispatchMethodCall() : \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall
     {
         return $this->magicDispatchMethodCall;
     }
-    public function getEventClassInNamespace() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_
+    public function getEventClassInNamespace() : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_
     {
         return $this->eventClassInNamespace;
     }
-    public function getEventDispatcherDispatchMethodCall() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
+    public function getEventDispatcherDispatchMethodCall() : \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall
     {
         return $this->eventDispatcherDispatchMethodCall;
     }

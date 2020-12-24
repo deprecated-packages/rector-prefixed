@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp74\Contract\Rector;
+namespace _PhpScopere8e811afab72\Rector\DowngradePhp74\Contract\Rector;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
 interface DowngradeTypedPropertyRectorInterface
 {
-    public function shouldRemoveProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool;
+    public function shouldRemoveProperty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : bool;
 }

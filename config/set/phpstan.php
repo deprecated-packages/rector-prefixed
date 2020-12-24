@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa;
+namespace _PhpScopere8e811afab72;
 
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector;
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\Rector\Cast\RecastingRemovalRector;
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\Rector\Node\RemoveNonExistingVarAnnotationRector;
-use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScopere8e811afab72\Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector;
+use _PhpScopere8e811afab72\Rector\PHPStan\Rector\Cast\RecastingRemovalRector;
+use _PhpScopere8e811afab72\Rector\PHPStan\Rector\Node\RemoveNonExistingVarAnnotationRector;
+use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper0a2ac50786fa\Rector\PHPStan\Rector\Cast\RecastingRemovalRector::class);
-    $services->set(\_PhpScoper0a2ac50786fa\Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector::class);
-    $services->set(\_PhpScoper0a2ac50786fa\Rector\PHPStan\Rector\Node\RemoveNonExistingVarAnnotationRector::class);
+    $services->set(\_PhpScopere8e811afab72\Rector\PHPStan\Rector\Cast\RecastingRemovalRector::class);
+    $services->set(\_PhpScopere8e811afab72\Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector::class);
+    $services->set(\_PhpScopere8e811afab72\Rector\PHPStan\Rector\Node\RemoveNonExistingVarAnnotationRector::class);
 };

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\RemovingStatic\Printer;
+namespace _PhpScopere8e811afab72\Rector\RemovingStatic\Printer;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
 final class FactoryClassPrinter
 {
     /**
@@ -26,16 +26,16 @@ final class FactoryClassPrinter
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function printFactoryForClass(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $factoryClass, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $oldClass) : void
+    public function printFactoryForClass(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $factoryClass, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $oldClass) : void
     {
-        $parentNode = $oldClass->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_) {
+        $parentNode = $oldClass->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_) {
             $newNamespace = clone $parentNode;
             $newNamespace->stmts = [];
             $newNamespace->stmts[] = $factoryClass;
@@ -47,19 +47,19 @@ final class FactoryClassPrinter
         $factoryClassContent = $this->betterStandardPrinter->prettyPrintFile([$nodeToPrint]);
         $this->smartFileSystem->dumpFile($factoryClassFilePath, $factoryClassContent);
     }
-    private function createFactoryClassFilePath(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $oldClass) : string
+    private function createFactoryClassFilePath(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $oldClass) : string
     {
         /** @var SmartFileInfo|null $classFileInfo */
-        $classFileInfo = $oldClass->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $classFileInfo = $oldClass->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($classFileInfo === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $directoryPath = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::before($classFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
+        $directoryPath = \_PhpScopere8e811afab72\Nette\Utils\Strings::before($classFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
         $resolvedOldClass = $this->nodeNameResolver->getName($oldClass);
         if ($resolvedOldClass === null) {
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
         }
-        $bareClassName = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
+        $bareClassName = \_PhpScopere8e811afab72\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
         return $directoryPath . \DIRECTORY_SEPARATOR . $bareClassName;
     }
 }

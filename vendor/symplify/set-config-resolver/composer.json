@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper0a2ac50786fa\\Symplify\\SetConfigResolver\\": "src"
+            "_PhpScopere8e811afab72\\Symplify\\SetConfigResolver\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper0a2ac50786fa\\Symplify\\SetConfigResolver\\Tests\\": "tests"
+            "_PhpScopere8e811afab72\\Symplify\\SetConfigResolver\\Tests\\": "tests"
         }
     },
     "extra": {

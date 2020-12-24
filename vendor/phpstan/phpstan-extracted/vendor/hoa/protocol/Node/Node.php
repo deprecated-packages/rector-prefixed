@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Protocol\Node;
+namespace _PhpScopere8e811afab72\Hoa\Protocol\Node;
 
-use _PhpScoper0a2ac50786fa\Hoa\Consistency;
-use _PhpScoper0a2ac50786fa\Hoa\Protocol;
+use _PhpScopere8e811afab72\Hoa\Consistency;
+use _PhpScopere8e811afab72\Hoa\Protocol;
 /**
  * Class \Hoa\Protocol\Node\Node.
  *
@@ -100,13 +100,13 @@ class Node implements \ArrayAccess, \IteratorAggregate
     public function offsetSet($name, $node)
     {
         if (!$node instanceof self) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Protocol\Exception('Protocol node must extend %s.', 0, __CLASS__);
+            throw new \_PhpScopere8e811afab72\Hoa\Protocol\Exception('Protocol node must extend %s.', 0, __CLASS__);
         }
         if (empty($name)) {
             $name = $node->getName();
         }
         if (empty($name)) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Protocol\Exception('Cannot add a node to the `hoa://` protocol without a name.', 1);
+            throw new \_PhpScopere8e811afab72\Hoa\Protocol\Exception('Cannot add a node to the `hoa://` protocol without a name.', 1);
         }
         $this->_children[$name] = $node;
         return;
@@ -121,7 +121,7 @@ class Node implements \ArrayAccess, \IteratorAggregate
     public function offsetGet($name)
     {
         if (!isset($this[$name])) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Protocol\Exception('Node %s does not exist.', 2, $name);
+            throw new \_PhpScopere8e811afab72\Hoa\Protocol\Exception('Node %s does not exist.', 2, $name);
         }
         return $this->_children[$name];
     }
@@ -261,7 +261,7 @@ class Node implements \ArrayAccess, \IteratorAggregate
      */
     public function reachId($id)
     {
-        throw new \_PhpScoper0a2ac50786fa\Hoa\Protocol\Exception('The node %s has no ID support (tried to reach #%s).', 4, [$this->getName(), $id]);
+        throw new \_PhpScopere8e811afab72\Hoa\Protocol\Exception('The node %s has no ID support (tried to reach #%s).', 4, [$this->getName(), $id]);
     }
     /**
      * Set a new reach value.
@@ -309,7 +309,7 @@ class Node implements \ArrayAccess, \IteratorAggregate
      */
     public static function getRoot()
     {
-        return \_PhpScoper0a2ac50786fa\Hoa\Protocol::getInstance();
+        return \_PhpScopere8e811afab72\Hoa\Protocol::getInstance();
     }
     /**
      * Print a tree of component.
@@ -331,4 +331,4 @@ class Node implements \ArrayAccess, \IteratorAggregate
 /**
  * Flex entity.
  */
-\_PhpScoper0a2ac50786fa\Hoa\Consistency::flexEntity('_PhpScoper0a2ac50786fa\\Hoa\\Protocol\\Node\\Node');
+\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Protocol\\Node\\Node');

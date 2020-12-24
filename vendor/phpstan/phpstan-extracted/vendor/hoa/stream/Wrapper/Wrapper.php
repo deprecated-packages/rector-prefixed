@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Stream\Wrapper;
+namespace _PhpScopere8e811afab72\Hoa\Stream\Wrapper;
 
-use _PhpScoper0a2ac50786fa\Hoa\Consistency;
+use _PhpScopere8e811afab72\Hoa\Consistency;
 /**
  * Class \Hoa\Stream\Wrapper.
  *
@@ -60,10 +60,10 @@ class Wrapper
     public static function register($protocol, $className, $flags = 0)
     {
         if (\true === self::isRegistered($protocol)) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Stream\Wrapper\Exception('The protocol %s is already registered.', 0, $protocol);
+            throw new \_PhpScopere8e811afab72\Hoa\Stream\Wrapper\Exception('The protocol %s is already registered.', 0, $protocol);
         }
         if (\false === \class_exists($className)) {
-            throw new \_PhpScoper0a2ac50786fa\Hoa\Stream\Wrapper\Exception('Cannot use the %s class for the implementation of ' . 'the %s protocol because it is not found.', 1, [$className, $protocol]);
+            throw new \_PhpScopere8e811afab72\Hoa\Stream\Wrapper\Exception('Cannot use the %s class for the implementation of ' . 'the %s protocol because it is not found.', 1, [$className, $protocol]);
         }
         return \stream_wrapper_register($protocol, $className, $flags);
     }
@@ -116,4 +116,4 @@ class Wrapper
 /**
  * Flex entity.
  */
-\_PhpScoper0a2ac50786fa\Hoa\Consistency::flexEntity('_PhpScoper0a2ac50786fa\\Hoa\\Stream\\Wrapper\\Wrapper');
+\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Stream\\Wrapper\\Wrapper');

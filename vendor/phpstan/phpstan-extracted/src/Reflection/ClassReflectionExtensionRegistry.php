@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Broker\Broker;
+use _PhpScopere8e811afab72\PHPStan\Broker\Broker;
 class ClassReflectionExtensionRegistry
 {
     /** @var \PHPStan\Reflection\PropertiesClassReflectionExtension[] */
@@ -15,10 +15,10 @@ class ClassReflectionExtensionRegistry
      * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
      * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Broker\Broker $broker, array $propertiesClassReflectionExtensions, array $methodsClassReflectionExtensions)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Broker\Broker $broker, array $propertiesClassReflectionExtensions, array $methodsClassReflectionExtensions)
     {
         foreach (\array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions) as $extension) {
-            if (!$extension instanceof \_PhpScoper0a2ac50786fa\PHPStan\Reflection\BrokerAwareExtension) {
+            if (!$extension instanceof \_PhpScopere8e811afab72\PHPStan\Reflection\BrokerAwareExtension) {
                 continue;
             }
             $extension->setBroker($broker);

@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DowngradePhp80\Rector\Class_;
+namespace _PhpScopere8e811afab72\Rector\DowngradePhp80\Rector\Class_;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/constructor_promotion
  *
  * @see \Rector\DowngradePhp80\Tests\Rector\Class_\DowngradePropertyPromotionToConstructorPropertyAssignRector\DowngradePropertyPromotionToConstructorPropertyAssignRectorTest
  */
-final class DowngradePropertyPromotionToConstructorPropertyAssignRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class DowngradePropertyPromotionToConstructorPropertyAssignRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change constructor property promotion to property asssign', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change constructor property promotion to property asssign', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(public float $value = 0.0)
@@ -57,12 +57,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         $promotedParams = $this->resolvePromotedParams($node);
         if ($promotedParams === []) {
@@ -78,9 +78,9 @@ CODE_SAMPLE
     /**
      * @return Param[]
      */
-    private function resolvePromotedParams(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolvePromotedParams(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $constructorClassMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorClassMethod = $class->getMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructorClassMethod === null) {
             return [];
         }
@@ -97,7 +97,7 @@ CODE_SAMPLE
      * @param Param[] $promotedParams
      * @return Property[]
      */
-    private function addPropertiesFromParams(array $promotedParams, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : array
+    private function addPropertiesFromParams(array $promotedParams, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $properties = $this->createPropertiesFromParams($promotedParams);
         $this->classInsertManipulator->addPropertiesToClass($class, $properties);
@@ -106,16 +106,16 @@ CODE_SAMPLE
     /**
      * @param Property[] $properties
      */
-    private function addPropertyAssignsToConstructorClassMethod(array $properties, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addPropertyAssignsToConstructorClassMethod(array $properties, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $assigns = [];
         foreach ($properties as $property) {
             $propertyName = $this->getName($property);
             $assign = $this->nodeFactory->createPropertyAssignment($propertyName);
-            $assigns[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression($assign);
+            $assigns[] = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression($assign);
         }
         /** @var ClassMethod $constructorClassMethod */
-        $constructorClassMethod = $class->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorClassMethod = $class->getMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $constructorClassMethod->stmts = \array_merge($assigns, (array) $constructorClassMethod->stmts);
     }
     /**

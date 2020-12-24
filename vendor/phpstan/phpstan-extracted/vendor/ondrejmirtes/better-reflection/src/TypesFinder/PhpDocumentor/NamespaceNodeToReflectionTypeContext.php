@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\PhpDocumentor;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\PhpDocumentor;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context;
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\GroupUse;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\GroupUse;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Use_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\UseUse;
 use function array_filter;
 use function array_map;
 use function array_merge;
 use function in_array;
 class NamespaceNodeToReflectionTypeContext
 {
-    public function __invoke(?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ $namespace) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context
+    public function __invoke(?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_ $namespace) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context
     {
         if (!$namespace) {
-            return new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context('');
+            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context('');
         }
-        return new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context($namespace->name ? $namespace->name->toString() : '', $this->aliasesToFullyQualifiedNames($namespace));
+        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context($namespace->name ? $namespace->name->toString() : '', $this->aliasesToFullyQualifiedNames($namespace));
     }
     /**
      * @return string[] indexed by alias
      */
-    private function aliasesToFullyQualifiedNames(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ $namespace) : array
+    private function aliasesToFullyQualifiedNames(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
         // flatten(flatten(map(stuff)))
         return \array_merge([], ...\array_merge([], ...\array_map(
             /** @param Use_|GroupUse $use */
             static function ($use) : array {
-                return \array_map(static function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse $useUse) use($use) : array {
-                    if ($use instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\GroupUse) {
+                return \array_map(static function (\_PhpScopere8e811afab72\PhpParser\Node\Stmt\UseUse $useUse) use($use) : array {
+                    if ($use instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\GroupUse) {
                         return [$useUse->getAlias()->toString() => $use->prefix->toString() . '\\' . $useUse->name->toString()];
                     }
                     return [$useUse->getAlias()->toString() => $useUse->name->toString()];
@@ -44,10 +44,10 @@ class NamespaceNodeToReflectionTypeContext
     /**
      * @return Use_[]|GroupUse[]
      */
-    private function classAlikeUses(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_ $namespace) : array
+    private function classAlikeUses(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
-        return \array_filter($namespace->stmts, static function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : bool {
-            return ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_ || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\GroupUse) && \in_array($node->type, [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Use_::TYPE_NORMAL], \true);
+        return \array_filter($namespace->stmts, static function (\_PhpScopere8e811afab72\PhpParser\Node $node) : bool {
+            return ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Use_ || $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\GroupUse) && \in_array($node->type, [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Use_::TYPE_NORMAL], \true);
         });
     }
 }

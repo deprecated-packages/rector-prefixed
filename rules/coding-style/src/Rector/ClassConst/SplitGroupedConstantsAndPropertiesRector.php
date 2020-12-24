@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\ClassConst;
+namespace _PhpScopere8e811afab72\Rector\CodingStyle\Rector\ClassConst;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Const_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\PropertyProperty;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Const_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\PropertyProperty;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\ClassConst\SplitGroupedConstantsAndPropertiesRector\SplitGroupedConstantsAndPropertiesRectorTest
  */
-final class SplitGroupedConstantsAndPropertiesRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class SplitGroupedConstantsAndPropertiesRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Separate constant and properties to own lines', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Separate constant and properties to own lines', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     const HI = true, AHOJ = 'true';
@@ -53,14 +53,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst::class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst::class, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param ClassConst|Property $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst) {
             if (\count((array) $node->consts) < 2) {
                 return null;
             }
@@ -81,7 +81,7 @@ CODE_SAMPLE
         $firstPropertyProperty = \array_shift($allProperties);
         $node->props = [$firstPropertyProperty];
         foreach ($allProperties as $anotherProperty) {
-            $nextProperty = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property($node->flags, [$anotherProperty], $node->getAttributes());
+            $nextProperty = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property($node->flags, [$anotherProperty], $node->getAttributes());
             $this->addNodeAfterNode($nextProperty, $node);
         }
         return $node;
@@ -90,11 +90,11 @@ CODE_SAMPLE
      * @param Const_[] $consts
      * @return ClassConst[]
      */
-    private function createNextClassConsts(array $consts, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst $classConst) : array
+    private function createNextClassConsts(array $consts, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst $classConst) : array
     {
         $decoratedConsts = [];
         foreach ($consts as $const) {
-            $decoratedConsts[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassConst([$const], $classConst->flags, $classConst->getAttributes());
+            $decoratedConsts[] = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst([$const], $classConst->flags, $classConst->getAttributes());
         }
         return $decoratedConsts;
     }

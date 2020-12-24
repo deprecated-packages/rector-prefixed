@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Renaming\Rector\ClassConstFetch;
+namespace _PhpScopere8e811afab72\Rector\Renaming\Rector\ClassConstFetch;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a2ac50786fa\Webmozart\Assert\Assert;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
+use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Renaming\ValueObject\RenameClassConstant;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\RenameClassConstantRectorTest
  */
-final class RenameClassConstantRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RenameClassConstantRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -27,10 +27,10 @@ final class RenameClassConstantRector extends \_PhpScoper0a2ac50786fa\Rector\Cor
      * @var RenameClassConstant[]
      */
     private $classConstantRenames = [];
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        $configuration = [self::CLASS_CONSTANT_RENAME => [new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant('SomeClass', 'OLD_CONSTANT', 'NEW_CONSTANT'), new \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant('SomeClass', 'OTHER_OLD_CONSTANT', 'DifferentClass::NEW_CONSTANT')]];
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined class constants in their calls.', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        $configuration = [self::CLASS_CONSTANT_RENAME => [new \_PhpScopere8e811afab72\Rector\Renaming\ValueObject\RenameClassConstant('SomeClass', 'OLD_CONSTANT', 'NEW_CONSTANT'), new \_PhpScopere8e811afab72\Rector\Renaming\ValueObject\RenameClassConstant('SomeClass', 'OTHER_OLD_CONSTANT', 'DifferentClass::NEW_CONSTANT')]];
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined class constants in their calls.', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $value = SomeClass::OLD_CONSTANT;
 $value = SomeClass::OTHER_OLD_CONSTANT;
 CODE_SAMPLE
@@ -45,12 +45,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch::class];
     }
     /**
      * @param ClassConstFetch $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         foreach ($this->classConstantRenames as $classConstantRename) {
             if (!$this->isObjectType($node, $classConstantRename->getOldClass())) {
@@ -59,10 +59,10 @@ CODE_SAMPLE
             if (!$this->isName($node->name, $classConstantRename->getOldConstant())) {
                 continue;
             }
-            if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($classConstantRename->getNewConstant(), '::')) {
+            if (\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($classConstantRename->getNewConstant(), '::')) {
                 return $this->createClassConstantFetchNodeFromDoubleColonFormat($classConstantRename->getNewConstant());
             }
-            $node->name = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($classConstantRename->getNewConstant());
+            $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($classConstantRename->getNewConstant());
             return $node;
         }
         return $node;
@@ -73,12 +73,12 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $classConstantRenames = $configuration[self::CLASS_CONSTANT_RENAME] ?? [];
-        \_PhpScoper0a2ac50786fa\Webmozart\Assert\Assert::allIsInstanceOf($classConstantRenames, \_PhpScoper0a2ac50786fa\Rector\Renaming\ValueObject\RenameClassConstant::class);
+        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($classConstantRenames, \_PhpScopere8e811afab72\Rector\Renaming\ValueObject\RenameClassConstant::class);
         $this->classConstantRenames = $classConstantRenames;
     }
-    private function createClassConstantFetchNodeFromDoubleColonFormat(string $constant) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch
+    private function createClassConstantFetchNodeFromDoubleColonFormat(string $constant) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch
     {
         [$constantClass, $constantName] = \explode('::', $constant);
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name\FullyQualified($constantClass), new \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier($constantName));
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified($constantClass), new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($constantName));
     }
 }

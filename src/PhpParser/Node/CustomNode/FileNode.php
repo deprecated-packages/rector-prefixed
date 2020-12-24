@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode;
+namespace _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\CustomNode;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\NodeAbstract;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\NodeAbstract;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Inspired by https://github.com/phpstan/phpstan-src/commit/ed81c3ad0b9877e6122c79b4afda9d10f3994092
  */
-final class FileNode extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract
+final class FileNode extends \_PhpScopere8e811afab72\PhpParser\NodeAbstract
 {
     /**
      * @var Node[]
@@ -22,7 +22,7 @@ final class FileNode extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract
     /**
      * @param Node[] $stmts
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, array $stmts)
+    public function __construct(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, array $stmts)
     {
         parent::__construct();
         $this->fileInfo = $fileInfo;
@@ -39,7 +39,7 @@ final class FileNode extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract
     {
         return ['stmts'];
     }
-    public function getFileInfo() : \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }

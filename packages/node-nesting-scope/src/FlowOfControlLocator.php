@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeNestingScope;
+namespace _PhpScopere8e811afab72\Rector\NodeNestingScope;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp;
+use _PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
 final class FlowOfControlLocator
 {
-    public function resolveNestingHashFromFunctionLike(\_PhpScoper0a2ac50786fa\PhpParser\Node\FunctionLike $functionLike, \_PhpScoper0a2ac50786fa\PhpParser\Node $checkedNode) : string
+    public function resolveNestingHashFromFunctionLike(\_PhpScopere8e811afab72\PhpParser\Node\FunctionLike $functionLike, \_PhpScopere8e811afab72\PhpParser\Node $checkedNode) : string
     {
         $nestingHash = \spl_object_hash($functionLike) . '__';
         $currentNode = $checkedNode;
         $previous = $currentNode;
-        while ($currentNode = $currentNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE)) {
-            if ($currentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Expression) {
+        while ($currentNode = $currentNode->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE)) {
+            if ($currentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
                 continue;
             }
-            if (!$currentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node) {
+            if (!$currentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node) {
                 continue;
             }
             if ($functionLike === $currentNode) {
@@ -32,9 +32,9 @@ final class FlowOfControlLocator
         }
         return $nestingHash;
     }
-    private function resolveBinaryOpNestingHash(\_PhpScoper0a2ac50786fa\PhpParser\Node $currentNode, \_PhpScoper0a2ac50786fa\PhpParser\Node $previous) : string
+    private function resolveBinaryOpNestingHash(\_PhpScopere8e811afab72\PhpParser\Node $currentNode, \_PhpScopere8e811afab72\PhpParser\Node $previous) : string
     {
-        if (!$currentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp) {
+        if (!$currentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp) {
             return '';
         }
         // left && right have differnt nesting

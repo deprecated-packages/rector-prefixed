@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem;
+namespace _PhpScopere8e811afab72\Symplify\SmartFileSystem;
 
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\Exception\FileNotFoundException;
 final class FileSystemGuard
 {
     public function ensureFileExists(string $file, string $location) : void
@@ -12,7 +12,7 @@ final class FileSystemGuard
         if (\file_exists($file)) {
             return;
         }
-        throw new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
+        throw new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
     }
     public function ensureDirectoryExists(string $directory, string $extraMessage = '') : void
     {
@@ -23,6 +23,6 @@ final class FileSystemGuard
         if ($extraMessage !== '') {
             $message .= ' ' . $extraMessage;
         }
-        throw new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException($message);
+        throw new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException($message);
     }
 }

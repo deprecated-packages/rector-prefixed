@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PSR4\Collector;
+namespace _PhpScopere8e811afab72\Rector\PSR4\Collector;
 
-use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\RenamedClassesDataCollector;
+use _PhpScopere8e811afab72\Rector\Core\Configuration\RenamedClassesDataCollector;
 final class RenamedClassesCollector
 {
     /**
@@ -14,7 +14,7 @@ final class RenamedClassesCollector
      * @var RenamedClassesDataCollector
      */
     private $renamedClassesDataCollector;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector)
     {
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
     }

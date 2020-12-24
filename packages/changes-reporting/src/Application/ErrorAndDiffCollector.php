@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Application;
+namespace _PhpScopere8e811afab72\Rector\ChangesReporting\Application;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\AnalysedCodeException;
-use _PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\RectorChangeCollector;
-use _PhpScoper0a2ac50786fa\Rector\ConsoleDiffer\DifferAndFormatter;
-use _PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use _PhpScoper0a2ac50786fa\Rector\Core\Error\ExceptionCorrector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\RectorError;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Reporting\FileDiff;
-use _PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToRemoveCollector;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\AnalysedCodeException;
+use _PhpScopere8e811afab72\Rector\ChangesReporting\Collector\RectorChangeCollector;
+use _PhpScopere8e811afab72\Rector\ConsoleDiffer\DifferAndFormatter;
+use _PhpScopere8e811afab72\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use _PhpScopere8e811afab72\Rector\Core\Error\ExceptionCorrector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\Application\RectorError;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\Reporting\FileDiff;
+use _PhpScopere8e811afab72\Rector\PostRector\Collector\NodesToRemoveCollector;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 final class ErrorAndDiffCollector
 {
@@ -44,7 +44,7 @@ final class ErrorAndDiffCollector
      * @var NodesToRemoveCollector
      */
     private $nodesToRemoveCollector;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\ConsoleDiffer\DifferAndFormatter $differAndFormatter, \_PhpScoper0a2ac50786fa\Rector\Core\Error\ExceptionCorrector $exceptionCorrector, \_PhpScoper0a2ac50786fa\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \_PhpScoper0a2ac50786fa\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \_PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector)
+    public function __construct(\_PhpScopere8e811afab72\Rector\ConsoleDiffer\DifferAndFormatter $differAndFormatter, \_PhpScopere8e811afab72\Rector\Core\Error\ExceptionCorrector $exceptionCorrector, \_PhpScopere8e811afab72\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \_PhpScopere8e811afab72\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \_PhpScopere8e811afab72\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector)
     {
         $this->differAndFormatter = $differAndFormatter;
         $this->rectorChangeCollector = $rectorChangeCollector;
@@ -82,14 +82,14 @@ final class ErrorAndDiffCollector
     {
         return $this->nodesToRemoveCollector->getNodesToRemove();
     }
-    public function addFileDiff(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent, string $oldContent) : void
+    public function addFileDiff(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent, string $oldContent) : void
     {
         if ($newContent === $oldContent) {
             return;
         }
         $rectorChanges = $this->rectorChangeCollector->getRectorChangesByFileInfo($smartFileInfo);
         // always keep the most recent diff
-        $this->fileDiffs[$smartFileInfo->getRealPath()] = new \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Reporting\FileDiff($smartFileInfo, $this->differAndFormatter->diff($oldContent, $newContent), $this->differAndFormatter->diffAndFormat($oldContent, $newContent), $rectorChanges);
+        $this->fileDiffs[$smartFileInfo->getRealPath()] = new \_PhpScopere8e811afab72\Rector\Core\ValueObject\Reporting\FileDiff($smartFileInfo, $this->differAndFormatter->diff($oldContent, $newContent), $this->differAndFormatter->diffAndFormat($oldContent, $newContent), $rectorChanges);
     }
     /**
      * @return FileDiff[]
@@ -113,22 +113,22 @@ final class ErrorAndDiffCollector
     {
         return \count($this->fileDiffs);
     }
-    public function addAutoloadError(\_PhpScoper0a2ac50786fa\PHPStan\AnalysedCodeException $analysedCodeException, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addAutoloadError(\_PhpScopere8e811afab72\PHPStan\AnalysedCodeException $analysedCodeException, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $message = $this->exceptionCorrector->getAutoloadExceptionMessageAndAddLocation($analysedCodeException);
-        $this->errors[] = new \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\RectorError($fileInfo, $message);
+        $this->errors[] = new \_PhpScopere8e811afab72\Rector\Core\ValueObject\Application\RectorError($fileInfo, $message);
     }
-    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
-        $this->errors[] = new \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\RectorError($smartFileInfo, $message, null, $rectorClass);
+        $this->errors[] = new \_PhpScopere8e811afab72\Rector\Core\ValueObject\Application\RectorError($smartFileInfo, $message, null, $rectorClass);
     }
-    public function addThrowableWithFileInfo(\Throwable $throwable, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addThrowableWithFileInfo(\Throwable $throwable, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $rectorClass = $this->exceptionCorrector->matchRectorClass($throwable);
         if ($rectorClass) {
             $this->addErrorWithRectorClassMessageAndFileInfo($rectorClass, $throwable->getMessage(), $fileInfo);
         } else {
-            $this->errors[] = new \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\Application\RectorError($fileInfo, $throwable->getMessage(), $throwable->getCode());
+            $this->errors[] = new \_PhpScopere8e811afab72\Rector\Core\ValueObject\Application\RectorError($fileInfo, $throwable->getMessage(), $throwable->getCode());
         }
     }
 }

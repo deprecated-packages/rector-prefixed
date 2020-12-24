@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\Catch_;
+namespace _PhpScopere8e811afab72\Rector\CodingStyle\Rector\Catch_;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Catch_;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Catch_;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Catch_\CatchExceptionNameMatchingTypeRector\CatchExceptionNameMatchingTypeRectorTest
  */
-final class CatchExceptionNameMatchingTypeRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class CatchExceptionNameMatchingTypeRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/xmfMAX/1
      */
     private const STARTS_WITH_ABBREVIATION_REGEX = '#^([A-Za-z]+?)([A-Z]{1}[a-z]{1})([A-Za-z]*)#';
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Type and name of catch exception should match', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Type and name of catch exception should match', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -55,12 +55,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Catch_::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Catch_::class];
     }
     /**
      * @param Catch_ $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if (\count((array) $node->types) !== 1) {
             return null;
@@ -74,7 +74,7 @@ CODE_SAMPLE
         }
         $type = $node->types[0];
         $typeShortName = $this->getShortName($type);
-        $newVariableName = \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace(\lcfirst($typeShortName), self::STARTS_WITH_ABBREVIATION_REGEX, function (array $matches) : string {
+        $newVariableName = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace(\lcfirst($typeShortName), self::STARTS_WITH_ABBREVIATION_REGEX, function (array $matches) : string {
             $output = '';
             $output .= isset($matches[1]) ? \strtolower($matches[1]) : '';
             $output .= $matches[2] ?? '';
@@ -84,14 +84,21 @@ CODE_SAMPLE
         if ($oldVariableName === $newVariableName) {
             return null;
         }
+        $newVariable = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($newVariableName);
+        $isFoundInPrevious = (bool) $this->betterNodeFinder->findFirstPrevious($node, function (\_PhpScopere8e811afab72\PhpParser\Node $n) use($newVariable) : bool {
+            return $this->areNodesEqual($n, $newVariable);
+        });
+        if ($isFoundInPrevious) {
+            return null;
+        }
         $node->var->name = $newVariableName;
         $this->renameVariableInStmts($node, $oldVariableName, $newVariableName);
         return $node;
     }
-    private function renameVariableInStmts(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Catch_ $catch, string $oldVariableName, string $newVariableName) : void
+    private function renameVariableInStmts(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Catch_ $catch, string $oldVariableName, string $newVariableName) : void
     {
-        $this->traverseNodesWithCallable($catch->stmts, function (\_PhpScoper0a2ac50786fa\PhpParser\Node $node) use($oldVariableName, $newVariableName) : void {
-            if (!$node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Variable) {
+        $this->traverseNodesWithCallable($catch->stmts, function (\_PhpScopere8e811afab72\PhpParser\Node $node) use($oldVariableName, $newVariableName) : void {
+            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
                 return;
             }
             if (!$this->isVariableName($node, $oldVariableName)) {

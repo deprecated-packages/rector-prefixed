@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip;
+namespace _PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\Skipper\HttpKernel\SkipperKernel;
-use _PhpScoper0a2ac50786fa\Symplify\Skipper\Skipper\Skipper;
-use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
-use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\NotSkippedClass;
-use _PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class SkipSkipperTest extends \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScopere8e811afab72\Symplify\Skipper\HttpKernel\SkipperKernel;
+use _PhpScopere8e811afab72\Symplify\Skipper\Skipper\Skipper;
+use _PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
+use _PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\NotSkippedClass;
+use _PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class SkipSkipperTest extends \_PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var Skipper
@@ -19,8 +19,8 @@ final class SkipSkipperTest extends \_PhpScoper0a2ac50786fa\Symplify\PackageBuil
     private $skipper;
     protected function setUp() : void
     {
-        $this->bootKernelWithConfigs(\_PhpScoper0a2ac50786fa\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
-        $this->skipper = $this->getService(\_PhpScoper0a2ac50786fa\Symplify\Skipper\Skipper\Skipper::class);
+        $this->bootKernelWithConfigs(\_PhpScopere8e811afab72\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
+        $this->skipper = $this->getService(\_PhpScopere8e811afab72\Symplify\Skipper\Skipper\Skipper::class);
     }
     /**
      * @dataProvider provideCheckerAndFile()
@@ -30,23 +30,23 @@ final class SkipSkipperTest extends \_PhpScoper0a2ac50786fa\Symplify\PackageBuil
      */
     public function test(string $element, string $filePath, bool $expectedSkip) : void
     {
-        $resolvedSkip = $this->skipper->shouldSkipElementAndFileInfo($element, new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($filePath));
+        $resolvedSkip = $this->skipper->shouldSkipElementAndFileInfo($element, new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo($filePath));
         $this->assertSame($expectedSkip, $resolvedSkip);
     }
     public function provideCheckerAndFile() : \Iterator
     {
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip::class, __DIR__ . '/Fixture', \true]);
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class, __DIR__ . '/Fixture/someFile', \true]);
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class, __DIR__ . '/Fixture/someDirectory/anotherFile.php', \true]);
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class, __DIR__ . '/Fixture/someDirectory/anotherFile.php', \true]);
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\NotSkippedClass::class, __DIR__ . '/Fixture/someFile', \false]);
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\NotSkippedClass::class, __DIR__ . '/Fixture/someOtherFile', \false]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip::class, __DIR__ . '/Fixture', \true]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class, __DIR__ . '/Fixture/someFile', \true]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class, __DIR__ . '/Fixture/someDirectory/anotherFile.php', \true]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class, __DIR__ . '/Fixture/someDirectory/anotherFile.php', \true]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\NotSkippedClass::class, __DIR__ . '/Fixture/someFile', \false]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\NotSkippedClass::class, __DIR__ . '/Fixture/someOtherFile', \false]);
     }
     public function provideCodeAndFile() : \Iterator
     {
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someCode', __DIR__ . '/Fixture/someFile', \true]);
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someOtherCode', __DIR__ . '/Fixture/someDirectory/someFile', \true]);
-        (yield [\_PhpScoper0a2ac50786fa\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someAnotherCode', __DIR__ . '/Fixture/someDirectory/someFile', \true]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someCode', __DIR__ . '/Fixture/someFile', \true]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someOtherCode', __DIR__ . '/Fixture/someDirectory/someFile', \true]);
+        (yield [\_PhpScopere8e811afab72\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someAnotherCode', __DIR__ . '/Fixture/someDirectory/someFile', \true]);
         (yield ['someSniff.someForeignCode', __DIR__ . '/Fixture/someFile', \false]);
         (yield ['someSniff.someOtherCode', __DIR__ . '/Fixture/someFile', \false]);
     }

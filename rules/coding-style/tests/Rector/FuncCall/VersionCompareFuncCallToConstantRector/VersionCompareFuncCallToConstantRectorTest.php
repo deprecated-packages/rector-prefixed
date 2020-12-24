@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Tests\Rector\FuncCall\VersionCompareFuncCallToConstantRector;
+namespace _PhpScopere8e811afab72\Rector\CodingStyle\Tests\Rector\FuncCall\VersionCompareFuncCallToConstantRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\FuncCall\VersionCompareFuncCallToConstantRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class VersionCompareFuncCallToConstantRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\CodingStyle\Rector\FuncCall\VersionCompareFuncCallToConstantRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class VersionCompareFuncCallToConstantRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class VersionCompareFuncCallToConstantRectorTest extends \_PhpScoper0a2ac5
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\CodingStyle\Rector\FuncCall\VersionCompareFuncCallToConstantRector::class;
+        return \_PhpScopere8e811afab72\Rector\CodingStyle\Rector\FuncCall\VersionCompareFuncCallToConstantRector::class;
     }
 }

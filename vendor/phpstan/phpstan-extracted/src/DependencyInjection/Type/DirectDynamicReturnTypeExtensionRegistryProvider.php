@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type;
+namespace _PhpScopere8e811afab72\PHPStan\DependencyInjection\Type;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Broker\Broker;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\DynamicFunctionReturnTypeExtension;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\DynamicMethodReturnTypeExtension;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\DynamicReturnTypeExtensionRegistry;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
+use _PhpScopere8e811afab72\PHPStan\Broker\Broker;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+use _PhpScopere8e811afab72\PHPStan\Type\DynamicFunctionReturnTypeExtension;
+use _PhpScopere8e811afab72\PHPStan\Type\DynamicMethodReturnTypeExtension;
+use _PhpScopere8e811afab72\PHPStan\Type\DynamicReturnTypeExtensionRegistry;
+use _PhpScopere8e811afab72\PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 /**
  * @internal
  */
-class DirectDynamicReturnTypeExtensionRegistryProvider implements \_PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
+class DirectDynamicReturnTypeExtensionRegistryProvider implements \_PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
 {
     /** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[] */
     private $dynamicMethodReturnTypeExtensions;
@@ -35,28 +35,28 @@ class DirectDynamicReturnTypeExtensionRegistryProvider implements \_PhpScoper0a2
         $this->dynamicStaticMethodReturnTypeExtensions = $dynamicStaticMethodReturnTypeExtensions;
         $this->dynamicFunctionReturnTypeExtensions = $dynamicFunctionReturnTypeExtensions;
     }
-    public function setBroker(\_PhpScoper0a2ac50786fa\PHPStan\Broker\Broker $broker) : void
+    public function setBroker(\_PhpScopere8e811afab72\PHPStan\Broker\Broker $broker) : void
     {
         $this->broker = $broker;
     }
-    public function setReflectionProvider(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
+    public function setReflectionProvider(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function addDynamicMethodReturnTypeExtension(\_PhpScoper0a2ac50786fa\PHPStan\Type\DynamicMethodReturnTypeExtension $extension) : void
+    public function addDynamicMethodReturnTypeExtension(\_PhpScopere8e811afab72\PHPStan\Type\DynamicMethodReturnTypeExtension $extension) : void
     {
         $this->dynamicMethodReturnTypeExtensions[] = $extension;
     }
-    public function addDynamicStaticMethodReturnTypeExtension(\_PhpScoper0a2ac50786fa\PHPStan\Type\DynamicStaticMethodReturnTypeExtension $extension) : void
+    public function addDynamicStaticMethodReturnTypeExtension(\_PhpScopere8e811afab72\PHPStan\Type\DynamicStaticMethodReturnTypeExtension $extension) : void
     {
         $this->dynamicStaticMethodReturnTypeExtensions[] = $extension;
     }
-    public function addDynamicFunctionReturnTypeExtension(\_PhpScoper0a2ac50786fa\PHPStan\Type\DynamicFunctionReturnTypeExtension $extension) : void
+    public function addDynamicFunctionReturnTypeExtension(\_PhpScopere8e811afab72\PHPStan\Type\DynamicFunctionReturnTypeExtension $extension) : void
     {
         $this->dynamicFunctionReturnTypeExtensions[] = $extension;
     }
-    public function getRegistry() : \_PhpScoper0a2ac50786fa\PHPStan\Type\DynamicReturnTypeExtensionRegistry
+    public function getRegistry() : \_PhpScopere8e811afab72\PHPStan\Type\DynamicReturnTypeExtensionRegistry
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Type\DynamicReturnTypeExtensionRegistry($this->broker, $this->reflectionProvider, $this->dynamicMethodReturnTypeExtensions, $this->dynamicStaticMethodReturnTypeExtensions, $this->dynamicFunctionReturnTypeExtensions);
+        return new \_PhpScopere8e811afab72\PHPStan\Type\DynamicReturnTypeExtensionRegistry($this->broker, $this->reflectionProvider, $this->dynamicMethodReturnTypeExtensions, $this->dynamicStaticMethodReturnTypeExtensions, $this->dynamicFunctionReturnTypeExtensions);
     }
 }

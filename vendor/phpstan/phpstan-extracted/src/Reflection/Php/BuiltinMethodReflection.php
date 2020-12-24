@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\Php;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\Php;
 
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
 interface BuiltinMethodReflection
 {
     public function getName() : string;
@@ -26,7 +26,7 @@ interface BuiltinMethodReflection
     public function isPrivate() : bool;
     public function isPublic() : bool;
     public function getPrototype() : self;
-    public function isDeprecated() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
+    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic;
     public function isVariadic() : bool;
     public function getReturnType() : ?\ReflectionType;
     /**

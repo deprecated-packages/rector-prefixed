@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\Finder;
+namespace _PhpScopere8e811afab72\Symplify\SmartFileSystem\Finder;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Finder as NetteFinder;
+use _PhpScopere8e811afab72\Nette\Utils\Finder as NetteFinder;
 use SplFileInfo;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Finder\Finder as SymfonyFinder;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\Symfony\Component\Finder\Finder as SymfonyFinder;
+use _PhpScopere8e811afab72\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SmartFileSystem\Tests\Finder\FinderSanitizer\FinderSanitizerTest
  */
@@ -27,7 +27,7 @@ final class FinderSanitizer
             }
             /** @var string $realPath */
             $realPath = $fileInfo->getRealPath();
-            $smartFileInfos[] = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($realPath);
+            $smartFileInfos[] = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo($realPath);
         }
         return $smartFileInfos;
     }

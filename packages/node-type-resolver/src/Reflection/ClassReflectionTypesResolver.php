@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Reflection;
+namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\Reflection;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
 final class ClassReflectionTypesResolver
 {
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -20,7 +20,7 @@ final class ClassReflectionTypesResolver
      *
      * @return string[]
      */
-    public function resolve(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection) : array
+    public function resolve(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection) : array
     {
         // current class
         $types = [$classReflection->getName()];

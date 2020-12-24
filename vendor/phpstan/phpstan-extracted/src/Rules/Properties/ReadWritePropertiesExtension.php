@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Properties;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Properties;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection;
 interface ReadWritePropertiesExtension
 {
-    public function isAlwaysRead(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection $property, string $propertyName) : bool;
-    public function isAlwaysWritten(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection $property, string $propertyName) : bool;
-    public function isInitialized(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection $property, string $propertyName) : bool;
+    public function isAlwaysRead(\_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection $property, string $propertyName) : bool;
+    public function isAlwaysWritten(\_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection $property, string $propertyName) : bool;
+    public function isInitialized(\_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection $property, string $propertyName) : bool;
 }

@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Comparison;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Comparison;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\TypeSpecifier;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\TypeSpecifierContext;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\NeverType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeCombinator;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifier;
+use _PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifierContext;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\NeverType;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeCombinator;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeUtils;
+use _PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName;
+use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
 class ImpossibleCheckTypeHelper
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
@@ -37,21 +37,21 @@ class ImpossibleCheckTypeHelper
      * @param string[] $universalObjectCratesClasses
      * @param bool $treatPhpDocTypesAsCertain
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\TypeSpecifier $typeSpecifier, array $universalObjectCratesClasses, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifier $typeSpecifier, array $universalObjectCratesClasses, bool $treatPhpDocTypesAsCertain)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->typeSpecifier = $typeSpecifier;
         $this->universalObjectCratesClasses = $universalObjectCratesClasses;
         $this->treatPhpDocTypesAsCertain = $treatPhpDocTypesAsCertain;
     }
-    public function findSpecifiedType(\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope, \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $node) : ?bool
+    public function findSpecifiedType(\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope, \_PhpScopere8e811afab72\PhpParser\Node\Expr $node) : ?bool
     {
-        if ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall && \count($node->args) > 0) {
-            if ($node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
+        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall && \count($node->args) > 0) {
+            if ($node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
                 $functionName = \strtolower((string) $node->name);
                 if ($functionName === 'assert') {
                     $assertValue = $scope->getType($node->args[0]->value)->toBoolean();
-                    if (!$assertValue instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantBooleanType) {
+                    if (!$assertValue instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantBooleanType) {
                         return null;
                     }
                     return $assertValue->getValue();
@@ -65,23 +65,23 @@ class ImpossibleCheckTypeHelper
                     return null;
                 } elseif ($functionName === 'in_array' && \count($node->args) >= 3) {
                     $haystackType = $scope->getType($node->args[1]->value);
-                    if ($haystackType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+                    if ($haystackType instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
                         return null;
                     }
                     if (!$haystackType->isArray()->yes()) {
                         return null;
                     }
-                    if (!$haystackType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType || \count($haystackType->getValueTypes()) > 0) {
+                    if (!$haystackType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType || \count($haystackType->getValueTypes()) > 0) {
                         $needleType = $scope->getType($node->args[0]->value);
-                        $haystackArrayTypes = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::getArrays($haystackType);
-                        if (\count($haystackArrayTypes) === 1 && $haystackArrayTypes[0]->getIterableValueType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NeverType) {
+                        $haystackArrayTypes = \_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getArrays($haystackType);
+                        if (\count($haystackArrayTypes) === 1 && $haystackArrayTypes[0]->getIterableValueType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\NeverType) {
                             return null;
                         }
                         $valueType = $haystackType->getIterableValueType();
                         $isNeedleSupertype = $needleType->isSuperTypeOf($valueType);
                         if ($isNeedleSupertype->maybe() || $isNeedleSupertype->yes()) {
                             foreach ($haystackArrayTypes as $haystackArrayType) {
-                                foreach (\_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::getConstantScalars($haystackArrayType->getIterableValueType()) as $constantScalarType) {
+                                foreach (\_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getConstantScalars($haystackArrayType->getIterableValueType()) as $constantScalarType) {
                                     if ($needleType->isSuperTypeOf($constantScalarType)->yes()) {
                                         continue 2;
                                     }
@@ -90,8 +90,8 @@ class ImpossibleCheckTypeHelper
                             }
                         }
                         if ($isNeedleSupertype->yes()) {
-                            $hasConstantNeedleTypes = \count(\_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::getConstantScalars($needleType)) > 0;
-                            $hasConstantHaystackTypes = \count(\_PhpScoper0a2ac50786fa\PHPStan\Type\TypeUtils::getConstantScalars($valueType)) > 0;
+                            $hasConstantNeedleTypes = \count(\_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getConstantScalars($needleType)) > 0;
+                            $hasConstantHaystackTypes = \count(\_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getConstantScalars($valueType)) > 0;
                             if (!$hasConstantNeedleTypes && !$hasConstantHaystackTypes || $hasConstantNeedleTypes !== $hasConstantHaystackTypes) {
                                 return null;
                             }
@@ -100,14 +100,14 @@ class ImpossibleCheckTypeHelper
                 } elseif ($functionName === 'method_exists' && \count($node->args) >= 2) {
                     $objectType = $scope->getType($node->args[0]->value);
                     $methodType = $scope->getType($node->args[1]->value);
-                    if ($objectType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType && !$this->reflectionProvider->hasClass($objectType->getValue())) {
+                    if ($objectType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType && !$this->reflectionProvider->hasClass($objectType->getValue())) {
                         return \false;
                     }
-                    if ($methodType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType) {
-                        if ($objectType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType) {
-                            $objectType = new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($objectType->getValue());
+                    if ($methodType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType) {
+                        if ($objectType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType) {
+                            $objectType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($objectType->getValue());
                         }
-                        if ($objectType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeWithClassName) {
+                        if ($objectType instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
                             if ($objectType->hasMethod($methodType->getValue())->yes()) {
                                 return \true;
                             }
@@ -119,11 +119,11 @@ class ImpossibleCheckTypeHelper
                 }
             }
         }
-        $specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($scope, $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\TypeSpecifierContext::createTruthy());
+        $specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($scope, $node, \_PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifierContext::createTruthy());
         $sureTypes = $specifiedTypes->getSureTypes();
         $sureNotTypes = $specifiedTypes->getSureNotTypes();
-        $isSpecified = static function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) use($scope, $node) : bool {
-            return ($node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\StaticCall) && $scope->isSpecified($expr);
+        $isSpecified = static function (\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) use($scope, $node) : bool {
+            return ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall || $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) && $scope->isSpecified($expr);
         };
         if (\count($sureTypes) === 1 && \count($sureNotTypes) === 0) {
             $sureType = \reset($sureTypes);
@@ -170,8 +170,8 @@ class ImpossibleCheckTypeHelper
                     return null;
                 }
             }
-            $types = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeCombinator::union(...\array_column($sureTypes, 1));
-            if ($types instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NeverType) {
+            $types = \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::union(...\array_column($sureTypes, 1));
+            if ($types instanceof \_PhpScopere8e811afab72\PHPStan\Type\NeverType) {
                 return \false;
             }
         }
@@ -181,8 +181,8 @@ class ImpossibleCheckTypeHelper
                     return null;
                 }
             }
-            $types = \_PhpScoper0a2ac50786fa\PHPStan\Type\TypeCombinator::union(...\array_column($sureNotTypes, 1));
-            if ($types instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NeverType) {
+            $types = \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::union(...\array_column($sureNotTypes, 1));
+            if ($types instanceof \_PhpScopere8e811afab72\PHPStan\Type\NeverType) {
                 return \true;
             }
         }
@@ -193,13 +193,13 @@ class ImpossibleCheckTypeHelper
      * @param \PhpParser\Node\Arg[] $args
      * @return string
      */
-    public function getArgumentsDescription(\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope, array $args) : string
+    public function getArgumentsDescription(\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope, array $args) : string
     {
         if (\count($args) === 0) {
             return '';
         }
-        $descriptions = \array_map(static function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Arg $arg) use($scope) : string {
-            return $scope->getType($arg->value)->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::value());
+        $descriptions = \array_map(static function (\_PhpScopere8e811afab72\PhpParser\Node\Arg $arg) use($scope) : string {
+            return $scope->getType($arg->value)->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::value());
         }, $args);
         if (\count($descriptions) < 3) {
             return \sprintf(' with %s', \implode(' and ', $descriptions));

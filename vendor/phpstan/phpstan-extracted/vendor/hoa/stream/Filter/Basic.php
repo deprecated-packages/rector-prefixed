@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Stream\Filter;
+namespace _PhpScopere8e811afab72\Hoa\Stream\Filter;
 
-use _PhpScoper0a2ac50786fa\Hoa\Stream;
+use _PhpScopere8e811afab72\Hoa\Stream;
 /**
  * Class \Hoa\Stream\Filter\Basic.
  *
@@ -45,7 +45,7 @@ use _PhpScoper0a2ac50786fa\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class Basic extends \php_user_filter implements \_PhpScoper0a2ac50786fa\Hoa\Stream\IStream\Stream
+abstract class Basic extends \php_user_filter implements \_PhpScopere8e811afab72\Hoa\Stream\IStream\Stream
 {
     /**
      * Filter processed successfully with data available in the out bucket
@@ -108,8 +108,8 @@ abstract class Basic extends \php_user_filter implements \_PhpScoper0a2ac50786fa
      */
     public function filter($in, $out, &$consumed, $closing)
     {
-        $iBucket = new \_PhpScoper0a2ac50786fa\Hoa\Stream\Bucket($in);
-        $oBucket = new \_PhpScoper0a2ac50786fa\Hoa\Stream\Bucket($out);
+        $iBucket = new \_PhpScopere8e811afab72\Hoa\Stream\Bucket($in);
+        $oBucket = new \_PhpScopere8e811afab72\Hoa\Stream\Bucket($out);
         while (\false === $iBucket->eob()) {
             $consumed += $iBucket->getLength();
             $oBucket->append($iBucket);

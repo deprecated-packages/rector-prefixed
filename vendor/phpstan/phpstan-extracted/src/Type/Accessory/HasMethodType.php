@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type\Accessory;
+namespace _PhpScopere8e811afab72\PHPStan\Type\Accessory;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Dummy\DummyMethodReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\TrivialParametersAcceptor;
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\IntersectionType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Traits\NonGenericTypeTrait;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Traits\ObjectTypeTrait;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
-class HasMethodType implements \_PhpScoper0a2ac50786fa\PHPStan\Type\Accessory\AccessoryType, \_PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScopere8e811afab72\PHPStan\Reflection\Dummy\DummyMethodReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\CompoundType;
+use _PhpScopere8e811afab72\PHPStan\Type\IntersectionType;
+use _PhpScopere8e811afab72\PHPStan\Type\Traits\NonGenericTypeTrait;
+use _PhpScopere8e811afab72\PHPStan\Type\Traits\ObjectTypeTrait;
+use _PhpScopere8e811afab72\PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
+class HasMethodType implements \_PhpScopere8e811afab72\PHPStan\Type\Accessory\AccessoryType, \_PhpScopere8e811afab72\PHPStan\Type\CompoundType
 {
     use ObjectTypeTrait;
     use NonGenericTypeTrait;
@@ -34,65 +34,65 @@ class HasMethodType implements \_PhpScoper0a2ac50786fa\PHPStan\Type\Accessory\Ac
     {
         return \strtolower($this->methodName);
     }
-    public function accepts(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function accepts(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createFromBoolean($this->equals($type));
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean($this->equals($type));
     }
-    public function isSuperTypeOf(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $type->hasMethod($this->methodName);
     }
-    public function isSubTypeOf(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $otherType) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\_PhpScopere8e811afab72\PHPStan\Type\Type $otherType) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        if ($otherType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType || $otherType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\IntersectionType) {
+        if ($otherType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType || $otherType instanceof \_PhpScopere8e811afab72\PHPStan\Type\IntersectionType) {
             return $otherType->isSuperTypeOf($this);
         }
         if ($otherType instanceof self) {
-            $limit = \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createYes();
+            $limit = \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes();
         } else {
-            $limit = \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+            $limit = \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
         }
         return $limit->and($otherType->hasMethod($this->methodName));
     }
-    public function isAcceptedBy(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\_PhpScopere8e811afab72\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
-    public function equals(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : bool
+    public function equals(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : bool
     {
         return $type instanceof self && $this->getCanonicalMethodName() === $type->getCanonicalMethodName();
     }
-    public function describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel $level) : string
     {
         return \sprintf('hasMethod(%s)', $this->methodName);
     }
-    public function hasMethod(string $methodName) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         if ($this->getCanonicalMethodName() === \strtolower($methodName)) {
-            return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createYes();
+            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes();
         }
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getMethod(string $methodName, \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Dummy\DummyMethodReflection($this->methodName);
+        return new \_PhpScopere8e811afab72\PHPStan\Reflection\Dummy\DummyMethodReflection($this->methodName);
     }
-    public function isCallable() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isCallable() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         if ($this->getCanonicalMethodName() === '__invoke') {
-            return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createYes();
+            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes();
         }
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getCallableParametersAcceptors(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        return [new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \_PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor()];
     }
-    public function traverse(callable $cb) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function traverse(callable $cb) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this;
     }
-    public static function __set_state(array $properties) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return new self($properties['methodName']);
     }

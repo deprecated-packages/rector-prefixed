@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Marshaller;
+namespace _PhpScopere8e811afab72\Symfony\Component\Cache\Marshaller;
 
-use _PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\CacheException;
+use _PhpScopere8e811afab72\Symfony\Component\Cache\Exception\CacheException;
 /**
  * Serializes/unserializes values using igbinary_serialize() if available, serialize() otherwise.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DefaultMarshaller implements \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Marshaller\MarshallerInterface
+class DefaultMarshaller implements \_PhpScopere8e811afab72\Symfony\Component\Cache\Marshaller\MarshallerInterface
 {
     private $useIgbinarySerialize = \true;
     public function __construct(bool $useIgbinarySerialize = null)
@@ -24,7 +24,7 @@ class DefaultMarshaller implements \_PhpScoper0a2ac50786fa\Symfony\Component\Cac
         if (null === $useIgbinarySerialize) {
             $useIgbinarySerialize = \extension_loaded('igbinary') && (\PHP_VERSION_ID < 70400 || \version_compare('3.1.6', \phpversion('igbinary'), '<='));
         } elseif ($useIgbinarySerialize && (!\extension_loaded('igbinary') || \PHP_VERSION_ID >= 70400 && \version_compare('3.1.6', \phpversion('igbinary'), '>'))) {
-            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\Cache\Exception\CacheException(\extension_loaded('igbinary') && \PHP_VERSION_ID >= 70400 ? 'Please upgrade the "igbinary" PHP extension to v3.1.6 or higher.' : 'The "igbinary" PHP extension is not loaded.');
+            throw new \_PhpScopere8e811afab72\Symfony\Component\Cache\Exception\CacheException(\extension_loaded('igbinary') && \PHP_VERSION_ID >= 70400 ? 'Please upgrade the "igbinary" PHP extension to v3.1.6 or higher.' : 'The "igbinary" PHP extension is not loaded.');
         }
         $this->useIgbinarySerialize = $useIgbinarySerialize;
     }

@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\TypeMapper;
+namespace _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
-use _PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\IntegerType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\NeverType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
-use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode;
-use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
-use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
-use _PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-use _PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-use _PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeNormalizer;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
+use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScopere8e811afab72\PHPStan\Type\IntegerType;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\NeverType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
+use _PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode;
+use _PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
+use _PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
+use _PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeNormalizer;
 /**
  * @see \Rector\PHPStanStaticTypeMapper\Tests\TypeMapper\ArrayTypeMapperTest
  */
-final class ArrayTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+final class ArrayTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
      * @var string
@@ -43,25 +43,25 @@ final class ArrayTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanSta
     /**
      * @required
      */
-    public function autowireArrayTypeMapper(\_PhpScoper0a2ac50786fa\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper, \_PhpScoper0a2ac50786fa\Rector\TypeDeclaration\TypeNormalizer $typeNormalizer) : void
+    public function autowireArrayTypeMapper(\_PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper, \_PhpScopere8e811afab72\Rector\TypeDeclaration\TypeNormalizer $typeNormalizer) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
         $this->typeNormalizer = $typeNormalizer;
     }
     public function getNodeClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType::class;
+        return \_PhpScopere8e811afab72\PHPStan\Type\ArrayType::class;
     }
     /**
      * @param ArrayType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $itemType = $type->getItemType();
-        if ($itemType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType && !$type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType) {
+        if ($itemType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType && !$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType) {
             return $this->createUnionType($itemType);
         }
-        if ($itemType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType) {
+        if ($itemType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
             $isGenericArrayCandidate = $this->isGenericArrayCandidate($itemType);
             if ($isGenericArrayCandidate) {
                 return $this->createGenericArrayType($type, \true);
@@ -72,28 +72,28 @@ final class ArrayTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanSta
             return $this->createGenericArrayType($type, \true);
         }
         $itemTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($itemType);
-        return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode($itemTypeNode);
+        return new \_PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode($itemTypeNode);
     }
     /**
      * @param ArrayType $type
      */
-    public function mapToPhpParserNode(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function mapToPhpParserNode(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Name('array');
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Name('array');
     }
     /**
      * @param ArrayType $type
      */
-    public function mapToDocString(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $parentType = null) : string
     {
         $itemType = $type->getItemType();
         $normalizedType = $this->typeNormalizer->normalizeArrayOfUnionToUnionArray($type);
-        if ($normalizedType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
+        if ($normalizedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
             return $this->mapArrayUnionTypeToDocString($type, $normalizedType);
         }
         return $this->phpStanStaticTypeMapper->mapToDocString($itemType, $parentType) . '[]';
     }
-    private function createUnionType(\_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType $unionType) : \_PhpScoper0a2ac50786fa\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode
+    private function createUnionType(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode
     {
         $unionedArrayType = [];
         foreach ($unionType->getTypes() as $unionedType) {
@@ -101,31 +101,31 @@ final class ArrayTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanSta
             $unionedArrayType[(string) $typeNode] = $typeNode;
         }
         if (\count($unionedArrayType) > 1) {
-            return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode(new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode($unionedArrayType));
+            return new \_PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode(new \_PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode($unionedArrayType));
         }
         /** @var TypeNode $arrayType */
         $arrayType = \array_shift($unionedArrayType);
-        return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode($arrayType);
+        return new \_PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode($arrayType);
     }
-    private function isGenericArrayCandidate(\_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $arrayType) : bool
+    private function isGenericArrayCandidate(\_PhpScopere8e811afab72\PHPStan\Type\ArrayType $arrayType) : bool
     {
-        if ($arrayType->getKeyType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType) {
+        if ($arrayType->getKeyType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
             return \false;
         }
         // skip simple arrays, like "string[]", from converting to obvious "array<int, string>"
         if ($this->isIntegerKeyAndNonNestedArray($arrayType)) {
             return \false;
         }
-        if ($arrayType->getKeyType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\NeverType) {
+        if ($arrayType->getKeyType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\NeverType) {
             return \false;
         }
         // make sure the integer key type is not natural/implicit array int keys
         $keysArrayType = $arrayType->getKeysArray();
-        if (!$keysArrayType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantArrayType) {
+        if (!$keysArrayType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType) {
             return \true;
         }
         foreach ($keysArrayType->getValueTypes() as $key => $keyType) {
-            if (!$keyType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantIntegerType) {
+            if (!$keyType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType) {
                 return \true;
             }
             if ($key !== $keyType->getValue()) {
@@ -134,10 +134,10 @@ final class ArrayTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanSta
         }
         return \false;
     }
-    private function createGenericArrayType(\_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $arrayType, bool $withKey = \false) : \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode
+    private function createGenericArrayType(\_PhpScopere8e811afab72\PHPStan\Type\ArrayType $arrayType, bool $withKey = \false) : \_PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode
     {
         $itemTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($arrayType->getItemType());
-        $attributeAwareIdentifierTypeNode = new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('array');
+        $attributeAwareIdentifierTypeNode = new \_PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('array');
         if ($withKey) {
             $keyTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($arrayType->getKeyType());
             $genericTypes = [$keyTypeNode, $itemTypeNode];
@@ -150,9 +150,9 @@ final class ArrayTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanSta
             $genericType->setAttribute(self::HAS_GENERIC_TYPE_PARENT, $withKey);
         }
         $attributeAwareIdentifierTypeNode->setAttribute(self::HAS_GENERIC_TYPE_PARENT, $withKey);
-        return new \_PhpScoper0a2ac50786fa\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($attributeAwareIdentifierTypeNode, $genericTypes);
+        return new \_PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($attributeAwareIdentifierTypeNode, $genericTypes);
     }
-    private function mapArrayUnionTypeToDocString(\_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $arrayType, \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType $unionType) : string
+    private function mapArrayUnionTypeToDocString(\_PhpScopere8e811afab72\PHPStan\Type\ArrayType $arrayType, \_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : string
     {
         $unionedTypesAsString = [];
         foreach ($unionType->getTypes() as $unionedArrayItemType) {
@@ -162,11 +162,11 @@ final class ArrayTypeMapper implements \_PhpScoper0a2ac50786fa\Rector\PHPStanSta
         $unionedTypesAsString = \array_unique($unionedTypesAsString);
         return \implode('|', $unionedTypesAsString);
     }
-    private function isIntegerKeyAndNonNestedArray(\_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType $arrayType) : bool
+    private function isIntegerKeyAndNonNestedArray(\_PhpScopere8e811afab72\PHPStan\Type\ArrayType $arrayType) : bool
     {
-        if (!$arrayType->getKeyType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\IntegerType) {
+        if (!$arrayType->getKeyType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\IntegerType) {
             return \false;
         }
-        return !$arrayType->getItemType() instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\ArrayType;
+        return !$arrayType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType;
     }
 }

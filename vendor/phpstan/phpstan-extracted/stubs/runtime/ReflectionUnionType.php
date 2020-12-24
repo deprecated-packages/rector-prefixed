@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa;
+namespace _PhpScopere8e811afab72;
 
 if (\PHP_VERSION_ID < 80000) {
     if (\class_exists('ReflectionUnionType', \false)) {

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\CustomNode;
+namespace _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\CustomNode;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt;
-use _PhpScoper0a2ac50786fa\PhpParser\NodeAbstract;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt;
+use _PhpScopere8e811afab72\PhpParser\NodeAbstract;
 /**
  * Inspired by https://github.com/phpstan/phpstan-src/commit/ed81c3ad0b9877e6122c79b4afda9d10f3994092
  */
-final class FileWithoutNamespace extends \_PhpScoper0a2ac50786fa\PhpParser\NodeAbstract
+final class FileWithoutNamespace extends \_PhpScopere8e811afab72\PhpParser\NodeAbstract
 {
     /**
      * @var Stmt[]

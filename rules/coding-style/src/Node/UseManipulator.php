@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\CodingStyle\Node;
+namespace _PhpScopere8e811afab72\Rector\CodingStyle\Node;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Identifier;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse;
-use _PhpScoper0a2ac50786fa\Rector\CodingStyle\ValueObject\NameAndParent;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\UseUse;
+use _PhpScopere8e811afab72\Rector\CodingStyle\ValueObject\NameAndParent;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
 final class UseManipulator
 {
     /**
@@ -27,7 +27,7 @@ final class UseManipulator
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a2ac50786fa\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -35,7 +35,7 @@ final class UseManipulator
     /**
      * @return NameAndParent[][]
      */
-    public function resolveUsedNameNodes(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : array
+    public function resolveUsedNameNodes(\_PhpScopere8e811afab72\PhpParser\Node $node) : array
     {
         $this->resolvedNodeNames = [];
         $this->resolveUsedNames($node);
@@ -43,24 +43,24 @@ final class UseManipulator
         $this->resolveTraitUseNames($node);
         return $this->resolvedNodeNames;
     }
-    private function resolveUsedNames(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : void
+    private function resolveUsedNames(\_PhpScopere8e811afab72\PhpParser\Node $node) : void
     {
         /** @var Name[] $namedNodes */
-        $namedNodes = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoper0a2ac50786fa\PhpParser\Node\Name::class);
+        $namedNodes = $this->betterNodeFinder->findInstanceOf($node, \_PhpScopere8e811afab72\PhpParser\Node\Name::class);
         foreach ($namedNodes as $nameNode) {
             /** node name before becoming FQN - attribute from @see NameResolver */
-            $originalName = $nameNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
-            if (!$originalName instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
+            $originalName = $nameNode->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
+            if (!$originalName instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
                 continue;
             }
-            $parentNode = $nameNode->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parentNode = $nameNode->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($parentNode === null) {
-                throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
             }
-            $this->resolvedNodeNames[$originalName->toString()][] = new \_PhpScoper0a2ac50786fa\Rector\CodingStyle\ValueObject\NameAndParent($nameNode, $parentNode);
+            $this->resolvedNodeNames[$originalName->toString()][] = new \_PhpScopere8e811afab72\Rector\CodingStyle\ValueObject\NameAndParent($nameNode, $parentNode);
         }
     }
-    private function resolveUsedClassNames(\_PhpScoper0a2ac50786fa\PhpParser\Node $searchNode) : void
+    private function resolveUsedClassNames(\_PhpScopere8e811afab72\PhpParser\Node $searchNode) : void
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes([$searchNode]);
@@ -73,19 +73,19 @@ final class UseManipulator
             if ($name === null) {
                 continue;
             }
-            $this->resolvedNodeNames[$name][] = new \_PhpScoper0a2ac50786fa\Rector\CodingStyle\ValueObject\NameAndParent($classLikeName, $classLike);
+            $this->resolvedNodeNames[$name][] = new \_PhpScopere8e811afab72\Rector\CodingStyle\ValueObject\NameAndParent($classLikeName, $classLike);
         }
     }
-    private function resolveTraitUseNames(\_PhpScoper0a2ac50786fa\PhpParser\Node $searchNode) : void
+    private function resolveTraitUseNames(\_PhpScopere8e811afab72\PhpParser\Node $searchNode) : void
     {
         /** @var Identifier[] $identifiers */
-        $identifiers = $this->betterNodeFinder->findInstanceOf($searchNode, \_PhpScoper0a2ac50786fa\PhpParser\Node\Identifier::class);
+        $identifiers = $this->betterNodeFinder->findInstanceOf($searchNode, \_PhpScopere8e811afab72\PhpParser\Node\Identifier::class);
         foreach ($identifiers as $identifier) {
-            $parentNode = $identifier->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$parentNode instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\UseUse) {
+            $parentNode = $identifier->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if (!$parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\UseUse) {
                 continue;
             }
-            $this->resolvedNodeNames[$identifier->name][] = new \_PhpScoper0a2ac50786fa\Rector\CodingStyle\ValueObject\NameAndParent($identifier, $parentNode);
+            $this->resolvedNodeNames[$identifier->name][] = new \_PhpScopere8e811afab72\Rector\CodingStyle\ValueObject\NameAndParent($identifier, $parentNode);
         }
     }
 }

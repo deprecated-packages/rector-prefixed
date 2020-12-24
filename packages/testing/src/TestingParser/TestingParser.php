@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Testing\TestingParser;
+namespace _PhpScopere8e811afab72\Rector\Testing\TestingParser;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser\Parser;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\Rector\Core\Configuration\Option;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Parser\Parser;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
+use _PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 final class TestingParser
 {
     /**
@@ -28,7 +28,7 @@ final class TestingParser
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Parser\Parser $parser, \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\_PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Parser\Parser $parser, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->parameterProvider = $parameterProvider;
         $this->parser = $parser;
@@ -42,8 +42,8 @@ final class TestingParser
     {
         // autoload file
         require_once $file;
-        $smartFileInfo = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo($file);
-        $this->parameterProvider->changeParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::SOURCE, [$file]);
+        $smartFileInfo = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo($file);
+        $this->parameterProvider->changeParameter(\_PhpScopere8e811afab72\Rector\Core\Configuration\Option::SOURCE, [$file]);
         $nodes = $this->parser->parseFileInfo($smartFileInfo);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($nodes, $smartFileInfo);
     }

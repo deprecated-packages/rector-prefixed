@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Php70\Tests\Rector\FuncCall\MultiDirnameRector;
+namespace _PhpScopere8e811afab72\Rector\Php70\Tests\Rector\FuncCall\MultiDirnameRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\Php70\Rector\FuncCall\MultiDirnameRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\Rector\Php70\Rector\FuncCall\MultiDirnameRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Some tests copied from:
  * - https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/3826/files
  */
-final class MultiDirnameRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class MultiDirnameRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class MultiDirnameRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testin
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\Php70\Rector\FuncCall\MultiDirnameRector::class;
+        return \_PhpScopere8e811afab72\Rector\Php70\Rector\FuncCall\MultiDirnameRector::class;
     }
 }

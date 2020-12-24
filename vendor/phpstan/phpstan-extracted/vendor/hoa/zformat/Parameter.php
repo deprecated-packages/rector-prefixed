@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Zformat;
+namespace _PhpScopere8e811afab72\Hoa\Zformat;
 
 /**
  * Class \Hoa\Zformat\Parameter.
@@ -86,14 +86,14 @@ class Parameter
     public function __construct($owner, array $keywords = [], array $parameters = [])
     {
         if (\is_object($owner)) {
-            if (!$owner instanceof \_PhpScoper0a2ac50786fa\Hoa\Zformat\Parameterizable) {
-                throw new \_PhpScoper0a2ac50786fa\Hoa\Zformat\Exception('Only parameterizable object can have parameter; ' . '%s does implement \\Hoa\\Zformat\\Parameterizable.', 0, \get_class($owner));
+            if (!$owner instanceof \_PhpScopere8e811afab72\Hoa\Zformat\Parameterizable) {
+                throw new \_PhpScopere8e811afab72\Hoa\Zformat\Exception('Only parameterizable object can have parameter; ' . '%s does implement \\Hoa\\Zformat\\Parameterizable.', 0, \get_class($owner));
             }
             $owner = \get_class($owner);
         } else {
             $reflection = new \ReflectionClass($owner);
-            if (\false === $reflection->implementsInterface('_PhpScoper0a2ac50786fa\\Hoa\\Zformat\\Parameterizable')) {
-                throw new \_PhpScoper0a2ac50786fa\Hoa\Zformat\Exception('Only parameterizable object can have parameter; ' . '%s does implement \\Hoa\\Zformat\\Parameterizable.', 1, $owner);
+            if (\false === $reflection->implementsInterface('_PhpScopere8e811afab72\\Hoa\\Zformat\\Parameterizable')) {
+                throw new \_PhpScopere8e811afab72\Hoa\Zformat\Exception('Only parameterizable object can have parameter; ' . '%s does implement \\Hoa\\Zformat\\Parameterizable.', 1, $owner);
             }
         }
         $this->_owner = $owner;
@@ -418,21 +418,21 @@ class Parameter
             // Call a parameter.
             if ('%' == $key[0]) {
                 if (\false === \array_key_exists($word, $parameters)) {
-                    throw new \_PhpScoper0a2ac50786fa\Hoa\Zformat\Exception('Parameter %s is not found in parameters.', 0, $word);
+                    throw new \_PhpScopere8e811afab72\Hoa\Zformat\Exception('Parameter %s is not found in parameters.', 0, $word);
                 }
                 $handle = $parameters[$word];
                 $out = $self->zFormat($handle);
             } elseif ('_' == $key[0]) {
-                $constants = \_PhpScoper0a2ac50786fa\Hoa\Zformat\Parameter::getConstants();
+                $constants = \_PhpScopere8e811afab72\Hoa\Zformat\Parameter::getConstants();
                 foreach (\str_split($word) as $k => $v) {
                     if (!isset($constants[$v])) {
-                        throw new \_PhpScoper0a2ac50786fa\Hoa\Zformat\Exception('Constant char %s is not supported in the ' . 'rule %s.', 1, [$v, $value]);
+                        throw new \_PhpScopere8e811afab72\Hoa\Zformat\Exception('Constant char %s is not supported in the ' . 'rule %s.', 1, [$v, $value]);
                     }
                     $out .= $constants[$v];
                 }
             } else {
                 if (\false === \array_key_exists($key, $keywords)) {
-                    throw new \_PhpScoper0a2ac50786fa\Hoa\Zformat\Exception('Keyword %s is not found in the rule %s.', 2, [$key, $value]);
+                    throw new \_PhpScopere8e811afab72\Hoa\Zformat\Exception('Keyword %s is not found in the rule %s.', 2, [$key, $value]);
                 }
                 $out = $keywords[$key];
             }
@@ -441,7 +441,7 @@ class Parameter
             }
             \preg_match_all('#(h|t|r|e|l|u|U|s(/|%|\\#)(.*?)(?<!\\\\)\\2(.*?)(?:(?<!\\\\)\\2|$))#', $submatch[2], $flags);
             if (empty($flags) || empty($flags[1])) {
-                throw new \_PhpScoper0a2ac50786fa\Hoa\Zformat\Exception('Unrecognized format pattern %s in the rule %s.', 3, [$match[0], $value]);
+                throw new \_PhpScopere8e811afab72\Hoa\Zformat\Exception('Unrecognized format pattern %s in the rule %s.', 3, [$match[0], $value]);
             }
             foreach ($flags[1] as $i => $flag) {
                 switch ($flag) {
@@ -480,7 +480,7 @@ class Parameter
                         break;
                     default:
                         if (!isset($flags[3]) && !isset($flags[4])) {
-                            throw new \_PhpScoper0a2ac50786fa\Hoa\Zformat\Exception('Unrecognized format pattern in the rule %s.', 4, $value);
+                            throw new \_PhpScopere8e811afab72\Hoa\Zformat\Exception('Unrecognized format pattern in the rule %s.', 4, $value);
                         }
                         $l = \preg_quote($flags[3][$i], '#');
                         $r = $flags[4][$i];

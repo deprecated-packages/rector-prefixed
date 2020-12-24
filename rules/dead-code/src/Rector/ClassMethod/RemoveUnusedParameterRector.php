@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\DeadCode\Rector\ClassMethod;
+namespace _PhpScopere8e811afab72\Rector\DeadCode\Rector\ClassMethod;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a2ac50786fa\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\MagicMethodDetector;
-use _PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\VariadicFunctionLikeDetector;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScopere8e811afab72\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
+use _PhpScopere8e811afab72\Rector\DeadCode\NodeManipulator\MagicMethodDetector;
+use _PhpScopere8e811afab72\Rector\DeadCode\NodeManipulator\VariadicFunctionLikeDetector;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.php.net/manual/en/function.compact.php
  *
  * @see \Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedParameterRector\RemoveUnusedParameterRectorTest
  * @see \Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedParameterRector\OpenSourceRectorTest
  */
-final class RemoveUnusedParameterRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a2ac50786fa\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
+final class RemoveUnusedParameterRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
 {
     /**
      * @var ClassManipulator
@@ -42,16 +42,16 @@ final class RemoveUnusedParameterRector extends \_PhpScoper0a2ac50786fa\Rector\C
      * @var VariadicFunctionLikeDetector
      */
     private $variadicFunctionLikeDetector;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator, \_PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\MagicMethodDetector $magicMethodDetector, \_PhpScoper0a2ac50786fa\Rector\DeadCode\NodeManipulator\VariadicFunctionLikeDetector $variadicFunctionLikeDetector)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator, \_PhpScopere8e811afab72\Rector\DeadCode\NodeManipulator\MagicMethodDetector $magicMethodDetector, \_PhpScopere8e811afab72\Rector\DeadCode\NodeManipulator\VariadicFunctionLikeDetector $variadicFunctionLikeDetector)
     {
         $this->classManipulator = $classManipulator;
         $this->classMethodManipulator = $classMethodManipulator;
         $this->magicMethodDetector = $magicMethodDetector;
         $this->variadicFunctionLikeDetector = $variadicFunctionLikeDetector;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused parameter, if not required by interface or parent class', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused parameter, if not required by interface or parent class', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct($value, $value2)
@@ -76,18 +76,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
         /** @var string|null $className */
-        $className = $node->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return null;
         }
@@ -112,7 +112,7 @@ CODE_SAMPLE
         $this->clearPhpDocInfo($node, $unusedParameters);
         return $node;
     }
-    private function shouldSkip(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if ($classMethod->params === []) {
             return \true;
@@ -123,9 +123,9 @@ CODE_SAMPLE
         if ($this->variadicFunctionLikeDetector->isVariadic($classMethod)) {
             return \true;
         }
-        $classLike = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         // skip interfaces and traits
-        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
+        if (!$classLike instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_) {
             return \true;
         }
         if ($this->shouldSkipOpenSourceAbstract($classMethod, $classLike)) {
@@ -143,7 +143,7 @@ CODE_SAMPLE
      * @param Class_[] $childrenOfClass
      * @return Param[]
      */
-    private function getUnusedParameters(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, string $methodName, array $childrenOfClass) : array
+    private function getUnusedParameters(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, string $methodName, array $childrenOfClass) : array
     {
         $unusedParameters = $this->resolveUnusedParameters($classMethod);
         if ($unusedParameters === []) {
@@ -165,17 +165,17 @@ CODE_SAMPLE
      */
     private function getParameterOverlap(array $parameters1, array $parameters2) : array
     {
-        return \array_uintersect($parameters1, $parameters2, function (\_PhpScoper0a2ac50786fa\PhpParser\Node\Param $firstParam, \_PhpScoper0a2ac50786fa\PhpParser\Node\Param $secondParam) : int {
+        return \array_uintersect($parameters1, $parameters2, function (\_PhpScopere8e811afab72\PhpParser\Node\Param $firstParam, \_PhpScopere8e811afab72\PhpParser\Node\Param $secondParam) : int {
             return $this->areNodesEqual($firstParam, $secondParam) ? 0 : 1;
         });
     }
     /**
      * @param Param[] $unusedParameters
      */
-    private function clearPhpDocInfo(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, array $unusedParameters) : void
+    private function clearPhpDocInfo(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, array $unusedParameters) : void
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return;
         }
@@ -194,7 +194,7 @@ CODE_SAMPLE
             $phpDocInfo->removeTagValueNodeFromNode($paramTagValueNode);
         }
     }
-    private function shouldSkipOpenSourceAbstract(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function shouldSkipOpenSourceAbstract(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         // skip as possible contract for 3rd party
         if (!$this->isOpenSourceProjectType()) {
@@ -208,7 +208,7 @@ CODE_SAMPLE
         }
         return $classMethod->isPublic();
     }
-    private function shouldSkipOpenSourceEmpty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipOpenSourceEmpty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         // skip as possible contract for 3rd party
         if (!$this->isOpenSourceProjectType()) {
@@ -216,7 +216,7 @@ CODE_SAMPLE
         }
         return $classMethod->stmts === [] || $classMethod->stmts === null;
     }
-    private function shouldSkipOpenSourceProtectedMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipOpenSourceProtectedMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         // skip as possible contract for 3rd party
         if (!$this->isOpenSourceProjectType()) {
@@ -225,8 +225,8 @@ CODE_SAMPLE
         if ($classMethod->isPublic()) {
             return \true;
         }
-        $classLike = $classMethod->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_) {
+        $classLike = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         if ($classLike->isFinal()) {
@@ -238,7 +238,7 @@ CODE_SAMPLE
     /**
      * @return Param[]
      */
-    private function resolveUnusedParameters(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function resolveUnusedParameters(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $unusedParameters = [];
         foreach ((array) $classMethod->params as $i => $param) {
@@ -249,7 +249,7 @@ CODE_SAMPLE
             }
             if ($this->classMethodManipulator->isParameterUsedInClassMethod($param, $classMethod)) {
                 // reset to keep order of removed arguments, if not construtctor - probably autowired
-                if (!$this->isName($classMethod, \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+                if (!$this->isName($classMethod, \_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
                     $unusedParameters = [];
                 }
                 continue;

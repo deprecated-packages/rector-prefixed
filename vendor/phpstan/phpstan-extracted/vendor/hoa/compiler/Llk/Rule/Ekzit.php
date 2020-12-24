@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule;
+namespace _PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule;
 
 /**
  * Class \Hoa\Compiler\Llk\Rule\Ekzit.
@@ -43,6 +43,6 @@ namespace _PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Ekzit extends \_PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule\Invocation
+class Ekzit extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Invocation
 {
 }

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
+namespace _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
 
-use _PhpScoper0a2ac50786fa\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use _PhpScopere8e811afab72\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 final class DiffCodeSamplePrinter
 {
     /**
      * @var MarkdownDiffer
      */
     private $markdownDiffer;
-    public function __construct(\_PhpScoper0a2ac50786fa\Symplify\MarkdownDiff\Differ\MarkdownDiffer $markdownDiffer)
+    public function __construct(\_PhpScopere8e811afab72\Symplify\MarkdownDiff\Differ\MarkdownDiffer $markdownDiffer)
     {
         $this->markdownDiffer = $markdownDiffer;
     }
     /**
      * @return string[]
      */
-    public function print(\_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample) : array
+    public function print(\_PhpScopere8e811afab72\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample) : array
     {
         $lines = [];
         $lines[] = $this->markdownDiffer->diff($codeSample->getBadCode(), $codeSample->getGoodCode());

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Methods;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Methods;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\Rule;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Rules\Rule;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements Rule<Node\Stmt\ClassMethod>
  */
-class AbstractMethodInNonAbstractClassRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+class AbstractMethodInNonAbstractClassRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class;
     }
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$scope->isInClass()) {
-            throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
         }
         $class = $scope->getClassReflection();
         if ($class->isAbstract()) {
@@ -28,6 +28,6 @@ class AbstractMethodInNonAbstractClassRule implements \_PhpScoper0a2ac50786fa\PH
         if (!$node->isAbstract()) {
             return [];
         }
-        return [\_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Non-abstract class %s contains abstract method %s().', $class->getDisplayName(), $node->name->toString()))->nonIgnorable()->build()];
+        return [\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Non-abstract class %s contains abstract method %s().', $class->getDisplayName(), $node->name->toString()))->nonIgnorable()->build()];
     }
 }

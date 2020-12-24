@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector;
+namespace _PhpScopere8e811afab72\Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class Php74TestTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class Php74TestTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class Php74TestTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class;
+        return \_PhpScopere8e811afab72\Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class;
     }
 }

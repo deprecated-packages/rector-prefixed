@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\GlobalConstantReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
-class MemoizingReflectionProvider implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\GlobalConstantReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+class MemoizingReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $provider;
@@ -18,7 +18,7 @@ class MemoizingReflectionProvider implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
     private $classes = [];
     /** @var array<string, string> */
     private $classNames = [];
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider $provider)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $provider)
     {
         $this->provider = $provider;
     }
@@ -30,7 +30,7 @@ class MemoizingReflectionProvider implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
         }
         return $this->hasClasses[$lowerClassName] = $this->provider->hasClass($className);
     }
-    public function getClass(string $className) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getClass(string $className) : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
         $lowerClassName = \strtolower($className);
         if (isset($this->classes[$lowerClassName])) {
@@ -50,31 +50,31 @@ class MemoizingReflectionProvider implements \_PhpScoper0a2ac50786fa\PHPStan\Ref
     {
         return $this->provider->supportsAnonymousClasses();
     }
-    public function getAnonymousClassReflection(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $classNode, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getAnonymousClassReflection(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $classNode, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
         return $this->provider->getAnonymousClassReflection($classNode, $scope);
     }
-    public function hasFunction(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : bool
+    public function hasFunction(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : bool
     {
         return $this->provider->hasFunction($nameNode, $scope);
     }
-    public function getFunction(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection
+    public function getFunction(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection
     {
         return $this->provider->getFunction($nameNode, $scope);
     }
-    public function resolveFunctionName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveFunctionName(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : ?string
     {
         return $this->provider->resolveFunctionName($nameNode, $scope);
     }
-    public function hasConstant(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : bool
+    public function hasConstant(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : bool
     {
         return $this->provider->hasConstant($nameNode, $scope);
     }
-    public function getConstant(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\GlobalConstantReflection
+    public function getConstant(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\GlobalConstantReflection
     {
         return $this->provider->getConstant($nameNode, $scope);
     }
-    public function resolveConstantName(\_PhpScoper0a2ac50786fa\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveConstantName(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : ?string
     {
         return $this->provider->resolveConstantName($nameNode, $scope);
     }

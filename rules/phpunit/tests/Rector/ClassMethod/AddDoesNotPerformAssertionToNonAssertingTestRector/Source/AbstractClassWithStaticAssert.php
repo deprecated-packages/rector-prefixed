@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PHPUnit\Tests\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source;
+namespace _PhpScopere8e811afab72\Rector\PHPUnit\Tests\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source;
 
-use _PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase;
-abstract class AbstractClassWithStaticAssert extends \_PhpScoper0a2ac50786fa\PHPUnit\Framework\TestCase
+use _PhpScopere8e811afab72\PHPUnit\Framework\TestCase;
+abstract class AbstractClassWithStaticAssert extends \_PhpScopere8e811afab72\PHPUnit\Framework\TestCase
 {
     public function doAssertThis()
     {

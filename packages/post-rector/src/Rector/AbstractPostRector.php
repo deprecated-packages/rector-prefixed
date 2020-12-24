@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\PostRector\Rector;
+namespace _PhpScopere8e811afab72\Rector\PostRector\Rector;
 
-use _PhpScoper0a2ac50786fa\PhpParser\NodeVisitorAbstract;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector\NameResolverTrait;
-use _PhpScoper0a2ac50786fa\Rector\PostRector\Contract\Rector\PostRectorInterface;
-abstract class AbstractPostRector extends \_PhpScoper0a2ac50786fa\PhpParser\NodeVisitorAbstract implements \_PhpScoper0a2ac50786fa\Rector\PostRector\Contract\Rector\PostRectorInterface
+use _PhpScopere8e811afab72\PhpParser\NodeVisitorAbstract;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector\NameResolverTrait;
+use _PhpScopere8e811afab72\Rector\PostRector\Contract\Rector\PostRectorInterface;
+abstract class AbstractPostRector extends \_PhpScopere8e811afab72\PhpParser\NodeVisitorAbstract implements \_PhpScopere8e811afab72\Rector\PostRector\Contract\Rector\PostRectorInterface
 {
     use NameResolverTrait;
 }

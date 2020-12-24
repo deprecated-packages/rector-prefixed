@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Iterator;
+namespace _PhpScopere8e811afab72\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\CallbackGenerator.
@@ -43,7 +43,7 @@ namespace _PhpScoper0a2ac50786fa\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class CallbackGenerator implements \_PhpScoper0a2ac50786fa\Hoa\Iterator\Iterator
+class CallbackGenerator implements \_PhpScopere8e811afab72\Hoa\Iterator\Iterator
 {
     /**
      * Callback.

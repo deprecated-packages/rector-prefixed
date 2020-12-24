@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Analyser;
+namespace _PhpScopere8e811afab72\PHPStan\Analyser;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
 class EnsuredNonNullabilityResultExpression
 {
     /** @var Expr */
@@ -13,21 +13,21 @@ class EnsuredNonNullabilityResultExpression
     private $originalType;
     /** @var Type */
     private $originalNativeType;
-    public function __construct(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expression, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $originalType, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $originalNativeType)
+    public function __construct(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expression, \_PhpScopere8e811afab72\PHPStan\Type\Type $originalType, \_PhpScopere8e811afab72\PHPStan\Type\Type $originalNativeType)
     {
         $this->expression = $expression;
         $this->originalType = $originalType;
         $this->originalNativeType = $originalNativeType;
     }
-    public function getExpression() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    public function getExpression() : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
         return $this->expression;
     }
-    public function getOriginalType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getOriginalType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->originalType;
     }
-    public function getOriginalNativeType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getOriginalNativeType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->originalNativeType;
     }

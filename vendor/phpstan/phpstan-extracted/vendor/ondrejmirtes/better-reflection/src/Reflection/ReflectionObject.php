@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
 use InvalidArgumentException;
-use _PhpScoper0a2ac50786fa\PhpParser\Builder\Property as PropertyNodeBuilder;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike as ClassLikeNode;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property as PropertyNode;
+use _PhpScopere8e811afab72\PhpParser\Builder\Property as PropertyNodeBuilder;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike as ClassLikeNode;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property as PropertyNode;
 use ReflectionException;
 use ReflectionObject as CoreReflectionObject;
 use ReflectionProperty as CoreReflectionProperty;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator;
 use function array_merge;
 use function get_class;
 use function is_object;
 use function strpos;
-class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+class ReflectionObject extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
 {
     /** @var ReflectionClass */
     private $reflectionClass;
@@ -32,7 +32,7 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
     /**
      * @param object $object
      */
-    private function __construct(\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $reflectionClass, $object)
+    private function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $reflectionClass, $object)
     {
         $this->reflector = $reflector;
         $this->reflectionClass = $reflectionClass;
@@ -49,16 +49,16 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
      *
      * @psalm-suppress DocblockTypeContradiction
      */
-    public static function createFromInstance($object) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+    public static function createFromInstance($object) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
     {
         if (!\is_object($object)) {
             throw new \InvalidArgumentException('Can only create from an instance of an object');
         }
         $className = \get_class($object);
-        if (\strpos($className, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::ANONYMOUS_CLASS_NAME_PREFIX) === 0) {
-            $reflector = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector(new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator($object, (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->phpParser()));
+        if (\strpos($className, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::ANONYMOUS_CLASS_NAME_PREFIX) === 0) {
+            $reflector = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector(new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator($object, (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->phpParser()));
         } else {
-            $reflector = (new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->classReflector();
+            $reflector = (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->classReflector();
         }
         return new self($reflector, $reflector->reflect($className), $object);
     }
@@ -85,7 +85,7 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
                 continue;
             }
             $reflectionProperty = $this->reflectionClass->getProperty($property->getName());
-            $runtimeProperty = \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, $this->createPropertyNodeFromReflection($property, $this->object), 0, $reflectionProperty ? $reflectionProperty->getDeclaringClass()->getDeclaringNamespaceAst() : null, $this, $this, \false);
+            $runtimeProperty = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, $this->createPropertyNodeFromReflection($property, $this->object), 0, $reflectionProperty ? $reflectionProperty->getDeclaringClass()->getDeclaringNamespaceAst() : null, $this, $this, \false);
             if ($filter !== null && !($filter & $runtimeProperty->getModifiers())) {
                 continue;
             }
@@ -101,9 +101,9 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
      *
      * @param object $instance
      */
-    private function createPropertyNodeFromReflection(\ReflectionProperty $property, $instance) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property
+    private function createPropertyNodeFromReflection(\ReflectionProperty $property, $instance) : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property
     {
-        $builder = new \_PhpScoper0a2ac50786fa\PhpParser\Builder\Property($property->getName());
+        $builder = new \_PhpScopere8e811afab72\PhpParser\Builder\Property($property->getName());
         $builder->setDefault($property->getValue($instance));
         if ($property->isPublic()) {
             $builder->makePublic();
@@ -144,7 +144,7 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
     {
         return $this->reflectionClass->getImmediateMethods($filter);
     }
-    public function getMethod(string $methodName) : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
+    public function getMethod(string $methodName) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
     {
         return $this->reflectionClass->getMethod($methodName);
     }
@@ -177,7 +177,7 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
     {
         return $this->reflectionClass->hasConstant($name);
     }
-    public function getReflectionConstant(string $name) : ?\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant
+    public function getReflectionConstant(string $name) : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant
     {
         return $this->reflectionClass->getReflectionConstant($name);
     }
@@ -195,7 +195,7 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
     {
         return $this->reflectionClass->getReflectionConstants();
     }
-    public function getConstructor() : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
+    public function getConstructor() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
     {
         return $this->reflectionClass->getConstructor();
     }
@@ -213,7 +213,7 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
     {
         return \array_merge($this->reflectionClass->getImmediateProperties($filter), $this->getRuntimeProperties($filter));
     }
-    public function getProperty(string $name) : ?\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty
+    public function getProperty(string $name) : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty
     {
         $runtimeProperties = $this->getRuntimeProperties();
         if (isset($runtimeProperties[$name])) {
@@ -237,7 +237,7 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
     {
         return $this->reflectionClass->getFileName();
     }
-    public function getLocatedSource() : \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    public function getLocatedSource() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         return $this->reflectionClass->getLocatedSource();
     }
@@ -257,7 +257,7 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
     {
         return $this->reflectionClass->getEndColumn();
     }
-    public function getParentClass() : ?\_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getParentClass() : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->reflectionClass->getParentClass();
     }
@@ -394,11 +394,11 @@ class ReflectionObject extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ro
     {
         return $this->reflectionClass->getStaticPropertyValue($propertyName);
     }
-    public function getAst() : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassLike
+    public function getAst() : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike
     {
         return $this->reflectionClass->getAst();
     }
-    public function getDeclaringNamespaceAst() : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Namespace_
+    public function getDeclaringNamespaceAst() : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_
     {
         return $this->reflectionClass->getDeclaringNamespaceAst();
     }

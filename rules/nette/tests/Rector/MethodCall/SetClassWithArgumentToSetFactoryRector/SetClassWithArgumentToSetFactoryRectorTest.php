@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Nette\Tests\Rector\MethodCall\SetClassWithArgumentToSetFactoryRector;
+namespace _PhpScopere8e811afab72\Rector\Nette\Tests\Rector\MethodCall\SetClassWithArgumentToSetFactoryRector;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Rector\Nette\Rector\MethodCall\SetClassWithArgumentToSetFactoryRector;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-final class SetClassWithArgumentToSetFactoryRectorTest extends \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScopere8e811afab72\Rector\Nette\Rector\MethodCall\SetClassWithArgumentToSetFactoryRector;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+final class SetClassWithArgumentToSetFactoryRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class SetClassWithArgumentToSetFactoryRectorTest extends \_PhpScoper0a2ac5
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a2ac50786fa\Rector\Nette\Rector\MethodCall\SetClassWithArgumentToSetFactoryRector::class;
+        return \_PhpScopere8e811afab72\Rector\Nette\Rector\MethodCall\SetClassWithArgumentToSetFactoryRector::class;
     }
 }

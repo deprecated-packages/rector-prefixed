@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Analyser;
+namespace _PhpScopere8e811afab72\PHPStan\Analyser;
 
 class Error implements \JsonSerializable
 {
@@ -74,7 +74,7 @@ class Error implements \JsonSerializable
     public function changeFilePath(string $newFilePath) : self
     {
         if ($this->traitFilePath !== null) {
-            throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException('Errors in traits not yet supported');
+            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException('Errors in traits not yet supported');
         }
         return new self($this->message, $newFilePath, $this->line, $this->canBeIgnored, $newFilePath, null, $this->tip, $this->nodeLine, $this->nodeType, $this->identifier, $this->metadata);
     }

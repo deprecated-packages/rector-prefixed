@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Sampler;
+namespace _PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler;
 
-use _PhpScoper0a2ac50786fa\Hoa\Compiler;
-use _PhpScoper0a2ac50786fa\Hoa\Consistency;
-use _PhpScoper0a2ac50786fa\Hoa\Visitor;
+use _PhpScopere8e811afab72\Hoa\Compiler;
+use _PhpScopere8e811afab72\Hoa\Consistency;
+use _PhpScopere8e811afab72\Hoa\Visitor;
 /**
  * Class \Hoa\Compiler\Llk\Sampler.
  *
@@ -96,7 +96,7 @@ abstract class Sampler
      * @param   \Hoa\Compiler\Llk\Parser  $compiler        Compiler/parser.
      * @param   \Hoa\Visitor\Visit        $tokenSampler    Token sampler.
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Parser $compiler, \_PhpScoper0a2ac50786fa\Hoa\Visitor\Visit $tokenSampler)
+    public function __construct(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\Parser $compiler, \_PhpScopere8e811afab72\Hoa\Visitor\Visit $tokenSampler)
     {
         $this->_compiler = $compiler;
         $this->_tokens = $compiler->getTokens();
@@ -122,7 +122,7 @@ abstract class Sampler
     protected function getSkipTokenAST()
     {
         if (!isset($this->_skipTokenAST[$this->_currentNamespace])) {
-            $token = new \_PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule\Token(-1, 'skip', null, -1);
+            $token = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Token(-1, 'skip', null, -1);
             $token->setRepresentation($this->_tokens[$this->_currentNamespace]['skip']);
             $this->_skipTokenAST[$this->_currentNamespace] = $token->getAST();
         }
@@ -135,7 +135,7 @@ abstract class Sampler
      * @param   \Hoa\Compiler\Llk\Rule\Token  $token    Token.
      * @return  string
      */
-    protected function completeToken(\_PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule\Token $token)
+    protected function completeToken(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Token $token)
     {
         if (null !== $token->getRepresentation()) {
             return $this->_currentNamespace;
@@ -178,7 +178,7 @@ abstract class Sampler
      * @param   \Hoa\Compiler\Llk\Rule\Token  $token    Token.
      * @return  string
      */
-    protected function generateToken(\_PhpScoper0a2ac50786fa\Hoa\Compiler\Llk\Rule\Token $token)
+    protected function generateToken(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Token $token)
     {
         $toNamespace = $this->completeToken($token);
         $this->setCurrentNamespace($toNamespace);
@@ -192,4 +192,4 @@ abstract class Sampler
 /**
  * Flex entity.
  */
-\_PhpScoper0a2ac50786fa\Hoa\Consistency::flexEntity('_PhpScoper0a2ac50786fa\\Hoa\\Compiler\\Llk\\Sampler\\Sampler');
+\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Compiler\\Llk\\Sampler\\Sampler');

@@ -1,46 +1,46 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit;
+namespace _PhpScopere8e811afab72\Rector\Testing\PHPUnit;
 
 use Iterator;
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\NodeScopeResolver;
-use _PhpScoper0a2ac50786fa\PHPUnit\Framework\ExpectationFailedException;
-use _PhpScoper0a2ac50786fa\Rector\Core\Application\FileProcessor;
-use _PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use _PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
-use _PhpScoper0a2ac50786fa\Rector\Core\Bootstrap\RectorConfigsResolver;
-use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration;
-use _PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option;
-use _PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoper0a2ac50786fa\Rector\Core\NonPhpFile\NonPhpFileProcessor;
-use _PhpScoper0a2ac50786fa\Rector\Core\Stubs\StubLoader;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersion;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
-use _PhpScoper0a2ac50786fa\Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector\Source\ContainerInterface;
-use _PhpScoper0a2ac50786fa\Rector\Testing\Application\EnabledRectorsProvider;
-use _PhpScoper0a2ac50786fa\Rector\Testing\Contract\RunnableInterface;
-use _PhpScoper0a2ac50786fa\Rector\Testing\Finder\RectorsFinder;
-use _PhpScoper0a2ac50786fa\Rector\Testing\Guard\FixtureGuard;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
-use _PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\Behavior\RunnableTestTrait;
-use _PhpScoper0a2ac50786fa\Rector\Testing\ValueObject\InputFilePathWithExpectedFile;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Container;
-use _PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelInterface;
-use _PhpScoper0a2ac50786fa\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use _PhpScoper0a2ac50786fa\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
-use _PhpScoper0a2ac50786fa\Symplify\EasyTesting\StaticFixtureSplitter;
-use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem;
-abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PHPStan\Analyser\NodeScopeResolver;
+use _PhpScopere8e811afab72\PHPUnit\Framework\ExpectationFailedException;
+use _PhpScopere8e811afab72\Rector\Core\Application\FileProcessor;
+use _PhpScopere8e811afab72\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use _PhpScopere8e811afab72\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
+use _PhpScopere8e811afab72\Rector\Core\Bootstrap\RectorConfigsResolver;
+use _PhpScopere8e811afab72\Rector\Core\Configuration\Configuration;
+use _PhpScopere8e811afab72\Rector\Core\Configuration\Option;
+use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\PhpRectorInterface;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScopere8e811afab72\Rector\Core\NonPhpFile\NonPhpFileProcessor;
+use _PhpScopere8e811afab72\Rector\Core\Stubs\StubLoader;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersion;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
+use _PhpScopere8e811afab72\Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector\Source\ContainerInterface;
+use _PhpScopere8e811afab72\Rector\Testing\Application\EnabledRectorsProvider;
+use _PhpScopere8e811afab72\Rector\Testing\Contract\RunnableInterface;
+use _PhpScopere8e811afab72\Rector\Testing\Finder\RectorsFinder;
+use _PhpScopere8e811afab72\Rector\Testing\Guard\FixtureGuard;
+use _PhpScopere8e811afab72\Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
+use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\Behavior\RunnableTestTrait;
+use _PhpScopere8e811afab72\Rector\Testing\ValueObject\InputFilePathWithExpectedFile;
+use _PhpScopere8e811afab72\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScopere8e811afab72\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Container;
+use _PhpScopere8e811afab72\Symfony\Component\HttpKernel\KernelInterface;
+use _PhpScopere8e811afab72\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use _PhpScopere8e811afab72\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
+use _PhpScopere8e811afab72\Symplify\EasyTesting\StaticFixtureSplitter;
+use _PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
+abstract class AbstractRectorTestCase extends \_PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     use MovingFilesTrait;
     use RunnableTestTrait;
@@ -98,13 +98,13 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
     private $oldParameterValues = [];
     protected function setUp() : void
     {
-        $this->runnableRectorFactory = new \_PhpScoper0a2ac50786fa\Rector\Testing\PHPUnit\RunnableRectorFactory();
-        $this->smartFileSystem = new \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileSystem();
-        $this->fixtureGuard = new \_PhpScoper0a2ac50786fa\Rector\Testing\Guard\FixtureGuard();
+        $this->runnableRectorFactory = new \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\RunnableRectorFactory();
+        $this->smartFileSystem = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->fixtureGuard = new \_PhpScopere8e811afab72\Rector\Testing\Guard\FixtureGuard();
         if ($this->provideConfigFileInfo() !== null) {
             $configFileInfos = $this->resolveConfigs($this->provideConfigFileInfo());
-            $this->bootKernelWithConfigInfos(\_PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
-            $enabledRectorsProvider = static::$container->get(\_PhpScoper0a2ac50786fa\Rector\Testing\Application\EnabledRectorsProvider::class);
+            $this->bootKernelWithConfigInfos(\_PhpScopere8e811afab72\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
+            $enabledRectorsProvider = static::$container->get(\_PhpScopere8e811afab72\Rector\Testing\Application\EnabledRectorsProvider::class);
             $enabledRectorsProvider->reset();
         } else {
             // prepare container with all rectors
@@ -120,28 +120,28 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
                 }
                 // 3rd party
                 $configs[] = $this->getConfigFor3rdPartyTest();
-                $this->bootKernelWithConfigs(\_PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel::class, $configs);
+                $this->bootKernelWithConfigs(\_PhpScopere8e811afab72\Rector\Core\HttpKernel\RectorKernel::class, $configs);
             }
-            $enabledRectorsProvider = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\Testing\Application\EnabledRectorsProvider::class);
+            $enabledRectorsProvider = $this->getService(\_PhpScopere8e811afab72\Rector\Testing\Application\EnabledRectorsProvider::class);
             $enabledRectorsProvider->reset();
             $this->configureEnabledRectors($enabledRectorsProvider);
         }
         // load stubs
-        $stubLoader = static::$container->get(\_PhpScoper0a2ac50786fa\Rector\Core\Stubs\StubLoader::class);
+        $stubLoader = static::$container->get(\_PhpScopere8e811afab72\Rector\Core\Stubs\StubLoader::class);
         $stubLoader->loadStubs();
         // disable any output
-        $symfonyStyle = static::$container->get(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Style\SymfonyStyle::class);
-        $symfonyStyle->setVerbosity(\_PhpScoper0a2ac50786fa\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
-        $this->fileProcessor = static::$container->get(\_PhpScoper0a2ac50786fa\Rector\Core\Application\FileProcessor::class);
-        $this->nonPhpFileProcessor = static::$container->get(\_PhpScoper0a2ac50786fa\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
-        $this->parameterProvider = static::$container->get(\_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
-        $this->removedAndAddedFilesCollector = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
+        $symfonyStyle = static::$container->get(\_PhpScopere8e811afab72\Symfony\Component\Console\Style\SymfonyStyle::class);
+        $symfonyStyle->setVerbosity(\_PhpScopere8e811afab72\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
+        $this->fileProcessor = static::$container->get(\_PhpScopere8e811afab72\Rector\Core\Application\FileProcessor::class);
+        $this->nonPhpFileProcessor = static::$container->get(\_PhpScopere8e811afab72\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
+        $this->parameterProvider = static::$container->get(\_PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        $this->removedAndAddedFilesCollector = $this->getService(\_PhpScopere8e811afab72\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
         // needed for PHPStan, because the analyzed file is just create in /temp
-        $this->nodeScopeResolver = static::$container->get(\_PhpScoper0a2ac50786fa\PHPStan\Analyser\NodeScopeResolver::class);
+        $this->nodeScopeResolver = static::$container->get(\_PhpScopere8e811afab72\PHPStan\Analyser\NodeScopeResolver::class);
         $this->configurePhpVersionFeatures();
         // so the files are removed and added
-        $configuration = static::$container->get(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Configuration::class);
+        $configuration = static::$container->get(\_PhpScopere8e811afab72\Rector\Core\Configuration\Configuration::class);
         $configuration->setIsDryRun(\false);
         $this->oldParameterValues = [];
     }
@@ -150,7 +150,7 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
         $this->restoreOldParameterValues();
         // restore PHP version if changed
         if ($this->getPhpVersion() !== self::PHP_VERSION_UNDEFINED) {
-            $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\PhpVersion::PHP_10);
+            $this->setParameter(\_PhpScopere8e811afab72\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, \_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersion::PHP_10);
         }
     }
     protected function getRectorClass() : string
@@ -158,7 +158,7 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
         // can be implemented
         return '';
     }
-    protected function provideConfigFileInfo() : ?\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo
     {
         // can be implemented
         return null;
@@ -191,15 +191,15 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
     }
     protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php.inc') : \Iterator
     {
-        return \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
+        return \_PhpScopere8e811afab72\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
     /**
      * @param mixed $value
      */
     protected function setParameter(string $name, $value) : void
     {
-        $parameterProvider = self::$container->get(\_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
-        if ($name !== \_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES) {
+        $parameterProvider = $this->getService(\_PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        if ($name !== \_PhpScopere8e811afab72\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES) {
             $oldParameterValue = $parameterProvider->provideParameter($name);
             $this->oldParameterValues[$name] = $oldParameterValue;
         }
@@ -209,7 +209,7 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
      * @deprecated Will be supported in Symplify 9
      * @param SmartFileInfo[] $configFileInfos
      */
-    protected function bootKernelWithConfigInfos(string $class, array $configFileInfos) : \_PhpScoper0a2ac50786fa\Symfony\Component\HttpKernel\KernelInterface
+    protected function bootKernelWithConfigInfos(string $class, array $configFileInfos) : \_PhpScopere8e811afab72\Symfony\Component\HttpKernel\KernelInterface
     {
         $configFiles = [];
         foreach ($configFileInfos as $configFileInfo) {
@@ -232,7 +232,7 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
             $this->assertFileNotExists($temporaryFilePath);
         }
     }
-    protected function doTestFileInfoWithoutAutoload(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    protected function doTestFileInfoWithoutAutoload(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->autoloadTestFixture = \false;
         $this->doTestFileInfo($fileInfo);
@@ -241,10 +241,10 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
     /**
      * @param InputFilePathWithExpectedFile[] $extraFiles
      */
-    protected function doTestFileInfo(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
+    protected function doTestFileInfo(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
     {
         $this->fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
-        $inputFileInfoAndExpectedFileInfo = \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $this->autoloadTestFixture);
+        $inputFileInfoAndExpectedFileInfo = \_PhpScopere8e811afab72\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $this->autoloadTestFixture);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
         $this->nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
@@ -254,18 +254,18 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
         if (!\file_exists($inputFileInfo->getPathname())) {
             return;
         }
-        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::contains($inputFileInfo->getContents(), \_PhpScoper0a2ac50786fa\Rector\Testing\Contract\RunnableInterface::class)) {
+        if (!\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($inputFileInfo->getContents(), \_PhpScopere8e811afab72\Rector\Testing\Contract\RunnableInterface::class)) {
             return;
         }
         $this->assertOriginalAndFixedFileResultEquals($inputFileInfo, $expectedFileInfo);
     }
     protected function getTempPath() : string
     {
-        return \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath();
+        return \_PhpScopere8e811afab72\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath();
     }
     protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
     {
-        $temporaryPath = \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath();
+        $temporaryPath = \_PhpScopere8e811afab72\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath();
         $expectedFilePath = $temporaryPath . '/' . $expectedExtraFileName;
         $this->assertFileExists($expectedFilePath);
         $this->assertFileEquals($expectedExtraContentFilePath, $expectedFilePath);
@@ -277,10 +277,10 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
     /**
      * @return SmartFileInfo[]
      */
-    private function resolveConfigs(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    private function resolveConfigs(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         $configFileInfos = [$configFileInfo];
-        $rectorConfigsResolver = new \_PhpScoper0a2ac50786fa\Rector\Core\Bootstrap\RectorConfigsResolver();
+        $rectorConfigsResolver = new \_PhpScopere8e811afab72\Rector\Core\Bootstrap\RectorConfigsResolver();
         $setFileInfos = $rectorConfigsResolver->resolveSetFileInfosFromConfigFileInfos($configFileInfos);
         return \array_merge($configFileInfos, $setFileInfos);
     }
@@ -301,7 +301,7 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
         $this->createPhpConfigFileAndDumpToPath($rectorClassesWithConfiguration, $filePath);
         return $filePath;
     }
-    private function configureEnabledRectors(\_PhpScoper0a2ac50786fa\Rector\Testing\Application\EnabledRectorsProvider $enabledRectorsProvider) : void
+    private function configureEnabledRectors(\_PhpScopere8e811afab72\Rector\Testing\Application\EnabledRectorsProvider $enabledRectorsProvider) : void
     {
         foreach ($this->getCurrentTestRectorClassesWithConfiguration() as $rectorClass => $configuration) {
             $enabledRectorsProvider->addEnabledRector($rectorClass, (array) $configuration);
@@ -312,32 +312,32 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
         if ($this->getPhpVersion() === self::PHP_VERSION_UNDEFINED) {
             return;
         }
-        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, $this->getPhpVersion());
+        $this->setParameter(\_PhpScopere8e811afab72\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, $this->getPhpVersion());
     }
     private function restoreOldParameterValues() : void
     {
         if ($this->oldParameterValues === []) {
             return;
         }
-        $parameterProvider = self::$container->get(\_PhpScoper0a2ac50786fa\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        $parameterProvider = $this->getService(\_PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         foreach ($this->oldParameterValues as $name => $oldParameterValue) {
             $parameterProvider->changeParameter($name, $oldParameterValue);
         }
     }
     private function ensureRectorClassIsValid(string $rectorClass, string $methodName) : void
     {
-        if (\is_a($rectorClass, \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface::class, \true)) {
+        if (\is_a($rectorClass, \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\PhpRectorInterface::class, \true)) {
             return;
         }
-        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException(\sprintf('Class "%s" in "%s()" method must be type of "%s"', $rectorClass, $methodName, \_PhpScoper0a2ac50786fa\Rector\Core\Contract\Rector\PhpRectorInterface::class));
+        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException(\sprintf('Class "%s" in "%s()" method must be type of "%s"', $rectorClass, $methodName, \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\PhpRectorInterface::class));
     }
     /**
      * @param InputFilePathWithExpectedFile[] $extraFiles
      */
-    private function doTestFileMatchesExpectedContent(\_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \_PhpScoper0a2ac50786fa\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
+    private function doTestFileMatchesExpectedContent(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
     {
-        $this->setParameter(\_PhpScoper0a2ac50786fa\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
-        if (!\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
+        $this->setParameter(\_PhpScopere8e811afab72\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
+        if (!\_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
             if ($extraFiles === []) {
                 $this->fileProcessor->parseFileInfoToLocalCache($originalFileInfo);
                 $this->fileProcessor->refactor($originalFileInfo);
@@ -360,19 +360,19 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
             }
             // mimic post-rectors
             $changedContent = $this->fileProcessor->printToString($originalFileInfo);
-            $removedAndAddedFilesProcessor = self::$container->get(\_PhpScoper0a2ac50786fa\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor::class);
+            $removedAndAddedFilesProcessor = $this->getService(\_PhpScopere8e811afab72\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor::class);
             $removedAndAddedFilesProcessor->run();
-        } elseif (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
+        } elseif (\_PhpScopere8e811afab72\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \_PhpScopere8e811afab72\Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
             $changedContent = $this->nonPhpFileProcessor->processFileInfo($originalFileInfo);
         } else {
             $message = \sprintf('Suffix "%s" is not supported yet', $originalFileInfo->getSuffix());
-            throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException($message);
+            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException($message);
         }
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
         try {
             $this->assertStringEqualsFile($expectedFileInfo->getRealPath(), $changedContent, $relativeFilePathFromCwd);
-        } catch (\_PhpScoper0a2ac50786fa\PHPUnit\Framework\ExpectationFailedException $expectationFailedException) {
-            \_PhpScoper0a2ac50786fa\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateFixtureContent($originalFileInfo, $changedContent, $fixtureFileInfo);
+        } catch (\_PhpScopere8e811afab72\PHPUnit\Framework\ExpectationFailedException $expectationFailedException) {
+            \_PhpScopere8e811afab72\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateFixtureContent($originalFileInfo, $changedContent, $fixtureFileInfo);
             $contents = $expectedFileInfo->getContents();
             // make sure we don't get a diff in which every line is different (because of differences in EOL)
             $contents = $this->normalizeNewlines($contents);
@@ -382,7 +382,7 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
     }
     private function createContainerWithAllRectors() : void
     {
-        $rectorsFinder = new \_PhpScoper0a2ac50786fa\Rector\Testing\Finder\RectorsFinder();
+        $rectorsFinder = new \_PhpScopere8e811afab72\Rector\Testing\Finder\RectorsFinder();
         $coreRectorClasses = $rectorsFinder->findCoreRectorClasses();
         $listForConfig = [];
         foreach ($coreRectorClasses as $rectorClass) {
@@ -393,20 +393,20 @@ abstract class AbstractRectorTestCase extends \_PhpScoper0a2ac50786fa\Symplify\P
         }
         $filePath = \sys_get_temp_dir() . '/rector_temp_tests/all_rectors.php';
         $this->createPhpConfigFileAndDumpToPath($listForConfig, $filePath);
-        $this->bootKernelWithConfigs(\_PhpScoper0a2ac50786fa\Rector\Core\HttpKernel\RectorKernel::class, [$filePath]);
+        $this->bootKernelWithConfigs(\_PhpScopere8e811afab72\Rector\Core\HttpKernel\RectorKernel::class, [$filePath]);
     }
     /**
      * @param array<string, mixed[]|null> $rectorClassesWithConfiguration
      */
     private function createPhpConfigFileAndDumpToPath(array $rectorClassesWithConfiguration, string $filePath) : void
     {
-        $phpConfigPrinterFactory = new \_PhpScoper0a2ac50786fa\Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory();
+        $phpConfigPrinterFactory = new \_PhpScopere8e811afab72\Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory();
         $smartPhpConfigPrinter = $phpConfigPrinterFactory->create();
         $fileContent = $smartPhpConfigPrinter->printConfiguredServices($rectorClassesWithConfiguration);
         $this->smartFileSystem->dumpFile($filePath, $fileContent);
     }
     private function normalizeNewlines(string $string) : string
     {
-        return \_PhpScoper0a2ac50786fa\Nette\Utils\Strings::replace($string, '#\\r\\n|\\r|\\n#', "\n");
+        return \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($string, '#\\r\\n|\\r|\\n#', "\n");
     }
 }

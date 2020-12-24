@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\Dummy;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\Dummy;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Broker\Broker;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\TrivialParametersAcceptor;
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-class DummyMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\MethodReflection
+use _PhpScopere8e811afab72\PHPStan\Broker\Broker;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+class DummyMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $name;
@@ -18,9 +18,9 @@ class DummyMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflectio
     {
         $this->name = $name;
     }
-    public function getDeclaringClass() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
     {
-        $broker = \_PhpScoper0a2ac50786fa\PHPStan\Broker\Broker::getInstance();
+        $broker = \_PhpScopere8e811afab72\PHPStan\Broker\Broker::getInstance();
         return $broker->getClass(\stdClass::class);
     }
     public function isStatic() : bool
@@ -39,7 +39,7 @@ class DummyMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflectio
     {
         return $this->name;
     }
-    public function getPrototype() : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
@@ -48,31 +48,31 @@ class DummyMethodReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflectio
      */
     public function getVariants() : array
     {
-        return [new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \_PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor()];
     }
-    public function isDeprecated() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isFinal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isInternal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getThrowType() : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return null;
     }
-    public function hasSideEffects() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

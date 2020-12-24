@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\VendorLocker\NodeVendorLocker;
+namespace _PhpScopere8e811afab72\Rector\VendorLocker\NodeVendorLocker;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-final class PropertyVisibilityVendorLockResolver extends \_PhpScoper0a2ac50786fa\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+final class PropertyVisibilityVendorLockResolver extends \_PhpScopere8e811afab72\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     /**
      * Checks for:
@@ -14,18 +14,18 @@ final class PropertyVisibilityVendorLockResolver extends \_PhpScoper0a2ac50786fa
      * Prevents:
      * - changing visibility conflicting with children
      */
-    public function isParentLockedProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
+    public function isParentLockedProperty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var string $className */
-        $className = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $property->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
         return $this->hasParentProperty($className, $propertyName);
     }
-    public function isChildLockedProperty(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property $property) : bool
+    public function isChildLockedProperty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var string $className */
-        $className = $property->getAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $property->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
         return $this->hasChildProperty($className, $propertyName);

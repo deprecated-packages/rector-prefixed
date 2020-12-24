@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\EarlyReturn\Rector\Foreach_;
+namespace _PhpScopere8e811afab72\Rector\EarlyReturn\Rector\Foreach_;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanOr;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Equal;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotEqual;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Continue_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_;
-use _PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
-use _PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a2ac50786fa\Rector\EarlyReturn\NodeTransformer\ConditionInverter;
-use _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Equal;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotEqual;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\BooleanNot;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Continue_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\If_;
+use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
+use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScopere8e811afab72\Rector\EarlyReturn\NodeTransformer\ConditionInverter;
+use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\EarlyReturn\Tests\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector\ChangeNestedForeachIfsToEarlyContinueRectorTest
  */
-final class ChangeNestedForeachIfsToEarlyContinueRector extends \_PhpScoper0a2ac50786fa\Rector\Core\Rector\AbstractRector
+final class ChangeNestedForeachIfsToEarlyContinueRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var IfManipulator
@@ -32,14 +32,14 @@ final class ChangeNestedForeachIfsToEarlyContinueRector extends \_PhpScoper0a2ac
      * @var ConditionInverter
      */
     private $conditionInverter;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter, \_PhpScoper0a2ac50786fa\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator)
+    public function __construct(\_PhpScopere8e811afab72\Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->conditionInverter = $conditionInverter;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change nested ifs to foreach with continue', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change nested ifs to foreach with continue', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -83,12 +83,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param Foreach_ $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         $nestedIfsWithOnlyNonReturn = $this->ifManipulator->collectNestedIfsWithNonBreaking($node);
         if (\count($nestedIfsWithOnlyNonReturn) < 2) {
@@ -99,7 +99,7 @@ CODE_SAMPLE
     /**
      * @param If_[] $nestedIfsWithOnlyReturn
      */
-    private function processNestedIfsWithNonBreaking(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreach, array $nestedIfsWithOnlyReturn) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_
+    private function processNestedIfsWithNonBreaking(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_ $foreach, array $nestedIfsWithOnlyReturn) : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_
     {
         // add nested if openly after this
         $nestedIfsWithOnlyReturnCount = \count($nestedIfsWithOnlyReturn);
@@ -121,18 +121,18 @@ CODE_SAMPLE
         }
         return $foreach;
     }
-    private function addInvertedIfStmtWithContinue(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Foreach_ $foreach) : void
+    private function addInvertedIfStmtWithContinue(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         $invertedCondition = $this->conditionInverter->createInvertedCondition($nestedIfWithOnlyReturn->cond);
         // special case
-        if ($invertedCondition instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot && $invertedCondition->expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        if ($invertedCondition instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BooleanNot && $invertedCondition->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             $leftExpr = $this->negateOrDeNegate($invertedCondition->expr->left);
-            $if = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_($leftExpr);
-            $if->stmts[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Continue_();
+            $if = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\If_($leftExpr);
+            $if->stmts[] = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Continue_();
             $foreach->stmts[] = $if;
             $rightExpr = $this->negateOrDeNegate($invertedCondition->expr->right);
-            $if = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\If_($rightExpr);
-            $if->stmts[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Continue_();
+            $if = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\If_($rightExpr);
+            $if->stmts[] = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Continue_();
             $foreach->stmts[] = $if;
             return;
         }
@@ -141,9 +141,9 @@ CODE_SAMPLE
             $foreach->stmts[] = $nestedIfWithOnlyReturn;
             return;
         }
-        $nestedIfWithOnlyReturn->setAttribute(\_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+        $nestedIfWithOnlyReturn->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         $nestedIfWithOnlyReturn->cond = $invertedCondition;
-        $nestedIfWithOnlyReturn->stmts = [new \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Continue_()];
+        $nestedIfWithOnlyReturn->stmts = [new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Continue_()];
         $foreach->stmts[] = $nestedIfWithOnlyReturn;
     }
     /**
@@ -153,27 +153,27 @@ CODE_SAMPLE
      * Skips:
      * $a === 1 || $b === 2
      */
-    private function isBooleanOrWithWeakComparison(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : bool
+    private function isBooleanOrWithWeakComparison(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : bool
     {
-        if (!$expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
+        if (!$expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return \false;
         }
-        if ($expr->left instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Equal) {
+        if ($expr->left instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Equal) {
             return \true;
         }
-        if ($expr->left instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotEqual) {
+        if ($expr->left instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotEqual) {
             return \true;
         }
-        if ($expr->right instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\Equal) {
+        if ($expr->right instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Equal) {
             return \true;
         }
-        return $expr->right instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BinaryOp\NotEqual;
+        return $expr->right instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotEqual;
     }
-    private function negateOrDeNegate(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr
+    private function negateOrDeNegate(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : \_PhpScopere8e811afab72\PhpParser\Node\Expr
     {
-        if ($expr instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot) {
+        if ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BooleanNot) {
             return $expr->expr;
         }
-        return new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\BooleanNot($expr);
+        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BooleanNot($expr);
     }
 }

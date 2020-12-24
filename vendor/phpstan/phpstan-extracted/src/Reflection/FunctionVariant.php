@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-class FunctionVariant implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptor
+use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+class FunctionVariant implements \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor
 {
     /** @var TemplateTypeMap */
     private $templateTypeMap;
@@ -22,7 +22,7 @@ class FunctionVariant implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Para
      * @param bool $isVariadic
      * @param Type $returnType
      */
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, array $parameters, bool $isVariadic, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $returnType)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, ?\_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, array $parameters, bool $isVariadic, \_PhpScopere8e811afab72\PHPStan\Type\Type $returnType)
     {
         $this->templateTypeMap = $templateTypeMap;
         $this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
@@ -30,13 +30,13 @@ class FunctionVariant implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Para
         $this->isVariadic = $isVariadic;
         $this->returnType = $returnType;
     }
-    public function getTemplateTypeMap() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap
+    public function getTemplateTypeMap() : \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap
     {
         return $this->templateTypeMap;
     }
-    public function getResolvedTemplateTypeMap() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap
+    public function getResolvedTemplateTypeMap() : \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap
     {
-        return $this->resolvedTemplateTypeMap ?? \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        return $this->resolvedTemplateTypeMap ?? \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
     /**
      * @return array<int, ParameterReflection>
@@ -49,7 +49,7 @@ class FunctionVariant implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Para
     {
         return $this->isVariadic;
     }
-    public function getReturnType() : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getReturnType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->returnType;
     }

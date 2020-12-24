@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Symfony3\Rector\MethodCall;
+namespace _PhpScopere8e811afab72\Rector\Symfony3\Rector\MethodCall;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Arg;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Name;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Param;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a2ac50786fa\Rector\Symfony3\NodeFactory\BuilderFormNodeFactory;
-use _PhpScoper0a2ac50786fa\Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PhpParser\Node\Arg;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
+use _PhpScopere8e811afab72\PhpParser\Node\Name;
+use _PhpScopere8e811afab72\PhpParser\Node\Param;
+use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
+use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
+use _PhpScopere8e811afab72\Rector\Symfony3\NodeFactory\BuilderFormNodeFactory;
+use _PhpScopere8e811afab72\Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory;
 use ReflectionClass;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Best resource with clear example:
  * @see https://stackoverflow.com/questions/34027711/passing-data-to-buildform-in-symfony-2-8-3-0
@@ -30,12 +30,12 @@ use _PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Symfony3\Tests\Rector\MethodCall\FormTypeInstanceToClassConstRector\FormTypeInstanceToClassConstRectorTest
  */
-final class FormTypeInstanceToClassConstRector extends \_PhpScoper0a2ac50786fa\Rector\Symfony3\Rector\MethodCall\AbstractFormAddRector
+final class FormTypeInstanceToClassConstRector extends \_PhpScopere8e811afab72\Rector\Symfony3\Rector\MethodCall\AbstractFormAddRector
 {
     /**
      * @var string[]
      */
-    private const CONTROLLER_TYPES = ['_PhpScoper0a2ac50786fa\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', '_PhpScoper0a2ac50786fa\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController'];
+    private const CONTROLLER_TYPES = ['_PhpScopere8e811afab72\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', '_PhpScopere8e811afab72\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController'];
     /**
      * @var BuilderFormNodeFactory
      */
@@ -44,14 +44,14 @@ final class FormTypeInstanceToClassConstRector extends \_PhpScoper0a2ac50786fa\R
      * @var ConfigureOptionsNodeFactory
      */
     private $configureOptionsNodeFactory;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\Symfony3\NodeFactory\BuilderFormNodeFactory $builderFormNodeFactory, \_PhpScoper0a2ac50786fa\Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory $configureOptionsNodeFactory)
+    public function __construct(\_PhpScopere8e811afab72\Rector\Symfony3\NodeFactory\BuilderFormNodeFactory $builderFormNodeFactory, \_PhpScopere8e811afab72\Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory $configureOptionsNodeFactory)
     {
         $this->builderFormNodeFactory = $builderFormNodeFactory;
         $this->configureOptionsNodeFactory = $configureOptionsNodeFactory;
     }
-    public function getRuleDefinition() : \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes createForm(new FormType), add(new FormType) to ones with "FormType::class"', [new \_PhpScoper0a2ac50786fa\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes createForm(new FormType), add(new FormType) to ones with "FormType::class"', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeController
 {
     public function action()
@@ -76,12 +76,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper0a2ac50786fa\PhpParser\Node $node) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if ($this->isObjectTypes($node->var, self::CONTROLLER_TYPES) && $this->isName($node->name, 'createForm')) {
             return $this->processNewInstance($node, 0, 2);
@@ -95,17 +95,17 @@ CODE_SAMPLE
         }
         return $this->processNewInstance($node, 1, 2);
     }
-    private function processNewInstance(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node
+    private function processNewInstance(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition) : ?\_PhpScopere8e811afab72\PhpParser\Node
     {
         if (!isset($methodCall->args[$position])) {
             return null;
         }
         $argValue = $methodCall->args[$position]->value;
-        if (!$argValue instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_) {
+        if (!$argValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
             return null;
         }
         // we can only process direct name
-        if (!$argValue->class instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
+        if (!$argValue->class instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
             return null;
         }
         if ($argValue->args !== []) {
@@ -117,7 +117,7 @@ CODE_SAMPLE
         $methodCall->args[$position]->value = $this->createClassConstantReference($argValue->class->toString());
         return $methodCall;
     }
-    private function refactorCollectionOptions(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    private function refactorCollectionOptions(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         $optionsArray = $this->matchOptionsArray($methodCall);
         if ($optionsArray === null) {
@@ -133,11 +133,11 @@ CODE_SAMPLE
             if (!$this->isValues($arrayItem->key, ['entry', 'entry_type'])) {
                 continue;
             }
-            if (!$arrayItem->value instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\New_) {
+            if (!$arrayItem->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
                 continue;
             }
             $newClass = $arrayItem->value->class;
-            if (!$newClass instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Name) {
+            if (!$newClass instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
                 continue;
             }
             $arrayItem->value = $this->createClassConstantReference($newClass->toString());
@@ -146,26 +146,26 @@ CODE_SAMPLE
     /**
      * @param Arg[] $argNodes
      */
-    private function moveArgumentsToOptions(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition, string $className, array $argNodes) : ?\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\MethodCall
+    private function moveArgumentsToOptions(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition, string $className, array $argNodes) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall
     {
         $namesToArgs = $this->resolveNamesToArgs($className, $argNodes);
         // set default data in between
         if ($position + 1 !== $optionsPosition && !isset($methodCall->args[$position + 1])) {
-            $methodCall->args[$position + 1] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($this->createNull());
+            $methodCall->args[$position + 1] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($this->createNull());
         }
         // @todo decopule and name, so I know what it is
         if (!isset($methodCall->args[$optionsPosition])) {
-            $array = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\Array_();
+            $array = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_();
             foreach ($namesToArgs as $name => $arg) {
-                $array->items[] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\ArrayItem($arg->value, new \_PhpScoper0a2ac50786fa\PhpParser\Node\Scalar\String_($name));
+                $array->items[] = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem($arg->value, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_($name));
             }
-            $methodCall->args[$optionsPosition] = new \_PhpScoper0a2ac50786fa\PhpParser\Node\Arg($array);
+            $methodCall->args[$optionsPosition] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($array);
         }
         $formTypeClass = $this->nodeRepository->findClass($className);
         if ($formTypeClass === null) {
             return null;
         }
-        $constructorClassMethod = $formTypeClass->getMethod(\_PhpScoper0a2ac50786fa\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorClassMethod = $formTypeClass->getMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         // nothing we can do, out of scope
         if ($constructorClassMethod === null) {
             return null;
@@ -193,7 +193,7 @@ CODE_SAMPLE
         }
         return $namesToArgs;
     }
-    private function addBuildFormMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function addBuildFormMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $buildFormClassMethod = $class->getMethod('buildForm');
         if ($buildFormClassMethod !== null) {
@@ -204,7 +204,7 @@ CODE_SAMPLE
     /**
      * @param Arg[] $namesToArgs
      */
-    private function addConfigureOptionsMethod(\_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Class_ $class, array $namesToArgs) : void
+    private function addConfigureOptionsMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, array $namesToArgs) : void
     {
         $configureOptionsClassMethod = $class->getMethod('configureOptions');
         if ($configureOptionsClassMethod !== null) {

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Analyser;
+namespace _PhpScopere8e811afab72\PHPStan\Analyser;
 
-use _PhpScoper0a2ac50786fa\PhpParser\PrettyPrinter\Standard;
-use _PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Container;
-use _PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptor;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\Properties\PropertyReflectionFinder;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-class LazyScopeFactory implements \_PhpScoper0a2ac50786fa\PHPStan\Analyser\ScopeFactory
+use _PhpScopere8e811afab72\PhpParser\PrettyPrinter\Standard;
+use _PhpScopere8e811afab72\PHPStan\DependencyInjection\Container;
+use _PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
+use _PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor;
+use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+use _PhpScopere8e811afab72\PHPStan\Rules\Properties\PropertyReflectionFinder;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+class LazyScopeFactory implements \_PhpScopere8e811afab72\PHPStan\Analyser\ScopeFactory
 {
     /** @var string */
     private $scopeClass;
@@ -21,7 +21,7 @@ class LazyScopeFactory implements \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope
     private $dynamicConstantNames;
     /** @var bool */
     private $treatPhpDocTypesAsCertain;
-    public function __construct(string $scopeClass, \_PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Container $container)
+    public function __construct(string $scopeClass, \_PhpScopere8e811afab72\PHPStan\DependencyInjection\Container $container)
     {
         $this->scopeClass = $scopeClass;
         $this->container = $container;
@@ -48,12 +48,12 @@ class LazyScopeFactory implements \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope
      *
      * @return MutatingScope
      */
-    public function create(\_PhpScoper0a2ac50786fa\PHPStan\Analyser\ScopeContext $context, bool $declareStrictTypes = \false, array $constantTypes = [], $function = null, ?string $namespace = null, array $variablesTypes = [], array $moreSpecificTypes = [], array $conditionalExpressions = [], ?string $inClosureBindScopeClass = null, ?\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ParametersAcceptor $anonymousFunctionReflection = null, bool $inFirstLevelStatement = \true, array $currentlyAssignedExpressions = [], array $nativeExpressionTypes = [], array $inFunctionCallsStack = [], bool $afterExtractCall = \false, ?\_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $parentScope = null) : \_PhpScoper0a2ac50786fa\PHPStan\Analyser\MutatingScope
+    public function create(\_PhpScopere8e811afab72\PHPStan\Analyser\ScopeContext $context, bool $declareStrictTypes = \false, array $constantTypes = [], $function = null, ?string $namespace = null, array $variablesTypes = [], array $moreSpecificTypes = [], array $conditionalExpressions = [], ?string $inClosureBindScopeClass = null, ?\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor $anonymousFunctionReflection = null, bool $inFirstLevelStatement = \true, array $currentlyAssignedExpressions = [], array $nativeExpressionTypes = [], array $inFunctionCallsStack = [], bool $afterExtractCall = \false, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $parentScope = null) : \_PhpScopere8e811afab72\PHPStan\Analyser\MutatingScope
     {
         $scopeClass = $this->scopeClass;
-        if (!\is_a($scopeClass, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\MutatingScope::class, \true)) {
-            throw new \_PhpScoper0a2ac50786fa\PHPStan\ShouldNotHappenException();
+        if (!\is_a($scopeClass, \_PhpScopere8e811afab72\PHPStan\Analyser\MutatingScope::class, \true)) {
+            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
         }
-        return new $scopeClass($this, $this->container->getByType(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ReflectionProvider::class), $this->container->getByType(\_PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider::class)->getRegistry(), $this->container->getByType(\_PhpScoper0a2ac50786fa\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider::class)->getRegistry(), $this->container->getByType(\_PhpScoper0a2ac50786fa\PhpParser\PrettyPrinter\Standard::class), $this->container->getByType(\_PhpScoper0a2ac50786fa\PHPStan\Analyser\TypeSpecifier::class), $this->container->getByType(\_PhpScoper0a2ac50786fa\PHPStan\Rules\Properties\PropertyReflectionFinder::class), $this->container->getByType(\_PhpScoper0a2ac50786fa\PHPStan\Parser\Parser::class), $context, $declareStrictTypes, $constantTypes, $function, $namespace, $variablesTypes, $moreSpecificTypes, $conditionalExpressions, $inClosureBindScopeClass, $anonymousFunctionReflection, $inFirstLevelStatement, $currentlyAssignedExpressions, $nativeExpressionTypes, $inFunctionCallsStack, $this->dynamicConstantNames, $this->treatPhpDocTypesAsCertain, $afterExtractCall, $parentScope);
+        return new $scopeClass($this, $this->container->getByType(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider::class), $this->container->getByType(\_PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider::class)->getRegistry(), $this->container->getByType(\_PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider::class)->getRegistry(), $this->container->getByType(\_PhpScopere8e811afab72\PhpParser\PrettyPrinter\Standard::class), $this->container->getByType(\_PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifier::class), $this->container->getByType(\_PhpScopere8e811afab72\PHPStan\Rules\Properties\PropertyReflectionFinder::class), $this->container->getByType(\_PhpScopere8e811afab72\PHPStan\Parser\Parser::class), $context, $declareStrictTypes, $constantTypes, $function, $namespace, $variablesTypes, $moreSpecificTypes, $conditionalExpressions, $inClosureBindScopeClass, $anonymousFunctionReflection, $inFirstLevelStatement, $currentlyAssignedExpressions, $nativeExpressionTypes, $inFunctionCallsStack, $this->dynamicConstantNames, $this->treatPhpDocTypesAsCertain, $afterExtractCall, $parentScope);
     }
 }

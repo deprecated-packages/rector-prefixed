@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Properties;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Properties;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\AttributesCheck;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\Rule;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Rules\AttributesCheck;
+use _PhpScopere8e811afab72\PHPStan\Rules\Rule;
 /**
  * @implements Rule<Node\Stmt\Property>
  */
-class PropertyAttributesRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+class PropertyAttributesRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     /** @var AttributesCheck */
     private $attributesCheck;
-    public function __construct(\_PhpScoper0a2ac50786fa\PHPStan\Rules\AttributesCheck $attributesCheck)
+    public function __construct(\_PhpScopere8e811afab72\PHPStan\Rules\AttributesCheck $attributesCheck)
     {
         $this->attributesCheck = $attributesCheck;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Stmt\Property::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property::class;
     }
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
         return $this->attributesCheck->check($scope, $node->attrGroups, \Attribute::TARGET_PROPERTY, 'property');
     }

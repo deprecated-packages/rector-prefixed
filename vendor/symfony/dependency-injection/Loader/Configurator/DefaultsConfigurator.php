@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Definition;
+use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DefaultsConfigurator extends \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class DefaultsConfigurator extends \_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     public const FACTORY = 'defaults';
     use Traits\AutoconfigureTrait;
@@ -23,7 +23,7 @@ class DefaultsConfigurator extends \_PhpScoper0a2ac50786fa\Symfony\Component\Dep
     use Traits\BindTrait;
     use Traits\PublicTrait;
     private $path;
-    public function __construct(\_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Definition $definition, string $path = null)
+    public function __construct(\_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Definition $definition, string $path = null)
     {
         parent::__construct($parent, $definition, null, []);
         $this->path = $path;
@@ -38,11 +38,11 @@ class DefaultsConfigurator extends \_PhpScoper0a2ac50786fa\Symfony\Component\Dep
     public final function tag(string $name, array $attributes = []) : self
     {
         if ('' === $name) {
-            throw new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The tag name in "_defaults" must be a non-empty string.');
+            throw new \_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The tag name in "_defaults" must be a non-empty string.');
         }
         foreach ($attributes as $attribute => $value) {
             if (null !== $value && !\is_scalar($value)) {
-                throw new \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Tag "%s", attribute "%s" in "_defaults" must be of a scalar-type.', $name, $attribute));
+                throw new \_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Tag "%s", attribute "%s" in "_defaults" must be of a scalar-type.', $name, $attribute));
             }
         }
         $this->definition->addTag($name, $attributes);
@@ -51,7 +51,7 @@ class DefaultsConfigurator extends \_PhpScoper0a2ac50786fa\Symfony\Component\Dep
     /**
      * Defines an instanceof-conditional to be applied to following service definitions.
      */
-    public final function instanceof(string $fqcn) : \_PhpScoper0a2ac50786fa\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
+    public final function instanceof(string $fqcn) : \_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
     {
         return $this->parent->instanceof($fqcn);
     }

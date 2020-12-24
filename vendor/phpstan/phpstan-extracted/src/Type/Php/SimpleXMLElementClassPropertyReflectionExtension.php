@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type\Php;
+namespace _PhpScopere8e811afab72\PHPStan\Type\Php;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\SimpleXMLElementProperty;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertiesClassReflectionExtension;
-use _PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-class SimpleXMLElementClassPropertyReflectionExtension implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertiesClassReflectionExtension
+use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
+use _PhpScopere8e811afab72\PHPStan\Reflection\Php\SimpleXMLElementProperty;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PropertiesClassReflectionExtension;
+use _PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+class SimpleXMLElementClassPropertyReflectionExtension implements \_PhpScopere8e811afab72\PHPStan\Reflection\PropertiesClassReflectionExtension
 {
-    public function hasProperty(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
+    public function hasProperty(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
     {
         return $classReflection->getName() === 'SimpleXMLElement' || $classReflection->isSubclassOf('SimpleXMLElement');
     }
-    public function getProperty(\_PhpScoper0a2ac50786fa\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScoper0a2ac50786fa\PHPStan\Reflection\PropertyReflection
+    public function getProperty(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection
     {
-        return new \_PhpScoper0a2ac50786fa\PHPStan\Reflection\Php\SimpleXMLElementProperty($classReflection, new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($classReflection->getName()));
+        return new \_PhpScopere8e811afab72\PHPStan\Reflection\Php\SimpleXMLElementProperty($classReflection, new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($classReflection->getName()));
     }
 }

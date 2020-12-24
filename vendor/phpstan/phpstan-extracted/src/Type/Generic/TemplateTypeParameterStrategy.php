@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Type\Generic;
+namespace _PhpScopere8e811afab72\PHPStan\Type\Generic;
 
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\CompoundTypeHelper;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\CompoundType;
+use _PhpScopere8e811afab72\PHPStan\Type\CompoundTypeHelper;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
 /**
  * Template type strategy suitable for parameter type acceptance contexts
  */
-class TemplateTypeParameterStrategy implements \_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateTypeStrategy
+class TemplateTypeParameterStrategy implements \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeStrategy
 {
-    public function accepts(\_PhpScoper0a2ac50786fa\PHPStan\Type\Generic\TemplateType $left, \_PhpScoper0a2ac50786fa\PHPStan\Type\Type $right, bool $strictTypes) : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function accepts(\_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateType $left, \_PhpScopere8e811afab72\PHPStan\Type\Type $right, bool $strictTypes) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        if ($right instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\CompoundType) {
-            return \_PhpScoper0a2ac50786fa\PHPStan\Type\CompoundTypeHelper::accepts($right, $left, $strictTypes);
+        if ($right instanceof \_PhpScopere8e811afab72\PHPStan\Type\CompoundType) {
+            return \_PhpScopere8e811afab72\PHPStan\Type\CompoundTypeHelper::accepts($right, $left, $strictTypes);
         }
         return $left->getBound()->accepts($right, $strictTypes);
     }

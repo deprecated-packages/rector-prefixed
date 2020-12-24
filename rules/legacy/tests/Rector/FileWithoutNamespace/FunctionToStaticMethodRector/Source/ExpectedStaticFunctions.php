@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector\Fixture;
+namespace _PhpScopere8e811afab72\Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector\Fixture;
 
 final class StaticFunctions
 {

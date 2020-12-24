@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Rules\Variables;
+namespace _PhpScopere8e811afab72\PHPStan\Rules\Variables;
 
-use _PhpScoper0a2ac50786fa\PhpParser\Node;
-use _PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\Rule;
-use _PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
+use _PhpScopere8e811afab72\PHPStan\Rules\Rule;
+use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-final class CompactVariablesRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rules\Rule
+final class CompactVariablesRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkMaybeUndefinedVariables;
@@ -21,11 +21,11 @@ final class CompactVariablesRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rule
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr\FuncCall::class;
+        return \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\_PhpScoper0a2ac50786fa\PhpParser\Node $node, \_PhpScoper0a2ac50786fa\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
     {
-        if ($node->name instanceof \_PhpScoper0a2ac50786fa\PhpParser\Node\Expr) {
+        if ($node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr) {
             return [];
         }
         $functionName = \strtolower($node->name->toString());
@@ -36,15 +36,15 @@ final class CompactVariablesRule implements \_PhpScoper0a2ac50786fa\PHPStan\Rule
         $messages = [];
         foreach ($functionArguments as $argument) {
             $argumentType = $scope->getType($argument->value);
-            if (!$argumentType instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType) {
+            if (!$argumentType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType) {
                 continue;
             }
             $variableName = $argumentType->getValue();
             $scopeHasVariable = $scope->hasVariableType($variableName);
             if ($scopeHasVariable->no()) {
-                $messages[] = \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function compact() contains undefined variable $%s.', $variableName))->line($argument->getLine())->build();
+                $messages[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function compact() contains undefined variable $%s.', $variableName))->line($argument->getLine())->build();
             } elseif ($this->checkMaybeUndefinedVariables && $scopeHasVariable->maybe()) {
-                $messages[] = \_PhpScoper0a2ac50786fa\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function compact() contains possibly undefined variable $%s.', $variableName))->line($argument->getLine())->build();
+                $messages[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function compact() contains possibly undefined variable $%s.', $variableName))->line($argument->getLine())->build();
             }
         }
         return $messages;

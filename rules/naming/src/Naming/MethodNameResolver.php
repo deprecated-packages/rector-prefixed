@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\Naming\Naming;
+namespace _PhpScopere8e811afab72\Rector\Naming\Naming;
 
-use _PhpScoper0a2ac50786fa\Nette\Utils\Strings;
-use _PhpScoper0a2ac50786fa\PhpParser\Node\Expr;
-use _PhpScoper0a2ac50786fa\Rector\NetteKdyby\Naming\VariableNaming;
+use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScopere8e811afab72\Rector\NetteKdyby\Naming\VariableNaming;
 final class MethodNameResolver
 {
     /**
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\_PhpScoper0a2ac50786fa\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\_PhpScopere8e811afab72\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
-    public function resolveGetterFromReturnedExpr(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?string
+    public function resolveGetterFromReturnedExpr(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : ?string
     {
         $variableName = $this->variableNaming->resolveFromNode($expr);
         if ($variableName === null) {
@@ -24,13 +24,13 @@ final class MethodNameResolver
         }
         return 'get' . \ucfirst($variableName);
     }
-    public function resolveIsserFromReturnedExpr(\_PhpScoper0a2ac50786fa\PhpParser\Node\Expr $expr) : ?string
+    public function resolveIsserFromReturnedExpr(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : ?string
     {
         $variableName = $this->variableNaming->resolveFromNode($expr);
         if ($variableName === null) {
             return null;
         }
-        if (\_PhpScoper0a2ac50786fa\Nette\Utils\Strings::match($variableName, '#^(is)#')) {
+        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::match($variableName, '#^(is)#')) {
             return $variableName;
         }
         return 'is' . \ucfirst($variableName);

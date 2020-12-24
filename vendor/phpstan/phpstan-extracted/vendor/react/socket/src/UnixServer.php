@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -19,7 +19,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class UnixServer extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface
+final class UnixServer extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -41,7 +41,7 @@ final class UnixServer extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ev
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($path, \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct($path, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->loop = $loop;
         if (\strpos($path, '://') === \false) {
@@ -109,7 +109,7 @@ final class UnixServer extends \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Ev
     /** @internal */
     public function handleConnection($socket)
     {
-        $connection = new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\React\Socket\Connection($socket, $this->loop);
+        $connection = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\Connection($socket, $this->loop);
         $connection->unix = \true;
         $this->emit('connection', array($connection));
     }

@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\PHPStan\Type;
+namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\Type;
 
-use _PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantFloatType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\FloatType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\IntegerType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\MixedType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\StringType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\UnionType;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel;
-use _PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType;
-use _PhpScoper0a2ac50786fa\Rector\PHPStan\TypeFactoryStaticHelper;
+use _PhpScopere8e811afab72\PHPStan\Type\BooleanType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantFloatType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScopere8e811afab72\PHPStan\Type\FloatType;
+use _PhpScopere8e811afab72\PHPStan\Type\IntegerType;
+use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
+use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
+use _PhpScopere8e811afab72\PHPStan\Type\StringType;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
+use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
+use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScopere8e811afab72\Rector\PHPStan\TypeFactoryStaticHelper;
 final class TypeFactory
 {
     /**
      * @param Type[] $types
      */
-    public function createMixedPassedOrUnionTypeAndKeepConstant(array $types) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function createMixedPassedOrUnionTypeAndKeepConstant(array $types) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         $types = $this->unwrapUnionedTypes($types);
         $types = $this->uniquateTypes($types, \true);
@@ -34,7 +34,7 @@ final class TypeFactory
     /**
      * @param Type[] $types
      */
-    public function createMixedPassedOrUnionType(array $types) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function createMixedPassedOrUnionType(array $types) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         $types = $this->unwrapUnionedTypes($types);
         $types = $this->uniquateTypes($types);
@@ -44,16 +44,16 @@ final class TypeFactory
      * @param string[] $allTypes
      * @return ObjectType|UnionType
      */
-    public function createObjectTypeOrUnionType(array $allTypes) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function createObjectTypeOrUnionType(array $allTypes) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         if (\count($allTypes) === 1) {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\ObjectType($allTypes[0]);
+            return new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($allTypes[0]);
         }
         if (\count($allTypes) > 1) {
             // keep original order, UnionType internally overrides it → impossible to get first type back, e.g. class over interface
-            return \_PhpScoper0a2ac50786fa\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($allTypes);
+            return \_PhpScopere8e811afab72\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($allTypes);
         }
-        throw new \_PhpScoper0a2ac50786fa\Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
     }
     /**
      * @param Type[] $types
@@ -66,10 +66,10 @@ final class TypeFactory
             if (!$keepConstant) {
                 $type = $this->removeValueFromConstantType($type);
             }
-            if ($type instanceof \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\ShortenedObjectType) {
-                $type = new \_PhpScoper0a2ac50786fa\Rector\PHPStan\Type\FullyQualifiedObjectType($type->getFullyQualifiedName());
+            if ($type instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType) {
+                $type = new \_PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType($type->getFullyQualifiedName());
             }
-            $typeHash = \md5($type->describe(\_PhpScoper0a2ac50786fa\PHPStan\Type\VerbosityLevel::cache()));
+            $typeHash = \md5($type->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::cache()));
             $uniqueTypes[$typeHash] = $type;
         }
         // re-index
@@ -84,7 +84,7 @@ final class TypeFactory
         // unwrap union types
         $unwrappedTypes = [];
         foreach ($types as $key => $type) {
-            if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\UnionType) {
+            if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
                 $unwrappedTypes = \array_merge($unwrappedTypes, $type->getTypes());
                 unset($types[$key]);
             }
@@ -96,30 +96,30 @@ final class TypeFactory
     /**
      * @param Type[] $types
      */
-    private function createUnionOrSingleType(array $types) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    private function createUnionOrSingleType(array $types) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         if ($types === []) {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\MixedType();
+            return new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
         }
         if (\count($types) === 1) {
             return $types[0];
         }
-        return \_PhpScoper0a2ac50786fa\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($types);
+        return \_PhpScopere8e811afab72\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($types);
     }
-    private function removeValueFromConstantType(\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $type) : \_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    private function removeValueFromConstantType(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         // remove values from constant types
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantFloatType) {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\FloatType();
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantFloatType) {
+            return new \_PhpScopere8e811afab72\PHPStan\Type\FloatType();
         }
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantStringType) {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\StringType();
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType) {
+            return new \_PhpScopere8e811afab72\PHPStan\Type\StringType();
         }
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantIntegerType) {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\IntegerType();
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType) {
+            return new \_PhpScopere8e811afab72\PHPStan\Type\IntegerType();
         }
-        if ($type instanceof \_PhpScoper0a2ac50786fa\PHPStan\Type\Constant\ConstantBooleanType) {
-            return new \_PhpScoper0a2ac50786fa\PHPStan\Type\BooleanType();
+        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantBooleanType) {
+            return new \_PhpScopere8e811afab72\PHPStan\Type\BooleanType();
         }
         return $type;
     }

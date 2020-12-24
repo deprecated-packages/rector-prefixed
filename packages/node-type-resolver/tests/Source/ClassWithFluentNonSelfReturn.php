@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source;
+namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\Tests\Source;
 
 final class ClassWithFluentNonSelfReturn
 {
-    public function createAnotherClass() : \_PhpScoper0a2ac50786fa\Rector\NodeTypeResolver\Tests\Source\AnotherClass
+    public function createAnotherClass() : \_PhpScopere8e811afab72\Rector\NodeTypeResolver\Tests\Source\AnotherClass
     {
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a2ac50786fa\PHPStan\Reflection\Native;
+namespace _PhpScopere8e811afab72\PHPStan\Reflection\Native;
 
-use _PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic;
-use _PhpScoper0a2ac50786fa\PHPStan\Type\Type;
-class NativeFunctionReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflection\FunctionReflection
+use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScopere8e811afab72\PHPStan\Type\Type;
+class NativeFunctionReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection
 {
     /** @var string */
     private $name;
@@ -21,7 +21,7 @@ class NativeFunctionReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflec
      * @param \PHPStan\Type\Type|null $throwType
      * @param \PHPStan\TrinaryLogic $hasSideEffects
      */
-    public function __construct(string $name, array $variants, ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type $throwType, \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic $hasSideEffects)
+    public function __construct(string $name, array $variants, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $throwType, \_PhpScopere8e811afab72\PHPStan\TrinaryLogic $hasSideEffects)
     {
         $this->name = $name;
         $this->variants = $variants;
@@ -39,7 +39,7 @@ class NativeFunctionReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflec
     {
         return $this->variants;
     }
-    public function getThrowType() : ?\_PhpScoper0a2ac50786fa\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
     {
         return $this->throwType;
     }
@@ -47,19 +47,19 @@ class NativeFunctionReflection implements \_PhpScoper0a2ac50786fa\PHPStan\Reflec
     {
         return null;
     }
-    public function isDeprecated() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
     }
-    public function isInternal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
     }
-    public function isFinal() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
     }
-    public function hasSideEffects() : \_PhpScoper0a2ac50786fa\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
     {
         return $this->hasSideEffects;
     }

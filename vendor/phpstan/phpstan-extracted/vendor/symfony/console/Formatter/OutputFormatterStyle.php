@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter;
+namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter;
 
-use _PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * Formatter style class for defining styles.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class OutputFormatterStyle implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+class OutputFormatterStyle implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
 {
     private static $availableForegroundColors = ['black' => ['set' => 30, 'unset' => 39], 'red' => ['set' => 31, 'unset' => 39], 'green' => ['set' => 32, 'unset' => 39], 'yellow' => ['set' => 33, 'unset' => 39], 'blue' => ['set' => 34, 'unset' => 39], 'magenta' => ['set' => 35, 'unset' => 39], 'cyan' => ['set' => 36, 'unset' => 39], 'white' => ['set' => 37, 'unset' => 39], 'default' => ['set' => 39, 'unset' => 39]];
     private static $availableBackgroundColors = ['black' => ['set' => 40, 'unset' => 49], 'red' => ['set' => 41, 'unset' => 49], 'green' => ['set' => 42, 'unset' => 49], 'yellow' => ['set' => 43, 'unset' => 49], 'blue' => ['set' => 44, 'unset' => 49], 'magenta' => ['set' => 45, 'unset' => 49], 'cyan' => ['set' => 46, 'unset' => 49], 'white' => ['set' => 47, 'unset' => 49], 'default' => ['set' => 49, 'unset' => 49]];
@@ -54,7 +54,7 @@ class OutputFormatterStyle implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1
             return;
         }
         if (!isset(static::$availableForegroundColors[$color])) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid foreground color specified: "%s". Expected one of (%s).', $color, \implode(', ', \array_keys(static::$availableForegroundColors))));
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid foreground color specified: "%s". Expected one of (%s).', $color, \implode(', ', \array_keys(static::$availableForegroundColors))));
         }
         $this->foreground = static::$availableForegroundColors[$color];
     }
@@ -68,7 +68,7 @@ class OutputFormatterStyle implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1
             return;
         }
         if (!isset(static::$availableBackgroundColors[$color])) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid background color specified: "%s". Expected one of (%s).', $color, \implode(', ', \array_keys(static::$availableBackgroundColors))));
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid background color specified: "%s". Expected one of (%s).', $color, \implode(', ', \array_keys(static::$availableBackgroundColors))));
         }
         $this->background = static::$availableBackgroundColors[$color];
     }
@@ -82,7 +82,7 @@ class OutputFormatterStyle implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1
     public function setOption($option)
     {
         if (!isset(static::$availableOptions[$option])) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid option specified: "%s". Expected one of (%s).', $option, \implode(', ', \array_keys(static::$availableOptions))));
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid option specified: "%s". Expected one of (%s).', $option, \implode(', ', \array_keys(static::$availableOptions))));
         }
         if (!\in_array(static::$availableOptions[$option], $this->options)) {
             $this->options[] = static::$availableOptions[$option];
@@ -94,7 +94,7 @@ class OutputFormatterStyle implements \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1
     public function unsetOption($option)
     {
         if (!isset(static::$availableOptions[$option])) {
-            throw new \_PhpScoper0a2ac50786fa\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid option specified: "%s". Expected one of (%s).', $option, \implode(', ', \array_keys(static::$availableOptions))));
+            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid option specified: "%s". Expected one of (%s).', $option, \implode(', ', \array_keys(static::$availableOptions))));
         }
         $pos = \array_search(static::$availableOptions[$option], $this->options);
         if (\false !== $pos) {
