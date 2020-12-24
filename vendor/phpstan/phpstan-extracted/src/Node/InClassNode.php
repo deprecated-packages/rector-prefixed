@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Node;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-class InClassNode extends \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt implements \_PhpScoperb75b35f52b74\PHPStan\Node\VirtualNode
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+class InClassNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */
     private $originalNode;
     /** @var ClassReflection */
     private $classReflection;
-    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $originalNode, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $originalNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection)
     {
         parent::__construct($originalNode->getAttributes());
         $this->originalNode = $originalNode;
         $this->classReflection = $classReflection;
     }
-    public function getOriginalNode() : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike
+    public function getOriginalNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike
     {
         return $this->originalNode;
     }
-    public function getClassReflection() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
+    public function getClassReflection() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
     {
         return $this->classReflection;
     }

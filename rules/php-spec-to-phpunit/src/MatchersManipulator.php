@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\PhpSpecToPHPUnit;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
 final class MatchersManipulator
 {
     /**
      * @return string[]
      */
-    public function resolveMatcherNamesFromClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : array
+    public function resolveMatcherNamesFromClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classMethod = $class->getMethod('getMatchers');
         if ($classMethod === null) {
@@ -21,12 +21,12 @@ final class MatchersManipulator
         if (!isset($classMethod->stmts[0])) {
             return [];
         }
-        if (!$classMethod->stmts[0] instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_) {
+        if (!$classMethod->stmts[0] instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
             return [];
         }
         /** @var Return_ $return */
         $return = $classMethod->stmts[0];
-        if (!$return->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_) {
+        if (!$return->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
             return [];
         }
         $keys = [];
@@ -34,7 +34,7 @@ final class MatchersManipulator
             if ($arrayItem === null) {
                 continue;
             }
-            if ($arrayItem->key instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+            if ($arrayItem->key instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
                 $keys[] = $arrayItem->key->value;
             }
         }

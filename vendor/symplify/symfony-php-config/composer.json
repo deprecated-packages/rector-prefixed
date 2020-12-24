@@ -5,22 +5,22 @@
     "require": {
         "php": ">=7.3",
         "symfony\/dependency-injection": "^5.1",
-        "symplify\/symplify-kernel": "^9.0.14",
-        "symplify\/package-builder": "^9.0.14"
+        "symplify\/symplify-kernel": "^9.0.15",
+        "symplify\/package-builder": "^9.0.15"
     },
     "require-dev": {
         "symfony\/http-kernel": "^4.4|^5.1",
         "phpunit\/phpunit": "^9.5",
-        "phpstan\/phpstan": "^0.12.59"
+        "phpstan\/phpstan": "^0.12.64"
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperb75b35f52b74\\Symplify\\SymfonyPhpConfig\\": "src"
+            "_PhpScoper2a4e7ab1ecbc\\Symplify\\SymfonyPhpConfig\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperb75b35f52b74\\Symplify\\SymfonyPhpConfig\\Tests\\": "tests"
+            "_PhpScoper2a4e7ab1ecbc\\Symplify\\SymfonyPhpConfig\\Tests\\": "tests"
         },
         "files": [
             "vendor\/symfony\/dependency-injection\/Loader\/Configurator\/ContainerConfigurator.php"

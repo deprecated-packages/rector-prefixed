@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObject;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
-use _PhpScoperb75b35f52b74\Rector\Naming\Contract\RenameParamValueObjectInterface;
-final class ParamRename implements \_PhpScoperb75b35f52b74\Rector\Naming\Contract\RenameParamValueObjectInterface
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\RenameParamValueObjectInterface;
+final class ParamRename implements \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\RenameParamValueObjectInterface
 {
     /**
      * @var string
@@ -35,7 +35,7 @@ final class ParamRename implements \_PhpScoperb75b35f52b74\Rector\Naming\Contrac
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function __construct(string $currentName, string $expectedName, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable, \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike)
+    public function __construct(string $currentName, string $expectedName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike)
     {
         $this->param = $param;
         $this->variable = $variable;
@@ -54,15 +54,15 @@ final class ParamRename implements \_PhpScoperb75b35f52b74\Rector\Naming\Contrac
     /**
      * @return ClassMethod|Function_|Closure
      */
-    public function getFunctionLike() : \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike
+    public function getFunctionLike() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike
     {
         return $this->functionLike;
     }
-    public function getParam() : \_PhpScoperb75b35f52b74\PhpParser\Node\Param
+    public function getParam() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param
     {
         return $this->param;
     }
-    public function getVariable() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable
+    public function getVariable() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable
     {
         return $this->variable;
     }

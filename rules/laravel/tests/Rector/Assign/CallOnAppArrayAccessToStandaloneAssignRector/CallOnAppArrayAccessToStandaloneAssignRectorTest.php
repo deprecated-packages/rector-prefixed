@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Laravel\Tests\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Tests\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Laravel\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class CallOnAppArrayAccessToStandaloneAssignRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class CallOnAppArrayAccessToStandaloneAssignRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class CallOnAppArrayAccessToStandaloneAssignRectorTest extends \_PhpScoper
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Laravel\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector::class;
     }
 }

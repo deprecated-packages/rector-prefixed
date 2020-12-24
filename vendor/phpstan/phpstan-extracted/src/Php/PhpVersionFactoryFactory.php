@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Php;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Php;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
-use _PhpScoperb75b35f52b74\PHPStan\File\FileReader;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileReader;
 class PhpVersionFactoryFactory
 {
     /** @var int|null */
@@ -23,24 +23,24 @@ class PhpVersionFactoryFactory
         $this->readComposerPhpVersion = $readComposerPhpVersion;
         $this->composerAutoloaderProjectPaths = $composerAutoloaderProjectPaths;
     }
-    public function create() : \_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersionFactory
+    public function create() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersionFactory
     {
         $composerPhpVersion = null;
         if ($this->readComposerPhpVersion && \count($this->composerAutoloaderProjectPaths) > 0) {
             $composerJsonPath = \end($this->composerAutoloaderProjectPaths) . '/composer.json';
             if (\is_file($composerJsonPath)) {
                 try {
-                    $composerJsonContents = \_PhpScoperb75b35f52b74\PHPStan\File\FileReader::read($composerJsonPath);
-                    $composer = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($composerJsonContents, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+                    $composerJsonContents = \_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileReader::read($composerJsonPath);
+                    $composer = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($composerJsonContents, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
                     $platformVersion = $composer['config']['platform']['php'] ?? null;
                     if (\is_string($platformVersion)) {
                         $composerPhpVersion = $platformVersion;
                     }
-                } catch (\_PhpScoperb75b35f52b74\PHPStan\File\CouldNotReadFileException|\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
+                } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\File\CouldNotReadFileException|\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
                     // pass
                 }
             }
         }
-        return new \_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersionFactory($this->versionId, $composerPhpVersion);
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersionFactory($this->versionId, $composerPhpVersion);
     }
 }

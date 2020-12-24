@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Classes;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\ClassCaseSensitivityCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\ClassNameNodePair;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\GenericObjectTypeCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\MissingTypehintCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Rule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ErrorType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\FileTypeMapper;
-use _PhpScoperb75b35f52b74\PHPStan\Type\NeverType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassNameNodePair;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericObjectTypeCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\MissingTypehintCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
 /**
  * @implements Rule<Node\Stmt\Class_>
  */
-class MixinRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class MixinRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     /** @var FileTypeMapper */
     private $fileTypeMapper;
@@ -33,7 +33,7 @@ class MixinRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
     private $missingTypehintCheck;
     /** @var bool */
     private $checkClassCaseSensitivity;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Type\FileTypeMapper $fileTypeMapper, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoperb75b35f52b74\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \_PhpScoperb75b35f52b74\PHPStan\Rules\MissingTypehintCheck $missingTypehintCheck, bool $checkClassCaseSensitivity)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper $fileTypeMapper, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\MissingTypehintCheck $missingTypehintCheck, bool $checkClassCaseSensitivity)
     {
         $this->fileTypeMapper = $fileTypeMapper;
         $this->reflectionProvider = $reflectionProvider;
@@ -44,9 +44,9 @@ class MixinRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class;
+        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
         if (!isset($node->namespacedName)) {
             // anonymous class
@@ -63,24 +63,24 @@ class MixinRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
         foreach ($mixinTags as $mixinTag) {
             $type = $mixinTag->getType();
             if (!$type->canCallMethods()->yes() || !$type->canAccessProperties()->yes()) {
-                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains non-object type %s.', $type->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains non-object type %s.', $type->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
                 continue;
             }
-            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType || $type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\NeverType && !$type->isExplicit()) {
-                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @mixin contains unresolvable type.')->build();
+            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType && !$type->isExplicit()) {
+                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @mixin contains unresolvable type.')->build();
                 continue;
             }
             $errors = \array_merge($errors, $this->genericObjectTypeCheck->check($type, 'PHPDoc tag @mixin contains generic type %s but class %s is not generic.', 'Generic type %s in PHPDoc tag @mixin does not specify all template types of class %s: %s', 'Generic type %s in PHPDoc tag @mixin specifies %d template types, but class %s supports only %d: %s', 'Type %s in generic type %s in PHPDoc tag @mixin is not subtype of template type %s of class %s.'));
             foreach ($this->missingTypehintCheck->getNonGenericObjectTypesWithGenericClass($type) as [$innerName, $genericTypeNames]) {
-                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains generic %s but does not specify its types: %s', $innerName, \implode(', ', $genericTypeNames)))->tip(\_PhpScoperb75b35f52b74\PHPStan\Rules\MissingTypehintCheck::TURN_OFF_NON_GENERIC_CHECK_TIP)->build();
+                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains generic %s but does not specify its types: %s', $innerName, \implode(', ', $genericTypeNames)))->tip(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\MissingTypehintCheck::TURN_OFF_NON_GENERIC_CHECK_TIP)->build();
             }
             foreach ($type->getReferencedClasses() as $class) {
                 if (!$this->reflectionProvider->hasClass($class)) {
-                    $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains unknown class %s.', $class))->discoveringSymbolsTip()->build();
+                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains unknown class %s.', $class))->discoveringSymbolsTip()->build();
                 } elseif ($this->reflectionProvider->getClass($class)->isTrait()) {
-                    $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains invalid type %s.', $class))->build();
+                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @mixin contains invalid type %s.', $class))->build();
                 } elseif ($this->checkClassCaseSensitivity) {
-                    $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames([new \_PhpScoperb75b35f52b74\PHPStan\Rules\ClassNameNodePair($class, $node)]));
+                    $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassNameNodePair($class, $node)]));
                 }
             }
         }

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Reflection;
 
-use _PhpScoperb75b35f52b74\PHPStan\Broker\Broker;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflectionExtensionRegistry;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodsClassReflectionExtension;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\PropertiesClassReflectionExtension;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflectionExtensionRegistry;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodsClassReflectionExtension;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertiesClassReflectionExtension;
 /**
  * @internal
  */
-class DirectClassReflectionExtensionRegistryProvider implements \_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider
+class DirectClassReflectionExtensionRegistryProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider
 {
     /** @var \PHPStan\Reflection\PropertiesClassReflectionExtension[] */
     private $propertiesClassReflectionExtensions;
@@ -27,20 +27,20 @@ class DirectClassReflectionExtensionRegistryProvider implements \_PhpScoperb75b3
         $this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
         $this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
     }
-    public function setBroker(\_PhpScoperb75b35f52b74\PHPStan\Broker\Broker $broker) : void
+    public function setBroker(\_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker $broker) : void
     {
         $this->broker = $broker;
     }
-    public function addPropertiesClassReflectionExtension(\_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertiesClassReflectionExtension $extension) : void
+    public function addPropertiesClassReflectionExtension(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertiesClassReflectionExtension $extension) : void
     {
         $this->propertiesClassReflectionExtensions[] = $extension;
     }
-    public function addMethodsClassReflectionExtension(\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodsClassReflectionExtension $extension) : void
+    public function addMethodsClassReflectionExtension(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodsClassReflectionExtension $extension) : void
     {
         $this->methodsClassReflectionExtensions[] = $extension;
     }
-    public function getRegistry() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflectionExtensionRegistry
+    public function getRegistry() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflectionExtensionRegistry
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflectionExtensionRegistry($this->broker, $this->propertiesClassReflectionExtensions, $this->methodsClassReflectionExtensions);
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflectionExtensionRegistry($this->broker, $this->propertiesClassReflectionExtensions, $this->methodsClassReflectionExtensions);
     }
 }

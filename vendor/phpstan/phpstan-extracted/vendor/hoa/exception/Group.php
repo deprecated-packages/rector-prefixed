@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Exception;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Exception;
 
 /**
  * Class \Hoa\Exception\Group.
@@ -43,7 +43,7 @@ namespace _PhpScoperb75b35f52b74\Hoa\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Group extends \_PhpScoperb75b35f52b74\Hoa\Exception\Exception implements \ArrayAccess, \IteratorAggregate, \Countable
+class Group extends \_PhpScoper2a4e7ab1ecbc\Hoa\Exception\Exception implements \ArrayAccess, \IteratorAggregate, \Countable
 {
     /**
      * All exceptions (stored in a stack for transactions).

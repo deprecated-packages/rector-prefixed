@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream;
 
 /**
  * The `DuplexStreamInterface` is responsible for providing an interface for
@@ -34,6 +34,6 @@ namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream;
  * @see ReadableStreamInterface
  * @see WritableStreamInterface
  */
-interface DuplexStreamInterface extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
+interface DuplexStreamInterface extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
 {
 }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\Tests\Json\JsonFileSystem;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Tests\Json\JsonFileSystem;
 
-use _PhpScoperb75b35f52b74\PHPUnit\Framework\TestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\FileSystemGuard;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\Json\JsonFileSystem;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileSystem;
-final class JsonFileSystemTest extends \_PhpScoperb75b35f52b74\PHPUnit\Framework\TestCase
+use _PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemGuard;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Json\JsonFileSystem;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
+final class JsonFileSystemTest extends \_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase
 {
     /**
      * @var string
@@ -23,8 +23,8 @@ final class JsonFileSystemTest extends \_PhpScoperb75b35f52b74\PHPUnit\Framework
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->smartFileSystem = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileSystem();
-        $this->jsonFileSystem = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\Json\JsonFileSystem(new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\FileSystemGuard(), $this->smartFileSystem);
+        $this->smartFileSystem = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->jsonFileSystem = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Json\JsonFileSystem(new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemGuard(), $this->smartFileSystem);
     }
     public function testLoadFilePathToJson() : void
     {

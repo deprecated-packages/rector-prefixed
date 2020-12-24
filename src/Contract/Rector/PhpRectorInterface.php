@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor;
-interface PhpRectorInterface extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitor, \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitor;
+interface PhpRectorInterface extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitor, \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\RectorInterface
 {
     /**
      * List of nodes this class checks, classes that implements \PhpParser\Node
@@ -17,5 +17,5 @@ interface PhpRectorInterface extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisit
     /**
      * Process Node of matched type
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node;
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node;
 }

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\TypeAnalyzer;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\TypeAnalyzer;
 
 use Countable;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Type\NullType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
 final class CountableTypeAnalyzer
 {
     /**
@@ -25,13 +25,13 @@ final class CountableTypeAnalyzer
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector $pregMatchTypeCorrector)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector $pregMatchTypeCorrector)
     {
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
         $this->pregMatchTypeCorrector = $pregMatchTypeCorrector;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function isCountableType(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    public function isCountableType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         $nodeType = $this->nodeTypeResolver->resolve($node);
         $nodeType = $this->pregMatchTypeCorrector->correct($node, $nodeType);
@@ -40,13 +40,13 @@ final class CountableTypeAnalyzer
         }
         return $this->arrayTypeAnalyzer->isArrayType($node);
     }
-    private function isCountableObjectType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool
+    private function isCountableObjectType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
     {
-        $countableObjectTypes = [new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType(\Countable::class), new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType('SimpleXMLElement'), new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType('ResourceBundle')];
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
+        $countableObjectTypes = [new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType(\Countable::class), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType('SimpleXMLElement'), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType('ResourceBundle')];
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
             return $this->isCountableUnionType($type, $countableObjectTypes);
         }
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
             foreach ($countableObjectTypes as $countableObjectType) {
                 if (!\is_a($type->getClassName(), $countableObjectType->getClassName(), \true)) {
                     continue;
@@ -59,9 +59,9 @@ final class CountableTypeAnalyzer
     /**
      * @param ObjectType[] $countableObjectTypes
      */
-    private function isCountableUnionType(\_PhpScoperb75b35f52b74\PHPStan\Type\UnionType $unionType, array $countableObjectTypes) : bool
+    private function isCountableUnionType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType $unionType, array $countableObjectTypes) : bool
     {
-        if ($unionType->isSubTypeOf(new \_PhpScoperb75b35f52b74\PHPStan\Type\NullType())->yes()) {
+        if ($unionType->isSubTypeOf(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType())->yes()) {
             return \false;
         }
         foreach ($countableObjectTypes as $countableObjectType) {

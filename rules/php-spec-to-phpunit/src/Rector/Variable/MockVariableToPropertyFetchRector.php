@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\PhpSpecToPHPUnit\Rector\Variable;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Rector\Variable;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector;
-use _PhpScoperb75b35f52b74\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
 /**
  * $mock->call()
  * ↓
@@ -15,13 +15,13 @@ use _PhpScoperb75b35f52b74\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUn
  *
  * @see \Rector\PhpSpecToPHPUnit\Tests\Rector\Variable\PhpSpecToPHPUnitRector\PhpSpecToPHPUnitRectorTest
  */
-final class MockVariableToPropertyFetchRector extends \_PhpScoperb75b35f52b74\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
+final class MockVariableToPropertyFetchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
 {
     /**
      * @var PhpSpecMockCollector
      */
     private $phpSpecMockCollector;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector)
     {
         $this->phpSpecMockCollector = $phpSpecMockCollector;
     }
@@ -30,12 +30,12 @@ final class MockVariableToPropertyFetchRector extends \_PhpScoperb75b35f52b74\Re
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable::class];
     }
     /**
      * @param Variable $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -45,6 +45,6 @@ final class MockVariableToPropertyFetchRector extends \_PhpScoperb75b35f52b74\Re
         }
         /** @var string $variableName */
         $variableName = $this->getName($node);
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable('this'), $variableName);
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this'), $variableName);
     }
 }

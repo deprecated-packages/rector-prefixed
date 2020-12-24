@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Rector\String_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\String_;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\String_\SplitStringClassConstantToClassConstFetchRector\SplitStringClassConstantToClassConstFetchRectorTest
  */
-final class SplitStringClassConstantToClassConstFetchRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class SplitStringClassConstantToClassConstFetchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Separate class constant in a string to class constant fetch and string', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Separate class constant in a string to class constant fetch and string', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     const HI = true;
@@ -53,12 +53,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_::class];
     }
     /**
      * @param String_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if (\substr_count($node->value, '::') !== 1) {
             return null;
@@ -68,7 +68,7 @@ CODE_SAMPLE
         if (!\class_exists($possibleClass)) {
             return null;
         }
-        $classConstFetch = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified(\ltrim($possibleClass, '\\')), 'class');
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Concat($classConstFetch, new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_('::' . $secondPart));
+        $classConstFetch = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified(\ltrim($possibleClass, '\\')), 'class');
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat($classConstFetch, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('::' . $secondPart));
     }
 }

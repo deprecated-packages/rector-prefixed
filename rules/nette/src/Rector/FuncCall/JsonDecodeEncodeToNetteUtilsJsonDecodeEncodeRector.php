@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\Nette\Tests\Rector\FuncCall\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRectorTest
  */
-final class JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes json_encode()/json_decode() to safer and more verbose Nette\\Utils\\Json::encode()/decode() calls', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes json_encode()/json_decode() to safer and more verbose Nette\\Utils\\Json::encode()/decode() calls', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function decodeJson(string $jsonString)
@@ -64,12 +64,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if ($this->isName($node, 'json_encode')) {
             return $this->refactorJsonEncode($node);
@@ -79,19 +79,19 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorJsonEncode(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall
+    private function refactorJsonEncode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall
     {
         $args = $funcCall->args;
         if (isset($args[1])) {
             $secondArgumentValue = $args[1]->value;
             if ($this->isName($secondArgumentValue, 'JSON_PRETTY_PRINT')) {
-                $classConstFetch = $this->createClassConstFetch('_PhpScoperb75b35f52b74\\Nette\\Utils\\Json', 'PRETTY');
-                $args[1] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($classConstFetch);
+                $classConstFetch = $this->createClassConstFetch('_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\Json', 'PRETTY');
+                $args[1] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($classConstFetch);
             }
         }
-        return $this->createStaticCall('_PhpScoperb75b35f52b74\\Nette\\Utils\\Json', 'encode', $args);
+        return $this->createStaticCall('_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\Json', 'encode', $args);
     }
-    private function refactorJsonDecode(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall
+    private function refactorJsonDecode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall
     {
         $args = $funcCall->args;
         if (isset($args[1])) {
@@ -99,10 +99,10 @@ CODE_SAMPLE
             if ($this->isFalse($secondArgumentValue)) {
                 unset($args[1]);
             } elseif ($this->isTrue($secondArgumentValue)) {
-                $classConstFetch = $this->createClassConstFetch('_PhpScoperb75b35f52b74\\Nette\\Utils\\Json', 'FORCE_ARRAY');
-                $args[1] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($classConstFetch);
+                $classConstFetch = $this->createClassConstFetch('_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\Json', 'FORCE_ARRAY');
+                $args[1] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($classConstFetch);
             }
         }
-        return $this->createStaticCall('_PhpScoperb75b35f52b74\\Nette\\Utils\\Json', 'decode', $args);
+        return $this->createStaticCall('_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\Json', 'decode', $args);
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
 final class ClassMethodManipulator
 {
     /**
@@ -39,7 +39,7 @@ final class ClassMethodManipulator
      * @var FuncCallManipulator
      */
     private $funcCallManipulator;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\FuncCallManipulator $funcCallManipulator, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\FuncCallManipulator $funcCallManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -47,17 +47,17 @@ final class ClassMethodManipulator
         $this->nodeNameResolver = $nodeNameResolver;
         $this->funcCallManipulator = $funcCallManipulator;
     }
-    public function isParameterUsedInClassMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isParameterUsedInClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $isUsedDirectly = (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($param) : bool {
+        $isUsedDirectly = (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($param) : bool {
             return $this->betterStandardPrinter->areNodesEqual($node, $param->var);
         });
         if ($isUsedDirectly) {
             return \true;
         }
         /** @var FuncCall[] $compactFuncCalls */
-        $compactFuncCalls = $this->betterNodeFinder->find((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
+        $compactFuncCalls = $this->betterNodeFinder->find((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
                 return \false;
             }
             return $this->nodeNameResolver->isName($node, 'compact');
@@ -65,21 +65,21 @@ final class ClassMethodManipulator
         $arguments = $this->funcCallManipulator->extractArgumentsFromCompactFuncCalls($compactFuncCalls);
         return $this->nodeNameResolver->isNames($param, $arguments);
     }
-    public function isNamedConstructor(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isNamedConstructor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$this->nodeNameResolver->isName($classMethod, \_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if (!$this->nodeNameResolver->isName($classMethod, \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return \false;
         }
-        $classLike = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
+        $classLike = $classMethod->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         return $classMethod->isPrivate() || !$classLike->isFinal() && $classMethod->isProtected();
     }
-    public function hasParentMethodOrInterfaceMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, ?string $methodName = null) : bool
+    public function hasParentMethodOrInterfaceMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, ?string $methodName = null) : bool
     {
         $methodName = $methodName ?? $this->nodeNameResolver->getName($classMethod->name);
-        $class = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $class = $classMethod->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($class)) {
             return \false;
         }
@@ -104,10 +104,10 @@ final class ClassMethodManipulator
     /**
      * Is method actually static, or has some $this-> calls?
      */
-    public function isStaticClassMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isStaticClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
                 return \false;
             }
             return $this->nodeNameResolver->isName($node, 'this');
@@ -116,12 +116,12 @@ final class ClassMethodManipulator
     /**
      * @param string[] $possibleNames
      */
-    public function addMethodParameterIfMissing(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $type, array $possibleNames) : string
+    public function addMethodParameterIfMissing(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $type, array $possibleNames) : string
     {
-        $classMethodNode = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if (!$classMethodNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod) {
+        $classMethodNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethodNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
             // or null?
-            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
         }
         foreach ($classMethodNode->params as $paramNode) {
             if (!$this->nodeTypeResolver->isObjectType($paramNode, $type)) {
@@ -129,15 +129,15 @@ final class ClassMethodManipulator
             }
             $paramName = $this->nodeNameResolver->getName($paramNode);
             if (!\is_string($paramName)) {
-                throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
             }
             return $paramName;
         }
         $paramName = $this->resolveName($classMethodNode, $possibleNames);
-        $classMethodNode->params[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Param(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($paramName), null, new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified($type));
+        $classMethodNode->params[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($paramName), null, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($type));
         return $paramName;
     }
-    public function isPropertyPromotion(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isPropertyPromotion(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ((array) $classMethod->params as $param) {
             /** @var Param $param */
@@ -160,7 +160,7 @@ final class ClassMethodManipulator
     /**
      * @param string[] $possibleNames
      */
-    private function resolveName(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, array $possibleNames) : string
+    private function resolveName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, array $possibleNames) : string
     {
         foreach ($possibleNames as $possibleName) {
             foreach ($classMethod->params as $paramNode) {
@@ -170,6 +170,6 @@ final class ClassMethodManipulator
             }
             return $possibleName;
         }
-        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
     }
 }

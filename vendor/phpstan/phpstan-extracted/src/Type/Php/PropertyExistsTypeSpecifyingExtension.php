@@ -1,61 +1,61 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type\Php;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifierAwareExtension;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifierContext;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Properties\PropertyReflectionFinder;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Accessory\HasPropertyType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\FunctionTypeSpecifyingExtension;
-use _PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectWithoutClassType;
-class PropertyExistsTypeSpecifyingExtension implements \_PhpScoperb75b35f52b74\PHPStan\Type\FunctionTypeSpecifyingExtension, \_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifierAwareExtension
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifier;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierAwareExtension;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\PropertyReflectionFinder;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\HasPropertyType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FunctionTypeSpecifyingExtension;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
+class PropertyExistsTypeSpecifyingExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FunctionTypeSpecifyingExtension, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierAwareExtension
 {
     /** @var PropertyReflectionFinder */
     private $propertyReflectionFinder;
     /** @var TypeSpecifier */
     private $typeSpecifier;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder)
     {
         $this->propertyReflectionFinder = $propertyReflectionFinder;
     }
-    public function setTypeSpecifier(\_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void
+    public function setTypeSpecifier(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void
     {
         $this->typeSpecifier = $typeSpecifier;
     }
-    public function isFunctionSupported(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifierContext $context) : bool
+    public function isFunctionSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext $context) : bool
     {
         return $functionReflection->getName() === 'property_exists' && $context->truthy() && \count($node->args) >= 2;
     }
-    public function specifyTypes(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifierContext $context) : \_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes
+    public function specifyTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext $context) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes
     {
         $propertyNameType = $scope->getType($node->args[1]->value);
-        if (!$propertyNameType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType) {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes([], []);
+        if (!$propertyNameType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType) {
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes([], []);
         }
         $objectType = $scope->getType($node->args[0]->value);
-        if ($objectType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType) {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes([], []);
-        } elseif ((new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectWithoutClassType())->isSuperTypeOf($objectType)->yes()) {
-            $propertyNode = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch($node->args[0]->value, new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier($propertyNameType->getValue()));
+        if ($objectType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType) {
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes([], []);
+        } elseif ((new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType())->isSuperTypeOf($objectType)->yes()) {
+            $propertyNode = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch($node->args[0]->value, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($propertyNameType->getValue()));
         } else {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes([], []);
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes([], []);
         }
         $propertyReflection = $this->propertyReflectionFinder->findPropertyReflectionFromNode($propertyNode, $scope);
         if ($propertyReflection !== null) {
             if (!$propertyReflection->isNative()) {
-                return new \_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes([], []);
+                return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes([], []);
             }
         }
-        return $this->typeSpecifier->create($node->args[0]->value, new \_PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType([new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectWithoutClassType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\Accessory\HasPropertyType($propertyNameType->getValue())]), $context);
+        return $this->typeSpecifier->create($node->args[0]->value, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\HasPropertyType($propertyNameType->getValue())]), $context);
     }
 }

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Llk;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk;
 
-use _PhpScoperb75b35f52b74\Hoa\Visitor;
+use _PhpScoper2a4e7ab1ecbc\Hoa\Visitor;
 /**
  * Class \Hoa\Compiler\Llk\TreeNode.
  *
@@ -44,7 +44,7 @@ use _PhpScoperb75b35f52b74\Hoa\Visitor;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class TreeNode implements \_PhpScoperb75b35f52b74\Hoa\Visitor\Element
+class TreeNode implements \_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Element
 {
     /**
      * ID (should be something like #ruleName or token).
@@ -171,7 +171,7 @@ class TreeNode implements \_PhpScoperb75b35f52b74\Hoa\Visitor\Element
      * @param   \Hoa\Compiler\Llk\TreeNode  $child    Child.
      * @return  \Hoa\Compiler\Llk\TreeNode
      */
-    public function prependChild(\_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\TreeNode $child)
+    public function prependChild(\_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\TreeNode $child)
     {
         \array_unshift($this->_children, $child);
         return $this;
@@ -182,7 +182,7 @@ class TreeNode implements \_PhpScoperb75b35f52b74\Hoa\Visitor\Element
      * @param   \Hoa\Compiler\Llk\TreeNode  $child    Child.
      * @return  \Hoa\Compiler\Llk\TreeNode
      */
-    public function appendChild(\_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\TreeNode $child)
+    public function appendChild(\_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\TreeNode $child)
     {
         $this->_children[] = $child;
         return $this;
@@ -243,7 +243,7 @@ class TreeNode implements \_PhpScoperb75b35f52b74\Hoa\Visitor\Element
      * @param   \Hoa\Compiler\Llk\TreeNode  $parent    Parent.
      * @return  \Hoa\Compiler\Llk\TreeNode
      */
-    public function setParent(\_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\TreeNode $parent)
+    public function setParent(\_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\TreeNode $parent)
     {
         $old = $this->_parent;
         $this->_parent = $parent;
@@ -275,7 +275,7 @@ class TreeNode implements \_PhpScoperb75b35f52b74\Hoa\Visitor\Element
      * @param   mixed               $eldnah     Handle (no reference).
      * @return  mixed
      */
-    public function accept(\_PhpScoperb75b35f52b74\Hoa\Visitor\Visit $visitor, &$handle = null, $eldnah = null)
+    public function accept(\_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Visit $visitor, &$handle = null, $eldnah = null)
     {
         return $visitor->visit($this, $handle, $eldnah);
     }

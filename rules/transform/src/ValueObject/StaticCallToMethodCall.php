@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Transform\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
 final class StaticCallToMethodCall
 {
     /**
@@ -39,16 +39,16 @@ final class StaticCallToMethodCall
     {
         return $this->methodName;
     }
-    public function isStaticCallMatch(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    public function isStaticCallMatch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
-        if (!$staticCall->class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
+        if (!$staticCall->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
             return \false;
         }
         $staticCallClassName = $staticCall->class->toString();
         if ($staticCallClassName !== $this->staticClass) {
             return \false;
         }
-        if (!$staticCall->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier) {
+        if (!$staticCall->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
             return \false;
         }
         // all methods

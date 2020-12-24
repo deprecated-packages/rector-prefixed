@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType;
 use function array_map;
 use function implode;
-class ReflectionUnionType extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType
+class ReflectionUnionType extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType
 {
     /** @var ReflectionType[] */
     private $types;
-    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\UnionType $type, bool $allowsNull)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType $type, bool $allowsNull)
     {
         parent::__construct($allowsNull);
         $this->types = \array_map(static function ($type) : ReflectionType {
-            return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($type);
+            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($type);
         }, $type->types);
     }
     /**
@@ -26,7 +26,7 @@ class ReflectionUnionType extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f
     }
     public function __toString() : string
     {
-        return \implode('|', \array_map(static function (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType $type) : string {
+        return \implode('|', \array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType $type) : string {
             return (string) $type;
         }, $this->types));
     }

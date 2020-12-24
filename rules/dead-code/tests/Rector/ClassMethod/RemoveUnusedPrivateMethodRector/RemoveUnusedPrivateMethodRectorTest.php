@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveUnusedPrivateMethodRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveUnusedPrivateMethodRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveUnusedPrivateMethodRectorTest extends \_PhpScoperb75b35f52b74\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector::class;
     }
 }

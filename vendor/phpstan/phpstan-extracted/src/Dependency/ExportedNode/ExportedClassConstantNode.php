@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use _PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode;
-class ExportedClassConstantNode implements \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
+class ExportedClassConstantNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $name;
@@ -22,7 +22,7 @@ class ExportedClassConstantNode implements \_PhpScoperb75b35f52b74\PHPStan\Depen
         $this->public = $public;
         $this->private = $private;
     }
-    public function equals(\_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -33,7 +33,7 @@ class ExportedClassConstantNode implements \_PhpScoperb75b35f52b74\PHPStan\Depen
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['value'], $properties['public'], $properties['private']);
     }
@@ -41,7 +41,7 @@ class ExportedClassConstantNode implements \_PhpScoperb75b35f52b74\PHPStan\Depen
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode
     {
         return new self($data['name'], $data['value'], $data['public'], $data['private']);
     }

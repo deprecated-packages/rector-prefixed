@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\ExpectedNameResolver;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
-use _PhpScoperb75b35f52b74\Rector\Core\Util\StaticRectorStrings;
-final class UnderscoreCamelCaseExpectedNameResolver extends \_PhpScoperb75b35f52b74\Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings;
+final class UnderscoreCamelCaseExpectedNameResolver extends \_PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
 {
     /**
      * @param Param|Property $node
      */
-    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
     {
         $currentName = $this->nodeNameResolver->getName($node);
         if ($currentName === null) {
             return null;
         }
-        return \_PhpScoperb75b35f52b74\Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($currentName);
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($currentName);
     }
 }

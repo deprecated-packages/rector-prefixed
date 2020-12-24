@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp74\Tests\Rector\LNumber\DowngradeNumericLiteralSeparatorRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Tests\Rector\LNumber\DowngradeNumericLiteralSeparatorRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class DowngradeNumericLiteralSeparatorRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class DowngradeNumericLiteralSeparatorRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class DowngradeNumericLiteralSeparatorRectorTest extends \_PhpScoperb75b35
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector::class;
     }
 }

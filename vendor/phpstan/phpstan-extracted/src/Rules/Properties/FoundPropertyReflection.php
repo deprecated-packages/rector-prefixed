@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Properties;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties;
 
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpPropertyReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ResolvedPropertyReflection;
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class FoundPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpPropertyReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ResolvedPropertyReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class FoundPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
 {
     /** @var PropertyReflection */
     private $originalPropertyReflection;
@@ -22,7 +22,7 @@ class FoundPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
     private $readableType;
     /** @var Type */
     private $writableType;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection $originalPropertyReflection, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, string $propertyName, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $readableType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $writableType)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection $originalPropertyReflection, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, string $propertyName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $readableType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $writableType)
     {
         $this->originalPropertyReflection = $originalPropertyReflection;
         $this->scope = $scope;
@@ -30,11 +30,11 @@ class FoundPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
         $this->readableType = $readableType;
         $this->writableType = $writableType;
     }
-    public function getScope() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope
+    public function getScope() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope
     {
         return $this->scope;
     }
-    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
     {
         return $this->originalPropertyReflection->getDeclaringClass();
     }
@@ -58,11 +58,11 @@ class FoundPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
     {
         return $this->originalPropertyReflection->getDocComment();
     }
-    public function getReadableType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getReadableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->readableType;
     }
-    public function getWritableType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getWritableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->writableType;
     }
@@ -78,7 +78,7 @@ class FoundPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
     {
         return $this->originalPropertyReflection->isWritable();
     }
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->originalPropertyReflection->isDeprecated();
     }
@@ -86,25 +86,25 @@ class FoundPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
     {
         return $this->originalPropertyReflection->getDeprecatedDescription();
     }
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->originalPropertyReflection->isInternal();
     }
     public function isNative() : bool
     {
         $reflection = $this->originalPropertyReflection;
-        if ($reflection instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\ResolvedPropertyReflection) {
+        if ($reflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ResolvedPropertyReflection) {
             $reflection = $reflection->getOriginalReflection();
         }
-        return $reflection instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpPropertyReflection;
+        return $reflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpPropertyReflection;
     }
-    public function getNativeType() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getNativeType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         $reflection = $this->originalPropertyReflection;
-        if ($reflection instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\ResolvedPropertyReflection) {
+        if ($reflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ResolvedPropertyReflection) {
             $reflection = $reflection->getOriginalReflection();
         }
-        if (!$reflection instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpPropertyReflection) {
+        if (!$reflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpPropertyReflection) {
             return null;
         }
         return $reflection->getNativeType();

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\ChildPopulator;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ChildPopulator;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\PhpParser\Node\NullableType;
-use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\StaticType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\SelfObjectType;
-use _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
 abstract class AbstractChildPopulator
 {
     /**
@@ -22,20 +22,20 @@ abstract class AbstractChildPopulator
     /**
      * @required
      */
-    public function autowireAbstractChildPopulator(\_PhpScoperb75b35f52b74\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper) : void
+    public function autowireAbstractChildPopulator(\_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper) : void
     {
         $this->staticTypeMapper = $staticTypeMapper;
     }
     /**
      * @return Name|NullableType|UnionType|null
      */
-    protected function resolveChildTypeNode(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    protected function resolveChildTypeNode(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
             return null;
         }
-        if ($type instanceof \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\SelfObjectType || $type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\StaticType) {
-            $type = new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType($type->getClassName());
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType) {
+            $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($type->getClassName());
         }
         return $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($type);
     }

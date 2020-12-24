@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\NodeVisitor;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\NodeVisitor;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
-class StatementOrderVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract;
+class StatementOrderVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
 {
     /** @var int[] */
     private $orderStack = [];
@@ -29,12 +29,12 @@ class StatementOrderVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisito
      * @param Node $node
      * @return null
      */
-    public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node)
+    public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node)
     {
         $order = $this->orderStack[\count($this->orderStack) - 1];
         $node->setAttribute('statementOrder', $order);
         $node->setAttribute('statementDepth', $this->depth);
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr && \count($this->expressionOrderStack) > 0) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr && \count($this->expressionOrderStack) > 0) {
             $expressionOrder = $this->expressionOrderStack[\count($this->expressionOrderStack) - 1];
             $node->setAttribute('expressionOrder', $expressionOrder);
             $node->setAttribute('expressionDepth', $this->expressionDepth);
@@ -42,7 +42,7 @@ class StatementOrderVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisito
             $this->expressionOrderStack[] = 0;
             $this->expressionDepth++;
         }
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt) {
             return null;
         }
         $this->orderStack[\count($this->orderStack) - 1] = $order + 1;
@@ -56,13 +56,13 @@ class StatementOrderVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisito
      * @param Node $node
      * @return null
      */
-    public function leaveNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node)
+    public function leaveNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node)
     {
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr) {
             \array_pop($this->expressionOrderStack);
             $this->expressionDepth--;
         }
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt) {
             return null;
         }
         \array_pop($this->orderStack);

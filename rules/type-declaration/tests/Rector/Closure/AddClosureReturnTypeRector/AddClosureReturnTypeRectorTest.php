@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\Tests\Rector\Closure\AddClosureReturnTypeRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Tests\Rector\Closure\AddClosureReturnTypeRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class AddClosureReturnTypeRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddClosureReturnTypeRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,10 +23,10 @@ final class AddClosureReturnTypeRectorTest extends \_PhpScoperb75b35f52b74\Recto
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector::class;
     }
     protected function getPhpVersion() : int
     {
-        return \_PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES - 1;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES - 1;
     }
 }

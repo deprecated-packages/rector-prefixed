@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74\Symplify\Skipper\Tests\Skipper\Fixture\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Fixture\Source;
 
 class SomeFile
 {

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Testing;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Testing;
 
-use _PhpScoperb75b35f52b74\PHPStan\File\FileHelper;
-use _PhpScoperb75b35f52b74\PHPStan\File\FileWriter;
-abstract class LevelsTestCase extends \_PhpScoperb75b35f52b74\PHPUnit\Framework\TestCase
+use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileWriter;
+abstract class LevelsTestCase extends \_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase
 {
     /**
      * @return array<array<string>>
@@ -31,21 +31,21 @@ abstract class LevelsTestCase extends \_PhpScoperb75b35f52b74\PHPUnit\Framework\
         $file = \sprintf('%s' . \DIRECTORY_SEPARATOR . '%s.php', $this->getDataPath(), $topic);
         $command = \escapeshellcmd($this->getPhpStanExecutablePath());
         $configPath = $this->getPhpStanConfigPath();
-        $fileHelper = new \_PhpScoperb75b35f52b74\PHPStan\File\FileHelper(__DIR__ . '/../..');
+        $fileHelper = new \_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper(__DIR__ . '/../..');
         $previousMessages = [];
         $exceptions = [];
         foreach (\range(0, 8) as $level) {
             unset($outputLines);
             \exec(\sprintf('%s %s clear-result-cache %s 2>&1', \escapeshellarg(\PHP_BINARY), $command, $configPath !== null ? '--configuration ' . \escapeshellarg($configPath) : ''), $clearResultCacheOutputLines, $clearResultCacheExitCode);
             if ($clearResultCacheExitCode !== 0) {
-                throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException('Could not clear result cache: ' . \implode("\n", $clearResultCacheOutputLines));
+                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('Could not clear result cache: ' . \implode("\n", $clearResultCacheOutputLines));
             }
             \exec(\sprintf('%s %s analyse --no-progress --error-format=prettyJson --level=%d %s %s %s', \escapeshellarg(\PHP_BINARY), $command, $level, $configPath !== null ? '--configuration ' . \escapeshellarg($configPath) : '', $this->shouldAutoloadAnalysedFile() ? \sprintf('--autoload-file %s', \escapeshellarg($file)) : '', \escapeshellarg($file)), $outputLines);
             $output = \implode("\n", $outputLines);
             try {
-                $actualJson = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($output, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
-            } catch (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
-                throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
+                $actualJson = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($output, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+            } catch (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
+                throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
             }
             if (\count($actualJson['files']) > 0) {
                 $normalizedFilePath = $fileHelper->normalizePath($file);
@@ -111,22 +111,22 @@ abstract class LevelsTestCase extends \_PhpScoperb75b35f52b74\PHPUnit\Framework\
      * @param string[] $expectedMessages
      * @return \PHPUnit\Framework\AssertionFailedError|null
      */
-    private function compareFiles(string $expectedJsonFile, array $expectedMessages) : ?\_PhpScoperb75b35f52b74\PHPUnit\Framework\AssertionFailedError
+    private function compareFiles(string $expectedJsonFile, array $expectedMessages) : ?\_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\AssertionFailedError
     {
         if (\count($expectedMessages) === 0) {
             try {
                 self::assertFileNotExists($expectedJsonFile);
                 return null;
-            } catch (\_PhpScoperb75b35f52b74\PHPUnit\Framework\AssertionFailedError $e) {
+            } catch (\_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\AssertionFailedError $e) {
                 \unlink($expectedJsonFile);
                 return $e;
             }
         }
-        $actualOutput = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($expectedMessages, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY);
+        $actualOutput = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($expectedMessages, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY);
         try {
             $this->assertJsonStringEqualsJsonFile($expectedJsonFile, $actualOutput);
-        } catch (\_PhpScoperb75b35f52b74\PHPUnit\Framework\AssertionFailedError $e) {
-            \_PhpScoperb75b35f52b74\PHPStan\File\FileWriter::write($expectedJsonFile, $actualOutput);
+        } catch (\_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\AssertionFailedError $e) {
+            \_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileWriter::write($expectedJsonFile, $actualOutput);
             return $e;
         }
         return null;

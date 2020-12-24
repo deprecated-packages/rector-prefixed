@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74;
+namespace _PhpScoper2a4e7ab1ecbc;
 
-use _PhpScoperb75b35f52b74\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector;
-use _PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector;
-use _PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector;
-use _PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\PregFunctionToNetteUtilsStringsRector;
-use _PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector;
-use _PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\SubstrStrlenFunctionToNetteUtilsStringsRector;
-use _PhpScoperb75b35f52b74\Rector\Nette\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector;
-use _PhpScoperb75b35f52b74\Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector;
-use _PhpScoperb75b35f52b74\Rector\Nette\Rector\NotIdentical\StrposToStringsContainsRector;
-use _PhpScoperb75b35f52b74\Rector\NetteUtilsCodeQuality\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector;
-use _PhpScoperb75b35f52b74\Rector\Transform\ValueObject\FuncCallToStaticCall;
-use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoperb75b35f52b74\Symplify\SymfonyPhpConfig\ValueObjectInliner;
+use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\PregFunctionToNetteUtilsStringsRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\SubstrStrlenFunctionToNetteUtilsStringsRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\NotIdentical\StrposToStringsContainsRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteUtilsCodeQuality\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\FuncCallToStaticCall;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # @see https://www.tomasvotruba.cz/blog/2018/07/30/hidden-gems-of-php-packages-nette-utils
-return static function (\_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::class)->call('configure', [[\_PhpScoperb75b35f52b74\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => \_PhpScoperb75b35f52b74\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \_PhpScoperb75b35f52b74\Rector\Transform\ValueObject\FuncCallToStaticCall('file_get_contents', '_PhpScoperb75b35f52b74\\Nette\\Utils\\FileSystem', 'read'), new \_PhpScoperb75b35f52b74\Rector\Transform\ValueObject\FuncCallToStaticCall('unlink', '_PhpScoperb75b35f52b74\\Nette\\Utils\\FileSystem', 'delete'), new \_PhpScoperb75b35f52b74\Rector\Transform\ValueObject\FuncCallToStaticCall('rmdir', '_PhpScoperb75b35f52b74\\Nette\\Utils\\FileSystem', 'delete')])]]);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Nette\Rector\NotIdentical\StrposToStringsContainsRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\SubstrStrlenFunctionToNetteUtilsStringsRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\PregFunctionToNetteUtilsStringsRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Nette\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\NetteUtilsCodeQuality\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::class)->call('configure', [[\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => \_PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\FuncCallToStaticCall('file_get_contents', '_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\FileSystem', 'read'), new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\FuncCallToStaticCall('unlink', '_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\FileSystem', 'delete'), new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\FuncCallToStaticCall('rmdir', '_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\FileSystem', 'delete')])]]);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\NotIdentical\StrposToStringsContainsRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\SubstrStrlenFunctionToNetteUtilsStringsRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\PregFunctionToNetteUtilsStringsRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\NetteUtilsCodeQuality\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector::class);
 };

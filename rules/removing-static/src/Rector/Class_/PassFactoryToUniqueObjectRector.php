@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\RemovingStatic\Rector\Class_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\Rector\Class_;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoperb75b35f52b74\Rector\RemovingStatic\Printer\FactoryClassPrinter;
-use _PhpScoperb75b35f52b74\Rector\RemovingStatic\StaticTypesInClassResolver;
-use _PhpScoperb75b35f52b74\Rector\RemovingStatic\UniqueObjectFactoryFactory;
-use _PhpScoperb75b35f52b74\Rector\RemovingStatic\UniqueObjectOrServiceDetector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\Printer\FactoryClassPrinter;
+use _PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\StaticTypesInClassResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\UniqueObjectFactoryFactory;
+use _PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\UniqueObjectOrServiceDetector;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\PassFactoryToEntityRectorTest
  */
-final class PassFactoryToUniqueObjectRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class PassFactoryToUniqueObjectRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -53,7 +53,7 @@ final class PassFactoryToUniqueObjectRector extends \_PhpScoperb75b35f52b74\Rect
      * @var StaticTypesInClassResolver
      */
     private $staticTypesInClassResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver, \_PhpScoperb75b35f52b74\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoperb75b35f52b74\Rector\RemovingStatic\UniqueObjectOrServiceDetector $uniqueObjectOrServiceDetector, \_PhpScoperb75b35f52b74\Rector\RemovingStatic\UniqueObjectFactoryFactory $uniqueObjectFactoryFactory, \_PhpScoperb75b35f52b74\Rector\RemovingStatic\Printer\FactoryClassPrinter $factoryClassPrinter)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\UniqueObjectOrServiceDetector $uniqueObjectOrServiceDetector, \_PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\UniqueObjectFactoryFactory $uniqueObjectFactoryFactory, \_PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\Printer\FactoryClassPrinter $factoryClassPrinter)
     {
         $this->propertyNaming = $propertyNaming;
         $this->uniqueObjectOrServiceDetector = $uniqueObjectOrServiceDetector;
@@ -61,29 +61,29 @@ final class PassFactoryToUniqueObjectRector extends \_PhpScoperb75b35f52b74\Rect
         $this->factoryClassPrinter = $factoryClassPrinter;
         $this->staticTypesInClassResolver = $staticTypesInClassResolver;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X/Static::call() to factories in entities, pass them via constructor to each other', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X/Static::call() to factories in entities, pass them via constructor to each other', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperb75b35f52b74;
+namespace _PhpScoper2a4e7ab1ecbc;
 
 class SomeClass
 {
     public function run()
     {
-        return new \_PhpScoperb75b35f52b74\AnotherClass();
+        return new \_PhpScoper2a4e7ab1ecbc\AnotherClass();
     }
 }
-\class_alias('_PhpScoperb75b35f52b74\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoper2a4e7ab1ecbc\\SomeClass', 'SomeClass', \false);
 class AnotherClass
 {
     public function someFun()
     {
-        return \_PhpScoperb75b35f52b74\StaticClass::staticMethod();
+        return \_PhpScoper2a4e7ab1ecbc\StaticClass::staticMethod();
     }
 }
-\class_alias('_PhpScoperb75b35f52b74\\AnotherClass', 'AnotherClass', \false);
+\class_alias('_PhpScoper2a4e7ab1ecbc\\AnotherClass', 'AnotherClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass
@@ -137,25 +137,25 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param StaticCall|Class_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
             return $this->refactorClass($node);
         }
         foreach ($this->typesToServices as $type) {
             if (!$this->isObjectType($node->class, $type)) {
                 continue;
             }
-            $objectType = new \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType($type);
+            $objectType = new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type);
             // is this object created via new somewhere else? use factory!
             $variableName = $this->propertyNaming->fqnToVariableName($objectType);
-            $thisPropertyFetch = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable('this'), $variableName);
-            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($thisPropertyFetch, $node->name, $node->args);
+            $thisPropertyFetch = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this'), $variableName);
+            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($thisPropertyFetch, $node->name, $node->args);
         }
         return $node;
     }
@@ -163,7 +163,7 @@ CODE_SAMPLE
     {
         $this->typesToServices = $configuration[self::TYPES_TO_SERVICES] ?? [];
     }
-    private function refactorClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_
+    private function refactorClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
     {
         $staticTypesInClass = $this->staticTypesInClassResolver->collectStaticCallTypeInClass($class, $this->typesToServices);
         foreach ($staticTypesInClass as $staticType) {

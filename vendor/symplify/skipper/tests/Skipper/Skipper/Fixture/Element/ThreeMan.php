@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element;
 
 final class ThreeMan
 {

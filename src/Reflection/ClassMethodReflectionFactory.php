@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Reflection;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use ReflectionMethod;
 final class ClassMethodReflectionFactory
 {
-    public function createFromPHPStanTypeAndMethodName(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, string $methodName) : ?\ReflectionMethod
+    public function createFromPHPStanTypeAndMethodName(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, string $methodName) : ?\ReflectionMethod
     {
-        if ($type instanceof \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\ShortenedObjectType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
             return $this->createReflectionMethodIfExists($type->getFullyQualifiedName(), $methodName);
         }
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
             return $this->createReflectionMethodIfExists($type->getClassName(), $methodName);
         }
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType || $type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType) {
             foreach ($type->getTypes() as $unionedType) {
-                if (!$unionedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
+                if (!$unionedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
                     continue;
                 }
                 $methodReflection = $this->createFromPHPStanTypeAndMethodName($unionedType, $methodName);

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Properties;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleLevelHelper;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleLevelHelper;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class WritingToReadOnlyPropertiesRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class WritingToReadOnlyPropertiesRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
@@ -20,7 +20,7 @@ class WritingToReadOnlyPropertiesRule implements \_PhpScoperb75b35f52b74\PHPStan
     private $propertyReflectionFinder;
     /** @var bool */
     private $checkThisOnly;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \_PhpScoperb75b35f52b74\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \_PhpScoperb75b35f52b74\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder, bool $checkThisOnly)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder, bool $checkThisOnly)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
         $this->propertyDescriptor = $propertyDescriptor;
@@ -29,17 +29,17 @@ class WritingToReadOnlyPropertiesRule implements \_PhpScoperb75b35f52b74\PHPStan
     }
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PhpParser\Node\Expr::class;
+        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\AssignOp && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\AssignRef) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignOp && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignRef) {
             return [];
         }
-        if (!$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticPropertyFetch) {
+        if (!$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch) {
             return [];
         }
-        if ($node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch && $this->checkThisOnly && !$this->ruleLevelHelper->isThis($node->var->var)) {
+        if ($node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch && $this->checkThisOnly && !$this->ruleLevelHelper->isThis($node->var->var)) {
             return [];
         }
         /** @var \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch */
@@ -53,7 +53,7 @@ class WritingToReadOnlyPropertiesRule implements \_PhpScoperb75b35f52b74\PHPStan
         }
         if (!$propertyReflection->isWritable()) {
             $propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $propertyFetch);
-            return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is not writable.', $propertyDescription))->build()];
+            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is not writable.', $propertyDescription))->build()];
         }
         return [];
     }

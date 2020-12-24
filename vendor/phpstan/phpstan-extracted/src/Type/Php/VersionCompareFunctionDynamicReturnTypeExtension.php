@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type\Php;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils;
-class VersionCompareFunctionDynamicReturnTypeExtension implements \_PhpScoperb75b35f52b74\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils;
+class VersionCompareFunctionDynamicReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'version_compare';
     }
-    public function getTypeFromFunctionCall(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         if (\count($functionCall->args) < 2) {
-            return \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $functionCall->args, $functionReflection->getVariants())->getReturnType();
+            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $functionCall->args, $functionReflection->getVariants())->getReturnType();
         }
-        $version1Strings = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($functionCall->args[0]->value));
-        $version2Strings = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($functionCall->args[1]->value));
+        $version1Strings = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($functionCall->args[0]->value));
+        $version2Strings = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($functionCall->args[1]->value));
         $counts = [\count($version1Strings), \count($version2Strings)];
         if (isset($functionCall->args[2])) {
-            $operatorStrings = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($functionCall->args[2]->value));
+            $operatorStrings = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($functionCall->args[2]->value));
             $counts[] = \count($operatorStrings);
-            $returnType = new \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType();
+            $returnType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType();
         } else {
-            $returnType = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType(-1), new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType(0), new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType(1));
+            $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType(-1), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType(0), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType(1));
         }
         if (\count(\array_filter($counts, static function (int $count) : bool {
             return $count === 0;
@@ -52,14 +52,14 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \_PhpScoperb75
                 if (isset($operatorStrings)) {
                     foreach ($operatorStrings as $operatorString) {
                         $value = \version_compare($version1String->getValue(), $version2String->getValue(), $operatorString->getValue());
-                        $types[$value] = new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType($value);
+                        $types[$value] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType($value);
                     }
                 } else {
                     $value = \version_compare($version1String->getValue(), $version2String->getValue());
-                    $types[$value] = new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType($value);
+                    $types[$value] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType($value);
                 }
             }
         }
-        return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$types);
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$types);
     }
 }

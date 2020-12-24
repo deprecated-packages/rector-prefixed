@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\RectorGenerator\Composer;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Composer;
 
-use _PhpScoperb75b35f52b74\Rector\RectorGenerator\FileSystem\JsonFileSystem;
-use _PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\Package;
-use _PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\RectorRecipe;
-use _PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\FileSystem\JsonFileSystem;
+use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\Package;
+use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle;
 final class ComposerPackageAutoloadUpdater
 {
     /**
@@ -29,12 +29,12 @@ final class ComposerPackageAutoloadUpdater
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\RectorGenerator\FileSystem\JsonFileSystem $jsonFileSystem, \_PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\FileSystem\JsonFileSystem $jsonFileSystem, \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->jsonFileSystem = $jsonFileSystem;
         $this->symfonyStyle = $symfonyStyle;
     }
-    public function processComposerAutoload(\_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : void
+    public function processComposerAutoload(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : void
     {
         $composerJsonFilePath = \getcwd() . '/composer.json';
         $composerJson = $this->jsonFileSystem->loadFileToJson($composerJsonFilePath);
@@ -54,17 +54,17 @@ final class ComposerPackageAutoloadUpdater
         $this->jsonFileSystem->saveJsonToFile($composerJsonFilePath, $composerJson);
         $this->rebuildAutoload();
     }
-    private function resolvePackage(\_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : \_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\Package
+    private function resolvePackage(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\Package
     {
         if (!$rectorRecipe->isRectorRepository()) {
-            return new \_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\Package('Utils\\Rector\\', 'Utils\\Rector\\Tests\\', 'utils/rector/src', 'utils/rector/tests');
+            return new \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\Package('Utils\\Rector\\', 'Utils\\Rector\\Tests\\', 'utils/rector/src', 'utils/rector/tests');
         }
-        return new \_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\Package('Rector\\' . $rectorRecipe->getPackage() . '\\', 'Rector\\' . $rectorRecipe->getPackage() . '\\Tests\\', 'rules/' . $rectorRecipe->getPackageDirectory() . '/src', 'rules/' . $rectorRecipe->getPackageDirectory() . '/tests');
+        return new \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\Package('Rector\\' . $rectorRecipe->getPackage() . '\\', 'Rector\\' . $rectorRecipe->getPackage() . '\\Tests\\', 'rules/' . $rectorRecipe->getPackageDirectory() . '/src', 'rules/' . $rectorRecipe->getPackageDirectory() . '/tests');
     }
     /**
      * @param mixed[] $composerJson
      */
-    private function isPackageAlreadyLoaded(array $composerJson, \_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\Package $package) : bool
+    private function isPackageAlreadyLoaded(array $composerJson, \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\Package $package) : bool
     {
         foreach (['autoload', self::AUTOLOAD_DEV] as $autoloadSection) {
             if (isset($composerJson[$autoloadSection][self::PSR_4][$package->getSrcNamespace()])) {

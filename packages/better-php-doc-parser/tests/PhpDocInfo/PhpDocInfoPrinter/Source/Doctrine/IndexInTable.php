@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine;
 
-use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper2a4e7ab1ecbc\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(
  *     name="building",

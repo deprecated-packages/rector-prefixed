@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\PHPStan\Rector\Assign;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPStan\Rector\Assign;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Comment\Doc;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Nop;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Comment\Doc;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/shopsys/shopsys/pull/524
  * @see \Rector\PHPStan\Tests\Rector\Assign\PHPStormVarAnnotationRector\PHPStormVarAnnotationRectorTest
  */
-final class PHPStormVarAnnotationRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class PHPStormVarAnnotationRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -35,9 +35,9 @@ final class PHPStormVarAnnotationRector extends \_PhpScoperb75b35f52b74\Rector\C
      * @see https://regex101.com/r/yz2AZ7/1
      */
     private const VARIABLE_NAME_AND_TYPE_MATCH_REGEX = '#(?<variableName>\\$\\w+)(?<space>\\s+)(?<type>[\\\\\\w]+)#';
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change various @var annotation formats to one PHPStorm understands', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change various @var annotation formats to one PHPStorm understands', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $config = 5;
 /** @var \Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterConfig $config */
 CODE_SAMPLE
@@ -52,21 +52,21 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         /** @var Expression|null $expression */
-        $expression = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        $expression = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         // unable to analyze
         if ($expression === null) {
             return null;
         }
         /** @var Node|null $nextNode */
-        $nextNode = $expression->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $nextNode = $expression->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if ($nextNode === null) {
             return null;
         }
@@ -74,34 +74,34 @@ CODE_SAMPLE
         if ($docContent === '') {
             return null;
         }
-        if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::contains($docContent, '@var')) {
+        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($docContent, '@var')) {
             return null;
         }
-        if (!$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return null;
         }
         $varName = '$' . $this->getName($node->var);
         $varPattern = '# ' . \preg_quote($varName, '#') . ' #';
-        if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($docContent, $varPattern)) {
+        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($docContent, $varPattern)) {
             return null;
         }
         // switch docs
         $expression->setDocComment($this->createDocComment($nextNode));
         $expressionPhpDocInfo = $this->phpDocInfoFactory->createFromNode($expression);
-        $expression->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $expressionPhpDocInfo);
+        $expression->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $expressionPhpDocInfo);
         // invoke override
-        $expression->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+        $expression->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         // remove otherwise empty node
-        if ($nextNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Nop) {
+        if ($nextNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop) {
             $this->removeNode($nextNode);
             return null;
         }
         // remove commnets
-        $nextNode->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, null);
-        $nextNode->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
+        $nextNode->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, null);
+        $nextNode->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
         return $node;
     }
-    private function getDocContent(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : string
+    private function getDocContent(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : string
     {
         $docComment = $node->getDocComment();
         if ($docComment !== null) {
@@ -116,7 +116,7 @@ CODE_SAMPLE
         }
         return '';
     }
-    private function createDocComment(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\PhpParser\Comment\Doc
+    private function createDocComment(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Comment\Doc
     {
         if ($node->getDocComment() !== null) {
             return $node->getDocComment();
@@ -124,13 +124,13 @@ CODE_SAMPLE
         $docContent = $this->getDocContent($node);
         // normalize content
         // starts with "/*", instead of "/**"
-        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::startsWith($docContent, '/* ')) {
-            $docContent = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_COMMENT_START_REGEX, '/** ');
+        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($docContent, '/* ')) {
+            $docContent = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_COMMENT_START_REGEX, '/** ');
         }
         // $value is first, instead of type is first
-        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($docContent, self::VAR_ANNOTATION_REGEX)) {
-            $docContent = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($docContent, self::VARIABLE_NAME_AND_TYPE_MATCH_REGEX, '$3$2$1');
+        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($docContent, self::VAR_ANNOTATION_REGEX)) {
+            $docContent = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($docContent, self::VARIABLE_NAME_AND_TYPE_MATCH_REGEX, '$3$2$1');
         }
-        return new \_PhpScoperb75b35f52b74\PhpParser\Comment\Doc($docContent);
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Comment\Doc($docContent);
     }
 }

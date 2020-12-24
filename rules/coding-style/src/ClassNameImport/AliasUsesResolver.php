@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ClassNameImport;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
 final class AliasUsesResolver
 {
     /**
      * @var UseImportsTraverser
      */
     private $useImportsTraverser;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\UseImportsTraverser $useImportsTraverser)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ClassNameImport\UseImportsTraverser $useImportsTraverser)
     {
         $this->useImportsTraverser = $useImportsTraverser;
     }
     /**
      * @return string[]
      */
-    public function resolveForNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : array
+    public function resolveForNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_) {
-            $node = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_) {
+            $node = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
         }
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_) {
             return $this->resolveForNamespace($node);
         }
         return [];
@@ -33,10 +33,10 @@ final class AliasUsesResolver
     /**
      * @return string[]
      */
-    private function resolveForNamespace(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_ $namespace) : array
+    private function resolveForNamespace(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
         $aliasedUses = [];
-        $this->useImportsTraverser->traverserStmts($namespace->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$aliasedUses) : void {
+        $this->useImportsTraverser->traverserStmts($namespace->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$aliasedUses) : void {
             if ($useUse->alias === null) {
                 return;
             }

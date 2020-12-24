@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap;
 
-use _PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypehintHelper;
-class FunctionSignatureMapProvider implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\SignatureMapProvider
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper;
+class FunctionSignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\SignatureMapProvider
 {
     /** @var \PHPStan\Reflection\SignatureMap\SignatureMapParser */
     private $parser;
@@ -16,7 +16,7 @@ class FunctionSignatureMapProvider implements \_PhpScoperb75b35f52b74\PHPStan\Re
     private $signatureMap = null;
     /** @var array<string, array{hasSideEffects: bool}>|null */
     private $functionMetadata = null;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\SignatureMapParser $parser, \_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion $phpVersion)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\SignatureMapParser $parser, \_PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion $phpVersion)
     {
         $this->parser = $parser;
         $this->phpVersion = $phpVersion;
@@ -33,7 +33,7 @@ class FunctionSignatureMapProvider implements \_PhpScoperb75b35f52b74\PHPStan\Re
         }
         return \array_key_exists(\strtolower($name), $signatureMap);
     }
-    public function getMethodSignature(string $className, string $methodName, ?\ReflectionMethod $reflectionMethod, int $variant = 0) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\FunctionSignature
+    public function getMethodSignature(string $className, string $methodName, ?\ReflectionMethod $reflectionMethod, int $variant = 0) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature
     {
         $signature = $this->getFunctionSignature(\sprintf('%s::%s', $className, $methodName), $className, $variant);
         $parameters = [];
@@ -47,23 +47,23 @@ class FunctionSignatureMapProvider implements \_PhpScoperb75b35f52b74\PHPStan\Re
                 $parameters[] = $parameter;
                 continue;
             }
-            $parameters[] = new \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\ParameterSignature($parameter->getName(), $parameter->isOptional(), $parameter->getType(), \_PhpScoperb75b35f52b74\PHPStan\Type\TypehintHelper::decideTypeFromReflection($nativeParameters[$i]->getType()), $parameter->passedByReference(), $parameter->isVariadic());
+            $parameters[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\ParameterSignature($parameter->getName(), $parameter->isOptional(), $parameter->getType(), \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideTypeFromReflection($nativeParameters[$i]->getType()), $parameter->passedByReference(), $parameter->isVariadic());
         }
         if ($reflectionMethod === null) {
-            $nativeReturnType = new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+            $nativeReturnType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
         } else {
-            $nativeReturnType = \_PhpScoperb75b35f52b74\PHPStan\Type\TypehintHelper::decideTypeFromReflection($reflectionMethod->getReturnType());
+            $nativeReturnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideTypeFromReflection($reflectionMethod->getReturnType());
         }
-        return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\FunctionSignature($parameters, $signature->getReturnType(), $nativeReturnType, $signature->isVariadic());
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature($parameters, $signature->getReturnType(), $nativeReturnType, $signature->isVariadic());
     }
-    public function getFunctionSignature(string $functionName, ?string $className, int $variant = 0) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\FunctionSignature
+    public function getFunctionSignature(string $functionName, ?string $className, int $variant = 0) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature
     {
         $functionName = \strtolower($functionName);
         if ($variant > 0) {
             $functionName .= '\'' . $variant;
         }
         if (!$this->hasFunctionSignature($functionName)) {
-            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
         }
         $signatureMap = self::getSignatureMap();
         return $this->parser->getFunctionSignature($signatureMap[$functionName], $className);
@@ -94,7 +94,7 @@ class FunctionSignatureMapProvider implements \_PhpScoperb75b35f52b74\PHPStan\Re
     {
         $functionName = \strtolower($functionName);
         if (!$this->hasFunctionMetadata($functionName)) {
-            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
         }
         return $this->getFunctionMetadataMap()[$functionName];
     }
@@ -118,20 +118,20 @@ class FunctionSignatureMapProvider implements \_PhpScoperb75b35f52b74\PHPStan\Re
         if ($this->signatureMap === null) {
             $signatureMap = (require __DIR__ . '/../../../resources/functionMap.php');
             if (!\is_array($signatureMap)) {
-                throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
+                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
             }
             $signatureMap = \array_change_key_case($signatureMap, \CASE_LOWER);
             if ($this->phpVersion->getVersionId() >= 70400) {
                 $php74MapDelta = (require __DIR__ . '/../../../resources/functionMap_php74delta.php');
                 if (!\is_array($php74MapDelta)) {
-                    throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
+                    throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
                 }
                 $signatureMap = $this->computeSignatureMap($signatureMap, $php74MapDelta);
             }
             if ($this->phpVersion->getVersionId() >= 80000) {
                 $php80MapDelta = (require __DIR__ . '/../../../resources/functionMap_php80delta.php');
                 if (!\is_array($php80MapDelta)) {
-                    throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
+                    throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
                 }
                 $signatureMap = $this->computeSignatureMap($signatureMap, $php80MapDelta);
             }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap;
 
-use _PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion;
 class SignatureMapProviderFactory
 {
     /** @var PhpVersion */
@@ -12,13 +12,13 @@ class SignatureMapProviderFactory
     private $functionSignatureMapProvider;
     /** @var Php8SignatureMapProvider */
     private $php8SignatureMapProvider;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion $phpVersion, \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\FunctionSignatureMapProvider $functionSignatureMapProvider, \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\Php8SignatureMapProvider $php8SignatureMapProvider)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion $phpVersion, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignatureMapProvider $functionSignatureMapProvider, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\Php8SignatureMapProvider $php8SignatureMapProvider)
     {
         $this->phpVersion = $phpVersion;
         $this->functionSignatureMapProvider = $functionSignatureMapProvider;
         $this->php8SignatureMapProvider = $php8SignatureMapProvider;
     }
-    public function create() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\SignatureMapProvider
+    public function create() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\SignatureMapProvider
     {
         if ($this->phpVersion->getVersionId() < 80000) {
             return $this->functionSignatureMapProvider;

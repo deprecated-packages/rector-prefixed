@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\Native\NativeFunctionReflection;
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ClosureType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
-final class ClosureTypeToCallReflectionResolver implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native\NativeFunctionReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ClosureType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
+final class ClosureTypeToCallReflectionResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface
 {
-    public function supports(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool
+    public function supports(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
     {
-        return $type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ClosureType;
+        return $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ClosureType;
     }
     /**
      * @param ClosureType $type
      */
-    public function resolve(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\Native\NativeFunctionReflection
+    public function resolve(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native\NativeFunctionReflection
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\Native\NativeFunctionReflection('{closure}', $type->getCallableParametersAcceptors($classMemberAccessAnswerer), null, \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe());
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native\NativeFunctionReflection('{closure}', $type->getCallableParametersAcceptors($classMemberAccessAnswerer), null, \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe());
     }
 }

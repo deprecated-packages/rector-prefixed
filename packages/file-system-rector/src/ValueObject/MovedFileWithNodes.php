@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\FileSystemRector\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObject;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\FileSystemRector\Contract\MovedFileInterface;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class MovedFileWithNodes implements \_PhpScoperb75b35f52b74\Rector\FileSystemRector\Contract\MovedFileInterface
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\Contract\MovedFileInterface;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class MovedFileWithNodes implements \_PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\Contract\MovedFileInterface
 {
     /**
      * @var string
@@ -32,7 +32,7 @@ final class MovedFileWithNodes implements \_PhpScoperb75b35f52b74\Rector\FileSys
     /**
      * @param Node[] $nodes
      */
-    public function __construct(array $nodes, string $fileDestination, \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $originalSmartFileInfo, ?string $oldClassName = null, ?string $newClassName = null)
+    public function __construct(array $nodes, string $fileDestination, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $originalSmartFileInfo, ?string $oldClassName = null, ?string $newClassName = null)
     {
         $this->nodes = $nodes;
         $this->filePath = $fileDestination;
@@ -54,14 +54,14 @@ final class MovedFileWithNodes implements \_PhpScoperb75b35f52b74\Rector\FileSys
     public function getOldClassName() : string
     {
         if ($this->oldClassName === null) {
-            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $this->oldClassName;
     }
     public function getNewClassName() : string
     {
         if ($this->newClassName === null) {
-            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $this->newClassName;
     }
@@ -69,7 +69,7 @@ final class MovedFileWithNodes implements \_PhpScoperb75b35f52b74\Rector\FileSys
     {
         return $this->newClassName !== null;
     }
-    public function getOriginalFileInfo() : \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
+    public function getOriginalFileInfo() : \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->originalSmartFileInfo;
     }

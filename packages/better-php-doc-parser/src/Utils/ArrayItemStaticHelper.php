@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Utils;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Utils;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
 /**
  * Helpers class for ordering items in values objects on call.
  * Beware of static methods as they might doom you on the edge of life.
@@ -26,11 +26,14 @@ final class ArrayItemStaticHelper
     public static function resolveAnnotationItemsOrder(string $content, ?string $silentKey = null) : array
     {
         // empty
-        if ($content === '' || $content === '()') {
+        if ($content === '') {
+            return [];
+        }
+        if ($content === '()') {
             return [];
         }
         $itemsOrder = [];
-        $matches = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::matchAll($content, self::ITEM_EQUALS_REGEX);
+        $matches = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::matchAll($content, self::ITEM_EQUALS_REGEX);
         foreach ($matches as $match) {
             $itemsOrder[] = $match['item'];
         }
@@ -81,7 +84,7 @@ final class ArrayItemStaticHelper
      */
     private static function isNotEmptyAndHasSilentKey(string $content, ?string $silentKey, array $itemsOrder) : bool
     {
-        if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($content, self::NON_EMPTY_SILENT_KEY_REGEX)) {
+        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($content, self::NON_EMPTY_SILENT_KEY_REGEX)) {
             return \false;
         }
         if ($silentKey === null) {

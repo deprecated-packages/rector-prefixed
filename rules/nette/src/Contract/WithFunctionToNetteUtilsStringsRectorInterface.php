@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Nette\Contract;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Nette\Contract;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
 interface WithFunctionToNetteUtilsStringsRectorInterface
 {
     public function getMethodName() : string;
-    public function matchContentAndNeedleOfSubstrOfVariableLength(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoperb75b35f52b74\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
+    public function matchContentAndNeedleOfSubstrOfVariableLength(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
 }

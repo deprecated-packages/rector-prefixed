@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
 
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpFunctionReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpFunctionReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
 interface FunctionReflectionFactory
 {
     /**
@@ -21,5 +21,5 @@ interface FunctionReflectionFactory
      * @param string|false $filename
      * @return PhpFunctionReflection
      */
-    public function create(\ReflectionFunction $reflection, \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $phpDocParameterTypes, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $phpDocReturnType, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $phpDocThrowType, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, bool $isFinal, $filename) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpFunctionReflection;
+    public function create(\ReflectionFunction $reflection, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $phpDocParameterTypes, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $phpDocReturnType, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $phpDocThrowType, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, bool $isFinal, $filename) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpFunctionReflection;
 }

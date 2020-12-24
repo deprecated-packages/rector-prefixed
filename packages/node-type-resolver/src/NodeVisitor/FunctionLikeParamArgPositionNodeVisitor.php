@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeVisitor;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeVisitor;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
-use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-final class FunctionLikeParamArgPositionNodeVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+final class FunctionLikeParamArgPositionNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
 {
     /**
      * @return Node
      */
-    public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike) {
             foreach ($node->getParams() as $position => $param) {
-                $param->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARAMETER_POSITION, $position);
+                $param->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARAMETER_POSITION, $position);
             }
         }
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall || $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall || $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_) {
             foreach ($node->args as $position => $arg) {
-                $arg->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION, $position);
+                $arg->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION, $position);
             }
         }
         return $node;

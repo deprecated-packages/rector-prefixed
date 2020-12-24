@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\IndexTagValueNode;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\IndexTagValueNode;
 final class IndexPhpDocNodeFactory
 {
     /**
@@ -17,7 +17,7 @@ final class IndexPhpDocNodeFactory
      * @var AnnotationItemsResolver
      */
     private $annotationItemsResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver)
     {
         $this->annotationItemsResolver = $annotationItemsResolver;
     }
@@ -30,12 +30,12 @@ final class IndexPhpDocNodeFactory
         if ($indexes === null) {
             return [];
         }
-        $indexContents = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::matchAll($annotationContent, self::INDEX_REGEX);
+        $indexContents = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::matchAll($annotationContent, self::INDEX_REGEX);
         $indexTagValueNodes = [];
         foreach ($indexes as $key => $index) {
             $currentContent = $indexContents[$key];
             $items = $this->annotationItemsResolver->resolve($index);
-            $indexTagValueNodes[] = new \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\IndexTagValueNode($items, $currentContent['content'], $currentContent['tag']);
+            $indexTagValueNodes[] = new \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\IndexTagValueNode($items, $currentContent['content'], $currentContent['tag']);
         }
         return $indexTagValueNodes;
     }

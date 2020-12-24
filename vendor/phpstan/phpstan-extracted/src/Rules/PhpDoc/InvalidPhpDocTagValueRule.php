@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Lexer\Lexer;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\PhpDocParser;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\TokenIterator;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\PhpDocParser;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node>
  */
-class InvalidPhpDocTagValueRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class InvalidPhpDocTagValueRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     /** @var Lexer */
     private $phpDocLexer;
     /** @var PhpDocParser */
     private $phpDocParser;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Lexer\Lexer $phpDocLexer, \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer $phpDocLexer, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser)
     {
         $this->phpDocLexer = $phpDocLexer;
         $this->phpDocParser = $phpDocParser;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PhpParser\Node::class;
+        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_ && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\AssignRef) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignRef) {
             return [];
         }
         $docComment = $node->getDocComment();
@@ -38,17 +38,17 @@ class InvalidPhpDocTagValueRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules
             return [];
         }
         $phpDocString = $docComment->getText();
-        $tokens = new \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\TokenIterator($this->phpDocLexer->tokenize($phpDocString));
+        $tokens = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator($this->phpDocLexer->tokenize($phpDocString));
         $phpDocNode = $this->phpDocParser->parse($tokens);
         $errors = [];
         foreach ($phpDocNode->getTags() as $phpDocTag) {
-            if (!$phpDocTag->value instanceof \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode) {
+            if (!$phpDocTag->value instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode) {
                 continue;
             }
             if (\strpos($phpDocTag->name, '@psalm-') === 0) {
                 continue;
             }
-            $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag %s has invalid value (%s): %s', $phpDocTag->name, $phpDocTag->value->value, $phpDocTag->value->exception->getMessage()))->build();
+            $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag %s has invalid value (%s): %s', $phpDocTag->name, $phpDocTag->value->value, $phpDocTag->value->exception->getMessage()))->build();
         }
         return $errors;
     }

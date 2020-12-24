@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Doctrine\Inflector\Rules;
+namespace _PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules;
 
 class Ruleset
 {
@@ -11,21 +11,21 @@ class Ruleset
     private $uninflected;
     /** @var Substitutions */
     private $irregular;
-    public function __construct(\_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Transformations $regular, \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Patterns $uninflected, \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Substitutions $irregular)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Transformations $regular, \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Patterns $uninflected, \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Substitutions $irregular)
     {
         $this->regular = $regular;
         $this->uninflected = $uninflected;
         $this->irregular = $irregular;
     }
-    public function getRegular() : \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Transformations
+    public function getRegular() : \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Transformations
     {
         return $this->regular;
     }
-    public function getUninflected() : \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Patterns
+    public function getUninflected() : \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Patterns
     {
         return $this->uninflected;
     }
-    public function getIrregular() : \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Substitutions
+    public function getIrregular() : \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Substitutions
     {
         return $this->irregular;
     }

@@ -1,44 +1,44 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\Class_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\Class_;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
-use _PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoperb75b35f52b74\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory;
-use _PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider;
-use _PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe;
-use _PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ParamAndArg;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperb75b35f52b74\Webmozart\Assert\Assert;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
+use _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory;
+use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider;
+use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe;
+use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ParamAndArg;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\Class_\ArrayArgumentInTestToDataProviderRector\ArrayArgumentInTestToDataProviderRectorTest
  *
  * @see why → https://blog.martinhujer.cz/how-to-use-data-providers-in-phpunit/
  */
-final class ArrayArgumentInTestToDataProviderRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ArrayArgumentInTestToDataProviderRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -61,14 +61,14 @@ final class ArrayArgumentInTestToDataProviderRector extends \_PhpScoperb75b35f52
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory $dataProviderClassMethodFactory, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory $dataProviderClassMethodFactory, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->dataProviderClassMethodFactory = $dataProviderClassMethodFactory;
         $this->typeFactory = $typeFactory;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move array argument from tests into data provider [configurable]', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move array argument from tests into data provider [configurable]', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 
 class SomeServiceTest extends TestCase
@@ -100,26 +100,26 @@ class SomeServiceTest extends TestCase
     }
 }
 CODE_SAMPLE
-, [self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS => [new \_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider('_PhpScoperb75b35f52b74\\PHPUnit\\Framework\\TestCase', 'doTestMultiple', 'doTestSingle', 'number')]])]);
+, [self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS => [new \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider('_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase', 'doTestMultiple', 'doTestSingle', 'number')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
         }
         $this->dataProviderClassMethodRecipes = [];
-        $this->traverseNodesWithCallable($node->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        $this->traverseNodesWithCallable($node->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             foreach ($this->arrayArgumentsToDataProviders as $arrayArgumentsToDataProvider) {
@@ -137,39 +137,39 @@ CODE_SAMPLE
     public function configure(array $arrayArgumentsToDataProviders) : void
     {
         $arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders[self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS] ?? [];
-        \_PhpScoperb75b35f52b74\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
+        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
         $this->arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders;
     }
-    private function refactorMethodCallWithConfiguration(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider) : void
+    private function refactorMethodCallWithConfiguration(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider) : void
     {
         if (!$this->isMethodCallMatch($methodCall, $arrayArgumentToDataProvider)) {
             return;
         }
         if (\count((array) $methodCall->args) !== 1) {
-            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
         }
         // resolve value types
         $firstArgumentValue = $methodCall->args[0]->value;
-        if (!$firstArgumentValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_) {
+        if (!$firstArgumentValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
             // nothing we can do
             return;
         }
         // rename method to new one handling non-array input
-        $methodCall->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier($arrayArgumentToDataProvider->getNewMethod());
+        $methodCall->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($arrayArgumentToDataProvider->getNewMethod());
         $dataProviderMethodName = $this->createDataProviderMethodName($methodCall);
-        $this->dataProviderClassMethodRecipes[] = new \_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe($dataProviderMethodName, $methodCall->args);
+        $this->dataProviderClassMethodRecipes[] = new \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe($dataProviderMethodName, $methodCall->args);
         $methodCall->args = [];
         $paramAndArgs = $this->collectParamAndArgsFromArray($firstArgumentValue, $arrayArgumentToDataProvider->getVariableName());
         foreach ($paramAndArgs as $paramAndArg) {
-            $methodCall->args[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($paramAndArg->getVariable());
+            $methodCall->args[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($paramAndArg->getVariable());
         }
         /** @var ClassMethod $classMethod */
-        $classMethod = $methodCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        $classMethod = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         $this->refactorTestClassMethodParams($classMethod, $paramAndArgs);
         // add data provider annotation
         $dataProviderTagNode = $this->createDataProviderTagNode($dataProviderMethodName);
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $phpDocInfo->addPhpDocTagNode($dataProviderTagNode);
     }
     /**
@@ -183,23 +183,23 @@ CODE_SAMPLE
         }
         return $dataProviderClassMethods;
     }
-    private function isMethodCallMatch(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider) : bool
+    private function isMethodCallMatch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider) : bool
     {
         if (!$this->isObjectType($methodCall->var, $arrayArgumentToDataProvider->getClass())) {
             return \false;
         }
         return $this->isName($methodCall->name, $arrayArgumentToDataProvider->getOldMethod());
     }
-    private function createDataProviderMethodName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    private function createDataProviderMethodName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {
         /** @var string $methodName */
-        $methodName = $methodCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        $methodName = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
         return 'provideDataFor' . \ucfirst($methodName);
     }
     /**
      * @return ParamAndArg[]
      */
-    private function collectParamAndArgsFromArray(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array, string $variableName) : array
+    private function collectParamAndArgsFromArray(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, string $variableName) : array
     {
         $isNestedArray = $this->isNestedArray($array);
         if ($isNestedArray) {
@@ -211,14 +211,14 @@ CODE_SAMPLE
     /**
      * @param ParamAndArg[] $paramAndArgs
      */
-    private function refactorTestClassMethodParams(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, array $paramAndArgs) : void
+    private function refactorTestClassMethodParams(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, array $paramAndArgs) : void
     {
         $classMethod->params = $this->createParams($paramAndArgs);
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         foreach ($paramAndArgs as $paramAndArg) {
             $staticType = $paramAndArg->getType();
-            if (!$staticType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
+            if (!$staticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
                 continue;
             }
             /** @var string $paramName */
@@ -229,17 +229,17 @@ CODE_SAMPLE
             $phpDocInfo->addTagValueNode($paramTagValueNode);
         }
     }
-    private function createDataProviderTagNode(string $dataProviderMethodName) : \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
+    private function createDataProviderTagNode(string $dataProviderMethodName) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
     {
-        return new \_PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode('@dataProvider', new \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode($dataProviderMethodName . '()'));
+        return new \_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode('@dataProvider', new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode($dataProviderMethodName . '()'));
     }
-    private function isNestedArray(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array) : bool
+    private function isNestedArray(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array) : bool
     {
         foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem) {
+            if (!$arrayItem instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem) {
                 continue;
             }
-            if ($arrayItem->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_) {
+            if ($arrayItem->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
                 return \true;
             }
         }
@@ -248,36 +248,36 @@ CODE_SAMPLE
     /**
      * @return ParamAndArg[]
      */
-    private function collectParamAndArgsFromNestedArray(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array, string $variableName) : array
+    private function collectParamAndArgsFromNestedArray(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, string $variableName) : array
     {
         $paramAndArgs = [];
         $i = 1;
         foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem) {
+            if (!$arrayItem instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem) {
                 continue;
             }
             $nestedArray = $arrayItem->value;
-            if (!$nestedArray instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_) {
+            if (!$nestedArray instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
                 continue;
             }
             foreach ($nestedArray->items as $nestedArrayItem) {
-                if (!$nestedArrayItem instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem) {
+                if (!$nestedArrayItem instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem) {
                     continue;
                 }
-                $variable = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($variableName . ($i === 1 ? '' : $i));
+                $variable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($variableName . ($i === 1 ? '' : $i));
                 $itemsStaticType = $this->getStaticType($nestedArrayItem->value);
-                $paramAndArgs[] = new \_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ParamAndArg($variable, $itemsStaticType);
+                $paramAndArgs[] = new \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ParamAndArg($variable, $itemsStaticType);
                 ++$i;
             }
         }
         return $paramAndArgs;
     }
-    private function resolveItemStaticType(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array, bool $isNestedArray) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    private function resolveItemStaticType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, bool $isNestedArray) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         $staticTypes = [];
         if (!$isNestedArray) {
             foreach ($array->items as $arrayItem) {
-                if (!$arrayItem instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem) {
+                if (!$arrayItem instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem) {
                     continue;
                 }
                 $staticTypes[] = $this->getStaticType($arrayItem->value);
@@ -288,18 +288,18 @@ CODE_SAMPLE
     /**
      * @return ParamAndArg[]
      */
-    private function collectParamAndArgsFromNonNestedArray(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array, string $variableName, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $itemsStaticType) : array
+    private function collectParamAndArgsFromNonNestedArray(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, string $variableName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $itemsStaticType) : array
     {
         $i = 1;
         $paramAndArgs = [];
         foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem) {
+            if (!$arrayItem instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem) {
                 continue;
             }
-            $variable = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($variableName . ($i === 1 ? '' : $i));
-            $paramAndArgs[] = new \_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ParamAndArg($variable, $itemsStaticType);
+            $variable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($variableName . ($i === 1 ? '' : $i));
+            $paramAndArgs[] = new \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ParamAndArg($variable, $itemsStaticType);
             ++$i;
-            if (!$arrayItem->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_) {
+            if (!$arrayItem->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
                 break;
             }
         }
@@ -313,23 +313,23 @@ CODE_SAMPLE
     {
         $params = [];
         foreach ($paramAndArgs as $paramAndArg) {
-            $param = new \_PhpScoperb75b35f52b74\PhpParser\Node\Param($paramAndArg->getVariable());
+            $param = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param($paramAndArg->getVariable());
             $this->setTypeIfNotNull($paramAndArg, $param);
             $params[] = $param;
         }
         return $params;
     }
-    private function createParamTagNode(string $name, \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode) : \_PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode
+    private function createParamTagNode(string $name, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode) : \_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode
     {
-        return new \_PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode($typeNode, \false, '$' . $name, '', \false);
+        return new \_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode($typeNode, \false, '$' . $name, '', \false);
     }
-    private function setTypeIfNotNull(\_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ParamAndArg $paramAndArg, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $param) : void
+    private function setTypeIfNotNull(\_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\ValueObject\ParamAndArg $paramAndArg, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param) : void
     {
         $staticType = $paramAndArg->getType();
         if ($staticType === null) {
             return;
         }
-        if ($staticType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
+        if ($staticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
             return;
         }
         $phpNodeType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($staticType);

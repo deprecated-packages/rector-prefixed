@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NodeNameResolver;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\Regex\RegexPatternDetector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\RectorInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\Regex\RegexPatternDetector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodeNameResolver
 {
     /**
@@ -45,7 +45,7 @@ final class NodeNameResolver
     /**
      * @param NodeNameResolverInterface[] $nodeNameResolvers
      */
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, array $nodeNameResolvers = [])
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, array $nodeNameResolvers = [])
     {
         $this->regexPatternDetector = $regexPatternDetector;
         $this->nodeNameResolvers = $nodeNameResolvers;
@@ -55,7 +55,7 @@ final class NodeNameResolver
     /**
      * @param string[] $names
      */
-    public function isNames(\_PhpScoperb75b35f52b74\PhpParser\Node $node, array $names) : bool
+    public function isNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, array $names) : bool
     {
         foreach ($names as $name) {
             if ($this->isName($node, $name)) {
@@ -64,9 +64,9 @@ final class NodeNameResolver
         }
         return \false;
     }
-    public function isName(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $name) : bool
+    public function isName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $name) : bool
     {
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             // method call cannot have a name, only the variable or method name
             return \false;
         }
@@ -79,10 +79,10 @@ final class NodeNameResolver
         }
         // is probably regex pattern
         if ($this->regexPatternDetector->isRegexPattern($name)) {
-            return (bool) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($resolvedName, $name);
+            return (bool) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($resolvedName, $name);
         }
         // is probably fnmatch
-        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::contains($name, '*')) {
+        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($name, '*')) {
             return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
         }
         // special case
@@ -91,10 +91,10 @@ final class NodeNameResolver
         }
         return \strtolower($resolvedName) === \strtolower($name);
     }
-    public function getName(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string
+    public function getName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
     {
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
-            if ($node->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall || $node->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall || $node->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
+            if ($this->isCallOrIdentifier($node->name)) {
                 return null;
             }
             $this->reportInvalidNodeForName($node);
@@ -110,12 +110,12 @@ final class NodeNameResolver
             return null;
         }
         // unable to resolve
-        if ($node->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr) {
+        if ($node->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr) {
             return null;
         }
         return (string) $node->name;
     }
-    public function areNamesEqual(\_PhpScoperb75b35f52b74\PhpParser\Node $firstNode, \_PhpScoperb75b35f52b74\PhpParser\Node $secondNode) : bool
+    public function areNamesEqual(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $firstNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $secondNode) : bool
     {
         return $this->getName($firstNode) === $this->getName($secondNode);
     }
@@ -129,7 +129,7 @@ final class NodeNameResolver
         foreach ($nodes as $node) {
             $name = $this->getName($node);
             if (!\is_string($name)) {
-                throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
             }
             $names[] = $name;
         }
@@ -148,9 +148,9 @@ final class NodeNameResolver
         }
         return \false;
     }
-    public function isLocalPropertyFetchNamed(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $name) : bool
+    public function isLocalPropertyFetchNamed(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $name) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
         if (!$this->isName($node->var, 'this')) {
@@ -158,9 +158,9 @@ final class NodeNameResolver
         }
         return $this->isName($node->name, $name);
     }
-    public function isLocalStaticPropertyFetchNamed(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $name) : bool
+    public function isLocalStaticPropertyFetchNamed(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $name) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticPropertyFetch) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch) {
             return \false;
         }
         return $this->isName($node->name, $name);
@@ -168,21 +168,31 @@ final class NodeNameResolver
     /**
      * @param string[] $names
      */
-    public function isFuncCallNames(\_PhpScoperb75b35f52b74\PhpParser\Node $node, array $names) : bool
+    public function isFuncCallNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, array $names) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
         return $this->isNames($node, $names);
     }
+    private function isCallOrIdentifier(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+            return \true;
+        }
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
+            return \true;
+        }
+        return $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+    }
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function reportInvalidNodeForName(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : void
+    private function reportInvalidNodeForName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
     {
         $message = \sprintf('Pick more specific node than "%s", e.g. "$node->name"', \get_class($node));
         $fileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if ($fileInfo instanceof \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo) {
+        if ($fileInfo instanceof \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo) {
             $message .= \PHP_EOL . \PHP_EOL;
             $message .= \sprintf('Caused in "%s" file on line %d on code "%s"', $fileInfo->getRelativeFilePathFromCwd(), $node->getStartLine(), $this->betterStandardPrinter->print($node));
         }
@@ -191,7 +201,7 @@ final class NodeNameResolver
         if ($rectorBacktrace) {
             // issues to find the file in prefixed
             if (\file_exists($rectorBacktrace[self::FILE])) {
-                $fileInfo = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($rectorBacktrace[self::FILE]);
+                $fileInfo = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($rectorBacktrace[self::FILE]);
                 $fileAndLine = $fileInfo->getRelativeFilePathFromCwd() . ':' . $rectorBacktrace['line'];
             } else {
                 $fileAndLine = $rectorBacktrace[self::FILE] . ':' . $rectorBacktrace['line'];
@@ -199,7 +209,7 @@ final class NodeNameResolver
             $message .= \PHP_EOL . \PHP_EOL;
             $message .= \sprintf('Look at "%s"', $fileAndLine);
         }
-        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException($message);
+        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException($message);
     }
     /**
      * @param mixed[] $backtrace
@@ -212,7 +222,7 @@ final class NodeNameResolver
                 continue;
             }
             // match a Rector class
-            if (!\is_a($singleTrace['object'], \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface::class)) {
+            if (!\is_a($singleTrace['object'], \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\RectorInterface::class)) {
                 continue;
             }
             return $singleTrace;

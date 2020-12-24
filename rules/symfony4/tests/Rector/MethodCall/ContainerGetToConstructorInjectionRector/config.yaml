@@ -1,7 +1,7 @@
 parameters:
-    kernel_class: '_PhpScoperb75b35f52b74\Rector\Symfony4\Tests\Rector\MethodCall\AbstractToConstructorInjectionRectorSource\SomeKernelClass'
+    kernel_class: '_PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Tests\Rector\MethodCall\AbstractToConstructorInjectionRectorSource\SomeKernelClass'
 
 services:
-    _PhpScoperb75b35f52b74\Rector\Symfony4\Rector\FrameworkBundle\ContainerGetToConstructorInjectionRector:
+    _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\FrameworkBundle\ContainerGetToConstructorInjectionRector:
         $containerAwareParentTypes:
-            - '_PhpScoperb75b35f52b74\Rector\Symfony4\Tests\Rector\MethodCall\ContainerGetToConstructorInjectionRector\Source\ContainerAwareParentClass'
+            - '_PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Tests\Rector\MethodCall\ContainerGetToConstructorInjectionRector\Source\ContainerAwareParentClass'

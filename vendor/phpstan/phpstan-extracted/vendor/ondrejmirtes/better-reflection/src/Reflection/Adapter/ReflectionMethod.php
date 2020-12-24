@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionException as CoreReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper;
 use Throwable;
 use function func_get_args;
 class ReflectionMethod extends \ReflectionMethod
@@ -19,11 +19,11 @@ class ReflectionMethod extends \ReflectionMethod
     private $betterReflectionMethod;
     /** @var bool */
     private $accessible = \false;
-    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $betterReflectionMethod)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $betterReflectionMethod)
     {
         $this->betterReflectionMethod = $betterReflectionMethod;
     }
-    public function getBetterReflection() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
+    public function getBetterReflection() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
     {
         return $this->betterReflectionMethod;
     }
@@ -83,14 +83,14 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getClosureThis()
     {
-        throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
      */
     public function getClosureScopeClass()
     {
-        throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -111,7 +111,7 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getExtension()
     {
-        throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -126,7 +126,7 @@ class ReflectionMethod extends \ReflectionMethod
     public function getFileName()
     {
         $fileName = $this->betterReflectionMethod->getFileName();
-        return $fileName !== null ? \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
+        return $fileName !== null ? \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
     }
     /**
      * {@inheritDoc}
@@ -164,7 +164,7 @@ class ReflectionMethod extends \ReflectionMethod
         $parameters = $this->betterReflectionMethod->getParameters();
         $wrappedParameters = [];
         foreach ($parameters as $key => $parameter) {
-            $wrappedParameters[$key] = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionParameter($parameter);
+            $wrappedParameters[$key] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionParameter($parameter);
         }
         return $wrappedParameters;
     }
@@ -173,7 +173,7 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getReturnType()
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionMethod->getReturnType());
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionMethod->getReturnType());
     }
     /**
      * {@inheritDoc}
@@ -194,7 +194,7 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getStaticVariables()
     {
-        throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -280,7 +280,7 @@ class ReflectionMethod extends \ReflectionMethod
     {
         try {
             return $this->betterReflectionMethod->getClosure($object);
-        } catch (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return null;
         } catch (\Throwable $e) {
             throw new \ReflectionException($e->getMessage(), 0, $e);
@@ -303,7 +303,7 @@ class ReflectionMethod extends \ReflectionMethod
         }
         try {
             return $this->betterReflectionMethod->invoke(...\func_get_args());
-        } catch (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return null;
         } catch (\Throwable $e) {
             throw new \ReflectionException($e->getMessage(), 0, $e);
@@ -319,7 +319,7 @@ class ReflectionMethod extends \ReflectionMethod
         }
         try {
             return $this->betterReflectionMethod->invokeArgs($object, $args);
-        } catch (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
+        } catch (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided|\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject $e) {
             return null;
         } catch (\Throwable $e) {
             throw new \ReflectionException($e->getMessage(), 0, $e);
@@ -330,7 +330,7 @@ class ReflectionMethod extends \ReflectionMethod
      */
     public function getDeclaringClass()
     {
-        return new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterReflectionMethod->getImplementingClass());
+        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterReflectionMethod->getImplementingClass());
     }
     /**
      * {@inheritDoc}

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Php;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Php;
 
 use const PHP_VERSION_ID;
 class PhpVersionFactory
@@ -15,7 +15,7 @@ class PhpVersionFactory
         $this->versionId = $versionId;
         $this->composerPhpVersion = $composerPhpVersion;
     }
-    public function create() : \_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion
+    public function create() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion
     {
         $versionId = $this->versionId;
         if ($versionId === null && $this->composerPhpVersion !== null) {
@@ -27,6 +27,6 @@ class PhpVersionFactory
         if ($versionId === null) {
             $versionId = \PHP_VERSION_ID;
         }
-        return new \_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion($versionId);
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion($versionId);
     }
 }

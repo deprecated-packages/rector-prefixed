@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector;
-use _PhpScoperb75b35f52b74\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\Source\SomeTrait;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class AddEntityIdByConditionRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\Source\SomeTrait;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class AddEntityIdByConditionRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class AddEntityIdByConditionRectorTest extends \_PhpScoperb75b35f52b74\Rec
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoperb75b35f52b74\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::class => [\_PhpScoperb75b35f52b74\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::DETECTED_TRAITS => [\_PhpScoperb75b35f52b74\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\Source\SomeTrait::class]]];
+        return [\_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_\AddEntityIdByConditionRector::DETECTED_TRAITS => [\_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\Source\SomeTrait::class]]];
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
 final class AddReturnTypeDeclaration
 {
     /**
@@ -18,7 +18,7 @@ final class AddReturnTypeDeclaration
      * @var Type
      */
     private $returnType;
-    public function __construct(string $class, string $method, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $returnType)
+    public function __construct(string $class, string $method, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $returnType)
     {
         $this->class = $class;
         $this->method = $method;
@@ -32,7 +32,7 @@ final class AddReturnTypeDeclaration
     {
         return $this->method;
     }
-    public function getReturnType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getReturnType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->returnType;
     }

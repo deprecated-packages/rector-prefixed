@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Ustring\Bin;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Ustring\Bin;
 
-use _PhpScoperb75b35f52b74\Hoa\Console;
-use _PhpScoperb75b35f52b74\Hoa\Ustring;
+use _PhpScoper2a4e7ab1ecbc\Hoa\Console;
+use _PhpScoper2a4e7ab1ecbc\Hoa\Ustring;
 /**
  * Class Hoa\Ustring\Bin\Tocode.
  *
@@ -45,14 +45,14 @@ use _PhpScoperb75b35f52b74\Hoa\Ustring;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Tocode extends \_PhpScoperb75b35f52b74\Hoa\Console\Dispatcher\Kit
+class Tocode extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['base', \_PhpScoperb75b35f52b74\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'b'], ['help', \_PhpScoperb75b35f52b74\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScoperb75b35f52b74\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['base', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'b'], ['help', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -76,7 +76,7 @@ class Tocode extends \_PhpScoperb75b35f52b74\Hoa\Console\Dispatcher\Kit
             }
         }
         $this->parser->listInputs($char);
-        $code = \base_convert((string) \_PhpScoperb75b35f52b74\Hoa\Ustring::toCode($char), 10, $base);
+        $code = \base_convert((string) \_PhpScoper2a4e7ab1ecbc\Hoa\Ustring::toCode($char), 10, $base);
         echo $code, "\n";
         return;
     }

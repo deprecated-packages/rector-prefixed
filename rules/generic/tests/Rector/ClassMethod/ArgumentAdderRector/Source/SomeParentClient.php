@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source;
 
 class SomeParentClient
 {
-    public function submit(\_PhpScoperb75b35f52b74\DomCrawlerForm $form, array $values = [])
+    public function submit(\_PhpScoper2a4e7ab1ecbc\DomCrawlerForm $form, array $values = [])
     {
     }
 }

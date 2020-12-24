@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\PhpParser;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Yield_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\SprintfStringAndArgs;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Yield_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\SprintfStringAndArgs;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
 final class NodeTransformer
 {
     /**
@@ -28,7 +28,7 @@ final class NodeTransformer
      * to:
      * - ["Hi %s", $name]
      */
-    public function transformSprintfToArray(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $sprintfFuncCall) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_
+    public function transformSprintfToArray(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $sprintfFuncCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_
     {
         $sprintfStringAndArgs = $this->splitMessageAndArgs($sprintfFuncCall);
         if ($sprintfStringAndArgs === null) {
@@ -39,61 +39,61 @@ final class NodeTransformer
         $messageParts = $this->splitBySpace($stringValue);
         $arrayMessageParts = [];
         foreach ($messageParts as $messagePart) {
-            if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($messagePart, self::PERCENT_TEXT_REGEX)) {
+            if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($messagePart, self::PERCENT_TEXT_REGEX)) {
                 /** @var Expr $messagePartNode */
                 $messagePartNode = \array_shift($arrayItems);
             } else {
-                $messagePartNode = new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_($messagePart);
+                $messagePartNode = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($messagePart);
             }
-            $arrayMessageParts[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem($messagePartNode);
+            $arrayMessageParts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($messagePartNode);
         }
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_($arrayMessageParts);
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_($arrayMessageParts);
     }
     /**
      * @param Yield_[]|Expression[] $yieldNodes
      */
-    public function transformYieldsToArray(array $yieldNodes) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_
+    public function transformYieldsToArray(array $yieldNodes) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_
     {
         $arrayItems = [];
         foreach ($yieldNodes as $yieldNode) {
-            if ($yieldNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+            if ($yieldNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
                 $yieldNode = $yieldNode->expr;
             }
-            if (!$yieldNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Yield_) {
+            if (!$yieldNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Yield_) {
                 continue;
             }
             if ($yieldNode->value === null) {
                 continue;
             }
-            $arrayItems[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem($yieldNode->value, $yieldNode->key);
+            $arrayItems[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($yieldNode->value, $yieldNode->key);
         }
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_($arrayItems);
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_($arrayItems);
     }
     /**
      * @return Expression[]
      */
-    public function transformArrayToYields(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array) : array
+    public function transformArrayToYields(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array) : array
     {
         $yieldNodes = [];
         foreach ($array->items as $arrayItem) {
             if ($arrayItem === null) {
                 continue;
             }
-            $expressionNode = new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Yield_($arrayItem->value, $arrayItem->key));
+            $expressionNode = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Yield_($arrayItem->value, $arrayItem->key));
             $arrayItemComments = $arrayItem->getComments();
             if ($arrayItemComments !== []) {
-                $expressionNode->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $arrayItemComments);
+                $expressionNode->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $arrayItemComments);
             }
             $yieldNodes[] = $expressionNode;
         }
         return $yieldNodes;
     }
-    public function transformConcatToStringArray(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_
+    public function transformConcatToStringArray(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_
     {
         $arrayItems = $this->transformConcatToItems($concat);
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_($arrayItems);
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_($arrayItems);
     }
-    private function splitMessageAndArgs(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $sprintfFuncCall) : ?\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\SprintfStringAndArgs
+    private function splitMessageAndArgs(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $sprintfFuncCall) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\SprintfStringAndArgs
     {
         $stringArgument = null;
         $arrayItems = [];
@@ -104,13 +104,13 @@ final class NodeTransformer
                 $arrayItems[] = $arg->value;
             }
         }
-        if (!$stringArgument instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+        if (!$stringArgument instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
             return null;
         }
         if ($arrayItems === []) {
             return null;
         }
-        return new \_PhpScoperb75b35f52b74\Rector\Core\ValueObject\SprintfStringAndArgs($stringArgument, $arrayItems);
+        return new \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\SprintfStringAndArgs($stringArgument, $arrayItems);
     }
     /**
      * @return string[]
@@ -123,7 +123,7 @@ final class NodeTransformer
     /**
      * @return mixed[]
      */
-    private function transformConcatToItems(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Concat $concat) : array
+    private function transformConcatToItems(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat $concat) : array
     {
         $arrayItems = $this->transformConcatItemToArrayItems($concat->left);
         return \array_merge($arrayItems, $this->transformConcatItemToArrayItems($concat->right));
@@ -131,19 +131,19 @@ final class NodeTransformer
     /**
      * @return mixed[]|Expr[]|String_[]
      */
-    private function transformConcatItemToArrayItems(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : array
+    private function transformConcatItemToArrayItems(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : array
     {
-        if ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Concat) {
+        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat) {
             return $this->transformConcatToItems($expr);
         }
-        if (!$expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+        if (!$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
             return [$expr];
         }
         $arrayItems = [];
         $parts = $this->splitBySpace($expr->value);
         foreach ($parts as $part) {
             if (\trim($part) !== '') {
-                $arrayItems[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_($part);
+                $arrayItems[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($part);
             }
         }
         return $arrayItems;

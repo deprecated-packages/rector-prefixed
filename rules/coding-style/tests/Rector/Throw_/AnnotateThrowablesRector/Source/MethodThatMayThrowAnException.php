@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source;
 
-use _PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException;
-use _PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond;
+use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException;
+use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond;
 class MethodThatMayThrowAnException
 {
     /**
@@ -17,9 +17,9 @@ class MethodThatMayThrowAnException
     {
         switch ($code) {
             case 1:
-                throw new \_PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException('');
+                throw new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException('');
             case 2:
-                throw new \_PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond('');
+                throw new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond('');
             default:
                 return $code;
         }

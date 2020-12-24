@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Consistency;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Consistency;
 
 /**
  * Class Hoa\Consistency\Consistency.
@@ -236,7 +236,7 @@ class Consistency
         return \sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x', \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xfff) | 0x4000, \mt_rand(0, 0x3fff) | 0x8000, \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff));
     }
 }
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f;
 
 if (70000 > \PHP_VERSION_ID && \false === \interface_exists('Throwable', \false)) {
     /**
@@ -276,4 +276,4 @@ if (50600 > \PHP_VERSION_ID) {
 /**
  * Flex entity.
  */
-\_PhpScoperb75b35f52b74\Hoa\Consistency\Consistency::flexEntity('_PhpScoperb75b35f52b74\\Hoa\\Consistency\\Consistency');
+\_PhpScoper2a4e7ab1ecbc\Hoa\Consistency\Consistency::flexEntity('_PhpScoper2a4e7ab1ecbc\\Hoa\\Consistency\\Consistency');

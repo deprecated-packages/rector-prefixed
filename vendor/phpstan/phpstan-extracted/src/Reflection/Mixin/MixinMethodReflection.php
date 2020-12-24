@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Mixin;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Mixin;
 
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class MixinMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class MixinMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
 {
     /** @var MethodReflection */
     private $reflection;
     /** @var bool */
     private $static;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection $reflection, bool $static)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $reflection, bool $static)
     {
         $this->reflection = $reflection;
         $this->static = $static;
     }
-    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
@@ -43,7 +43,7 @@ class MixinMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflectio
     {
         return $this->reflection->getName();
     }
-    public function getPrototype() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection
     {
         return $this->reflection->getPrototype();
     }
@@ -51,7 +51,7 @@ class MixinMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflectio
     {
         return $this->reflection->getVariants();
     }
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -59,19 +59,19 @@ class MixinMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflectio
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isFinal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->reflection->isFinal();
     }
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }
-    public function getThrowType() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->reflection->getThrowType();
     }
-    public function hasSideEffects() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->reflection->hasSideEffects();
     }

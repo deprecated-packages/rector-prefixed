@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule;
 
-use _PhpScoperb75b35f52b74\Hoa\Compiler;
-use _PhpScoperb75b35f52b74\Hoa\Iterator;
+use _PhpScoper2a4e7ab1ecbc\Hoa\Compiler;
+use _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
 /**
  * Class \Hoa\Compiler\Llk\Rule\Analyzer.
  *
@@ -107,13 +107,13 @@ class Analyzer
     public function analyzeRules(array $rules)
     {
         if (empty($rules)) {
-            throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\Rule('No rules specified!', 0);
+            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\Rule('No rules specified!', 0);
         }
         $this->_parsedRules = [];
         $this->_rules = $rules;
-        $lexer = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Lexer();
+        $lexer = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Lexer();
         foreach ($rules as $key => $value) {
-            $this->_lexer = new \_PhpScoperb75b35f52b74\Hoa\Iterator\Lookahead($lexer->lexMe($value, static::$_ppLexemes));
+            $this->_lexer = new \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator\Lookahead($lexer->lexMe($value, static::$_ppLexemes));
             $this->_lexer->rewind();
             $this->_ruleName = $key;
             $nodeId = null;
@@ -124,7 +124,7 @@ class Analyzer
             $pNodeId = $nodeId;
             $rule = $this->rule($pNodeId);
             if (null === $rule) {
-                throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception('Error while parsing rule %s.', 1, $key);
+                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception('Error while parsing rule %s.', 1, $key);
             }
             $zeRule = $this->_parsedRules[$rule];
             $zeRule->setName($key);
@@ -184,7 +184,7 @@ class Analyzer
             return $rule;
         }
         $name = $this->_transitionalRuleCounter++;
-        $this->_parsedRules[$name] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Choice($name, $children);
+        $this->_parsedRules[$name] = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Choice($name, $children);
         return $name;
     }
     /**
@@ -211,7 +211,7 @@ class Analyzer
             return $rule;
         }
         $name = $this->_transitionalRuleCounter++;
-        $this->_parsedRules[$name] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Concatenation($name, $children, null);
+        $this->_parsedRules[$name] = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Concatenation($name, $children, null);
         return $name;
     }
     /**
@@ -277,10 +277,10 @@ class Analyzer
             return $children;
         }
         if (-1 != $max && $max < $min) {
-            throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception('Upper bound %d must be greater or ' . 'equal to lower bound %d in rule %s.', 2, [$max, $min, $this->_ruleName]);
+            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception('Upper bound %d must be greater or ' . 'equal to lower bound %d in rule %s.', 2, [$max, $min, $this->_ruleName]);
         }
         $name = $this->_transitionalRuleCounter++;
-        $this->_parsedRules[$name] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Repetition($name, $min, $max, $children, null);
+        $this->_parsedRules[$name] = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Repetition($name, $min, $max, $children, null);
         return $name;
     }
     /**
@@ -322,10 +322,10 @@ class Analyzer
                 }
             }
             if (\false == $exists) {
-                throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception('Token ::%s:: does not exist in rule %s.', 3, [$tokenName, $this->_ruleName]);
+                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception('Token ::%s:: does not exist in rule %s.', 3, [$tokenName, $this->_ruleName]);
             }
             $name = $this->_transitionalRuleCounter++;
-            $this->_parsedRules[$name] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Token($name, $tokenName, null, $uId);
+            $this->_parsedRules[$name] = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Token($name, $tokenName, null, $uId);
             $this->_lexer->next();
             return $name;
         }
@@ -347,10 +347,10 @@ class Analyzer
                 }
             }
             if (\false == $exists) {
-                throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception('Token <%s> does not exist in rule %s.', 4, [$tokenName, $this->_ruleName]);
+                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception('Token <%s> does not exist in rule %s.', 4, [$tokenName, $this->_ruleName]);
             }
             $name = $this->_transitionalRuleCounter++;
-            $token = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Token($name, $tokenName, null, $uId, \true);
+            $token = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Token($name, $tokenName, null, $uId, \true);
             $this->_parsedRules[$name] = $token;
             $this->_lexer->next();
             return $name;
@@ -358,11 +358,11 @@ class Analyzer
         if ('named' === $this->_lexer->current()['token']) {
             $tokenName = \rtrim($this->_lexer->current()['value'], '()');
             if (\false === \array_key_exists($tokenName, $this->_rules) && \false === \array_key_exists('#' . $tokenName, $this->_rules)) {
-                throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\Rule('Cannot call rule %s() in rule %s because it does not exist.', 5, [$tokenName, $this->_ruleName]);
+                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\Rule('Cannot call rule %s() in rule %s because it does not exist.', 5, [$tokenName, $this->_ruleName]);
             }
             if (0 === $this->_lexer->key() && 'EOF' === $this->_lexer->getNext()['token']) {
                 $name = $this->_transitionalRuleCounter++;
-                $this->_parsedRules[$name] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Concatenation($name, [$tokenName], null);
+                $this->_parsedRules[$name] = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Concatenation($name, [$tokenName], null);
             } else {
                 $name = $tokenName;
             }

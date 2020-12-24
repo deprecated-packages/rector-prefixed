@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Php80\Tests\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\Tests\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class FinalPrivateToPrivateVisibilityRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class FinalPrivateToPrivateVisibilityRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP < 8.0
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class FinalPrivateToPrivateVisibilityRectorTest extends \_PhpScoperb75b35f
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector::class;
     }
 }

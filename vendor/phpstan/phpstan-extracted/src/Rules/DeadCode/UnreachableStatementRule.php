@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\DeadCode;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\DeadCode;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Node\UnreachableStatementNode;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Rule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\UnreachableStatementNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\UnreachableStatementNode>
  */
-class UnreachableStatementRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class UnreachableStatementRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\Node\UnreachableStatementNode::class;
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\UnreachableStatementNode::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
-        if ($node->getOriginalStatement() instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Nop) {
+        if ($node->getOriginalStatement() instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop) {
             return [];
         }
-        return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message('Unreachable statement - code above always terminates.')->identifier('deadCode.unreachableStatement')->metadata(['depth' => $node->getAttribute('statementDepth'), 'order' => $node->getAttribute('statementOrder')])->build()];
+        return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('Unreachable statement - code above always terminates.')->identifier('deadCode.unreachableStatement')->metadata(['depth' => $node->getAttribute('statementDepth'), 'order' => $node->getAttribute('statementOrder')])->build()];
     }
 }

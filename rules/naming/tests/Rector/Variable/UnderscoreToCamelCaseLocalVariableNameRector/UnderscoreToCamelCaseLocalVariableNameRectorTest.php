@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\Tests\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Tests\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Naming\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class UnderscoreToCamelCaseLocalVariableNameRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class UnderscoreToCamelCaseLocalVariableNameRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class UnderscoreToCamelCaseLocalVariableNameRectorTest extends \_PhpScoper
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Naming\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector::class;
     }
 }

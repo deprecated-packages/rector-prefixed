@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
 use Closure;
 use InvalidArgumentException;
 use OutOfBoundsException;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod as MethodNode;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod as MethodNode;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
 use ReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
 use function class_exists;
 use function get_class;
 use function is_object;
 use function sprintf;
 use function strtolower;
-class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract
+class ReflectionMethod extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract
 {
     /** @var ReflectionClass */
     private $declaringClass;
@@ -40,7 +40,7 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
      *
      * @throws InvalidAbstractFunctionNodeType
      */
-    public static function createFromNode(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $node, ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_ $namespace, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $declaringClass, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $implementingClass, ?string $aliasName = null) : self
+    public static function createFromNode(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $node, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $namespace, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $declaringClass, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $implementingClass, ?string $aliasName = null) : self
     {
         $method = new self();
         $method->declaringClass = $declaringClass;
@@ -58,7 +58,7 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
      */
     public static function createFromName(string $className, string $methodName) : self
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($className)->getMethod($methodName);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($className)->getMethod($methodName);
     }
     /**
      * Create a reflection of a method by it's name using an instance
@@ -72,7 +72,7 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
      */
     public static function createFromInstance($instance, string $methodName) : self
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromInstance($instance)->getMethod($methodName);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromInstance($instance)->getMethod($methodName);
     }
     public function getShortName() : string
     {
@@ -112,7 +112,7 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
                 return $prototype;
             }
         }
-        throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound(\sprintf('Method %s::%s does not have a prototype', $this->getDeclaringClass()->getName(), $this->getName()));
+        throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound(\sprintf('Method %s::%s does not have a prototype', $this->getDeclaringClass()->getName(), $this->getName()));
     }
     private function findPrototype() : ?self
     {
@@ -124,7 +124,7 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
         }
         try {
             return $this->getPrototype();
-        } catch (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound $e) {
+        } catch (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound $e) {
             return $this;
         }
     }
@@ -144,7 +144,7 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
     }
     public function __toString() : string
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast::toString($this);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast::toString($this);
     }
     public function inNamespace() : bool
     {
@@ -216,11 +216,11 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
     /**
      * Get the class that declares this method.
      */
-    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->declaringClass;
     }
-    public function getImplementingClass() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getImplementingClass() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
     {
         return $this->implementingClass;
     }
@@ -315,7 +315,7 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
     private function assertClassExist(string $className) : void
     {
         if (!\class_exists($className, \false)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist(\sprintf('Method of class %s cannot be used as the class is not loaded', $className));
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist(\sprintf('Method of class %s cannot be used as the class is not loaded', $className));
         }
     }
     /**
@@ -330,14 +330,14 @@ class ReflectionMethod extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Ro
     private function assertObject($object)
     {
         if ($object === null) {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided::create();
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided::create();
         }
         if (!\is_object($object)) {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject::fromNonObject($object);
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject::fromNonObject($object);
         }
         $declaringClassName = $this->getDeclaringClass()->getName();
         if (\get_class($object) !== $declaringClassName) {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass::fromClassName($declaringClassName);
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass::fromClassName($declaringClassName);
         }
         return $object;
     }

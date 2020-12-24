@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\Rector\ChangesReporting\Rector\AbstractRector\NotifyingRemovingNodeTrait;
-use _PhpScoperb75b35f52b74\Rector\Doctrine\AbstractRector\DoctrineTrait;
-use _PhpScoperb75b35f52b74\Rector\FileSystemRector\Behavior\FileSystemRectorTrait;
-use _PhpScoperb75b35f52b74\Rector\PostRector\Rector\AbstractRector\NodeCommandersTrait;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Rector\AbstractRector\NotifyingRemovingNodeTrait;
+use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\AbstractRector\DoctrineTrait;
+use _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\Behavior\FileSystemRectorTrait;
+use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Rector\AbstractRector\NodeCommandersTrait;
 trait AbstractRectorTrait
 {
     use FileSystemRectorTrait;
@@ -28,22 +28,22 @@ trait AbstractRectorTrait
     use ComplexRemovalTrait;
     use NodeCollectorTrait;
     use NotifyingRemovingNodeTrait;
-    protected function isNonAnonymousClass(?\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    protected function isNonAnonymousClass(?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         if ($node === null) {
             return \false;
         }
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         $name = $this->getName($node);
         if ($name === null) {
             return \false;
         }
-        return !\_PhpScoperb75b35f52b74\Nette\Utils\Strings::contains($name, 'AnonymousClass');
+        return !\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($name, 'AnonymousClass');
     }
-    protected function removeFinal(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : void
+    protected function removeFinal(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $class->flags -= \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
+        $class->flags -= \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
     }
 }

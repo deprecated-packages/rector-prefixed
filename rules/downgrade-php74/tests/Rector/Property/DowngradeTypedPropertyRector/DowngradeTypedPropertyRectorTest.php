@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class DowngradeTypedPropertyRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class DowngradeTypedPropertyRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class DowngradeTypedPropertyRectorTest extends \_PhpScoperb75b35f52b74\Rec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector::class;
     }
 }

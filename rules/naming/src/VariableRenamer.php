@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoperb75b35f52b74\Rector\Naming\PhpDoc\VarTagValueNodeRenamer;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\PhpDoc\VarTagValueNodeRenamer;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
 final class VariableRenamer
 {
     /**
@@ -29,7 +29,7 @@ final class VariableRenamer
      * @var VarTagValueNodeRenamer
      */
     private $varTagValueNodeRenamer;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -38,23 +38,23 @@ final class VariableRenamer
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function renameVariableInFunctionLike(\_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike, ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign $assign = null, string $oldName, string $expectedName) : void
+    public function renameVariableInFunctionLike(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign $assign = null, string $oldName, string $expectedName) : void
     {
         $isRenamingActive = \false;
         if ($assign === null) {
             $isRenamingActive = \true;
         }
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $functionLike->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($oldName, $expectedName, $assign, &$isRenamingActive) : ?Variable {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $functionLike->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($oldName, $expectedName, $assign, &$isRenamingActive) : ?Variable {
             if ($assign !== null && $node === $assign) {
                 $isRenamingActive = \true;
                 return null;
             }
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
                 return null;
             }
             // skip param names
-            $parent = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parent instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Param) {
+            $parent = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param) {
                 return null;
             }
             // TODO: Remove in next PR (with above param check?),
@@ -68,10 +68,10 @@ final class VariableRenamer
             return $this->renameVariableIfMatchesName($node, $oldName, $expectedName);
         });
     }
-    private function isParamInParentFunction(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable) : bool
+    private function isParamInParentFunction(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : bool
     {
         /** @var Closure|null $closure */
-        $closure = $variable->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE);
+        $closure = $variable->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE);
         if ($closure === null) {
             return \false;
         }
@@ -86,7 +86,7 @@ final class VariableRenamer
         }
         return \false;
     }
-    private function renameVariableIfMatchesName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable, string $oldName, string $expectedName) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable
+    private function renameVariableIfMatchesName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable, string $oldName, string $expectedName) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable
     {
         if (!$this->nodeNameResolver->isName($variable, $oldName)) {
             return null;

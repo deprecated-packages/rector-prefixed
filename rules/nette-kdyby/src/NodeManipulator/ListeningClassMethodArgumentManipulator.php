@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NetteKdyby\NodeManipulator;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\NodeManipulator;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\Rector\CodingStyle\Naming\ClassNaming;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoperb75b35f52b74\Rector\NetteKdyby\ContributeEventClassResolver;
-use _PhpScoperb75b35f52b74\Rector\NetteKdyby\ValueObject\EventAndListenerTree;
-use _PhpScoperb75b35f52b74\Rector\NetteKdyby\ValueObject\EventClassAndClassMethod;
-use _PhpScoperb75b35f52b74\Symfony\Contracts\EventDispatcher\Event;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ContributeEventClassResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ValueObject\EventAndListenerTree;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ValueObject\EventClassAndClassMethod;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Contracts\EventDispatcher\Event;
 final class ListeningClassMethodArgumentManipulator
 {
     /**
@@ -40,14 +40,14 @@ final class ListeningClassMethodArgumentManipulator
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoperb75b35f52b74\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoperb75b35f52b74\Rector\NetteKdyby\ContributeEventClassResolver $contributeEventClassResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ContributeEventClassResolver $contributeEventClassResolver)
     {
         $this->classNaming = $classNaming;
         $this->contributeEventClassResolver = $contributeEventClassResolver;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-    public function changeFromEventAndListenerTreeAndCurrentClassName(\_PhpScoperb75b35f52b74\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree, string $className) : void
+    public function changeFromEventAndListenerTreeAndCurrentClassName(\_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree, string $className) : void
     {
         $listenerClassMethods = $eventAndListenerTree->getListenerClassMethodsByClass($className);
         if ($listenerClassMethods === []) {
@@ -55,14 +55,14 @@ final class ListeningClassMethodArgumentManipulator
         }
         $classMethodsByEventClass = [];
         foreach ($listenerClassMethods as $listenerClassMethod) {
-            $classMethodsByEventClass[] = new \_PhpScoperb75b35f52b74\Rector\NetteKdyby\ValueObject\EventClassAndClassMethod($className, $listenerClassMethod);
+            $classMethodsByEventClass[] = new \_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ValueObject\EventClassAndClassMethod($className, $listenerClassMethod);
         }
         $this->change($classMethodsByEventClass, $eventAndListenerTree);
     }
     /**
      * @param EventClassAndClassMethod[] $classMethodsByEventClass
      */
-    public function change(array $classMethodsByEventClass, ?\_PhpScoperb75b35f52b74\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : void
+    public function change(array $classMethodsByEventClass, ?\_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : void
     {
         foreach ($classMethodsByEventClass as $eventClassAndClassMethod) {
             // are attributes already replaced
@@ -80,34 +80,34 @@ final class ListeningClassMethodArgumentManipulator
                     continue;
                 }
                 $eventGetterToVariableAssign = $this->createEventGetterToVariableMethodCall($eventClass, $oldParam, $eventAndListenerTree);
-                $expression = new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression($eventGetterToVariableAssign);
+                $expression = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($eventGetterToVariableAssign);
                 $classMethod->stmts = \array_merge([$expression], (array) $classMethod->stmts);
             }
             $classMethod->setAttribute(self::EVENT_PARAMETER_REPLACED, \true);
         }
     }
-    private function changeClassParamToEventClass(string $eventClass, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function changeClassParamToEventClass(string $eventClass, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $paramName = $this->classNaming->getVariableName($eventClass);
-        $eventVariable = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($paramName);
-        $param = new \_PhpScoperb75b35f52b74\PhpParser\Node\Param($eventVariable, null, new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified($eventClass));
+        $eventVariable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($paramName);
+        $param = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param($eventVariable, null, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($eventClass));
         $classMethod->params = [$param];
     }
-    private function isParamUsedInClassMethodBody(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $param) : bool
+    private function isParamUsedInClassMethodBody(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($param) : bool {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($param) : bool {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
                 return \false;
             }
             return $this->betterStandardPrinter->areNodesEqual($node, $param->var);
         });
     }
-    private function createEventGetterToVariableMethodCall(string $eventClass, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, ?\_PhpScoperb75b35f52b74\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign
+    private function createEventGetterToVariableMethodCall(string $eventClass, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param, ?\_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign
     {
         $paramName = $this->classNaming->getVariableName($eventClass);
-        $eventVariable = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($paramName);
+        $eventVariable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($paramName);
         $getterMethod = $this->contributeEventClassResolver->resolveGetterMethodByEventClassAndParam($eventClass, $param, $eventAndListenerTree);
-        $methodCall = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($eventVariable, $getterMethod);
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign($param->var, $methodCall);
+        $methodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($eventVariable, $getterMethod);
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($param->var, $methodCall);
     }
 }

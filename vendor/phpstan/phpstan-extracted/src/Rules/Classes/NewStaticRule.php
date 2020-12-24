@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Classes;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpMethodReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Rule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpMethodReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\New_>
  */
-class NewStaticRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class NewStaticRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_::class;
+        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
+        if (!$node->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
             return [];
         }
         if (!$scope->isInClass()) {
@@ -32,7 +32,7 @@ class NewStaticRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
         if ($classReflection->isFinal()) {
             return [];
         }
-        $messages = [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message('Unsafe usage of new static().')->tip('Consider making the class or the constructor final.')->build()];
+        $messages = [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('Unsafe usage of new static().')->tip('Consider making the class or the constructor final.')->build()];
         if (!$classReflection->hasConstructor()) {
             return $messages;
         }
@@ -40,7 +40,7 @@ class NewStaticRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
         if ($constructor->getPrototype()->getDeclaringClass()->isInterface()) {
             return [];
         }
-        if ($constructor instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpMethodReflection) {
+        if ($constructor instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpMethodReflection) {
             if ($constructor->isFinal()->yes()) {
                 return [];
             }

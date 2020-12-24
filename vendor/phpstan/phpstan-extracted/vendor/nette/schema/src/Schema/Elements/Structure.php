@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Elements;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Elements;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
-final class Structure implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
+final class Structure implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
 {
     use Base;
     use Nette\SmartObject;
@@ -26,14 +26,14 @@ final class Structure implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
      */
     public function __construct(array $items)
     {
-        (function (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema ...$items) {
+        (function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Schema ...$items) {
         })(...\array_values($items));
         $this->items = $items;
         $this->castTo = 'object';
     }
     public function default($value) : self
     {
-        throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Structure cannot have default value.');
+        throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Structure cannot have default value.');
     }
     public function min(?float $min) : self
     {
@@ -50,11 +50,11 @@ final class Structure implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
      */
     public function otherItems($type = 'mixed') : self
     {
-        $this->otherItems = $type instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema ? $type : new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Elements\Type($type);
+        $this->otherItems = $type instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Schema ? $type : new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Elements\Type($type);
         return $this;
     }
     /********************* processing ****************d*g**/
-    public function normalize($value, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function normalize($value, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         $value = $this->doNormalize($value, $context);
         if (\is_object($value)) {
@@ -74,8 +74,8 @@ final class Structure implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
     }
     public function merge($value, $base)
     {
-        if (\is_array($value) && isset($value[\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING])) {
-            unset($value[\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING]);
+        if (\is_array($value) && isset($value[\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING])) {
+            unset($value[\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING]);
             $base = null;
         }
         if (\is_array($value) && \is_array($base)) {
@@ -86,16 +86,16 @@ final class Structure implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
                     $index++;
                 } elseif (\array_key_exists($key, $base)) {
                     $itemSchema = $this->items[$key] ?? $this->otherItems;
-                    $base[$key] = $itemSchema ? $itemSchema->merge($val, $base[$key]) : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($val, $base[$key]);
+                    $base[$key] = $itemSchema ? $itemSchema->merge($val, $base[$key]) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($val, $base[$key]);
                 } else {
                     $base[$key] = $val;
                 }
             }
             return $base;
         }
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($value, $base);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($value, $base);
     }
-    public function complete($value, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function complete($value, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($value === null) {
             $value = [];
@@ -111,7 +111,7 @@ final class Structure implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
             if ($this->otherItems) {
                 $items += \array_fill_keys($extraKeys, $this->otherItems);
             } else {
-                $hint = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::getSuggestion(\array_map('strval', \array_keys($items)), (string) $extraKeys[0]);
+                $hint = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::getSuggestion(\array_map('strval', \array_keys($items)), (string) $extraKeys[0]);
                 $s = \implode("', '", \array_map(function ($key) use($context) {
                     return \implode(' › ', \array_merge($context->path, [$key]));
                 }, $hint ? [$extraKeys[0]] : $extraKeys));
@@ -136,7 +136,7 @@ final class Structure implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
         }
         return $this->doFinalize($value, $context);
     }
-    public function completeDefault(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function completeDefault(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         return $this->complete([], $context);
     }

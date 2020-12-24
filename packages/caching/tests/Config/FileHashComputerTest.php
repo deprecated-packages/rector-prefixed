@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Caching\Tests\Config;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Caching\Tests\Config;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Caching\Config\FileHashComputer;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class FileHashComputerTest extends \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Caching\Config\FileHashComputer;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class FileHashComputerTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var FileHashComputer
@@ -17,16 +17,16 @@ final class FileHashComputerTest extends \_PhpScoperb75b35f52b74\Symplify\Packag
     private $fileHashComputer;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScoperb75b35f52b74\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->fileHashComputer = $this->getService(\_PhpScoperb75b35f52b74\Rector\Caching\Config\FileHashComputer::class);
+        $this->bootKernel(\_PhpScoper2a4e7ab1ecbc\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->fileHashComputer = $this->getService(\_PhpScoper2a4e7ab1ecbc\Rector\Caching\Config\FileHashComputer::class);
     }
     /**
      * @dataProvider provideDataForIdenticalHash()
      */
     public function testHashIsIdentical(string $firstConfig, string $secondConfig) : void
     {
-        $configAHash = $this->fileHashComputer->compute(new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($firstConfig));
-        $configBHash = $this->fileHashComputer->compute(new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($secondConfig));
+        $configAHash = $this->fileHashComputer->compute(new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($firstConfig));
+        $configBHash = $this->fileHashComputer->compute(new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($secondConfig));
         $this->assertSame($configAHash, $configBHash);
     }
     public function provideDataForIdenticalHash() : \Iterator
@@ -36,7 +36,7 @@ final class FileHashComputerTest extends \_PhpScoperb75b35f52b74\Symplify\Packag
     }
     public function testInvalidType() : void
     {
-        $this->expectException(\_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException::class);
-        $this->fileHashComputer->compute(new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file.xml'));
+        $this->expectException(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException::class);
+        $this->fileHashComputer->compute(new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file.xml'));
     }
 }

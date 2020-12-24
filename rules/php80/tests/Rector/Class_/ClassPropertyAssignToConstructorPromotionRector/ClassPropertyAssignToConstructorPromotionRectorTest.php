@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Php80\Tests\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\Tests\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class ClassPropertyAssignToConstructorPromotionRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class ClassPropertyAssignToConstructorPromotionRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class ClassPropertyAssignToConstructorPromotionRectorTest extends \_PhpSco
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class;
     }
 }

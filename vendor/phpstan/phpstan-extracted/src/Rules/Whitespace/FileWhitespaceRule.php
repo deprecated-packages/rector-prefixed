@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Whitespace;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Whitespace;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Node\FileNode;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Rule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\FileNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements Rule<FileNode>
  */
-class FileWhitespaceRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class FileWhitespaceRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\Node\FileNode::class;
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\FileNode::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
         $nodes = $node->getNodes();
         if (\count($nodes) === 0) {
@@ -27,11 +27,11 @@ class FileWhitespaceRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
         }
         $firstNode = $nodes[0];
         $messages = [];
-        if ($firstNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\InlineHTML && $firstNode->value === "﻿") {
-            $messages[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message('File begins with UTF-8 BOM character. This may cause problems when running the code in the web browser.')->build();
+        if ($firstNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\InlineHTML && $firstNode->value === "﻿") {
+            $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('File begins with UTF-8 BOM character. This may cause problems when running the code in the web browser.')->build();
         }
-        $nodeTraverser = new \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser();
-        $visitor = new class extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
+        $nodeTraverser = new \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser();
+        $visitor = new class extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
         {
             /** @var \PhpParser\Node[] */
             private $lastNodes = [];
@@ -39,21 +39,21 @@ class FileWhitespaceRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
              * @param Node $node
              * @return int|Node|null
              */
-            public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node)
+            public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node)
             {
-                if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Declare_) {
+                if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Declare_) {
                     if ($node->stmts !== null && \count($node->stmts) > 0) {
                         $this->lastNodes[] = $node->stmts[\count($node->stmts) - 1];
                     }
                     return null;
                 }
-                if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_) {
+                if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_) {
                     if (\count($node->stmts) > 0) {
                         $this->lastNodes[] = $node->stmts[\count($node->stmts) - 1];
                     }
                     return null;
                 }
-                return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+                return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
             /**
              * @return Node[]
@@ -68,10 +68,10 @@ class FileWhitespaceRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
         $lastNodes = $visitor->getLastNodes();
         $lastNodes[] = $nodes[\count($nodes) - 1];
         foreach ($lastNodes as $lastNode) {
-            if (!$lastNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\InlineHTML || \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($lastNode->value, '#^(\\s+)$#') === null) {
+            if (!$lastNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\InlineHTML || \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($lastNode->value, '#^(\\s+)$#') === null) {
                 continue;
             }
-            $messages[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message('File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.')->line($lastNode->getStartLine())->build();
+            $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.')->line($lastNode->getStartLine())->build();
         }
         return $messages;
     }

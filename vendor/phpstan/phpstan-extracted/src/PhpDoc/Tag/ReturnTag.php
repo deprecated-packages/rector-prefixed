@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class ReturnTag implements \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\TypedTag
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class ReturnTag implements \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\TypedTag
 {
     /** @var \PHPStan\Type\Type */
     private $type;
     /** @var bool */
     private $isExplicit;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, bool $isExplicit)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, bool $isExplicit)
     {
         $this->type = $type;
         $this->isExplicit = $isExplicit;
     }
-    public function getType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->type;
     }
@@ -27,7 +27,7 @@ class ReturnTag implements \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\TypedTag
      * @param Type $type
      * @return self
      */
-    public function withType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\TypedTag
+    public function withType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\TypedTag
     {
         return new self($type, $this->isExplicit);
     }

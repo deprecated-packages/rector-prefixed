@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Php;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php;
 
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionVariant;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\Native\NativeParameterReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference;
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ClosureType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-final class ClosureCallMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariant;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native\NativeParameterReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ClosureType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+final class ClosureCallMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
 {
     /** @var MethodReflection */
     private $nativeMethodReflection;
     /** @var ClosureType */
     private $closureType;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection $nativeMethodReflection, \_PhpScoperb75b35f52b74\PHPStan\Type\ClosureType $closureType)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $nativeMethodReflection, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ClosureType $closureType)
     {
         $this->nativeMethodReflection = $nativeMethodReflection;
         $this->closureType = $closureType;
     }
-    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
     {
         return $this->nativeMethodReflection->getDeclaringClass();
     }
@@ -48,7 +48,7 @@ final class ClosureCallMethodReflection implements \_PhpScoperb75b35f52b74\PHPSt
     {
         return $this->nativeMethodReflection->getName();
     }
-    public function getPrototype() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection
     {
         return $this->nativeMethodReflection->getPrototype();
     }
@@ -58,11 +58,11 @@ final class ClosureCallMethodReflection implements \_PhpScoperb75b35f52b74\PHPSt
     public function getVariants() : array
     {
         $parameters = $this->closureType->getParameters();
-        $newThis = new \_PhpScoperb75b35f52b74\PHPStan\Reflection\Native\NativeParameterReflection('newThis', \false, new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectWithoutClassType(), \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference::createNo(), \false, null);
+        $newThis = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native\NativeParameterReflection('newThis', \false, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType(), \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference::createNo(), \false, null);
         \array_unshift($parameters, $newThis);
-        return [new \_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionVariant($this->closureType->getTemplateTypeMap(), $this->closureType->getResolvedTemplateTypeMap(), $parameters, $this->closureType->isVariadic(), $this->closureType->getReturnType())];
+        return [new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariant($this->closureType->getTemplateTypeMap(), $this->closureType->getResolvedTemplateTypeMap(), $parameters, $this->closureType->isVariadic(), $this->closureType->getReturnType())];
     }
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->nativeMethodReflection->isDeprecated();
     }
@@ -70,19 +70,19 @@ final class ClosureCallMethodReflection implements \_PhpScoperb75b35f52b74\PHPSt
     {
         return $this->nativeMethodReflection->getDeprecatedDescription();
     }
-    public function isFinal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->nativeMethodReflection->isFinal();
     }
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->nativeMethodReflection->isInternal();
     }
-    public function getThrowType() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->nativeMethodReflection->getThrowType();
     }
-    public function hasSideEffects() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->nativeMethodReflection->hasSideEffects();
     }

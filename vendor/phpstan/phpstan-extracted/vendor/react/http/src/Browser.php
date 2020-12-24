@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Io\ReadableBodyStream;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Io\Sender;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Io\Transaction;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\ReadableBodyStream;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\Sender;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\Transaction;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
 use InvalidArgumentException;
 /**
  * @final This class is final and shouldn't be extended as it is likely to be marked final in a future relase.
@@ -55,9 +55,9 @@ class Browser
      * @param ConnectorInterface|null $connector [optional] Connector to use.
      *     Should be `null` in order to use default Connector.
      */
-    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface $connector = null)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface $connector = null)
     {
-        $this->transaction = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Io\Transaction(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Io\Sender::createFromLoop($loop, $connector), $loop);
+        $this->transaction = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\Transaction(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\Sender::createFromLoop($loop, $connector), $loop);
     }
     /**
      * Sends an HTTP GET request
@@ -557,7 +557,7 @@ class Browser
             $browser->baseUrl = null;
             return $browser;
         }
-        $browser->baseUrl = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri($baseUrl);
+        $browser->baseUrl = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri($baseUrl);
         if (!\in_array($browser->baseUrl->getScheme(), array('http', 'https')) || $browser->baseUrl->getHost() === '') {
             throw new \InvalidArgumentException('Base URL must be absolute');
         }
@@ -690,11 +690,11 @@ class Browser
     {
         if ($this->baseUrl !== null) {
             // ensure we're actually below the base URL
-            $url = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri::resolve($this->baseUrl, $url);
+            $url = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri::resolve($this->baseUrl, $url);
         }
-        if ($body instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
-            $body = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Io\ReadableBodyStream($body);
+        if ($body instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
+            $body = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\ReadableBodyStream($body);
         }
-        return $this->transaction->send(new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request($method, $url, $headers, $body, $this->protocolVersion));
+        return $this->transaction->send(new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request($method, $url, $headers, $body, $this->protocolVersion));
     }
 }

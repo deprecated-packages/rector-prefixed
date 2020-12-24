@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract;
 
-interface SpecificPhpDocNodeFactoryInterface extends \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface
+interface SpecificPhpDocNodeFactoryInterface extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface
 {
     /**
      * @return string[]

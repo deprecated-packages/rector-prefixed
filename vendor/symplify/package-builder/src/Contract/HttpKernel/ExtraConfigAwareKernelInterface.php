@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Contract\HttpKernel;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Contract\HttpKernel;
 
-use _PhpScoperb75b35f52b74\Symfony\Component\HttpKernel\KernelInterface;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-interface ExtraConfigAwareKernelInterface extends \_PhpScoperb75b35f52b74\Symfony\Component\HttpKernel\KernelInterface
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\KernelInterface;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+interface ExtraConfigAwareKernelInterface extends \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\KernelInterface
 {
     /**
      * @param string[]|SmartFileInfo[] $configs

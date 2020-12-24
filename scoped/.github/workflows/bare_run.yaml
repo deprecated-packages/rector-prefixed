@@ -1,4 +1,4 @@
-name: Bar Run
+name: Bare Run
 
 on: [pull_request, push]
 

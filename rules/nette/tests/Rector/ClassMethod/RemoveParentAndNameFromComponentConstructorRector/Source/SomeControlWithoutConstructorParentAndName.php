@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Nette\Tests\Rector\ClassMethod\RemoveParentAndNameFromComponentConstructorRector\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Nette\Tests\Rector\ClassMethod\RemoveParentAndNameFromComponentConstructorRector\Source;
 
-use _PhpScoperb75b35f52b74\Nette\Application\UI\Control;
-final class SomeControlWithoutConstructorParentAndName extends \_PhpScoperb75b35f52b74\Nette\Application\UI\Control
+use _PhpScoper2a4e7ab1ecbc\Nette\Application\UI\Control;
+final class SomeControlWithoutConstructorParentAndName extends \_PhpScoper2a4e7ab1ecbc\Nette\Application\UI\Control
 {
     private $key;
     private $value;

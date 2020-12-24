@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Classes;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\StringType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
-use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\Instanceof_>
  */
-class ImpossibleInstanceOfRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class ImpossibleInstanceOfRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkAlwaysTrueInstanceof;
@@ -28,39 +28,39 @@ class ImpossibleInstanceOfRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\
     }
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_::class;
+        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
         $instanceofType = $scope->getType($node);
         $expressionType = $scope->getType($node->expr);
-        if ($node->class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
+        if ($node->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
             $className = $scope->resolveName($node->class);
-            $classType = new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType($className);
+            $classType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($className);
         } else {
             $classType = $scope->getType($node->class);
-            $allowed = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(new \_PhpScoperb75b35f52b74\PHPStan\Type\StringType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectWithoutClassType());
+            $allowed = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType());
             if (!$allowed->accepts($classType, \true)->yes()) {
-                return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s results in an error.', $expressionType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+                return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s results in an error.', $expressionType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
             }
         }
-        if (!$instanceofType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType) {
+        if (!$instanceofType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType) {
             return [];
         }
-        $addTip = function (\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
+        $addTip = function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
             if (!$this->treatPhpDocTypesAsCertain) {
                 return $ruleErrorBuilder;
             }
             $instanceofTypeWithoutPhpDocs = $scope->doNotTreatPhpDocTypesAsCertain()->getType($node);
-            if ($instanceofTypeWithoutPhpDocs instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType) {
+            if ($instanceofTypeWithoutPhpDocs instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType) {
                 return $ruleErrorBuilder;
             }
             return $ruleErrorBuilder->tip('Because the type is coming from a PHPDoc, you can turn off this check by setting <fg=cyan>treatPhpDocTypesAsCertain: false</> in your <fg=cyan>%configurationFile%</>.');
         };
         if (!$instanceofType->getValue()) {
-            return [$addTip(\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s will always evaluate to false.', $expressionType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly()))))->build()];
+            return [$addTip(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s will always evaluate to false.', $expressionType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()))))->build()];
         } elseif ($this->checkAlwaysTrueInstanceof) {
-            return [$addTip(\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s will always evaluate to true.', $expressionType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly()))))->build()];
+            return [$addTip(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s will always evaluate to true.', $expressionType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()))))->build()];
         }
         return [];
     }

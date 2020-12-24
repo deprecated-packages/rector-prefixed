@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Dummy;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Dummy;
 
-use _PhpScoperb75b35f52b74\PHPStan\Broker\Broker;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection;
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class DummyPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class DummyPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
 {
-    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
     {
-        $broker = \_PhpScoperb75b35f52b74\PHPStan\Broker\Broker::getInstance();
+        $broker = \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::getInstance();
         return $broker->getClass(\stdClass::class);
     }
     public function isStatic() : bool
@@ -28,13 +28,13 @@ class DummyPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
     {
         return \true;
     }
-    public function getReadableType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getReadableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
     }
-    public function getWritableType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getWritableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
     }
     public function canChangeTypeAfterAssignment() : bool
     {
@@ -48,17 +48,17 @@ class DummyPropertyReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
     {
         return \true;
     }
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

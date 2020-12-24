@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Php70\Tests\Rector\If_\IfToSpaceshipRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Php70\Tests\Rector\If_\IfToSpaceshipRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Php70\Rector\If_\IfToSpaceshipRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class IfToSpaceshipRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\If_\IfToSpaceshipRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class IfToSpaceshipRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class IfToSpaceshipRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testi
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Php70\Rector\If_\IfToSpaceshipRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\If_\IfToSpaceshipRector::class;
     }
 }

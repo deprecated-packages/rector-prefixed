@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\PropertyRenamer;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\PropertyRenamer;
 
-use _PhpScoperb75b35f52b74\Rector\Naming\Guard\PropertyConflictingNameGuard\BoolPropertyConflictingNameGuard;
-final class BoolPropertyRenamer extends \_PhpScoperb75b35f52b74\Rector\Naming\PropertyRenamer\AbstractPropertyRenamer
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard\PropertyConflictingNameGuard\BoolPropertyConflictingNameGuard;
+final class BoolPropertyRenamer extends \_PhpScoper2a4e7ab1ecbc\Rector\Naming\PropertyRenamer\AbstractPropertyRenamer
 {
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Naming\Guard\PropertyConflictingNameGuard\BoolPropertyConflictingNameGuard $boolPropertyConflictingNameGuard)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard\PropertyConflictingNameGuard\BoolPropertyConflictingNameGuard $boolPropertyConflictingNameGuard)
     {
         $this->conflictingPropertyNameGuard = $boolPropertyConflictingNameGuard;
     }

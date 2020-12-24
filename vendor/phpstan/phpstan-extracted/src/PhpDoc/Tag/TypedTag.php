@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
 interface TypedTag
 {
-    public function getType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
     /**
      * @param Type $type
      * @return static
      */
-    public function withType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : self;
+    public function withType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : self;
 }

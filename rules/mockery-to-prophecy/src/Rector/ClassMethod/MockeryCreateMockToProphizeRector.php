@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\MockeryToProphecy\Rector\ClassMethod;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\MockeryToProphecy\Rector\ClassMethod;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\MockeryToProphecy\Tests\Rector\ClassMethod\MockeryToProphecyRector\MockeryToProphecyRectorTest
  */
-final class MockeryCreateMockToProphizeRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector
+final class MockeryCreateMockToProphizeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, class-string>
@@ -28,12 +28,12 @@ final class MockeryCreateMockToProphizeRector extends \_PhpScoperb75b35f52b74\Re
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
@@ -42,9 +42,9 @@ final class MockeryCreateMockToProphizeRector extends \_PhpScoperb75b35f52b74\Re
         $this->revealMockArguments($node);
         return $node;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes mockery mock creation to Prophesize', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes mockery mock creation to Prophesize', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $mock = \Mockery::mock(\'MyClass\');
 $service = new Service();
 $service->injectDependency($mock);
@@ -57,35 +57,35 @@ $service->injectDependency($mock->reveal());
 CODE_SAMPLE
 )]);
     }
-    private function replaceMockCreationsAndCollectVariableNames(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function replaceMockCreationsAndCollectVariableNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         if ($classMethod->stmts === null) {
             return;
         }
-        $this->traverseNodesWithCallable($classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?MethodCall {
+        $this->traverseNodesWithCallable($classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?MethodCall {
             if (!$this->isStaticCallNamed($node, 'Mockery', 'mock')) {
                 return null;
             }
             /** @var StaticCall $node */
             $this->collectMockVariableName($node);
-            $parentNode = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Arg) {
+            $parentNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg) {
                 $prophesizeMethodCall = $this->createProphesizeMethodCall($node);
                 return $this->createMethodCall($prophesizeMethodCall, 'reveal');
             }
             return $this->createProphesizeMethodCall($node);
         });
     }
-    private function revealMockArguments(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function revealMockArguments(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         if ($classMethod->stmts === null) {
             return;
         }
-        $this->traverseNodesWithCallable($classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?MethodCall {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Arg) {
+        $this->traverseNodesWithCallable($classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?MethodCall {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg) {
                 return null;
             }
-            if (!$node->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+            if (!$node->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
                 return null;
             }
             /** @var string $variableName */
@@ -96,13 +96,13 @@ CODE_SAMPLE
             return $this->createMethodCall($node->value, 'reveal');
         });
     }
-    private function collectMockVariableName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    private function collectMockVariableName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
-        $parentNode = $staticCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+        $parentNode = $staticCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
             return;
         }
-        if (!$parentNode->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$parentNode->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return;
         }
         /** @var Variable $variable */
@@ -113,7 +113,7 @@ CODE_SAMPLE
         $mockedType = $this->getValue($type);
         $this->mockVariableTypesByNames[$variableName] = $mockedType;
     }
-    private function createProphesizeMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall $staticCall) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall
+    private function createProphesizeMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $staticCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
     {
         return $this->createLocalMethodCall('prophesize', [$staticCall->args[0]]);
     }

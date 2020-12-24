@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Php80\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch;
 final class ArrayDimFetchAndConstFetch
 {
     /**
@@ -15,16 +15,16 @@ final class ArrayDimFetchAndConstFetch
      * @var ConstFetch
      */
     private $constFetch;
-    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch $constFetch)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch $constFetch)
     {
         $this->arrayDimFetch = $arrayDimFetch;
         $this->constFetch = $constFetch;
     }
-    public function getArrayDimFetch() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch
+    public function getArrayDimFetch() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch
     {
         return $this->arrayDimFetch;
     }
-    public function getConstFetch() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch
+    public function getConstFetch() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch
     {
         return $this->constFetch;
     }

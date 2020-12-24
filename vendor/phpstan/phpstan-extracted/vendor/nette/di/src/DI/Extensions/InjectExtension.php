@@ -5,41 +5,41 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
 /**
  * Calls inject methods and fills @inject properties.
  */
-final class InjectExtension extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+final class InjectExtension extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
     public const TAG_INJECT = 'nette.inject';
-    public function getConfigSchema() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure([]);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure([]);
     }
     public function beforeCompile()
     {
         foreach ($this->getContainerBuilder()->getDefinitions() as $def) {
             if ($def->getTag(self::TAG_INJECT)) {
-                $def = $def instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition ? $def->getResultDefinition() : $def;
-                if ($def instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition) {
+                $def = $def instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition ? $def->getResultDefinition() : $def;
+                if ($def instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition) {
                     $this->updateDefinition($def);
                 }
             }
         }
     }
-    private function updateDefinition(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition $def) : void
+    private function updateDefinition(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition $def) : void
     {
-        $resolvedType = (new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Resolver($this->getContainerBuilder()))->resolveEntityType($def->getFactory());
+        $resolvedType = (new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Resolver($this->getContainerBuilder()))->resolveEntityType($def->getFactory());
         $class = \is_subclass_of($resolvedType, $def->getType()) ? $resolvedType : $def->getType();
         $setups = $def->getSetup();
         foreach (self::getInjectProperties($class) as $property => $type) {
             $builder = $this->getContainerBuilder();
-            $inject = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement('$' . $property, [\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference::fromType((string) $type)]);
+            $inject = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement('$' . $property, [\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference::fromType((string) $type)]);
             foreach ($setups as $key => $setup) {
                 if ($setup->getEntity() === $inject->getEntity()) {
                     $inject = $setup;
@@ -51,7 +51,7 @@ final class InjectExtension extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b8
             \array_unshift($setups, $inject);
         }
         foreach (\array_reverse(self::getInjectMethods($class)) as $method) {
-            $inject = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement($method);
+            $inject = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement($method);
             foreach ($setups as $key => $setup) {
                 if ($setup->getEntity() === $inject->getEntity()) {
                     $inject = $setup;
@@ -89,10 +89,10 @@ final class InjectExtension extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b8
         $res = [];
         foreach (\get_class_vars($class) as $name => $foo) {
             $rp = new \ReflectionProperty($class, $name);
-            if (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::parseAnnotation($rp, 'inject') !== null) {
-                if ($type = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyType($rp)) {
-                } elseif ($type = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::parseAnnotation($rp, 'var')) {
-                    $type = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::expandClassName($type, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyDeclaringClass($rp));
+            if (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::parseAnnotation($rp, 'inject') !== null) {
+                if ($type = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyType($rp)) {
+                } elseif ($type = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::parseAnnotation($rp, 'var')) {
+                    $type = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::expandClassName($type, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyDeclaringClass($rp));
                 }
                 $res[$name] = $type;
             }
@@ -104,10 +104,10 @@ final class InjectExtension extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b8
      * Calls all methods starting with with "inject" using autowiring.
      * @param  object  $service
      */
-    public static function callInjects(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Container $container, $service) : void
+    public static function callInjects(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Container $container, $service) : void
     {
         if (!\is_object($service)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException(\sprintf('Service must be object, %s given.', \gettype($service)));
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException(\sprintf('Service must be object, %s given.', \gettype($service)));
         }
         foreach (self::getInjectMethods(\get_class($service)) as $method) {
             $container->callMethod([$service, $method]);
@@ -123,13 +123,13 @@ final class InjectExtension extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b8
      */
     private static function checkType($class, string $name, ?string $type, $container) : void
     {
-        $propName = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::toString(new \ReflectionProperty($class, $name));
+        $propName = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::toString(new \ReflectionProperty($class, $name));
         if (!$type) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Property {$propName} has no @var annotation.");
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Property {$propName} has no @var annotation.");
         } elseif (!\class_exists($type) && !\interface_exists($type)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Class or interface '{$type}' used in @var annotation at {$propName} not found. Check annotation and 'use' statements.");
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Class or interface '{$type}' used in @var annotation at {$propName} not found. Check annotation and 'use' statements.");
         } elseif ($container && !$container->getByType($type, \false)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Service of type {$type} used in @var annotation at {$propName} not found. Did you add it to configuration file?");
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Service of type {$type} used in @var annotation at {$propName} not found. Did you add it to configuration file?");
         }
     }
 }

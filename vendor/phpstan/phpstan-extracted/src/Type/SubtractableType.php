@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
 
-interface SubtractableType extends \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+interface SubtractableType extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
 {
-    public function subtract(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
-    public function getTypeWithoutSubtractedType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
-    public function changeSubtractedType(?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $subtractedType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
-    public function getSubtractedType() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function subtract(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+    public function getTypeWithoutSubtractedType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+    public function changeSubtractedType(?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $subtractedType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+    public function getSubtractedType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
 }

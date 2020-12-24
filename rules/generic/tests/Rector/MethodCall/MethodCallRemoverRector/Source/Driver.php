@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\MethodCall\MethodCallRemoverRector\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\MethodCall\MethodCallRemoverRector\Source;
 
 final class Driver
 {
     /** @var Car */
     private $car;
-    public function getCar() : \_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\MethodCall\MethodCallRemoverRector\Source\Car
+    public function getCar() : \_PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\MethodCall\MethodCallRemoverRector\Source\Car
     {
         return $this->car;
     }

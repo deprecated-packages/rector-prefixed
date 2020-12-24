@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\Rector\Assign;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Rector\Assign;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
-use _PhpScoperb75b35f52b74\Rector\Naming\Guard\BreakingVariableRenameGuard;
-use _PhpScoperb75b35f52b74\Rector\Naming\Matcher\VariableAndCallAssignMatcher;
-use _PhpScoperb75b35f52b74\Rector\Naming\Naming\ExpectedNameResolver;
-use _PhpScoperb75b35f52b74\Rector\Naming\NamingConvention\NamingConventionAnalyzer;
-use _PhpScoperb75b35f52b74\Rector\Naming\PhpDoc\VarTagValueNodeRenamer;
-use _PhpScoperb75b35f52b74\Rector\Naming\ValueObject\VariableAndCallAssign;
-use _PhpScoperb75b35f52b74\Rector\Naming\VariableRenamer;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard\BreakingVariableRenameGuard;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Matcher\VariableAndCallAssignMatcher;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\ExpectedNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\NamingConvention\NamingConventionAnalyzer;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\PhpDoc\VarTagValueNodeRenamer;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObject\VariableAndCallAssign;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\VariableRenamer;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\Assign\RenameVariableToMatchMethodCallReturnTypeRector\RenameVariableToMatchMethodCallReturnTypeRectorTest
  */
-final class RenameVariableToMatchMethodCallReturnTypeRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class RenameVariableToMatchMethodCallReturnTypeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
-    private const ALLOWED_PARENT_TYPES = [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike::class];
+    private const ALLOWED_PARENT_TYPES = [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike::class];
     /**
      * @var ExpectedNameResolver
      */
@@ -60,7 +60,7 @@ final class RenameVariableToMatchMethodCallReturnTypeRector extends \_PhpScoperb
      * @var VarTagValueNodeRenamer
      */
     private $varTagValueNodeRenamer;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \_PhpScoperb75b35f52b74\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \_PhpScoperb75b35f52b74\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \_PhpScoperb75b35f52b74\Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \_PhpScoperb75b35f52b74\Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer, \_PhpScoperb75b35f52b74\Rector\Naming\Matcher\VariableAndCallAssignMatcher $variableAndCallAssignMatcher, \_PhpScoperb75b35f52b74\Rector\Naming\VariableRenamer $variableRenamer)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Matcher\VariableAndCallAssignMatcher $variableAndCallAssignMatcher, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\VariableRenamer $variableRenamer)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->variableRenamer = $variableRenamer;
@@ -70,9 +70,9 @@ final class RenameVariableToMatchMethodCallReturnTypeRector extends \_PhpScoperb
         $this->namingConventionAnalyzer = $namingConventionAnalyzer;
         $this->varTagValueNodeRenamer = $varTagValueNodeRenamer;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename variable to match method return type', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename variable to match method return type', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -107,12 +107,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         /** @var VariableAndCallAssign|null $variableAndCallAssign */
         $variableAndCallAssign = $this->variableAndCallAssignMatcher->match($node);
@@ -124,7 +124,10 @@ CODE_SAMPLE
             return null;
         }
         $expectedName = $this->expectedNameResolver->resolveForCall($call);
-        if ($expectedName === null || $this->isName($node->var, $expectedName)) {
+        if ($expectedName === null) {
+            return null;
+        }
+        if ($this->isName($node->var, $expectedName)) {
             return null;
         }
         if ($this->shouldSkip($variableAndCallAssign, $expectedName)) {
@@ -136,11 +139,11 @@ CODE_SAMPLE
     /**
      * @param FuncCall|StaticCall|MethodCall $node
      */
-    private function isMultipleCall(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    private function isMultipleCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
-        $parentNode = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         while ($parentNode) {
-            $countUsed = \count($this->betterNodeFinder->find($parentNode, function (\_PhpScoperb75b35f52b74\PhpParser\Node $n) use($node) : bool {
+            $countUsed = \count($this->betterNodeFinder->find($parentNode, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $n) use($node) : bool {
                 if (\get_class($node) !== \get_class($n)) {
                     return \false;
                 }
@@ -157,11 +160,11 @@ CODE_SAMPLE
             if ($countUsed > 1) {
                 return \true;
             }
-            $parentNode = $parentNode->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parentNode = $parentNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         }
         return \false;
     }
-    private function shouldSkip(\_PhpScoperb75b35f52b74\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : bool
+    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : bool
     {
         if ($this->namingConventionAnalyzer->isCallMatchingVariableName($variableAndCallAssign->getCall(), $variableAndCallAssign->getVariableName(), $expectedName)) {
             return \true;
@@ -171,7 +174,7 @@ CODE_SAMPLE
         }
         return $this->breakingVariableRenameGuard->shouldSkipVariable($variableAndCallAssign->getVariableName(), $expectedName, $variableAndCallAssign->getFunctionLike(), $variableAndCallAssign->getVariable());
     }
-    private function renameVariable(\_PhpScoperb75b35f52b74\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : void
+    private function renameVariable(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : void
     {
         $this->varTagValueNodeRenamer->renameAssignVarTagVariableName($variableAndCallAssign->getAssign(), $variableAndCallAssign->getVariableName(), $expectedName);
         $this->variableRenamer->renameVariableInFunctionLike($variableAndCallAssign->getFunctionLike(), $variableAndCallAssign->getAssign(), $variableAndCallAssign->getVariableName(), $expectedName);
@@ -179,11 +182,11 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall|FuncCall $expr
      */
-    private function isClassTypeWithChildren(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : bool
+    private function isClassTypeWithChildren(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
     {
         $callStaticType = $this->getStaticType($expr);
         $callStaticType = $this->typeUnwrapper->unwrapNullableType($callStaticType);
-        if (!$callStaticType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
+        if (!$callStaticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         if (\in_array($callStaticType->getClassName(), self::ALLOWED_PARENT_TYPES, \true)) {

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector\Source;
 
-use _PhpScoperb75b35f52b74\Nette\Application\UI\Control;
-final class AnotherControl extends \_PhpScoperb75b35f52b74\Nette\Application\UI\Control
+use _PhpScoper2a4e7ab1ecbc\Nette\Application\UI\Control;
+final class AnotherControl extends \_PhpScoper2a4e7ab1ecbc\Nette\Application\UI\Control
 {
 }

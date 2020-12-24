@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Yaml;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Yaml;
 
 use Closure;
 final class ParametersMerger

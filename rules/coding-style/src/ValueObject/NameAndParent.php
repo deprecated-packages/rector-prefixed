@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
 final class NameAndParent
 {
     /**
@@ -19,7 +19,7 @@ final class NameAndParent
     /**
      * @param Name|Identifier $nameNode
      */
-    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node $nameNode, \_PhpScoperb75b35f52b74\PhpParser\Node $parentNode)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $nameNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $parentNode)
     {
         $this->nameNode = $nameNode;
         $this->parentNode = $parentNode;
@@ -27,11 +27,11 @@ final class NameAndParent
     /**
      * @return Name|Identifier
      */
-    public function getNameNode() : \_PhpScoperb75b35f52b74\PhpParser\Node
+    public function getNameNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         return $this->nameNode;
     }
-    public function getParentNode() : \_PhpScoperb75b35f52b74\PhpParser\Node
+    public function getParentNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         return $this->parentNode;
     }

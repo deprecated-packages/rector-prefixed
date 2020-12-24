@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Rector\ArrayDimFetch;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Rector\ArrayDimFetch;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Naming\NetteControlNaming;
-use _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\NodeAdding\FunctionLikeFirstLevelStatementResolver;
-use _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Naming\NetteControlNaming;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeAdding\FunctionLikeFirstLevelStatementResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  */
-abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ControlDimFetchAnalyzer
@@ -43,7 +43,7 @@ abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \_P
     /**
      * @required
      */
-    public function autowireAbstractArrayDimFetchToAnnotatedControlVariableRector(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator, \_PhpScoperb75b35f52b74\Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \_PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \_PhpScoperb75b35f52b74\Rector\NetteCodeQuality\NodeAdding\FunctionLikeFirstLevelStatementResolver $functionLikeFirstLevelStatementResolver) : void
+    public function autowireAbstractArrayDimFetchToAnnotatedControlVariableRector(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeAdding\FunctionLikeFirstLevelStatementResolver $functionLikeFirstLevelStatementResolver) : void
     {
         $this->controlDimFetchAnalyzer = $controlDimFetchAnalyzer;
         $this->netteControlNaming = $netteControlNaming;
@@ -55,9 +55,9 @@ abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \_P
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch::class];
     }
-    protected function addAssignExpressionForFirstCase(string $variableName, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType $controlObjectType) : void
+    protected function addAssignExpressionForFirstCase(string $variableName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType $controlObjectType) : void
     {
         if ($this->shouldSkipForAlreadyAddedInCurrentClassMethod($arrayDimFetch, $variableName)) {
             return;
@@ -66,10 +66,10 @@ abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \_P
         $currentStatement = $this->functionLikeFirstLevelStatementResolver->resolveFirstLevelStatement($arrayDimFetch);
         $this->addNodeBeforeNode($assignExpression, $currentStatement);
     }
-    protected function isBeingAssignedOrInitialized(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    protected function isBeingAssignedOrInitialized(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
-        $parent = $arrayDimFetch->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parent instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+        $parent = $arrayDimFetch->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
             return \false;
         }
         if ($parent->var === $arrayDimFetch) {
@@ -77,10 +77,10 @@ abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \_P
         }
         return $parent->expr === $arrayDimFetch;
     }
-    private function shouldSkipForAlreadyAddedInCurrentClassMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $variableName) : bool
+    private function shouldSkipForAlreadyAddedInCurrentClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $variableName) : bool
     {
         /** @var ClassMethod|null $classMethod */
-        $classMethod = $arrayDimFetch->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        $classMethod = $arrayDimFetch->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod === null) {
             return \false;
         }
@@ -91,17 +91,17 @@ abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \_P
         $this->alreadyInitializedAssignsClassMethodObjectHashes[] = $classMethodObjectHash;
         return \false;
     }
-    private function createAnnotatedAssignExpression(string $variableName, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType $controlObjectType) : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression
+    private function createAnnotatedAssignExpression(string $variableName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType $controlObjectType) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression
     {
         $assignExpression = $this->createAssignExpression($variableName, $arrayDimFetch);
         $this->varAnnotationManipulator->decorateNodeWithInlineVarType($assignExpression, $controlObjectType, $variableName);
         return $assignExpression;
     }
-    private function createAssignExpression(string $variableName, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression
+    private function createAssignExpression(string $variableName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression
     {
-        $variable = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($variableName);
+        $variable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($variableName);
         $assignedArrayDimFetch = clone $arrayDimFetch;
-        $assign = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign($variable, $assignedArrayDimFetch);
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression($assign);
+        $assign = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($variable, $assignedArrayDimFetch);
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($assign);
     }
 }

@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\Isset_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Isset_;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Isset_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ThisType;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ThisType;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Isset_\IssetOnPropertyObjectToPropertyExistsRector\IssetOnPropertyObjectToPropertyExistsRectorTest
  * @see https://3v4l.org/TI8XL Change isset on property object to property_exists() with not null check
  */
-final class IssetOnPropertyObjectToPropertyExistsRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class IssetOnPropertyObjectToPropertyExistsRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change isset on property object to property_exists()', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change isset on property object to property_exists()', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     private $x;
@@ -59,40 +59,40 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Isset_::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_::class];
     }
     /**
      * @param Isset_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         $newNodes = [];
         foreach ($node->vars as $issetVar) {
-            if (!$issetVar instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
+            if (!$issetVar instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
                 continue;
             }
             /** @var Expr $object */
-            $object = $issetVar->var->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE);
+            $object = $issetVar->var->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE);
             /** @var Scope $scope */
-            $scope = $object->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+            $scope = $object->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
             /** @var ThisType|ObjectType $type */
             $type = $scope->getType($object);
-            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ThisType) {
-                $newNodes[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->createNull());
+            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ThisType) {
+                $newNodes[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->createNull());
                 continue;
             }
             /** @var Identifier|Variable $name */
             $name = $issetVar->name;
-            if (!$name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier) {
+            if (!$name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
                 continue;
             }
             $property = $name->toString();
-            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
+            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
                 /** @var string $className */
                 $className = $type->getClassName();
                 $isPropertyAlwaysExists = \property_exists($className, $property);
                 if ($isPropertyAlwaysExists) {
-                    $newNodes[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->createNull());
+                    $newNodes[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->createNull());
                     continue;
                 }
             }
@@ -100,16 +100,16 @@ CODE_SAMPLE
         }
         return $this->createReturnNodes($newNodes);
     }
-    private function replaceToPropertyExistsWithNullCheck(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr, string $property, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd
+    private function replaceToPropertyExistsWithNullCheck(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, string $property, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanAnd
     {
-        $args = [new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($expr), new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg(new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_($property))];
-        $propertyExistsFuncCall = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('property_exists'), $args);
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd($propertyExistsFuncCall, new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical($propertyFetch, $this->createNull()));
+        $args = [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($expr), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($property))];
+        $propertyExistsFuncCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('property_exists'), $args);
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanAnd($propertyExistsFuncCall, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical($propertyFetch, $this->createNull()));
     }
     /**
      * @param NotIdentical[]|BooleanAnd[] $newNodes
      */
-    private function createReturnNodes(array $newNodes) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
+    private function createReturnNodes(array $newNodes) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
     {
         if ($newNodes === []) {
             return null;
@@ -123,12 +123,12 @@ CODE_SAMPLE
      * @param NotIdentical[]|BooleanAnd[] $exprs
      * @todo decouple to StackNodeFactory
      */
-    private function createBooleanAndFromNodes(array $exprs) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd
+    private function createBooleanAndFromNodes(array $exprs) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanAnd
     {
         /** @var NotIdentical|BooleanAnd $booleanAnd */
         $booleanAnd = \array_shift($exprs);
         foreach ($exprs as $expr) {
-            $booleanAnd = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd($booleanAnd, $expr);
+            $booleanAnd = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanAnd($booleanAnd, $expr);
         }
         /** @var BooleanAnd $booleanAnd */
         return $booleanAnd;

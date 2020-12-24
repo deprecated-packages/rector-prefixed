@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NetteToSymfony\Rector\MethodCall;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteToSymfony\Rector\MethodCall;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://symfony.com/doc/current/components/translation/usage.html#message-placeholders
  * @see https://github.com/Kdyby/Translation/blob/master/docs/en/index.md#placeholders
  * https://github.com/Kdyby/Translation/blob/6b0721c767a7be7f15b2fb13c529bea8536230aa/src/Translator.php#L172
  * @see \Rector\NetteToSymfony\Tests\Rector\MethodCall\WrapTransParameterNameRector\WrapTransParameterNameRectorTest
  */
-final class WrapTransParameterNameRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class WrapTransParameterNameRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/b8boED/1
      */
     private const BETWEEN_PERCENT_CHARS_REGEX = '#%(.*?)%#';
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds %% to placeholder name of trans() method if missing', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds %% to placeholder name of trans() method if missing', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Translation\Translator;
 
 final class SomeController
@@ -63,14 +63,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoperb75b35f52b74\\Symfony\\Component\\Translation\\TranslatorInterface')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Translation\\TranslatorInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'trans')) {
@@ -79,7 +79,7 @@ CODE_SAMPLE
         if (\count((array) $node->args) < 2) {
             return null;
         }
-        if (!$node->args[1]->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_) {
+        if (!$node->args[1]->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
             return null;
         }
         /** @var Array_ $parametersArrayNode */
@@ -88,13 +88,13 @@ CODE_SAMPLE
             if ($arrayItem === null) {
                 continue;
             }
-            if (!$arrayItem->key instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+            if (!$arrayItem->key instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
                 continue;
             }
-            if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($arrayItem->key->value, self::BETWEEN_PERCENT_CHARS_REGEX)) {
+            if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($arrayItem->key->value, self::BETWEEN_PERCENT_CHARS_REGEX)) {
                 continue;
             }
-            $arrayItem->key = new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_('%' . $arrayItem->key->value . '%');
+            $arrayItem->key = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('%' . $arrayItem->key->value . '%');
         }
         return $node;
     }

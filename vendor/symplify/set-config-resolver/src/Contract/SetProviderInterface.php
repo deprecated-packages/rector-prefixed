@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Contract;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Contract;
 
-use _PhpScoperb75b35f52b74\Symplify\SetConfigResolver\ValueObject\Set;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\ValueObject\Set;
 interface SetProviderInterface
 {
     /**
@@ -14,5 +14,5 @@ interface SetProviderInterface
      * @return string[]
      */
     public function provideSetNames() : array;
-    public function provideByName(string $setName) : ?\_PhpScoperb75b35f52b74\Symplify\SetConfigResolver\ValueObject\Set;
+    public function provideByName(string $setName) : ?\_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\ValueObject\Set;
 }

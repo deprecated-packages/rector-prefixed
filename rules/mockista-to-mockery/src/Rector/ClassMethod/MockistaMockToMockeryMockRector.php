@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\MockistaToMockery\Rector\ClassMethod;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\MockistaToMockery\Rector\ClassMethod;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
-use _PhpScoperb75b35f52b74\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\MockistaToMockery\Tests\Rector\ClassMethod\MockistaMockToMockeryMockRector\MockistaMockToMockeryMockRectorTest
  */
-final class MockistaMockToMockeryMockRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector
+final class MockistaMockToMockeryMockRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var string[]
@@ -30,9 +30,9 @@ final class MockistaMockToMockeryMockRector extends \_PhpScoperb75b35f52b74\Rect
      * @var string[]
      */
     private $mockVariableTypesByNames = [];
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change functions to static calls, so composer can autoload them', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change functions to static calls, so composer can autoload them', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeTest
 {
     public function run()
@@ -60,12 +60,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
@@ -77,9 +77,9 @@ CODE_SAMPLE
         $this->switchWithAnyArgsAndOnceTwice($node);
         return $node;
     }
-    private function replaceMockWithMockerMockAndCollectMockVariableName(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function replaceMockWithMockerMockAndCollectMockVariableName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?StaticCall {
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?StaticCall {
             if (!$this->isFuncCallName($node, 'mock')) {
                 return null;
             }
@@ -93,21 +93,21 @@ CODE_SAMPLE
      * ↓
      * $mock->getMethod()->once()
      */
-    private function replaceMethodCallOncePropertyFetch(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function replaceMethodCallOncePropertyFetch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?MethodCall {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?MethodCall {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
                 return null;
             }
             if (!$this->isNames($node->name, ['once', 'twice'])) {
                 return null;
             }
-            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($node->var, $node->name);
+            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($node->var, $node->name);
         });
     }
-    private function removeUnusedMethodCalls(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function removeUnusedMethodCalls(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) {
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) {
             if (!$this->isMethodCallOrPropertyFetchOnMockVariable($node)) {
                 return null;
             }
@@ -123,15 +123,15 @@ CODE_SAMPLE
      * ↓
      * $mock->expects()->getMethod()->once()
      */
-    private function replaceMethodCallWithExpects(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function replaceMethodCallWithExpects(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?MethodCall {
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?MethodCall {
             if (!$this->isMethodCallOrPropertyFetchOnMockVariable($node)) {
                 return null;
             }
             // skip assigns
-            $parent = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parent instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+            $parent = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
                 return null;
             }
             /** @var MethodCall|PropertyFetch $node */
@@ -142,9 +142,9 @@ CODE_SAMPLE
                 return null;
             }
             // probably method mock
-            $expectedMethodCall = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($node->var, 'expects');
-            $methodCall = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($expectedMethodCall, $node->name);
-            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
+            $expectedMethodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($node->var, 'expects');
+            $methodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($expectedMethodCall, $node->name);
+            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
                 return $methodCall;
             }
             $methodCall->args = $node->args;
@@ -154,16 +154,16 @@ CODE_SAMPLE
     /**
      * Order correction for @see replaceMethodCallWithExpects()
      */
-    private function switchWithAnyArgsAndOnceTwice(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function switchWithAnyArgsAndOnceTwice(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             if (!$this->isNames($node->name, ['once', 'twice'])) {
                 return;
             }
-            if (!$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+            if (!$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             /** @var MethodCall $previousMethodCall */
@@ -174,13 +174,13 @@ CODE_SAMPLE
             [$node->name, $previousMethodCall->name] = [$previousMethodCall->name, $node->name];
         });
     }
-    private function collectMockVariableName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall) : void
+    private function collectMockVariableName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall) : void
     {
-        $parentNode = $funcCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+        $parentNode = $funcCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
             return;
         }
-        if (!$parentNode->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$parentNode->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return;
         }
         /** @var Variable $variable */
@@ -191,13 +191,13 @@ CODE_SAMPLE
         $mockedType = $this->getValue($type);
         $this->mockVariableTypesByNames[$variableName] = $mockedType;
     }
-    private function isMethodCallOrPropertyFetchOnMockVariable(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    private function isMethodCallOrPropertyFetchOnMockVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall && !$this->isPropertyFetchDisguisedAsMethodCall($node)) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall && !$this->isPropertyFetchDisguisedAsMethodCall($node)) {
             return \false;
         }
         /** @var MethodCall|PropertyFetch $node */
-        if (!$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return \false;
         }
         /** @var string $variableName */
@@ -209,7 +209,7 @@ CODE_SAMPLE
      * ↓
      * $mock->expects()->someMethodWithArgs()->withAnyArgs()->once()
      */
-    private function decorateWithAnyArgs(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $originalMethodCall, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $expectsMethodCall) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall
+    private function decorateWithAnyArgs(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $originalMethodCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $expectsMethodCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
     {
         $variableName = $this->getName($originalMethodCall->var);
         $mockVariableType = $this->mockVariableTypesByNames[$variableName];
@@ -224,14 +224,14 @@ CODE_SAMPLE
         if ($reflectionMethod->getNumberOfRequiredParameters() === 0) {
             return $expectsMethodCall;
         }
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($expectsMethodCall, 'withAnyArgs');
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($expectsMethodCall, 'withAnyArgs');
     }
-    private function isPropertyFetchDisguisedAsMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    private function isPropertyFetchDisguisedAsMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
-        if ($node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        if ($node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         $variableName = $this->getName($node->var);

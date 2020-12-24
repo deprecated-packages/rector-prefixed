@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\RectorGenerator\Guard;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Guard;
 
-use _PhpScoperb75b35f52b74\Rector\RectorGenerator\FileSystem\TemplateFileSystem;
-use _PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\RectorRecipe;
-use _PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\FileSystem\TemplateFileSystem;
+use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
 final class OverrideGuard
 {
     /**
@@ -17,7 +17,7 @@ final class OverrideGuard
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoperb75b35f52b74\Rector\RectorGenerator\FileSystem\TemplateFileSystem $templateFileSystem)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\FileSystem\TemplateFileSystem $templateFileSystem)
     {
         $this->templateFileSystem = $templateFileSystem;
         $this->symfonyStyle = $symfonyStyle;
@@ -26,7 +26,7 @@ final class OverrideGuard
      * @param array<string, mixed> $templateVariables
      * @param SmartFileInfo[] $templateFileInfos
      */
-    public function isUnwantedOverride(array $templateFileInfos, array $templateVariables, \_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $targetDirectory) : bool
+    public function isUnwantedOverride(array $templateFileInfos, array $templateVariables, \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $targetDirectory) : bool
     {
         foreach ($templateFileInfos as $templateFileInfo) {
             if (!$this->doesFileInfoAlreadyExist($templateVariables, $rectorRecipe, $templateFileInfo, $targetDirectory)) {
@@ -40,7 +40,7 @@ final class OverrideGuard
     /**
      * @param array<string, mixed> $templateVariables
      */
-    private function doesFileInfoAlreadyExist(array $templateVariables, \_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $templateFileInfo, string $targetDirectory) : bool
+    private function doesFileInfoAlreadyExist(array $templateVariables, \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $templateFileInfo, string $targetDirectory) : bool
     {
         $destination = $this->templateFileSystem->resolveDestination($templateFileInfo, $templateVariables, $rectorRecipe, $targetDirectory);
         return \file_exists($destination);

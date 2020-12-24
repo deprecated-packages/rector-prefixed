@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Native;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native;
 
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodPrototypeReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\Php\BuiltinMethodReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class NativeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodPrototypeReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\BuiltinMethodReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class NativeMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -33,7 +33,7 @@ class NativeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflecti
      * @param TrinaryLogic $hasSideEffects
      * @param string|null $stubPhpDocString
      */
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\BuiltinMethodReflection $reflection, array $variants, \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic $hasSideEffects, ?string $stubPhpDocString)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\BuiltinMethodReflection $reflection, array $variants, \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic $hasSideEffects, ?string $stubPhpDocString)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->declaringClass = $declaringClass;
@@ -42,7 +42,7 @@ class NativeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflecti
         $this->hasSideEffects = $hasSideEffects;
         $this->stubPhpDocString = $stubPhpDocString;
     }
-    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
@@ -62,12 +62,12 @@ class NativeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflecti
     {
         return $this->reflection->isAbstract();
     }
-    public function getPrototype() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection
     {
         try {
             $prototypeMethod = $this->reflection->getPrototype();
             $prototypeDeclaringClass = $this->reflectionProvider->getClass($prototypeMethod->getDeclaringClass()->getName());
-            return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodPrototypeReflection($prototypeMethod->getName(), $prototypeDeclaringClass, $prototypeMethod->isStatic(), $prototypeMethod->isPrivate(), $prototypeMethod->isPublic(), $prototypeMethod->isAbstract(), $prototypeMethod->isFinal(), $prototypeDeclaringClass->getNativeMethod($prototypeMethod->getName())->getVariants());
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodPrototypeReflection($prototypeMethod->getName(), $prototypeDeclaringClass, $prototypeMethod->isStatic(), $prototypeMethod->isPrivate(), $prototypeMethod->isPublic(), $prototypeMethod->isAbstract(), $prototypeMethod->isFinal(), $prototypeDeclaringClass->getNativeMethod($prototypeMethod->getName())->getVariants());
         } catch (\ReflectionException $e) {
             return $this;
         }
@@ -87,23 +87,23 @@ class NativeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflecti
     {
         return null;
     }
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
     }
-    public function isFinal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createFromBoolean($this->reflection->isFinal());
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($this->reflection->isFinal());
     }
-    public function getThrowType() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return null;
     }
-    public function hasSideEffects() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->hasSideEffects;
     }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\PostRector\Application;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Application;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\PostRector\Contract\Rector\PostRectorInterface;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Contract\Rector\PostRectorInterface;
 final class PostFileProcessor
 {
     /**
@@ -27,7 +27,7 @@ final class PostFileProcessor
     public function traverse(array $nodes) : array
     {
         foreach ($this->postRectors as $postRector) {
-            $nodeTraverser = new \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser();
+            $nodeTraverser = new \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser();
             $nodeTraverser->addVisitor($postRector);
             $nodes = $nodeTraverser->traverse($nodes);
         }
@@ -42,7 +42,7 @@ final class PostFileProcessor
         $postRectorsByPriority = [];
         foreach ($postRectors as $postRector) {
             if (isset($postRectorsByPriority[$postRector->getPriority()])) {
-                throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
             }
             $postRectorsByPriority[$postRector->getPriority()] = $postRector;
         }

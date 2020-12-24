@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Restoration\NameMatcher;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Restoration\NameMatcher;
 
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode;
 final class PhpDocTypeNodeNameMatcher
 {
     /**
      * @var NameMatcher
      */
     private $nameMatcher;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Restoration\NameMatcher\NameMatcher $nameMatcher)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Restoration\NameMatcher\NameMatcher $nameMatcher)
     {
         $this->nameMatcher = $nameMatcher;
     }
-    public function matchIdentifier(string $name) : ?\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function matchIdentifier(string $name) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $name = \ltrim($name, '\\');
         $fullyQualified = $this->nameMatcher->makeNameFullyQualified($name);
         if ($fullyQualified === null) {
             return null;
         }
-        return new \_PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode($fullyQualified);
+        return new \_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode($fullyQualified);
     }
 }

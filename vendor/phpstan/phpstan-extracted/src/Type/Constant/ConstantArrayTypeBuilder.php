@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type\Constant;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils;
 use function array_filter;
 class ConstantArrayTypeBuilder
 {
@@ -37,18 +37,18 @@ class ConstantArrayTypeBuilder
     {
         return new self([], [], 0, []);
     }
-    public static function createFromConstantArray(\_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantArrayType $startArrayType) : self
+    public static function createFromConstantArray(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType $startArrayType) : self
     {
         return new self($startArrayType->getKeyTypes(), $startArrayType->getValueTypes(), $startArrayType->getNextAutoIndex(), $startArrayType->getOptionalKeys());
     }
-    public function setOffsetValueType(?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $valueType, bool $optional = \false) : void
+    public function setOffsetValueType(?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $offsetType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $valueType, bool $optional = \false) : void
     {
         if ($offsetType === null) {
-            $offsetType = new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType($this->nextAutoIndex);
+            $offsetType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType($this->nextAutoIndex);
         } else {
-            $offsetType = \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType::castToArrayKeyType($offsetType);
+            $offsetType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType::castToArrayKeyType($offsetType);
         }
-        if (!$this->degradeToGeneralArray && ($offsetType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType || $offsetType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType)) {
+        if (!$this->degradeToGeneralArray && ($offsetType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType || $offsetType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType)) {
             /** @var ConstantIntegerType|ConstantStringType $keyType */
             foreach ($this->keyTypes as $i => $keyType) {
                 if ($keyType->getValue() === $offsetType->getValue()) {
@@ -65,13 +65,13 @@ class ConstantArrayTypeBuilder
                 $this->optionalKeys[] = \count($this->keyTypes) - 1;
             }
             /** @var int|float $newNextAutoIndex */
-            $newNextAutoIndex = $offsetType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType ? \max($this->nextAutoIndex, $offsetType->getValue() + 1) : $this->nextAutoIndex;
+            $newNextAutoIndex = $offsetType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType ? \max($this->nextAutoIndex, $offsetType->getValue() + 1) : $this->nextAutoIndex;
             if (!\is_float($newNextAutoIndex)) {
                 $this->nextAutoIndex = $newNextAutoIndex;
             }
             return;
         }
-        $this->keyTypes[] = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::generalizeType($offsetType);
+        $this->keyTypes[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::generalizeType($offsetType);
         $this->valueTypes[] = $valueType;
         $this->degradeToGeneralArray = \true;
     }
@@ -79,13 +79,13 @@ class ConstantArrayTypeBuilder
     {
         $this->degradeToGeneralArray = \true;
     }
-    public function getArray() : \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType
+    public function getArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType
     {
         if (!$this->degradeToGeneralArray) {
             /** @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
             $keyTypes = $this->keyTypes;
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantArrayType($keyTypes, $this->valueTypes, $this->nextAutoIndex, $this->optionalKeys);
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType($keyTypes, $this->valueTypes, $this->nextAutoIndex, $this->optionalKeys);
         }
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType(\_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$this->keyTypes), \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$this->valueTypes));
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$this->keyTypes), \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$this->valueTypes));
     }
 }

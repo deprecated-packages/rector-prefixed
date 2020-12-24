@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class TrivialParametersAcceptor implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class TrivialParametersAcceptor implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
 {
-    public function getTemplateTypeMap() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap
+    public function getTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
-    public function getResolvedTemplateTypeMap() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap
+    public function getResolvedTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
     /**
      * @return array<int, \PHPStan\Reflection\ParameterReflection>
@@ -27,8 +27,8 @@ class TrivialParametersAcceptor implements \_PhpScoperb75b35f52b74\PHPStan\Refle
     {
         return \true;
     }
-    public function getReturnType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getReturnType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
     }
 }

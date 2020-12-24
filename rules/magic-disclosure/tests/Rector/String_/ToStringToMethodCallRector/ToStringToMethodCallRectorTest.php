@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\MagicDisclosure\Tests\Rector\String_\ToStringToMethodCallRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\MagicDisclosure\Tests\Rector\String_\ToStringToMethodCallRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symfony\Component\Config\ConfigCache;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class ToStringToMethodCallRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\ConfigCache;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class ToStringToMethodCallRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class ToStringToMethodCallRectorTest extends \_PhpScoperb75b35f52b74\Recto
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoperb75b35f52b74\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector::class => [\_PhpScoperb75b35f52b74\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector::METHOD_NAMES_BY_TYPE => [\_PhpScoperb75b35f52b74\Symfony\Component\Config\ConfigCache::class => 'getPath']]];
+        return [\_PhpScoper2a4e7ab1ecbc\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector::METHOD_NAMES_BY_TYPE => [\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\ConfigCache::class => 'getPath']]];
     }
 }

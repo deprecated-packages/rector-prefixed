@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
-use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\FunctionLikeReturnTypeResolver;
-use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\NodeAnalyzer\ClassMethodAndPropertyAnalyzer;
-use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
-final class GetterTypeDeclarationPropertyTypeInferer extends \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\FunctionLikeReturnTypeResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\NodeAnalyzer\ClassMethodAndPropertyAnalyzer;
+use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
+final class GetterTypeDeclarationPropertyTypeInferer extends \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
 {
     /**
      * @var FunctionLikeReturnTypeResolver
@@ -23,18 +23,18 @@ final class GetterTypeDeclarationPropertyTypeInferer extends \_PhpScoperb75b35f5
      * @var ClassMethodAndPropertyAnalyzer
      */
     private $classMethodAndPropertyAnalyzer;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\TypeDeclaration\FunctionLikeReturnTypeResolver $functionLikeReturnTypeResolver, \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\NodeAnalyzer\ClassMethodAndPropertyAnalyzer $classMethodAndPropertyAnalyzer)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\FunctionLikeReturnTypeResolver $functionLikeReturnTypeResolver, \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\NodeAnalyzer\ClassMethodAndPropertyAnalyzer $classMethodAndPropertyAnalyzer)
     {
         $this->functionLikeReturnTypeResolver = $functionLikeReturnTypeResolver;
         $this->classMethodAndPropertyAnalyzer = $classMethodAndPropertyAnalyzer;
     }
-    public function inferProperty(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function inferProperty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         /** @var Class_|null $classLike */
-        $classLike = $property->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             // anonymous class
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
         }
         /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
@@ -44,14 +44,14 @@ final class GetterTypeDeclarationPropertyTypeInferer extends \_PhpScoperb75b35f5
             }
             $returnType = $this->functionLikeReturnTypeResolver->resolveFunctionLikeReturnTypeToPHPStanType($classMethod);
             // let PhpDoc solve that later for more precise type
-            if ($returnType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType) {
-                return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+            if ($returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+                return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
             }
-            if (!$returnType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
+            if (!$returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
                 return $returnType;
             }
         }
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
     }
     public function getPriority() : int
     {

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Annotations;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Annotations;
 
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class AnnotationsMethodParameterReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class AnnotationsMethodParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection
 {
     /** @var string */
     private $name;
@@ -20,7 +20,7 @@ class AnnotationsMethodParameterReflection implements \_PhpScoperb75b35f52b74\PH
     private $isVariadic;
     /** @var Type|null */
     private $defaultValue;
-    public function __construct(string $name, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $defaultValue)
+    public function __construct(string $name, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $defaultValue)
     {
         $this->name = $name;
         $this->type = $type;
@@ -37,11 +37,11 @@ class AnnotationsMethodParameterReflection implements \_PhpScoperb75b35f52b74\PH
     {
         return $this->isOptional;
     }
-    public function getType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function passedByReference() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -49,7 +49,7 @@ class AnnotationsMethodParameterReflection implements \_PhpScoperb75b35f52b74\PH
     {
         return $this->isVariadic;
     }
-    public function getDefaultValue() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getDefaultValue() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

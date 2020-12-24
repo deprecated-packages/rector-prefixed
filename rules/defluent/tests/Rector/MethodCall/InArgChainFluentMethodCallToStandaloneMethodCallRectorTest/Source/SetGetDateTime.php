@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Defluent\Tests\Rector\MethodCall\InArgChainFluentMethodCallToStandaloneMethodCallRectorTest\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Tests\Rector\MethodCall\InArgChainFluentMethodCallToStandaloneMethodCallRectorTest\Source;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\DateTime;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\DateTime;
 final class SetGetDateTime
 {
     /**
      * @var DateTime|null
      */
     private $dateMin = null;
-    public function setDateMin(?\_PhpScoperb75b35f52b74\Nette\Utils\DateTime $dateTime = null)
+    public function setDateMin(?\_PhpScoper2a4e7ab1ecbc\Nette\Utils\DateTime $dateTime = null)
     {
         $this->dateMin = $dateTime;
     }
-    public function getDateMin() : ?\_PhpScoperb75b35f52b74\Nette\Utils\DateTime
+    public function getDateMin() : ?\_PhpScoper2a4e7ab1ecbc\Nette\Utils\DateTime
     {
         return $this->dateMin;
     }

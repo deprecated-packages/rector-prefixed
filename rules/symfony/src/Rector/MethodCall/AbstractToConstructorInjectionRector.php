@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Symfony\Rector\MethodCall;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony\Rector\MethodCall;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\Symfony\ServiceMapProvider;
-abstract class AbstractToConstructorInjectionRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\ServiceMapProvider;
+abstract class AbstractToConstructorInjectionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyNaming
@@ -30,39 +30,39 @@ abstract class AbstractToConstructorInjectionRector extends \_PhpScoperb75b35f52
     /**
      * @required
      */
-    public function autowireAbstractToConstructorInjectionRector(\_PhpScoperb75b35f52b74\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoperb75b35f52b74\Rector\Symfony\ServiceMapProvider $applicationServiceMapProvider) : void
+    public function autowireAbstractToConstructorInjectionRector(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ServiceMapProvider $applicationServiceMapProvider) : void
     {
         $this->propertyNaming = $propertyNaming;
         $this->applicationServiceMapProvider = $applicationServiceMapProvider;
     }
-    protected function processMethodCallNode(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    protected function processMethodCallNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         $serviceType = $this->getServiceTypeFromMethodCallArgument($methodCall);
-        if (!$serviceType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
+        if (!$serviceType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
             return null;
         }
         $propertyName = $this->propertyNaming->fqnToVariableName($serviceType);
-        $classLike = $methodCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
-            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+        $classLike = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->addConstructorDependencyToClass($classLike, $serviceType, $propertyName);
         return $this->createPropertyFetch('this', $propertyName);
     }
-    private function getServiceTypeFromMethodCallArgument(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    private function getServiceTypeFromMethodCallArgument(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         if (!isset($methodCall->args[0])) {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
         }
         $argument = $methodCall->args[0]->value;
         $serviceMap = $this->applicationServiceMapProvider->provide();
-        if ($argument instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+        if ($argument instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
             return $serviceMap->getServiceType($argument->value);
         }
-        if ($argument instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch && $argument->class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
+        if ($argument instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch && $argument->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
             $className = $this->getName($argument->class);
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType($className);
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($className);
         }
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
     }
 }

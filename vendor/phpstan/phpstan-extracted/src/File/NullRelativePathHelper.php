@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\File;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\File;
 
-class NullRelativePathHelper implements \_PhpScoperb75b35f52b74\PHPStan\File\RelativePathHelper
+class NullRelativePathHelper implements \_PhpScoper2a4e7ab1ecbc\PHPStan\File\RelativePathHelper
 {
     public function getRelativePath(string $filename) : string
     {

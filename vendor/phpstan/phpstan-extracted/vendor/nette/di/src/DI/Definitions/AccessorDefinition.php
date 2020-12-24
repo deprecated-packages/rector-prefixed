@@ -5,15 +5,15 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
 /**
  * Accessor definition.
  */
-final class AccessorDefinition extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition
+final class AccessorDefinition extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition
 {
     private const METHOD_GET = 'get';
     /** @var Reference|null */
@@ -22,14 +22,14 @@ final class AccessorDefinition extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f
     public function setImplement(string $type)
     {
         if (!\interface_exists($type)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
         }
         $rc = new \ReflectionClass($type);
         $method = $rc->getMethods()[0] ?? null;
         if (!$method || $method->isStatic() || $method->getName() !== self::METHOD_GET || \count($rc->getMethods()) > 1) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method get().");
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method get().");
         } elseif ($method->getNumberOfParameters()) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Method {$type}::get() must have no parameters.");
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Method {$type}::get() must have no parameters.");
         }
         return parent::setType($type);
     }
@@ -43,42 +43,42 @@ final class AccessorDefinition extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f
      */
     public function setReference($reference)
     {
-        if ($reference instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference) {
+        if ($reference instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference) {
             $this->reference = $reference;
         } else {
-            $this->reference = \substr($reference, 0, 1) === '@' ? new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference(\substr($reference, 1)) : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference::fromType($reference);
+            $this->reference = \substr($reference, 0, 1) === '@' ? new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference(\substr($reference, 1)) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference::fromType($reference);
         }
         return $this;
     }
-    public function getReference() : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference
+    public function getReference() : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference
     {
         return $this->reference;
     }
-    public function resolveType(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
+    public function resolveType(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
     {
     }
-    public function complete(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
+    public function complete(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
     {
         if (!$this->reference) {
             $interface = $this->getType();
             $method = new \ReflectionMethod($interface, self::METHOD_GET);
-            $returnType = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::getReturnType($method);
+            $returnType = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::getReturnType($method);
             if (!$returnType) {
-                throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Method {$interface}::get() has not return type hint or annotation @return.");
+                throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Method {$interface}::get() has not return type hint or annotation @return.");
             } elseif (!\class_exists($returnType) && !\interface_exists($returnType)) {
-                throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::get() method, class '{$returnType}' cannot be found.");
+                throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::get() method, class '{$returnType}' cannot be found.");
             }
             $this->setReference($returnType);
         }
         $this->reference = $resolver->normalizeReference($this->reference);
     }
-    public function generateMethod(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method $method, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\PhpGenerator $generator) : void
+    public function generateMethod(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method $method, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\PhpGenerator $generator) : void
     {
-        $class = (new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
+        $class = (new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
         $class->addProperty('container')->setPrivate();
         $class->addMethod('__construct')->addBody('$this->container = $container;')->addParameter('container')->setType($generator->getClassName());
         $rm = new \ReflectionMethod($this->getType(), self::METHOD_GET);
-        $class->addMethod(self::METHOD_GET)->setBody('return $this->container->getService(?);', [$this->reference->getValue()])->setReturnType(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getReturnType($rm));
+        $class->addMethod(self::METHOD_GET)->setBody('return $this->container->getService(?);', [$this->reference->getValue()])->setReturnType(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getReturnType($rm));
         $method->setBody('return new class ($this) ' . $class . ';');
     }
 }

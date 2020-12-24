@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection;
 
 use ReflectionProperty;
-use _PhpScoperb75b35f52b74\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesAccessorTest
  */
@@ -17,7 +17,7 @@ final class PrivatesAccessor
         } else {
             $parentClass = \get_parent_class($object);
             if ($parentClass === \false) {
-                throw new \_PhpScoperb75b35f52b74\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper2a4e7ab1ecbc\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
             }
             $propertyReflection = new \ReflectionProperty($parentClass, $propertyName);
         }

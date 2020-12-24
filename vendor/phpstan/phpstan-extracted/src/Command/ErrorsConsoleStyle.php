@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Command;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Command;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
-class ErrorsConsoleStyle extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\SymfonyStyle
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
+class ErrorsConsoleStyle extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\SymfonyStyle
 {
     public const OPTION_NO_PROGRESS = 'no-progress';
     /** @var bool */
@@ -16,7 +16,7 @@ class ErrorsConsoleStyle extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
     private $progressBar;
     /** @var bool|null */
     private $isCiDetected = null;
-    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output)
     {
         parent::__construct($input, $output);
         $this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool) $input->getOption(self::OPTION_NO_PROGRESS);
@@ -24,7 +24,7 @@ class ErrorsConsoleStyle extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
     private function isCiDetected() : bool
     {
         if ($this->isCiDetected === null) {
-            $ciDetector = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector();
+            $ciDetector = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector();
             $this->isCiDetected = $ciDetector->isCiDetected();
         }
         return $this->isCiDetected;
@@ -36,7 +36,7 @@ class ErrorsConsoleStyle extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
     public function table(array $headers, array $rows) : void
     {
         /** @var int $terminalWidth */
-        $terminalWidth = (new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Terminal())->getWidth() - 2;
+        $terminalWidth = (new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Terminal())->getWidth() - 2;
         $maxHeaderWidth = \strlen($headers[0]);
         foreach ($rows as $row) {
             $length = \strlen($row[0]);
@@ -61,7 +61,7 @@ class ErrorsConsoleStyle extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      * @param int $max
      */
-    public function createProgressBar($max = 0) : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar
+    public function createProgressBar($max = 0) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar
     {
         $this->progressBar = parent::createProgressBar($max);
         $this->progressBar->setOverwrite(!$this->isCiDetected());

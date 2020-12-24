@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\PostRector\Rector\AbstractRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Rector\AbstractRector;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector\RectorChangeCollector;
-use _PhpScoperb75b35f52b74\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoperb75b35f52b74\Rector\NodeRemoval\NodeRemover;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\AliasedObjectType;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoperb75b35f52b74\Rector\PostRector\Collector\NodesToAddCollector;
-use _PhpScoperb75b35f52b74\Rector\PostRector\Collector\NodesToRemoveCollector;
-use _PhpScoperb75b35f52b74\Rector\PostRector\Collector\NodesToReplaceCollector;
-use _PhpScoperb75b35f52b74\Rector\PostRector\Collector\PropertyToAddCollector;
-use _PhpScoperb75b35f52b74\Rector\PostRector\Collector\UseNodesToAddCollector;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Collector\RectorChangeCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeRemoval\NodeRemover;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToAddCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToRemoveCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToReplaceCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\PropertyToAddCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\UseNodesToAddCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -64,7 +64,7 @@ trait NodeCommandersTrait
     /**
      * @required
      */
-    public function autowireNodeCommandersTrait(\_PhpScoperb75b35f52b74\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \_PhpScoperb75b35f52b74\Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector, \_PhpScoperb75b35f52b74\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \_PhpScoperb75b35f52b74\Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \_PhpScoperb75b35f52b74\Rector\PostRector\Collector\NodesToReplaceCollector $nodesToReplaceCollector, \_PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \_PhpScoperb75b35f52b74\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoperb75b35f52b74\Rector\NodeRemoval\NodeRemover $nodeRemover) : void
+    public function autowireNodeCommandersTrait(\_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToReplaceCollector $nodesToReplaceCollector, \_PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper2a4e7ab1ecbc\Rector\NodeRemoval\NodeRemover $nodeRemover) : void
     {
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
         $this->propertyToAddCollector = $propertyToAddCollector;
@@ -75,15 +75,15 @@ trait NodeCommandersTrait
         $this->propertyNaming = $propertyNaming;
         $this->nodeRemover = $nodeRemover;
     }
-    protected function addUseType(\_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType $objectType, \_PhpScoperb75b35f52b74\PhpParser\Node $positionNode) : void
+    protected function addUseType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType $objectType, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $positionNode) : void
     {
-        \assert($objectType instanceof \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType || $objectType instanceof \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\AliasedObjectType);
+        \assert($objectType instanceof \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType || $objectType instanceof \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType);
         $this->useNodesToAddCollector->addUseImport($positionNode, $objectType);
     }
     /**
      * @param Node[] $newNodes
      */
-    protected function addNodesAfterNode(array $newNodes, \_PhpScoperb75b35f52b74\PhpParser\Node $positionNode) : void
+    protected function addNodesAfterNode(array $newNodes, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $positionNode) : void
     {
         $this->nodesToAddCollector->addNodesAfterNode($newNodes, $positionNode);
         $this->rectorChangeCollector->notifyNodeFileInfo($positionNode);
@@ -91,66 +91,66 @@ trait NodeCommandersTrait
     /**
      * @param Node[] $newNodes
      */
-    protected function addNodesBeforeNode(array $newNodes, \_PhpScoperb75b35f52b74\PhpParser\Node $positionNode) : void
+    protected function addNodesBeforeNode(array $newNodes, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $positionNode) : void
     {
         foreach ($newNodes as $newNode) {
             $this->addNodeBeforeNode($newNode, $positionNode);
         }
     }
-    protected function addNodeAfterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $newNode, \_PhpScoperb75b35f52b74\PhpParser\Node $positionNode) : void
+    protected function addNodeAfterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $newNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $positionNode) : void
     {
         $this->nodesToAddCollector->addNodeAfterNode($newNode, $positionNode);
         $this->rectorChangeCollector->notifyNodeFileInfo($positionNode);
     }
-    protected function addNodeBeforeNode(\_PhpScoperb75b35f52b74\PhpParser\Node $newNode, \_PhpScoperb75b35f52b74\PhpParser\Node $positionNode) : void
+    protected function addNodeBeforeNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $newNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $positionNode) : void
     {
         $this->nodesToAddCollector->addNodeBeforeNode($newNode, $positionNode);
         $this->rectorChangeCollector->notifyNodeFileInfo($positionNode);
     }
-    protected function addPropertyToCollector(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : void
+    protected function addPropertyToCollector(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : void
     {
-        $classNode = $property->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
+        $classNode = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
             return;
         }
         $propertyType = $this->getObjectType($property);
         // use first type - hard assumption @todo improve
-        if ($propertyType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
+        if ($propertyType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
             $propertyType = $propertyType->getTypes()[0];
         }
         /** @var string $propertyName */
         $propertyName = $this->getName($property);
         $this->addConstructorDependencyToClass($classNode, $propertyType, $propertyName);
     }
-    protected function addServiceConstructorDependencyToClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, string $className) : void
+    protected function addServiceConstructorDependencyToClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, string $className) : void
     {
-        $serviceObjectType = new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType($className);
+        $serviceObjectType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($className);
         $propertyName = $this->propertyNaming->fqnToVariableName($serviceObjectType);
         $this->addConstructorDependencyToClass($class, $serviceObjectType, $propertyName);
     }
-    protected function addConstructorDependencyToClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $propertyType, string $propertyName) : void
+    protected function addConstructorDependencyToClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $propertyType, string $propertyName) : void
     {
         $this->propertyToAddCollector->addPropertyToClass($propertyName, $propertyType, $class);
         $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
-    protected function addConstantToClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst $classConst) : void
+    protected function addConstantToClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
         $this->propertyToAddCollector->addConstantToClass($class, $classConst);
         $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
-    protected function addPropertyToClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $propertyType, string $propertyName) : void
+    protected function addPropertyToClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $propertyType, string $propertyName) : void
     {
         $this->propertyToAddCollector->addPropertyWithoutConstructorToClass($propertyName, $propertyType, $class);
         $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
-    protected function removeNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : void
+    protected function removeNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
     {
         $this->nodeRemover->removeNode($node);
     }
     /**
      * @param Class_|ClassMethod|Function_ $nodeWithStatements
      */
-    protected function removeNodeFromStatements(\_PhpScoperb75b35f52b74\PhpParser\Node $nodeWithStatements, \_PhpScoperb75b35f52b74\PhpParser\Node $nodeToRemove) : void
+    protected function removeNodeFromStatements(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $nodeWithStatements, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $nodeToRemove) : void
     {
         foreach ((array) $nodeWithStatements->stmts as $key => $stmt) {
             if ($nodeToRemove !== $stmt) {
@@ -160,7 +160,7 @@ trait NodeCommandersTrait
             break;
         }
     }
-    protected function isNodeRemoved(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    protected function isNodeRemoved(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         return $this->nodesToRemoveCollector->isNodeRemoved($node);
     }
@@ -173,7 +173,7 @@ trait NodeCommandersTrait
             $this->removeNode($node);
         }
     }
-    protected function notifyNodeFileInfo(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : void
+    protected function notifyNodeFileInfo(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
     {
         $this->rectorChangeCollector->notifyNodeFileInfo($node);
     }

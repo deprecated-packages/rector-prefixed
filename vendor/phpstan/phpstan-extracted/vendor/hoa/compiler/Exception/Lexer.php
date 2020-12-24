@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Exception;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception;
 
 /**
  * Class \Hoa\Compiler\Exception\Lexer.
@@ -43,6 +43,6 @@ namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Lexer extends \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\Exception
+class Lexer extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\Exception
 {
 }

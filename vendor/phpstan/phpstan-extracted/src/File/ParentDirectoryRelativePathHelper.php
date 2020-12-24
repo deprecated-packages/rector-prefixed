@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\File;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\File;
 
 use function array_slice;
 use function str_replace;
-class ParentDirectoryRelativePathHelper implements \_PhpScoperb75b35f52b74\PHPStan\File\RelativePathHelper
+class ParentDirectoryRelativePathHelper implements \_PhpScoper2a4e7ab1ecbc\PHPStan\File\RelativePathHelper
 {
     /** @var string */
     private $parentDirectory;

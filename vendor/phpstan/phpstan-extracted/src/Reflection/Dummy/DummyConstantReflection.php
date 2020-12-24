@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Dummy;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Dummy;
 
-use _PhpScoperb75b35f52b74\PHPStan\Broker\Broker;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection;
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class DummyConstantReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ConstantReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class DummyConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ConstantReflection
 {
     /** @var string */
     private $name;
@@ -17,9 +17,9 @@ class DummyConstantReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
     {
         $this->name = $name;
     }
-    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
     {
-        $broker = \_PhpScoperb75b35f52b74\PHPStan\Broker\Broker::getInstance();
+        $broker = \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::getInstance();
         return $broker->getClass(\stdClass::class);
     }
     public function getFileName() : ?string
@@ -50,21 +50,21 @@ class DummyConstantReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflect
         // so that Scope::getTypeFromValue() returns mixed
         return new \stdClass();
     }
-    public function getValueType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getValueType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
     }
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

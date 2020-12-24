@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\NorwegianBokmal;
+namespace _PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\NorwegianBokmal;
 
-use _PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Pattern;
+use _PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -25,8 +25,8 @@ final class Uninflected
      */
     private static function getDefault() : iterable
     {
-        (yield new \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Pattern('barn'));
-        (yield new \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Pattern('fjell'));
-        (yield new \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Pattern('hus'));
+        (yield new \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Pattern('barn'));
+        (yield new \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Pattern('fjell'));
+        (yield new \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Pattern('hus'));
     }
 }

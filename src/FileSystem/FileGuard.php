@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\FileSystem;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\FileSystem;
 
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\FileSystem\FileNotFoundException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\FileSystem\FileNotFoundException;
 final class FileGuard
 {
     public function ensureFileExists(string $file, string $location) : void
@@ -11,6 +11,6 @@ final class FileGuard
         if (\is_file($file) && \file_exists($file)) {
             return;
         }
-        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\FileSystem\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
+        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\FileSystem\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
     }
 }

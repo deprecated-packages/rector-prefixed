@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DeadCode\Rector\FunctionLike;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\FunctionLike;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_;
-use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/rectorphp/rector/issues/2945
  *
  * @see \Rector\DeadCode\Tests\Rector\FunctionLike\RemoveDuplicatedIfReturnRector\RemoveDuplicatedIfReturnRectorTest
  */
-final class RemoveDuplicatedIfReturnRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class RemoveDuplicatedIfReturnRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var IfManipulator
@@ -29,14 +29,14 @@ final class RemoveDuplicatedIfReturnRector extends \_PhpScoperb75b35f52b74\Recto
      * @var ModifiedVariableNamesCollector
      */
     private $modifiedVariableNamesCollector;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \_PhpScoperb75b35f52b74\Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector $modifiedVariableNamesCollector)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector $modifiedVariableNamesCollector)
     {
         $this->ifManipulator = $ifManipulator;
         $this->modifiedVariableNamesCollector = $modifiedVariableNamesCollector;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated if stmt with return in function/method body', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated if stmt with return in function/method body', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -73,12 +73,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike::class];
     }
     /**
      * @param FunctionLike $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         $ifWithOnlyReturnsByHash = $this->collectDuplicatedIfWithOnlyReturnByHash($node);
         if ($ifWithOnlyReturnsByHash === []) {
@@ -96,7 +96,7 @@ CODE_SAMPLE
     /**
      * @return If_[][]
      */
-    private function collectDuplicatedIfWithOnlyReturnByHash(\_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike) : array
+    private function collectDuplicatedIfWithOnlyReturnByHash(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $ifWithOnlyReturnsByHash = [];
         $modifiedVariableNames = [];
@@ -118,21 +118,21 @@ CODE_SAMPLE
     /**
      * @param string[] $modifiedVariableNames
      */
-    private function containsVariableNames(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt $stmt, array $modifiedVariableNames) : bool
+    private function containsVariableNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt $stmt, array $modifiedVariableNames) : bool
     {
         if ($modifiedVariableNames === []) {
             return \false;
         }
         $containsVariableNames = \false;
-        $this->traverseNodesWithCallable($stmt, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($modifiedVariableNames, &$containsVariableNames) : ?int {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        $this->traverseNodesWithCallable($stmt, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($modifiedVariableNames, &$containsVariableNames) : ?int {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
                 return null;
             }
             if (!$this->isNames($node, $modifiedVariableNames)) {
                 return null;
             }
             $containsVariableNames = \true;
-            return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::STOP_TRAVERSAL;
+            return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
         return $containsVariableNames;
     }

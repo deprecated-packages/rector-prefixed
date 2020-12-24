@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CakePHP\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CakePHP\ValueObject;
 
 final class FactoryMethod
 {

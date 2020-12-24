@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\PhpDoc;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\PhpDoc;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\GenericObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\IntegerType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class CollectionTypeFactory
 {
-    public function createType(\_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType
+    public function createType(\_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType
     {
         $genericType = $this->createGenericObjectType($fullyQualifiedObjectType);
-        $arrayType = new \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType(new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(), $fullyQualifiedObjectType);
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType([$genericType, $arrayType]);
+        $arrayType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), $fullyQualifiedObjectType);
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType([$genericType, $arrayType]);
     }
-    private function createGenericObjectType(\_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    private function createGenericObjectType(\_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        $genericTypes = [new \_PhpScoperb75b35f52b74\PHPStan\Type\IntegerType(), $fullyQualifiedObjectType];
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\GenericObjectType('_PhpScoperb75b35f52b74\\Doctrine\\Common\\Collections\\Collection', $genericTypes);
+        $genericTypes = [new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(), $fullyQualifiedObjectType];
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType('_PhpScoper2a4e7ab1ecbc\\Doctrine\\Common\\Collections\\Collection', $genericTypes);
     }
 }

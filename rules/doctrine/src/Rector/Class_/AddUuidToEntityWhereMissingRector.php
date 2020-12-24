@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Doctrine\Rector\Class_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\Doctrine\Collector\UuidMigrationDataCollector;
-use _PhpScoperb75b35f52b74\Rector\Doctrine\NodeFactory\EntityUuidNodeFactory;
-use _PhpScoperb75b35f52b74\Rector\Doctrine\Provider\EntityWithMissingUuidProvider;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Collector\UuidMigrationDataCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\NodeFactory\EntityUuidNodeFactory;
+use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Provider\EntityWithMissingUuidProvider;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
@@ -18,7 +18,7 @@ use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * default value is initialized in @see AlwaysInitializeUuidInEntityRector
  */
-final class AddUuidToEntityWhereMissingRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class AddUuidToEntityWhereMissingRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var EntityUuidNodeFactory
@@ -32,15 +32,15 @@ final class AddUuidToEntityWhereMissingRector extends \_PhpScoperb75b35f52b74\Re
      * @var EntityWithMissingUuidProvider
      */
     private $entityWithMissingUuidProvider;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Doctrine\NodeFactory\EntityUuidNodeFactory $entityUuidNodeFactory, \_PhpScoperb75b35f52b74\Rector\Doctrine\Provider\EntityWithMissingUuidProvider $entityWithMissingUuidProvider, \_PhpScoperb75b35f52b74\Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\NodeFactory\EntityUuidNodeFactory $entityUuidNodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Provider\EntityWithMissingUuidProvider $entityWithMissingUuidProvider, \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector)
     {
         $this->entityUuidNodeFactory = $entityUuidNodeFactory;
         $this->uuidMigrationDataCollector = $uuidMigrationDataCollector;
         $this->entityWithMissingUuidProvider = $entityWithMissingUuidProvider;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds $uuid property to entities, that already have $id with integer type.' . 'Require for step-by-step migration from int to uuid. ' . 'In following step it should be renamed to $id and replace it', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds $uuid property to entities, that already have $id with integer type.' . 'Require for step-by-step migration from int to uuid. ' . 'In following step it should be renamed to $id and replace it', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -86,12 +86,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         $entitiesWithMissingUuidProperty = $this->entityWithMissingUuidProvider->provide();
         if (!\in_array($node, $entitiesWithMissingUuidProperty, \true)) {

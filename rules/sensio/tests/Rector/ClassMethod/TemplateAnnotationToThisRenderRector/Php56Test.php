@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersion;
-use _PhpScoperb75b35f52b74\Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class Php56Test extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion;
+use _PhpScoper2a4e7ab1ecbc\Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class Php56Test extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,10 +23,10 @@ final class Php56Test extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\Abs
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Sensio\Rector\ClassMethod\TemplateAnnotationToThisRenderRector::class;
     }
     protected function getPhpVersion() : int
     {
-        return \_PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersion::PHP_56;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion::PHP_56;
     }
 }

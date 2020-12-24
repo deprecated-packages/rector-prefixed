@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type\Traits;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
 trait UndecidedBooleanTypeTrait
 {
-    public function toBoolean() : \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType
+    public function toBoolean() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType();
     }
 }

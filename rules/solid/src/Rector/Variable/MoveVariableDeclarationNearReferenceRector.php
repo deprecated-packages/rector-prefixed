@@ -1,47 +1,47 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\SOLID\Rector\Variable;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\SOLID\Rector\Variable;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Do_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Else_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ElseIf_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\For_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Switch_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\TryCatch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\While_;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Do_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Else_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ElseIf_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\For_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TryCatch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\While_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\SOLID\Tests\Rector\Variable\MoveVariableDeclarationNearReferenceRector\MoveVariableDeclarationNearReferenceRectorTest
  */
-final class MoveVariableDeclarationNearReferenceRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class MoveVariableDeclarationNearReferenceRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ScopeAwareNodeFinder
      */
     private $scopeAwareNodeFinder;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
     {
         $this->scopeAwareNodeFinder = $scopeAwareNodeFinder;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move variable declaration near its reference', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move variable declaration near its reference', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $var = 1;
 if ($condition === null) {
     return $var;
@@ -60,40 +60,39 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable::class];
     }
     /**
      * @param Variable $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
-        $parent = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!($parent instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign && $parent->var === $node)) {
+        $parent = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign && $parent->var === $node)) {
             return null;
         }
-        $expression = $parent->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$expression instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+        $expression = $parent->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$expression instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        $parentExpression = $expression->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($this->isUsedAsArrayKey($parentExpression, $node)) {
-            return null;
-        }
-        if ($this->isInsideCondition($expression)) {
+        if ($this->isUsedAsArraykeyOrInsideIfCondition($expression, $node)) {
             return null;
         }
         if ($this->hasPropertyInExpr($expression, $parent->expr)) {
             return null;
         }
-        if ($this->hasReAssign($expression, $parent->var) || $this->hasReAssign($expression, $parent->expr)) {
+        if ($this->hasReAssign($expression, $parent->var)) {
+            return null;
+        }
+        if ($this->hasReAssign($expression, $parent->expr)) {
             return null;
         }
         $variable = $this->getUsageInNextStmts($expression, $node);
-        if (!$variable instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$variable instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return null;
         }
         /** @var Node $usageStmt */
-        $usageStmt = $variable->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        $usageStmt = $variable->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         if ($this->isInsideLoopStmts($usageStmt)) {
             return null;
         }
@@ -101,52 +100,35 @@ CODE_SAMPLE
         $this->removeNode($expression);
         return $node;
     }
-    private function isUsedAsArrayKey(?\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable) : bool
+    private function isUsedAsArraykeyOrInsideIfCondition(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression $expression, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node) {
-            return \false;
+        $parentExpression = $expression->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($this->isUsedAsArrayKey($parentExpression, $variable)) {
+            return \true;
         }
-        $arrayDimFetches = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch::class);
-        foreach ($arrayDimFetches as $arrayDimFetch) {
-            /** @var Node|null $dim */
-            $dim = $arrayDimFetch->dim;
-            if (!$dim instanceof \_PhpScoperb75b35f52b74\PhpParser\Node) {
-                continue;
-            }
-            $isFoundInKey = (bool) $this->betterNodeFinder->findFirst($dim, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($variable) : bool {
-                return $this->areNodesEqual($node, $variable);
-            });
-            if ($isFoundInKey) {
-                return \true;
-            }
-        }
-        return \false;
+        return $this->isInsideCondition($expression);
     }
-    private function isInsideCondition(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression $expression) : bool
+    private function hasPropertyInExpr(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression $expression, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
     {
-        return (bool) $this->scopeAwareNodeFinder->findParentType($expression, [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Else_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ElseIf_::class]);
-    }
-    private function hasPropertyInExpr(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression $expression, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : bool
-    {
-        return (bool) $this->betterNodeFinder->findFirst($expr, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
-            return $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch || $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticPropertyFetch;
+        return (bool) $this->betterNodeFinder->findFirst($expr, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool {
+            return $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch;
         });
     }
-    private function hasReAssign(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression $expression, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : bool
+    private function hasReAssign(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression $expression, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
     {
-        $next = $expression->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        $exprValues = $this->betterNodeFinder->find($expr, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
-            return $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+        $next = $expression->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $exprValues = $this->betterNodeFinder->find($expr, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool {
+            return $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
         });
         if ($exprValues === []) {
             return \false;
         }
         while ($next) {
             foreach ($exprValues as $value) {
-                $isReAssign = (bool) $this->betterNodeFinder->findFirst($next, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
-                    $parent = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+                $isReAssign = (bool) $this->betterNodeFinder->findFirst($next, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool {
+                    $parent = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
                     $node = $this->mayBeArrayDimFetch($node);
-                    if (!$parent instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+                    if (!$parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
                         return \false;
                     }
                     return (string) $this->getName($node) === (string) $this->getName($parent->var);
@@ -156,50 +138,78 @@ CODE_SAMPLE
                 }
                 return \true;
             }
-            $next = $next->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+            $next = $next->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         }
         return \false;
     }
-    private function getUsageInNextStmts(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression $expression, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable
+    private function getUsageInNextStmts(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression $expression, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable
     {
         /** @var Node|null $next */
-        $next = $expression->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if (!$next instanceof \_PhpScoperb75b35f52b74\PhpParser\Node) {
+        $next = $expression->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        if (!$next instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node) {
             return null;
         }
         if ($this->hasStaticCall($next)) {
             return null;
         }
         $countFound = $this->getCountFound($next, $variable);
-        if ($countFound === 0 || $countFound >= 2) {
+        if ($countFound === 0) {
+            return null;
+        }
+        if ($countFound >= 2) {
             return null;
         }
         $nextVariable = $this->getSameVarName([$next], $variable);
-        if ($nextVariable instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if ($nextVariable instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return $nextVariable;
         }
         return $this->getSameVarNameInNexts($next, $variable);
     }
-    private function isInsideLoopStmts(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    private function isInsideLoopStmts(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
-        $loopNode = $this->betterNodeFinder->findFirstParentInstanceOf($node, [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\For_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\While_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Do_::class]);
+        $loopNode = $this->betterNodeFinder->findFirstParentInstanceOf($node, [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\For_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\While_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Do_::class]);
         return (bool) $loopNode;
     }
-    private function mayBeArrayDimFetch(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\PhpParser\Node
+    private function isUsedAsArrayKey(?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        $parent = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node) {
+            return \false;
+        }
+        $arrayDimFetches = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch::class);
+        foreach ($arrayDimFetches as $arrayDimFetch) {
+            /** @var Node|null $dim */
+            $dim = $arrayDimFetch->dim;
+            if (!$dim instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node) {
+                continue;
+            }
+            $isFoundInKey = (bool) $this->betterNodeFinder->findFirst($dim, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($variable) : bool {
+                return $this->areNodesEqual($node, $variable);
+            });
+            if ($isFoundInKey) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    private function isInsideCondition(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression $expression) : bool
+    {
+        return (bool) $this->scopeAwareNodeFinder->findParentType($expression, [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Else_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ElseIf_::class]);
+    }
+    private function mayBeArrayDimFetch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    {
+        $parent = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
             $node = $parent->var;
         }
         return $node;
     }
-    private function hasStaticCall(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    private function hasStaticCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst($node, function (\_PhpScoperb75b35f52b74\PhpParser\Node $n) : bool {
-            return $n instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
+        return (bool) $this->betterNodeFinder->findFirst($node, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $n) : bool {
+            return $n instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
         });
     }
-    private function getCountFound(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable) : int
+    private function getCountFound(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : int
     {
         $countFound = 0;
         while ($node) {
@@ -211,23 +221,23 @@ CODE_SAMPLE
             $countFound = $this->countWithTryCatch($node, $variable, $countFound);
             $countFound = $this->countWithSwitchCase($node, $variable, $countFound);
             /** @var Node|null $node */
-            $node = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+            $node = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         }
         return $countFound;
     }
     /**
      * @param array<int, Node|null> $multiNodes
      */
-    private function getSameVarName(array $multiNodes, \_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable
+    private function getSameVarName(array $multiNodes, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable
     {
         foreach ($multiNodes as $multiNode) {
             if ($multiNode === null) {
                 continue;
             }
             /** @var Variable|null $found */
-            $found = $this->betterNodeFinder->findFirst($multiNode, function (\_PhpScoperb75b35f52b74\PhpParser\Node $n) use($node) : bool {
+            $found = $this->betterNodeFinder->findFirst($multiNode, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $n) use($node) : bool {
                 $n = $this->mayBeArrayDimFetch($n);
-                if (!$n instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+                if (!$n instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
                     return \false;
                 }
                 return $this->isName($n, (string) $this->getName($node));
@@ -238,21 +248,21 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function getSameVarNameInNexts(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable
+    private function getSameVarNameInNexts(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable
     {
         while ($node) {
             $found = $this->getSameVarName([$node], $variable);
-            if ($found instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+            if ($found instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
                 return $found;
             }
             /** @var Node|null $node */
-            $node = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+            $node = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         }
         return null;
     }
-    private function countWithElseIf(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable, int $countFound) : int
+    private function countWithElseIf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable, int $countFound) : int
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_) {
             return $countFound;
         }
         $isFoundElseIf = (bool) $this->getSameVarName($node->elseifs, $variable);
@@ -262,9 +272,9 @@ CODE_SAMPLE
         }
         return $countFound;
     }
-    private function countWithTryCatch(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable, int $countFound) : int
+    private function countWithTryCatch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable, int $countFound) : int
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\TryCatch) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TryCatch) {
             return $countFound;
         }
         $isFoundInCatch = (bool) $this->getSameVarName($node->catches, $variable);
@@ -274,9 +284,9 @@ CODE_SAMPLE
         }
         return $countFound;
     }
-    private function countWithSwitchCase(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable, int $countFound) : int
+    private function countWithSwitchCase(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable, int $countFound) : int
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Switch_) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_) {
             return $countFound;
         }
         $isFoundInCases = (bool) $this->getSameVarName($node->cases, $variable);

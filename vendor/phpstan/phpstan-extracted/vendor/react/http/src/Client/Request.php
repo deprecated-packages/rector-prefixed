@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Client;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Client;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7 as gPsr;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7 as gPsr;
 /**
  * @event response
  * @event drain
@@ -15,7 +15,7 @@ use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7 as gPsr;
  * @event end
  * @internal
  */
-class Request extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
+class Request extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
 {
     const STATE_INIT = 0;
     const STATE_WRITING_HEAD = 1;
@@ -29,7 +29,7 @@ class Request extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\E
     private $state = self::STATE_INIT;
     private $ended = \false;
     private $pendingWrites = '';
-    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface $connector, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Client\RequestData $requestData)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface $connector, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Client\RequestData $requestData)
     {
         $this->connector = $connector;
         $this->requestData = $requestData;
@@ -47,7 +47,7 @@ class Request extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\E
         $pendingWrites =& $this->pendingWrites;
         $that = $this;
         $promise = $this->connect();
-        $promise->then(function (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $stream) use($requestData, &$streamRef, &$stateRef, &$pendingWrites, $that) {
+        $promise->then(function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $stream) use($requestData, &$streamRef, &$stateRef, &$pendingWrites, $that) {
             $streamRef = $stream;
             $stream->on('drain', array($that, 'handleDrain'));
             $stream->on('data', array($that, 'handleData'));
@@ -56,7 +56,7 @@ class Request extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\E
             $stream->on('close', array($that, 'handleClose'));
             $headers = (string) $requestData;
             $more = $stream->write($headers . $pendingWrites);
-            $stateRef = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Client\Request::STATE_HEAD_WRITTEN;
+            $stateRef = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Client\Request::STATE_HEAD_WRITTEN;
             // clear pending writes if non-empty
             if ($pendingWrites !== '') {
                 $pendingWrites = '';
@@ -111,7 +111,7 @@ class Request extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\E
         // buffer until double CRLF (or double LF for compatibility with legacy servers)
         if (\false !== \strpos($this->buffer, "\r\n\r\n") || \false !== \strpos($this->buffer, "\n\n")) {
             try {
-                $response = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\parse_response($this->buffer);
+                $response = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\parse_response($this->buffer);
                 $bodyChunk = (string) $response->getBody();
             } catch (\InvalidArgumentException $exception) {
                 $this->emit('error', array($exception));
@@ -171,7 +171,7 @@ class Request extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\E
     {
         $scheme = $this->requestData->getScheme();
         if ($scheme !== 'https' && $scheme !== 'http') {
-            return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\reject(new \InvalidArgumentException('Invalid request URL given'));
+            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\reject(new \InvalidArgumentException('Invalid request URL given'));
         }
         $host = $this->requestData->getHost();
         $port = $this->requestData->getPort();

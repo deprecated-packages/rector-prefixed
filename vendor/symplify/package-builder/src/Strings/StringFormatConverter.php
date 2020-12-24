@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Strings;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Strings;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
 /**
  * @see \Symplify\PackageBuilder\Tests\Strings\StringFormatConverterTest
  */
@@ -21,11 +21,11 @@ final class StringFormatConverter
     }
     public function camelCaseToUnderscore(string $input) : string
     {
-        return self::camelCaseToGlue($input, '_');
+        return $this->camelCaseToGlue($input, '_');
     }
     public function camelCaseToDashed(string $input) : string
     {
-        return self::camelCaseToGlue($input, '-');
+        return $this->camelCaseToGlue($input, '-');
     }
     /**
      * @param mixed[] $items
@@ -48,7 +48,7 @@ final class StringFormatConverter
     }
     private function camelCaseToGlue(string $input, string $glue) : string
     {
-        $matches = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::matchAll($input, self::BIG_LETTER_REGEX);
+        $matches = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::matchAll($input, self::BIG_LETTER_REGEX);
         $parts = [];
         foreach ($matches as $match) {
             $parts[] = $match[0] === \strtoupper($match[0]) ? \strtolower($match[0]) : \lcfirst($match[0]);

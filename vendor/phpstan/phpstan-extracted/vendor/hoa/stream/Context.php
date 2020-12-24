@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Stream;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
 
 /**
  * Class \Hoa\Stream\Context.
@@ -77,7 +77,7 @@ class Context
     public static function getInstance($id)
     {
         if (empty($id)) {
-            throw new \_PhpScoperb75b35f52b74\Hoa\Stream\Exception('Context ID must not be null.', 0);
+            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Exception('Context ID must not be null.', 0);
         }
         if (\false === static::contextExists($id)) {
             static::$_instances[$id] = new static($id);

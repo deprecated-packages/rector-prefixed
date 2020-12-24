@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Operators;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Operators;
 
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ErrorType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class InvalidIncDecOperationRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class InvalidIncDecOperationRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkThisOnly;
@@ -19,26 +19,26 @@ class InvalidIncDecOperationRule implements \_PhpScoperb75b35f52b74\PHPStan\Rule
     }
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PhpParser\Node\Expr::class;
+        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PreInc && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PostInc && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PreDec && !$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PostDec) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PreInc && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PostInc && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PreDec && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PostDec) {
             return [];
         }
-        $operatorString = $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PreInc || $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PostInc ? '++' : '--';
-        if (!$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable && !$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch && !$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticPropertyFetch) {
-            return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot use %s on a non-variable.', $operatorString))->line($node->var->getLine())->build()];
+        $operatorString = $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PreInc || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PostInc ? '++' : '--';
+        if (!$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && !$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch && !$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch) {
+            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot use %s on a non-variable.', $operatorString))->line($node->var->getLine())->build()];
         }
         if (!$this->checkThisOnly) {
             $varType = $scope->getType($node->var);
-            if (!$varType->toString() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType) {
+            if (!$varType->toString() instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType) {
                 return [];
             }
-            if (!$varType->toNumber() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType) {
+            if (!$varType->toNumber() instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType) {
                 return [];
             }
-            return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot use %s on %s.', $operatorString, $varType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::value())))->line($node->var->getLine())->build()];
+            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot use %s on %s.', $operatorString, $varType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::value())))->line($node->var->getLine())->build()];
         }
         return [];
     }

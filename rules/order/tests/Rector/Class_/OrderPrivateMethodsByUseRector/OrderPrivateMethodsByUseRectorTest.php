@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Order\Tests\Rector\Class_\OrderPrivateMethodsByUseRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Order\Tests\Rector\Class_\OrderPrivateMethodsByUseRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Order\Rector\Class_\OrderPrivateMethodsByUseRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class OrderPrivateMethodsByUseRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Order\Rector\Class_\OrderPrivateMethodsByUseRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class OrderPrivateMethodsByUseRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class OrderPrivateMethodsByUseRectorTest extends \_PhpScoperb75b35f52b74\R
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Order\Rector\Class_\OrderPrivateMethodsByUseRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Order\Rector\Class_\OrderPrivateMethodsByUseRector::class;
     }
 }

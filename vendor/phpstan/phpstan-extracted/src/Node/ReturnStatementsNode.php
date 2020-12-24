@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Node;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
 
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\StatementResult;
-interface ReturnStatementsNode extends \_PhpScoperb75b35f52b74\PHPStan\Node\VirtualNode
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\StatementResult;
+interface ReturnStatementsNode extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode
 {
     /**
      * @return \PHPStan\Node\ReturnStatement[]
      */
     public function getReturnStatements() : array;
-    public function getStatementResult() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\StatementResult;
+    public function getStatementResult() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\StatementResult;
     public function returnsByRef() : bool;
 }

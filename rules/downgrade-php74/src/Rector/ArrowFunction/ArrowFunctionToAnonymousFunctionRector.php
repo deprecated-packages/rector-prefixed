@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp74\Rector\ArrowFunction;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\ArrowFunction;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrowFunction;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\PhpParser\Node\NullableType;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
-use _PhpScoperb75b35f52b74\Rector\Php72\Rector\FuncCall\AbstractConvertToAnonymousFunctionRector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrowFunction;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\FuncCall\AbstractConvertToAnonymousFunctionRector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.php.net/manual/en/functions.arrow.php
  *
  * @see \Rector\DowngradePhp74\Tests\Rector\ArrowFunction\ArrowFunctionToAnonymousFunctionRector\ArrowFunctionToAnonymousFunctionRectorTest
  */
-final class ArrowFunctionToAnonymousFunctionRector extends \_PhpScoperb75b35f52b74\Rector\Php72\Rector\FuncCall\AbstractConvertToAnonymousFunctionRector
+final class ArrowFunctionToAnonymousFunctionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\FuncCall\AbstractConvertToAnonymousFunctionRector
 {
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace arrow functions with anonymous functions', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace arrow functions with anonymous functions', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -52,12 +52,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrowFunction::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrowFunction::class];
     }
     /**
      * @param ArrowFunction $node
      */
-    public function shouldSkip(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    public function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         return \false;
     }
@@ -65,7 +65,7 @@ CODE_SAMPLE
      * @param ArrowFunction $node
      * @return Param[]
      */
-    public function getParameters(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : array
+    public function getParameters(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
     {
         return $node->params;
     }
@@ -73,7 +73,7 @@ CODE_SAMPLE
      * @param ArrowFunction $node
      * @return Identifier|Name|NullableType|UnionType|null
      */
-    public function getReturnType(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function getReturnType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         return $node->returnType;
     }
@@ -81,8 +81,8 @@ CODE_SAMPLE
      * @param ArrowFunction $node
      * @return Return_[]
      */
-    public function getBody(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : array
+    public function getBody(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
     {
-        return [new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_($node->expr)];
+        return [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($node->expr)];
     }
 }

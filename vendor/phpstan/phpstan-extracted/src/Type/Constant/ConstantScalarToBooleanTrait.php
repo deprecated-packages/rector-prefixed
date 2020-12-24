@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type\Constant;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
 trait ConstantScalarToBooleanTrait
 {
-    public function toBoolean() : \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType
+    public function toBoolean() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType((bool) $this->value);
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType((bool) $this->value);
     }
 }

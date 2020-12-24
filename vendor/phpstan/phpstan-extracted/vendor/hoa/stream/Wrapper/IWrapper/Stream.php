@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Stream\Wrapper\IWrapper;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Stream\Wrapper\IWrapper;
 
 /**
  * Interface \Hoa\Stream\Wrapper\IWrapper\Stream.

@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type\Accessory;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory;
 
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\CompoundType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\CompoundTypeHelper;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ErrorType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\FloatType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\IntegerType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\StringType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonCallableTypeTrait;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonGenericTypeTrait;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonIterableTypeTrait;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonObjectTypeTrait;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-class AccessoryNumericStringType implements \_PhpScoperb75b35f52b74\PHPStan\Type\CompoundType, \_PhpScoperb75b35f52b74\PHPStan\Type\Accessory\AccessoryType
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundTypeHelper;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonCallableTypeTrait;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonGenericTypeTrait;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonIterableTypeTrait;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonObjectTypeTrait;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+class AccessoryNumericStringType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\AccessoryType
 {
     use NonCallableTypeTrait;
     use NonObjectTypeTrait;
@@ -33,91 +33,91 @@ class AccessoryNumericStringType implements \_PhpScoperb75b35f52b74\PHPStan\Type
     {
         return [];
     }
-    public function accepts(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function accepts(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\CompoundType) {
-            return \_PhpScoperb75b35f52b74\PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType) {
+            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
         return $type->isNumericString();
     }
-    public function isSuperTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         if ($this->equals($type)) {
-            return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
+            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
         }
         return $type->isNumericString();
     }
-    public function isSubTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $otherType) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $otherType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        if ($otherType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType || $otherType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType) {
+        if ($otherType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType || $otherType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType) {
             return $otherType->isSuperTypeOf($this);
         }
-        return $otherType->isNumericString()->and($otherType instanceof self ? \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe());
+        return $otherType->isNumericString()->and($otherType instanceof self ? \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe());
     }
-    public function isAcceptedBy(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
-    public function equals(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool
+    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
     {
         return $type instanceof self;
     }
-    public function describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel $level) : string
     {
         return 'numeric';
     }
-    public function isOffsetAccessible() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasOffsetValueType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $offsetType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return (new \_PhpScoperb75b35f52b74\PHPStan\Type\IntegerType())->isSuperTypeOf($offsetType)->and(\_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe());
+        return (new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType())->isSuperTypeOf($offsetType)->and(\_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe());
     }
-    public function getOffsetValueType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getOffsetValueType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $offsetType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         if ($this->hasOffsetValueType($offsetType)->no()) {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType();
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
         }
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\StringType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType();
     }
-    public function setOffsetValueType(?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $valueType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function setOffsetValueType(?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $offsetType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $valueType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this;
     }
-    public function isArray() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
     }
-    public function toNumber() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function toNumber() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType([$this->toInteger(), $this->toFloat()]);
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType([$this->toInteger(), $this->toFloat()]);
     }
-    public function toInteger() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function toInteger() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\IntegerType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType();
     }
-    public function toFloat() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function toFloat() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\FloatType();
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType();
     }
-    public function toString() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
-    {
-        return $this;
-    }
-    public function toArray() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
-    {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantArrayType([new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType(0)], [$this], 1);
-    }
-    public function isNumericString() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
-    {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
-    }
-    public function traverse(callable $cb) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function toString() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this;
     }
-    public static function __set_state(array $properties) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function toArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    {
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType(0)], [$this], 1);
+    }
+    public function isNumericString() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    {
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+    }
+    public function traverse(callable $cb) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    {
+        return $this;
+    }
+    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return new self();
     }

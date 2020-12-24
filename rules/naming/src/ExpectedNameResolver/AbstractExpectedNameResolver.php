@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\ExpectedNameResolver;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
-use _PhpScoperb75b35f52b74\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
-abstract class AbstractExpectedNameResolver implements \_PhpScoperb75b35f52b74\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
+abstract class AbstractExpectedNameResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface
 {
     /**
      * @var NodeTypeResolver
@@ -20,7 +20,7 @@ abstract class AbstractExpectedNameResolver implements \_PhpScoperb75b35f52b74\R
      * @var NodeNameResolver
      */
     protected $nodeNameResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -28,7 +28,7 @@ abstract class AbstractExpectedNameResolver implements \_PhpScoperb75b35f52b74\R
     /**
      * @param Param|Property $node
      */
-    public function resolveIfNotYet(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string
+    public function resolveIfNotYet(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
     {
         $expectedName = $this->resolve($node);
         if ($expectedName === null) {
@@ -51,6 +51,6 @@ abstract class AbstractExpectedNameResolver implements \_PhpScoperb75b35f52b74\R
     protected function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
+        return (bool) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
 }

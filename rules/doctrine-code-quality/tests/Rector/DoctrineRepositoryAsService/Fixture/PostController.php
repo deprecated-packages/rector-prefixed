@@ -1,41 +1,41 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\Fixture;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\Fixture;
 
-use _PhpScoperb75b35f52b74\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post;
-use _PhpScoperb75b35f52b74\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController;
-use _PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Response;
-final class PostController extends \_PhpScoperb75b35f52b74\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response;
+final class PostController extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController
 {
-    public function anythingAction(int $id) : \_PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Response
+    public function anythingAction(int $id) : \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response
     {
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository(\_PhpScoperb75b35f52b74\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post::class)->findSomething($id);
-        return new \_PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Response();
+        $em->getRepository(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post::class)->findSomething($id);
+        return new \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response();
     }
 }
 ?>
 -----
 <?php 
-namespace _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\Fixture;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\Fixture;
 
-use _PhpScoperb75b35f52b74\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post;
-use _PhpScoperb75b35f52b74\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController;
-use _PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Response;
-final class PostController extends \_PhpScoperb75b35f52b74\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response;
+final class PostController extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController
 {
     /**
      * @var \Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Repository\PostRepository
      */
     private $postRepository;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Repository\PostRepository $postRepository)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Repository\PostRepository $postRepository)
     {
         $this->postRepository = $postRepository;
     }
-    public function anythingAction(int $id) : \_PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Response
+    public function anythingAction(int $id) : \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response
     {
         $em = $this->getDoctrine()->getManager();
         $this->postRepository->findSomething($id);
-        return new \_PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Response();
+        return new \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response();
     }
 }

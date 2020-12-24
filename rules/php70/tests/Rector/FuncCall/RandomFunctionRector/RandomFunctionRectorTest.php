@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Php70\Tests\Rector\FuncCall\RandomFunctionRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Php70\Tests\Rector\FuncCall\RandomFunctionRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Php70\Rector\FuncCall\RandomFunctionRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\FuncCall\RandomFunctionRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Some tests copied from https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/2.12/tests/Fixer/Alias/RandomApiMigrationFixerTest.php
  */
-final class RandomFunctionRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class RandomFunctionRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class RandomFunctionRectorTest extends \_PhpScoperb75b35f52b74\Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Php70\Rector\FuncCall\RandomFunctionRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\FuncCall\RandomFunctionRector::class;
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Application;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Application;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_;
 final class UseImportsRemover
 {
     /**
@@ -16,7 +16,7 @@ final class UseImportsRemover
     public function removeImportsFromStmts(array $stmts, array $removedShortUses) : array
     {
         foreach ($stmts as $stmtKey => $stmt) {
-            if (!$stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_) {
+            if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_) {
                 continue;
             }
             $this->removeUseFromUse($removedShortUses, $stmt);
@@ -30,10 +30,10 @@ final class UseImportsRemover
     /**
      * @param string[] $removedShortUses
      */
-    public function removeImportsFromNamespace(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_ $namespace, array $removedShortUses) : void
+    public function removeImportsFromNamespace(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $namespace, array $removedShortUses) : void
     {
         foreach ($namespace->stmts as $namespaceKey => $stmt) {
-            if (!$stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_) {
+            if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_) {
                 continue;
             }
             $this->removeUseFromUse($removedShortUses, $stmt);
@@ -46,7 +46,7 @@ final class UseImportsRemover
     /**
      * @param string[] $removedShortUses
      */
-    private function removeUseFromUse(array $removedShortUses, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_ $use) : void
+    private function removeUseFromUse(array $removedShortUses, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_ $use) : void
     {
         foreach ($use->uses as $usesKey => $useUse) {
             foreach ($removedShortUses as $removedShortUse) {

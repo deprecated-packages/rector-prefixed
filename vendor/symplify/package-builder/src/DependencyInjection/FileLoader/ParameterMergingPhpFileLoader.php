@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\PackageBuilder\DependencyInjection\FileLoader;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\DependencyInjection\FileLoader;
 
-use _PhpScoperb75b35f52b74\Symfony\Component\Config\FileLocatorInterface;
-use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\FileLocatorInterface;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Yaml\ParametersMerger;
 /**
  * The need:
  * - https://github.com/symfony/symfony/issues/26713
  * - https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
  */
-final class ParameterMergingPhpFileLoader extends \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ParameterMergingPhpFileLoader extends \_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
     /**
      * @var ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \_PhpScoperb75b35f52b74\Symfony\Component\Config\FileLocatorInterface $fileLocator)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\FileLocatorInterface $fileLocator)
     {
-        $this->parametersMerger = new \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Yaml\ParametersMerger();
+        $this->parametersMerger = new \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Yaml\ParametersMerger();
         parent::__construct($containerBuilder, $fileLocator);
     }
     /**

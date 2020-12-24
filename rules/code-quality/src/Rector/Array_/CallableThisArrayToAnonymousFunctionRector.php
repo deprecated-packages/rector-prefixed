@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\Array_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Array_;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClosureUse;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClosureUse;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.php.net/manual/en/language.types.callable.php#117260
  * @see https://3v4l.org/MsMbQ
@@ -34,11 +34,11 @@ use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\CodeQuality\Tests\Rector\Array_\CallableThisArrayToAnonymousFunctionRector\CallableThisArrayToAnonymousFunctionRectorTest
  */
-final class CallableThisArrayToAnonymousFunctionRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class CallableThisArrayToAnonymousFunctionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert [$this, "method"] to proper anonymous function', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert [$this, "method"] to proper anonymous function', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -81,30 +81,30 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_::class];
     }
     /**
      * @param Array_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if ($this->shouldSkipArray($node)) {
             return null;
         }
         $firstArrayItem = $node->items[0];
-        if (!$firstArrayItem instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem) {
+        if (!$firstArrayItem instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem) {
             return null;
         }
         $objectVariable = $firstArrayItem->value;
-        if (!$objectVariable instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable && !$objectVariable instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$objectVariable instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && !$objectVariable instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         $secondArrayItem = $node->items[1];
-        if (!$secondArrayItem instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem) {
+        if (!$secondArrayItem instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem) {
             return null;
         }
         $methodName = $secondArrayItem->value;
-        if (!$methodName instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+        if (!$methodName instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
             return null;
         }
         $classMethod = $this->matchCallableMethod($objectVariable, $methodName);
@@ -113,7 +113,7 @@ CODE_SAMPLE
         }
         return $this->createAnonymousFunction($classMethod, $objectVariable);
     }
-    private function shouldSkipArray(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array) : bool
+    private function shouldSkipArray(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array) : bool
     {
         // callback is exactly "[$two, 'items']"
         if (\count((array) $array->items) !== 2) {
@@ -131,15 +131,15 @@ CODE_SAMPLE
     /**
      * @param Variable|PropertyFetch $objectExpr
      */
-    private function matchCallableMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $objectExpr, \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_ $string) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod
+    private function matchCallableMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $objectExpr, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod
     {
         $methodName = $this->getValue($string);
         if (!\is_string($methodName)) {
-            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
         }
         $objectType = $this->getObjectType($objectExpr);
         $objectType = $this->popFirstObjectType($objectType);
-        if ($objectType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
+        if ($objectType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
             $class = $this->nodeRepository->findClass($objectType->getClassName());
             if ($class === null) {
                 return null;
@@ -161,47 +161,47 @@ CODE_SAMPLE
     /**
      * @param Variable|PropertyFetch $node
      */
-    private function createAnonymousFunction(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure
+    private function createAnonymousFunction(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure
     {
-        $classMethodReturns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_::class);
-        $anonymousFunction = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure();
+        $classMethodReturns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_::class);
+        $anonymousFunction = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure();
         $newParams = $this->copyParams($classMethod->params);
         $anonymousFunction->params = $newParams;
-        $innerMethodCall = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($node, $classMethod->name);
+        $innerMethodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($node, $classMethod->name);
         $innerMethodCall->args = $this->convertParamsToArgs($newParams);
         if ($classMethod->returnType !== null) {
             $newReturnType = $classMethod->returnType;
-            $newReturnType->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+            $newReturnType->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
             $anonymousFunction->returnType = $newReturnType;
         }
         // does method return something?
         if ($this->hasClassMethodReturn($classMethodReturns)) {
-            $anonymousFunction->stmts[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_($innerMethodCall);
+            $anonymousFunction->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($innerMethodCall);
         } else {
-            $anonymousFunction->stmts[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression($innerMethodCall);
+            $anonymousFunction->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($innerMethodCall);
         }
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable && !$this->isName($node, 'this')) {
-            $anonymousFunction->uses[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClosureUse($node);
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && !$this->isName($node, 'this')) {
+            $anonymousFunction->uses[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClosureUse($node);
         }
         return $anonymousFunction;
     }
-    private function isCallbackAtFunctionName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array, string $functionName) : bool
+    private function isCallbackAtFunctionName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, string $functionName) : bool
     {
-        $parentNode = $array->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Arg) {
+        $parentNode = $array->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg) {
             return \false;
         }
-        $parentParentNode = $parentNode->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentParentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
+        $parentParentNode = $parentNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentParentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
         return $this->isName($parentParentNode, $functionName);
     }
-    private function popFirstObjectType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    private function popFirstObjectType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
             foreach ($type->getTypes() as $unionedType) {
-                if (!$unionedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
+                if (!$unionedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
                     continue;
                 }
                 return $unionedType;
@@ -218,8 +218,8 @@ CODE_SAMPLE
         $newParams = [];
         foreach ($params as $param) {
             $newParam = clone $param;
-            $newParam->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
-            $newParam->var->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+            $newParam->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+            $newParam->var->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
             $newParams[] = $newParam;
         }
         return $newParams;
@@ -232,7 +232,7 @@ CODE_SAMPLE
     {
         $args = [];
         foreach ($params as $param) {
-            $args[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($param->var);
+            $args[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($param->var);
         }
         return $args;
     }

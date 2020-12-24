@@ -1,38 +1,39 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\Return_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Return_;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\AssignOp;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\AssignAndBinaryMap;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignOp;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\AssignAndBinaryMap;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see Based on https://github.com/slevomat/coding-standard/blob/master/SlevomatCodingStandard/Sniffs/Variables/UselessVariableSniff.php
  * @see \Rector\CodeQuality\Tests\Rector\Return_\SimplifyUselessVariableRector\SimplifyUselessVariableRectorTest
  */
-final class SimplifyUselessVariableRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class SimplifyUselessVariableRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var AssignAndBinaryMap
      */
     private $assignAndBinaryMap;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap)
     {
         $this->assignAndBinaryMap = $assignAndBinaryMap;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes useless variable assigns', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes useless variable assigns', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function () {
     $a = true;
     return $a;
@@ -50,34 +51,33 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_::class];
     }
     /**
      * @param Return_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $previousNode = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if (!$previousNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+        $previousNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
+        if (!$previousNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
             return null;
         }
         /** @var AssignOp|Assign $previousNode */
         $previousNode = $previousNode->expr;
         $previousVariableNode = $previousNode->var;
-        // has some comment
-        if ($previousVariableNode->getComments() || $previousVariableNode->getDocComment()) {
+        if ($this->hasSomeComment($previousVariableNode)) {
             return null;
         }
-        if ($previousNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+        if ($previousNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
             if ($this->isReturnWithVarAnnotation($node)) {
                 return null;
             }
             $node->expr = $previousNode->expr;
         }
-        if ($previousNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\AssignOp) {
+        if ($previousNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignOp) {
             $binaryClass = $this->assignAndBinaryMap->getAlternative($previousNode);
             if ($binaryClass === null) {
                 return null;
@@ -87,19 +87,22 @@ CODE_SAMPLE
         $this->removeNode($previousNode);
         return $node;
     }
-    private function shouldSkip(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_ $return) : bool
+    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_ $return) : bool
     {
-        if (!$return->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$return->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return \true;
         }
         $variableNode = $return->expr;
-        $previousExpression = $return->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if ($previousExpression === null || !$previousExpression instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+        $previousExpression = $return->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
+        if ($previousExpression === null) {
+            return \true;
+        }
+        if (!$previousExpression instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
             return \true;
         }
         // is variable part of single assign
         $previousNode = $previousExpression->expr;
-        if (!$previousNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\AssignOp && !$previousNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+        if (!$previousNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignOp && !$previousNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
             return \true;
         }
         // is the same variable
@@ -108,24 +111,31 @@ CODE_SAMPLE
         }
         return $this->isPreviousExpressionVisuallySimilar($previousExpression, $previousNode);
     }
-    private function isReturnWithVarAnnotation(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_ $return) : bool
+    private function hasSomeComment(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
     {
-        $phpDocInfo = $return->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+        if ($expr->getComments() !== []) {
+            return \true;
+        }
+        return $expr->getDocComment() !== null;
+    }
+    private function isReturnWithVarAnnotation(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_ $return) : bool
+    {
+        $phpDocInfo = $return->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return \false;
         }
-        return !$phpDocInfo->getVarType() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+        return !$phpDocInfo->getVarType() instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
     }
     /**
      * @param AssignOp|Assign $previousNode
      */
-    private function isPreviousExpressionVisuallySimilar(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression $previousExpression, \_PhpScoperb75b35f52b74\PhpParser\Node $previousNode) : bool
+    private function isPreviousExpressionVisuallySimilar(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression $previousExpression, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $previousNode) : bool
     {
-        $prePreviousExpression = $previousExpression->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
-        if (!$prePreviousExpression instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+        $prePreviousExpression = $previousExpression->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
+        if (!$prePreviousExpression instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
             return \false;
         }
-        if (!$prePreviousExpression->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\AssignOp) {
+        if (!$prePreviousExpression->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignOp) {
             return \false;
         }
         return $this->areNodesEqual($prePreviousExpression->expr->var, $previousNode->var);

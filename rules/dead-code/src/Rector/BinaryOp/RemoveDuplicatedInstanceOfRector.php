@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DeadCode\Rector\BinaryOp;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\BinaryOp;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector\RemoveDuplicatedInstanceOfRectorTest
  */
-final class RemoveDuplicatedInstanceOfRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class RemoveDuplicatedInstanceOfRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
     private $duplicatedInstanceOfs = [];
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated instanceof in one call', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated instanceof in one call', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -49,12 +49,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp::class];
     }
     /**
      * @param BinaryOp $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         $this->resolveDuplicatedInstancesOf($node);
         if ($this->duplicatedInstanceOfs === []) {
@@ -62,11 +62,11 @@ CODE_SAMPLE
         }
         return $this->traverseBinaryOpAndRemoveDuplicatedInstanceOfs($node);
     }
-    private function resolveDuplicatedInstancesOf(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp $binaryOp) : void
+    private function resolveDuplicatedInstancesOf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp $binaryOp) : void
     {
         $this->duplicatedInstanceOfs = [];
         /** @var Instanceof_[] $instanceOfs */
-        $instanceOfs = $this->betterNodeFinder->findInstanceOf([$binaryOp], \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_::class);
+        $instanceOfs = $this->betterNodeFinder->findInstanceOf([$binaryOp], \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_::class);
         $instanceOfsByClass = [];
         foreach ($instanceOfs as $instanceOf) {
             $variableClassKey = $this->createUniqueKeyForInstanceOf($instanceOf);
@@ -82,25 +82,25 @@ CODE_SAMPLE
         }
         $this->duplicatedInstanceOfs = \array_keys($instanceOfsByClass);
     }
-    private function traverseBinaryOpAndRemoveDuplicatedInstanceOfs(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp $binaryOp) : \_PhpScoperb75b35f52b74\PhpParser\Node
+    private function traverseBinaryOpAndRemoveDuplicatedInstanceOfs(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp $binaryOp) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
-        $this->traverseNodesWithCallable([&$binaryOp], function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?Node {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp) {
+        $this->traverseNodesWithCallable([&$binaryOp], function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?Node {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp) {
                 return null;
             }
-            if ($node->left instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_) {
+            if ($node->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_) {
                 return $this->processBinaryWithFirstInstaneOf($node->left, $node->right);
             }
-            if ($node->right instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_) {
+            if ($node->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_) {
                 return $this->processBinaryWithFirstInstaneOf($node->right, $node->left);
             }
             return null;
         });
         return $binaryOp;
     }
-    private function createUniqueKeyForInstanceOf(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_ $instanceof) : ?string
+    private function createUniqueKeyForInstanceOf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_ $instanceof) : ?string
     {
-        if (!$instanceof->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$instanceof->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return null;
         }
         $variableName = $this->getName($instanceof->expr);
@@ -113,7 +113,7 @@ CODE_SAMPLE
         }
         return $variableName . '_' . $className;
     }
-    private function processBinaryWithFirstInstaneOf(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_ $instanceof, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $otherExpr) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
+    private function processBinaryWithFirstInstaneOf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_ $instanceof, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $otherExpr) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
     {
         $variableClassKey = $this->createUniqueKeyForInstanceOf($instanceof);
         if (!\in_array($variableClassKey, $this->duplicatedInstanceOfs, \true)) {

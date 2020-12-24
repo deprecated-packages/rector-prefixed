@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Defluent\Contract\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Contract\ValueObject;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
 interface RootExprAwareInterface
 {
-    public function getRootExpr() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+    public function getRootExpr() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
 }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -18,23 +18,23 @@ trait ConstFetchAnalyzerTrait
     /**
      * @required
      */
-    public function autowireConstFetchAnalyzerTrait(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator $constFetchManipulator) : void
+    public function autowireConstFetchAnalyzerTrait(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator $constFetchManipulator) : void
     {
         $this->constFetchManipulator = $constFetchManipulator;
     }
-    public function isFalse(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    public function isFalse(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         return $this->constFetchManipulator->isFalse($node);
     }
-    public function isTrue(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    public function isTrue(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         return $this->constFetchManipulator->isTrue($node);
     }
-    public function isBool(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    public function isBool(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         return $this->constFetchManipulator->isBool($node);
     }
-    public function isNull(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    public function isNull(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         return $this->constFetchManipulator->isNull($node);
     }

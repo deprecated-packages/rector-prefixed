@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ErrorType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
 /**
  * Utils for PropertyFetch Node:
  * "$this->property"
@@ -35,19 +35,19 @@ final class PropertyFetchManipulator
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->reflectionProvider = $reflectionProvider;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isPropertyToSelf(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
+    public function isPropertyToSelf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
         if (!$this->nodeNameResolver->isName($propertyFetch->var, 'this')) {
             return \false;
         }
         /** @var Class_|null $classLike */
-        $classLike = $propertyFetch->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $propertyFetch->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \false;
         }
@@ -59,13 +59,13 @@ final class PropertyFetchManipulator
         }
         return \false;
     }
-    public function isMagicOnType(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool
+    public function isMagicOnType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch $propertyFetch, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
     {
         $varNodeType = $this->nodeTypeResolver->resolve($propertyFetch);
-        if ($varNodeType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType) {
+        if ($varNodeType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType) {
             return \true;
         }
-        if ($varNodeType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
+        if ($varNodeType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
             return \false;
         }
         if ($varNodeType->isSuperTypeOf($type)->yes()) {
@@ -81,12 +81,12 @@ final class PropertyFetchManipulator
      * Matches:
      * "$this->someValue = $<variableName>;"
      */
-    public function isVariableAssignToThisPropertyFetch(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $variableName) : bool
+    public function isVariableAssignToThisPropertyFetch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $variableName) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
             return \false;
         }
-        if (!$node->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$node->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($node->expr, $variableName)) {
@@ -97,7 +97,7 @@ final class PropertyFetchManipulator
     /**
      * @param string[] $propertyNames
      */
-    public function isLocalPropertyOfNames(\_PhpScoperb75b35f52b74\PhpParser\Node $node, array $propertyNames) : bool
+    public function isLocalPropertyOfNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, array $propertyNames) : bool
     {
         if (!$this->isLocalPropertyFetch($node)) {
             return \false;
@@ -105,21 +105,21 @@ final class PropertyFetchManipulator
         /** @var PropertyFetch $node */
         return $this->nodeNameResolver->isNames($node->name, $propertyNames);
     }
-    public function isLocalPropertyFetch(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    public function isLocalPropertyFetch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
         return $this->nodeNameResolver->isName($node->var, 'this');
     }
-    private function hasPublicProperty(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch, string $propertyName) : bool
+    private function hasPublicProperty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch $propertyFetch, string $propertyName) : bool
     {
-        $nodeScope = $propertyFetch->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $nodeScope = $propertyFetch->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($nodeScope === null) {
-            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
         }
         $propertyFetchType = $nodeScope->getType($propertyFetch->var);
-        if (!$propertyFetchType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
+        if (!$propertyFetchType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         $propertyFetchType = $propertyFetchType->getClassName();

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\NeverType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\VoidType;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoperb75b35f52b74\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
-use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
-use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer;
-use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer;
-final class PropertyTypeInferer extends \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VoidType;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
+use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer;
+use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer;
+final class PropertyTypeInferer extends \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
 {
     /**
      * @var PropertyTypeInfererInterface[]
@@ -39,7 +39,7 @@ final class PropertyTypeInferer extends \_PhpScoperb75b35f52b74\Rector\TypeDecla
     /**
      * @param PropertyTypeInfererInterface[] $propertyTypeInferers
      */
-    public function __construct(array $propertyTypeInferers, \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer $defaultValuePropertyTypeInferer, \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer $varDocPropertyTypeInferer, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \_PhpScoperb75b35f52b74\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer)
+    public function __construct(array $propertyTypeInferers, \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer $defaultValuePropertyTypeInferer, \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer $varDocPropertyTypeInferer, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer)
     {
         $this->propertyTypeInferers = $this->sortTypeInferersByPriority($propertyTypeInferers);
         $this->defaultValuePropertyTypeInferer = $defaultValuePropertyTypeInferer;
@@ -47,12 +47,12 @@ final class PropertyTypeInferer extends \_PhpScoperb75b35f52b74\Rector\TypeDecla
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->varDocPropertyTypeInferer = $varDocPropertyTypeInferer;
     }
-    public function inferProperty(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function inferProperty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         $resolvedTypes = [];
         foreach ($this->propertyTypeInferers as $propertyTypeInferer) {
             $type = $propertyTypeInferer->inferProperty($property);
-            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\VoidType || $type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
+            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VoidType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
                 continue;
             }
             $resolvedTypes[] = $type;
@@ -73,17 +73,17 @@ final class PropertyTypeInferer extends \_PhpScoperb75b35f52b74\Rector\TypeDecla
             }
         }
         if ($resolvedType === null) {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
         }
         return $resolvedType;
     }
-    private function shouldUnionWithDefaultValue(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $defaultValueType, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type = null) : bool
+    private function shouldUnionWithDefaultValue(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $defaultValueType, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type = null) : bool
     {
-        if ($defaultValueType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
+        if ($defaultValueType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
             return \false;
         }
         // skip empty array type (mixed[])
-        if ($defaultValueType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType && $defaultValueType->getItemType() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\NeverType && $type !== null) {
+        if ($defaultValueType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType && $defaultValueType->getItemType() instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType && $type !== null) {
             return \false;
         }
         if ($type === null) {
@@ -91,7 +91,7 @@ final class PropertyTypeInferer extends \_PhpScoperb75b35f52b74\Rector\TypeDecla
         }
         return !$this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($type);
     }
-    private function unionWithDefaultValueType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $defaultValueType, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $resolvedType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    private function unionWithDefaultValueType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $defaultValueType, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $resolvedType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         $types = [];
         $types[] = $defaultValueType;

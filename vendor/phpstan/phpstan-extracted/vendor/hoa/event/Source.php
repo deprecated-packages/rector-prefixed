@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Event;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Event;
 
 /**
  * Interface \Hoa\Event\Source.

@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Functions;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Functions;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Node\ReturnStatementsNode;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\NullsafeCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Rule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\ReturnStatementsNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\NullsafeCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements Rule<ReturnStatementsNode>
  */
-class ReturnNullsafeByRefRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class ReturnNullsafeByRefRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     /** @var NullsafeCheck */
     private $nullsafeCheck;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Rules\NullsafeCheck $nullsafeCheck)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\NullsafeCheck $nullsafeCheck)
     {
         $this->nullsafeCheck = $nullsafeCheck;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\Node\ReturnStatementsNode::class;
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\ReturnStatementsNode::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->returnsByRef()) {
             return [];
@@ -38,7 +38,7 @@ class ReturnNullsafeByRefRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\R
             if (!$this->nullsafeCheck->containsNullSafe($returnNode->expr)) {
                 continue;
             }
-            $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message('Nullsafe cannot be returned by reference.')->line($returnNode->getLine())->nonIgnorable()->build();
+            $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('Nullsafe cannot be returned by reference.')->line($returnNode->getLine())->nonIgnorable()->build();
         }
         return $errors;
     }

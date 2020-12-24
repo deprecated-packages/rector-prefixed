@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeAnalyzer;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeAnalyzer;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\Rector\NodeCollector\ValueObject\ArrayCallable;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\ValueObject\ArrayCallable;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
 final class ArrayCallableMethodReferenceAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     /**
      * Matches array like: "[$this, 'methodName']" → ['ClassName', 'methodName']
      */
-    public function match(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array) : ?\_PhpScoperb75b35f52b74\Rector\NodeCollector\ValueObject\ArrayCallable
+    public function match(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array) : ?\_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\ValueObject\ArrayCallable
     {
         $arrayItems = (array) $array->items;
         if (\count($arrayItems) !== 2) {
@@ -40,25 +40,25 @@ final class ArrayCallableMethodReferenceAnalyzer
         if (!$this->isThisVariable($array->items[0]->value)) {
             return null;
         }
-        if (!$array->items[1]->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+        if (!$array->items[1]->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
             return null;
         }
         /** @var String_ $string */
         $string = $array->items[1]->value;
         $methodName = $string->value;
-        $className = $array->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $array->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return null;
         }
-        return new \_PhpScoperb75b35f52b74\Rector\NodeCollector\ValueObject\ArrayCallable($className, $methodName);
+        return new \_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\ValueObject\ArrayCallable($className, $methodName);
     }
-    private function isThisVariable(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : bool
+    private function isThisVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
     {
         // $this
-        if ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable && $this->nodeNameResolver->isName($expr, 'this')) {
+        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && $this->nodeNameResolver->isName($expr, 'this')) {
             return \true;
         }
-        if ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch) {
+        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch) {
             if (!$this->nodeNameResolver->isName($expr->name, 'class')) {
                 return \false;
             }
@@ -67,7 +67,7 @@ final class ArrayCallableMethodReferenceAnalyzer
                 return \true;
             }
             /** @var string|null $className */
-            $className = $expr->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $className = $expr->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($className === null) {
                 return \false;
             }

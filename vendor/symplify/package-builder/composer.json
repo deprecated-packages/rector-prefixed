@@ -12,8 +12,8 @@
         "symfony\/finder": "^4.4|^5.1",
         "symfony\/http-kernel": "^4.4|^5.1",
         "symfony\/yaml": "^4.4|^5.1",
-        "symplify\/symplify-kernel": "^9.0.14",
-        "symplify\/easy-testing": "^9.0.14",
+        "symplify\/symplify-kernel": "^9.0.15",
+        "symplify\/easy-testing": "^9.0.15",
         "nette\/neon": "^3.2"
     },
     "require-dev": {
@@ -21,12 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperb75b35f52b74\\Symplify\\PackageBuilder\\": "src"
+            "_PhpScoper2a4e7ab1ecbc\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperb75b35f52b74\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "_PhpScoper2a4e7ab1ecbc\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {

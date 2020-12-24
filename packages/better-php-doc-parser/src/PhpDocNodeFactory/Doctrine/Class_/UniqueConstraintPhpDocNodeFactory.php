@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
 
-use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping\UniqueConstraint;
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\UniqueConstraintTagValueNode;
+use _PhpScoper2a4e7ab1ecbc\Doctrine\ORM\Mapping\UniqueConstraint;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\UniqueConstraintTagValueNode;
 final class UniqueConstraintPhpDocNodeFactory
 {
     /**
@@ -18,7 +18,7 @@ final class UniqueConstraintPhpDocNodeFactory
      * @var AnnotationItemsResolver
      */
     private $annotationItemsResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver)
     {
         $this->annotationItemsResolver = $annotationItemsResolver;
     }
@@ -31,12 +31,12 @@ final class UniqueConstraintPhpDocNodeFactory
         if ($uniqueConstraints === null) {
             return [];
         }
-        $uniqueConstraintContents = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::matchAll($annotationContent, self::UNIQUE_CONSTRAINT_REGEX);
+        $uniqueConstraintContents = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::matchAll($annotationContent, self::UNIQUE_CONSTRAINT_REGEX);
         $uniqueConstraintTagValueNodes = [];
         foreach ($uniqueConstraints as $key => $uniqueConstraint) {
             $subAnnotationContent = $uniqueConstraintContents[$key];
             $items = $this->annotationItemsResolver->resolve($uniqueConstraint);
-            $uniqueConstraintTagValueNodes[] = new \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\UniqueConstraintTagValueNode($items, $subAnnotationContent['content'], $subAnnotationContent['tag']);
+            $uniqueConstraintTagValueNodes[] = new \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\UniqueConstraintTagValueNode($items, $subAnnotationContent['content'], $subAnnotationContent['tag']);
         }
         return $uniqueConstraintTagValueNodes;
     }

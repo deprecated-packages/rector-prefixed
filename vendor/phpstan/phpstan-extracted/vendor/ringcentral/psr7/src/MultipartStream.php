@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
 /**
  * Stream that when read returns bytes for a streaming multipart or
  * multipart/form-data stream.
  */
-class MultipartStream extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
+class MultipartStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
 {
     private $boundary;
     /**
@@ -56,7 +56,7 @@ class MultipartStream extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Rin
      */
     protected function createStream(array $elements)
     {
-        $stream = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\AppendStream();
+        $stream = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\AppendStream();
         foreach ($elements as $element) {
             $this->addElement($stream, $element);
         }
@@ -64,7 +64,7 @@ class MultipartStream extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Rin
         $stream->addStream(stream_for("--{$this->boundary}--\r\n"));
         return $stream;
     }
-    private function addElement(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\AppendStream $stream, array $element)
+    private function addElement(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\AppendStream $stream, array $element)
     {
         foreach (array('contents', 'name') as $key) {
             if (!\array_key_exists($key, $element)) {

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\ParameterBag;
+namespace _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\ParameterBag;
 
-use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class EnvPlaceholderParameterBag extends \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag
+class EnvPlaceholderParameterBag extends \_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag
 {
     private $envPlaceholderUniquePrefix;
     private $envPlaceholders = [];
@@ -42,10 +42,10 @@ class EnvPlaceholderParameterBag extends \_PhpScoperb75b35f52b74\Symfony\Compone
                 }
             }
             if (!\preg_match('/^(?:[-.\\w]*+:)*+\\w++$/', $env)) {
-                throw new \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid %s name: only "word" characters are allowed.', $name));
+                throw new \_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid %s name: only "word" characters are allowed.', $name));
             }
             if ($this->has($name) && null !== ($defaultValue = parent::get($name)) && !\is_string($defaultValue)) {
-                throw new \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('The default value of an env() parameter must be a string or null, but "%s" given to "%s".', \get_debug_type($defaultValue), $name));
+                throw new \_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('The default value of an env() parameter must be a string or null, but "%s" given to "%s".', \get_debug_type($defaultValue), $name));
             }
             $uniqueName = \md5($name . '_' . self::$counter++);
             $placeholder = \sprintf('%s_%s_%s', $this->getEnvPlaceholderUniquePrefix(), \strtr($env, ':-.', '___'), $uniqueName);
@@ -130,7 +130,7 @@ class EnvPlaceholderParameterBag extends \_PhpScoperb75b35f52b74\Symfony\Compone
         parent::resolve();
         foreach ($this->envPlaceholders as $env => $placeholders) {
             if ($this->has($name = "env({$env})") && null !== ($default = $this->parameters[$name]) && !\is_string($default)) {
-                throw new \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('The default value of env parameter "%s" must be a string or null, "%s" given.', $env, \get_debug_type($default)));
+                throw new \_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('The default value of env parameter "%s" must be a string or null, "%s" given.', $env, \get_debug_type($default)));
             }
         }
     }

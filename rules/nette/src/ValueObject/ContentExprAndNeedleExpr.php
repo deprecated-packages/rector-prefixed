@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Nette\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Nette\ValueObject;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
 final class ContentExprAndNeedleExpr
 {
     /**
@@ -14,16 +14,16 @@ final class ContentExprAndNeedleExpr
      * @var Expr
      */
     private $needleExpr;
-    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $contentExpr, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $needleExpr)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $contentExpr, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $needleExpr)
     {
         $this->contentExpr = $contentExpr;
         $this->needleExpr = $needleExpr;
     }
-    public function getContentExpr() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr
+    public function getContentExpr() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
     {
         return $this->contentExpr;
     }
-    public function getNeedleExpr() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr
+    public function getNeedleExpr() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
     {
         return $this->needleExpr;
     }

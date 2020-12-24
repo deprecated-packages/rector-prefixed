@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Restoration\NameMatcher;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Restoration\NameMatcher;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
-use _PhpScoperb75b35f52b74\PhpParser\Node\NullableType;
-use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 final class FullyQualifiedNameMatcher
 {
     /**
@@ -20,7 +20,7 @@ final class FullyQualifiedNameMatcher
      * @var NameMatcher
      */
     private $nameMatcher;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\Restoration\NameMatcher\NameMatcher $nameMatcher)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Restoration\NameMatcher\NameMatcher $nameMatcher)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nameMatcher = $nameMatcher;
@@ -31,26 +31,26 @@ final class FullyQualifiedNameMatcher
      */
     public function matchFullyQualifiedName($name)
     {
-        if ($name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\NullableType) {
+        if ($name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType) {
             $fullyQulifiedNullableType = $this->matchFullyQualifiedName($name->type);
-            if (!$fullyQulifiedNullableType instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
+            if (!$fullyQulifiedNullableType instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
                 return null;
             }
-            return new \_PhpScoperb75b35f52b74\PhpParser\Node\NullableType($fullyQulifiedNullableType);
+            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType($fullyQulifiedNullableType);
         }
-        if ($name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
+        if ($name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
             if (\count((array) $name->parts) !== 1) {
                 return null;
             }
             $resolvedName = $this->nodeNameResolver->getName($name);
-            if (\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($resolvedName)) {
+            if (\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($resolvedName)) {
                 return null;
             }
             $fullyQualified = $this->nameMatcher->makeNameFullyQualified($resolvedName);
             if ($fullyQualified === null) {
                 return null;
             }
-            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified($fullyQualified);
+            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($fullyQualified);
         }
         return null;
     }

@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NetteToSymfony\Rector\Class_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteToSymfony\Rector\Class_;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoperb75b35f52b74\Rector\Nette\NodeFactory\ActionRenderFactory;
-use _PhpScoperb75b35f52b74\Rector\Nette\TemplatePropertyAssignCollector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoperb75b35f52b74\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use _PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Response;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\NodeFactory\ActionRenderFactory;
+use _PhpScoper2a4e7ab1ecbc\Rector\Nette\TemplatePropertyAssignCollector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://doc.nette.org/en/2.4/components
  * ↓
  * @see https://symfony.com/doc/current/controller.html
  * @see \Rector\NetteToSymfony\Tests\Rector\Class_\NetteControlToSymfonyControllerRector\NetteControlToSymfonyControllerRectorTest
  */
-final class NetteControlToSymfonyControllerRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class NetteControlToSymfonyControllerRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var TemplatePropertyAssignCollector
@@ -40,14 +40,14 @@ final class NetteControlToSymfonyControllerRector extends \_PhpScoperb75b35f52b7
      * @var ActionRenderFactory
      */
     private $actionRenderFactory;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \_PhpScoperb75b35f52b74\Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector)
     {
         $this->templatePropertyAssignCollector = $templatePropertyAssignCollector;
         $this->actionRenderFactory = $actionRenderFactory;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate Nette Component to Symfony Controller', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate Nette Component to Symfony Controller', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 class SomeControl extends Control
@@ -78,12 +78,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if ($this->shouldSkipClass($node)) {
             return null;
@@ -91,15 +91,15 @@ CODE_SAMPLE
         $shortClassName = $this->getShortName($node);
         $shortClassName = $this->removeSuffix($shortClassName, 'Control');
         $shortClassName .= 'Controller';
-        $node->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier($shortClassName);
-        $node->extends = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified(\_PhpScoperb75b35f52b74\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
+        $node->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($shortClassName);
+        $node->extends = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified(\_PhpScoper2a4e7ab1ecbc\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
         $classMethod = $node->getMethod('render');
         if ($classMethod !== null) {
             $this->processRenderMethod($classMethod);
         }
         return $node;
     }
-    private function shouldSkipClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function shouldSkipClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($this->isAnonymousClass($class)) {
             return \true;
@@ -108,50 +108,50 @@ CODE_SAMPLE
         if ($this->isName($class, '*Presenter')) {
             return \true;
         }
-        return !$this->isObjectType($class, '_PhpScoperb75b35f52b74\\Nette\\Application\\UI\\Control');
+        return !$this->isObjectType($class, '_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\UI\\Control');
     }
     private function removeSuffix(string $content, string $suffix) : string
     {
-        if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::endsWith($content, $suffix)) {
+        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::endsWith($content, $suffix)) {
             return $content;
         }
-        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::substring($content, 0, -\_PhpScoperb75b35f52b74\Nette\Utils\Strings::length($suffix));
+        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::substring($content, 0, -\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::length($suffix));
     }
-    private function processRenderMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function processRenderMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->processGetPresenterGetSessionMethodCall($classMethod);
-        $classMethod->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier('action');
+        $classMethod->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier('action');
         $magicTemplatePropertyCalls = $this->templatePropertyAssignCollector->collectTemplateFileNameVariablesAndNodesToRemove($classMethod);
         $methodCall = $this->actionRenderFactory->createThisRenderMethodCall($magicTemplatePropertyCalls);
         // add return in the end
-        $return = new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_($methodCall);
+        $return = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($methodCall);
         $classMethod->stmts[] = $return;
-        if ($this->isAtLeastPhpVersion(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
-            $classMethod->returnType = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified(\_PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Response::class);
+        if ($this->isAtLeastPhpVersion(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
+            $classMethod->returnType = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response::class);
         }
         $this->removeNodes($magicTemplatePropertyCalls->getNodesToRemove());
     }
-    private function processGetPresenterGetSessionMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function processGetPresenterGetSessionMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?MethodCall {
-            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?MethodCall {
+            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             if (!$this->isName($node->name, 'getSession')) {
                 return null;
             }
-            if (!$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+            if (!$node->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             if (!$this->isName($node->var->name, 'getPresenter')) {
                 return null;
             }
-            $node->var = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable('this'), 'session');
-            $classLike = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            if (!$classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
-                throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+            $node->var = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this'), 'session');
+            $classLike = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+            if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
             }
-            $this->addConstructorDependencyToClass($classLike, new \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType('_PhpScoperb75b35f52b74\\Nette\\Http\\Session'), 'session');
+            $this->addConstructorDependencyToClass($classLike, new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('_PhpScoper2a4e7ab1ecbc\\Nette\\Http\\Session'), 'session');
             return $node;
         });
     }

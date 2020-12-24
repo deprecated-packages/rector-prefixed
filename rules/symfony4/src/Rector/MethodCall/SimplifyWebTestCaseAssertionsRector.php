@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Symfony4\Rector\MethodCall;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\MethodCall;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://symfony.com/blog/new-in-symfony-4-3-better-test-assertions
  * @see https://github.com/symfony/symfony/pull/30813/files
  * @see \Rector\Symfony4\Tests\Rector\MethodCall\SimplifyWebTestCaseAssertionsRector\SimplifyWebTestCaseAssertionsRectorTest
  */
-final class SimplifyWebTestCaseAssertionsRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class SimplifyWebTestCaseAssertionsRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -29,9 +29,9 @@ final class SimplifyWebTestCaseAssertionsRector extends \_PhpScoperb75b35f52b74\
      * @var MethodCall
      */
     private $getStatusCodeMethodCall;
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify use of assertions in WebTestCase', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify use of assertions in WebTestCase', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 
 class SomeClass extends TestCase
@@ -81,12 +81,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         $clientGetResponseMethodCall = $this->createMethodCall('client', 'getResponse');
         $this->getStatusCodeMethodCall = $this->createMethodCall($clientGetResponseMethodCall, 'getStatusCode');
@@ -95,8 +95,8 @@ CODE_SAMPLE
         }
         // assertResponseIsSuccessful
         $args = [];
-        $args[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg(new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber(200));
-        $args[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($this->getStatusCodeMethodCall);
+        $args[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber(200));
+        $args[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($this->getStatusCodeMethodCall);
         $methodCall = $this->createLocalMethodCall(self::ASSERT_SAME, $args);
         if ($this->areNodesEqual($node, $methodCall)) {
             return $this->createLocalMethodCall('assertResponseIsSuccessful');
@@ -113,15 +113,15 @@ CODE_SAMPLE
         }
         return $this->processAssertResponseRedirects($node);
     }
-    private function isInWebTestCase(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function isInWebTestCase(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        $classLike = $methodCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \false;
         }
-        return $this->isObjectType($classLike, '_PhpScoperb75b35f52b74\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase');
+        return $this->isObjectType($classLike, '_PhpScoper2a4e7ab1ecbc\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase');
     }
-    private function processAssertResponseStatusCodeSame(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall
+    private function processAssertResponseStatusCodeSame(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->isName($methodCall->name, self::ASSERT_SAME)) {
             return null;
@@ -139,16 +139,16 @@ CODE_SAMPLE
     /**
      * @return Arg[]|null
      */
-    private function matchAssertContainsCrawlerArg(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?array
+    private function matchAssertContainsCrawlerArg(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?array
     {
         if (!$this->isName($methodCall->name, 'assertContains')) {
             return null;
         }
         $comparedNode = $methodCall->args[1]->value;
-        if (!$comparedNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        if (!$comparedNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-        if (!$comparedNode->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        if (!$comparedNode->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         if (!$this->isVariableName($comparedNode->var->var, 'crawler')) {
@@ -162,25 +162,25 @@ CODE_SAMPLE
         $args[] = $methodCall->args[0];
         return $args;
     }
-    private function processAssertResponseRedirects(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    private function processAssertResponseRedirects(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         /** @var Expression|null $previousStatement */
-        $previousStatement = $methodCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
-        if (!$previousStatement instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+        $previousStatement = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
+        if (!$previousStatement instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
             return null;
         }
         $previousNode = $previousStatement->expr;
-        if (!$previousNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        if (!$previousNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         $args = [];
-        $args[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg(new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber(301));
-        $args[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($this->getStatusCodeMethodCall);
+        $args[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber(301));
+        $args[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($this->getStatusCodeMethodCall);
         $match = $this->createLocalMethodCall(self::ASSERT_SAME, $args);
         if ($this->areNodesEqual($previousNode, $match)) {
             $getResponseMethodCall = $this->createMethodCall('client', 'getResponse');
-            $propertyFetch = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch($getResponseMethodCall, 'headers');
-            $clientGetLocation = $this->createMethodCall($propertyFetch, 'get', [new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg(new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_('Location'))]);
+            $propertyFetch = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch($getResponseMethodCall, 'headers');
+            $clientGetLocation = $this->createMethodCall($propertyFetch, 'get', [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('Location'))]);
             if (!isset($methodCall->args[1])) {
                 return null;
             }

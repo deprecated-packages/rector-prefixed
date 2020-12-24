@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\Identical;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Identical;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/GoEPq
  * @see \Rector\CodeQuality\Tests\Rector\Identical\BooleanNotIdenticalToNotIdenticalRector\BooleanNotIdenticalToNotIdenticalRectorTest
  */
-final class BooleanNotIdenticalToNotIdenticalRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class BooleanNotIdenticalToNotIdenticalRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Negated identical boolean compare to not identical compare (does not apply to non-bool values)', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Negated identical boolean compare to not identical compare (does not apply to non-bool values)', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -54,38 +54,38 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot::class];
     }
     /**
      * @param Identical|BooleanNot $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical) {
             return $this->processIdentical($node);
         }
-        if ($node->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical) {
+        if ($node->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical) {
             $identical = $node->expr;
-            if (!$this->isStaticType($identical->left, \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType::class)) {
+            if (!$this->isStaticType($identical->left, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class)) {
                 return null;
             }
-            if (!$this->isStaticType($identical->right, \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType::class)) {
+            if (!$this->isStaticType($identical->right, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class)) {
                 return null;
             }
-            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical($identical->left, $identical->right);
+            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical($identical->left, $identical->right);
         }
         return null;
     }
-    private function processIdentical(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical
+    private function processIdentical(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical
     {
-        if (!$this->isStaticType($identical->left, \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType::class)) {
+        if (!$this->isStaticType($identical->left, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class)) {
             return null;
         }
-        if (!$this->isStaticType($identical->right, \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType::class)) {
+        if (!$this->isStaticType($identical->right, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class)) {
             return null;
         }
-        if ($identical->left instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot) {
-            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical($identical->left->expr, $identical->right);
+        if ($identical->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot) {
+            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical($identical->left->expr, $identical->right);
         }
         return null;
     }

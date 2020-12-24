@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74;
+namespace _PhpScoper2a4e7ab1ecbc;
 
-use _PhpScoperb75b35f52b74\Rector\Carbon\Rector\MethodCall\ChangeCarbonSingularMethodCallToPluralRector;
-use _PhpScoperb75b35f52b74\Rector\Carbon\Rector\MethodCall\ChangeDiffForHumansArgsRector;
-use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper2a4e7ab1ecbc\Rector\Carbon\Rector\MethodCall\ChangeCarbonSingularMethodCallToPluralRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Carbon\Rector\MethodCall\ChangeDiffForHumansArgsRector;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 # source: https://carbon.nesbot.com/docs/#api-carbon-2
-return static function (\_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Carbon\Rector\MethodCall\ChangeDiffForHumansArgsRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Carbon\Rector\MethodCall\ChangeCarbonSingularMethodCallToPluralRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Carbon\Rector\MethodCall\ChangeDiffForHumansArgsRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Carbon\Rector\MethodCall\ChangeCarbonSingularMethodCallToPluralRector::class);
 };

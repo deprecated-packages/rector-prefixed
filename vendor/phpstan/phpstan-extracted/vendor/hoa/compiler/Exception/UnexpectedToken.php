@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Exception;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception;
 
 /**
  * Class \Hoa\Compiler\Exception\UnexpectedToken.
@@ -43,6 +43,6 @@ namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class UnexpectedToken extends \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\UnrecognizedToken
+class UnexpectedToken extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\UnrecognizedToken
 {
 }

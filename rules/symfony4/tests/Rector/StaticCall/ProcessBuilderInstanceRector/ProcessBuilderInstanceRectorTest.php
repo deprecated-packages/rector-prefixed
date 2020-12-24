@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Symfony4\Tests\Rector\StaticCall\ProcessBuilderInstanceRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Tests\Rector\StaticCall\ProcessBuilderInstanceRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Symfony4\Rector\StaticCall\ProcessBuilderInstanceRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class ProcessBuilderInstanceRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\StaticCall\ProcessBuilderInstanceRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class ProcessBuilderInstanceRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ProcessBuilderInstanceRectorTest extends \_PhpScoperb75b35f52b74\Rec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Symfony4\Rector\StaticCall\ProcessBuilderInstanceRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\StaticCall\ProcessBuilderInstanceRector::class;
     }
 }

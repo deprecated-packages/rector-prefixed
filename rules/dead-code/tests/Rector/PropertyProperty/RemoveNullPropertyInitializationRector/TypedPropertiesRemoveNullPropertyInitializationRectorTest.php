@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DeadCode\Tests\Rector\PropertyProperty\RemoveNullPropertyInitializationRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Tests\Rector\PropertyProperty\RemoveNullPropertyInitializationRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoperb75b35f52b74\Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class TypedPropertiesRemoveNullPropertyInitializationRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class TypedPropertiesRemoveNullPropertyInitializationRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP 7.4
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -24,10 +24,10 @@ final class TypedPropertiesRemoveNullPropertyInitializationRectorTest extends \_
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class;
     }
     protected function getPhpVersion() : int
     {
-        return \_PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES;
     }
 }

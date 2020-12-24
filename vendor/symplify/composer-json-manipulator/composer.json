@@ -10,20 +10,20 @@
         "symfony\/dependency-injection": "^5.1",
         "symfony\/filesystem": "^4.4|^5.1",
         "symfony\/http-kernel": "^4.4|^5.1",
-        "symplify\/package-builder": "^9.0.14",
-        "symplify\/smart-file-system": "^9.0.14"
+        "symplify\/package-builder": "^9.0.15",
+        "symplify\/smart-file-system": "^9.0.15"
     },
     "require-dev": {
         "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperb75b35f52b74\\Symplify\\ComposerJsonManipulator\\": "src"
+            "_PhpScoper2a4e7ab1ecbc\\Symplify\\ComposerJsonManipulator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperb75b35f52b74\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+            "_PhpScoper2a4e7ab1ecbc\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
         }
     },
     "extra": {

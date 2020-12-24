@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\Configuration;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration;
 
-use _PhpScoperb75b35f52b74\Symplify\Skipper\ValueObject\Option as SkipperOption;
+use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option as SkipperOption;
 final class Option
 {
     /**
@@ -85,7 +85,7 @@ final class Option
     /**
      * @var string
      */
-    public const SKIP = \_PhpScoperb75b35f52b74\Symplify\Skipper\ValueObject\Option::SKIP;
+    public const SKIP = \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option::SKIP;
     /**
      * @var string
      */
@@ -114,4 +114,8 @@ final class Option
      * @var string
      */
     public const FIX = 'fix';
+    /**
+     * @var string
+     */
+    public const PHPSTAN_FOR_RECTOR_PATH = 'phpstan_for_rector_path';
 }

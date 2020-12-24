@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
 class CommentHelper
 {
-    public static function getDocComment(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string
+    public static function getDocComment(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
     {
         $phpDoc = $node->getDocComment();
         if ($phpDoc !== null) {

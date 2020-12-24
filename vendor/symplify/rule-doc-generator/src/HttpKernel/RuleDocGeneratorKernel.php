@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\HttpKernel;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\HttpKernel;
 
-use _PhpScoperb75b35f52b74\Symfony\Component\Config\Loader\LoaderInterface;
-use _PhpScoperb75b35f52b74\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use _PhpScoperb75b35f52b74\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle;
-use _PhpScoperb75b35f52b74\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
-use _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class RuleDocGeneratorKernel extends \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\Loader\LoaderInterface;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use _PhpScoper2a4e7ab1ecbc\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle;
+use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class RuleDocGeneratorKernel extends \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
-    public function registerContainerConfiguration(\_PhpScoperb75b35f52b74\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);
@@ -21,6 +21,6 @@ final class RuleDocGeneratorKernel extends \_PhpScoperb75b35f52b74\Symplify\Symp
      */
     public function registerBundles() : iterable
     {
-        return [new \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \_PhpScoperb75b35f52b74\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle(), new \_PhpScoperb75b35f52b74\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
+        return [new \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \_PhpScoper2a4e7ab1ecbc\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle(), new \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
     }
 }

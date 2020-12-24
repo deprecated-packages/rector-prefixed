@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\Rector\ClassMethod;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Rector\ClassMethod;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
-use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\Naming\Naming\MethodNameResolver;
-use _PhpScoperb75b35f52b74\Rector\Naming\NodeRenamer\MethodCallRenamer;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\MethodNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\NodeRenamer\MethodCallRenamer;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\ClassMethod\MakeGetterClassMethodNameStartWithGetRector\MakeGetterClassMethodNameStartWithGetRectorTest
  */
-final class MakeGetterClassMethodNameStartWithGetRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class MakeGetterClassMethodNameStartWithGetRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -32,14 +32,14 @@ final class MakeGetterClassMethodNameStartWithGetRector extends \_PhpScoperb75b3
      * @var MethodCallRenamer
      */
     private $methodCallRenamer;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Naming\Naming\MethodNameResolver $methodNameResolver, \_PhpScoperb75b35f52b74\Rector\Naming\NodeRenamer\MethodCallRenamer $methodCallRenamer)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\MethodNameResolver $methodNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\NodeRenamer\MethodCallRenamer $methodCallRenamer)
     {
         $this->methodNameResolver = $methodNameResolver;
         $this->methodCallRenamer = $methodCallRenamer;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change getter method names to start with get/provide', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change getter method names to start with get/provide', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -74,12 +74,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if ($this->isAlreadyGetterNamedClassMethod($node)) {
             return null;
@@ -95,30 +95,30 @@ CODE_SAMPLE
         if ($this->isName($node->name, $getterMethodName)) {
             return null;
         }
-        $node->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier($getterMethodName);
+        $node->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($getterMethodName);
         $this->methodCallRenamer->updateClassMethodCalls($node, $getterMethodName);
         return $node;
     }
-    private function isAlreadyGetterNamedClassMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isAlreadyGetterNamedClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return $this->isName($classMethod, self::GETTER_NAME_PATTERN);
     }
-    private function matchGetterClassMethodReturnedExpr(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
+    private function matchGetterClassMethodReturnedExpr(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
     {
         $stmts = (array) $classMethod->stmts;
         if (\count($stmts) !== 1) {
             return null;
         }
         $onlyStmt = $stmts[0] ?? null;
-        if (!$onlyStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_) {
+        if (!$onlyStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
             return null;
         }
-        if (!$onlyStmt->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$onlyStmt->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         $propertyStaticType = $this->getStaticType($onlyStmt->expr);
         // is handled by boolish Rector → skip here
-        if ($propertyStaticType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType) {
+        if ($propertyStaticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType) {
             return null;
         }
         return $onlyStmt->expr;

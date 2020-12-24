@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Arrays;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Arrays;
 
-use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\FloatType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\IntegerType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\NullType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\StringType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
 class AllowedArrayKeysTypes
 {
-    public static function getType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public static function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
-        return new \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType([new \_PhpScoperb75b35f52b74\PHPStan\Type\IntegerType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\StringType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\FloatType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\NullType()]);
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType()]);
     }
 }

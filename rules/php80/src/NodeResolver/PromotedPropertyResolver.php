@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Php80\NodeResolver;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\NodeResolver;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\Php80\ValueObject\PropertyPromotionCandidate;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\PropertyPromotionCandidate;
 final class PromotedPropertyResolver
 {
     /**
@@ -24,7 +24,7 @@ final class PromotedPropertyResolver
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -32,9 +32,9 @@ final class PromotedPropertyResolver
     /**
      * @return PropertyPromotionCandidate[]
      */
-    public function resolveFromClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : array
+    public function resolveFromClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $constructClassMethod = $class->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructClassMethod = $class->getMethod(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
             return [];
         }
@@ -51,16 +51,16 @@ final class PromotedPropertyResolver
         }
         return $propertyPromotionCandidates;
     }
-    private function matchPropertyPromotionCandidate(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $constructClassMethod) : ?\_PhpScoperb75b35f52b74\Rector\Php80\ValueObject\PropertyPromotionCandidate
+    private function matchPropertyPromotionCandidate(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $constructClassMethod) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\PropertyPromotionCandidate
     {
         $onlyProperty = $property->props[0];
         $propertyName = $this->nodeNameResolver->getName($onlyProperty);
         // match property name to assign in constructor
         foreach ((array) $constructClassMethod->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
                 $stmt = $stmt->expr;
             }
-            if (!$stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+            if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
                 continue;
             }
             $assign = $stmt;
@@ -74,11 +74,11 @@ final class PromotedPropertyResolver
             if ($matchedParam === null) {
                 continue;
             }
-            return new \_PhpScoperb75b35f52b74\Rector\Php80\ValueObject\PropertyPromotionCandidate($property, $assign, $matchedParam);
+            return new \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\PropertyPromotionCandidate($property, $assign, $matchedParam);
         }
         return null;
     }
-    private function matchClassMethodParamByAssignedVariable(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $assignedExpr) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Param
+    private function matchClassMethodParamByAssignedVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $assignedExpr) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param
     {
         foreach ($classMethod->params as $param) {
             if (!$this->betterStandardPrinter->areNodesEqual($assignedExpr, $param->var)) {

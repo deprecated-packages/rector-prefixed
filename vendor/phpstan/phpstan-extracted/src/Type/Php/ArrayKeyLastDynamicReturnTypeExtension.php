@@ -1,49 +1,49 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type\Php;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoperb75b35f52b74\PHPStan\Type\NullType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils;
-class ArrayKeyLastDynamicReturnTypeExtension implements \_PhpScoperb75b35f52b74\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils;
+class ArrayKeyLastDynamicReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'array_key_last';
     }
-    public function getTypeFromFunctionCall(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         if (!isset($functionCall->args[0])) {
-            return \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         }
         $argType = $scope->getType($functionCall->args[0]->value);
         $iterableAtLeastOnce = $argType->isIterableAtLeastOnce();
         if ($iterableAtLeastOnce->no()) {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\NullType();
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType();
         }
-        $constantArrays = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::getConstantArrays($argType);
+        $constantArrays = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::getConstantArrays($argType);
         if (\count($constantArrays) > 0) {
             $keyTypes = [];
             foreach ($constantArrays as $constantArray) {
                 $arrayKeyTypes = $constantArray->getKeyTypes();
                 if (\count($arrayKeyTypes) === 0) {
-                    $keyTypes[] = new \_PhpScoperb75b35f52b74\PHPStan\Type\NullType();
+                    $keyTypes[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType();
                     continue;
                 }
                 $keyTypes[] = $arrayKeyTypes[\count($arrayKeyTypes) - 1];
             }
-            return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$keyTypes);
+            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$keyTypes);
         }
         $keyType = $argType->getIterableKeyType();
         if ($iterableAtLeastOnce->yes()) {
             return $keyType;
         }
-        return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union($keyType, new \_PhpScoperb75b35f52b74\PHPStan\Type\NullType());
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($keyType, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType());
     }
 }

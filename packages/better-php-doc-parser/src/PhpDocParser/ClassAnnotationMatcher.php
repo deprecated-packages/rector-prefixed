@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocParser;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocParser;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * Matches "@ORM\Entity" to FQN names based on use imports in the file
  */
@@ -17,7 +17,7 @@ final class ClassAnnotationMatcher
      * @var string[]
      */
     private $fullyQualifiedNameByHash = [];
-    public function resolveTagFullyQualifiedName(string $tag, \_PhpScoperb75b35f52b74\PhpParser\Node $node) : string
+    public function resolveTagFullyQualifiedName(string $tag, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : string
     {
         $uniqueHash = $tag . \spl_object_hash($node);
         if (isset($this->fullyQualifiedNameByHash[$uniqueHash])) {
@@ -25,7 +25,7 @@ final class ClassAnnotationMatcher
         }
         $tag = \ltrim($tag, '@');
         /** @var Use_[] $useNodes */
-        $useNodes = (array) $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
+        $useNodes = (array) $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
         $fullyQualifiedClass = $this->resolveFullyQualifiedClass($useNodes, $node, $tag);
         $this->fullyQualifiedNameByHash[$uniqueHash] = $fullyQualifiedClass;
         return $fullyQualifiedClass;
@@ -33,11 +33,11 @@ final class ClassAnnotationMatcher
     /**
      * @param Use_[] $uses
      */
-    private function resolveFullyQualifiedClass(array $uses, \_PhpScoperb75b35f52b74\PhpParser\Node $node, string $tag) : string
+    private function resolveFullyQualifiedClass(array $uses, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $tag) : string
     {
         if ($uses === []) {
             /** @var string|null $namespace */
-            $namespace = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
+            $namespace = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
             if ($namespace !== null) {
                 $namespacedTag = $namespace . '\\' . $tag;
                 if (\class_exists($namespacedTag)) {
@@ -63,19 +63,19 @@ final class ClassAnnotationMatcher
         }
         return null;
     }
-    private function isUseMatchingName(string $tag, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse $useUse) : bool
+    private function isUseMatchingName(string $tag, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse $useUse) : bool
     {
         $shortName = $useUse->alias !== null ? $useUse->alias->name : $useUse->name->getLast();
         $shortNamePattern = \preg_quote($shortName, '#');
-        return (bool) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($tag, '#' . $shortNamePattern . '(\\\\[\\w]+)?#i');
+        return (bool) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($tag, '#' . $shortNamePattern . '(\\\\[\\w]+)?#i');
     }
-    private function resolveName(string $tag, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse $useUse) : string
+    private function resolveName(string $tag, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse $useUse) : string
     {
         if ($useUse->alias === null) {
             return $useUse->name->toString();
         }
-        $unaliasedShortClass = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::substring($tag, \_PhpScoperb75b35f52b74\Nette\Utils\Strings::length($useUse->alias->toString()));
-        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::startsWith($unaliasedShortClass, '\\')) {
+        $unaliasedShortClass = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::substring($tag, \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::length($useUse->alias->toString()));
+        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($unaliasedShortClass, '\\')) {
             return $useUse->name . $unaliasedShortClass;
         }
         return $useUse->name . '\\' . $unaliasedShortClass;

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObject;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\PropertyProperty;
-use _PhpScoperb75b35f52b74\Rector\Naming\Contract\RenamePropertyValueObjectInterface;
-final class PropertyRename implements \_PhpScoperb75b35f52b74\Rector\Naming\Contract\RenamePropertyValueObjectInterface
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\RenamePropertyValueObjectInterface;
+final class PropertyRename implements \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\RenamePropertyValueObjectInterface
 {
     /**
      * @var string
@@ -33,7 +33,7 @@ final class PropertyRename implements \_PhpScoperb75b35f52b74\Rector\Naming\Cont
      * @var PropertyProperty
      */
     private $propertyProperty;
-    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property, string $expectedName, string $currentName, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $classLike, string $classLikeName, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\PropertyProperty $propertyProperty)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property, string $expectedName, string $currentName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike, string $classLikeName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty $propertyProperty)
     {
         $this->property = $property;
         $this->expectedName = $expectedName;
@@ -42,7 +42,7 @@ final class PropertyRename implements \_PhpScoperb75b35f52b74\Rector\Naming\Cont
         $this->classLikeName = $classLikeName;
         $this->propertyProperty = $propertyProperty;
     }
-    public function getProperty() : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property
+    public function getProperty() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property
     {
         return $this->property;
     }
@@ -58,7 +58,7 @@ final class PropertyRename implements \_PhpScoperb75b35f52b74\Rector\Naming\Cont
     {
         return $this->currentName;
     }
-    public function getClassLike() : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike
+    public function getClassLike() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike
     {
         return $this->classLike;
     }
@@ -66,7 +66,7 @@ final class PropertyRename implements \_PhpScoperb75b35f52b74\Rector\Naming\Cont
     {
         return $this->classLikeName;
     }
-    public function getPropertyProperty() : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\PropertyProperty
+    public function getPropertyProperty() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty
     {
         return $this->propertyProperty;
     }

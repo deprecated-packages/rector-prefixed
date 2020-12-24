@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Properties;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties;
 
-use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container;
-class LazyReadWritePropertiesExtensionProvider implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider
+use _PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Container;
+class LazyReadWritePropertiesExtensionProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider
 {
     /** @var Container */
     private $container;
     /** @var ReadWritePropertiesExtension[]|null */
     private $extensions = null;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container $container)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Container $container)
     {
         $this->container = $container;
     }
     public function getExtensions() : array
     {
         if ($this->extensions === null) {
-            $this->extensions = $this->container->getServicesByTag(\_PhpScoperb75b35f52b74\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider::EXTENSION_TAG);
+            $this->extensions = $this->container->getServicesByTag(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider::EXTENSION_TAG);
         }
         return $this->extensions;
     }

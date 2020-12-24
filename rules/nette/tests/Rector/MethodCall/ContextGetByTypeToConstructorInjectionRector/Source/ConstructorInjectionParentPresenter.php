@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\Source;
 
-use _PhpScoperb75b35f52b74\Nette\Application\IPresenter;
-use _PhpScoperb75b35f52b74\Nette\Application\IResponse;
-use _PhpScoperb75b35f52b74\Nette\Application\Request;
-class ConstructorInjectionParentPresenter implements \_PhpScoperb75b35f52b74\Nette\Application\IPresenter
+use _PhpScoper2a4e7ab1ecbc\Nette\Application\IPresenter;
+use _PhpScoper2a4e7ab1ecbc\Nette\Application\IResponse;
+use _PhpScoper2a4e7ab1ecbc\Nette\Application\Request;
+class ConstructorInjectionParentPresenter implements \_PhpScoper2a4e7ab1ecbc\Nette\Application\IPresenter
 {
     /**
      * @var SomeTypeToInject
      */
     private $someTypeToInject;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\Source\SomeTypeToInject $someTypeToInject)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\Source\SomeTypeToInject $someTypeToInject)
     {
         $this->someTypeToInject = $someTypeToInject;
     }
-    function run(\_PhpScoperb75b35f52b74\Nette\Application\Request $request) : \_PhpScoperb75b35f52b74\Nette\Application\IResponse
+    function run(\_PhpScoper2a4e7ab1ecbc\Nette\Application\Request $request) : \_PhpScoper2a4e7ab1ecbc\Nette\Application\IResponse
     {
     }
 }

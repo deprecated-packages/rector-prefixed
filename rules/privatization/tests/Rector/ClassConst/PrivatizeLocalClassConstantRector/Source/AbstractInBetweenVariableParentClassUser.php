@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Privatization\Tests\Rector\ClassConst\PrivatizeLocalClassConstantRector\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Privatization\Tests\Rector\ClassConst\PrivatizeLocalClassConstantRector\Source;
 
-abstract class AbstractInBetweenVariableParentClassUser extends \_PhpScoperb75b35f52b74\Rector\Privatization\Tests\Rector\ClassConst\PrivatizeLocalClassConstantRector\Source\AbstractVariableParentClassUser
+abstract class AbstractInBetweenVariableParentClassUser extends \_PhpScoper2a4e7ab1ecbc\Rector\Privatization\Tests\Rector\ClassConst\PrivatizeLocalClassConstantRector\Source\AbstractVariableParentClassUser
 {
 }

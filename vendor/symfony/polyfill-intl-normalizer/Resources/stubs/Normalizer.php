@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74;
+namespace _PhpScoper2a4e7ab1ecbc;
 
-class Normalizer extends \_PhpScoperb75b35f52b74\Symfony\Polyfill\Intl\Normalizer\Normalizer
+class Normalizer extends \_PhpScoper2a4e7ab1ecbc\Symfony\Polyfill\Intl\Normalizer\Normalizer
 {
     /**
      * @deprecated since ICU 56 and removed in PHP 8
@@ -17,4 +17,4 @@ class Normalizer extends \_PhpScoperb75b35f52b74\Symfony\Polyfill\Intl\Normalize
     const NFC = 4;
     const NFKC = 5;
 }
-\class_alias('_PhpScoperb75b35f52b74\\Normalizer', 'Normalizer', \false);
+\class_alias('_PhpScoper2a4e7ab1ecbc\\Normalizer', 'Normalizer', \false);

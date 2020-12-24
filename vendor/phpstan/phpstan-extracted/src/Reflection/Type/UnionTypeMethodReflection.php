@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Type;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Type;
 
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionVariant;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor;
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
-class UnionTypeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariant;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
+class UnionTypeMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $methodName;
@@ -26,7 +26,7 @@ class UnionTypeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Refle
         $this->methodName = $methodName;
         $this->methods = $methods;
     }
-    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
     {
         return $this->methods[0]->getDeclaringClass();
     }
@@ -61,25 +61,25 @@ class UnionTypeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Refle
     {
         return $this->methodName;
     }
-    public function getPrototype() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
     public function getVariants() : array
     {
         $variants = $this->methods[0]->getVariants();
-        $returnType = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...\array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection $method) : Type {
-            return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...\array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor $acceptor) : Type {
+        $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $method) : Type {
+            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor $acceptor) : Type {
                 return $acceptor->getReturnType();
             }, $method->getVariants()));
         }, $this->methods));
-        return \array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor $acceptor) use($returnType) : ParametersAcceptor {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), $acceptor->getParameters(), $acceptor->isVariadic(), $returnType);
+        return \array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor $acceptor) use($returnType) : ParametersAcceptor {
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), $acceptor->getParameters(), $acceptor->isVariadic(), $returnType);
         }, $variants);
     }
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isDeprecated();
         }, $this->methods));
     }
@@ -101,19 +101,19 @@ class UnionTypeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Refle
         }
         return \implode(' ', $descriptions);
     }
-    public function isFinal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isFinal();
         }, $this->methods));
     }
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isInternal();
         }, $this->methods));
     }
-    public function getThrowType() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         $types = [];
         foreach ($this->methods as $method) {
@@ -126,11 +126,11 @@ class UnionTypeMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Refle
         if (\count($types) === 0) {
             return null;
         }
-        return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$types);
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$types);
     }
-    public function hasSideEffects() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->hasSideEffects();
         }, $this->methods));
     }

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\Rector\Property;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Rector\Property;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver;
-use _PhpScoperb75b35f52b74\Rector\Naming\PropertyRenamer\BoolPropertyRenamer;
-use _PhpScoperb75b35f52b74\Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\PropertyRenamer\BoolPropertyRenamer;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\Property\MakeBoolPropertyRespectIsHasWasMethodNamingRector\MakeBoolPropertyRespectIsHasWasMethodNamingRectorTest
  * @see \Rector\Naming\Tests\Rector\Property\MakeBoolPropertyRespectIsHasWasMethodNamingRector\Php74Test
  */
-final class MakeBoolPropertyRespectIsHasWasMethodNamingRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class MakeBoolPropertyRespectIsHasWasMethodNamingRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PropertyRenameFactory
@@ -29,15 +29,15 @@ final class MakeBoolPropertyRespectIsHasWasMethodNamingRector extends \_PhpScope
      * @var BoolPropertyExpectedNameResolver
      */
     private $boolPropertyExpectedNameResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Naming\PropertyRenamer\BoolPropertyRenamer $boolPropertyRenamer, \_PhpScoperb75b35f52b74\Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \_PhpScoperb75b35f52b74\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\PropertyRenamer\BoolPropertyRenamer $boolPropertyRenamer, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver)
     {
         $this->propertyRenameFactory = $propertyRenameFactory;
         $this->boolPropertyRenamer = $boolPropertyRenamer;
         $this->boolPropertyExpectedNameResolver = $boolPropertyExpectedNameResolver;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Renames property to respect is/has/was method naming', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Renames property to respect is/has/was method naming', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     private $full = false;
@@ -67,12 +67,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param Property $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         if (!$this->isPropertyBoolean($node)) {
             return null;

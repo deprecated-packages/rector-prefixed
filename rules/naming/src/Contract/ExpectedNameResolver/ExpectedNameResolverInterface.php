@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Naming\Contract\ExpectedNameResolver;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\ExpectedNameResolver;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
 interface ExpectedNameResolverInterface
 {
     /**
      * @param Param|Property $node
      */
-    public function resolveIfNotYet(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string;
+    public function resolveIfNotYet(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string;
     /**
      * @param Param|Property $node
      */
-    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string;
+    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string;
 }

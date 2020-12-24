@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Visitor;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Visitor;
 
-use _PhpScoperb75b35f52b74\Hoa\Visitor;
+use _PhpScoper2a4e7ab1ecbc\Hoa\Visitor;
 /**
  * Class \Hoa\Compiler\Visitor\Dump.
  *
@@ -44,7 +44,7 @@ use _PhpScoperb75b35f52b74\Hoa\Visitor;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Dump implements \_PhpScoperb75b35f52b74\Hoa\Visitor\Visit
+class Dump implements \_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Visit
 {
     /**
      * Indentation depth.
@@ -60,7 +60,7 @@ class Dump implements \_PhpScoperb75b35f52b74\Hoa\Visitor\Visit
      * @param   mixed                 $eldnah     Handle (not reference).
      * @return  mixed
      */
-    public function visit(\_PhpScoperb75b35f52b74\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
+    public function visit(\_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
     {
         ++self::$_i;
         $out = \str_repeat('>  ', self::$_i) . $element->getId();

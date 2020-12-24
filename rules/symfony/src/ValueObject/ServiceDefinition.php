@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Symfony\ValueObject;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject;
 
-use _PhpScoperb75b35f52b74\Rector\Symfony\Contract\Tag\TagInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\Contract\Tag\TagInterface;
 final class ServiceDefinition
 {
     /**
@@ -69,7 +69,7 @@ final class ServiceDefinition
     {
         return $this->tags;
     }
-    public function getTag(string $name) : ?\_PhpScoperb75b35f52b74\Rector\Symfony\Contract\Tag\TagInterface
+    public function getTag(string $name) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Symfony\Contract\Tag\TagInterface
     {
         foreach ($this->tags as $tag) {
             if ($tag->getName() !== $name) {

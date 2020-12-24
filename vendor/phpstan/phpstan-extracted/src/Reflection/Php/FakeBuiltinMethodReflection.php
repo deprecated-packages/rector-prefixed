@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Php;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php;
 
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-class FakeBuiltinMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\BuiltinMethodReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+class FakeBuiltinMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\BuiltinMethodReflection
 {
     /** @var string */
     private $methodName;
@@ -64,13 +64,13 @@ class FakeBuiltinMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Ref
     {
         return \true;
     }
-    public function getPrototype() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\BuiltinMethodReflection
+    public function getPrototype() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\BuiltinMethodReflection
     {
         throw new \ReflectionException();
     }
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
     }
     public function isVariadic() : bool
     {

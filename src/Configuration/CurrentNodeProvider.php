@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\Configuration;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
 final class CurrentNodeProvider
 {
     /**
      * @var Node|null
      */
     private $node;
-    public function setNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : void
+    public function setNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
     {
         $this->node = $node;
     }
-    public function getNode() : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function getNode() : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         return $this->node;
     }

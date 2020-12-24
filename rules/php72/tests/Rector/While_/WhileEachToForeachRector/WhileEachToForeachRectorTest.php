@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Php72\Tests\Rector\While_\WhileEachToForeachRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Php72\Tests\Rector\While_\WhileEachToForeachRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Php72\Rector\While_\WhileEachToForeachRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\While_\WhileEachToForeachRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP < 8.0
  */
-final class WhileEachToForeachRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class WhileEachToForeachRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class WhileEachToForeachRectorTest extends \_PhpScoperb75b35f52b74\Rector\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Php72\Rector\While_\WhileEachToForeachRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\While_\WhileEachToForeachRector::class;
     }
 }

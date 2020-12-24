@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Math\Sampler;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Math\Sampler;
 
 /**
  * Class \Hoa\Math\Sampler\Random.
@@ -43,7 +43,7 @@ namespace _PhpScoperb75b35f52b74\Hoa\Math\Sampler;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Random extends \_PhpScoperb75b35f52b74\Hoa\Math\Sampler\Sampler
+class Random extends \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Sampler\Sampler
 {
     /**
      * Construct.

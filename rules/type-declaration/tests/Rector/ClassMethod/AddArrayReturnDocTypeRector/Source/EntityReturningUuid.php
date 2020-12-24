@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddArrayReturnDocTypeRector\Source;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddArrayReturnDocTypeRector\Source;
 
-use _PhpScoperb75b35f52b74\Ramsey\Uuid\Uuid;
-use _PhpScoperb75b35f52b74\Ramsey\Uuid\UuidInterface;
+use _PhpScoper2a4e7ab1ecbc\Ramsey\Uuid\Uuid;
+use _PhpScoper2a4e7ab1ecbc\Ramsey\Uuid\UuidInterface;
 final class EntityReturningUuid
 {
-    public function getId() : \_PhpScoperb75b35f52b74\Ramsey\Uuid\UuidInterface
+    public function getId() : \_PhpScoper2a4e7ab1ecbc\Ramsey\Uuid\UuidInterface
     {
-        return \_PhpScoperb75b35f52b74\Ramsey\Uuid\Uuid::uuid4();
+        return \_PhpScoper2a4e7ab1ecbc\Ramsey\Uuid\Uuid::uuid4();
     }
 }

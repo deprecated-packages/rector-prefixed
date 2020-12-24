@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Finder;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\Finder;
 
-use _PhpScoperb75b35f52b74\Nette\Loaders\RobotLoader;
+use _PhpScoper2a4e7ab1ecbc\Nette\Loaders\RobotLoader;
 use ReflectionClass;
 final class ClassByTypeFinder
 {
@@ -13,7 +13,7 @@ final class ClassByTypeFinder
      */
     public function findByType(array $directories, string $type) : array
     {
-        $robotLoader = new \_PhpScoperb75b35f52b74\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoper2a4e7ab1ecbc\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/robot_loader_temp');
         $robotLoader->addDirectory(...$directories);
         $robotLoader->ignoreDirs[] = '*tests*';

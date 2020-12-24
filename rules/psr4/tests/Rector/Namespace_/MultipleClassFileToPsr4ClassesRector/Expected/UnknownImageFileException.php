@@ -5,11 +5,11 @@ declare (strict_types=1);
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-namespace _PhpScoperb75b35f52b74\NettePostfixedToUniqueAutoload\Utils;
+namespace _PhpScoper2a4e7ab1ecbc\NettePostfixedToUniqueAutoload\Utils;
 
 /**
  * The exception that indicates invalid image file.
  */
-class UnknownImageFileException extends \_PhpScoperb75b35f52b74\NettePostfixedToUniqueAutoload\Utils\RegexpException
+class UnknownImageFileException extends \_PhpScoper2a4e7ab1ecbc\NettePostfixedToUniqueAutoload\Utils\RegexpException
 {
 }

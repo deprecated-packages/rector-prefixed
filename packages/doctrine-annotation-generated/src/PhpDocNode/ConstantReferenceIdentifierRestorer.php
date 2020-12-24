@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\DoctrineAnnotationGenerated\PhpDocNode;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\DoctrineAnnotationGenerated\PhpDocNode;
 
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector;
-use _PhpScoperb75b35f52b74\Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector;
-use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector;
+use _PhpScoper2a4e7ab1ecbc\Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
  * @see https://github.com/rectorphp/rector/pull/3275/files
  */
@@ -24,7 +24,7 @@ final class ConstantReferenceIdentifierRestorer
      * @var AnnotationVisibilityDetector
      */
     private $annotationVisibilityDetector;
-    public function __construct(\_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
     {
         $this->privatesAccessor = $privatesAccessor;
         $this->annotationItemsResolver = $annotationItemsResolver;
@@ -33,7 +33,7 @@ final class ConstantReferenceIdentifierRestorer
     public function restoreObject(object $annotation) : void
     {
         // restore constant value back to original value
-        $identifierToResolvedValues = \_PhpScoperb75b35f52b74\Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector::provide();
+        $identifierToResolvedValues = \_PhpScoper2a4e7ab1ecbc\Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector::provide();
         if ($identifierToResolvedValues === []) {
             return;
         }
@@ -56,7 +56,7 @@ final class ConstantReferenceIdentifierRestorer
             }
             $this->restoreNestedValue($value, $identifierToResolvedValues, $isPrivate, $annotation, $propertyName);
         }
-        \_PhpScoperb75b35f52b74\Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector::clear();
+        \_PhpScoper2a4e7ab1ecbc\Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector::clear();
     }
     /**
      * @param array<string, mixed> $identifierToResolvedValues

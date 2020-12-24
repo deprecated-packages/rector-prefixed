@@ -1,19 +1,19 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub;
 
 use DirectoryIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
 use Exception;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
-use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NameResolver;
-use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
-use _PhpScoperb75b35f52b74\PhpParser\ParserFactory;
-use _PhpScoperb75b35f52b74\PhpParser\PrettyPrinter\Standard;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitor\NameResolver;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\ParserFactory;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\PrettyPrinter\Standard;
 use RuntimeException;
 use function array_map;
 use function count;
@@ -34,9 +34,9 @@ use const PHP_EOL;
     $mapFile = __DIR__ . '/PhpStormStubsMap.php';
     class InvalidConstantNode extends \RuntimeException
     {
-        public static function create(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : self
+        public static function create(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : self
         {
-            return new self(\sprintf('Invalid constant node (first 50 characters: %s)', \substr((new \_PhpScoperb75b35f52b74\PhpParser\PrettyPrinter\Standard())->prettyPrint([$node]), 0, 50)));
+            return new self(\sprintf('Invalid constant node (first 50 characters: %s)', \substr((new \_PhpScoper2a4e7ab1ecbc\PhpParser\PrettyPrinter\Standard())->prettyPrint([$node]), 0, 50)));
         }
     }
     class InvalidFileLocation extends \RuntimeException
@@ -48,45 +48,45 @@ use const PHP_EOL;
     function assertReadableFile(string $filename) : void
     {
         if (empty($filename)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidFileLocation('Filename was empty');
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidFileLocation('Filename was empty');
         }
         if (!\file_exists($filename)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('File "%s" does not exist', $filename));
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('File "%s" does not exist', $filename));
         }
         if (!\is_readable($filename)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('File "%s" is not readable', $filename));
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('File "%s" is not readable', $filename));
         }
         if (!\is_file($filename)) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('"%s" is not a file', $filename));
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidFileLocation(\sprintf('"%s" is not a file', $filename));
         }
     }
     /**
      * @throws InvalidConstantNode
      */
-    function assertValidDefineFunctionCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $node) : void
+    function assertValidDefineFunctionCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $node) : void
     {
-        if (!$node->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+        if (!$node->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
         if ($node->name->toLowerString() !== 'define') {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
         if (!\in_array(\count($node->args), [2, 3], \true)) {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
-        if (!$node->args[0]->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+        if (!$node->args[0]->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
         $valueNode = $node->args[1]->value;
-        if ($valueNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+        if ($valueNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
-        if ($valueNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
-            throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
+        if ($valueNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode::create($node);
         }
     }
     $phpStormStubsDirectory = __DIR__;
-    $fileVisitor = new class extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
+    $fileVisitor = new class extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
     {
         /** @var string[] */
         private $classNames = [];
@@ -97,33 +97,33 @@ use const PHP_EOL;
         /**
          * {@inheritdoc}
          */
-        public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?int
+        public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?int
         {
-            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike) {
+            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike) {
                 $this->classNames[] = $node->namespacedName->toString();
-                return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
-            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_) {
+            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_) {
                 $this->functionNames[] = $node->namespacedName->toString();
-                return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
-            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Const_) {
+            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Const_) {
                 $this->constantNames[] = $node->namespacedName->toString();
-                return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
-            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
+            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
                 try {
                     assertValidDefineFunctionCall($node);
-                } catch (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode $e) {
+                } catch (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\InvalidConstantNode $e) {
                     return null;
                 }
                 /** @var Node\Scalar\String_ $nameNode */
                 $nameNode = $node->args[0]->value;
-                if (\count($node->args) === 3 && $node->args[2]->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch && $node->args[2]->value->name->toLowerString() === 'true') {
+                if (\count($node->args) === 3 && $node->args[2]->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch && $node->args[2]->value->name->toLowerString() === 'true') {
                     $this->constantNames[] = \strtolower($nameNode->value);
                 }
                 $this->constantNames[] = $nameNode->value;
-                return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
             return null;
         }
@@ -155,9 +155,9 @@ use const PHP_EOL;
             $this->constantNames = [];
         }
     };
-    $phpParser = (new \_PhpScoperb75b35f52b74\PhpParser\ParserFactory())->create(\_PhpScoperb75b35f52b74\PhpParser\ParserFactory::PREFER_PHP7);
-    $nodeTraverser = new \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser();
-    $nodeTraverser->addVisitor(new \_PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NameResolver());
+    $phpParser = (new \_PhpScoper2a4e7ab1ecbc\PhpParser\ParserFactory())->create(\_PhpScoper2a4e7ab1ecbc\PhpParser\ParserFactory::PREFER_PHP7);
+    $nodeTraverser = new \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser();
+    $nodeTraverser->addVisitor(new \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitor\NameResolver());
     $nodeTraverser->addVisitor($fileVisitor);
     $map = ['classes' => [], 'functions' => [], 'constants' => []];
     foreach (new \DirectoryIterator($phpStormStubsDirectory) as $directoryInfo) {

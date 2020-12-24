@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder;
 
-final class HmacEncoder implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder\EncoderInterface
+final class HmacEncoder implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder\EncoderInterface
 {
     /**
      * @var string

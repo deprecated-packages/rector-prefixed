@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
 
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-interface PropertyReflection extends \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+interface PropertyReflection extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection
 {
-    public function getReadableType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
-    public function getWritableType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function getReadableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+    public function getWritableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
     public function canChangeTypeAfterAssignment() : bool;
     public function isReadable() : bool;
     public function isWritable() : bool;
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
     public function getDeprecatedDescription() : ?string;
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
 }

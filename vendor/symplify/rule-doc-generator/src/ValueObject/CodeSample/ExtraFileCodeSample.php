@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ExtraFileCodeSample extends \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class ExtraFileCodeSample extends \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
 {
     /**
      * @var string

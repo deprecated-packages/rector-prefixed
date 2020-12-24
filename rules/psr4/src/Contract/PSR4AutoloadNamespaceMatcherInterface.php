@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\PSR4\Contract;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\PSR4\Contract;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
 interface PSR4AutoloadNamespaceMatcherInterface
 {
-    public function getExpectedNamespace(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string;
+    public function getExpectedNamespace(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string;
 }

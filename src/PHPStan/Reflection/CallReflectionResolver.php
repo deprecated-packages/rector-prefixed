@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\PHPStan\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PHPStan\Reflection;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Broker\FunctionNotFoundException;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\FunctionNotFoundException;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
 final class CallReflectionResolver
 {
     /**
@@ -41,36 +41,36 @@ final class CallReflectionResolver
      * @var TypeToCallReflectionResolverRegistry
      */
     private $typeToCallReflectionResolverRegistry;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoperb75b35f52b74\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry $typeToCallReflectionResolverRegistry)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry $typeToCallReflectionResolverRegistry)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->typeToCallReflectionResolverRegistry = $typeToCallReflectionResolverRegistry;
     }
-    public function resolveConstructor(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_ $new) : ?\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
+    public function resolveConstructor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_ $new) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
     {
         /** @var Scope|null $scope */
-        $scope = $new->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $new->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
             return null;
         }
         $classType = $this->nodeTypeResolver->resolve($new->class);
-        if ($classType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
+        if ($classType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
             return $this->matchConstructorMethodInUnionType($classType, $scope);
         }
-        if (!$classType->hasMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT)->yes()) {
+        if (!$classType->hasMethod(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT)->yes()) {
             return null;
         }
-        return $classType->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT, $scope);
+        return $classType->getMethod(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT, $scope);
     }
     /**
      * @param FuncCall|MethodCall|StaticCall $node
      * @return MethodReflection|FunctionReflection|null
      */
-    public function resolveCall(\_PhpScoperb75b35f52b74\PhpParser\Node $node)
+    public function resolveCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node)
     {
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
             return $this->resolveFunctionCall($node);
         }
         return $this->resolveMethodCall($node);
@@ -79,7 +79,7 @@ final class CallReflectionResolver
      * @param FunctionReflection|MethodReflection|null $reflection
      * @param FuncCall|MethodCall|StaticCall|New_ $node
      */
-    public function resolveParametersAcceptor($reflection, \_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor
+    public function resolveParametersAcceptor($reflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
     {
         if ($reflection === null) {
             return null;
@@ -90,39 +90,39 @@ final class CallReflectionResolver
             return null;
         }
         if ($nbVariants === 1) {
-            return \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($variants);
+            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($variants);
         }
         /** @var Scope|null $scope */
-        $scope = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
             return null;
         }
-        return \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $node->args, $variants);
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $node->args, $variants);
     }
-    private function matchConstructorMethodInUnionType(\_PhpScoperb75b35f52b74\PHPStan\Type\UnionType $unionType, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : ?\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
+    private function matchConstructorMethodInUnionType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType $unionType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
     {
         foreach ($unionType->getTypes() as $unionedType) {
-            if (!$unionedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
+            if (!$unionedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
                 continue;
             }
-            if (!$unionedType->hasMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT)->yes()) {
+            if (!$unionedType->hasMethod(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT)->yes()) {
                 continue;
             }
-            return $unionedType->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT, $scope);
+            return $unionedType->getMethod(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT, $scope);
         }
         return null;
     }
     /**
      * @return FunctionReflection|MethodReflection|null
      */
-    private function resolveFunctionCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall)
+    private function resolveFunctionCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         /** @var Scope|null $scope */
-        $scope = $funcCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($funcCall->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
+        $scope = $funcCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if ($funcCall->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
             try {
                 return $this->reflectionProvider->getFunction($funcCall->name, $scope);
-            } catch (\_PhpScoperb75b35f52b74\PHPStan\Broker\FunctionNotFoundException $functionNotFoundException) {
+            } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\FunctionNotFoundException $functionNotFoundException) {
                 return null;
             }
         }
@@ -134,16 +134,19 @@ final class CallReflectionResolver
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function resolveMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
+    private function resolveMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
     {
         /** @var Scope|null $scope */
-        $scope = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
             return null;
         }
-        $classType = $this->nodeTypeResolver->resolve($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall ? $node->var : $node->class);
+        $classType = $this->nodeTypeResolver->resolve($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall ? $node->var : $node->class);
         $methodName = $this->nodeNameResolver->getName($node->name);
-        if ($methodName === null || !$classType->hasMethod($methodName)->yes()) {
+        if ($methodName === null) {
+            return null;
+        }
+        if (!$classType->hasMethod($methodName)->yes()) {
             return null;
         }
         return $classType->getMethod($methodName, $scope);

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Comment\Doc;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\Renaming\ValueObject\RenameAnnotation;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Comment\Doc;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\ValueObject\RenameAnnotation;
 final class DocBlockManipulator
 {
     /**
@@ -41,29 +41,29 @@ final class DocBlockManipulator
      * @var DocBlockClassRenamer
      */
     private $docBlockClassRenamer;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer $docBlockClassRenamer, \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter $phpDocInfoPrinter)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer $docBlockClassRenamer, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter $phpDocInfoPrinter)
     {
         $this->phpDocInfoPrinter = $phpDocInfoPrinter;
         $this->docBlockClassRenamer = $docBlockClassRenamer;
     }
-    public function changeType(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $oldType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $newType) : void
+    public function changeType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $oldType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $newType) : void
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo->getPhpDocNode(), $oldType, $newType, $node);
     }
-    public function replaceAnnotationInNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\Rector\Renaming\ValueObject\RenameAnnotation $renameAnnotation) : void
+    public function replaceAnnotationInNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\Rector\Renaming\ValueObject\RenameAnnotation $renameAnnotation) : void
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $this->replaceTagByAnother($phpDocInfo->getPhpDocNode(), $renameAnnotation->getOldAnnotation(), $renameAnnotation->getNewAnnotation());
     }
-    public function replaceTagByAnother(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, string $oldTag, string $newTag) : void
+    public function replaceTagByAnother(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, string $oldTag, string $newTag) : void
     {
-        $oldTag = \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming::normalizeName($oldTag);
-        $newTag = \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming::normalizeName($newTag);
+        $oldTag = \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming::normalizeName($oldTag);
+        $newTag = \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming::normalizeName($newTag);
         foreach ($phpDocNode->children as $phpDocChildNode) {
-            if (!$phpDocChildNode instanceof \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
+            if (!$phpDocChildNode instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
                 continue;
             }
             if ($phpDocChildNode->name === $oldTag) {
@@ -74,20 +74,20 @@ final class DocBlockManipulator
     /**
      * For better performance
      */
-    public function hasNodeTypeTags(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    public function hasNodeTypeTags(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return \false;
         }
-        return $phpDocInfo->hasByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface::class);
+        return $phpDocInfo->hasByType(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface::class);
     }
-    public function updateNodeWithPhpDocInfo(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : void
+    public function updateNodeWithPhpDocInfo(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
     {
         // nothing to change
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return;
         }
@@ -101,7 +101,7 @@ final class DocBlockManipulator
         if ($phpDoc === '') {
             if ($phpDocInfo->getOriginalPhpDocNode()->children !== []) {
                 // all comments were removed → null
-                $node->setAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
+                $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
             }
             return;
         }
@@ -111,19 +111,19 @@ final class DocBlockManipulator
             return;
         }
         // this is needed to remove duplicated // commentsAsText
-        $node->setDocComment(new \_PhpScoperb75b35f52b74\PhpParser\Comment\Doc($phpDoc));
+        $node->setDocComment(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Comment\Doc($phpDoc));
     }
-    public function getDoctrineFqnTargetEntity(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string
+    public function getDoctrineFqnTargetEntity(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
         if ($doctrineRelationTagValueNode === null) {
             return null;
         }
         return $doctrineRelationTagValueNode->getFullyQualifiedTargetEntity();
     }
-    private function printPhpDocInfoToString(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : string
+    private function printPhpDocInfoToString(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : string
     {
         // new node, needs to be reparsed
         if ($phpDocInfo->isNewNode()) {
@@ -135,7 +135,7 @@ final class DocBlockManipulator
         }
         return $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo);
     }
-    private function haveDocCommentOrCommentsChanged(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $phpDoc) : bool
+    private function haveDocCommentOrCommentsChanged(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $phpDoc) : bool
     {
         $docComment = $node->getDocComment();
         if ($docComment !== null && $docComment->getText() === $phpDoc) {
@@ -152,18 +152,18 @@ final class DocBlockManipulator
     }
     private function inlineDocContent(string $docContent) : string
     {
-        $docContent = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($docContent, self::NEWLINE_MIDDLE_DOC_REGEX, ' ');
-        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($docContent, self::NEWLINE_CLOSING_DOC_REGEX, ' */');
+        $docContent = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($docContent, self::NEWLINE_MIDDLE_DOC_REGEX, ' ');
+        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($docContent, self::NEWLINE_CLOSING_DOC_REGEX, ' */');
     }
     /**
      * add // comments to phpdoc (only has /**
      */
-    private function completeSimpleCommentsToPhpDoc(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $phpDoc) : string
+    private function completeSimpleCommentsToPhpDoc(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $phpDoc) : string
     {
         $startComments = '';
         foreach ($node->getComments() as $comment) {
             // skip non-simple comments
-            if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::startsWith($comment->getText(), '//')) {
+            if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($comment->getText(), '//')) {
                 continue;
             }
             $startComments .= $comment->getText();
@@ -175,6 +175,6 @@ final class DocBlockManipulator
     }
     private function removeSpacesAndAsterisks(string $content) : string
     {
-        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($content, self::SPACE_OR_ASTERISK_REGEX, '');
+        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($content, self::SPACE_OR_ASTERISK_REGEX, '');
     }
 }

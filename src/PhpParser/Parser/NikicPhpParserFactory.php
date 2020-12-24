@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Parser;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Parser;
 
-use _PhpScoperb75b35f52b74\PhpParser\Lexer;
-use _PhpScoperb75b35f52b74\PhpParser\Parser;
-use _PhpScoperb75b35f52b74\PhpParser\ParserFactory;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Lexer;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Parser;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\ParserFactory;
 final class NikicPhpParserFactory
 {
     /**
@@ -16,13 +16,13 @@ final class NikicPhpParserFactory
      * @var ParserFactory
      */
     private $parserFactory;
-    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Lexer $lexer, \_PhpScoperb75b35f52b74\PhpParser\ParserFactory $parserFactory)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Lexer $lexer, \_PhpScoper2a4e7ab1ecbc\PhpParser\ParserFactory $parserFactory)
     {
         $this->lexer = $lexer;
         $this->parserFactory = $parserFactory;
     }
-    public function create() : \_PhpScoperb75b35f52b74\PhpParser\Parser
+    public function create() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Parser
     {
-        return $this->parserFactory->create(\_PhpScoperb75b35f52b74\PhpParser\ParserFactory::PREFER_PHP7, $this->lexer, ['useIdentifierNodes' => \true, 'useConsistentVariableNodes' => \true, 'useExpressionStatements' => \true, 'useNopStatements' => \false]);
+        return $this->parserFactory->create(\_PhpScoper2a4e7ab1ecbc\PhpParser\ParserFactory::PREFER_PHP7, $this->lexer, ['useIdentifierNodes' => \true, 'useConsistentVariableNodes' => \true, 'useExpressionStatements' => \true, 'useNopStatements' => \false]);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter;
 use function is_array;
 use function is_string;
 use function sprintf;
@@ -15,11 +15,11 @@ use function var_export;
  */
 final class ReflectionParameterStringCast
 {
-    public static function toString(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
+    public static function toString(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
     {
         return \sprintf('Parameter #%d [ %s %s%s%s$%s%s ]', $parameterReflection->getPosition(), $parameterReflection->isOptional() ? '<optional>' : '<required>', self::typeToString($parameterReflection), $parameterReflection->isVariadic() ? '...' : '', $parameterReflection->isPassedByReference() ? '&' : '', $parameterReflection->getName(), self::valueToString($parameterReflection));
     }
-    private static function typeToString(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
+    private static function typeToString(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
     {
         if (!$parameterReflection->hasType()) {
             return '';
@@ -32,7 +32,7 @@ final class ReflectionParameterStringCast
         }
         return $type . ' or NULL ';
     }
-    private static function valueToString(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
+    private static function valueToString(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter $parameterReflection) : string
     {
         if (!($parameterReflection->isOptional() && $parameterReflection->isDefaultValueAvailable())) {
             return '';

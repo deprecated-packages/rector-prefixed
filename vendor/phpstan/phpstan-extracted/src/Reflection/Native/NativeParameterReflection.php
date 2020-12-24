@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Native;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native;
 
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-class NativeParameterReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflection
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+class NativeParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection
 {
     /** @var string */
     private $name;
@@ -20,7 +20,7 @@ class NativeParameterReflection implements \_PhpScoperb75b35f52b74\PHPStan\Refle
     private $variadic;
     /** @var \PHPStan\Type\Type|null */
     private $defaultValue;
-    public function __construct(string $name, bool $optional, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $defaultValue)
+    public function __construct(string $name, bool $optional, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $defaultValue)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -37,11 +37,11 @@ class NativeParameterReflection implements \_PhpScoperb75b35f52b74\PHPStan\Refle
     {
         return $this->optional;
     }
-    public function getType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function passedByReference() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -49,7 +49,7 @@ class NativeParameterReflection implements \_PhpScoperb75b35f52b74\PHPStan\Refle
     {
         return $this->variadic;
     }
-    public function getDefaultValue() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getDefaultValue() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

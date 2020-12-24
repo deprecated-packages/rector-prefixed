@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74;
+namespace _PhpScoper2a4e7ab1ecbc;
 
 class AppController
 {
 }
-\class_alias('_PhpScoperb75b35f52b74\\AppController', 'AppController', \false);
+\class_alias('_PhpScoper2a4e7ab1ecbc\\AppController', 'AppController', \false);

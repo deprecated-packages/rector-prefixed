@@ -1,54 +1,54 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\PhpDoc;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc;
 
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\FileAnalyser;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver;
-use _PhpScoperb75b35f52b74\PHPStan\Broker\Broker;
-use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container;
-use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\DerivativeContainerFactory;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Lexer\Lexer;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\PhpDocParser;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\ClassCaseSensitivityCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Classes\ExistingClassesInClassImplementsRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Classes\ExistingClassesInInterfaceExtendsRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Classes\ExistingClassInClassExtendsRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Classes\ExistingClassInTraitUseRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\FunctionDefinitionCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Functions\MissingFunctionParameterTypehintRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Functions\MissingFunctionReturnTypehintRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\ClassAncestorsRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\ClassTemplateTypeRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\FunctionSignatureVarianceRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\FunctionTemplateTypeRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\GenericAncestorsCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\GenericObjectTypeCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\InterfaceAncestorsRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\InterfaceTemplateTypeRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\MethodSignatureVarianceRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\MethodTemplateTypeRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\TemplateTypeCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\TraitTemplateTypeRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Generics\VarianceCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Methods\ExistingClassesInTypehintsRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Methods\MissingMethodParameterTypehintRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Methods\MissingMethodReturnTypehintRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\MissingTypehintCheck;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Properties\ExistingClassesInPropertiesRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Properties\MissingPropertyTypehintRule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Registry;
-use _PhpScoperb75b35f52b74\PHPStan\Type\FileTypeMapper;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\FileAnalyser;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NodeScopeResolver;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Container;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\DerivativeContainerFactory;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\PhpDocParser;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes\ExistingClassesInClassImplementsRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes\ExistingClassesInInterfaceExtendsRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes\ExistingClassInClassExtendsRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes\ExistingClassInTraitUseRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\FunctionDefinitionCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Functions\MissingFunctionParameterTypehintRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Functions\MissingFunctionReturnTypehintRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\ClassAncestorsRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\ClassTemplateTypeRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\FunctionSignatureVarianceRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\FunctionTemplateTypeRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericAncestorsCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericObjectTypeCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\InterfaceAncestorsRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\InterfaceTemplateTypeRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\MethodSignatureVarianceRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\MethodTemplateTypeRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\TemplateTypeCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\TraitTemplateTypeRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\VarianceCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Methods\ExistingClassesInTypehintsRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Methods\MissingMethodParameterTypehintRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Methods\MissingMethodReturnTypehintRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\MissingTypehintCheck;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\ExistingClassesInPropertiesRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\MissingPropertyTypehintRule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Registry;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper;
 class StubValidator
 {
     /** @var \PHPStan\DependencyInjection\DerivativeContainerFactory */
     private $derivativeContainerFactory;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\DerivativeContainerFactory $derivativeContainerFactory)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\DerivativeContainerFactory $derivativeContainerFactory)
     {
         $this->derivativeContainerFactory = $derivativeContainerFactory;
     }
@@ -61,13 +61,13 @@ class StubValidator
         if (\count($stubFiles) === 0) {
             return [];
         }
-        $originalBroker = \_PhpScoperb75b35f52b74\PHPStan\Broker\Broker::getInstance();
+        $originalBroker = \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::getInstance();
         $container = $this->derivativeContainerFactory->create([__DIR__ . '/../../conf/config.stubValidator.neon']);
         $ruleRegistry = $this->getRuleRegistry($container);
         /** @var FileAnalyser $fileAnalyser */
-        $fileAnalyser = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Analyser\FileAnalyser::class);
+        $fileAnalyser = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\FileAnalyser::class);
         /** @var NodeScopeResolver $nodeScopeResolver */
-        $nodeScopeResolver = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver::class);
+        $nodeScopeResolver = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NodeScopeResolver::class);
         $nodeScopeResolver->setAnalysedFiles($stubFiles);
         $analysedFiles = \array_fill_keys($stubFiles, \true);
         $errors = [];
@@ -78,49 +78,49 @@ class StubValidator
                 $errors[] = $tmpError->withoutTip();
             }
         }
-        \_PhpScoperb75b35f52b74\PHPStan\Broker\Broker::registerInstance($originalBroker);
+        \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::registerInstance($originalBroker);
         return $errors;
     }
-    private function getRuleRegistry(\_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container $container) : \_PhpScoperb75b35f52b74\PHPStan\Rules\Registry
+    private function getRuleRegistry(\_PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Container $container) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Registry
     {
-        $fileTypeMapper = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Type\FileTypeMapper::class);
-        $genericObjectTypeCheck = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\GenericObjectTypeCheck::class);
-        $genericAncestorsCheck = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\GenericAncestorsCheck::class);
-        $templateTypeCheck = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\TemplateTypeCheck::class);
-        $varianceCheck = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\VarianceCheck::class);
-        $reflectionProvider = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider::class);
-        $classCaseSensitivityCheck = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Rules\ClassCaseSensitivityCheck::class);
-        $functionDefinitionCheck = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Rules\FunctionDefinitionCheck::class);
-        $missingTypehintCheck = $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Rules\MissingTypehintCheck::class);
-        return new \_PhpScoperb75b35f52b74\PHPStan\Rules\Registry([
+        $fileTypeMapper = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper::class);
+        $genericObjectTypeCheck = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericObjectTypeCheck::class);
+        $genericAncestorsCheck = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericAncestorsCheck::class);
+        $templateTypeCheck = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\TemplateTypeCheck::class);
+        $varianceCheck = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\VarianceCheck::class);
+        $reflectionProvider = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider::class);
+        $classCaseSensitivityCheck = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck::class);
+        $functionDefinitionCheck = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\FunctionDefinitionCheck::class);
+        $missingTypehintCheck = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\MissingTypehintCheck::class);
+        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Registry([
             // level 0
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Classes\ExistingClassesInClassImplementsRule($classCaseSensitivityCheck, $reflectionProvider),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Classes\ExistingClassesInInterfaceExtendsRule($classCaseSensitivityCheck, $reflectionProvider),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Classes\ExistingClassInClassExtendsRule($classCaseSensitivityCheck, $reflectionProvider),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Classes\ExistingClassInTraitUseRule($classCaseSensitivityCheck, $reflectionProvider),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Methods\ExistingClassesInTypehintsRule($functionDefinitionCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Functions\ExistingClassesInTypehintsRule($functionDefinitionCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Properties\ExistingClassesInPropertiesRule($reflectionProvider, $classCaseSensitivityCheck, \true, \false),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes\ExistingClassesInClassImplementsRule($classCaseSensitivityCheck, $reflectionProvider),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes\ExistingClassesInInterfaceExtendsRule($classCaseSensitivityCheck, $reflectionProvider),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes\ExistingClassInClassExtendsRule($classCaseSensitivityCheck, $reflectionProvider),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes\ExistingClassInTraitUseRule($classCaseSensitivityCheck, $reflectionProvider),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Methods\ExistingClassesInTypehintsRule($functionDefinitionCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Functions\ExistingClassesInTypehintsRule($functionDefinitionCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\ExistingClassesInPropertiesRule($reflectionProvider, $classCaseSensitivityCheck, \true, \false),
             // level 2
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\ClassAncestorsRule($fileTypeMapper, $genericAncestorsCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\ClassTemplateTypeRule($templateTypeCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\FunctionTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\FunctionSignatureVarianceRule($varianceCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\InterfaceAncestorsRule($fileTypeMapper, $genericAncestorsCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\InterfaceTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\MethodTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\MethodSignatureVarianceRule($varianceCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Generics\TraitTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule($fileTypeMapper, $genericObjectTypeCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule($genericObjectTypeCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule($container->getByType(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Lexer\Lexer::class), $container->getByType(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\PhpDocParser::class)),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule($fileTypeMapper),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\ClassAncestorsRule($fileTypeMapper, $genericAncestorsCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\ClassTemplateTypeRule($templateTypeCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\FunctionTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\FunctionSignatureVarianceRule($varianceCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\InterfaceAncestorsRule($fileTypeMapper, $genericAncestorsCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\InterfaceTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\MethodTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\MethodSignatureVarianceRule($varianceCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\TraitTemplateTypeRule($fileTypeMapper, $templateTypeCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule($fileTypeMapper, $genericObjectTypeCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule($genericObjectTypeCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule($container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::class), $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\PhpDocParser::class)),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule($fileTypeMapper),
             // level 6
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Functions\MissingFunctionParameterTypehintRule($missingTypehintCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Functions\MissingFunctionReturnTypehintRule($missingTypehintCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Methods\MissingMethodParameterTypehintRule($missingTypehintCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Methods\MissingMethodReturnTypehintRule($missingTypehintCheck),
-            new \_PhpScoperb75b35f52b74\PHPStan\Rules\Properties\MissingPropertyTypehintRule($missingTypehintCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Functions\MissingFunctionParameterTypehintRule($missingTypehintCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Functions\MissingFunctionReturnTypehintRule($missingTypehintCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Methods\MissingMethodParameterTypehintRule($missingTypehintCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Methods\MissingMethodReturnTypehintRule($missingTypehintCheck),
+            new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\MissingPropertyTypehintRule($missingTypehintCheck),
         ]);
     }
 }

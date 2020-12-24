@@ -1,59 +1,59 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector\RectorChangeCollector;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Collector\RectorChangeCollector;
 final class ArrayManipulator
 {
     /**
      * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
         $this->rectorChangeCollector = $rectorChangeCollector;
     }
-    public function isArrayOnlyScalarValues(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array) : bool
+    public function isArrayOnlyScalarValues(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array) : bool
     {
         foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem) {
+            if (!$arrayItem instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem) {
                 continue;
             }
-            if ($arrayItem->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_) {
+            if ($arrayItem->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
                 if (!$this->isArrayOnlyScalarValues($arrayItem->value)) {
                     return \false;
                 }
                 continue;
             }
-            if ($arrayItem->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar) {
+            if ($arrayItem->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar) {
                 continue;
             }
             return \false;
         }
         return \true;
     }
-    public function addItemToArrayUnderKey(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem $newArrayItem, string $key) : void
+    public function addItemToArrayUnderKey(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem $newArrayItem, string $key) : void
     {
         foreach ($array->items as $item) {
             if ($item === null) {
                 continue;
             }
             if ($this->hasKeyName($item, $key)) {
-                if (!$item->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_) {
+                if (!$item->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
                     continue;
                 }
                 $item->value->items[] = $newArrayItem;
                 return;
             }
         }
-        $array->items[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_([$newArrayItem]), new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_($key));
+        $array->items[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_([$newArrayItem]), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($key));
     }
-    public function findItemInInArrayByKeyAndUnset(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_ $array, string $keyName) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem
+    public function findItemInInArrayByKeyAndUnset(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, string $keyName) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem
     {
         foreach ($array->items as $i => $item) {
             if ($item === null) {
@@ -73,9 +73,9 @@ final class ArrayManipulator
         }
         return null;
     }
-    public function hasKeyName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem $arrayItem, string $name) : bool
+    public function hasKeyName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem $arrayItem, string $name) : bool
     {
-        if (!$arrayItem->key instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+        if (!$arrayItem->key instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
             return \false;
         }
         return $arrayItem->key->value === $name;

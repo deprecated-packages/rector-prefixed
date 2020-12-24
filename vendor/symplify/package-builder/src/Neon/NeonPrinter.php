@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Neon;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Neon;
 
-use _PhpScoperb75b35f52b74\Nette\Neon\Encoder;
-use _PhpScoperb75b35f52b74\Nette\Neon\Neon;
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\Nette\Neon\Encoder;
+use _PhpScoper2a4e7ab1ecbc\Nette\Neon\Neon;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
 final class NeonPrinter
 {
     /**
@@ -23,7 +23,7 @@ final class NeonPrinter
      */
     public function printNeon(array $phpStanNeon) : string
     {
-        $neonContent = \_PhpScoperb75b35f52b74\Nette\Neon\Neon::encode($phpStanNeon, \_PhpScoperb75b35f52b74\Nette\Neon\Encoder::BLOCK);
+        $neonContent = \_PhpScoper2a4e7ab1ecbc\Nette\Neon\Neon::encode($phpStanNeon, \_PhpScoper2a4e7ab1ecbc\Nette\Neon\Encoder::BLOCK);
         // tabs to spaces for consistency
         $neonContent = $this->replaceTabsWithSpaces($neonContent);
         // inline single tags, dummy
@@ -33,14 +33,14 @@ final class NeonPrinter
     }
     private function replaceTabsWithSpaces(string $neonContent) : string
     {
-        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($neonContent, '#\\t#', '    ');
+        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($neonContent, '#\\t#', '    ');
     }
     private function inlineSingleTags(string $neonContent) : string
     {
-        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($neonContent, self::TAGS_REGEX, 'tags: [$1]');
+        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($neonContent, self::TAGS_REGEX, 'tags: [$1]');
     }
     private function fixDoubleSpaceInArguments(string $neonContent) : string
     {
-        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($neonContent, self::ARGUMENTS_DOUBLE_SPACE_REGEX, '$1');
+        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($neonContent, self::ARGUMENTS_DOUBLE_SPACE_REGEX, '$1');
     }
 }

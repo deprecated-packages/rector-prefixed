@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Symplify\SmartFileSystem;
+namespace _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Html;
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\Symfony\Component\Filesystem\Exception\IOException;
-use _PhpScoperb75b35f52b74\Symfony\Component\Filesystem\Filesystem;
-final class SmartFileSystem extends \_PhpScoperb75b35f52b74\Symfony\Component\Filesystem\Filesystem
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Html;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Filesystem\Exception\IOException;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Filesystem\Filesystem;
+final class SmartFileSystem extends \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Filesystem\Filesystem
 {
     /**
      * @var string
@@ -22,13 +22,13 @@ final class SmartFileSystem extends \_PhpScoperb75b35f52b74\Symfony\Component\Fi
         $source = @\file_get_contents($filename);
         if (!$source) {
             $message = \sprintf('Failed to read "%s" file: "%s"', $filename, $this->getLastError());
-            throw new \_PhpScoperb75b35f52b74\Symfony\Component\Filesystem\Exception\IOException($message, 0, null, $filename);
+            throw new \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Filesystem\Exception\IOException($message, 0, null, $filename);
         }
         return $source;
     }
-    public function readFileToSmartFileInfo(string $filename) : \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
+    public function readFileToSmartFileInfo(string $filename) : \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($filename);
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($filename);
     }
     /**
      * Converts given HTML code to plain text
@@ -46,6 +46,6 @@ final class SmartFileSystem extends \_PhpScoperb75b35f52b74\Symfony\Component\Fi
     {
         $message = \error_get_last()['message'] ?? '';
         $message = \ini_get('html_errors') ? $this->htmlToText($message) : $message;
-        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($message, self::BEFORE_COLLON_REGEX, '');
+        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($message, self::BEFORE_COLLON_REGEX, '');
     }
 }

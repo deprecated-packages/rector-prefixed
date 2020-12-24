@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
 
-use _PhpScoperb75b35f52b74\PHPStan\Broker\Broker;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\GenericObjectType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper;
-class ThisType extends \_PhpScoperb75b35f52b74\PHPStan\Type\StaticType
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper;
+class ThisType extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType
 {
     /** @var ClassReflection */
     private $classReflection;
@@ -19,29 +19,29 @@ class ThisType extends \_PhpScoperb75b35f52b74\PHPStan\Type\StaticType
     public function __construct($classReflection)
     {
         if (\is_string($classReflection)) {
-            $classReflection = \_PhpScoperb75b35f52b74\PHPStan\Broker\Broker::getInstance()->getClass($classReflection);
+            $classReflection = \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::getInstance()->getClass($classReflection);
         }
         parent::__construct($classReflection->getName());
         $this->classReflection = $classReflection;
     }
-    public function getStaticObjectType() : \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType
+    public function getStaticObjectType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType
     {
         if ($this->staticObjectType === null) {
             if ($this->classReflection->isGeneric()) {
-                $typeMap = $this->classReflection->getTemplateTypeMap()->map(static function (string $name, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : Type {
-                    return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper::toArgument($type);
+                $typeMap = $this->classReflection->getTemplateTypeMap()->map(static function (string $name, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : Type {
+                    return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::toArgument($type);
                 });
-                return $this->staticObjectType = new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\GenericObjectType($this->classReflection->getName(), $this->classReflection->typeMapToList($typeMap));
+                return $this->staticObjectType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType($this->classReflection->getName(), $this->classReflection->typeMapToList($typeMap));
             }
-            return $this->staticObjectType = new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType($this->classReflection->getName(), null, $this->classReflection);
+            return $this->staticObjectType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($this->classReflection->getName(), null, $this->classReflection);
         }
         return $this->staticObjectType;
     }
-    public function changeBaseClass(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection) : \_PhpScoperb75b35f52b74\PHPStan\Type\StaticType
+    public function changeBaseClass(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType
     {
         return new self($classReflection);
     }
-    public function describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel $level) : string
     {
         return \sprintf('$this(%s)', $this->getClassName());
     }

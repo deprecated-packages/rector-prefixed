@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrors;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrors;
 
 /**
  * @internal Use PHPStan\Rules\RuleErrorBuilder instead.
  */
-class RuleError85 implements \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleError, \_PhpScoperb75b35f52b74\PHPStan\Rules\FileRuleError, \_PhpScoperb75b35f52b74\PHPStan\Rules\IdentifierRuleError, \_PhpScoperb75b35f52b74\PHPStan\Rules\NonIgnorableRuleError
+class RuleError85 implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleError, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\FileRuleError, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\IdentifierRuleError, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\NonIgnorableRuleError
 {
     /** @var string */
     public $message;

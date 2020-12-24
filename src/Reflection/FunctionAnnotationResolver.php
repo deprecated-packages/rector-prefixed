@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Reflection;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse;
-use _PhpScoperb75b35f52b74\Rector\CodingStyle\Naming\ClassNaming;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpDoc\PhpDocTagsFinder;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Parser\FunctionParser;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse;
+use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpDoc\PhpDocTagsFinder;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Parser\FunctionParser;
 use ReflectionFunction;
 final class FunctionAnnotationResolver
 {
@@ -24,7 +24,7 @@ final class FunctionAnnotationResolver
      * @var PhpDocTagsFinder
      */
     private $phpDocTagsFinder;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Parser\FunctionParser $functionParser, \_PhpScoperb75b35f52b74\Rector\Core\PhpDoc\PhpDocTagsFinder $phpDocTagsFinder)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Parser\FunctionParser $functionParser, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpDoc\PhpDocTagsFinder $phpDocTagsFinder)
     {
         $this->functionParser = $functionParser;
         $this->classNaming = $classNaming;
@@ -49,7 +49,7 @@ final class FunctionAnnotationResolver
     private function expandAnnotatedClasses(\ReflectionFunction $reflectionFunction, array $classNames) : array
     {
         $namespace = $this->functionParser->parseFunction($reflectionFunction);
-        if (!$namespace instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_) {
+        if (!$namespace instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_) {
             return [];
         }
         $uses = $this->getUses($namespace);
@@ -63,15 +63,15 @@ final class FunctionAnnotationResolver
     /**
      * @return string[]
      */
-    private function getUses(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_ $namespace) : array
+    private function getUses(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
         $uses = [];
         foreach ($namespace->stmts as $stmt) {
-            if (!$stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_) {
+            if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_) {
                 continue;
             }
             $use = $stmt->uses[0];
-            if (!$use instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse) {
+            if (!$use instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse) {
                 continue;
             }
             $parts = $use->name->parts;

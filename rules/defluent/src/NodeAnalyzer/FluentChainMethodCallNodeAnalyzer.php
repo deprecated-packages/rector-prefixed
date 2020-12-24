@@ -1,18 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Defluent\NodeAnalyzer;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
 /**
  * Utils for chain of MethodCall Node:
  * "$this->methodCall()->chainedMethodCall()"
@@ -25,7 +26,7 @@ final class FluentChainMethodCallNodeAnalyzer
      *
      * @var string[]
      */
-    private const KNOWN_FACTORY_FLUENT_TYPES = ['_PhpScoperb75b35f52b74\\PHPStan\\Analyser\\MutatingScope'];
+    private const KNOWN_FACTORY_FLUENT_TYPES = ['_PhpScoper2a4e7ab1ecbc\\PHPStan\\Analyser\\MutatingScope'];
     /**
      * @var NodeTypeResolver
      */
@@ -34,7 +35,7 @@ final class FluentChainMethodCallNodeAnalyzer
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -49,14 +50,14 @@ final class FluentChainMethodCallNodeAnalyzer
      *      return $this;
      * }
      */
-    public function isFluentClassMethodOfMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    public function isFluentClassMethodOfMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if ($methodCall->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall || $methodCall->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
+        if ($this->isCall($methodCall->var)) {
             return \false;
         }
         $calleeStaticType = $this->nodeTypeResolver->getStaticType($methodCall->var);
         // we're not sure
-        if ($calleeStaticType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
+        if ($calleeStaticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
             return \false;
         }
         $methodReturnStaticType = $this->nodeTypeResolver->getStaticType($methodCall);
@@ -64,7 +65,7 @@ final class FluentChainMethodCallNodeAnalyzer
         if (!$calleeStaticType->equals($methodReturnStaticType)) {
             return \false;
         }
-        if ($calleeStaticType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
+        if ($calleeStaticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
             foreach (self::KNOWN_FACTORY_FLUENT_TYPES as $knownFactoryFluentTypes) {
                 if (\is_a($calleeStaticType->getClassName(), $knownFactoryFluentTypes, \true)) {
                     return \false;
@@ -73,20 +74,20 @@ final class FluentChainMethodCallNodeAnalyzer
         }
         return \true;
     }
-    public function isLastChainMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    public function isLastChainMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         // is chain method call
-        if (!$methodCall->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall && !$methodCall->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_) {
+        if (!$methodCall->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall && !$methodCall->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_) {
             return \false;
         }
-        $nextNode = $methodCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $nextNode = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         // is last chain call
         return $nextNode === null;
     }
     /**
      * @return string[]|null[]
      */
-    public function collectMethodCallNamesInChain(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $desiredMethodCall) : array
+    public function collectMethodCallNamesInChain(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $desiredMethodCall) : array
     {
         $methodCalls = $this->collectAllMethodCallsInChain($desiredMethodCall);
         $methodNames = [];
@@ -98,21 +99,21 @@ final class FluentChainMethodCallNodeAnalyzer
     /**
      * @return MethodCall[]
      */
-    public function collectAllMethodCallsInChain(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : array
+    public function collectAllMethodCallsInChain(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : array
     {
         $chainMethodCalls = [$methodCall];
         // traverse up
         $currentNode = $methodCall->var;
-        while ($currentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        while ($currentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             $chainMethodCalls[] = $currentNode;
             $currentNode = $currentNode->var;
         }
         // traverse down
         if (\count($chainMethodCalls) === 1) {
-            $currentNode = $methodCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            while ($currentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+            $currentNode = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            while ($currentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 $chainMethodCalls[] = $currentNode;
-                $currentNode = $currentNode->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+                $currentNode = $currentNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             }
         }
         return $chainMethodCalls;
@@ -120,11 +121,11 @@ final class FluentChainMethodCallNodeAnalyzer
     /**
      * @return MethodCall[]
      */
-    public function collectAllMethodCallsInChainWithoutRootOne(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : array
+    public function collectAllMethodCallsInChainWithoutRootOne(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : array
     {
         $chainMethodCalls = $this->collectAllMethodCallsInChain($methodCall);
         foreach ($chainMethodCalls as $key => $chainMethodCall) {
-            if (!$chainMethodCall->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall && !$chainMethodCall->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_) {
+            if (!$chainMethodCall->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall && !$chainMethodCall->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_) {
                 unset($chainMethodCalls[$key]);
                 break;
             }
@@ -136,9 +137,9 @@ final class FluentChainMethodCallNodeAnalyzer
      *
      * @param string[] $methods
      */
-    public function isTypeAndChainCalls(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, array $methods) : bool
+    public function isTypeAndChainCalls(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, array $methods) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         // node chaining is in reverse order than code
@@ -149,33 +150,40 @@ final class FluentChainMethodCallNodeAnalyzer
                 return \false;
             }
             $node = $node->var;
-            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 continue;
             }
         }
         $variableType = $this->nodeTypeResolver->resolve($node);
-        if ($variableType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
+        if ($variableType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
             return \false;
         }
         return $variableType->isSuperTypeOf($type)->yes();
     }
-    public function resolveRootExpr(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoperb75b35f52b74\PhpParser\Node
+    public function resolveRootExpr(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         $callerNode = $methodCall->var;
-        while ($callerNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall || $callerNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
-            $callerNode = $callerNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall ? $callerNode->class : $callerNode->var;
+        while ($callerNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall || $callerNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
+            $callerNode = $callerNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall ? $callerNode->class : $callerNode->var;
         }
         return $callerNode;
     }
-    public function resolveRootMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall
+    public function resolveRootMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
     {
         $callerNode = $methodCall->var;
-        while ($callerNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall && $callerNode->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        while ($callerNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall && $callerNode->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             $callerNode = $callerNode->var;
         }
-        if ($callerNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        if ($callerNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             return $callerNode;
         }
         return null;
+    }
+    private function isCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    {
+        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+            return \true;
+        }
+        return $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
 
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
 class CompoundTypeHelper
 {
-    public static function accepts(\_PhpScoperb75b35f52b74\PHPStan\Type\CompoundType $compoundType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $otherType, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public static function accepts(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType $compoundType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $otherType, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $compoundType->isAcceptedBy($otherType, $strictTypes);
     }

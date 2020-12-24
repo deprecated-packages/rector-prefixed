@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Laravel\Rector\MethodCall;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\MethodCall;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/laravel/framework/pull/25315
  * @see https://laracasts.com/discuss/channels/eloquent/laravel-eloquent-where-date-is-equal-or-smaller-than-datetime
  *
  * @see \Rector\Laravel\Tests\Rector\MethodCall\ChangeQueryWhereDateValueWithCarbonRector\ChangeQueryWhereDateValueWithCarbonRectorTest
  */
-final class ChangeQueryWhereDateValueWithCarbonRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class ChangeQueryWhereDateValueWithCarbonRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoperb75b35f52b74\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoper2a4e7ab1ecbc\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Database\Query\Builder;
 
 final class SomeClass
@@ -55,23 +55,23 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         $argValue = $this->matchWhereDateThirdArgValue($node);
         if ($argValue === null) {
             return null;
         }
         // is just made with static call?
-        if ($argValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall || $argValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        if ($argValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall || $argValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
             // now!
             // 1. extract assign
-            $dateTimeVariable = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable('dateTime');
-            $assign = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign($dateTimeVariable, $argValue);
+            $dateTimeVariable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('dateTime');
+            $assign = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($dateTimeVariable, $argValue);
             $this->addNodeBeforeNode($assign, $node);
             $node->args[2]->value = $dateTimeVariable;
             // update assign ">" → ">="
@@ -81,7 +81,7 @@ CODE_SAMPLE
             $this->addNodeAfterNode($whereTimeMethodCall, $node);
             return $node;
         }
-        if ($argValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if ($argValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             $dateTimeVariable = $argValue;
             $this->changeCompareSignExpr($node->args[1]);
             // 2. add "whereTime()" time call
@@ -90,9 +90,9 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function matchWhereDateThirdArgValue(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
+    private function matchWhereDateThirdArgValue(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
     {
-        if (!$this->isOnClassMethodCall($methodCall, '_PhpScoperb75b35f52b74\\Illuminate\\Database\\Query\\Builder', 'whereDate')) {
+        if (!$this->isOnClassMethodCall($methodCall, '_PhpScoper2a4e7ab1ecbc\\Illuminate\\Database\\Query\\Builder', 'whereDate')) {
             return null;
         }
         if (!isset($methodCall->args[2])) {
@@ -103,7 +103,7 @@ CODE_SAMPLE
             return null;
         }
         // nothing to change
-        if ($this->isStaticCallNamed($argValue, '_PhpScoperb75b35f52b74\\Carbon\\Carbon', 'today')) {
+        if ($this->isStaticCallNamed($argValue, '_PhpScoper2a4e7ab1ecbc\\Carbon\\Carbon', 'today')) {
             return null;
         }
         if ($this->isValues($methodCall->args[1]->value, ['>=', '<='])) {
@@ -111,9 +111,9 @@ CODE_SAMPLE
         }
         return $argValue;
     }
-    private function changeCompareSignExpr(\_PhpScoperb75b35f52b74\PhpParser\Node\Arg $arg) : void
+    private function changeCompareSignExpr(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg $arg) : void
     {
-        if (!$arg->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+        if (!$arg->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
             return;
         }
         $string = $arg->value;
@@ -124,9 +124,9 @@ CODE_SAMPLE
             $string->value = '>=';
         }
     }
-    private function createWhereTimeMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $dateTimeVariable) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall
+    private function createWhereTimeMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $dateTimeVariable) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
     {
-        $whereTimeArgs = [$methodCall->args[0], $methodCall->args[1], new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($dateTimeVariable)];
-        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($methodCall->var, 'whereTime', $whereTimeArgs);
+        $whereTimeArgs = [$methodCall->args[0], $methodCall->args[1], new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($dateTimeVariable)];
+        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($methodCall->var, 'whereTime', $whereTimeArgs);
     }
 }

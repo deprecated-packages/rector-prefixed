@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Iterator;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Buffer.
@@ -43,7 +43,7 @@ namespace _PhpScoperb75b35f52b74\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Buffer extends \_PhpScoperb75b35f52b74\Hoa\Iterator\IteratorIterator implements \_PhpScoperb75b35f52b74\Hoa\Iterator\Outer
+class Buffer extends \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator\IteratorIterator implements \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator\Outer
 {
     /**
      * Buffer key index.

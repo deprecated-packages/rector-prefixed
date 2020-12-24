@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Naming;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Naming;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
-use _PhpScoperb75b35f52b74\Rector\Naming\Naming\ExpectedNameResolver;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
+use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\ExpectedNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
 final class MethodCallToVariableNameResolver
 {
     /**
@@ -32,7 +32,7 @@ final class MethodCallToVariableNameResolver
      * @var ExpectedNameResolver
      */
     private $expectedNameResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->expectedNameResolver = $expectedNameResolver;
@@ -40,16 +40,19 @@ final class MethodCallToVariableNameResolver
     /**
      * @todo decouple to collector by arg type
      */
-    public function resolveVariableName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
+    public function resolveVariableName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {
         $methodCallVarName = $this->nodeNameResolver->getName($methodCall->var);
         $methodCallName = $this->nodeNameResolver->getName($methodCall->name);
-        if ($methodCallVarName === null || $methodCallName === null) {
+        if ($methodCallVarName === null) {
+            return null;
+        }
+        if ($methodCallName === null) {
             return null;
         }
         return $this->getVariableName($methodCall, $methodCallVarName, $methodCallName);
     }
-    private function getVariableName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, string $methodCallVarName, string $methodCallName) : string
+    private function getVariableName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall, string $methodCallVarName, string $methodCallName) : string
     {
         $variableName = $this->expectedNameResolver->resolveForCall($methodCall);
         if ($methodCall->args === [] && $variableName !== null && $variableName !== $methodCallVarName) {
@@ -57,14 +60,14 @@ final class MethodCallToVariableNameResolver
         }
         $fallbackVarName = $this->getFallbackVarName($methodCallVarName, $methodCallName);
         $argValue = $methodCall->args[0]->value;
-        if ($argValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch && $argValue->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier) {
+        if ($argValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch && $argValue->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
             return $this->getClassConstFetchVarName($argValue, $methodCallName);
         }
-        if ($argValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+        if ($argValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
             return $this->getStringVarName($argValue, $methodCallVarName, $fallbackVarName);
         }
         $argumentName = $this->nodeNameResolver->getName($argValue);
-        if ($argValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable && $argumentName !== null && $variableName !== null) {
+        if ($argValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && $argumentName !== null && $variableName !== null) {
             return $argumentName . \ucfirst($variableName);
         }
         return $fallbackVarName;
@@ -73,25 +76,25 @@ final class MethodCallToVariableNameResolver
     {
         return $methodCallVarName . \ucfirst($methodCallName);
     }
-    private function getClassConstFetchVarName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $methodCallName) : string
+    private function getClassConstFetchVarName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $methodCallName) : string
     {
         /** @var Identifier $name */
         $name = $classConstFetch->name;
         $argValueName = \strtolower($name->toString());
         if ($argValueName !== 'class') {
-            return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($argValueName, self::CONSTANT_REGEX, function ($matches) : string {
+            return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($argValueName, self::CONSTANT_REGEX, function ($matches) : string {
                 return \strtoupper($matches[2]);
             });
         }
-        if ($classConstFetch->class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
+        if ($classConstFetch->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
             return $this->normalizeStringVariableName($methodCallName) . $classConstFetch->class->getLast();
         }
         return $this->normalizeStringVariableName($methodCallName);
     }
-    private function getStringVarName(\_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_ $string, string $methodCallVarName, string $fallbackVarName) : string
+    private function getStringVarName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string, string $methodCallVarName, string $fallbackVarName) : string
     {
         $normalizeStringVariableName = $this->normalizeStringVariableName($string->value . \ucfirst($fallbackVarName));
-        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($normalizeStringVariableName, self::START_ALPHA_REGEX) && $normalizeStringVariableName !== $methodCallVarName) {
+        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($normalizeStringVariableName, self::START_ALPHA_REGEX) && $normalizeStringVariableName !== $methodCallVarName) {
             return $normalizeStringVariableName;
         }
         return $fallbackVarName;

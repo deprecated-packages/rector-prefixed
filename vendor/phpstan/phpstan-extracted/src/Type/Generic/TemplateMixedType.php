@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Type\Generic;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic;
 
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\CompoundType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
-final class TemplateMixedType extends \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType implements \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateType
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+final class TemplateMixedType extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType
 {
     /** @var TemplateTypeScope */
     private $scope;
@@ -23,7 +23,7 @@ final class TemplateMixedType extends \_PhpScoperb75b35f52b74\PHPStan\Type\Mixed
     private $variance;
     /** @var MixedType|null */
     private $bound = null;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope $scope, \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeStrategy $templateTypeStrategy, \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance $templateTypeVariance, string $name)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeScope $scope, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeStrategy $templateTypeStrategy, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance $templateTypeVariance, string $name)
     {
         parent::__construct(\true);
         $this->scope = $scope;
@@ -35,11 +35,11 @@ final class TemplateMixedType extends \_PhpScoperb75b35f52b74\PHPStan\Type\Mixed
     {
         return $this->name;
     }
-    public function getScope() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope
+    public function getScope() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeScope
     {
         return $this->scope;
     }
-    public function describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel $level) : string
     {
         $basicDescription = function () : string {
             return $this->name;
@@ -48,87 +48,87 @@ final class TemplateMixedType extends \_PhpScoperb75b35f52b74\PHPStan\Type\Mixed
             return \sprintf('%s (%s, %s)', $basicDescription(), $this->scope->describe(), $this->isArgument() ? 'argument' : 'parameter');
         });
     }
-    public function equals(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool
+    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
     {
         return $type instanceof self && $type->scope->equals($this->scope) && $type->name === $this->name && parent::equals($type);
     }
-    public function getBound() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getBound() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         if ($this->bound === null) {
-            $this->bound = new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(\true);
+            $this->bound = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(\true);
         }
         return $this->bound;
     }
-    public function accepts(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function accepts(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->strategy->accepts($this, $type, $strictTypes);
     }
-    public function isSuperTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\CompoundType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return $this->getBound()->isSuperTypeOf($type)->and(\_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe());
+        return $this->getBound()->isSuperTypeOf($type)->and(\_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe());
     }
-    public function isSuperTypeOfMixed(\_PhpScoperb75b35f52b74\PHPStan\Type\MixedType $type) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isSuperTypeOfMixed(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
         return $this->isSuperTypeOf($type);
     }
-    public function isSubTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType || $type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType) {
             return $type->isSuperTypeOf($this);
         }
-        if (!$type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateType) {
+        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType) {
             return $type->isSuperTypeOf($this->getBound());
         }
         if ($this->equals($type)) {
-            return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
+            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
         }
-        return $type->getBound()->isSuperTypeOf($this->getBound())->and(\_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe());
+        return $type->getBound()->isSuperTypeOf($this->getBound())->and(\_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe());
     }
-    public function inferTemplateTypes(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $receivedType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap
+    public function inferTemplateTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $receivedType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
     {
-        if ($receivedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType || $receivedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType) {
+        if ($receivedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType || $receivedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType) {
             return $receivedType->inferTemplateTypesOn($this);
         }
-        if ($receivedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateType && $this->getBound()->isSuperTypeOf($receivedType->getBound())->yes()) {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap([$this->name => $receivedType]);
+        if ($receivedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType && $this->getBound()->isSuperTypeOf($receivedType->getBound())->yes()) {
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap([$this->name => $receivedType]);
         }
         if ($this->getBound()->isSuperTypeOf($receivedType)->yes()) {
-            return new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap([$this->name => \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::generalizeType($receivedType)]);
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap([$this->name => \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::generalizeType($receivedType)]);
         }
-        return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
-    public function getReferencedTemplateTypes(\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance) : array
+    public function getReferencedTemplateTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance) : array
     {
-        return [new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeReference($this, $positionVariance)];
+        return [new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeReference($this, $positionVariance)];
     }
     public function isArgument() : bool
     {
         return $this->strategy->isArgument();
     }
-    public function toArgument() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateType
+    public function toArgument() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType
     {
-        return new self($this->scope, new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeArgumentStrategy(), $this->variance, $this->name);
+        return new self($this->scope, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeArgumentStrategy(), $this->variance, $this->name);
     }
-    public function isValidVariance(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $a, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $b) : bool
+    public function isValidVariance(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $a, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $b) : bool
     {
         return $this->variance->isValidVariance($a, $b);
     }
-    public function subtract(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function subtract(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this;
     }
-    public function getTypeWithoutSubtractedType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function getTypeWithoutSubtractedType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this;
     }
-    public function changeSubtractedType(?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $subtractedType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public function changeSubtractedType(?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $subtractedType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return $this;
     }
-    public function getVariance() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance
+    public function getVariance() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance
     {
         return $this->variance;
     }
@@ -136,7 +136,7 @@ final class TemplateMixedType extends \_PhpScoperb75b35f52b74\PHPStan\Type\Mixed
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return new self($properties['scope'], $properties['strategy'], $properties['variance'], $properties['name']);
     }

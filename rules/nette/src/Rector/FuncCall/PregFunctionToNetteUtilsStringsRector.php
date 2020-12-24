@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BitwiseAnd;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BitwiseNot;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Cast\Bool_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BitwiseAnd;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BitwiseNot;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Bool_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.tomasvotruba.cz/blog/2019/02/07/what-i-learned-by-using-thecodingmachine-safe/#is-there-a-better-way
  *
  * @see \Rector\Nette\Tests\Rector\FuncCall\PregFunctionToNetteUtilsStringsRector\PregFunctionToNetteUtilsStringsRectorTest
  */
-final class PregFunctionToNetteUtilsStringsRector extends \_PhpScoperb75b35f52b74\Rector\Nette\Rector\FuncCall\AbstractPregToNetteUtilsStringsRector
+final class PregFunctionToNetteUtilsStringsRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\FuncCall\AbstractPregToNetteUtilsStringsRector
 {
     /**
      * @var array<string, string>
@@ -36,9 +36,9 @@ final class PregFunctionToNetteUtilsStringsRector extends \_PhpScoperb75b35f52b7
      * @var string
      */
     private const SLASH_REGEX = '#[^\\\\]\\(#';
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare preg_split() and preg_replace() functions', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare preg_split() and preg_replace() functions', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -67,31 +67,31 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical::class];
     }
     /**
      * @param FuncCall|Identical $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical) {
+        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical) {
             return $this->refactorIdentical($node);
         }
         return $this->refactorFuncCall($node);
     }
-    private function refactorIdentical(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Cast\Bool_
+    private function refactorIdentical(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Bool_
     {
-        $parentNode = $identical->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($identical->left instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
+        $parentNode = $identical->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($identical->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
             $refactoredFuncCall = $this->refactorFuncCall($identical->left);
             if ($refactoredFuncCall !== null && $this->isValue($identical->right, 1)) {
                 return $this->createBoolCast($parentNode, $refactoredFuncCall);
             }
         }
-        if ($identical->right instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
+        if ($identical->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
             $refactoredFuncCall = $this->refactorFuncCall($identical->right);
             if ($refactoredFuncCall !== null && $this->isValue($identical->left, 1)) {
-                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Cast\Bool_($refactoredFuncCall);
+                return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Bool_($refactoredFuncCall);
             }
         }
         return null;
@@ -99,7 +99,7 @@ CODE_SAMPLE
     /**
      * @return FuncCall|StaticCall|Assign|null
      */
-    private function refactorFuncCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
+    private function refactorFuncCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
     {
         $methodName = $this->matchFuncCallRenameToMethod($funcCall, self::FUNCTION_NAME_TO_METHOD_NAME);
         if ($methodName === null) {
@@ -107,8 +107,8 @@ CODE_SAMPLE
         }
         $matchStaticCall = $this->createMatchStaticCall($funcCall, $methodName);
         // skip assigns, might be used with different return value
-        $parentNode = $funcCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+        $parentNode = $funcCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
             if ($methodName === 'split') {
                 return $this->processSplit($funcCall, $matchStaticCall);
             }
@@ -120,11 +120,11 @@ CODE_SAMPLE
         $currentFunctionName = $this->getName($funcCall);
         // assign
         if (isset($funcCall->args[2]) && $currentFunctionName !== 'preg_replace') {
-            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign($funcCall->args[2]->value, $matchStaticCall);
+            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($funcCall->args[2]->value, $matchStaticCall);
         }
         return $matchStaticCall;
     }
-    private function createMatchStaticCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall, string $methodName) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall
+    private function createMatchStaticCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, string $methodName) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall
     {
         $args = [];
         if ($methodName === 'replace') {
@@ -135,12 +135,12 @@ CODE_SAMPLE
             $args[] = $funcCall->args[1];
             $args[] = $funcCall->args[0];
         }
-        return $this->createStaticCall('_PhpScoperb75b35f52b74\\Nette\\Utils\\Strings', $methodName, $args);
+        return $this->createStaticCall('_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\Strings', $methodName, $args);
     }
     /**
      * @return FuncCall|StaticCall
      */
-    private function processSplit(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall $matchStaticCall) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr
+    private function processSplit(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $matchStaticCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
     {
         $matchStaticCall = $this->compensateNetteUtilsSplitDelimCapture($matchStaticCall);
         if (!isset($funcCall->args[2])) {
@@ -157,19 +157,19 @@ CODE_SAMPLE
     /**
      * Handles https://github.com/rectorphp/rector/issues/2348
      */
-    private function compensateNetteUtilsSplitDelimCapture(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall $staticCall) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall
+    private function compensateNetteUtilsSplitDelimCapture(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $staticCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall
     {
         $patternValue = $this->getValue($staticCall->args[1]->value);
         if (!\is_string($patternValue)) {
             return $staticCall;
         }
-        $match = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($patternValue, self::SLASH_REGEX);
+        $match = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($patternValue, self::SLASH_REGEX);
         if ($match === null) {
             return $staticCall;
         }
-        $constFetch = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('PREG_SPLIT_DELIM_CAPTURE'));
-        $bitwiseAnd = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BitwiseAnd(new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber(0), new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BitwiseNot($constFetch));
-        $staticCall->args[2] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($bitwiseAnd);
+        $constFetch = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('PREG_SPLIT_DELIM_CAPTURE'));
+        $bitwiseAnd = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BitwiseAnd(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber(0), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BitwiseNot($constFetch));
+        $staticCall->args[2] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($bitwiseAnd);
         return $staticCall;
     }
 }

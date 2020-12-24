@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Core\Autoloading;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Autoloading;
 
-use _PhpScoperb75b35f52b74\Nette\Loaders\RobotLoader;
-use _PhpScoperb75b35f52b74\Rector\Core\Configuration\Option;
-use _PhpScoperb75b35f52b74\Rector\Core\FileSystem\FileGuard;
-use _PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoperb75b35f52b74\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\FileSystemFilter;
+use _PhpScoper2a4e7ab1ecbc\Nette\Loaders\RobotLoader;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\FileSystem\FileGuard;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemFilter;
 /**
  * Should it pass autoload files/directories to PHPStan analyzer?
  */
@@ -31,17 +31,17 @@ final class AdditionalAutoloader
      * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\FileSystem\FileGuard $fileGuard, \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoperb75b35f52b74\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\FileSystem\FileGuard $fileGuard, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
     {
         $this->fileGuard = $fileGuard;
-        $this->autoloadPaths = (array) $parameterProvider->provideParameter(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::AUTOLOAD_PATHS);
+        $this->autoloadPaths = (array) $parameterProvider->provideParameter(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option::AUTOLOAD_PATHS);
         $this->fileSystemFilter = $fileSystemFilter;
         $this->skippedPathsResolver = $skippedPathsResolver;
     }
     /**
      * @param string[] $source
      */
-    public function autoloadWithInputAndSource(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface $input, array $source) : void
+    public function autoloadWithInputAndSource(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Input\InputInterface $input, array $source) : void
     {
         $autoloadDirectories = $this->fileSystemFilter->filterDirectories($this->autoloadPaths);
         $autoloadFiles = $this->fileSystemFilter->filterFiles($this->autoloadPaths);
@@ -57,13 +57,13 @@ final class AdditionalAutoloader
             }
         }
     }
-    private function autoloadFileFromInput(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface $input) : void
+    private function autoloadFileFromInput(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Input\InputInterface $input) : void
     {
-        if (!$input->hasOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE)) {
+        if (!$input->hasOption(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE)) {
             return;
         }
         /** @var string|null $autoloadFile */
-        $autoloadFile = $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE);
+        $autoloadFile = $input->getOption(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE);
         if ($autoloadFile === null) {
             return;
         }
@@ -77,7 +77,7 @@ final class AdditionalAutoloader
         if ($directories === []) {
             return;
         }
-        $robotLoader = new \_PhpScoperb75b35f52b74\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoper2a4e7ab1ecbc\Nette\Loaders\RobotLoader();
         $robotLoader->ignoreDirs[] = '*Fixtures';
         $excludePaths = $this->skippedPathsResolver->resolve();
         foreach ($excludePaths as $excludePath) {

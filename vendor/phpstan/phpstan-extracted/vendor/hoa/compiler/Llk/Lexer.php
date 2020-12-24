@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Llk;
+namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk;
 
-use _PhpScoperb75b35f52b74\Hoa\Compiler;
+use _PhpScoper2a4e7ab1ecbc\Hoa\Compiler;
 /**
  * Class \Hoa\Compiler\Llk\Lexer.
  *
@@ -126,7 +126,7 @@ class Lexer
         while ($offset < $maxOffset) {
             $nextToken = $this->nextToken($offset);
             if (null === $nextToken) {
-                throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\UnrecognizedToken('Unrecognized token "%s" at line 1 and column %d:' . "\n" . '%s' . "\n" . \str_repeat(' ', \mb_strlen(\substr($text, 0, $offset))) . '↑', 0, [\mb_substr(\substr($text, $offset), 0, 1), $offset + 1, $text], 1, $offset);
+                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\UnrecognizedToken('Unrecognized token "%s" at line 1 and column %d:' . "\n" . '%s' . "\n" . \str_repeat(' ', \mb_strlen(\substr($text, 0, $offset))) . '↑', 0, [\mb_substr(\substr($text, $offset), 0, 1), $offset + 1, $text], 1, $offset);
             }
             if (\true === $nextToken['keep']) {
                 $nextToken['offset'] = $offset;
@@ -160,7 +160,7 @@ class Lexer
                     if (null !== $this->_nsStack && 0 !== \preg_match('#^__shift__(?:\\s*\\*\\s*(\\d+))?$#', $nextState, $matches)) {
                         $i = isset($matches[1]) ? \intval($matches[1]) : 1;
                         if ($i > ($c = \count($this->_nsStack))) {
-                            throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\Lexer('Cannot shift namespace %d-times, from token ' . '%s in namespace %s, because the stack ' . 'contains only %d namespaces.', 1, [$i, $lexeme, $this->_lexerState, $c]);
+                            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\Lexer('Cannot shift namespace %d-times, from token ' . '%s in namespace %s, because the stack ' . 'contains only %d namespaces.', 1, [$i, $lexeme, $this->_lexerState, $c]);
                         }
                         while (1 <= $i--) {
                             $previousNamespace = $this->_nsStack->pop();
@@ -169,7 +169,7 @@ class Lexer
                         $shift = \true;
                     }
                     if (!isset($this->_tokens[$nextState])) {
-                        throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\Lexer('Namespace %s does not exist, called by token %s ' . 'in namespace %s.', 2, [$nextState, $lexeme, $this->_lexerState]);
+                        throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\Lexer('Namespace %s does not exist, called by token %s ' . 'in namespace %s.', 2, [$nextState, $lexeme, $this->_lexerState]);
                     }
                     if (null !== $this->_nsStack && \false === $shift) {
                         $this->_nsStack[] = $this->_lexerState;
@@ -198,7 +198,7 @@ class Lexer
             return null;
         }
         if ('' === $matches[0]) {
-            throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\Lexer('A lexeme must not match an empty value, which is the ' . 'case of "%s" (%s).', 3, [$lexeme, $regex]);
+            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\Lexer('A lexeme must not match an empty value, which is the ' . 'case of "%s" (%s).', 3, [$lexeme, $regex]);
         }
         return ['token' => $lexeme, 'value' => $matches[0], 'length' => \mb_strlen($matches[0])];
     }

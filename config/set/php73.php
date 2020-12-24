@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74;
+namespace _PhpScoper2a4e7ab1ecbc;
 
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\BinaryOp\IsCountableRector;
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\ConstFetch\SensitiveConstantNameRector;
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector;
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\RegexDashEscapeRector;
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\RemoveMissingCompactVariableRector;
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\SensitiveDefineRector;
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector;
-use _PhpScoperb75b35f52b74\Rector\Php73\Rector\String_\SensitiveHereNowDocRector;
-use _PhpScoperb75b35f52b74\Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\BinaryOp\IsCountableRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\ConstFetch\SensitiveConstantNameRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\RegexDashEscapeRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\RemoveMissingCompactVariableRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\SensitiveDefineRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\String_\SensitiveHereNowDocRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
+use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\BinaryOp\IsCountableRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\SensitiveDefineRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\ConstFetch\SensitiveConstantNameRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\String_\SensitiveHereNowDocRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::class)->call('configure', [[\_PhpScoperb75b35f52b74\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => [
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\BinaryOp\IsCountableRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\SensitiveDefineRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\ConstFetch\SensitiveConstantNameRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\String_\SensitiveHereNowDocRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::class)->call('configure', [[\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => [
         # https://wiki.php.net/rfc/deprecations_php_7_3
         'image2wbmp' => 'imagewbmp',
         'mbregex_encoding' => 'mb_regex_encoding',
@@ -38,8 +38,8 @@ return static function (\_PhpScoperb75b35f52b74\Symfony\Component\DependencyInje
         'mbereg_search_getregs' => 'mb_ereg_search_getregs',
         'mbereg_search_getpos' => 'mb_ereg_search_getpos',
     ]]]);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\RegexDashEscapeRector::class);
-    $services->set(\_PhpScoperb75b35f52b74\Rector\Php73\Rector\FuncCall\RemoveMissingCompactVariableRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\RegexDashEscapeRector::class);
+    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\RemoveMissingCompactVariableRector::class);
 };

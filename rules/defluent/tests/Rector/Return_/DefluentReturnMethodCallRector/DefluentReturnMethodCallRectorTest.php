@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Defluent\Tests\Rector\Return_\DefluentReturnMethodCallRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Tests\Rector\Return_\DefluentReturnMethodCallRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class DefluentReturnMethodCallRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class DefluentReturnMethodCallRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class DefluentReturnMethodCallRectorTest extends \_PhpScoperb75b35f52b74\R
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector::class;
     }
 }

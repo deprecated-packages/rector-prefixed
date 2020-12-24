@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\FormControlTypeResolver;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\FormControlTypeResolver;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Value\ValueResolver;
-use _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
-use _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\ValueObject\NetteFormMethodNameToControlType;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-final class OnVariableMethodCallsFormControlTypeResolver implements \_PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
+use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\ValueObject\NetteFormMethodNameToControlType;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+final class OnVariableMethodCallsFormControlTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface
 {
     /**
      * @var MethodCallManipulator
@@ -25,7 +25,7 @@ final class OnVariableMethodCallsFormControlTypeResolver implements \_PhpScoperb
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator $methodCallManipulator, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator $methodCallManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->methodCallManipulator = $methodCallManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -34,9 +34,9 @@ final class OnVariableMethodCallsFormControlTypeResolver implements \_PhpScoperb
     /**
      * @return array<string, string>
      */
-    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : array
+    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
             return [];
         }
         $onFormMethodCalls = $this->methodCallManipulator->findMethodCallsOnVariable($node);
@@ -46,7 +46,7 @@ final class OnVariableMethodCallsFormControlTypeResolver implements \_PhpScoperb
             if ($methodName === null) {
                 continue;
             }
-            if (!isset(\_PhpScoperb75b35f52b74\Rector\NetteCodeQuality\ValueObject\NetteFormMethodNameToControlType::METHOD_NAME_TO_CONTROL_TYPE[$methodName])) {
+            if (!isset(\_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\ValueObject\NetteFormMethodNameToControlType::METHOD_NAME_TO_CONTROL_TYPE[$methodName])) {
                 continue;
             }
             if (!isset($onFormMethodCall->args[0])) {
@@ -54,7 +54,7 @@ final class OnVariableMethodCallsFormControlTypeResolver implements \_PhpScoperb
             }
             $addedInputName = $this->valueResolver->getValue($onFormMethodCall->args[0]->value);
             if (!\is_string($addedInputName)) {
-                throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
             }
             $methodNamesByInputNames[$addedInputName] = $methodName;
         }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\Privatization\Tests\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\Privatization\Tests\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
 
 use Iterator;
-use _PhpScoperb75b35f52b74\Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
-use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
-final class PrivatizeLocalOnlyMethodRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper2a4e7ab1ecbc\Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+final class PrivatizeLocalOnlyMethodRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class PrivatizeLocalOnlyMethodRectorTest extends \_PhpScoperb75b35f52b74\R
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoperb75b35f52b74\Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class;
+        return \_PhpScoper2a4e7ab1ecbc\Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class;
     }
 }

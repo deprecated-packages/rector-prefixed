@@ -1,40 +1,40 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\PhpDoc;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc;
 
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\DeprecatedTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ExtendsTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ImplementsTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\MethodTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\MethodTagParameter;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\MixinTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ParamTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\PropertyTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ReturnTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\TemplateTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ThrowsTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\UsesTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\VarTag;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ErrorType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance;
-use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\NeverType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\DeprecatedTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ExtendsTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ImplementsTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\MethodTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\MethodTagParameter;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\MixinTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ParamTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\PropertyTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ReturnTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\TemplateTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ThrowsTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\UsesTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\VarTag;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
 class PhpDocNodeResolver
 {
     /** @var TypeNodeResolver */
     private $typeNodeResolver;
     /** @var ConstExprNodeResolver */
     private $constExprNodeResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver, \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\ConstExprNodeResolver $constExprNodeResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\ConstExprNodeResolver $constExprNodeResolver)
     {
         $this->typeNodeResolver = $typeNodeResolver;
         $this->constExprNodeResolver = $constExprNodeResolver;
@@ -44,7 +44,7 @@ class PhpDocNodeResolver
      * @param NameScope $nameScope
      * @return array<string|int, \PHPStan\PhpDoc\Tag\VarTag>
      */
-    public function resolveVarTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveVarTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
         foreach (['@phpstan-var', '@psalm-var', '@var'] as $tagName) {
             $resolved = [];
@@ -55,9 +55,9 @@ class PhpDocNodeResolver
                 }
                 if ($tagValue->variableName !== '') {
                     $variableName = \substr($tagValue->variableName, 1);
-                    $resolved[$variableName] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\VarTag($type);
+                    $resolved[$variableName] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\VarTag($type);
                 } else {
-                    $resolved[] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\VarTag($type);
+                    $resolved[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\VarTag($type);
                 }
             }
             if (\count($resolved) > 0) {
@@ -71,23 +71,23 @@ class PhpDocNodeResolver
      * @param NameScope $nameScope
      * @return array<string, \PHPStan\PhpDoc\Tag\PropertyTag>
      */
-    public function resolvePropertyTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolvePropertyTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
         $resolved = [];
         foreach ($phpDocNode->getPropertyTagValues() as $tagValue) {
             $propertyName = \substr($tagValue->propertyName, 1);
             $propertyType = $this->typeNodeResolver->resolve($tagValue->type, $nameScope);
-            $resolved[$propertyName] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\PropertyTag($propertyType, \true, \true);
+            $resolved[$propertyName] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\PropertyTag($propertyType, \true, \true);
         }
         foreach ($phpDocNode->getPropertyReadTagValues() as $tagValue) {
             $propertyName = \substr($tagValue->propertyName, 1);
             $propertyType = $this->typeNodeResolver->resolve($tagValue->type, $nameScope);
-            $resolved[$propertyName] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\PropertyTag($propertyType, \true, \false);
+            $resolved[$propertyName] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\PropertyTag($propertyType, \true, \false);
         }
         foreach ($phpDocNode->getPropertyWriteTagValues() as $tagValue) {
             $propertyName = \substr($tagValue->propertyName, 1);
             $propertyType = $this->typeNodeResolver->resolve($tagValue->type, $nameScope);
-            $resolved[$propertyName] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\PropertyTag($propertyType, \false, \true);
+            $resolved[$propertyName] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\PropertyTag($propertyType, \false, \true);
         }
         return $resolved;
     }
@@ -96,7 +96,7 @@ class PhpDocNodeResolver
      * @param NameScope $nameScope
      * @return array<string, \PHPStan\PhpDoc\Tag\MethodTag>
      */
-    public function resolveMethodTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveMethodTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
         $resolved = [];
         foreach (['@method', '@psalm-method', '@phpstan-method'] as $tagName) {
@@ -104,17 +104,17 @@ class PhpDocNodeResolver
                 $parameters = [];
                 foreach ($tagValue->parameters as $parameterNode) {
                     $parameterName = \substr($parameterNode->parameterName, 1);
-                    $type = $parameterNode->type !== null ? $this->typeNodeResolver->resolve($parameterNode->type, $nameScope) : new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
-                    if ($parameterNode->defaultValue instanceof \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode) {
-                        $type = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::addNull($type);
+                    $type = $parameterNode->type !== null ? $this->typeNodeResolver->resolve($parameterNode->type, $nameScope) : new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+                    if ($parameterNode->defaultValue instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode) {
+                        $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::addNull($type);
                     }
                     $defaultValue = null;
                     if ($parameterNode->defaultValue !== null) {
                         $defaultValue = $this->constExprNodeResolver->resolve($parameterNode->defaultValue);
                     }
-                    $parameters[$parameterName] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\MethodTagParameter($type, $parameterNode->isReference ? \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference::createNo(), $parameterNode->isVariadic || $parameterNode->defaultValue !== null, $parameterNode->isVariadic, $defaultValue);
+                    $parameters[$parameterName] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\MethodTagParameter($type, $parameterNode->isReference ? \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference::createNo(), $parameterNode->isVariadic || $parameterNode->defaultValue !== null, $parameterNode->isVariadic, $defaultValue);
                 }
-                $resolved[$tagValue->methodName] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\MethodTag($tagValue->returnType !== null ? $this->typeNodeResolver->resolve($tagValue->returnType, $nameScope) : new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(), $tagValue->isStatic, $parameters);
+                $resolved[$tagValue->methodName] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\MethodTag($tagValue->returnType !== null ? $this->typeNodeResolver->resolve($tagValue->returnType, $nameScope) : new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), $tagValue->isStatic, $parameters);
             }
         }
         return $resolved;
@@ -122,12 +122,12 @@ class PhpDocNodeResolver
     /**
      * @return array<string, \PHPStan\PhpDoc\Tag\ExtendsTag>
      */
-    public function resolveExtendsTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveExtendsTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
         $resolved = [];
         foreach (['@extends', '@template-extends', '@phpstan-extends'] as $tagName) {
             foreach ($phpDocNode->getExtendsTagValues($tagName) as $tagValue) {
-                $resolved[$tagValue->type->type->name] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ExtendsTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
+                $resolved[$tagValue->type->type->name] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ExtendsTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
             }
         }
         return $resolved;
@@ -135,12 +135,12 @@ class PhpDocNodeResolver
     /**
      * @return array<string, \PHPStan\PhpDoc\Tag\ImplementsTag>
      */
-    public function resolveImplementsTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveImplementsTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
         $resolved = [];
         foreach (['@implements', '@template-implements', '@phpstan-implements'] as $tagName) {
             foreach ($phpDocNode->getImplementsTagValues($tagName) as $tagValue) {
-                $resolved[$tagValue->type->type->name] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ImplementsTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
+                $resolved[$tagValue->type->type->name] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ImplementsTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
             }
         }
         return $resolved;
@@ -148,12 +148,12 @@ class PhpDocNodeResolver
     /**
      * @return array<string, \PHPStan\PhpDoc\Tag\UsesTag>
      */
-    public function resolveUsesTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveUsesTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
         $resolved = [];
         foreach (['@use', '@template-use', '@phpstan-use'] as $tagName) {
             foreach ($phpDocNode->getUsesTagValues($tagName) as $tagValue) {
-                $resolved[$tagValue->type->type->name] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\UsesTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
+                $resolved[$tagValue->type->type->name] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\UsesTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
             }
         }
         return $resolved;
@@ -163,21 +163,21 @@ class PhpDocNodeResolver
      * @param NameScope $nameScope
      * @return array<string, \PHPStan\PhpDoc\Tag\TemplateTag>
      */
-    public function resolveTemplateTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveTemplateTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
         $resolved = [];
         $resolvedPrefix = [];
         $prefixPriority = ['' => 0, 'psalm' => 1, 'phpstan' => 2];
         foreach ($phpDocNode->getTags() as $phpDocTagNode) {
             $valueNode = $phpDocTagNode->value;
-            if (!$valueNode instanceof \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode) {
+            if (!$valueNode instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode) {
                 continue;
             }
             $tagName = $phpDocTagNode->name;
             if (\in_array($tagName, ['@template', '@psalm-template', '@phpstan-template'], \true)) {
-                $variance = \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance::createInvariant();
+                $variance = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance::createInvariant();
             } elseif (\in_array($tagName, ['@template-covariant', '@psalm-template-covariant', '@phpstan-template-covariant'], \true)) {
-                $variance = \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance::createCovariant();
+                $variance = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance::createCovariant();
             } else {
                 continue;
             }
@@ -194,7 +194,7 @@ class PhpDocNodeResolver
                     continue;
                 }
             }
-            $resolved[$valueNode->name] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\TemplateTag($valueNode->name, $valueNode->bound !== null ? $this->typeNodeResolver->resolve($valueNode->bound, $nameScope) : new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(), $variance);
+            $resolved[$valueNode->name] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\TemplateTag($valueNode->name, $valueNode->bound !== null ? $this->typeNodeResolver->resolve($valueNode->bound, $nameScope) : new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), $variance);
             $resolvedPrefix[$valueNode->name] = $prefix;
         }
         return $resolved;
@@ -204,7 +204,7 @@ class PhpDocNodeResolver
      * @param NameScope $nameScope
      * @return array<string, \PHPStan\PhpDoc\Tag\ParamTag>
      */
-    public function resolveParamTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveParamTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
         $resolved = [];
         foreach (['@param', '@psalm-param', '@phpstan-param'] as $tagName) {
@@ -214,12 +214,12 @@ class PhpDocNodeResolver
                 if ($this->shouldSkipType($tagName, $parameterType)) {
                     continue;
                 }
-                $resolved[$parameterName] = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ParamTag($parameterType, $tagValue->isVariadic);
+                $resolved[$parameterName] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ParamTag($parameterType, $tagValue->isVariadic);
             }
         }
         return $resolved;
     }
-    public function resolveReturnTag(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ReturnTag
+    public function resolveReturnTag(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ReturnTag
     {
         $resolved = null;
         foreach (['@return', '@psalm-return', '@phpstan-return'] as $tagName) {
@@ -228,12 +228,12 @@ class PhpDocNodeResolver
                 if ($this->shouldSkipType($tagName, $type)) {
                     continue;
                 }
-                $resolved = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ReturnTag($type, \true);
+                $resolved = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ReturnTag($type, \true);
             }
         }
         return $resolved;
     }
-    public function resolveThrowsTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ThrowsTag
+    public function resolveThrowsTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ThrowsTag
     {
         foreach (['@phpstan-throws', '@throws'] as $tagName) {
             $types = [];
@@ -245,7 +245,7 @@ class PhpDocNodeResolver
                 $types[] = $type;
             }
             if (\count($types) > 0) {
-                return new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ThrowsTag(\_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$types));
+                return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ThrowsTag(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$types));
             }
         }
         return null;
@@ -255,43 +255,43 @@ class PhpDocNodeResolver
      * @param NameScope $nameScope
      * @return array<MixinTag>
      */
-    public function resolveMixinTags(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveMixinTags(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : array
     {
-        return \array_map(function (\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode $mixinTagValueNode) use($nameScope) : MixinTag {
-            return new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\MixinTag($this->typeNodeResolver->resolve($mixinTagValueNode->type, $nameScope));
+        return \array_map(function (\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode $mixinTagValueNode) use($nameScope) : MixinTag {
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\MixinTag($this->typeNodeResolver->resolve($mixinTagValueNode->type, $nameScope));
         }, $phpDocNode->getMixinTagValues());
     }
-    public function resolveDeprecatedTag(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\DeprecatedTag
+    public function resolveDeprecatedTag(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\DeprecatedTag
     {
         foreach ($phpDocNode->getDeprecatedTagValues() as $deprecatedTagValue) {
             $description = (string) $deprecatedTagValue;
-            return new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\DeprecatedTag($description === '' ? null : $description);
+            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\DeprecatedTag($description === '' ? null : $description);
         }
         return null;
     }
-    public function resolveIsDeprecated(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : bool
+    public function resolveIsDeprecated(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : bool
     {
         $deprecatedTags = $phpDocNode->getTagsByName('@deprecated');
         return \count($deprecatedTags) > 0;
     }
-    public function resolveIsInternal(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : bool
+    public function resolveIsInternal(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : bool
     {
         $internalTags = $phpDocNode->getTagsByName('@internal');
         return \count($internalTags) > 0;
     }
-    public function resolveIsFinal(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : bool
+    public function resolveIsFinal(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : bool
     {
         $finalTags = $phpDocNode->getTagsByName('@final');
         return \count($finalTags) > 0;
     }
-    private function shouldSkipType(string $tagName, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool
+    private function shouldSkipType(string $tagName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
     {
         if (\strpos($tagName, '@psalm-') !== 0) {
             return \false;
         }
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType) {
             return \true;
         }
-        return $type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\NeverType && !$type->isExplicit();
+        return $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType && !$type->isExplicit();
     }
 }

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\SOLID\NodeRemover;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\SOLID\NodeRemover;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
-use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
-use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoperb75b35f52b74\Rector\PostRector\Collector\NodesToRemoveCollector;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToRemoveCollector;
 final class ClassMethodNodeRemover
 {
     /**
@@ -28,13 +28,13 @@ final class ClassMethodNodeRemover
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
     {
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
     }
-    public function removeClassMethodIfUseless(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    public function removeClassMethodIfUseless(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         if ((array) $classMethod->params !== []) {
             return;
@@ -44,11 +44,11 @@ final class ClassMethodNodeRemover
         }
         $this->nodesToRemoveCollector->addNodeToRemove($classMethod);
     }
-    public function removeParamFromMethodBody(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $param) : void
+    public function removeParamFromMethodBody(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param) : void
     {
         /** @var string $paramName */
         $paramName = $this->nodeNameResolver->getName($param->var);
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($paramName) {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($paramName) {
             if (!$this->isParentConstructStaticCall($node)) {
                 return null;
             }
@@ -60,7 +60,7 @@ final class ClassMethodNodeRemover
             return null;
         });
         foreach ((array) $classMethod->stmts as $key => $stmt) {
-            if ($stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
                 $stmt = $stmt->expr;
             }
             if (!$this->isParentConstructStaticCall($stmt)) {
@@ -74,11 +74,11 @@ final class ClassMethodNodeRemover
         }
         $this->removeParamFromAssign($classMethod, $paramName);
     }
-    private function isParentConstructStaticCall(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
+    private function isParentConstructStaticCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
     {
-        return $this->isStaticCallNamed($node, 'parent', \_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        return $this->isStaticCallNamed($node, 'parent', \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT);
     }
-    private function removeParamFromArgs(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall $staticCall, string $paramName) : void
+    private function removeParamFromArgs(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $staticCall, string $paramName) : void
     {
         foreach ($staticCall->args as $key => $arg) {
             if (!$this->nodeNameResolver->isName($arg->value, $paramName)) {
@@ -87,16 +87,16 @@ final class ClassMethodNodeRemover
             unset($staticCall->args[$key]);
         }
     }
-    private function removeParamFromAssign(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName) : void
+    private function removeParamFromAssign(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName) : void
     {
         foreach ((array) $classMethod->stmts as $key => $stmt) {
-            if ($stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
+            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
                 $stmt = $stmt->expr;
             }
-            if (!$stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
+            if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
                 continue;
             }
-            if (!$stmt->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+            if (!$stmt->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
                 continue;
             }
             if (!$this->nodeNameResolver->isName($stmt->expr, $paramName)) {
@@ -105,9 +105,9 @@ final class ClassMethodNodeRemover
             unset($classMethod->stmts[$key]);
         }
     }
-    private function isStaticCallNamed(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $class, string $method) : bool
+    private function isStaticCallNamed(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $class, string $method) : bool
     {
-        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
+        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($node->class, $class)) {

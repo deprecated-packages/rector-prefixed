@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
 use Closure;
 use Exception;
 use InvalidArgumentException;
 use LogicException;
 use OutOfBoundsException;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\NullableType;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param as ParamNode;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompilerContext;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\FindParameterType;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param as ParamNode;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompilerContext;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\FindParameterType;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum;
 use RuntimeException;
 use function assert;
 use function count;
@@ -62,7 +62,7 @@ class ReflectionParameter
      */
     public static function createFromClassNameAndMethod(string $className, string $methodName, string $parameterName) : self
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($className)->getMethod($methodName)->getParameter($parameterName);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromName($className)->getMethod($methodName)->getParameter($parameterName);
     }
     /**
      * Create a reflection of a parameter using an instance
@@ -73,14 +73,14 @@ class ReflectionParameter
      */
     public static function createFromClassInstanceAndMethod($instance, string $methodName, string $parameterName) : self
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromInstance($instance)->getMethod($methodName)->getParameter($parameterName);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromInstance($instance)->getMethod($methodName)->getParameter($parameterName);
     }
     /**
      * Create a reflection of a parameter using a closure
      */
-    public static function createFromClosure(\Closure $closure, string $parameterName) : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter
+    public static function createFromClosure(\Closure $closure, string $parameterName) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction::createFromClosure($closure)->getParameter($parameterName);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction::createFromClosure($closure)->getParameter($parameterName);
     }
     /**
      * Create the parameter from the given spec. Possible $spec parameters are:
@@ -104,7 +104,7 @@ class ReflectionParameter
             return self::createFromClassNameAndMethod($spec[0], $spec[1], $parameterName);
         }
         if (\is_string($spec)) {
-            return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction::createFromName($spec)->getParameter($parameterName);
+            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction::createFromName($spec)->getParameter($parameterName);
         }
         if ($spec instanceof \Closure) {
             return self::createFromClosure($spec, $parameterName);
@@ -113,7 +113,7 @@ class ReflectionParameter
     }
     public function __toString() : string
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast::toString($this);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast::toString($this);
     }
     /**
      * @internal
@@ -121,7 +121,7 @@ class ReflectionParameter
      * @param ParamNode       $node               Node has to be processed by the PhpParser\NodeVisitor\NameResolver
      * @param Namespace_|null $declaringNamespace namespace of the declaring function/method
      */
-    public static function createFromNode(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $node, ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_ $declaringNamespace, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, int $parameterIndex) : self
+    public static function createFromNode(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $node, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $declaringNamespace, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, int $parameterIndex) : self
     {
         $param = new self();
         $param->reflector = $reflector;
@@ -137,23 +137,23 @@ class ReflectionParameter
             throw new \LogicException('This parameter does not have a default value available');
         }
         $defaultValueNode = $this->node->default;
-        if ($defaultValueNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch) {
-            \assert($defaultValueNode->class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name);
+        if ($defaultValueNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch) {
+            \assert($defaultValueNode->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name);
             $className = $defaultValueNode->class->toString();
             if ($className === 'self' || $className === 'static') {
-                \assert($defaultValueNode->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier);
+                \assert($defaultValueNode->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier);
                 $constantName = $defaultValueNode->name->name;
                 $className = $this->findParentClassDeclaringConstant($constantName);
             }
             $this->isDefaultValueConstant = \true;
-            \assert($defaultValueNode->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier);
+            \assert($defaultValueNode->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier);
             $this->defaultValueConstantName = $className . '::' . $defaultValueNode->name->name;
         }
         $namespace = null;
         if ($this->declaringNamespace !== null && $this->declaringNamespace->name !== null) {
             $namespace = (string) $this->declaringNamespace->name;
         }
-        if ($defaultValueNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch && !\in_array(\strtolower($defaultValueNode->name->toString()), ['true', 'false', 'null'], \true)) {
+        if ($defaultValueNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch && !\in_array(\strtolower($defaultValueNode->name->toString()), ['true', 'false', 'null'], \true)) {
             $this->isDefaultValueConstant = \true;
             if ($namespace !== null && !$defaultValueNode->name->isFullyQualified()) {
                 $namespacedName = \sprintf('%s\\%s', $namespace, $defaultValueNode->name->toString());
@@ -161,9 +161,9 @@ class ReflectionParameter
                     $this->defaultValueConstantName = $namespacedName;
                 } else {
                     try {
-                        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant::createFromName($namespacedName);
+                        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant::createFromName($namespacedName);
                         $this->defaultValueConstantName = $namespacedName;
-                    } catch (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                    } catch (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                         // pass
                     }
                 }
@@ -172,7 +172,7 @@ class ReflectionParameter
                 $this->defaultValueConstantName = $defaultValueNode->name->toString();
             }
         }
-        $this->defaultValue = (new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompileNodeToValue())->__invoke($defaultValueNode, new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->function->getFileName(), $this->getDeclaringClass(), $namespace, $this->function->getName()));
+        $this->defaultValue = (new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompileNodeToValue())->__invoke($defaultValueNode, new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->function->getFileName(), $this->getDeclaringClass(), $namespace, $this->function->getName()));
     }
     /**
      * @throws LogicException
@@ -180,7 +180,7 @@ class ReflectionParameter
     private function findParentClassDeclaringConstant(string $constantName) : string
     {
         $method = $this->function;
-        \assert($method instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod);
+        \assert($method instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod);
         $class = $method->getDeclaringClass();
         do {
             if ($class->hasConstant($constantName)) {
@@ -202,7 +202,7 @@ class ReflectionParameter
     /**
      * Get the function (or method) that declared this parameter.
      */
-    public function getDeclaringFunction() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract
+    public function getDeclaringFunction() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract
     {
         return $this->function;
     }
@@ -212,9 +212,9 @@ class ReflectionParameter
      *
      * This will return null if the declaring function is not a method.
      */
-    public function getDeclaringClass() : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getDeclaringClass() : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
     {
-        if ($this->function instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod) {
+        if ($this->function instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod) {
             return $this->function->getDeclaringClass();
         }
         return null;
@@ -265,7 +265,7 @@ class ReflectionParameter
         if (!$this->hasType()) {
             return \true;
         }
-        if ($this->node->type instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\NullableType) {
+        if ($this->node->type instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType) {
             return \true;
         }
         if (!$this->isDefaultValueAvailable()) {
@@ -298,7 +298,7 @@ class ReflectionParameter
      */
     public function getDocBlockTypes() : array
     {
-        return (new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\FindParameterType())->__invoke($this->function, $this->declaringNamespace, $this->node);
+        return (new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\FindParameterType())->__invoke($this->function, $this->declaringNamespace, $this->node);
     }
     /**
      * Find the position of the parameter, left to right, starting at zero.
@@ -313,16 +313,16 @@ class ReflectionParameter
      *
      * (note: this has nothing to do with DocBlocks).
      */
-    public function getType() : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType
+    public function getType() : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType
     {
         $type = $this->node->type;
         if ($type === null) {
             return null;
         }
-        if (!$type instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\NullableType && $this->allowsNull()) {
-            $type = new \_PhpScoperb75b35f52b74\PhpParser\Node\NullableType($type);
+        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType && $this->allowsNull()) {
+            $type = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType($type);
         }
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($type);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($type);
     }
     /**
      * Does this parameter have a type declaration?
@@ -338,7 +338,7 @@ class ReflectionParameter
      */
     public function setType(string $newParameterType) : void
     {
-        $this->node->type = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name($newParameterType);
+        $this->node->type = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($newParameterType);
     }
     /**
      * Remove the parameter type declaration completely.
@@ -406,14 +406,14 @@ class ReflectionParameter
      *
      * @throws RuntimeException
      */
-    public function getClass() : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getClass() : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
     {
         $className = $this->getClassName();
         if ($className === null) {
             return null;
         }
-        if (!$this->reflector instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector) {
-            throw new \RuntimeException(\sprintf('Unable to reflect class type because we were not given a "%s", but a "%s" instead', \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector::class, \get_class($this->reflector)));
+        if (!$this->reflector instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector) {
+            throw new \RuntimeException(\sprintf('Unable to reflect class type because we were not given a "%s", but a "%s" instead', \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector::class, \get_class($this->reflector)));
         }
         return $this->reflector->reflect($className);
     }
@@ -423,20 +423,20 @@ class ReflectionParameter
             return null;
         }
         $type = $this->getType();
-        if (!$type instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionNamedType) {
+        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionNamedType) {
             return null;
         }
         $typeHint = $type->getName();
         if ($typeHint === 'self') {
             $declaringClass = $this->getDeclaringClass();
-            \assert($declaringClass instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass);
+            \assert($declaringClass instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass);
             return $declaringClass->getName();
         }
         if ($typeHint === 'parent') {
             $declaringClass = $this->getDeclaringClass();
-            \assert($declaringClass instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass);
+            \assert($declaringClass instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass);
             $parentClass = $declaringClass->getParentClass();
-            \assert($parentClass instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass);
+            \assert($parentClass instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass);
             return $parentClass->getName();
         }
         if ($type->isBuiltin()) {
@@ -451,17 +451,17 @@ class ReflectionParameter
      */
     public function __clone()
     {
-        throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable::fromClass(self::class);
+        throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable::fromClass(self::class);
     }
     public function getStartColumn() : int
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->function->getLocatedSource()->getSource(), $this->node);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->function->getLocatedSource()->getSource(), $this->node);
     }
     public function getEndColumn() : int
     {
-        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->function->getLocatedSource()->getSource(), $this->node);
+        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->function->getLocatedSource()->getSource(), $this->node);
     }
-    public function getAst() : \_PhpScoperb75b35f52b74\PhpParser\Node\Param
+    public function getAst() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param
     {
         return $this->node;
     }

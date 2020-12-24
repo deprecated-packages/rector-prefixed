@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\FileSystemRector\Behavior;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\Behavior;
 
-use _PhpScoperb75b35f52b74\Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory;
+use _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory;
 trait FileSystemRectorTrait
 {
     /**
@@ -13,7 +13,7 @@ trait FileSystemRectorTrait
     /**
      * @required
      */
-    public function autowireFileSystemRectorTrait(\_PhpScoperb75b35f52b74\Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory) : void
+    public function autowireFileSystemRectorTrait(\_PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory) : void
     {
         $this->movedFileWithNodesFactory = $movedFileWithNodesFactory;
     }

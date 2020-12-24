@@ -1,39 +1,39 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\If_;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\If_;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ThisType;
-use _PhpScoperb75b35f52b74\Rector\CodeQuality\Naming\MethodCallToVariableNameResolver;
-use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
-use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ThisType;
+use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Naming\MethodCallToVariableNameResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\If_\MoveOutMethodCallInsideIfConditionRector\MoveOutMethodCallInsideIfConditionRectorTest
  */
-final class MoveOutMethodCallInsideIfConditionRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
+final class MoveOutMethodCallInsideIfConditionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var MethodCallToVariableNameResolver
      */
     private $methodCallToVariableNameResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\CodeQuality\Naming\MethodCallToVariableNameResolver $methodCallToVariableNameResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Naming\MethodCallToVariableNameResolver $methodCallToVariableNameResolver)
     {
         $this->methodCallToVariableNameResolver = $methodCallToVariableNameResolver;
     }
-    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move out method call inside If condition', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move out method call inside If condition', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 if ($obj->run($arg) === 1) {
 
 }
@@ -51,15 +51,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_::class];
+        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
+    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
     {
         /** @var MethodCall[] $methodCalls */
-        $methodCalls = $this->betterNodeFinder->findInstanceOf($node->cond, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class);
+        $methodCalls = $this->betterNodeFinder->findInstanceOf($node->cond, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class);
         $countMethodCalls = \count($methodCalls);
         // No method call or Multiple method calls inside if → skip
         if ($countMethodCalls !== 1) {
@@ -71,25 +71,25 @@ CODE_SAMPLE
         }
         return $this->moveOutMethodCall($methodCall, $node);
     }
-    private function shouldSkipMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function shouldSkipMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $methodCallVar = $methodCall->var;
-        $scope = $methodCallVar->getAttribute(\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope::class);
+        $scope = $methodCallVar->getAttribute(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope::class);
         if ($scope === null) {
             return \true;
         }
         $type = $scope->getType($methodCallVar);
         // From PropertyFetch → skip
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ThisType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ThisType) {
             return \true;
         }
         // Is Boolean return → skip
-        $scope = $methodCall->getAttribute(\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope::class);
+        $scope = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope::class);
         if ($scope === null) {
             return \true;
         }
         $type = $scope->getType($methodCall);
-        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType) {
+        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType) {
             return \true;
         }
         // No Args → skip
@@ -99,7 +99,7 @@ CODE_SAMPLE
         // Inside Method calls args has Method Call again → skip
         return $this->isInsideMethodCallHasMethodCall($methodCall);
     }
-    private function moveOutMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_ $if) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_
+    private function moveOutMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ $if) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_
     {
         $variableName = $this->methodCallToVariableNameResolver->resolveVariableName($methodCall);
         if ($variableName === null) {
@@ -108,8 +108,8 @@ CODE_SAMPLE
         if ($this->isVariableNameAlreadyDefined($if, $variableName)) {
             return null;
         }
-        $variable = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($variableName);
-        $methodCallAssign = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign($variable, $methodCall);
+        $variable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($variableName);
+        $methodCallAssign = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($variable, $methodCall);
         $this->addNodebeforeNode($methodCallAssign, $if);
         // replace if cond with variable
         if ($if->cond === $methodCall) {
@@ -117,27 +117,27 @@ CODE_SAMPLE
             return $if;
         }
         // replace method call with variable
-        $this->traverseNodesWithCallable($if->cond, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($variable) : ?Variable {
-            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+        $this->traverseNodesWithCallable($if->cond, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($variable) : ?Variable {
+            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 return $variable;
             }
             return null;
         });
         return $if;
     }
-    private function isInsideMethodCallHasMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function isInsideMethodCallHasMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         foreach ($methodCall->args as $arg) {
-            if ($arg->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
+            if ($arg->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
                 return \true;
             }
         }
         return \false;
     }
-    private function isVariableNameAlreadyDefined(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_ $if, string $variableName) : bool
+    private function isVariableNameAlreadyDefined(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ $if, string $variableName) : bool
     {
         /** @var Scope $scope */
-        $scope = $if->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $if->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         return $scope->hasVariableType($variableName)->yes();
     }
 }

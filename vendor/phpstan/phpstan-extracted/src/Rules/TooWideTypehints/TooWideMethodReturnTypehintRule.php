@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Rules\TooWideTypehints;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\TooWideTypehints;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node;
-use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
-use _PhpScoperb75b35f52b74\PHPStan\Node\MethodReturnStatementsNode;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
-use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\Rule;
-use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\NullType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
-use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
-use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\MethodReturnStatementsNode;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\MethodReturnStatementsNode>
  */
-class TooWideMethodReturnTypehintRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
+class TooWideMethodReturnTypehintRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkProtectedAndPublicMethods;
@@ -28,13 +28,13 @@ class TooWideMethodReturnTypehintRule implements \_PhpScoperb75b35f52b74\PHPStan
     }
     public function getNodeType() : string
     {
-        return \_PhpScoperb75b35f52b74\PHPStan\Node\MethodReturnStatementsNode::class;
+        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\MethodReturnStatementsNode::class;
     }
-    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
     {
         $method = $scope->getFunction();
-        if (!$method instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection) {
-            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
+        if (!$method instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection) {
+            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
         }
         $isFirstDeclaration = $method->getPrototype()->getDeclaringClass() === $method->getDeclaringClass();
         if (!$method->isPrivate()) {
@@ -45,8 +45,8 @@ class TooWideMethodReturnTypehintRule implements \_PhpScoperb75b35f52b74\PHPStan
                 return [];
             }
         }
-        $methodReturnType = \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType();
-        if (!$methodReturnType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
+        $methodReturnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType();
+        if (!$methodReturnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
             return [];
         }
         $statementResult = $node->getStatementResult();
@@ -68,8 +68,8 @@ class TooWideMethodReturnTypehintRule implements \_PhpScoperb75b35f52b74\PHPStan
         if (\count($returnTypes) === 0) {
             return [];
         }
-        $returnType = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$returnTypes);
-        if (!$method->isPrivate() && ($returnType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\NullType || $returnType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType) && !$isFirstDeclaration) {
+        $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$returnTypes);
+        if (!$method->isPrivate() && ($returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType || $returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType) && !$isFirstDeclaration) {
             return [];
         }
         $messages = [];
@@ -77,7 +77,7 @@ class TooWideMethodReturnTypehintRule implements \_PhpScoperb75b35f52b74\PHPStan
             if (!$type->isSuperTypeOf($returnType)->no()) {
                 continue;
             }
-            $messages[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Method %s::%s() never returns %s so it can be removed from the return typehint.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $type->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+            $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Method %s::%s() never returns %s so it can be removed from the return typehint.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $type->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
         }
         return $messages;
     }

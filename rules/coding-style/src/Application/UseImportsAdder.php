@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Application;
+namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Application;
 
-use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Declare_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Nop;
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_;
-use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
-use _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\UsedImportsResolver;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\AliasedObjectType;
-use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Declare_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop;
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ClassNameImport\UsedImportsResolver;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
+use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class UseImportsAdder
 {
     /**
      * @var UsedImportsResolver
      */
     private $usedImportsResolver;
-    public function __construct(\_PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\UsedImportsResolver $usedImportsResolver)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ClassNameImport\UsedImportsResolver $usedImportsResolver)
     {
         $this->usedImportsResolver = $usedImportsResolver;
     }
@@ -38,12 +38,12 @@ final class UseImportsAdder
         $newUses = $this->createUses($useImportTypes, $functionUseImportTypes, null);
         // place after declare strict_types
         foreach ($stmts as $key => $stmt) {
-            if ($stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Declare_) {
-                if (isset($stmts[$key + 1]) && $stmts[$key + 1] instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_) {
+            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Declare_) {
+                if (isset($stmts[$key + 1]) && $stmts[$key + 1] instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_) {
                     $nodesToAdd = $newUses;
                 } else {
                     // add extra space, if there are no new use imports to be added
-                    $nodesToAdd = \array_merge([new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Nop()], $newUses);
+                    $nodesToAdd = \array_merge([new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop()], $newUses);
                 }
                 \array_splice($stmts, $key + 1, 0, $nodesToAdd);
                 return $stmts;
@@ -56,7 +56,7 @@ final class UseImportsAdder
      * @param FullyQualifiedObjectType[] $useImportTypes
      * @param FullyQualifiedObjectType[] $functionUseImportTypes
      */
-    public function addImportsToNamespace(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_ $namespace, array $useImportTypes, array $functionUseImportTypes) : void
+    public function addImportsToNamespace(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $namespace, array $useImportTypes, array $functionUseImportTypes) : void
     {
         $namespaceName = $this->getNamespaceName($namespace);
         $existingUseImportTypes = $this->usedImportsResolver->resolveForNode($namespace);
@@ -106,19 +106,19 @@ final class UseImportsAdder
         }
         return $newUses;
     }
-    private function getNamespaceName(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_ $namespace) : ?string
+    private function getNamespaceName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $namespace) : ?string
     {
         if ($namespace->name === null) {
             return null;
         }
         return $namespace->name->toString();
     }
-    private function isCurrentNamespace(string $namespaceName, \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType $objectType) : bool
+    private function isCurrentNamespace(string $namespaceName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType $objectType) : bool
     {
-        $afterCurrentNamespace = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::after($objectType->getClassName(), $namespaceName . '\\');
+        $afterCurrentNamespace = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::after($objectType->getClassName(), $namespaceName . '\\');
         if (!$afterCurrentNamespace) {
             return \false;
         }
-        return !\_PhpScoperb75b35f52b74\Nette\Utils\Strings::contains($afterCurrentNamespace, '\\');
+        return !\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($afterCurrentNamespace, '\\');
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Reflection;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
 
-use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
-use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
 interface GlobalConstantReflection
 {
     public function getName() : string;
-    public function getValueType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
-    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function getValueType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
     public function getDeprecatedDescription() : ?string;
-    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
     public function getFileName() : ?string;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperb75b35f52b74;
+namespace _PhpScoper2a4e7ab1ecbc;
 
 if (\PHP_VERSION_ID < 80000) {
     if (\class_exists('Attribute', \false)) {

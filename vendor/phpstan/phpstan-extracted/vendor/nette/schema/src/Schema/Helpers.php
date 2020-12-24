@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema;
+namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema;
 
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
 /**
  * @internal
  */
@@ -45,12 +45,12 @@ final class Helpers
     }
     public static function getPropertyType(\ReflectionProperty $prop) : ?string
     {
-        if ($type = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyType($prop)) {
+        if ($type = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyType($prop)) {
             return ($prop->getType()->allowsNull() ? '?' : '') . $type;
         } elseif ($type = \preg_replace('#\\s.*#', '', (string) self::parseAnnotation($prop, 'var'))) {
-            $class = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyDeclaringClass($prop);
+            $class = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyDeclaringClass($prop);
             return \preg_replace_callback('#[\\w\\\\]+#', function ($m) use($class) {
-                return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::expandClassName($m[0], $class);
+                return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::expandClassName($m[0], $class);
             }, $type);
         }
         return null;
@@ -61,8 +61,8 @@ final class Helpers
      */
     public static function parseAnnotation(\Reflector $ref, string $name) : ?string
     {
-        if (!\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::areCommentsAvailable()) {
-            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('You have to enable phpDoc comments in opcode cache.');
+        if (!\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::areCommentsAvailable()) {
+            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('You have to enable phpDoc comments in opcode cache.');
         }
         $re = '#[\\s*]@' . \preg_quote($name, '#') . '(?=\\s|$)(?:[ \\t]+([^@\\s]\\S*))?#';
         if ($ref->getDocComment() && \preg_match($re, \trim($ref->getDocComment(), '/*'), $m)) {

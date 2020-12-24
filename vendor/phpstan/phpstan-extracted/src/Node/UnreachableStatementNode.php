@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperb75b35f52b74\PHPStan\Node;
+namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
 
-use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
-class UnreachableStatementNode extends \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt implements \_PhpScoperb75b35f52b74\PHPStan\Node\VirtualNode
+use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
+class UnreachableStatementNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode
 {
     /** @var Stmt */
     private $originalStatement;
-    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt $originalStatement)
+    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt $originalStatement)
     {
         parent::__construct($originalStatement->getAttributes());
         $this->originalStatement = $originalStatement;
     }
-    public function getOriginalStatement() : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt
+    public function getOriginalStatement() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt
     {
         return $this->originalStatement;
     }
