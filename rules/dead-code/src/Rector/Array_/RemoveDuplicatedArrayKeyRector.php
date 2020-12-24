@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DeadCode\Rector\Array_;
+namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Rector\Array_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/SG0Wu
  * @see \Rector\DeadCode\Tests\Rector\Array_\RemoveDuplicatedArrayKeyRector\RemoveDuplicatedArrayKeyRectorTest
  */
-final class RemoveDuplicatedArrayKeyRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class RemoveDuplicatedArrayKeyRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated key in defined arrays.', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated key in defined arrays.', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $item = [
     1 => 'A',
     1 => 'B'
@@ -35,12 +35,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_::class];
     }
     /**
      * @param Array_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $arrayItemsWithDuplicatedKey = $this->getArrayItemsWithDuplicatedKey($node);
         if ($arrayItemsWithDuplicatedKey === []) {
@@ -56,11 +56,11 @@ CODE_SAMPLE
     /**
      * @return ArrayItem[][]
      */
-    private function getArrayItemsWithDuplicatedKey(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_ $array) : array
+    private function getArrayItemsWithDuplicatedKey(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_ $array) : array
     {
         $arrayItemsByKeys = [];
         foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem) {
+            if (!$arrayItem instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem) {
                 continue;
             }
             if ($arrayItem->key === null) {

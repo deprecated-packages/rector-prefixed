@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc;
+namespace _PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc;
 
-use _PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface;
+use _PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface;
 final class AttributeAwareNodeFactoryCollector
 {
     /**

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\ChangesReporting\ValueObject;
+namespace _PhpScoper0a6b37af0871\Rector\ChangesReporting\ValueObject;
 
-use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\RectorInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\RectorInterface;
 final class RectorWithFileAndLineChange
 {
     /**
@@ -18,7 +18,7 @@ final class RectorWithFileAndLineChange
      * @var RectorInterface
      */
     private $rector;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Contract\Rector\RectorInterface $rector, string $realPath, int $line)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\RectorInterface $rector, string $realPath, int $line)
     {
         $this->rector = $rector;
         $this->line = $line;

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Autodiscovery\Rector\FileNode;
+namespace _PhpScoper0a6b37af0871\Rector\Autodiscovery\Rector\FileNode;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\Rector\Autodiscovery\Analyzer\ClassAnalyzer;
-use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\CustomNode\FileNode;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\Rector\Autodiscovery\Analyzer\ClassAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Inspiration @see https://github.com/rectorphp/rector/pull/1865/files#diff-0d18e660cdb626958662641b491623f8
  * @wip
@@ -21,7 +21,7 @@ use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Autodiscovery\Tests\Rector\FileNode\MoveValueObjectsToValueObjectDirectoryRector\MoveValueObjectsToValueObjectDirectoryRectorTest
  */
-final class MoveValueObjectsToValueObjectDirectoryRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class MoveValueObjectsToValueObjectDirectoryRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -56,13 +56,13 @@ final class MoveValueObjectsToValueObjectDirectoryRector extends \_PhpScopere8e8
      * @var ClassAnalyzer
      */
     private $classAnalyzer;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Autodiscovery\Analyzer\ClassAnalyzer $classAnalyzer)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Autodiscovery\Analyzer\ClassAnalyzer $classAnalyzer)
     {
         $this->classAnalyzer = $classAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move value object to ValueObject namespace/directory', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move value object to ValueObject namespace/directory', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 // app/Exception/Name.php
 class Name
 {
@@ -103,15 +103,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
      * @param FileNode $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         /** @var Class_|null $class */
-        $class = $this->betterNodeFinder->findFirstInstanceOf([$node], \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class);
+        $class = $this->betterNodeFinder->findFirstInstanceOf([$node], \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class);
         if ($class === null) {
             return null;
         }
@@ -132,7 +132,7 @@ CODE_SAMPLE
         $this->suffixes = $configuration[self::SUFFIXES] ?? [];
         $this->enableValueObjectGuessing = $configuration[self::ENABLE_VALUE_OBJECT_GUESSING] ?? \false;
     }
-    private function isValueObjectMatch(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function isValueObjectMatch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($this->isSuffixMatch($class)) {
             return \true;
@@ -154,12 +154,12 @@ CODE_SAMPLE
         }
         return $this->classAnalyzer->isValueObjectClass($class);
     }
-    private function isSuffixMatch(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function isSuffixMatch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        $className = $class->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className !== null) {
             foreach ($this->suffixes as $suffix) {
-                if (\_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($className, $suffix)) {
+                if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::endsWith($className, $suffix)) {
                     return \true;
                 }
             }
@@ -169,7 +169,7 @@ CODE_SAMPLE
     private function isKnownServiceType(string $className) : bool
     {
         foreach (self::COMMON_SERVICE_SUFFIXES as $commonServiceSuffix) {
-            if (\_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
+            if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
                 return \true;
             }
         }

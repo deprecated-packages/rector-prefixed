@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\Php;
+namespace _PhpScoper0a6b37af0871\Rector\Core\Php;
 
-use _PhpScopere8e811afab72\Nette\Utils\Json;
-use _PhpScopere8e811afab72\Rector\Core\Configuration\Option;
-use _PhpScopere8e811afab72\Rector\Core\Util\PhpVersionFactory;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use _PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a6b37af0871\Nette\Utils\Json;
+use _PhpScoper0a6b37af0871\Rector\Core\Configuration\Option;
+use _PhpScoper0a6b37af0871\Rector\Core\Util\PhpVersionFactory;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
 final class PhpVersionProvider
 {
     /**
@@ -23,7 +23,7 @@ final class PhpVersionProvider
      * @var PhpVersionFactory
      */
     private $phpVersionFactory;
-    public function __construct(\_PhpScopere8e811afab72\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScopere8e811afab72\Rector\Core\Util\PhpVersionFactory $phpVersionFactory)
+    public function __construct(\_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper0a6b37af0871\Rector\Core\Util\PhpVersionFactory $phpVersionFactory)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
@@ -32,12 +32,12 @@ final class PhpVersionProvider
     public function provide() : int
     {
         /** @var int|null $phpVersionFeatures */
-        $phpVersionFeatures = $this->parameterProvider->provideParameter(\_PhpScopere8e811afab72\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES);
+        $phpVersionFeatures = $this->parameterProvider->provideParameter(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES);
         if ($phpVersionFeatures !== null) {
             return (int) $phpVersionFeatures;
         }
         // for tests
-        if (\_PhpScopere8e811afab72\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             // so we don't have to up
             return 100000;
         }
@@ -59,7 +59,7 @@ final class PhpVersionProvider
             return null;
         }
         $projectComposerContent = $this->smartFileSystem->readFile($projectComposerJson);
-        $projectComposerJson = \_PhpScopere8e811afab72\Nette\Utils\Json::decode($projectComposerContent, \_PhpScopere8e811afab72\Nette\Utils\Json::FORCE_ARRAY);
+        $projectComposerJson = \_PhpScoper0a6b37af0871\Nette\Utils\Json::decode($projectComposerContent, \_PhpScoper0a6b37af0871\Nette\Utils\Json::FORCE_ARRAY);
         // Rector's composer.json
         if (isset($projectComposerJson['name']) && $projectComposerJson['name'] === 'rector/rector') {
             return null;

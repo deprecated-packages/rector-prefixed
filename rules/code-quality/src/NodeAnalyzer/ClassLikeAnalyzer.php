@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodeQuality\NodeAnalyzer;
+namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\NodeAnalyzer;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
 final class ClassLikeAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     /**
      * @return string[]
      */
-    public function resolvePropertyNames(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    public function resolvePropertyNames(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $propertyNames = [];
         foreach ($classLike->getProperties() as $property) {

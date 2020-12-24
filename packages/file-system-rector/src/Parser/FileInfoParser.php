@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\FileSystemRector\Parser;
+namespace _PhpScoper0a6b37af0871\Rector\FileSystemRector\Parser;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Parser\Parser;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Parser\Parser;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoParser
 {
     /**
@@ -17,7 +17,7 @@ final class FileInfoParser
      * @var NodeScopeAndMetadataDecorator
      */
     private $nodeScopeAndMetadataDecorator;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Parser\Parser $parser)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Parser\Parser $parser)
     {
         $this->parser = $parser;
         $this->nodeScopeAndMetadataDecorator = $nodeScopeAndMetadataDecorator;
@@ -25,7 +25,7 @@ final class FileInfoParser
     /**
      * @return Node[]
      */
-    public function parseFileInfoToNodesAndDecorate(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
+    public function parseFileInfoToNodesAndDecorate(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
     {
         $oldStmts = $this->parser->parseFileInfo($fileInfo);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($oldStmts, $fileInfo);
@@ -33,7 +33,7 @@ final class FileInfoParser
     /**
      * @return Node[]
      */
-    public function parseFileInfoToNodesAndDecorateWithScope(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
+    public function parseFileInfoToNodesAndDecorateWithScope(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
     {
         $oldStmts = $this->parser->parseFileInfo($fileInfo);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($oldStmts, $fileInfo, \true);

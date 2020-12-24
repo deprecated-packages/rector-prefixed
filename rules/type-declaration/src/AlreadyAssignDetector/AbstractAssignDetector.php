@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\TypeDeclaration\AlreadyAssignDetector;
+namespace _PhpScoper0a6b37af0871\Rector\TypeDeclaration\AlreadyAssignDetector;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScopere8e811afab72\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a6b37af0871\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
 abstract class AbstractAssignDetector
 {
     /**
@@ -21,14 +21,14 @@ abstract class AbstractAssignDetector
     /**
      * @required
      */
-    public function autowireAbstractAssignDetector(\_PhpScopere8e811afab72\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser) : void
+    public function autowireAbstractAssignDetector(\_PhpScoper0a6b37af0871\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser) : void
     {
         $this->propertyAssignMatcher = $propertyAssignMatcher;
         $this->callableNodeTraverser = $callableNodeTraverser;
     }
-    protected function matchAssignExprToPropertyName(\_PhpScopere8e811afab72\PhpParser\Node $node, string $propertyName) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr
+    protected function matchAssignExprToPropertyName(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $propertyName) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
             return null;
         }
         return $this->propertyAssignMatcher->matchPropertyAssignExpr($node, $propertyName);

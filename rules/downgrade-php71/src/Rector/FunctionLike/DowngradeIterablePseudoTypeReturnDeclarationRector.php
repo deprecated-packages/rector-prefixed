@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DowngradePhp71\Rector\FunctionLike;
+namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp71\Rector\FunctionLike;
 
-use _PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_;
-use _PhpScopere8e811afab72\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a6b37af0871\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DowngradePhp71\Tests\Rector\FunctionLike\DowngradeIterablePseudoTypeReturnDeclarationRector\DowngradeIterablePseudoTypeReturnDeclarationRectorTest
  */
-final class DowngradeIterablePseudoTypeReturnDeclarationRector extends \_PhpScopere8e811afab72\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector
+final class DowngradeIterablePseudoTypeReturnDeclarationRector extends \_PhpScoper0a6b37af0871\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove returning iterable pseud type, add a @return tag instead', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove returning iterable pseud type, add a @return tag instead', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(): iterable
@@ -42,7 +42,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    public function shouldRemoveReturnDeclaration(\_PhpScopere8e811afab72\PhpParser\Node\FunctionLike $functionLike) : bool
+    public function shouldRemoveReturnDeclaration(\_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         $functionLikeReturnType = $functionLike->returnType;
         if ($functionLikeReturnType === null) {

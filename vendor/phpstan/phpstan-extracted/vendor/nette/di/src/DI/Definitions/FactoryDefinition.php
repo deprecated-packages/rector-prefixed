@@ -5,15 +5,15 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
 /**
  * Definition of standard service.
  */
-final class FactoryDefinition extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition
+final class FactoryDefinition extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition
 {
     private const METHOD_CREATE = 'create';
     /** @var array */
@@ -22,18 +22,18 @@ final class FactoryDefinition extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1
     private $resultDefinition;
     public function __construct()
     {
-        $this->resultDefinition = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition();
+        $this->resultDefinition = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition();
     }
     /** @return static */
     public function setImplement(string $type)
     {
         if (!\interface_exists($type)) {
-            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
+            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface '{$type}' not found.");
         }
         $rc = new \ReflectionClass($type);
         $method = $rc->getMethods()[0] ?? null;
         if (!$method || $method->isStatic() || $method->name !== self::METHOD_CREATE || \count($rc->getMethods()) > 1) {
-            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method create().");
+            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$this->getName()}': Interface {$type} must have just one non-static method create().");
         }
         return parent::setType($type);
     }
@@ -46,13 +46,13 @@ final class FactoryDefinition extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1
         return $this->resultDefinition->getType();
     }
     /** @return static */
-    public function setResultDefinition(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition $definition)
+    public function setResultDefinition(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition $definition)
     {
         $this->resultDefinition = $definition;
         return $this;
     }
     /** @return ServiceDefinition */
-    public function getResultDefinition() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition
+    public function getResultDefinition() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition
     {
         return $this->resultDefinition;
     }
@@ -67,7 +67,7 @@ final class FactoryDefinition extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1
         return $this;
     }
     /** @deprecated use ->getResultDefinition()->getFactory() */
-    public function getFactory() : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement
+    public function getFactory() : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement
     {
         \trigger_error(\sprintf('Service %s: %s() is deprecated, use ->getResultDefinition()->getFactory()', $this->getName(), __METHOD__), \E_USER_DEPRECATED);
         return $this->resultDefinition->getFactory();
@@ -127,48 +127,48 @@ final class FactoryDefinition extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1
     {
         return $this->parameters;
     }
-    public function resolveType(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
+    public function resolveType(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
     {
         $resultDef = $this->resultDefinition;
         try {
             $resolver->resolveDefinition($resultDef);
             return;
-        } catch (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException $e) {
+        } catch (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException $e) {
         }
         if (!$resultDef->getType()) {
             $interface = $this->getType();
             if (!$interface) {
-                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException('Type is missing in definition of service.');
+                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException('Type is missing in definition of service.');
             }
             $method = new \ReflectionMethod($interface, self::METHOD_CREATE);
-            $returnType = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::getReturnType($method);
+            $returnType = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::getReturnType($method);
             if (!$returnType) {
-                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Method {$interface}::create() has not return type hint or annotation @return.");
+                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Method {$interface}::create() has not return type hint or annotation @return.");
             } elseif (!\class_exists($returnType) && !\interface_exists($returnType)) {
-                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::create() method, class '{$returnType}' cannot be found.");
+                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Check a type hint or annotation @return of the {$interface}::create() method, class '{$returnType}' cannot be found.");
             }
             $resultDef->setType($returnType);
         }
         $resolver->resolveDefinition($resultDef);
     }
-    public function complete(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
+    public function complete(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
     {
         $resultDef = $this->resultDefinition;
-        if ($resultDef instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition) {
+        if ($resultDef instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition) {
             if (!$this->parameters) {
                 $this->completeParameters($resolver);
             }
-            if ($resultDef->getEntity() instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference && !$resultDef->getFactory()->arguments) {
+            if ($resultDef->getEntity() instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference && !$resultDef->getFactory()->arguments) {
                 $resultDef->setFactory([
                     // render as $container->createMethod()
-                    new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ContainerBuilder::THIS_CONTAINER),
-                    \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Container::getMethodName($resultDef->getEntity()->getValue()),
+                    new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ContainerBuilder::THIS_CONTAINER),
+                    \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Container::getMethodName($resultDef->getEntity()->getValue()),
                 ]);
             }
         }
         $resolver->completeDefinition($resultDef);
     }
-    private function completeParameters(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
+    private function completeParameters(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Resolver $resolver) : void
     {
         $interface = $this->getType();
         $method = new \ReflectionMethod($interface, self::METHOD_CREATE);
@@ -179,30 +179,30 @@ final class FactoryDefinition extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1
             }
         }
         foreach ($method->getParameters() as $param) {
-            $hint = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterType($param);
+            $hint = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterType($param);
             if (isset($ctorParams[$param->name])) {
                 $arg = $ctorParams[$param->name];
-                $argHint = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterType($arg);
+                $argHint = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterType($arg);
                 if ($hint !== $argHint && !\is_a($hint, (string) $argHint, \true)) {
-                    throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Type hint for \${$param->name} in {$interface}::create() doesn't match type hint in {$class} constructor.");
+                    throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Type hint for \${$param->name} in {$interface}::create() doesn't match type hint in {$class} constructor.");
                 }
-                $this->resultDefinition->getFactory()->arguments[$arg->getPosition()] = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ContainerBuilder::literal('$' . $arg->name);
+                $this->resultDefinition->getFactory()->arguments[$arg->getPosition()] = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ContainerBuilder::literal('$' . $arg->name);
             } elseif (!$this->resultDefinition->getSetup()) {
-                $hint = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::getSuggestion(\array_keys($ctorParams), $param->name);
-                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Unused parameter \${$param->name} when implementing method {$interface}::create()" . ($hint ? ", did you mean \${$hint}?" : '.'));
+                $hint = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::getSuggestion(\array_keys($ctorParams), $param->name);
+                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Unused parameter \${$param->name} when implementing method {$interface}::create()" . ($hint ? ", did you mean \${$hint}?" : '.'));
             }
             $nullable = $hint && $param->allowsNull() && (!$param->isDefaultValueAvailable() || $param->getDefaultValue() !== null);
             $paramDef = ($nullable ? '?' : '') . $hint . ' ' . $param->name;
             if ($param->isDefaultValueAvailable()) {
-                $this->parameters[$paramDef] = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterDefaultValue($param);
+                $this->parameters[$paramDef] = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterDefaultValue($param);
             } else {
                 $this->parameters[] = $paramDef;
             }
         }
     }
-    public function generateMethod(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method $method, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\PhpGenerator $generator) : void
+    public function generateMethod(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Method $method, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\PhpGenerator $generator) : void
     {
-        $class = (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
+        $class = (new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType())->addImplement($this->getType());
         $class->addProperty('container')->setPrivate();
         $class->addMethod('__construct')->addBody('$this->container = $container;')->addParameter('container')->setType($generator->getClassName());
         $methodCreate = $class->addMethod(self::METHOD_CREATE);
@@ -211,7 +211,7 @@ final class FactoryDefinition extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1
         $body = \str_replace('$this', '$this->container', $body);
         $body = \str_replace('$this->container->container', '$this->container', $body);
         $rm = new \ReflectionMethod($this->getType(), self::METHOD_CREATE);
-        $methodCreate->setParameters($generator->convertParameters($this->parameters))->setReturnType(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getReturnType($rm) ?: $this->getResultType())->setBody($body);
+        $methodCreate->setParameters($generator->convertParameters($this->parameters))->setReturnType(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getReturnType($rm) ?: $this->getResultType())->setBody($body);
         $method->setBody('return new class ($this) ' . $class . ';');
     }
     public function __clone()

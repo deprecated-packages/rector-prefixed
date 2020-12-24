@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Broker;
+namespace _PhpScoper0a6b37af0871\PHPStan\Broker;
 
-class ClassNotFoundException extends \_PhpScopere8e811afab72\PHPStan\AnalysedCodeException
+class ClassNotFoundException extends \_PhpScoper0a6b37af0871\PHPStan\AnalysedCodeException
 {
     /** @var string */
     private $className;

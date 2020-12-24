@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PHPUnit\Tests\Rector\MethodCall\ExplicitPhpErrorApiRector;
+namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Tests\Rector\MethodCall\ExplicitPhpErrorApiRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\PHPUnit\Rector\MethodCall\ExplicitPhpErrorApiRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class ExplicitPhpErrorApiRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall\ExplicitPhpErrorApiRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class ExplicitPhpErrorApiRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ExplicitPhpErrorApiRectorTest extends \_PhpScopere8e811afab72\Rector
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScopere8e811afab72\Rector\PHPUnit\Rector\MethodCall\ExplicitPhpErrorApiRector::class;
+        return \_PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall\ExplicitPhpErrorApiRector::class;
     }
 }

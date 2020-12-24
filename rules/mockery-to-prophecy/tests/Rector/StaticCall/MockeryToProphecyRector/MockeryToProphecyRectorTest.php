@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\MockeryToProphecy\Tests\Rector\StaticCall\MockeryToProphecyRector;
+namespace _PhpScoper0a6b37af0871\Rector\MockeryToProphecy\Tests\Rector\StaticCall\MockeryToProphecyRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\MockeryToProphecy\Rector\StaticCall\MockeryCloseRemoveRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class MockeryToProphecyRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\MockeryToProphecy\Rector\StaticCall\MockeryCloseRemoveRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class MockeryToProphecyRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $file) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $file) : void
     {
         $this->doTestFileInfo($file);
     }
@@ -22,6 +22,6 @@ final class MockeryToProphecyRectorTest extends \_PhpScopere8e811afab72\Rector\T
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScopere8e811afab72\Rector\MockeryToProphecy\Rector\StaticCall\MockeryCloseRemoveRector::class;
+        return \_PhpScoper0a6b37af0871\Rector\MockeryToProphecy\Rector\StaticCall\MockeryCloseRemoveRector::class;
     }
 }

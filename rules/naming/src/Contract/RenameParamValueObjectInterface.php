@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Naming\Contract;
+namespace _PhpScoper0a6b37af0871\Rector\Naming\Contract;
 
-use _PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
-use _PhpScopere8e811afab72\PhpParser\Node\Param;
-interface RenameParamValueObjectInterface extends \_PhpScopere8e811afab72\Rector\Naming\Contract\RenameValueObjectInterface
+use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
+interface RenameParamValueObjectInterface extends \_PhpScoper0a6b37af0871\Rector\Naming\Contract\RenameValueObjectInterface
 {
-    public function getFunctionLike() : \_PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
-    public function getParam() : \_PhpScopere8e811afab72\PhpParser\Node\Param;
+    public function getFunctionLike() : \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
+    public function getParam() : \_PhpScoper0a6b37af0871\PhpParser\Node\Param;
 }

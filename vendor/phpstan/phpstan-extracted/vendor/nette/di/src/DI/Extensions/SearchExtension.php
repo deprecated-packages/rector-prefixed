@@ -5,16 +5,16 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Loaders\RobotLoader;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Loaders\RobotLoader;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays;
 /**
  * Services auto-discovery.
  */
-final class SearchExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+final class SearchExtension extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
     /** @var array */
     private $classes = [];
@@ -24,9 +24,9 @@ final class SearchExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b8
     {
         $this->tempDir = $tempDir;
     }
-    public function getConfigSchema() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['in' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->required(), 'files' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'classes' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'exclude' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['classes' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([])]), 'tags' => \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]))->before(function ($val) {
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['in' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->required(), 'files' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'classes' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'exclude' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['classes' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'extends' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([]), 'implements' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::anyOf(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string'), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string()->castTo('array'))->default([])]), 'tags' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]))->before(function ($val) {
             return \is_string($val['in'] ?? null) ? ['default' => $val] : $val;
         });
     }
@@ -34,7 +34,7 @@ final class SearchExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b8
     {
         foreach (\array_filter($this->config) as $name => $batch) {
             if (!\is_dir($batch->in)) {
-                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException("Option '{$this->name} › {$name} › in' must be valid directory name, '{$batch->in}' given.");
+                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException("Option '{$this->name} › {$name} › in' must be valid directory name, '{$batch->in}' given.");
             }
             foreach ($this->findClasses($batch) as $class) {
                 $this->classes[$class] = \array_merge($this->classes[$class] ?? [], $batch->tags);
@@ -43,7 +43,7 @@ final class SearchExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b8
     }
     public function findClasses(\stdClass $config) : array
     {
-        $robot = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Loaders\RobotLoader();
+        $robot = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Loaders\RobotLoader();
         $robot->setTempDirectory($this->tempDir);
         $robot->addDirectory($config->in);
         $robot->acceptFiles = $config->files ?: ['*.php'];
@@ -58,12 +58,12 @@ final class SearchExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b8
         $found = [];
         foreach ($classes as $class) {
             if (!\class_exists($class) && !\interface_exists($class) && !\trait_exists($class)) {
-                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Class {$class} was found, but it cannot be loaded by autoloading.");
+                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Class {$class} was found, but it cannot be loaded by autoloading.");
             }
             $rc = new \ReflectionClass($class);
-            if (($rc->isInstantiable() || $rc->isInterface() && \count($methods = $rc->getMethods()) === 1 && $methods[0]->name === 'create') && (!$acceptRE || \preg_match($acceptRE, $rc->name)) && (!$rejectRE || !\preg_match($rejectRE, $rc->name)) && (!$acceptParent || \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::some($acceptParent, function ($nm) use($rc) {
+            if (($rc->isInstantiable() || $rc->isInterface() && \count($methods = $rc->getMethods()) === 1 && $methods[0]->name === 'create') && (!$acceptRE || \preg_match($acceptRE, $rc->name)) && (!$rejectRE || !\preg_match($rejectRE, $rc->name)) && (!$acceptParent || \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::some($acceptParent, function ($nm) use($rc) {
                 return $rc->isSubclassOf($nm);
-            })) && (!$rejectParent || \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::every($rejectParent, function ($nm) use($rc) {
+            })) && (!$rejectParent || \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::every($rejectParent, function ($nm) use($rc) {
                 return !$rc->isSubclassOf($nm);
             }))) {
                 $found[] = $rc->name;
@@ -85,7 +85,7 @@ final class SearchExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b8
             } else {
                 $def = $builder->addFactoryDefinition(null)->setImplement($class);
             }
-            $def->setTags(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::normalize($tags, \true));
+            $def->setTags(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::normalize($tags, \true));
         }
     }
     private static function buildNameRegexp(array $masks) : ?string

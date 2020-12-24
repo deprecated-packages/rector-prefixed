@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
 
-use _PhpScopere8e811afab72\PHPStan\DependencyInjection\Container;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
-class LazyReflectionProviderProvider implements \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider
+use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
+class LazyReflectionProviderProvider implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider
 {
     /** @var Container */
     private $container;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\DependencyInjection\Container $container)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container $container)
     {
         $this->container = $container;
     }
-    public function getReflectionProvider() : \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider
+    public function getReflectionProvider() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider
     {
-        return $this->container->getByType(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider::class);
+        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider::class);
     }
 }

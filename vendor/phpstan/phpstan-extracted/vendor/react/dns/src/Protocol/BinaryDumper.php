@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Protocol;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Protocol;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Record;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\Query;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Record;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query;
 final class BinaryDumper
 {
     /**
      * @param Message $message
      * @return string
      */
-    public function toBinary(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
+    public function toBinary(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
     {
         $data = '';
         $data .= $this->headerToBinary($message);
@@ -25,7 +25,7 @@ final class BinaryDumper
      * @param Message $message
      * @return string
      */
-    private function headerToBinary(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
+    private function headerToBinary(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
     {
         $data = '';
         $data .= \pack('n', $message->id);
@@ -69,43 +69,43 @@ final class BinaryDumper
         foreach ($records as $record) {
             /* @var $record Record */
             switch ($record->type) {
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_A:
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_AAAA:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_A:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_AAAA:
                     $binary = \inet_pton($record->data);
                     break;
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_CNAME:
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_NS:
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_PTR:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_CNAME:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_NS:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_PTR:
                     $binary = $this->domainNameToBinary($record->data);
                     break;
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_TXT:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_TXT:
                     $binary = $this->textsToBinary($record->data);
                     break;
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_MX:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_MX:
                     $binary = \pack('n', $record->data['priority']);
                     $binary .= $this->domainNameToBinary($record->data['target']);
                     break;
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SRV:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SRV:
                     $binary = \pack('n*', $record->data['priority'], $record->data['weight'], $record->data['port']);
                     $binary .= $this->domainNameToBinary($record->data['target']);
                     break;
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SOA:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SOA:
                     $binary = $this->domainNameToBinary($record->data['mname']);
                     $binary .= $this->domainNameToBinary($record->data['rname']);
                     $binary .= \pack('N*', $record->data['serial'], $record->data['refresh'], $record->data['retry'], $record->data['expire'], $record->data['minimum']);
                     break;
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_CAA:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_CAA:
                     $binary = \pack('C*', $record->data['flag'], \strlen($record->data['tag']));
                     $binary .= $record->data['tag'];
                     $binary .= $record->data['value'];
                     break;
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SSHFP:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SSHFP:
                     $binary = \pack('CCH*', $record->data['algorithm'], $record->data['type'], $record->data['fingerprint']);
                     break;
-                case \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_OPT:
+                case \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_OPT:
                     $binary = '';
                     foreach ($record->data as $opt => $value) {
-                        if ($opt === \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::OPT_TCP_KEEPALIVE && $value !== null) {
+                        if ($opt === \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::OPT_TCP_KEEPALIVE && $value !== null) {
                             $value = \pack('n', \round($value * 10));
                         }
                         $binary .= \pack('n*', $opt, \strlen($value)) . $value;

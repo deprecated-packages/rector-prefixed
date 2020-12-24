@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Analyser;
+namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
-use _PhpScopere8e811afab72\PHPStan\Command\IgnoredRegexValidator;
-use _PhpScopere8e811afab72\PHPStan\File\FileHelper;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
+use _PhpScoper0a6b37af0871\PHPStan\Command\IgnoredRegexValidator;
+use _PhpScoper0a6b37af0871\PHPStan\File\FileHelper;
 class IgnoredErrorHelper
 {
     /** @var IgnoredRegexValidator */
@@ -22,14 +22,14 @@ class IgnoredErrorHelper
      * @param (string|mixed[])[] $ignoreErrors
      * @param bool $reportUnmatchedIgnoredErrors
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Command\IgnoredRegexValidator $ignoredRegexValidator, \_PhpScopere8e811afab72\PHPStan\File\FileHelper $fileHelper, array $ignoreErrors, bool $reportUnmatchedIgnoredErrors)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Command\IgnoredRegexValidator $ignoredRegexValidator, \_PhpScoper0a6b37af0871\PHPStan\File\FileHelper $fileHelper, array $ignoreErrors, bool $reportUnmatchedIgnoredErrors)
     {
         $this->ignoredRegexValidator = $ignoredRegexValidator;
         $this->fileHelper = $fileHelper;
         $this->ignoreErrors = $ignoreErrors;
         $this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
     }
-    public function initialize() : \_PhpScopere8e811afab72\PHPStan\Analyser\IgnoredErrorHelperResult
+    public function initialize() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\IgnoredErrorHelperResult
     {
         $otherIgnoreErrors = [];
         $ignoreErrorsByFile = [];
@@ -39,12 +39,12 @@ class IgnoredErrorHelper
             try {
                 if (\is_array($ignoreError)) {
                     if (!isset($ignoreError['message'])) {
-                        $errors[] = \sprintf('Ignored error %s is missing a message.', \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($ignoreError));
+                        $errors[] = \sprintf('Ignored error %s is missing a message.', \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($ignoreError));
                         continue;
                     }
                     if (!isset($ignoreError['path'])) {
                         if (!isset($ignoreError['paths'])) {
-                            $errors[] = \sprintf('Ignored error %s is missing a path.', \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($ignoreError));
+                            $errors[] = \sprintf('Ignored error %s is missing a path.', \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($ignoreError));
                         }
                         $otherIgnoreErrors[] = ['index' => $i, 'ignoreError' => $ignoreError];
                     } elseif (\is_file($ignoreError['path'])) {
@@ -57,7 +57,7 @@ class IgnoredErrorHelper
                         $otherIgnoreErrors[] = ['index' => $i, 'ignoreError' => $ignoreError];
                     }
                     $ignoreMessage = $ignoreError['message'];
-                    \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $ignoreMessage);
+                    \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $ignoreMessage);
                     if (isset($ignoreError['count'])) {
                         continue;
                         // ignoreError coming from baseline will be correct
@@ -76,7 +76,7 @@ class IgnoredErrorHelper
                 } else {
                     $otherIgnoreErrors[] = ['index' => $i, 'ignoreError' => $ignoreError];
                     $ignoreMessage = $ignoreError;
-                    \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $ignoreMessage);
+                    \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $ignoreMessage);
                     $validationResult = $this->ignoredRegexValidator->validate($ignoreMessage);
                     $ignoredTypes = $validationResult->getIgnoredTypes();
                     if (\count($ignoredTypes) > 0) {
@@ -89,11 +89,11 @@ class IgnoredErrorHelper
                         $errors[] = \sprintf("Ignored error %s has an unescaped '%s' which leads to ignoring all errors. Use '%s' instead.", $ignoreMessage, $validationResult->getWrongSequence(), $validationResult->getEscapedWrongSequence());
                     }
                 }
-            } catch (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\RegexpException $e) {
+            } catch (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\RegexpException $e) {
                 $errors[] = $e->getMessage();
             }
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Analyser\IgnoredErrorHelperResult($this->fileHelper, $errors, $warnings, $otherIgnoreErrors, $ignoreErrorsByFile, $this->ignoreErrors, $this->reportUnmatchedIgnoredErrors);
+        return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\IgnoredErrorHelperResult($this->fileHelper, $errors, $warnings, $otherIgnoreErrors, $ignoreErrorsByFile, $this->ignoreErrors, $this->reportUnmatchedIgnoredErrors);
     }
     /**
      * @param string $regex

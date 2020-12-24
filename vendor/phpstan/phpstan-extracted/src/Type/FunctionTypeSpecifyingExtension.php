@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Type;
+namespace _PhpScoper0a6b37af0871\PHPStan\Type;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Analyser\SpecifiedTypes;
-use _PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifierContext;
-use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\SpecifiedTypes;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifierContext;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection;
 interface FunctionTypeSpecifyingExtension
 {
-    public function isFunctionSupported(\_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $node, \_PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifierContext $context) : bool;
-    public function specifyTypes(\_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope, \_PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifierContext $context) : \_PhpScopere8e811afab72\PHPStan\Analyser\SpecifiedTypes;
+    public function isFunctionSupported(\_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifierContext $context) : bool;
+    public function specifyTypes(\_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifierContext $context) : \_PhpScoper0a6b37af0871\PHPStan\Analyser\SpecifiedTypes;
 }

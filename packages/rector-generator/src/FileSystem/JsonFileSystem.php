@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\RectorGenerator\FileSystem;
+namespace _PhpScoper0a6b37af0871\Rector\RectorGenerator\FileSystem;
 
-use _PhpScopere8e811afab72\Nette\Utils\Json;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a6b37af0871\Nette\Utils\Json;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
 final class JsonFileSystem
 {
     /**
@@ -15,7 +15,7 @@ final class JsonFileSystem
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScopere8e811afab72\Rector\RectorGenerator\FileSystem\JsonStringFormatter $jsonStringFormatter, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\RectorGenerator\FileSystem\JsonStringFormatter $jsonStringFormatter, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->jsonStringFormatter = $jsonStringFormatter;
         $this->smartFileSystem = $smartFileSystem;
@@ -26,14 +26,14 @@ final class JsonFileSystem
     public function loadFileToJson(string $filePath) : array
     {
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \_PhpScopere8e811afab72\Nette\Utils\Json::decode($fileContent, \_PhpScopere8e811afab72\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Json::decode($fileContent, \_PhpScoper0a6b37af0871\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param mixed[] $json
      */
     public function saveJsonToFile(string $filePath, array $json) : void
     {
-        $content = \_PhpScopere8e811afab72\Nette\Utils\Json::encode($json, \_PhpScopere8e811afab72\Nette\Utils\Json::PRETTY);
+        $content = \_PhpScoper0a6b37af0871\Nette\Utils\Json::encode($json, \_PhpScoper0a6b37af0871\Nette\Utils\Json::PRETTY);
         $content = $this->jsonStringFormatter->inlineSections($content, ['keywords', 'bin']);
         $content = $this->jsonStringFormatter->inlineAuthors($content);
         // make sure there is newline in the end

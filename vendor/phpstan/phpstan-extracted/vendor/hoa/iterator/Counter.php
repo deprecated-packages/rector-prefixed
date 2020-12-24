@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Iterator;
+namespace _PhpScoper0a6b37af0871\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Counter.
@@ -43,7 +43,7 @@ namespace _PhpScopere8e811afab72\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Counter implements \_PhpScopere8e811afab72\Hoa\Iterator\Iterator
+class Counter implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Iterator
 {
     /**
      * From (lower bound).
@@ -88,7 +88,7 @@ class Counter implements \_PhpScopere8e811afab72\Hoa\Iterator\Iterator
     public function __construct($from, $to, $step)
     {
         if ($step <= 0) {
-            throw new \_PhpScopere8e811afab72\Hoa\Iterator\Exception('The step must be non-negative; given %d.', 0, $step);
+            throw new \_PhpScoper0a6b37af0871\Hoa\Iterator\Exception('The step must be non-negative; given %d.', 0, $step);
         }
         $this->_from = $from;
         $this->_to = $to;

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\FileSystem;
+namespace _PhpScoper0a6b37af0871\Rector\Core\FileSystem;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\Rector\Core\Exception\FileSystem\DirectoryNotFoundException;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\FileSystem\DirectoryNotFoundException;
 final class FilesystemTweaker
 {
     /**
@@ -18,7 +18,7 @@ final class FilesystemTweaker
         $absoluteDirectories = [];
         foreach ($directories as $directory) {
             // is fnmatch for directories
-            if (\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($directory, '*')) {
+            if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($directory, '*')) {
                 $foundDirectories = $this->foundDirectoriesInGlob($directory);
                 $absoluteDirectories = \array_merge($absoluteDirectories, $foundDirectories);
             } else {
@@ -48,6 +48,6 @@ final class FilesystemTweaker
         if (\file_exists($directory)) {
             return;
         }
-        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\FileSystem\DirectoryNotFoundException(\sprintf('Directory "%s" was not found.', $directory));
+        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\FileSystem\DirectoryNotFoundException(\sprintf('Directory "%s" was not found.', $directory));
     }
 }

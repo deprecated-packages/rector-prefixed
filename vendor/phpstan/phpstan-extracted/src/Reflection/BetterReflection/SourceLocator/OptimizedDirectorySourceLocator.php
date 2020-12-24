@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _PhpScopere8e811afab72\PHPStan\File\FileFinder;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _PhpScoper0a6b37af0871\PHPStan\File\FileFinder;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
-class OptimizedDirectorySourceLocator implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+class OptimizedDirectorySourceLocator implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher */
     private $fileNodesFetcher;
@@ -29,13 +29,13 @@ class OptimizedDirectorySourceLocator implements \_PhpScopere8e811afab72\_Humbug
     private $functionNodes = [];
     /** @var array<string, \Roave\BetterReflection\SourceLocator\Located\LocatedSource> */
     private $locatedSourcesByFile = [];
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, \_PhpScopere8e811afab72\PHPStan\File\FileFinder $fileFinder, string $directory)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, \_PhpScoper0a6b37af0871\PHPStan\File\FileFinder $fileFinder, string $directory)
     {
         $this->fileNodesFetcher = $fileNodesFetcher;
         $this->fileFinder = $fileFinder;
         $this->directory = $directory;
     }
-    public function locateIdentifier(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         if ($identifier->isClass()) {
             $className = \strtolower($identifier->getName());
@@ -86,12 +86,12 @@ class OptimizedDirectorySourceLocator implements \_PhpScopere8e811afab72\_Humbug
      * @param FetchedNode<\PhpParser\Node\Stmt\ClassLike>|FetchedNode<\PhpParser\Node\Stmt\Function_> $fetchedNode
      * @return Reflection
      */
-    private function nodeToReflection(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode $fetchedNode) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    private function nodeToReflection(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode $fetchedNode) : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
-        $nodeToReflection = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         $reflection = $nodeToReflection->__invoke($reflector, $fetchedNode->getNode(), $this->locatedSourcesByFile[$fetchedNode->getFileName()], $fetchedNode->getNamespace());
         if ($reflection === null) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
         }
         return $reflection;
     }
@@ -100,7 +100,7 @@ class OptimizedDirectorySourceLocator implements \_PhpScopere8e811afab72\_Humbug
         if ($this->classToFile === null) {
             $this->init();
             if ($this->classToFile === null) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
         }
         if (!\array_key_exists($className, $this->classToFile)) {
@@ -117,7 +117,7 @@ class OptimizedDirectorySourceLocator implements \_PhpScopere8e811afab72\_Humbug
         if ($this->functionToFiles === null) {
             $this->init();
             if ($this->functionToFiles === null) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
         }
         if (!\array_key_exists($functionName, $this->functionToFiles)) {
@@ -214,7 +214,7 @@ class OptimizedDirectorySourceLocator implements \_PhpScopere8e811afab72\_Humbug
         }
         return ['classes' => $classes, 'functions' => $functions];
     }
-    public function locateIdentifiersByType(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
     }

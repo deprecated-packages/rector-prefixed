@@ -5,31 +5,31 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Config;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config;
 
 if (\false) {
     /** @deprecated use Nette\DI\Config\Adapter */
     interface IAdapter
     {
     }
-} elseif (!\interface_exists(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Config\IAdapter::class)) {
-    \class_alias(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Config\Adapter::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Config\IAdapter::class);
+} elseif (!\interface_exists(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config\IAdapter::class)) {
+    \class_alias(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config\Adapter::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config\IAdapter::class);
 }
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI;
 
 if (\false) {
     /** @deprecated use Nette\DI\Definitions\ServiceDefinition */
     class ServiceDefinition
     {
     }
-} elseif (!\class_exists(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceDefinition::class)) {
-    \class_alias(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ServiceDefinition::class);
+} elseif (!\class_exists(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceDefinition::class)) {
+    \class_alias(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ServiceDefinition::class);
 }
 if (\false) {
     /** @deprecated use Nette\DI\Definitions\Statement */
     class Statement
     {
     }
-} elseif (!\class_exists(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Statement::class)) {
-    \class_alias(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Statement::class);
+} elseif (!\class_exists(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Statement::class)) {
+    \class_alias(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Statement::class);
 }

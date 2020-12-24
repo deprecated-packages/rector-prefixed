@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\NullableType;
-use _PhpScopere8e811afab72\PhpParser\Node\UnionType;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\NullableType;
+use _PhpScoper0a6b37af0871\PhpParser\Node\UnionType;
 abstract class ReflectionType
 {
     /** @var bool */
@@ -21,14 +21,14 @@ abstract class ReflectionType
     public static function createFromTypeAndReflector($type) : self
     {
         $allowsNull = \false;
-        if ($type instanceof \_PhpScopere8e811afab72\PhpParser\Node\NullableType) {
+        if ($type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType) {
             $type = $type->type;
             $allowsNull = \true;
         }
-        if ($type instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier || $type instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
-            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionNamedType($type, $allowsNull);
+        if ($type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier || $type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
+            return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionNamedType($type, $allowsNull);
         }
-        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionUnionType($type, $allowsNull);
+        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionUnionType($type, $allowsNull);
     }
     /**
      * Does the parameter allow null?

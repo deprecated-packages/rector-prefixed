@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan;
+namespace _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
-use _PhpScopere8e811afab72\PHPStan\Type\BooleanType;
-use _PhpScopere8e811afab72\PHPStan\Type\FloatType;
-use _PhpScopere8e811afab72\PHPStan\Type\IntegerType;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\PHPStan\Type\StringType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\Rector\PHPStan\Type\AliasedObjectType;
-use _PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType;
-use _PhpScopere8e811afab72\Rector\StaticTypeMapper\StaticTypeMapper;
-use _PhpScopere8e811afab72\Rector\TypeDeclaration\TypeNormalizer;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\BooleanType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\FloatType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\IntegerType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\StringType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\AliasedObjectType;
+use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoper0a6b37af0871\Rector\TypeDeclaration\TypeNormalizer;
 final class TypeComparator
 {
     /**
@@ -30,13 +30,13 @@ final class TypeComparator
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \_PhpScopere8e811afab72\Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \_PhpScopere8e811afab72\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \_PhpScoper0a6b37af0871\Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \_PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->typeHasher = $typeHasher;
         $this->typeNormalizer = $typeNormalizer;
         $this->staticTypeMapper = $staticTypeMapper;
     }
-    public function areTypesEqual(\_PhpScopere8e811afab72\PHPStan\Type\Type $firstType, \_PhpScopere8e811afab72\PHPStan\Type\Type $secondType) : bool
+    public function areTypesEqual(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $firstType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $secondType) : bool
     {
         if ($this->areBothSameScalarType($firstType, $secondType)) {
             return \true;
@@ -52,38 +52,38 @@ final class TypeComparator
         }
         return $this->areArrayTypeWithSingleObjectChildToParent($firstType, $secondType);
     }
-    public function arePhpParserAndPhpStanPhpDocTypesEqual(\_PhpScopere8e811afab72\PhpParser\Node $phpParserNode, \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode $phpStanDocTypeNode, \_PhpScopere8e811afab72\PhpParser\Node $node) : bool
+    public function arePhpParserAndPhpStanPhpDocTypesEqual(\_PhpScoper0a6b37af0871\PhpParser\Node $phpParserNode, \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\TypeNode $phpStanDocTypeNode, \_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
     {
         $phpParserNodeType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($phpParserNode);
         $phpStanDocType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($phpStanDocTypeNode, $node);
         return $this->areTypesEqual($phpParserNodeType, $phpStanDocType);
     }
-    private function areBothSameScalarType(\_PhpScopere8e811afab72\PHPStan\Type\Type $firstType, \_PhpScopere8e811afab72\PHPStan\Type\Type $secondType) : bool
+    private function areBothSameScalarType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $firstType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $secondType) : bool
     {
-        if ($firstType instanceof \_PhpScopere8e811afab72\PHPStan\Type\StringType && $secondType instanceof \_PhpScopere8e811afab72\PHPStan\Type\StringType) {
+        if ($firstType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\StringType && $secondType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\StringType) {
             // prevents "class-string" vs "string"
             return \get_class($firstType) === \get_class($secondType);
         }
-        if ($firstType instanceof \_PhpScopere8e811afab72\PHPStan\Type\IntegerType && $secondType instanceof \_PhpScopere8e811afab72\PHPStan\Type\IntegerType) {
+        if ($firstType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\IntegerType && $secondType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\IntegerType) {
             return \true;
         }
-        if ($firstType instanceof \_PhpScopere8e811afab72\PHPStan\Type\FloatType && $secondType instanceof \_PhpScopere8e811afab72\PHPStan\Type\FloatType) {
+        if ($firstType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\FloatType && $secondType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\FloatType) {
             return \true;
         }
-        if (!$firstType instanceof \_PhpScopere8e811afab72\PHPStan\Type\BooleanType) {
+        if (!$firstType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType) {
             return \false;
         }
-        return $secondType instanceof \_PhpScopere8e811afab72\PHPStan\Type\BooleanType;
+        return $secondType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType;
     }
-    private function areAliasedObjectMatchingFqnObject(\_PhpScopere8e811afab72\PHPStan\Type\Type $firstType, \_PhpScopere8e811afab72\PHPStan\Type\Type $secondType) : bool
+    private function areAliasedObjectMatchingFqnObject(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $firstType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $secondType) : bool
     {
-        if ($firstType instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\AliasedObjectType && $secondType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType && $firstType->getFullyQualifiedClass() === $secondType->getClassName()) {
+        if ($firstType instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\AliasedObjectType && $secondType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType && $firstType->getFullyQualifiedClass() === $secondType->getClassName()) {
             return \true;
         }
-        if (!$secondType instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\AliasedObjectType) {
+        if (!$secondType instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\AliasedObjectType) {
             return \false;
         }
-        if (!$firstType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType) {
+        if (!$firstType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
             return \false;
         }
         return $secondType->getFullyQualifiedClass() === $firstType->getClassName();
@@ -91,14 +91,14 @@ final class TypeComparator
     /**
      * E.g. class A extends B, class B → A[] is subtype of B[] → keep A[]
      */
-    private function areArrayTypeWithSingleObjectChildToParent(\_PhpScopere8e811afab72\PHPStan\Type\Type $firstType, \_PhpScopere8e811afab72\PHPStan\Type\Type $secondType) : bool
+    private function areArrayTypeWithSingleObjectChildToParent(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $firstType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $secondType) : bool
     {
-        if (!$firstType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType || !$secondType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
+        if (!$firstType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType || !$secondType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
             return \false;
         }
         $firstArrayItemType = $firstType->getItemType();
         $secondArrayItemType = $secondType->getItemType();
-        if ($firstArrayItemType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType && $secondArrayItemType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType) {
+        if ($firstArrayItemType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType && $secondArrayItemType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
             $firstFqnClassName = $this->getFqnClassName($firstArrayItemType);
             $secondFqnClassName = $this->getFqnClassName($secondArrayItemType);
             if (\is_a($firstFqnClassName, $secondFqnClassName, \true)) {
@@ -110,9 +110,9 @@ final class TypeComparator
         }
         return \false;
     }
-    private function getFqnClassName(\_PhpScopere8e811afab72\PHPStan\Type\ObjectType $objectType) : string
+    private function getFqnClassName(\_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType $objectType) : string
     {
-        if ($objectType instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType) {
+        if ($objectType instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\ShortenedObjectType) {
             return $objectType->getFullyQualifiedName();
         }
         return $objectType->getClassName();

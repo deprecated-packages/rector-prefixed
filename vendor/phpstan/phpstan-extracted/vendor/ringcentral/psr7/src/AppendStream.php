@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
 /**
  * Reads from multiple streams, one after the other.
  *
  * This is a read-only stream decorator.
  */
-class AppendStream implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
+class AppendStream implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
 {
     /** @var StreamInterface[] Streams being decorated */
     private $streams = array();
@@ -42,7 +42,7 @@ class AppendStream implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr
      *
      * @throws \InvalidArgumentException if the stream is not readable
      */
-    public function addStream(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $stream)
+    public function addStream(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $stream)
     {
         if (!$stream->isReadable()) {
             throw new \InvalidArgumentException('Each stream must be readable');

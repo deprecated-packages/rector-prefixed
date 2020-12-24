@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CakePHP\Naming;
+namespace _PhpScoper0a6b37af0871\Rector\CakePHP\Naming;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\Rector\CakePHP\ImplicitNameResolver;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\Rector\CakePHP\ImplicitNameResolver;
 /**
  * @inspired https://github.com/cakephp/upgrade/blob/756410c8b7d5aff9daec3fa1fe750a3858d422ac/src/Shell/Task/AppUsesTask.php
  */
@@ -29,7 +29,7 @@ final class CakePHPFullyQualifiedClassNameResolver
      * @var ImplicitNameResolver
      */
     private $implicitNameResolver;
-    public function __construct(\_PhpScopere8e811afab72\Rector\CakePHP\ImplicitNameResolver $implicitNameResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\CakePHP\ImplicitNameResolver $implicitNameResolver)
     {
         $this->implicitNameResolver = $implicitNameResolver;
     }
@@ -47,8 +47,8 @@ final class CakePHPFullyQualifiedClassNameResolver
         }
         // Chop Lib out as locations moves those files to the top level.
         // But only if Lib is not the last folder.
-        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::match($pseudoNamespace, self::LIB_NAMESPACE_PART_REGEX)) {
-            $pseudoNamespace = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($pseudoNamespace, '#\\\\Lib#', '');
+        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($pseudoNamespace, self::LIB_NAMESPACE_PART_REGEX)) {
+            $pseudoNamespace = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($pseudoNamespace, '#\\\\Lib#', '');
         }
         // B. is Cake native class?
         $cakePhpVersion = 'Cake\\' . $pseudoNamespace . '\\' . $shortClass;
@@ -56,13 +56,13 @@ final class CakePHPFullyQualifiedClassNameResolver
             return $cakePhpVersion;
         }
         // C. is not plugin nor lib custom App class?
-        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($pseudoNamespace, '\\') && !\_PhpScopere8e811afab72\Nette\Utils\Strings::match($pseudoNamespace, self::PLUGIN_OR_LIB_REGEX)) {
+        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($pseudoNamespace, '\\') && !\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($pseudoNamespace, self::PLUGIN_OR_LIB_REGEX)) {
             return 'App\\' . $pseudoNamespace . '\\' . $shortClass;
         }
         return $pseudoNamespace . '\\' . $shortClass;
     }
     private function normalizeFileSystemSlashes(string $pseudoNamespace) : string
     {
-        return \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($pseudoNamespace, self::SLASH_REGEX, '\\');
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($pseudoNamespace, self::SLASH_REGEX, '\\');
     }
 }

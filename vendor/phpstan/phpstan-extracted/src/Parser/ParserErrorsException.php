@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Parser;
+namespace _PhpScoper0a6b37af0871\PHPStan\Parser;
 
-use _PhpScopere8e811afab72\PhpParser\Error;
+use _PhpScoper0a6b37af0871\PhpParser\Error;
 class ParserErrorsException extends \Exception
 {
     /** @var \PhpParser\Error[] */
@@ -16,7 +16,7 @@ class ParserErrorsException extends \Exception
      */
     public function __construct(array $errors, ?string $parsedFile)
     {
-        parent::__construct(\implode(', ', \array_map(static function (\_PhpScopere8e811afab72\PhpParser\Error $error) : string {
+        parent::__construct(\implode(', ', \array_map(static function (\_PhpScoper0a6b37af0871\PhpParser\Error $error) : string {
             return $error->getMessage();
         }, $errors)));
         $this->errors = $errors;

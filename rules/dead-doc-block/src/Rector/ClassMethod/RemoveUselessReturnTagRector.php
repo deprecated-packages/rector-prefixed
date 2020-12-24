@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DeadDocBlock\Rector\ClassMethod;
+namespace _PhpScoper0a6b37af0871\Rector\DeadDocBlock\Rector\ClassMethod;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\DeadDocBlock\DeadReturnTagValueNodeAnalyzer;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\DeadDocBlock\DeadReturnTagValueNodeAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadDocBlock\Tests\Rector\ClassMethod\RemoveUselessReturnTagRector\RemoveUselessReturnTagRectorTest
  */
-final class RemoveUselessReturnTagRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class RemoveUselessReturnTagRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var DeadReturnTagValueNodeAnalyzer
      */
     private $deadReturnTagValueNodeAnalyzer;
-    public function __construct(\_PhpScopere8e811afab72\Rector\DeadDocBlock\DeadReturnTagValueNodeAnalyzer $deadReturnTagValueNodeAnalyzer)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\DeadDocBlock\DeadReturnTagValueNodeAnalyzer $deadReturnTagValueNodeAnalyzer)
     {
         $this->deadReturnTagValueNodeAnalyzer = $deadReturnTagValueNodeAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove @return docblock with same type as defined in PHP', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove @return docblock with same type as defined in PHP', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use stdClass;
 
 class SomeClass
@@ -56,15 +56,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        $phpDocInfo = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+        $phpDocInfo = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
         $attributeAwareReturnTagValueNode = $phpDocInfo->getReturnTagValue();

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Phalcon\Rector\MethodCall;
+namespace _PhpScoper0a6b37af0871\Rector\Phalcon\Rector\MethodCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/rectorphp/rector/issues/2571
  *
  * @see \Rector\Phalcon\Tests\Rector\MethodCall\DecoupleSaveMethodCallWithArgumentToAssignRector\DecoupleSaveMethodCallWithArgumentToAssignRectorTest
  */
-final class DecoupleSaveMethodCallWithArgumentToAssignRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class DecoupleSaveMethodCallWithArgumentToAssignRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Decouple Phalcon\\Mvc\\Model::save() with argument to assign()', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Decouple Phalcon\\Mvc\\Model::save() with argument to assign()', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(\Phalcon\Mvc\Model $model, $data)
@@ -43,14 +43,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScopere8e811afab72\\Phalcon\\Mvc\\Model')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper0a6b37af0871\\Phalcon\\Mvc\\Model')) {
             return null;
         }
         if (!$this->isName($node->name, 'save')) {

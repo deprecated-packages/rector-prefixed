@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\PhpDoc;
+namespace _PhpScoper0a6b37af0871\PHPStan\PhpDoc;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Interface_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_;
-use _PhpScopere8e811afab72\PHPStan\Parser\Parser;
-use _PhpScopere8e811afab72\PHPStan\Type\FileTypeMapper;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a6b37af0871\PHPStan\Parser\Parser;
+use _PhpScoper0a6b37af0871\PHPStan\Type\FileTypeMapper;
 use function array_key_exists;
 class StubPhpDocProvider
 {
@@ -45,13 +45,13 @@ class StubPhpDocProvider
      * @param \PHPStan\Parser\Parser $parser
      * @param string[] $stubFiles
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Parser\Parser $parser, \_PhpScopere8e811afab72\PHPStan\Type\FileTypeMapper $fileTypeMapper, array $stubFiles)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Parser\Parser $parser, \_PhpScoper0a6b37af0871\PHPStan\Type\FileTypeMapper $fileTypeMapper, array $stubFiles)
     {
         $this->parser = $parser;
         $this->fileTypeMapper = $fileTypeMapper;
         $this->stubFiles = $stubFiles;
     }
-    public function findClassPhpDoc(string $className) : ?\_PhpScopere8e811afab72\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function findClassPhpDoc(string $className) : ?\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if (!$this->isKnownClass($className)) {
             return null;
@@ -66,7 +66,7 @@ class StubPhpDocProvider
         }
         return null;
     }
-    public function findPropertyPhpDoc(string $className, string $propertyName) : ?\_PhpScopere8e811afab72\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function findPropertyPhpDoc(string $className, string $propertyName) : ?\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if (!$this->isKnownClass($className)) {
             return null;
@@ -87,7 +87,7 @@ class StubPhpDocProvider
      * @param array<int, string> $positionalParameterNames
      * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock|null
      */
-    public function findMethodPhpDoc(string $className, string $methodName, array $positionalParameterNames) : ?\_PhpScopere8e811afab72\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function findMethodPhpDoc(string $className, string $methodName, array $positionalParameterNames) : ?\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if (!$this->isKnownClass($className)) {
             return null;
@@ -99,7 +99,7 @@ class StubPhpDocProvider
             [$file, $docComment] = $this->knownMethodsDocComments[$className][$methodName];
             $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($file, $className, null, $methodName, $docComment);
             if (!isset($this->knownMethodsParameterNames[$className][$methodName])) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
             $methodParameterNames = $this->knownMethodsParameterNames[$className][$methodName];
             $parameterNameMapping = [];
@@ -113,7 +113,7 @@ class StubPhpDocProvider
         }
         return null;
     }
-    public function findFunctionPhpDoc(string $functionName) : ?\_PhpScopere8e811afab72\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function findFunctionPhpDoc(string $functionName) : ?\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if (!$this->isKnownFunction($functionName)) {
             return null;
@@ -147,7 +147,7 @@ class StubPhpDocProvider
     private function initializeKnownElements() : void
     {
         if ($this->initializing) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
         }
         if ($this->initialized) {
             return;
@@ -162,15 +162,15 @@ class StubPhpDocProvider
         $this->initializing = \false;
         $this->initialized = \true;
     }
-    private function initializeKnownElementNode(string $stubFile, \_PhpScopere8e811afab72\PhpParser\Node $node) : void
+    private function initializeKnownElementNode(string $stubFile, \_PhpScoper0a6b37af0871\PhpParser\Node $node) : void
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_) {
             foreach ($node->stmts as $stmt) {
                 $this->initializeKnownElementNode($stubFile, $stmt);
             }
             return;
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_) {
             $functionName = (string) $node->namespacedName;
             $docComment = $node->getDocComment();
             if ($docComment === null) {
@@ -180,7 +180,7 @@ class StubPhpDocProvider
             $this->knownFunctionsDocComments[$functionName] = [$stubFile, $docComment->getText()];
             return;
         }
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ && !$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Interface_ && !$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ && !$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_ && !$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_) {
             return;
         }
         if (!isset($node->namespacedName)) {
@@ -199,7 +199,7 @@ class StubPhpDocProvider
         $this->knownMethodsDocComments[$className] = [];
         foreach ($node->stmts as $stmt) {
             $docComment = $stmt->getDocComment();
-            if ($stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property) {
+            if ($stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property) {
                 foreach ($stmt->props as $property) {
                     if ($docComment === null) {
                         $this->propertyMap[$className][$property->name->toString()] = null;
@@ -207,16 +207,16 @@ class StubPhpDocProvider
                     }
                     $this->knownPropertiesDocComments[$className][$property->name->toString()] = [$stubFile, $docComment->getText()];
                 }
-            } elseif ($stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod) {
+            } elseif ($stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod) {
                 if ($docComment === null) {
                     $this->methodMap[$className][$stmt->name->toString()] = null;
                     continue;
                 }
                 $methodName = $stmt->name->toString();
                 $this->knownMethodsDocComments[$className][$methodName] = [$stubFile, $docComment->getText()];
-                $this->knownMethodsParameterNames[$className][$methodName] = \array_map(static function (\_PhpScopere8e811afab72\PhpParser\Node\Param $param) : string {
-                    if (!$param->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
-                        throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+                $this->knownMethodsParameterNames[$className][$methodName] = \array_map(static function (\_PhpScoper0a6b37af0871\PhpParser\Node\Param $param) : string {
+                    if (!$param->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
+                        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
                     }
                     return $param->var->name;
                 }, $stmt->getParams());

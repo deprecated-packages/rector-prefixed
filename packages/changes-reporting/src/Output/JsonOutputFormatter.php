@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\ChangesReporting\Output;
+namespace _PhpScoper0a6b37af0871\Rector\ChangesReporting\Output;
 
-use _PhpScopere8e811afab72\Nette\Utils\Json;
-use _PhpScopere8e811afab72\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use _PhpScopere8e811afab72\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
-use _PhpScopere8e811afab72\Rector\Core\Configuration\Configuration;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
-final class JsonOutputFormatter implements \_PhpScopere8e811afab72\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
+use _PhpScoper0a6b37af0871\Nette\Utils\Json;
+use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Configuration\Configuration;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
+final class JsonOutputFormatter implements \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
     /**
      * @var string
@@ -22,7 +22,7 @@ final class JsonOutputFormatter implements \_PhpScopere8e811afab72\Rector\Change
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Configuration\Configuration $configuration, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->configuration = $configuration;
         $this->smartFileSystem = $smartFileSystem;
@@ -31,7 +31,7 @@ final class JsonOutputFormatter implements \_PhpScopere8e811afab72\Rector\Change
     {
         return self::NAME;
     }
-    public function report(\_PhpScopere8e811afab72\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    public function report(\_PhpScoper0a6b37af0871\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         $errorsArray = ['meta' => ['version' => $this->configuration->getPrettyVersion(), 'config' => $this->configuration->getConfigFilePath()], 'totals' => ['changed_files' => $errorAndDiffCollector->getFileDiffsCount(), 'removed_and_added_files_count' => $errorAndDiffCollector->getRemovedAndAddedFilesCount(), 'removed_node_count' => $errorAndDiffCollector->getRemovedNodeCount()]];
         $fileDiffs = $errorAndDiffCollector->getFileDiffs();
@@ -48,7 +48,7 @@ final class JsonOutputFormatter implements \_PhpScopere8e811afab72\Rector\Change
         if ($errorsData !== []) {
             $errorsArray['errors'] = $errorsData;
         }
-        $json = \_PhpScopere8e811afab72\Nette\Utils\Json::encode($errorsArray, \_PhpScopere8e811afab72\Nette\Utils\Json::PRETTY);
+        $json = \_PhpScoper0a6b37af0871\Nette\Utils\Json::encode($errorsArray, \_PhpScoper0a6b37af0871\Nette\Utils\Json::PRETTY);
         $outputFile = $this->configuration->getOutputFile();
         if ($outputFile !== null) {
             $this->smartFileSystem->dumpFile($outputFile, $json . \PHP_EOL);

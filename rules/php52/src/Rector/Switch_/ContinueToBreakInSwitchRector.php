@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php52\Rector\Switch_;
+namespace _PhpScoper0a6b37af0871\Rector\Php52\Rector\Switch_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Break_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Continue_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Switch_;
-use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScopere8e811afab72\PHPStan\Type\ConstantType;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Break_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Continue_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Switch_;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ConstantType;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://stackoverflow.com/a/12349889/1348344
  * @see \Rector\Php52\Tests\Rector\Switch_\ContinueToBreakInSwitchRector\ContinueToBreakInSwitchRectorTest
  */
-final class ContinueToBreakInSwitchRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class ContinueToBreakInSwitchRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use break instead of continue in switch statements', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use break instead of continue in switch statements', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function some_run($value)
 {
     switch ($value) {
@@ -56,16 +56,16 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Switch_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
      * @param Switch_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         foreach ($node->cases as $case) {
             foreach ($case->stmts as $key => $caseStmt) {
-                if (!$caseStmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Continue_) {
+                if (!$caseStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Continue_) {
                     continue;
                 }
                 $case->stmts[$key] = $this->processContinueStatement($caseStmt);
@@ -73,25 +73,25 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processContinueStatement(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Continue_ $continue) : \_PhpScopere8e811afab72\PhpParser\Node\Stmt
+    private function processContinueStatement(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Continue_ $continue) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt
     {
         if ($continue->num === null) {
-            return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Break_();
+            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Break_();
         }
-        if ($continue->num instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber) {
+        if ($continue->num instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber) {
             if ($this->getValue($continue->num) <= 1) {
-                return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Break_();
+                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Break_();
             }
-        } elseif ($continue->num instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
+        } elseif ($continue->num instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
             return $this->processVariableNum($continue, $continue->num);
         }
         return $continue;
     }
-    private function processVariableNum(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Continue_ $continue, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $numVariable) : \_PhpScopere8e811afab72\PhpParser\Node\Stmt
+    private function processVariableNum(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Continue_ $continue, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $numVariable) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt
     {
         $staticType = $this->getStaticType($numVariable);
-        if ($staticType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ConstantType && $staticType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType && $staticType->getValue() <= 1) {
-            return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Break_();
+        if ($staticType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ConstantType && $staticType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType && $staticType->getValue() <= 1) {
+            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Break_();
         }
         return $continue;
     }

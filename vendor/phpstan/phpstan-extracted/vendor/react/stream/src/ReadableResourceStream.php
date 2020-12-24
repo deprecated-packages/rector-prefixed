@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class ReadableResourceStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+final class ReadableResourceStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
 {
     /**
      * @var resource
@@ -33,7 +33,7 @@ final class ReadableResourceStream extends \_PhpScopere8e811afab72\_HumbugBox221
     private $bufferSize;
     private $closed = \false;
     private $listening = \false;
-    public function __construct($stream, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $readChunkSize = null)
+    public function __construct($stream, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $readChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -82,9 +82,9 @@ final class ReadableResourceStream extends \_PhpScopere8e811afab72\_HumbugBox221
             $this->listening = \true;
         }
     }
-    public function pipe(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

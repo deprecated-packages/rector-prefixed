@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DeadCode\Rector\MethodCall;
+namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Rector\MethodCall;
 
-use _PhpScopere8e811afab72\PhpParser\BuilderHelpers;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
-use _PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\PhpParser\BuilderHelpers;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionFunction;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\MethodCall\RemoveDefaultArgumentValueRector\RemoveDefaultArgumentValueRectorTest
  */
-final class RemoveDefaultArgumentValueRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class RemoveDefaultArgumentValueRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove argument value, if it is the same as default value', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove argument value, if it is the same as default value', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -70,12 +70,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param MethodCall|StaticCall|FuncCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -93,15 +93,15 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|FuncCall $node
      */
-    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
+    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
     {
         if ($node->args === []) {
             return \true;
         }
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
-        if (!$node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
+        if (!$node->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
             return \true;
         }
         $functionName = $this->getName($node);
@@ -119,17 +119,17 @@ CODE_SAMPLE
      * @param StaticCall|FuncCall|MethodCall $node
      * @return Node[]
      */
-    private function resolveDefaultValuesFromCall(\_PhpScopere8e811afab72\PhpParser\Node $node) : array
+    private function resolveDefaultValuesFromCall(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : array
     {
         $nodeName = $this->resolveNodeName($node);
         if ($nodeName === null) {
             return [];
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
             return $this->resolveFuncCallDefaultParamValues($nodeName);
         }
         /** @var string|null $className */
-        $className = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // anonymous class
         if ($className === null) {
             return [];
@@ -145,7 +145,7 @@ CODE_SAMPLE
      * @param Expr[]|mixed[] $defaultValues
      * @return int[]
      */
-    private function resolveKeysToRemove(\_PhpScopere8e811afab72\PhpParser\Node $node, array $defaultValues) : array
+    private function resolveKeysToRemove(\_PhpScoper0a6b37af0871\PhpParser\Node $node, array $defaultValues) : array
     {
         $keysToRemove = [];
         $keysToKeep = [];
@@ -173,9 +173,9 @@ CODE_SAMPLE
     /**
      * @param StaticCall|FuncCall|MethodCall $node
      */
-    private function resolveNodeName(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?string
+    private function resolveNodeName(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?string
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
             return $this->getName($node);
         }
         return $this->getName($node->name);
@@ -198,7 +198,7 @@ CODE_SAMPLE
             $defaultValues = [];
             foreach ($reflectionFunction->getParameters() as $key => $reflectionParameter) {
                 if ($reflectionParameter->isDefaultValueAvailable()) {
-                    $defaultValues[$key] = \_PhpScopere8e811afab72\PhpParser\BuilderHelpers::normalizeValue($reflectionParameter->getDefaultValue());
+                    $defaultValues[$key] = \_PhpScoper0a6b37af0871\PhpParser\BuilderHelpers::normalizeValue($reflectionParameter->getDefaultValue());
                 }
             }
             return $defaultValues;
@@ -208,7 +208,7 @@ CODE_SAMPLE
     /**
      * @return Node[]
      */
-    private function resolveDefaultParamValuesFromFunctionLike(\_PhpScopere8e811afab72\PhpParser\Node\FunctionLike $functionLike) : array
+    private function resolveDefaultParamValuesFromFunctionLike(\_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $defaultValues = [];
         foreach ($functionLike->getParams() as $key => $param) {

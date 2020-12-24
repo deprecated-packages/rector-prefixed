@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Renaming\Tests\Rector\Namespace_\RenameNamespaceRector;
+namespace _PhpScoper0a6b37af0871\Rector\Renaming\Tests\Rector\Namespace_\RenameNamespaceRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameNamespaceRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameNamespaceRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class RenameNamespaceRectorTest extends \_PhpScopere8e811afab72\Rector\Tes
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScopere8e811afab72\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::class => [\_PhpScopere8e811afab72\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => ['OldNamespace' => 'NewNamespace', '_PhpScopere8e811afab72\\OldNamespaceWith\\OldSplitNamespace' => '_PhpScopere8e811afab72\\NewNamespaceWith\\NewSplitNamespace', '_PhpScopere8e811afab72\\Old\\Long\\AnyNamespace' => '_PhpScopere8e811afab72\\Short\\AnyNamespace', 'PHPUnit_Framework_' => 'PHPUnit\\Framework\\']]];
+        return [\_PhpScoper0a6b37af0871\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::class => [\_PhpScoper0a6b37af0871\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => ['OldNamespace' => 'NewNamespace', '_PhpScoper0a6b37af0871\\OldNamespaceWith\\OldSplitNamespace' => '_PhpScoper0a6b37af0871\\NewNamespaceWith\\NewSplitNamespace', '_PhpScoper0a6b37af0871\\Old\\Long\\AnyNamespace' => '_PhpScoper0a6b37af0871\\Short\\AnyNamespace', 'PHPUnit_Framework_' => 'PHPUnit\\Framework\\']]];
     }
 }

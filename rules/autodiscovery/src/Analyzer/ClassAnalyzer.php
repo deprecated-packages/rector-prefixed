@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Autodiscovery\Analyzer;
+namespace _PhpScoper0a6b37af0871\Rector\Autodiscovery\Analyzer;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
-use _PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
 final class ClassAnalyzer
 {
     /**
@@ -31,13 +31,13 @@ final class ClassAnalyzer
      * @var ParsedNodeCollector
      */
     private $parsedNodeCollector;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function isValueObjectClass(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isValueObjectClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($class->isAnonymous()) {
             return \false;
@@ -47,14 +47,14 @@ final class ClassAnalyzer
         if (isset($this->valueObjectStatusByClassName[$className])) {
             return $this->valueObjectStatusByClassName[$className];
         }
-        $constructClassMethod = $class->getMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructClassMethod = $class->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
             return $this->analyseWithoutConstructor($class, $className);
         }
         // resolve constructor types
         foreach ($constructClassMethod->params as $param) {
             $paramType = $this->nodeTypeResolver->resolve($param);
-            if (!$paramType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType) {
+            if (!$paramType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
                 continue;
             }
             // awesome!
@@ -72,7 +72,7 @@ final class ClassAnalyzer
         $this->valueObjectStatusByClassName[$className] = \true;
         return \true;
     }
-    private function analyseWithoutConstructor(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, ?string $className) : bool
+    private function analyseWithoutConstructor(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, ?string $className) : bool
     {
         // A. has all properties with serialize?
         if ($this->hasAllPropertiesWithSerialize($class)) {
@@ -83,18 +83,18 @@ final class ClassAnalyzer
         $this->valueObjectStatusByClassName[$className] = \false;
         return \false;
     }
-    private function hasAllPropertiesWithSerialize(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function hasAllPropertiesWithSerialize(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->stmts as $stmt) {
-            if (!$stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property) {
+            if (!$stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property) {
                 continue;
             }
             /** @var PhpDocInfo|null $phpDocInfo */
-            $phpDocInfo = $stmt->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $stmt->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             if ($phpDocInfo === null) {
                 continue;
             }
-            if ($phpDocInfo->hasByType(\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class)) {
+            if ($phpDocInfo->hasByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class)) {
                 continue;
             }
             return \false;

@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Type\Php;
+namespace _PhpScoper0a6b37af0871\PHPStan\Type\Php;
 
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeCombinator;
-class CurlInitReturnTypeExtension implements \_PhpScopere8e811afab72\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator;
+class CurlInitReturnTypeExtension implements \_PhpScoper0a6b37af0871\PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'curl_init';
     }
-    public function getTypeFromFunctionCall(\_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $argsCount = \count($functionCall->args);
-        $returnType = \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        $returnType = \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         if ($argsCount === 0) {
-            return \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::remove($returnType, new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantBooleanType(\false));
+            return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::remove($returnType, new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantBooleanType(\false));
         }
         return $returnType;
     }

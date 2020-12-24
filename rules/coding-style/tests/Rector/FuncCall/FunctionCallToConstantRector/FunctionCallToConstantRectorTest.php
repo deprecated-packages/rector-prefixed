@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodingStyle\Tests\Rector\FuncCall\FunctionCallToConstantRector;
+namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Tests\Rector\FuncCall\FunctionCallToConstantRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class FunctionCallToConstantRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class FunctionCallToConstantRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class FunctionCallToConstantRectorTest extends \_PhpScopere8e811afab72\Rec
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScopere8e811afab72\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector::class => [\_PhpScopere8e811afab72\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI', 'pi' => 'M_PI']]];
+        return [\_PhpScoper0a6b37af0871\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector::class => [\_PhpScoper0a6b37af0871\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI', 'pi' => 'M_PI']]];
     }
 }

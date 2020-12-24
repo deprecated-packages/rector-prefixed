@@ -1,33 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClosureUse;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\List_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\FunctionLike;
-use _PhpScopere8e811afab72\PhpParser\Node\Param;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ObjectTypeMethodReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParameterReflection;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\NodeFactory;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScopere8e811afab72\Rector\Core\PHPStan\Reflection\CallReflectionResolver;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClosureUse;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\List_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ObjectTypeMethodReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\NodeFactory;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a6b37af0871\Rector\Core\PHPStan\Reflection\CallReflectionResolver;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
 final class ClassMethodAssignManipulator
 {
     /**
@@ -58,7 +58,7 @@ final class ClassMethodAssignManipulator
      * @var CallReflectionResolver
      */
     private $callReflectionResolver;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\VariableManipulator $variableManipulator, \_PhpScopere8e811afab72\Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\VariableManipulator $variableManipulator, \_PhpScoper0a6b37af0871\Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver)
     {
         $this->variableManipulator = $variableManipulator;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -71,7 +71,7 @@ final class ClassMethodAssignManipulator
     /**
      * @return Assign[]
      */
-    public function collectReadyOnlyAssignScalarVariables(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    public function collectReadyOnlyAssignScalarVariables(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $assignsOfScalarOrArrayToVariable = $this->variableManipulator->collectScalarOrArrayAssignsOfVariable($classMethod);
         // filter out [$value] = $array, array destructing
@@ -81,26 +81,26 @@ final class ClassMethodAssignManipulator
         $readOnlyVariableAssigns = $this->filterOutForeachVariables($readOnlyVariableAssigns);
         return $this->variableManipulator->filterOutChangedVariables($readOnlyVariableAssigns, $classMethod);
     }
-    public function addParameterAndAssignToMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $type, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : void
+    public function addParameterAndAssignToMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign) : void
     {
         if ($this->hasMethodParameter($classMethod, $name)) {
             return;
         }
         $classMethod->params[] = $this->nodeFactory->createParamFromNameAndType($name, $type);
-        $classMethod->stmts[] = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression($assign);
+        $classMethod->stmts[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression($assign);
     }
     /**
      * @param Assign[] $variableAssigns
      * @return Assign[]
      */
-    private function filterOutArrayDestructedVariables(array $variableAssigns, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function filterOutArrayDestructedVariables(array $variableAssigns, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $arrayDestructionCreatedVariables = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\_PhpScopere8e811afab72\PhpParser\Node $node) use(&$arrayDestructionCreatedVariables) {
-            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use(&$arrayDestructionCreatedVariables) {
+            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
                 return null;
             }
-            if (!$node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_ && !$node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\List_) {
+            if (!$node->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_ && !$node->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\List_) {
                 return null;
             }
             foreach ($node->var->items as $arrayItem) {
@@ -108,7 +108,7 @@ final class ClassMethodAssignManipulator
                 if ($arrayItem === null) {
                     continue;
                 }
-                if (!$arrayItem->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
+                if (!$arrayItem->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
                     continue;
                 }
                 /** @var string $variableName */
@@ -116,7 +116,7 @@ final class ClassMethodAssignManipulator
                 $arrayDestructionCreatedVariables[] = $variableName;
             }
         });
-        return \array_filter($variableAssigns, function (\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) use($arrayDestructionCreatedVariables) : bool {
+        return \array_filter($variableAssigns, function (\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign) use($arrayDestructionCreatedVariables) : bool {
             return !$this->nodeNameResolver->isNames($assign->var, $arrayDestructionCreatedVariables);
         });
     }
@@ -124,10 +124,10 @@ final class ClassMethodAssignManipulator
      * @param Assign[] $variableAssigns
      * @return Assign[]
      */
-    private function filterOutReferencedVariables(array $variableAssigns, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function filterOutReferencedVariables(array $variableAssigns, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $referencedVariables = $this->collectReferenceVariableNames($classMethod);
-        return \array_filter($variableAssigns, function (\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) use($referencedVariables) : bool {
+        return \array_filter($variableAssigns, function (\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign) use($referencedVariables) : bool {
             return !$this->nodeNameResolver->isNames($assign->var, $referencedVariables);
         });
     }
@@ -139,9 +139,9 @@ final class ClassMethodAssignManipulator
      */
     private function filterOutMultiAssigns(array $readOnlyVariableAssigns) : array
     {
-        return \array_filter($readOnlyVariableAssigns, function (\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : bool {
-            $parentNode = $assign->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            return !$parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
+        return \array_filter($readOnlyVariableAssigns, function (\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign) : bool {
+            $parentNode = $assign->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            return !$parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
         });
     }
     /**
@@ -152,7 +152,7 @@ final class ClassMethodAssignManipulator
     {
         foreach ($variableAssigns as $key => $variableAssign) {
             $foreach = $this->findParentForeach($variableAssign);
-            if (!$foreach instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_) {
+            if (!$foreach instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_) {
                 continue;
             }
             if ($this->betterStandardPrinter->areNodesEqual($foreach->valueVar, $variableAssign->var)) {
@@ -165,7 +165,7 @@ final class ClassMethodAssignManipulator
         }
         return $variableAssigns;
     }
-    private function hasMethodParameter(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name) : bool
+    private function hasMethodParameter(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name) : bool
     {
         foreach ($classMethod->params as $constructorParameter) {
             if ($this->nodeNameResolver->isName($constructorParameter->var, $name)) {
@@ -177,17 +177,17 @@ final class ClassMethodAssignManipulator
     /**
      * @return string[]
      */
-    private function collectReferenceVariableNames(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function collectReferenceVariableNames(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $referencedVariables = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\_PhpScopere8e811afab72\PhpParser\Node $node) use(&$referencedVariables) {
-            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use(&$referencedVariables) {
+            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
                 return null;
             }
             if ($this->nodeNameResolver->isName($node, 'this')) {
                 return null;
             }
-            $parentNode = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parentNode = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($parentNode !== null && $this->isExplicitlyReferenced($parentNode)) {
                 /** @var string $variableName */
                 $variableName = $this->nodeNameResolver->getName($node);
@@ -195,11 +195,11 @@ final class ClassMethodAssignManipulator
                 return null;
             }
             $argumentPosition = null;
-            if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Arg) {
-                $argumentPosition = $parentNode->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION);
-                $parentNode = $parentNode->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Arg) {
+                $argumentPosition = $parentNode->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION);
+                $parentNode = $parentNode->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             }
-            if (!$parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node) {
+            if (!$parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node) {
                 return null;
             }
             if ($argumentPosition === null) {
@@ -213,23 +213,23 @@ final class ClassMethodAssignManipulator
         });
         return $referencedVariables;
     }
-    private function findParentForeach(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_
+    private function findParentForeach(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_
     {
         /** @var Foreach_|FunctionLike|null $foreach */
-        $foreach = $this->betterNodeFinder->findFirstPreviousOfTypes($assign, [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_::class, \_PhpScopere8e811afab72\PhpParser\Node\FunctionLike::class]);
-        if (!$foreach instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_) {
+        $foreach = $this->betterNodeFinder->findFirstPreviousOfTypes($assign, [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_::class, \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike::class]);
+        if (!$foreach instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_) {
             return null;
         }
         return $foreach;
     }
-    private function isExplicitlyReferenced(\_PhpScopere8e811afab72\PhpParser\Node $node) : bool
+    private function isExplicitlyReferenced(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Arg || $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClosureUse || $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Param) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Arg || $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClosureUse || $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Param) {
             return $node->byRef;
         }
         return \false;
     }
-    private function isCallOrConstructorWithReference(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable, int $argumentPosition) : bool
+    private function isCallOrConstructorWithReference(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $variable, int $argumentPosition) : bool
     {
         if ($this->isMethodCallWithReferencedArgument($node, $variable)) {
             return \true;
@@ -239,13 +239,13 @@ final class ClassMethodAssignManipulator
         }
         return $this->isConstructorWithReference($node, $argumentPosition);
     }
-    private function isMethodCallWithReferencedArgument(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable) : bool
+    private function isMethodCallWithReferencedArgument(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         $methodReflection = $this->callReflectionResolver->resolveCall($node);
-        if (!$methodReflection instanceof \_PhpScopere8e811afab72\PHPStan\Reflection\ObjectTypeMethodReflection) {
+        if (!$methodReflection instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\ObjectTypeMethodReflection) {
             return \false;
         }
         $variableName = $this->nodeNameResolver->getName($variable);
@@ -267,9 +267,9 @@ final class ClassMethodAssignManipulator
      * - array_shift($value)
      * - sort($values)
      */
-    private function isFuncCallWithReferencedArgument(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $variable) : bool
+    private function isFuncCallWithReferencedArgument(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
         if (!$this->nodeNameResolver->isNames($node, ['array_shift', '*sort'])) {
@@ -278,14 +278,14 @@ final class ClassMethodAssignManipulator
         // is 1t argument
         return $node->args[0]->value !== $variable;
     }
-    private function isConstructorWithReference(\_PhpScopere8e811afab72\PhpParser\Node $node, int $argumentPosition) : bool
+    private function isConstructorWithReference(\_PhpScoper0a6b37af0871\PhpParser\Node $node, int $argumentPosition) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_) {
             return \false;
         }
         return $this->isParameterReferencedInMethodReflection($node, $argumentPosition);
     }
-    private function isParameterReferencedInMethodReflection(\_PhpScopere8e811afab72\PhpParser\Node\Expr\New_ $new, int $argumentPosition) : bool
+    private function isParameterReferencedInMethodReflection(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_ $new, int $argumentPosition) : bool
     {
         $methodReflection = $this->callReflectionResolver->resolveConstructor($new);
         $parametersAcceptor = $this->callReflectionResolver->resolveParametersAcceptor($methodReflection, $new);

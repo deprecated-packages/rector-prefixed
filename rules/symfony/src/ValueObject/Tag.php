@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Symfony\ValueObject;
+namespace _PhpScoper0a6b37af0871\Rector\Symfony\ValueObject;
 
-use _PhpScopere8e811afab72\Rector\Symfony\Contract\Tag\TagInterface;
-final class Tag implements \_PhpScopere8e811afab72\Rector\Symfony\Contract\Tag\TagInterface
+use _PhpScoper0a6b37af0871\Rector\Symfony\Contract\Tag\TagInterface;
+final class Tag implements \_PhpScoper0a6b37af0871\Rector\Symfony\Contract\Tag\TagInterface
 {
     /**
      * @var string

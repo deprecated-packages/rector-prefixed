@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DeadCode\Tests\Rector\Expression\RemoveDeadStmtRector;
+namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Tests\Rector\Expression\RemoveDeadStmtRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\DeadCode\Rector\Expression\RemoveDeadStmtRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveDeadStmtRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\DeadCode\Rector\Expression\RemoveDeadStmtRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveDeadStmtRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,7 +23,7 @@ final class RemoveDeadStmtRectorTest extends \_PhpScopere8e811afab72\Rector\Test
     /**
      * @dataProvider provideDataForTestKeepComments()
      */
-    public function testKeepComments(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function testKeepComments(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -33,6 +33,6 @@ final class RemoveDeadStmtRectorTest extends \_PhpScopere8e811afab72\Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScopere8e811afab72\Rector\DeadCode\Rector\Expression\RemoveDeadStmtRector::class;
+        return \_PhpScoper0a6b37af0871\Rector\DeadCode\Rector\Expression\RemoveDeadStmtRector::class;
     }
 }

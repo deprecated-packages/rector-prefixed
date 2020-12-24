@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Message;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Message;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Response as Psr7Response;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Response as Psr7Response;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
 /**
  * Represents an outgoing server response message.
  *
@@ -30,7 +30,7 @@ use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterfa
  *
  * @see \Psr\Http\Message\ResponseInterface
  */
-final class Response extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Response
+final class Response extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Response
 {
     /**
      * @param int                                            $status  HTTP status code (e.g. 200/404)
@@ -42,9 +42,9 @@ final class Response extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Ring
      */
     public function __construct($status = 200, array $headers = array(), $body = '', $version = '1.1', $reason = null)
     {
-        if ($body instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface && !$body instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
-            $body = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($body, null);
-        } elseif (!\is_string($body) && !$body instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
+        if ($body instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface && !$body instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
+            $body = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($body, null);
+        } elseif (!\is_string($body) && !$body instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
             throw new \InvalidArgumentException('Invalid response body given');
         }
         parent::__construct($status, $headers, $body, $version, $reason);

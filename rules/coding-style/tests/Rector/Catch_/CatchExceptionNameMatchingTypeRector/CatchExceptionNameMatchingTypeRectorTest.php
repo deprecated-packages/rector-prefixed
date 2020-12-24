@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodingStyle\Tests\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
+namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Tests\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class CatchExceptionNameMatchingTypeRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class CatchExceptionNameMatchingTypeRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class CatchExceptionNameMatchingTypeRectorTest extends \_PhpScopere8e811af
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScopere8e811afab72\Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class;
+        return \_PhpScoper0a6b37af0871\Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class;
     }
 }

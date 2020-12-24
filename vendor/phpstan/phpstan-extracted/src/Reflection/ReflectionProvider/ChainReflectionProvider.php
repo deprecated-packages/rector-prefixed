@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
 
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\GlobalConstantReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
-class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\GlobalConstantReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
+class ChainReflectionProvider implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider
 {
     /** @var \PHPStan\Reflection\ReflectionProvider[] */
     private $providers;
@@ -29,7 +29,7 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
         }
         return \false;
     }
-    public function getClass(string $className) : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
+    public function getClass(string $className) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection
     {
         foreach ($this->providers as $provider) {
             if (!$provider->hasClass($className)) {
@@ -37,7 +37,7 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
             }
             return $provider->getClass($className);
         }
-        throw new \_PhpScopere8e811afab72\PHPStan\Broker\ClassNotFoundException($className);
+        throw new \_PhpScoper0a6b37af0871\PHPStan\Broker\ClassNotFoundException($className);
     }
     public function getClassName(string $className) : string
     {
@@ -47,7 +47,7 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
             }
             return $provider->getClassName($className);
         }
-        throw new \_PhpScopere8e811afab72\PHPStan\Broker\ClassNotFoundException($className);
+        throw new \_PhpScoper0a6b37af0871\PHPStan\Broker\ClassNotFoundException($className);
     }
     public function supportsAnonymousClasses() : bool
     {
@@ -59,7 +59,7 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
         }
         return \false;
     }
-    public function getAnonymousClassReflection(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $classNode, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
+    public function getAnonymousClassReflection(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $classNode, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection
     {
         foreach ($this->providers as $provider) {
             if (!$provider->supportsAnonymousClasses()) {
@@ -67,9 +67,9 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
             }
             return $provider->getAnonymousClassReflection($classNode, $scope);
         }
-        throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
     }
-    public function hasFunction(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : bool
+    public function hasFunction(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : bool
     {
         foreach ($this->providers as $provider) {
             if (!$provider->hasFunction($nameNode, $scope)) {
@@ -79,7 +79,7 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
         }
         return \false;
     }
-    public function getFunction(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection
+    public function getFunction(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection
     {
         foreach ($this->providers as $provider) {
             if (!$provider->hasFunction($nameNode, $scope)) {
@@ -87,9 +87,9 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
             }
             return $provider->getFunction($nameNode, $scope);
         }
-        throw new \_PhpScopere8e811afab72\PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
+        throw new \_PhpScoper0a6b37af0871\PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
     }
-    public function resolveFunctionName(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveFunctionName(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : ?string
     {
         foreach ($this->providers as $provider) {
             $resolvedName = $provider->resolveFunctionName($nameNode, $scope);
@@ -100,7 +100,7 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
         }
         return null;
     }
-    public function hasConstant(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : bool
+    public function hasConstant(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : bool
     {
         foreach ($this->providers as $provider) {
             if (!$provider->hasConstant($nameNode, $scope)) {
@@ -110,7 +110,7 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
         }
         return \false;
     }
-    public function getConstant(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Reflection\GlobalConstantReflection
+    public function getConstant(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\GlobalConstantReflection
     {
         foreach ($this->providers as $provider) {
             if (!$provider->hasConstant($nameNode, $scope)) {
@@ -118,9 +118,9 @@ class ChainReflectionProvider implements \_PhpScopere8e811afab72\PHPStan\Reflect
             }
             return $provider->getConstant($nameNode, $scope);
         }
-        throw new \_PhpScopere8e811afab72\PHPStan\Broker\ConstantNotFoundException((string) $nameNode);
+        throw new \_PhpScoper0a6b37af0871\PHPStan\Broker\ConstantNotFoundException((string) $nameNode);
     }
-    public function resolveConstantName(\_PhpScopere8e811afab72\PhpParser\Node\Name $nameNode, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveConstantName(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $nameNode, ?\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : ?string
     {
         foreach ($this->providers as $provider) {
             $resolvedName = $provider->resolveConstantName($nameNode, $scope);

@@ -33,12 +33,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Compiler\Bin;
+namespace _PhpScoper0a6b37af0871\Hoa\Compiler\Bin;
 
-use _PhpScopere8e811afab72\Hoa\Compiler;
-use _PhpScopere8e811afab72\Hoa\Consistency;
-use _PhpScopere8e811afab72\Hoa\Console;
-use _PhpScopere8e811afab72\Hoa\File;
+use _PhpScoper0a6b37af0871\Hoa\Compiler;
+use _PhpScoper0a6b37af0871\Hoa\Consistency;
+use _PhpScoper0a6b37af0871\Hoa\Console;
+use _PhpScoper0a6b37af0871\Hoa\File;
 /**
  * Class Hoa\Compiler\Bin\Pp.
  *
@@ -47,14 +47,14 @@ use _PhpScopere8e811afab72\Hoa\File;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Pp extends \_PhpScopere8e811afab72\Hoa\Console\Dispatcher\Kit
+class Pp extends \_PhpScoper0a6b37af0871\Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['visitor', \_PhpScopere8e811afab72\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'v'], ['visitor-class', \_PhpScopere8e811afab72\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'c'], ['token-sequence', \_PhpScopere8e811afab72\Hoa\Console\GetOption::NO_ARGUMENT, 's'], ['trace', \_PhpScopere8e811afab72\Hoa\Console\GetOption::NO_ARGUMENT, 't'], ['help', \_PhpScopere8e811afab72\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScopere8e811afab72\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['visitor', \_PhpScoper0a6b37af0871\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'v'], ['visitor-class', \_PhpScoper0a6b37af0871\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'c'], ['token-sequence', \_PhpScoper0a6b37af0871\Hoa\Console\GetOption::NO_ARGUMENT, 's'], ['trace', \_PhpScoper0a6b37af0871\Hoa\Console\GetOption::NO_ARGUMENT, 't'], ['help', \_PhpScoper0a6b37af0871\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScoper0a6b37af0871\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -70,7 +70,7 @@ class Pp extends \_PhpScopere8e811afab72\Hoa\Console\Dispatcher\Kit
                 case 'v':
                     switch (\strtolower($v)) {
                         case 'dump':
-                            $visitor = '_PhpScopere8e811afab72\\Hoa\\Compiler\\Visitor\\Dump';
+                            $visitor = '_PhpScoper0a6b37af0871\\Hoa\\Compiler\\Visitor\\Dump';
                             break;
                         default:
                             return $this->usage();
@@ -98,12 +98,12 @@ class Pp extends \_PhpScopere8e811afab72\Hoa\Console\Dispatcher\Kit
         if (empty($grammar) || empty($language) && '0' !== $language) {
             return $this->usage();
         }
-        $compiler = \_PhpScopere8e811afab72\Hoa\Compiler\Llk::load(new \_PhpScopere8e811afab72\Hoa\File\Read($grammar));
-        $stream = new \_PhpScopere8e811afab72\Hoa\File\Read($language);
+        $compiler = \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk::load(new \_PhpScoper0a6b37af0871\Hoa\File\Read($grammar));
+        $stream = new \_PhpScoper0a6b37af0871\Hoa\File\Read($language);
         $data = $stream->readAll();
         try {
             $ast = $compiler->parse($data);
-        } catch (\_PhpScopere8e811afab72\Hoa\Compiler\Exception $e) {
+        } catch (\_PhpScoper0a6b37af0871\Hoa\Compiler\Exception $e) {
             if (\true === $tokenSequence) {
                 $this->printTokenSequence($compiler, $data);
                 echo "\n\n";
@@ -120,7 +120,7 @@ class Pp extends \_PhpScopere8e811afab72\Hoa\Console\Dispatcher\Kit
             echo "\n\n";
         }
         if (null !== $visitor) {
-            $visitor = \_PhpScopere8e811afab72\Hoa\Consistency\Autoloader::dnew($visitor);
+            $visitor = \_PhpScoper0a6b37af0871\Hoa\Consistency\Autoloader::dnew($visitor);
             echo $visitor->visit($ast);
         }
         return;
@@ -131,11 +131,11 @@ class Pp extends \_PhpScopere8e811afab72\Hoa\Console\Dispatcher\Kit
      * @param   \Hoa\Compiler\Llk\Parser  $compiler    Compiler.
      * @return  void
      */
-    protected function printTrace(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\Parser $compiler)
+    protected function printTrace(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Parser $compiler)
     {
         $i = 0;
         foreach ($compiler->getTrace() as $element) {
-            if ($element instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry) {
+            if ($element instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry) {
                 $ruleName = $element->getRule();
                 $rule = $compiler->getRule($ruleName);
                 echo \str_repeat('>  ', ++$i), 'enter ', $ruleName;
@@ -143,7 +143,7 @@ class Pp extends \_PhpScopere8e811afab72\Hoa\Console\Dispatcher\Kit
                     echo ' (', $id, ')';
                 }
                 echo "\n";
-            } elseif ($element instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Token) {
+            } elseif ($element instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Token) {
                 echo \str_repeat('   ', $i + 1), 'token ', $element->getTokenName(), ', consumed ', $element->getValue(), "\n";
             } else {
                 echo \str_repeat('<  ', $i--), 'ekzit ', $element->getRule(), "\n";
@@ -158,9 +158,9 @@ class Pp extends \_PhpScopere8e811afab72\Hoa\Console\Dispatcher\Kit
      * @param   string                    $data        Data to lex.
      * @return  void
      */
-    protected function printTokenSequence(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\Parser $compiler, $data)
+    protected function printTokenSequence(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Parser $compiler, $data)
     {
-        $lexer = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Lexer();
+        $lexer = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Lexer();
         $sequence = $lexer->lexMe($data, $compiler->getTokens());
         $format = '%' . (\strlen((string) \count($sequence)) + 1) . 's  ' . '%-13s %-20s  %s  %6s' . "\n";
         $header = \sprintf($format, '#', 'namespace', 'token name', 'token value                   ', 'offset');

@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Cache\CacheInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Promise;
-final class CachingExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Cache\CacheInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Promise;
+final class CachingExecutor implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
 {
     /**
      * Default TTL for negative responses (NXDOMAIN etc.).
@@ -15,26 +15,26 @@ final class CachingExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f
     const TTL = 60;
     private $executor;
     private $cache;
-    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $executor, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Cache\CacheInterface $cache)
+    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $executor, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Cache\CacheInterface $cache)
     {
         $this->executor = $executor;
         $this->cache = $cache;
     }
-    public function query(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
+    public function query(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
     {
         $id = $query->name . ':' . $query->type . ':' . $query->class;
         $cache = $this->cache;
         $that = $this;
         $executor = $this->executor;
         $pending = $cache->get($id);
-        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($query, $id, $cache, $executor, &$pending, $that) {
+        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($query, $id, $cache, $executor, &$pending, $that) {
             $pending->then(function ($message) use($query, $id, $cache, $executor, &$pending, $that) {
                 // return cached response message on cache hit
                 if ($message !== null) {
                     return $message;
                 }
                 // perform DNS lookup if not already cached
-                return $pending = $executor->query($query)->then(function (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message) use($cache, $id, $that) {
+                return $pending = $executor->query($query)->then(function (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message) use($cache, $id, $that) {
                     // DNS response message received => store in cache when not truncated and return
                     if (!$message->tc) {
                         $cache->set($id, $message, $that->ttl($message));
@@ -56,7 +56,7 @@ final class CachingExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f
      * @return int
      * @internal
      */
-    public function ttl(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
+    public function ttl(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
     {
         // select TTL from answers (should all be the same), use smallest value if available
         // @link https://tools.ietf.org/html/rfc2181#section-5.2

@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DoctrineGedmoToKnplabs\Rector\Class_;
+namespace _PhpScoper0a6b37af0871\Rector\DoctrineGedmoToKnplabs\Rector\Class_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/Atlantic18/DoctrineExtensions/blob/v2.4.x/doc/softdeleteable.md
  * @see https://github.com/KnpLabs/DoctrineBehaviors/blob/4e0677379dd4adf84178f662d08454a9627781a8/docs/soft-deletable.md
  *
  * @see \Rector\DoctrineGedmoToKnplabs\Tests\Rector\Class_\SoftDeletableBehaviorRector\SoftDeletableBehaviorRectorTest
  */
-final class SoftDeletableBehaviorRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class SoftDeletableBehaviorRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change SoftDeletable from gedmo/doctrine-extensions to knplabs/doctrine-behaviors', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change SoftDeletable from gedmo/doctrine-extensions to knplabs/doctrine-behaviors', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -70,31 +70,31 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        $classPhpDocInfo = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $classPhpDocInfo = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($classPhpDocInfo === null) {
             return null;
         }
-        $hasTypeSoftDeleteableTagValueNode = $classPhpDocInfo->hasByType(\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
+        $hasTypeSoftDeleteableTagValueNode = $classPhpDocInfo->hasByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
         if (!$hasTypeSoftDeleteableTagValueNode) {
             return null;
         }
         /** @var SoftDeleteableTagValueNode $softDeleteableTagValueNode */
-        $softDeleteableTagValueNode = $classPhpDocInfo->getByType(\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
+        $softDeleteableTagValueNode = $classPhpDocInfo->getByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
         $fieldName = $softDeleteableTagValueNode->getFieldName();
         $this->removePropertyAndClassMethods($node, $fieldName);
-        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScopere8e811afab72\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableTrait');
-        $node->implements[] = new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified('_PhpScopere8e811afab72\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SoftDeletableInterface');
-        $classPhpDocInfo->removeByType(\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
+        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoper0a6b37af0871\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableTrait');
+        $node->implements[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified('_PhpScoper0a6b37af0871\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SoftDeletableInterface');
+        $classPhpDocInfo->removeByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
         return $node;
     }
-    private function removePropertyAndClassMethods(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, string $fieldName) : void
+    private function removePropertyAndClassMethods(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, string $fieldName) : void
     {
         // remove property
         foreach ($class->getProperties() as $property) {

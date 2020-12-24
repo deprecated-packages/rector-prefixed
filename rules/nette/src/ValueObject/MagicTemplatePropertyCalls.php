@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Nette\ValueObject;
+namespace _PhpScoper0a6b37af0871\Rector\Nette\ValueObject;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
 final class MagicTemplatePropertyCalls
 {
     /**
@@ -23,13 +23,13 @@ final class MagicTemplatePropertyCalls
      * @param Expr[] $templateVariables
      * @param Node[] $nodesToRemove
      */
-    public function __construct(?\_PhpScopere8e811afab72\PhpParser\Node\Expr $templateFileExpr, array $templateVariables, array $nodesToRemove)
+    public function __construct(?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $templateFileExpr, array $templateVariables, array $nodesToRemove)
     {
         $this->templateFileExpr = $templateFileExpr;
         $this->templateVariables = $templateVariables;
         $this->nodesToRemove = $nodesToRemove;
     }
-    public function getTemplateFileExpr() : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr
+    public function getTemplateFileExpr() : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr
     {
         return $this->templateFileExpr;
     }

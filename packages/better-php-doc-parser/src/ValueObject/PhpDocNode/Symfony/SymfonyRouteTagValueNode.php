@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony;
+namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony;
 
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-use _PhpScopere8e811afab72\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
-use _PhpScopere8e811afab72\Symfony\Component\Routing\Annotation\Route;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+use _PhpScoper0a6b37af0871\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+use _PhpScoper0a6b37af0871\Symfony\Component\Routing\Annotation\Route;
 /**
  * @see \Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
-final class SymfonyRouteTagValueNode extends \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface, \_PhpScopere8e811afab72\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
+final class SymfonyRouteTagValueNode extends \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface, \_PhpScoper0a6b37af0871\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
 {
     /**
      * @var string
      */
-    public const CLASS_NAME = \_PhpScopere8e811afab72\Symfony\Component\Routing\Annotation\Route::class;
+    public const CLASS_NAME = \_PhpScoper0a6b37af0871\Symfony\Component\Routing\Annotation\Route::class;
     /**
      * @var string
      */
@@ -45,7 +45,7 @@ final class SymfonyRouteTagValueNode extends \_PhpScopere8e811afab72\Rector\Bett
     {
         return '@Route';
     }
-    public function mimicTagValueNodeConfiguration(\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $abstractTagValueNode) : void
+    public function mimicTagValueNodeConfiguration(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $abstractTagValueNode) : void
     {
         $this->tagValueNodeConfiguration->mimic($abstractTagValueNode->tagValueNodeConfiguration);
     }
@@ -58,6 +58,6 @@ final class SymfonyRouteTagValueNode extends \_PhpScopere8e811afab72\Rector\Bett
     }
     public function getAttributeClassName() : string
     {
-        return '_PhpScopere8e811afab72\\Symfony\\Component\\Routing\\Annotation\\Route';
+        return '_PhpScoper0a6b37af0871\\Symfony\\Component\\Routing\\Annotation\\Route';
     }
 }

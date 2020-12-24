@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Rules\Classes;
+namespace _PhpScoper0a6b37af0871\PHPStan\Rules\Classes;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Param;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Node\InClassMethodNode;
-use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
-use _PhpScopere8e811afab72\PHPStan\Rules\UnusedFunctionParametersCheck;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Node\InClassMethodNode;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Rules\UnusedFunctionParametersCheck;
 /**
  * @implements \PHPStan\Rules\Rule<InClassMethodNode>
  */
-class UnusedConstructorParametersRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
+class UnusedConstructorParametersRule implements \_PhpScoper0a6b37af0871\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\UnusedFunctionParametersCheck */
     private $check;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Rules\UnusedFunctionParametersCheck $check)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Rules\UnusedFunctionParametersCheck $check)
     {
         $this->check = $check;
     }
     public function getNodeType() : string
     {
-        return \_PhpScopere8e811afab72\PHPStan\Node\InClassMethodNode::class;
+        return \_PhpScoper0a6b37af0871\PHPStan\Node\InClassMethodNode::class;
     }
-    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$scope->isInClass()) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
         }
         $method = $scope->getFunction();
-        if (!$method instanceof \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection) {
+        if (!$method instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection) {
             return [];
         }
         $originalNode = $node->getOriginalNode();
@@ -45,12 +45,12 @@ class UnusedConstructorParametersRule implements \_PhpScopere8e811afab72\PHPStan
         if ($scope->getClassReflection()->isAnonymous()) {
             $message = 'Constructor of an anonymous class has an unused parameter $%s.';
         }
-        return $this->check->getUnusedParameters($scope, \array_map(static function (\_PhpScopere8e811afab72\PhpParser\Node\Param $parameter) : string {
-            if (!$parameter->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable || !\is_string($parameter->var->name)) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+        return $this->check->getUnusedParameters($scope, \array_map(static function (\_PhpScoper0a6b37af0871\PhpParser\Node\Param $parameter) : string {
+            if (!$parameter->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable || !\is_string($parameter->var->name)) {
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
             return $parameter->var->name;
-        }, \array_values(\array_filter($originalNode->params, static function (\_PhpScopere8e811afab72\PhpParser\Node\Param $parameter) : bool {
+        }, \array_values(\array_filter($originalNode->params, static function (\_PhpScoper0a6b37af0871\PhpParser\Node\Param $parameter) : bool {
             return $parameter->flags === 0;
         }))), $originalNode->stmts, $message, 'constructor.unusedParameter', []);
     }

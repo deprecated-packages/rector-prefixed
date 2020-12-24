@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\Php;
+namespace _PhpScoper0a6b37af0871\Rector\Core\Php;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature;
 final class TypeAnalyzer
 {
     /**
@@ -25,9 +25,9 @@ final class TypeAnalyzer
      * @var string[]
      */
     private $phpSupportedTypes = ['string', 'bool', 'int', 'null', 'array', 'false', 'true', 'mixed', 'iterable', 'float', 'self', 'parent', 'callable', 'void'];
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
     {
-        if ($phpVersionProvider->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::OBJECT_TYPE)) {
+        if ($phpVersionProvider->isAtLeastPhpVersion(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::OBJECT_TYPE)) {
             $this->phpSupportedTypes[] = 'object';
         }
     }
@@ -37,7 +37,7 @@ final class TypeAnalyzer
         foreach ($types as $singleType) {
             $singleType = \strtolower($singleType);
             // remove [] from arrays
-            $singleType = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($singleType, self::SQUARE_BRACKET_REGEX, '');
+            $singleType = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($singleType, self::SQUARE_BRACKET_REGEX, '');
             if (\in_array($singleType, \array_merge($this->phpSupportedTypes, self::EXTRA_TYPES), \true)) {
                 return \true;
             }
@@ -58,7 +58,7 @@ final class TypeAnalyzer
         if (\strtolower($type) === 'callback') {
             return 'callable';
         }
-        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::match(\strtolower($type), self::ARRAY_TYPE_REGEX)) {
+        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match(\strtolower($type), self::ARRAY_TYPE_REGEX)) {
             return 'array';
         }
         return $type;

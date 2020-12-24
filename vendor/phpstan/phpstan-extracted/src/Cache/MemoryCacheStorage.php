@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Cache;
+namespace _PhpScoper0a6b37af0871\PHPStan\Cache;
 
-class MemoryCacheStorage implements \_PhpScopere8e811afab72\PHPStan\Cache\CacheStorage
+class MemoryCacheStorage implements \_PhpScoper0a6b37af0871\PHPStan\Cache\CacheStorage
 {
     /** @var array<string, \PHPStan\Cache\CacheItem> */
     private $storage = [];
@@ -31,6 +31,6 @@ class MemoryCacheStorage implements \_PhpScopere8e811afab72\PHPStan\Cache\CacheS
      */
     public function save(string $key, string $variableKey, $data) : void
     {
-        $this->storage[$key] = new \_PhpScopere8e811afab72\PHPStan\Cache\CacheItem($variableKey, $data);
+        $this->storage[$key] = new \_PhpScoper0a6b37af0871\PHPStan\Cache\CacheItem($variableKey, $data);
     }
 }

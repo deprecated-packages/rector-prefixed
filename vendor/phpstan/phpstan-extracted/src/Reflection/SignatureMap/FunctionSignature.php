@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\SignatureMap;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\SignatureMap;
 
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
 class FunctionSignature
 {
     /** @var \PHPStan\Reflection\SignatureMap\ParameterSignature[] */
@@ -20,7 +20,7 @@ class FunctionSignature
      * @param \PHPStan\Type\Type $nativeReturnType
      * @param bool $variadic
      */
-    public function __construct(array $parameters, \_PhpScopere8e811afab72\PHPStan\Type\Type $returnType, \_PhpScopere8e811afab72\PHPStan\Type\Type $nativeReturnType, bool $variadic)
+    public function __construct(array $parameters, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $returnType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $nativeReturnType, bool $variadic)
     {
         $this->parameters = $parameters;
         $this->returnType = $returnType;
@@ -34,11 +34,11 @@ class FunctionSignature
     {
         return $this->parameters;
     }
-    public function getReturnType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getReturnType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->returnType;
     }
-    public function getNativeReturnType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getNativeReturnType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->nativeReturnType;
     }

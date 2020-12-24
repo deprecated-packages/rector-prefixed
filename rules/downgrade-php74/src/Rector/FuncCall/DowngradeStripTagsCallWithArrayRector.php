@@ -1,45 +1,45 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DowngradePhp74\Rector\FuncCall;
+namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp74\Rector\FuncCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ConstFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NetteKdyby\Naming\VariableNaming;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NetteKdyby\Naming\VariableNaming;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DowngradePhp74\Tests\Rector\FuncCall\DowngradeStripTagsCallWithArrayRector\DowngradeStripTagsCallWithArrayRectorTest
  */
-final class DowngradeStripTagsCallWithArrayRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class DowngradeStripTagsCallWithArrayRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert 2nd param to `strip_tags` from array to string', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert 2nd param to `strip_tags` from array to string', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($string)
@@ -81,39 +81,39 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (!$this->shouldRefactor($node)) {
             return null;
         }
         $allowableTagsParam = $node->args[1]->value;
-        if ($allowableTagsParam instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_) {
+        if ($allowableTagsParam instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_) {
             // If it is an array, convert it to string
             $newExpr = $this->createArrayFromString($allowableTagsParam);
-        } elseif ($allowableTagsParam instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable || $allowableTagsParam instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch || $allowableTagsParam instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ConstFetch || $allowableTagsParam instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch) {
+        } elseif ($allowableTagsParam instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable || $allowableTagsParam instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch || $allowableTagsParam instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch || $allowableTagsParam instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch) {
             // If it is a variable or a const (other than null), add logic to maybe convert to string
             $newExpr = $this->createIsArrayTernaryFromExpression($allowableTagsParam);
         } else {
             // It is a function or method call, ternary or coalesce, or any other:
             // Assign the value to a variable
             // First obtain a variable name that does not exist in the node (to not override its value)
-            $variableName = $this->variableNaming->resolveFromFuncCallFirstArgumentWithSuffix($node, 'AllowableTags', 'allowableTags', $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE));
+            $variableName = $this->variableNaming->resolveFromFuncCallFirstArgumentWithSuffix($node, 'AllowableTags', 'allowableTags', $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE));
             // Assign the value to the variable
-            $newVariable = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($variableName);
-            $this->addNodeBeforeNode(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($newVariable, $allowableTagsParam), $node);
+            $newVariable = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable($variableName);
+            $this->addNodeBeforeNode(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign($newVariable, $allowableTagsParam), $node);
             // Apply refactor on the variable
             $newExpr = $this->createIsArrayTernaryFromExpression($newVariable);
         }
         // Replace the arg with a new one
-        \array_splice($node->args, 1, 1, [new \_PhpScopere8e811afab72\PhpParser\Node\Arg($newExpr)]);
+        \array_splice($node->args, 1, 1, [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($newExpr)]);
         return $node;
     }
-    private function shouldRefactor(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    private function shouldRefactor(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         if (!$this->isName($funcCall, 'strip_tags')) {
             return \false;
@@ -125,7 +125,7 @@ CODE_SAMPLE
         // Process anything other than String and null (eg: variables, function calls)
         $allowableTagsParam = $funcCall->args[1]->value;
         // Skip for string
-        if ($allowableTagsParam instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
+        if ($allowableTagsParam instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
             return \false;
         }
         // Skip for null
@@ -135,21 +135,21 @@ CODE_SAMPLE
     /**
      * @param Array_|Variable|PropertyFetch|ConstFetch|ClassConstFetch $expr
      */
-    private function createArrayFromString(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat
+    private function createArrayFromString(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat
     {
-        $args = [new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_('><')), new \_PhpScopere8e811afab72\PhpParser\Node\Arg($expr)];
-        $implodeFuncCall = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('implode'), $args);
-        $concat = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat(new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_('<'), $implodeFuncCall);
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat($concat, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_('>'));
+        $args = [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg(new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_('><')), new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($expr)];
+        $implodeFuncCall = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('implode'), $args);
+        $concat = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat(new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_('<'), $implodeFuncCall);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat($concat, new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_('>'));
     }
     /**
      * @param Variable|PropertyFetch|ConstFetch|ClassConstFetch $expr
      */
-    private function createIsArrayTernaryFromExpression(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary
+    private function createIsArrayTernaryFromExpression(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary
     {
-        $isArrayFuncCall = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('is_array'), [new \_PhpScopere8e811afab72\PhpParser\Node\Arg($expr)]);
-        $nullNotIdentical = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->createNull());
-        $booleanAnd = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\BooleanAnd($nullNotIdentical, $isArrayFuncCall);
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary($booleanAnd, $this->createArrayFromString($expr), $expr);
+        $isArrayFuncCall = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_array'), [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($expr)]);
+        $nullNotIdentical = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->createNull());
+        $booleanAnd = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd($nullNotIdentical, $isArrayFuncCall);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary($booleanAnd, $this->createArrayFromString($expr), $expr);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Message\ServerRequest;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Message\ServerRequest;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
 use Exception;
 /**
  * [Internal] Parses an incoming request header from an input stream
@@ -18,10 +18,10 @@ use Exception;
  *
  * @internal
  */
-class RequestHeaderParser extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter
+class RequestHeaderParser extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter
 {
     private $maxSize = 8192;
-    public function handle(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $conn)
+    public function handle(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $conn)
     {
         $buffer = '';
         $maxSize = $this->maxSize;
@@ -59,17 +59,17 @@ class RequestHeaderParser extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f
             }
             if ($contentLength === 0) {
                 // happy path: request body is known to be empty
-                $stream = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\EmptyBodyStream();
+                $stream = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\EmptyBodyStream();
                 $request = $request->withBody($stream);
             } else {
                 // otherwise body is present => delimit using Content-Length or ChunkedDecoder
-                $stream = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\CloseProtectionStream($conn);
+                $stream = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\CloseProtectionStream($conn);
                 if ($contentLength !== null) {
-                    $stream = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\LengthLimitedStream($stream, $contentLength);
+                    $stream = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\LengthLimitedStream($stream, $contentLength);
                 } else {
-                    $stream = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\ChunkedDecoder($stream);
+                    $stream = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\ChunkedDecoder($stream);
                 }
-                $request = $request->withBody(new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($stream, $contentLength));
+                $request = $request->withBody(new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($stream, $contentLength));
             }
             $bodyBuffer = isset($buffer[$endOfHeader + 4]) ? \substr($buffer, $endOfHeader + 4) : '';
             $buffer = '';
@@ -177,7 +177,7 @@ class RequestHeaderParser extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f
             $serverParams['SERVER_ADDR'] = $localParts['host'];
             $serverParams['SERVER_PORT'] = $localParts['port'];
         }
-        $request = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Message\ServerRequest($start['method'], $uri, $fields, '', $start['version'], $serverParams);
+        $request = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Message\ServerRequest($start['method'], $uri, $fields, '', $start['version'], $serverParams);
         // only assign request target if it is not in origin-form (happy path for most normal requests)
         if ($start['target'][0] !== '/') {
             $request = $request->withRequestTarget($start['target']);

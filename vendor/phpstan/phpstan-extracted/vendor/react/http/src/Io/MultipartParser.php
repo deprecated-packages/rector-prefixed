@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
 /**
  * [Internal] Parses a string body with "Content-Type: multipart/form-data" into structured data
  *
@@ -76,10 +76,10 @@ final class MultipartParser
         if ($uploadMaxFilesize === null) {
             $uploadMaxFilesize = \ini_get('upload_max_filesize');
         }
-        $this->uploadMaxFilesize = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($uploadMaxFilesize);
+        $this->uploadMaxFilesize = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($uploadMaxFilesize);
         $this->maxFileUploads = $maxFileUploads === null ? \ini_get('file_uploads') === '' ? 0 : (int) \ini_get('max_file_uploads') : (int) $maxFileUploads;
     }
-    public function parse(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request)
+    public function parse(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request)
     {
         $contentType = $request->getHeaderLine('content-type');
         if (!\preg_match('/boundary="?(.*?)"?$/', $contentType, $matches)) {
@@ -152,7 +152,7 @@ final class MultipartParser
             if (++$this->emptyCount + $this->filesCount > $this->maxInputVars) {
                 return;
             }
-            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\UploadedFile(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_NO_FILE, $filename, $contentType);
+            return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\UploadedFile(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_NO_FILE, $filename, $contentType);
         }
         // ignore excessive number of file uploads
         if (++$this->filesCount > $this->maxFileUploads) {
@@ -160,13 +160,13 @@ final class MultipartParser
         }
         // file exceeds "upload_max_filesize" ini setting
         if ($size > $this->uploadMaxFilesize) {
-            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\UploadedFile(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_INI_SIZE, $filename, $contentType);
+            return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\UploadedFile(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_INI_SIZE, $filename, $contentType);
         }
         // file exceeds MAX_FILE_SIZE value
         if ($this->maxFileSize !== null && $size > $this->maxFileSize) {
-            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\UploadedFile(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_FORM_SIZE, $filename, $contentType);
+            return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\UploadedFile(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\stream_for(), $size, \UPLOAD_ERR_FORM_SIZE, $filename, $contentType);
         }
-        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\UploadedFile(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\stream_for($contents), $size, \UPLOAD_ERR_OK, $filename, $contentType);
+        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\UploadedFile(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\stream_for($contents), $size, \UPLOAD_ERR_OK, $filename, $contentType);
     }
     private function parsePost($name, $value)
     {

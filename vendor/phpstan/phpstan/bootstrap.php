@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72;
+namespace _PhpScoper0a6b37af0871;
 
 \spl_autoload_register(function (string $class) : void {
     static $composerAutoloader;

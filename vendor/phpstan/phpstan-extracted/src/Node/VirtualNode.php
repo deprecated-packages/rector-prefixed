@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Node;
+namespace _PhpScoper0a6b37af0871\PHPStan\Node;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-interface VirtualNode extends \_PhpScopere8e811afab72\PhpParser\Node
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+interface VirtualNode extends \_PhpScoper0a6b37af0871\PhpParser\Node
 {
 }

@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Symfony2\Rector\MethodCall;
+namespace _PhpScoper0a6b37af0871\Rector\Symfony2\Rector\MethodCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Symfony2\Tests\Rector\MethodCall\RedirectToRouteRector\RedirectToRouteRectorTest
  */
-final class RedirectToRouteRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class RedirectToRouteRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns redirect to route to short helper method in Controller in Symfony', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->redirect($this->generateUrl("homepage"));', '$this->redirectToRoute("homepage");')]);
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns redirect to route to short helper method in Controller in Symfony', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->redirect($this->generateUrl("homepage"));', '$this->redirectToRoute("homepage");')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        $parentClassName = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \_PhpScopere8e811afab72\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
+        $parentClassName = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        if ($parentClassName !== \_PhpScoper0a6b37af0871\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
             return null;
         }
         if (!$this->isName($node->name, 'redirect')) {
@@ -42,7 +42,7 @@ final class RedirectToRouteRector extends \_PhpScopere8e811afab72\Rector\Core\Re
             return null;
         }
         $argumentValue = $node->args[0]->value;
-        if (!$argumentValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if (!$argumentValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         if (!$this->isName($argumentValue->name, 'generateUrl')) {
@@ -53,7 +53,7 @@ final class RedirectToRouteRector extends \_PhpScopere8e811afab72\Rector\Core\Re
     /**
      * @return mixed[]
      */
-    private function resolveArguments(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : array
+    private function resolveArguments(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : array
     {
         /** @var MethodCall $generateUrlNode */
         $generateUrlNode = $methodCall->args[0]->value;

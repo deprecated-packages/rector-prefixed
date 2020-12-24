@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php70\Rector\Break_;
+namespace _PhpScoper0a6b37af0871\Rector\Php70\Rector\Break_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Break_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
-use _PhpScopere8e811afab72\Rector\Core\Context\ContextAnalyzer;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Break_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a6b37af0871\Rector\Core\Context\ContextAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/Qtelt
  * @see https://stackoverflow.com/questions/3618030/php-fatal-error-cannot-break-continue
@@ -17,19 +17,19 @@ use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Php70\Tests\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector\BreakNotInLoopOrSwitchToReturnRectorTest
  */
-final class BreakNotInLoopOrSwitchToReturnRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class BreakNotInLoopOrSwitchToReturnRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ContextAnalyzer
      */
     private $contextAnalyzer;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Context\ContextAnalyzer $contextAnalyzer)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\Context\ContextAnalyzer $contextAnalyzer)
     {
         $this->contextAnalyzer = $contextAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert break outside for/foreach/switch context to return', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert break outside for/foreach/switch context to return', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -62,18 +62,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Break_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Break_::class];
     }
     /**
      * @param Break_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->contextAnalyzer->isInLoop($node)) {
             return null;
         }
         if ($this->contextAnalyzer->isInIf($node)) {
-            return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_();
+            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_();
         }
         $this->removeNode($node);
         return $node;

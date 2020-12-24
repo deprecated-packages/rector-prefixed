@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\Type;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Type;
 
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionVariant;
-use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor;
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeCombinator;
-class IntersectionTypeMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionVariant;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator;
+class IntersectionTypeMethodReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $methodName;
@@ -26,7 +26,7 @@ class IntersectionTypeMethodReflection implements \_PhpScopere8e811afab72\PHPSta
         $this->methodName = $methodName;
         $this->methods = $methods;
     }
-    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection
     {
         return $this->methods[0]->getDeclaringClass();
     }
@@ -61,25 +61,25 @@ class IntersectionTypeMethodReflection implements \_PhpScopere8e811afab72\PHPSta
     {
         return $this->methodName;
     }
-    public function getPrototype() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
     public function getVariants() : array
     {
         $variants = $this->methods[0]->getVariants();
-        $returnType = \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::intersect(...\array_map(static function (\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $method) : Type {
-            return \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::intersect(...\array_map(static function (\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor $acceptor) : Type {
+        $returnType = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::intersect(...\array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection $method) : Type {
+            return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::intersect(...\array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $acceptor) : Type {
                 return $acceptor->getReturnType();
             }, $method->getVariants()));
         }, $this->methods));
-        return \array_map(static function (\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor $acceptor) use($returnType) : ParametersAcceptor {
-            return new \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), $acceptor->getParameters(), $acceptor->isVariadic(), $returnType);
+        return \array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $acceptor) use($returnType) : ParametersAcceptor {
+            return new \_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), $acceptor->getParameters(), $acceptor->isVariadic(), $returnType);
         }, $variants);
     }
-    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::maxMin(...\array_map(static function (\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::maxMin(...\array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isDeprecated();
         }, $this->methods));
     }
@@ -101,19 +101,19 @@ class IntersectionTypeMethodReflection implements \_PhpScopere8e811afab72\PHPSta
         }
         return \implode(' ', $descriptions);
     }
-    public function isFinal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::maxMin(...\array_map(static function (\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::maxMin(...\array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isFinal();
         }, $this->methods));
     }
-    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::maxMin(...\array_map(static function (\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::maxMin(...\array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isInternal();
         }, $this->methods));
     }
-    public function getThrowType() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $types = [];
         foreach ($this->methods as $method) {
@@ -126,11 +126,11 @@ class IntersectionTypeMethodReflection implements \_PhpScopere8e811afab72\PHPSta
         if (\count($types) === 0) {
             return null;
         }
-        return \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::intersect(...$types);
+        return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::intersect(...$types);
     }
-    public function hasSideEffects() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::maxMin(...\array_map(static function (\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::maxMin(...\array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->hasSideEffects();
         }, $this->methods));
     }

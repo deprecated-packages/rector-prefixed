@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PSR4;
+namespace _PhpScoper0a6b37af0871\Rector\PSR4;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PSR4\Tests\FileRelocationResolverTest
  */
@@ -19,7 +19,7 @@ final class FileRelocationResolver
     /**
      * @param string[] $groupNames
      */
-    public function createNewFileDestination(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
+    public function createNewFileDestination(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
     {
         $newDirectory = $this->resolveRootDirectory($smartFileInfo, $suffixName, $groupNames);
         return $newDirectory . \DIRECTORY_SEPARATOR . $smartFileInfo->getFilename();
@@ -27,14 +27,14 @@ final class FileRelocationResolver
     /**
      * @param string[] $groupNames
      */
-    public function resolveNewNamespaceName(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_ $namespace, string $suffixName, array $groupNames) : string
+    public function resolveNewNamespaceName(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_ $namespace, string $suffixName, array $groupNames) : string
     {
         /** @var Name $name */
         $name = $namespace->name;
         $currentNamespaceParts = $name->parts;
         return $this->resolveNearestRootWithCategory($currentNamespaceParts, $suffixName, self::NAMESPACE_SEPARATOR, $groupNames);
     }
-    public function resolveNewFileLocationFromOldClassToNewClass(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $oldClass, string $newClass) : string
+    public function resolveNewFileLocationFromOldClassToNewClass(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $oldClass, string $newClass) : string
     {
         $beforeToAfterPart = $this->resolveBeforeToAfterPartBetweenClassNames($oldClass, $newClass);
         return $this->replaceRelativeFilePathsWithBeforeAfter($smartFileInfo, $beforeToAfterPart);
@@ -42,7 +42,7 @@ final class FileRelocationResolver
     /**
      * @param string[] $groupNames
      */
-    private function resolveRootDirectory(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
+    private function resolveRootDirectory(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
     {
         $currentTraversePath = \dirname($smartFileInfo->getRelativeFilePath());
         $currentDirectoryParts = \explode(\DIRECTORY_SEPARATOR, $currentTraversePath);
@@ -100,10 +100,10 @@ final class FileRelocationResolver
     /**
      * @param string[] $beforeToAfterPart
      */
-    private function replaceRelativeFilePathsWithBeforeAfter(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $oldSmartFileInfo, array $beforeToAfterPart) : string
+    private function replaceRelativeFilePathsWithBeforeAfter(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $oldSmartFileInfo, array $beforeToAfterPart) : string
     {
         // A. first "dir has changed" dummy detection
-        $relativeFilePathParts = \_PhpScopere8e811afab72\Nette\Utils\Strings::split($oldSmartFileInfo->getRelativeFilePath(), '#' . \DIRECTORY_SEPARATOR . '#');
+        $relativeFilePathParts = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::split($oldSmartFileInfo->getRelativeFilePath(), '#' . \DIRECTORY_SEPARATOR . '#');
         foreach ($relativeFilePathParts as $key => $relativeFilePathPart) {
             if (!isset($beforeToAfterPart[$relativeFilePathPart])) {
                 continue;

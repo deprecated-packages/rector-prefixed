@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PHPUnit\Rector\MethodCall;
+namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Empty_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Empty_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertTrueFalseToSpecificMethodRector\AssertTrueFalseToSpecificMethodRectorTest
  */
-final class AssertTrueFalseToSpecificMethodRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertTrueFalseToSpecificMethodRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var FunctionNameWithAssertMethods[]
@@ -25,23 +25,23 @@ final class AssertTrueFalseToSpecificMethodRector extends \_PhpScopere8e811afab7
     private $functionNameWithAssertMethods = [];
     public function __construct()
     {
-        $this->functionNameWithAssertMethods = [new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_readable', 'assertIsReadable', 'assertNotIsReadable'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('array_key_exists', 'assertArrayHasKey', 'assertArrayNotHasKey'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('array_search', 'assertContains', 'assertNotContains'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('in_array', 'assertContains', 'assertNotContains'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('empty', 'assertEmpty', 'assertNotEmpty'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('file_exists', 'assertFileExists', 'assertFileNotExists'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_dir', 'assertDirectoryExists', 'assertDirectoryNotExists'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_infinite', 'assertInfinite', 'assertFinite'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_null', 'assertNull', 'assertNotNull'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_writable', 'assertIsWritable', 'assertNotIsWritable'), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_nan', 'assertNan', ''), new \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_a', 'assertInstanceOf', 'assertNotInstanceOf')];
+        $this->functionNameWithAssertMethods = [new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_readable', 'assertIsReadable', 'assertNotIsReadable'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('array_key_exists', 'assertArrayHasKey', 'assertArrayNotHasKey'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('array_search', 'assertContains', 'assertNotContains'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('in_array', 'assertContains', 'assertNotContains'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('empty', 'assertEmpty', 'assertNotEmpty'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('file_exists', 'assertFileExists', 'assertFileNotExists'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_dir', 'assertDirectoryExists', 'assertDirectoryNotExists'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_infinite', 'assertInfinite', 'assertFinite'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_null', 'assertNull', 'assertNotNull'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_writable', 'assertIsWritable', 'assertNotIsWritable'), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_nan', 'assertNan', ''), new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('is_a', 'assertInstanceOf', 'assertNotInstanceOf')];
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns true/false comparisons to their method name alternatives in PHPUnit TestCase when possible', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue(is_readable($readmeFile), "message");', '$this->assertIsReadable($readmeFile, "message");')]);
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns true/false comparisons to their method name alternatives in PHPUnit TestCase when possible', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue(is_readable($readmeFile), "message");', '$this->assertIsReadable($readmeFile, "message");')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (!$this->isPHPUnitMethodNames($node, ['assertTrue', 'assertFalse', 'assertNotTrue', 'assertNotFalse'])) {
             return null;
@@ -50,7 +50,7 @@ final class AssertTrueFalseToSpecificMethodRector extends \_PhpScopere8e811afab7
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
-        if ($firstArgumentValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
+        if ($firstArgumentValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
             return null;
         }
         foreach ($this->functionNameWithAssertMethods as $functionNameWithAssertMethod) {
@@ -70,13 +70,13 @@ final class AssertTrueFalseToSpecificMethodRector extends \_PhpScopere8e811afab7
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function renameMethod(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods) : void
+    private function renameMethod(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods) : void
     {
         /** @var Identifier $identifierNode */
         $identifierNode = $node->name;
         $oldMethodName = $identifierNode->toString();
         if ($functionNameWithAssertMethods->getAssetMethodName() && \in_array($oldMethodName, ['assertTrue', 'assertNotFalse'], \true)) {
-            $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($functionNameWithAssertMethods->getAssetMethodName());
+            $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($functionNameWithAssertMethods->getAssetMethodName());
         }
         if ($functionNameWithAssertMethods->getNotAssertMethodName() === '') {
             return;
@@ -84,7 +84,7 @@ final class AssertTrueFalseToSpecificMethodRector extends \_PhpScopere8e811afab7
         if (!\in_array($oldMethodName, ['assertFalse', 'assertNotTrue'], \true)) {
             return;
         }
-        $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($functionNameWithAssertMethods->getNotAssertMethodName());
+        $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($functionNameWithAssertMethods->getNotAssertMethodName());
     }
     /**
      * Before:
@@ -95,10 +95,10 @@ final class AssertTrueFalseToSpecificMethodRector extends \_PhpScopere8e811afab7
      *
      * @param MethodCall|StaticCall $node
      */
-    private function moveFunctionArgumentsUp(\_PhpScopere8e811afab72\PhpParser\Node $node) : void
+    private function moveFunctionArgumentsUp(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : void
     {
         $funcCallOrEmptyNode = $node->args[0]->value;
-        if ($funcCallOrEmptyNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+        if ($funcCallOrEmptyNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
             $funcCallOrEmptyNodeName = $this->getName($funcCallOrEmptyNode);
             if ($funcCallOrEmptyNodeName === null) {
                 return;
@@ -108,8 +108,8 @@ final class AssertTrueFalseToSpecificMethodRector extends \_PhpScopere8e811afab7
             unset($oldArguments[0]);
             $node->args = $this->buildNewArguments($funcCallOrEmptyNodeName, $funcCallOrEmptyNodeArgs, $oldArguments);
         }
-        if ($funcCallOrEmptyNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Empty_) {
-            $node->args[0] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($funcCallOrEmptyNode->expr);
+        if ($funcCallOrEmptyNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Empty_) {
+            $node->args[0] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($funcCallOrEmptyNode->expr);
         }
     }
     /**

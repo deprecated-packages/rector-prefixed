@@ -1,46 +1,46 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\TypeExtension;
+namespace _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\TypeExtension;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScopere8e811afab72\PHPStan\Type\DynamicMethodReturnTypeExtension;
-use _PhpScopere8e811afab72\PHPStan\Type\ErrorType;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
-use _PhpScopere8e811afab72\Symfony\Component\HttpKernel\Kernel;
-final class KernelGetContainerAfterBootReturnTypeExtension implements \_PhpScopere8e811afab72\PHPStan\Type\DynamicMethodReturnTypeExtension
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoper0a6b37af0871\PHPStan\Type\DynamicMethodReturnTypeExtension;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ErrorType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
+use _PhpScoper0a6b37af0871\Symfony\Component\HttpKernel\Kernel;
+final class KernelGetContainerAfterBootReturnTypeExtension implements \_PhpScoper0a6b37af0871\PHPStan\Type\DynamicMethodReturnTypeExtension
 {
     public function getClass() : string
     {
-        return \_PhpScopere8e811afab72\Symfony\Component\HttpKernel\Kernel::class;
+        return \_PhpScoper0a6b37af0871\Symfony\Component\HttpKernel\Kernel::class;
     }
-    public function isMethodSupported(\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $methodReflection) : bool
+    public function isMethodSupported(\_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {
         return $methodReflection->getName() === 'getContainer';
     }
-    public function getTypeFromMethodCall(\_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $methodReflection, \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getTypeFromMethodCall(\_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection $methodReflection, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        $returnType = \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
+        $returnType = \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
         if (!$this->isCalledAfterBoot($scope, $methodCall)) {
             return $returnType;
         }
-        if ($returnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
+        if ($returnType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
             foreach ($returnType->getTypes() as $singleType) {
-                if ($singleType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType) {
+                if ($singleType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
                     return $singleType;
                 }
             }
         }
         return $returnType;
     }
-    private function isCalledAfterBoot(\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope, \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function isCalledAfterBoot(\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        $kernelBootMethodCall = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($methodCall->var, 'boot');
-        return !$scope->getType($kernelBootMethodCall) instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType;
+        $kernelBootMethodCall = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall($methodCall->var, 'boot');
+        return !$scope->getType($kernelBootMethodCall) instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType;
     }
 }

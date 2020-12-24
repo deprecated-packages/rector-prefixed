@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php80\Rector\Switch_;
+namespace _PhpScoper0a6b37af0871\Rector\Php80\Rector\Switch_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Match_;
-use _PhpScopere8e811afab72\PhpParser\Node\MatchArm;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Switch_;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Php80\NodeAnalyzer\SwitchAnalyzer;
-use _PhpScopere8e811afab72\Rector\Php80\NodeResolver\SwitchExprsResolver;
-use _PhpScopere8e811afab72\Rector\Php80\ValueObject\CondAndExpr;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Match_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\MatchArm;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Switch_;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Php80\NodeAnalyzer\SwitchAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\Php80\NodeResolver\SwitchExprsResolver;
+use _PhpScoper0a6b37af0871\Rector\Php80\ValueObject\CondAndExpr;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/match_expression_v2
  * @see https://3v4l.org/572T5
  *
  * @see \Rector\Php80\Tests\Rector\Switch_\ChangeSwitchToMatchRector\ChangeSwitchToMatchRectorTest
  */
-final class ChangeSwitchToMatchRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class ChangeSwitchToMatchRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var SwitchExprsResolver
@@ -37,14 +37,14 @@ final class ChangeSwitchToMatchRector extends \_PhpScopere8e811afab72\Rector\Cor
      * @var Expr|null
      */
     private $assignExpr;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Php80\NodeResolver\SwitchExprsResolver $switchExprsResolver, \_PhpScopere8e811afab72\Rector\Php80\NodeAnalyzer\SwitchAnalyzer $switchAnalyzer)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Php80\NodeResolver\SwitchExprsResolver $switchExprsResolver, \_PhpScoper0a6b37af0871\Rector\Php80\NodeAnalyzer\SwitchAnalyzer $switchAnalyzer)
     {
         $this->switchExprsResolver = $switchExprsResolver;
         $this->switchAnalyzer = $switchAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change switch() to match()', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change switch() to match()', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -85,12 +85,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Switch_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
      * @param Switch_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->shouldSkipSwitch($node)) {
             return null;
@@ -105,22 +105,22 @@ CODE_SAMPLE
         $this->assignExpr = null;
         $isReturn = \false;
         foreach ($condAndExprs as $condAndExpr) {
-            if ($condAndExpr->getKind() === \_PhpScopere8e811afab72\Rector\Php80\ValueObject\CondAndExpr::TYPE_RETURN) {
+            if ($condAndExpr->getKind() === \_PhpScoper0a6b37af0871\Rector\Php80\ValueObject\CondAndExpr::TYPE_RETURN) {
                 $isReturn = \true;
                 break;
             }
         }
         $matchArms = $this->createMatchArmsFromCases($condAndExprs);
-        $match = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Match_($node->cond, $matchArms);
+        $match = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Match_($node->cond, $matchArms);
         if ($isReturn) {
-            return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_($match);
+            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_($match);
         }
         if ($this->assignExpr) {
-            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($this->assignExpr, $match);
+            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign($this->assignExpr, $match);
         }
         return $match;
     }
-    private function shouldSkipSwitch(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Switch_ $switch) : bool
+    private function shouldSkipSwitch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
         if (!$this->switchAnalyzer->hasEachCaseBreak($switch)) {
             return \true;
@@ -139,7 +139,7 @@ CODE_SAMPLE
         $assignVariableNames = [];
         foreach ($condAndExprs as $condAndExpr) {
             $expr = $condAndExpr->getExpr();
-            if (!$expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
+            if (!$expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
                 continue;
             }
             $assignVariableNames[] = $this->getName($expr->var);
@@ -156,13 +156,13 @@ CODE_SAMPLE
         $matchArms = [];
         foreach ($condAndExprs as $condAndExpr) {
             $expr = $condAndExpr->getExpr();
-            if ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
+            if ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
                 $this->assignExpr = $expr->var;
                 $expr = $expr->expr;
             }
             $condExpr = $condAndExpr->getCondExpr();
             $condList = $condExpr === null ? null : [$condExpr];
-            $matchArms[] = new \_PhpScopere8e811afab72\PhpParser\Node\MatchArm($condList, $expr);
+            $matchArms[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\MatchArm($condList, $expr);
         }
         return $matchArms;
     }

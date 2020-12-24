@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DeadCode\Tests\Rector\Expression\SimplifyMirrorAssignRector;
+namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Tests\Rector\Expression\SimplifyMirrorAssignRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\DeadCode\Rector\Expression\SimplifyMirrorAssignRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class SimplifyMirrorAssignRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\DeadCode\Rector\Expression\SimplifyMirrorAssignRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class SimplifyMirrorAssignRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class SimplifyMirrorAssignRectorTest extends \_PhpScopere8e811afab72\Recto
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScopere8e811afab72\Rector\DeadCode\Rector\Expression\SimplifyMirrorAssignRector::class;
+        return \_PhpScoper0a6b37af0871\Rector\DeadCode\Rector\Expression\SimplifyMirrorAssignRector::class;
     }
 }

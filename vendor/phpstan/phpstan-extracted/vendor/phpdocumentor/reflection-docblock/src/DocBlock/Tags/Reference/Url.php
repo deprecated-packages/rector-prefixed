@@ -10,13 +10,13 @@
  *  @license   http://www.opensource.org/licenses/mit-license.php MIT
  *  @link      http://phpdoc.org
  */
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Url reference used by {@see phpDocumentor\Reflection\DocBlock\Tags\See}
  */
-final class Url implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
+final class Url implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
 {
     /**
      * @var string
@@ -27,7 +27,7 @@ final class Url implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDoc
      */
     public function __construct($uri)
     {
-        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($uri);
+        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($uri);
         $this->uri = $uri;
     }
     public function __toString()

@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodingStyle\Rector\ClassConst;
+namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Rector\ClassConst;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst;
-use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
-use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\ClassConst\VarConstantCommentRector\VarConstantCommentRectorTest
  */
-final class VarConstantCommentRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class VarConstantCommentRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
      */
     private const ARRAY_LIMIT_TYPES = 3;
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Constant should have a @var comment with type', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Constant should have a @var comment with type', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     const HI = 'hi';
@@ -46,38 +46,38 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
      * @param ClassConst $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (\count((array) $node->consts) > 1) {
             return null;
         }
         $constType = $this->getStaticType($node->consts[0]->value);
-        if ($constType instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
+        if ($constType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType) {
             return null;
         }
         $phpDocInfo = $this->getOrCreatePhpDocInfo($node);
         // skip big arrays and mixed[] constants
-        if ($constType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType) {
+        if ($constType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType) {
             if (\count($constType->getValueTypes()) > self::ARRAY_LIMIT_TYPES) {
                 return null;
             }
             $currentVarType = $phpDocInfo->getVarType();
-            if ($currentVarType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType && $currentVarType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
+            if ($currentVarType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType && $currentVarType->getItemType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType) {
                 return null;
             }
         }
         $phpDocInfo->changeVarType($constType);
         return $node;
     }
-    private function getOrCreatePhpDocInfo(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst $classConst) : \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    private function getOrCreatePhpDocInfo(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst $classConst) : \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classConst->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classConst->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             $phpDocInfo = $this->phpDocInfoFactory->createEmpty($classConst);
         }

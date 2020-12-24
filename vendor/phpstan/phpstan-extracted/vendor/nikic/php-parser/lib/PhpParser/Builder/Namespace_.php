@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PhpParser\Builder;
+namespace _PhpScoper0a6b37af0871\PhpParser\Builder;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\PhpParser;
-use _PhpScopere8e811afab72\PhpParser\BuilderHelpers;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt;
-class Namespace_ extends \_PhpScopere8e811afab72\PhpParser\Builder\Declaration
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\PhpParser;
+use _PhpScoper0a6b37af0871\PhpParser\BuilderHelpers;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
+class Namespace_ extends \_PhpScoper0a6b37af0871\PhpParser\Builder\Declaration
 {
     private $name;
     private $stmts = [];
@@ -18,7 +18,7 @@ class Namespace_ extends \_PhpScopere8e811afab72\PhpParser\Builder\Declaration
      */
     public function __construct($name)
     {
-        $this->name = null !== $name ? \_PhpScopere8e811afab72\PhpParser\BuilderHelpers::normalizeName($name) : null;
+        $this->name = null !== $name ? \_PhpScoper0a6b37af0871\PhpParser\BuilderHelpers::normalizeName($name) : null;
     }
     /**
      * Adds a statement.
@@ -29,7 +29,7 @@ class Namespace_ extends \_PhpScopere8e811afab72\PhpParser\Builder\Declaration
      */
     public function addStmt($stmt)
     {
-        $this->stmts[] = \_PhpScopere8e811afab72\PhpParser\BuilderHelpers::normalizeStmt($stmt);
+        $this->stmts[] = \_PhpScoper0a6b37af0871\PhpParser\BuilderHelpers::normalizeStmt($stmt);
         return $this;
     }
     /**
@@ -37,8 +37,8 @@ class Namespace_ extends \_PhpScopere8e811afab72\PhpParser\Builder\Declaration
      *
      * @return Node The built node
      */
-    public function getNode() : \_PhpScopere8e811afab72\PhpParser\Node
+    public function getNode() : \_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_($this->name, $this->stmts, $this->attributes);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_($this->name, $this->stmts, $this->attributes);
     }
 }

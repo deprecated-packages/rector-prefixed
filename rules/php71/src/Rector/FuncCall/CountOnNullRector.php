@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php71\Rector\FuncCall;
+namespace _PhpScoper0a6b37af0871\Rector\Php71\Rector\FuncCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\BooleanOr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\Array_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Instanceof_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_;
-use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
-use _PhpScopere8e811afab72\PHPStan\Type\NullType;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Rector\Php71\NodeAnalyzer\CountableAnalyzer;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\Array_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Instanceof_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\NullType;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Rector\Php71\NodeAnalyzer\CountableAnalyzer;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/Bndc9
  *
  * @see \Rector\Php71\Tests\Rector\FuncCall\CountOnNullRector\CountOnNullRectorTest
  */
-final class CountOnNullRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class CountOnNullRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -39,13 +39,13 @@ final class CountOnNullRector extends \_PhpScopere8e811afab72\Rector\Core\Rector
      * @var CountableAnalyzer
      */
     private $countableAnalyzer;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Php71\NodeAnalyzer\CountableAnalyzer $countableAnalyzer)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Php71\NodeAnalyzer\CountableAnalyzer $countableAnalyzer)
     {
         $this->countableAnalyzer = $countableAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes count() on null to safe ternary check', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes count() on null to safe ternary check', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $values = null;
 $count = count($values);
 CODE_SAMPLE
@@ -60,12 +60,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -76,7 +76,7 @@ CODE_SAMPLE
         }
         // this can lead to false positive by phpstan, but that's best we can do
         $onlyValueType = $this->getStaticType($countedNode);
-        if ($onlyValueType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
+        if ($onlyValueType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
             if (!$this->countableAnalyzer->isCastableArrayType($countedNode)) {
                 return null;
             }
@@ -85,24 +85,24 @@ CODE_SAMPLE
         if ($this->isNullableArrayType($countedNode)) {
             return $this->castToArray($countedNode, $node);
         }
-        if ($this->isNullableType($countedNode) || $this->isStaticType($countedNode, \_PhpScopere8e811afab72\PHPStan\Type\NullType::class)) {
-            $identical = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical($countedNode, $this->createNull());
-            $ternary = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary($identical, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber(0), $node);
+        if ($this->isNullableType($countedNode) || $this->isStaticType($countedNode, \_PhpScoper0a6b37af0871\PHPStan\Type\NullType::class)) {
+            $identical = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical($countedNode, $this->createNull());
+            $ternary = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary($identical, new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber(0), $node);
             // prevent infinity loop re-resolution
             $node->setAttribute(self::ALREADY_CHANGED_ON_COUNT, \true);
             return $ternary;
         }
-        if ($this->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::IS_COUNTABLE)) {
-            $conditionNode = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall(new \_PhpScopere8e811afab72\PhpParser\Node\Name('is_countable'), [new \_PhpScopere8e811afab72\PhpParser\Node\Arg($countedNode)]);
+        if ($this->isAtLeastPhpVersion(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::IS_COUNTABLE)) {
+            $conditionNode = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_countable'), [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($countedNode)]);
         } else {
-            $instanceof = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Instanceof_($countedNode, new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified('Countable'));
-            $conditionNode = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\BooleanOr($this->createFuncCall('is_array', [new \_PhpScopere8e811afab72\PhpParser\Node\Arg($countedNode)]), $instanceof);
+            $instanceof = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Instanceof_($countedNode, new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified('Countable'));
+            $conditionNode = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanOr($this->createFuncCall('is_array', [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($countedNode)]), $instanceof);
         }
         // prevent infinity loop re-resolution
         $node->setAttribute(self::ALREADY_CHANGED_ON_COUNT, \true);
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary($conditionNode, $node, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\LNumber(0));
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary($conditionNode, $node, new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber(0));
     }
-    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         if (!$this->isName($funcCall, 'count')) {
             return \true;
@@ -112,21 +112,21 @@ CODE_SAMPLE
         if ($alreadyChangedOnCount) {
             return \true;
         }
-        $parentNode = $funcCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary) {
+        $parentNode = $funcCall->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary) {
             return \true;
         }
         if (!isset($funcCall->args[0])) {
             return \true;
         }
         // skip node in trait, as impossible to analyse
-        $classLike = $funcCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        return $classLike instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_;
+        $classLike = $funcCall->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        return $classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_;
     }
-    private function castToArray(\_PhpScopere8e811afab72\PhpParser\Node\Expr $countedExpr, \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall
+    private function castToArray(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $countedExpr, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall
     {
-        $castArray = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\Array_($countedExpr);
-        $funcCall->args = [new \_PhpScopere8e811afab72\PhpParser\Node\Arg($castArray)];
+        $castArray = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\Array_($countedExpr);
+        $funcCall->args = [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($castArray)];
         return $funcCall;
     }
 }

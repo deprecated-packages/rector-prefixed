@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Polyfill\ValueObject;
+namespace _PhpScoper0a6b37af0871\Rector\Polyfill\ValueObject;
 
-use _PhpScopere8e811afab72\Rector\Polyfill\Contract\ConditionInterface;
-final class BinaryToVersionCompareCondition implements \_PhpScopere8e811afab72\Rector\Polyfill\Contract\ConditionInterface
+use _PhpScoper0a6b37af0871\Rector\Polyfill\Contract\ConditionInterface;
+final class BinaryToVersionCompareCondition implements \_PhpScoper0a6b37af0871\Rector\Polyfill\Contract\ConditionInterface
 {
     /**
      * @var string
@@ -21,13 +21,13 @@ final class BinaryToVersionCompareCondition implements \_PhpScopere8e811afab72\R
     /**
      * @param mixed $expectedValue
      */
-    public function __construct(\_PhpScopere8e811afab72\Rector\Polyfill\ValueObject\VersionCompareCondition $versionCompareCondition, string $binaryClass, $expectedValue)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Polyfill\ValueObject\VersionCompareCondition $versionCompareCondition, string $binaryClass, $expectedValue)
     {
         $this->versionCompareCondition = $versionCompareCondition;
         $this->binaryClass = $binaryClass;
         $this->expectedValue = $expectedValue;
     }
-    public function getVersionCompareCondition() : \_PhpScopere8e811afab72\Rector\Polyfill\ValueObject\VersionCompareCondition
+    public function getVersionCompareCondition() : \_PhpScoper0a6b37af0871\Rector\Polyfill\ValueObject\VersionCompareCondition
     {
         return $this->versionCompareCondition;
     }

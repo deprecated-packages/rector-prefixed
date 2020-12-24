@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\StrictCodeQuality\Rector\ClassMethod;
+namespace _PhpScoper0a6b37af0871\Rector\StrictCodeQuality\Rector\ClassMethod;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ConstFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
-use _PhpScopere8e811afab72\PhpParser\Node\Param;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\StrictCodeQuality\Tests\Rector\ClassMethod\ParamTypeToAssertTypeRector\ParamTypeToAssertTypeRectorTest
  */
-final class ParamTypeToAssertTypeRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class ParamTypeToAssertTypeRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @param type to assert type', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @param type to assert type', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -61,15 +61,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
@@ -82,7 +82,7 @@ CODE_SAMPLE
         }
         $toBeProcessedTypes = [];
         foreach ($paramTypes as $key => $paramType) {
-            if (!$paramType instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType && !$paramType instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType && !$paramType instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType) {
+            if (!$paramType instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType && !$paramType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType && !$paramType instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\ShortenedObjectType) {
                 continue;
             }
             $types = $this->getTypes($paramType);
@@ -96,9 +96,9 @@ CODE_SAMPLE
     /**
      * @return Type[]
      */
-    private function getTypes(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : array
+    private function getTypes(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : array
     {
-        return $type instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType ? $type->getTypes() : [$type];
+        return $type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType ? $type->getTypes() : [$type];
     }
     /**
      * @param Type[] $types
@@ -106,7 +106,7 @@ CODE_SAMPLE
     private function isNotClassTypes(array $types) : bool
     {
         foreach ($types as $type) {
-            if (!$type instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType && !$type instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType) {
+            if (!$type instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType && !$type instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\ShortenedObjectType) {
                 return \true;
             }
         }
@@ -122,11 +122,11 @@ CODE_SAMPLE
     {
         foreach ($params as $param) {
             $paramVarName = $this->getName($param->var);
-            if (!$param->type instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified || $key !== '$' . $paramVarName) {
+            if (!$param->type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified || $key !== '$' . $paramVarName) {
                 continue;
             }
             foreach ($types as $type) {
-                $className = $type instanceof \_PhpScopere8e811afab72\Rector\PHPStan\Type\ShortenedObjectType ? $type->getFullyQualifiedName() : $type->getClassName();
+                $className = $type instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\ShortenedObjectType ? $type->getFullyQualifiedName() : $type->getClassName();
                 // @todo refactor to types
                 if (!\is_a($className, $param->type->toString(), \true) || $className === $param->type->toString()) {
                     continue 2;
@@ -139,23 +139,23 @@ CODE_SAMPLE
     /**
      * @param array<string, array<int, string>> $toBeProcessedTypes
      */
-    private function processAddTypeAssert(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, array $toBeProcessedTypes) : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod
+    private function processAddTypeAssert(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, array $toBeProcessedTypes) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod
     {
         $assertStatements = [];
         foreach ($toBeProcessedTypes as $key => $toBeProcessedType) {
             $types = [];
             foreach ($toBeProcessedType as $keyType => $type) {
                 $toBeProcessedType[$keyType] = \sprintf('%s::class', $type);
-                $types[] = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ConstFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Name($toBeProcessedType[$keyType])));
+                $types[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($toBeProcessedType[$keyType])));
             }
             if (\count($types) > 1) {
-                $args = [new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($key)), new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_($types))];
-                $staticCall = $this->createStaticCall('_PhpScopere8e811afab72\\Webmozart\\Assert\\Assert', 'isAnyOf', $args);
-                $assertStatements[] = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression($staticCall);
+                $args = [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable($key)), new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_($types))];
+                $staticCall = $this->createStaticCall('_PhpScoper0a6b37af0871\\Webmozart\\Assert\\Assert', 'isAnyOf', $args);
+                $assertStatements[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression($staticCall);
             } else {
-                $args = [new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($key)), new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ConstFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Name($toBeProcessedType[0])))];
-                $staticCall = $this->createStaticCall('_PhpScopere8e811afab72\\Webmozart\\Assert\\Assert', 'isAOf', $args);
-                $assertStatements[] = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression($staticCall);
+                $args = [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable($key)), new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($toBeProcessedType[0])))];
+                $staticCall = $this->createStaticCall('_PhpScoper0a6b37af0871\\Webmozart\\Assert\\Assert', 'isAOf', $args);
+                $assertStatements[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression($staticCall);
             }
         }
         return $this->addStatements($classMethod, $assertStatements);
@@ -163,7 +163,7 @@ CODE_SAMPLE
     /**
      * @param array<int, Expression> $assertStatements
      */
-    private function addStatements(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, array $assertStatements) : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod
+    private function addStatements(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, array $assertStatements) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod
     {
         if (!isset($classMethod->stmts[0])) {
             foreach ($assertStatements as $assertStatement) {

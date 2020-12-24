@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Iterator\Recursive;
+namespace _PhpScoper0a6b37af0871\Hoa\Iterator\Recursive;
 
 /**
  * Class \Hoa\Iterator\Recursive\Directory.
@@ -100,7 +100,7 @@ class Directory extends \RecursiveDirectoryIterator
         if (null !== $this->_splFileInfoClass && $out instanceof \SplFileInfo) {
             $out->setInfoClass($this->_splFileInfoClass);
             $out = $out->getFileInfo();
-            if ($out instanceof \_PhpScopere8e811afab72\Hoa\Iterator\SplFileInfo) {
+            if ($out instanceof \_PhpScoper0a6b37af0871\Hoa\Iterator\SplFileInfo) {
                 $out->setRelativePath($this->getRelativePath());
             }
         }

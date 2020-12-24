@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
 /**
  * PHP stream implementation.
  *
  * @var $stream
  */
-class Stream implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
+class Stream implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
 {
     private $stream;
     private $size;

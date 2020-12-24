@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\DependencyInjection;
+namespace _PhpScoper0a6b37af0871\PHPStan\DependencyInjection;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Config\Loader;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ContainerLoader;
-class Configurator extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Configurator
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config\Loader;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ContainerLoader;
+class Configurator extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Configurator
 {
     /** @var LoaderFactory */
     private $loaderFactory;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\DependencyInjection\LoaderFactory $loaderFactory)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\LoaderFactory $loaderFactory)
     {
         $this->loaderFactory = $loaderFactory;
         parent::__construct();
     }
-    protected function createLoader() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Config\Loader
+    protected function createLoader() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config\Loader
     {
         return $this->loaderFactory->createLoader();
     }
@@ -27,7 +27,7 @@ class Configurator extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\
     }
     public function loadContainer() : string
     {
-        $loader = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\ContainerLoader($this->getCacheDirectory() . '/nette.configurator', $this->parameters['debugMode']);
-        return $loader->load([$this, 'generateContainer'], [$this->parameters, \array_keys($this->dynamicParameters), $this->configs, \PHP_VERSION_ID - \PHP_RELEASE_VERSION, \_PhpScopere8e811afab72\PHPStan\DependencyInjection\NeonAdapter::CACHE_KEY]);
+        $loader = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ContainerLoader($this->getCacheDirectory() . '/nette.configurator', $this->parameters['debugMode']);
+        return $loader->load([$this, 'generateContainer'], [$this->parameters, \array_keys($this->dynamicParameters), $this->configs, \PHP_VERSION_ID - \PHP_RELEASE_VERSION, \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\NeonAdapter::CACHE_KEY]);
     }
 }

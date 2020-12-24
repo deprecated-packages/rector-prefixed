@@ -1,40 +1,40 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Dependency;
+namespace _PhpScoper0a6b37af0871\PHPStan\Dependency;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
-use _PhpScopere8e811afab72\PhpParser\PrettyPrinter\Standard;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedClassConstantNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedClassNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedFunctionNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedInterfaceNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedMethodNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedParameterNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedPropertyNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedTraitNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation;
-use _PhpScopere8e811afab72\PHPStan\Type\FileTypeMapper;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a6b37af0871\PhpParser\PrettyPrinter\Standard;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedClassConstantNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedClassNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedFunctionNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedInterfaceNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedMethodNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedParameterNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPropertyNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedTraitNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation;
+use _PhpScoper0a6b37af0871\PHPStan\Type\FileTypeMapper;
 class ExportedNodeResolver
 {
     /** @var FileTypeMapper */
     private $fileTypeMapper;
     /** @var Standard */
     private $printer;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Type\FileTypeMapper $fileTypeMapper, \_PhpScopere8e811afab72\PhpParser\PrettyPrinter\Standard $printer)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Type\FileTypeMapper $fileTypeMapper, \_PhpScoper0a6b37af0871\PhpParser\PrettyPrinter\Standard $printer)
     {
         $this->fileTypeMapper = $fileTypeMapper;
         $this->printer = $printer;
     }
-    public function resolve(string $fileName, \_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode
+    public function resolve(string $fileName, \_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ && isset($node->namespacedName)) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ && isset($node->namespacedName)) {
             $docComment = $node->getDocComment();
             $extendsName = null;
             if ($node->extends !== null) {
@@ -55,71 +55,71 @@ class ExportedNodeResolver
                 }
             }
             $className = $node->namespacedName->toString();
-            return new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedClassNode($className, $this->exportPhpDocNode($fileName, $className, null, $docComment !== null ? $docComment->getText() : null), $node->isAbstract(), $node->isFinal(), $extendsName, $implementsNames, $usedTraits, \array_map(static function (\_PhpScopere8e811afab72\PhpParser\Node\Stmt\TraitUseAdaptation $adaptation) : ExportedTraitUseAdaptation {
-                if ($adaptation instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\TraitUseAdaptation\Alias) {
-                    return \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation::createAlias($adaptation->trait !== null ? $adaptation->trait->toString() : null, $adaptation->method->toString(), $adaptation->newModifier, $adaptation->newName !== null ? $adaptation->newName->toString() : null);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedClassNode($className, $this->exportPhpDocNode($fileName, $className, null, $docComment !== null ? $docComment->getText() : null), $node->isAbstract(), $node->isFinal(), $extendsName, $implementsNames, $usedTraits, \array_map(static function (\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\TraitUseAdaptation $adaptation) : ExportedTraitUseAdaptation {
+                if ($adaptation instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\TraitUseAdaptation\Alias) {
+                    return \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation::createAlias($adaptation->trait !== null ? $adaptation->trait->toString() : null, $adaptation->method->toString(), $adaptation->newModifier, $adaptation->newName !== null ? $adaptation->newName->toString() : null);
                 }
-                if ($adaptation instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\TraitUseAdaptation\Precedence) {
-                    return \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation::createPrecedence($adaptation->trait !== null ? $adaptation->trait->toString() : null, $adaptation->method->toString(), \array_map(static function (\_PhpScopere8e811afab72\PhpParser\Node\Name $name) : string {
+                if ($adaptation instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\TraitUseAdaptation\Precedence) {
+                    return \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation::createPrecedence($adaptation->trait !== null ? $adaptation->trait->toString() : null, $adaptation->method->toString(), \array_map(static function (\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : string {
                         return $name->toString();
                     }, $adaptation->insteadof));
                 }
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }, $adaptations));
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Interface_ && isset($node->namespacedName)) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_ && isset($node->namespacedName)) {
             $extendsNames = [];
             $docComment = $node->getDocComment();
             $interfaceName = $node->namespacedName->toString();
-            return new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedInterfaceNode($interfaceName, $this->exportPhpDocNode($fileName, $interfaceName, null, $docComment !== null ? $docComment->getText() : null), $extendsNames);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedInterfaceNode($interfaceName, $this->exportPhpDocNode($fileName, $interfaceName, null, $docComment !== null ? $docComment->getText() : null), $extendsNames);
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_ && isset($node->namespacedName)) {
-            return new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedTraitNode($node->namespacedName->toString());
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_ && isset($node->namespacedName)) {
+            return new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedTraitNode($node->namespacedName->toString());
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod) {
             if ($node->isAbstract() || $node->isFinal() || !$node->isPrivate()) {
                 $methodName = $node->name->toString();
                 $docComment = $node->getDocComment();
                 $parentNode = $node->getAttribute('parent');
-                $continue = ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ || $parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Interface_) && isset($parentNode->namespacedName);
+                $continue = ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ || $parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_) && isset($parentNode->namespacedName);
                 if (!$continue) {
                     return null;
                 }
-                return new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedMethodNode($methodName, $this->exportPhpDocNode($fileName, $parentNode->namespacedName->toString(), $methodName, $docComment !== null ? $docComment->getText() : null), $node->byRef, $node->isPublic(), $node->isPrivate(), $node->isAbstract(), $node->isFinal(), $node->isStatic(), $this->printType($node->returnType), $this->exportParameterNodes($node->params));
+                return new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedMethodNode($methodName, $this->exportPhpDocNode($fileName, $parentNode->namespacedName->toString(), $methodName, $docComment !== null ? $docComment->getText() : null), $node->byRef, $node->isPublic(), $node->isPrivate(), $node->isAbstract(), $node->isFinal(), $node->isStatic(), $this->printType($node->returnType), $this->exportParameterNodes($node->params));
             }
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\PropertyProperty) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\PropertyProperty) {
             $parentNode = $node->getAttribute('parent');
-            if (!$parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            if (!$parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property) {
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
             if ($parentNode->isPrivate()) {
                 return null;
             }
             $classNode = $parentNode->getAttribute('parent');
-            if (!$classNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ || !isset($classNode->namespacedName)) {
+            if (!$classNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ || !isset($classNode->namespacedName)) {
                 return null;
             }
             $docComment = $parentNode->getDocComment();
-            return new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedPropertyNode($node->name->toString(), $this->exportPhpDocNode($fileName, $classNode->namespacedName->toString(), null, $docComment !== null ? $docComment->getText() : null), $this->printType($parentNode->type), $parentNode->isPublic(), $parentNode->isPrivate(), $parentNode->isStatic());
+            return new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPropertyNode($node->name->toString(), $this->exportPhpDocNode($fileName, $classNode->namespacedName->toString(), null, $docComment !== null ? $docComment->getText() : null), $this->printType($parentNode->type), $parentNode->isPublic(), $parentNode->isPrivate(), $parentNode->isStatic());
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Const_) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Const_) {
             $parentNode = $node->getAttribute('parent');
-            if (!$parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst) {
+            if (!$parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst) {
                 return null;
             }
             if ($parentNode->isPrivate()) {
                 return null;
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedClassConstantNode($node->name->toString(), $this->printer->prettyPrintExpr($node->value), $parentNode->isPublic(), $parentNode->isPrivate());
+            return new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedClassConstantNode($node->name->toString(), $this->printer->prettyPrintExpr($node->value), $parentNode->isPublic(), $parentNode->isPrivate());
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_) {
             $functionName = $node->name->name;
             if (isset($node->namespacedName)) {
                 $functionName = (string) $node->namespacedName;
             }
             $docComment = $node->getDocComment();
-            return new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedFunctionNode($functionName, $this->exportPhpDocNode($fileName, null, $functionName, $docComment !== null ? $docComment->getText() : null), $node->byRef, $this->printType($node->returnType), $this->exportParameterNodes($node->params));
+            return new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedFunctionNode($functionName, $this->exportPhpDocNode($fileName, null, $functionName, $docComment !== null ? $docComment->getText() : null), $node->byRef, $this->printType($node->returnType), $this->exportParameterNodes($node->params));
         }
         return null;
     }
@@ -132,14 +132,14 @@ class ExportedNodeResolver
         if ($type === null) {
             return null;
         }
-        if ($type instanceof \_PhpScopere8e811afab72\PhpParser\Node\NullableType) {
+        if ($type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType) {
             return '?' . $this->printType($type->type);
         }
-        if ($type instanceof \_PhpScopere8e811afab72\PhpParser\Node\UnionType) {
+        if ($type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType) {
             return \implode('|', \array_map(function ($innerType) : string {
                 $printedType = $this->printType($innerType);
                 if ($printedType === null) {
-                    throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+                    throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
                 }
                 return $printedType;
             }, $type->types));
@@ -154,24 +154,24 @@ class ExportedNodeResolver
     {
         $nodes = [];
         foreach ($params as $param) {
-            if (!$param->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            if (!$param->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
             $type = $param->type;
-            if ($type !== null && $param->default instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ConstFetch && $param->default->name->toLowerString() === 'null') {
-                if ($type instanceof \_PhpScopere8e811afab72\PhpParser\Node\UnionType) {
+            if ($type !== null && $param->default instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch && $param->default->name->toLowerString() === 'null') {
+                if ($type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType) {
                     $innerTypes = $type->types;
-                    $innerTypes[] = new \_PhpScopere8e811afab72\PhpParser\Node\Name('null');
-                    $type = new \_PhpScopere8e811afab72\PhpParser\Node\UnionType($innerTypes);
-                } elseif (!$type instanceof \_PhpScopere8e811afab72\PhpParser\Node\NullableType) {
-                    $type = new \_PhpScopere8e811afab72\PhpParser\Node\NullableType($type);
+                    $innerTypes[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('null');
+                    $type = new \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType($innerTypes);
+                } elseif (!$type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType) {
+                    $type = new \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType($type);
                 }
             }
-            $nodes[] = new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedParameterNode($param->var->name, $this->printType($type), $param->byRef, $param->variadic, $param->default !== null);
+            $nodes[] = new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedParameterNode($param->var->name, $this->printType($type), $param->byRef, $param->variadic, $param->default !== null);
         }
         return $nodes;
     }
-    private function exportPhpDocNode(string $file, ?string $className, ?string $functionName, ?string $text) : ?\_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode
+    private function exportPhpDocNode(string $file, ?string $className, ?string $functionName, ?string $text) : ?\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode
     {
         if ($text === null) {
             return null;
@@ -181,6 +181,6 @@ class ExportedNodeResolver
         if ($nameScope === null) {
             return null;
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode($text, $nameScope->getNamespace(), $nameScope->getUses());
+        return new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode($text, $nameScope->getNamespace(), $nameScope->getUses());
     }
 }

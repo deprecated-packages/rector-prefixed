@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SensioTemplate;
+namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SensioTemplate;
 
-use _PhpScopere8e811afab72\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use _PhpScoper0a6b37af0871\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Template("SomeClass::some.template.twig")
  */

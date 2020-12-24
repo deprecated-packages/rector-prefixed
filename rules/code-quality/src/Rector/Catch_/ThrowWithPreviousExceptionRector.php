@@ -1,39 +1,39 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodeQuality\Rector\Catch_;
+namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\Catch_;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Catch_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Throw_;
-use _PhpScopere8e811afab72\PhpParser\NodeTraverser;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Catch_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Throw_;
+use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionNamedType;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Throwable;
 /**
  * @see https://github.com/thecodingmachine/phpstan-strict-rules/blob/e3d746a61d38993ca2bc2e2fcda7012150de120c/src/Rules/Exceptions/ThrowMustBundlePreviousExceptionRule.php#L83
  * @see \Rector\CodeQuality\Tests\Rector\Catch_\ThrowWithPreviousExceptionRector\ThrowWithPreviousExceptionRectorTest
  */
-final class ThrowWithPreviousExceptionRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class ThrowWithPreviousExceptionRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
      */
     private const DEFAULT_EXCEPTION_ARGUMENT_POSITION = 2;
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('When throwing into a catch block, checks that the previous exception is passed to the new throw clause', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('When throwing into a catch block, checks that the previous exception is passed to the new throw clause', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -66,31 +66,31 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Catch_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Catch_::class];
     }
     /**
      * @param Catch_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $caughtThrowableVariable = $node->var;
         if ($caughtThrowableVariable === null) {
             return null;
         }
-        $this->traverseNodesWithCallable($node->stmts, function (\_PhpScopere8e811afab72\PhpParser\Node $node) use($caughtThrowableVariable) : ?int {
-            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Throw_) {
+        $this->traverseNodesWithCallable($node->stmts, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($caughtThrowableVariable) : ?int {
+            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Throw_) {
                 return null;
             }
             return $this->refactorThrow($node, $caughtThrowableVariable);
         });
         return $node;
     }
-    private function refactorThrow(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Throw_ $throw, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable $catchedThrowableVariable) : ?int
+    private function refactorThrow(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Throw_ $throw, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $catchedThrowableVariable) : ?int
     {
-        if (!$throw->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
+        if (!$throw->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_) {
             return null;
         }
-        if (!$throw->expr->class instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
+        if (!$throw->expr->class instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
             return null;
         }
         $exceptionArgumentPosition = $this->resolveExceptionArgumentPosition($throw->expr->class);
@@ -103,17 +103,17 @@ CODE_SAMPLE
         }
         if (!isset($throw->expr->args[1])) {
             // get previous code
-            $throw->expr->args[1] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($catchedThrowableVariable, 'getCode'));
+            $throw->expr->args[1] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall($catchedThrowableVariable, 'getCode'));
         }
-        $throw->expr->args[$exceptionArgumentPosition] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($catchedThrowableVariable);
+        $throw->expr->args[$exceptionArgumentPosition] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($catchedThrowableVariable);
         // nothing more to add
-        return \_PhpScopere8e811afab72\PhpParser\NodeTraverser::STOP_TRAVERSAL;
+        return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::STOP_TRAVERSAL;
     }
-    private function resolveExceptionArgumentPosition(\_PhpScopere8e811afab72\PhpParser\Node\Name $exceptionName) : ?int
+    private function resolveExceptionArgumentPosition(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $exceptionName) : ?int
     {
         $fullyQualifiedName = $this->getName($exceptionName);
         // is native exception?
-        if (!\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
+        if (!\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
             return self::DEFAULT_EXCEPTION_ARGUMENT_POSITION;
         }
         // is class missing?
@@ -121,7 +121,7 @@ CODE_SAMPLE
             return self::DEFAULT_EXCEPTION_ARGUMENT_POSITION;
         }
         $reflectionClass = new \ReflectionClass($fullyQualifiedName);
-        if (!$reflectionClass->hasMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if (!$reflectionClass->hasMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return self::DEFAULT_EXCEPTION_ARGUMENT_POSITION;
         }
         /** @var ReflectionMethod $constructorReflectionMethod */

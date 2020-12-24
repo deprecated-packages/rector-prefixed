@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Promise;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Promise;
 /**
  * Send DNS queries over a UDP or TCP/IP stream transport.
  *
@@ -49,20 +49,20 @@ use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Promise;
  * );
  * ```
  */
-class SelectiveTransportExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
+class SelectiveTransportExecutor implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
 {
     private $datagramExecutor;
     private $streamExecutor;
-    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $datagramExecutor, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $streamExecutor)
+    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $datagramExecutor, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $streamExecutor)
     {
         $this->datagramExecutor = $datagramExecutor;
         $this->streamExecutor = $streamExecutor;
     }
-    public function query(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
+    public function query(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
     {
         $stream = $this->streamExecutor;
         $pending = $this->datagramExecutor->query($query);
-        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use(&$pending, $stream, $query) {
+        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use(&$pending, $stream, $query) {
             $pending->then($resolve, function ($e) use(&$pending, $stream, $query, $resolve, $reject) {
                 if ($e->getCode() === (\defined('SOCKET_EMSGSIZE') ? \SOCKET_EMSGSIZE : 90)) {
                     $pending = $stream->query($query)->then($resolve, $reject);

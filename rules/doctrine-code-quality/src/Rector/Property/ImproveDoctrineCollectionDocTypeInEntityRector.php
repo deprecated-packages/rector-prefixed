@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DoctrineCodeQuality\Rector\Property;
+namespace _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\Rector\Property;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory;
-use _PhpScopere8e811afab72\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver;
-use _PhpScopere8e811afab72\Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory;
+use _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver;
+use _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\Property\ImproveDoctrineCollectionDocTypeInEntityRector\ImproveDoctrineCollectionDocTypeInEntityRectorTest
  */
-final class ImproveDoctrineCollectionDocTypeInEntityRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class ImproveDoctrineCollectionDocTypeInEntityRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var CollectionTypeFactory
@@ -40,16 +40,16 @@ final class ImproveDoctrineCollectionDocTypeInEntityRector extends \_PhpScopere8
      * @var CollectionVarTagValueNodeResolver
      */
     private $collectionVarTagValueNodeResolver;
-    public function __construct(\_PhpScopere8e811afab72\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory $collectionTypeFactory, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScopere8e811afab72\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver $collectionTypeResolver, \_PhpScopere8e811afab72\Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver $collectionVarTagValueNodeResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory $collectionTypeFactory, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver $collectionTypeResolver, \_PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver $collectionVarTagValueNodeResolver)
     {
         $this->collectionTypeFactory = $collectionTypeFactory;
         $this->assignManipulator = $assignManipulator;
         $this->collectionTypeResolver = $collectionTypeResolver;
         $this->collectionVarTagValueNodeResolver = $collectionVarTagValueNodeResolver;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Improve @var, @param and @return types for Doctrine collections to make them useful both for PHPStan and PHPStorm', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Improve @var, @param and @return types for Doctrine collections to make them useful both for PHPStan and PHPStorm', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -88,26 +88,26 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property::class, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param Property|ClassMethod $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property) {
             return $this->refactorProperty($node);
         }
         return $this->refactorClassMethod($node);
     }
-    private function refactorProperty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property
+    private function refactorProperty(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property
     {
-        if (!$this->hasNodeTagValueNode($property, \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
+        if (!$this->hasNodeTagValueNode($property, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
             return null;
         }
         // @todo make an own local property on enter node?
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $attributeAwareVarTagValueNode = $this->collectionVarTagValueNodeResolver->resolve($property);
         if ($attributeAwareVarTagValueNode !== null) {
             $collectionObjectType = $this->collectionTypeResolver->resolveFromTypeNode($attributeAwareVarTagValueNode->type, $property);
@@ -126,7 +126,7 @@ CODE_SAMPLE
         }
         return $property;
     }
-    private function refactorClassMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod
+    private function refactorClassMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->isInDoctrineEntityClass($classMethod)) {
             return null;
@@ -142,27 +142,27 @@ CODE_SAMPLE
             return null;
         }
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $param = $classMethod->params[0];
         $parameterName = $this->getName($param);
         $phpDocInfo->changeParamType($collectionObjectType, $param, $parameterName);
         return $classMethod;
     }
-    private function hasNodeTagValueNode(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property, string $tagValueNodeClass) : bool
+    private function hasNodeTagValueNode(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property, string $tagValueNodeClass) : bool
     {
-        $phpDocInfo = $property->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return \false;
         }
         return $phpDocInfo->hasByType($tagValueNodeClass);
     }
-    private function resolveCollectionSetterAssignType(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
+    private function resolveCollectionSetterAssignType(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $propertyFetches = $this->assignManipulator->resolveAssignsToLocalPropertyFetches($classMethod);
         if (\count($propertyFetches) !== 1) {
             return null;
         }
-        if (!$propertyFetches[0] instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$propertyFetches[0] instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         $property = $this->matchPropertyFetchToClassProperty($propertyFetches[0]);
@@ -175,14 +175,14 @@ CODE_SAMPLE
         }
         return $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($varTagValueNode->type, $property);
     }
-    private function matchPropertyFetchToClassProperty(\_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property
+    private function matchPropertyFetchToClassProperty(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property
     {
         $propertyName = $this->getName($propertyFetch);
         if ($propertyName === null) {
             return null;
         }
-        $classLike = $propertyFetch->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_) {
+        $classLike = $propertyFetch->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
             return null;
         }
         return $classLike->getProperty($propertyName);

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector;
+namespace _PhpScoper0a6b37af0871\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Rector\Transform\Rector\New_\NewToStaticCallRector;
-use _PhpScopere8e811afab72\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector\Source\FromNewClass;
-use _PhpScopere8e811afab72\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector\Source\IntoStaticClass;
-use _PhpScopere8e811afab72\Rector\Transform\ValueObject\NewToStaticCall;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class NewToStaticCallRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Rector\Transform\Rector\New_\NewToStaticCallRector;
+use _PhpScoper0a6b37af0871\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector\Source\FromNewClass;
+use _PhpScoper0a6b37af0871\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector\Source\IntoStaticClass;
+use _PhpScoper0a6b37af0871\Rector\Transform\ValueObject\NewToStaticCall;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class NewToStaticCallRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -28,6 +28,6 @@ final class NewToStaticCallRectorTest extends \_PhpScopere8e811afab72\Rector\Tes
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScopere8e811afab72\Rector\Transform\Rector\New_\NewToStaticCallRector::class => [\_PhpScopere8e811afab72\Rector\Transform\Rector\New_\NewToStaticCallRector::TYPE_TO_STATIC_CALLS => [new \_PhpScopere8e811afab72\Rector\Transform\ValueObject\NewToStaticCall(\_PhpScopere8e811afab72\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector\Source\FromNewClass::class, \_PhpScopere8e811afab72\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector\Source\IntoStaticClass::class, 'run')]]];
+        return [\_PhpScoper0a6b37af0871\Rector\Transform\Rector\New_\NewToStaticCallRector::class => [\_PhpScoper0a6b37af0871\Rector\Transform\Rector\New_\NewToStaticCallRector::TYPE_TO_STATIC_CALLS => [new \_PhpScoper0a6b37af0871\Rector\Transform\ValueObject\NewToStaticCall(\_PhpScoper0a6b37af0871\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector\Source\FromNewClass::class, \_PhpScoper0a6b37af0871\Rector\Transform\Tests\Rector\New_\NewToStaticCallRector\Source\IntoStaticClass::class, 'run')]]];
     }
 }

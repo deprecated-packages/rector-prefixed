@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NetteToSymfony\Routing;
+namespace _PhpScoper0a6b37af0871\Rector\NetteToSymfony\Routing;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScopere8e811afab72\Rector\PostRector\Collector\UseNodesToAddCollector;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a6b37af0871\Rector\PostRector\Collector\UseNodesToAddCollector;
 final class ExplicitRouteAnnotationDecorator
 {
     /**
@@ -19,16 +19,16 @@ final class ExplicitRouteAnnotationDecorator
      * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
-    public function __construct(\_PhpScopere8e811afab72\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
     {
         $this->useNodesToAddCollector = $useNodesToAddCollector;
     }
-    public function decorateClassMethodWithRouteAnnotation(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode $symfonyRouteTagValueNode) : void
+    public function decorateClassMethodWithRouteAnnotation(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode $symfonyRouteTagValueNode) : void
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $phpDocInfo->addTagValueNodeWithShortName($symfonyRouteTagValueNode);
-        $fullyQualifiedObjectType = new \_PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType(\_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::CLASS_NAME);
+        $fullyQualifiedObjectType = new \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::CLASS_NAME);
         $this->useNodesToAddCollector->addUseImport($classMethod, $fullyQualifiedObjectType);
         // remove
         $this->useNodesToAddCollector->removeShortUse($classMethod, 'Route');

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Stream\Filter;
+namespace _PhpScoper0a6b37af0871\Hoa\Stream\Filter;
 
-use _PhpScopere8e811afab72\Hoa\Stream;
+use _PhpScoper0a6b37af0871\Hoa\Stream;
 /**
  * Class \Hoa\Stream\Filter\Exception.
  *
@@ -44,6 +44,6 @@ use _PhpScopere8e811afab72\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \_PhpScopere8e811afab72\Hoa\Stream\Exception
+class Exception extends \_PhpScoper0a6b37af0871\Hoa\Stream\Exception
 {
 }

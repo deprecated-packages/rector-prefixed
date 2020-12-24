@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Generic\Rector\String_;
+namespace _PhpScoper0a6b37af0871\Rector\Generic\Rector\String_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Generic\ValueObject\StringToClassConstant;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScopere8e811afab72\Webmozart\Assert\Assert;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Generic\ValueObject\StringToClassConstant;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\String_\StringToClassConstantRector\StringToClassConstantRectorTest
  */
-final class StringToClassConstantRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class StringToClassConstantRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -24,9 +24,9 @@ final class StringToClassConstantRector extends \_PhpScopere8e811afab72\Rector\C
      * @var StringToClassConstant[]
      */
     private $stringsToClassConstants = [];
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes strings to specific constants', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes strings to specific constants', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeSubscriber
 {
     public static function getSubscribedEvents()
@@ -44,19 +44,19 @@ final class SomeSubscriber
     }
 }
 CODE_SAMPLE
-, [self::STRINGS_TO_CLASS_CONSTANTS => [new \_PhpScopere8e811afab72\Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScopere8e811afab72\\Yet\\AnotherClass', 'CONSTANT')]])]);
+, [self::STRINGS_TO_CLASS_CONSTANTS => [new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScoper0a6b37af0871\\Yet\\AnotherClass', 'CONSTANT')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_::class];
     }
     /**
      * @param String_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         foreach ($this->stringsToClassConstants as $stringToClassConstant) {
             if (!$this->isValue($node, $stringToClassConstant->getString())) {
@@ -69,7 +69,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $stringToClassConstants = $configuration[self::STRINGS_TO_CLASS_CONSTANTS] ?? [];
-        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($stringToClassConstants, \_PhpScopere8e811afab72\Rector\Generic\ValueObject\StringToClassConstant::class);
+        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsInstanceOf($stringToClassConstants, \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\StringToClassConstant::class);
         $this->stringsToClassConstants = $stringToClassConstants;
     }
 }

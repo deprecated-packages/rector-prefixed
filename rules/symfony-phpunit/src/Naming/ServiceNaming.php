@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\SymfonyPHPUnit\Naming;
+namespace _PhpScoper0a6b37af0871\Rector\SymfonyPHPUnit\Naming;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\Rector\Naming\Naming\PropertyNaming;
 final class ServiceNaming
 {
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming $propertyNaming)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->propertyNaming = $propertyNaming;
     }
     public function resolvePropertyNameFromServiceType(string $serviceType) : string
     {
-        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($serviceType, '_') && !\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($serviceType, '\\')) {
+        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($serviceType, '_') && !\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($serviceType, '\\')) {
             return $this->propertyNaming->underscoreToName($serviceType);
         }
-        return $this->propertyNaming->fqnToVariableName(new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($serviceType));
+        return $this->propertyNaming->fqnToVariableName(new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType($serviceType));
     }
 }

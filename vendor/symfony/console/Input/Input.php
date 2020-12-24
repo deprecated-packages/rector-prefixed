@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopere8e811afab72\Symfony\Component\Console\Input;
+namespace _PhpScoper0a6b37af0871\Symfony\Component\Console\Input;
 
-use _PhpScopere8e811afab72\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _PhpScopere8e811afab72\Symfony\Component\Console\Exception\RuntimeException;
+use _PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\RuntimeException;
 /**
  * Input is the base class for all concrete Input classes.
  *
@@ -23,17 +23,17 @@ use _PhpScopere8e811afab72\Symfony\Component\Console\Exception\RuntimeException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Input implements \_PhpScopere8e811afab72\Symfony\Component\Console\Input\InputInterface, \_PhpScopere8e811afab72\Symfony\Component\Console\Input\StreamableInputInterface
+abstract class Input implements \_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface, \_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\StreamableInputInterface
 {
     protected $definition;
     protected $stream;
     protected $options = [];
     protected $arguments = [];
     protected $interactive = \true;
-    public function __construct(\_PhpScopere8e811afab72\Symfony\Component\Console\Input\InputDefinition $definition = null)
+    public function __construct(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputDefinition $definition = null)
     {
         if (null === $definition) {
-            $this->definition = new \_PhpScopere8e811afab72\Symfony\Component\Console\Input\InputDefinition();
+            $this->definition = new \_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputDefinition();
         } else {
             $this->bind($definition);
             $this->validate();
@@ -42,7 +42,7 @@ abstract class Input implements \_PhpScopere8e811afab72\Symfony\Component\Consol
     /**
      * {@inheritdoc}
      */
-    public function bind(\_PhpScopere8e811afab72\Symfony\Component\Console\Input\InputDefinition $definition)
+    public function bind(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputDefinition $definition)
     {
         $this->arguments = [];
         $this->options = [];
@@ -64,7 +64,7 @@ abstract class Input implements \_PhpScopere8e811afab72\Symfony\Component\Consol
             return !\array_key_exists($argument, $givenArguments) && $definition->getArgument($argument)->isRequired();
         });
         if (\count($missingArguments) > 0) {
-            throw new \_PhpScopere8e811afab72\Symfony\Component\Console\Exception\RuntimeException(\sprintf('Not enough arguments (missing: "%s").', \implode(', ', $missingArguments)));
+            throw new \_PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\RuntimeException(\sprintf('Not enough arguments (missing: "%s").', \implode(', ', $missingArguments)));
         }
     }
     /**
@@ -94,7 +94,7 @@ abstract class Input implements \_PhpScopere8e811afab72\Symfony\Component\Consol
     public function getArgument(string $name)
     {
         if (!$this->definition->hasArgument($name)) {
-            throw new \_PhpScopere8e811afab72\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
+            throw new \_PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
         return isset($this->arguments[$name]) ? $this->arguments[$name] : $this->definition->getArgument($name)->getDefault();
     }
@@ -104,7 +104,7 @@ abstract class Input implements \_PhpScopere8e811afab72\Symfony\Component\Consol
     public function setArgument(string $name, $value)
     {
         if (!$this->definition->hasArgument($name)) {
-            throw new \_PhpScopere8e811afab72\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
+            throw new \_PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
         $this->arguments[$name] = $value;
     }
@@ -128,7 +128,7 @@ abstract class Input implements \_PhpScopere8e811afab72\Symfony\Component\Consol
     public function getOption(string $name)
     {
         if (!$this->definition->hasOption($name)) {
-            throw new \_PhpScopere8e811afab72\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
+            throw new \_PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
         }
         return \array_key_exists($name, $this->options) ? $this->options[$name] : $this->definition->getOption($name)->getDefault();
     }
@@ -138,7 +138,7 @@ abstract class Input implements \_PhpScopere8e811afab72\Symfony\Component\Consol
     public function setOption(string $name, $value)
     {
         if (!$this->definition->hasOption($name)) {
-            throw new \_PhpScopere8e811afab72\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
+            throw new \_PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
         }
         $this->options[$name] = $value;
     }

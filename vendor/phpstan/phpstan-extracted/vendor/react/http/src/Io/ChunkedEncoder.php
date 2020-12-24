@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Encodes given payload stream with "Transfer-Encoding: chunked" and emits encoded data
  *
@@ -13,11 +13,11 @@ use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInt
  *
  * @internal
  */
-class ChunkedEncoder extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class ChunkedEncoder extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
-    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -37,9 +37,9 @@ class ChunkedEncoder extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Even
     {
         $this->input->resume();
     }
-    public function pipe(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

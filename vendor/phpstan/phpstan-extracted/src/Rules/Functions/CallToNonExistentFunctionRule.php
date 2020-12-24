@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Rules\Functions;
+namespace _PhpScoper0a6b37af0871\PHPStan\Rules\Functions;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
-use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-class CallToNonExistentFunctionRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
+class CallToNonExistentFunctionRule implements \_PhpScoper0a6b37af0871\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
     /** @var bool */
     private $checkFunctionNameCase;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkFunctionNameCase)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkFunctionNameCase)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->checkFunctionNameCase = $checkFunctionNameCase;
     }
     public function getNodeType() : string
     {
-        return \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class;
+        return \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
+        if (!$node->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
             return [];
         }
         if (!$this->reflectionProvider->hasFunction($node->name, $scope)) {
-            return [\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Function %s not found.', (string) $node->name))->discoveringSymbolsTip()->build()];
+            return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Function %s not found.', (string) $node->name))->discoveringSymbolsTip()->build()];
         }
         $function = $this->reflectionProvider->getFunction($node->name, $scope);
         $name = (string) $node->name;
@@ -40,7 +40,7 @@ class CallToNonExistentFunctionRule implements \_PhpScopere8e811afab72\PHPStan\R
             /** @var string $calledFunctionName */
             $calledFunctionName = $this->reflectionProvider->resolveFunctionName($node->name, $scope);
             if (\strtolower($function->getName()) === \strtolower($calledFunctionName) && $function->getName() !== $calledFunctionName) {
-                return [\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name))->build()];
+                return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name))->build()];
             }
         }
         return [];

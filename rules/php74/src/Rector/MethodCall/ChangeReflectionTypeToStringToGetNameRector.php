@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php74\Rector\MethodCall;
+namespace _PhpScoper0a6b37af0871\Rector\Php74\Rector\MethodCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\String_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\String_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.php.net/manual/en/reflectiontype.tostring.php
  * @see https://www.reddit.com/r/PHP/comments/apikof/whats_the_deal_with_reflectiontype/
@@ -21,7 +21,7 @@ use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Php74\Tests\Rector\MethodCall\ChangeReflectionTypeToStringToGetNameRector\ChangeReflectionTypeToStringToGetNameRectorTest
  */
-final class ChangeReflectionTypeToStringToGetNameRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class ChangeReflectionTypeToStringToGetNameRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -32,9 +32,9 @@ final class ChangeReflectionTypeToStringToGetNameRector extends \_PhpScopere8e81
      * @var string[][]
      */
     private $callsByVariable = [];
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change string calls on ReflectionType', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change string calls on ReflectionType', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function go(ReflectionFunction $reflectionFunction)
@@ -73,27 +73,27 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\String_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\String_::class];
     }
     /**
      * @param MethodCall|String_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return $this->refactorMethodCall($node);
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\String_) {
-            if ($node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\String_) {
+            if ($node->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
                 return $this->refactorIfHasReturnTypeWasCalled($node->expr);
             }
-            if ($node->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable && $this->isObjectType($node->expr, 'ReflectionType')) {
+            if ($node->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable && $this->isObjectType($node->expr, 'ReflectionType')) {
                 return $this->createMethodCall($node->expr, self::GET_NAME);
             }
         }
         return null;
     }
-    private function refactorMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    private function refactorMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $this->collectCallByVariable($methodCall);
         if ($this->shouldSkipMethodCall($methodCall)) {
@@ -107,9 +107,9 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorIfHasReturnTypeWasCalled(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    private function refactorIfHasReturnTypeWasCalled(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if (!$methodCall->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
+        if (!$methodCall->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
             return null;
         }
         $variableName = $this->getName($methodCall->var);
@@ -120,10 +120,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function collectCallByVariable(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    private function collectCallByVariable(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         // bit workaround for now
-        if ($methodCall->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
+        if ($methodCall->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
             $variableName = $this->getName($methodCall->var);
             $methodName = $this->getName($methodCall->name);
             if (!$variableName) {
@@ -135,53 +135,53 @@ CODE_SAMPLE
             $this->callsByVariable[$variableName][] = $methodName;
         }
     }
-    private function shouldSkipMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function shouldSkipMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        $scope = $methodCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $methodCall->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         // just added node → skip it
         if ($scope === null) {
             return \true;
         }
         // is to string retype?
-        $parentNode = $methodCall->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\String_) {
+        $parentNode = $methodCall->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\String_) {
             return \false;
         }
         // probably already converted
-        return !$parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat;
+        return !$parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat;
     }
-    private function isReflectionParameterGetTypeMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function isReflectionParameterGetTypeMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->isObjectType($methodCall->var, 'ReflectionParameter')) {
             return \false;
         }
         return $this->isName($methodCall->name, 'getType');
     }
-    private function refactorReflectionParameterGetName(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary
+    private function refactorReflectionParameterGetName(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary
     {
         $getNameMethodCall = $this->createMethodCall($methodCall, self::GET_NAME);
-        $ternary = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->createNull());
+        $ternary = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->createNull());
         // to prevent looping
-        $methodCall->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
+        $methodCall->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
         return $ternary;
     }
-    private function isReflectionFunctionAbstractGetReturnTypeMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function isReflectionFunctionAbstractGetReturnTypeMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->isObjectType($methodCall->var, 'ReflectionFunctionAbstract')) {
             return \false;
         }
         return $this->isName($methodCall->name, 'getReturnType');
     }
-    private function refactorReflectionFunctionGetReturnType(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScopere8e811afab72\PhpParser\Node
+    private function refactorReflectionFunctionGetReturnType(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $refactoredMethodCall = $this->refactorIfHasReturnTypeWasCalled($methodCall);
         if ($refactoredMethodCall !== null) {
             return $refactoredMethodCall;
         }
         $getNameMethodCall = $this->createMethodCall($methodCall, self::GET_NAME);
-        $ternary = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->createNull());
+        $ternary = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->createNull());
         // to prevent looping
-        $methodCall->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
+        $methodCall->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
         return $ternary;
     }
 }

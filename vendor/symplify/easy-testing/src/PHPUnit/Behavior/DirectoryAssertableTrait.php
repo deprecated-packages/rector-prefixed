@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Symplify\EasyTesting\PHPUnit\Behavior;
+namespace _PhpScoper0a6b37af0871\Symplify\EasyTesting\PHPUnit\Behavior;
 
-use _PhpScopere8e811afab72\Symfony\Component\Finder\Finder;
-use _PhpScopere8e811afab72\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\Symfony\Component\Finder\Finder;
+use _PhpScoper0a6b37af0871\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Use only in "\PHPUnit\Framework\TestCase"
  *
@@ -35,9 +35,9 @@ trait DirectoryAssertableTrait
      */
     private function findFileInfosInDirectory(string $directory) : array
     {
-        $firstDirectoryFinder = new \_PhpScopere8e811afab72\Symfony\Component\Finder\Finder();
+        $firstDirectoryFinder = new \_PhpScoper0a6b37af0871\Symfony\Component\Finder\Finder();
         $firstDirectoryFinder->files()->in($directory);
-        $finderSanitizer = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\Finder\FinderSanitizer();
+        $finderSanitizer = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Finder\FinderSanitizer();
         return $finderSanitizer->sanitize($firstDirectoryFinder);
     }
     /**
@@ -52,14 +52,14 @@ trait DirectoryAssertableTrait
             $relativeFilePath = $expectedFileInfo->getRelativeFilePathFromDirectory($expectedDirectory);
             // match output file info
             $outputFileInfo = $this->resolveFileInfoByRelativeFilePath($outputFileInfos, $outputDirectory, $relativeFilePath);
-            $fileInfosByRelativeFilePath[$relativeFilePath] = new \_PhpScopere8e811afab72\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair($expectedFileInfo, $outputFileInfo);
+            $fileInfosByRelativeFilePath[$relativeFilePath] = new \_PhpScoper0a6b37af0871\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair($expectedFileInfo, $outputFileInfo);
         }
         return $fileInfosByRelativeFilePath;
     }
     /**
      * @param SmartFileInfo[] $fileInfos
      */
-    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath) : ?\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo
+    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath) : ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($fileInfos as $fileInfo) {
             $relativeFilePath = $fileInfo->getRelativeFilePathFromDirectory($directory);

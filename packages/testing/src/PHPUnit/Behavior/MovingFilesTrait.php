@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Testing\PHPUnit\Behavior;
+namespace _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\Behavior;
 
-use _PhpScopere8e811afab72\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use _PhpScopere8e811afab72\Rector\FileSystemRector\Contract\MovedFileInterface;
-use _PhpScopere8e811afab72\Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScopere8e811afab72\Webmozart\Assert\Assert;
+use _PhpScoper0a6b37af0871\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use _PhpScoper0a6b37af0871\Rector\FileSystemRector\Contract\MovedFileInterface;
+use _PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\Webmozart\Assert\Assert;
 /**
  * @property-read RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
  */
 trait MovingFilesTrait
 {
-    protected function matchMovedFile(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \_PhpScopere8e811afab72\Rector\FileSystemRector\Contract\MovedFileInterface
+    protected function matchMovedFile(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \_PhpScoper0a6b37af0871\Rector\FileSystemRector\Contract\MovedFileInterface
     {
         return $this->removedAndAddedFilesCollector->getMovedFileByFileInfo($smartFileInfo);
     }
-    protected function assertFileWasNotChanged(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    protected function assertFileWasNotChanged(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $movedFile = $this->removedAndAddedFilesCollector->getMovedFileByFileInfo($smartFileInfo);
         $this->assertNull($movedFile);
     }
-    protected function assertFileWithContentWasAdded(\_PhpScopere8e811afab72\Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent) : void
+    protected function assertFileWithContentWasAdded(\_PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent) : void
     {
         $this->assertFilesWereAdded([$addedFileWithContent]);
     }
-    protected function assertFileWasRemoved(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    protected function assertFileWasRemoved(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $isFileRemoved = $this->removedAndAddedFilesCollector->isFileRemoved($smartFileInfo);
         $this->assertTrue($isFileRemoved);
@@ -36,7 +36,7 @@ trait MovingFilesTrait
      */
     protected function assertFilesWereAdded(array $addedFileWithContents) : void
     {
-        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsAOf($addedFileWithContents, \_PhpScopere8e811afab72\Rector\FileSystemRector\ValueObject\AddedFileWithContent::class);
+        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsAOf($addedFileWithContents, \_PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\AddedFileWithContent::class);
         $addedFilePathsWithContents = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
         \sort($addedFilePathsWithContents);
         \sort($addedFileWithContents);

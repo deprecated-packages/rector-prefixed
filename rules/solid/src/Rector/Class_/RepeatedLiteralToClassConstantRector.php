@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\SOLID\Rector\Class_;
+namespace _PhpScoper0a6b37af0871\Rector\SOLID\Rector\Class_;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst;
-use _PhpScopere8e811afab72\Rector\Core\Php\ReservedKeywordAnalyzer;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Core\Util\StaticRectorStrings;
-use _PhpScopere8e811afab72\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoper0a6b37af0871\Rector\Core\Php\ReservedKeywordAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Core\Util\StaticRectorStrings;
+use _PhpScoper0a6b37af0871\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\SOLID\Tests\Rector\Class_\RepeatedLiteralToClassConstantRector\RepeatedLiteralToClassConstantRectorTest
  */
-final class RepeatedLiteralToClassConstantRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class RepeatedLiteralToClassConstantRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -55,15 +55,15 @@ final class RepeatedLiteralToClassConstantRector extends \_PhpScopere8e811afab72
      * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScopere8e811afab72\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \_PhpScopere8e811afab72\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScoper0a6b37af0871\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \_PhpScoper0a6b37af0871\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
     {
         $this->classInsertManipulator = $classInsertManipulator;
         $this->scopeAwareNodeFinder = $scopeAwareNodeFinder;
         $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace repeated strings with constant', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace repeated strings with constant', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($key, $items)
@@ -96,19 +96,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         // skip tests, where string values are often used as fixtures
         if ($this->isName($node, '*Test')) {
             return null;
         }
         /** @var String_[] $strings */
-        $strings = $this->betterNodeFinder->findInstanceOf($node, \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_::class);
+        $strings = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_::class);
         $stringsToReplace = $this->resolveStringsToReplace($strings);
         if ($stringsToReplace === []) {
             return null;
@@ -142,31 +142,31 @@ CODE_SAMPLE
     /**
      * @param string[] $stringsToReplace
      */
-    private function replaceStringsWithClassConstReferences(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class, array $stringsToReplace) : void
+    private function replaceStringsWithClassConstReferences(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, array $stringsToReplace) : void
     {
-        $this->traverseNodesWithCallable($class, function (\_PhpScopere8e811afab72\PhpParser\Node $node) use($stringsToReplace) : ?ClassConstFetch {
-            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
+        $this->traverseNodesWithCallable($class, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($stringsToReplace) : ?ClassConstFetch {
+            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
                 return null;
             }
             if (!$this->isValues($node, $stringsToReplace)) {
                 return null;
             }
             $constantName = $this->createConstName($node->value);
-            return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Name('self'), $constantName);
+            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('self'), $constantName);
         });
     }
     /**
      * @param string[] $stringsToReplace
      */
-    private function addClassConsts(array $stringsToReplace, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addClassConsts(array $stringsToReplace, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : void
     {
         foreach ($stringsToReplace as $stringToReplace) {
             $constantName = $this->createConstName($stringToReplace);
-            $classConst = $this->nodeFactory->createPrivateClassConst($constantName, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_($stringToReplace));
+            $classConst = $this->nodeFactory->createPrivateClassConst($constantName, new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_($stringToReplace));
             $this->classInsertManipulator->addConstantToClass($class, $stringToReplace, $classConst);
         }
     }
-    private function shouldSkipString(\_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_ $string) : bool
+    private function shouldSkipString(\_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_ $string) : bool
     {
         $value = (string) $string->value;
         // value is too short
@@ -180,12 +180,12 @@ CODE_SAMPLE
             return \true;
         }
         // is replaceable value?
-        $matches = \_PhpScopere8e811afab72\Nette\Utils\Strings::match($value, '#(?<' . self::VALUE . '>[\\w\\-\\/\\_]+)#');
+        $matches = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($value, '#(?<' . self::VALUE . '>[\\w\\-\\/\\_]+)#');
         if (!isset($matches[self::VALUE])) {
             return \true;
         }
         // skip values in another constants
-        $parentConst = $this->scopeAwareNodeFinder->findParentType($string, [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassConst::class]);
+        $parentConst = $this->scopeAwareNodeFinder->findParentType($string, [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst::class]);
         if ($parentConst !== null) {
             return \true;
         }
@@ -194,10 +194,10 @@ CODE_SAMPLE
     private function createConstName(string $value) : string
     {
         // replace slashes and dashes
-        $value = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($value, self::SLASH_AND_DASH_REGEX, self::UNDERSCORE);
+        $value = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($value, self::SLASH_AND_DASH_REGEX, self::UNDERSCORE);
         // find beginning numbers
         $beginningNumbers = '';
-        $matches = \_PhpScopere8e811afab72\Nette\Utils\Strings::match($value, '#(?<' . self::NUMBERS . '>[0-9]*)(?<' . self::VALUE . '>.*)#');
+        $matches = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($value, '#(?<' . self::NUMBERS . '>[0-9]*)(?<' . self::VALUE . '>.*)#');
         if (isset($matches[self::NUMBERS])) {
             $beginningNumbers = $matches[self::NUMBERS];
         }
@@ -206,14 +206,14 @@ CODE_SAMPLE
         }
         // convert camelcase parts to underscore
         $parts = \array_map(function (string $v) : string {
-            return \_PhpScopere8e811afab72\Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($v);
+            return \_PhpScoper0a6b37af0871\Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($v);
         }, \explode(self::UNDERSCORE, $value));
         // apply "CONST" prefix if constant beginning with number
         if ($beginningNumbers !== '') {
             $parts = \array_merge(['CONST', $beginningNumbers], $parts);
         }
         $value = \implode(self::UNDERSCORE, $parts);
-        return \strtoupper(\_PhpScopere8e811afab72\Nette\Utils\Strings::replace($value, '#_+#', self::UNDERSCORE));
+        return \strtoupper(\_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($value, '#_+#', self::UNDERSCORE));
     }
     private function isNativeConstantResemblingValue(string $value) : bool
     {

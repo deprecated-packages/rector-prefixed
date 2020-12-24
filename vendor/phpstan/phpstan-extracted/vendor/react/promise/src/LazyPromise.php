@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise;
 
 /**
  * @deprecated 2.8.0 LazyPromise is deprecated and should not be used anymore.
  */
-class LazyPromise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
+class LazyPromise implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
 {
     private $factory;
     private $promise;
@@ -47,9 +47,9 @@ class LazyPromise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Reac
             try {
                 $this->promise = resolve(\call_user_func($this->factory));
             } catch (\Throwable $exception) {
-                $this->promise = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
+                $this->promise = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
             } catch (\Exception $exception) {
-                $this->promise = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
+                $this->promise = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
             }
         }
         return $this->promise;

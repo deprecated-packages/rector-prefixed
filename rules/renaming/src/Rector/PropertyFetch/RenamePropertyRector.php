@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Renaming\Rector\PropertyFetch;
+namespace _PhpScoper0a6b37af0871\Rector\Renaming\Rector\PropertyFetch;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Renaming\ValueObject\RenameProperty;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScopere8e811afab72\Webmozart\Assert\Assert;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameProperty;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\RenamePropertyRectorTest
  */
-final class RenamePropertyRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RenamePropertyRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -25,21 +25,21 @@ final class RenamePropertyRector extends \_PhpScopere8e811afab72\Rector\Core\Rec
      * @var RenameProperty[]
      */
     private $renamedProperties = [];
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined old properties by new ones.', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('$someObject->someOldProperty;', '$someObject->someNewProperty;', [self::RENAMED_PROPERTIES => [new \_PhpScopere8e811afab72\Rector\Renaming\ValueObject\RenameProperty('SomeClass', 'someOldProperty', 'someNewProperty')]])]);
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined old properties by new ones.', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('$someObject->someOldProperty;', '$someObject->someNewProperty;', [self::RENAMED_PROPERTIES => [new \_PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameProperty('SomeClass', 'someOldProperty', 'someNewProperty')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch::class];
     }
     /**
      * @param PropertyFetch $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         foreach ($this->renamedProperties as $renamedProperty) {
             if (!$this->isObjectType($node->var, $renamedProperty->getType())) {
@@ -48,7 +48,7 @@ final class RenamePropertyRector extends \_PhpScopere8e811afab72\Rector\Core\Rec
             if (!$this->isName($node, $renamedProperty->getOldProperty())) {
                 continue;
             }
-            $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($renamedProperty->getNewProperty());
+            $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($renamedProperty->getNewProperty());
             return $node;
         }
         return null;
@@ -56,7 +56,7 @@ final class RenamePropertyRector extends \_PhpScopere8e811afab72\Rector\Core\Rec
     public function configure(array $configuration) : void
     {
         $renamedProperties = $configuration[self::RENAMED_PROPERTIES] ?? [];
-        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($renamedProperties, \_PhpScopere8e811afab72\Rector\Renaming\ValueObject\RenameProperty::class);
+        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsInstanceOf($renamedProperties, \_PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameProperty::class);
         $this->renamedProperties = $renamedProperties;
     }
 }

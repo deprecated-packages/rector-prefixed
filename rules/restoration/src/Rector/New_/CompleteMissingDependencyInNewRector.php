@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Restoration\Rector\New_;
+namespace _PhpScoper0a6b37af0871\Rector\Restoration\Rector\New_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
-use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
-use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Restoration\Tests\Rector\New_\CompleteMissingDependencyInNewRector\CompleteMissingDependencyInNewRectorTest
  */
-final class CompleteMissingDependencyInNewRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class CompleteMissingDependencyInNewRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -30,9 +30,9 @@ final class CompleteMissingDependencyInNewRector extends \_PhpScopere8e811afab72
      * @var string[]
      */
     private $classToInstantiateByType = [];
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Complete missing constructor dependency instance by type', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Complete missing constructor dependency instance by type', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -71,12 +71,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\New_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_::class];
     }
     /**
      * @param New_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->shouldSkipNew($node)) {
             return null;
@@ -92,8 +92,8 @@ CODE_SAMPLE
             if ($classToInstantiate === null) {
                 continue;
             }
-            $new = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_(new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified($classToInstantiate));
-            $node->args[$position] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($new);
+            $new = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified($classToInstantiate));
+            $node->args[$position] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($new);
         }
         return $node;
     }
@@ -101,7 +101,7 @@ CODE_SAMPLE
     {
         $this->classToInstantiateByType = $configuration[self::CLASS_TO_INSTANTIATE_BY_TYPE] ?? [];
     }
-    private function shouldSkipNew(\_PhpScopere8e811afab72\PhpParser\Node\Expr\New_ $new) : bool
+    private function shouldSkipNew(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_ $new) : bool
     {
         $constructorMethodReflection = $this->getNewNodeClassConstructorMethodReflection($new);
         if ($constructorMethodReflection === null) {
@@ -109,7 +109,7 @@ CODE_SAMPLE
         }
         return $constructorMethodReflection->getNumberOfRequiredParameters() <= \count((array) $new->args);
     }
-    private function getNewNodeClassConstructorMethodReflection(\_PhpScopere8e811afab72\PhpParser\Node\Expr\New_ $new) : ?\ReflectionMethod
+    private function getNewNodeClassConstructorMethodReflection(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_ $new) : ?\ReflectionMethod
     {
         $className = $this->getName($new->class);
         if ($className === null) {

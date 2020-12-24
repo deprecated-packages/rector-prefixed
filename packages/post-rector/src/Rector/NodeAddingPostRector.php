@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PostRector\Rector;
+namespace _PhpScoper0a6b37af0871\Rector\PostRector\Rector;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\Rector\PostRector\Collector\NodesToAddCollector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\Rector\PostRector\Collector\NodesToAddCollector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * This class collects all to-be-added expresssions (= 1 line in code)
  * and then adds new expressions to list of $nodes
@@ -18,13 +18,13 @@ use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * - $this->someCall();
  * - $value = this->someNewCall(); // added expression
  */
-final class NodeAddingPostRector extends \_PhpScopere8e811afab72\Rector\PostRector\Rector\AbstractPostRector
+final class NodeAddingPostRector extends \_PhpScoper0a6b37af0871\Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var NodesToAddCollector
      */
     private $nodesToAddCollector;
-    public function __construct(\_PhpScopere8e811afab72\Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector)
     {
         $this->nodesToAddCollector = $nodesToAddCollector;
     }
@@ -35,7 +35,7 @@ final class NodeAddingPostRector extends \_PhpScopere8e811afab72\Rector\PostRect
     /**
      * @return array<int|string, Node>|Node
      */
-    public function leaveNode(\_PhpScopere8e811afab72\PhpParser\Node $node)
+    public function leaveNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node)
     {
         $newNodes = [$node];
         $nodesToAddAfter = $this->nodesToAddCollector->getNodesToAddAfterNode($node);
@@ -53,9 +53,9 @@ final class NodeAddingPostRector extends \_PhpScopere8e811afab72\Rector\PostRect
         }
         return $newNodes;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds nodes', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds nodes', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $value = 1000;
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'

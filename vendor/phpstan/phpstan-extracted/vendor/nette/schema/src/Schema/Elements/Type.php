@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Elements;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Elements;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
-final class Type implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
+final class Type implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
 {
     use Base;
     use Nette\SmartObject;
@@ -37,7 +37,7 @@ final class Type implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette
     }
     public function dynamic() : self
     {
-        $this->type .= '|' . \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter::class;
+        $this->type .= '|' . \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter::class;
         return $this;
     }
     public function min(?float $min) : self
@@ -55,7 +55,7 @@ final class Type implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette
      */
     public function items($type = 'mixed') : self
     {
-        $this->items = $type instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema ? $type : new self($type);
+        $this->items = $type instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema ? $type : new self($type);
         return $this;
     }
     public function pattern(?string $pattern) : self
@@ -64,7 +64,7 @@ final class Type implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette
         return $this;
     }
     /********************* processing ****************d*g**/
-    public function normalize($value, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function normalize($value, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         $value = $this->doNormalize($value, $context);
         if (\is_array($value) && $this->items) {
@@ -78,8 +78,8 @@ final class Type implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette
     }
     public function merge($value, $base)
     {
-        if (\is_array($value) && isset($value[\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING])) {
-            unset($value[\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING]);
+        if (\is_array($value) && isset($value[\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING])) {
+            unset($value[\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING]);
             return $value;
         }
         if (\is_array($value) && \is_array($base) && $this->items) {
@@ -94,9 +94,9 @@ final class Type implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette
             }
             return $base;
         }
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($value, $base);
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($value, $base);
     }
-    public function complete($value, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function complete($value, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($value === null && \is_array($this->default)) {
             $value = [];
@@ -110,8 +110,8 @@ final class Type implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette
             $context->addError("The option %path% expects to match pattern '{$this->pattern}', '{$value}' given.");
             return;
         }
-        if ($value instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter) {
-            $context->dynamics[] = [$value, \str_replace('|' . \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter::class, '', $expected)];
+        if ($value instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter) {
+            $context->dynamics[] = [$value, \str_replace('|' . \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter::class, '', $expected)];
         }
         if ($this->items) {
             $errCount = \count($context->errors);
@@ -124,7 +124,7 @@ final class Type implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette
                 return null;
             }
         }
-        $value = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($value, $this->default);
+        $value = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($value, $this->default);
         return $this->doFinalize($value, $context);
     }
 }

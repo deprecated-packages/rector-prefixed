@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode;
+namespace _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode;
-class ExportedMethodNode implements \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode;
+class ExportedMethodNode implements \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $name;
@@ -39,7 +39,7 @@ class ExportedMethodNode implements \_PhpScopere8e811afab72\PHPStan\Dependency\E
      * @param string|null $returnType
      * @param ExportedParameterNode[] $parameters
      */
-    public function __construct(string $name, ?\_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, bool $byRef, bool $public, bool $private, bool $abstract, bool $final, bool $static, ?string $returnType, array $parameters)
+    public function __construct(string $name, ?\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, bool $byRef, bool $public, bool $private, bool $abstract, bool $final, bool $static, ?string $returnType, array $parameters)
     {
         $this->name = $name;
         $this->phpDoc = $phpDoc;
@@ -52,7 +52,7 @@ class ExportedMethodNode implements \_PhpScopere8e811afab72\PHPStan\Dependency\E
         $this->returnType = $returnType;
         $this->parameters = $parameters;
     }
-    public function equals(\_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -83,7 +83,7 @@ class ExportedMethodNode implements \_PhpScopere8e811afab72\PHPStan\Dependency\E
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['phpDoc'], $properties['byRef'], $properties['public'], $properties['private'], $properties['abstract'], $properties['final'], $properties['static'], $properties['returnType'], $properties['parameters']);
     }
@@ -98,13 +98,13 @@ class ExportedMethodNode implements \_PhpScopere8e811afab72\PHPStan\Dependency\E
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode
     {
-        return new self($data['name'], $data['phpDoc'] !== null ? \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['byRef'], $data['public'], $data['private'], $data['abstract'], $data['final'], $data['static'], $data['returnType'], \array_map(static function (array $parameterData) : ExportedParameterNode {
-            if ($parameterData['type'] !== \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedParameterNode::class) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+        return new self($data['name'], $data['phpDoc'] !== null ? \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['byRef'], $data['public'], $data['private'], $data['abstract'], $data['final'], $data['static'], $data['returnType'], \array_map(static function (array $parameterData) : ExportedParameterNode {
+            if ($parameterData['type'] !== \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedParameterNode::class) {
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
-            return \_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode\ExportedParameterNode::decode($parameterData['data']);
+            return \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedParameterNode::decode($parameterData['data']);
         }, $data['parameters']));
     }
 }

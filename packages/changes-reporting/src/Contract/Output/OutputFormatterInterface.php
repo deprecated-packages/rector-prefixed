@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\ChangesReporting\Contract\Output;
+namespace _PhpScoper0a6b37af0871\Rector\ChangesReporting\Contract\Output;
 
-use _PhpScopere8e811afab72\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 interface OutputFormatterInterface
 {
     public function getName() : string;
-    public function report(\_PhpScopere8e811afab72\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void;
+    public function report(\_PhpScoper0a6b37af0871\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void;
 }

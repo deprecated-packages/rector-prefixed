@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Autodiscovery\Rector\FileNode;
+namespace _PhpScoper0a6b37af0871\Rector\Autodiscovery\Rector\FileNode;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\CustomNode\FileNode;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
@@ -17,16 +17,16 @@ use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Autodiscovery\Tests\Rector\FileNode\MoveEntitiesToEntityDirectoryRector\MoveEntitiesToEntityDirectoryRectorTest
  */
-final class MoveEntitiesToEntityDirectoryRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class MoveEntitiesToEntityDirectoryRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/auSMk3/1
      */
     private const ENTITY_PATH_REGEX = '#\\bEntity\\b#';
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move entities to Entity namespace', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move entities to Entity namespace', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // file: app/Controller/Product.php
 
 namespace App\Controller;
@@ -61,19 +61,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
      * @param FileNode $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (!$this->isDoctrineEntityFileNode($node)) {
             return null;
         }
         // is entity in expected directory?
         $smartFileInfo = $node->getFileInfo();
-        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), self::ENTITY_PATH_REGEX)) {
+        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), self::ENTITY_PATH_REGEX)) {
             return null;
         }
         $movedFileWithNodes = $this->movedFileWithNodesFactory->createWithDesiredGroup($smartFileInfo, $node->stmts, 'Entity');
@@ -83,10 +83,10 @@ CODE_SAMPLE
         $this->addMovedFile($movedFileWithNodes);
         return null;
     }
-    private function isDoctrineEntityFileNode(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : bool
+    private function isDoctrineEntityFileNode(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : bool
     {
         /** @var Class_|null $class */
-        $class = $this->betterNodeFinder->findFirstInstanceOf($fileNode->stmts, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class);
+        $class = $this->betterNodeFinder->findFirstInstanceOf($fileNode->stmts, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class);
         if ($class === null) {
             return \false;
         }

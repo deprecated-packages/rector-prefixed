@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\CiInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Exception\CiNotDetectedException;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\CiInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Exception\CiNotDetectedException;
 /**
  * Unified way to get environment variables from current continuous integration server
  */
@@ -29,9 +29,9 @@ class CiDetector
     private $environment;
     public function __construct()
     {
-        $this->environment = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env();
+        $this->environment = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env();
     }
-    public static function fromEnvironment(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env $environment) : self
+    public static function fromEnvironment(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env $environment) : self
     {
         $detector = new static();
         $detector->environment = $environment;
@@ -50,11 +50,11 @@ class CiDetector
      *
      * @throws CiNotDetectedException
      */
-    public function detect() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\CiInterface
+    public function detect() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\CiInterface
     {
         $ciServer = $this->detectCurrentCiServer();
         if ($ciServer === null) {
-            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Exception\CiNotDetectedException('No CI server detected in current environment');
+            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Exception\CiNotDetectedException('No CI server detected in current environment');
         }
         return $ciServer;
     }
@@ -63,9 +63,9 @@ class CiDetector
      */
     protected function getCiServers() : array
     {
-        return [\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AppVeyor::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AwsCodeBuild::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Bamboo::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\BitbucketPipelines::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Buddy::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Circle::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Codeship::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Continuousphp::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Drone::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\GitHubActions::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\GitLab::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Jenkins::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\TeamCity::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Travis::class, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Wercker::class];
+        return [\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AppVeyor::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AwsCodeBuild::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Bamboo::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\BitbucketPipelines::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Buddy::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Circle::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Codeship::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Continuousphp::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Drone::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\GitHubActions::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\GitLab::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Jenkins::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\TeamCity::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Travis::class, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\Wercker::class];
     }
-    protected function detectCurrentCiServer() : ?\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\CiInterface
+    protected function detectCurrentCiServer() : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\CiInterface
     {
         $ciServers = $this->getCiServers();
         foreach ($ciServers as $ciClass) {

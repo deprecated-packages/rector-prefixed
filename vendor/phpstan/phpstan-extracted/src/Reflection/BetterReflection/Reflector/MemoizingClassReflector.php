@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\Reflector;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\Reflector;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
-final class MemoizingClassReflector extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+final class MemoizingClassReflector extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector
 {
     /** @var array<string, \Roave\BetterReflection\Reflection\ReflectionClass|\Throwable> */
     private $reflections = [];
@@ -16,7 +16,7 @@ final class MemoizingClassReflector extends \_PhpScopere8e811afab72\_HumbugBox22
      *
      * @throws \Roave\BetterReflection\Reflector\Exception\IdentifierNotFound
      */
-    public function reflect(string $className) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $className) : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         $lowerClassName = \strtolower($className);
         if (isset($this->reflections[$lowerClassName])) {

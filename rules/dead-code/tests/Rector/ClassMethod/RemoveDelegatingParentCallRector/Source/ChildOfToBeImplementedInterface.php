@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDelegatingParentCallRector\Source;
+namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDelegatingParentCallRector\Source;
 
-final class ChildOfToBeImplementedInterface implements \_PhpScopere8e811afab72\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDelegatingParentCallRector\Source\ToBeImplementedInterface
+final class ChildOfToBeImplementedInterface implements \_PhpScoper0a6b37af0871\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDelegatingParentCallRector\Source\ToBeImplementedInterface
 {
 }

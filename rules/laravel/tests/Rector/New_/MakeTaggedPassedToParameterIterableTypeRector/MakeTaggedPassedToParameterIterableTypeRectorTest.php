@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Laravel\Tests\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector;
+namespace _PhpScoper0a6b37af0871\Rector\Laravel\Tests\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\Laravel\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class MakeTaggedPassedToParameterIterableTypeRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\Laravel\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class MakeTaggedPassedToParameterIterableTypeRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MakeTaggedPassedToParameterIterableTypeRectorTest extends \_PhpScope
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScopere8e811afab72\Rector\Laravel\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector::class;
+        return \_PhpScoper0a6b37af0871\Rector\Laravel\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector::class;
     }
 }

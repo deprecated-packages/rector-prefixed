@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php72\Rector\FuncCall;
+namespace _PhpScoper0a6b37af0871\Rector\Php72\Rector\FuncCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
-use _PhpScopere8e811afab72\PhpParser\Parser;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a6b37af0871\PhpParser\Parser;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/lB5fR
  * @see https://github.com/simplesamlphp/simplesamlphp/pull/708/files
  * @see \Rector\Php72\Tests\Rector\FuncCall\StringsAssertNakedRector\StringsAssertNakedRectorTest
  */
-final class StringsAssertNakedRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class StringsAssertNakedRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var Parser
      */
     private $parser;
-    public function __construct(\_PhpScopere8e811afab72\PhpParser\Parser $parser)
+    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Parser $parser)
     {
         $this->parser = $parser;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('String asserts must be passed directly to assert()', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('String asserts must be passed directly to assert()', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function nakedAssert()
 {
     assert('true === true');
@@ -50,17 +50,17 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (!$this->isName($node, 'assert')) {
             return null;
         }
-        if (!$node->args[0]->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
+        if (!$node->args[0]->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
             return null;
         }
         /** @var String_ $stringNode */
@@ -70,10 +70,10 @@ CODE_SAMPLE
         if (!isset($contentNodes[0])) {
             return null;
         }
-        if (!$contentNodes[0] instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
+        if (!$contentNodes[0] instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        $node->args[0] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg($contentNodes[0]->expr);
+        $node->args[0] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($contentNodes[0]->expr);
         return $node;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Parser;
+namespace _PhpScoper0a6b37af0871\PHPStan\Parser;
 
-use _PhpScopere8e811afab72\PHPStan\File\FileReader;
-class CachedParser implements \_PhpScopere8e811afab72\PHPStan\Parser\Parser
+use _PhpScoper0a6b37af0871\PHPStan\File\FileReader;
+class CachedParser implements \_PhpScoper0a6b37af0871\PHPStan\Parser\Parser
 {
     /** @var \PHPStan\Parser\Parser */
     private $originalParser;
@@ -14,7 +14,7 @@ class CachedParser implements \_PhpScopere8e811afab72\PHPStan\Parser\Parser
     private $cachedNodesByStringCount = 0;
     /** @var int */
     private $cachedNodesByStringCountMax;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Parser\Parser $originalParser, int $cachedNodesByStringCountMax)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Parser\Parser $originalParser, int $cachedNodesByStringCountMax)
     {
         $this->originalParser = $originalParser;
         $this->cachedNodesByStringCountMax = $cachedNodesByStringCountMax;
@@ -29,7 +29,7 @@ class CachedParser implements \_PhpScopere8e811afab72\PHPStan\Parser\Parser
             $this->cachedNodesByString = \array_slice($this->cachedNodesByString, 1, null, \true);
             --$this->cachedNodesByStringCount;
         }
-        $sourceCode = \_PhpScopere8e811afab72\PHPStan\File\FileReader::read($file);
+        $sourceCode = \_PhpScoper0a6b37af0871\PHPStan\File\FileReader::read($file);
         if (!isset($this->cachedNodesByString[$sourceCode])) {
             $this->cachedNodesByString[$sourceCode] = $this->originalParser->parseFile($file);
             $this->cachedNodesByStringCount++;

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\VendorLocker\NodeVendorLocker;
+namespace _PhpScoper0a6b37af0871\Rector\VendorLocker\NodeVendorLocker;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Interface_;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
-use _PhpScopere8e811afab72\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
-use _PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use _PhpScoper0a6b37af0871\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
 abstract class AbstractNodeVendorLockResolver
 {
     /**
@@ -32,19 +32,19 @@ abstract class AbstractNodeVendorLockResolver
     /**
      * @required
      */
-    public function autowireAbstractNodeVendorLockResolver(\_PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer) : void
+    public function autowireAbstractNodeVendorLockResolver(\_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer) : void
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->classManipulator = $classManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
     }
-    protected function hasParentClassChildrenClassesOrImplementsInterface(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike $classLike) : bool
+    protected function hasParentClassChildrenClassesOrImplementsInterface(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike) : bool
     {
-        if (($classLike instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ || $classLike instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Interface_) && $classLike->extends) {
+        if (($classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ || $classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_) && $classLike->extends) {
             return \true;
         }
-        if ($classLike instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_) {
+        if ($classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
             if ((bool) $classLike->implements) {
                 return \true;
             }
@@ -56,7 +56,7 @@ abstract class AbstractNodeVendorLockResolver
     /**
      * @param Class_|Interface_ $classLike
      */
-    protected function isMethodVendorLockedByInterface(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike $classLike, string $methodName) : bool
+    protected function isMethodVendorLockedByInterface(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike, string $methodName) : bool
     {
         $interfaceNames = $this->classManipulator->getClassLikeNodeParentInterfaceNames($classLike);
         foreach ($interfaceNames as $interfaceName) {
@@ -70,9 +70,9 @@ abstract class AbstractNodeVendorLockResolver
     /**
      * @return class-string[]
      */
-    protected function getChildrenClassesByClass(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_ $class) : array
+    protected function getChildrenClassesByClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $desiredClassName = $class->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $desiredClassName = $class->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($desiredClassName === null) {
             return [];
         }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Restoration\ClassMap;
+namespace _PhpScoper0a6b37af0871\Rector\Restoration\ClassMap;
 
-use _PhpScopere8e811afab72\Nette\Loaders\RobotLoader;
-use _PhpScopere8e811afab72\Nette\Utils\Arrays;
-use _PhpScopere8e811afab72\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use _PhpScoper0a6b37af0871\Nette\Loaders\RobotLoader;
+use _PhpScoper0a6b37af0871\Nette\Utils\Arrays;
+use _PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 final class ExistingClassesProvider
 {
     /**
@@ -16,7 +16,7 @@ final class ExistingClassesProvider
      * @var ComposerJsonFactory
      */
     private $composerJsonFactory;
-    public function __construct(\_PhpScopere8e811afab72\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory)
+    public function __construct(\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory)
     {
         $this->composerJsonFactory = $composerJsonFactory;
     }
@@ -42,7 +42,7 @@ final class ExistingClassesProvider
         $composerJsonFilePath = \getcwd() . '/composer.json';
         $composerJson = $this->composerJsonFactory->createFromFilePath($composerJsonFilePath);
         $psr4AndClassmapDirectories = $composerJson->getPsr4AndClassmapDirectories();
-        return \_PhpScopere8e811afab72\Nette\Utils\Arrays::flatten($psr4AndClassmapDirectories);
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Arrays::flatten($psr4AndClassmapDirectories);
     }
     /**
      * @param string[] $directories
@@ -50,7 +50,7 @@ final class ExistingClassesProvider
      */
     private function findClassesInDirectories(array $directories) : array
     {
-        $robotLoader = new \_PhpScopere8e811afab72\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoper0a6b37af0871\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector_restore');
         foreach ($directories as $path) {
             $robotLoader->addDirectory(\getcwd() . '/' . $path);

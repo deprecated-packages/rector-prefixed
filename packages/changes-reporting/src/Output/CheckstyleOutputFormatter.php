@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\ChangesReporting\Output;
+namespace _PhpScoper0a6b37af0871\Rector\ChangesReporting\Output;
 
 use DOMDocument;
-use _PhpScopere8e811afab72\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use _PhpScopere8e811afab72\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
-use _PhpScopere8e811afab72\Rector\ChangesReporting\Xml\CheckstyleDOMElementFactory;
+use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
+use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Xml\CheckstyleDOMElementFactory;
 /**
  * Inspired by https://github.com/phpstan/phpstan-src/commit/fa1f416981438b80e2f39eabd9f1b62fca9a6803#diff-7a7d635d9f9cf3388e34d414731dece3
  */
-final class CheckstyleOutputFormatter implements \_PhpScopere8e811afab72\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
+final class CheckstyleOutputFormatter implements \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
     /**
      * @var string
@@ -20,7 +20,7 @@ final class CheckstyleOutputFormatter implements \_PhpScopere8e811afab72\Rector\
      * @var CheckstyleDOMElementFactory
      */
     private $checkstyleDOMElementFactory;
-    public function __construct(\_PhpScopere8e811afab72\Rector\ChangesReporting\Xml\CheckstyleDOMElementFactory $checkstyleDOMElementFactory)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\ChangesReporting\Xml\CheckstyleDOMElementFactory $checkstyleDOMElementFactory)
     {
         $this->checkstyleDOMElementFactory = $checkstyleDOMElementFactory;
     }
@@ -28,7 +28,7 @@ final class CheckstyleOutputFormatter implements \_PhpScopere8e811afab72\Rector\
     {
         return self::NAME;
     }
-    public function report(\_PhpScopere8e811afab72\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    public function report(\_PhpScoper0a6b37af0871\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         $domDocument = new \DOMDocument('1.0', 'UTF-8');
         $domElement = $this->checkstyleDOMElementFactory->create($domDocument, $errorAndDiffCollector);

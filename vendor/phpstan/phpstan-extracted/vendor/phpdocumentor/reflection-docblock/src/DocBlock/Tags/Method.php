@@ -10,19 +10,19 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Reflection class for an {@}method in a Docblock.
  */
-final class Method extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Method extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'method';
     /** @var string */
@@ -33,12 +33,12 @@ final class Method extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDoc
     private $isStatic = \false;
     /** @var Type */
     private $returnType;
-    public function __construct($methodName, array $arguments = [], \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $returnType = null, $static = \false, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($methodName, array $arguments = [], \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $returnType = null, $static = \false, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($methodName);
-        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::boolean($static);
+        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($methodName);
+        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::boolean($static);
         if ($returnType === null) {
-            $returnType = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_();
+            $returnType = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_();
         }
         $this->methodName = $methodName;
         $this->arguments = $this->filterArguments($arguments);
@@ -49,10 +49,10 @@ final class Method extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDoc
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($body);
-        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
+        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($body);
+        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
         // 1. none or more whitespace
         // 2. optionally the keyword "static" followed by whitespace
         // 3. optionally a word with underscores followed by whitespace : as
@@ -107,7 +107,7 @@ final class Method extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDoc
                 $argument = \explode(' ', self::stripRestArg(\trim($argument)), 2);
                 if ($argument[0][0] === '$') {
                     $argumentName = \substr($argument[0], 1);
-                    $argumentType = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_();
+                    $argumentType = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_();
                 } else {
                     $argumentType = $typeResolver->resolve($argument[0], $context);
                     $argumentName = '';
@@ -170,7 +170,7 @@ final class Method extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDoc
                 $argument = ['name' => $argument];
             }
             if (!isset($argument['type'])) {
-                $argument['type'] = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_();
+                $argument['type'] = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_();
             }
             $keys = \array_keys($argument);
             \sort($keys);

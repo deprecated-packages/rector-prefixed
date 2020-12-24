@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Command\ErrorFormatter;
+namespace _PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter;
 
-use _PhpScopere8e811afab72\PHPStan\Command\AnalysisResult;
-use _PhpScopere8e811afab72\PHPStan\Command\Output;
-use _PhpScopere8e811afab72\PHPStan\File\RelativePathHelper;
+use _PhpScoper0a6b37af0871\PHPStan\Command\AnalysisResult;
+use _PhpScoper0a6b37af0871\PHPStan\Command\Output;
+use _PhpScoper0a6b37af0871\PHPStan\File\RelativePathHelper;
 /**
  * @see https://www.jetbrains.com/help/teamcity/build-script-interaction-with-teamcity.html#Reporting+Inspections
  */
-class TeamcityErrorFormatter implements \_PhpScopere8e811afab72\PHPStan\Command\ErrorFormatter\ErrorFormatter
+class TeamcityErrorFormatter implements \_PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var RelativePathHelper */
     private $relativePathHelper;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\File\RelativePathHelper $relativePathHelper)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\File\RelativePathHelper $relativePathHelper)
     {
         $this->relativePathHelper = $relativePathHelper;
     }
-    public function formatErrors(\_PhpScopere8e811afab72\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScopere8e811afab72\PHPStan\Command\Output $output) : int
+    public function formatErrors(\_PhpScoper0a6b37af0871\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoper0a6b37af0871\PHPStan\Command\Output $output) : int
     {
         $result = '';
         $fileSpecificErrors = $analysisResult->getFileSpecificErrors();

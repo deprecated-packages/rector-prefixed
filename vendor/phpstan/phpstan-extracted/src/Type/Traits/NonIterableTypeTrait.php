@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Type\Traits;
+namespace _PhpScoper0a6b37af0871\PHPStan\Type\Traits;
 
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
-use _PhpScopere8e811afab72\PHPStan\Type\ErrorType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ErrorType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
 trait NonIterableTypeTrait
 {
-    public function isIterable() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isIterable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
-    public function isIterableAtLeastOnce() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
-    public function getIterableKeyType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getIterableKeyType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        return new \_PhpScopere8e811afab72\PHPStan\Type\ErrorType();
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
     }
-    public function getIterableValueType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getIterableValueType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        return new \_PhpScopere8e811afab72\PHPStan\Type\ErrorType();
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
     }
 }

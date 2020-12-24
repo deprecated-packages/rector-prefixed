@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Privatization\Rector\Property;
+namespace _PhpScoper0a6b37af0871\Rector\Privatization\Rector\Property;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Rector\PhpAttribute\ValueObject\TagName;
-use _PhpScopere8e811afab72\Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Rector\PhpAttribute\ValueObject\TagName;
+use _PhpScoper0a6b37af0871\Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Privatization\Tests\Rector\Property\PrivatizeLocalPropertyToPrivatePropertyRector\PrivatizeLocalPropertyToPrivatePropertyRectorTest
  */
-final class PrivatizeLocalPropertyToPrivatePropertyRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class PrivatizeLocalPropertyToPrivatePropertyRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
@@ -25,7 +25,7 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \_PhpScopere8e
     private const ANNOTATIONS_REQUIRING_PUBLIC = [
         'api',
         // Symfony DI
-        \_PhpScopere8e811afab72\Rector\PhpAttribute\ValueObject\TagName::REQUIRED,
+        \_PhpScoper0a6b37af0871\Rector\PhpAttribute\ValueObject\TagName::REQUIRED,
         // other DI
         'inject',
     ];
@@ -33,13 +33,13 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \_PhpScopere8e
      * @var PropertyVisibilityVendorLockResolver
      */
     private $propertyVisibilityVendorLockResolver;
-    public function __construct(\_PhpScopere8e811afab72\Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver $propertyVisibilityVendorLockResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver $propertyVisibilityVendorLockResolver)
     {
         $this->propertyVisibilityVendorLockResolver = $propertyVisibilityVendorLockResolver;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Privatize local-only property to private property', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Privatize local-only property to private property', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public $value;
@@ -68,12 +68,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param Property $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -81,10 +81,10 @@ CODE_SAMPLE
         $propertyFetches = $this->nodeRepository->findPropertyFetchesByProperty($node);
         $usedPropertyFetchClassNames = [];
         foreach ($propertyFetches as $propertyFetch) {
-            $usedPropertyFetchClassNames[] = $propertyFetch->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $usedPropertyFetchClassNames[] = $propertyFetch->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         }
         $usedPropertyFetchClassNames = \array_unique($usedPropertyFetchClassNames);
-        $propertyClassName = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $propertyClassName = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // has external usage
         if ([$propertyClassName] !== $usedPropertyFetchClassNames) {
             return null;
@@ -92,9 +92,9 @@ CODE_SAMPLE
         $this->makePrivate($node);
         return $node;
     }
-    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : bool
+    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : bool
     {
-        $classLike = $property->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $property->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($this->shouldSkipClass($classLike)) {
             return \true;
         }
@@ -109,7 +109,7 @@ CODE_SAMPLE
             return \true;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return \false;
         }
@@ -120,20 +120,20 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function shouldSkipClass(?\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike $classLike) : bool
+    private function shouldSkipClass(?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike) : bool
     {
-        if (!$classLike instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_) {
+        if (!$classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
             return \true;
         }
         if ($this->isAnonymousClass($classLike)) {
             return \true;
         }
-        if ($this->isObjectType($classLike, '_PhpScopere8e811afab72\\PHPUnit\\Framework\\TestCase')) {
+        if ($this->isObjectType($classLike, '_PhpScoper0a6b37af0871\\PHPUnit\\Framework\\TestCase')) {
             return \true;
         }
-        return $this->isObjectType($classLike, '_PhpScopere8e811afab72\\PHP_CodeSniffer\\Sniffs\\Sniff');
+        return $this->isObjectType($classLike, '_PhpScoper0a6b37af0871\\PHP_CodeSniffer\\Sniffs\\Sniff');
     }
-    private function shouldSkipProperty(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property) : bool
+    private function shouldSkipProperty(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : bool
     {
         // already private
         if ($property->isPrivate()) {

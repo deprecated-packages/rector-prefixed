@@ -10,13 +10,13 @@
  *  @license   http://www.opensource.org/licenses/mit-license.php MIT
  *  @link      http://phpdoc.org
  */
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen as RealFqsen;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen as RealFqsen;
 /**
  * Fqsen reference used by {@see phpDocumentor\Reflection\DocBlock\Tags\See}
  */
-final class Fqsen implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
+final class Fqsen implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
 {
     /**
      * @var RealFqsen
@@ -25,7 +25,7 @@ final class Fqsen implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpD
     /**
      * Fqsen constructor.
      */
-    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen $fqsen)
+    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen $fqsen)
     {
         $this->fqsen = $fqsen;
     }

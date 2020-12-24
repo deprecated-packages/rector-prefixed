@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\PhpParser\Parser;
+namespace _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Parser;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt;
-use _PhpScopere8e811afab72\PhpParser\Parser as NikicParser;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
+use _PhpScoper0a6b37af0871\PhpParser\Parser as NikicParser;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
 final class Parser
 {
     /**
@@ -22,7 +22,7 @@ final class Parser
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScopere8e811afab72\PhpParser\Parser $nikicParser, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Parser $nikicParser, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->nikicParser = $nikicParser;
         $this->smartFileSystem = $smartFileSystem;
@@ -30,7 +30,7 @@ final class Parser
     /**
      * @return Node[]
      */
-    public function parseFileInfo(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function parseFileInfo(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $fileRealPath = $smartFileInfo->getRealPath();
         if (isset($this->nodesByFile[$fileRealPath])) {

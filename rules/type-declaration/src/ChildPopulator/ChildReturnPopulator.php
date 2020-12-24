@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\TypeDeclaration\ChildPopulator;
+namespace _PhpScoper0a6b37af0871\Rector\TypeDeclaration\ChildPopulator;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-final class ChildReturnPopulator extends \_PhpScopere8e811afab72\Rector\TypeDeclaration\ChildPopulator\AbstractChildPopulator
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+final class ChildReturnPopulator extends \_PhpScoper0a6b37af0871\Rector\TypeDeclaration\ChildPopulator\AbstractChildPopulator
 {
     /**
      * @var NodeNameResolver
@@ -20,7 +20,7 @@ final class ChildReturnPopulator extends \_PhpScopere8e811afab72\Rector\TypeDecl
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
@@ -28,12 +28,12 @@ final class ChildReturnPopulator extends \_PhpScopere8e811afab72\Rector\TypeDecl
     /**
      * Add typehint to all children class methods
      */
-    public function populateChildren(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScopere8e811afab72\PHPStan\Type\Type $returnType) : void
+    public function populateChildren(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $returnType) : void
     {
         $methodName = $this->nodeNameResolver->getName($classMethod);
-        $className = $classMethod->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($className)) {
-            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
         }
         $childrenClassLikes = $this->nodeRepository->findChildrenOfClass($className);
         if ($childrenClassLikes === []) {
@@ -48,7 +48,7 @@ final class ChildReturnPopulator extends \_PhpScopere8e811afab72\Rector\TypeDecl
             $this->addReturnTypeToChildMethod($childClassLike, $classMethod, $returnType);
         }
     }
-    private function addReturnTypeToChildMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike $classLike, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScopere8e811afab72\PHPStan\Type\Type $returnType) : void
+    private function addReturnTypeToChildMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $returnType) : void
     {
         $methodName = $this->nodeNameResolver->getName($classMethod);
         $currentClassMethod = $classLike->getMethod($methodName);
@@ -61,6 +61,6 @@ final class ChildReturnPopulator extends \_PhpScopere8e811afab72\Rector\TypeDecl
         }
         $currentClassMethod->returnType = $resolvedChildTypeNode;
         // make sure the type is not overridden
-        $currentClassMethod->returnType->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE, \true);
+        $currentClassMethod->returnType->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE, \true);
     }
 }

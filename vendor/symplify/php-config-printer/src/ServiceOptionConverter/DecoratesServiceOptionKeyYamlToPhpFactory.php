@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScopere8e811afab72\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use _PhpScopere8e811afab72\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use _PhpScopere8e811afab72\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
-use _PhpScopere8e811afab72\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter;
-use _PhpScopere8e811afab72\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class DecoratesServiceOptionKeyYamlToPhpFactory implements \_PhpScopere8e811afab72\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
+use _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter;
+use _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class DecoratesServiceOptionKeyYamlToPhpFactory implements \_PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var string
@@ -36,17 +36,17 @@ final class DecoratesServiceOptionKeyYamlToPhpFactory implements \_PhpScopere8e8
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    public function __construct(\_PhpScopere8e811afab72\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \_PhpScopere8e811afab72\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter $yamlArgumentSorter, \_PhpScopere8e811afab72\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
+    public function __construct(\_PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \_PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter $yamlArgumentSorter, \_PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->yamlArgumentSorter = $yamlArgumentSorter;
         $this->commonNodeFactory = $commonNodeFactory;
     }
-    public function decorateServiceMethodCall($key, $yaml, $values, \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall
+    public function decorateServiceMethodCall($key, $yaml, $values, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall
     {
         $arguments = $this->yamlArgumentSorter->sortArgumentsByKeyIfExists($values, [self::DECORATION_INNER_NAME => null, self::DECORATION_PRIORITY => 0, self::DECORATION_ON_INVALID => null]);
         if (isset($arguments[self::DECORATION_ON_INVALID])) {
-            $arguments[self::DECORATION_ON_INVALID] = $arguments[self::DECORATION_ON_INVALID] === 'exception' ? $this->commonNodeFactory->createConstFetch(\_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\ContainerInterface::class, 'EXCEPTION_ON_INVALID_REFERENCE') : $this->commonNodeFactory->createConstFetch(\_PhpScopere8e811afab72\Symfony\Component\DependencyInjection\ContainerInterface::class, 'IGNORE_ON_INVALID_REFERENCE');
+            $arguments[self::DECORATION_ON_INVALID] = $arguments[self::DECORATION_ON_INVALID] === 'exception' ? $this->commonNodeFactory->createConstFetch(\_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\ContainerInterface::class, 'EXCEPTION_ON_INVALID_REFERENCE') : $this->commonNodeFactory->createConstFetch(\_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\ContainerInterface::class, 'IGNORE_ON_INVALID_REFERENCE');
         }
         // Don't write the next arguments if they are null.
         if ($arguments[self::DECORATION_ON_INVALID] === null && $arguments[self::DECORATION_PRIORITY] === 0) {
@@ -57,10 +57,10 @@ final class DecoratesServiceOptionKeyYamlToPhpFactory implements \_PhpScopere8e8
         }
         \array_unshift($arguments, $values['decorates']);
         $args = $this->argsNodeFactory->createFromValues($arguments);
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($methodCall, 'decorate', $args);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall($methodCall, 'decorate', $args);
     }
     public function isMatch($key, $values) : bool
     {
-        return $key === \_PhpScopere8e811afab72\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::DECORATES;
+        return $key === \_PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::DECORATES;
     }
 }

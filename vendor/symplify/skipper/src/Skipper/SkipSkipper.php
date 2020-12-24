@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Symplify\Skipper\Skipper;
+namespace _PhpScoper0a6b37af0871\Symplify\Skipper\Skipper;
 
-use _PhpScopere8e811afab72\Symplify\Skipper\Matcher\FileInfoMatcher;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\Symplify\Skipper\Matcher\FileInfoMatcher;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\Skipper\Tests\Skipper\Skip\SkipSkipperTest
  */
@@ -14,7 +14,7 @@ final class SkipSkipper
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\_PhpScopere8e811afab72\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\_PhpScoper0a6b37af0871\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
@@ -22,7 +22,7 @@ final class SkipSkipper
      * @param object|string $checker
      * @param array<string, string[]|null> $skippedClasses
      */
-    public function doesMatchSkip($checker, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $skippedClasses) : bool
+    public function doesMatchSkip($checker, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $skippedClasses) : bool
     {
         foreach ($skippedClasses as $skippedClass => $skippedFiles) {
             if (!\is_a($checker, $skippedClass, \true)) {

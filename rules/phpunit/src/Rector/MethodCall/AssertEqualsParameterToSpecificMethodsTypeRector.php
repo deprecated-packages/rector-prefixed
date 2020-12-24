@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PHPUnit\Rector\MethodCall;
+namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-8.0.md
  * @see https://github.com/sebastianbergmann/phpunit/commit/90e9e0379584bdf34220322e202617cd56d8ba65
  * @see https://github.com/sebastianbergmann/phpunit/commit/a4b60a5c625ff98a52bb3222301d223be7367483
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertEqualsParameterToSpecificMethodsTypeRector\AssertEqualsParameterToSpecificMethodsTypeRectorTest
  */
-final class AssertEqualsParameterToSpecificMethodsTypeRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertEqualsParameterToSpecificMethodsTypeRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertEquals()/assertNotEquals() method parameters to new specific alternatives', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertEquals()/assertNotEquals() method parameters to new specific alternatives', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
@@ -58,12 +58,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class, \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (!$this->isPHPUnitMethodNames($node, ['assertEquals', 'assertNotEquals'])) {
             return null;
@@ -84,7 +84,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsIgnoringCase(\_PhpScopere8e811afab72\PhpParser\Node $node) : void
+    private function processAssertEqualsIgnoringCase(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : void
     {
         if (isset($node->args[6])) {
             if ($this->isTrue($node->args[6]->value)) {
@@ -100,7 +100,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsCanonicalizing(\_PhpScopere8e811afab72\PhpParser\Node $node) : void
+    private function processAssertEqualsCanonicalizing(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : void
     {
         if (isset($node->args[5])) {
             // add new node only in case of non-default value
@@ -117,7 +117,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsWithDelta(\_PhpScopere8e811afab72\PhpParser\Node $node) : void
+    private function processAssertEqualsWithDelta(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : void
     {
         if (isset($node->args[3])) {
             // add new node only in case of non-default value

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\RectorGenerator\Rector\Closure;
+namespace _PhpScoper0a6b37af0871\Rector\RectorGenerator\Rector\Closure;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Closure;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\RectorGenerator\Contract\InternalRectorInterface;
-use _PhpScopere8e811afab72\Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class AddNewServiceToSymfonyPhpConfigRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\RectorGenerator\Contract\InternalRectorInterface
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\RectorGenerator\Contract\InternalRectorInterface;
+use _PhpScoper0a6b37af0871\Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class AddNewServiceToSymfonyPhpConfigRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\RectorGenerator\Contract\InternalRectorInterface
 {
     /**
      * @var SymfonyPhpConfigClosureAnalyzer
@@ -27,7 +27,7 @@ final class AddNewServiceToSymfonyPhpConfigRector extends \_PhpScopere8e811afab7
      * @var string|null
      */
     private $rectorClass;
-    public function __construct(\_PhpScopere8e811afab72\Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
     {
         $this->symfonyPhpConfigClosureAnalyzer = $symfonyPhpConfigClosureAnalyzer;
     }
@@ -40,12 +40,12 @@ final class AddNewServiceToSymfonyPhpConfigRector extends \_PhpScopere8e811afab7
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Closure::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure::class];
     }
     /**
      * @param Closure $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->rectorClass === null) {
             return null;
@@ -54,12 +54,12 @@ final class AddNewServiceToSymfonyPhpConfigRector extends \_PhpScopere8e811afab7
             return null;
         }
         $methodCall = $this->createServicesSetMethodCall($this->rectorClass);
-        $node->stmts[] = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression($methodCall);
+        $node->stmts[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression($methodCall);
         return $node;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds a new $services->set(...) call to PHP Config', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds a new $services->set(...) call to PHP Config', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -76,11 +76,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 CODE_SAMPLE
 )]);
     }
-    private function createServicesSetMethodCall(string $className) : \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall
+    private function createServicesSetMethodCall(string $className) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall
     {
-        $servicesVariable = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable('services');
-        $referenceClassConstFetch = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified($className), new \_PhpScopere8e811afab72\PhpParser\Node\Identifier('class'));
-        $args = [new \_PhpScopere8e811afab72\PhpParser\Node\Arg($referenceClassConstFetch)];
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($servicesVariable, 'set', $args);
+        $servicesVariable = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable('services');
+        $referenceClassConstFetch = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified($className), new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier('class'));
+        $args = [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($referenceClassConstFetch)];
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall($servicesVariable, 'set', $args);
     }
 }

@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Type\Constant;
+namespace _PhpScoper0a6b37af0871\PHPStan\Type\Constant;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PHPStan\Broker\Broker;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScopere8e811afab72\PHPStan\Reflection\InaccessibleMethod;
-use _PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor;
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
-use _PhpScopere8e811afab72\PHPStan\Type\ClassStringType;
-use _PhpScopere8e811afab72\PHPStan\Type\CompoundType;
-use _PhpScopere8e811afab72\PHPStan\Type\ConstantScalarType;
-use _PhpScopere8e811afab72\PHPStan\Type\ErrorType;
-use _PhpScopere8e811afab72\PHPStan\Type\Generic\GenericClassStringType;
-use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateType;
-use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\PHPStan\Type\StaticType;
-use _PhpScopere8e811afab72\PHPStan\Type\StringType;
-use _PhpScopere8e811afab72\PHPStan\Type\Traits\ConstantScalarTypeTrait;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
-class ConstantStringType extends \_PhpScopere8e811afab72\PHPStan\Type\StringType implements \_PhpScopere8e811afab72\PHPStan\Type\ConstantScalarType
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PHPStan\Broker\Broker;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\InaccessibleMethod;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\TrivialParametersAcceptor;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ClassStringType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\CompoundType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ConstantScalarType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ErrorType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericClassStringType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\StaticType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\StringType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\ConstantScalarTypeTrait;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
+class ConstantStringType extends \_PhpScoper0a6b37af0871\PHPStan\Type\StringType implements \_PhpScoper0a6b37af0871\PHPStan\Type\ConstantScalarType
 {
     private const DESCRIBE_LIMIT = 20;
     use ConstantScalarTypeTrait;
@@ -44,7 +44,7 @@ class ConstantStringType extends \_PhpScopere8e811afab72\PHPStan\Type\StringType
     {
         return $this->isClassString;
     }
-    public function describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel $level) : string
     {
         return $level->handle(static function () : string {
             return 'string';
@@ -53,8 +53,8 @@ class ConstantStringType extends \_PhpScopere8e811afab72\PHPStan\Type\StringType
                 return \var_export($this->value, \true);
             }
             try {
-                $truncatedValue = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT);
-            } catch (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\RegexpException $e) {
+                $truncatedValue = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT);
+            } catch (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\RegexpException $e) {
                 $truncatedValue = \substr($this->value, 0, self::DESCRIBE_LIMIT) . "…";
             }
             return \var_export($truncatedValue, \true);
@@ -62,163 +62,163 @@ class ConstantStringType extends \_PhpScopere8e811afab72\PHPStan\Type\StringType
             return \var_export($this->value, \true);
         });
     }
-    public function isSuperTypeOf(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\Generic\GenericClassStringType) {
+        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericClassStringType) {
             $genericType = $type->getGenericType();
-            if ($genericType instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
-                return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
+            if ($genericType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType) {
+                return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
             }
-            if ($genericType instanceof \_PhpScopere8e811afab72\PHPStan\Type\StaticType) {
+            if ($genericType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\StaticType) {
                 $genericType = $genericType->getStaticObjectType();
             }
             // We are transforming constant class-string to ObjectType. But we need to filter out
             // an uncertainty originating in possible ObjectType's class subtypes.
-            $objectType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($this->getValue());
+            $objectType = new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType($this->getValue());
             // Do not use TemplateType's isSuperTypeOf handling directly because it takes ObjectType
             // uncertainty into account.
-            if ($genericType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateType) {
+            if ($genericType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateType) {
                 $isSuperType = $genericType->getBound()->isSuperTypeOf($objectType);
             } else {
                 $isSuperType = $genericType->isSuperTypeOf($objectType);
             }
             // Explicitly handle the uncertainty for Yes & Maybe.
             if ($isSuperType->yes()) {
-                return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
+                return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
             }
-            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
         }
-        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\ClassStringType) {
-            $broker = \_PhpScopere8e811afab72\PHPStan\Broker\Broker::getInstance();
-            return $broker->hasClass($this->getValue()) ? \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ClassStringType) {
+            $broker = \_PhpScoper0a6b37af0871\PHPStan\Broker\Broker::getInstance();
+            return $broker->hasClass($this->getValue()) ? \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
         }
         if ($type instanceof self) {
-            return $this->value === $type->value ? \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+            return $this->value === $type->value ? \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
         }
         if ($type instanceof parent) {
-            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
+            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
         }
-        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\CompoundType) {
+        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
-    public function isCallable() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isCallable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
         if ($this->value === '') {
-            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
         }
-        $broker = \_PhpScopere8e811afab72\PHPStan\Broker\Broker::getInstance();
+        $broker = \_PhpScoper0a6b37af0871\PHPStan\Broker\Broker::getInstance();
         // 'my_function'
-        if ($broker->hasFunction(new \_PhpScopere8e811afab72\PhpParser\Node\Name($this->value), null)) {
-            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes();
+        if ($broker->hasFunction(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($this->value), null)) {
+            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
+        $matches = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
         if ($matches !== null) {
             if (!$broker->hasClass($matches[1])) {
-                return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
+                return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
             }
             $classRef = $broker->getClass($matches[1]);
             if ($classRef->hasMethod($matches[2])) {
-                return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes();
+                return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
             }
             if (!$classRef->getNativeReflection()->isFinal()) {
-                return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
+                return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
             }
-            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
         }
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        $broker = \_PhpScopere8e811afab72\PHPStan\Broker\Broker::getInstance();
+        $broker = \_PhpScoper0a6b37af0871\PHPStan\Broker\Broker::getInstance();
         // 'my_function'
-        $functionName = new \_PhpScopere8e811afab72\PhpParser\Node\Name($this->value);
+        $functionName = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($this->value);
         if ($broker->hasFunction($functionName, null)) {
             return $broker->getFunction($functionName, null)->getVariants();
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
+        $matches = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
         if ($matches !== null) {
             if (!$broker->hasClass($matches[1])) {
-                return [new \_PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor()];
+                return [new \_PhpScoper0a6b37af0871\PHPStan\Reflection\TrivialParametersAcceptor()];
             }
             $classReflection = $broker->getClass($matches[1]);
             if ($classReflection->hasMethod($matches[2])) {
                 $method = $classReflection->getMethod($matches[2], $scope);
                 if (!$scope->canCallMethod($method)) {
-                    return [new \_PhpScopere8e811afab72\PHPStan\Reflection\InaccessibleMethod($method)];
+                    return [new \_PhpScoper0a6b37af0871\PHPStan\Reflection\InaccessibleMethod($method)];
                 }
                 return $method->getVariants();
             }
             if (!$classReflection->getNativeReflection()->isFinal()) {
-                return [new \_PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor()];
+                return [new \_PhpScoper0a6b37af0871\PHPStan\Reflection\TrivialParametersAcceptor()];
             }
         }
-        throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
     }
-    public function toNumber() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function toNumber() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         if (\is_numeric($this->value)) {
             /** @var mixed $value */
             $value = $this->value;
             $value = +$value;
             if (\is_float($value)) {
-                return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantFloatType($value);
+                return new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantFloatType($value);
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType($value);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType($value);
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Type\ErrorType();
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
     }
-    public function toInteger() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function toInteger() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $type = $this->toNumber();
-        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType) {
+        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType) {
             return $type;
         }
         return $type->toInteger();
     }
-    public function toFloat() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function toFloat() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $type = $this->toNumber();
-        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType) {
+        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType) {
             return $type;
         }
         return $type->toFloat();
     }
-    public function isNumericString() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isNumericString() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean(\is_numeric($this->getValue()));
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createFromBoolean(\is_numeric($this->getValue()));
     }
-    public function hasOffsetValueType(\_PhpScopere8e811afab72\PHPStan\Type\Type $offsetType) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        if ($offsetType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType) {
-            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean($offsetType->getValue() < \strlen($this->value));
+        if ($offsetType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType) {
+            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createFromBoolean($offsetType->getValue() < \strlen($this->value));
         }
         return parent::hasOffsetValueType($offsetType);
     }
-    public function getOffsetValueType(\_PhpScopere8e811afab72\PHPStan\Type\Type $offsetType) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getOffsetValueType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        if ($offsetType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType) {
+        if ($offsetType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType) {
             if ($offsetType->getValue() < \strlen($this->value)) {
                 return new self($this->value[$offsetType->getValue()]);
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Type\ErrorType();
+            return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
         }
         return parent::getOffsetValueType($offsetType);
     }
-    public function setOffsetValueType(?\_PhpScopere8e811afab72\PHPStan\Type\Type $offsetType, \_PhpScopere8e811afab72\PHPStan\Type\Type $valueType) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function setOffsetValueType(?\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $valueType) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $valueStringType = $valueType->toString();
-        if ($valueStringType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType) {
-            return new \_PhpScopere8e811afab72\PHPStan\Type\ErrorType();
+        if ($valueStringType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType) {
+            return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
         }
-        if ($offsetType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantIntegerType && $valueStringType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType) {
+        if ($offsetType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType && $valueStringType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType) {
             $value = $this->value;
             $value[$offsetType->getValue()] = $valueStringType->getValue();
             return new self($value);
@@ -229,18 +229,18 @@ class ConstantStringType extends \_PhpScopere8e811afab72\PHPStan\Type\StringType
     {
         return new self($this->getValue() . $otherString->getValue());
     }
-    public function generalize() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function generalize() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         if ($this->isClassString) {
-            return new \_PhpScopere8e811afab72\PHPStan\Type\ClassStringType();
+            return new \_PhpScoper0a6b37af0871\PHPStan\Type\ClassStringType();
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Type\StringType();
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\StringType();
     }
     /**
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return new self($properties['value'], $properties['isClassString'] ?? \false);
     }

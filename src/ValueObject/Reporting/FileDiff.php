@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\ValueObject\Reporting;
+namespace _PhpScoper0a6b37af0871\Rector\Core\ValueObject\Reporting;
 
-use _PhpScopere8e811afab72\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiff
 {
     /**
@@ -26,7 +26,7 @@ final class FileDiff
     /**
      * @param RectorWithFileAndLineChange[] $rectorWithFileAndLineChanges
      */
-    public function __construct(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $diffConsoleFormatted, array $rectorWithFileAndLineChanges = [])
+    public function __construct(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $diffConsoleFormatted, array $rectorWithFileAndLineChanges = [])
     {
         $this->smartFileInfo = $smartFileInfo;
         $this->diff = $diff;
@@ -45,7 +45,7 @@ final class FileDiff
     {
         return $this->smartFileInfo->getRelativeFilePath();
     }
-    public function getFileInfo() : \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->smartFileInfo;
     }

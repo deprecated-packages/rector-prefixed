@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
 final class PropertyFetchAssignManipulator
 {
     /**
@@ -19,7 +19,7 @@ final class PropertyFetchAssignManipulator
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -27,11 +27,11 @@ final class PropertyFetchAssignManipulator
     /**
      * @return string[]
      */
-    public function getPropertyNamesOfAssignOfVariable(\_PhpScopere8e811afab72\PhpParser\Node $node, string $paramName) : array
+    public function getPropertyNamesOfAssignOfVariable(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $paramName) : array
     {
         $propertyNames = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($node, function (\_PhpScopere8e811afab72\PhpParser\Node $node) use($paramName, &$propertyNames) {
-            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($node, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($paramName, &$propertyNames) {
+            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
                 return null;
             }
             if (!$this->isVariableAssignToThisPropertyFetch($node, $paramName)) {
@@ -50,15 +50,15 @@ final class PropertyFetchAssignManipulator
      * Matches:
      * "$this->someValue = $<variableName>;"
      */
-    private function isVariableAssignToThisPropertyFetch(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, string $variableName) : bool
+    private function isVariableAssignToThisPropertyFetch(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign, string $variableName) : bool
     {
-        if (!$assign->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
+        if (!$assign->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($assign->expr, $variableName)) {
             return \false;
         }
-        if (!$assign->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$assign->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
         $propertyFetch = $assign->var;

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PHPStan\Type;
+namespace _PhpScoper0a6b37af0871\Rector\PHPStan\Type;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Use_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\UseUse;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-final class AliasedObjectType extends \_PhpScopere8e811afab72\PHPStan\Type\ObjectType
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\UseUse;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+final class AliasedObjectType extends \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType
 {
     /**
      * @var string
@@ -23,12 +23,12 @@ final class AliasedObjectType extends \_PhpScopere8e811afab72\PHPStan\Type\Objec
     {
         return $this->fullyQualifiedClass;
     }
-    public function getUseNode() : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Use_
+    public function getUseNode() : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_
     {
-        $name = new \_PhpScopere8e811afab72\PhpParser\Node\Name($this->fullyQualifiedClass);
-        $useUse = new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\UseUse($name, $this->getClassName());
-        $name->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $useUse);
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Use_([$useUse]);
+        $name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($this->fullyQualifiedClass);
+        $useUse = new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\UseUse($name, $this->getClassName());
+        $name->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $useUse);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_([$useUse]);
     }
     public function getShortName() : string
     {
@@ -37,7 +37,7 @@ final class AliasedObjectType extends \_PhpScopere8e811afab72\PHPStan\Type\Objec
     /**
      * @param AliasedObjectType|FullyQualifiedObjectType $comparedObjectType
      */
-    public function areShortNamesEqual(\_PhpScopere8e811afab72\PHPStan\Type\ObjectType $comparedObjectType) : bool
+    public function areShortNamesEqual(\_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType $comparedObjectType) : bool
     {
         return $this->getShortName() === $comparedObjectType->getShortName();
     }

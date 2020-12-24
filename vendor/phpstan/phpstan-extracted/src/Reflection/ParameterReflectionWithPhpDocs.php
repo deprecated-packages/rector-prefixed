@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection;
 
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-interface ParameterReflectionWithPhpDocs extends \_PhpScopere8e811afab72\PHPStan\Reflection\ParameterReflection
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+interface ParameterReflectionWithPhpDocs extends \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflection
 {
-    public function getPhpDocType() : \_PhpScopere8e811afab72\PHPStan\Type\Type;
-    public function getNativeType() : \_PhpScopere8e811afab72\PHPStan\Type\Type;
+    public function getPhpDocType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
+    public function getNativeType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
 }

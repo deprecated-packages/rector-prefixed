@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\DependencyInjection\Type;
+namespace _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type;
 
-use _PhpScopere8e811afab72\PHPStan\Type\DynamicReturnTypeExtensionRegistry;
+use _PhpScoper0a6b37af0871\PHPStan\Type\DynamicReturnTypeExtensionRegistry;
 interface DynamicReturnTypeExtensionRegistryProvider
 {
-    public function getRegistry() : \_PhpScopere8e811afab72\PHPStan\Type\DynamicReturnTypeExtensionRegistry;
+    public function getRegistry() : \_PhpScoper0a6b37af0871\PHPStan\Type\DynamicReturnTypeExtensionRegistry;
 }

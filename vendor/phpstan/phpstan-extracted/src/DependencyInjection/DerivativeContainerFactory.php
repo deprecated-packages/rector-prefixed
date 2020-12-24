@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\DependencyInjection;
+namespace _PhpScoper0a6b37af0871\PHPStan\DependencyInjection;
 
 class DerivativeContainerFactory
 {
@@ -45,9 +45,9 @@ class DerivativeContainerFactory
      * @param string[] $additionalConfigFiles
      * @return \PHPStan\DependencyInjection\Container
      */
-    public function create(array $additionalConfigFiles) : \_PhpScopere8e811afab72\PHPStan\DependencyInjection\Container
+    public function create(array $additionalConfigFiles) : \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container
     {
-        $containerFactory = new \_PhpScopere8e811afab72\PHPStan\DependencyInjection\ContainerFactory($this->currentWorkingDirectory);
+        $containerFactory = new \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\ContainerFactory($this->currentWorkingDirectory);
         return $containerFactory->create($this->tempDirectory, \array_merge($this->additionalConfigFiles, $additionalConfigFiles), $this->analysedPaths, $this->composerAutoloaderProjectPaths, $this->analysedPathsFromConfig, $this->usedLevel, $this->generateBaselineFile);
     }
 }

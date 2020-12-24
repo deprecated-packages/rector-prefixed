@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
+namespace _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
-use _PhpScopere8e811afab72\Rector\CodingStyle\Naming\ClassNaming;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a6b37af0871\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -33,27 +33,27 @@ trait NameResolverTrait
     /**
      * @required
      */
-    public function autowireNameResolverTrait(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\CodingStyle\Naming\ClassNaming $classNaming) : void
+    public function autowireNameResolverTrait(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\CodingStyle\Naming\ClassNaming $classNaming) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->classNaming = $classNaming;
     }
-    public function isName(\_PhpScopere8e811afab72\PhpParser\Node $node, string $name) : bool
+    public function isName(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $name) : bool
     {
         return $this->nodeNameResolver->isName($node, $name);
     }
-    public function areNamesEqual(\_PhpScopere8e811afab72\PhpParser\Node $firstNode, \_PhpScopere8e811afab72\PhpParser\Node $secondNode) : bool
+    public function areNamesEqual(\_PhpScoper0a6b37af0871\PhpParser\Node $firstNode, \_PhpScoper0a6b37af0871\PhpParser\Node $secondNode) : bool
     {
         return $this->nodeNameResolver->areNamesEqual($firstNode, $secondNode);
     }
     /**
      * @param string[] $names
      */
-    public function isNames(\_PhpScopere8e811afab72\PhpParser\Node $node, array $names) : bool
+    public function isNames(\_PhpScoper0a6b37af0871\PhpParser\Node $node, array $names) : bool
     {
         return $this->nodeNameResolver->isNames($node, $names);
     }
-    public function getName(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?string
+    public function getName(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?string
     {
         return $this->nodeNameResolver->getName($node);
     }
@@ -64,19 +64,19 @@ trait NameResolverTrait
     {
         return $this->classNaming->getShortName($name);
     }
-    protected function isLocalPropertyFetchNamed(\_PhpScopere8e811afab72\PhpParser\Node $node, string $name) : bool
+    protected function isLocalPropertyFetchNamed(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $name) : bool
     {
         return $this->nodeNameResolver->isLocalPropertyFetchNamed($node, $name);
     }
-    protected function isLocalMethodCallNamed(\_PhpScopere8e811afab72\PhpParser\Node $node, string $name) : bool
+    protected function isLocalMethodCallNamed(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $name) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if ($node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
+        if ($node->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
-        if ($node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if ($node->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         if (!$this->isName($node->var, 'this')) {
@@ -87,7 +87,7 @@ trait NameResolverTrait
     /**
      * @param string[] $names
      */
-    protected function isLocalMethodCallsNamed(\_PhpScopere8e811afab72\PhpParser\Node $node, array $names) : bool
+    protected function isLocalMethodCallsNamed(\_PhpScoper0a6b37af0871\PhpParser\Node $node, array $names) : bool
     {
         foreach ($names as $name) {
             if ($this->isLocalMethodCallNamed($node, $name)) {
@@ -96,9 +96,9 @@ trait NameResolverTrait
         }
         return \false;
     }
-    protected function isFuncCallName(\_PhpScopere8e811afab72\PhpParser\Node $node, string $name) : bool
+    protected function isFuncCallName(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $name) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
         return $this->isName($node, $name);
@@ -106,9 +106,9 @@ trait NameResolverTrait
     /**
      * Detects "SomeClass::class"
      */
-    protected function isClassConstReference(\_PhpScopere8e811afab72\PhpParser\Node $node, string $className) : bool
+    protected function isClassConstReference(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $className) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch) {
             return \false;
         }
         if (!$this->isName($node->name, 'class')) {
@@ -116,13 +116,13 @@ trait NameResolverTrait
         }
         return $this->isName($node->class, $className);
     }
-    protected function isStaticCallNamed(\_PhpScopere8e811afab72\PhpParser\Node $node, string $className, string $methodName) : bool
+    protected function isStaticCallNamed(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $className, string $methodName) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
         // handles (new Some())->...
-        if ($node->class instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr) {
+        if ($node->class instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr) {
             if (!$this->isObjectType($node->class, $className)) {
                 return \false;
             }
@@ -134,7 +134,7 @@ trait NameResolverTrait
     /**
      * @param string[] $methodNames
      */
-    protected function isStaticCallsNamed(\_PhpScopere8e811afab72\PhpParser\Node $node, string $className, array $methodNames) : bool
+    protected function isStaticCallsNamed(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $className, array $methodNames) : bool
     {
         foreach ($methodNames as $methodName) {
             if ($this->isStaticCallNamed($node, $className, $methodName)) {
@@ -143,15 +143,15 @@ trait NameResolverTrait
         }
         return \false;
     }
-    protected function isMethodCall(\_PhpScopere8e811afab72\PhpParser\Node $node, string $variableName, string $methodName) : bool
+    protected function isMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $variableName, string $methodName) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if ($node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if ($node->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if ($node->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
+        if ($node->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
         if (!$this->isName($node->var, $variableName)) {
@@ -159,16 +159,16 @@ trait NameResolverTrait
         }
         return $this->isName($node->name, $methodName);
     }
-    protected function isVariableName(?\_PhpScopere8e811afab72\PhpParser\Node $node, string $name) : bool
+    protected function isVariableName(?\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $name) : bool
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
             return \false;
         }
         return $this->isName($node, $name);
     }
-    protected function isInClassNamed(\_PhpScopere8e811afab72\PhpParser\Node $node, string $desiredClassName) : bool
+    protected function isInClassNamed(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $desiredClassName) : bool
     {
-        $className = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
@@ -177,7 +177,7 @@ trait NameResolverTrait
     /**
      * @param string[] $desiredClassNames
      */
-    protected function isInClassesNamed(\_PhpScopere8e811afab72\PhpParser\Node $node, array $desiredClassNames) : bool
+    protected function isInClassesNamed(\_PhpScoper0a6b37af0871\PhpParser\Node $node, array $desiredClassNames) : bool
     {
         foreach ($desiredClassNames as $desiredClassName) {
             if ($this->isInClassNamed($node, $desiredClassName)) {
@@ -189,7 +189,7 @@ trait NameResolverTrait
     /**
      * @param string[] $names
      */
-    protected function isFuncCallNames(\_PhpScopere8e811afab72\PhpParser\Node $node, array $names) : bool
+    protected function isFuncCallNames(\_PhpScoper0a6b37af0871\PhpParser\Node $node, array $names) : bool
     {
         return $this->nodeNameResolver->isFuncCallNames($node, $names);
     }

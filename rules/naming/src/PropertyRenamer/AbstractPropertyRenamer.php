@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Naming\PropertyRenamer;
+namespace _PhpScoper0a6b37af0871\Rector\Naming\PropertyRenamer;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
-use _PhpScopere8e811afab72\PhpParser\Node\VarLikeIdentifier;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScopere8e811afab72\Rector\Naming\Contract\Guard\ConflictingGuardInterface;
-use _PhpScopere8e811afab72\Rector\Naming\Contract\RenameGuard\RenameGuardInterface;
-use _PhpScopere8e811afab72\Rector\Naming\Contract\RenamerInterface;
-use _PhpScopere8e811afab72\Rector\Naming\Contract\RenameValueObjectInterface;
-use _PhpScopere8e811afab72\Rector\Naming\Guard\DateTimeAtNamingConventionGuard;
-use _PhpScopere8e811afab72\Rector\Naming\Guard\HasMagicGetSetGuard;
-use _PhpScopere8e811afab72\Rector\Naming\Guard\NotPrivatePropertyGuard;
-use _PhpScopere8e811afab72\Rector\Naming\Guard\RamseyUuidInterfaceGuard;
-use _PhpScopere8e811afab72\Rector\Naming\RenameGuard\PropertyRenameGuard;
-use _PhpScopere8e811afab72\Rector\Naming\ValueObject\PropertyRename;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
-abstract class AbstractPropertyRenamer implements \_PhpScopere8e811afab72\Rector\Naming\Contract\RenamerInterface
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a6b37af0871\PhpParser\Node\VarLikeIdentifier;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoper0a6b37af0871\Rector\Naming\Contract\Guard\ConflictingGuardInterface;
+use _PhpScoper0a6b37af0871\Rector\Naming\Contract\RenameGuard\RenameGuardInterface;
+use _PhpScoper0a6b37af0871\Rector\Naming\Contract\RenamerInterface;
+use _PhpScoper0a6b37af0871\Rector\Naming\Contract\RenameValueObjectInterface;
+use _PhpScoper0a6b37af0871\Rector\Naming\Guard\DateTimeAtNamingConventionGuard;
+use _PhpScoper0a6b37af0871\Rector\Naming\Guard\HasMagicGetSetGuard;
+use _PhpScoper0a6b37af0871\Rector\Naming\Guard\NotPrivatePropertyGuard;
+use _PhpScoper0a6b37af0871\Rector\Naming\Guard\RamseyUuidInterfaceGuard;
+use _PhpScoper0a6b37af0871\Rector\Naming\RenameGuard\PropertyRenameGuard;
+use _PhpScoper0a6b37af0871\Rector\Naming\ValueObject\PropertyRename;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+abstract class AbstractPropertyRenamer implements \_PhpScoper0a6b37af0871\Rector\Naming\Contract\RenamerInterface
 {
     /**
      * @var RenameGuardInterface
@@ -58,7 +58,7 @@ abstract class AbstractPropertyRenamer implements \_PhpScopere8e811afab72\Rector
     /**
      * @required
      */
-    public function autowireAbstractPropertyRenamer(\_PhpScopere8e811afab72\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \_PhpScopere8e811afab72\Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \_PhpScopere8e811afab72\Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \_PhpScopere8e811afab72\Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \_PhpScopere8e811afab72\Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard) : void
+    public function autowireAbstractPropertyRenamer(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \_PhpScoper0a6b37af0871\Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \_PhpScoper0a6b37af0871\Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \_PhpScoper0a6b37af0871\Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \_PhpScoper0a6b37af0871\Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard) : void
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -72,7 +72,7 @@ abstract class AbstractPropertyRenamer implements \_PhpScopere8e811afab72\Rector
      * @param PropertyRename $renameValueObject
      * @return Property|null
      */
-    public function rename(\_PhpScopere8e811afab72\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function rename(\_PhpScoper0a6b37af0871\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (!$this->areNamesDifferent($renameValueObject)) {
             return null;
@@ -81,27 +81,27 @@ abstract class AbstractPropertyRenamer implements \_PhpScopere8e811afab72\Rector
             return null;
         }
         $onlyPropertyProperty = $renameValueObject->getPropertyProperty();
-        $onlyPropertyProperty->name = new \_PhpScopere8e811afab72\PhpParser\Node\VarLikeIdentifier($renameValueObject->getExpectedName());
+        $onlyPropertyProperty->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\VarLikeIdentifier($renameValueObject->getExpectedName());
         $this->renamePropertyFetchesInClass($renameValueObject);
         return $renameValueObject->getProperty();
     }
-    private function areNamesDifferent(\_PhpScopere8e811afab72\Rector\Naming\ValueObject\PropertyRename $propertyRename) : bool
+    private function areNamesDifferent(\_PhpScoper0a6b37af0871\Rector\Naming\ValueObject\PropertyRename $propertyRename) : bool
     {
         return $propertyRename->getCurrentName() !== $propertyRename->getExpectedName();
     }
-    private function renamePropertyFetchesInClass(\_PhpScopere8e811afab72\Rector\Naming\ValueObject\PropertyRename $propertyRename) : void
+    private function renamePropertyFetchesInClass(\_PhpScoper0a6b37af0871\Rector\Naming\ValueObject\PropertyRename $propertyRename) : void
     {
         // 1. replace property fetch rename in whole class
-        $this->callableNodeTraverser->traverseNodesWithCallable($propertyRename->getClassLike(), function (\_PhpScopere8e811afab72\PhpParser\Node $node) use($propertyRename) : ?Node {
-            if ($this->nodeNameResolver->isLocalPropertyFetchNamed($node, $propertyRename->getCurrentName()) && $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
-                $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($propertyRename->getExpectedName());
+        $this->callableNodeTraverser->traverseNodesWithCallable($propertyRename->getClassLike(), function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($propertyRename) : ?Node {
+            if ($this->nodeNameResolver->isLocalPropertyFetchNamed($node, $propertyRename->getCurrentName()) && $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
+                $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($propertyRename->getExpectedName());
                 return $node;
             }
             if ($this->nodeNameResolver->isLocalStaticPropertyFetchNamed($node, $propertyRename->getCurrentName())) {
-                if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch) {
+                if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticPropertyFetch) {
                     return null;
                 }
-                $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\VarLikeIdentifier($propertyRename->getExpectedName());
+                $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\VarLikeIdentifier($propertyRename->getExpectedName());
                 return $node;
             }
             return null;

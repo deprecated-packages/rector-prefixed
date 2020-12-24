@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Rules\Methods;
+namespace _PhpScoper0a6b37af0871\PHPStan\Rules\Methods;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Node\InClassMethodNode;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use _PhpScopere8e811afab72\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
-use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
-use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper;
-use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\TypehintHelper;
-use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
-use _PhpScopere8e811afab72\PHPStan\Type\VoidType;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Node\InClassMethodNode;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper;
+use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypehintHelper;
+use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
+use _PhpScoper0a6b37af0871\PHPStan\Type\VoidType;
 /**
  * @implements \PHPStan\Rules\Rule<InClassMethodNode>
  */
-class MethodSignatureRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
+class MethodSignatureRule implements \_PhpScoper0a6b37af0871\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $reportMaybes;
@@ -34,12 +34,12 @@ class MethodSignatureRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \_PhpScopere8e811afab72\PHPStan\Node\InClassMethodNode::class;
+        return \_PhpScoper0a6b37af0871\PHPStan\Node\InClassMethodNode::class;
     }
-    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : array
     {
         $method = $scope->getFunction();
-        if (!$method instanceof \_PhpScopere8e811afab72\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection) {
+        if (!$method instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection) {
             return [];
         }
         $methodName = $method->getName();
@@ -52,7 +52,7 @@ class MethodSignatureRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
         if ($method->isPrivate()) {
             return [];
         }
-        $parameters = \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants());
+        $parameters = \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants());
         $errors = [];
         foreach ($this->collectParentMethods($methodName, $method->getDeclaringClass()) as $parentMethod) {
             $parentVariants = $parentMethod->getVariants();
@@ -60,12 +60,12 @@ class MethodSignatureRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
                 continue;
             }
             $parentParameters = $parentVariants[0];
-            if (!$parentParameters instanceof \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
+            if (!$parentParameters instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
                 continue;
             }
             [$returnTypeCompatibility, $returnType, $parentReturnType] = $this->checkReturnTypeCompatibility($parameters, $parentParameters);
             if ($returnTypeCompatibility->no() || !$returnTypeCompatibility->yes() && $this->reportMaybes) {
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Return type (%s) of method %s::%s() should be %s with return type (%s) of method %s::%s()', $returnType->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::value()), $method->getDeclaringClass()->getDisplayName(), $method->getName(), $returnTypeCompatibility->no() ? 'compatible' : 'covariant', $parentReturnType->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::value()), $parentMethod->getDeclaringClass()->getDisplayName(), $parentMethod->getName()))->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Return type (%s) of method %s::%s() should be %s with return type (%s) of method %s::%s()', $returnType->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::value()), $method->getDeclaringClass()->getDisplayName(), $method->getName(), $returnTypeCompatibility->no() ? 'compatible' : 'covariant', $parentReturnType->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::value()), $parentMethod->getDeclaringClass()->getDisplayName(), $parentMethod->getName()))->build();
             }
             $parameterResults = $this->checkParameterTypeCompatibility($parameters->getParameters(), $parentParameters->getParameters());
             foreach ($parameterResults as $parameterIndex => [$parameterResult, $parameterType, $parentParameterType]) {
@@ -77,7 +77,7 @@ class MethodSignatureRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
                 }
                 $parameter = $parameters->getParameters()[$parameterIndex];
                 $parentParameter = $parentParameters->getParameters()[$parameterIndex];
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Parameter #%d $%s (%s) of method %s::%s() should be %s with parameter $%s (%s) of method %s::%s()', $parameterIndex + 1, $parameter->getName(), $parameterType->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::value()), $method->getDeclaringClass()->getDisplayName(), $method->getName(), $parameterResult->no() ? 'compatible' : 'contravariant', $parentParameter->getName(), $parentParameterType->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::value()), $parentMethod->getDeclaringClass()->getDisplayName(), $parentMethod->getName()))->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Parameter #%d $%s (%s) of method %s::%s() should be %s with parameter $%s (%s) of method %s::%s()', $parameterIndex + 1, $parameter->getName(), $parameterType->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::value()), $method->getDeclaringClass()->getDisplayName(), $method->getName(), $parameterResult->no() ? 'compatible' : 'contravariant', $parentParameter->getName(), $parentParameterType->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::value()), $parentMethod->getDeclaringClass()->getDisplayName(), $parentMethod->getName()))->build();
             }
         }
         return $errors;
@@ -87,7 +87,7 @@ class MethodSignatureRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
      * @param \PHPStan\Reflection\ClassReflection $class
      * @return \PHPStan\Reflection\MethodReflection[]
      */
-    private function collectParentMethods(string $methodName, \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $class) : array
+    private function collectParentMethods(string $methodName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $class) : array
     {
         $parentMethods = [];
         $parentClass = $class->getParentClass();
@@ -110,19 +110,19 @@ class MethodSignatureRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
      * @param ParametersAcceptorWithPhpDocs $parentVariant
      * @return array{TrinaryLogic, Type, Type}
      */
-    private function checkReturnTypeCompatibility(\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $currentVariant, \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parentVariant) : array
+    private function checkReturnTypeCompatibility(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $currentVariant, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parentVariant) : array
     {
-        $returnType = \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideType($currentVariant->getNativeReturnType(), \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($currentVariant->getPhpDocReturnType()));
-        $parentReturnType = \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideType($parentVariant->getNativeReturnType(), \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($parentVariant->getPhpDocReturnType()));
+        $returnType = \_PhpScoper0a6b37af0871\PHPStan\Type\TypehintHelper::decideType($currentVariant->getNativeReturnType(), \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($currentVariant->getPhpDocReturnType()));
+        $parentReturnType = \_PhpScoper0a6b37af0871\PHPStan\Type\TypehintHelper::decideType($parentVariant->getNativeReturnType(), \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($parentVariant->getPhpDocReturnType()));
         // Allow adding `void` return type hints when the parent defines no return type
-        if ($returnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\VoidType && $parentReturnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType) {
-            return [\_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes(), $returnType, $parentReturnType];
+        if ($returnType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\VoidType && $parentReturnType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType) {
+            return [\_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes(), $returnType, $parentReturnType];
         }
         // We can return anything
-        if ($parentReturnType instanceof \_PhpScopere8e811afab72\PHPStan\Type\VoidType) {
-            return [\_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createYes(), $returnType, $parentReturnType];
+        if ($parentReturnType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\VoidType) {
+            return [\_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes(), $returnType, $parentReturnType];
         }
-        return [$parentReturnType->isSuperTypeOf($returnType), \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideType($currentVariant->getNativeReturnType(), $currentVariant->getPhpDocReturnType()), $parentReturnType];
+        return [$parentReturnType->isSuperTypeOf($returnType), \_PhpScoper0a6b37af0871\PHPStan\Type\TypehintHelper::decideType($currentVariant->getNativeReturnType(), $currentVariant->getPhpDocReturnType()), $parentReturnType];
     }
     /**
      * @param \PHPStan\Reflection\ParameterReflectionWithPhpDocs[] $parameters
@@ -136,9 +136,9 @@ class MethodSignatureRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
         for ($i = 0; $i < $numberOfParameters; $i++) {
             $parameter = $parameters[$i];
             $parentParameter = $parentParameters[$i];
-            $parameterType = \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideType($parameter->getNativeType(), \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($parameter->getPhpDocType()));
-            $parentParameterType = \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideType($parentParameter->getNativeType(), \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($parentParameter->getPhpDocType()));
-            $parameterResults[] = [$parameterType->isSuperTypeOf($parentParameterType), \_PhpScopere8e811afab72\PHPStan\Type\TypehintHelper::decideType($parameter->getNativeType(), $parameter->getPhpDocType()), $parentParameterType];
+            $parameterType = \_PhpScoper0a6b37af0871\PHPStan\Type\TypehintHelper::decideType($parameter->getNativeType(), \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($parameter->getPhpDocType()));
+            $parentParameterType = \_PhpScoper0a6b37af0871\PHPStan\Type\TypehintHelper::decideType($parentParameter->getNativeType(), \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($parentParameter->getPhpDocType()));
+            $parameterResults[] = [$parameterType->isSuperTypeOf($parentParameterType), \_PhpScoper0a6b37af0871\PHPStan\Type\TypehintHelper::decideType($parameter->getNativeType(), $parameter->getPhpDocType()), $parentParameterType];
         }
         return $parameterResults;
     }

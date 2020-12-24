@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\Php;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Php;
 
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection;
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
-use _PhpScopere8e811afab72\PHPStan\Type\BooleanType;
-use _PhpScopere8e811afab72\PHPStan\Type\FloatType;
-use _PhpScopere8e811afab72\PHPStan\Type\IntegerType;
-use _PhpScopere8e811afab72\PHPStan\Type\StringType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeCombinator;
-class SimpleXMLElementProperty implements \_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoper0a6b37af0871\PHPStan\Type\BooleanType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\FloatType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\IntegerType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\StringType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator;
+class SimpleXMLElementProperty implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
     /** @var \PHPStan\Type\Type */
     private $type;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScopere8e811afab72\PHPStan\Type\Type $type)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $type)
     {
         $this->declaringClass = $declaringClass;
         $this->type = $type;
     }
-    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
@@ -39,13 +39,13 @@ class SimpleXMLElementProperty implements \_PhpScopere8e811afab72\PHPStan\Reflec
     {
         return \true;
     }
-    public function getReadableType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getReadableType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function getWritableType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getWritableType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        return \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::union($this->type, new \_PhpScopere8e811afab72\PHPStan\Type\IntegerType(), new \_PhpScopere8e811afab72\PHPStan\Type\FloatType(), new \_PhpScopere8e811afab72\PHPStan\Type\StringType(), new \_PhpScopere8e811afab72\PHPStan\Type\BooleanType());
+        return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::union($this->type, new \_PhpScoper0a6b37af0871\PHPStan\Type\IntegerType(), new \_PhpScoper0a6b37af0871\PHPStan\Type\FloatType(), new \_PhpScoper0a6b37af0871\PHPStan\Type\StringType(), new \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType());
     }
     public function isReadable() : bool
     {
@@ -59,17 +59,17 @@ class SimpleXMLElementProperty implements \_PhpScopere8e811afab72\PHPStan\Reflec
     {
         return \false;
     }
-    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
     public function getDocComment() : ?string
     {

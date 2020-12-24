@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\Console\Output;
+namespace _PhpScoper0a6b37af0871\Rector\Core\Console\Output;
 
-use _PhpScopere8e811afab72\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
-use _PhpScopere8e811afab72\Rector\Core\Exception\Console\Output\MissingOutputFormatterException;
+use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\Console\Output\MissingOutputFormatterException;
 final class OutputFormatterCollector
 {
     /**
@@ -20,7 +20,7 @@ final class OutputFormatterCollector
             $this->outputFormatters[$outputFormatter->getName()] = $outputFormatter;
         }
     }
-    public function getByName(string $name) : \_PhpScopere8e811afab72\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
+    public function getByName(string $name) : \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
     {
         $this->ensureOutputFormatExists($name);
         return $this->outputFormatters[$name];
@@ -37,6 +37,6 @@ final class OutputFormatterCollector
         if (isset($this->outputFormatters[$name])) {
             return;
         }
-        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\Console\Output\MissingOutputFormatterException(\sprintf('Output formatter "%s" was not found. Pick one of "%s".', $name, \implode('", "', $this->getNames())));
+        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\Console\Output\MissingOutputFormatterException(\sprintf('Output formatter "%s" was not found. Pick one of "%s".', $name, \implode('", "', $this->getNames())));
     }
 }

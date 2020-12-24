@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Defluent\Skipper;
+namespace _PhpScoper0a6b37af0871\Rector\Defluent\Skipper;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
-use _PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\FluentCallStaticTypeResolver;
-use _PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
-use _PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\GetterMethodCallAnalyzer;
-use _PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
-use _PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr;
-use _PhpScopere8e811afab72\Rector\Defluent\ValueObject\FirstAssignFluentCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
+use _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\FluentCallStaticTypeResolver;
+use _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\GetterMethodCallAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\AssignAndRootExpr;
+use _PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FirstAssignFluentCall;
 final class FluentMethodCallSkipper
 {
     /**
@@ -19,7 +19,7 @@ final class FluentMethodCallSkipper
      *
      * @var string[]
      */
-    private const ALLOWED_FLUENT_TYPES = ['_PhpScopere8e811afab72\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\AbstractConfigurator', '_PhpScopere8e811afab72\\Nette\\Forms\\Controls\\BaseControl', '_PhpScopere8e811afab72\\Nette\\DI\\ContainerBuilder', '_PhpScopere8e811afab72\\Nette\\DI\\Definitions\\Definition', '_PhpScopere8e811afab72\\Nette\\DI\\Definitions\\ServiceDefinition', '_PhpScopere8e811afab72\\PHPStan\\Analyser\\Scope', 'DateTime', '_PhpScopere8e811afab72\\Nette\\Utils\\DateTime', 'DateTimeInterface', '*Finder', '*Builder', '*Query'];
+    private const ALLOWED_FLUENT_TYPES = ['_PhpScoper0a6b37af0871\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\AbstractConfigurator', '_PhpScoper0a6b37af0871\\Nette\\Forms\\Controls\\BaseControl', '_PhpScoper0a6b37af0871\\Nette\\DI\\ContainerBuilder', '_PhpScoper0a6b37af0871\\Nette\\DI\\Definitions\\Definition', '_PhpScoper0a6b37af0871\\Nette\\DI\\Definitions\\ServiceDefinition', '_PhpScoper0a6b37af0871\\PHPStan\\Analyser\\Scope', 'DateTime', '_PhpScoper0a6b37af0871\\Nette\\Utils\\DateTime', 'DateTimeInterface', '*Finder', '*Builder', '*Query'];
     /**
      * @var FluentCallStaticTypeResolver
      */
@@ -40,7 +40,7 @@ final class FluentMethodCallSkipper
      * @var StringMatcher
      */
     private $stringMatcher;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\FluentCallStaticTypeResolver $fluentCallStaticTypeResolver, \_PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer, \_PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \_PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\GetterMethodCallAnalyzer $getterMethodCallAnalyzer, \_PhpScopere8e811afab72\Rector\Defluent\Skipper\StringMatcher $stringMatcher)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\FluentCallStaticTypeResolver $fluentCallStaticTypeResolver, \_PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer, \_PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \_PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\GetterMethodCallAnalyzer $getterMethodCallAnalyzer, \_PhpScoper0a6b37af0871\Rector\Defluent\Skipper\StringMatcher $stringMatcher)
     {
         $this->fluentCallStaticTypeResolver = $fluentCallStaticTypeResolver;
         $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
@@ -48,14 +48,14 @@ final class FluentMethodCallSkipper
         $this->getterMethodCallAnalyzer = $getterMethodCallAnalyzer;
         $this->stringMatcher = $stringMatcher;
     }
-    public function shouldSkipRootMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    public function shouldSkipRootMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->fluentChainMethodCallNodeAnalyzer->isLastChainMethodCall($methodCall)) {
             return \true;
         }
         return $this->getterMethodCallAnalyzer->isGetterMethodCall($methodCall);
     }
-    public function shouldSkipFirstAssignFluentCall(\_PhpScopere8e811afab72\Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall) : bool
+    public function shouldSkipFirstAssignFluentCall(\_PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall) : bool
     {
         $calleeUniqueTypes = $this->fluentCallStaticTypeResolver->resolveCalleeUniqueTypes($firstAssignFluentCall->getFluentMethodCalls());
         if (!$this->sameClassMethodCallAnalyzer->isCorrectTypeCount($calleeUniqueTypes, $firstAssignFluentCall)) {
@@ -67,7 +67,7 @@ final class FluentMethodCallSkipper
     /**
      * @param MethodCall[] $fluentMethodCalls
      */
-    public function shouldSkipMethodCalls(\_PhpScopere8e811afab72\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, array $fluentMethodCalls) : bool
+    public function shouldSkipMethodCalls(\_PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, array $fluentMethodCalls) : bool
     {
         $calleeUniqueTypes = $this->fluentCallStaticTypeResolver->resolveCalleeUniqueTypes($fluentMethodCalls);
         if (!$this->sameClassMethodCallAnalyzer->isCorrectTypeCount($calleeUniqueTypes, $assignAndRootExpr)) {
@@ -79,7 +79,7 @@ final class FluentMethodCallSkipper
     /**
      * @param string[] $calleeUniqueTypes
      */
-    private function resolveCalleeUniqueType(\_PhpScopere8e811afab72\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface $firstCallFactoryAware, array $calleeUniqueTypes) : string
+    private function resolveCalleeUniqueType(\_PhpScoper0a6b37af0871\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface $firstCallFactoryAware, array $calleeUniqueTypes) : string
     {
         if (!$firstCallFactoryAware->isFirstCallFactory()) {
             return $calleeUniqueTypes[0];

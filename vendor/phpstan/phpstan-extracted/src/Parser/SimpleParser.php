@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Parser;
+namespace _PhpScoper0a6b37af0871\PHPStan\Parser;
 
-use _PhpScopere8e811afab72\PhpParser\ErrorHandler\Collecting;
-use _PhpScopere8e811afab72\PhpParser\NodeTraverser;
-use _PhpScopere8e811afab72\PhpParser\NodeVisitor\NameResolver;
-use _PhpScopere8e811afab72\PHPStan\File\FileReader;
-class SimpleParser implements \_PhpScopere8e811afab72\PHPStan\Parser\Parser
+use _PhpScoper0a6b37af0871\PhpParser\ErrorHandler\Collecting;
+use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
+use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver;
+use _PhpScoper0a6b37af0871\PHPStan\File\FileReader;
+class SimpleParser implements \_PhpScoper0a6b37af0871\PHPStan\Parser\Parser
 {
     /** @var \PhpParser\Parser */
     private $parser;
     /** @var NameResolver */
     private $nameResolver;
-    public function __construct(\_PhpScopere8e811afab72\PhpParser\Parser $parser, \_PhpScopere8e811afab72\PhpParser\NodeVisitor\NameResolver $nameResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Parser $parser, \_PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver $nameResolver)
     {
         $this->parser = $parser;
         $this->nameResolver = $nameResolver;
@@ -25,9 +25,9 @@ class SimpleParser implements \_PhpScopere8e811afab72\PHPStan\Parser\Parser
     public function parseFile(string $file) : array
     {
         try {
-            return $this->parseString(\_PhpScopere8e811afab72\PHPStan\File\FileReader::read($file));
-        } catch (\_PhpScopere8e811afab72\PHPStan\Parser\ParserErrorsException $e) {
-            throw new \_PhpScopere8e811afab72\PHPStan\Parser\ParserErrorsException($e->getErrors(), $file);
+            return $this->parseString(\_PhpScoper0a6b37af0871\PHPStan\File\FileReader::read($file));
+        } catch (\_PhpScoper0a6b37af0871\PHPStan\Parser\ParserErrorsException $e) {
+            throw new \_PhpScoper0a6b37af0871\PHPStan\Parser\ParserErrorsException($e->getErrors(), $file);
         }
     }
     /**
@@ -36,15 +36,15 @@ class SimpleParser implements \_PhpScopere8e811afab72\PHPStan\Parser\Parser
      */
     public function parseString(string $sourceCode) : array
     {
-        $errorHandler = new \_PhpScopere8e811afab72\PhpParser\ErrorHandler\Collecting();
+        $errorHandler = new \_PhpScoper0a6b37af0871\PhpParser\ErrorHandler\Collecting();
         $nodes = $this->parser->parse($sourceCode, $errorHandler);
         if ($errorHandler->hasErrors()) {
-            throw new \_PhpScopere8e811afab72\PHPStan\Parser\ParserErrorsException($errorHandler->getErrors(), null);
+            throw new \_PhpScoper0a6b37af0871\PHPStan\Parser\ParserErrorsException($errorHandler->getErrors(), null);
         }
         if ($nodes === null) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
         }
-        $nodeTraverser = new \_PhpScopere8e811afab72\PhpParser\NodeTraverser();
+        $nodeTraverser = new \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser();
         $nodeTraverser->addVisitor($this->nameResolver);
         /** @var array<\PhpParser\Node\Stmt> */
         return $nodeTraverser->traverse($nodes);

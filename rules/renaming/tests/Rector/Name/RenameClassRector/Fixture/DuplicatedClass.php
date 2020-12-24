@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopere8e811afab72\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture;
+namespace _PhpScoper0a6b37af0871\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture;
 
 class DuplicatedClass
 {

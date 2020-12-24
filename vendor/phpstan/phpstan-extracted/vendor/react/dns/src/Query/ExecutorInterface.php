@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query;
 
 interface ExecutorInterface
 {
@@ -39,5 +39,5 @@ interface ExecutorInterface
      * @return \React\Promise\PromiseInterface<\React\Dns\Model\Message,\Exception>
      *     resolves with response message on success or rejects with an Exception on error
      */
-    public function query(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query);
+    public function query(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query);
 }

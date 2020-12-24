@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Analyser;
+namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
 
-use _PhpScopere8e811afab72\PHPStan\File\FileExcluder;
-use _PhpScopere8e811afab72\PHPStan\File\FileHelper;
+use _PhpScoper0a6b37af0871\PHPStan\File\FileExcluder;
+use _PhpScoper0a6b37af0871\PHPStan\File\FileHelper;
 class IgnoredError
 {
     /**
@@ -36,15 +36,15 @@ class IgnoredError
      * @param string|null $path
      * @return bool To ignore or not to ignore?
      */
-    public static function shouldIgnore(\_PhpScopere8e811afab72\PHPStan\File\FileHelper $fileHelper, \_PhpScopere8e811afab72\PHPStan\Analyser\Error $error, string $ignoredErrorPattern, ?string $path) : bool
+    public static function shouldIgnore(\_PhpScoper0a6b37af0871\PHPStan\File\FileHelper $fileHelper, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Error $error, string $ignoredErrorPattern, ?string $path) : bool
     {
         // normalize newlines to allow working with ignore-patterns independent of used OS newline-format
         $errorMessage = $error->getMessage();
         $errorMessage = \str_replace(['\\r\\n', '\\r'], '\\n', $errorMessage);
-        $ignoredErrorPattern = \str_replace([\preg_quote('_PhpScopere8e811afab72\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
+        $ignoredErrorPattern = \str_replace([\preg_quote('_PhpScoper0a6b37af0871\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
         if ($path !== null) {
-            $fileExcluder = new \_PhpScopere8e811afab72\PHPStan\File\FileExcluder($fileHelper, [$path], []);
-            if (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
+            $fileExcluder = new \_PhpScoper0a6b37af0871\PHPStan\File\FileExcluder($fileHelper, [$path], []);
+            if (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
                 return \false;
             }
             $isExcluded = $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
@@ -53,6 +53,6 @@ class IgnoredError
             }
             return $isExcluded;
         }
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
     }
 }

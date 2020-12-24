@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopere8e811afab72\SebastianBergmann\Diff;
+namespace _PhpScoper0a6b37af0871\SebastianBergmann\Diff;
 
 use Throwable;
 interface Exception extends \Throwable

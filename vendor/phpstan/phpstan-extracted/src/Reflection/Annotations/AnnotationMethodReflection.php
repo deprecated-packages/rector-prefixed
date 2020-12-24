@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\Annotations;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Annotations;
 
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionVariant;
-use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
-use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-class AnnotationMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionVariant;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+class AnnotationMethodReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $name;
@@ -34,7 +34,7 @@ class AnnotationMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Refl
      * @param bool $isStatic
      * @param bool $isVariadic
      */
-    public function __construct(string $name, \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScopere8e811afab72\PHPStan\Type\Type $returnType, array $parameters, bool $isStatic, bool $isVariadic)
+    public function __construct(string $name, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $returnType, array $parameters, bool $isStatic, bool $isVariadic)
     {
         $this->name = $name;
         $this->declaringClass = $declaringClass;
@@ -43,11 +43,11 @@ class AnnotationMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Refl
         $this->isStatic = $isStatic;
         $this->isVariadic = $isVariadic;
     }
-    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
-    public function getPrototype() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
@@ -73,33 +73,33 @@ class AnnotationMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Refl
     public function getVariants() : array
     {
         if ($this->variants === null) {
-            $this->variants = [new \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionVariant(\_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $this->parameters, $this->isVariadic, $this->returnType)];
+            $this->variants = [new \_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionVariant(\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $this->parameters, $this->isVariadic, $this->returnType)];
         }
         return $this->variants;
     }
-    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isFinal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
-    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
     }
-    public function getThrowType() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return null;
     }
-    public function hasSideEffects() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

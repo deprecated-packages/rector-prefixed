@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Rules;
+namespace _PhpScoper0a6b37af0871\PHPStan\Rules;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Php\PhpVersion;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor;
-use _PhpScopere8e811afab72\PHPStan\Type\ErrorType;
-use _PhpScopere8e811afab72\PHPStan\Type\NeverType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeCombinator;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeUtils;
-use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
-use _PhpScopere8e811afab72\PHPStan\Type\VoidType;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Php\PhpVersion;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ErrorType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\NeverType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils;
+use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
+use _PhpScoper0a6b37af0871\PHPStan\Type\VoidType;
 class FunctionCallParametersCheck
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
@@ -30,7 +30,7 @@ class FunctionCallParametersCheck
     private $checkExtraArguments;
     /** @var bool */
     private $checkMissingTypehints;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \_PhpScopere8e811afab72\PHPStan\Rules\NullsafeCheck $nullsafeCheck, \_PhpScopere8e811afab72\PHPStan\Php\PhpVersion $phpVersion, bool $checkArgumentTypes, bool $checkArgumentsPassedByReference, bool $checkExtraArguments, bool $checkMissingTypehints)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \_PhpScoper0a6b37af0871\PHPStan\Rules\NullsafeCheck $nullsafeCheck, \_PhpScoper0a6b37af0871\PHPStan\Php\PhpVersion $phpVersion, bool $checkArgumentTypes, bool $checkArgumentsPassedByReference, bool $checkExtraArguments, bool $checkMissingTypehints)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
         $this->nullsafeCheck = $nullsafeCheck;
@@ -47,7 +47,7 @@ class FunctionCallParametersCheck
      * @param array{string, string, string, string, string, string, string, string, string, string, string, string} $messages
      * @return RuleError[]
      */
-    public function check(\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope, bool $isBuiltin, $funcCall, array $messages) : array
+    public function check(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, bool $isBuiltin, $funcCall, array $messages) : array
     {
         $functionParametersMinCount = 0;
         $functionParametersMaxCount = 0;
@@ -70,10 +70,10 @@ class FunctionCallParametersCheck
         foreach ($args as $i => $arg) {
             $type = $scope->getType($arg->value);
             if ($hasNamedArguments && $arg->unpack) {
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message('Named argument cannot be followed by an unpacked (...) argument.')->line($arg->getLine())->nonIgnorable()->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message('Named argument cannot be followed by an unpacked (...) argument.')->line($arg->getLine())->nonIgnorable()->build();
             }
             if ($hasUnpackedArgument && !$arg->unpack) {
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message('Unpacked argument (...) cannot be followed by a non-unpacked argument.')->line($arg->getLine())->nonIgnorable()->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message('Unpacked argument (...) cannot be followed by a non-unpacked argument.')->line($arg->getLine())->nonIgnorable()->build();
             }
             if ($arg->unpack) {
                 $hasUnpackedArgument = \true;
@@ -84,7 +84,7 @@ class FunctionCallParametersCheck
                 $argumentName = $arg->name->toString();
             }
             if ($arg->unpack) {
-                $arrays = \_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getConstantArrays($type);
+                $arrays = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils::getConstantArrays($type);
                 if (\count($arrays) > 0) {
                     $minKeys = null;
                     foreach ($arrays as $array) {
@@ -111,7 +111,7 @@ class FunctionCallParametersCheck
                             $keyArgumentName = $commonKey;
                             $hasNamedArguments = \true;
                         }
-                        $arguments[] = [$arg->value, \_PhpScopere8e811afab72\PHPStan\Type\TypeCombinator::union(...$types), \false, $keyArgumentName, $arg->getLine()];
+                        $arguments[] = [$arg->value, \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::union(...$types), \false, $keyArgumentName, $arg->getLine()];
                     }
                 } else {
                     $arguments[] = [$arg->value, $type->getIterableValueType(), \true, null, $arg->getLine()];
@@ -121,7 +121,7 @@ class FunctionCallParametersCheck
             $arguments[] = [$arg->value, $type, \false, $argumentName, $arg->getLine()];
         }
         if ($hasNamedArguments && !$this->phpVersion->supportsNamedArguments()) {
-            $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message('Named arguments are supported only on PHP 8.0 and later.')->line($funcCall->getLine())->nonIgnorable()->build();
+            $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message('Named arguments are supported only on PHP 8.0 and later.')->line($funcCall->getLine())->nonIgnorable()->build();
         }
         if (!$hasNamedArguments) {
             $invokedParametersCount = \count($arguments);
@@ -133,16 +133,16 @@ class FunctionCallParametersCheck
             }
             if ($invokedParametersCount < $functionParametersMinCount || $this->checkExtraArguments && $invokedParametersCount > $functionParametersMaxCount) {
                 if ($functionParametersMinCount === $functionParametersMaxCount) {
-                    $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($invokedParametersCount === 1 ? $messages[0] : $messages[1], $invokedParametersCount, $functionParametersMinCount))->line($funcCall->getLine())->build();
+                    $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($invokedParametersCount === 1 ? $messages[0] : $messages[1], $invokedParametersCount, $functionParametersMinCount))->line($funcCall->getLine())->build();
                 } elseif ($functionParametersMaxCount === -1 && $invokedParametersCount < $functionParametersMinCount) {
-                    $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($invokedParametersCount === 1 ? $messages[2] : $messages[3], $invokedParametersCount, $functionParametersMinCount))->line($funcCall->getLine())->build();
+                    $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($invokedParametersCount === 1 ? $messages[2] : $messages[3], $invokedParametersCount, $functionParametersMinCount))->line($funcCall->getLine())->build();
                 } elseif ($functionParametersMaxCount !== -1) {
-                    $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($invokedParametersCount === 1 ? $messages[4] : $messages[5], $invokedParametersCount, $functionParametersMinCount, $functionParametersMaxCount))->line($funcCall->getLine())->build();
+                    $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($invokedParametersCount === 1 ? $messages[4] : $messages[5], $invokedParametersCount, $functionParametersMinCount, $functionParametersMaxCount))->line($funcCall->getLine())->build();
                 }
             }
         }
-        if ($scope->getType($funcCall) instanceof \_PhpScopere8e811afab72\PHPStan\Type\VoidType && !$scope->isInFirstLevelStatement() && !$funcCall instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
-            $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message($messages[7])->line($funcCall->getLine())->build();
+        if ($scope->getType($funcCall) instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\VoidType && !$scope->isInFirstLevelStatement() && !$funcCall instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_) {
+            $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message($messages[7])->line($funcCall->getLine())->build();
         }
         [$addedErrors, $argumentsWithParameters] = $this->processArguments($parametersAcceptor, $funcCall->getLine(), $isBuiltin, $arguments, $hasNamedArguments, $messages[10], $messages[11]);
         foreach ($addedErrors as $error) {
@@ -153,12 +153,12 @@ class FunctionCallParametersCheck
         }
         foreach ($argumentsWithParameters as $i => [$argumentValue, $argumentValueType, $unpack, $argumentName, $argumentLine, $parameter]) {
             if ($this->checkArgumentTypes && $unpack) {
-                $iterableTypeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $argumentValue, '', static function (\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : bool {
+                $iterableTypeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $argumentValue, '', static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : bool {
                     return $type->isIterable()->yes();
                 });
                 $iterableTypeResultType = $iterableTypeResult->getType();
-                if (!$iterableTypeResultType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType && !$iterableTypeResultType->isIterable()->yes()) {
-                    $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Only iterables can be unpacked, %s given in argument #%d.', $iterableTypeResultType->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::typeOnly()), $i + 1))->line($argumentLine)->build();
+                if (!$iterableTypeResultType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType && !$iterableTypeResultType->isIterable()->yes()) {
+                    $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Only iterables can be unpacked, %s given in argument #%d.', $iterableTypeResultType->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::typeOnly()), $i + 1))->line($argumentLine)->build();
                 }
             }
             if ($parameter === null) {
@@ -166,30 +166,30 @@ class FunctionCallParametersCheck
             }
             $parameterType = $parameter->getType();
             if ($this->checkArgumentTypes && !$parameter->passedByReference()->createsNewVariable() && !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())) {
-                $verbosityLevel = \_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($parameterType);
+                $verbosityLevel = \_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($parameterType);
                 $parameterDescription = \sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName());
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[6], $argumentName === null ? \sprintf('#%d %s', $i + 1, $parameterDescription) : $parameterDescription, $parameterType->describe($verbosityLevel), $argumentValueType->describe($verbosityLevel)))->line($argumentLine)->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[6], $argumentName === null ? \sprintf('#%d %s', $i + 1, $parameterDescription) : $parameterDescription, $parameterType->describe($verbosityLevel), $argumentValueType->describe($verbosityLevel)))->line($argumentLine)->build();
             }
             if (!$this->checkArgumentsPassedByReference || !$parameter->passedByReference()->yes()) {
                 continue;
             }
             if ($this->nullsafeCheck->containsNullSafe($argumentValue)) {
                 $parameterDescription = \sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName());
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[8], $argumentName === null ? \sprintf('#%d %s', $i + 1, $parameterDescription) : $parameterDescription))->line($argumentLine)->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[8], $argumentName === null ? \sprintf('#%d %s', $i + 1, $parameterDescription) : $parameterDescription))->line($argumentLine)->build();
                 continue;
             }
-            if ($argumentValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable || $argumentValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch || $argumentValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch || $argumentValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticPropertyFetch) {
+            if ($argumentValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable || $argumentValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch || $argumentValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch || $argumentValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticPropertyFetch) {
                 continue;
             }
             $parameterDescription = \sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName());
-            $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[8], $argumentName === null ? \sprintf('#%d %s', $i + 1, $parameterDescription) : $parameterDescription))->line($argumentLine)->build();
+            $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[8], $argumentName === null ? \sprintf('#%d %s', $i + 1, $parameterDescription) : $parameterDescription))->line($argumentLine)->build();
         }
         if ($this->checkMissingTypehints) {
             foreach ($parametersAcceptor->getResolvedTemplateTypeMap()->getTypes() as $name => $type) {
-                if (!$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\ErrorType && !$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\NeverType) {
+                if (!$type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType && !$type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\NeverType) {
                     continue;
                 }
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[9], $name))->line($funcCall->getLine())->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messages[9], $name))->line($funcCall->getLine())->build();
             }
         }
         return $errors;
@@ -202,7 +202,7 @@ class FunctionCallParametersCheck
      * @param string $unknownParameterMessage
      * @return array{RuleError[], array<int, array{Expr, Type, bool, string|null, int, \PHPStan\Reflection\ParameterReflection|null}>}
      */
-    private function processArguments(\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, int $line, bool $isBuiltin, array $arguments, bool $hasNamedArguments, string $missingParameterMessage, string $unknownParameterMessage) : array
+    private function processArguments(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, int $line, bool $isBuiltin, array $arguments, bool $hasNamedArguments, string $missingParameterMessage, string $unknownParameterMessage) : array
     {
         $parameters = $parametersAcceptor->getParameters();
         $parametersByName = [];
@@ -240,20 +240,20 @@ class FunctionCallParametersCheck
                 $namedArgumentAlreadyOccurred = \true;
                 $parametersCount = \count($parameters);
                 if (\count($unusedParametersByName) !== 0 || !$parametersAcceptor->isVariadic() || $parametersCount <= 0 || $isBuiltin) {
-                    $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($unknownParameterMessage, $argumentName))->line($argumentLine)->build();
+                    $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($unknownParameterMessage, $argumentName))->line($argumentLine)->build();
                     $newArguments[$i] = [$argumentValue, $argumentValueType, $unpack, $argumentName, $argumentLine, null];
                     continue;
                 }
                 $parameter = $parameters[$parametersCount - 1];
             }
             if ($namedArgumentAlreadyOccurred && $argumentName === null && !$unpack) {
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message('Named argument cannot be followed by a positional argument.')->line($argumentLine)->nonIgnorable()->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message('Named argument cannot be followed by a positional argument.')->line($argumentLine)->nonIgnorable()->build();
                 $newArguments[$i] = [$argumentValue, $argumentValueType, $unpack, $argumentName, $argumentLine, null];
                 continue;
             }
             $newArguments[$i] = [$argumentValue, $argumentValueType, $unpack, $argumentName, $argumentLine, $parameter];
             if ($hasNamedArguments && !$parameter->isVariadic() && !\array_key_exists($parameter->getName(), $unusedParametersByName)) {
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Argument for parameter $%s has already been passed.', $parameter->getName()))->line($argumentLine)->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Argument for parameter $%s has already been passed.', $parameter->getName()))->line($argumentLine)->build();
                 continue;
             }
             unset($unusedParametersByName[$parameter->getName()]);
@@ -263,7 +263,7 @@ class FunctionCallParametersCheck
                 if ($parameter->isOptional()) {
                     continue;
                 }
-                $errors[] = \_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($missingParameterMessage, \sprintf('%s (%s)', $parameter->getName(), $parameter->getType()->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::typeOnly()))))->line($line)->build();
+                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($missingParameterMessage, \sprintf('%s (%s)', $parameter->getName(), $parameter->getType()->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::typeOnly()))))->line($line)->build();
             }
         }
         return [$errors, $newArguments];

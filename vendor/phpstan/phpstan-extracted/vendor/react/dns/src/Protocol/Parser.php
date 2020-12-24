@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Protocol;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Protocol;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Record;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\Query;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Record;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query;
 use InvalidArgumentException;
 /**
  * DNS protocol parser
@@ -23,7 +23,7 @@ final class Parser
     public function parseMessage($data)
     {
         // create empty message with two additional, temporary properties for parser
-        $message = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message();
+        $message = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message();
         $message->data = $data;
         $message->consumed = null;
         if ($this->parse($data, $message) !== $message) {
@@ -32,7 +32,7 @@ final class Parser
         unset($message->data, $message->consumed);
         return $message;
     }
-    private function parse($data, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
+    private function parse($data, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
     {
         if (!isset($message->data[12 - 1])) {
             return;
@@ -89,7 +89,7 @@ final class Parser
      * @param Message $message
      * @return ?Query
      */
-    private function parseQuestion(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
+    private function parseQuestion(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
     {
         $consumed = $message->consumed;
         list($labels, $consumed) = $this->readLabels($message->data, $consumed);
@@ -99,13 +99,13 @@ final class Parser
         list($type, $class) = \array_values(\unpack('n*', \substr($message->data, $consumed, 4)));
         $consumed += 4;
         $message->consumed = $consumed;
-        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\Query(\implode('.', $labels), $type, $class);
+        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query(\implode('.', $labels), $type, $class);
     }
     /**
      * @param Message $message
      * @return ?Record returns parsed Record on success or null if data is invalid/incomplete
      */
-    private function parseRecord(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
+    private function parseRecord(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message $message)
     {
         $consumed = $message->consumed;
         list($name, $consumed) = $this->readDomain($message->data, $consumed);
@@ -127,45 +127,45 @@ final class Parser
         }
         $rdata = null;
         $expected = $consumed + $rdLength;
-        if (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_A === $type) {
+        if (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_A === $type) {
             if ($rdLength === 4) {
                 $rdata = \inet_ntop(\substr($message->data, $consumed, $rdLength));
                 $consumed += $rdLength;
             }
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_AAAA === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_AAAA === $type) {
             if ($rdLength === 16) {
                 $rdata = \inet_ntop(\substr($message->data, $consumed, $rdLength));
                 $consumed += $rdLength;
             }
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_CNAME === $type || \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_PTR === $type || \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_NS === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_CNAME === $type || \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_PTR === $type || \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_NS === $type) {
             list($rdata, $consumed) = $this->readDomain($message->data, $consumed);
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_TXT === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_TXT === $type) {
             $rdata = array();
             while ($consumed < $expected) {
                 $len = \ord($message->data[$consumed]);
                 $rdata[] = (string) \substr($message->data, $consumed + 1, $len);
                 $consumed += $len + 1;
             }
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_MX === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_MX === $type) {
             if ($rdLength > 2) {
                 list($priority) = \array_values(\unpack('n', \substr($message->data, $consumed, 2)));
                 list($target, $consumed) = $this->readDomain($message->data, $consumed + 2);
                 $rdata = array('priority' => $priority, 'target' => $target);
             }
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SRV === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SRV === $type) {
             if ($rdLength > 6) {
                 list($priority, $weight, $port) = \array_values(\unpack('n*', \substr($message->data, $consumed, 6)));
                 list($target, $consumed) = $this->readDomain($message->data, $consumed + 6);
                 $rdata = array('priority' => $priority, 'weight' => $weight, 'port' => $port, 'target' => $target);
             }
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SSHFP === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SSHFP === $type) {
             if ($rdLength > 2) {
                 list($algorithm, $hash) = \array_values(\unpack('C*', \substr($message->data, $consumed, 2)));
                 $fingerprint = \bin2hex(\substr($message->data, $consumed + 2, $rdLength - 2));
                 $consumed += $rdLength;
                 $rdata = array('algorithm' => $algorithm, 'type' => $hash, 'fingerprint' => $fingerprint);
             }
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SOA === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_SOA === $type) {
             list($mname, $consumed) = $this->readDomain($message->data, $consumed);
             list($rname, $consumed) = $this->readDomain($message->data, $consumed);
             if ($mname !== null && $rname !== null && isset($message->data[$consumed + 20 - 1])) {
@@ -173,23 +173,23 @@ final class Parser
                 $consumed += 20;
                 $rdata = array('mname' => $mname, 'rname' => $rname, 'serial' => $serial, 'refresh' => $refresh, 'retry' => $retry, 'expire' => $expire, 'minimum' => $minimum);
             }
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_OPT === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_OPT === $type) {
             $rdata = array();
             while (isset($message->data[$consumed + 4 - 1])) {
                 list($code, $length) = \array_values(\unpack('n*', \substr($message->data, $consumed, 4)));
                 $value = (string) \substr($message->data, $consumed + 4, $length);
-                if ($code === \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::OPT_TCP_KEEPALIVE && $value === '') {
+                if ($code === \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::OPT_TCP_KEEPALIVE && $value === '') {
                     $value = null;
-                } elseif ($code === \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::OPT_TCP_KEEPALIVE && $length === 2) {
+                } elseif ($code === \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::OPT_TCP_KEEPALIVE && $length === 2) {
                     list($value) = \array_values(\unpack('n', $value));
                     $value = \round($value * 0.1, 1);
-                } elseif ($code === \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::OPT_TCP_KEEPALIVE) {
+                } elseif ($code === \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::OPT_TCP_KEEPALIVE) {
                     break;
                 }
                 $rdata[$code] = $value;
                 $consumed += 4 + $length;
             }
-        } elseif (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_CAA === $type) {
+        } elseif (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_CAA === $type) {
             if ($rdLength > 3) {
                 list($flag, $tagLength) = \array_values(\unpack('C*', \substr($message->data, $consumed, 2)));
                 if ($tagLength > 0 && $rdLength - 2 - $tagLength > 0) {
@@ -209,7 +209,7 @@ final class Parser
             return null;
         }
         $message->consumed = $consumed;
-        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Record($name, $type, $class, $ttl, $rdata);
+        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Record($name, $type, $class, $ttl, $rdata);
     }
     private function readDomain($data, $consumed)
     {

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Iterator;
+namespace _PhpScoper0a6b37af0871\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Demultiplexer.
@@ -44,7 +44,7 @@ namespace _PhpScopere8e811afab72\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Demultiplexer implements \_PhpScopere8e811afab72\Hoa\Iterator\Iterator
+class Demultiplexer implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Iterator
 {
     /**
      * Current iterator.

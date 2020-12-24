@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Symplify\Skipper\Tests\SkipCriteriaResolver\SkippedPathsResolver;
+namespace _PhpScoper0a6b37af0871\Symplify\Skipper\Tests\SkipCriteriaResolver\SkippedPathsResolver;
 
-use _PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use _PhpScopere8e811afab72\Symplify\Skipper\HttpKernel\SkipperKernel;
-use _PhpScopere8e811afab72\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-final class SkippedPathsResolverTest extends \_PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScoper0a6b37af0871\Symplify\Skipper\HttpKernel\SkipperKernel;
+use _PhpScoper0a6b37af0871\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+final class SkippedPathsResolverTest extends \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var SkippedPathsResolver
@@ -14,8 +14,8 @@ final class SkippedPathsResolverTest extends \_PhpScopere8e811afab72\Symplify\Pa
     private $skippedPathsResolver;
     protected function setUp() : void
     {
-        $this->bootKernelWithConfigs(\_PhpScopere8e811afab72\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
-        $this->skippedPathsResolver = $this->getService(\_PhpScopere8e811afab72\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver::class);
+        $this->bootKernelWithConfigs(\_PhpScoper0a6b37af0871\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
+        $this->skippedPathsResolver = $this->getService(\_PhpScoper0a6b37af0871\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver::class);
     }
     public function test() : void
     {

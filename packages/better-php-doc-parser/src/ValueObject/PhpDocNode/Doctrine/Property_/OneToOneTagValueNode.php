@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
+namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
 
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-final class OneToOneTagValueNode extends \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface, \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface, \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
+final class OneToOneTagValueNode extends \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface
 {
     /**
      * @var string|null
@@ -48,6 +48,6 @@ final class OneToOneTagValueNode extends \_PhpScopere8e811afab72\Rector\BetterPh
     }
     public function getShortName() : string
     {
-        return '_PhpScopere8e811afab72\\@ORM\\OneToOne';
+        return '_PhpScoper0a6b37af0871\\@ORM\\OneToOne';
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\RectorGenerator\FileSystem;
+namespace _PhpScoper0a6b37af0871\Rector\RectorGenerator\FileSystem;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
 final class JsonStringFormatter
 {
     /**
@@ -18,8 +18,8 @@ final class JsonStringFormatter
     {
         foreach ($sections as $section) {
             $pattern = '#("' . \preg_quote($section, '#') . '": )\\[(.*?)\\](,)#ms';
-            $jsonContent = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($jsonContent, $pattern, function (array $match) : string {
-                $inlined = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($match[2], '#\\s+#', ' ');
+            $jsonContent = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($jsonContent, $pattern, function (array $match) : string {
+                $inlined = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($match[2], '#\\s+#', ' ');
                 $inlined = \trim($inlined);
                 $inlined = '[' . $inlined . ']';
                 return $match[1] . $inlined . $match[3];
@@ -29,10 +29,10 @@ final class JsonStringFormatter
     }
     public function inlineAuthors(string $jsonContent) : string
     {
-        return \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($jsonContent, self::REPLACE_REGEX, function (array $match) : string {
-            $inlined = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($match['content'], '#\\s+#', ' ');
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($jsonContent, self::REPLACE_REGEX, function (array $match) : string {
+            $inlined = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($match['content'], '#\\s+#', ' ');
             $inlined = \trim($inlined);
-            $inlined = \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($inlined, '#},#', "},\n       ");
+            $inlined = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($inlined, '#},#', "},\n       ");
             return $match['start'] . $inlined . $match['end'];
         });
     }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\BetterPhpDocParser\ValueObject;
+namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject;
 
-use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
 final class StartAndEnd
 {
     /**
@@ -17,7 +17,7 @@ final class StartAndEnd
     public function __construct(int $start, int $end)
     {
         if ($end < $start) {
-            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->start = $start;
         $this->end = $end;

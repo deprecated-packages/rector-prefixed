@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Rules\Properties;
+namespace _PhpScoper0a6b37af0871\PHPStan\Rules\Properties;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\PhpParser\Node\VarLikeIdentifier;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\PHPStan\Type\StaticType;
-use _PhpScopere8e811afab72\PHPStan\Type\ThisType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeTraverser;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeUtils;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\VarLikeIdentifier;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\StaticType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ThisType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils;
 class PropertyReflectionFinder
 {
     /**
@@ -21,21 +21,21 @@ class PropertyReflectionFinder
      * @param \PHPStan\Analyser\Scope $scope
      * @return FoundPropertyReflection[]
      */
-    public function findPropertyReflectionsFromNode($propertyFetch, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
+    public function findPropertyReflectionsFromNode($propertyFetch, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : array
     {
-        if ($propertyFetch instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
-            if ($propertyFetch->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
+        if ($propertyFetch instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
+            if ($propertyFetch->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier) {
                 $names = [$propertyFetch->name->name];
             } else {
-                $names = \array_map(static function (\_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType $name) : string {
+                $names = \array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType $name) : string {
                     return $name->getValue();
-                }, \_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($propertyFetch->name)));
+                }, \_PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($propertyFetch->name)));
             }
             $reflections = [];
             $propertyHolderType = $scope->getType($propertyFetch->var);
-            $fetchedOnThis = $propertyHolderType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ThisType && $scope->isInClass();
+            $fetchedOnThis = $propertyHolderType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ThisType && $scope->isInClass();
             foreach ($names as $name) {
-                $reflection = $this->findPropertyReflection($propertyHolderType, $name, $propertyFetch->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr ? $scope->filterByTruthyValue(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical($propertyFetch->name, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_($name))) : $scope, $fetchedOnThis);
+                $reflection = $this->findPropertyReflection($propertyHolderType, $name, $propertyFetch->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr ? $scope->filterByTruthyValue(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical($propertyFetch->name, new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_($name))) : $scope, $fetchedOnThis);
                 if ($reflection === null) {
                     continue;
                 }
@@ -43,22 +43,22 @@ class PropertyReflectionFinder
             }
             return $reflections;
         }
-        if ($propertyFetch->class instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
-            $propertyHolderType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($scope->resolveName($propertyFetch->class));
+        if ($propertyFetch->class instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
+            $propertyHolderType = new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType($scope->resolveName($propertyFetch->class));
         } else {
             $propertyHolderType = $scope->getType($propertyFetch->class);
         }
-        $fetchedOnThis = $propertyHolderType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ThisType && $scope->isInClass();
-        if ($propertyFetch->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\VarLikeIdentifier) {
+        $fetchedOnThis = $propertyHolderType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ThisType && $scope->isInClass();
+        if ($propertyFetch->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\VarLikeIdentifier) {
             $names = [$propertyFetch->name->name];
         } else {
-            $names = \array_map(static function (\_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType $name) : string {
+            $names = \array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType $name) : string {
                 return $name->getValue();
-            }, \_PhpScopere8e811afab72\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($propertyFetch->name)));
+            }, \_PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($propertyFetch->name)));
         }
         $reflections = [];
         foreach ($names as $name) {
-            $reflection = $this->findPropertyReflection($propertyHolderType, $name, $propertyFetch->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr ? $scope->filterByTruthyValue(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical($propertyFetch->name, new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_($name))) : $scope, $fetchedOnThis);
+            $reflection = $this->findPropertyReflection($propertyHolderType, $name, $propertyFetch->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr ? $scope->filterByTruthyValue(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical($propertyFetch->name, new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_($name))) : $scope, $fetchedOnThis);
             if ($reflection === null) {
                 continue;
             }
@@ -71,31 +71,31 @@ class PropertyReflectionFinder
      * @param \PHPStan\Analyser\Scope $scope
      * @return FoundPropertyReflection|null
      */
-    public function findPropertyReflectionFromNode($propertyFetch, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : ?\_PhpScopere8e811afab72\PHPStan\Rules\Properties\FoundPropertyReflection
+    public function findPropertyReflectionFromNode($propertyFetch, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : ?\_PhpScoper0a6b37af0871\PHPStan\Rules\Properties\FoundPropertyReflection
     {
-        if ($propertyFetch instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
-            if (!$propertyFetch->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
+        if ($propertyFetch instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
+            if (!$propertyFetch->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier) {
                 return null;
             }
             $propertyHolderType = $scope->getType($propertyFetch->var);
-            $fetchedOnThis = $propertyHolderType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ThisType && $scope->isInClass();
+            $fetchedOnThis = $propertyHolderType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ThisType && $scope->isInClass();
             return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name->name, $scope, $fetchedOnThis);
         }
-        if (!$propertyFetch->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
+        if (!$propertyFetch->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier) {
             return null;
         }
-        if ($propertyFetch->class instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
-            $propertyHolderType = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($scope->resolveName($propertyFetch->class));
+        if ($propertyFetch->class instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
+            $propertyHolderType = new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType($scope->resolveName($propertyFetch->class));
         } else {
             $propertyHolderType = $scope->getType($propertyFetch->class);
         }
-        $fetchedOnThis = $propertyHolderType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ThisType && $scope->isInClass();
+        $fetchedOnThis = $propertyHolderType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ThisType && $scope->isInClass();
         return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name->name, $scope, $fetchedOnThis);
     }
-    private function findPropertyReflection(\_PhpScopere8e811afab72\PHPStan\Type\Type $propertyHolderType, string $propertyName, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope, bool $fetchedOnThis) : ?\_PhpScopere8e811afab72\PHPStan\Rules\Properties\FoundPropertyReflection
+    private function findPropertyReflection(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $propertyHolderType, string $propertyName, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, bool $fetchedOnThis) : ?\_PhpScoper0a6b37af0871\PHPStan\Rules\Properties\FoundPropertyReflection
     {
-        $transformedPropertyHolderType = \_PhpScopere8e811afab72\PHPStan\Type\TypeTraverser::map($propertyHolderType, static function (\_PhpScopere8e811afab72\PHPStan\Type\Type $type, callable $traverse) use($scope, $fetchedOnThis) : Type {
-            if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\StaticType) {
+        $transformedPropertyHolderType = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser::map($propertyHolderType, static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, callable $traverse) use($scope, $fetchedOnThis) : Type {
+            if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\StaticType) {
                 if ($fetchedOnThis && $scope->isInClass()) {
                     return $traverse($type->changeBaseClass($scope->getClassReflection()));
                 }
@@ -111,12 +111,12 @@ class PropertyReflectionFinder
         $originalProperty = $transformedPropertyHolderType->getProperty($propertyName, $scope);
         $readableType = $this->transformPropertyType($originalProperty->getReadableType(), $transformedPropertyHolderType, $scope, $fetchedOnThis);
         $writableType = $this->transformPropertyType($originalProperty->getWritableType(), $transformedPropertyHolderType, $scope, $fetchedOnThis);
-        return new \_PhpScopere8e811afab72\PHPStan\Rules\Properties\FoundPropertyReflection($originalProperty, $scope, $propertyName, $readableType, $writableType);
+        return new \_PhpScoper0a6b37af0871\PHPStan\Rules\Properties\FoundPropertyReflection($originalProperty, $scope, $propertyName, $readableType, $writableType);
     }
-    private function transformPropertyType(\_PhpScopere8e811afab72\PHPStan\Type\Type $propertyType, \_PhpScopere8e811afab72\PHPStan\Type\Type $transformedPropertyHolderType, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope, bool $fetchedOnThis) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    private function transformPropertyType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $propertyType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $transformedPropertyHolderType, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, bool $fetchedOnThis) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        return \_PhpScopere8e811afab72\PHPStan\Type\TypeTraverser::map($propertyType, static function (\_PhpScopere8e811afab72\PHPStan\Type\Type $propertyType, callable $traverse) use($transformedPropertyHolderType, $scope, $fetchedOnThis) : Type {
-            if ($propertyType instanceof \_PhpScopere8e811afab72\PHPStan\Type\StaticType) {
+        return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser::map($propertyType, static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $propertyType, callable $traverse) use($transformedPropertyHolderType, $scope, $fetchedOnThis) : Type {
+            if ($propertyType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\StaticType) {
                 if ($fetchedOnThis && $scope->isInClass()) {
                     return $traverse($propertyType->changeBaseClass($scope->getClassReflection()));
                 }

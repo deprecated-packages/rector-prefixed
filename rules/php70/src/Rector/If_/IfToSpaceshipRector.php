@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php70\Rector\If_;
+namespace _PhpScoper0a6b37af0871\Rector\Php70\Rector\If_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Equal;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Greater;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Smaller;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Spaceship;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Else_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\If_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Equal;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Greater;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Smaller;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Spaceship;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Else_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/combined-comparison-operator
  * @see https://3v4l.org/LPbA0
  *
  * @see \Rector\Php70\Tests\Rector\If_\IfToSpaceshipRector\IfToSpaceshipRectorTest
  */
-final class IfToSpaceshipRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class IfToSpaceshipRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int|null
@@ -52,9 +52,9 @@ final class IfToSpaceshipRector extends \_PhpScopere8e811afab72\Rector\Core\Rect
      * @var Node|null
      */
     private $nextNode;
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes if/else to spaceship <=> where useful', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes if/else to spaceship <=> where useful', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -87,17 +87,17 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\If_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::SPACESHIP)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::SPACESHIP)) {
             return null;
         }
-        if (!$node->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Equal && !$node->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical) {
+        if (!$node->cond instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Equal && !$node->cond instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical) {
             return null;
         }
         $this->reset();
@@ -116,8 +116,8 @@ CODE_SAMPLE
             $this->removeNode($this->nextNode);
         }
         // spaceship ready!
-        $spaceship = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Spaceship($this->secondValue, $this->firstValue);
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_($spaceship);
+        $spaceship = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Spaceship($this->secondValue, $this->firstValue);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_($spaceship);
     }
     private function reset() : void
     {
@@ -127,21 +127,21 @@ CODE_SAMPLE
         $this->firstValue = null;
         $this->secondValue = null;
     }
-    private function matchOnEqualFirstValueAndSecondValue(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\If_ $if) : void
+    private function matchOnEqualFirstValueAndSecondValue(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_ $if) : void
     {
         $this->matchOnEqual($if);
         if ($if->else !== null) {
             $this->processElse($if->else);
         } else {
-            $this->nextNode = $if->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-            if ($this->nextNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_ && $this->nextNode->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary) {
+            $this->nextNode = $if->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+            if ($this->nextNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_ && $this->nextNode->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary) {
                 /** @var Ternary $ternary */
                 $ternary = $this->nextNode->expr;
                 $this->processTernary($ternary);
             }
         }
     }
-    private function areVariablesEqual(\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp $binaryOp, ?\_PhpScopere8e811afab72\PhpParser\Node\Expr $firstValue, ?\_PhpScopere8e811afab72\PhpParser\Node\Expr $secondValue) : bool
+    private function areVariablesEqual(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp $binaryOp, ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $firstValue, ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $secondValue) : bool
     {
         if ($firstValue === null || $secondValue === null) {
             return \false;
@@ -154,43 +154,43 @@ CODE_SAMPLE
         }
         return $this->areNodesEqual($binaryOp->left, $secondValue);
     }
-    private function matchOnEqual(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\If_ $if) : void
+    private function matchOnEqual(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_ $if) : void
     {
         if (\count((array) $if->stmts) !== 1) {
             return;
         }
         $onlyIfStmt = $if->stmts[0];
-        if ($onlyIfStmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
+        if ($onlyIfStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_) {
             if ($onlyIfStmt->expr === null) {
                 return;
             }
             $this->onEqual = $this->getValue($onlyIfStmt->expr);
         }
     }
-    private function processElse(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Else_ $else) : void
+    private function processElse(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Else_ $else) : void
     {
         if (\count((array) $else->stmts) !== 1) {
             return;
         }
-        if (!$else->stmts[0] instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
+        if (!$else->stmts[0] instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_) {
             return;
         }
         /** @var Return_ $returnNode */
         $returnNode = $else->stmts[0];
-        if ($returnNode->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary) {
+        if ($returnNode->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary) {
             $this->processTernary($returnNode->expr);
         }
     }
-    private function processTernary(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary $ternary) : void
+    private function processTernary(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary $ternary) : void
     {
-        if ($ternary->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Smaller) {
+        if ($ternary->cond instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Smaller) {
             $this->firstValue = $ternary->cond->left;
             $this->secondValue = $ternary->cond->right;
             if ($ternary->if !== null) {
                 $this->onSmaller = $this->getValue($ternary->if);
             }
             $this->onGreater = $this->getValue($ternary->else);
-        } elseif ($ternary->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Greater) {
+        } elseif ($ternary->cond instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Greater) {
             $this->firstValue = $ternary->cond->right;
             $this->secondValue = $ternary->cond->left;
             if ($ternary->if !== null) {

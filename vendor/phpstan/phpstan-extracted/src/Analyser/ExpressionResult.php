@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Analyser;
+namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
 
 class ExpressionResult
 {
@@ -23,14 +23,14 @@ class ExpressionResult
      * @param (callable(): MutatingScope)|null $truthyScopeCallback
      * @param (callable(): MutatingScope)|null $falseyScopeCallback
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Analyser\MutatingScope $scope, bool $hasYield, ?callable $truthyScopeCallback = null, ?callable $falseyScopeCallback = null)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Analyser\MutatingScope $scope, bool $hasYield, ?callable $truthyScopeCallback = null, ?callable $falseyScopeCallback = null)
     {
         $this->scope = $scope;
         $this->hasYield = $hasYield;
         $this->truthyScopeCallback = $truthyScopeCallback;
         $this->falseyScopeCallback = $falseyScopeCallback;
     }
-    public function getScope() : \_PhpScopere8e811afab72\PHPStan\Analyser\MutatingScope
+    public function getScope() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\MutatingScope
     {
         return $this->scope;
     }
@@ -38,7 +38,7 @@ class ExpressionResult
     {
         return $this->hasYield;
     }
-    public function getTruthyScope() : \_PhpScopere8e811afab72\PHPStan\Analyser\MutatingScope
+    public function getTruthyScope() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\MutatingScope
     {
         if ($this->truthyScopeCallback === null) {
             return $this->scope;
@@ -50,7 +50,7 @@ class ExpressionResult
         $this->truthyScope = $callback();
         return $this->truthyScope;
     }
-    public function getFalseyScope() : \_PhpScopere8e811afab72\PHPStan\Analyser\MutatingScope
+    public function getFalseyScope() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\MutatingScope
     {
         if ($this->falseyScopeCallback === null) {
             return $this->scope;

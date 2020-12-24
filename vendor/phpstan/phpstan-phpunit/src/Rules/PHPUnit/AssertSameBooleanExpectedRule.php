@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Rules\PHPUnit;
+namespace _PhpScoper0a6b37af0871\PHPStan\Rules\PHPUnit;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantBooleanType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\NodeAbstract>
  */
-class AssertSameBooleanExpectedRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
+class AssertSameBooleanExpectedRule implements \_PhpScoper0a6b37af0871\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScopere8e811afab72\PhpParser\NodeAbstract::class;
+        return \_PhpScoper0a6b37af0871\PhpParser\NodeAbstract::class;
     }
-    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!\_PhpScopere8e811afab72\PHPStan\Rules\PHPUnit\AssertRuleHelper::isMethodOrStaticCallOnAssert($node, $scope)) {
+        if (!\_PhpScoper0a6b37af0871\PHPStan\Rules\PHPUnit\AssertRuleHelper::isMethodOrStaticCallOnAssert($node, $scope)) {
             return [];
         }
         /** @var \PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall $node */
@@ -25,11 +25,11 @@ class AssertSameBooleanExpectedRule implements \_PhpScopere8e811afab72\PHPStan\R
         if (\count($node->args) < 2) {
             return [];
         }
-        if (!$node->name instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier || \strtolower($node->name->name) !== 'assertsame') {
+        if (!$node->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier || \strtolower($node->name->name) !== 'assertsame') {
             return [];
         }
         $leftType = $scope->getType($node->args[0]->value);
-        if (!$leftType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantBooleanType) {
+        if (!$leftType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantBooleanType) {
             return [];
         }
         if ($leftType->getValue()) {

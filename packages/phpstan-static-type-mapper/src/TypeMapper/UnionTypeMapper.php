@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\TypeMapper;
+namespace _PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified;
-use _PhpScopere8e811afab72\PhpParser\Node\NullableType;
-use _PhpScopere8e811afab72\PhpParser\Node\UnionType as PhpParserUnionType;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScopere8e811afab72\PHPStan\Type\IterableType;
-use _PhpScopere8e811afab72\PHPStan\Type\NullType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName;
-use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
-use _PhpScopere8e811afab72\PHPStan\Type\VoidType;
-use _PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
-use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScopere8e811afab72\Rector\Core\Php\PhpVersionProvider;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
-use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-use _PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer;
-final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
+use _PhpScoper0a6b37af0871\PhpParser\Node\NullableType;
+use _PhpScoper0a6b37af0871\PhpParser\Node\UnionType as PhpParserUnionType;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoper0a6b37af0871\PHPStan\Type\IterableType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\NullType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName;
+use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\VoidType;
+use _PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a6b37af0871\Rector\Core\Php\PhpVersionProvider;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+use _PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
+use _PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use _PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer;
+final class UnionTypeMapper implements \_PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
      * @var PHPStanStaticTypeMapper
@@ -42,7 +42,7 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
      * @var DoctrineTypeAnalyzer
      */
     private $doctrineTypeAnalyzer;
-    public function __construct(\_PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \_PhpScopere8e811afab72\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \_PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer $unionTypeAnalyzer)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \_PhpScoper0a6b37af0871\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \_PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer $unionTypeAnalyzer)
     {
         $this->phpVersionProvider = $phpVersionProvider;
         $this->unionTypeAnalyzer = $unionTypeAnalyzer;
@@ -51,34 +51,34 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
     /**
      * @required
      */
-    public function autowireUnionTypeMapper(\_PhpScopere8e811afab72\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    public function autowireUnionTypeMapper(\_PhpScoper0a6b37af0871\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
     public function getNodeClass() : string
     {
-        return \_PhpScopere8e811afab72\PHPStan\Type\UnionType::class;
+        return \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType::class;
     }
     /**
      * @param UnionType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $unionTypesNodes = [];
         $skipIterable = $this->shouldSkipIterable($type);
         foreach ($type->getTypes() as $unionedType) {
-            if ($unionedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\IterableType && $skipIterable) {
+            if ($unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\IterableType && $skipIterable) {
                 continue;
             }
             $unionTypesNodes[] = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($unionedType);
         }
         $unionTypesNodes = \array_unique($unionTypesNodes);
-        return new \_PhpScopere8e811afab72\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode($unionTypesNodes);
+        return new \_PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode($unionTypesNodes);
     }
     /**
      * @param UnionType $type
      */
-    public function mapToPhpParserNode(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function mapToPhpParserNode(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $arrayNode = $this->matchArrayTypes($type);
         if ($arrayNode !== null) {
@@ -91,25 +91,25 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
             return $this->matchTypeForUnionedObjectTypes($type);
         }
         // void cannot be nullable
-        if ($nullabledType instanceof \_PhpScopere8e811afab72\PHPStan\Type\VoidType) {
+        if ($nullabledType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\VoidType) {
             return null;
         }
         $nullabledTypeNode = $this->phpStanStaticTypeMapper->mapToPhpParserNode($nullabledType);
         if ($nullabledTypeNode === null) {
             return null;
         }
-        if ($nullabledTypeNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\NullableType) {
+        if ($nullabledTypeNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType) {
             return $nullabledTypeNode;
         }
-        if ($nullabledTypeNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\UnionType) {
-            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
+        if ($nullabledTypeNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType) {
+            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
         }
-        return new \_PhpScopere8e811afab72\PhpParser\Node\NullableType($nullabledTypeNode);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType($nullabledTypeNode);
     }
     /**
      * @param UnionType $type
      */
-    public function mapToDocString(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type $parentType = null) : string
     {
         $docStrings = [];
         foreach ($type->getTypes() as $unionedType) {
@@ -120,7 +120,7 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
         $docStrings = \array_filter($docStrings);
         return \implode('|', $docStrings);
     }
-    private function shouldSkipIterable(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : bool
+    private function shouldSkipIterable(\_PhpScoper0a6b37af0871\PHPStan\Type\UnionType $unionType) : bool
     {
         $unionTypeAnalysis = $this->unionTypeAnalyzer->analyseForNullableAndIterable($unionType);
         if ($unionTypeAnalysis === null) {
@@ -134,7 +134,7 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
     /**
      * @return Name|NullableType|null
      */
-    private function matchArrayTypes(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    private function matchArrayTypes(\_PhpScoper0a6b37af0871\PHPStan\Type\UnionType $unionType) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $unionTypeAnalysis = $this->unionTypeAnalyzer->analyseForNullableAndIterable($unionType);
         if ($unionTypeAnalysis === null) {
@@ -142,21 +142,21 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
         }
         $type = $unionTypeAnalysis->hasIterable() ? 'iterable' : 'array';
         if ($unionTypeAnalysis->isNullableType()) {
-            return new \_PhpScopere8e811afab72\PhpParser\Node\NullableType($type);
+            return new \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType($type);
         }
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Name($type);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($type);
     }
-    private function matchTypeForNullableUnionType(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
+    private function matchTypeForNullableUnionType(\_PhpScoper0a6b37af0871\PHPStan\Type\UnionType $unionType) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         if (\count($unionType->getTypes()) !== 2) {
             return null;
         }
         $firstType = $unionType->getTypes()[0];
         $secondType = $unionType->getTypes()[1];
-        if ($firstType instanceof \_PhpScopere8e811afab72\PHPStan\Type\NullType) {
+        if ($firstType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\NullType) {
             return $secondType;
         }
-        if ($secondType instanceof \_PhpScopere8e811afab72\PHPStan\Type\NullType) {
+        if ($secondType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\NullType) {
             return $firstType;
         }
         return null;
@@ -164,11 +164,11 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
     /**
      * @return Name|FullyQualified|PhpParserUnionType|null
      */
-    private function matchTypeForUnionedObjectTypes(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    private function matchTypeForUnionedObjectTypes(\_PhpScoper0a6b37af0871\PHPStan\Type\UnionType $unionType) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $phpParserUnionType = $this->matchPhpParserUnionType($unionType);
         if ($phpParserUnionType !== null) {
-            if (!$this->phpVersionProvider->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES)) {
+            if (!$this->phpVersionProvider->isAtLeastPhpVersion(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES)) {
                 return null;
             }
             return $phpParserUnionType;
@@ -178,17 +178,17 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
         if ($compatibleObjectCandidate === null) {
             return null;
         }
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Name\FullyQualified($compatibleObjectCandidate);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified($compatibleObjectCandidate);
     }
-    private function matchPhpParserUnionType(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : ?\_PhpScopere8e811afab72\PhpParser\Node\UnionType
+    private function matchPhpParserUnionType(\_PhpScoper0a6b37af0871\PHPStan\Type\UnionType $unionType) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\UnionType
     {
-        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES)) {
+        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES)) {
             return null;
         }
         $phpParserUnionedTypes = [];
         foreach ($unionType->getTypes() as $unionedType) {
             // void type is not allowed in union
-            if ($unionedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\VoidType) {
+            if ($unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\VoidType) {
                 return null;
             }
             /** @var Identifier|Name|null $phpParserNode */
@@ -198,12 +198,12 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
             }
             $phpParserUnionedTypes[] = $phpParserNode;
         }
-        return new \_PhpScopere8e811afab72\PhpParser\Node\UnionType($phpParserUnionedTypes);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType($phpParserUnionedTypes);
     }
-    private function resolveCompatibleObjectCandidate(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : ?string
+    private function resolveCompatibleObjectCandidate(\_PhpScoper0a6b37af0871\PHPStan\Type\UnionType $unionType) : ?string
     {
         if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($unionType)) {
-            return '_PhpScopere8e811afab72\\Doctrine\\Common\\Collections\\Collection';
+            return '_PhpScoper0a6b37af0871\\Doctrine\\Common\\Collections\\Collection';
         }
         if (!$this->isUnionTypeWithTypeClassNameOnly($unionType)) {
             return null;
@@ -220,16 +220,16 @@ final class UnionTypeMapper implements \_PhpScopere8e811afab72\Rector\PHPStanSta
         }
         return null;
     }
-    private function isUnionTypeWithTypeClassNameOnly(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType) : bool
+    private function isUnionTypeWithTypeClassNameOnly(\_PhpScoper0a6b37af0871\PHPStan\Type\UnionType $unionType) : bool
     {
         foreach ($unionType->getTypes() as $unionedType) {
-            if (!$unionedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
+            if (!$unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName) {
                 return \false;
             }
         }
         return \true;
     }
-    private function areTypeWithClassNamesRelated(\_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName $firstType, \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName $secondType) : bool
+    private function areTypeWithClassNamesRelated(\_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName $firstType, \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName $secondType) : bool
     {
         if (\is_a($firstType->getClassName(), $secondType->getClassName(), \true)) {
             return \true;

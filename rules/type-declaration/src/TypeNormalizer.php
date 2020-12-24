@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\TypeDeclaration;
+namespace _PhpScoper0a6b37af0871\Rector\TypeDeclaration;
 
-use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
-use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
-use _PhpScopere8e811afab72\PHPStan\Type\NeverType;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\PHPStan\Type\StringType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\TypeHasher;
-use _PhpScopere8e811afab72\Rector\PHPStan\TypeFactoryStaticHelper;
-use _PhpScopere8e811afab72\Rector\TypeDeclaration\ValueObject\NestedArrayType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\NeverType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\StringType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\TypeHasher;
+use _PhpScoper0a6b37af0871\Rector\PHPStan\TypeFactoryStaticHelper;
+use _PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject\NestedArrayType;
 /**
  * @see \Rector\TypeDeclaration\Tests\TypeNormalizerTest
  */
@@ -33,22 +33,22 @@ final class TypeNormalizer
      * @var TypeHasher
      */
     private $typeHasher;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher)
     {
         $this->typeFactory = $typeFactory;
         $this->typeHasher = $typeHasher;
     }
-    public function convertConstantArrayTypeToArrayType(\_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : ?\_PhpScopere8e811afab72\PHPStan\Type\ArrayType
+    public function convertConstantArrayTypeToArrayType(\_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType
     {
         $nonConstantValueTypes = [];
-        if ($constantArrayType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
+        if ($constantArrayType->getItemType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
             /** @var UnionType $unionType */
             $unionType = $constantArrayType->getItemType();
             foreach ($unionType->getTypes() as $unionedType) {
-                if ($unionedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantStringType) {
-                    $stringType = new \_PhpScopere8e811afab72\PHPStan\Type\StringType();
+                if ($unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType) {
+                    $stringType = new \_PhpScoper0a6b37af0871\PHPStan\Type\StringType();
                     $nonConstantValueTypes[\get_class($stringType)] = $stringType;
-                } elseif ($unionedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType) {
+                } elseif ($unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
                     $nonConstantValueTypes[] = $unionedType;
                 } else {
                     return null;
@@ -65,28 +65,28 @@ final class TypeNormalizer
      * ↓
      * int[]|string[][]|bool[][]
      */
-    public function normalizeArrayOfUnionToUnionArray(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, int $arrayNesting = 1) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function normalizeArrayOfUnionToUnionArray(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, int $arrayNesting = 1) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        if (!$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
+        if (!$type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
             return $type;
         }
         // first collection of types
         if ($arrayNesting === 1) {
             $this->collectedNestedArrayTypes = [];
         }
-        if ($type->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
+        if ($type->getItemType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
             ++$arrayNesting;
             $this->normalizeArrayOfUnionToUnionArray($type->getItemType(), $arrayNesting);
-        } elseif ($type->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
+        } elseif ($type->getItemType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
             $this->collectNestedArrayTypeFromUnionType($type->getItemType(), $arrayNesting);
         } else {
-            $this->collectedNestedArrayTypes[] = new \_PhpScopere8e811afab72\Rector\TypeDeclaration\ValueObject\NestedArrayType($type->getItemType(), $arrayNesting, $type->getKeyType());
+            $this->collectedNestedArrayTypes[] = new \_PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject\NestedArrayType($type->getItemType(), $arrayNesting, $type->getKeyType());
         }
         return $this->createUnionedTypesFromArrayTypes($this->collectedNestedArrayTypes);
     }
-    public function uniqueateConstantArrayType(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function uniqueateConstantArrayType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        if (!$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType) {
+        if (!$type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType) {
             return $type;
         }
         // nothing to normalize
@@ -115,22 +115,22 @@ final class TypeNormalizer
             }
             $keyTypes[$key] = $keyType;
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayType($keyTypes, $uniqueTypes);
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType($keyTypes, $uniqueTypes);
     }
     /**
      * From "string[]|mixed[]" based on empty array to to "string[]"
      */
-    public function normalizeArrayTypeAndArrayNever(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function normalizeArrayTypeAndArrayNever(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        if (!$type instanceof \_PhpScopere8e811afab72\PHPStan\Type\UnionType) {
+        if (!$type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
             return $type;
         }
         $nonNeverTypes = [];
         foreach ($type->getTypes() as $unionedType) {
-            if (!$unionedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
+            if (!$unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
                 return $type;
             }
-            if ($unionedType->getItemType() instanceof \_PhpScopere8e811afab72\PHPStan\Type\NeverType) {
+            if ($unionedType->getItemType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\NeverType) {
                 continue;
             }
             $nonNeverTypes[] = $unionedType;
@@ -140,43 +140,43 @@ final class TypeNormalizer
     /**
      * @param array<string|int, Type> $nonConstantValueTypes
      */
-    private function createArrayTypeFromNonConstantValueTypes(array $nonConstantValueTypes) : \_PhpScopere8e811afab72\PHPStan\Type\ArrayType
+    private function createArrayTypeFromNonConstantValueTypes(array $nonConstantValueTypes) : \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType
     {
         $nonConstantValueTypes = \array_values($nonConstantValueTypes);
         if (\count($nonConstantValueTypes) > 1) {
-            $nonConstantValueType = \_PhpScopere8e811afab72\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($nonConstantValueTypes);
+            $nonConstantValueType = \_PhpScoper0a6b37af0871\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($nonConstantValueTypes);
         } else {
             $nonConstantValueType = $nonConstantValueTypes[0];
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Type\ArrayType(new \_PhpScopere8e811afab72\PHPStan\Type\MixedType(), $nonConstantValueType);
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType(new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType(), $nonConstantValueType);
     }
-    private function collectNestedArrayTypeFromUnionType(\_PhpScopere8e811afab72\PHPStan\Type\UnionType $unionType, int $arrayNesting) : void
+    private function collectNestedArrayTypeFromUnionType(\_PhpScoper0a6b37af0871\PHPStan\Type\UnionType $unionType, int $arrayNesting) : void
     {
         foreach ($unionType->getTypes() as $unionedType) {
-            if ($unionedType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ArrayType) {
+            if ($unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
                 ++$arrayNesting;
                 $this->normalizeArrayOfUnionToUnionArray($unionedType, $arrayNesting);
             } else {
-                $this->collectedNestedArrayTypes[] = new \_PhpScopere8e811afab72\Rector\TypeDeclaration\ValueObject\NestedArrayType($unionedType, $arrayNesting);
+                $this->collectedNestedArrayTypes[] = new \_PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject\NestedArrayType($unionedType, $arrayNesting);
             }
         }
     }
     /**
      * @param NestedArrayType[] $collectedNestedArrayTypes
      */
-    private function createUnionedTypesFromArrayTypes(array $collectedNestedArrayTypes) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    private function createUnionedTypesFromArrayTypes(array $collectedNestedArrayTypes) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $unionedTypes = [];
         foreach ($collectedNestedArrayTypes as $collectedNestedArrayType) {
             $arrayType = $collectedNestedArrayType->getType();
             for ($i = 0; $i < $collectedNestedArrayType->getArrayNestingLevel(); ++$i) {
-                $arrayType = new \_PhpScopere8e811afab72\PHPStan\Type\ArrayType($collectedNestedArrayType->getKeyType(), $arrayType);
+                $arrayType = new \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType($collectedNestedArrayType->getKeyType(), $arrayType);
             }
             /** @var ArrayType $arrayType */
             $unionedTypes[] = $arrayType;
         }
         if (\count($unionedTypes) > 1) {
-            return \_PhpScopere8e811afab72\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($unionedTypes);
+            return \_PhpScoper0a6b37af0871\Rector\PHPStan\TypeFactoryStaticHelper::createUnionObjectType($unionedTypes);
         }
         return $unionedTypes[0];
     }

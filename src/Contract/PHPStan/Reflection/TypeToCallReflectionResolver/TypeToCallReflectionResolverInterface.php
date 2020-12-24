@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver;
+namespace _PhpScoper0a6b37af0871\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScopere8e811afab72\PHPStan\Reflection\FunctionReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
 interface TypeToCallReflectionResolverInterface
 {
-    public function supports(\_PhpScopere8e811afab72\PHPStan\Type\Type $type) : bool;
+    public function supports(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : bool;
     /**
      * @return FunctionReflection|MethodReflection|null
      */
-    public function resolve(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer);
+    public function resolve(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer);
 }

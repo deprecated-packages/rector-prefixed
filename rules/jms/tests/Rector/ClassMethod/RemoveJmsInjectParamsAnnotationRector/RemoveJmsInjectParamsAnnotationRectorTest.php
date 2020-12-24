@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\JMS\Tests\Rector\ClassMethod\RemoveJmsInjectParamsAnnotationRector;
+namespace _PhpScoper0a6b37af0871\Rector\JMS\Tests\Rector\ClassMethod\RemoveJmsInjectParamsAnnotationRector;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\JMS\Rector\ClassMethod\RemoveJmsInjectParamsAnnotationRector;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveJmsInjectParamsAnnotationRectorTest extends \_PhpScopere8e811afab72\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper0a6b37af0871\Rector\JMS\Rector\ClassMethod\RemoveJmsInjectParamsAnnotationRector;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveJmsInjectParamsAnnotationRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveJmsInjectParamsAnnotationRectorTest extends \_PhpScopere8e811a
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScopere8e811afab72\Rector\JMS\Rector\ClassMethod\RemoveJmsInjectParamsAnnotationRector::class;
+        return \_PhpScoper0a6b37af0871\Rector\JMS\Rector\ClassMethod\RemoveJmsInjectParamsAnnotationRector::class;
     }
 }

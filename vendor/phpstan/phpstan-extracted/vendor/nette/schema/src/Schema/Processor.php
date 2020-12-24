@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Schema validator.
  */
@@ -27,7 +27,7 @@ final class Processor
      * @return mixed
      * @throws ValidationException
      */
-    public function process(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema $schema, $data)
+    public function process(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema $schema, $data)
     {
         $context = $this->createContext();
         $data = $schema->normalize($data, $context);
@@ -41,7 +41,7 @@ final class Processor
      * @return mixed
      * @throws ValidationException
      */
-    public function processMultiple(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema $schema, array $dataset)
+    public function processMultiple(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema $schema, array $dataset)
     {
         $context = $this->createContext();
         $flatten = null;
@@ -56,7 +56,7 @@ final class Processor
         $this->throwsErrors($context);
         return $data;
     }
-    private function throwsErrors(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context) : void
+    private function throwsErrors(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context) : void
     {
         $messages = [];
         foreach ($context->errors as $error) {
@@ -64,12 +64,12 @@ final class Processor
             $messages[] = \str_replace(' %path%', $error->path ? $pathStr : '', $error->message);
         }
         if ($messages) {
-            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\ValidationException($messages[0], $messages);
+            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\ValidationException($messages[0], $messages);
         }
     }
-    private function createContext() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context
+    private function createContext() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context
     {
-        $context = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context();
+        $context = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context();
         $context->skipDefaults = $this->skipDefaults;
         $this->onNewContext($context);
         return $context;

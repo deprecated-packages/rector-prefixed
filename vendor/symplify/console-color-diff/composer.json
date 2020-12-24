@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScopere8e811afab72\\Symplify\\ConsoleColorDiff\\": "src"
+            "_PhpScoper0a6b37af0871\\Symplify\\ConsoleColorDiff\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScopere8e811afab72\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
+            "_PhpScoper0a6b37af0871\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
         }
     },
     "extra": {

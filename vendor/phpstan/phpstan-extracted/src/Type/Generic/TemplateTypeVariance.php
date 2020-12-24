@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Type\Generic;
+namespace _PhpScoper0a6b37af0871\PHPStan\Type\Generic;
 
-use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
 class TemplateTypeVariance
 {
     private const INVARIANT = 1;
@@ -78,12 +78,12 @@ class TemplateTypeVariance
         }
         return $other;
     }
-    public function isValidVariance(\_PhpScopere8e811afab72\PHPStan\Type\Type $a, \_PhpScopere8e811afab72\PHPStan\Type\Type $b) : bool
+    public function isValidVariance(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $a, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $b) : bool
     {
-        if ($a instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType && !$a instanceof \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateType) {
+        if ($a instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType && !$a instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateType) {
             return \true;
         }
-        if ($b instanceof \_PhpScopere8e811afab72\PHPStan\Type\MixedType && !$b instanceof \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateType) {
+        if ($b instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType && !$b instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateType) {
             return \true;
         }
         if ($this->invariant()) {
@@ -95,7 +95,7 @@ class TemplateTypeVariance
         if ($this->contravariant()) {
             return $b->isSuperTypeOf($a)->yes();
         }
-        throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
     }
     public function equals(self $other) : bool
     {
@@ -117,7 +117,7 @@ class TemplateTypeVariance
             case self::STATIC:
                 return 'static';
         }
-        throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
     }
     /**
      * @param array{value: int} $properties

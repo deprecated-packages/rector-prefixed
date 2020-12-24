@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DeadCode\NodeFinder;
+namespace _PhpScoper0a6b37af0871\Rector\DeadCode\NodeFinder;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
 final class PreviousVariableAssignNodeFinder
 {
     /**
@@ -17,17 +17,17 @@ final class PreviousVariableAssignNodeFinder
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function find(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function find(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $currentAssign = $assign;
         $variableName = $this->nodeNameResolver->getName($assign->var);
-        $assign = $this->betterNodeFinder->findFirstPrevious($assign, function (\_PhpScopere8e811afab72\PhpParser\Node $node) use($variableName, $currentAssign) : bool {
-            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign) {
+        $assign = $this->betterNodeFinder->findFirstPrevious($assign, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($variableName, $currentAssign) : bool {
+            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
                 return \false;
             }
             // skil self

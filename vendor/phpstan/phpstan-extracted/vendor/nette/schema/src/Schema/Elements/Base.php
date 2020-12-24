@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Elements;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Elements;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
 /**
  * @internal
  */
@@ -49,7 +49,7 @@ trait Base
         $this->asserts[] = [$handler, $description];
         return $this;
     }
-    public function completeDefault(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function completeDefault(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($this->required) {
             $context->addError('The mandatory option %path% is missing.');
@@ -57,30 +57,30 @@ trait Base
         }
         return $this->default;
     }
-    public function doNormalize($value, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function doNormalize($value, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($this->before) {
             $value = ($this->before)($value);
         }
         return $value;
     }
-    private function doValidate($value, string $expected, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context) : bool
+    private function doValidate($value, string $expected, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context) : bool
     {
         try {
-            \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Validators::assert($value, $expected, 'option %path%');
+            \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Validators::assert($value, $expected, 'option %path%');
             return \true;
-        } catch (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\AssertionException $e) {
+        } catch (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\AssertionException $e) {
             $context->addError($e->getMessage(), $expected);
             return \false;
         }
     }
-    private function doFinalize($value, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    private function doFinalize($value, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($this->castTo) {
-            if (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::isBuiltinType($this->castTo)) {
+            if (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::isBuiltinType($this->castTo)) {
                 \settype($value, $this->castTo);
             } else {
-                $value = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::toObject($value, new $this->castTo());
+                $value = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::toObject($value, new $this->castTo());
             }
         }
         foreach ($this->asserts as $i => [$handler, $description]) {

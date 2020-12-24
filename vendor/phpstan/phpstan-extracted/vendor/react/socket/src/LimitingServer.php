@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
 use Exception;
 use OverflowException;
 /**
@@ -32,7 +32,7 @@ use OverflowException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-class LimitingServer extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface
+class LimitingServer extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface
 {
     private $connections = array();
     private $server;
@@ -89,7 +89,7 @@ class LimitingServer extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Even
      * @param int|null        $connectionLimit
      * @param bool            $pauseOnLimit
      */
-    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface $server, $connectionLimit, $pauseOnLimit = \false)
+    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface $server, $connectionLimit, $pauseOnLimit = \false)
     {
         $this->server = $server;
         $this->limit = $connectionLimit;
@@ -141,7 +141,7 @@ class LimitingServer extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Even
         $this->server->close();
     }
     /** @internal */
-    public function handleConnection(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection)
+    public function handleConnection(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection)
     {
         // close connection if limit exceeded
         if ($this->limit !== null && \count($this->connections) >= $this->limit) {
@@ -164,7 +164,7 @@ class LimitingServer extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Even
         $this->emit('connection', array($connection));
     }
     /** @internal */
-    public function handleDisconnection(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection)
+    public function handleDisconnection(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection)
     {
         unset($this->connections[\array_search($connection, $this->connections)]);
         // continue accepting new connection if below limit

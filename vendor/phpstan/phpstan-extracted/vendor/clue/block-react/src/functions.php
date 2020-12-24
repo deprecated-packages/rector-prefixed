@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Clue\React\Block;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Clue\React\Block;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
 use UnderflowException;
 use Exception;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Timer;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Timer\TimeoutException;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Timer;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Timer\TimeoutException;
 /**
  * Wait/sleep for `$time` seconds.
  *
@@ -31,9 +31,9 @@ use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Timer\TimeoutExc
  * @param LoopInterface $loop
  * @return void
  */
-function sleep($time, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
+function sleep($time, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
 {
-    await(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Timer\resolve($time, $loop), $loop);
+    await(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Timer\resolve($time, $loop), $loop);
 }
 /**
  * Block waiting for the given `$promise` to be fulfilled.
@@ -81,14 +81,14 @@ function sleep($time, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Event
  * @throws Exception when the promise is rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function await(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $timeout = null)
+function await(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     $wait = \true;
     $resolved = null;
     $exception = null;
     $rejected = \false;
     if ($timeout !== null) {
-        $promise = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Timer\timeout($promise, $timeout, $loop);
+        $promise = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Timer\timeout($promise, $timeout, $loop);
     }
     $promise->then(function ($c) use(&$resolved, &$wait, $loop) {
         $resolved = $c;
@@ -156,7 +156,7 @@ function await(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Prom
  * @throws Exception if ALL promises are rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function awaitAny(array $promises, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $timeout = null)
+function awaitAny(array $promises, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     // Explicitly overwrite argument with null value. This ensure that this
     // argument does not show up in the stack trace in PHP 7+ only.
@@ -167,11 +167,11 @@ function awaitAny(array $promises, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81
         if (!$all) {
             throw new \UnderflowException('Empty input array');
         }
-        $ret = await(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\any($all)->then(null, function () {
+        $ret = await(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\any($all)->then(null, function () {
             // rejects with an array of rejection reasons => reject with Exception instead
             throw new \Exception('All promises rejected');
         }), $loop, $timeout);
-    } catch (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Timer\TimeoutException $e) {
+    } catch (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Timer\TimeoutException $e) {
         // the timeout fired
         // => try to cancel all promises (rejected ones will be ignored anyway)
         _cancelAllPromises($all);
@@ -231,14 +231,14 @@ function awaitAny(array $promises, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81
  * @throws Exception when ANY promise is rejected
  * @throws TimeoutException if the $timeout is given and triggers
  */
-function awaitAll(array $promises, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $timeout = null)
+function awaitAll(array $promises, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $timeout = null)
 {
     // Explicitly overwrite argument with null value. This ensure that this
     // argument does not show up in the stack trace in PHP 7+ only.
     $all = $promises;
     $promises = null;
     try {
-        return await(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\all($all), $loop, $timeout);
+        return await(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\all($all), $loop, $timeout);
     } catch (\Exception $e) {
         // ANY of the given promises rejected or the timeout fired
         // => try to cancel all promises (rejected ones will be ignored anyway)
@@ -256,7 +256,7 @@ function awaitAll(array $promises, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81
 function _cancelAllPromises(array $promises)
 {
     foreach ($promises as $promise) {
-        if ($promise instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface) {
+        if ($promise instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface) {
             $promise->cancel();
         }
     }

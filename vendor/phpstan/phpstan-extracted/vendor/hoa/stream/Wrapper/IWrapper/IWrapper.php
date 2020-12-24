@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Stream\Wrapper\IWrapper;
+namespace _PhpScoper0a6b37af0871\Hoa\Stream\Wrapper\IWrapper;
 
-use _PhpScopere8e811afab72\Hoa\Consistency;
+use _PhpScoper0a6b37af0871\Hoa\Consistency;
 /**
  * Interface \Hoa\Stream\Wrapper\IWrapper.
  *
@@ -44,7 +44,7 @@ use _PhpScopere8e811afab72\Hoa\Consistency;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-interface IWrapper extends \_PhpScopere8e811afab72\Hoa\Stream\Wrapper\IWrapper\File, \_PhpScopere8e811afab72\Hoa\Stream\Wrapper\IWrapper\Stream
+interface IWrapper extends \_PhpScoper0a6b37af0871\Hoa\Stream\Wrapper\IWrapper\File, \_PhpScoper0a6b37af0871\Hoa\Stream\Wrapper\IWrapper\Stream
 {
     /**
      * Constructs a new stream wrapper.
@@ -56,4 +56,4 @@ interface IWrapper extends \_PhpScopere8e811afab72\Hoa\Stream\Wrapper\IWrapper\F
 /**
  * Flex entity.
  */
-\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Stream\\Wrapper\\IWrapper\\IWrapper');
+\_PhpScoper0a6b37af0871\Hoa\Consistency::flexEntity('_PhpScoper0a6b37af0871\\Hoa\\Stream\\Wrapper\\IWrapper\\IWrapper');

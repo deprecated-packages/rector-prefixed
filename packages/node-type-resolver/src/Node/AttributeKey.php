@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node;
+namespace _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Closure;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
 {
     /**
@@ -24,7 +24,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const SCOPE = \_PhpScopere8e811afab72\PHPStan\Analyser\Scope::class;
+    public const SCOPE = \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope::class;
     /**
      * @var string
      */
@@ -32,7 +32,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const NAMESPACE_NODE = \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_::class;
+    public const NAMESPACE_NODE = \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_::class;
     /**
      * @var string
      */
@@ -48,7 +48,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const CLASS_NODE = \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike::class;
+    public const CLASS_NODE = \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike::class;
     /**
      * @var string
      */
@@ -60,11 +60,11 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const METHOD_NODE = \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class;
+    public const METHOD_NODE = \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class;
     /**
      * @var string
      */
-    public const FUNCTION_NODE = \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_::class;
+    public const FUNCTION_NODE = \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_::class;
     /**
      * @var string
      */
@@ -126,7 +126,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const FILE_INFO = \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo::class;
+    public const FILE_INFO = \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo::class;
     /**
      * Internal php-parser name.
      * Do not change this even if you want!
@@ -160,7 +160,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const PHP_DOC_INFO = \_PhpScopere8e811afab72\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo::class;
+    public const PHP_DOC_INFO = \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo::class;
     /**
      * @var string
      */
@@ -172,7 +172,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const CLOSURE_NODE = \_PhpScopere8e811afab72\PhpParser\Node\Expr\Closure::class;
+    public const CLOSURE_NODE = \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure::class;
     /**
      * @var string
      */

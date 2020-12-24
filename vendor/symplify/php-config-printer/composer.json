@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScopere8e811afab72\\Symplify\\PhpConfigPrinter\\": "src"
+            "_PhpScoper0a6b37af0871\\Symplify\\PhpConfigPrinter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScopere8e811afab72\\Symplify\\PhpConfigPrinter\\Tests\\": "tests"
+            "_PhpScoper0a6b37af0871\\Symplify\\PhpConfigPrinter\\Tests\\": "tests"
         },
         "files": [
             "tests\/Printer\/SmartPhpConfigPrinter\/Source\/custom_inline_objects_function.php",

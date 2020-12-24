@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\Native;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Native;
 
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParameterReflectionWithPhpDocs;
-use _PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-class NativeParameterWithPhpDocsReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\ParameterReflectionWithPhpDocs
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflectionWithPhpDocs;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+class NativeParameterWithPhpDocsReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflectionWithPhpDocs
 {
     /** @var string */
     private $name;
@@ -24,7 +24,7 @@ class NativeParameterWithPhpDocsReflection implements \_PhpScopere8e811afab72\PH
     private $variadic;
     /** @var \PHPStan\Type\Type|null */
     private $defaultValue;
-    public function __construct(string $name, bool $optional, \_PhpScopere8e811afab72\PHPStan\Type\Type $type, \_PhpScopere8e811afab72\PHPStan\Type\Type $phpDocType, \_PhpScopere8e811afab72\PHPStan\Type\Type $nativeType, \_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\_PhpScopere8e811afab72\PHPStan\Type\Type $defaultValue)
+    public function __construct(string $name, bool $optional, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $phpDocType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $nativeType, \_PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type $defaultValue)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -43,19 +43,19 @@ class NativeParameterWithPhpDocsReflection implements \_PhpScopere8e811afab72\PH
     {
         return $this->optional;
     }
-    public function getType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function getPhpDocType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getPhpDocType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->phpDocType;
     }
-    public function getNativeType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getNativeType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->nativeType;
     }
-    public function passedByReference() : \_PhpScopere8e811afab72\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -63,7 +63,7 @@ class NativeParameterWithPhpDocsReflection implements \_PhpScopere8e811afab72\PH
     {
         return $this->variadic;
     }
-    public function getDefaultValue() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getDefaultValue() : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

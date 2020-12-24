@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodeQuality\Rector\Concat;
+namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\Concat;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Concat\JoinStringConcatRector\JoinStringConcatRectorTest
  */
-final class JoinStringConcatRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class JoinStringConcatRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
@@ -24,9 +24,9 @@ final class JoinStringConcatRector extends \_PhpScopere8e811afab72\Rector\Core\R
      * @var bool
      */
     private $nodeReplacementIsRestricted = \false;
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Joins concat of 2 strings, unless the lenght is too long', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Joins concat of 2 strings, unless the lenght is too long', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -51,19 +51,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat::class];
     }
     /**
      * @param Concat $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $this->nodeReplacementIsRestricted = \false;
         if (!$this->isTopMostConcatNode($node)) {
             return null;
         }
         $joinedNode = $this->joinConcatIfStrings($node);
-        if (!$joinedNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
+        if (!$joinedNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
             return null;
         }
         if ($this->nodeReplacementIsRestricted) {
@@ -71,30 +71,30 @@ CODE_SAMPLE
         }
         return $joinedNode;
     }
-    private function isTopMostConcatNode(\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat $concat) : bool
+    private function isTopMostConcatNode(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat $concat) : bool
     {
-        return !$concat->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE) instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat;
+        return !$concat->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE) instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat;
     }
     /**
      * @return Concat|String_
      */
-    private function joinConcatIfStrings(\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat $node) : \_PhpScopere8e811afab72\PhpParser\Node
+    private function joinConcatIfStrings(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat $node) : \_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $concat = clone $node;
-        if ($concat->left instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat) {
+        if ($concat->left instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat) {
             $concat->left = $this->joinConcatIfStrings($concat->left);
         }
-        if ($concat->right instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat) {
+        if ($concat->right instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat) {
             $concat->right = $this->joinConcatIfStrings($concat->right);
         }
-        if (!$concat->left instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
+        if (!$concat->left instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
             return $node;
         }
-        if (!$concat->right instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
+        if (!$concat->right instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
             return $node;
         }
-        $resultString = new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_($concat->left->value . $concat->right->value);
-        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::length($resultString->value) >= self::LINE_BREAK_POINT) {
+        $resultString = new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_($concat->left->value . $concat->right->value);
+        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::length($resultString->value) >= self::LINE_BREAK_POINT) {
             $this->nodeReplacementIsRestricted = \true;
             return $node;
         }

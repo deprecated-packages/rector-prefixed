@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Symplify\Skipper\Tests\FileSystem;
+namespace _PhpScoper0a6b37af0871\Symplify\Skipper\Tests\FileSystem;
 
 use Iterator;
-use _PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use _PhpScopere8e811afab72\Symplify\Skipper\FileSystem\PathNormalizer;
-use _PhpScopere8e811afab72\Symplify\Skipper\HttpKernel\SkipperKernel;
-final class PathNormalizerTest extends \_PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScoper0a6b37af0871\Symplify\Skipper\FileSystem\PathNormalizer;
+use _PhpScoper0a6b37af0871\Symplify\Skipper\HttpKernel\SkipperKernel;
+final class PathNormalizerTest extends \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PathNormalizer
@@ -15,8 +15,8 @@ final class PathNormalizerTest extends \_PhpScopere8e811afab72\Symplify\PackageB
     private $pathNormalizer;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScopere8e811afab72\Symplify\Skipper\HttpKernel\SkipperKernel::class);
-        $this->pathNormalizer = $this->getService(\_PhpScopere8e811afab72\Symplify\Skipper\FileSystem\PathNormalizer::class);
+        $this->bootKernel(\_PhpScoper0a6b37af0871\Symplify\Skipper\HttpKernel\SkipperKernel::class);
+        $this->pathNormalizer = $this->getService(\_PhpScoper0a6b37af0871\Symplify\Skipper\FileSystem\PathNormalizer::class);
     }
     /**
      * @dataProvider providePaths

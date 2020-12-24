@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NodeNameResolver\Contract;
+namespace _PhpScoper0a6b37af0871\Rector\NodeNameResolver\Contract;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
 interface NodeNameResolverInterface
 {
     public function getNode() : string;
-    public function resolve(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?string;
+    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?string;
 }

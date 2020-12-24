@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScopere8e811afab72\\Symplify\\SymfonyPhpConfig\\": "src"
+            "_PhpScoper0a6b37af0871\\Symplify\\SymfonyPhpConfig\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScopere8e811afab72\\Symplify\\SymfonyPhpConfig\\Tests\\": "tests"
+            "_PhpScoper0a6b37af0871\\Symplify\\SymfonyPhpConfig\\Tests\\": "tests"
         },
         "files": [
             "vendor\/symfony\/dependency-injection\/Loader\/Configurator\/ContainerConfigurator.php"

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\StaticTypeMapper\Mapper;
+namespace _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\Mapper;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\Rector\Core\Exception\NotImplementedException;
-use _PhpScopere8e811afab72\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\NotImplementedException;
+use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
 final class PhpParserNodeMapper
 {
     /**
@@ -22,7 +22,7 @@ final class PhpParserNodeMapper
     {
         $this->phpParserNodeMappers = $phpParserNodeMappers;
     }
-    public function mapToPHPStanType(\_PhpScopere8e811afab72\PhpParser\Node $node) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function mapToPHPStanType(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         foreach ($this->phpParserNodeMappers as $phpParserNodeMapper) {
             if (!\is_a($node, $phpParserNodeMapper->getNodeType())) {
@@ -30,11 +30,11 @@ final class PhpParserNodeMapper
             }
             // do not let Expr collect all the types
             // note: can be solve later with priorities on mapper interface, making this last
-            if ($phpParserNodeMapper->getNodeType() === \_PhpScopere8e811afab72\PhpParser\Node\Expr::class && \is_a($node, \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_::class)) {
+            if ($phpParserNodeMapper->getNodeType() === \_PhpScoper0a6b37af0871\PhpParser\Node\Expr::class && \is_a($node, \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_::class)) {
                 continue;
             }
             return $phpParserNodeMapper->mapToPHPStan($node);
         }
-        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\NotImplementedException(\get_class($node));
+        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\NotImplementedException(\get_class($node));
     }
 }

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer;
+namespace _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
 final class GetterMethodCallAnalyzer
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function isGetterMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    public function isGetterMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if ($methodCall->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if ($methodCall->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         $methodCallStaticType = $this->nodeTypeResolver->getStaticType($methodCall);

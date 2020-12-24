@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodeQuality\Rector\Foreach_;
+namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\Foreach_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\If_;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Coalesce;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/bfsdY
  *
  * @see \Rector\CodeQuality\Tests\Rector\Foreach_\SimplifyForeachToCoalescingRector\SimplifyForeachToCoalescingRectorTest
  */
-final class SimplifyForeachToCoalescingRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class SimplifyForeachToCoalescingRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ForeachManipulator
@@ -33,13 +33,13 @@ final class SimplifyForeachToCoalescingRector extends \_PhpScopere8e811afab72\Re
      * @var Return_|null
      */
     private $return;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator $foreachManipulator)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator $foreachManipulator)
     {
         $this->foreachManipulator = $foreachManipulator;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes foreach that returns set value to ??', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes foreach that returns set value to ??', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 foreach ($this->oldToNewFunctions as $oldFunction => $newFunction) {
     if ($currentFunction === $oldFunction) {
         return $newFunction;
@@ -58,14 +58,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param Foreach_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
         }
         $this->return = null;
@@ -82,7 +82,7 @@ CODE_SAMPLE
         if (!$this->areNodesEqual($node->valueVar, $returnOrAssignNode->expr)) {
             return null;
         }
-        if ($returnOrAssignNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
+        if ($returnOrAssignNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_) {
             return $this->processForeachNodeWithReturnInside($node, $returnOrAssignNode);
         }
         return $this->processForeachNodeWithAssignInside($node, $returnOrAssignNode);
@@ -90,26 +90,26 @@ CODE_SAMPLE
     /**
      * @return Assign|Return_|null
      */
-    private function matchReturnOrAssignNode(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    private function matchReturnOrAssignNode(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        return $this->foreachManipulator->matchOnlyStmt($foreach, function (\_PhpScopere8e811afab72\PhpParser\Node $node) : ?Node {
-            if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\If_) {
+        return $this->foreachManipulator->matchOnlyStmt($foreach, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?Node {
+            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_) {
                 return null;
             }
-            if (!$node->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Identical) {
+            if (!$node->cond instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical) {
                 return null;
             }
             if (\count((array) $node->stmts) !== 1) {
                 return null;
             }
-            $innerNode = $node->stmts[0] instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression ? $node->stmts[0]->expr : $node->stmts[0];
-            if ($innerNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign || $innerNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
+            $innerNode = $node->stmts[0] instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression ? $node->stmts[0]->expr : $node->stmts[0];
+            if ($innerNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign || $innerNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_) {
                 return $innerNode;
             }
             return null;
         });
     }
-    private function processForeachNodeWithReturnInside(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_ $foreach, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_ $return) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    private function processForeachNodeWithReturnInside(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_ $foreach, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_ $return) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (!$this->areNodesEqual($foreach->valueVar, $return->expr)) {
             return null;
@@ -125,19 +125,19 @@ CODE_SAMPLE
         } else {
             return null;
         }
-        $nextNode = $foreach->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $nextNode = $foreach->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         // is next node Return?
-        if ($nextNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
+        if ($nextNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_) {
             $this->return = $nextNode;
             $this->removeNode($this->return);
         }
-        $coalesce = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch($foreach->expr, $checkedNode), $this->return && $this->return->expr !== null ? $this->return->expr : $checkedNode);
+        $coalesce = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Coalesce(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch($foreach->expr, $checkedNode), $this->return && $this->return->expr !== null ? $this->return->expr : $checkedNode);
         if ($this->return !== null) {
-            return new \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_($coalesce);
+            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_($coalesce);
         }
         return null;
     }
-    private function processForeachNodeWithAssignInside(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Foreach_ $foreach, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    private function processForeachNodeWithAssignInside(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_ $foreach, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         /** @var If_ $ifNode */
         $ifNode = $foreach->stmts[0];
@@ -152,7 +152,7 @@ CODE_SAMPLE
         } else {
             return null;
         }
-        $arrayDimFetch = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch($foreach->expr, $keyNode);
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign($checkedNode, new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce($arrayDimFetch, $checkedNode));
+        $arrayDimFetch = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch($foreach->expr, $keyNode);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign($checkedNode, new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Coalesce($arrayDimFetch, $checkedNode));
     }
 }

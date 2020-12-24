@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodingStyle\Rector\String_;
+namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Rector\String_;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\String_\SymplifyQuoteEscapeRector\SymplifyQuoteEscapeRectorTest
  */
-final class SymplifyQuoteEscapeRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class SymplifyQuoteEscapeRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/qEkCe9/2
      */
     private const ESCAPED_CHAR_REGEX = '#\\\\|\\$|\\n|\\t#sim';
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Prefer quote that are not inside the string', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Prefer quote that are not inside the string', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -49,51 +49,51 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_::class];
     }
     /**
      * @param String_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $doubleQuoteCount = \substr_count($node->value, '"');
         $singleQuoteCount = \substr_count($node->value, "'");
-        $kind = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
-        if ($kind === \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED) {
+        $kind = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
+        if ($kind === \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED) {
             $this->processSingleQuoted($node, $doubleQuoteCount, $singleQuoteCount);
         }
-        $quoteKind = $node->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
-        if ($quoteKind === \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_::KIND_DOUBLE_QUOTED) {
+        $quoteKind = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
+        if ($quoteKind === \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_::KIND_DOUBLE_QUOTED) {
             $this->processDoubleQuoted($node, $singleQuoteCount, $doubleQuoteCount);
         }
         return $node;
     }
-    private function processSingleQuoted(\_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_ $string, int $doubleQuoteCount, int $singleQuoteCount) : void
+    private function processSingleQuoted(\_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_ $string, int $doubleQuoteCount, int $singleQuoteCount) : void
     {
         if ($doubleQuoteCount === 0 && $singleQuoteCount > 0) {
             // contains chars that will be newly escaped
             if ($this->isMatchEscapedChars($string->value)) {
                 return;
             }
-            $string->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::KIND, \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_::KIND_DOUBLE_QUOTED);
+            $string->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::KIND, \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_::KIND_DOUBLE_QUOTED);
             // invoke override
-            $string->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+            $string->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         }
     }
-    private function processDoubleQuoted(\_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_ $string, int $singleQuoteCount, int $doubleQuoteCount) : void
+    private function processDoubleQuoted(\_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_ $string, int $singleQuoteCount, int $doubleQuoteCount) : void
     {
         if ($singleQuoteCount === 0 && $doubleQuoteCount > 0) {
             // contains chars that will be newly escaped
             if ($this->isMatchEscapedChars($string->value)) {
                 return;
             }
-            $string->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::KIND, \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED);
+            $string->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::KIND, \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED);
             // invoke override
-            $string->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+            $string->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         }
     }
     private function isMatchEscapedChars(string $string) : bool
     {
-        return (bool) \_PhpScopere8e811afab72\Nette\Utils\Strings::match($string, self::ESCAPED_CHAR_REGEX);
+        return (bool) \_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($string, self::ESCAPED_CHAR_REGEX);
     }
 }

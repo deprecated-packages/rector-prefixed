@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Analyser\ResultCache;
+namespace _PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Neon\Neon;
-use _PhpScopere8e811afab72\PHPStan\Analyser\AnalyserResult;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Error;
-use _PhpScopere8e811afab72\PHPStan\Command\Output;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode;
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNodeFetcher;
-use _PhpScopere8e811afab72\PHPStan\File\FileReader;
-use _PhpScopere8e811afab72\PHPStan\File\FileWriter;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Neon\Neon;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\AnalyserResult;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Error;
+use _PhpScoper0a6b37af0871\PHPStan\Command\Output;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNodeFetcher;
+use _PhpScoper0a6b37af0871\PHPStan\File\FileReader;
+use _PhpScoper0a6b37af0871\PHPStan\File\FileWriter;
 use function array_fill_keys;
 use function array_key_exists;
 class ResultCacheManager
@@ -47,7 +47,7 @@ class ResultCacheManager
      * @param string|null $cliAutoloadFile
      * @param array<string, string> $fileReplacements
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNodeFetcher $exportedNodeFetcher, string $cacheFilePath, string $tempResultCachePath, array $analysedPaths, array $composerAutoloaderProjectPaths, array $stubFiles, string $usedLevel, ?string $cliAutoloadFile, array $fileReplacements)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNodeFetcher $exportedNodeFetcher, string $cacheFilePath, string $tempResultCachePath, array $analysedPaths, array $composerAutoloaderProjectPaths, array $stubFiles, string $usedLevel, ?string $cliAutoloadFile, array $fileReplacements)
     {
         $this->exportedNodeFetcher = $exportedNodeFetcher;
         $this->cacheFilePath = $cacheFilePath;
@@ -65,19 +65,19 @@ class ResultCacheManager
      * @param bool $debug
      * @return ResultCache
      */
-    public function restore(array $allAnalysedFiles, bool $debug, bool $onlyFiles, ?array $projectConfigArray, \_PhpScopere8e811afab72\PHPStan\Command\Output $output, ?string $resultCacheName = null) : \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache
+    public function restore(array $allAnalysedFiles, bool $debug, bool $onlyFiles, ?array $projectConfigArray, \_PhpScoper0a6b37af0871\PHPStan\Command\Output $output, ?string $resultCacheName = null) : \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache
     {
         if ($debug) {
             if ($output->isDebug()) {
                 $output->writeLineFormatted('Result cache not used because of debug mode.');
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
         }
         if ($onlyFiles) {
             if ($output->isDebug()) {
                 $output->writeLineFormatted('Result cache not used because only files were passed as analysed paths.');
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
         }
         $cacheFilePath = $this->cacheFilePath;
         if ($resultCacheName !== null) {
@@ -90,7 +90,7 @@ class ResultCacheManager
             if ($output->isDebug()) {
                 $output->writeLineFormatted('Result cache not used because the cache file does not exist.');
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
         }
         try {
             $data = (require $cacheFilePath);
@@ -99,27 +99,27 @@ class ResultCacheManager
                 $output->writeLineFormatted(\sprintf('Result cache not used because an error occurred while loading the cache file: %s', $e->getMessage()));
             }
             @\unlink($cacheFilePath);
-            return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
         }
         if (!\is_array($data)) {
             @\unlink($cacheFilePath);
             if ($output->isDebug()) {
                 $output->writeLineFormatted('Result cache not used because the cache file is corrupted.');
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
         }
         if ($data['meta'] !== $this->getMeta($projectConfigArray)) {
             if ($output->isDebug()) {
                 $output->writeLineFormatted('Result cache not used because the metadata do not match.');
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
         }
         if (\time() - $data['lastFullAnalysisTime'] >= 60 * 60 * 24 * 7) {
             if ($output->isDebug()) {
                 $output->writeLineFormatted('Result cache not used because it\'s more than 7 days since last full analysis.');
             }
             // run full analysis if the result cache is older than 7 days
-            return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache($allAnalysedFiles, \true, \time(), [], [], []);
         }
         $invertedDependencies = $data['dependencies'];
         $deletedFiles = \array_fill_keys(\array_keys($invertedDependencies), \true);
@@ -188,7 +188,7 @@ class ResultCacheManager
                 $filesToAnalyse[] = $fileWithError;
             }
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache(\array_unique($filesToAnalyse), \false, $data['lastFullAnalysisTime'], $filteredErrors, $invertedDependenciesToReturn, $filteredExportedNodes);
+        return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache(\array_unique($filesToAnalyse), \false, $data['lastFullAnalysisTime'], $filteredErrors, $invertedDependenciesToReturn, $filteredExportedNodes);
     }
     /**
      * @param string $analysedFile
@@ -220,7 +220,7 @@ class ResultCacheManager
      * @return ResultCacheProcessResult
      * @throws \PHPStan\ShouldNotHappenException
      */
-    public function process(\_PhpScopere8e811afab72\PHPStan\Analyser\AnalyserResult $analyserResult, \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache $resultCache, \_PhpScopere8e811afab72\PHPStan\Command\Output $output, bool $onlyFiles, ?array $projectConfigArray, $save) : \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCacheProcessResult
+    public function process(\_PhpScoper0a6b37af0871\PHPStan\Analyser\AnalyserResult $analyserResult, \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache $resultCache, \_PhpScoper0a6b37af0871\PHPStan\Command\Output $output, bool $onlyFiles, ?array $projectConfigArray, $save) : \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCacheProcessResult
     {
         $internalErrors = $analyserResult->getInternalErrors();
         $freshErrorsByFile = [];
@@ -272,7 +272,7 @@ class ResultCacheManager
                     $output->writeLineFormatted('Result cache was not saved because it was not requested.');
                 }
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCacheProcessResult($analyserResult, $saved);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCacheProcessResult($analyserResult, $saved);
         }
         $errorsByFile = $this->mergeErrors($resultCache, $freshErrorsByFile);
         $dependencies = $this->mergeDependencies($resultCache, $analyserResult->getDependencies());
@@ -287,14 +287,14 @@ class ResultCacheManager
                 $flatErrors[] = $fileError;
             }
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCacheProcessResult(new \_PhpScopere8e811afab72\PHPStan\Analyser\AnalyserResult($flatErrors, $internalErrors, $dependencies, $exportedNodes, $analyserResult->hasReachedInternalErrorsCountLimit()), $saved);
+        return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCacheProcessResult(new \_PhpScoper0a6b37af0871\PHPStan\Analyser\AnalyserResult($flatErrors, $internalErrors, $dependencies, $exportedNodes, $analyserResult->hasReachedInternalErrorsCountLimit()), $saved);
     }
     /**
      * @param ResultCache $resultCache
      * @param array<string, array<Error>> $freshErrorsByFile
      * @return array<string, array<Error>>
      */
-    private function mergeErrors(\_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache $resultCache, array $freshErrorsByFile) : array
+    private function mergeErrors(\_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache $resultCache, array $freshErrorsByFile) : array
     {
         $errorsByFile = $resultCache->getErrors();
         foreach ($resultCache->getFilesToAnalyse() as $file) {
@@ -311,7 +311,7 @@ class ResultCacheManager
      * @param array<string, array<string>>|null $freshDependencies
      * @return array<string, array<string>>|null
      */
-    private function mergeDependencies(\_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache $resultCache, ?array $freshDependencies) : ?array
+    private function mergeDependencies(\_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache $resultCache, ?array $freshDependencies) : ?array
     {
         if ($freshDependencies === null) {
             return null;
@@ -327,7 +327,7 @@ class ResultCacheManager
         }
         foreach (\array_keys($filesNoOneIsDependingOn) as $file) {
             if (\array_key_exists($file, $cachedDependencies)) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
             $cachedDependencies[$file] = [];
         }
@@ -346,7 +346,7 @@ class ResultCacheManager
      * @param array<string, array<ExportedNode>> $freshExportedNodes
      * @return array<string, array<ExportedNode>>
      */
-    private function mergeExportedNodes(\_PhpScopere8e811afab72\PHPStan\Analyser\ResultCache\ResultCache $resultCache, array $freshExportedNodes) : array
+    private function mergeExportedNodes(\_PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache\ResultCache $resultCache, array $freshExportedNodes) : array
     {
         $newExportedNodes = $resultCache->getExportedNodes();
         foreach ($resultCache->getFilesToAnalyse() as $file) {
@@ -381,7 +381,7 @@ class ResultCacheManager
         }
         foreach (\array_keys($filesNoOneIsDependingOn) as $file) {
             if (\array_key_exists($file, $invertedDependencies)) {
-                throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
             }
             if (!\is_file($file)) {
                 continue;
@@ -411,7 +411,7 @@ php;
         if ($resultCacheName !== null) {
             $file = $this->tempResultCachePath . '/' . $resultCacheName . '.php';
         }
-        \_PhpScopere8e811afab72\PHPStan\File\FileWriter::write($file, \sprintf($template, \var_export($lastFullAnalysisTime, \true), \var_export($this->getMeta($projectConfigArray), \true), \var_export($errors, \true), \var_export($invertedDependencies, \true), \var_export($exportedNodes, \true)));
+        \_PhpScoper0a6b37af0871\PHPStan\File\FileWriter::write($file, \sprintf($template, \var_export($lastFullAnalysisTime, \true), \var_export($this->getMeta($projectConfigArray), \true), \var_export($errors, \true), \var_export($invertedDependencies, \true), \var_export($exportedNodes, \true)));
     }
     /**
      * @param mixed[]|null $projectConfigArray
@@ -432,7 +432,7 @@ php;
             unset($projectConfigArray['parameters']['reportUnmatchedIgnoredErrors']);
             unset($projectConfigArray['parameters']['memoryLimitFile']);
             unset($projectConfigArray['parametersSchema']);
-            $projectConfigArray = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode($projectConfigArray);
+            $projectConfigArray = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode($projectConfigArray);
         }
         return ['cacheVersion' => self::CACHE_VERSION, 'phpstanVersion' => $this->getPhpStanVersion(), 'phpVersion' => \PHP_VERSION_ID, 'projectConfig' => $projectConfigArray, 'analysedPaths' => $this->analysedPaths, 'composerLocks' => $this->getComposerLocks(), 'cliAutoloadFile' => $this->cliAutoloadFile, 'phpExtensions' => $extensions, 'stubFiles' => $this->getStubFiles(), 'level' => $this->usedLevel];
     }
@@ -444,7 +444,7 @@ php;
         if (\array_key_exists($path, $this->fileHashes)) {
             return $this->fileHashes[$path];
         }
-        $contents = \_PhpScopere8e811afab72\PHPStan\File\FileReader::read($path);
+        $contents = \_PhpScoper0a6b37af0871\PHPStan\File\FileReader::read($path);
         $contents = \str_replace("\r\n", "\n", $contents);
         $hash = \sha1($contents);
         $this->fileHashes[$path] = $hash;
@@ -453,7 +453,7 @@ php;
     private function getPhpStanVersion() : string
     {
         try {
-            return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+            return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             return 'Version unknown';
         }

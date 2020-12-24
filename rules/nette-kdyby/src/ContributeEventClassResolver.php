@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NetteKdyby;
+namespace _PhpScoper0a6b37af0871\Rector\NetteKdyby;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\NullableType;
-use _PhpScopere8e811afab72\PhpParser\Node\Param;
-use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScopere8e811afab72\Rector\NetteKdyby\Naming\VariableNaming;
-use _PhpScopere8e811afab72\Rector\NetteKdyby\ValueObject\EventAndListenerTree;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScopere8e811afab72\Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\NullableType;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
+use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a6b37af0871\Rector\NetteKdyby\Naming\VariableNaming;
+use _PhpScoper0a6b37af0871\Rector\NetteKdyby\ValueObject\EventAndListenerTree;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper;
 final class ContributeEventClassResolver
 {
     /**
@@ -22,21 +22,21 @@ final class ContributeEventClassResolver
      */
     private const CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE = [
         // application
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['_PhpScopere8e811afab72\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['_PhpScopere8e811afab72\\Nette\\Application\\Application' => 'getApplication'],
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent' => ['_PhpScopere8e811afab72\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent' => ['_PhpScopere8e811afab72\\Nette\\Application\\Application' => 'getApplication', '_PhpScopere8e811afab72\\Nette\\Application\\IPresenter' => 'getPresenter'],
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent' => ['_PhpScopere8e811afab72\\Nette\\Application\\Application' => 'getApplication', '_PhpScopere8e811afab72\\Nette\\Application\\Request' => 'getRequest'],
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent' => ['_PhpScopere8e811afab72\\Nette\\Application\\Application' => 'getApplication', '_PhpScopere8e811afab72\\Nette\\Application\\IResponse' => 'getResponse'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Application\\Application' => 'getApplication'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper0a6b37af0871\\Nette\\Application\\IPresenter' => 'getPresenter'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper0a6b37af0871\\Nette\\Application\\Request' => 'getRequest'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper0a6b37af0871\\Nette\\Application\\IResponse' => 'getResponse'],
         // presenter
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent' => ['_PhpScopere8e811afab72\\Nette\\Application\\IPresenter' => 'getPresenter', '_PhpScopere8e811afab72\\Nette\\Application\\IResponse' => 'getResponse'],
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent' => ['_PhpScopere8e811afab72\\Nette\\Application\\UI\\Presenter' => 'getPresenter'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Application\\IPresenter' => 'getPresenter', '_PhpScoper0a6b37af0871\\Nette\\Application\\IResponse' => 'getResponse'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Application\\UI\\Presenter' => 'getPresenter'],
         // nette/security
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent' => ['_PhpScopere8e811afab72\\Nette\\Security\\User' => 'getUser'],
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent' => ['_PhpScopere8e811afab72\\Nette\\Security\\User' => 'getUser'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Security\\User' => 'getUser'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Security\\User' => 'getUser'],
         // latte
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent' => ['_PhpScopere8e811afab72\\Latte\\Engine' => 'getEngine'],
-        '_PhpScopere8e811afab72\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent' => ['_PhpScopere8e811afab72\\Nette\\Bridges\\ApplicationLatte\\Template' => 'getTemplate'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent' => ['_PhpScoper0a6b37af0871\\Latte\\Engine' => 'getEngine'],
+        '_PhpScoper0a6b37af0871\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent' => ['_PhpScoper0a6b37af0871\\Nette\\Bridges\\ApplicationLatte\\Template' => 'getTemplate'],
     ];
     /**
      * @var NodeNameResolver
@@ -54,25 +54,25 @@ final class ContributeEventClassResolver
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScopere8e811afab72\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoper0a6b37af0871\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->variableNaming = $variableNaming;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-    public function resolveGetterMethodByEventClassAndParam(string $eventClass, \_PhpScopere8e811afab72\PhpParser\Node\Param $param, ?\_PhpScopere8e811afab72\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : string
+    public function resolveGetterMethodByEventClassAndParam(string $eventClass, \_PhpScoper0a6b37af0871\PhpParser\Node\Param $param, ?\_PhpScoper0a6b37af0871\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : string
     {
         $getterMethodsWithType = self::CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE[$eventClass] ?? null;
         $paramType = $param->type;
         // unwrap nullable type
-        if ($paramType instanceof \_PhpScopere8e811afab72\PhpParser\Node\NullableType) {
+        if ($paramType instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType) {
             $paramType = $paramType->type;
         }
         if ($eventAndListenerTree !== null) {
             $getterMethodBlueprints = $eventAndListenerTree->getGetterMethodBlueprints();
             foreach ($getterMethodBlueprints as $getterMethodBlueprint) {
-                if (!$getterMethodBlueprint->getReturnTypeNode() instanceof \_PhpScopere8e811afab72\PhpParser\Node\Name) {
+                if (!$getterMethodBlueprint->getReturnTypeNode() instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
                     continue;
                 }
                 if ($this->betterStandardPrinter->areNodesEqual($getterMethodBlueprint->getReturnTypeNode(), $paramType)) {
@@ -80,9 +80,9 @@ final class ContributeEventClassResolver
                 }
             }
         }
-        if ($paramType === null || $paramType instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
+        if ($paramType === null || $paramType instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier) {
             if ($paramType === null) {
-                $staticType = new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
+                $staticType = new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
             } else {
                 $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($paramType);
             }
@@ -90,7 +90,7 @@ final class ContributeEventClassResolver
         }
         $type = $this->nodeNameResolver->getName($paramType);
         if ($type === null) {
-            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
         }
         // system contribute event
         if (isset($getterMethodsWithType[$type])) {
@@ -108,11 +108,11 @@ final class ContributeEventClassResolver
         $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($paramType);
         return $this->createGetterFromParamAndStaticType($param, $staticType);
     }
-    private function createGetterFromParamAndStaticType(\_PhpScopere8e811afab72\PhpParser\Node\Param $param, \_PhpScopere8e811afab72\PHPStan\Type\Type $type) : string
+    private function createGetterFromParamAndStaticType(\_PhpScoper0a6b37af0871\PhpParser\Node\Param $param, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : string
     {
         $variableName = $this->variableNaming->resolveFromNodeAndType($param, $type);
         if ($variableName === null) {
-            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
         }
         return 'get' . \ucfirst($variableName);
     }

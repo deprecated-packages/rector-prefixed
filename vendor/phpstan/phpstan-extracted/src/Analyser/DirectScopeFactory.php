@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Analyser;
+namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
 
-use _PhpScopere8e811afab72\PHPStan\DependencyInjection\Container;
-use _PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
-use _PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor;
-use _PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider;
-use _PhpScopere8e811afab72\PHPStan\Rules\Properties\PropertyReflectionFinder;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container;
+use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
+use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoper0a6b37af0871\PHPStan\Rules\Properties\PropertyReflectionFinder;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
 /**
  * @internal
  */
-class DirectScopeFactory implements \_PhpScopere8e811afab72\PHPStan\Analyser\ScopeFactory
+class DirectScopeFactory implements \_PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeFactory
 {
     /** @var string */
     private $scopeClass;
@@ -35,7 +35,7 @@ class DirectScopeFactory implements \_PhpScopere8e811afab72\PHPStan\Analyser\Sco
     private $treatPhpDocTypesAsCertain;
     /** @var string[] */
     private $dynamicConstantNames;
-    public function __construct(string $scopeClass, \_PhpScopere8e811afab72\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider $dynamicReturnTypeExtensionRegistryProvider, \_PhpScopere8e811afab72\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider $operatorTypeSpecifyingExtensionRegistryProvider, \_PhpScopere8e811afab72\PhpParser\PrettyPrinter\Standard $printer, \_PhpScopere8e811afab72\PHPStan\Analyser\TypeSpecifier $typeSpecifier, \_PhpScopere8e811afab72\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder, \_PhpScopere8e811afab72\PHPStan\Parser\Parser $parser, bool $treatPhpDocTypesAsCertain, \_PhpScopere8e811afab72\PHPStan\DependencyInjection\Container $container)
+    public function __construct(string $scopeClass, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider $dynamicReturnTypeExtensionRegistryProvider, \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider $operatorTypeSpecifyingExtensionRegistryProvider, \_PhpScoper0a6b37af0871\PhpParser\PrettyPrinter\Standard $printer, \_PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifier $typeSpecifier, \_PhpScoper0a6b37af0871\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder, \_PhpScoper0a6b37af0871\PHPStan\Parser\Parser $parser, bool $treatPhpDocTypesAsCertain, \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container $container)
     {
         $this->scopeClass = $scopeClass;
         $this->reflectionProvider = $reflectionProvider;
@@ -68,11 +68,11 @@ class DirectScopeFactory implements \_PhpScopere8e811afab72\PHPStan\Analyser\Sco
      *
      * @return MutatingScope
      */
-    public function create(\_PhpScopere8e811afab72\PHPStan\Analyser\ScopeContext $context, bool $declareStrictTypes = \false, array $constantTypes = [], $function = null, ?string $namespace = null, array $variablesTypes = [], array $moreSpecificTypes = [], array $conditionalExpressions = [], ?string $inClosureBindScopeClass = null, ?\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor $anonymousFunctionReflection = null, bool $inFirstLevelStatement = \true, array $currentlyAssignedExpressions = [], array $nativeExpressionTypes = [], array $inFunctionCallsStack = [], bool $afterExtractCall = \false, ?\_PhpScopere8e811afab72\PHPStan\Analyser\Scope $parentScope = null) : \_PhpScopere8e811afab72\PHPStan\Analyser\MutatingScope
+    public function create(\_PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeContext $context, bool $declareStrictTypes = \false, array $constantTypes = [], $function = null, ?string $namespace = null, array $variablesTypes = [], array $moreSpecificTypes = [], array $conditionalExpressions = [], ?string $inClosureBindScopeClass = null, ?\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $anonymousFunctionReflection = null, bool $inFirstLevelStatement = \true, array $currentlyAssignedExpressions = [], array $nativeExpressionTypes = [], array $inFunctionCallsStack = [], bool $afterExtractCall = \false, ?\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $parentScope = null) : \_PhpScoper0a6b37af0871\PHPStan\Analyser\MutatingScope
     {
         $scopeClass = $this->scopeClass;
-        if (!\is_a($scopeClass, \_PhpScopere8e811afab72\PHPStan\Analyser\MutatingScope::class, \true)) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+        if (!\is_a($scopeClass, \_PhpScoper0a6b37af0871\PHPStan\Analyser\MutatingScope::class, \true)) {
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
         }
         return new $scopeClass($this, $this->reflectionProvider, $this->dynamicReturnTypeExtensionRegistryProvider->getRegistry(), $this->operatorTypeSpecifyingExtensionRegistryProvider->getRegistry(), $this->printer, $this->typeSpecifier, $this->propertyReflectionFinder, $this->parser, $context, $declareStrictTypes, $constantTypes, $function, $namespace, $variablesTypes, $moreSpecificTypes, $conditionalExpressions, $inClosureBindScopeClass, $anonymousFunctionReflection, $inFirstLevelStatement, $currentlyAssignedExpressions, $nativeExpressionTypes, $inFunctionCallsStack, $this->dynamicConstantNames, $this->treatPhpDocTypesAsCertain, $afterExtractCall, $parentScope);
     }

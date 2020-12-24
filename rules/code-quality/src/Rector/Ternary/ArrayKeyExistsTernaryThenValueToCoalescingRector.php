@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodeQuality\Rector\Ternary;
+namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\Ternary;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Coalesce;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/f7itn
  *
  * @see \Rector\CodeQuality\Tests\Rector\Ternary\ArrayKeyExistsTernaryThenValueToCoalescingRector\ArrayKeyExistsTernaryThenValueToCoalescingRectorTest
  */
-final class ArrayKeyExistsTernaryThenValueToCoalescingRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class ArrayKeyExistsTernaryThenValueToCoalescingRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array_key_exists() ternary to coalesing', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array_key_exists() ternary to coalesing', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($values, $keyToMatch)
@@ -45,20 +45,20 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary::class];
     }
     /**
      * @param Ternary $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if (!$node->cond instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+        if (!$node->cond instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         if (!$this->isName($node->cond, 'array_key_exists')) {
             return null;
         }
-        if (!$node->if instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$node->if instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
         if (!$this->areArrayKeysExistsArgsMatchingDimFetch($node->cond, $node->if)) {
@@ -67,7 +67,7 @@ CODE_SAMPLE
         if (!$this->isNull($node->else)) {
             return null;
         }
-        return new \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Coalesce($node->if, $node->else);
+        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Coalesce($node->if, $node->else);
     }
     /**
      * Equals if:
@@ -76,7 +76,7 @@ CODE_SAMPLE
      * =
      * $values[$key]
      */
-    private function areArrayKeysExistsArgsMatchingDimFetch(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    private function areArrayKeysExistsArgsMatchingDimFetch(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
         $keyExpr = $funcCall->args[0]->value;
         $valuesExpr = $funcCall->args[1]->value;

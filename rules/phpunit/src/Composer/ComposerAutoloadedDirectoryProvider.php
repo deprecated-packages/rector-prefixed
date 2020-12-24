@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PHPUnit\Composer;
+namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Composer;
 
-use _PhpScopere8e811afab72\Nette\Utils\Arrays;
-use _PhpScopere8e811afab72\Nette\Utils\Json;
-use _PhpScopere8e811afab72\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a6b37af0871\Nette\Utils\Arrays;
+use _PhpScoper0a6b37af0871\Nette\Utils\Json;
+use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
 final class ComposerAutoloadedDirectoryProvider
 {
     /**
@@ -21,7 +21,7 @@ final class ComposerAutoloadedDirectoryProvider
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->composerFilePath = \getcwd() . '/composer.json';
         $this->smartFileSystem = $smartFileSystem;
@@ -31,7 +31,7 @@ final class ComposerAutoloadedDirectoryProvider
      */
     public function provide() : array
     {
-        if (\_PhpScopere8e811afab72\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return [\getcwd() . '/src', \getcwd() . '/tests', \getcwd() . '/packages', \getcwd() . '/rules'];
         }
         $composerJson = $this->loadComposerJsonArray();
@@ -43,7 +43,7 @@ final class ComposerAutoloadedDirectoryProvider
             $sectionDirectories = $this->collectDirectoriesFromAutoload($composerJson[$autoloadSection]);
             $autoloadDirectories[] = $sectionDirectories;
         }
-        return \_PhpScopere8e811afab72\Nette\Utils\Arrays::flatten($autoloadDirectories);
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Arrays::flatten($autoloadDirectories);
     }
     /**
      * @return mixed[]
@@ -54,7 +54,7 @@ final class ComposerAutoloadedDirectoryProvider
             return [];
         }
         $composerFileContent = $this->smartFileSystem->readFile($this->composerFilePath);
-        return \_PhpScopere8e811afab72\Nette\Utils\Json::decode($composerFileContent, \_PhpScopere8e811afab72\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Json::decode($composerFileContent, \_PhpScoper0a6b37af0871\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param string[] $composerJsonAutoload

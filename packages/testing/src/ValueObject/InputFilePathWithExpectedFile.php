@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Testing\ValueObject;
+namespace _PhpScoper0a6b37af0871\Rector\Testing\ValueObject;
 
-use _PhpScopere8e811afab72\Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
 final class InputFilePathWithExpectedFile
 {
     /**
@@ -15,16 +15,16 @@ final class InputFilePathWithExpectedFile
      * @var AddedFileWithContent
      */
     private $addedFileWithContent;
-    public function __construct(string $inputFilePath, \_PhpScopere8e811afab72\Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent)
+    public function __construct(string $inputFilePath, \_PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent)
     {
         $this->inputFilePath = $inputFilePath;
         $this->addedFileWithContent = $addedFileWithContent;
     }
-    public function getInputFileInfo() : \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo
+    public function getInputFileInfo() : \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo($this->inputFilePath);
+        return new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo($this->inputFilePath);
     }
-    public function getAddedFileWithContent() : \_PhpScopere8e811afab72\Rector\FileSystemRector\ValueObject\AddedFileWithContent
+    public function getAddedFileWithContent() : \_PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\AddedFileWithContent
     {
         return $this->addedFileWithContent;
     }

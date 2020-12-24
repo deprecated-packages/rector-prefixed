@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PHPUnit\Tests\TestClassResolver;
+namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Tests\TestClassResolver;
 
 use Iterator;
-use _PhpScopere8e811afab72\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScopere8e811afab72\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector;
-use _PhpScopere8e811afab72\Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector\DowngradeTypedPropertyRectorTest;
-use _PhpScopere8e811afab72\Rector\Php74\Rector\Property\TypedPropertyRector;
-use _PhpScopere8e811afab72\Rector\Php74\Tests\Rector\Property\TypedPropertyRector\TypedPropertyRectorTest;
-use _PhpScopere8e811afab72\Rector\PHPUnit\TestClassResolver\TestClassResolver;
-use _PhpScopere8e811afab72\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass;
-use _PhpScopere8e811afab72\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest;
-use _PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class TestClassResolverTest extends \_PhpScopere8e811afab72\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoper0a6b37af0871\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScoper0a6b37af0871\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector;
+use _PhpScoper0a6b37af0871\Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector\DowngradeTypedPropertyRectorTest;
+use _PhpScoper0a6b37af0871\Rector\Php74\Rector\Property\TypedPropertyRector;
+use _PhpScoper0a6b37af0871\Rector\Php74\Tests\Rector\Property\TypedPropertyRector\TypedPropertyRectorTest;
+use _PhpScoper0a6b37af0871\Rector\PHPUnit\TestClassResolver\TestClassResolver;
+use _PhpScoper0a6b37af0871\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass;
+use _PhpScoper0a6b37af0871\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest;
+use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class TestClassResolverTest extends \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var TestClassResolver
@@ -21,8 +21,8 @@ final class TestClassResolverTest extends \_PhpScopere8e811afab72\Symplify\Packa
     private $testClassResolver;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScopere8e811afab72\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->testClassResolver = $this->getService(\_PhpScopere8e811afab72\Rector\PHPUnit\TestClassResolver\TestClassResolver::class);
+        $this->bootKernel(\_PhpScoper0a6b37af0871\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->testClassResolver = $this->getService(\_PhpScoper0a6b37af0871\Rector\PHPUnit\TestClassResolver\TestClassResolver::class);
     }
     /**
      * @dataProvider provideData()
@@ -34,8 +34,8 @@ final class TestClassResolverTest extends \_PhpScopere8e811afab72\Symplify\Packa
     }
     public function provideData() : \Iterator
     {
-        (yield [\_PhpScopere8e811afab72\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass::class, \_PhpScopere8e811afab72\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest::class]);
-        (yield [\_PhpScopere8e811afab72\Rector\Php74\Rector\Property\TypedPropertyRector::class, \_PhpScopere8e811afab72\Rector\Php74\Tests\Rector\Property\TypedPropertyRector\TypedPropertyRectorTest::class]);
-        (yield [\_PhpScopere8e811afab72\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector::class, \_PhpScopere8e811afab72\Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector\DowngradeTypedPropertyRectorTest::class]);
+        (yield [\_PhpScoper0a6b37af0871\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass::class, \_PhpScoper0a6b37af0871\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest::class]);
+        (yield [\_PhpScoper0a6b37af0871\Rector\Php74\Rector\Property\TypedPropertyRector::class, \_PhpScoper0a6b37af0871\Rector\Php74\Tests\Rector\Property\TypedPropertyRector\TypedPropertyRectorTest::class]);
+        (yield [\_PhpScoper0a6b37af0871\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector::class, \_PhpScoper0a6b37af0871\Rector\DowngradePhp74\Tests\Rector\Property\DowngradeTypedPropertyRector\DowngradeTypedPropertyRectorTest::class]);
     }
 }

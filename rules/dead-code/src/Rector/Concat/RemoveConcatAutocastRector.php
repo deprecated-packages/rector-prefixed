@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\DeadCode\Rector\Concat;
+namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Rector\Concat;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\String_;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\String_;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Concat\RemoveConcatAutocastRector\RemoveConcatAutocastRectorTest
  */
-final class RemoveConcatAutocastRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class RemoveConcatAutocastRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove (string) casting when it comes to concat, that does this by default', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove (string) casting when it comes to concat, that does this by default', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeConcatingClass
 {
     public function run($value)
@@ -42,22 +42,22 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat::class];
     }
     /**
      * @param Concat $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if (!$node->left instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\String_ && !$node->right instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\String_) {
+        if (!$node->left instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\String_ && !$node->right instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\String_) {
             return null;
         }
         $node->left = $this->removeStringCast($node->left);
         $node->right = $this->removeStringCast($node->right);
         return $node;
     }
-    private function removeStringCast(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : \_PhpScopere8e811afab72\PhpParser\Node\Expr
+    private function removeStringCast(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr
     {
-        return $expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Cast\String_ ? $expr->expr : $expr;
+        return $expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\String_ ? $expr->expr : $expr;
     }
 }

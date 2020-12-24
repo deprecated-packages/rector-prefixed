@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise;
 
-class Promise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
+class Promise implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
 {
     private $canceller;
     private $result;
@@ -47,7 +47,7 @@ class Promise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Pr
         if (null !== $this->result) {
             return $this->result->done($onFulfilled, $onRejected, $onProgress);
         }
-        $this->handlers[] = static function (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise) use($onFulfilled, $onRejected) {
+        $this->handlers[] = static function (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise) use($onFulfilled, $onRejected) {
             $promise->done($onFulfilled, $onRejected);
         };
         if ($onProgress) {
@@ -58,7 +58,7 @@ class Promise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Pr
     {
         return $this->then(null, static function ($reason) use($onRejected) {
             if (!_checkTypehint($onRejected, $reason)) {
-                return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($reason);
+                return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($reason);
             }
             return $onRejected($reason);
         });
@@ -71,7 +71,7 @@ class Promise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Pr
             });
         }, static function ($reason) use($onFulfilledOrRejected) {
             return resolve($onFulfilledOrRejected())->then(function () use($reason) {
-                return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($reason);
+                return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($reason);
             });
         });
     }
@@ -104,7 +104,7 @@ class Promise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Pr
             } else {
                 $progressHandler = $notify;
             }
-            $this->handlers[] = static function (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise) use($onFulfilled, $onRejected, $resolve, $reject, $progressHandler) {
+            $this->handlers[] = static function (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise) use($onFulfilled, $onRejected, $resolve, $reject, $progressHandler) {
                 $promise->then($onFulfilled, $onRejected)->done($resolve, $reject, $progressHandler);
             };
             $this->progressHandlers[] = $progressHandler;
@@ -117,11 +117,11 @@ class Promise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Pr
         }
         $this->settle(reject($reason));
     }
-    private function settle(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise)
+    private function settle(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise)
     {
         $promise = $this->unwrap($promise);
         if ($promise === $this) {
-            $promise = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise(new \LogicException('Cannot resolve a promise with itself.'));
+            $promise = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise(new \LogicException('Cannot resolve a promise with itself.'));
         }
         $handlers = $this->handlers;
         $this->progressHandlers = $this->handlers = [];
@@ -141,7 +141,7 @@ class Promise implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Pr
     }
     private function extract($promise)
     {
-        if ($promise instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\LazyPromise) {
+        if ($promise instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\LazyPromise) {
             $promise = $promise->promise();
         }
         return $promise;

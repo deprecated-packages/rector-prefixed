@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Symplify\SetConfigResolver\Console\Option;
+namespace _PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Console\Option;
 
 final class OptionName
 {

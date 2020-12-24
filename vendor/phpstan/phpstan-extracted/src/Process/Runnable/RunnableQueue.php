@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Process\Runnable;
+namespace _PhpScoper0a6b37af0871\PHPStan\Process\Runnable;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
 use SplObjectStorage;
 class RunnableQueue
 {
@@ -16,7 +16,7 @@ class RunnableQueue
     private $queue = [];
     /** @var SplObjectStorage<Runnable, array{int, Deferred}> */
     private $running;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Process\Runnable\RunnableQueueLogger $logger, int $maxSize)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Process\Runnable\RunnableQueueLogger $logger, int $maxSize)
     {
         $this->logger = $logger;
         $this->maxSize = $maxSize;
@@ -42,12 +42,12 @@ class RunnableQueue
         }
         return $allSize;
     }
-    public function queue(\_PhpScopere8e811afab72\PHPStan\Process\Runnable\Runnable $runnable, int $size) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
+    public function queue(\_PhpScoper0a6b37af0871\PHPStan\Process\Runnable\Runnable $runnable, int $size) : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
     {
         if ($size > $this->maxSize) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException('Runnable size exceeds queue maxSize.');
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException('Runnable size exceeds queue maxSize.');
         }
-        $deferred = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Deferred(static function () use($runnable) : void {
+        $deferred = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Deferred(static function () use($runnable) : void {
             $runnable->cancel();
         });
         $this->queue[] = [$runnable, $size, $deferred];
@@ -63,7 +63,7 @@ class RunnableQueue
         }
         $currentQueueSize = $this->getRunningSize();
         if ($currentQueueSize > $this->maxSize) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException('Running overflow');
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException('Running overflow');
         }
         if ($currentQueueSize === $this->maxSize) {
             $this->logger->log('Queue is full');
@@ -80,7 +80,7 @@ class RunnableQueue
         /** @var array{Runnable, int, Deferred} $popped */
         $popped = \array_shift($this->queue);
         if ($popped[0] !== $runnable || $popped[1] !== $runnableSize || $popped[2] !== $deferred) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
         }
         $this->running->attach($runnable, [$runnableSize, $deferred]);
         $this->logger->log(\sprintf('Running process %s', $runnable->getName()));

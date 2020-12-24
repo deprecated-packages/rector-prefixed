@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\PHPStan\Type;
+namespace _PhpScoper0a6b37af0871\Rector\PHPStan\Type;
 
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-final class ShortenedObjectType extends \_PhpScopere8e811afab72\PHPStan\Type\ObjectType
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+final class ShortenedObjectType extends \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType
 {
     /**
      * @var string

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Analyser;
+namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
 
-use _PhpScopere8e811afab72\PHPStan\Dependency\ExportedNode;
+use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode;
 class FileAnalyserResult
 {
     /** @var Error[] */

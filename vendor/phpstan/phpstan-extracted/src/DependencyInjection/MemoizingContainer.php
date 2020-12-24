@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\DependencyInjection;
+namespace _PhpScoper0a6b37af0871\PHPStan\DependencyInjection;
 
-class MemoizingContainer implements \_PhpScopere8e811afab72\PHPStan\DependencyInjection\Container
+class MemoizingContainer implements \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container
 {
     /** @var Container */
     private $originalContainer;
     /** @var array<string, mixed> */
     private $servicesByType = [];
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\DependencyInjection\Container $originalContainer)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container $originalContainer)
     {
         $this->originalContainer = $originalContainer;
     }

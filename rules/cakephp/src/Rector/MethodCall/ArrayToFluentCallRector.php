@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CakePHP\Rector\MethodCall;
+namespace _PhpScoper0a6b37af0871\Rector\CakePHP\Rector\MethodCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass;
-use _PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ArrayToFluentCall;
-use _PhpScopere8e811afab72\Rector\CakePHP\ValueObject\FactoryMethod;
-use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScopere8e811afab72\Webmozart\Assert\Assert;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass;
+use _PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\ArrayToFluentCall;
+use _PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\FactoryMethod;
+use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Webmozart\Assert\Assert;
 /**
  * @see \Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\ArrayToFluentCallRectorTest
  */
-final class ArrayToFluentCallRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ArrayToFluentCallRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -37,9 +37,9 @@ final class ArrayToFluentCallRector extends \_PhpScopere8e811afab72\Rector\Core\
      * @var FactoryMethod[]
      */
     private $factoryMethods = [];
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Moves array options to fluent setter method calls.', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Moves array options to fluent setter method calls.', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 use Cake\ORM\Table;
 
 final class ArticlesTable extends Table
@@ -66,19 +66,19 @@ final class ArticlesTable extends Table
     }
 }
 CODE_SAMPLE
-, [self::ARRAYS_TO_FLUENT_CALLS => [new \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ArrayToFluentCall('ArticlesTable', ['foreignKey' => 'setForeignKey', 'propertyName' => 'setProperty'])]])]);
+, [self::ARRAYS_TO_FLUENT_CALLS => [new \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\ArrayToFluentCall('ArticlesTable', ['foreignKey' => 'setForeignKey', 'propertyName' => 'setProperty'])]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         $factoryMethod = $this->matchTypeAndMethodName($node);
         if ($factoryMethod === null) {
@@ -95,13 +95,13 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $arraysToFluentCalls = $configuration[self::ARRAYS_TO_FLUENT_CALLS] ?? [];
-        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($arraysToFluentCalls, \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ArrayToFluentCall::class);
+        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsInstanceOf($arraysToFluentCalls, \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\ArrayToFluentCall::class);
         $this->arraysToFluentCalls = $arraysToFluentCalls;
         $factoryMethods = $configuration[self::FACTORY_METHODS] ?? [];
-        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($factoryMethods, \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\FactoryMethod::class);
+        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsInstanceOf($factoryMethods, \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\FactoryMethod::class);
         $this->factoryMethods = $factoryMethods;
     }
-    private function matchTypeAndMethodName(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\FactoryMethod
+    private function matchTypeAndMethodName(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\FactoryMethod
     {
         foreach ($this->factoryMethods as $factoryMethod) {
             if (!$this->isObjectType($methodCall->var, $factoryMethod->getType())) {
@@ -114,13 +114,13 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function replaceArrayToFluentMethodCalls(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall, int $argumentPosition, \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ArrayToFluentCall $arrayToFluentCall) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall
+    private function replaceArrayToFluentMethodCalls(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall, int $argumentPosition, \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\ArrayToFluentCall $arrayToFluentCall) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall
     {
         if (\count((array) $methodCall->args) !== $argumentPosition) {
             return null;
         }
         $argumentValue = $methodCall->args[$argumentPosition - 1]->value;
-        if (!$argumentValue instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_) {
+        if (!$argumentValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_) {
             return null;
         }
         $arrayItemsAndFluentClass = $this->extractFluentMethods($argumentValue->items, $arrayToFluentCall->getArrayKeysToFluentCalls());
@@ -143,7 +143,7 @@ CODE_SAMPLE
      * @param array<ArrayItem|null> $originalArrayItems
      * @param array<string, string> $arrayMap
      */
-    private function extractFluentMethods(array $originalArrayItems, array $arrayMap) : \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass
+    private function extractFluentMethods(array $originalArrayItems, array $arrayMap) : \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass
     {
         $newArrayItems = [];
         $fluentCalls = [];
@@ -153,7 +153,7 @@ CODE_SAMPLE
             }
             /** @var ArrayItem $arrayItem */
             $key = $arrayItem->key;
-            if ($key instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_ && isset($arrayMap[$key->value])) {
+            if ($key instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_ && isset($arrayMap[$key->value])) {
                 /** @var string $methodName */
                 $methodName = $arrayMap[$key->value];
                 $fluentCalls[$methodName] = $arrayItem->value;
@@ -161,6 +161,6 @@ CODE_SAMPLE
                 $newArrayItems[] = $arrayItem;
             }
         }
-        return new \_PhpScopere8e811afab72\Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass($newArrayItems, $fluentCalls);
+        return new \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass($newArrayItems, $fluentCalls);
     }
 }

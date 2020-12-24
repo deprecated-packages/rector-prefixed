@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NetteKdyby\ValueObject;
+namespace _PhpScoper0a6b37af0871\Rector\NetteKdyby\ValueObject;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
 final class GetterMethodBlueprint
 {
     /**
@@ -18,7 +18,7 @@ final class GetterMethodBlueprint
      * @var Node|null
      */
     private $returnTypeNode;
-    public function __construct(string $methodName, ?\_PhpScopere8e811afab72\PhpParser\Node $returnTypeNode, string $variableName)
+    public function __construct(string $methodName, ?\_PhpScoper0a6b37af0871\PhpParser\Node $returnTypeNode, string $variableName)
     {
         $this->methodName = $methodName;
         $this->returnTypeNode = $returnTypeNode;
@@ -28,7 +28,7 @@ final class GetterMethodBlueprint
     {
         return $this->methodName;
     }
-    public function getReturnTypeNode() : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function getReturnTypeNode() : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         return $this->returnTypeNode;
     }

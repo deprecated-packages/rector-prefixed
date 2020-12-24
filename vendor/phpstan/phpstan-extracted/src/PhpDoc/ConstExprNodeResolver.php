@@ -1,51 +1,51 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\PhpDoc;
+namespace _PhpScoper0a6b37af0871\PHPStan\PhpDoc;
 
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
-use _PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode;
-use _PhpScopere8e811afab72\PHPStan\Type\ArrayType;
-use _PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayTypeBuilder;
-use _PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper;
-use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayTypeBuilder;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ConstantTypeHelper;
+use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
 class ConstExprNodeResolver
 {
-    public function resolve(\_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $node) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function resolve(\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $node) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode) {
             return $this->resolveArrayNode($node);
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode) {
-            return \_PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\false);
+        if ($node instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode) {
+            return \_PhpScoper0a6b37af0871\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\false);
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode) {
-            return \_PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\true);
+        if ($node instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode) {
+            return \_PhpScoper0a6b37af0871\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\true);
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode) {
-            return \_PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper::getTypeFromValue((float) $node->value);
+        if ($node instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode) {
+            return \_PhpScoper0a6b37af0871\PHPStan\Type\ConstantTypeHelper::getTypeFromValue((float) $node->value);
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode) {
-            return \_PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper::getTypeFromValue((int) $node->value);
+        if ($node instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode) {
+            return \_PhpScoper0a6b37af0871\PHPStan\Type\ConstantTypeHelper::getTypeFromValue((int) $node->value);
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode) {
-            return \_PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(null);
+        if ($node instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode) {
+            return \_PhpScoper0a6b37af0871\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(null);
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode) {
-            return \_PhpScopere8e811afab72\PHPStan\Type\ConstantTypeHelper::getTypeFromValue($node->value);
+        if ($node instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode) {
+            return \_PhpScoper0a6b37af0871\PHPStan\Type\ConstantTypeHelper::getTypeFromValue($node->value);
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
     }
-    private function resolveArrayNode(\_PhpScopere8e811afab72\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode $node) : \_PhpScopere8e811afab72\PHPStan\Type\ArrayType
+    private function resolveArrayNode(\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode $node) : \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType
     {
-        $arrayBuilder = \_PhpScopere8e811afab72\PHPStan\Type\Constant\ConstantArrayTypeBuilder::createEmpty();
+        $arrayBuilder = \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayTypeBuilder::createEmpty();
         foreach ($node->items as $item) {
             if ($item->key === null) {
                 $key = null;

@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Math\Sampler;
+namespace _PhpScoper0a6b37af0871\Hoa\Math\Sampler;
 
-use _PhpScopere8e811afab72\Hoa\Consistency;
-use _PhpScopere8e811afab72\Hoa\Math;
-use _PhpScopere8e811afab72\Hoa\Zformat;
+use _PhpScoper0a6b37af0871\Hoa\Consistency;
+use _PhpScoper0a6b37af0871\Hoa\Math;
+use _PhpScoper0a6b37af0871\Hoa\Zformat;
 /**
  * Class \Hoa\Math\Sampler.
  *
@@ -46,7 +46,7 @@ use _PhpScopere8e811afab72\Hoa\Zformat;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class Sampler implements \_PhpScopere8e811afab72\Hoa\Zformat\Parameterizable
+abstract class Sampler implements \_PhpScoper0a6b37af0871\Hoa\Zformat\Parameterizable
 {
     /**
      * Parameters.
@@ -61,7 +61,7 @@ abstract class Sampler implements \_PhpScopere8e811afab72\Hoa\Zformat\Parameteri
      */
     public function __construct(array $parameters = [])
     {
-        $this->_parameters = new \_PhpScopere8e811afab72\Hoa\Zformat\Parameter(__CLASS__, [], ['integer.min' => -16, 'integer.max' => 15, 'float.min' => -128.0, 'float.max' => 127.0]);
+        $this->_parameters = new \_PhpScoper0a6b37af0871\Hoa\Zformat\Parameter(__CLASS__, [], ['integer.min' => -16, 'integer.max' => 15, 'float.min' => -128.0, 'float.max' => 127.0]);
         $this->_parameters->setParameters($parameters);
         if (null === $this->_parameters->getParameter('integer.min')) {
             $this->_parameters->setParameter('integer.min', \PHP_INT_MIN);
@@ -114,14 +114,14 @@ abstract class Sampler implements \_PhpScopere8e811afab72\Hoa\Zformat\Parameteri
         }
         if (null === $exclude) {
             if ($lower > $upper) {
-                throw new \_PhpScopere8e811afab72\Hoa\Math\Exception('Unexpected values, integer %d should be lower than %d', 0, [$lower, $upper]);
+                throw new \_PhpScoper0a6b37af0871\Hoa\Math\Exception('Unexpected values, integer %d should be lower than %d', 0, [$lower, $upper]);
             }
             return $this->_getInteger($lower, $upper);
         }
         \sort($exclude);
         $upper -= \count($exclude);
         if ($lower > $upper) {
-            throw new \_PhpScopere8e811afab72\Hoa\Math\Exception('Unexpected values, integer %d should be lower than %d', 1, [$lower, $upper]);
+            throw new \_PhpScoper0a6b37af0871\Hoa\Math\Exception('Unexpected values, integer %d should be lower than %d', 1, [$lower, $upper]);
         }
         $sampled = $this->_getInteger($lower, $upper);
         foreach ($exclude as $e) {
@@ -167,7 +167,7 @@ abstract class Sampler implements \_PhpScopere8e811afab72\Hoa\Zformat\Parameteri
                      : 1.7976931348623157e308 - 1;
         */
         if ($lower > $upper) {
-            throw new \_PhpScopere8e811afab72\Hoa\Math\Exception('Unexpected values, float %f should be lower than %f', 2, [$lower, $upper]);
+            throw new \_PhpScoper0a6b37af0871\Hoa\Math\Exception('Unexpected values, float %f should be lower than %f', 2, [$lower, $upper]);
         }
         return $this->_getFloat($lower, $upper);
     }
@@ -192,4 +192,4 @@ abstract class Sampler implements \_PhpScopere8e811afab72\Hoa\Zformat\Parameteri
 /**
  * Flex entity.
  */
-\_PhpScopere8e811afab72\Hoa\Consistency::flexEntity('_PhpScopere8e811afab72\\Hoa\\Math\\Sampler\\Sampler');
+\_PhpScoper0a6b37af0871\Hoa\Consistency::flexEntity('_PhpScoper0a6b37af0871\\Hoa\\Math\\Sampler\\Sampler');

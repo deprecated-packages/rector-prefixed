@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule;
+namespace _PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule;
 
 /**
  * Class \Hoa\Compiler\Llk\Rule\Concatenation.
@@ -43,6 +43,6 @@ namespace _PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Concatenation extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Rule
+class Concatenation extends \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Rule
 {
 }

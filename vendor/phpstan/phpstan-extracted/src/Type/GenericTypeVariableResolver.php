@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Type;
+namespace _PhpScoper0a6b37af0871\PHPStan\Type;
 
 class GenericTypeVariableResolver
 {
-    public static function getType(\_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName $type, string $genericClassName, string $typeVariableName) : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
+    public static function getType(\_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName $type, string $genericClassName, string $typeVariableName) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $ancestor = $type->getAncestorWithClassName($genericClassName);
         if ($ancestor === null) {

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopere8e811afab72\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace _PhpScoper0a6b37af0871\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Migrating session handler for migrating from one handler to another. It reads
@@ -26,10 +26,10 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
     public function __construct(\SessionHandlerInterface $currentHandler, \SessionHandlerInterface $writeOnlyHandler)
     {
         if (!$currentHandler instanceof \SessionUpdateTimestampHandlerInterface) {
-            $currentHandler = new \_PhpScopere8e811afab72\Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler($currentHandler);
+            $currentHandler = new \_PhpScoper0a6b37af0871\Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler($currentHandler);
         }
         if (!$writeOnlyHandler instanceof \SessionUpdateTimestampHandlerInterface) {
-            $writeOnlyHandler = new \_PhpScopere8e811afab72\Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler($writeOnlyHandler);
+            $writeOnlyHandler = new \_PhpScoper0a6b37af0871\Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler($writeOnlyHandler);
         }
         $this->currentHandler = $currentHandler;
         $this->writeOnlyHandler = $writeOnlyHandler;

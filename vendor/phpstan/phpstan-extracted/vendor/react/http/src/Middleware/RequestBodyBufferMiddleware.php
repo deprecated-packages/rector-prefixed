@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Middleware;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Middleware;
 
 use OverflowException;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Stream;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Stream;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream;
 final class RequestBodyBufferMiddleware
 {
     private $sizeLimit;
@@ -23,17 +23,17 @@ final class RequestBodyBufferMiddleware
         if ($sizeLimit === null) {
             $sizeLimit = \ini_get('post_max_size');
         }
-        $this->sizeLimit = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($sizeLimit);
+        $this->sizeLimit = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($sizeLimit);
     }
-    public function __invoke(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $stack)
+    public function __invoke(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $stack)
     {
         $body = $request->getBody();
         $size = $body->getSize();
         // happy path: skip if body is known to be empty (or is already buffered)
-        if ($size === 0 || !$body instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
+        if ($size === 0 || !$body instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
             // replace with empty body if body is streaming (or buffered size exceeds limit)
-            if ($body instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface || $size > $this->sizeLimit) {
-                $request = $request->withBody(new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream(0));
+            if ($body instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface || $size > $this->sizeLimit) {
+                $request = $request->withBody(new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream(0));
             }
             return $stack($request);
         }
@@ -42,8 +42,8 @@ final class RequestBodyBufferMiddleware
         if ($size > $this->sizeLimit) {
             $sizeLimit = 0;
         }
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Stream\buffer($body, $sizeLimit)->then(function ($buffer) use($request, $stack) {
-            $stream = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream(\strlen($buffer));
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Stream\buffer($body, $sizeLimit)->then(function ($buffer) use($request, $stack) {
+            $stream = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream(\strlen($buffer));
             $stream->write($buffer);
             $request = $request->withBody($stream);
             return $stack($request);
@@ -52,7 +52,7 @@ final class RequestBodyBufferMiddleware
             // but ignore the contents and wait for the close event
             // before passing the request on to the next middleware.
             if ($error instanceof \OverflowException) {
-                return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Stream\first($body, 'close')->then(function () use($stack, $request) {
+                return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Stream\first($body, 'close')->then(function () use($stack, $request) {
                     return $stack($request);
                 });
             }

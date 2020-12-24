@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f;
 
-if (!\function_exists('_PhpScopere8e811afab72\\_HumbugBox221ad6f1b81f\\React\\Promise\\resolve')) {
+if (!\function_exists('_PhpScoper0a6b37af0871\\_HumbugBox221ad6f1b81f\\React\\Promise\\resolve')) {
     require __DIR__ . '/functions.php';
 }

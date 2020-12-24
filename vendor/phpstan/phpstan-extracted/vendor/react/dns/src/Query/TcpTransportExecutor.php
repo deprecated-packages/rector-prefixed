@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Protocol\BinaryDumper;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Protocol\Parser;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Protocol\BinaryDumper;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Protocol\Parser;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
 /**
  * Send DNS queries over a TCP/IP stream transport.
  *
@@ -78,7 +78,7 @@ use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
  *   packages. Higher-level components should take advantage of the Socket
  *   component instead of reimplementing this socket logic from scratch.
  */
-class TcpTransportExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
+class TcpTransportExecutor implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
 {
     private $nameserver;
     private $loop;
@@ -126,7 +126,7 @@ class TcpTransportExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1
      * @param string        $nameserver
      * @param LoopInterface $loop
      */
-    public function __construct($nameserver, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
+    public function __construct($nameserver, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
     {
         if (\strpos($nameserver, '[') === \false && \substr_count($nameserver, ':') >= 2 && \strpos($nameserver, '://') === \false) {
             // several colons, but not enclosed in square brackets => enclose IPv6 address in square brackets
@@ -138,12 +138,12 @@ class TcpTransportExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1
         }
         $this->nameserver = $parts['host'] . ':' . (isset($parts['port']) ? $parts['port'] : 53);
         $this->loop = $loop;
-        $this->parser = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Protocol\Parser();
-        $this->dumper = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Protocol\BinaryDumper();
+        $this->parser = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Protocol\Parser();
+        $this->dumper = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Protocol\BinaryDumper();
     }
-    public function query(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
+    public function query(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
     {
-        $request = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::createRequestForQuery($query);
+        $request = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::createRequestForQuery($query);
         // keep shuffing message ID to avoid using the same message ID for two pending queries at the same time
         while (isset($this->pending[$request->id])) {
             $request->id = \mt_rand(0, 0xffff);
@@ -152,14 +152,14 @@ class TcpTransportExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1
         $queryData = $this->dumper->toBinary($request);
         $length = \strlen($queryData);
         if ($length > 0xffff) {
-            return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Query too large for TCP transport'));
+            return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Query too large for TCP transport'));
         }
         $queryData = \pack('n', $length) . $queryData;
         if ($this->socket === null) {
             // create async TCP/IP connection (may take a while)
             $socket = @\stream_socket_client($this->nameserver, $errno, $errstr, 0, \STREAM_CLIENT_CONNECT | \STREAM_CLIENT_ASYNC_CONNECT);
             if ($socket === \false) {
-                return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Unable to connect to DNS server (' . $errstr . ')', $errno));
+                return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->name . ' failed: Unable to connect to DNS server (' . $errstr . ')', $errno));
             }
             // set socket to non-blocking and wait for it to become writable (connection success/rejected)
             \stream_set_blocking($socket, \false);
@@ -177,12 +177,12 @@ class TcpTransportExecutor implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1
         }
         $names =& $this->names;
         $that = $this;
-        $deferred = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Deferred(function () use($that, &$names, $request) {
+        $deferred = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Deferred(function () use($that, &$names, $request) {
             // remove from list of pending names, but remember pending query
             $name = $names[$request->id];
             unset($names[$request->id]);
             $that->checkIdle();
-            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Dns\Query\CancellationException('DNS query for ' . $name . ' has been cancelled');
+            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\CancellationException('DNS query for ' . $name . ' has been cancelled');
         });
         $this->pending[$request->id] = $deferred;
         $this->names[$request->id] = $query->name;

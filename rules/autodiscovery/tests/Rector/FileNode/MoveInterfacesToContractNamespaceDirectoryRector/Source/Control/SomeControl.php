@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Autodiscovery\Tests\Rector\FileNode\MoveInterfacesToContractNamespaceDirectoryRector\Source\Control;
+namespace _PhpScoper0a6b37af0871\Rector\Autodiscovery\Tests\Rector\FileNode\MoveInterfacesToContractNamespaceDirectoryRector\Source\Control;
 
-use _PhpScopere8e811afab72\Nette\Application\UI\Control;
-final class SomeControl extends \_PhpScopere8e811afab72\Nette\Application\UI\Control
+use _PhpScoper0a6b37af0871\Nette\Application\UI\Control;
+final class SomeControl extends \_PhpScoper0a6b37af0871\Nette\Application\UI\Control
 {
 }

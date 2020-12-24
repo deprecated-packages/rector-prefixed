@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Symplify\SmartFileSystem;
+namespace _PhpScoper0a6b37af0871\Symplify\SmartFileSystem;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\Symfony\Component\Finder\SplFileInfo;
-use _PhpScopere8e811afab72\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
-use _PhpScopere8e811afab72\Symplify\EasyTesting\StaticFixtureSplitter;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\Symfony\Component\Finder\SplFileInfo;
+use _PhpScoper0a6b37af0871\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoper0a6b37af0871\Symplify\EasyTesting\StaticFixtureSplitter;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Exception\FileNotFoundException;
 /**
  * @see \Symplify\SmartFileSystem\Tests\SmartFileInfo\SmartFileInfoTest
  */
-final class SmartFileInfo extends \_PhpScopere8e811afab72\Symfony\Component\Finder\SplFileInfo
+final class SmartFileInfo extends \_PhpScoper0a6b37af0871\Symfony\Component\Finder\SplFileInfo
 {
     /**
      * @var string
@@ -25,13 +25,13 @@ final class SmartFileInfo extends \_PhpScopere8e811afab72\Symfony\Component\Find
     private $smartFileSystem;
     public function __construct($filePath)
     {
-        $this->smartFileSystem = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->smartFileSystem = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem();
         // accepts also dirs
         if (!\file_exists($filePath)) {
-            throw new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File path "%s" was not found while creating "%s" object.', $filePath, self::class));
+            throw new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File path "%s" was not found while creating "%s" object.', $filePath, self::class));
         }
         // real path doesn't work in PHAR: https://www.php.net/manual/en/function.realpath.php
-        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::startsWith($filePath, 'phar://')) {
+        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::startsWith($filePath, 'phar://')) {
             $relativeFilePath = $filePath;
             $relativeDirectoryPath = \dirname($filePath);
         } else {
@@ -55,7 +55,7 @@ final class SmartFileInfo extends \_PhpScopere8e811afab72\Symfony\Component\Find
     }
     public function getRealPathWithoutSuffix() : string
     {
-        return \_PhpScopere8e811afab72\Nette\Utils\Strings::replace($this->getRealPath(), self::LAST_SUFFIX_REGEX, '');
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($this->getRealPath(), self::LAST_SUFFIX_REGEX, '');
     }
     public function getRelativeFilePath() : string
     {
@@ -68,15 +68,15 @@ final class SmartFileInfo extends \_PhpScopere8e811afab72\Symfony\Component\Find
     public function getRelativeFilePathFromDirectory(string $directory) : string
     {
         if (!\file_exists($directory)) {
-            throw new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException(\sprintf('Directory "%s" was not found in %s.', $directory, self::class));
+            throw new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException(\sprintf('Directory "%s" was not found in %s.', $directory, self::class));
         }
         return \rtrim($this->smartFileSystem->makePathRelative($this->getNormalizedRealPath(), (string) \realpath($directory)), '/');
     }
     public function getRelativeFilePathFromCwdInTests() : string
     {
         // special case for tests
-        if (\_PhpScopere8e811afab72\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            return $this->getRelativeFilePathFromDirectory(\_PhpScopere8e811afab72\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath());
+        if (\_PhpScoper0a6b37af0871\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            return $this->getRelativeFilePathFromDirectory(\_PhpScoper0a6b37af0871\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath());
         }
         return $this->getRelativeFilePathFromDirectory(\getcwd());
     }
@@ -86,7 +86,7 @@ final class SmartFileInfo extends \_PhpScopere8e811afab72\Symfony\Component\Find
     }
     public function endsWith(string $string) : bool
     {
-        return \_PhpScopere8e811afab72\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
     }
     public function doesFnmatch(string $string) : bool
     {
@@ -107,7 +107,7 @@ final class SmartFileInfo extends \_PhpScopere8e811afab72\Symfony\Component\Find
     }
     public function startsWith(string $partialPath) : bool
     {
-        return \_PhpScopere8e811afab72\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
+        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
     }
     private function getNormalizedRealPath() : string
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Socket;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface;
 /**
  * The `ServerInterface` is responsible for providing an interface for accepting
  * incoming streaming connections, such as a normal TCP/IP connection.
@@ -45,7 +45,7 @@ use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterfac
  *
  * @see ConnectionInterface
  */
-interface ServerInterface extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface
+interface ServerInterface extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface
 {
     /**
      * Returns the full address (URI) this server is currently listening on

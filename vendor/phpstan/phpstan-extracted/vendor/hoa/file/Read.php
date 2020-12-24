@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\File;
+namespace _PhpScoper0a6b37af0871\Hoa\File;
 
-use _PhpScopere8e811afab72\Hoa\Stream;
+use _PhpScoper0a6b37af0871\Hoa\Stream;
 /**
  * Class \Hoa\File\Read.
  *
@@ -44,7 +44,7 @@ use _PhpScopere8e811afab72\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Read extends \_PhpScopere8e811afab72\Hoa\File\File implements \_PhpScopere8e811afab72\Hoa\Stream\IStream\In
+class Read extends \_PhpScoper0a6b37af0871\Hoa\File\File implements \_PhpScoper0a6b37af0871\Hoa\Stream\IStream\In
 {
     /**
      * Open a file.
@@ -69,15 +69,15 @@ class Read extends \_PhpScopere8e811afab72\Hoa\File\File implements \_PhpScopere
      * @throws  \Hoa\File\Exception\FileDoesNotExist
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \_PhpScopere8e811afab72\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \_PhpScoper0a6b37af0871\Hoa\Stream\Context $context = null)
     {
         static $createModes = [parent::MODE_READ];
         if (!\in_array($this->getMode(), $createModes)) {
-            throw new \_PhpScopere8e811afab72\Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
+            throw new \_PhpScoper0a6b37af0871\Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
         }
         \preg_match('#^(\\w+)://#', $streamName, $match);
         if ((isset($match[1]) && $match[1] == 'file' || !isset($match[1])) && !\file_exists($streamName)) {
-            throw new \_PhpScopere8e811afab72\Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
+            throw new \_PhpScoper0a6b37af0871\Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
         }
         $out = parent::_open($streamName, $context);
         return $out;
@@ -101,7 +101,7 @@ class Read extends \_PhpScopere8e811afab72\Hoa\File\File implements \_PhpScopere
     public function read($length)
     {
         if (0 > $length) {
-            throw new \_PhpScopere8e811afab72\Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
+            throw new \_PhpScoper0a6b37af0871\Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
         }
         return \fread($this->getStream(), $length);
     }

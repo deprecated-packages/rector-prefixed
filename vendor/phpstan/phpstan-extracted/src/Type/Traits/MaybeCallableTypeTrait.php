@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Type\Traits;
+namespace _PhpScoper0a6b37af0871\PHPStan\Type\Traits;
 
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor;
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\TrivialParametersAcceptor;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
 trait MaybeCallableTypeTrait
 {
-    public function isCallable() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isCallable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
     }
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        return [new \_PhpScopere8e811afab72\PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \_PhpScoper0a6b37af0871\PHPStan\Reflection\TrivialParametersAcceptor()];
     }
 }

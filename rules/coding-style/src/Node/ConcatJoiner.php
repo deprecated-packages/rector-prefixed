@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\CodingStyle\Node;
+namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Node;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\Rector\CodingStyle\ValueObject\ConcatStringAndPlaceholders;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\Rector\CodingStyle\ValueObject\ConcatStringAndPlaceholders;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
 final class ConcatJoiner
 {
     /**
@@ -22,26 +22,26 @@ final class ConcatJoiner
      * Joins all String_ nodes to string.
      * Returns that string + array of non-string nodes that were replaced by hash placeholders
      */
-    public function joinToStringAndPlaceholderNodes(\_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \_PhpScopere8e811afab72\Rector\CodingStyle\ValueObject\ConcatStringAndPlaceholders
+    public function joinToStringAndPlaceholderNodes(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \_PhpScoper0a6b37af0871\Rector\CodingStyle\ValueObject\ConcatStringAndPlaceholders
     {
-        $parentNode = $concat->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat) {
+        $parentNode = $concat->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat) {
             $this->reset();
         }
         $this->processConcatSide($concat->left);
         $this->processConcatSide($concat->right);
-        return new \_PhpScopere8e811afab72\Rector\CodingStyle\ValueObject\ConcatStringAndPlaceholders($this->content, $this->placeholderNodes);
+        return new \_PhpScoper0a6b37af0871\Rector\CodingStyle\ValueObject\ConcatStringAndPlaceholders($this->content, $this->placeholderNodes);
     }
     private function reset() : void
     {
         $this->content = '';
         $this->placeholderNodes = [];
     }
-    private function processConcatSide(\_PhpScopere8e811afab72\PhpParser\Node\Expr $expr) : void
+    private function processConcatSide(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : void
     {
-        if ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
+        if ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
             $this->content .= $expr->value;
-        } elseif ($expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\BinaryOp\Concat) {
+        } elseif ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat) {
             $this->joinToStringAndPlaceholderNodes($expr);
         } else {
             $objectHash = '____' . \spl_object_hash($expr) . '____';

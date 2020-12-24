@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Naming\Rector\ClassMethod;
+namespace _PhpScoper0a6b37af0871\Rector\Naming\Rector\ClassMethod;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_;
-use _PhpScopere8e811afab72\PHPStan\Type\BooleanType;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Naming\Naming\MethodNameResolver;
-use _PhpScopere8e811afab72\Rector\Naming\NodeRenamer\MethodCallRenamer;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_;
+use _PhpScoper0a6b37af0871\PHPStan\Type\BooleanType;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Naming\Naming\MethodNameResolver;
+use _PhpScoper0a6b37af0871\Rector\Naming\NodeRenamer\MethodCallRenamer;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\ClassMethod\MakeIsserClassMethodNameStartWithIsRector\MakeIsserClassMethodNameStartWithIsRectorTest
  */
-final class MakeIsserClassMethodNameStartWithIsRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class MakeIsserClassMethodNameStartWithIsRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * @see https://regex101.com/r/Hc73ar/1
@@ -33,14 +33,14 @@ final class MakeIsserClassMethodNameStartWithIsRector extends \_PhpScopere8e811a
      * @var MethodCallRenamer
      */
     private $methodCallRenamer;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Naming\Naming\MethodNameResolver $methodNameResolver, \_PhpScopere8e811afab72\Rector\Naming\NodeRenamer\MethodCallRenamer $methodCallRenamer)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Naming\Naming\MethodNameResolver $methodNameResolver, \_PhpScoper0a6b37af0871\Rector\Naming\NodeRenamer\MethodCallRenamer $methodCallRenamer)
     {
         $this->methodNameResolver = $methodNameResolver;
         $this->methodCallRenamer = $methodCallRenamer;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change is method names to start with is/has/was', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change is method names to start with is/has/was', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -75,12 +75,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->isAlreadyIsserNamedClassMethod($node)) {
             return null;
@@ -96,29 +96,29 @@ CODE_SAMPLE
         if ($this->isName($node->name, $isserMethodName)) {
             return null;
         }
-        $node->name = new \_PhpScopere8e811afab72\PhpParser\Node\Identifier($isserMethodName);
+        $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($isserMethodName);
         $this->methodCallRenamer->updateClassMethodCalls($node, $isserMethodName);
         return $node;
     }
-    private function isAlreadyIsserNamedClassMethod(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isAlreadyIsserNamedClassMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return $this->isName($classMethod, self::ISSER_NAME_REGEX);
     }
-    private function matchIsserClassMethodReturnedExpr(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScopere8e811afab72\PhpParser\Node\Expr
+    private function matchIsserClassMethodReturnedExpr(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr
     {
         $stmts = (array) $classMethod->stmts;
         if (\count($stmts) !== 1) {
             return null;
         }
         $onlyStmt = $stmts[0] ?? null;
-        if (!$onlyStmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Return_) {
+        if (!$onlyStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_) {
             return null;
         }
-        if (!$onlyStmt->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$onlyStmt->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         $propertyStaticType = $this->getStaticType($onlyStmt->expr);
-        if (!$propertyStaticType instanceof \_PhpScopere8e811afab72\PHPStan\Type\BooleanType) {
+        if (!$propertyStaticType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType) {
             return null;
         }
         return $onlyStmt->expr;

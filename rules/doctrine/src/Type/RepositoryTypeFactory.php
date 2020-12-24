@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Doctrine\Type;
+namespace _PhpScoper0a6b37af0871\Rector\Doctrine\Type;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScopere8e811afab72\PHPStan\Type\Generic\GenericObjectType;
-use _PhpScopere8e811afab72\Rector\Core\Exception\NotImplementedYetException;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericObjectType;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\NotImplementedYetException;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
 final class RepositoryTypeFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function createRepositoryPropertyType(\_PhpScopere8e811afab72\PhpParser\Node\Expr $entityReferenceExpr) : \_PhpScopere8e811afab72\PHPStan\Type\Generic\GenericObjectType
+    public function createRepositoryPropertyType(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $entityReferenceExpr) : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericObjectType
     {
-        if (!$entityReferenceExpr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch) {
-            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\NotImplementedYetException();
+        if (!$entityReferenceExpr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch) {
+            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\NotImplementedYetException();
         }
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($entityReferenceExpr->class);
-        return new \_PhpScopere8e811afab72\PHPStan\Type\Generic\GenericObjectType('_PhpScopere8e811afab72\\Doctrine\\ORM\\EntityRepository', [new \_PhpScopere8e811afab72\Rector\PHPStan\Type\FullyQualifiedObjectType($className)]);
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericObjectType('_PhpScoper0a6b37af0871\\Doctrine\\ORM\\EntityRepository', [new \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType($className)]);
     }
 }

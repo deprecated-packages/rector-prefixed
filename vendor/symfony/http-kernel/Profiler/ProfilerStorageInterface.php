@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopere8e811afab72\Symfony\Component\HttpKernel\Profiler;
+namespace _PhpScoper0a6b37af0871\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * ProfilerStorageInterface.
@@ -42,13 +42,13 @@ interface ProfilerStorageInterface
      *
      * @return Profile|null The profile associated with token
      */
-    public function read(string $token) : ?\_PhpScopere8e811afab72\Symfony\Component\HttpKernel\Profiler\Profile;
+    public function read(string $token) : ?\_PhpScoper0a6b37af0871\Symfony\Component\HttpKernel\Profiler\Profile;
     /**
      * Saves a Profile.
      *
      * @return bool Write operation successful
      */
-    public function write(\_PhpScopere8e811afab72\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool;
+    public function write(\_PhpScoper0a6b37af0871\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool;
     /**
      * Purges all data from the database.
      */

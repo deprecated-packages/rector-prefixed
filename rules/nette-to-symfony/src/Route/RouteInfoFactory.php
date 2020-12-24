@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NetteToSymfony\Route;
+namespace _PhpScoper0a6b37af0871\Rector\NetteToSymfony\Route;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\New_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Value\ValueResolver;
-use _PhpScopere8e811afab72\Rector\NetteToSymfony\ValueObject\RouteInfo;
-use _PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use _PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Value\ValueResolver;
+use _PhpScoper0a6b37af0871\Rector\NetteToSymfony\ValueObject\RouteInfo;
+use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
 final class RouteInfoFactory
 {
     /**
@@ -27,22 +27,22 @@ final class RouteInfoFactory
      * @var ParsedNodeCollector
      */
     private $parsedNodeCollector;
-    public function __construct(\_PhpScopere8e811afab72\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScopere8e811afab72\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
         $this->parsedNodeCollector = $parsedNodeCollector;
     }
-    public function createFromNode(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\Rector\NetteToSymfony\ValueObject\RouteInfo
+    public function createFromNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\New_) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_) {
             if (!isset($node->args[0]) || !isset($node->args[1])) {
                 return null;
             }
             return $this->createRouteInfoFromArgs($node);
         }
         // Route::create()
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\StaticCall) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
             if (!isset($node->args[0]) || !isset($node->args[1])) {
                 return null;
             }
@@ -64,7 +64,7 @@ final class RouteInfoFactory
      * @param New_|StaticCall $node
      * @param string[] $methods
      */
-    private function createRouteInfoFromArgs(\_PhpScopere8e811afab72\PhpParser\Node $node, array $methods = []) : ?\_PhpScopere8e811afab72\Rector\NetteToSymfony\ValueObject\RouteInfo
+    private function createRouteInfoFromArgs(\_PhpScoper0a6b37af0871\PhpParser\Node $node, array $methods = []) : ?\_PhpScoper0a6b37af0871\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         $pathArgument = $node->args[0]->value;
         $routePath = $this->valueResolver->getValue($pathArgument);
@@ -74,10 +74,10 @@ final class RouteInfoFactory
         }
         $routePath = $this->normalizeArgumentWrappers($routePath);
         $targetNode = $node->args[1]->value;
-        if ($targetNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\ClassConstFetch) {
+        if ($targetNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch) {
             return $this->createForClassConstFetch($node, $methods, $routePath);
         }
-        if ($targetNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_) {
+        if ($targetNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
             return $this->createForString($targetNode, $routePath);
         }
         return null;
@@ -90,7 +90,7 @@ final class RouteInfoFactory
      * @param New_|StaticCall $node
      * @param string[] $methods
      */
-    private function createForClassConstFetch(\_PhpScopere8e811afab72\PhpParser\Node $node, array $methods, string $routePath) : ?\_PhpScopere8e811afab72\Rector\NetteToSymfony\ValueObject\RouteInfo
+    private function createForClassConstFetch(\_PhpScoper0a6b37af0871\PhpParser\Node $node, array $methods, string $routePath) : ?\_PhpScoper0a6b37af0871\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         /** @var ClassConstFetch $controllerMethodNode */
         $controllerMethodNode = $node->args[1]->value;
@@ -104,15 +104,15 @@ final class RouteInfoFactory
                 return null;
             }
             if (\method_exists($presenterClass, 'run')) {
-                return new \_PhpScopere8e811afab72\Rector\NetteToSymfony\ValueObject\RouteInfo($presenterClass, 'run', $routePath, $methods);
+                return new \_PhpScoper0a6b37af0871\Rector\NetteToSymfony\ValueObject\RouteInfo($presenterClass, 'run', $routePath, $methods);
             }
         }
         return null;
     }
-    private function createForString(\_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_ $string, string $routePath) : ?\_PhpScopere8e811afab72\Rector\NetteToSymfony\ValueObject\RouteInfo
+    private function createForString(\_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_ $string, string $routePath) : ?\_PhpScoper0a6b37af0871\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         $targetValue = $string->value;
-        if (!\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($targetValue, ':')) {
+        if (!\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($targetValue, ':')) {
             return null;
         }
         [$controller, $method] = \explode(':', $targetValue);
@@ -139,6 +139,6 @@ final class RouteInfoFactory
         if ($methodName === null) {
             return null;
         }
-        return new \_PhpScopere8e811afab72\Rector\NetteToSymfony\ValueObject\RouteInfo($controllerClass, $methodName, $routePath, []);
+        return new \_PhpScoper0a6b37af0871\Rector\NetteToSymfony\ValueObject\RouteInfo($controllerClass, $methodName, $routePath, []);
     }
 }

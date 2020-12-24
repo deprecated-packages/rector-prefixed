@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Generic\Rector\ClassMethod;
+namespace _PhpScoper0a6b37af0871\Rector\Generic\Rector\ClassMethod;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
-use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Generic\ValueObject\NormalToFluent;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScopere8e811afab72\Webmozart\Assert\Assert;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
+use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Generic\ValueObject\NormalToFluent;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\NormalToFluentRector\NormalToFluentRectorTest
  */
-final class NormalToFluentRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class NormalToFluentRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -31,9 +31,9 @@ final class NormalToFluentRector extends \_PhpScopere8e811afab72\Rector\Core\Rec
      * @var MethodCall[]
      */
     private $collectedMethodCalls = [];
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fluent interface calls to classic ones.', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fluent interface calls to classic ones.', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $someObject = new SomeClass();
 $someObject->someFunction();
 $someObject->otherFunction();
@@ -43,19 +43,19 @@ $someObject = new SomeClass();
 $someObject->someFunction()
     ->otherFunction();
 CODE_SAMPLE
-, [self::CALLS_TO_FLUENT => [new \_PhpScopere8e811afab72\Rector\Generic\ValueObject\NormalToFluent('SomeClass', ['someFunction', 'otherFunction'])]])]);
+, [self::CALLS_TO_FLUENT => [new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\NormalToFluent('SomeClass', ['someFunction', 'otherFunction'])]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         // process only existing statements
         if ($node->stmts === null) {
@@ -93,28 +93,28 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $callsToFluent = $configuration[self::CALLS_TO_FLUENT] ?? [];
-        \_PhpScopere8e811afab72\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \_PhpScopere8e811afab72\Rector\Generic\ValueObject\NormalToFluent::class);
+        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\NormalToFluent::class);
         $this->callsToFluent = $callsToFluent;
     }
-    private function shouldSkipPreviousStmt(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod, int $i, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression $expression) : bool
+    private function shouldSkipPreviousStmt(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, int $i, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression $expression) : bool
     {
         // we look only for 2+ stmts
         if (!isset($classMethod->stmts[$i - 1])) {
             return \true;
         }
         // we look for 2 methods calls in a row
-        if (!$expression instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
+        if (!$expression instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
             return \true;
         }
         $prevStmt = $classMethod->stmts[$i - 1];
-        return !$prevStmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression;
+        return !$prevStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
     }
-    private function isBothMethodCallMatch(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression $firstExpression, \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression $secondExpression) : bool
+    private function isBothMethodCallMatch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression $firstExpression, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression $secondExpression) : bool
     {
-        if (!$firstExpression->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if (!$firstExpression->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if (!$secondExpression->expr instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall) {
+        if (!$secondExpression->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         $firstMethodCallMatch = $this->matchMethodCall($firstExpression->expr);
@@ -128,7 +128,7 @@ CODE_SAMPLE
         // is the same type
         return $firstMethodCallMatch === $secondMethodCallMatch;
     }
-    private function fluentizeCollectedMethodCalls(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function fluentizeCollectedMethodCalls(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $i = 0;
         $fluentMethodCallIndex = null;
@@ -145,8 +145,8 @@ CODE_SAMPLE
             ++$i;
         }
         $stmt = $classMethod->stmts[$fluentMethodCallIndex];
-        if (!$stmt instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Expression) {
-            throw new \_PhpScopere8e811afab72\Rector\Core\Exception\ShouldNotHappenException();
+        if (!$stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
+            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
         }
         /** @var MethodCall $fluentMethodCall */
         $fluentMethodCall = $stmt->expr;
@@ -154,10 +154,10 @@ CODE_SAMPLE
         $methodCallsToAdd = \array_reverse($methodCallsToAdd);
         foreach ($methodCallsToAdd as $methodCallToAdd) {
             // make var a parent method call
-            $fluentMethodCall->var = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall($fluentMethodCall->var, $methodCallToAdd->name, $methodCallToAdd->args);
+            $fluentMethodCall->var = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall($fluentMethodCall->var, $methodCallToAdd->name, $methodCallToAdd->args);
         }
     }
-    private function matchMethodCall(\_PhpScopere8e811afab72\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
+    private function matchMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {
         foreach ($this->callsToFluent as $callToFluent) {
             if (!$this->isObjectType($methodCall, $callToFluent->getClass())) {

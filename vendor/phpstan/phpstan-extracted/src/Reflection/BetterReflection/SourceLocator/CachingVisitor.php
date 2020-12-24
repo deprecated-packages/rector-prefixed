@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _PhpScopere8e811afab72\PhpParser\BuilderHelpers;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
-use _PhpScopere8e811afab72\PhpParser\NodeVisitorAbstract;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker;
-class CachingVisitor extends \_PhpScopere8e811afab72\PhpParser\NodeVisitorAbstract
+use _PhpScoper0a6b37af0871\PhpParser\BuilderHelpers;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker;
+class CachingVisitor extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
 {
     /** @var string */
     private $fileName;
@@ -20,33 +20,33 @@ class CachingVisitor extends \_PhpScopere8e811afab72\PhpParser\NodeVisitorAbstra
     private $constantNodes;
     /** @var \PhpParser\Node\Stmt\Namespace_|null */
     private $currentNamespaceNode = null;
-    public function enterNode(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?int
+    public function enterNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?int
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_) {
             $this->currentNamespaceNode = $node;
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassLike) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike) {
             if ($node->name !== null) {
                 $fullClassName = $node->name->toString();
                 if ($this->currentNamespaceNode !== null && $this->currentNamespaceNode->name !== null) {
                     $fullClassName = $this->currentNamespaceNode->name . '\\' . $fullClassName;
                 }
-                $this->classNodes[\strtolower($fullClassName)][] = new \_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
+                $this->classNodes[\strtolower($fullClassName)][] = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
             }
-            return \_PhpScopere8e811afab72\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+            return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_) {
-            $this->functionNodes[\strtolower($node->namespacedName->toString())] = new \_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
-            return \_PhpScopere8e811afab72\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_) {
+            $this->functionNodes[\strtolower($node->namespacedName->toString())] = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
+            return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Const_) {
-            $this->constantNodes[] = new \_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
-            return \_PhpScopere8e811afab72\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Const_) {
+            $this->constantNodes[] = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
+            return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
             try {
-                \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
-            } catch (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
+                \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+            } catch (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
                 return null;
             }
             /** @var \PhpParser\Node\Scalar\String_ $nameNode */
@@ -54,11 +54,11 @@ class CachingVisitor extends \_PhpScopere8e811afab72\PhpParser\NodeVisitorAbstra
             $constantName = $nameNode->value;
             if (\defined($constantName)) {
                 $constantValue = \constant($constantName);
-                $node->args[1]->value = \_PhpScopere8e811afab72\PhpParser\BuilderHelpers::normalizeValue($constantValue);
+                $node->args[1]->value = \_PhpScoper0a6b37af0871\PhpParser\BuilderHelpers::normalizeValue($constantValue);
             }
-            $constantNode = new \_PhpScopere8e811afab72\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
+            $constantNode = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
             $this->constantNodes[] = $constantNode;
-            return \_PhpScopere8e811afab72\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+            return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
         return null;
     }
@@ -66,9 +66,9 @@ class CachingVisitor extends \_PhpScopere8e811afab72\PhpParser\NodeVisitorAbstra
      * @param \PhpParser\Node $node
      * @return null
      */
-    public function leaveNode(\_PhpScopere8e811afab72\PhpParser\Node $node)
+    public function leaveNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node)
     {
-        if (!$node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_) {
+        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_) {
             return null;
         }
         $this->currentNamespaceNode = null;

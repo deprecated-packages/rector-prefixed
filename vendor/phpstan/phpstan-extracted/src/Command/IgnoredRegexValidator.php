@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Command;
+namespace _PhpScoper0a6b37af0871\PHPStan\Command;
 
-use _PhpScopere8e811afab72\Hoa\Compiler\Llk\Parser;
-use _PhpScopere8e811afab72\Hoa\Compiler\Llk\TreeNode;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PHPStan\PhpDoc\TypeStringResolver;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
+use _PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Parser;
+use _PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeStringResolver;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
 use function substr;
 class IgnoredRegexValidator
 {
@@ -16,33 +16,33 @@ class IgnoredRegexValidator
     private $parser;
     /** @var \PHPStan\PhpDoc\TypeStringResolver */
     private $typeStringResolver;
-    public function __construct(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\Parser $parser, \_PhpScopere8e811afab72\PHPStan\PhpDoc\TypeStringResolver $typeStringResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Parser $parser, \_PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeStringResolver $typeStringResolver)
     {
         $this->parser = $parser;
         $this->typeStringResolver = $typeStringResolver;
     }
-    public function validate(string $regex) : \_PhpScopere8e811afab72\PHPStan\Command\IgnoredRegexValidatorResult
+    public function validate(string $regex) : \_PhpScoper0a6b37af0871\PHPStan\Command\IgnoredRegexValidatorResult
     {
         $regex = $this->removeDelimiters($regex);
         try {
             /** @var TreeNode $ast */
             $ast = $this->parser->parse($regex);
-        } catch (\_PhpScopere8e811afab72\Hoa\Exception\Exception $e) {
+        } catch (\_PhpScoper0a6b37af0871\Hoa\Exception\Exception $e) {
             if (\strpos($e->getMessage(), 'Unexpected token "|" (alternation) at line 1') === 0) {
-                return new \_PhpScopere8e811afab72\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '||', '\\|\\|');
+                return new \_PhpScoper0a6b37af0871\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '||', '\\|\\|');
             }
             if (\strpos($regex, '()') !== \false && \strpos($e->getMessage(), 'Unexpected token ")" (_capturing) at line 1') === 0) {
-                return new \_PhpScopere8e811afab72\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '()', '\\(\\)');
+                return new \_PhpScoper0a6b37af0871\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '()', '\\(\\)');
             }
-            return new \_PhpScopere8e811afab72\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \false);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \false);
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Command\IgnoredRegexValidatorResult($this->getIgnoredTypes($ast), $this->hasAnchorsInTheMiddle($ast), \false);
+        return new \_PhpScoper0a6b37af0871\PHPStan\Command\IgnoredRegexValidatorResult($this->getIgnoredTypes($ast), $this->hasAnchorsInTheMiddle($ast), \false);
     }
     /**
      * @param TreeNode $ast
      * @return array<string, string>
      */
-    private function getIgnoredTypes(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\TreeNode $ast) : array
+    private function getIgnoredTypes(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode $ast) : array
     {
         /** @var TreeNode|null $alternation */
         $alternation = $ast->getChild(0);
@@ -58,22 +58,22 @@ class IgnoredRegexValidator
             if ($text === null) {
                 continue;
             }
-            $matches = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
+            $matches = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
             if ($matches === null) {
                 continue;
             }
             try {
                 $type = $this->typeStringResolver->resolve($matches[1], null);
-            } catch (\_PhpScopere8e811afab72\PHPStan\PhpDocParser\Parser\ParserException $e) {
+            } catch (\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\ParserException $e) {
                 continue;
             }
-            if ($type->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::typeOnly()) !== $matches[1]) {
+            if ($type->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::typeOnly()) !== $matches[1]) {
                 continue;
             }
-            if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType) {
+            if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
                 continue;
             }
-            $types[$type->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::typeOnly())] = $text;
+            $types[$type->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::typeOnly())] = $text;
         }
         return $types;
     }
@@ -82,11 +82,11 @@ class IgnoredRegexValidator
         $delimiter = \substr($regex, 0, 1);
         $endDelimiterPosition = \strrpos($regex, $delimiter);
         if ($endDelimiterPosition === \false) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
         }
         return \substr($regex, 1, $endDelimiterPosition - 1);
     }
-    private function getText(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\TreeNode $treeNode) : ?string
+    private function getText(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode $treeNode) : ?string
     {
         if ($treeNode->getId() === 'token') {
             return $treeNode->getValueValue();
@@ -107,7 +107,7 @@ class IgnoredRegexValidator
         }
         return null;
     }
-    private function hasAnchorsInTheMiddle(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\TreeNode $ast) : bool
+    private function hasAnchorsInTheMiddle(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode $ast) : bool
     {
         if ($ast->getId() === 'token') {
             $valueArray = $ast->getValue();

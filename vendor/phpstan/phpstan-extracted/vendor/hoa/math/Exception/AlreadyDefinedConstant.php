@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Math\Exception;
+namespace _PhpScoper0a6b37af0871\Hoa\Math\Exception;
 
 /**
  * Class \Hoa\Math\Exception\UnknownConstant.
@@ -43,6 +43,6 @@ namespace _PhpScopere8e811afab72\Hoa\Math\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class AlreadyDefinedConstant extends \_PhpScopere8e811afab72\Hoa\Math\Exception\Exception
+class AlreadyDefinedConstant extends \_PhpScoper0a6b37af0871\Hoa\Math\Exception\Exception
 {
 }

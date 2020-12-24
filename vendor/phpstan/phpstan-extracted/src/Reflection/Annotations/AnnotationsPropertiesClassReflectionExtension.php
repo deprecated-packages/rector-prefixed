@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection\Annotations;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Annotations;
 
-use _PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection;
-use _PhpScopere8e811afab72\PHPStan\Reflection\PropertiesClassReflectionExtension;
-use _PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection;
-use _PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper;
-class AnnotationsPropertiesClassReflectionExtension implements \_PhpScopere8e811afab72\PHPStan\Reflection\PropertiesClassReflectionExtension
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\PropertiesClassReflectionExtension;
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper;
+class AnnotationsPropertiesClassReflectionExtension implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertiesClassReflectionExtension
 {
     /** @var \PHPStan\Reflection\PropertyReflection[][] */
     private $properties = [];
-    public function hasProperty(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
+    public function hasProperty(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
     {
         if (!isset($this->properties[$classReflection->getCacheKey()])) {
             $this->properties[$classReflection->getCacheKey()] = $this->createProperties($classReflection, $classReflection);
         }
         return isset($this->properties[$classReflection->getCacheKey()][$propertyName]);
     }
-    public function getProperty(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScopere8e811afab72\PHPStan\Reflection\PropertyReflection
+    public function getProperty(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection
     {
         return $this->properties[$classReflection->getCacheKey()][$propertyName];
     }
@@ -27,7 +27,7 @@ class AnnotationsPropertiesClassReflectionExtension implements \_PhpScopere8e811
      * @param \PHPStan\Reflection\ClassReflection $declaringClass
      * @return \PHPStan\Reflection\PropertyReflection[]
      */
-    private function createProperties(\_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $classReflection, \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection $declaringClass) : array
+    private function createProperties(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $declaringClass) : array
     {
         $properties = [];
         foreach ($classReflection->getTraits() as $traitClass) {
@@ -48,7 +48,7 @@ class AnnotationsPropertiesClassReflectionExtension implements \_PhpScopere8e811
         }
         $propertyTags = $classReflection->getPropertyTags();
         foreach ($propertyTags as $propertyName => $propertyTag) {
-            $properties[$propertyName] = new \_PhpScopere8e811afab72\PHPStan\Reflection\Annotations\AnnotationPropertyReflection($declaringClass, \_PhpScopere8e811afab72\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($propertyTag->getType(), $classReflection->getActiveTemplateTypeMap()), $propertyTag->isReadable(), $propertyTag->isWritable());
+            $properties[$propertyName] = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\Annotations\AnnotationPropertyReflection($declaringClass, \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($propertyTag->getType(), $classReflection->getActiveTemplateTypeMap()), $propertyTag->isReadable(), $propertyTag->isWritable());
         }
         return $properties;
     }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\PhpDoc\Tag;
+namespace _PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag;
 
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
 class MethodTag
 {
     /** @var \PHPStan\Type\Type */
@@ -17,13 +17,13 @@ class MethodTag
      * @param bool $isStatic
      * @param array<string, \PHPStan\PhpDoc\Tag\MethodTagParameter> $parameters
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Type\Type $returnType, bool $isStatic, array $parameters)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $returnType, bool $isStatic, array $parameters)
     {
         $this->returnType = $returnType;
         $this->isStatic = $isStatic;
         $this->parameters = $parameters;
     }
-    public function getReturnType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getReturnType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->returnType;
     }

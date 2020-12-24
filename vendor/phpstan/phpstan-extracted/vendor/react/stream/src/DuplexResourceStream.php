@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class DuplexResourceStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\DuplexStreamInterface
+final class DuplexResourceStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\DuplexStreamInterface
 {
     private $stream;
     private $loop;
@@ -31,7 +31,7 @@ final class DuplexResourceStream extends \_PhpScopere8e811afab72\_HumbugBox221ad
     private $writable = \true;
     private $closing = \false;
     private $listening = \false;
-    public function __construct($stream, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $readChunkSize = null, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $buffer = null)
+    public function __construct($stream, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $readChunkSize = null, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $buffer = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -58,7 +58,7 @@ final class DuplexResourceStream extends \_PhpScopere8e811afab72\_HumbugBox221ad
             \stream_set_read_buffer($stream, 0);
         }
         if ($buffer === null) {
-            $buffer = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream($stream, $loop);
+            $buffer = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream($stream, $loop);
         }
         $this->stream = $stream;
         $this->loop = $loop;
@@ -130,9 +130,9 @@ final class DuplexResourceStream extends \_PhpScopere8e811afab72\_HumbugBox221ad
         $this->pause();
         $this->buffer->end($data);
     }
-    public function pipe(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
     }
     /** @internal */
     public function handleData($stream)

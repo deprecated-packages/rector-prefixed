@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php71\Rector\Name;
+namespace _PhpScoper0a6b37af0871\Rector\Php71\Rector\Name;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Identifier;
-use _PhpScopere8e811afab72\PhpParser\Node\Name;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_;
-use _PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/object-typehint
  * @see https://github.com/cebe/yii2/commit/9548a212ecf6e50fcdb0e5ba6daad88019cfc544
  * @see \Rector\Php71\Tests\Rector\Name\ReservedObjectRector\ReservedObjectRectorTest
  */
-final class ReservedObjectRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector implements \_PhpScopere8e811afab72\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ReservedObjectRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -27,9 +27,9 @@ final class ReservedObjectRector extends \_PhpScopere8e811afab72\Rector\Core\Rec
      * @var string[]
      */
     private $reservedKeywordsToReplacements = [];
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes reserved "Object" name to "<Smart>Object" where <Smart> can be configured', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes reserved "Object" name to "<Smart>Object" where <Smart> can be configured', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class Object
 {
 }
@@ -46,14 +46,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Identifier::class, \_PhpScopere8e811afab72\PhpParser\Node\Name::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Identifier::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Name::class];
     }
     /**
      * @param Identifier|Name $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Identifier) {
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier) {
             return $this->processIdentifier($node);
         }
         return $this->processName($node);
@@ -62,7 +62,7 @@ CODE_SAMPLE
     {
         $this->reservedKeywordsToReplacements = $configuration[self::RESERVED_KEYWORDS_TO_REPLACEMENTS] ?? [];
     }
-    private function processIdentifier(\_PhpScopere8e811afab72\PhpParser\Node\Identifier $identifier) : \_PhpScopere8e811afab72\PhpParser\Node\Identifier
+    private function processIdentifier(\_PhpScoper0a6b37af0871\PhpParser\Node\Identifier $identifier) : \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier
     {
         foreach ($this->reservedKeywordsToReplacements as $reservedKeyword => $replacement) {
             if (!$this->isName($identifier, $reservedKeyword)) {
@@ -73,12 +73,12 @@ CODE_SAMPLE
         }
         return $identifier;
     }
-    private function processName(\_PhpScopere8e811afab72\PhpParser\Node\Name $name) : \_PhpScopere8e811afab72\PhpParser\Node\Name
+    private function processName(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : \_PhpScoper0a6b37af0871\PhpParser\Node\Name
     {
         // we look for "extends <Name>"
-        $parentNode = $name->getAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $name->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // "Object" can part of namespace name
-        if ($parentNode instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Namespace_) {
+        if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_) {
             return $name;
         }
         // process lass part
@@ -86,7 +86,7 @@ CODE_SAMPLE
             if (\strtolower($name->getLast()) === \strtolower($reservedKeyword)) {
                 $name->parts[\count((array) $name->parts) - 1] = $replacement;
                 // invoke override
-                $name->setAttribute(\_PhpScopere8e811afab72\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+                $name->setAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
             }
         }
         return $name;

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Defluent\NodeFactory;
+namespace _PhpScoper0a6b37af0871\Rector\Defluent\NodeFactory;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor;
-use _PhpScopere8e811afab72\Rector\Defluent\ValueObject\FirstAssignFluentCall;
-use _PhpScopere8e811afab72\Rector\Defluent\ValueObject\FluentMethodCalls;
-use _PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor;
+use _PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FirstAssignFluentCall;
+use _PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FluentMethodCalls;
+use _PhpScoper0a6b37af0871\Rector\Naming\Naming\PropertyNaming;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
 final class ReturnFluentMethodCallFactory
 {
     /**
@@ -26,31 +26,31 @@ final class ReturnFluentMethodCallFactory
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor $fluentChainMethodCallRootExtractor, \_PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScopere8e811afab72\Rector\Naming\Naming\PropertyNaming $propertyNaming)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor $fluentChainMethodCallRootExtractor, \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a6b37af0871\Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->fluentChainMethodCallRootExtractor = $fluentChainMethodCallRootExtractor;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->propertyNaming = $propertyNaming;
     }
-    public function createFromFluentMethodCalls(\_PhpScopere8e811afab72\Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls) : ?\_PhpScopere8e811afab72\Rector\Defluent\ValueObject\FirstAssignFluentCall
+    public function createFromFluentMethodCalls(\_PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls) : ?\_PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FirstAssignFluentCall
     {
         $rootMethodCall = $fluentMethodCalls->getRootMethodCall();
         // this means the 1st method creates different object then it runs on
         // e.g. $sheet->getRow(), creates a "Row" object
         $isFirstMethodCallFactory = $this->fluentChainMethodCallRootExtractor->resolveIsFirstMethodCallFactory($rootMethodCall);
         $lastMethodCall = $fluentMethodCalls->getRootMethodCall();
-        if ($lastMethodCall->var instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\PropertyFetch) {
+        if ($lastMethodCall->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
             $assignExpr = $lastMethodCall->var;
         } else {
             // we need a variable to assign the stuff into
             // the method call, does not belong to the
             $staticType = $this->nodeTypeResolver->getStaticType($rootMethodCall);
-            if (!$staticType instanceof \_PhpScopere8e811afab72\PHPStan\Type\ObjectType) {
+            if (!$staticType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
                 return null;
             }
             $variableName = $this->propertyNaming->fqnToVariableName($staticType);
-            $assignExpr = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable($variableName);
+            $assignExpr = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable($variableName);
         }
-        return new \_PhpScopere8e811afab72\Rector\Defluent\ValueObject\FirstAssignFluentCall($assignExpr, $rootMethodCall, $isFirstMethodCallFactory, $fluentMethodCalls);
+        return new \_PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FirstAssignFluentCall($assignExpr, $rootMethodCall, $isFirstMethodCallFactory, $fluentMethodCalls);
     }
 }

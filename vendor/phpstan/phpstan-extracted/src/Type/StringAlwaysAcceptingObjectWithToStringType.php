@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Type;
+namespace _PhpScoper0a6b37af0871\PHPStan\Type;
 
-use _PhpScopere8e811afab72\PHPStan\Broker\Broker;
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
-class StringAlwaysAcceptingObjectWithToStringType extends \_PhpScopere8e811afab72\PHPStan\Type\StringType
+use _PhpScoper0a6b37af0871\PHPStan\Broker\Broker;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+class StringAlwaysAcceptingObjectWithToStringType extends \_PhpScoper0a6b37af0871\PHPStan\Type\StringType
 {
-    public function accepts(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function accepts(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\TypeWithClassName) {
-            $broker = \_PhpScopere8e811afab72\PHPStan\Broker\Broker::getInstance();
+        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName) {
+            $broker = \_PhpScoper0a6b37af0871\PHPStan\Broker\Broker::getInstance();
             if (!$broker->hasClass($type->getClassName())) {
-                return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createNo();
+                return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
             }
             $typeClass = $broker->getClass($type->getClassName());
-            return \_PhpScopere8e811afab72\PHPStan\TrinaryLogic::createFromBoolean($typeClass->hasNativeMethod('__toString'));
+            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createFromBoolean($typeClass->hasNativeMethod('__toString'));
         }
         return parent::accepts($type, $strictTypes);
     }

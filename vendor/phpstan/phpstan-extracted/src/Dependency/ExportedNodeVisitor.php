@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Dependency;
+namespace _PhpScoper0a6b37af0871\PHPStan\Dependency;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\NodeTraverser;
-use _PhpScopere8e811afab72\PhpParser\NodeVisitorAbstract;
-class ExportedNodeVisitor extends \_PhpScopere8e811afab72\PhpParser\NodeVisitorAbstract
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
+use _PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract;
+class ExportedNodeVisitor extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
 {
     /** @var ExportedNodeResolver */
     private $exportedNodeResolver;
@@ -19,7 +19,7 @@ class ExportedNodeVisitor extends \_PhpScopere8e811afab72\PhpParser\NodeVisitorA
      *
      * @param ExportedNodeResolver $exportedNodeResolver
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Dependency\ExportedNodeResolver $exportedNodeResolver)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNodeResolver $exportedNodeResolver)
     {
         $this->exportedNodeResolver = $exportedNodeResolver;
     }
@@ -35,17 +35,17 @@ class ExportedNodeVisitor extends \_PhpScopere8e811afab72\PhpParser\NodeVisitorA
     {
         return $this->currentNodes;
     }
-    public function enterNode(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?int
+    public function enterNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?int
     {
         if ($this->fileName === null) {
-            throw new \_PhpScopere8e811afab72\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
         }
         $exportedNode = $this->exportedNodeResolver->resolve($this->fileName, $node);
         if ($exportedNode !== null) {
             $this->currentNodes[] = $exportedNode;
         }
-        if ($node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\ClassMethod || $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Function_ || $node instanceof \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_) {
-            return \_PhpScopere8e811afab72\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod || $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_ || $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_) {
+            return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
         return null;
     }

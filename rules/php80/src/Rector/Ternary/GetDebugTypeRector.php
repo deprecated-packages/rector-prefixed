@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php80\Rector\Ternary;
+namespace _PhpScoper0a6b37af0871\Rector\Php80\Rector\Ternary;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/get_debug_type
  *
  * @see \Rector\Php80\Tests\Rector\Ternary\GetDebugTypeRector\GetDebugTypeRectorTest
  */
-final class GetDebugTypeRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class GetDebugTypeRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change ternary type resolve to get_debug_type()', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change ternary type resolve to get_debug_type()', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -43,12 +43,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary::class];
     }
     /**
      * @param Ternary $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -61,7 +61,7 @@ CODE_SAMPLE
         $firstExpr = $funcCall->args[0]->value;
         return $this->createFuncCall('get_debug_type', [$firstExpr]);
     }
-    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary $ternary) : bool
+    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
         if (!$this->isFuncCallName($ternary->cond, 'is_object')) {
             return \true;
@@ -74,7 +74,7 @@ CODE_SAMPLE
         }
         return !$this->isFuncCallName($ternary->else, 'gettype');
     }
-    private function areValuesIdentical(\_PhpScopere8e811afab72\PhpParser\Node\Expr\Ternary $ternary) : bool
+    private function areValuesIdentical(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
         /** @var FuncCall $isObjectFuncCall */
         $isObjectFuncCall = $ternary->cond;

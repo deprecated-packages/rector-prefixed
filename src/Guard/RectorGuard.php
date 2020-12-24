@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Core\Guard;
+namespace _PhpScoper0a6b37af0871\Rector\Core\Guard;
 
-use _PhpScopere8e811afab72\Rector\Core\Application\ActiveRectorsProvider;
-use _PhpScopere8e811afab72\Rector\Core\Exception\NoRectorsLoadedException;
+use _PhpScoper0a6b37af0871\Rector\Core\Application\ActiveRectorsProvider;
+use _PhpScoper0a6b37af0871\Rector\Core\Exception\NoRectorsLoadedException;
 final class RectorGuard
 {
     /**
      * @var ActiveRectorsProvider
      */
     private $activeRectorsProvider;
-    public function __construct(\_PhpScopere8e811afab72\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider)
     {
         $this->activeRectorsProvider = $activeRectorsProvider;
     }
@@ -20,6 +20,6 @@ final class RectorGuard
         if ($this->activeRectorsProvider->provide() !== []) {
             return;
         }
-        throw new \_PhpScopere8e811afab72\Rector\Core\Exception\NoRectorsLoadedException();
+        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\NoRectorsLoadedException();
     }
 }

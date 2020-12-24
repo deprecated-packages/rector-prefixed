@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\PhpDoc;
+namespace _PhpScoper0a6b37af0871\PHPStan\PhpDoc;
 
 class TypeNodeResolverExtensionRegistry
 {
@@ -10,10 +10,10 @@ class TypeNodeResolverExtensionRegistry
     /**
      * @param TypeNodeResolverExtension[] $extensions
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver, array $extensions)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver, array $extensions)
     {
         foreach ($extensions as $extension) {
-            if (!$extension instanceof \_PhpScopere8e811afab72\PHPStan\PhpDoc\TypeNodeResolverAwareExtension) {
+            if (!$extension instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeNodeResolverAwareExtension) {
                 continue;
             }
             $extension->setTypeNodeResolver($typeNodeResolver);

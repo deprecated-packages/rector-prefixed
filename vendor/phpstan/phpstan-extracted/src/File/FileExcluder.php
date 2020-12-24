@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\File;
+namespace _PhpScoper0a6b37af0871\PHPStan\File;
 
 class FileExcluder
 {
@@ -16,7 +16,7 @@ class FileExcluder
      * @param string[] $analyseExcludes
      * @param string[] $stubFiles
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\File\FileHelper $fileHelper, array $analyseExcludes, array $stubFiles)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\File\FileHelper $fileHelper, array $analyseExcludes, array $stubFiles)
     {
         $this->analyseExcludes = \array_map(function (string $exclude) use($fileHelper) : string {
             $len = \strlen($exclude);

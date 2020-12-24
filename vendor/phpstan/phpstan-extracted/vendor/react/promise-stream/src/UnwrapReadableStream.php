@@ -1,19 +1,19 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\Stream;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Stream;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
 use InvalidArgumentException;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * @internal
  * @see unwrapReadable() instead
  */
-class UnwrapReadableStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class UnwrapReadableStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
 {
     private $promise;
     private $closed = \false;
@@ -22,16 +22,16 @@ class UnwrapReadableStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81
      *
      * @param PromiseInterface $promise Promise<ReadableStreamInterface, Exception>
      */
-    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise)
+    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise)
     {
         $out = $this;
         $closed =& $this->closed;
         $this->promise = $promise->then(function ($stream) {
-            if (!$stream instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
+            if (!$stream instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
                 throw new \InvalidArgumentException('Not a readable stream');
             }
             return $stream;
-        })->then(function (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $stream) use($out, &$closed) {
+        })->then(function (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $stream) use($out, &$closed) {
             // stream is already closed, make sure to close output stream
             if (!$stream->isReadable()) {
                 $out->close();
@@ -78,7 +78,7 @@ class UnwrapReadableStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81
     public function pause()
     {
         if ($this->promise !== null) {
-            $this->promise->then(function (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $stream) {
+            $this->promise->then(function (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $stream) {
                 $stream->pause();
             });
         }
@@ -86,14 +86,14 @@ class UnwrapReadableStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81
     public function resume()
     {
         if ($this->promise !== null) {
-            $this->promise->then(function (\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $stream) {
+            $this->promise->then(function (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $stream) {
                 $stream->resume();
             });
         }
     }
-    public function pipe(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()
@@ -103,7 +103,7 @@ class UnwrapReadableStream extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81
         }
         $this->closed = \true;
         // try to cancel promise once the stream closes
-        if ($this->promise instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface) {
+        if ($this->promise instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface) {
             $this->promise->cancel();
         }
         $this->promise = null;

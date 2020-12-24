@@ -1,45 +1,45 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\NodeTypeResolver\NodeTypeResolver;
+namespace _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_;
-use _PhpScopere8e811afab72\PHPStan\Type\MixedType;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\UnionType;
-use _PhpScopere8e811afab72\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_;
+use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
+use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use ReflectionClass;
 /**
  * @see \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\TraitTypeResolver\TraitTypeResolverTest
  */
-final class TraitTypeResolver implements \_PhpScopere8e811afab72\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+final class TraitTypeResolver implements \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @return string[]
      */
     public function getNodeClasses() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Trait_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_::class];
     }
     /**
      * @param Trait_ $traitNode
      */
-    public function resolve(\_PhpScopere8e811afab72\PhpParser\Node $traitNode) : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $traitNode) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         $reflectionClass = new \ReflectionClass((string) $traitNode->namespacedName);
         $types = [];
-        $types[] = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($reflectionClass->getName());
+        $types[] = new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType($reflectionClass->getName());
         foreach ($reflectionClass->getTraits() as $usedTraitReflection) {
-            $types[] = new \_PhpScopere8e811afab72\PHPStan\Type\ObjectType($usedTraitReflection->getName());
+            $types[] = new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType($usedTraitReflection->getName());
         }
         if (\count($types) === 1) {
             return $types[0];
         }
         if (\count($types) > 1) {
-            return new \_PhpScopere8e811afab72\PHPStan\Type\UnionType($types);
+            return new \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType($types);
         }
-        return new \_PhpScopere8e811afab72\PHPStan\Type\MixedType();
+        return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
     }
 }

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\SymfonyPHPUnit\Rector\Class_;
+namespace _PhpScoper0a6b37af0871\Rector\SymfonyPHPUnit\Rector\Class_;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName;
-use _PhpScopere8e811afab72\Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator;
-use _PhpScopere8e811afab72\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory;
-use _PhpScopere8e811afab72\Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName;
+use _PhpScoper0a6b37af0871\Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator;
+use _PhpScoper0a6b37af0871\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory;
+use _PhpScoper0a6b37af0871\Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\SymfonyPHPUnit\Tests\Rector\Class_\SelfContainerGetMethodCallFromTestToSetUpMethodRector\SelfContainerGetMethodCallFromTestToSetUpMethodRectorTest
  */
-final class SelfContainerGetMethodCallFromTestToSetUpMethodRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractPHPUnitRector
+final class SelfContainerGetMethodCallFromTestToSetUpMethodRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var KernelTestCaseNodeFactory
@@ -29,15 +29,15 @@ final class SelfContainerGetMethodCallFromTestToSetUpMethodRector extends \_PhpS
      * @var OnContainerGetCallManipulator
      */
     private $onContainerGetCallManipulator;
-    public function __construct(\_PhpScopere8e811afab72\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory $kernelTestCaseNodeFactory, \_PhpScopere8e811afab72\Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator $onContainerGetCallManipulator, \_PhpScopere8e811afab72\Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector $selfContainerMethodCallCollector)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory $kernelTestCaseNodeFactory, \_PhpScoper0a6b37af0871\Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator $onContainerGetCallManipulator, \_PhpScoper0a6b37af0871\Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector $selfContainerMethodCallCollector)
     {
         $this->kernelTestCaseNodeFactory = $kernelTestCaseNodeFactory;
         $this->selfContainerMethodCallCollector = $selfContainerMethodCallCollector;
         $this->onContainerGetCallManipulator = $onContainerGetCallManipulator;
     }
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move self::$container service fetching from test methods up to setUp method', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move self::$container service fetching from test methods up to setUp method', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use ItemRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -91,12 +91,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
@@ -107,7 +107,7 @@ CODE_SAMPLE
             return null;
         }
         // 2. put them to setUp() method
-        $setUpClassMethod = $node->getMethod(\_PhpScopere8e811afab72\Rector\Core\ValueObject\MethodName::SET_UP);
+        $setUpClassMethod = $node->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::SET_UP);
         if ($setUpClassMethod === null) {
             $setUpClassMethod = $this->kernelTestCaseNodeFactory->createSetUpClassMethodWithGetTypes($node, $serviceTypes);
             if ($setUpClassMethod !== null) {

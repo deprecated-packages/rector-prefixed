@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Rules;
+namespace _PhpScoper0a6b37af0871\PHPStan\Rules;
 
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
 class FoundTypeResult
 {
     /** @var \PHPStan\Type\Type */
@@ -17,13 +17,13 @@ class FoundTypeResult
      * @param string[] $referencedClasses
      * @param RuleError[] $unknownClassErrors
      */
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Type\Type $type, array $referencedClasses, array $unknownClassErrors)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, array $referencedClasses, array $unknownClassErrors)
     {
         $this->type = $type;
         $this->referencedClasses = $referencedClasses;
         $this->unknownClassErrors = $unknownClassErrors;
     }
-    public function getType() : \_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->type;
     }

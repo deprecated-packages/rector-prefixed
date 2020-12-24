@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Rules\Methods;
+namespace _PhpScoper0a6b37af0871\PHPStan\Rules\Methods;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PHPStan\Analyser\Scope;
-use _PhpScopere8e811afab72\PHPStan\Rules\Rule;
-use _PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScopere8e811afab72\PHPStan\Type\NullType;
-use _PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoper0a6b37af0871\PHPStan\Rules\Rule;
+use _PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoper0a6b37af0871\PHPStan\Type\NullType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
 /**
  * @implements Rule<Node\Expr\NullsafeMethodCall>
  */
-class NullsafeMethodCallRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Rule
+class NullsafeMethodCallRule implements \_PhpScoper0a6b37af0871\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScopere8e811afab72\PhpParser\Node\Expr\NullsafeMethodCall::class;
+        return \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\NullsafeMethodCall::class;
     }
-    public function processNode(\_PhpScopere8e811afab72\PhpParser\Node $node, \_PhpScopere8e811afab72\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : array
     {
-        $nullType = new \_PhpScopere8e811afab72\PHPStan\Type\NullType();
+        $nullType = new \_PhpScoper0a6b37af0871\PHPStan\Type\NullType();
         $calledOnType = $scope->getType($node->var);
         if ($calledOnType->equals($nullType)) {
             return [];
@@ -28,6 +28,6 @@ class NullsafeMethodCallRule implements \_PhpScopere8e811afab72\PHPStan\Rules\Ru
         if (!$calledOnType->isSuperTypeOf($nullType)->no()) {
             return [];
         }
-        return [\_PhpScopere8e811afab72\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using nullsafe method call on non-nullable type %s. Use -> instead.', $calledOnType->describe(\_PhpScopere8e811afab72\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+        return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using nullsafe method call on non-nullable type %s. Use -> instead.', $calledOnType->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
     }
 }

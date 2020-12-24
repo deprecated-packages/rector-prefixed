@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils;
 
 class Helpers
 {
@@ -31,7 +31,7 @@ class Helpers
     public static function getLastError() : string
     {
         $message = \error_get_last()['message'] ?? '';
-        $message = \ini_get('html_errors') ? \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Html::htmlToText($message) : $message;
+        $message = \ini_get('html_errors') ? \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Html::htmlToText($message) : $message;
         $message = \preg_replace('#^\\w+\\(.*?\\): #', '', $message);
         return $message;
     }

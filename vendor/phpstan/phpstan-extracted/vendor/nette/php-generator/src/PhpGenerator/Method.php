@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Class method.
  *
@@ -34,12 +34,12 @@ final class Method
      */
     public static function from($method) : self
     {
-        return (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromMethodReflection(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Callback::toReflection($method));
+        return (new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromMethodReflection(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Callback::toReflection($method));
     }
     public function __toString() : string
     {
         try {
-            return (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printMethod($this);
+            return (new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printMethod($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -51,7 +51,7 @@ final class Method
     /** @return static */
     public function setBody(?string $code, array $args = null) : self
     {
-        $this->body = $args === null || $code === null ? $code : (new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Dumper())->format($code, ...$args);
+        $this->body = $args === null || $code === null ? $code : (new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Dumper())->format($code, ...$args);
         return $this;
     }
     public function getBody() : ?string
@@ -91,9 +91,9 @@ final class Method
     /**
      * @param  string  $name without $
      */
-    public function addPromotedParameter(string $name, $defaultValue = null) : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\PromotedParameter
+    public function addPromotedParameter(string $name, $defaultValue = null) : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\PromotedParameter
     {
-        $param = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\PromotedParameter($name);
+        $param = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\PromotedParameter($name);
         if (\func_num_args() > 1) {
             $param->setDefaultValue($defaultValue);
         }
@@ -102,8 +102,8 @@ final class Method
     /** @throws Nette\InvalidStateException */
     public function validate() : void
     {
-        if ($this->abstract && ($this->final || $this->visibility === \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE)) {
-            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Method cannot be abstract and final or private.');
+        if ($this->abstract && ($this->final || $this->visibility === \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType::VISIBILITY_PRIVATE)) {
+            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Method cannot be abstract and final or private.');
         }
     }
 }

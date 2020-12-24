@@ -10,9 +10,9 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
 /**
  * Creates a new Description object given a body of text.
  *
@@ -39,7 +39,7 @@ class DescriptionFactory
      *
      * @param TagFactory $tagFactory
      */
-    public function __construct(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
+    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
     {
         $this->tagFactory = $tagFactory;
     }
@@ -51,10 +51,10 @@ class DescriptionFactory
      *
      * @return Description
      */
-    public function create($contents, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
+    public function create($contents, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
     {
         list($text, $tags) = $this->parse($this->lex($contents), $context);
-        return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description($text, $tags);
+        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description($text, $tags);
     }
     /**
      * Strips the contents from superfluous whitespace and splits the description into a series of tokens.
@@ -103,7 +103,7 @@ class DescriptionFactory
      *
      * @return string[]|Tag[]
      */
-    private function parse($tokens, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context)
+    private function parse($tokens, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context)
     {
         $count = \count($tokens);
         $tagCount = 0;

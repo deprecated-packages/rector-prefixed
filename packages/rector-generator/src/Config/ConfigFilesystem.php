@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\RectorGenerator\Config;
+namespace _PhpScoper0a6b37af0871\Rector\RectorGenerator\Config;
 
-use _PhpScopere8e811afab72\Nette\Utils\Strings;
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\NodeTraverser;
-use _PhpScopere8e811afab72\PhpParser\NodeVisitor\NameResolver;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Parser\Parser;
-use _PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScopere8e811afab72\Rector\RectorGenerator\Rector\Closure\AddNewServiceToSymfonyPhpConfigRector;
-use _PhpScopere8e811afab72\Rector\RectorGenerator\TemplateFactory;
-use _PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
+use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Parser\Parser;
+use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoper0a6b37af0871\Rector\RectorGenerator\Rector\Closure\AddNewServiceToSymfonyPhpConfigRector;
+use _PhpScoper0a6b37af0871\Rector\RectorGenerator\TemplateFactory;
+use _PhpScoper0a6b37af0871\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
 final class ConfigFilesystem
 {
     /**
      * @var string
      */
-    public const RECTOR_FQN_NAME_PATTERN = '_PhpScopere8e811afab72\\Rector\\__Package__\\Rector\\__Category__\\__Name__';
+    public const RECTOR_FQN_NAME_PATTERN = '_PhpScoper0a6b37af0871\\Rector\\__Package__\\Rector\\__Category__\\__Name__';
     /**
      * @var TemplateFactory
      */
@@ -40,7 +40,7 @@ final class ConfigFilesystem
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScopere8e811afab72\Rector\RectorGenerator\Rector\Closure\AddNewServiceToSymfonyPhpConfigRector $addNewServiceToSymfonyPhpConfigRector, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScopere8e811afab72\Rector\Core\PhpParser\Parser\Parser $parser, \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScopere8e811afab72\Rector\RectorGenerator\TemplateFactory $templateFactory)
+    public function __construct(\_PhpScoper0a6b37af0871\Rector\RectorGenerator\Rector\Closure\AddNewServiceToSymfonyPhpConfigRector $addNewServiceToSymfonyPhpConfigRector, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Parser\Parser $parser, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper0a6b37af0871\Rector\RectorGenerator\TemplateFactory $templateFactory)
     {
         $this->templateFactory = $templateFactory;
         $this->parser = $parser;
@@ -51,24 +51,24 @@ final class ConfigFilesystem
     /**
      * @param string[] $templateVariables
      */
-    public function appendRectorServiceToSet(\_PhpScopere8e811afab72\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, array $templateVariables) : void
+    public function appendRectorServiceToSet(\_PhpScoper0a6b37af0871\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, array $templateVariables) : void
     {
         if ($rectorRecipe->getSet() === null) {
             return;
         }
         $setFilePath = $rectorRecipe->getSet();
-        $setFileInfo = new \_PhpScopere8e811afab72\Symplify\SmartFileSystem\SmartFileInfo($setFilePath);
+        $setFileInfo = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo($setFilePath);
         $setFileContents = $setFileInfo->getContents();
         // already added?
         $rectorFqnName = $this->templateFactory->create(self::RECTOR_FQN_NAME_PATTERN, $templateVariables);
-        if (\_PhpScopere8e811afab72\Nette\Utils\Strings::contains($setFileContents, $rectorFqnName)) {
+        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($setFileContents, $rectorFqnName)) {
             return;
         }
         // 1. parse the file
         $setConfigNodes = $this->parser->parseFileInfo($setFileInfo);
         // 2. add the set() call
         $this->decorateNamesToFullyQualified($setConfigNodes);
-        $nodeTraverser = new \_PhpScopere8e811afab72\PhpParser\NodeTraverser();
+        $nodeTraverser = new \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser();
         $this->addNewServiceToSymfonyPhpConfigRector->setRectorClass($rectorFqnName);
         $nodeTraverser->addVisitor($this->addNewServiceToSymfonyPhpConfigRector);
         $setConfigNodes = $nodeTraverser->traverse($setConfigNodes);
@@ -82,8 +82,8 @@ final class ConfigFilesystem
     private function decorateNamesToFullyQualified(array $nodes) : void
     {
         // decorate nodes with names first
-        $nameResolverNodeTraverser = new \_PhpScopere8e811afab72\PhpParser\NodeTraverser();
-        $nameResolverNodeTraverser->addVisitor(new \_PhpScopere8e811afab72\PhpParser\NodeVisitor\NameResolver());
+        $nameResolverNodeTraverser = new \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser();
+        $nameResolverNodeTraverser->addVisitor(new \_PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver());
         $nameResolverNodeTraverser->traverse($nodes);
     }
 }

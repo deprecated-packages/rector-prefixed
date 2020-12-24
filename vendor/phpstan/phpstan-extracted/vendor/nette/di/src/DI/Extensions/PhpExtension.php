@@ -5,17 +5,17 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
 /**
  * PHP directives definition.
  */
-final class PhpExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+final class PhpExtension extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf('scalar');
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf('scalar');
     }
     public function loadConfiguration()
     {
@@ -34,7 +34,7 @@ final class PhpExtension extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\
                 $this->initialization->addBody('ini_set(?, ?);', [$name, $value === \false ? '0' : (string) $value]);
             } elseif (\ini_get($name) != $value) {
                 // intentionally ==
-                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('Required function ini_set() is disabled.');
+                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\NotSupportedException('Required function ini_set() is disabled.');
             }
         }
     }

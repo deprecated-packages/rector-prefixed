@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\PHPStan\Reflection;
+namespace _PhpScoper0a6b37af0871\PHPStan\Reflection;
 
-use _PhpScopere8e811afab72\PHPStan\Reflection\Php\DummyParameter;
-use _PhpScopere8e811afab72\PHPStan\TrinaryLogic;
-use _PhpScopere8e811afab72\PHPStan\Type\ObjectType;
-use _PhpScopere8e811afab72\PHPStan\Type\StaticType;
-use _PhpScopere8e811afab72\PHPStan\Type\Type;
-use _PhpScopere8e811afab72\PHPStan\Type\TypeTraverser;
-class ObjectTypeMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection
+use _PhpScoper0a6b37af0871\PHPStan\Reflection\Php\DummyParameter;
+use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\StaticType;
+use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser;
+class ObjectTypeMethodReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
 {
     /** @var \PHPStan\Type\ObjectType */
     private $objectType;
@@ -17,12 +17,12 @@ class ObjectTypeMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Refl
     private $reflection;
     /** @var \PHPStan\Reflection\ParametersAcceptor[]|null */
     private $variants = null;
-    public function __construct(\_PhpScopere8e811afab72\PHPStan\Type\ObjectType $objectType, \_PhpScopere8e811afab72\PHPStan\Reflection\MethodReflection $reflection)
+    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType $objectType, \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection $reflection)
     {
         $this->objectType = $objectType;
         $this->reflection = $reflection;
     }
-    public function getDeclaringClass() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
@@ -46,7 +46,7 @@ class ObjectTypeMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Refl
     {
         return $this->reflection->getName();
     }
-    public function getPrototype() : \_PhpScopere8e811afab72\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberReflection
     {
         return $this->reflection->getPrototype();
     }
@@ -65,19 +65,19 @@ class ObjectTypeMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Refl
         $this->variants = $variants;
         return $this->variants;
     }
-    private function processVariant(\_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor $acceptor) : \_PhpScopere8e811afab72\PHPStan\Reflection\ParametersAcceptor
+    private function processVariant(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $acceptor) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor
     {
-        return new \_PhpScopere8e811afab72\PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), \array_map(function (\_PhpScopere8e811afab72\PHPStan\Reflection\ParameterReflection $parameter) : ParameterReflection {
-            $type = \_PhpScopere8e811afab72\PHPStan\Type\TypeTraverser::map($parameter->getType(), function (\_PhpScopere8e811afab72\PHPStan\Type\Type $type, callable $traverse) : Type {
-                if ($type instanceof \_PhpScopere8e811afab72\PHPStan\Type\StaticType) {
+        return new \_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), \array_map(function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflection $parameter) : ParameterReflection {
+            $type = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser::map($parameter->getType(), function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, callable $traverse) : Type {
+                if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\StaticType) {
                     return $traverse($this->objectType);
                 }
                 return $traverse($type);
             });
-            return new \_PhpScopere8e811afab72\PHPStan\Reflection\Php\DummyParameter($parameter->getName(), $type, $parameter->isOptional(), $parameter->passedByReference(), $parameter->isVariadic(), $parameter->getDefaultValue());
+            return new \_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\DummyParameter($parameter->getName(), $type, $parameter->isOptional(), $parameter->passedByReference(), $parameter->isVariadic(), $parameter->getDefaultValue());
         }, $acceptor->getParameters()), $acceptor->isVariadic(), $acceptor->getReturnType());
     }
-    public function isDeprecated() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -85,19 +85,19 @@ class ObjectTypeMethodReflection implements \_PhpScopere8e811afab72\PHPStan\Refl
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isFinal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isFinal() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
         return $this->reflection->isFinal();
     }
-    public function isInternal() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }
-    public function getThrowType() : ?\_PhpScopere8e811afab72\PHPStan\Type\Type
+    public function getThrowType() : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
     {
         return $this->reflection->getThrowType();
     }
-    public function hasSideEffects() : \_PhpScopere8e811afab72\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
     {
         return $this->reflection->hasSideEffects();
     }

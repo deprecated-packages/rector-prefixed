@@ -5,12 +5,12 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
 /**
  * The DI helpers.
  * @internal
@@ -33,8 +33,8 @@ final class Helpers
                 $res[self::expand($key, $params, $recursive)] = self::expand($val, $params, $recursive);
             }
             return $res;
-        } elseif ($var instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
-            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement(self::expand($var->getEntity(), $params, $recursive), self::expand($var->arguments, $params, $recursive));
+        } elseif ($var instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
+            return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement(self::expand($var->getEntity(), $params, $recursive), self::expand($var->arguments, $params, $recursive));
         } elseif ($var === '%parameters%' && !\array_key_exists('parameters', $params)) {
             return $recursive ? self::expand($params, $params, \is_array($recursive) ? $recursive : []) : $params;
         } elseif (!\is_string($var)) {
@@ -49,16 +49,16 @@ final class Helpers
             } elseif ($part === '') {
                 $res[] = '%';
             } elseif (isset($recursive[$part])) {
-                throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException(\sprintf('Circular reference detected for variables: %s.', \implode(', ', \array_keys($recursive))));
+                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException(\sprintf('Circular reference detected for variables: %s.', \implode(', ', \array_keys($recursive))));
             } else {
                 $val = $params;
                 foreach (\explode('.', $part) as $key) {
                     if (\is_array($val) && \array_key_exists($key, $val)) {
                         $val = $val[$key];
-                    } elseif ($val instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter) {
-                        $val = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter($val . '[' . \var_export($key, \true) . ']');
+                    } elseif ($val instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter) {
+                        $val = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter($val . '[' . \var_export($key, \true) . ']');
                     } else {
-                        throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Missing parameter '{$part}'.");
+                        throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Missing parameter '{$part}'.");
                     }
                 }
                 if ($recursive) {
@@ -67,10 +67,10 @@ final class Helpers
                 if (\strlen($part) + 2 === \strlen($var)) {
                     return $val;
                 }
-                if ($val instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter) {
+                if ($val instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter) {
                     $php = \true;
                 } elseif (!\is_scalar($val)) {
-                    throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Unable to concatenate non-scalar parameter '{$part}' into '{$var}'.");
+                    throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Unable to concatenate non-scalar parameter '{$part}' into '{$var}'.");
                 }
                 $res[] = $val;
             }
@@ -80,9 +80,9 @@ final class Helpers
                 return $val !== '';
             });
             $res = \array_map(function ($val) : string {
-                return $val instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter ? "({$val})" : \var_export((string) $val, \true);
+                return $val instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter ? "({$val})" : \var_export((string) $val, \true);
             }, $res);
-            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter(\implode(' . ', $res));
+            return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\DynamicParameter(\implode(' . ', $res));
         }
         return \implode('', $res);
     }
@@ -116,12 +116,12 @@ final class Helpers
             } elseif (\is_string($v) && \preg_match('#^[\\w\\\\]*::[A-Z][A-Z0-9_]*$#D', $v, $m)) {
                 $args[$k] = \constant(\ltrim($v, ':'));
             } elseif (\is_string($v) && \preg_match('#^@[\\w\\\\]+$#D', $v)) {
-                $args[$k] = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference(\substr($v, 1));
+                $args[$k] = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference(\substr($v, 1));
             } elseif (\is_array($v)) {
                 $args[$k] = self::filterArguments($v);
-            } elseif ($v instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
+            } elseif ($v instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
                 [$tmp] = self::filterArguments([$v->getEntity()]);
-                $args[$k] = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement($tmp, self::filterArguments($v->arguments));
+                $args[$k] = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement($tmp, self::filterArguments($v->arguments));
             }
         }
         return $args;
@@ -137,12 +137,12 @@ final class Helpers
             if (\strncmp($config, '@extension.', 10) === 0) {
                 $config = '@' . $namespace . '.' . \substr($config, 11);
             }
-        } elseif ($config instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference) {
+        } elseif ($config instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference) {
             if (\strncmp($config->getValue(), 'extension.', 9) === 0) {
-                $config = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference($namespace . '.' . \substr($config->getValue(), 10));
+                $config = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Reference($namespace . '.' . \substr($config->getValue(), 10));
             }
-        } elseif ($config instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
-            return new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement(self::prefixServiceName($config->getEntity(), $namespace), self::prefixServiceName($config->arguments, $namespace));
+        } elseif ($config instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
+            return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement(self::prefixServiceName($config->getEntity(), $namespace), self::prefixServiceName($config->arguments, $namespace));
         } elseif (\is_array($config)) {
             foreach ($config as &$val) {
                 $val = self::prefixServiceName($val, $namespace);
@@ -156,8 +156,8 @@ final class Helpers
      */
     public static function parseAnnotation(\Reflector $ref, string $name) : ?string
     {
-        if (!\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::areCommentsAvailable()) {
-            throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('You have to enable phpDoc comments in opcode cache.');
+        if (!\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::areCommentsAvailable()) {
+            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('You have to enable phpDoc comments in opcode cache.');
         }
         $re = '#[\\s*]@' . \preg_quote($name, '#') . '(?=\\s|$)(?:[ \\t]+([^@\\s]\\S*))?#';
         if ($ref->getDocComment() && \preg_match($re, \trim($ref->getDocComment(), '/*'), $m)) {
@@ -167,13 +167,13 @@ final class Helpers
     }
     public static function getReturnType(\ReflectionFunctionAbstract $func) : ?string
     {
-        if ($type = \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getReturnType($func)) {
+        if ($type = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getReturnType($func)) {
             return $type;
         } elseif ($type = \preg_replace('#[|\\s].*#', '', (string) self::parseAnnotation($func, 'return'))) {
             if ($type === 'object' || $type === 'mixed') {
                 return null;
             } elseif ($func instanceof \ReflectionMethod) {
-                return $type === 'static' || $type === '$this' ? $func->getDeclaringClass()->name : \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::expandClassName($type, $func->getDeclaringClass());
+                return $type === 'static' || $type === '$this' ? $func->getDeclaringClass()->name : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::expandClassName($type, $func->getDeclaringClass());
             } else {
                 return $type;
             }
@@ -204,6 +204,6 @@ final class Helpers
             }
         }
         $value = \is_scalar($value) ? "'{$value}'" : \gettype($value);
-        throw new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Cannot convert {$value} to {$type}.");
+        throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Cannot convert {$value} to {$type}.");
     }
 }

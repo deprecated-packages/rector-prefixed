@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Message;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Message;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
 /**
  * Respresents an incoming server request message.
  *
@@ -28,7 +28,7 @@ use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
  *
  * @see ServerRequestInterface
  */
-final class ServerRequest extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface
+final class ServerRequest extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface
 {
     private $attributes = array();
     private $serverParams;
@@ -48,10 +48,10 @@ final class ServerRequest extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f
     public function __construct($method, $url, array $headers = array(), $body = '', $version = '1.1', $serverParams = array())
     {
         $stream = null;
-        if ($body instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface && !$body instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
+        if ($body instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface && !$body instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
             $stream = $body;
             $body = null;
-        } elseif (!\is_string($body) && !$body instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
+        } elseif (!\is_string($body) && !$body instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
             throw new \InvalidArgumentException('Invalid server request body given');
         }
         $this->serverParams = $serverParams;
@@ -61,7 +61,7 @@ final class ServerRequest extends \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f
             if (\strtolower($this->getHeaderLine('Transfer-Encoding')) === 'chunked') {
                 $size = null;
             }
-            $this->stream = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($stream, $size);
+            $this->stream = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($stream, $size);
         }
         $query = $this->getUri()->getQuery();
         if ($query !== '') {

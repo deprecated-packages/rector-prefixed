@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Elements;
+namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Elements;
 
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers;
-use _PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
-final class AnyOf implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers;
+use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
+final class AnyOf implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
 {
     use Base;
     use Nette\SmartObject;
@@ -31,28 +31,28 @@ final class AnyOf implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nett
     }
     public function dynamic() : self
     {
-        $this->set[] = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Elements\Type(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter::class);
+        $this->set[] = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Elements\Type(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\DynamicParameter::class);
         return $this;
     }
     /********************* processing ****************d*g**/
-    public function normalize($value, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function normalize($value, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         return $this->doNormalize($value, $context);
     }
     public function merge($value, $base)
     {
-        if (\is_array($value) && isset($value[\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING])) {
-            unset($value[\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING]);
+        if (\is_array($value) && isset($value[\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING])) {
+            unset($value[\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::PREVENT_MERGING]);
             return $value;
         }
-        return \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($value, $base);
+        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($value, $base);
     }
-    public function complete($value, \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function complete($value, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         $hints = $innerErrors = [];
         foreach ($this->set as $item) {
-            if ($item instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema) {
-                $dolly = new \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context();
+            if ($item instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema) {
+                $dolly = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context();
                 $dolly->path = $context->path;
                 $res = $item->complete($value, $dolly);
                 if (!$dolly->errors) {
@@ -79,13 +79,13 @@ final class AnyOf implements \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nett
             $context->addError("The option %path% expects to be {$hints}, " . static::formatValue($value) . ' given.');
         }
     }
-    public function completeDefault(\_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function completeDefault(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($this->required) {
             $context->addError('The mandatory option %path% is missing.');
             return null;
         }
-        if ($this->default instanceof \_PhpScopere8e811afab72\_HumbugBox221ad6f1b81f\Nette\Schema\Schema) {
+        if ($this->default instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema) {
             return $this->default->completeDefault($context);
         }
         return $this->default;

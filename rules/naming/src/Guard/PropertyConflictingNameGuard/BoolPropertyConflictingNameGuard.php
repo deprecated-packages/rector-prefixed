@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Naming\Guard\PropertyConflictingNameGuard;
+namespace _PhpScoper0a6b37af0871\Rector\Naming\Guard\PropertyConflictingNameGuard;
 
-use _PhpScopere8e811afab72\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver;
-final class BoolPropertyConflictingNameGuard extends \_PhpScopere8e811afab72\Rector\Naming\Guard\PropertyConflictingNameGuard\AbstractPropertyConflictingNameGuard
+use _PhpScoper0a6b37af0871\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver;
+final class BoolPropertyConflictingNameGuard extends \_PhpScoper0a6b37af0871\Rector\Naming\Guard\PropertyConflictingNameGuard\AbstractPropertyConflictingNameGuard
 {
     /**
      * @required
      */
-    public function autowireBoolPropertyConflictingNameGuard(\_PhpScopere8e811afab72\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver) : void
+    public function autowireBoolPropertyConflictingNameGuard(\_PhpScoper0a6b37af0871\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver) : void
     {
         $this->expectedNameResolver = $boolPropertyExpectedNameResolver;
     }

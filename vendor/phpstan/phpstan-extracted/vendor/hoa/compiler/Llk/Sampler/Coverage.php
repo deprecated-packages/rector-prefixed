@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler;
+namespace _PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Sampler;
 
-use _PhpScopere8e811afab72\Hoa\Compiler;
-use _PhpScopere8e811afab72\Hoa\Iterator;
+use _PhpScoper0a6b37af0871\Hoa\Compiler;
+use _PhpScoper0a6b37af0871\Hoa\Iterator;
 /**
  * Class \Hoa\Compiler\Llk\Sampler\Coverage.
  *
@@ -57,7 +57,7 @@ use _PhpScopere8e811afab72\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler implements \_PhpScopere8e811afab72\Hoa\Iterator
+class Coverage extends \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Sampler\Sampler implements \_PhpScoper0a6b37af0871\Hoa\Iterator
 {
     /**
      * Stack of rules to explore.
@@ -136,7 +136,7 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
         $this->_coveredRules = [];
         foreach ($this->_rules as $name => $rule) {
             $this->_coveredRules[$name] = [];
-            if ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Repetition) {
+            if ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Repetition) {
                 $min = $rule->getMin();
                 $min1 = $min + 1;
                 $max = -1 == $rule->getMax() ? 2 : $rule->getMax();
@@ -149,7 +149,7 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
                     $this->_coveredRules[$name][$max1] = 0;
                     $this->_coveredRules[$name][$max] = 0;
                 }
-            } elseif ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Choice) {
+            } elseif ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Choice) {
                 for ($i = 0, $max = \count($rule->getChildren()); $i < $max; ++$i) {
                     $this->_coveredRules[$name][$i] = 0;
                 }
@@ -171,14 +171,14 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
             return \false;
         }
         $this->_trace = [];
-        $this->_todo = [new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($ruleName, $this->_coveredRules)];
+        $this->_todo = [new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($ruleName, $this->_coveredRules)];
         $result = $this->unfold();
         if (\true !== $result) {
             return \false;
         }
         $handle = null;
         foreach ($this->_trace as $trace) {
-            if ($trace instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Token) {
+            if ($trace instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Token) {
                 $handle .= $this->generateToken($trace);
             }
         }
@@ -203,7 +203,7 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
     {
         while (0 < \count($this->_todo)) {
             $pop = \array_pop($this->_todo);
-            if ($pop instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit) {
+            if ($pop instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit) {
                 $this->_trace[] = $pop;
                 $this->updateCoverage($pop);
             } else {
@@ -221,10 +221,10 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
      * @param   \Hoa\Compiler\Llk\Rule  $rule    Rule to cover.
      * @return  bool
      */
-    protected function coverage(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule $rule)
+    protected function coverage(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule $rule)
     {
         $children = $rule->getChildren();
-        if ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Repetition) {
+        if ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Repetition) {
             $uncovered = [];
             $inprogress = [];
             $already = [];
@@ -243,11 +243,11 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
                 } else {
                     $rand = $already[\rand(0, \count($already) - 1)];
                 }
-                $this->_trace[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $this->_coveredRules, $this->_todo);
-                $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rand);
-                if ($this->_rules[$children] instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Token) {
+                $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $this->_coveredRules, $this->_todo);
+                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rand);
+                if ($this->_rules[$children] instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Token) {
                     for ($i = 0; $i < $rand; ++$i) {
-                        $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($children, $this->_coveredRules, $this->_todo);
+                        $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($children, $this->_coveredRules, $this->_todo);
                     }
                 } else {
                     $sequence = $this->extract([$children]);
@@ -257,7 +257,7 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
                     for ($i = 0; $i < $rand; ++$i) {
                         foreach ($sequence as $seq) {
                             $this->_trace[] = $seq;
-                            if ($seq instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit) {
+                            if ($seq instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit) {
                                 $this->updateCoverage($seq);
                             }
                         }
@@ -266,14 +266,14 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
             } else {
                 $rand = $uncovered[\rand(0, \count($uncovered) - 1)];
                 $this->_coveredRules[$rule->getName()][$rand] = -1;
-                $this->_trace[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $this->_coveredRules, $this->_todo);
-                $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rand);
+                $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $this->_coveredRules, $this->_todo);
+                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rand);
                 for ($i = 0; $i < $rand; ++$i) {
-                    $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($children, $this->_coveredRules, $this->_todo);
+                    $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($children, $this->_coveredRules, $this->_todo);
                 }
             }
             return \true;
-        } elseif ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Choice) {
+        } elseif ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Choice) {
             $uncovered = [];
             $inprogress = [];
             $already = [];
@@ -287,14 +287,14 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
                 }
             }
             if (empty($uncovered)) {
-                $this->_trace[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $this->_coveredRules, $this->_todo);
+                $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $this->_coveredRules, $this->_todo);
                 $sequence = $this->extract($children);
                 if (null === $sequence) {
                     return null;
                 }
                 foreach ($sequence as $seq) {
                     $this->_trace[] = $seq;
-                    if ($seq instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit) {
+                    if ($seq instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit) {
                         $this->updateCoverage($seq);
                     }
                 }
@@ -303,27 +303,27 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
                 } else {
                     $rand = $already[\rand(0, \count($already) - 1)];
                 }
-                $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rand);
+                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rand);
             } else {
                 $rand = $uncovered[\rand(0, \count($uncovered) - 1)];
-                $this->_trace[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $this->_coveredRules, $this->_todo);
+                $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), $this->_coveredRules, $this->_todo);
                 $this->_coveredRules[$rule->getName()][$rand] = -1;
-                $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rand);
-                $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($children[$rand], $this->_coveredRules, $this->_todo);
+                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), $rand);
+                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($children[$rand], $this->_coveredRules, $this->_todo);
             }
             return \true;
-        } elseif ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Concatenation) {
+        } elseif ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Concatenation) {
             $this->_coveredRules[$rule->getName()][0] = -1;
-            $this->_trace[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), \false);
-            $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), \false);
+            $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), \false);
+            $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), \false);
             for ($i = \count($children) - 1; $i >= 0; --$i) {
-                $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($children[$i], \false, $this->_todo);
+                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($children[$i], \false, $this->_todo);
             }
             return \true;
-        } elseif ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Token) {
-            $this->_trace[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), \false);
+        } elseif ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Token) {
+            $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($rule->getName(), \false);
             $this->_trace[] = $rule;
-            $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), \false);
+            $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($rule->getName(), \false);
             return \true;
         }
         return \false;
@@ -341,12 +341,12 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
             foreach ($this->_tests as $test) {
                 $opened = 0;
                 foreach ($test as $t) {
-                    if ($t instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry && $t->getRule() == $rule) {
+                    if ($t instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry && $t->getRule() == $rule) {
                         ++$opened;
                     }
                     if (0 < $opened) {
                         $out[] = $t;
-                        if ($t instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit && $t->getRule() == $rule) {
+                        if ($t instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit && $t->getRule() == $rule) {
                             --$opened;
                             if (0 === $opened) {
                                 return $out;
@@ -360,12 +360,12 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
             $out = [];
             $closed = 0;
             foreach ($this->_trace as $t) {
-                if ($t instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit && $t->getRule() == $rule) {
+                if ($t instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit && $t->getRule() == $rule) {
                     ++$closed;
                 }
                 if (0 < $closed) {
                     $out[] = $t;
-                    if ($t instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit && $t->getRule() == $rule) {
+                    if ($t instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit && $t->getRule() == $rule) {
                         --$closed;
                         if (0 === $closed) {
                             return \array_reverse($out);
@@ -386,9 +386,9 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
         $found = \false;
         do {
             $pop = \array_pop($this->_trace);
-            if ($pop instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry) {
+            if ($pop instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry) {
                 $rule = $this->_rules[$pop->getRule()];
-                $found = $rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Choice || $rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Repetition;
+                $found = $rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Choice || $rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Repetition;
             }
         } while (0 < \count($this->_trace) && \false === $found);
         if (\false === $found) {
@@ -397,7 +397,7 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
         $ruleName = $pop->getRule();
         $this->_covered = $pop->getData();
         $this->_todo = $pop->getTodo();
-        $this->_todo[] = new \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry($ruleName, $this->_covered, $this->_todo);
+        $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($ruleName, $this->_covered, $this->_todo);
         return \true;
     }
     /**
@@ -406,13 +406,13 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
      * @param   \Hoa\Compiler\Llk\Rule\Ekzit  $rule    Rule to consider.
      * @return  void
      */
-    protected function updateCoverage(\_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit $Rule)
+    protected function updateCoverage(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit $Rule)
     {
         $ruleName = $Rule->getRule();
         $child = $Rule->getData();
         $rule = $this->_rules[$ruleName];
         $children = $rule->getChildren();
-        if ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Repetition) {
+        if ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Repetition) {
             if (0 === $child) {
                 $this->_coveredRules[$ruleName][$child] = 1;
             } else {
@@ -427,13 +427,13 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
                     $this->_coveredRules[$ruleName][$child] = 0.5;
                 }
             }
-        } elseif ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Choice) {
+        } elseif ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Choice) {
             if (\true === $this->allCovered($children[$child]) || \true === $this->checkRuleRoot($children[$child])) {
                 $this->_coveredRules[$ruleName][$child] = 1;
             } else {
                 $this->_coveredRules[$ruleName][$child] = 0.5;
             }
-        } elseif ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Concatenation) {
+        } elseif ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Concatenation) {
             $isCovered = \true;
             for ($i = \count($children) - 1; $i >= 0 && \true === $isCovered; --$i) {
                 if (\false === $this->allCovered($children[$i]) && \false === $this->checkRuleRoot($children[$i])) {
@@ -441,7 +441,7 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
                 }
             }
             $this->_coveredRules[$ruleName][0] = \true === $isCovered ? 1 : 0.5;
-        } elseif ($rule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Token) {
+        } elseif ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Token) {
             $this->_coveredRules[$ruleName][0] = 1;
         }
         return;
@@ -476,11 +476,11 @@ class Coverage extends \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Sampler\Sampler 
         $nb = 0;
         while ($i >= 0) {
             $lastRule = $this->_trace[$i];
-            if ($lastRule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Entry) {
+            if ($lastRule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry) {
                 if ($lastRule->getRule() == $ruleName) {
                     ++$nb;
                 }
-            } elseif ($lastRule instanceof \_PhpScopere8e811afab72\Hoa\Compiler\Llk\Rule\Ekzit) {
+            } elseif ($lastRule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit) {
                 if ($lastRule->getRule() == $ruleName) {
                     --$nb;
                 }

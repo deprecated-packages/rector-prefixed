@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScopere8e811afab72\Composer\Autoload;
+namespace _PhpScoper0a6b37af0871\Composer\Autoload;
 
 /**
  * ClassLoader implements a PSR-0, PSR-4 and classmap class loader.

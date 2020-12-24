@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php73\Rector\FuncCall;
+namespace _PhpScoper0a6b37af0871\Rector\Php73\Rector\FuncCall;
 
-use _PhpScopere8e811afab72\PhpParser\Node;
-use _PhpScopere8e811afab72\PhpParser\Node\Arg;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Array_;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall;
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
-use _PhpScopere8e811afab72\PhpParser\Node\Scalar\String_;
-use _PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector;
-use _PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
+use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Convert legacy setcookie arguments to new array options
  *
@@ -22,22 +22,22 @@ use _PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://www.php.net/setcookie
  * @see https://wiki.php.net/rfc/same-site-cookie
  */
-final class SetCookieRector extends \_PhpScopere8e811afab72\Rector\Core\Rector\AbstractRector
+final class SetCookieRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
 {
     /**
      * Conversion table from argument index to options name
      * @var array<int, string>
      */
     private const KNOWN_OPTIONS = [2 => 'expires', 3 => 'path', 4 => 'domain', 5 => 'secure', 6 => 'httponly'];
-    public function getRuleDefinition() : \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert setcookie argument to PHP7.3 option array', [new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert setcookie argument to PHP7.3 option array', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 setcookie('name', $value, 360);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 setcookie('name', $value, ['expires' => 360]);
 CODE_SAMPLE
-), new \_PhpScopere8e811afab72\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+), new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 setcookie('name', $name, 0, '', '', true, true);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -50,12 +50,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScopere8e811afab72\PhpParser\Node $node) : ?\_PhpScopere8e811afab72\PhpParser\Node
+    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -64,30 +64,30 @@ CODE_SAMPLE
         $node->args = $this->composeNewArgs($node);
         return $node;
     }
-    private function shouldSkip(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         if (!$this->isNames($funcCall, ['setcookie', 'setrawcookie'])) {
             return \true;
         }
-        if (!$this->isAtLeastPhpVersion(\_PhpScopere8e811afab72\Rector\Core\ValueObject\PhpVersionFeature::SETCOOKIE_ACCEPT_ARRAY_OPTIONS)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::SETCOOKIE_ACCEPT_ARRAY_OPTIONS)) {
             return \true;
         }
         $argsCount = \count((array) $funcCall->args);
         if ($argsCount <= 2) {
             return \true;
         }
-        if ($funcCall->args[2]->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_) {
+        if ($funcCall->args[2]->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_) {
             return \true;
         }
         if ($argsCount === 3) {
-            return $funcCall->args[2]->value instanceof \_PhpScopere8e811afab72\PhpParser\Node\Expr\Variable;
+            return $funcCall->args[2]->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
         }
         return \false;
     }
     /**
      * @return Arg[]
      */
-    private function composeNewArgs(\_PhpScopere8e811afab72\PhpParser\Node\Expr\FuncCall $funcCall) : array
+    private function composeNewArgs(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall) : array
     {
         $items = [];
         $args = $funcCall->args;
@@ -97,10 +97,10 @@ CODE_SAMPLE
         unset($args[0]);
         unset($args[1]);
         foreach ($args as $idx => $arg) {
-            $newKey = new \_PhpScopere8e811afab72\PhpParser\Node\Scalar\String_(self::KNOWN_OPTIONS[$idx]);
-            $items[] = new \_PhpScopere8e811afab72\PhpParser\Node\Expr\ArrayItem($arg->value, $newKey);
+            $newKey = new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_(self::KNOWN_OPTIONS[$idx]);
+            $items[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem($arg->value, $newKey);
         }
-        $newArgs[] = new \_PhpScopere8e811afab72\PhpParser\Node\Arg(new \_PhpScopere8e811afab72\PhpParser\Node\Expr\Array_($items));
+        $newArgs[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_($items));
         return $newArgs;
     }
 }

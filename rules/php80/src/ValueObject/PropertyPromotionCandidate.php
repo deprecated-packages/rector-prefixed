@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScopere8e811afab72\Rector\Php80\ValueObject;
+namespace _PhpScoper0a6b37af0871\Rector\Php80\ValueObject;
 
-use _PhpScopere8e811afab72\PhpParser\Node\Expr\Assign;
-use _PhpScopere8e811afab72\PhpParser\Node\Param;
-use _PhpScopere8e811afab72\PhpParser\Node\Stmt\Property;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
+use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
 final class PropertyPromotionCandidate
 {
     /**
@@ -20,21 +20,21 @@ final class PropertyPromotionCandidate
      * @var Param
      */
     private $param;
-    public function __construct(\_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property $property, \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign $assign, \_PhpScopere8e811afab72\PhpParser\Node\Param $param)
+    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign, \_PhpScoper0a6b37af0871\PhpParser\Node\Param $param)
     {
         $this->property = $property;
         $this->assign = $assign;
         $this->param = $param;
     }
-    public function getProperty() : \_PhpScopere8e811afab72\PhpParser\Node\Stmt\Property
+    public function getProperty() : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property
     {
         return $this->property;
     }
-    public function getAssign() : \_PhpScopere8e811afab72\PhpParser\Node\Expr\Assign
+    public function getAssign() : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign
     {
         return $this->assign;
     }
-    public function getParam() : \_PhpScopere8e811afab72\PhpParser\Node\Param
+    public function getParam() : \_PhpScoper0a6b37af0871\PhpParser\Node\Param
     {
         return $this->param;
     }
